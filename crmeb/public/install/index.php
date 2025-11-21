@@ -5,23 +5,23 @@ $fileValue = '';
 define('PHP_EDITION', '7.1.0');
 //服务环境检测
 if (function_exists('saeAutoLoader') || isset($_SERVER['HTTP_BAE_ENV_APPID'])) {
-    showHtml('对不起，当前环境不支持本系统，请使用独立服务或云主机！');
+    showHtml('Xin lỗi, môi trường hiện tại không hỗ trợ hệ thống này, vui lòng sử dụng dịch vụ độc lập hoặc máy chủ đám mây!');
 }
 
 define('APP_DIR', _dir_path(substr(dirname(__FILE__), 0, -15)));//项目目录
 define('SITE_DIR', _dir_path(substr(dirname(__FILE__), 0, -8)));//入口文件目录
 
 if (file_exists('../install.lock')) {
-    showHtml('你已经安装过该系统，如果想重新安装，请先删除public目录下的 install.lock 文件，然后再安装。');
+    showHtml('Bạn đã cài đặt hệ thống này. Nếu muốn cài đặt lại, vui lòng xóa file install.lock trong thư mục public trước.');
 }
 
 @set_time_limit(1000);
 
 if ('7.1.0' > phpversion()) {
-    exit('您的php版本过低，不能安装本软件，兼容php版本7.1~7.4，谢谢！');
+    exit('Phiên bản PHP của bạn quá thấp, không thể cài đặt phần mềm này. Tương thích với phiên bản PHP 7.1~7.4, cảm ơn!');
 }
 if (phpversion() >= '8.0.0') {
-    exit('您的php版本太高，不能安装本软件，兼容php版本7.1~7.4，谢谢！');
+    exit('Phiên bản PHP của bạn quá cao, không thể cài đặt phần mềm này. Tương thích với phiên bản PHP 7.1~7.4, cảm ơn!');
 }
 
 date_default_timezone_set('PRC');
@@ -32,17 +32,17 @@ header('Content-Type: text/html; charset=UTF-8');
 $sqlFile = 'crmeb.sql';
 $configFile = '.env';
 if (!file_exists(SITE_DIR . 'install/' . $sqlFile) || !file_exists(SITE_DIR . 'install/' . $configFile)) {
-    echo '缺少必要的安装文件!';
+    echo 'Thiếu file cài đặt cần thiết!';
     exit;
 }
-$Title = "CRMEB安装向导";
+$Title = "Trình hướng dẫn cài đặt CRMEB";
 $Powered = "Powered by CRMEB";
 $steps = array(
-    '1' => '安装许可协议',
-    '2' => '运行环境检测',
-    '3' => '安装参数设置',
-    '4' => '安装详细过程',
-    '5' => '安装完成',
+    '1' => 'Thỏa thuận cấp phép cài đặt',
+    '2' => 'Kiểm tra môi trường',
+    '3' => 'Cài đặt tham số',
+    '4' => 'Quá trình cài đặt chi tiết',
+    '5' => 'Cài đặt hoàn tất',
 );
 $step = $_GET['step'] ?? 1;
 
@@ -58,7 +58,7 @@ switch ($step) {
 
     case '2':
         if (phpversion() < '7.1.0' || phpversion() >= '8.0.0') {
-            die('本系统需要PHP为 7.1~7.4 版本，当前PHP版本为：' . phpversion());
+            die('Hệ thống yêu cầu phiên bản PHP 7.1~7.4, phiên bản hiện tại là: ' . phpversion());
         }
 
         $passOne = $passTwo = 'yes';
@@ -66,53 +66,53 @@ switch ($step) {
         $server = $_SERVER["SERVER_SOFTWARE"];
         $phpv = phpversion();
         if (ini_get('file_uploads')) {
-            $uploadSize = '<img class="yes" src="images/install/yes.png" alt="对">' . ini_get('upload_max_filesize');
+            $uploadSize = '<img class="yes" src="images/install/yes.png" alt="Đúng">' . ini_get('upload_max_filesize');
         } else {
             $passOne = 'no';
-            $uploadSize = '<img class="no" src="images/install/warring.png" alt="错">禁止上传';
+            $uploadSize = '<img class="no" src="images/install/warring.png" alt="Sai">Cấm tải lên';
         }
         if (function_exists('session_start')) {
-            $session = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $session = '<img class="yes" src="images/install/yes.png" alt="Đúng">Bật';
         } else {
             $passOne = 'no';
-            $session = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $session = '<img class="no" src="images/install/warring.png" alt="Sai">Tắt';
         }
         if (!ini_get('safe_mode')) {
-            $safe_mode = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $safe_mode = '<img class="yes" src="images/install/yes.png" alt="Đúng">Bật';
         } else {
             $passOne = 'no';
-            $safe_mode = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $safe_mode = '<img class="no" src="images/install/warring.png" alt="Sai">Tắt';
         }
         $tmp = function_exists('gd_info') ? gd_info() : array();
         if (!empty($tmp['GD Version'])) {
-            $gd = '<img class="yes" src="images/install/yes.png" alt="对">' . $tmp['GD Version'];
+            $gd = '<img class="yes" src="images/install/yes.png" alt="Đúng">' . $tmp['GD Version'];
         } else {
             $passOne = 'no';
-            $gd = '<img class="no" src="images/install/warring.png" alt="错">未安装';
+            $gd = '<img class="no" src="images/install/warring.png" alt="Sai">Chưa cài đặt';
         }
         if (function_exists('mysqli_connect')) {
-            $mysql = '<img class="yes" src="images/install/yes.png" alt="对">已安装';
+            $mysql = '<img class="yes" src="images/install/yes.png" alt="Đúng">Đã cài đặt';
         } else {
             $passOne = 'no';
-            $mysql = '<img class="no" src="images/install/warring.png" alt="错">请安装mysqli扩展';
+            $mysql = '<img class="no" src="images/install/warring.png" alt="Sai">Vui lòng cài đặt extension mysqli';
         }
         if (function_exists('curl_init')) {
-            $curl = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $curl = '<img class="yes" src="images/install/yes.png" alt="Đúng">Bật';
         } else {
             $passOne = 'no';
-            $curl = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $curl = '<img class="no" src="images/install/warring.png" alt="Sai">Tắt';
         }
         if (function_exists('bcadd')) {
-            $bcmath = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $bcmath = '<img class="yes" src="images/install/yes.png" alt="Đúng">Bật';
         } else {
             $passOne = 'no';
-            $bcmath = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $bcmath = '<img class="no" src="images/install/warring.png" alt="Sai">Tắt';
         }
         if (function_exists('openssl_encrypt')) {
-            $openssl = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $openssl = '<img class="yes" src="images/install/yes.png" alt="Đúng">Bật';
         } else {
             $passOne = 'no';
-            $openssl = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $openssl = '<img class="no" src="images/install/warring.png" alt="Sai">Tắt';
         }
 
         $folder = array(
@@ -154,41 +154,41 @@ switch ($step) {
             @mysqli_real_connect($conn, $dbHost, $_POST['dbUser'], $_POST['dbPwd'], NULL, $_POST['dbport']);
             if ($error = mysqli_connect_errno($conn)) {
                 if ($error == 2002) {
-                    die(json_encode(2002));//地址或端口错误
+                    die(json_encode(2002));//Địa chỉ hoặc cổng sai
                 } else if ($error == 1045) {
-                    die(json_encode(1045));//用户名或密码错误
+                    die(json_encode(1045));//Tên đăng nhập hoặc mật khẩu sai
                 } else {
-                    die(json_encode(-1));//链接失败
+                    die(json_encode(-1));//Kết nối thất bại
                 }
             } else {
                 if (mysqli_get_server_info($conn) < 5.1) {
-                    die(json_encode(-5));//版本过低
+                    die(json_encode(-5));//Phiên bản quá thấp
                 }
                 $result = mysqli_query($conn, "SELECT @@global.sql_mode");
                 $result = $result->fetch_array();
                 $version = mysqli_get_server_info($conn);
                 if ($version >= 5.7) {
                     if (strstr($result[0], 'STRICT_TRANS_TABLES') || strstr($result[0], 'STRICT_ALL_TABLES') || strstr($result[0], 'TRADITIONAL') || strstr($result[0], 'ANSI'))
-                        exit(json_encode(-2));//数据库配置需要修改
+                        exit(json_encode(-2));//Cấu hình cơ sở dữ liệu cần sửa đổi
                 }
                 $result = mysqli_query($conn, "select count(table_name) as c from information_schema.`TABLES` where table_schema='$dbName'");
                 $result = $result->fetch_array();
                 if ($result['c'] > 0) {
                     mysqli_close($conn);
-                    exit(json_encode(-3));//数据库存在
+                    exit(json_encode(-3));//Cơ sở dữ liệu đã tồn tại
                 } else {
                     if (!mysqli_select_db($conn, $dbName)) {
                         //创建数据时同时设置编码
                         if (!mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS `" . $dbName . "` DEFAULT CHARACTER SET utf8;")) {
-                            exit(json_encode(-4));//无权限创建数据库
+                            exit(json_encode(-4));//Không có quyền tạo cơ sở dữ liệu
                         } else {
                             mysqli_query($conn, "DROP DATABASE `" . $dbName . "` ;");
                             mysqli_close($conn);
-                            exit(json_encode(1));//数据库配置成功
+                            exit(json_encode(1));//Cấu hình cơ sở dữ liệu thành công
                         }
                     } else {
                         mysqli_close($conn);
-                        exit(json_encode(1));//数据库配置成功
+                        exit(json_encode(1));//Cấu hình cơ sở dữ liệu thành công
                     }
                 }
             }
@@ -247,30 +247,30 @@ switch ($step) {
             $password = trim($_POST['manager_pwd']) ?: 'crmeb.com';
 
             if (!function_exists('mysqli_connect')) {
-                $arr['msg'] = "请安装 mysqli 扩展!";
+                $arr['msg'] = "Vui lòng cài đặt extension mysqli!";
                 exit(json_encode($arr));
             }
             $conn = @mysqli_connect($dbHost, $dbUser, $dbPwd, NULL, $_POST['dbport']);
             if (mysqli_connect_errno($conn)) {
-                $arr['msg'] = "连接数据库失败!" . mysqli_connect_error($conn);
+                $arr['msg'] = "Kết nối cơ sở dữ liệu thất bại!" . mysqli_connect_error($conn);
                 exit(json_encode($arr));
             }
             mysqli_set_charset($conn, "utf8"); //,character_set_client=binary,sql_mode='';
             $version = mysqli_get_server_info($conn);
             if ($version < 5.1) {
-                $arr['msg'] = '数据库版本太低! 必须5.1以上';
+                $arr['msg'] = 'Phiên bản cơ sở dữ liệu quá thấp! Phải từ 5.1 trở lên';
                 exit(json_encode($arr));
             }
 
             if (!mysqli_select_db($conn, $dbName)) {
                 //创建数据时同时设置编码
                 if (!mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS `" . $dbName . "` DEFAULT CHARACTER SET utf8;")) {
-                    $arr['msg'] = '数据库 ' . $dbName . ' 不存在，也没权限创建新的数据库！';
+                    $arr['msg'] = 'Cơ sở dữ liệu ' . $dbName . ' không tồn tại và không có quyền tạo mới!';
                     exit(json_encode($arr));
                 }
                 if ($n == -1) {
                     $arr['n'] = 0;
-                    $arr['msg'] = "成功创建数据库:{$dbName}";
+                    $arr['msg'] = "Tạo cơ sở dữ liệu thành công:{$dbName}";
                     exit(json_encode($arr));
                 }
                 mysqli_select_db($conn, $dbName);
@@ -293,10 +293,10 @@ switch ($step) {
                     $sql = str_replace('`eb_', '`' . $dbPrefix, $sql);//替换表前缀
                     $ret = mysqli_query($conn, $sql);
                     if ($ret) {
-                        $message = '创建数据表[' . $dbPrefix . $matches[2] . ']完成!';
+                        $message = 'Tạo bảng dữ liệu[' . $dbPrefix . $matches[2] . ']hoàn tất!';
                     } else {
                         $err = mysqli_error($conn);
-                        $message = '创建数据表[' . $dbPrefix . $matches[2] . ']失败!失败原因：' . $err;
+                        $message = 'Tạo bảng dữ liệu[' . $dbPrefix . $matches[2] . ']thất bại! Nguyên nhân：' . $err;
                     }
                     $i++;
                     $arr = array('n' => $i, 'count' => $counts, 'msg' => $message, 'time' => date('Y-m-d H:i:s'));
@@ -318,35 +318,65 @@ switch ($step) {
             if (!$_POST['demo']) {
                 $result = mysqli_query($conn, "show tables");
                 $tables = mysqli_fetch_all($result);//参数MYSQL_ASSOC、MYSQLI_NUM、MYSQLI_BOTH规定产生数组类型
-                $bl_table = array('eb_system_admin'
-                , 'eb_system_role'
-                , 'eb_cache'
-                , 'eb_agent_level'
-                , 'eb_page_link'
-                , 'eb_page_categroy'
-                , 'eb_system_config'
-                , 'eb_system_config_tab'
-                , 'eb_system_menus'
-                , 'eb_system_notification'
-                , 'eb_express'
-                , 'eb_system_group'
-                , 'eb_system_group_data'
-                , 'eb_lang_code'
-                , 'eb_lang_country'
-                , 'eb_lang_type'
-                , 'eb_template_message'
-                , 'eb_shipping_templates'
-                , "eb_shipping_templates_region"
-                , 'eb_system_city'
-                , 'eb_diy'
-                , 'eb_member_ship'
-                , 'eb_system_timer'
-                , 'eb_member_right'
-                , 'eb_agreement'
-                , 'eb_store_service_speechcraft'
-                , 'eb_system_user_level'
-                , 'eb_out_interface'
-                , 'eb_cache');
+                $bl_table = array(
+                    'eb_system_admin'
+                    ,
+                    'eb_system_role'
+                    ,
+                    'eb_cache'
+                    ,
+                    'eb_agent_level'
+                    ,
+                    'eb_page_link'
+                    ,
+                    'eb_page_categroy'
+                    ,
+                    'eb_system_config'
+                    ,
+                    'eb_system_config_tab'
+                    ,
+                    'eb_system_menus'
+                    ,
+                    'eb_system_notification'
+                    ,
+                    'eb_express'
+                    ,
+                    'eb_system_group'
+                    ,
+                    'eb_system_group_data'
+                    ,
+                    'eb_lang_code'
+                    ,
+                    'eb_lang_country'
+                    ,
+                    'eb_lang_type'
+                    ,
+                    'eb_template_message'
+                    ,
+                    'eb_shipping_templates'
+                    ,
+                    "eb_shipping_templates_region"
+                    ,
+                    'eb_system_city'
+                    ,
+                    'eb_diy'
+                    ,
+                    'eb_member_ship'
+                    ,
+                    'eb_system_timer'
+                    ,
+                    'eb_member_right'
+                    ,
+                    'eb_agreement'
+                    ,
+                    'eb_store_service_speechcraft'
+                    ,
+                    'eb_system_user_level'
+                    ,
+                    'eb_out_interface'
+                    ,
+                    'eb_cache'
+                );
                 foreach ($bl_table as $k => $v) {
                     $bl_table[$k] = str_replace('eb_', $dbPrefix, $v);
                 }
@@ -406,7 +436,7 @@ switch ($step) {
                 $site_url = '\'"' . $request_scheme . '://' . $request_host . '"\'';
                 $res2 = mysqli_query($conn, 'UPDATE `' . $dbPrefix . 'system_config` SET `value`=' . $site_url . ' WHERE `menu_name`="site_url"');
             }
-            $arr = array('n' => 999999, 'count' => $counts, 'msg' => '安装完成', 'time' => date('Y-m-d H:i:s'));
+            $arr = array('n' => 999999, 'count' => $counts, 'msg' => 'Cài đặt hoàn tất', 'time' => date('Y-m-d H:i:s'));
             exit(json_encode($arr));
 
         }
@@ -565,12 +595,68 @@ function sp_password($pw, $pre)
 function sp_random_string($len = 8)
 {
     $chars = array(
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-        "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
-        "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G",
-        "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-        "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2",
-        "3", "4", "5", "6", "7", "8", "9"
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
     );
     $charsLen = count($chars) - 1;
     shuffle($chars);    // 将数组打乱
@@ -612,7 +698,8 @@ function delFile($dir, $file_type = '')
             }
         }
     } else {
-        if (file_exists($dir)) unlink($dir);
+        if (file_exists($dir))
+            unlink($dir);
     }
 }
 
@@ -642,7 +729,8 @@ function getFileSignature(string $path)
     if (!is_dir($path)) {
         $fileValue .= @md5_file($path);
     } else {
-        if (!$dh = opendir($path)) throw new Exception($path . " File open failed!");
+        if (!$dh = opendir($path))
+            throw new Exception($path . " File open failed!");
         while (($file = readdir($dh)) != false) {
             if ($file == "." || $file == "..") {
                 continue;

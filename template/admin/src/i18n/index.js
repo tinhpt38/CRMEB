@@ -9,18 +9,22 @@ import VueI18n from 'vue-i18n';
 import zhcnLocale from 'element-ui/lib/locale/lang/zh-CN';
 import enLocale from 'element-ui/lib/locale/lang/en';
 import zhtwLocale from 'element-ui/lib/locale/lang/zh-TW';
+import viLocale from 'element-ui/lib/locale/lang/vi';
 import store from '@/store/index.js';
 
 import nextZhcn from '@/i18n/lang/zh-cn.js';
 import nextEn from '@/i18n/lang/en.js';
 import nextZhtw from '@/i18n/lang/zh-tw.js';
+import nextVi from '@/i18n/lang/vi.js';
 
 import pagesHomeZhcn from '@/i18n/pages/home/zh-cn.js';
 import pagesHomeEn from '@/i18n/pages/home/en.js';
 import pagesHomeZhtw from '@/i18n/pages/home/zh-tw.js';
+import pagesHomeVi from '@/i18n/pages/home/vi.js';
 import pagesLoginZhcn from '@/i18n/pages/login/zh-cn.js';
 import pagesLoginEn from '@/i18n/pages/login/en.js';
 import pagesLoginZhtw from '@/i18n/pages/login/zh-tw.js';
+import pagesLoginVi from '@/i18n/pages/login/vi.js';
 // 使用插件
 Vue.use(VueI18n);
 
@@ -53,6 +57,14 @@ const messages = {
       ...nextZhtw,
       ...pagesHomeZhtw,
       ...pagesLoginZhtw,
+    },
+  },
+  vi: {
+    ...viLocale,
+    message: {
+      ...nextVi,
+      ...pagesHomeVi,
+      ...pagesLoginVi,
     },
   },
 };
