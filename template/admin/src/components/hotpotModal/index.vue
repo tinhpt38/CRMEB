@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="编辑热区" :visible.sync="dialogVisible" @opened="openModal" fullscreen>
+    <el-dialog :title="$t('message.common.editHotArea')" :visible.sync="dialogVisible" @opened="openModal" fullscreen>
       <div class="operationFloor">
         <div class="imgBox" @mouseup.left.stop="changeStop()">
           <div ref="container" id="img-box-container" class="container">
@@ -42,12 +42,12 @@
         </div>
         <!-- 热区链接配置 -->
         <div class="form">
-          <h2 class="mb20">图片热区</h2>
-          <el-alert type="warning" :closable="false" show-icon>框选热区范围，双击设置热区信息</el-alert>
+          <h2 class="mb20">{{ $t('message.common.imageHotArea') }}</h2>
+          <el-alert type="warning" :closable="false" show-icon>{{ $t('message.common.hotAreaTip') }}</el-alert>
 
           <div v-for="(item, index) in areaData" :key="index" class="form-row">
             <div class="form-item">
-              <span class="num">热区{{ item.number }}</span>
+              <span class="num">{{ $t('message.common.hotArea') }}{{ item.number }}</span>
             </div>
             <div class="form-item label">
               <div>
@@ -55,7 +55,7 @@
                   icon="ios-arrow-forward"
                   v-model="item.link"
                   :style="linkInputStyle"
-                  placeholder="选择跳转链接"
+                  :placeholder="$t('message.common.selectJumpLink')"
                 >
                   <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                 </el-input>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div slot="footer">
-        <el-button class="mr20" type="primary" @click="saveAreaData"> 完成 </el-button>
+        <el-button class="mr20" type="primary" @click="saveAreaData"> {{ $t('message.common.complete') }} </el-button>
       </div>
     </el-dialog>
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
@@ -210,9 +210,9 @@ export default {
       });
     },
     closeModal() {
-      this.$confirm('未保存内容，是否在离开前放弃保存？', '提示信息', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('message.common.unsavedContentWarning'), this.$t('message.common.tipInfo'), {
+        confirmButtonText: this.$t('message.common.confirm'),
+        cancelButtonText: this.$t('message.common.cancel'),
         type: 'warning',
       })
         .then(() => {
@@ -221,7 +221,7 @@ export default {
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消',
+            message: this.$t('message.common.cancelled'),
           });
         });
     },
@@ -296,12 +296,12 @@ export default {
     // 保存热区信息
     saveAreaData() {
       if ((this.areaData && !this.areaData.length) || !this.checkData(this.areaData)) {
-        this.$message.error('热区是否配置链接、是否至少添加一个热区?');
+        this.$message.error(this.$t('message.common.hotAreaLinkWarning'));
         return;
       }
       this.$emit('saveAreaData', this.areaData);
       this.dialogVisible = false;
-      this.$message.success('编辑成功!');
+      this.$message.success(this.$t('message.common.editSuccess'));
     },
     /**
      * 检查列表中每个元素是否都有 link 属性

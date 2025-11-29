@@ -59,7 +59,7 @@ export default {
     return {
       isScreenfull: false,
       isShowUserNewsPopover: false,
-      disabledI18n: 'zh-cn',
+      disabledI18n: 'vi',
       disabledSize: '',
       isDot: false,
     };

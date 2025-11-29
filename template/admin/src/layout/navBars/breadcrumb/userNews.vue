@@ -1,8 +1,8 @@
 <template>
   <div class="layout-navbars-breadcrumb-user-news">
     <div class="head-box">
-      <div class="head-box-title">系统通知</div>
-      <div class="head-box-btn" v-if="newsList.length > 0" v-db-click @click="onAllReadClick">全部已读</div>
+      <div class="head-box-title">{{ $t('message.common.systemNotification') }}</div>
+      <div class="head-box-btn" v-if="newsList.length > 0" v-db-click @click="onAllReadClick">{{ $t('message.common.allRead') }}</div>
     </div>
     <div class="content-box">
       <template v-if="newsList.length > 0">
@@ -21,7 +21,7 @@
       <div class="content-box-empty" v-else>
         <div class="content-box-empty-margin">
           <img class="no-msg" src="@/assets/images/no-msg.png" alt="" />
-          <div class="mt15">暂无通知</div>
+          <div class="mt15">{{ $t('message.common.noNotification') }}</div>
         </div>
       </div>
     </div>
@@ -57,12 +57,12 @@ export default {
 
       ws.$on('NEW_ORDER', function (data) {
         that.$notify.info({
-          title: '新订单',
-          message: '您有一个新的订单,ID为(' + data.order_id + '),请注意查看',
+          title: that.$t('message.common.newOrder'),
+          message: that.$t('message.common.newOrderMessage', { orderId: data.order_id }),
         });
         if (newOrderAudioLink) newOrderAudioLink.play();
         that.messageList.push({
-          title: '新订单提醒',
+          title: that.$t('message.common.newOrderReminder'),
           icon: 'md-bulb',
           iconColor: '#87d068',
           time: 0,
@@ -71,12 +71,12 @@ export default {
       });
       ws.$on('NEW_REFUND_ORDER', function (data) {
         that.$notify.info({
-          title: '退款订单提醒',
-          message: '您有一个订单申请退款,ID为(' + data.order_id + '),请注意查看',
+          title: that.$t('message.common.refundOrderReminder'),
+          message: that.$t('message.common.refundOrderMessage', { orderId: data.order_id }),
         });
         if (newOrderAudioLink) newOrderAudioLink.play();
         that.messageList.push({
-          title: '退款订单提醒',
+          title: that.$t('message.common.refundOrderReminder'),
           icon: 'md-information',
           iconColor: '#fe5c57',
           time: 0,
@@ -90,11 +90,11 @@ export default {
         //   desc: '有用户申请提现,编号为(' + data.id + '),请注意查看',
         // });
         that.$notify.info({
-          title: '提现提醒',
-          message: '有用户申请提现,编号为(' + data.id + '),请注意查看',
+          title: that.$t('message.common.withdrawReminder'),
+          message: that.$t('message.common.withdrawMessage', { id: data.id }),
         });
         that.messageList.push({
-          title: '退款订单提醒',
+          title: that.$t('message.common.refundOrderReminder'),
           icon: 'md-people',
           iconColor: '#f06292',
           time: 0,
@@ -103,11 +103,11 @@ export default {
       });
       ws.$on('STORE_STOCK', function (data) {
         that.$notify.info({
-          title: '库存预警',
-          message: '商品ID为(' + data.id + ')的库存不足啦,请注意查看~',
+          title: that.$t('message.common.stockWarning'),
+          message: that.$t('message.common.stockWarningMessage', { id: data.id }),
         });
         that.messageList.push({
-          title: '库存预警',
+          title: that.$t('message.common.stockWarning'),
           icon: 'md-information',
           iconColor: '#fe5c57',
           time: 0,
@@ -116,11 +116,11 @@ export default {
       });
       ws.$on('PAY_SMS_SUCCESS', function (data) {
         that.$notify.info({
-          title: '短信充值成功',
-          message: '恭喜您充值' + data.price + '元，获得' + data.number + '条短信',
+          title: that.$t('message.common.smsRechargeSuccess'),
+          message: that.$t('message.common.smsRechargeMessage', { price: data.price, number: data.number }),
         });
         that.messageList.push({
-          title: '短信充值成功',
+          title: that.$t('message.common.smsRechargeSuccess'),
           icon: 'md-bulb',
           iconColor: '#87d068',
           time: 0,
@@ -135,19 +135,19 @@ export default {
       let typeName;
       switch (type) {
         case 1:
-          typeName = '待发货订单提醒';
+          typeName = this.$t('message.common.pendingShipmentOrderReminder');
           break;
         case 2:
-          typeName = '库存报警';
+          typeName = this.$t('message.common.stockAlert');
           break;
         case 3:
-          typeName = '评论回复';
+          typeName = this.$t('message.common.commentReply');
           break;
         case 4:
-          typeName = '提现申请';
+          typeName = this.$t('message.common.withdrawApplication');
           break;
         default:
-          typeName = '其它';
+          typeName = this.$t('message.common.other');
       }
       return typeName;
     },

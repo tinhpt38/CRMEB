@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-dialog :visible.sync="modals" :z-index="100" title="发送优惠券" :close-on-click-modal="false" width="1000px">
+    <el-dialog :visible.sync="modals" :z-index="100" :title="$t('message.common.sendCoupon')" :close-on-click-modal="false" width="1000px">
       <div class="acea-row">
-        <span class="sp">优惠券名称：</span
-        ><el-input clearable v-model="page.coupon_title" placeholder="请输入优惠券名称" class="form_content_width" />
-        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">查询</el-button>
+        <span class="sp">{{ $t('message.common.couponName') }}：</span
+        ><el-input clearable v-model="page.coupon_title" :placeholder="$t('message.common.pleaseInputCouponName')" class="form_content_width" />
+        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">{{ $t('message.common.query') }}</el-button>
       </div>
       <el-table
         :data="couponList"
@@ -12,33 +12,33 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
       >
-        <el-table-column label="优惠券名称" min-width="130">
+        <el-table-column :label="$t('message.common.couponName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券面值" min-width="130">
+        <el-table-column :label="$t('message.common.couponFaceValue')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券最低消费" min-width="130">
+        <el-table-column :label="$t('message.common.couponMinConsumption')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.use_min_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券有效期限" min-width="130">
+        <el-table-column :label="$t('message.common.couponValidityPeriod')" min-width="130">
           <template slot-scope="scope">
             <div v-if="scope.row.coupon_time">{{ scope.row.coupon_time }}</div>
             <div v-else>{{ scope.row.use_time }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="90">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="90">
           <template slot-scope="scope">
-            <a v-db-click @click="sendGrant(scope.row, '发送优惠券', index)">发送</a>
+            <a v-db-click @click="sendGrant(scope.row, $t('message.common.sendCoupon'), index)">{{ $t('message.common.send') }}</a>
           </template>
         </el-table-column>
       </el-table>
