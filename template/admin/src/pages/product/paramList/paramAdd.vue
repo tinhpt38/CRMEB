@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modal" @closed="onCancel" title="商品参数" width="1000px" v-loading="spinShow">
+  <el-dialog :visible.sync="modal" @closed="onCancel" :title="$t('message.productList.productParam')" width="1000px" v-loading="spinShow">
     <el-form
       ref="formDynamic"
       :model="formDynamic"
@@ -11,15 +11,15 @@
       <el-row :gutter="24">
         <el-col :span="24">
           <el-col :span="8">
-            <el-form-item label="模板名称：" prop="rule_name">
-              <el-input placeholder="请输入模板名称" :maxlength="20" v-model.trim="formDynamic.name" />
+            <el-form-item :label="$t('message.productList.templateName2')" prop="rule_name">
+              <el-input :placeholder="$t('message.productList.pleaseInputTemplateName2')" :maxlength="20" v-model.trim="formDynamic.name" />
             </el-form-item>
           </el-col>
         </el-col>
         <el-col :span="24">
           <el-col :span="8">
-            <el-form-item label="排序：" prop="rule_name">
-              <el-input type="number" placeholder="请输入排序" :maxlength="20" v-model.trim="formDynamic.sort" />
+            <el-form-item :label="$t('message.productList.sort2')" prop="rule_name">
+              <el-input type="number" :placeholder="$t('message.productList.pleaseInputSort')" :maxlength="20" v-model.trim="formDynamic.sort" />
             </el-form-item>
           </el-col>
         </el-col>
@@ -34,20 +34,20 @@
                     </div>
                   </template>
                 </el-table-column>
-                <el-table-column label="参数名称" min-width="80">
+                <el-table-column :label="$t('message.productList.paramName')" min-width="80">
                   <template slot-scope="scope">
                     <el-input v-model="scope.row.name"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column label="参数值" min-width="80">
+                <el-table-column :label="$t('message.productList.paramValue')" min-width="80">
                   <template slot-scope="scope">
                     <el-input v-model="scope.row.value"></el-input>
                   </template>
                 </el-table-column>
 
-                <el-table-column label="操作" fixed="right" width="80">
+                <el-table-column :label="$t('message.productList.operation')" fixed="right" width="80">
                   <template slot-scope="scope">
-                    <a class="submission mr15" v-db-click @click="deleteRow(scope.$index)">删除</a>
+                    <a class="submission mr15" v-db-click @click="deleteRow(scope.$index)">{{ $t('message.productList.delete') }}</a>
                   </template>
                 </el-table-column>
               </el-table>
@@ -57,7 +57,7 @@
                 class="submission mr15 mt20"
                 v-db-click
                 @click="handleAddRole"
-                >添加参数</el-button
+                >{{ $t('message.productList.addParam') }}</el-button
               >
             </div>
           </el-form-item>
@@ -65,9 +65,9 @@
       </el-row>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="onClose">取消</el-button>
+      <el-button v-db-click @click="onClose">{{ $t('message.productList.cancel') }}</el-button>
       <el-button type="primary" :loading="modal_loading" v-db-click @click="handleSubmit('formDynamic')"
-        >确定</el-button
+        >{{ $t('message.productList.confirm') }}</el-button
       >
     </span>
   </el-dialog>
@@ -202,7 +202,7 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           if (this.formDynamic.value.length === 0) {
-            return this.$message.warning('请至少添加一条商品参数！');
+            return this.$message.warning(this.$t('message.productList.pleaseAddAtLeastOneParam'));
           }
           this.modal_loading = true;
           paramSaveApi(this.formDynamic)

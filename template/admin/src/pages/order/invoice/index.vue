@@ -355,9 +355,9 @@ export default {
   methods: {
     openNegative(row) {
       // 弹窗确认
-      this.$confirm('确定开具负数发票？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('message.orderList.confirmIssueNegativeInvoice'), this.$t('message.orderList.tip2'), {
+        confirmButtonText: this.$t('message.orderList.confirm2'),
+        cancelButtonText: this.$t('message.orderList.cancel2'),
         type: 'warning',
       }).then(() => {
         redInvoiceIssuance(row.invoice_id).then((res) => {

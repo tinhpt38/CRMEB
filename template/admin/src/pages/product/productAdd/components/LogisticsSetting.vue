@@ -2,19 +2,19 @@
   <!--  物流设置 -->
   <el-row>
     <el-col :span="24">
-      <el-form-item label="物流方式：" prop="logistics">
+      <el-form-item :label="$t('message.productList.logisticsMethod')" prop="logistics">
         <el-checkbox-group v-model="formValidate.logistics" @change="logisticsBtn">
-          <el-checkbox label="1">快递</el-checkbox>
-          <el-checkbox label="2">到店</el-checkbox>
+          <el-checkbox label="1">{{ $t('message.productList.express') }}</el-checkbox>
+          <el-checkbox label="2">{{ $t('message.productList.storePickup2') }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="运费设置：">
+      <el-form-item :label="$t('message.productList.freightSetting')">
         <el-radio-group v-model="formValidate.freight">
           <!-- <el-radio :label="1">包邮</el-radio> -->
-          <el-radio :label="2">固定邮费</el-radio>
-          <el-radio :label="3">运费模板</el-radio>
+          <el-radio :label="2">{{ $t('message.productList.fixedFreight') }}</el-radio>
+          <el-radio :label="3">{{ $t('message.productList.freightTemplate') }}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-col>
@@ -25,9 +25,9 @@
             :controls="false"
             :min="0"
             v-model="formValidate.postage"
-            placeholder="请输入金额"
+            :placeholder="$t('message.productList.pleaseInputAmount')"
             class="input_width maxW input-number-unit-class"
-            class-unit="元"
+            :class-unit="$t('message.productList.yuan2')"
           />
         </div>
       </el-form-item>
@@ -35,7 +35,7 @@
     <el-col :span="24" v-if="formValidate.freight == 3">
       <el-form-item label="" prop="temp_id">
         <div class="acea-row">
-          <el-select v-model="formValidate.temp_id" clearable placeholder="请选择运费模板" class="input_width maxW">
+          <el-select v-model="formValidate.temp_id" clearable :placeholder="$t('message.productList.pleaseSelectFreightTemplate')" class="input_width maxW">
             <el-option
               v-for="(item, index) in templateList"
               :value="item.id"
@@ -43,7 +43,7 @@
               :label="item.name"
             ></el-option>
           </el-select>
-          <span class="addfont" v-db-click @click="addTemp">新增运费模板</span>
+          <span class="addfont" v-db-click @click="addTemp">{{ $t('message.productList.addFreightTemplate') }}</span>
         </div>
       </el-form-item>
     </el-col>

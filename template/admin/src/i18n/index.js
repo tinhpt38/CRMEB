@@ -45,6 +45,7 @@ import pagesCommonZhcn from '@/i18n/pages/common/zh-cn.js';
 import pagesCommonEn from '@/i18n/pages/common/en.js';
 import pagesCommonZhtw from '@/i18n/pages/common/zh-tw.js';
 import pagesCommonVi from '@/i18n/pages/common/vi.js';
+import viExtra from '@/i18n/lang/vi-extra.json';
 // 使用插件
 Vue.use(VueI18n);
 

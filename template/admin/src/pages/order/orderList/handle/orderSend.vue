@@ -87,15 +87,15 @@
         <el-form-item v-if="formItem.express_record_type === '1' && formItem.type == 1" :label="$t('message.orderList.expressNumber')">
           <el-input v-model="formItem.delivery_id" :placeholder="$t('message.orderList.pleaseInputExpressNumber')" style="width: 60%"></el-input>
           <div class="trips" v-if="formItem.delivery_name == '顺丰速运'">
-            <p>顺丰请输入单号 :收件人或寄件人手机号后四位，</p>
-            <p>例如：SF000000000000:3941</p>
+            <p>{{ $t('message.orderList.sfExpressTip') }}</p>
+            <p>{{ $t('message.orderList.sfExpressExample') }}</p>
           </div>
         </el-form-item>
         <template v-if="['2', '3'].includes(formItem.express_record_type) && formItem.type == 1">
-          <el-form-item label="电子面单：" class="express_temp_id">
+          <el-form-item :label="$t('message.orderList.electronicWaybill')" class="express_temp_id">
             <el-select
               v-model="formItem.express_temp_id"
-              placeholder="请选择电子面单"
+              :placeholder="$t('message.orderList.pleaseSelectElectronicWaybill')"
               style="width: 60%"
               @change="expressTempChange"
             >
@@ -106,38 +106,38 @@
                 :label="item.title"
               ></el-option>
             </el-select>
-            <Button v-if="formItem.express_temp_id" type="text" v-db-click @click="preview">预览</Button>
+            <Button v-if="formItem.express_temp_id" type="text" v-db-click @click="preview">{{ $t('message.orderList.preview') }}</Button>
           </el-form-item>
-          <el-form-item label="预计寄件金额：" v-if="formItem.express_record_type == 3">
+          <el-form-item :label="$t('message.orderList.estimatedShippingAmount')" v-if="formItem.express_record_type == 3">
             <span class="red">{{ sendPrice }}</span>
-            <a class="ml10 coumped" v-db-click @click="watchPrice">立即计算</a>
+            <a class="ml10 coumped" v-db-click @click="watchPrice">{{ $t('message.orderList.calculateNow') }}</a>
           </el-form-item>
-          <el-form-item label="取件日期：" v-if="formItem.express_record_type == 3">
+          <el-form-item :label="$t('message.orderList.pickupDate')" v-if="formItem.express_record_type == 3">
             <el-radio-group v-model="formItem.day_type" type="button">
-              <el-radio :label="0">今天</el-radio>
-              <el-radio :label="1">明天</el-radio>
-              <el-radio :label="2">后天</el-radio>
+              <el-radio :label="0">{{ $t('message.orderList.today2') }}</el-radio>
+              <el-radio :label="1">{{ $t('message.orderList.tomorrow') }}</el-radio>
+              <el-radio :label="2">{{ $t('message.orderList.dayAfterTomorrow') }}</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="取件时间：" v-if="formItem.express_record_type == 3">
+          <el-form-item :label="$t('message.orderList.pickupTime')" v-if="formItem.express_record_type == 3">
             <el-time-picker
               is-range
               v-model="formItem.pickup_time"
               format="HH:mm"
               value-format="HH:mm"
               range-separator="-"
-              start-placeholder="开始时间"
-              end-placeholder="结束时间"
-              placeholder="选择时间范围"
+              :start-placeholder="$t('message.orderList.startTime')"
+              :end-placeholder="$t('message.orderList.endTime')"
+              :placeholder="$t('message.orderList.selectTimeRange')"
             />
           </el-form-item>
         </template>
       </div>
       <div v-if="formItem.type === '2'">
-        <el-form-item label="送货人：" :prop="formItem.type == '2' ? 'sh_delivery' : ''">
+        <el-form-item :label="$t('message.orderList.deliveryPerson')" :prop="formItem.type == '2' ? 'sh_delivery' : ''">
           <el-select
             v-model="formItem.sh_delivery"
-            placeholder="请选择送货人"
+            :placeholder="$t('message.orderList.pleaseSelectDeliveryPerson')"
             style="width: 60%"
             @change="shDeliveryChange"
           >
@@ -151,12 +151,12 @@
         </el-form-item>
       </div>
       <div v-show="formItem.type === '3'">
-        <el-form-item label="备注：">
+        <el-form-item :label="$t('message.orderList.remark2')">
           <el-input
             v-model="formItem.fictitious_content"
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 5 }"
-            placeholder="备注"
+            :placeholder="$t('message.orderList.remark3')"
             style="width: 60%"
           ></el-input>
         </el-form-item>

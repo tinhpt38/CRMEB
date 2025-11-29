@@ -2,13 +2,13 @@
   <!-- 规格库存 -->
   <el-row :gutter="24">
     <el-col :span="24">
-      <el-form-item label="规格类型：" props="spec_type">
+      <el-form-item :label="$t('message.productList.specType')" props="spec_type">
         <el-radio-group v-model="formValidate.spec_type" @input="changeSpec">
-          <el-radio :label="0" class="radio">单规格</el-radio>
-          <el-radio :label="1">多规格</el-radio>
+          <el-radio :label="0" class="radio">{{ $t('message.productList.singleSpec2') }}</el-radio>
+          <el-radio :label="1">{{ $t('message.productList.multiSpec2') }}</el-radio>
         </el-radio-group>
         <el-dropdown v-if="formValidate.spec_type == 1" class="ml20" @command="confirm" trigger="hover">
-          <span class="el-dropdown-link"> 选择规格模版<i class="el-icon-arrow-down el-icon--right"></i> </span>
+          <span class="el-dropdown-link"> {{ $t('message.productList.selectSpecTemplate') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-for="(item, index) in ruleList" :key="index" :command="item.rule_name">{{
               item.rule_name
@@ -19,7 +19,7 @@
     </el-col>
     <!-- 规格设置 -->
     <el-col :span="24" v-if="formValidate.spec_type === 1" class="noForm">
-      <el-form-item label="商品规格：" prop="">
+      <el-form-item :label="$t('message.productList.productSpec7')" prop="">
         <div class="specifications">
           <draggable
             group="specifications"
@@ -44,7 +44,7 @@
                 <div class="specifications-item-name mb18">
                   <el-input
                     v-model="item.value"
-                    placeholder="规格名称"
+                    :placeholder="$t('message.productList.specName2')"
                     @change="attrChangeValue(index, item.value)"
                     @focus="handleFocus(item.value)"
                     class="specifications-item-name-input"
@@ -58,12 +58,12 @@
                     :true-label="1"
                     :false-label="0"
                     @change="(e) => addPic(e, index)"
-                    >添加规格图</el-checkbox
+                    >{{ $t('message.productList.addSpecImage') }}</el-checkbox
                   >
                   <el-tooltip
                     class="item"
                     effect="dark"
-                    content="添加规格图片, 仅支持打开一个(建议尺寸:800*800)"
+                    :content="$t('message.productList.addSpecImageTip')"
                     placement="right"
                   >
                     <i class="el-icon-info"></i>
@@ -83,7 +83,7 @@
                       <el-input
                         style="width: 120px"
                         v-model="det.value"
-                        placeholder="规格值"
+                        :placeholder="$t('message.productList.specValue')"
                         @change="attrDetailChangeValue(det.value, index)"
                         @focus="handleFocus(det.value)"
                         maxlength="30"
@@ -111,7 +111,7 @@
                     >
                       <el-input
                         :ref="'inputRef_' + index"
-                        placeholder="请输入规格值"
+                        :placeholder="$t('message.productList.pleaseInputSpecValue2')"
                         v-model="formDynamic.attrsVal"
                         @keyup.enter.native="createAttr(formDynamic.attrsVal, index)"
                         @blur="createAttr(formDynamic.attrsVal, index)"
@@ -119,22 +119,22 @@
                         show-word-limit
                       >
                       </el-input>
-                      <div class="addfont" slot="reference" type="text" v-db-click>添加规格值</div>
+                      <div class="addfont" slot="reference" type="text" v-db-click>{{ $t('message.productList.addSpecValue2') }}</div>
                     </el-popover>
                   </draggable>
                 </div>
               </div>
             </div>
           </draggable>
-          <el-button v-if="attrs.length < 4" v-db-click @click="handleAddRole()">添加新规格</el-button>
+          <el-button v-if="attrs.length < 4" v-db-click @click="handleAddRole()">{{ $t('message.productList.addNewSpec2') }}</el-button>
           <el-button v-if="attrs.length >= 1" type="text" v-db-click @click="handleSaveAsTemplate()"
-            >另存为模板</el-button
+            >{{ $t('message.productList.saveAsTemplate') }}</el-button
           >
         </div>
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.spec_type === 1">
-      <el-form-item label="商品属性：" class="labeltop" v-if="manyFormValidate.length">
+      <el-form-item :label="$t('message.productList.productAttr3')" class="labeltop" v-if="manyFormValidate.length">
         <VirtualScroll
           :data="manyFormValidate"
           :buffer="50"
@@ -165,7 +165,7 @@
                 <template v-if="scope.$index == 0">
                   <template v-if="item.key">
                     <div v-if="attrs.length && attrs[scope.column.index] && manyFormValidate.length">
-                      <el-select v-model="oneFormBatch[0][item.title]" :placeholder="`请选择${item.title}`" clearable>
+                      <el-select v-model="oneFormBatch[0][item.title]" :placeholder="$t('message.common.pleaseSelect') + item.title" clearable>
                         <el-option
                           v-for="val in attrs[scope.column.index].detail"
                           :key="val.value"
@@ -257,9 +257,9 @@
                   </template>
                   <template v-else-if="item.slot === 'selected_spec'"> -- </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="batchAdd">批量修改</a>
+                    <a v-db-click @click="batchAdd">{{ $t('message.productList.batchModify2') }}</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="batchDel">清空</a>
+                    <a v-db-click @click="batchDel">{{ $t('message.productList.clear2') }}</a>
                   </template>
                 </template>
                 <template v-else>
@@ -345,7 +345,7 @@
                       v-if="!manyFormValidate[scope.$index].coupon_id && formValidate.virtual_type == 2"
                       v-db-click
                       @click="addGoodsCoupon(scope.$index, 'manyFormValidate')"
-                      >选择优惠券</el-button
+                      >{{ $t('message.productList.selectCoupon2') }}</el-button
                     >
                     <span
                       class="see"
@@ -362,7 +362,7 @@
                       "
                       v-db-click
                       @click="addVirtual(scope.$index, 'manyFormValidate')"
-                      >添加卡密</el-button
+                      >{{ $t('message.productList.addCardSecret2') }}</el-button
                     >
                     <span
                       class="see"
@@ -372,7 +372,7 @@
                       "
                       v-db-click
                       @click="see(manyFormValidate[scope.$index], 'manyFormValidate', scope.$index)"
-                      >已设置</span
+                      >{{ $t('message.productList.alreadySet') }}</span
                     >
                   </template>
 
@@ -388,8 +388,8 @@
                     <el-switch
                       class="defineSwitch"
                       v-model="manyFormValidate[scope.$index].is_show"
-                      active-text="显示"
-                      inactive-text="隐藏"
+                      :active-text="$t('message.productList.show2')"
+                      :inactive-text="$t('message.productList.hide2')"
                       :active-value="1"
                       :inactive-value="0"
                       @change="changeDefaultShow(scope.$index)"
@@ -406,7 +406,7 @@
     <!-- 单规格表格-->
     <div v-if="formValidate.spec_type === 0">
       <el-col :span="24">
-        <el-form-item label="图片：">
+        <el-form-item :label="$t('message.productList.image3')">
           <div class="pictrueBox" v-db-click @click="modalPicTap('dan', 'danTable', 0)">
             <div class="pictrue" v-if="oneFormValidate[0].pic">
               <img v-lazy="oneFormValidate[0].pic" />
@@ -420,7 +420,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="售价：">
+        <el-form-item :label="$t('message.productList.sellingPrice')">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].price"
@@ -429,12 +429,12 @@
             :max="9999999999"
             class="input_width input-number-unit-class"
             :active-change="false"
-            class-unit="元"
+            :class-unit="$t('message.productList.yuan2')"
           ></el-input-number>
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="成本价：">
+        <el-form-item :label="$t('message.productList.costPrice3')">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].cost"
@@ -443,12 +443,12 @@
             :precision="2"
             :active-change="false"
             class="input_width input-number-unit-class"
-            class-unit="元"
+            :class-unit="$t('message.productList.yuan2')"
           ></el-input-number>
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="划线价：">
+        <el-form-item :label="$t('message.productList.originalPrice3')">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].ot_price"
@@ -457,12 +457,12 @@
             :precision="2"
             :active-change="false"
             class="input_width input-number-unit-class"
-            class-unit="元"
+            :class-unit="$t('message.productList.yuan2')"
           ></el-input-number>
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="库存：">
+        <el-form-item :label="$t('message.productList.stock4')">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].stock"
@@ -471,22 +471,22 @@
             :disabled="formValidate.virtual_type == 1"
             :precision="0"
             class="input_width input-number-unit-class"
-            :class-unit="formValidate.unit_name || '件'"
+            :class-unit="formValidate.unit_name || $t('message.productList.piece')"
           ></el-input-number>
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="商品编码：">
+        <el-form-item :label="$t('message.productList.productCode2')">
           <el-input v-model.trim="oneFormValidate[0].bar_code" class="input_width"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="条形码：">
+        <el-form-item :label="$t('message.productList.barcode')">
           <el-input v-model.trim="oneFormValidate[0].bar_code_number" class="input_width"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="24" v-if="formValidate.virtual_type == 0">
-        <el-form-item label="重量：">
+        <el-form-item :label="$t('message.productList.weight2')">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].weight"
@@ -498,7 +498,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="体积：" v-if="formValidate.virtual_type == 0">
+        <el-form-item :label="$t('message.productList.volume2')" v-if="formValidate.virtual_type == 0">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].volume"
@@ -512,14 +512,14 @@
 
       <el-col :span="24">
         <el-form-item
-          :label="formValidate.virtual_type == 1 ? '添加卡密/网盘：' : '选择优惠券：'"
+          :label="formValidate.virtual_type == 1 ? $t('message.productList.addCardSecretNetdisk2') : $t('message.productList.selectCoupon3')"
           v-if="formValidate.virtual_type == 1 || formValidate.virtual_type == 2"
         >
           <el-button
             v-if="!oneFormValidate[0].coupon_id && formValidate.virtual_type == 2"
             v-db-click
             @click="addGoodsCoupon(0, 'oneFormValidate')"
-            >选择优惠券</el-button
+            >{{ $t('message.productList.selectCoupon2') }}</el-button
           >
           <span
             class="see"
@@ -534,7 +534,7 @@
             "
             v-db-click
             @click="addVirtual(0, 'oneFormValidate')"
-            >添加卡密</el-button
+            >{{ $t('message.productList.addCardSecret2') }}</el-button
           >
           <span
             class="see"
@@ -543,7 +543,7 @@
             "
             v-db-click
             @click="see(oneFormValidate[0], 'oneFormValidate', 0)"
-            >已设置</span
+            >{{ $t('message.productList.alreadySet') }}</span
           >
         </el-form-item>
       </el-col>

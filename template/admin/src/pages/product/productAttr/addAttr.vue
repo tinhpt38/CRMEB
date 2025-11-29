@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modal" @closed="onCancel" title="商品规格" width="1000px" v-loading="spinShow">
+  <el-dialog :visible.sync="modal" @closed="onCancel" :title="$t('message.productList.productSpec4')" width="1000px" v-loading="spinShow">
     <el-form
       ref="formDynamic"
       :model="formDynamic"
@@ -12,8 +12,8 @@
       <el-row :gutter="24">
         <el-col :span="24">
           <el-col :span="8">
-            <el-form-item label="规格模板名称：" prop="rule_name">
-              <el-input placeholder="请输入标题名称" :maxlength="20" v-model.trim="formDynamic.rule_name" />
+            <el-form-item :label="$t('message.productList.specTemplateName')" prop="rule_name">
+              <el-input :placeholder="$t('message.productList.pleaseInputTitleName')" :maxlength="20" v-model.trim="formDynamic.rule_name" />
             </el-form-item>
           </el-col>
         </el-col>
@@ -31,7 +31,7 @@
                     <div class="specifications-item-name mb18">
                       <el-input
                         v-model="item.value"
-                        placeholder="规格名称"
+                        :placeholder="$t('message.productList.specName3')"
                         class="specifications-item-name-input"
                         maxlength="30"
                         show-word-limit
@@ -45,7 +45,7 @@
                           <el-input
                             style="width: 120px"
                             v-model="item.detail[indexn]"
-                            placeholder="规格值"
+                            :placeholder="$t('message.productList.specValue')"
                             maxlength="30"
                           >
                             <template slot="prefix">
@@ -62,7 +62,7 @@
                         >
                           <el-input
                             :ref="'inputRef_' + index"
-                            placeholder="请输入规格值"
+                            :placeholder="$t('message.productList.pleaseInputSpecValue')"
                             v-model="item.detail.attrsVal"
                             @keyup.enter.native="createAttr(item.detail.attrsVal, index)"
                             @blur="createAttr(item.detail.attrsVal, index)"
@@ -70,23 +70,23 @@
                             show-word-limit
                           >
                           </el-input>
-                          <div class="addfont" slot="reference" type="text" v-db-click>添加规格值</div>
+                          <div class="addfont" slot="reference" type="text" v-db-click>{{ $t('message.productList.addSpecValue') }}</div>
                         </el-popover>
                       </draggable>
                     </div>
                   </div>
                 </div>
               </draggable>
-              <el-button v-if="formDynamic.spec.length < 4" v-db-click @click="handleAddRole()">添加新规格</el-button>
+              <el-button v-if="formDynamic.spec.length < 4" v-db-click @click="handleAddRole()">{{ $t('message.productList.addNewSpec') }}</el-button>
             </div>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="onClose">取消</el-button>
+      <el-button v-db-click @click="onClose">{{ $t('message.productList.cancel') }}</el-button>
       <el-button type="primary" :loading="modal_loading" v-db-click @click="handleSubmit('formDynamic')"
-        >确定</el-button
+        >{{ $t('message.productList.confirm') }}</el-button
       >
     </span>
   </el-dialog>
@@ -115,7 +115,7 @@ export default {
       modal: false,
       index: 1,
       rules: {
-        rule_name: [{ required: true, message: '请输入规格名称', trigger: 'blur' }],
+        rule_name: [{ required: true, message: this.$t('message.productList.pleaseInputSpecName2'), trigger: 'blur' }],
       },
       formDynamic: {
         rule_name: '',
@@ -182,7 +182,7 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           if (this.formDynamic.spec.length === 0) {
-            return this.$message.warning('请至少添加一条商品规格！');
+            return this.$message.warning(this.$t('message.productList.pleaseAddAtLeastOneSpec2'));
           }
           this.modal_loading = true;
           setTimeout(() => {
@@ -246,7 +246,7 @@ export default {
         this.attrsVal = '';
         this.isBtn = false;
       } else {
-        this.$message.warning('请添加规格名称或规格值');
+        this.$message.warning(this.$t('message.productList.pleaseAddSpecNameOrValue'));
       }
     },
     // 添加属性
@@ -260,7 +260,7 @@ export default {
           return item;
         }, []);
       } else {
-        this.$message.warning('请添加属性');
+        this.$message.warning(this.$t('message.productList.pleaseAddAttr'));
       }
     },
   },

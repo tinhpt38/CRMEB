@@ -2,7 +2,7 @@
   <div class="" id="shopp-manager" v-loading="spinShow">
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? '编辑商品' : '添加商品'"
+      :title="$route.params.id ? $t('message.productList.editProduct') : $t('message.productList.addProduct2')"
       :backUrl="$routeProStr + '/product/product_list'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16" :body-style="{ padding: '0px 20px' }">
@@ -154,20 +154,20 @@
         ></other-setting>
 
         <el-form-item>
-          <el-button v-if="currentTab !== '1'" v-db-click @click="upTab">上一步</el-button>
+          <el-button v-if="currentTab !== '1'" v-db-click @click="upTab">{{ $t('message.productList.previousStep') }}</el-button>
           <el-button
             class="submission"
             v-if="currentTab !== '7' && formValidate.virtual_type == 0"
             v-db-click
             @click="downTab"
-            >下一步</el-button
+            >{{ $t('message.productList.nextStep') }}</el-button
           >
           <el-button
             class="submission"
             v-if="currentTab !== '6' && formValidate.virtual_type != 0"
             v-db-click
             @click="downTab"
-            >下一步</el-button
+            >{{ $t('message.productList.nextStep') }}</el-button
           >
           <el-button
             type="primary"
@@ -175,11 +175,11 @@
             v-db-click
             @click="handleSubmit('formValidate')"
             v-if="$route.params.id || currentTab !== '1'"
-            >保存</el-button
+            >{{ $t('message.productList.save') }}</el-button
           >
         </el-form-item>
       </el-form>
-      <el-dialog :visible.sync="modalPic" width="950px" scrollable title="上传商品图" :close-on-click-modal="false">
+      <el-dialog :visible.sync="modalPic" width="950px" scrollable :title="$t('message.productList.uploadProductImage')" :close-on-click-modal="false">
         <uploadPictures
           :isChoice="isChoice"
           @getPic="getPic"
@@ -192,7 +192,7 @@
       <el-dialog
         :visible.sync="addVirtualModel"
         width="720px"
-        title="添加卡密"
+        :title="$t('message.productList.addCardSecret')"
         :show-close="true"
         :close-on-click-modal="false"
         @closed="initVirtualData"
@@ -200,46 +200,46 @@
         <div class="trip"></div>
         <div class="type-radio">
           <el-form label-width="85px">
-            <el-form-item label="卡密类型：">
+            <el-form-item :label="$t('message.productList.cardSecretType')">
               <el-radio-group v-model="disk_type" size="large">
-                <el-radio :label="1">固定卡密</el-radio>
-                <el-radio :label="2">一次性卡密</el-radio>
+                <el-radio :label="1">{{ $t('message.productList.fixedCardSecret') }}</el-radio>
+                <el-radio :label="2">{{ $t('message.productList.oneTimeCardSecret') }}</el-radio>
               </el-radio-group>
               <div v-if="disk_type == 1">
                 <div class="stock-disk">
-                  <el-input v-model="disk_info" size="large" type="textarea" :rows="4" placeholder="填写卡密信息" />
+                  <el-input v-model="disk_info" size="large" type="textarea" :rows="4" :placeholder="$t('message.productList.fillCardSecretInfo')" />
                 </div>
                 <div class="stock-input">
                   <!-- <el-input type="number" v-model="stock" size="large" :min='0' placeholder="填写库存数量">
                     <span slot="append">件</span>
                   </el-input> -->
                   <el-input-number :controls="false" :max="100000" :min="1" :step="1" :precision="0" v-model="stock" />
-                  <span class="pl10">件</span>
+                  <span class="pl10">{{ $t('message.productList.piece') }}</span>
                 </div>
               </div>
               <div class="scroll-virtual" v-if="disk_type == 2">
                 <div class="virtual-data mb10" v-for="(item, index) in virtualList" :key="index">
-                  <span class="mr10 virtual-title">卡号{{ index + 1 }}：</span>
+                  <span class="mr10 virtual-title">{{ $t('message.productList.cardNumber') }}{{ index + 1 }}：</span>
                   <el-input
                     class="mr10"
                     type="text"
                     v-model.trim="item.key"
                     style="width: 150px"
-                    placeholder="请输入卡号(非必填)"
+                    :placeholder="$t('message.productList.pleaseInputCardNumber')"
                   ></el-input>
-                  <span class="mr10 virtual-title">卡密{{ index + 1 }}：</span>
+                  <span class="mr10 virtual-title">{{ $t('message.productList.cardSecret') }}{{ index + 1 }}：</span>
                   <el-input
                     class="mr10"
                     type="text"
                     v-model.trim="item.value"
                     style="width: 150px"
-                    placeholder="请输入卡密"
+                    :placeholder="$t('message.productList.pleaseInputCardSecret')"
                   ></el-input>
-                  <span class="deteal-btn" v-db-click @click="removeVirtual(index)">删除</span>
+                  <span class="deteal-btn" v-db-click @click="removeVirtual(index)">{{ $t('message.productList.delete3') }}</span>
                 </div>
               </div>
               <div class="add-more" v-if="disk_type == 2">
-                <el-button class="h-33" type="primary" v-db-click @click="handleAdd">新增</el-button>
+                <el-button class="h-33" type="primary" v-db-click @click="handleAdd">{{ $t('message.productList.addNew') }}</el-button>
                 <el-upload
                   class="ml10"
                   :action="cardUrl"
@@ -248,15 +248,15 @@
                   :on-success="upFile"
                   :before-upload="beforeUpload"
                 >
-                  <el-button>导入卡密</el-button>
+                  <el-button>{{ $t('message.productList.importCardSecret') }}</el-button>
                 </el-upload>
               </div>
             </el-form-item>
           </el-form>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button v-db-click @click="closeVirtual">取 消</el-button>
-          <el-button type="primary" v-db-click @click="upVirtual">确 定</el-button>
+          <el-button v-db-click @click="closeVirtual">{{ $t('message.productList.cancel') }}</el-button>
+          <el-button type="primary" v-db-click @click="upVirtual">{{ $t('message.productList.confirm') }}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -280,19 +280,19 @@
       :visible.sync="modals"
       @closed="cancel"
       class="Box"
-      title="复制淘宝、天猫、京东、苏宁、1688"
+      :title="$t('message.productList.copyTaobaoTmall')"
       :close-on-click-modal="false"
       width="720px"
     >
       <tao-bao ref="taobaos" v-if="modals" @on-close="onClose"></tao-bao>
     </el-dialog>
-    <el-dialog :visible.sync="goods_modals" title="商品列表" footerHide class="paymentFooter" scrollable width="1000px">
+    <el-dialog :visible.sync="goods_modals" :title="$t('message.productList.productList2')" footerHide class="paymentFooter" scrollable width="1000px">
       <goods-list v-if="goods_modals" ref="goodslist" :ischeckbox="true" @getProductId="getProductId"></goods-list>
     </el-dialog>
     <!-- 用户标签 -->
     <el-dialog
       :visible.sync="labelShow"
-      title="请选择用户标签"
+      :title="$t('message.productList.pleaseSelectUserLabel')"
       :show-close="true"
       width="540px"
       :close-on-click-modal="false"
@@ -302,7 +302,7 @@
     <!-- 商品标签 -->
     <el-dialog
       :visible.sync="tagShow"
-      title="请选择商品标签"
+      :title="$t('message.productList.pleaseSelectProductLabel2')"
       :show-close="true"
       width="540px"
       :close-on-click-modal="false"
@@ -399,19 +399,19 @@ export default {
       tagShow: false,
       dataLabel: [],
       headTab: [
-        { tit: '基础信息', name: '1' },
-        { tit: '规格库存', name: '2' },
-        { tit: '商品详情', name: '3' },
-        { tit: '物流设置', name: '4' },
-        { tit: '会员价/佣金', name: '5' },
-        { tit: '营销设置', name: '6' },
-        { tit: '其他设置', name: '7' },
+        { tit: this.$t('message.productList.basicInfo'), name: '1' },
+        { tit: this.$t('message.productList.specStock'), name: '2' },
+        { tit: this.$t('message.productList.productDetails3'), name: '3' },
+        { tit: this.$t('message.productList.logisticsSetting'), name: '4' },
+        { tit: this.$t('message.productList.memberPriceCommission'), name: '5' },
+        { tit: this.$t('message.productList.marketingSetting'), name: '6' },
+        { tit: this.$t('message.productList.otherSetting'), name: '7' },
       ],
       virtual: [
-        { tit: '普通商品', id: 0, tit2: '物流发货' },
-        { tit: '卡密/网盘', id: 1, tit2: '自动发货' },
-        { tit: '优惠券', id: 2, tit2: '自动发货' },
-        { tit: '虚拟商品', id: 3, tit2: '虚拟发货' },
+        { tit: this.$t('message.productList.normalProduct2'), id: 0, tit2: this.$t('message.productList.logisticsDelivery') },
+        { tit: this.$t('message.productList.cardSecretNetdisk'), id: 1, tit2: this.$t('message.productList.autoDelivery') },
+        { tit: this.$t('message.productList.couponProduct2'), id: 2, tit2: this.$t('message.productList.autoDelivery') },
+        { tit: this.$t('message.productList.virtualProduct2'), id: 3, tit2: this.$t('message.productList.virtualDelivery') },
       ],
       seletVideo: 0, //选择视频类型
       customBtn: 0, //自定义留言开关
@@ -480,7 +480,7 @@ export default {
         xs: 8,
       },
       //自定义留言下拉选择
-      CustomList: CustomList,
+      CustomList: [],
       //自定义留言内容
       currentIndex: 0,
 
@@ -588,7 +588,7 @@ export default {
       treeSelect: [],
       picTit: '',
       tableIndex: 0,
-      ruleValidate: RuleValidate,
+      ruleValidate: {},
       manyBrokerage: undefined,
       manyBrokerageTwo: undefined,
       manyVipPrice: undefined,
@@ -608,34 +608,8 @@ export default {
       updateName: [],
       couponIds: '',
       couponNames: [],
-      rakeBack: [
-        {
-          title: '一级返佣(元)',
-          slot: 'brokerage',
-          align: 'center',
-          width: 95,
-        },
-        {
-          title: '二级返佣(元)',
-          slot: 'brokerage_two',
-          align: 'center',
-          width: 95,
-        },
-      ],
-      member: [
-        {
-          title: '会员价',
-          slot: 'vip_price',
-          align: 'center',
-          width: 95,
-        },
-        {
-          title: '会员折扣',
-          slot: 'vip_proportion',
-          align: 'center',
-          width: 95,
-        },
-      ],
+      rakeBack: [],
+      member: [],
       columnsInstalM: [],
       moveIndex: '',
       addValue: '',
@@ -663,6 +637,136 @@ export default {
     labelBottom() {
       return this.isMobile ? undefined : '15px';
     },
+    // Override defaultData with i18n
+    i18nGoodsTableHead() {
+      return GoodsTableHead.map(item => ({
+        ...item,
+        title: this.$t(`message.productList.${this.getTableHeadKey(item.title)}`),
+      }));
+    },
+    i18nVirtualTableHead() {
+      return VirtualTableHead.map(item => ({
+        ...item,
+        title: this.$t(`message.productList.${this.getTableHeadKey(item.title)}`),
+      }));
+    },
+    i18nVirtualTableHead2() {
+      return VirtualTableHead2.map(item => ({
+        ...item,
+        title: this.$t(`message.productList.${this.getTableHeadKey(item.title)}`),
+      }));
+    },
+    i18nColumns2() {
+      return columns2.map(item => ({
+        ...item,
+        title: this.$t(`message.productList.${this.getTableHeadKey(item.title)}`),
+      }));
+    },
+    i18nColumns3() {
+      return columns3.map(item => ({
+        ...item,
+        title: this.$t(`message.productList.${this.getTableHeadKey(item.title)}`),
+      }));
+    },
+    i18nCustomList() {
+      return CustomList.map(item => ({
+        ...item,
+        label: this.$t(`message.productList.${this.getCustomListKey(item.label)}`),
+      }));
+    },
+    i18nRuleValidate() {
+      const t = this.$t;
+      return {
+        store_name: [{ required: true, message: t('message.productList.pleaseInputProductName4'), trigger: 'blur' }],
+        cate_id: [
+          {
+            required: true,
+            message: t('message.productList.pleaseSelectProductCategory3'),
+            trigger: 'change',
+            type: 'array',
+            min: '1',
+          },
+        ],
+        unit_name: [{ required: true, message: t('message.productList.pleaseInputUnit3'), trigger: 'blur' }],
+        slider_image: [
+          {
+            required: true,
+            message: t('message.productList.pleaseUploadProductCarousel'),
+            type: 'array',
+            trigger: 'change',
+          },
+        ],
+        spec_type: [{ required: true, message: t('message.productList.pleaseSelectProductSpec'), trigger: 'change' }],
+        is_virtual: [{ required: true, message: t('message.productList.pleaseSelectProductType'), trigger: 'change' }],
+        selectRule: [{ required: true, message: t('message.productList.pleaseSelectProductSpecAttr'), trigger: 'change' }],
+        temp_id: [
+          {
+            required: true,
+            message: t('message.productList.pleaseSelectFreightTemplate2'),
+            trigger: 'change',
+            type: 'number',
+          },
+        ],
+        presale_time: [
+          {
+            required: true,
+            type: 'array',
+            message: t('message.productList.pleaseSelectActivityTime'),
+            trigger: 'change',
+          },
+        ],
+        logistics: [
+          {
+            required: true,
+            type: 'array',
+            min: 1,
+            message: t('message.productList.pleaseSelectLogisticsMethod'),
+            trigger: 'change',
+          },
+          {
+            type: 'array',
+            max: 2,
+            message: t('message.productList.pleaseSelectLogisticsMethod'),
+            trigger: 'change',
+          },
+        ],
+        give_integral: [{ type: 'integer', message: t('message.productList.pleaseInputInteger') }],
+      };
+    },
+  },
+  methods: {
+    getTableHeadKey(title) {
+      const keyMap = {
+        '图片': 'image4',
+        '售价': 'sellingPrice2',
+        '成本价': 'costPrice4',
+        '划线价': 'originalPrice4',
+        '库存': 'stock5',
+        '商品编码': 'productCode3',
+        '条形码': 'barcode2',
+        '重量（KG）': 'weight3',
+        '体积(m³)': 'volume3',
+        '默认选中规格': 'defaultSelectedSpec',
+        '操作': 'operation3',
+        '原价': 'originalPrice5',
+        '产品编号': 'productNumber',
+        '虚拟商品': 'virtualProduct3',
+      };
+      return keyMap[title] || title;
+    },
+    getCustomListKey(label) {
+      const keyMap = {
+        '文本框': 'textBox',
+        '数字': 'number2',
+        '邮件': 'email',
+        '日期': 'date',
+        '时间': 'time',
+        '身份证': 'idCard2',
+        '手机号': 'phone',
+        '图片': 'image5',
+      };
+      return keyMap[label] || label;
+    },
   },
   watch: {
     typeConfig(val) {
@@ -681,6 +785,39 @@ export default {
     next();
   },
   created() {
+    // Initialize i18n data
+    this.columns2 = this.i18nColumns2;
+    this.columns3 = this.i18nColumns3;
+    this.CustomList = this.i18nCustomList;
+    this.ruleValidate = this.i18nRuleValidate;
+    this.rakeBack = [
+      {
+        title: this.$t('message.productList.firstLevelRebate2') + '(' + this.$t('message.productList.yuan2') + ')',
+        slot: 'brokerage',
+        align: 'center',
+        width: 95,
+      },
+      {
+        title: this.$t('message.productList.secondLevelRebate2') + '(' + this.$t('message.productList.yuan2') + ')',
+        slot: 'brokerage_two',
+        align: 'center',
+        width: 95,
+      },
+    ];
+    this.member = [
+      {
+        title: this.$t('message.productList.paidMemberPrice3'),
+        slot: 'vip_price',
+        align: 'center',
+        width: 95,
+      },
+      {
+        title: this.$t('message.productList.memberDiscount'),
+        slot: 'vip_proportion',
+        align: 'center',
+        width: 95,
+      },
+    ];
     this.columns = this.columns2.slice(0, 8);
     this.getToken();
   },
@@ -864,21 +1001,21 @@ export default {
       }
       // 定义基础商品和虚拟商品的标签页配置
       const baseHeadTabs = [
-        { tit: '基础信息', name: '1' },
-        { tit: '规格库存', name: '2' },
-        { tit: '商品详情', name: '3' },
-        { tit: '物流设置', name: '4' },
-        { tit: '会员价/佣金', name: '5' },
-        { tit: '营销设置', name: '6' },
-        { tit: '其他设置', name: '7' },
+        { tit: this.$t('message.productList.basicInfo'), name: '1' },
+        { tit: this.$t('message.productList.specStock'), name: '2' },
+        { tit: this.$t('message.productList.productDetails3'), name: '3' },
+        { tit: this.$t('message.productList.logisticsSetting'), name: '4' },
+        { tit: this.$t('message.productList.memberPriceCommission'), name: '5' },
+        { tit: this.$t('message.productList.marketingSetting'), name: '6' },
+        { tit: this.$t('message.productList.otherSetting'), name: '7' },
       ];
       const virtualHeadTabs = [
-        { tit: '基础信息', name: '1' },
-        { tit: '规格库存', name: '2' },
-        { tit: '商品详情', name: '3' },
-        { tit: '会员价/佣金', name: '4' },
-        { tit: '营销设置', name: '5' },
-        { tit: '其他设置', name: '6' },
+        { tit: this.$t('message.productList.basicInfo'), name: '1' },
+        { tit: this.$t('message.productList.specStock'), name: '2' },
+        { tit: this.$t('message.productList.productDetails3'), name: '3' },
+        { tit: this.$t('message.productList.memberPriceCommission'), name: '4' },
+        { tit: this.$t('message.productList.marketingSetting'), name: '5' },
+        { tit: this.$t('message.productList.otherSetting'), name: '6' },
       ];
 
       switch (index) {
@@ -934,7 +1071,7 @@ export default {
     // 自定义留言 新增表单
     addcustom() {
       if (this.formValidate.custom_form.length > 9) {
-        this.$message.warning('最多添加10条');
+        this.$message.warning(this.$t('message.productList.maxAdd10Items'));
       } else {
         this.formValidate.custom_form.push({
           title: '',
@@ -1144,7 +1281,7 @@ export default {
         for (let i = 0; i < this.virtualList.length; i++) {
           const element = this.virtualList[i];
           if (!element.value) {
-            this.$message.error('请输入所有卡密');
+            this.$message.error(this.$t('message.productList.pleaseInputAllCardSecrets'));
             return;
           }
         }
@@ -1159,7 +1296,7 @@ export default {
         this.$set(this[this.tabName][this.tabIndex], 'disk_info', '');
       } else {
         if (!this.disk_info.length) {
-          return this.$message.error('请填写卡密信息');
+          return this.$message.error(this.$t('message.productList.pleaseFillCardSecretInfo'));
         }
         if (!this.stock) {
           return this.$message.error('请填写库存数量');
@@ -1243,7 +1380,7 @@ export default {
     zh_uploadFile_change(evfile) {
       let suffix = evfile.target.files[0].name.substr(evfile.target.files[0].name.indexOf('.'));
       if (suffix.indexOf('.mp4') === -1) {
-        return this.$message.error('只能上传MP4文件');
+        return this.$message.error(this.$t('message.productList.onlyUploadMP4'));
       }
       let types = {
         key: evfile.target.files[0].name,
@@ -1296,19 +1433,19 @@ export default {
     brokerageSetUp() {
       if (this.formValidate.is_sub.indexOf(1) > -1) {
         if (this.manyBrokerage <= 0 || this.manyBrokerageTwo <= 0) {
-          return this.$message.error('请填写返佣金额后进行批量添加');
+          return this.$message.error(this.$t('message.productList.pleaseFillRebateAmount'));
         }
       } else if (this.formValidate.is_sub.indexOf(0) > -1) {
         if (this.manyVipPrice <= 0) {
-          return this.$message.error('请填写会员价后进行批量添加');
+          return this.$message.error(this.$t('message.productList.pleaseFillMemberPrice'));
         }
       }
       if (this.formValidate.is_sub.length === 2) {
         if (this.manyBrokerage <= 0 || this.manyBrokerageTwo <= 0) {
-          return this.$message.error('请填写完金额后进行批量添加');
+          return this.$message.error(this.$t('message.productList.pleaseFillAllAmounts'));
         }
         if (this.manyVipPrice > 0 && this.manyVipDiscount > 0) {
-          return this.$message.error('会员价和会员折扣只能二选一添加');
+          return this.$message.error(this.$t('message.productList.memberPriceAndDiscountOnlyOne'));
         }
       }
       for (let val of this.manyFormValidate) {
@@ -1326,7 +1463,7 @@ export default {
     // 批量设置会员价
     vipPriceSetUp() {
       if (this.manyVipPrice <= 0) {
-        return this.$message.error('请填写会员价在进行批量添加');
+        return this.$message.error(this.$t('message.productList.pleaseFillMemberPriceForBatch'));
       } else {
         for (let val of this.manyFormValidate) {
           this.$set(val, 'vip_price', this.manyVipPrice);
@@ -1670,17 +1807,17 @@ export default {
       }));
       let arr;
       if ([1, 2].includes(Number(this.formValidate.virtual_type))) {
-        arr = [...specificationsColumns, ...VirtualTableHead];
+        arr = [...specificationsColumns, ...this.i18nVirtualTableHead];
         // 找到slot 等于 fictitious 将title改为规格名称
         this.formValidate.header.map((item) => {
           if (item.slot === 'fictitious') {
-            item.title = this.formValidate.virtual_type == 1 ? '添加卡密/网盘' : '选择优惠券';
+            item.title = this.formValidate.virtual_type == 1 ? this.$t('message.productList.addCardSecretNetdisk') : this.$t('message.productList.selectCoupon');
           }
         });
       } else if (this.formValidate.virtual_type == 3) {
-        arr = [...specificationsColumns, ...VirtualTableHead2];
+        arr = [...specificationsColumns, ...this.i18nVirtualTableHead2];
       } else {
-        arr = [...specificationsColumns, ...GoodsTableHead];
+        arr = [...specificationsColumns, ...this.i18nGoodsTableHead];
       }
       this.$set(this.formValidate, 'header', arr);
       this.tableKey += 1;
@@ -1962,26 +2099,26 @@ export default {
           }
           for (let i = 0; i < item.length; i++) {
             if (item[i].stock > 1000000) {
-              return this.$message.error('规格库存-库存超出系统范围(1000000)');
+              return this.$message.error(this.$t('message.productList.stockExceedsSystemLimit'));
             }
           }
           if (this.formValidate.is_sub[0] === 1) {
             for (let i = 0; i < item.length; i++) {
               if (item[i].brokerage === null || item[i].brokerage_two === null) {
-                return this.$message.error('营销设置- 一二级返佣不能为空');
+                return this.$message.error(this.$t('message.productList.marketingSettingRebateRequired'));
               }
             }
           } else {
             for (let i = 0; i < item.length; i++) {
               if (item[i].vip_price === null) {
-                return this.$message.error('营销设置-会员价不能为空');
+                return this.$message.error(this.$t('message.productList.marketingSettingMemberPriceRequired'));
               }
             }
           }
           if (this.formValidate.is_sub.length === 2) {
             for (let i = 0; i < item.length; i++) {
               if (item[i].brokerage === null || item[i].brokerage_two === null || item[i].vip_price === null) {
-                return this.$message.error('营销设置- 一二级返佣和会员价不能为空');
+                return this.$message.error(this.$t('message.productList.marketingSettingRebateAndMemberPriceRequired'));
               }
             }
           }

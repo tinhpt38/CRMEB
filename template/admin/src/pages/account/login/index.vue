@@ -15,11 +15,11 @@
         </div>
         <el-form ref="formInline" :model="formInline" :rules="ruleInline" @keyup.enter="handleSubmit('formInline')">
           <el-form-item prop="username">
-            <el-input type="text" v-model="formInline.username" prefix="ios-contact-outline" placeholder="请输入用户名"
+            <el-input type="text" v-model="formInline.username" prefix="ios-contact-outline" :placeholder="$t('message.login.pleaseInputUsername')"
               size="large" />
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" v-model="formInline.password" prefix="ios-lock-outline" placeholder="请输入密码"
+            <el-input type="password" v-model="formInline.password" prefix="ios-lock-outline" :placeholder="$t('message.login.pleaseInputPassword')"
               size="large" show-password />
           </el-form-item>
           <!-- <el-form-item prop="code">
@@ -36,7 +36,7 @@
           </el-form-item> -->
           <el-form-item class="pt10">
             <el-button type="primary" :loading="loading" size="large" v-db-click @click="handleSubmit('formInline')"
-              class="btn">登录</el-button>
+              class="btn">{{ $t('message.login.btnText') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -80,10 +80,7 @@ export default {
         username: '',
         password: '',
       },
-      ruleInline: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-      },
+      ruleInline: {},
       login_captcha: 0,
       login_logo: '',
       swiperList: [],
@@ -95,6 +92,11 @@ export default {
     };
   },
   created() {
+    // Initialize ruleInline with i18n
+    this.ruleInline = {
+      username: [{ required: true, message: this.$t('message.login.pleaseInputUsername'), trigger: 'blur' }],
+      password: [{ required: true, message: this.$t('message.login.pleaseInputPassword'), trigger: 'blur' }],
+    };
     document.onkeydown = (e) => {
       if (this.$route.name === 'login' && (e.keyCode === 13 || e.which === 13)) {
         this.handleSubmit('formInline');
@@ -119,7 +121,7 @@ export default {
       loginInfoApi()
         .then((res) => {
           const data = res.data || {};
-          document.title = `${data.site_name} - 登录`;
+          document.title = `${data.site_name} - ${this.$t('message.login.loginTitle')}`;
           localStorage.setItem('ADMIN_TITLE', data.site_name || '');
           this.$store.commit('setAdminTitle', data.site_name);
           this.login_logo = data.login_logo || require('@/assets/images/logo.png');
@@ -176,20 +178,20 @@ export default {
           try {
             if (data.queue === false) {
               this.$notify.warning({
-                title: '温馨提示',
+                title: this.$t('message.login.tip'),
                 dangerouslyUseHTMLString: true,
                 message:
-                  '您的【消息队列】未开启，没有开启会导致异步任务无法执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+                  this.$t('message.login.messageQueueNotEnabled') + `<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">${this.$t('message.login.clickToViewMethod')}</a>`,
                 duration: 30000,
               });
             }
             if (data.timer === false) {
               setTimeout(() => {
                 this.$notify.warning({
-                  title: '温馨提示',
+                  title: this.$t('message.login.tip'),
                   dangerouslyUseHTMLString: true,
                   message:
-                    '您的【定时任务】未开启，没有开启会导致自动收货、未支付自动取消订单、订单自动好评、拼团到期退款等任务无法正常执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+                    this.$t('message.login.timerTaskNotEnabled') + `<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">${this.$t('message.login.clickToViewMethod')}</a>`,
                   duration: 30000,
                 });
               }, 0);
@@ -203,7 +205,7 @@ export default {
         })
         .catch((res) => {
           const data = res || {};
-          this.$message.error(data.msg || '登录失败');
+          this.$message.error(data.msg || this.$t('message.login.loginFailed'));
           if (res && res.data) this.login_captcha = res.data.login_captcha;
         })
         .finally(() => {
@@ -237,9 +239,9 @@ export default {
           if (!isNotice) {
             isNotice = true;
             this.$notify.warning({
-              title: '温馨提示',
+              title: this.$t('message.login.tip'),
               message:
-                '您的【长连接】未开启，没有开启会导致系统默认客服无法使用,后台订单通知无法收到。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+                this.$t('message.login.longConnectionNotEnabled') + `<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">${this.$t('message.login.clickToViewMethod')}</a>`,
               dangerouslyUseHTMLString: true,
               duration: 30000,
             });
@@ -253,7 +255,7 @@ export default {
       return parseFloat(expiresTimeNum / 60 / 60 / 24);
     },
     closefail() {
-      this.$message.error('校验错误');
+      this.$message.error(this.$t('message.login.validationError'));
     },
     handleResize() {
       this.fullWidth = document.documentElement.clientWidth;

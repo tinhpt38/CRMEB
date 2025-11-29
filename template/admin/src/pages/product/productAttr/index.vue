@@ -11,24 +11,24 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="规格搜索：">
+          <el-form-item :label="$t('message.productList.specSearch')">
             <el-input
               clearable
               v-model="artFrom.rule_name"
-              placeholder="请输入规格名称"
+              :placeholder="$t('message.productList.pleaseInputSpecName')"
               class="form_content_width"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.productList.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">添加商品规格</el-button>
-      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, '批量删除规格')"
-        >批量删除</el-button
+      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">{{ $t('message.productList.addProductSpec') }}</el-button>
+      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, $t('message.productList.batchDeleteSpec'))"
+        >{{ $t('message.productList.batchDelete') }}</el-button
       >
       <el-table
         ref="table"
@@ -37,7 +37,7 @@
         highlight-current-row
         :row-key="getRowKey"
         @selection-change="handleSelectRow"
-        empty-text="暂无数据"
+        :empty-text="$t('message.productList.noData')"
         class="mt14"
       >
         <el-table-column type="selection" width="60" :reserve-selection="true"> </el-table-column>
@@ -46,17 +46,17 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="规格名称" min-width="130">
+        <el-table-column :label="$t('message.productList.specName2')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.rule_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品规格" min-width="130">
+        <el-table-column :label="$t('message.productList.productSpec3')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.attr_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品属性" min-width="130">
+        <el-table-column :label="$t('message.productList.productAttr')" min-width="130">
           <template slot-scope="scope">
             <span
               v-for="(item, index) in scope.row.attr_value"
@@ -66,11 +66,11 @@
             ></span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('message.productList.operation')" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除规格', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.productList.deleteSpec'), scope.$index)">{{ $t('message.productList.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -164,8 +164,8 @@ export default {
     // 删除
     del(row, tit) {
       let data = {};
-      if (tit === '批量删除规格') {
-        if (this.selectedIds.size === 0) return this.$message.warning('请选择要删除的规格！');
+      if (tit === this.$t('message.productList.batchDeleteSpec')) {
+        if (this.selectedIds.size === 0) return this.$message.warning(this.$t('message.productList.pleaseSelectSpecToDelete'));
         data = {
           ids: this.ids,
         };

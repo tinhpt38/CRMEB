@@ -1,84 +1,84 @@
 <template>
   <el-dialog
     :visible.sync="visibleModal"
-    title="添加自评"
+    :title="$t('message.productList.addSelfReview2')"
     width="720px"
     :close-on-click-modal="false"
     @close="onCancel"
   >
     <el-form :model="formData" label-width="100px" label-position="right">
-      <el-form-item label="商品：">
+      <el-form-item :label="$t('message.productList.product2')">
         <div class="upload-box" v-db-click @click="callGoods">
           <img v-if="goods.id" :src="goods.image" class="image" />
           <i v-else class="el-icon-goods"></i>
         </div>
       </el-form-item>
-      <el-form-item v-if="goods.id" label="商品规格：">
+      <el-form-item v-if="goods.id" :label="$t('message.productList.productSpec2')">
         <div class="upload-box" v-db-click @click="callAttr">
           <img v-if="attr.pic" :src="attr.pic" class="image" />
           <i v-else class="el-icon-plus" />
         </div>
         <div>{{ attr.suk }}</div>
       </el-form-item>
-      <el-form-item label="用户头像：">
-        <div class="upload-box" v-db-click @click="callPicture('单选')">
+      <el-form-item :label="$t('message.productList.userAvatar')">
+        <div class="upload-box" v-db-click @click="callPicture($t('message.productList.singleSelect'))">
           <img v-if="avatar.att_dir" :src="avatar.att_dir" class="image" />
           <i v-if="avatar.att_dir" class="el-icon-error btn" v-db-click @click.stop="removeUser"></i>
           <i v-else class="el-icon-user" />
         </div>
       </el-form-item>
-      <el-form-item label="用户名称：">
+      <el-form-item :label="$t('message.productList.userName2')">
         <el-input
           v-model="formData.nickname"
-          placeholder="请输入用户名称"
+          :placeholder="$t('message.productList.pleaseInputUserName')"
           class="w100"
           maxlength="20"
           show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item label="评价文字：">
+      <el-form-item :label="$t('message.productList.reviewText')">
         <el-input
           v-model="formData.comment"
           type="textarea"
-          placeholder="请输入评价文字"
+          :placeholder="$t('message.productList.pleaseInputReviewText')"
           class="w100"
           maxlength="200"
           show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item label="商品分数：">
+      <el-form-item :label="$t('message.productList.productScore')">
         <el-rate v-model="product_score" />
       </el-form-item>
-      <el-form-item label="服务分数：">
+      <el-form-item :label="$t('message.productList.serviceScore')">
         <el-rate v-model="service_score" />
       </el-form-item>
-      <el-form-item label="评价图片：">
+      <el-form-item :label="$t('message.productList.reviewImage')">
         <div class="df-aic">
           <div v-for="item in picture" :key="item.att_id" class="upload-box">
             <img :src="item.att_dir" class="image" />
             <i class="el-icon-error btn" v-db-click @click.stop="removePicture(item.att_id)"></i>
           </div>
-          <div v-if="picture.length < 8" class="upload-box" v-db-click @click="callPicture('多选')">
+          <div v-if="picture.length < 8" class="upload-box" v-db-click @click="callPicture($t('message.productList.multiSelect'))">
             <i class="el-icon-picture-outline"></i>
           </div>
         </div>
       </el-form-item>
-      <el-form-item label="评价时间：">
+      <el-form-item :label="$t('message.productList.reviewTime')">
         <el-date-picker
           clearable
           v-model="add_time"
           type="datetime"
           range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          :start-placeholder="$t('message.productList.startDate')"
+          :end-placeholder="$t('message.productList.endDate')"
           @change="onChange"
           style="width: 414px"
         />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="onCancel">取 消</el-button>
-      <el-button type="primary" v-db-click @click="onOk">确 定</el-button>
+      <el-button v-db-click @click="onCancel">{{ $t('message.productList.cancel') }}</el-button>
+      <el-button type="primary" v-db-click @click="onOk">{{ $t('message.productList.confirm') }}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -168,25 +168,25 @@ export default {
     },
     onOk() {
       if (!this.goods.id) {
-        return this.$message.error('请选择商品');
+        return this.$message.error(this.$t('message.productList.pleaseSelectProduct'));
       }
       if (!this.attr.pic) {
-        return this.$message.error('请选择商品规格');
+        return this.$message.error(this.$t('message.productList.pleaseSelectProductSpec'));
       }
       if (!this.avatar.att_dir) {
-        return this.$message.error('请选择用户头像');
+        return this.$message.error(this.$t('message.productList.pleaseSelectUserAvatar'));
       }
       if (!this.formData.nickname) {
-        return this.$message.error('请填写用户昵称');
+        return this.$message.error(this.$t('message.productList.pleaseFillUserNickname'));
       }
       if (!this.formData.comment) {
-        return this.$message.error('请填写评论内容');
+        return this.$message.error(this.$t('message.productList.pleaseFillCommentContent'));
       }
       if (!this.product_score) {
-        return this.$message.error('商品分数必须是1-5之间的整数');
+        return this.$message.error(this.$t('message.productList.productScoreMustBeInteger'));
       }
       if (!this.service_score) {
-        return this.$message.error('服务分数必须是1-5之间的整数');
+        return this.$message.error(this.$t('message.productList.serviceScoreMustBeInteger'));
       }
       let data = {
         image: {
