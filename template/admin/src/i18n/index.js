@@ -45,6 +45,10 @@ import pagesCommonZhcn from '@/i18n/pages/common/zh-cn.js';
 import pagesCommonEn from '@/i18n/pages/common/en.js';
 import pagesCommonZhtw from '@/i18n/pages/common/zh-tw.js';
 import pagesCommonVi from '@/i18n/pages/common/vi.js';
+import pagesSettingZhcn from '@/i18n/pages/setting/zh-cn.js';
+import pagesSettingEn from '@/i18n/pages/setting/en.js';
+import pagesSettingZhtw from '@/i18n/pages/setting/zh-tw.js';
+import pagesSettingVi from '@/i18n/pages/setting/vi.js';
 import viExtra from '@/i18n/lang/vi-extra.json';
 // 使用插件
 Vue.use(VueI18n);
@@ -67,6 +71,7 @@ const messages = {
       ...pagesOrderZhcn,
       ...pagesProductZhcn,
       ...pagesCommonZhcn,
+      ...pagesSettingZhcn,
     },
   },
   en: {
@@ -80,6 +85,7 @@ const messages = {
       ...pagesOrderEn,
       ...pagesProductEn,
       ...pagesCommonEn,
+      ...pagesSettingEn,
     },
   },
   'zh-tw': {
@@ -93,6 +99,7 @@ const messages = {
       ...pagesOrderZhtw,
       ...pagesProductZhtw,
       ...pagesCommonZhtw,
+      ...pagesSettingZhtw,
     },
   },
   vi: {
@@ -106,6 +113,7 @@ const messages = {
       ...pagesOrderVi,
       ...pagesProductVi,
       ...pagesCommonVi,
+      ...pagesSettingVi,
       ...viExtra,
     },
   },

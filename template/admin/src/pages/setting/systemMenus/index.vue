@@ -10,11 +10,11 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="按钮名称：" prop="status2" label-for="status2">
-            <el-input clearable v-model="roleData.keyword" placeholder="请输入按钮名称" class="form_content_width" />
+          <el-form-item :label="$t('message.setting.buttonName') + '：'" prop="status2" label-for="status2">
+            <el-input clearable v-model="roleData.keyword" :placeholder="$t('message.setting.pleaseInputButtonName')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="getData">查询</el-button>
+            <el-button type="primary" v-db-click @click="getData">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
           <!-- <el-row >
             <el-col v-bind="grid">
@@ -37,16 +37,16 @@
         :data="tableData"
         row-id="id"
       >
-        <vxe-table-column field="menu_name" tree-node title="按钮名称" min-width="100"></vxe-table-column>
-        <vxe-table-column field="menu_path" title="类型" min-width="240" tooltip="true">
+        <vxe-table-column field="menu_name" tree-node :title="$t('message.setting.buttonName')" min-width="100"></vxe-table-column>
+        <vxe-table-column field="menu_path" :title="$t('message.setting.type')" min-width="240" tooltip="true">
           <template v-slot="{ row }">
-            <span v-if="row.auth_type == 1">菜单：{{ row.menu_path }}</span>
-            <span v-if="row.auth_type == 3">按钮</span>
-            <span v-if="row.auth_type == 2">数据权限</span>
+            <span v-if="row.auth_type == 1">{{ $t('message.setting.menu') }}：{{ row.menu_path }}</span>
+            <span v-if="row.auth_type == 3">{{ $t('message.setting.button') }}</span>
+            <span v-if="row.auth_type == 2">{{ $t('message.setting.dataPermission') }}</span>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="sort" title="排序" width="150"></vxe-table-column>
-        <vxe-table-column field="flag" title="是否显示" width="150">
+        <vxe-table-column field="sort" :title="$t('message.setting.sort')" width="150"></vxe-table-column>
+        <vxe-table-column field="flag" :title="$t('message.setting.isShow')" width="150">
           <template v-slot="{ row }">
             <el-switch
               :active-value="1"
@@ -59,9 +59,9 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="date" title="操作" align="center" width="150" fixed="right">
+        <vxe-table-column field="date" :title="$t('message.setting.operation')" align="center" width="150" fixed="right">
           <template v-slot="{ row }">
-            <a v-db-click @click="edit(row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(row, $t('message.setting.edit'))">{{ $t('message.setting.edit') }}</a>
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -74,23 +74,23 @@
       ref="menusFrom"
       @clearFrom="clearFrom"
     ></menus-from>
-    <el-dialog :visible.sync="ruleModal" width="1100px" title="权限列表" @closed="modalchange">
+    <el-dialog :visible.sync="ruleModal" width="1100px" :title="$t('message.setting.permissionList')" @closed="modalchange">
       <div class="search-rule">
         <el-alert
-          title="基础接口，可多选，并且添加后不会再展示出现；删除权限后才会出现；公共接口，可多选，并且添加后会继续展示；"
+          :title="$t('message.setting.basicInterfaceTip')"
         ></el-alert>
         <el-input
           class="mr10"
           v-model="searchRule"
-          placeholder="输入关键词搜索"
+          :placeholder="$t('message.setting.inputKeywordSearch')"
           clearable
           style="width: 300px"
           ref="search"
           @on-enter="searchRules"
           @on-clear="searchRules"
         />
-        <el-button type="primary" v-db-click @click="searchRules">搜索</el-button>
-        <el-button v-db-click @click="init">重置</el-button>
+        <el-button type="primary" v-db-click @click="searchRules">{{ $t('message.setting.search2') }}</el-button>
+        <el-button v-db-click @click="init">{{ $t('message.setting.reset') }}</el-button>
       </div>
       <div class="route-list">
         <div class="tree">
@@ -115,9 +115,9 @@
             v-db-click
             @click="selectRule(item)"
           >
-            <div>接口名称：{{ item.name }}</div>
-            <div>请求方式：{{ item.method }}</div>
-            <div>接口地址：{{ item.path }}</div>
+            <div>{{ $t('message.setting.interfaceName') }}：{{ item.name }}</div>
+            <div>{{ $t('message.setting.requestMethod') }}：{{ item.method }}</div>
+            <div>{{ $t('message.setting.interfaceAddress') }}：{{ item.path }}</div>
           </div>
         </div>
       </div>
@@ -125,8 +125,8 @@
         <el-tab-pane :label="item.name" :name="'' + index" v-for="(item, index) in foundationList" :key="item"></el-tab-pane>
       </el-tabs> -->
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="ruleModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="addRouters">确 定</el-button>
+        <el-button v-db-click @click="ruleModal = false">{{ $t('message.setting.cancel2') }}</el-button>
+        <el-button type="primary" v-db-click @click="addRouters">{{ $t('message.setting.confirm2') }}</el-button>
       </span>
     </el-dialog>
   </div>

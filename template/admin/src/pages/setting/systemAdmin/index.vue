@@ -10,65 +10,65 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="状态：" label-for="status1">
-            <el-select v-model="status" placeholder="请选择" @change="userSearchs" clearable class="form_content_width">
-              <el-option value="all" label="全部"></el-option>
-              <el-option value="1" label="开启"></el-option>
-              <el-option value="0" label="关闭"></el-option>
+          <el-form-item :label="$t('message.setting.status') + '：'" label-for="status1">
+            <el-select v-model="status" :placeholder="$t('message.setting.pleaseSelect')" @change="userSearchs" clearable class="form_content_width">
+              <el-option value="all" :label="$t('message.setting.all')"></el-option>
+              <el-option value="1" :label="$t('message.setting.open')"></el-option>
+              <el-option value="0" :label="$t('message.setting.close')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：" label-for="status2">
+          <el-form-item :label="$t('message.setting.search') + '：'" label-for="status2">
             <el-input
               clearable
-              placeholder="请输入姓名或者账号"
+              :placeholder="$t('message.setting.pleaseInputNameOrAccount')"
               v-model="formValidate.name"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">添加管理员</el-button>
+      <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">{{ $t('message.setting.addAdmin') }}</el-button>
       <el-table
         :data="list"
         class="mt14"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
         v-loading="loading"
         highlight-current-row
       >
-        <el-table-column label="姓名" width="120">
+        <el-table-column :label="$t('message.setting.name2')" width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.real_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="账号" min-width="130">
+        <el-table-column :label="$t('message.setting.account2')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.account }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="身份" min-width="130">
+        <el-table-column :label="$t('message.setting.identity')" min-width="130">
           <template slot-scope="scope">
             <div v-if="scope.row.roles.length !== 0">
               <el-tag v-for="(item, index) in scope.row.roles.split(',')" :key="index">{{ item }}</el-tag>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="最后一次登录时间" min-width="130">
+        <el-table-column :label="$t('message.setting.lastLoginTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row._last_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最后一次登录ip" min-width="130">
+        <el-table-column :label="$t('message.setting.lastLoginIp')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.last_ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="开启" min-width="70">
+        <el-table-column :label="$t('message.setting.open')" min-width="70">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -78,17 +78,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.setting.open')"
+              :inactive-text="$t('message.setting.close')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.setting.operation')" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除管理员', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deleteAdmin'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

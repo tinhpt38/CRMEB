@@ -20,20 +20,21 @@ export default {
     return {
       links: [
         {
-          title: '官网',
-          key: '官网',
-          href: 'https://www.crmeb.com',
+          title: 'Facebook',
+          key: 'Facebook',
+          href: 'https://www.facebook.com/1.BrianP/',
         },
         {
-          title: '社区',
-          key: '社区',
-          href: 'http://q.crmeb.com',
+          title: 'Zalo',
+          key: 'Zalo',
+          href: 'https://zalo.me/0379080398/',
         },
         {
-          title: '文档',
-          key: '文档',
-          href: 'http://doc.crmeb.com',
-        },
+          title: 'Email',
+          key: 'Email',
+          href: 'mailto:tinhp.wk@gmail.com',
+        }
+
       ],
       copyright: '',
       version: '',

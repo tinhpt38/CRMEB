@@ -10,59 +10,59 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.setting.isShow2') + '：'">
             <el-select
               v-model="levelFrom.is_show"
-              placeholder="请选择"
+              :placeholder="$t('message.setting.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="" label="全部"></el-option>
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="" :label="$t('message.setting.all')"></el-option>
+              <el-option value="1" :label="$t('message.setting.show')"></el-option>
+              <el-option value="0" :label="$t('message.setting.notShow')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：" label-for="keyword">
-            <el-input class="form_content_width" v-model="levelFrom.keyword" placeholder="请输入物流公司名称或者编码" />
+          <el-form-item :label="$t('message.setting.search') + '：'" label-for="keyword">
+            <el-input class="form_content_width" v-model="levelFrom.keyword" :placeholder="$t('message.setting.pleaseInputLogisticsCompanyNameOrCode')" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="syncExpress">同步物流公司</el-button>
+      <el-button type="primary" v-db-click @click="syncExpress">{{ $t('message.setting.syncLogisticsCompany') }}</el-button>
       <el-table
         :data="levelLists"
         ref="table"
         class="mt14"
         v-loading="loading"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="物流公司名称" min-width="100">
+        <el-table-column :label="$t('message.setting.logisticsCompanyName')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="编码" min-width="100">
+        <el-table-column :label="$t('message.setting.code')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="100">
+        <el-table-column :label="$t('message.setting.sort')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="100">
+        <el-table-column :label="$t('message.setting.isShow2')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -75,9 +75,9 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="80">
+        <el-table-column :label="$t('message.setting.operation')" fixed="right" width="80">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
           </template>
         </el-table-column>
       </el-table>
