@@ -3,51 +3,51 @@
     <el-card :bordered="false" shadow="never" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form ref="formValidate" :label-width="labelWidth" label-position="right" inline @submit.native.prevent>
-          <el-form-item label="昵称/ID：">
-            <el-input placeholder="请输入" v-model="formValidate.nickname" clearable class="form_content_width" />
+          <el-form-item :label="$t('message.commission.nicknameOrId')">
+            <el-input :placeholder="$t('message.commission.pleaseInput')" v-model="formValidate.nickname" clearable class="form_content_width" />
           </el-form-item>
-          <el-form-item label="佣金范围：" class="tab_data">
+          <el-form-item :label="$t('message.commission.commissionRange')" class="tab_data">
             <el-input-number :controls="false" :min="0" class="mr10" v-model="formValidate.price_min" />
-            <span class="mr10">一</span>
+            <span class="mr10">{{ $t('message.commission.to') }}</span>
             <el-input-number :controls="false" :min="0" v-model="formValidate.price_max" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.commission.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="mt16">
-      <el-button v-auth="['export-userCommission']" class="export" v-db-click @click="exports">导出</el-button>
+      <el-button v-auth="['export-userCommission']" class="export" v-db-click @click="exports">{{ $t('message.commission.export') }}</el-button>
       <el-table
         ref="table"
         :data="tabList"
         v-loading="loading"
-        empty-text="暂无数据"
+        :empty-text="$t('message.commission.noData')"
         @on-sort-change="sortChanged"
         class="mt14"
       >
-        <el-table-column label="用户信息" min-width="100">
+        <el-table-column :label="$t('message.commission.userInfo')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="总佣金金额" min-width="100">
+        <el-table-column :label="$t('message.commission.totalCommission')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sum_number }}</span>
           </template>
         </el-table-column>
-        <!-- <el-table-column label="账户余额" min-width="100">
+        <!-- <el-table-column :label="$t('message.commission.accountBalance')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.now_money }}</span>
           </template>
         </el-table-column> -->
-        <el-table-column label="账户佣金" min-width="100">
+        <el-table-column :label="$t('message.commission.accountCommission')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.brokerage_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="提现佣金" min-width="100">
+        <el-table-column :label="$t('message.commission.withdrawCommission')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.extract_price }}</span>
           </template>

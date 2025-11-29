@@ -5,24 +5,24 @@
         <el-form ref="artFrom" :model="artFrom" label-width="80px" label-position="right" inline @submit.native.prevent>
           <div class="acea-row search-form">
             <div class="search-form-box">
-              <el-form-item label="商品搜索：" label-for="store_name">
+              <el-form-item :label="$t('message.productList.productSearch')" label-for="store_name">
                 <el-input
                   clearable
-                  placeholder="请输入商品名称/关键字/ID"
+                  :placeholder="$t('message.productList.pleaseInputProductName')"
                   v-model="artFrom.store_name"
                   class="form_content_width"
                 />
               </el-form-item>
-              <el-form-item label="商品类型：">
-                <el-select v-model="artFrom.virtual_type" clearable placeholder="全部" class="form_content_width">
-                  <el-option label="全部" value="" />
-                  <el-option label="普通商品" value="0" />
-                  <el-option label="卡密商品" value="1" />
-                  <el-option label="优惠券商品" value="2" />
-                  <el-option label="虚拟商品" value="3" />
+              <el-form-item :label="$t('message.productList.productType')">
+                <el-select v-model="artFrom.virtual_type" clearable :placeholder="$t('message.productList.all')" class="form_content_width">
+                  <el-option :label="$t('message.productList.all')" value="" />
+                  <el-option :label="$t('message.productList.normalProduct')" value="0" />
+                  <el-option :label="$t('message.productList.cardProduct')" value="1" />
+                  <el-option :label="$t('message.productList.couponProduct')" value="2" />
+                  <el-option :label="$t('message.productList.virtualProduct')" value="3" />
                 </el-select>
               </el-form-item>
-              <el-form-item label="商品分类：" label-for="pid">
+              <el-form-item :label="$t('message.productList.productCategory')" label-for="pid">
                 <el-cascader
                   v-model="artFrom.cate_id"
                   size="small"
@@ -32,15 +32,15 @@
                   class="form_content_width"
                 ></el-cascader>
               </el-form-item>
-              <el-form-item label="配送方式：">
-                <el-select v-model="artFrom.logistics" clearable placeholder="全部" class="form_content_width">
-                  <el-option label="全部" value="" />
-                  <el-option label="快递配送" value="1" />
-                  <el-option label="到店自提" value="2" />
+              <el-form-item :label="$t('message.productList.deliveryMethod')">
+                <el-select v-model="artFrom.logistics" clearable :placeholder="$t('message.productList.all')" class="form_content_width">
+                  <el-option :label="$t('message.productList.all')" value="" />
+                  <el-option :label="$t('message.productList.expressDelivery')" value="1" />
+                  <el-option :label="$t('message.productList.storePickup')" value="2" />
                 </el-select>
               </el-form-item>
               <template v-if="collapse">
-                <el-form-item label="商品标签：" label-for="store_name">
+                <el-form-item :label="$t('message.productList.productLabel')" label-for="store_name">
                   <div class="labelInput acea-row row-between-wrapper form_content_width" @click="openStoreLabel">
                     <div style="width: 90%">
                       <div v-if="storeLabelList.length">
@@ -53,27 +53,27 @@
                           >{{ item.label_name }}</el-tag
                         >
                       </div>
-                      <span class="span" v-else>选择商品标签</span>
+                      <span class="span" v-else>{{ $t('message.productList.selectProductLabel') }}</span>
                     </div>
                     <div class="iconfont iconxiayi"></div>
                   </div>
                 </el-form-item>
-                <el-form-item label="商品规格：">
-                  <el-select v-model="artFrom.spec_type" clearable placeholder="全部" class="form_content_width">
-                    <el-option label="全部" value="" />
-                    <el-option label="单规格" value="0" />
-                    <el-option label="多规格" value="1" />
+                <el-form-item :label="$t('message.productList.productSpec')">
+                  <el-select v-model="artFrom.spec_type" clearable :placeholder="$t('message.productList.all')" class="form_content_width">
+                    <el-option :label="$t('message.productList.all')" value="" />
+                    <el-option :label="$t('message.productList.singleSpec')" value="0" />
+                    <el-option :label="$t('message.productList.multiSpec')" value="1" />
                   </el-select>
                 </el-form-item>
-                <el-form-item label="会员专属：">
-                  <el-select v-model="artFrom.vip_product" clearable placeholder="全部" class="form_content_width">
-                    <el-option label="全部" value="" />
-                    <el-option label="否" value="0" />
-                    <el-option label="是" value="1" />
+                <el-form-item :label="$t('message.productList.vipExclusive')">
+                  <el-select v-model="artFrom.vip_product" clearable :placeholder="$t('message.productList.all')" class="form_content_width">
+                    <el-option :label="$t('message.productList.all')" value="" />
+                    <el-option :label="$t('message.productList.no')" value="0" />
+                    <el-option :label="$t('message.productList.yes')" value="1" />
                   </el-select>
                 </el-form-item>
 
-                <el-form-item label="添加时间：">
+                <el-form-item :label="$t('message.productList.addTime')">
                   <el-date-picker
                     class="form_range_content_width"
                     clearable
@@ -83,8 +83,8 @@
                     @change="onchangeTime"
                     format="yyyy/MM/dd"
                     value-format="yyyy/MM/dd"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
+                    :start-placeholder="$t('message.productList.startDate')"
+                    :end-placeholder="$t('message.productList.endDate')"
                     :picker-options="pickerOptions"
                     style="width: 250px"
                   ></el-date-picker>
@@ -137,8 +137,8 @@
               </template>
             </div>
             <div class="search-form-sub">
-              <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
-              <el-button class="ResetSearch" v-db-click @click="reset">重置</el-button>
+              <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.productList.query') }}</el-button>
+              <el-button class="ResetSearch" v-db-click @click="reset">{{ $t('message.productList.reset') }}</el-button>
               <a class="ivu-ml-8 font12 ml10" v-db-click @click="collapse = !collapse">
                 <template v-if="!collapse"> 展开 <i class="el-icon-arrow-down" /> </template>
                 <template v-else> 收起 <i class="el-icon-arrow-up" /> </template>
@@ -159,43 +159,43 @@
       </el-tabs>
       <div class="Button">
         <router-link v-auth="['product-product-save']" :to="$routeProStr + '/product/add_product'"
-          ><el-button type="primary" class="mr14">添加商品</el-button></router-link
+          ><el-button type="primary" class="mr14">{{ $t('message.productList.addProduct') }}</el-button></router-link
         >
         <el-button v-auth="['product-crawl-save']" type="success" class="mr14" v-db-click @click="onCopy"
-          >商品采集</el-button
+          >{{ $t('message.productList.productCollection') }}</el-button
         >
         <el-dropdown class="bnt mr14" @command="batchSelect">
-          <el-button>批量修改<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <el-button>{{ $t('message.productList.batchModify') }}<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :command="1">商品分类</el-dropdown-item>
-            <el-dropdown-item :command="2">物流设置</el-dropdown-item>
-            <el-dropdown-item :command="3">购买送积分</el-dropdown-item>
-            <el-dropdown-item :command="4">购买送优惠券</el-dropdown-item>
-            <el-dropdown-item :command="5">关联用户标签</el-dropdown-item>
-            <el-dropdown-item :command="6">活动推荐</el-dropdown-item>
+            <el-dropdown-item :command="1">{{ $t('message.productList.productCategory') }}</el-dropdown-item>
+            <el-dropdown-item :command="2">{{ $t('message.productList.logisticsSetting') }}</el-dropdown-item>
+            <el-dropdown-item :command="3">{{ $t('message.productList.buySendPoints') }}</el-dropdown-item>
+            <el-dropdown-item :command="4">{{ $t('message.productList.buySendCoupon') }}</el-dropdown-item>
+            <el-dropdown-item :command="5">{{ $t('message.productList.linkUserLabel') }}</el-dropdown-item>
+            <el-dropdown-item :command="6">{{ $t('message.productList.activityRecommend') }}</el-dropdown-item>
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type === '1'" :command="7"
-              >批量下架</el-dropdown-item
+              >{{ $t('message.productList.batchOffline') }}</el-dropdown-item
             >
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type === '2'" :command="8"
-              >批量上架</el-dropdown-item
+              >{{ $t('message.productList.batchPutaway') }}</el-dropdown-item
             >
-            <el-dropdown-item v-auth="['product-product-product_show']" :command="9">设置商品标签</el-dropdown-item>
+            <el-dropdown-item v-auth="['product-product-product_show']" :command="9">{{ $t('message.productList.setProductLabel') }}</el-dropdown-item>
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type !== '6'" :command="11"
-              >移到回收站</el-dropdown-item
+              >{{ $t('message.productList.moveToRecycle') }}</el-dropdown-item
             >
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type == '6'" :command="12"
-              >恢复商品</el-dropdown-item
+              >{{ $t('message.productList.restore') }}</el-dropdown-item
             >
           </el-dropdown-menu>
         </el-dropdown>
         <el-dropdown class="bnt mr14" @command="goodsMove">
-          <el-button>商品迁移<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <el-button>{{ $t('message.productList.productMigration') }}<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :command="1">商品导入</el-dropdown-item>
-            <el-dropdown-item :command="2">商品导出</el-dropdown-item>
+            <el-dropdown-item :command="1">{{ $t('message.productList.productImport') }}</el-dropdown-item>
+            <el-dropdown-item :command="2">{{ $t('message.productList.productExport') }}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-button v-auth="['export-storeProduct']" class="export" v-db-click @click="onExports(0)">数据导出</el-button>
+        <el-button v-auth="['export-storeProduct']" class="export" v-db-click @click="onExports(0)">{{ $t('message.productList.dataExport') }}</el-button>
       </div>
       <el-table
         ref="table"

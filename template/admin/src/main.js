@@ -91,7 +91,8 @@ Vue.component('Pagination', Pagination);
 Vue.component('pagesHeader', pagesHeader);
 
 // 配置第三方库
-moment.locale('zh-cn');
+// 使用 i18n 的 locale 而不是硬编码
+moment.locale(i18n.locale);
 Vue.prototype.$moment = moment;
 
 VueClipboard.config.copyText = true;

@@ -1,63 +1,63 @@
 <template>
   <div class="order_detail" v-loading="spinShow" v-if="orderDetail.userInfo">
     <div class="msg-box">
-      <div class="box-title">收货信息</div>
+      <div class="box-title">{{ $t('message.orderList.receiveInfo2') }}</div>
       <div class="msg-wrapper">
         <div class="msg-item">
-          <div class="item"><span>用户昵称：</span>{{ orderDetail.userInfo.nickname }}</div>
-          <div class="item"><span>收货人：</span>{{ orderDetail.orderInfo.real_name }}</div>
+          <div class="item"><span>{{ $t('message.orderList.userNickname') }}</span>{{ orderDetail.userInfo.nickname }}</div>
+          <div class="item"><span>{{ $t('message.orderList.receiver') }}</span>{{ orderDetail.orderInfo.real_name }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>联系电话：</span>{{ orderDetail.orderInfo.user_phone }}</div>
-          <div class="item"><span>收货地址：</span>{{ orderDetail.orderInfo.user_address }}</div>
+          <div class="item"><span>{{ $t('message.orderList.contactPhone2') }}</span>{{ orderDetail.orderInfo.user_phone }}</div>
+          <div class="item"><span>{{ $t('message.orderList.receiveAddress') }}</span>{{ orderDetail.orderInfo.user_address }}</div>
         </div>
       </div>
     </div>
     <div class="msg-box" style="border: none">
-      <div class="box-title">订单信息</div>
+      <div class="box-title">{{ $t('message.orderList.orderInfo') }}</div>
       <div class="msg-wrapper">
         <div class="msg-item">
-          <div class="item"><span>订单ID：</span>{{ orderDetail.orderInfo.order_id }}</div>
+          <div class="item"><span>{{ $t('message.orderList.orderId2') }}</span>{{ orderDetail.orderInfo.order_id }}</div>
           <div class="item" style="color: red">
-            <span style="color: red">订单状态：</span>{{ orderDetail.orderInfo._status._title }}
+            <span style="color: red">{{ $t('message.orderList.orderStatus2') }}</span>{{ orderDetail.orderInfo._status._title }}
           </div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>商品总数：</span>{{ orderDetail.orderInfo.total_num }}</div>
+          <div class="item"><span>{{ $t('message.orderList.totalProducts2') }}</span>{{ orderDetail.orderInfo.total_num }}</div>
           <div class="item">
-            <span>商品总价：</span
+            <span>{{ $t('message.orderList.totalPrice2') }}</span
             >{{ parseFloat(orderDetail.orderInfo.total_price) + parseFloat(orderDetail.orderInfo.vip_true_price || 0) }}
           </div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>交付邮费：</span>{{ orderDetail.orderInfo.pay_postage }}</div>
-          <div class="item"><span>优惠券金额：</span>{{ orderDetail.orderInfo.coupon_price }}</div>
+          <div class="item"><span>{{ $t('message.orderList.deliveryFee2') }}</span>{{ orderDetail.orderInfo.pay_postage }}</div>
+          <div class="item"><span>{{ $t('message.orderList.couponAmount2') }}</span>{{ orderDetail.orderInfo.coupon_price }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>会员商品优惠：</span>{{ orderDetail.orderInfo.vip_true_price || 0.0 }}</div>
-          <div class="item"><span>积分抵扣：</span>{{ orderDetail.orderInfo.deduction_price || 0.0 }}</div>
+          <div class="item"><span>{{ $t('message.orderList.memberProductDiscount') }}</span>{{ orderDetail.orderInfo.vip_true_price || 0.0 }}</div>
+          <div class="item"><span>{{ $t('message.orderList.pointsDeduction2') }}</span>{{ orderDetail.orderInfo.deduction_price || 0.0 }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>实际支付：</span>{{ orderDetail.orderInfo.pay_price }}</div>
-          <div class="item"><span>创建时间：</span>{{ orderDetail.orderInfo.add_time }}</div>
+          <div class="item"><span>{{ $t('message.orderList.actualPay2') }}</span>{{ orderDetail.orderInfo.pay_price }}</div>
+          <div class="item"><span>{{ $t('message.orderList.createTime2') }}</span>{{ orderDetail.orderInfo.add_time }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>支付方式：</span>{{ orderDetail.orderInfo._status._payType }}</div>
-          <div class="item"><span>推广人：</span>{{ orderDetail.userInfo.spread_name }}</div>
+          <div class="item"><span>{{ $t('message.orderList.payMethod2') }}</span>{{ orderDetail.orderInfo._status._payType }}</div>
+          <div class="item"><span>{{ $t('message.orderList.promoter2') }}</span>{{ orderDetail.userInfo.spread_name }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>商家备注：</span>{{ orderDetail.orderInfo.mark }}</div>
+          <div class="item"><span>{{ $t('message.orderList.merchantRemark') }}</span>{{ orderDetail.orderInfo.mark }}</div>
         </div>
       </div>
     </div>
     <div class="goods-box">
       <el-table :data="orderList">
-        <el-table-column label="商品ID" width="80">
+        <el-table-column :label="$t('message.orderList.productId')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.productInfo.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品名称" min-width="160">
+        <el-table-column :label="$t('message.orderList.productName2')" min-width="160">
           <template slot-scope="scope">
             <div class="product_info">
               <img :src="scope.row.productInfo.image" alt="" />
@@ -65,17 +65,17 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="商品分类" min-width="160">
+        <el-table-column :label="$t('message.orderList.productCategory')" min-width="160">
           <template slot-scope="scope">
             <div>{{ scope.row.class_name }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="商品售价" min-width="160">
+        <el-table-column :label="$t('message.orderList.productPrice')" min-width="160">
           <template slot-scope="scope">
             <div>{{ scope.row.productInfo.price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="商品数量" min-width="160">
+        <el-table-column :label="$t('message.orderList.productQuantity')" min-width="160">
           <template slot-scope="scope">
             <div>{{ scope.row.cart_num }}</div>
           </template>

@@ -6,47 +6,47 @@
         <div class="left acea-row row-middle">
           <!-- <div class="picture" :id="'qrCodeUrl' + index"></div> -->
           <div class="info">
-            <div><span class="name">收货人：</span>{{ orderData.user_name }}</div>
-            <div><span class="name">收货地址：</span>{{ orderData.user_address }}</div>
+            <div><span class="name">{{ $t('message.orderList.receiver') }}</span>{{ orderData.user_name }}</div>
+            <div><span class="name">{{ $t('message.orderList.receiveAddress') }}</span>{{ orderData.user_address }}</div>
             <div>
-              <span class="name">手机号：</span><span>{{ orderData.user_phone }}</span>
+              <span class="name">{{ $t('message.orderList.phone') }}</span><span>{{ orderData.user_phone }}</span>
             </div>
           </div>
         </div>
         <div class="info">
-          <div><span class="name">订单编号：</span>{{ orderData.order_id }}</div>
-          <div><span class="name">支付时间：</span>{{ orderData.pay_time }}</div>
-          <div><span class="name">支付方式：</span>{{ orderData.pay_type }}</div>
+          <div><span class="name">{{ $t('message.orderList.orderNumber') }}</span>{{ orderData.order_id }}</div>
+          <div><span class="name">{{ $t('message.orderList.payTime') }}</span>{{ orderData.pay_time }}</div>
+          <div><span class="name">{{ $t('message.orderList.payMethod') }}</span>{{ orderData.pay_type }}</div>
         </div>
       </div>
       <div class="mt20">
         <el-table border :data="item" :disabled-hover="true">
-          <el-table-column label="商品编号" width="80" align="center">
+          <el-table-column :label="$t('message.orderList.productNumber')" width="80" align="center">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.index }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="商品名称" width="170">
+          <el-table-column :label="$t('message.orderList.productName')" width="170">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.name }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="商品规格" minWidth="150">
+          <el-table-column :label="$t('message.orderList.productSpec')" minWidth="150">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.sku }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="单价" width="80">
+          <el-table-column :label="$t('message.orderList.unitPrice')" width="80">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.price }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="数量" width="80">
+          <el-table-column :label="$t('message.orderList.quantity')" width="80">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.num }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="金额" width="100">
+          <el-table-column :label="$t('message.orderList.amount')" width="100">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.sum_price }}</span>
             </template>
@@ -55,16 +55,16 @@
       </div>
       <div class="bottom acea-row row-between-wrapper">
         <div class="acea-row row-middle">
-          <div class="item"><span class="name">运费：</span>{{ orderData.pay_postage }}</div>
-          <div class="item"><span class="name">优惠：</span>{{ orderData.coupon_price }}</div>
-          <div class="item"><span class="name">会员折扣：</span>{{ orderData.vip_price }}</div>
-          <div class="item"><span class="name">积分抵扣：</span>{{ orderData.deduction_price }}</div>
+          <div class="item"><span class="name">{{ $t('message.orderList.freight') }}</span>{{ orderData.pay_postage }}</div>
+          <div class="item"><span class="name">{{ $t('message.orderList.discount') }}</span>{{ orderData.coupon_price }}</div>
+          <div class="item"><span class="name">{{ $t('message.orderList.memberDiscount') }}</span>{{ orderData.vip_price }}</div>
+          <div class="item"><span class="name">{{ $t('message.orderList.pointsDeduction') }}</span>{{ orderData.deduction_price }}</div>
         </div>
-        <div class="pricePay">实付金额：{{ orderData.pay_price }}</div>
+        <div class="pricePay">{{ $t('message.orderList.actualPayAmount') }}{{ orderData.pay_price }}</div>
       </div>
       <div class="bottom acea-row">
         <div class="name">
-          用户备注：<span class="con">{{ orderData.mark || '-' }}</span>
+          {{ $t('message.orderList.userRemark') }}<span class="con">{{ orderData.mark || '-' }}</span>
         </div>
       </div>
     </div>

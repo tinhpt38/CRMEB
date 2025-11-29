@@ -15,23 +15,12 @@
         </div>
         <el-form ref="formInline" :model="formInline" :rules="ruleInline" @keyup.enter="handleSubmit('formInline')">
           <el-form-item prop="username">
-            <el-input
-              type="text"
-              v-model="formInline.username"
-              prefix="ios-contact-outline"
-              placeholder="请输入用户名"
-              size="large"
-            />
+            <el-input type="text" v-model="formInline.username" prefix="ios-contact-outline" placeholder="请输入用户名"
+              size="large" />
           </el-form-item>
           <el-form-item prop="password">
-            <el-input
-              type="password"
-              v-model="formInline.password"
-              prefix="ios-lock-outline"
-              placeholder="请输入密码"
-              size="large"
-              show-password
-            />
+            <el-input type="password" v-model="formInline.password" prefix="ios-lock-outline" placeholder="请输入密码"
+              size="large" show-password />
           </el-form-item>
           <!-- <el-form-item prop="code">
             <div class="code">
@@ -46,26 +35,15 @@
             </div>
           </el-form-item> -->
           <el-form-item class="pt10">
-            <el-button
-              type="primary"
-              :loading="loading"
-              size="large"
-              v-db-click
-              @click="handleSubmit('formInline')"
-              class="btn"
-              >登录</el-button
-            >
+            <el-button type="primary" :loading="loading" size="large" v-db-click @click="handleSubmit('formInline')"
+              class="btn">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
     </div>
 
-    <Verify
-      @success="success"
-      captchaType="blockPuzzle"
-      :imgSize="{ width: '330px', height: '155px' }"
-      ref="verify"
-    ></Verify>
+    <Verify @success="success" captchaType="blockPuzzle" :imgSize="{ width: '330px', height: '155px' }" ref="verify">
+    </Verify>
     <div class="footer">
       <div class="pull-right" v-if="copyright">{{ copyright }}</div>
       <div class="pull-right" v-else>
@@ -217,7 +195,7 @@ export default {
               }, 0);
             }
             this.checkSocket();
-          } catch (e) {}
+          } catch (e) { }
           PrevLoading.start();
           this.$router.push({
             path: data.menus.length ? findFirstNonNullChildren(data.menus).path : this.$routeProStr + '/',
@@ -315,27 +293,33 @@ export default {
   height: 100vh;
   overflow: auto;
 }
+
 .page-account .code {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .page-account .code .pictrue {
   height: 40px;
 }
+
 .swiperPross {
   border-radius: 12px 0px 0px 12px;
 }
+
 .swiperPross,
 .swiperPic,
 .swiperPic img {
   width: 510px;
   height: 100%;
 }
+
 .swiperPic img {
   width: 100%;
   height: 100%;
 }
+
 .container {
   height: 400px !important;
   padding: 0 !important;
@@ -343,32 +327,39 @@ export default {
   z-index: 1;
   display: flex;
 }
+
 .containerSamll {
   /* width: 56% !important; */
   background: #fff !important;
 }
+
 .containerBig {
   width: auto !important;
   background: #f7f7f7 !important;
 }
+
 .index_from {
   padding: 32px 40px 32px 40px;
   height: 400px;
   box-sizing: border-box;
 }
+
 .page-account-top {
   padding: 20px 0 24px 0 !important;
   box-sizing: border-box !important;
   display: flex;
   justify-content: center;
 }
+
 .page-account-container {
   border-radius: 0px 6px 6px 0px;
 }
+
 .btn {
   width: 100%;
   background: linear-gradient(90deg, rgba(25, 180, 241, 1) 0%, rgba(14, 115, 232, 1) 100%) !important;
 }
+
 .captchaBox {
   width: 310px;
 }
@@ -399,29 +390,37 @@ a:active {
   margin-left: 100px;
   color: #0366d6;
 }
+
 .index_from ::v-deep .ivu-input-large {
   font-size: 14px !important;
 }
+
 .from-wh {
   width: 400px;
 }
+
 .pull-right {
   float: right !important;
 }
+
 ::v-deep .el-button--primary {
   border: none;
 }
+
 ::v-deep .el-button {
   padding: 13px 20px !important;
 }
+
 .pull-right {
   float: right !important;
   color: #666;
 }
+
 .pull-right a {
   margin-left: 0;
   color: #666;
 }
+
 .footer {
   position: fixed;
   bottom: 0;

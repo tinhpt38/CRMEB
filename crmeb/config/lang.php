@@ -19,7 +19,7 @@ return [
     // 默认语言
     'default_lang' => Env::get('lang.default_lang', 'en-us'),
     // 允许的语言列表
-    'allow_lang_list' => ['zh-cn', 'en-us'],
+    'allow_lang_list' => ['zh-cn', 'en-us', 'vi'],
     // 多语言自动侦测变量名
     'detect_var' => 'lang',
     // 是否使用Cookie记录
@@ -30,11 +30,13 @@ return [
     'extend_list' => [
         'zh_cn' => app()->getBasePath() . 'lang/zh_cn.php',
         'en_us' => app()->getBasePath() . 'lang/en_us.php',
+        'vi' => app()->getBasePath() . 'lang/vi.php',
     ],
     // Accept-Language转义为对应语言包名称
     'accept_language' => [
         'zh-hans-cn' => 'zh_cn',
         'en-hans-us' => 'en_us',
+        'vi-vn' => 'vi',
     ],
     // 是否支持语言分组
     'allow_group' => true,

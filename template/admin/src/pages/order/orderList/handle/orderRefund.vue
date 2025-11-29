@@ -1,103 +1,103 @@
 <template>
-  <el-dialog
-    :visible.sync="modals"
-    title="订单退款"
-    class="order_box"
-    :show-close="true"
-    width="1000px"
-    @closed="changeModal"
-  >
-    <el-form
-      v-if="modals"
-      ref="formItem"
-      :rules="ruleValidate"
-      :model="formItem"
-      label-width="100px"
-      @submit.native.prevent
+    <el-dialog
+      :visible.sync="modals"
+      :title="$t('message.orderList.orderRefund')"
+      class="order_box"
+      :show-close="true"
+      width="1000px"
+      @closed="changeModal"
     >
-      <el-form-item label="订单号：">
-        <el-input v-model="order_id" disabled placeholder="请输入订单号" style="width: 60%"></el-input>
-      </el-form-item>
-      <el-form-item label="退款金额：">
-        <el-input-number
-          v-model="formItem.refund_price"
-          placeholder="请输入退款金额"
-          style="width: 60%"
-        ></el-input-number>
-      </el-form-item>
-      <div v-if="total_num > 1">
-        <el-form-item label="分单退款：">
-          <el-switch
-            :active-value="1"
-            :inactive-value="0"
-            size="large"
-            v-model="splitSwitch"
-            :disabled="orderStatus === 8 || orderStatus === 11"
-            @change="changeSplitStatus"
-          >
-            <span slot="open">开启</span>
-            <span slot="close">关闭</span>
-          </el-switch>
-          <div class="trips">
-            <p>可选择表格中的商品单独退款，请谨慎操作！</p>
-          </div>
-          <el-table
-            v-if="splitSwitch && manyFormValidate.length"
-            ref="table"
-            :data="manyFormValidate"
-            @selection-change="selectOne"
-          >
-            <el-table-column type="selection" width="55"> </el-table-column>
-            <el-table-column label="商品信息" width="200">
-              <template slot-scope="scope">
-                <div class="product-data">
-                  <img class="image" :src="scope.row.cart_info.productInfo.image" />
-                  <div class="line2">
-                    {{ scope.row.cart_info.productInfo.store_name }}
-                  </div>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="规格" min-width="120">
-              <template slot-scope="scope">
-                <div>{{ scope.row.cart_info.productInfo.attrInfo.suk }}</div>
-              </template>
-            </el-table-column>
-            <el-table-column label="价格" min-width="120">
-              <template slot-scope="scope">
-                <div class="product-data">
-                  <div>{{ scope.row.cart_info.truePrice }}</div>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="总数" min-width="120">
-              <template slot-scope="scope">
-                <div>{{ scope.row.cart_num }}</div>
-              </template>
-            </el-table-column>
-            <el-table-column label="退款数量" width="180">
-              <template slot-scope="scope">
-                <el-input-number
-                  v-model="scope.row.num"
-                  :controls="false"
-                  :min="1"
-                  :max="scope.row.cart_num"
-                  @change="
-                    (e) => {
-                      handleChange(e, scope.row, scope.$index);
-                    }
-                  "
-                ></el-input-number>
-              </template>
-            </el-table-column>
-          </el-table>
+      <el-form
+        v-if="modals"
+        ref="formItem"
+        :rules="ruleValidate"
+        :model="formItem"
+        label-width="100px"
+        @submit.native.prevent
+      >
+        <el-form-item :label="$t('message.orderList.orderNumber')">
+          <el-input v-model="order_id" disabled :placeholder="$t('message.orderList.pleaseInputOrderNumber')" style="width: 60%"></el-input>
         </el-form-item>
+        <el-form-item :label="$t('message.orderList.refundAmount')">
+          <el-input-number
+            v-model="formItem.refund_price"
+            :placeholder="$t('message.orderList.pleaseInputRefundAmount')"
+            style="width: 60%"
+          ></el-input-number>
+        </el-form-item>
+        <div v-if="total_num > 1">
+          <el-form-item :label="$t('message.orderList.splitRefund')">
+            <el-switch
+              :active-value="1"
+              :inactive-value="0"
+              size="large"
+              v-model="splitSwitch"
+              :disabled="orderStatus === 8 || orderStatus === 11"
+              @change="changeSplitStatus"
+            >
+              <span slot="open">{{ $t('message.orderList.open') }}</span>
+              <span slot="close">{{ $t('message.orderList.close') }}</span>
+            </el-switch>
+            <div class="trips">
+              <p>{{ $t('message.orderList.splitRefundTip') }}</p>
+            </div>
+            <el-table
+              v-if="splitSwitch && manyFormValidate.length"
+              ref="table"
+              :data="manyFormValidate"
+              @selection-change="selectOne"
+            >
+              <el-table-column type="selection" width="55"> </el-table-column>
+              <el-table-column :label="$t('message.orderList.productInfo')" width="200">
+                <template slot-scope="scope">
+                  <div class="product-data">
+                    <img class="image" :src="scope.row.cart_info.productInfo.image" />
+                    <div class="line2">
+                      {{ scope.row.cart_info.productInfo.store_name }}
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('message.orderList.spec')" min-width="120">
+                <template slot-scope="scope">
+                  <div>{{ scope.row.cart_info.productInfo.attrInfo.suk }}</div>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('message.orderList.price')" min-width="120">
+                <template slot-scope="scope">
+                  <div class="product-data">
+                    <div>{{ scope.row.cart_info.truePrice }}</div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('message.orderList.total')" min-width="120">
+                <template slot-scope="scope">
+                  <div>{{ scope.row.cart_num }}</div>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('message.orderList.refundQuantity')" width="180">
+                <template slot-scope="scope">
+                  <el-input-number
+                    v-model="scope.row.num"
+                    :controls="false"
+                    :min="1"
+                    :max="scope.row.cart_num"
+                    @change="
+                      (e) => {
+                        handleChange(e, scope.row, scope.$index);
+                      }
+                    "
+                  ></el-input-number>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-form-item>
+        </div>
+      </el-form>
+      <div slot="footer">
+        <el-button v-db-click @click="cancel">{{ $t('message.orderList.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="putSend">{{ $t('message.orderList.submit') }}</el-button>
       </div>
-    </el-form>
-    <div slot="footer">
-      <el-button v-db-click @click="cancel">取消</el-button>
-      <el-button type="primary" v-db-click @click="putSend">提交</el-button>
-    </div>
     <!-- <viewer @inited="inited">
             <img :src="temp.pic" style="display:none" />
         </viewer> -->
@@ -152,7 +152,7 @@ export default {
       manyFormValidate: [],
       selectData: [],
       sendPrice: 0,
-      ruleValidate: { sh_delivery: [{ required: true, message: '请输入送货人', trigger: 'change' }] },
+      ruleValidate: { sh_delivery: [{ required: true, message: this.$t('message.orderList.pleaseInputDeliveryPerson'), trigger: 'change' }] },
       deliveryErrorMsg: '',
       isLoading: true,
       userSendmsg: {},
@@ -218,7 +218,7 @@ export default {
         });
       }
       if (!splitNumStatus) {
-        return this.$message.error('请选择退款数量');
+        return this.$message.error(this.$t('message.orderList.pleaseSelectRefundQuantity'));
       }
       refundPrice(this.orderId, this.formItem)
         .then((res) => {

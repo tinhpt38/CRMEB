@@ -5,22 +5,13 @@
     </div>
     <el-popover ref="searchPopover" placement="bottom" title="" width="325" trigger="click">
       <Search ref="searchRef" @close="closePopover" />
-      <i
-        class="el-icon-search layout-navbars-breadcrumb-user-icon"
-        slot="reference"
-        :title="$t('message.user.title2')"
-      ></i>
+      <i class="el-icon-search layout-navbars-breadcrumb-user-icon" slot="reference"
+        :title="$t('message.user.title2')"></i>
     </el-popover>
 
     <div class="layout-navbars-breadcrumb-user-icon">
-      <el-tooltip
-        effect="light"
-        placement="bottom"
-        trigger="click"
-        v-model="isShowUserNewsPopover"
-        :width="300"
-        popper-class="el-tooltip-pupop-user-news"
-      >
+      <el-tooltip effect="light" placement="bottom" trigger="click" v-model="isShowUserNewsPopover" :width="300"
+        popper-class="el-tooltip-pupop-user-news">
         <el-badge :is-dot="isDot" v-db-click @click.stop="openNews">
           <i class="el-icon-bell" :title="$t('message.user.title4')"></i>
         </el-badge>
@@ -30,16 +21,11 @@
       </el-tooltip>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon" v-db-click @click="onScreenfullClick">
-      <i
-        :title="isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
-        :class="!isScreenfull ? 'el-icon-full-screen' : 'el-icon-crop'"
-      ></i>
+      <i :title="isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
+        :class="!isScreenfull ? 'el-icon-full-screen' : 'el-icon-crop'"></i>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon mr10" v-db-click @click="openMobelPage">
-      <i
-        title="商城页面"
-        class="el-icon-mobile-phone"
-      ></i>
+      <i title="商城页面" class="el-icon-mobile-phone"></i>
     </div>
     <el-dropdown :show-timeout="70" @command="onDropdownCommand">
       <span class="layout-navbars-breadcrumb-user-link">
@@ -109,7 +95,7 @@ export default {
     initIsDot(status) {
       this.isDot = status;
     },
-    openMobelPage(){
+    openMobelPage() {
       // 获取域名
       window.open(window.location.origin, '_blank')
     },
@@ -177,6 +163,9 @@ export default {
         case 'zh-tw':
           this.disabledI18n = 'zh-tw';
           break;
+        case 'vi':
+          this.disabledI18n = 'vi';
+          break;
       }
     },
     // 初始化全局组件大小
@@ -238,7 +227,7 @@ export default {
               // 使用 reload 时，不需要调用 resetRoute() 重置路由
               window.location.reload();
             })
-            .catch(() => {});
+            .catch(() => { });
         }, 150);
       } else if (path === 'user') {
         this.$router.push({ name: 'systemUser' });
@@ -255,20 +244,24 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   .el-icon-bell {
     color: var(--prev-bg-topBarColor);
   }
+
   &-link {
     height: 100%;
     display: flex;
     align-items: center;
     white-space: nowrap;
+
     &-photo {
       width: 30px;
       height: 30px;
       border-radius: 100%;
     }
   }
+
   &-icon {
     padding: 0 10px;
     cursor: pointer;
@@ -277,24 +270,29 @@ export default {
     line-height: 50px;
     display: flex;
     align-items: center;
+
     &:hover {
       background: var(--prev-color-hover);
+
       i {
         display: inline-block;
         animation: logoAnimation 0.3s ease-in-out;
       }
     }
   }
+
   & ::v-deep .el-dropdown {
     color: var(--prev-bg-topBarColor);
     cursor: pointer;
   }
+
   & ::v-deep .el-badge {
     height: 40px;
     line-height: 40px;
     display: flex;
     align-items: center;
   }
+
   & ::v-deep .el-badge__content.is-fixed {
     top: 12px;
   }

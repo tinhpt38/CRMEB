@@ -10,20 +10,20 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="退款状态：">
+          <el-form-item :label="$t('message.orderList.refundStatus')">
             <el-select
               v-model="pagination.refund_type"
               clearable
               class="form_content_width"
               @change="selectChange2"
-              placeholder="全部"
+              :placeholder="$t('message.orderList.all')"
             >
               <el-option v-for="(item, index) in num" :value="index" :key="index" :label="item.name">{{
                 item.name
               }}</el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="退款时间：">
+          <el-form-item :label="$t('message.orderList.refundTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -32,18 +32,18 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.orderList.startDate')"
+              :end-placeholder="$t('message.orderList.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="订单搜索：" label-for="title">
-            <el-input clearable v-model="pagination.order_id" placeholder="请输入订单号" class="form_content_width" />
+          <el-form-item :label="$t('message.orderList.orderSearch')" label-for="title">
+            <el-input clearable v-model="pagination.order_id" :placeholder="$t('message.orderList.pleaseInputOrderNumber')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="orderSearch">查询</el-button>
+            <el-button type="primary" v-db-click @click="orderSearch">{{ $t('message.orderList.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -54,10 +54,10 @@
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.orderList.noData')"
+        :no-filtered-userFrom-text="$t('message.orderList.noFilteredResult')"
       >
-        <el-table-column label="退款订单号" min-width="150">
+        <el-table-column :label="$t('message.orderList.refundOrderNumber')" min-width="150">
           <template slot-scope="scope">
             <span
               class="cup hover-pimary"
@@ -65,10 +65,10 @@
               style="display: block"
               @click="changeMenu(scope.row, '2')"
             ></span>
-            <span v-if="scope.row.is_del === 1" style="color: #ed4014; display: block">用户已删除</span>
+            <span v-if="scope.row.is_del === 1" style="color: #ed4014; display: block">{{ $t('message.orderList.userDeleted') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="原订单号" min-width="150">
+        <el-table-column :label="$t('message.orderList.originalOrderNumber')" min-width="150">
           <template slot-scope="scope">
             <span
               class="cup hover-pimary"
@@ -78,7 +78,7 @@
             ></span>
           </template>
         </el-table-column>
-        <el-table-column label="商品信息" min-width="250">
+        <el-table-column :label="$t('message.orderList.productInfo')" min-width="250">
           <template slot-scope="scope">
             <div class="tab" v-for="(item, i) in scope.row._info" :key="i">
               <img
@@ -91,21 +91,21 @@
               <el-tooltip placement="top" :open-delay="300">
                 <div slot="content">
                   <div>
-                    <span>商品名称：</span>
+                    <span>{{ $t('message.orderList.productName') }}</span>
                     <span>{{ item.cart_info.productInfo.store_name || '--' }}</span>
                   </div>
                   <div>
-                    <span>规格名称：</span>
+                    <span>{{ $t('message.orderList.specName') }}</span>
                     <span>{{
                       item.cart_info.productInfo.attrInfo ? item.cart_info.productInfo.attrInfo.suk : '---'
                     }}</span>
                   </div>
                   <div>
-                    <span>价格：</span>
+                    <span>{{ $t('message.orderList.price') }}</span>
                     <span>¥{{ item.cart_info.truePrice || '--' }}</span>
                   </div>
                   <div>
-                    <span>数量：</span>
+                    <span>{{ $t('message.orderList.quantity') }}</span>
                     <span>{{ item.cart_info.cart_num || '--' }}</span>
                   </div>
                 </div>
@@ -114,43 +114,43 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="用户信息" min-width="100">
+        <el-table-column :label="$t('message.orderList.userInfo')" min-width="100">
           <template slot-scope="scope">
             <span class="cup hover-pimary" @click="userDetail(scope.row, '2')">{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="实际支付" min-width="70">
+        <el-table-column :label="$t('message.orderList.actualPay')" min-width="70">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="发起退款时间" min-width="120">
+        <el-table-column :label="$t('message.orderList.refundTime2')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="退款状态" min-width="100">
+        <el-table-column :label="$t('message.orderList.refundStatus2')" min-width="100">
           <template slot-scope="scope">
-            <div v-if="scope.row.refund_type == 1">仅退款</div>
-            <div v-else-if="scope.row.refund_type == 2">退货退款</div>
+            <div v-if="scope.row.refund_type == 1">{{ $t('message.orderList.refundOnly') }}</div>
+            <div v-else-if="scope.row.refund_type == 2">{{ $t('message.orderList.returnRefund') }}</div>
             <div v-else-if="scope.row.refund_type == 3">
-              <div>拒绝退款</div>
-              <div class="c-red">原因：{{ scope.row.refuse_reason }}</div>
+              <div>{{ $t('message.orderList.refuseRefund') }}</div>
+              <div class="c-red">{{ $t('message.orderList.refundReason2') }}{{ scope.row.refuse_reason }}</div>
             </div>
-            <div v-else-if="scope.row.refund_type == 4">商品待退货</div>
+            <div v-else-if="scope.row.refund_type == 4">{{ $t('message.orderList.productPendingReturn') }}</div>
             <div v-else-if="scope.row.refund_type == 5">
-              <div>退货待收货</div>
-              <div>单号：{{ scope.row.refund_express }}</div>
+              <div>{{ $t('message.orderList.returnPendingReceive') }}</div>
+              <div>{{ $t('message.orderList.trackingNumber') }}{{ scope.row.refund_express }}</div>
             </div>
-            <div v-else-if="scope.row.refund_type == 6">已退款</div>
+            <div v-else-if="scope.row.refund_type == 6">{{ $t('message.orderList.refunded') }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="订单状态" min-width="120">
+        <el-table-column :label="$t('message.orderList.orderStatus')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.store_order_status }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="退款信息" min-width="120">
+        <el-table-column :label="$t('message.orderList.refundInfo')" min-width="120">
           <template slot-scope="scope">
             <div v-html="scope.row.refund_reason" class="pt5"></div>
             <div class="pictrue-box" v-if="scope.row.refund_img.length">
@@ -160,18 +160,18 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="80">
+        <el-table-column fixed="right" :label="$t('message.orderList.operation')" width="80">
           <template slot-scope="scope">
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)">
-              <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">{{ $t('message.orderList.more') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   command="1"
                   ref="ones"
                   v-show="scope.row._status === 1 && scope.row.paid === 0 && scope.row.pay_type === 'offline'"
-                  >立即支付</el-dropdown-item
+                  >{{ $t('message.orderList.immediatePay') }}</el-dropdown-item
                 >
-                <el-dropdown-item command="2">订单详情</el-dropdown-item>
+                <el-dropdown-item command="2">{{ $t('message.orderList.orderDetails') }}</el-dropdown-item>
                 <el-dropdown-item
                   command="4"
                   v-show="
@@ -180,7 +180,7 @@
                       scope.row.use_integral > 0 &&
                       scope.row.use_integral >= scope.row.back_integral)
                   "
-                  >售后备注</el-dropdown-item
+                  >{{ $t('message.orderList.afterSaleRemark') }}</el-dropdown-item
                 >
                 <el-dropdown-item
                   command="5"
@@ -188,14 +188,14 @@
                     [1, 2, 5].includes(scope.row.refund_type) &&
                     (parseFloat(scope.row.pay_price) > parseFloat(scope.row.refunded_price) || scope.row.pay_price == 0)
                   "
-                  >{{ scope.row.refund_type == 2 ? '同意退货' : '立即退款' }}</el-dropdown-item
+                  >{{ scope.row.refund_type == 2 ? $t('message.orderList.agreeReturn') : $t('message.orderList.immediateRefund') }}</el-dropdown-item
                 >
                 <el-dropdown-item
                   command="7"
                   v-show="[1, 2].includes(scope.row.refund_type) && scope.row.is_pink_cancel === 0"
-                  >不退款</el-dropdown-item
+                  >{{ $t('message.orderList.noRefund') }}</el-dropdown-item
                 >
-                <el-dropdown-item command="8" v-show="scope.row.is_del == 1">删除订单</el-dropdown-item>
+                <el-dropdown-item command="8" v-show="scope.row.is_del == 1">{{ $t('message.orderList.deleteOrder') }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -308,7 +308,7 @@ export default {
       switch (name) {
         case '1':
           this.delfromData = {
-            title: '修改立即支付',
+            title: this.$t('message.orderList.modifyImmediatePay'),
             url: `/order/pay_offline/${row.id}`,
             method: 'post',
             ids: '',
@@ -344,7 +344,7 @@ export default {
           break;
         case '8':
           this.delfromData = {
-            title: '删除订单',
+            title: this.$t('message.orderList.deleteOrder'),
             url: `/order/del/${row.store_order_id}`,
             method: 'DELETE',
             ids: '',
@@ -353,8 +353,8 @@ export default {
           break;
         case '10':
           this.delfromData = {
-            title: '立即打印订单',
-            info: '您确认打印此订单吗?',
+            title: this.$t('message.orderList.printOrder'),
+            info: this.$t('message.orderList.printOrderConfirm'),
             url: `/order/print/${row.id}`,
             method: 'get',
             ids: '',
@@ -371,8 +371,8 @@ export default {
           break;
         case '11':
           this.delfromData = {
-            title: '立即打印电子面单',
-            info: '您确认打印此电子面单吗?',
+            title: this.$t('message.orderList.printElectronic'),
+            info: this.$t('message.orderList.printElectronicConfirm'),
             url: `/order/order_dump/${row.id}`,
             method: 'get',
             ids: '',
@@ -388,7 +388,7 @@ export default {
           break;
         default:
           this.delfromData = {
-            title: '删除订单',
+            title: this.$t('message.orderList.deleteOrder'),
             url: `/order/del/${row.id}`,
             method: 'DELETE',
             ids: '',
@@ -401,7 +401,7 @@ export default {
     getRefundData(id, refund_type) {
       if (refund_type == 2) {
         this.delfromData = {
-          title: '同意退货退款',
+          title: this.$t('message.orderList.agreeReturnRefund'),
           url: `/refund/agree/${id}`,
           method: 'get',
         };
@@ -469,7 +469,7 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$message.error('您选择的的订单存在用户未删除的订单，无法删除用户未删除的订单！');
+        this.$message.error(this.$t('message.orderList.cannotDelete'));
       }
     },
     // 修改成功

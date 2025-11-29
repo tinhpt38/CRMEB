@@ -1,18 +1,18 @@
 <template>
-  <el-drawer :visible.sync="modals" title="订单记录" :wrapperClosable="false" :size="700">
+  <el-drawer :visible.sync="modals" :title="$t('message.orderList.orderRecord')" :wrapperClosable="false" :size="700">
     <el-card :bordered="false" shadow="never">
-      <el-table :data="recordData" v-loading="loading" empty-text="暂无数据" highlight-current-row>
-        <el-table-column label="订单ID" min-width="100">
+      <el-table :data="recordData" v-loading="loading" :empty-text="$t('message.orderList.noData')" highlight-current-row>
+        <el-table-column :label="$t('message.orderList.orderId')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.oid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作记录" min-width="100">
+        <el-table-column :label="$t('message.orderList.operationRecord')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.change_message }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作时间" min-width="100">
+        <el-table-column :label="$t('message.orderList.operationTime')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.change_time }}</span>
           </template>

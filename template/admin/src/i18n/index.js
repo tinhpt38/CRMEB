@@ -25,6 +25,26 @@ import pagesLoginZhcn from '@/i18n/pages/login/zh-cn.js';
 import pagesLoginEn from '@/i18n/pages/login/en.js';
 import pagesLoginZhtw from '@/i18n/pages/login/zh-tw.js';
 import pagesLoginVi from '@/i18n/pages/login/vi.js';
+import pagesSystemZhcn from '@/i18n/pages/system/zh-cn.js';
+import pagesSystemEn from '@/i18n/pages/system/en.js';
+import pagesSystemZhtw from '@/i18n/pages/system/zh-tw.js';
+import pagesSystemVi from '@/i18n/pages/system/vi.js';
+import pagesFinanceZhcn from '@/i18n/pages/finance/zh-cn.js';
+import pagesFinanceEn from '@/i18n/pages/finance/en.js';
+import pagesFinanceZhtw from '@/i18n/pages/finance/zh-tw.js';
+import pagesFinanceVi from '@/i18n/pages/finance/vi.js';
+import pagesOrderZhcn from '@/i18n/pages/order/zh-cn.js';
+import pagesOrderEn from '@/i18n/pages/order/en.js';
+import pagesOrderZhtw from '@/i18n/pages/order/zh-tw.js';
+import pagesOrderVi from '@/i18n/pages/order/vi.js';
+import pagesProductZhcn from '@/i18n/pages/product/zh-cn.js';
+import pagesProductEn from '@/i18n/pages/product/en.js';
+import pagesProductZhtw from '@/i18n/pages/product/zh-tw.js';
+import pagesProductVi from '@/i18n/pages/product/vi.js';
+import pagesCommonZhcn from '@/i18n/pages/common/zh-cn.js';
+import pagesCommonEn from '@/i18n/pages/common/en.js';
+import pagesCommonZhtw from '@/i18n/pages/common/zh-tw.js';
+import pagesCommonVi from '@/i18n/pages/common/vi.js';
 // 使用插件
 Vue.use(VueI18n);
 
@@ -41,6 +61,11 @@ const messages = {
       ...nextZhcn,
       ...pagesHomeZhcn,
       ...pagesLoginZhcn,
+      ...pagesSystemZhcn,
+      ...pagesFinanceZhcn,
+      ...pagesOrderZhcn,
+      ...pagesProductZhcn,
+      ...pagesCommonZhcn,
     },
   },
   en: {
@@ -49,6 +74,11 @@ const messages = {
       ...nextEn,
       ...pagesHomeEn,
       ...pagesLoginEn,
+      ...pagesSystemEn,
+      ...pagesFinanceEn,
+      ...pagesOrderEn,
+      ...pagesProductEn,
+      ...pagesCommonEn,
     },
   },
   'zh-tw': {
@@ -57,6 +87,11 @@ const messages = {
       ...nextZhtw,
       ...pagesHomeZhtw,
       ...pagesLoginZhtw,
+      ...pagesSystemZhtw,
+      ...pagesFinanceZhtw,
+      ...pagesOrderZhtw,
+      ...pagesProductZhtw,
+      ...pagesCommonZhtw,
     },
   },
   vi: {
@@ -65,6 +100,12 @@ const messages = {
       ...nextVi,
       ...pagesHomeVi,
       ...pagesLoginVi,
+      ...pagesSystemVi,
+      ...pagesFinanceVi,
+      ...pagesOrderVi,
+      ...pagesProductVi,
+      ...pagesCommonVi,
+      ...viExtra,
     },
   },
 };

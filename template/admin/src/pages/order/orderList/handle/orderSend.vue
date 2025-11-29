@@ -1,91 +1,91 @@
 <template>
-  <el-dialog
-    :visible.sync="modals"
-    title="订单发送货"
-    class="order_box"
-    :show-close="true"
-    width="1000px"
-    @closed="changeModal"
-  >
-    <el-alert class="mb10" type="warning" :closable="false">
-      <template slot="title">
-        <p>用户姓名：{{ userSendmsg.real_name }}</p>
-        <p>用户电话：{{ userSendmsg.user_phone }}</p>
-        <p>用户地址：{{ userSendmsg.user_address }}</p>
-      </template>
-    </el-alert>
-    <el-form
-      v-if="modals"
-      ref="formItem"
-      :rules="ruleValidate"
-      :model="formItem"
-      label-width="100px"
-      @submit.native.prevent
-      v-loading="isLoading"
+    <el-dialog
+      :visible.sync="modals"
+      :title="$t('message.orderList.orderSendGoods')"
+      class="order_box"
+      :show-close="true"
+      width="1000px"
+      @closed="changeModal"
     >
-      <el-form-item label="选择类型：">
-        <el-radio-group v-model="formItem.type" @input="changeRadio">
-          <el-radio label="1" v-if="virtual_type !== 3">发货</el-radio>
-          <el-radio label="2" v-if="virtual_type !== 3">送货</el-radio>
-          <el-radio label="3">无需配送</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item v-if="formItem.type == 1" label="发货类型：">
-        <el-radio-group v-model="formItem.express_record_type" @input="changeExpress">
-          <el-radio label="1">录入单号</el-radio>
-          <el-radio label="2" v-show="export_open">电子面单打印</el-radio>
-          <el-radio label="3">商家寄件</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <template v-if="['2', '3'].includes(formItem.express_record_type) && formItem.type == 1">
-        <el-form-item label="寄件人姓名：">
-          <el-input v-model="formItem.to_name" placeholder="请输入寄件人姓名" style="width: 60%"></el-input>
+      <el-alert class="mb10" type="warning" :closable="false">
+        <template slot="title">
+          <p>{{ $t('message.orderList.userName') }}{{ userSendmsg.real_name }}</p>
+          <p>{{ $t('message.orderList.userPhone') }}{{ userSendmsg.user_phone }}</p>
+          <p>{{ $t('message.orderList.userAddress') }}{{ userSendmsg.user_address }}</p>
+        </template>
+      </el-alert>
+      <el-form
+        v-if="modals"
+        ref="formItem"
+        :rules="ruleValidate"
+        :model="formItem"
+        label-width="100px"
+        @submit.native.prevent
+        v-loading="isLoading"
+      >
+        <el-form-item :label="$t('message.orderList.selectType')">
+          <el-radio-group v-model="formItem.type" @input="changeRadio">
+            <el-radio label="1" v-if="virtual_type !== 3">{{ $t('message.orderList.sendGoods') }}</el-radio>
+            <el-radio label="2" v-if="virtual_type !== 3">{{ $t('message.orderList.delivery') }}</el-radio>
+            <el-radio label="3">{{ $t('message.orderList.noDelivery') }}</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="寄件人电话：">
-          <el-input v-model="formItem.to_tel" placeholder="请输入寄件人电话" style="width: 60%"></el-input>
+        <el-form-item v-if="formItem.type == 1" :label="$t('message.orderList.sendType')">
+          <el-radio-group v-model="formItem.express_record_type" @input="changeExpress">
+            <el-radio label="1">{{ $t('message.orderList.inputNumber') }}</el-radio>
+            <el-radio label="2" v-show="export_open">{{ $t('message.orderList.electronicPrint') }}</el-radio>
+            <el-radio label="3">{{ $t('message.orderList.merchantSend') }}</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="寄件人地址：">
-          <el-input
-            v-model="formItem.to_addr"
-            placeholder="请输入寄件人地址"
-            style="width: 60%"
-            @blur="watchPrice"
-          ></el-input>
-        </el-form-item>
-      </template>
-      <div>
-        <el-form-item label="快递公司：" v-if="formItem.type == 1">
-          <div class="from-box">
-            <el-select
-              v-model="formItem.delivery_name"
-              filterable
-              placeholder="请选择快递公司"
+        <template v-if="['2', '3'].includes(formItem.express_record_type) && formItem.type == 1">
+          <el-form-item :label="$t('message.orderList.senderName')">
+            <el-input v-model="formItem.to_name" :placeholder="$t('message.orderList.pleaseInputSenderName')" style="width: 60%"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('message.orderList.senderPhone')">
+            <el-input v-model="formItem.to_tel" :placeholder="$t('message.orderList.pleaseInputSenderPhone')" style="width: 60%"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('message.orderList.senderAddress')">
+            <el-input
+              v-model="formItem.to_addr"
+              :placeholder="$t('message.orderList.pleaseInputSenderAddress')"
               style="width: 60%"
-              @change="expressChange"
-            >
-              <el-option
-                v-for="item in formItem.express_record_type == 3 ? kuaidiExpress : express"
-                :value="item.value"
-                :key="item.value"
-                >{{ item.value }}</el-option
+              @blur="watchPrice"
+            ></el-input>
+          </el-form-item>
+        </template>
+        <div>
+          <el-form-item :label="$t('message.orderList.expressCompany')" v-if="formItem.type == 1">
+            <div class="from-box">
+              <el-select
+                v-model="formItem.delivery_name"
+                filterable
+                :placeholder="$t('message.orderList.pleaseSelectExpress')"
+                style="width: 60%"
+                @change="expressChange"
               >
-            </el-select>
-            <div class="trip">{{ deliveryErrorMsg }}</div>
-          </div>
-        </el-form-item>
-        <el-form-item label="快递业务类型：" v-if="formItem.type == 1 && formItem.express_record_type == 3">
-          <el-select
-            v-model="formItem.service_type"
-            filterable
-            placeholder="请选择业务类型"
+                <el-option
+                  v-for="item in formItem.express_record_type == 3 ? kuaidiExpress : express"
+                  :value="item.value"
+                  :key="item.value"
+                  >{{ item.value }}</el-option
+                >
+              </el-select>
+              <div class="trip">{{ deliveryErrorMsg }}</div>
+            </div>
+          </el-form-item>
+          <el-form-item :label="$t('message.orderList.expressBusinessType')" v-if="formItem.type == 1 && formItem.express_record_type == 3">
+            <el-select
+              v-model="formItem.service_type"
+              filterable
+              :placeholder="$t('message.orderList.pleaseSelectBusinessType')"
             style="width: 60%"
             @change="watchPrice"
           >
             <el-option v-for="item in serviceTypeList" :value="item" :key="item">{{ item }}</el-option>
           </el-select>
         </el-form-item>
-        <el-form-item v-if="formItem.express_record_type === '1' && formItem.type == 1" label="快递单号：">
-          <el-input v-model="formItem.delivery_id" placeholder="请输入快递单号" style="width: 60%"></el-input>
+        <el-form-item v-if="formItem.express_record_type === '1' && formItem.type == 1" :label="$t('message.orderList.expressNumber')">
+          <el-input v-model="formItem.delivery_id" :placeholder="$t('message.orderList.pleaseInputExpressNumber')" style="width: 60%"></el-input>
           <div class="trips" v-if="formItem.delivery_name == '顺丰速运'">
             <p>顺丰请输入单号 :收件人或寄件人手机号后四位，</p>
             <p>例如：SF000000000000:3941</p>
