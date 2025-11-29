@@ -11,7 +11,7 @@
         ref="pagination"
         :model="pagination"
         label-width="80px"
-        label-position="right"
+        label-position="top"
         @submit.native.prevent
         inline
         ><el-form-item v-if="type == 1" label="订单状态：" label-for="status">

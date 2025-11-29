@@ -5,7 +5,7 @@
       :model="formValidate"
       :rules="ruleValidate"
       label-width="80px"
-      label-position="right"
+      label-position="top"
       @submit.native.prevent
     >
       <el-form-item :label="$t('message.orderList.remark')" prop="remark">

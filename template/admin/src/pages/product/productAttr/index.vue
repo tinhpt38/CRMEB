@@ -6,7 +6,7 @@
           ref="artFrom"
           :model="artFrom"
           label-width="80px"
-          label-position="right"
+          label-position="top"
           class="tabform"
           @submit.native.prevent
           inline

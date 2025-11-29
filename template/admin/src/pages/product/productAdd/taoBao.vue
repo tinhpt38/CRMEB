@@ -16,7 +16,7 @@
       class="formValidate mt20"
       ref="formValidate"
       label-width="80px"
-      label-position="right"
+      label-position="top"
       @submit.native.prevent
     >
       <el-form-item :label="$t('message.productList.linkAddress')">

@@ -2,7 +2,7 @@
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mb-16" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <el-form :model="formValidate" :label-width="labelWidth" label-position="right" @submit.native.prevent inline>
+        <el-form :model="formValidate" :label-width="labelWidth" label-position="top" @submit.native.prevent inline>
           <el-form-item label="语言分类：">
             <el-select v-model="formValidate.is_admin" clearable @change="selChange" class="form_content_width">
               <el-option

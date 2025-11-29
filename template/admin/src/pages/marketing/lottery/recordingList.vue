@@ -21,7 +21,7 @@
           ref="tableFrom"
           :model="tableFrom"
           :label-width="labelWidth"
-          label-position="right"
+          label-position="top"
           @submit.native.prevent
           inline
         >

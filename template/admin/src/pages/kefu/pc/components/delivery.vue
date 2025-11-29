@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form ref="formValidate" :model="formValidate" :rules="ruleInline" inline>
-      <el-form-item label="选择类型：" class="form-item" label-position="right" label-width="100px">
+      <el-form-item label="选择类型：" class="form-item" label-position="top" label-width="100px">
         <el-radio-group v-model="formValidate.gender">
           <el-radio :label="item.key" v-for="(item, index) in radioList" :key="index">{{ item.title }}</el-radio>
         </el-radio-group>
@@ -10,7 +10,7 @@
         v-if="formValidate.gender == 1"
         label="发货类型："
         class="form-item"
-        label-position="right"
+        label-position="top"
         label-width="100px"
         :key="'test0'"
       >
@@ -24,7 +24,7 @@
           label="快递公司："
           prop="logisticsCode"
           class="form-item"
-          label-position="right"
+          label-position="top"
           label-width="100px"
         >
           <el-select
@@ -43,10 +43,10 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="快递单号：" prop="number" class="form-item" label-position="right" label-width="100px">
+        <el-form-item label="快递单号：" prop="number" class="form-item" label-position="top" label-width="100px">
           <el-input v-model="formValidate.number" placeholder="请输入快递单号" style="width: 100%"></el-input>
         </el-form-item>
-        <el-form-item label="" class="form-item" label-position="right" label-width="100px">
+        <el-form-item label="" class="form-item" label-position="top" label-width="100px">
           <div style="color: #c4c4c4">顺丰请输入单号：收件人或寄件人手机号后四位,</div>
           <div style="color: #c4c4c4">例如：SF000000000000:3941</div>
         </el-form-item>
@@ -57,7 +57,7 @@
           label="快递公司："
           prop="logisticsCode"
           class="form-item"
-          label-position="right"
+          label-position="top"
           label-width="100px"
         >
           <el-select
@@ -79,7 +79,7 @@
         <el-form-item
           label="电子面单："
           class="form-item"
-          label-position="right"
+          label-position="top"
           label-width="100px"
           v-if="orderTempList.length > 0"
         >
@@ -96,14 +96,14 @@
             <img v-for="src in orderTempList" :src="src.pic" :key="src.id" class="image" />
           </viewer>
         </el-form-item>
-        <el-form-item label="寄件人姓名：" prop="sendName" class="form-item" label-position="right" label-width="100px">
+        <el-form-item label="寄件人姓名：" prop="sendName" class="form-item" label-position="top" label-width="100px">
           <el-input v-model="formValidate.sendName" placeholder="请输入寄件人姓名" style="width: 100%"></el-input>
         </el-form-item>
         <el-form-item
           label="寄件人电话："
           prop="sendPhone"
           class="form-item"
-          label-position="right"
+          label-position="top"
           label-width="100px"
         >
           <el-input v-model="formValidate.sendPhone" placeholder="请输入寄件人电话" style="width: 100%"></el-input>
@@ -112,7 +112,7 @@
           label="寄件人地址："
           prop="sendAddress"
           class="form-item"
-          label-position="right"
+          label-position="top"
           label-width="100px"
         >
           <el-input v-model="formValidate.sendAddress" placeholder="请输入寄件人地址" style="width: 100%"></el-input>
@@ -120,7 +120,7 @@
       </div>
       <!--  送货  -->
       <div v-if="formValidate.gender == 2" :key="'test3'">
-        <el-form-item label="选择送货人：" class="form-item" label-position="right" label-width="100px">
+        <el-form-item label="选择送货人：" class="form-item" label-position="top" label-width="100px">
           <el-select v-model="formValidate.postPeople" placeholder="选择送货人" style="width: 100%">
             <el-option
               :value="item.id"
@@ -132,7 +132,7 @@
         </el-form-item>
       </div>
       <div v-if="formValidate.gender == 3">
-        <el-form-item label="备注：" props="msg" class="form-item" label-position="right" label-width="100px">
+        <el-form-item label="备注：" props="msg" class="form-item" label-position="top" label-width="100px">
           <el-input placeholder="备注" v-model="formValidate.msg" />
         </el-form-item>
       </div>

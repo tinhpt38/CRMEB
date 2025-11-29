@@ -6,7 +6,7 @@
         :model="formValidate"
         :rules="ruleValidate"
         label-width="160px"
-        label-position="right"
+        label-position="top"
       >
         <el-form-item label="头像：">
           <div class="avatar" v-db-click @click="avatarMoadl = true">

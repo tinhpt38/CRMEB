@@ -2,7 +2,7 @@
   <div class="article-manager">
     <el-card :bordered="false" shadow="never" class="ivu-mb-16" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <el-form ref="formInline" label-width="80px" label-position="right" :model="formInline" inline>
+        <el-form ref="formInline" label-width="80px" label-position="top" :model="formInline" inline>
           <el-form-item label="用户渠道：">
             <el-select
               clearable

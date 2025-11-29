@@ -632,7 +632,7 @@ export default {
       return this.isMobile ? undefined : '120px';
     },
     labelPosition() {
-      return this.isMobile ? 'top' : 'right';
+      return 'top';
     },
     labelBottom() {
       return this.isMobile ? undefined : '15px';

@@ -109,7 +109,7 @@
         :model="modalsdate"
         :rules="type == 0 ? ruleValidate : editValidate"
         label-width="80px"
-        label-position="right"
+        label-position="top"
       >
         <el-form-item label="账号：" prop="appid">
           <div style="display: flex">
@@ -169,7 +169,7 @@
         :model="settingData"
         :rules="type == 0 ? ruleValidate : editValidate"
         label-width="155px"
-        label-position="right"
+        label-position="top"
       >
         <el-form-item label="推送开关：" prop="switch">
           <el-switch v-model="settingData.push_open" :active-value="1" :inactive-value="0" />

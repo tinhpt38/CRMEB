@@ -6,7 +6,7 @@
       :rules="rules"
       class="attrFrom"
       label-width="120px"
-      label-position="right"
+      label-position="top"
       @submit.native.prevent
     >
       <el-row :gutter="24">

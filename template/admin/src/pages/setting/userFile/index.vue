@@ -6,7 +6,7 @@
         :model="formValidate"
         :rules="ruleValidate"
         label-width="160px"
-        label-position="right"
+        label-position="top"
       >
         <el-form-item label="账号：" prop="">
           <el-input type="text" v-model="account" :disabled="true" class="input"></el-input>

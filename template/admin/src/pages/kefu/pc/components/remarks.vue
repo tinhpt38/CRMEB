@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form ref="formValidate" :model="formValidate" :rules="ruleInline" inline>
-      <el-form-item label="备注：" prop="con" class="form-item" label-position="right" label-width="60px">
+      <el-form-item label="备注：" prop="con" class="form-item" label-position="top" label-width="60px">
         <el-input
           v-model="formValidate.con"
           placeholder="请输入备注"

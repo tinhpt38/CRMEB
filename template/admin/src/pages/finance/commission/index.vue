@@ -2,7 +2,7 @@
   <div>
     <el-card :bordered="false" shadow="never" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <el-form ref="formValidate" :label-width="labelWidth" label-position="right" inline @submit.native.prevent>
+        <el-form ref="formValidate" :label-width="labelWidth" label-position="top" inline @submit.native.prevent>
           <el-form-item :label="$t('message.commission.nicknameOrId')">
             <el-input :placeholder="$t('message.commission.pleaseInput')" v-model="formValidate.nickname" clearable class="form_content_width" />
           </el-form-item>

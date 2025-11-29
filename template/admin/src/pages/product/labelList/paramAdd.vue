@@ -4,7 +4,7 @@
       ref="formDynamic"
       :model="formDynamic"
       class="attrFrom"
-      label-position="right"
+      label-position="top"
       label-width="auto"
       @submit.native.prevent
     >

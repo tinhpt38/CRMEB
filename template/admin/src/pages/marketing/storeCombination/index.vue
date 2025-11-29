@@ -6,7 +6,7 @@
           ref="formValidate"
           :model="formValidate"
           :label-width="labelWidth"
-          label-position="right"
+          label-position="top"
           @submit.native.prevent
           inline
         >

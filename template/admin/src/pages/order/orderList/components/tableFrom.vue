@@ -5,7 +5,7 @@
         ref="orderData"
         :model="orderData"
         label-width="80px"
-        label-position="right"
+        label-position="top"
         inline
         @submit.native.prevent
       >

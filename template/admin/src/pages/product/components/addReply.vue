@@ -6,7 +6,7 @@
     :close-on-click-modal="false"
     @close="onCancel"
   >
-    <el-form :model="formData" label-width="100px" label-position="right">
+    <el-form :model="formData" label-width="100px" label-position="top">
       <el-form-item :label="$t('message.productList.product2')">
         <div class="upload-box" v-db-click @click="callGoods">
           <img v-if="goods.id" :src="goods.image" class="image" />

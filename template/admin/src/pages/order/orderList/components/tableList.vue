@@ -21,7 +21,7 @@
       <el-button v-auth="['order-write']" type="primary" v-db-click @click="writeOff">{{ $t('message.orderList.orderWriteoff') }}</el-button>
       <el-button v-db-click @click="batchShipmentModal = true">{{ $t('message.orderList.batchShipment') }}</el-button>
       <!-- <el-upload class="mr14" :action="expressUrl" :headers="header" :on-success="upExpress">
-        <el-button class="export" type="primary">批量发货</el-button>
+        <el-button class="export" type="primary">{{ $t('message.orderList.batchShipment') }}</el-button>
       </el-upload> -->
       <el-button v-auth="['order-dels']" v-db-click @click="delAll">{{ $t('message.orderList.batchDelete') }}</el-button>
       <el-button v-auth="['export-storeOrder']" class="export" v-db-click @click="exportList">{{ $t('message.orderList.orderExport') }}</el-button>
@@ -294,7 +294,7 @@
         :model="writeOffFrom"
         :rules="writeOffRules"
         label-width="80px"
-        label-position="right"
+        label-position="top"
         class="tabform"
         @submit.native.prevent
       >
@@ -321,7 +321,7 @@
       @closed="changeModal"
     >
       <!-- <el-upload :action="expressUrl" :headers="header" :on-success="upExpress">
-        <el-button class="export" type="primary">批量发货</el-button>
+        <el-button class="export" type="primary">{{ $t('message.orderList.batchShipment') }}</el-button>
       </el-upload> -->
       <el-alert type="warning" :closable="false">
         <p>{{ $t('message.orderList.step1') }}</p>

@@ -2,7 +2,7 @@
   <div class="article-manager">
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <el-form ref="artFrom" :model="artFrom" inline label-width="80px" label-position="right" @submit.native.prevent>
+        <el-form ref="artFrom" :model="artFrom" inline label-width="80px" label-position="top" @submit.native.prevent>
           <el-form-item :label="$t('message.productList.productCategory2')" prop="pid" label-for="pid">
             <el-select
               v-model="artFrom.pid"

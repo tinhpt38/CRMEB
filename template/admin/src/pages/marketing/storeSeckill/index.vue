@@ -2,7 +2,7 @@
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <el-form ref="tableFrom" :model="tableFrom" :label-width="labelWidth" label-position="right"
+        <el-form ref="tableFrom" :model="tableFrom" :label-width="labelWidth" label-position="top"
           @submit.native.prevent inline>
           <el-form-item label="商品搜索：" label-for="store_name">
             <el-input placeholder="请输入商品名称，ID" v-model="tableFrom.store_name" class="form_content_width" />

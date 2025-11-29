@@ -139,7 +139,7 @@
         </el-card>
         <el-dialog :visible.sync="modals" closable :title="isEdit ? $t('message.productList.editLabel') : $t('message.productList.addLabel2')" width="560" @close="cancel">
           <div>
-            <el-form label-position="right" size="small" ref="form" :rules="rules" :model="form" label-width="100px">
+            <el-form label-position="top" size="small" ref="form" :rules="rules" :model="form" label-width="100px">
               <el-form-item :label="$t('message.productList.labelName2')" prop="name">
                 <el-input v-model="form.name" class="w-420"></el-input>
               </el-form-item>

@@ -6,7 +6,7 @@
         :model="tableFrom"
         :label-width="labelWidth"
         :label-position="labelPosition"
-        label-position="right"
+        label-position="top"
         inline
         @submit.native.prevent
       >

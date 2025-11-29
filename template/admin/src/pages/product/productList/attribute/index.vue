@@ -2,7 +2,7 @@
   <div>
     <el-dialog :visible.sync="val" :title="$t('message.productList.productAttr2')" width="1000px" @closed="cancel">
       <div class="Modals">
-        <el-form class="form" ref="form" label-width="70px" label-position="right">
+        <el-form class="form" ref="form" label-width="70px" label-position="top">
           <el-row :gutter="24">
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
               <el-form-item :label="$t('message.productList.spec3')" prop="store_name" label-for="store_name">

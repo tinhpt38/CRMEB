@@ -7,7 +7,7 @@
           :model="formValidate"
           inline
           label-width="80px"
-          label-position="right"
+          label-position="top"
           @submit.native.prevent
         >
           <el-form-item :label="$t('message.productList.commentTime')">
@@ -170,7 +170,7 @@
       </div>
     </el-card>
     <el-dialog :visible.sync="modals" scrollable :title="$t('message.productList.replyContent2')" width="720px">
-      <el-form ref="contents" :model="contents" :rules="ruleInline" label-position="right" @submit.native.prevent>
+      <el-form ref="contents" :model="contents" :rules="ruleInline" label-position="top" @submit.native.prevent>
         <el-form-item prop="content">
           <el-input v-model="contents.content" type="textarea" :rows="4" :placeholder="$t('message.productList.pleaseInputReplyContent')" />
         </el-form-item>
@@ -250,7 +250,7 @@
         ref="batchFormData"
         :model="batchFormData"
         label-width="90px"
-        label-position="right"
+        label-position="top"
         @submit.native.prevent
       >
         <el-row :gutter="24">

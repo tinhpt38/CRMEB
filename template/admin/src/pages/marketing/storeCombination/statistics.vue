@@ -11,7 +11,7 @@
         ref="pagination"
         :model="pagination"
         label-width="80px"
-        label-position="right"
+        label-position="top"
         @submit.native.prevent
         inline
       >

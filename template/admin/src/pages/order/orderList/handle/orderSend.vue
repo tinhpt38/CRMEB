@@ -162,7 +162,7 @@
         </el-form-item>
       </div>
       <div v-if="total_num > 1">
-        <el-form-item label="分单发货：">
+        <el-form-item :label="$t('message.orderList.splitDelivery')">
           <el-switch
             :active-value="1"
             :inactive-value="0"
@@ -171,11 +171,11 @@
             :disabled="orderStatus === 8 || orderStatus === 11"
             @change="changeSplitStatus"
           >
-            <span slot="open">开启</span>
-            <span slot="close">关闭</span>
+            <span slot="open">{{ $t('message.orderList.open') }}</span>
+            <span slot="close">{{ $t('message.orderList.close') }}</span>
           </el-switch>
           <div class="trips">
-            <p>可选择表格中的商品单独发货，发货后会生成新的订单且不能撤回，请谨慎操作！</p>
+            <p>{{ $t('message.orderList.splitDeliveryTip') }}</p>
           </div>
           <el-table
             v-if="splitSwitch && manyFormValidate.length"
@@ -184,7 +184,7 @@
             @selection-change="selectOne"
           >
             <el-table-column type="selection" width="55"> </el-table-column>
-            <el-table-column label="商品信息" width="200">
+            <el-table-column :label="$t('message.orderList.productInfo')" width="200">
               <template slot-scope="scope">
                 <div class="product-data">
                   <img class="image" :src="scope.row.cart_info.productInfo.image" />
@@ -194,24 +194,24 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="规格" min-width="120">
+            <el-table-column :label="$t('message.orderList.spec')" min-width="120">
               <template slot-scope="scope">
                 <div>{{ scope.row.cart_info.productInfo.attrInfo.suk }}</div>
               </template>
             </el-table-column>
-            <el-table-column label="价格" min-width="120">
+            <el-table-column :label="$t('message.orderList.price')" min-width="120">
               <template slot-scope="scope">
                 <div class="product-data">
                   <div>{{ scope.row.cart_info.truePrice }}</div>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="总数" min-width="120">
+            <el-table-column :label="$t('message.orderList.total')" min-width="120">
               <template slot-scope="scope">
                 <div>{{ scope.row.cart_num }}</div>
               </template>
             </el-table-column>
-            <el-table-column label="待发数量" width="180">
+            <el-table-column :label="$t('message.orderList.pendingQuantity')" width="180">
               <template slot-scope="scope">
                 <el-input-number
                   v-model="scope.row.num"
@@ -231,8 +231,8 @@
       </div>
     </el-form>
     <div slot="footer">
-      <el-button v-db-click @click="cancel">取消</el-button>
-      <el-button type="primary" v-db-click @click="putSend">提交</el-button>
+      <el-button v-db-click @click="cancel">{{ $t('message.orderList.cancel') }}</el-button>
+      <el-button type="primary" v-db-click @click="putSend">{{ $t('message.orderList.submit') }}</el-button>
     </div>
     <!-- <viewer @inited="inited">
             <img :src="temp.pic" style="display:none" />
@@ -299,11 +299,15 @@ export default {
       selectData: [],
       serviceTypeList: [],
       sendPrice: 0,
-      ruleValidate: { sh_delivery: [{ required: true, message: '请输入送货人', trigger: 'change' }] },
+      ruleValidate: {},
       deliveryErrorMsg: '',
       isLoading: true,
       userSendmsg: {},
     };
+  },
+  created() {
+    // Initialize ruleValidate with i18n
+    this.ruleValidate = { sh_delivery: [{ required: true, message: this.$t('message.orderList.pleaseInputDeliveryPerson'), trigger: 'change' }] };
   },
   watch: {
     virtual_type(val) {
@@ -472,7 +476,7 @@ export default {
       printJS({
         printable: url,
         type: 'image',
-        documentTitle: '快递信息',
+        documentTitle: this.$t('message.orderList.expressInfo'),
         style: `img{
           width: 100%;
           height: 476px;
@@ -488,29 +492,29 @@ export default {
       };
       if (this.formItem.type === '1' && this.formItem.express_record_type === '2') {
         if (this.formItem.delivery_name === '') {
-          return this.$message.error('快递公司不能为空');
+          return this.$message.error(this.$t('message.orderList.expressCompanyCannotBeEmpty'));
         } else if (this.formItem.express_temp_id === '') {
-          return this.$message.error('电子面单不能为空');
+          return this.$message.error(this.$t('message.orderList.electronicWaybillCannotBeEmpty'));
         } else if (this.formItem.to_name === '') {
-          return this.$message.error('寄件人姓名不能为空');
+          return this.$message.error(this.$t('message.orderList.senderNameCannotBeEmpty'));
         } else if (this.formItem.to_tel === '') {
-          return this.$message.error('寄件人电话不能为空');
+          return this.$message.error(this.$t('message.orderList.senderPhoneCannotBeEmpty'));
         } else if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(this.formItem.to_tel)) {
-          return this.$message.error('请输入正确的手机号码');
+          return this.$message.error(this.$t('message.orderList.pleaseInputCorrectPhoneNumber'));
         } else if (this.formItem.to_addr === '') {
-          return this.$message.error('寄件人地址不能为空');
+          return this.$message.error(this.$t('message.orderList.senderAddressCannotBeEmpty'));
         }
       }
       if (this.formItem.type === '1' && this.formItem.express_record_type === '1') {
         if (this.formItem.delivery_name === '') {
-          return this.$message.error('快递公司不能为空');
+          return this.$message.error(this.$t('message.orderList.expressCompanyCannotBeEmpty'));
         } else if (this.formItem.delivery_id === '') {
-          return this.$message.error('快递单号不能为空');
+          return this.$message.error(this.$t('message.orderList.expressNumberCannotBeEmpty'));
         }
       }
       if (this.formItem.type === '2') {
         if (this.formItem.sh_delivery === '') {
-          return this.$message.error('送货人不能为空');
+          return this.$message.error(this.$t('message.orderList.deliveryPersonCannotBeEmpty'));
         }
       }
       if (this.splitSwitch) {
@@ -588,7 +592,7 @@ export default {
             this.expressTemp = res.data;
             this.formItem.express_temp_id = res.data.length ? res.data[0].temp_id : '';
             if (!res.data.length) {
-              this.$message.error('请配置你所选快递公司的电子面单');
+              this.$message.error(this.$t('message.orderList.pleaseConfigureElectronicWaybill'));
             }
           })
           .catch((err) => {

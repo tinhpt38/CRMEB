@@ -8,7 +8,7 @@
         ref="formItem"
         :model="formItem"
         label-width="110px"
-        label-position="right"
+        label-position="top"
         :rules="ruleValidate"
         @submit.native.prevent
       >

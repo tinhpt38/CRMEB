@@ -4,7 +4,7 @@
       ref="formData"
       :model="table"
       :label-width="labelWidth"
-      label-position="right"
+      label-position="top"
       inline
       @submit.native.prevent
     >
