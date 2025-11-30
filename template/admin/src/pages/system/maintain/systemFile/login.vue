@@ -4,11 +4,11 @@
       <el-col :span="24">
         <div class="index_from page-account-container">
           <div class="page-account-top">
-            <span class="page-account-top-tit">文件管理登录</span>
+            <span class="page-account-top-tit">{{ $t('message.systemMenus.fileManagementLogin') }}</span>
           </div>
           <el-form ref="formInline" :model="formInline" :rules="ruleInline" @submit.native.prevent>
             <!-- <el-form-item prop="sms_account" class="maxInpt">
-            <el-input type="text" v-model="formInline.account" prefix="ios-contact-outline" placeholder="请输入手机号" />
+            <el-input type="text" v-model="formInline.account" prefix="ios-contact-outline" :placeholder="$t('message.systemMenus.pleaseInputPhoneNumber')" />
           </el-form-item> -->
             <el-form-item prop="sms_token" class="maxInpt">
               <el-input
@@ -16,13 +16,13 @@
                 size="large"
                 v-model="formInline.password"
                 prefix="ios-lock-outline"
-                placeholder="请输入密码"
+                :placeholder="$t('message.systemMenus.pleaseInputPassword')"
               />
-              <div class="trip">提示：密码配置在 /config/filesystem.php 文件中修改 'password' => '密码'</div>
+              <div class="trip">{{ $t('message.systemMenus.passwordConfigTip') }}</div>
             </el-form-item>
             <el-form-item class="maxInpt">
               <el-button type="primary" long size="large" v-db-click @click="handleSubmit('formInline')" class="btn"
-                >登录</el-button
+                >{{ $t('message.systemMenus.login') }}</el-button
               >
             </el-form-item>
           </el-form>
@@ -39,15 +39,15 @@ import { setCookies } from '@/libs/util';
 export default {
   name: 'file_login',
   data() {
-    const validatePhone = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('请填写手机号'));
-      } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        callback(new Error('手机号格式不正确!'));
-      } else {
-        callback();
-      }
-    };
+      const validatePhone = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error(this.$t('message.systemMenus.pleaseFillPhoneNumber')));
+        } else if (!/^1[3456789]\d{9}$/.test(value)) {
+          callback(new Error(this.$t('message.systemMenus.phoneFormatIncorrect')));
+        } else {
+          callback();
+        }
+      };
     return {
       formInline: {
         // account: '',
@@ -55,7 +55,7 @@ export default {
       },
       ruleInline: {
         // account: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        password: [{ required: true, message: this.$t('message.systemMenus.pleaseInputPassword'), trigger: 'blur' }],
       },
     };
   },
@@ -74,7 +74,7 @@ export default {
         if (valid) {
           opendirLoginApi(this.formInline)
             .then(async (res) => {
-              this.$message.success('登录成功!');
+              this.$message.success(this.$t('message.systemMenus.loginSuccess'));
               //   this.$emit('on-Login', res.data);
               let expires = this.getExpiresTime(res.data.expires_time);
               // 记录用户登录信息

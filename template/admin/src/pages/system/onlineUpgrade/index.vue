@@ -2,15 +2,15 @@
 <div class="upgrade">
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <div class="header">
-        <div>当前版本<span class="v"></span><span class="num">{{$store.state.userInfo.version}}</span></div>
+        <div>{{ $t('message.systemMenus.currentVersion') }}<span class="v"></span><span class="num">{{$store.state.userInfo.version}}</span></div>
         <div class="info title">
-          更新说明：
-          <span v-if="upgradeStatus.status != 1">已升级至最新版本，无需更新</span>
+          {{ $t('message.systemMenus.updateDescription') }}：
+          <span v-if="upgradeStatus.status != 1">{{ $t('message.systemMenus.alreadyUpgradedToLatest') }}</span>
         <ul v-if="upgradeStatus.status == 1">
           <li>{{upgradeStatus.title}}</li>
         </ul>
         </div>
-        <el-button v-if="currentTab == 1 && upgradeStatus.status == 1" type="primary" class="primary btn update" v-db-click @click="update()">立即更新</el-button>
+        <el-button v-if="currentTab == 1 && upgradeStatus.status == 1" type="primary" class="primary btn update" v-db-click @click="update()">{{ $t('message.systemMenus.updateNow') }}</el-button>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
@@ -36,8 +36,8 @@
                           </el-collapse-item>
                       </el-collapse>
                   </el-timeline-item>
-                  <el-button v-if="item.client_package_link" type="success"  class="primary btn" v-db-click @click="downloadFile(item.client_package_link)">移动端源码</el-button>
-                  <el-button v-if="item.pc_package_link" type="primary" class="primary btn1" v-db-click @click="downloadFile(item.pc_package_link)">PC端源码</el-button>
+                  <el-button v-if="item.client_package_link" type="success"  class="primary btn" v-db-click @click="downloadFile(item.client_package_link)">{{ $t('message.systemMenus.mobileSourceCode') }}</el-button>
+                  <el-button v-if="item.pc_package_link" type="primary" class="primary btn1" v-db-click @click="downloadFile(item.pc_package_link)">{{ $t('message.systemMenus.pcSourceCode') }}</el-button>
               </el-timeline>
           </div>
         </div>
@@ -45,7 +45,7 @@
           <div class="contentTime" >
               <div class="acea-row row-top off" @mouseenter="quearyEvear(item.id,index)" v-for="(item,index) in upgradeLogList" :key="index" :class="{active:index==dynamic}">
                   <div class="time">
-                      <div v-if="index == 0">最近更新</div>
+                      <div v-if="index == 0">{{ $t('message.systemMenus.recentUpdate') }}</div>
                       <div>{{item.upgrade_time}}</div>
                     </div>
                   <el-timeline class="list">
@@ -83,15 +83,15 @@
           <p v-html="upgradeAgreement.content"></p>
         </div>
          <span slot="footer" class="dialog-footer">
-          <el-button v-db-click @click="reject">拒 绝</el-button>
-          <el-button type="primary" v-db-click @click="agree">同 意</el-button>
+          <el-button v-db-click @click="reject">{{ $t('message.systemMenus.reject') }}</el-button>
+          <el-button type="primary" v-db-click @click="agree">{{ $t('message.systemMenus.agree') }}</el-button>
       </span>
     </el-dialog>
     <!-- 升级 -->
     <el-dialog v-model="updateModal" width="470px"  custom-clas="vertical-center-modal" :show-close="true"
       :close-on-click-modal="false">
         <p slot="header" class="header-modal2">
-          <span >升级至v{{forceVersion}}</span>
+          <span >{{ $t('message.systemMenus.upgradeTo') }}v{{forceVersion}}</span>
         </p>
         <div class="describe" v-if="upgradeProgress.speed != '100.0' || this.downloadStatus !='200'">
           <i-circle
@@ -102,26 +102,26 @@
             stroke-linecap="square"
             stroke-color="#43a3fb">
             <div class="demo-i-circle-custom">
-                <p>{{upgradeProgress.tip || '升级中'}}</p>
+                <p>{{upgradeProgress.tip || $t('message.systemMenus.upgrading')}}</p>
             </div>
           </i-circle>
           <div class="proportion">{{!upgradeProgress.speed?'':upgradeProgress.speed+'%'}}</div>
-          <div class="wait">正在更新，请耐心等候～</div>
+          <div class="wait">{{ $t('message.systemMenus.updatingPleaseWait') }}</div>
         </div>
         <div slot="footer">
           <!-- <div v-if="upgradeProgress.speed == '100.0'"><el-button class="back" type="primary" shape="circle" v-db-click @click="updateModal = false">确认</el-button></div> -->
         </div>
         <div v-if="upgradeProgress.speed == '100.0'" class="describe">
           <el-progress type="circle" :percentage="100" status="success"></el-progress>
-          <div class="success">升级成功</div>
+          <div class="success">{{ $t('message.systemMenus.upgradeSuccess') }}</div>
         </div>
         <div v-if="upgradeProgress.speed == '100.0'" slot="footer" class="footer2">
-          <el-button class="confirm" type="primary" shape="circle" v-db-click @click="back()">确认</el-button>
+          <el-button class="confirm" type="primary" shape="circle" v-db-click @click="back()">{{ $t('message.systemMenus.confirm') }}</el-button>
           <!-- <div><el-button class="back" shape="circle" v-db-click @click="backSure()">返回</el-button></div> -->
         </div>
         <span v-if="upgradeProgress.speed == '100.0'" slot="footer" class="dialog-footer">
-          <el-button v-db-click @click="cancel">取 消</el-button>
-          <el-button type="primary" v-db-click @click="back">确 认</el-button>
+          <el-button v-db-click @click="cancel">{{ $t('message.systemMenus.cancel') }}</el-button>
+          <el-button type="primary" v-db-click @click="back">{{ $t('message.systemMenus.confirm') }}</el-button>
         </span>
     </el-dialog>
 </div>
@@ -158,16 +158,7 @@ export default {
       status: false,
       version: '',
       forceVersion: '',
-      headerList: [
-        {
-          label: '系统升级',
-          value: 1,
-        },
-        {
-          label: '升级记录',
-          value: 2,
-        },
-      ],
+      headerList: [],
       upgradeList: [],
       upgradeLogList: [],
       upgradeableList: [],
@@ -188,6 +179,17 @@ export default {
     };
   },
   created() {
+    // Initialize headerList with i18n
+    this.headerList = [
+      {
+        label: this.$t('message.systemMenus.systemUpgrade'),
+        value: 1,
+      },
+      {
+        label: this.$t('message.systemMenus.upgradeRecord'),
+        value: 2,
+      },
+    ];
     // this.getUpgradeList();
     // this.getUpgradeLogList();
     // this.getupgradeableList();
@@ -226,7 +228,7 @@ export default {
   methods: {
     handleReachBottom(){
       if(this.count === this.upgradeLogList.length) {
-        this.$message.warning('暂无更多升级记录')
+        this.$message.warning(this.$t('message.systemMenus.noMoreUpgradeRecords'))
       } else {
         this.getUpgradeLogList();
       }
@@ -264,7 +266,7 @@ export default {
             this.page++
           }
           if(this.count === this.upgradeLogList.length) {
-        this.$message.warning('暂无更多升级记录')
+        this.$message.warning(this.$t('message.systemMenus.noMoreUpgradeRecords'))
       } else {
         this.getUpgradeLogList();
       }
@@ -346,7 +348,7 @@ export default {
         })
         .catch((err) => {
           clearInterval(this.timer);
-          this.$message.error('下载终止');
+          this.$message.error(this.$t('message.systemMenus.downloadTerminated'));
           this.updateModal = false;
         });
     },
@@ -440,7 +442,7 @@ export default {
       clearInterval(this.timer);
       AccountLogout()
         .then((res) => {
-          this.$message.success('您已成功退出');
+          this.$message.success(this.$t('message.systemMenus.successfullyExited'));
           this.$router.replace(this.$routeProStr + '/login');
           localStorage.clear();
           removeCookies('token');

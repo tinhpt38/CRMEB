@@ -4,30 +4,30 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="save">保存</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="save">{{ $t('message.common.save') }}</el-button>
         </div>
       </div>
     </div> -->
     <pages-header ref="pageHeader" :title="$route.meta.title">
-      <el-button class="bnt" type="primary" v-db-click @click="save">保存</el-button>
+      <el-button class="bnt" type="primary" v-db-click @click="save">{{ $t('message.common.save') }}</el-button>
     </pages-header>
     <el-card :bordered="false" shadow="never" class="h100 mt16">
       <el-row class="box-wrapper">
         <el-col :xs="24" :sm="24" :md="6" :lg="3">
           <div class="left_box">
-            <div class="left_cont" :class="pageId == 1 ? 'on' : ''" v-db-click @click="menu(1)">网站LOGO</div>
+            <div class="left_cont" :class="pageId == 1 ? 'on' : ''" v-db-click @click="menu(1)">{{ $t('message.systemMenus.websiteLogo') }}</div>
             <div
               class="left_cont"
               :class="pageId == 'pc_home_banner' ? 'on' : ''"
               v-db-click
               @click="menu('pc_home_banner')"
             >
-              首页轮播图
+              {{ $t('message.systemMenus.homeCarousel') }}
             </div>
-            <div class="left_cont" :class="pageId == 3 ? 'on' : ''" v-db-click @click="menu(3)">客服页面广告</div>
-            <div class="left_cont" :class="pageId == 4 ? 'on' : ''" v-db-click @click="menu(4)">顶部菜单配置</div>
-            <div class="left_cont" :class="pageId == 5 ? 'on' : ''" v-db-click @click="menu(5)">友情链接配置</div>
-            <div class="left_cont" :class="pageId == 6 ? 'on' : ''" v-db-click @click="menu(6)">关于我们</div>
+            <div class="left_cont" :class="pageId == 3 ? 'on' : ''" v-db-click @click="menu(3)">{{ $t('message.systemMenus.customerServicePageAd') }}</div>
+            <div class="left_cont" :class="pageId == 4 ? 'on' : ''" v-db-click @click="menu(4)">{{ $t('message.systemMenus.topMenuConfig') }}</div>
+            <div class="left_cont" :class="pageId == 5 ? 'on' : ''" v-db-click @click="menu(5)">{{ $t('message.systemMenus.friendlyLinkConfig') }}</div>
+            <div class="left_cont" :class="pageId == 6 ? 'on' : ''" v-db-click @click="menu(6)">{{ $t('message.systemMenus.aboutUs') }}</div>
           </div>
         </el-col>
         <div style="display: flex; width: 83%">
@@ -37,7 +37,7 @@
               <img :src="pclogo" />
             </div>
             <div v-if="pageId == 'pc_home_banner'" class="pcmoddile_goods">
-              <div class="nofonts" v-if="tabList.list == ''">暂无照片，请添加~</div>
+              <div class="nofonts" v-if="tabList.list == ''">{{ $t('message.systemMenus.noPhotoPleaseAdd') }}</div>
               <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
                 <swiper-slide class="spcwiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
                   <img :src="item.image" />
@@ -56,9 +56,9 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">轮播图设置</div>
-                  <div class="title-text">建议尺寸：690 * 240px，拖拽图片可调整图片顺序哦，最多添加五张。</div>
-                  <div class="title-text">除轮播图外，页面其他内容仅供参考</div>
+                  <div class="title">{{ $t('message.systemMenus.carouselSetting') }}</div>
+                  <div class="title-text">{{ $t('message.systemMenus.carouselSizeTip2') }}</div>
+                  <div class="title-text">{{ $t('message.systemMenus.carouselNote') }}</div>
                   <div class="list-box">
                     <draggable
                       v-if="pageId == 'pc_home_banner'"
@@ -87,16 +87,16 @@
                         </div>
                         <div class="info">
                           <div class="info-item">
-                            <span>图片名称：</span>
+                            <span>{{ $t('message.systemMenus.imageName') }}：</span>
                             <div class="input-box">
-                              <el-input v-model="item.title" placeholder="请填写名称" />
+                              <el-input v-model="item.title" :placeholder="$t('message.systemMenus.pleaseFillName')" />
                             </div>
                           </div>
                           <div class="info-item">
-                            <span>链接地址：</span>
+                            <span>{{ $t('message.systemMenus.linkAddress') }}：</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
-                              <el-input v-model="item.url" placeholder="请填写链接" />
+                              <el-input v-model="item.url" :placeholder="$t('message.systemMenus.pleaseFillLink')" />
                             </div>
                           </div>
                         </div>
@@ -106,7 +106,7 @@
                       <el-dialog
                         :visible.sync="modalPic"
                         width="950px"
-                        title="上传商品图"
+                        :title="$t('message.systemMenus.uploadProductImage')"
                         :close-on-click-modal="false"
                       >
                         <uploadPictures
@@ -127,7 +127,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addBox"
-                        >添加图片
+                        >{{ $t('message.systemMenus.addImage') }}
                       </el-button>
                     </div>
                   </template>
@@ -139,20 +139,20 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">页面设置</div>
-                  <div class="title-text">建议尺寸：140px * 60px</div>
-                  <div class="title-text">除LOGO图标外，页面其他内容仅供参考</div>
+                  <div class="title">{{ $t('message.systemMenus.pageSetting') }}</div>
+                  <div class="title-text">{{ $t('message.systemMenus.logoSizeTip') }}</div>
+                  <div class="title-text">{{ $t('message.systemMenus.logoNote') }}</div>
                   <div class="list-box">
                     <div class="img-boxs" v-db-click @click="modalPicTap('单选', 0)">
                       <img :src="pclogo" alt="" />
                       <div class="img_font"></div>
-                      <div class="img_fonts">更换图片</div>
+                      <div class="img_fonts">{{ $t('message.systemMenus.changeImage') }}</div>
                     </div>
                     <div>
                       <el-dialog
                         :visible.sync="modalPic"
                         width="950px"
-                        title="上传商品图"
+                        :title="$t('message.systemMenus.uploadProductImage')"
                         :close-on-click-modal="false"
                       >
                         <uploadPictures
@@ -173,7 +173,7 @@
             <div class="table_box">
               <el-row>
                 <el-col v-bind="grid">
-                  <div class="title">客服广告内容：</div>
+                  <div class="title">{{ $t('message.systemMenus.customerServiceAdContent') }}：</div>
                 </el-col>
               </el-row>
               <div>
@@ -197,7 +197,7 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">顶部菜单设置</div>
+                  <div class="title">{{ $t('message.systemMenus.topMenuSetting') }}</div>
                   <div class="list-box">
                     <draggable class="dragArea list-group" :list="menuList" group="peoples" handle=".move-icon">
                       <div class="item" v-for="(item, index) in menuList" :key="index">
@@ -209,16 +209,16 @@
                         </div>
                         <div class="info">
                           <div class="info-item">
-                            <span>菜单名称：</span>
+                            <span>{{ $t('message.systemMenus.menuName') }}：</span>
                             <div class="input-box">
-                              <el-input v-model="item.title" placeholder="请填写名称" />
+                              <el-input v-model="item.title" :placeholder="$t('message.systemMenus.pleaseFillName')" />
                             </div>
                           </div>
                           <div class="info-item">
-                            <span>链接地址：</span>
+                            <span>{{ $t('message.systemMenus.linkAddress') }}：</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
-                              <el-input v-model="item.url" placeholder="请填写链接" />
+                              <el-input v-model="item.url" :placeholder="$t('message.systemMenus.pleaseEnterLink')" />
                             </div>
                           </div>
                           <!-- <div class="info-item">
@@ -239,7 +239,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addMenu"
-                        >添加菜单
+                        >{{ $t('message.systemMenus.addMenu') }}
                       </el-button>
                     </div>
                   </template>
@@ -251,7 +251,7 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">友情链接配置</div>
+                  <div class="title">{{ $t('message.systemMenus.friendlyLinkConfig') }}</div>
                   <div class="list-box">
                     <draggable class="dragArea list-group" :list="linkList" group="peoples" handle=".move-icon">
                       <div class="item" v-for="(item, index) in linkList" :key="index">
@@ -268,16 +268,16 @@
                         </div>
                         <div class="info">
                           <div class="info-item">
-                            <span>链接名称：</span>
+                            <span>{{ $t('message.systemMenus.linkName') }}：</span>
                             <div class="input-box">
-                              <el-input v-model="item.title" placeholder="请填写名称" />
+                              <el-input v-model="item.title" :placeholder="$t('message.systemMenus.pleaseFillName')" />
                             </div>
                           </div>
                           <div class="info-item">
-                            <span>链接地址：</span>
+                            <span>{{ $t('message.systemMenus.linkAddress') }}：</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
-                              <el-input v-model="item.url" placeholder="请填写链接" />
+                              <el-input v-model="item.url" :placeholder="$t('message.systemMenus.pleaseEnterLink')" />
                             </div>
                           </div>
                         </div>
@@ -292,7 +292,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addLink"
-                        >添加链接
+                        >{{ $t('message.systemMenus.addLink') }}
                       </el-button>
                     </div>
                   </template>
@@ -304,7 +304,7 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">关于我们-详情</div>
+                  <div class="title">{{ $t('message.systemMenus.aboutUsDetail') }}</div>
                   <WangEditor
                     style="width: 100%"
                     :content="formValidate.content"

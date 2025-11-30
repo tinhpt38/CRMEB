@@ -2,31 +2,31 @@
   <div>
     <el-card :bordered="false" :body-style="{ padding: '0 20px 20px' }">
       <el-tabs>
-        <el-tab-pane label="数据库列表">
+        <el-tab-pane :label="$t('message.systemMenus.databaseList')">
           <!--          <el-card :bordered="false" shadow="never" class="tableBox">-->
           <div class="mb10">
             <!--              <span class="ivu-pl-8 mr10">数据库表列表</span>-->
-            <el-button v-db-click @click="getBackup">备份</el-button>
-            <el-button v-db-click @click="getOptimize">优化表</el-button>
-            <el-button v-db-click @click="getRepair">修复表</el-button>
-            <el-button v-db-click @click="exportData(1)">导出文件</el-button>
+            <el-button v-db-click @click="getBackup">{{ $t('message.systemMenus.backup') }}</el-button>
+            <el-button v-db-click @click="getOptimize">{{ $t('message.systemMenus.optimizeTable') }}</el-button>
+            <el-button v-db-click @click="getRepair">{{ $t('message.systemMenus.repairTable') }}</el-button>
+            <el-button v-db-click @click="exportData(1)">{{ $t('message.systemMenus.exportFile') }}</el-button>
           </div>
           <el-table
             ref="selection"
             :data="tabList2"
             v-loading="loading"
-            empty-text="暂无数据"
+            :empty-text="$t('message.common.noData')"
             @select="onSelectTab"
             @select-all="onSelectTab"
             class="mt14"
           >
             <el-table-column type="selection" width="55"> </el-table-column>
-            <el-table-column label="表名称" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.tableName')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="备注" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.remark2')" min-width="100">
               <template slot-scope="scope">
                 <div class="mark">
                   <div v-if="scope.row.is_edit" class="table-mark" v-db-click @click="isEditMark(scope.row)">
@@ -36,29 +36,29 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="类型" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.type3')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.engine }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="大小" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.size')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.data_length }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="更新时间" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.updateTime')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.update_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="行数" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.rowCount')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.rows }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="70">
+            <el-table-column :label="$t('message.systemMenus.operation')" fixed="right" width="70">
               <template slot-scope="scope">
-                <a v-db-click @click="Info(scope.row)">详情</a>
+                <a v-db-click @click="Info(scope.row)">{{ $t('message.systemMenus.detail') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -74,36 +74,36 @@
               ref="selection"
               :data="tabList3"
               v-loading="loading2"
-              empty-text="暂无数据"
+              :empty-text="$t('message.common.noData')"
               max-height="600"
               size="small"
             >
-              <el-table-column label="字段名" min-width="100">
+              <el-table-column :label="$t('message.systemMenus.fieldName')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_NAME }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="数据类型" min-width="100">
+              <el-table-column :label="$t('message.systemMenus.dataType')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_TYPE }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="默认值" min-width="100">
+              <el-table-column :label="$t('message.systemMenus.defaultValue')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_DEFAULT }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="允许非空" min-width="100">
+              <el-table-column :label="$t('message.systemMenus.allowNull')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.IS_NULLABLE }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="自动递增" min-width="100">
+              <el-table-column :label="$t('message.systemMenus.autoIncrement')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.EXTRA }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="备注" min-width="100">
+              <el-table-column :label="$t('message.systemMenus.remark2')" min-width="100">
                 <template slot-scope="scope">
                   <div class="mark">
                     <div v-if="scope.row.is_edit" class="table-mark" v-db-click @click="isEditMark(scope.row)">
@@ -121,16 +121,16 @@
             </el-table>
           </el-drawer>
         </el-tab-pane>
-        <el-tab-pane label="备份列表">
+        <el-tab-pane :label="$t('message.systemMenus.backupList')">
           <el-table
             ref="selection"
             :data="tabList"
             v-loading="loading3"
-            empty-text="暂无数据"
+            :empty-text="$t('message.common.noData')"
             highlight-current-row
             size="small"
           >
-            <el-table-column label="备份名称" min-width="200">
+            <el-table-column :label="$t('message.systemMenus.backupName')" min-width="200">
               <template slot-scope="scope">
                 <span>{{ scope.row.filename }}</span>
               </template>
@@ -140,7 +140,7 @@
                 <span>{{ scope.row.part }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="大小" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.size')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.size }}</span>
               </template>
@@ -150,29 +150,29 @@
                 <span>{{ scope.row.compress }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="时间" min-width="100">
+            <el-table-column :label="$t('message.systemMenus.time')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.backtime }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="140">
+            <el-table-column :label="$t('message.systemMenus.operation')" fixed="right" width="140">
               <template slot-scope="scope">
-                <a v-db-click @click="ImportFile(scope.row)">导入</a>
+                <a v-db-click @click="ImportFile(scope.row)">{{ $t('message.systemMenus.import') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除该备份', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.systemMenus.deleteBackup'), scope.$index)">{{ $t('message.systemMenus.delete') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="download(scope.row)">下载</a>
+                <a v-db-click @click="download(scope.row)">{{ $t('message.systemMenus.download') }}</a>
               </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
     </el-card>
-    <el-dialog :visible.sync="markModal" width="470px" title="修改备注" @closed="cancel">
+    <el-dialog :visible.sync="markModal" width="470px" :title="$t('message.systemMenus.editRemark')" @closed="cancel">
       <el-input v-model="mark"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="ok">确 定</el-button>
+        <el-button v-db-click @click="cancel">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="ok">{{ $t('message.systemMenus.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -310,7 +310,7 @@ export default {
     exportData() {
       const columns = this.columns.slice(1, 7);
       this.$refs.selection.exportCsv({
-        filename: '导出',
+        filename: this.$t('message.systemMenus.export'),
         columns: columns,
         data: this.tabList2,
       });
@@ -329,7 +329,7 @@ export default {
     // 备份表
     getBackup() {
       if (this.selectionList.length === 0) {
-        return this.$message.warning('请选择表');
+        return this.$message.warning(this.$t('message.systemMenus.pleaseSelectTable'));
       }
       backupBackupApi(this.dataList)
         .then(async (res) => {
@@ -358,7 +358,7 @@ export default {
     // 优化表
     getOptimize() {
       if (this.selectionList.length === 0) {
-        return this.$message.warning('请选择表');
+        return this.$message.warning(this.$t('message.systemMenus.pleaseSelectTable'));
       }
       backupOptimizeApi(this.dataList)
         .then(async (res) => {
@@ -371,7 +371,7 @@ export default {
     // 修复表
     getRepair() {
       if (this.selectionList.length === 0) {
-        return this.$message.warning('请选择表');
+        return this.$message.warning(this.$t('message.systemMenus.pleaseSelectTable'));
       }
       backupRepairApi(this.dataList)
         .then(async (res) => {

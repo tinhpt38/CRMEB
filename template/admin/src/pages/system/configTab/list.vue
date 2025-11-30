@@ -2,22 +2,22 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="`配置列表${$route.query.config_name ? ` - ` + $route.query.config_name : ''}`"
+      :title="`${$t('message.systemMenus.configList')}${$route.query.config_name ? ` - ` + $route.query.config_name : ''}`"
       :backUrl="$routeProStr + '/system/config/system_config_tab/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
       <el-row v-if="!$route.query.config_name">
         <el-col v-bind="grid">
           <!-- <el-button type="primary" v-db-click @click="goIndex">配置分类</el-button> -->
-          <el-button type="primary" v-db-click @click="configureAdd">添加配置</el-button>
+          <el-button type="primary" v-db-click @click="configureAdd">{{ $t('message.systemMenus.addConfig') }}</el-button>
         </el-col>
       </el-row>
       <el-table
         :data="classList"
         ref="table"
         v-loading="loading"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
         class="mt14"
       >
         <el-table-column label="ID" width="80">
@@ -25,22 +25,22 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="配置名称" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.configName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.info }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="字段变量" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.fieldVariable')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.menu_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="字段类型" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.fieldType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="值" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.value')" min-width="130">
           <template slot-scope="scope">
             <span
               v-if="
@@ -71,20 +71,20 @@
                 </div>
               </div>
             </div>
-            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? '开启' : '关闭' }}</span>
+            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? $t('message.setting.open') : $t('message.setting.close') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联配置/值" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.relatedConfigValue')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.link_data }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="配置分类" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.configCategory')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.config_tab_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column :label="$t('message.common.isShow')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -94,17 +94,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.setting.show')"
+              :inactive-text="$t('message.systemMenus.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('message.systemMenus.operation')" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.systemMenus.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除分类', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.systemMenus.deleteCategory'), scope.$index)">{{ $t('message.systemMenus.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -113,19 +113,19 @@
     <!-- 新建 表单-->
     <el-dialog
       :visible.sync="modals2"
-      :title="`${rowId ? '修改' : '添加'}配置字段`"
+      :title="`${rowId ? $t('message.systemMenus.modify') : $t('message.systemMenus.add')}${$t('message.systemMenus.configField')}`"
       :close-on-click-modal="false"
       :show-close="true"
       width="720px"
     >
       <el-tabs v-if="!rowId" v-model="typeFrom.type" @tab-click="onhangeTab" class="tabsName">
-        <el-tab-pane label="文本框 " name="0"></el-tab-pane>
-        <el-tab-pane label="多行文本框" name="1"></el-tab-pane>
-        <el-tab-pane label="单选框" name="2"></el-tab-pane>
-        <el-tab-pane label="文件上传" name="3"></el-tab-pane>
-        <el-tab-pane label="多选框" name="4"></el-tab-pane>
-        <el-tab-pane label="下拉框" name="5"></el-tab-pane>
-        <el-tab-pane label="开关" name="6"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemMenus.textBox')" name="0"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemMenus.multiLineTextBox')" name="1"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemMenus.radioButton')" name="2"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemMenus.fileUpload')" name="3"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemMenus.checkbox')" name="4"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemMenus.dropdownSelect')" name="5"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemMenus.switch')" name="6"></el-tab-pane>
       </el-tabs>
       <form-create
         v-if="rules.length != 0"
@@ -138,8 +138,8 @@
         handleIcon="false"
       ></form-create>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="modals2 = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="submitForm">确定</el-button>
+        <el-button v-db-click @click="modals2 = false">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="submitForm">{{ $t('message.systemMenus.confirm') }}</el-button>
       </span>
     </el-dialog>
     <!-- 编辑表单-->

@@ -4,33 +4,33 @@
       <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-table ref="selection" :data="tabList" v-loading="loading" empty-text="暂无数据" highlight-current-row>
-        <el-table-column label="类型" width="100">
+      <el-table ref="selection" :data="tabList" v-loading="loading" :empty-text="$t('message.common.noData')" highlight-current-row>
+        <el-table-column :label="$t('message.systemMenus.type')" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="文件地址" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.fileAddress')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.filename }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="校验码" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.checksum')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.cthash }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="上次访问时间" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.lastAccessTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.atime }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="上次修改时间" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.lastModifyTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.mtime }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="上次改变时间" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.lastChangeTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.ctime }}</span>
           </template>

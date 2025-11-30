@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" v-loading="spinShow">
-      <el-button type="primary" v-db-click @click="groupAdd()" class="mr20">添加功能</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd()" class="mr20">{{ $t('message.systemMenus.addFunction') }}</el-button>
       <!-- <el-button type="success" v-db-click @click="buildCode()" class="mr20">重新发布</el-button> -->
       <el-table
         :data="tabList"
@@ -9,43 +9,43 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="菜单名" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.menuName2')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="表名" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.tableName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.table_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="表备注" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.tableRemark')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.table_comment }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="200">
+        <el-table-column :label="$t('message.systemMenus.operation')" fixed="right" width="200">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, '编辑')">查看代码</a>
+            <a v-db-click @click="edit(scope.row, $t('message.systemMenus.edit'))">{{ $t('message.systemMenus.viewCode') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="editItem(scope.row)">编辑</a>
+            <a v-db-click @click="editItem(scope.row)">{{ $t('message.systemMenus.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="downLoad(scope.row)">下载</a>
+            <a v-db-click @click="downLoad(scope.row)">{{ $t('message.systemMenus.download') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.systemMenus.delete'), scope.$index)">{{ $t('message.systemMenus.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -72,7 +72,7 @@
         <span>{{ title }}</span>
       </p>
       <div class="file" style="height: 100%">
-        <el-button class="save" type="primary" v-db-click @click="pwdModal = true">保存</el-button>
+        <el-button class="save" type="primary" v-db-click @click="pwdModal = true">{{ $t('message.common.save') }}</el-button>
 
         <div class="file-box">
           <div class="file-fix"></div>
@@ -130,7 +130,7 @@
       width="720px"
       @close="editModalChange"
     >
-      <el-alert type="warning" title="当前终端未运行于安装服务下，部分命令可能无法执行."></el-alert>
+      <el-alert type="warning" :title="$t('message.systemMenus.terminalWarning')"></el-alert>
       <div>
         <div v-for="(item, index) in codeBuildList" :key="index">{{ item }}</div>
       </div>
@@ -138,14 +138,14 @@
     <el-dialog
       :visible.sync="pwdModal"
       width="470px"
-      title="文件管理密码"
+      :title="$t('message.systemMenus.fileManagementPassword')"
       :show-close="true"
       :close-on-click-modal="false"
     >
-      <el-input v-model="pwd" type="password" placeholder="请输入文件管理密码"></el-input>
+      <el-input v-model="pwd" type="password" :placeholder="$t('message.systemMenus.pleaseInputFileManagementPassword')"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="pwdModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="crudSaveFile">确 定</el-button>
+        <el-button v-db-click @click="pwdModal = false">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="crudSaveFile">{{ $t('message.systemMenus.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>

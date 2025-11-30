@@ -1,26 +1,26 @@
 <template>
   <div class="main">
     <el-alert closable class="mb14">
-      <template v-slot:title>crud生成说明</template>
+      <template v-slot:title>{{ $t('message.systemMenus.crudGenerationDescription') }}</template>
       <template>
         <p>
-          1、字段配置中表存在生成的字段为表内列的信息,并且主键、伪删除字段不允许设置为列，主键默认展示在列表中，伪删除字段不允许展示
+          {{ $t('message.systemMenus.fieldConfigTip1') }}
         </p>
-        <p>2、在字段配置中新建表时，主键不需要增加列，会自动增加一行主键id</p>
-        <p>3、在字段配置中，表单类型为不生成时创建后不会生成对应的表单项</p>
-        <p>4、添加字段id、create_time、update_time、delete_time为不可用字段</p>
+        <p>{{ $t('message.systemMenus.fieldConfigTip2') }}</p>
+        <p>{{ $t('message.systemMenus.fieldConfigTip3') }}</p>
+        <p>{{ $t('message.systemMenus.fieldConfigTip4') }}</p>
       </template>
     </el-alert>
     <div class="df mb14">
-      <el-button class="mr20" type="primary" v-db-click @click="addRow">添加一行</el-button>
-      <el-checkbox class="mr10" v-model="isCreate" @change="addCreate">添加与修改时间</el-checkbox>
-      <el-checkbox class="mr10" v-model="isDelete" @change="addDelete">伪删除</el-checkbox>
+      <el-button class="mr20" type="primary" v-db-click @click="addRow">{{ $t('message.systemMenus.addRow') }}</el-button>
+      <el-checkbox class="mr10" v-model="isCreate" @change="addCreate">{{ $t('message.systemMenus.addAndModifyTime') }}</el-checkbox>
+      <el-checkbox class="mr10" v-model="isDelete" @change="addDelete">{{ $t('message.systemMenus.softDelete') }}</el-checkbox>
     </div>
     <div>
       <el-table
         ref="selection"
         :data="tableField"
-        empty-text="暂无数据"
+        :empty-text="$t('message.common.noData')"
         highlight-current-row
         v-loading="loading"
         max-height="600"
@@ -33,7 +33,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="表单名" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.formName')" min-width="130">
           <template slot-scope="scope">
             <el-input
               v-model="scope.row.table_name"
@@ -42,7 +42,7 @@
             ></el-input>
           </template>
         </el-table-column>
-        <el-table-column label="表单类型" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.formType')" min-width="130">
           <template slot-scope="scope">
             <el-select
               clearable
@@ -59,7 +59,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="数据字典" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.dataDictionary')" min-width="130">
           <template slot-scope="scope">
             <div class="table-options" v-if="['select', 'radio', 'checkbox'].includes(scope.row.from_type)">
               <el-select clearable v-model="scope.row.dictionary_id">
@@ -75,7 +75,7 @@
             <div v-else>--</div>
           </template>
         </el-table-column>
-        <el-table-column label="必填" width="50">
+        <el-table-column :label="$t('message.systemMenus.required')" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.required"
@@ -84,14 +84,14 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="查询方式" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.searchMethod')" min-width="130">
           <template slot-scope="scope">
             <el-select
               clearable
               v-model="scope.row.search"
               :disabled="disabledInput(scope.$index)"
               slot="prepend"
-              placeholder="请选择"
+              :placeholder="$t('message.systemMenus.pleaseSelect')"
             >
               <el-option
                 :label="item.label"
@@ -102,7 +102,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="列表" width="50">
+        <el-table-column :label="$t('message.systemMenus.list')" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.is_table"
@@ -110,7 +110,7 @@
             ></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column label="字段名称" min-width="120">
+        <el-table-column :label="$t('message.systemMenus.fieldName')" min-width="120">
           <template slot-scope="scope">
             <el-input
               :disabled="disabledInput(scope.$index)"
@@ -119,7 +119,7 @@
             ></el-input>
           </template>
         </el-table-column>
-        <el-table-column label="字段类型" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.fieldType')" min-width="130">
           <template slot-scope="scope">
             <el-select
               v-model="scope.row.field_type"
@@ -131,7 +131,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="长度" min-width="80">
+        <el-table-column :label="$t('message.systemMenus.length')" min-width="80">
           <template slot-scope="scope">
             <el-input
               v-if="scope.row.field_type !== 'enum'"
@@ -146,11 +146,11 @@
               allow-create
               clearable
               default-first-option
-              placeholder="请添加"
+              :placeholder="$t('message.systemMenus.pleaseAdd')"
             />
           </template>
         </el-table-column>
-        <el-table-column label="默认值" min-width="180">
+        <el-table-column :label="$t('message.systemMenus.defaultValue')" min-width="180">
           <template slot-scope="scope">
             <el-input
               class="input-with-select"
@@ -163,7 +163,7 @@
                 v-model="scope.row.default_type"
                 slot="prepend"
                 :disabled="disabledInput(scope.$index)"
-                placeholder="请选择"
+                :placeholder="$t('message.systemMenus.pleaseSelect')"
                 style="width: 100px"
               >
                 <el-option
@@ -177,13 +177,13 @@
             <!-- <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option> -->
           </template>
         </el-table-column>
-        <el-table-column label="字段描述" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.fieldDescription')" min-width="130">
           <template slot-scope="scope">
             <el-input v-model="scope.row.comment" :disabled="disabledInput(scope.$index)"></el-input>
           </template>
         </el-table-column>
 
-        <el-table-column label="关联表" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.relatedTable')" min-width="130">
           <template slot-scope="scope">
             <el-cascader
               clearable
@@ -195,7 +195,7 @@
             ></el-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="索引" width="50">
+        <el-table-column :label="$t('message.systemMenus.index')" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.index"
@@ -203,10 +203,10 @@
             ></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.systemMenus.operation')" fixed="right" width="100">
           <template slot-scope="scope">
             <a v-if="!scope.row.primaryKey && !disabledInput(scope.$index)" v-db-click @click="del(row, scope.$index)"
-              >删除</a
+              >{{ $t('message.systemMenus.delete') }}</a
             >
             <span v-else>--</span>
           </template>
@@ -215,7 +215,7 @@
     </div>
     <el-dialog
       :visible.sync="optionsModal"
-      title="字典配置"
+      :title="$t('message.systemMenus.dictionaryConfig')"
       @close="beforeChange"
       :close-on-click-modal="false"
       width="600px"
@@ -223,29 +223,29 @@
       <div class="options-list">
         <el-form ref="form" :inline="true" label-width="80px">
           <div class="mb10">
-            <el-form-item label="字典名称：">
-              <el-input class="mr10" v-model="dictionaryName" placeholder="字典名称" style="width: 310px" />
+            <el-form-item :label="$t('message.systemMenus.dictionaryName') + '：'">
+              <el-input class="mr10" v-model="dictionaryName" :placeholder="$t('message.systemMenus.dictionaryName')" style="width: 310px" />
             </el-form-item>
           </div>
           <div class="item" v-for="(item, index) in optionsList" :key="index">
-            <el-form-item label="数据名称：">
+            <el-form-item :label="$t('message.systemMenus.dataName') + '：'">
               <el-input class="mr10" v-model="item.label" placeholder="label" style="width: 150px" />
             </el-form-item>
-            <el-form-item label="数据值：">
+            <el-form-item :label="$t('message.systemMenus.dataValue') + '：'">
               <el-input class="mr10" v-model="item.value" placeholder="value" style="width: 150px" />
             </el-form-item>
             <div style="display: inline-block; margin-bottom: 14px">
               <i
                 v-if="index == optionsList.length - 1"
                 class="el-icon-circle-plus-outline add"
-                title="新增"
+                :title="$t('message.systemMenus.add')"
                 v-db-click
                 @click="addOneOptions"
               />
               <i
                 v-if="index > 0"
                 class="el-icon-remove-outline delete"
-                title="删除"
+                :title="$t('message.systemMenus.delete')"
                 v-db-click
                 @click="delOneOptions(index)"
               />
@@ -254,8 +254,8 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="optionsModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="addOptions">确 定</el-button>
+        <el-button v-db-click @click="optionsModal = false">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="addOptions">{{ $t('message.systemMenus.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -434,7 +434,7 @@ export default {
       for (let i = 0; i < this.tableField.length; i++) {
         const el = this.tableField[i];
         if ((!el.field || !el.field_type) && !['addTimestamps', 'addSoftDelete'].includes(el.field_type)) {
-          return this.$message.warning('请先完善上一条数据');
+          return this.$message.warning(this.$t('message.systemMenus.pleaseCompletePreviousData'));
         }
         if (
           el.is_table &&
@@ -442,7 +442,7 @@ export default {
           !Number(el.primaryKey) &&
           !['addTimestamps', 'addSoftDelete'].includes(el.field_type)
         ) {
-          return this.$message.warning('请输入列表名');
+          return this.$message.warning(this.$t('message.systemMenus.pleaseInputListName'));
         }
       }
       let i = this.tableField.length;
@@ -483,7 +483,7 @@ export default {
           this.$nextTick((e) => {
             this.isCreate = false;
           });
-          return this.$message.warning('已存在 create_time或update_time');
+          return this.$message.warning(this.$t('message.systemMenus.createTimeOrUpdateTimeExists'));
         }
         let data = [
           {
@@ -491,10 +491,10 @@ export default {
             field_type: 'timestamp',
             default: '',
             default_type: '-1',
-            comment: '添加时间',
+            comment: this.$t('message.systemMenus.addTime'),
             required: false,
             is_table: false,
-            table_name: '添加时间',
+            table_name: this.$t('message.systemMenus.addTime'),
             limit: '',
             primaryKey: 0,
             from_type: '',
@@ -508,10 +508,10 @@ export default {
             field_type: 'timestamp',
             default_type: '-1',
             default: '',
-            comment: '修改时间',
+            comment: this.$t('message.systemMenus.modifyTime'),
             required: false,
             is_table: false,
-            table_name: '修改时间',
+            table_name: this.$t('message.systemMenus.modifyTime'),
             limit: '',
             primaryKey: 0,
             from_type: '',
@@ -532,7 +532,7 @@ export default {
         let haveDel = this.tableField.findIndex((e) => e.field === 'delete_time');
         if (haveDel > 0) {
           this.isDelete = false;
-          return this.$message.warning('已存在 delete_time');
+          return this.$message.warning(this.$t('message.systemMenus.deleteTimeExists'));
         }
         let data = [
           {
@@ -540,10 +540,10 @@ export default {
             field_type: 'timestamp',
             default: '',
             default_type: '-1',
-            comment: '伪删除',
+            comment: this.$t('message.systemMenus.softDelete'),
             required: false,
             is_table: false,
-            table_name: '伪删除',
+            table_name: this.$t('message.systemMenus.softDelete'),
             limit: '',
             primaryKey: 0,
             from_type: '',
@@ -564,7 +564,7 @@ export default {
         for (let i = 0; i < this.tableField.length; i++) {
           const e = this.tableField[i];
           if (['id', 'create_time', 'update_time', 'delete_time'].includes(this.tableField[index].field)) {
-            this.$message.warning('列表中已存在该字段名称');
+            this.$message.warning(this.$t('message.systemMenus.fieldNameExistsInList'));
             this.tableField[index].field = '';
             return;
           }

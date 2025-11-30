@@ -10,7 +10,7 @@
           <div class="clear_box">
             <span class="clear_box_sp1" v-text="item.title"></span>
             <span class="clear_box_sp2" v-text="item.tlt"></span>
-            <el-button :type="item.typeName" v-db-click @click="onChange(index)">立即清除</el-button>
+            <el-button :type="item.typeName" v-db-click @click="onChange(index)">{{ $t('message.systemMenus.clearImmediately') }}</el-button>
           </div>
         </el-col>
       </el-row>
@@ -31,21 +31,25 @@ export default {
         xs: 24,
       },
       delfromData: {},
-      tabList: [
-        {
-          title: '清除缓存',
-          tlt: '清除系统的所有缓存',
-          typeName: 'primary',
-          type: '11',
-        },
-        {
-          title: '清除日志',
-          tlt: '清除系统的所有日志文件',
-          typeName: 'primary',
-          type: 'temp',
-        },
-      ],
+      tabList: [],
     };
+  },
+  created() {
+    // Initialize tabList with i18n
+    this.tabList = [
+      {
+        title: this.$t('message.systemMenus.clearCache'),
+        tlt: this.$t('message.systemMenus.clearAllCache'),
+        typeName: 'primary',
+        type: '11',
+      },
+      {
+        title: this.$t('message.systemMenus.clearLog'),
+        tlt: this.$t('message.systemMenus.clearAllLogFiles'),
+        typeName: 'primary',
+        type: 'temp',
+      },
+    ];
   },
   methods: {
     onChange(i) {
@@ -57,7 +61,7 @@ export default {
     },
     clearCache() {
       let delfromData = {
-        title: '清除缓存',
+        title: this.$t('message.systemMenus.clearCache'),
         num: 0,
         url: `system/refresh_cache/cache`,
         method: 'get',
@@ -73,7 +77,7 @@ export default {
     },
     clearlog() {
       let delfromData = {
-        title: '清除日志',
+        title: this.$t('message.systemMenus.clearLog'),
         num: 0,
         url: `system/refresh_cache/log`,
         method: 'get',

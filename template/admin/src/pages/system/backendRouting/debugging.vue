@@ -13,8 +13,8 @@
           </el-select>
         </template>
       </el-input>
-      <el-button class="ml20" type="primary" v-db-click @click="requestData">请求</el-button>
-      <el-button v-if="codes" class="ml10 copy-btn" type="success" v-db-click @click="insertCopy()">复制结果</el-button>
+      <el-button class="ml20" type="primary" v-db-click @click="requestData">{{ $t('message.systemMenus.request') }}</el-button>
+      <el-button v-if="codes" class="ml10 copy-btn" type="success" v-db-click @click="insertCopy()">{{ $t('message.systemMenus.copyResult') }}</el-button>
     </div>
     <div class="params">
       <el-tabs class="mt10" v-model="paramsType" @tab-click="changeTab">
@@ -35,17 +35,17 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.query"
         >
-          <vxe-column field="attribute" width="150" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="150" :title="$t('message.systemMenus.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.systemMenus.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="类型" width="120" :edit-render="{}">
+          <vxe-column field="type" :title="$t('message.systemMenus.type')" width="120" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select
                 v-model="row.type"
@@ -75,7 +75,7 @@
               <vxe-input v-model="row.trip" type="text"></vxe-input>
             </template>
           </vxe-column> -->
-          <vxe-column title="操作" width="120">
+          <vxe-column :title="$t('message.systemMenus.operation')" width="120">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -83,13 +83,13 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'xTable')"
-                >插入</vxe-button
+                >{{ $t('message.systemMenus.insert') }}</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">删除</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">{{ $t('message.systemMenus.delete') }}</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
-        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('xTable')">添加参数</el-button>
+        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('xTable')">{{ $t('message.systemMenus.addParam') }}</el-button>
       </div>
       <div v-show="paramsType === 'Body'">
         <el-radio-group v-model="bodyType" class="mt10">
@@ -109,17 +109,17 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.request_body"
         >
-          <vxe-column field="attribute" width="150" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="150" :title="$t('message.systemMenus.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.systemMenus.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="类型" width="120" :edit-render="{}">
+          <vxe-column field="type" :title="$t('message.systemMenus.type')" width="120" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select
                 v-model="row.type"
@@ -149,7 +149,7 @@
               <vxe-input v-model="row.trip" type="text"></vxe-input>
             </template>
           </vxe-column> -->
-          <vxe-column title="操作" width="120">
+          <vxe-column :title="$t('message.systemMenus.operation')" width="120">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -164,7 +164,7 @@
           </vxe-column>
         </vxe-table>
         <div v-else>
-          <el-input v-model="jsonBody" type="textarea" :rows="8" placeholder="请求数据" />
+          <el-input v-model="jsonBody" type="textarea" :rows="8" :placeholder="$t('message.systemMenus.requestData')" />
         </div>
         <el-button v-if="bodyType == 'form-data'" class="mt10" type="primary" v-db-click @click="insertEvent('yTable')"
           >添加参数</el-button
@@ -189,7 +189,7 @@
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.systemMenus.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
@@ -311,7 +311,7 @@ export default {
           this.$message.success('复制成功');
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('message.systemMenus.copyFailed'));
         });
     },
     async requestData() {
@@ -328,11 +328,11 @@ export default {
       this.codes = '';
       requestMethod(url, method, params, body, headers)
         .then((res) => {
-          if (!res) return this.$message.error('接口异常');
+          if (!res) return this.$message.error(this.$t('message.systemMenus.apiException'));
           this.codes = JSON.stringify(res);
         })
         .catch((err) => {
-          if (!err) return this.$message.error('接口异常');
+          if (!err) return this.$message.error(this.$t('message.systemMenus.apiException'));
           this.codes = JSON.stringify(err);
         });
     },

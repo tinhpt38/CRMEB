@@ -10,62 +10,62 @@
       >
         <el-row :gutter="24">
           <el-col :span="24">
-            <el-form-item label="数据组名称：" prop="name">
-              <el-input v-model="formValidate.name" placeholder="请输入数据组名称" style="width: 90%"></el-input>
+            <el-form-item :label="$t('message.systemMenus.dataGroupName') + '：'" prop="name">
+              <el-input v-model="formValidate.name" :placeholder="$t('message.systemMenus.pleaseInputDataGroupName')" style="width: 90%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="数据字段：" prop="config_name">
-              <el-input v-model="formValidate.config_name" placeholder="请输入数据字段" style="width: 90%"></el-input>
+            <el-form-item :label="$t('message.systemMenus.dataField') + '：'" prop="config_name">
+              <el-input v-model="formValidate.config_name" :placeholder="$t('message.systemMenus.pleaseInputDataField')" style="width: 90%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="数据简介：" prop="info">
-              <el-input v-model="formValidate.info" placeholder="请输入数据简介" style="width: 90%"></el-input>
+            <el-form-item :label="$t('message.systemMenus.dataIntro') + '：'" prop="info">
+              <el-input v-model="formValidate.info" :placeholder="$t('message.systemMenus.pleaseInputDataIntro')" style="width: 90%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="数据类型：" prop="cate_id">
+            <el-form-item :label="$t('message.systemMenus.dataType') + '：'" prop="cate_id">
               <el-radio-group v-model="formValidate.cate_id">
-                <el-radio :label="0">默认</el-radio>
-                <el-radio :label="1">数据</el-radio>
+                <el-radio :label="0">{{ $t('message.systemMenus.default') }}</el-radio>
+                <el-radio :label="1">{{ $t('message.systemMenus.data') }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="24" v-for="(item, index) in formValidate.typelist" :key="index">
             <el-col v-bind="grid">
               <el-form-item
-                :label="'字段' + (index + 1) + '：'"
+                :label="$t('message.systemMenus.field') + (index + 1) + '：'"
                 label-width="90px"
                 :prop="'typelist.' + index + '.name.value'"
-                :rules="{ required: true, message: '请输入字段名称：姓名', trigger: 'blur' }"
+                :rules="{ required: true, message: $t('message.systemMenus.pleaseInputFieldNameExample'), trigger: 'blur' }"
               >
-                <el-input v-model="item.name.value" placeholder="字段名称：姓名"></el-input>
+                <el-input v-model="item.name.value" :placeholder="$t('message.systemMenus.fieldNameExample')"></el-input>
               </el-form-item>
             </el-col>
             <el-col v-bind="grid" class="goupBox">
               <el-form-item
                 label-width="0"
                 :prop="'typelist.' + index + '.title.value'"
-                :rules="{ required: true, message: '请输入字段配置名', trigger: 'blur' }"
+                :rules="{ required: true, message: $t('message.systemMenus.pleaseInputFieldConfigName'), trigger: 'blur' }"
               >
-                <el-input v-model="item.title.value" placeholder="字段配置名：name"></el-input>
+                <el-input v-model="item.title.value" :placeholder="$t('message.systemMenus.fieldConfigNameExample')"></el-input>
               </el-form-item>
             </el-col>
             <el-col v-bind="grid" prop="type" class="goupBox">
               <el-form-item
                 :prop="'typelist.' + index + '.type.value'"
-                :rules="{ required: true, message: '请选择字段类型', trigger: 'change' }"
+                :rules="{ required: true, message: $t('message.systemMenus.pleaseSelectFieldType'), trigger: 'change' }"
                 label-width="0"
               >
-                <el-select placeholder="字段类型" v-model="item.type.value">
-                  <el-option value="input">文本框</el-option>
-                  <el-option value="textarea">多行文本框</el-option>
-                  <el-option value="radio">单选框</el-option>
-                  <el-option value="checkbox">多选框</el-option>
-                  <el-option value="select">下拉选择</el-option>
-                  <el-option value="upload">单图</el-option>
-                  <el-option value="uploads">多图</el-option>
+                <el-select :placeholder="$t('message.systemMenus.fieldType')" v-model="item.type.value">
+                  <el-option value="input">{{ $t('message.systemMenus.textBox') }}</el-option>
+                  <el-option value="textarea">{{ $t('message.systemMenus.multiLineTextBox') }}</el-option>
+                  <el-option value="radio">{{ $t('message.systemMenus.radioButton') }}</el-option>
+                  <el-option value="checkbox">{{ $t('message.systemMenus.checkbox') }}</el-option>
+                  <el-option value="select">{{ $t('message.systemMenus.dropdownSelect') }}</el-option>
+                  <el-option value="upload">{{ $t('message.systemMenus.singleImage') }}</el-option>
+                  <el-option value="uploads">{{ $t('message.systemMenus.multipleImages') }}</el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -77,7 +77,7 @@
             >
               <el-form-item
                 :prop="'typelist.' + index + '.param.value'"
-                :rules="{ required: true, message: '请输入参数方式', trigger: 'blur' }"
+                :rules="{ required: true, message: $t('message.systemMenus.pleaseInputParameterMethod'), trigger: 'blur' }"
               >
                 <el-input
                   type="textarea"
@@ -91,14 +91,14 @@
           </el-col>
           <el-col>
             <el-form-item>
-              <el-button type="primary" v-db-click @click="addType">添加字段</el-button>
+              <el-button type="primary" v-db-click @click="addType">{{ $t('message.systemMenus.addField') }}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="handleReset">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">确 定</el-button>
+        <el-button v-db-click @click="handleReset">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">{{ $t('message.systemMenus.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -134,12 +134,7 @@ export default {
       },
       modals: false,
       modal12: false,
-      ruleValidate: {
-        name: [{ required: true, message: '请输入数据组名称', trigger: 'blur' }],
-        config_name: [{ required: true, message: '请输入数据字段', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入数据简介', trigger: 'blur' }],
-        names: [{ required: true, message: '请输入字段名称', trigger: 'blur' }],
-      },
+      ruleValidate: {},
       FromData: [],
       valids: false,
       list2: [],
@@ -173,7 +168,7 @@ export default {
           value: '',
         },
         param: {
-          placeholder: '参数方式例如:\n1=白色\n2=红色\n3=黑色',
+          placeholder: this.$t('message.systemMenus.parameterMethodExample'),
           value: '',
         },
       });
@@ -201,7 +196,7 @@ export default {
       };
       this.$refs[name].validate((valid) => {
         if (valid) {
-          if (this.formValidate.typelist.length === 0) return this.$message.error('请添加字段名称：姓名！');
+          if (this.formValidate.typelist.length === 0) return this.$message.error(this.$t('message.systemMenus.pleaseAddFieldNameExample'));
           groupAddApi(data)
             .then(async (res) => {
               this.$message.success(res.msg);
@@ -214,9 +209,9 @@ export default {
               this.$message.error(res.msg);
             });
         } else {
-          if (!this.formValidate.name) return this.$message.error('请添加数据组名称！');
-          if (!this.formValidate.config_name) return this.$message.error('请添加数据字段！');
-          if (!this.formValidate.info) return this.$message.error('请添加数据简介！');
+          if (!this.formValidate.name) return this.$message.error(this.$t('message.systemMenus.pleaseAddDataGroupName'));
+          if (!this.formValidate.config_name) return this.$message.error(this.$t('message.systemMenus.pleaseAddDataField'));
+          if (!this.formValidate.info) return this.$message.error(this.$t('message.systemMenus.pleaseAddDataIntro'));
         }
       });
     },
@@ -226,7 +221,15 @@ export default {
       this.$emit('clearFrom');
     },
   },
-  created() {},
+  created() {
+    // Initialize ruleValidate with i18n
+    this.ruleValidate = {
+      name: [{ required: true, message: this.$t('message.systemMenus.pleaseInputDataGroupName'), trigger: 'blur' }],
+      config_name: [{ required: true, message: this.$t('message.systemMenus.pleaseInputDataField'), trigger: 'blur' }],
+      info: [{ required: true, message: this.$t('message.systemMenus.pleaseInputDataIntro'), trigger: 'blur' }],
+      names: [{ required: true, message: this.$t('message.systemMenus.pleaseInputFieldName'), trigger: 'blur' }],
+    };
+  },
   mounted() {},
 };
 </script>

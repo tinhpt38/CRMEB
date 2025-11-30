@@ -20,31 +20,31 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.common.isShow') + '：'">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('message.setting.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="1" :label="$t('message.setting.show')"></el-option>
+              <el-option value="0" :label="$t('message.setting.notShow')"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt14">
-      <el-button type="primary" v-db-click @click="groupAdd('添加数据')" class="mr20">添加数据</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd($t('message.systemMenus.addData'))" class="mr20">{{ $t('message.systemMenus.addData') }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
       >
         <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns1" :key="index">
           <template slot-scope="scope">
@@ -70,9 +70,9 @@
               </el-switch>
             </template>
             <template v-else-if="item.slot === 'action'">
-              <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+              <a v-db-click @click="edit(scope.row, $t('message.systemMenus.edit'))">{{ $t('message.systemMenus.edit') }}</a>
               <el-divider direction="vertical"></el-divider>
-              <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+              <a v-db-click @click="del(scope.row, $t('message.systemMenus.deleteThisInfo'), scope.$index)">{{ $t('message.systemMenus.delete') }}</a>
             </template>
           </template>
         </el-table-column>

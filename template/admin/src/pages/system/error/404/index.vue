@@ -1,5 +1,5 @@
 <template>
-  <error-content code="404" desc="抱歉，你访问的页面不存在" :src="src" />
+  <error-content code="404" :desc="$t('message.systemMenus.pageNotFound')" :src="src" />
 </template>
 
 <script>

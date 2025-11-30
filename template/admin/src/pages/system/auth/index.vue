@@ -2,11 +2,11 @@
   <div>
     <el-card v-for="(value, key, index) in tableList" :key="index" :bordered="false" shadow="never" class="ivu-mt mt16">
       <div class="head acea-row row-between-wrapper">{{ key | headText }}</div>
-      <el-table ref="table" :data="tableList[key]" empty-text="暂无数据">
-        <el-table-column :label="key == 'permissions' ? '文件/目录' : '环境'" minWidth="180">
+      <el-table ref="table" :data="tableList[key]" :empty-text="$t('message.common.noData')">
+        <el-table-column :label="key == 'permissions' ? $t('message.systemMenus.fileDirectory') : $t('message.systemMenus.environment')" minWidth="180">
           <template slot-scope="scope">{{ scope.row.name }} </template>
         </el-table-column>
-        <el-table-column label="要求" minWidth="180">
+        <el-table-column :label="$t('message.systemMenus.requirement')" minWidth="180">
           <template slot-scope="scope">
             <span>{{ scope.row.require }} </span>
             <el-tooltip placement="top" v-if="key == 'process' && !scope.row.value">
@@ -15,7 +15,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="状态" width="180">
+        <el-table-column :label="$t('message.common.status')" width="180">
           <template slot-scope="scope">
             <span v-if="typeof scope.row.value === 'boolean'">
               <i v-if="scope.row.value === true" class="el-icon-check"></i>
@@ -27,33 +27,33 @@
       </el-table>
     </el-card>
 
-    <el-dialog :visible.sync="isTemplate" title="商业授权" width="550px" @closed="cancel">
+    <el-dialog :visible.sync="isTemplate" :title="$t('message.systemMenus.businessAuthorization')" width="550px" @closed="cancel">
       <iframe width="100%" height="780" :src="iframeUrl" frameborder="0"></iframe>
     </el-dialog>
-    <el-dialog :visible.sync="modalCopyright" title="版权信息" width="550px">
+    <el-dialog :visible.sync="modalCopyright" :title="$t('message.systemMenus.copyrightInfo')" width="550px">
       <div class="auth">
-        <div class="update">修改版权信息:</div>
+        <div class="update">{{ $t('message.systemMenus.editCopyrightInfo') }}:</div>
         <el-input style="width: 460px" v-model="copyrightText" />
       </div>
       <div class="auth">
-        <div class="update">上传版权图片:</div>
+        <div class="update">{{ $t('message.systemMenus.uploadCopyrightImage') }}:</div>
         <div>
-          <div class="uploadPictrue" v-if="authorizedPicture" v-db-click @click="modalPicTap('单选')">
+          <div class="uploadPictrue" v-if="authorizedPicture" v-db-click @click="modalPicTap($t('message.systemMenus.singleSelect'))">
             <img v-lazy="authorizedPicture" />
             <i class="el-icon-error" @click.stop="authorizedPicture = ''"></i>
           </div>
-          <div class="upload" v-else v-db-click @click="modalPicTap('单选')">
+          <div class="upload" v-else v-db-click @click="modalPicTap($t('message.systemMenus.singleSelect'))">
             <div class="iconfont">+</div>
           </div>
-          <div class="tips-info">建议尺寸：宽290px*高100px</div>
+          <div class="tips-info">{{ $t('message.systemMenus.recommendedSize') }}</div>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="modalCopyright = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="saveCopyRight">保存</el-button>
+        <el-button v-db-click @click="modalCopyright = false">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="saveCopyRight">{{ $t('message.common.save') }}</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="modalPic" width="1024px" title="上传授权图片" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="1024px" :title="$t('message.systemMenus.uploadAuthorizationImage')" :close-on-click-modal="false">
       <uploadPictures :isChoice="isChoice" @getPic="getPic" :gridBtn="gridBtn" :gridPic="gridPic" v-if="modalPic">
       </uploadPictures>
     </el-dialog>
@@ -104,7 +104,7 @@ export default {
       label: '',
       productType: '',
       modalPic: false,
-      isChoice: '单选',
+      isChoice: '',
       authorizedPicture: '', // 版权图片
       gridPic: {
         xl: 6,
@@ -125,23 +125,7 @@ export default {
       copyrightTableData: [],
       copyrightList: [{}],
       loading: false,
-      trips: [
-        {
-          title: '温馨提示',
-          message:
-            '您的【长连接】未开启，没有开启会导致系统默认客服无法使用,后台订单通知无法收到。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
-        },
-        {
-          title: '温馨提示',
-          message:
-            '您的【定时任务】未开启，没有开启会导致自动收货、未支付自动取消订单、订单自动好评、拼团到期退款等任务无法正常执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
-        },
-        {
-          title: '温馨提示',
-          message:
-            '您的【消息队列】未开启，没有开启会导致异步任务无法执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
-        },
-      ],
+      trips: [],
     };
   },
   filters: {
@@ -153,13 +137,13 @@ export default {
     },
     headText(z) {
       if (z === 'server') {
-        return '服务器信息';
+        return this.$t('message.systemMenus.serverInfo');
       } else if (z === 'environment') {
-        return '系统环境要求';
+        return this.$t('message.systemMenus.systemEnvironmentRequirement');
       } else if (z === 'permissions') {
-        return '权限状态';
+        return this.$t('message.systemMenus.permissionStatus');
       } else if (z === 'process') {
-        return '启动进程';
+        return this.$t('message.systemMenus.startProcess');
       }
     },
   },
@@ -167,6 +151,22 @@ export default {
     uploadPictures,
   },
   mounted() {
+    // Initialize trips with i18n
+    this.trips = [
+      {
+        title: this.$t('message.systemMenus.warmTip'),
+        message: this.$t('message.systemMenus.longConnectionWarning'),
+      },
+      {
+        title: this.$t('message.systemMenus.warmTip'),
+        message: this.$t('message.systemMenus.cronTaskWarning'),
+      },
+      {
+        title: this.$t('message.systemMenus.warmTip'),
+        message: this.$t('message.systemMenus.messageQueueWarning'),
+      },
+    ];
+    this.isChoice = this.$t('message.systemMenus.singleSelect');
     this.getAuth();
     this.getVersion();
     window.addEventListener('message', (e) => {

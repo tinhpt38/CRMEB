@@ -10,30 +10,30 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="数据搜索：">
+          <el-form-item :label="$t('message.systemMenus.dataSearch') + '：'">
             <el-input
               clearable
-              placeholder="请输入ID,KEY,数据组名称,简介"
+              :placeholder="$t('message.systemMenus.pleaseInputIdKeyDataGroupNameIntro')"
               v-model="formValidate.title"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.systemMenus.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="groupAdd('添加数据组')" class="mr20">添加数据组</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd($t('message.systemMenus.addDataGroup'))" class="mr20">{{ $t('message.systemMenus.addDataGroup') }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
@@ -45,23 +45,23 @@
             <span>{{ scope.row.config_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="数据组名称" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.dataGroupName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="简介" min-width="130">
+        <el-table-column :label="$t('message.systemMenus.intro')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.info }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.systemMenus.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="goList(scope.row)">数据列表</a>
+            <a v-db-click @click="goList(scope.row)">{{ $t('message.systemMenus.dataList') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(scope.row, $t('message.systemMenus.edit'))">{{ $t('message.systemMenus.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除数据组', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.systemMenus.deleteDataGroup'), scope.$index)">{{ $t('message.systemMenus.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

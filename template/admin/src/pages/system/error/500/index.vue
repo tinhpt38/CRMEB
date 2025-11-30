@@ -1,5 +1,5 @@
 <template>
-  <error-content code="500" desc="抱歉，服务器出错了" :src="src" />
+  <error-content code="500" :desc="$t('message.systemMenus.serverError')" :src="src" />
 </template>
 
 <script>

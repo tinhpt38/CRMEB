@@ -2,19 +2,19 @@
   <div>
     <el-drawer
       :visible.sync="modal"
-      :title="formValidate.id ? '编辑定时任务' : '添加定时任务'"
+      :title="formValidate.id ? $t('message.systemMenus.editCronTask') : $t('message.systemMenus.addCronTask')"
       size="1000px"
       @closed="initData"
     >
       <el-form v-if="modal" class="pb-20" ref="formValidate" :model="formValidate" label-width="97px" label-colon>
-        <el-form-item label="任务名称：" v-if="currentTab === '1'">
+        <el-form-item :label="$t('message.systemMenus.taskName') + '：'" v-if="currentTab === '1'">
           <el-row :gutter="10">
             <el-col :span="24">
-              <el-input v-model="formValidate.name" type="text" placeholder="请输入任务名称"></el-input>
+              <el-input v-model="formValidate.name" type="text" :placeholder="$t('message.systemMenus.pleaseInputTaskName')"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="执行周期：" required>
+        <el-form-item :label="$t('message.systemMenus.executionCycle') + '：'" required>
           <el-row :gutter="14">
             <el-col :span="4">
               <el-select v-model="formValidate.type">
@@ -34,7 +34,7 @@
             <el-col v-if="[8].includes(formValidate.type)" :span="4">
               <div class="input-number-wrapper">
                 <el-input-number :controls="false" v-model="formValidate.month" :max="12" :min="1"></el-input-number>
-                <span class="suffix">月</span>
+                <span class="suffix">{{ $t('message.systemMenus.month') }}</span>
               </div>
             </el-col>
             <el-col v-if="[4, 7, 8].includes(formValidate.type)" :span="4">
@@ -45,7 +45,7 @@
                   :max="formValidate.type === 4 ? 10000 : 31"
                   :min="1"
                 ></el-input-number>
-                <span class="suffix">日</span>
+                <span class="suffix">{{ $t('message.systemMenus.day') }}</span>
               </div>
             </el-col>
             <el-col v-if="[3, 4, 5, 6, 7, 8].includes(formValidate.type)" :span="4">
@@ -56,7 +56,7 @@
                   :max="23"
                   :min="0"
                 ></el-input-number>
-                <span class="suffix">时</span>
+                <span class="suffix">{{ $t('message.systemMenus.hour') }}</span>
               </div>
             </el-col>
             <el-col v-if="[2, 3, 4, 5, 6, 7, 8].includes(formValidate.type)" :span="4">
@@ -67,7 +67,7 @@
                   :max="formValidate.type === 2 ? 36000 : 59"
                   :min="0"
                 ></el-input-number>
-                <span class="suffix">分</span>
+                <span class="suffix">{{ $t('message.systemMenus.minute') }}</span>
               </div>
             </el-col>
             <el-col v-if="[1, 5, 6, 7].includes(formValidate.type)" :span="4">
@@ -78,7 +78,7 @@
                   :max="formValidate.type === 1 ? 36000 : 59"
                   :min="0"
                 ></el-input-number>
-                <span class="suffix">秒</span>
+                <span class="suffix">{{ $t('message.systemMenus.second') }}</span>
               </div>
             </el-col>
           </el-row>
@@ -86,50 +86,50 @@
             <div class="trip">{{ trip }}</div>
           </el-row>
         </el-form-item>
-        <el-form-item label="任务说明：">
+        <el-form-item :label="$t('message.systemMenus.taskDescription') + '：'">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
                 v-model="formValidate.content"
                 type="textarea"
                 :autosize="{ minRows: 3, maxRows: 5 }"
-                placeholder="请输入任务说明"
+                :placeholder="$t('message.systemMenus.pleaseInputTaskDescription')"
               ></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="执行代码：" v-if="currentTab === '1'">
+        <el-form-item :label="$t('message.systemMenus.executionCode') + '：'" v-if="currentTab === '1'">
           <el-row :gutter="10">
             <el-col :span="24">
               <div ref="container" id="container" class="monaco-editor"></div>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="开发密码：" v-if="currentTab === '1'">
+        <el-form-item :label="$t('message.systemMenus.developmentPassword') + '：'" v-if="currentTab === '1'">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
                 v-model="formValidate.password"
                 type="password"
-                placeholder="请输入系统开发密码，开发密码在crmeb/config/filesystem.php中修改password"
+                :placeholder="$t('message.systemMenus.pleaseInputDevelopmentPassword')"
               ></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="是否开启：">
+        <el-form-item :label="$t('message.systemMenus.isOpen') + '：'">
           <el-row :gutter="10">
             <el-col :span="12">
               <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.is_open" size="large">
-                <span slot="open">开启</span>
-                <span slot="close">关闭</span>
+                <span slot="open">{{ $t('message.setting.open') }}</span>
+                <span slot="close">{{ $t('message.setting.close') }}</span>
               </el-switch>
             </el-col>
           </el-row>
         </el-form-item>
       </el-form>
       <span class="dialog-footer">
-        <el-button v-db-click @click="modal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit">提 交</el-button>
+        <el-button v-db-click @click="modal = false">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit">{{ $t('message.common.submit') }}</el-button>
       </span>
     </el-drawer>
   </div>
@@ -200,15 +200,7 @@ export default {
         customCode: '',
       },
       trip: '',
-      weekList: [
-        { label: '周一', value: 1 },
-        { label: '周二', value: 2 },
-        { label: '周三', value: 3 },
-        { label: '周四', value: 4 },
-        { label: '周五', value: 5 },
-        { label: '周六', value: 6 },
-        { label: '周日', value: 7 },
-      ],
+      weekList: [],
       editor: '', //当前编辑器对象
     };
   },
@@ -217,28 +209,28 @@ export default {
       handler(nVal, oVal) {
         switch (nVal.type) {
           case 1:
-            this.trip = `每隔${nVal.second}秒执行一次`;
+            this.trip = this.$t('message.systemMenus.executeEverySeconds', { seconds: nVal.second });
             break;
           case 2:
-            this.trip = `每隔${nVal.minute}分钟执行一次`;
+            this.trip = this.$t('message.systemMenus.executeEveryMinutes', { minutes: nVal.minute });
             break;
           case 3:
-            this.trip = `每隔${nVal.hour}小时的${nVal.minute}分执行一次`;
+            this.trip = this.$t('message.systemMenus.executeEveryHoursWithMinutes', { hours: nVal.hour, minutes: nVal.minute });
             break;
           case 4:
-            this.trip = `每隔${nVal.day}天的${nVal.hour}时${nVal.minute}分执行一次`;
+            this.trip = this.$t('message.systemMenus.executeEveryDaysWithTime', { days: nVal.day, hour: nVal.hour, minute: nVal.minute });
             break;
           case 5:
-            this.trip = `每天${nVal.hour}时${nVal.minute}分${nVal.second}秒执行一次`;
+            this.trip = this.$t('message.systemMenus.executeDaily', { hour: nVal.hour, minute: nVal.minute, second: nVal.second });
             break;
           case 6:
-            this.trip = `每个星期${nVal.week}的${nVal.hour}时${nVal.minute}分${nVal.second}秒执行一次`;
+            this.trip = this.$t('message.systemMenus.executeWeekly', { week: nVal.week, hour: nVal.hour, minute: nVal.minute, second: nVal.second });
             break;
           case 7:
-            this.trip = `每月${nVal.day}日的${nVal.hour}时${nVal.minute}分${nVal.second}秒执行一次`;
+            this.trip = this.$t('message.systemMenus.executeMonthly', { day: nVal.day, hour: nVal.hour, minute: nVal.minute, second: nVal.second });
             break;
           case 8:
-            this.trip = `每年${nVal.month}月${nVal.day}日的${nVal.hour}时${nVal.minute}分${nVal.second}秒执行一次`;
+            this.trip = this.$t('message.systemMenus.executeYearly', { month: nVal.month, day: nVal.day, hour: nVal.hour, minute: nVal.minute, second: nVal.second });
             break;
         }
       },
@@ -247,6 +239,51 @@ export default {
     },
   },
   created() {
+    // Initialize typeList with i18n
+    this.typeList = [
+      {
+        name: this.$t('message.systemMenus.everyNSeconds'),
+        value: 1,
+      },
+      {
+        name: this.$t('message.systemMenus.everyNMinutes'),
+        value: 2,
+      },
+      {
+        name: this.$t('message.systemMenus.everyNHours'),
+        value: 3,
+      },
+      {
+        name: this.$t('message.systemMenus.everyNDays'),
+        value: 4,
+      },
+      {
+        name: this.$t('message.systemMenus.daily'),
+        value: 5,
+      },
+      {
+        name: this.$t('message.systemMenus.weekly'),
+        value: 6,
+      },
+      {
+        name: this.$t('message.systemMenus.monthly'),
+        value: 7,
+      },
+      {
+        name: this.$t('message.systemMenus.yearly'),
+        value: 8,
+      },
+    ];
+    // Initialize weekList with i18n
+    this.weekList = [
+      { label: this.$t('message.systemMenus.monday'), value: 1 },
+      { label: this.$t('message.systemMenus.tuesday'), value: 2 },
+      { label: this.$t('message.systemMenus.wednesday'), value: 3 },
+      { label: this.$t('message.systemMenus.thursday'), value: 4 },
+      { label: this.$t('message.systemMenus.friday'), value: 5 },
+      { label: this.$t('message.systemMenus.saturday'), value: 6 },
+      { label: this.$t('message.systemMenus.sunday'), value: 7 },
+    ];
     this.timerTask();
   },
   methods: {
@@ -332,7 +369,7 @@ export default {
       }
       if (!this.formValidate.mark) {
         return this.$message.error({
-          message: '请选择任务名称',
+          message: this.$t('message.systemMenus.pleaseSelectTaskName'),
           onClose: () => {
             // this.loading = false;
           },

@@ -4,7 +4,7 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="save">保存</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="save">{{ $t('message.common.save') }}</el-button>
         </div>
       </div>
     </div>
@@ -21,39 +21,39 @@
           >
             {{ item.name }}
           </div>
-          <div class="tab-item" :class="{ active: pageId == 1617 }" v-db-click @click="edits(2)">开屏广告</div>
+          <div class="tab-item" :class="{ active: pageId == 1617 }" v-db-click @click="edits(2)">{{ $t('message.systemMenus.splashAd') }}</div>
         </div>
       </div>
       <div v-if="name == 'user_recharge_quota'" class="iframe">
         <div class="iframe-boxs">
           <div class="moneyBox">
             <div class="box1">
-              <div class="font1">我的余额</div>
+              <div class="font1">{{ $t('message.systemMenus.myBalance') }}</div>
               <div>￥ <i class="font2">0.00</i></div>
             </div>
             <div class="moneyBox_content">
               <div class="box2">
-                <div>账户充值</div>
-                <div>佣金导入</div>
+                <div>{{ $t('message.systemMenus.accountRecharge') }}</div>
+                <div>{{ $t('message.systemMenus.commissionImport') }}</div>
               </div>
               <div class="box3">
                 <div v-show="item.status != 0" class="box3_box" v-for="(item, index) in sginList.list" :key="index">
-                  <div>{{ item.price }}<i class="font">元</i></div>
-                  <div class="font">赠送:{{ item.give_money }}元</div>
+                  <div>{{ item.price }}<i class="font">{{ $t('message.systemMenus.yuan') }}</i></div>
+                  <div class="font">{{ $t('message.systemMenus.gift') }}:{{ item.give_money }}{{ $t('message.systemMenus.yuan') }}</div>
                 </div>
                 <div class="box3_box">
-                  <div class="other">其他</div>
+                  <div class="other">{{ $t('message.common.other') }}</div>
                 </div>
               </div>
               <div class="box4">
-                <div class="tips">注意事项：</div>
+                <div class="tips">{{ $t('message.systemMenus.notes') }}：</div>
                 <div class="tips-samll">
-                  <p>充值后帐户的金额不能提现，可用于商城消费使用。</p>
-                  <p>佣金导入账户之后不能再次导出、不可提现。</p>
-                  <p>账户充值出现问题可联系商城客服，也可拨打商城客服热线：40088888889。</p>
+                  <p>{{ $t('message.systemMenus.rechargeNote1') }}</p>
+                  <p>{{ $t('message.systemMenus.rechargeNote2') }}</p>
+                  <p>{{ $t('message.systemMenus.rechargeNote3') }}</p>
                 </div>
               </div>
-              <div class="box5">立即充值</div>
+              <div class="box5">{{ $t('message.systemMenus.rechargeNow') }}</div>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
       <div v-if="name == 'admin_login_slide'" class="pciframe" :bordered="false" shadow="never">
         <img src="../../../assets/images/pclogin.png" class="pciframe-box" />
         <div class="pcmoddile_goods">
-          <div class="nofont" v-if="tabList.list == ''">暂无照片，请添加~</div>
+          <div class="nofont" v-if="tabList.list == ''">{{ $t('message.systemMenus.noPhotoPleaseAdd') }}</div>
           <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
             <swiper-slide class="spcwiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
               <img :src="item.slide" />
@@ -74,7 +74,7 @@
           <img src="../../../assets/images/integral.png" style="width: 100%" />
           <div class="moddile_goods">
             <div class="nofonts" v-if="tabList.list == '' || !tabList.list.length || !tabList.list[0].img">
-              暂无照片，请添加~
+              {{ $t('message.systemMenus.noPhotoPleaseAdd') }}
             </div>
             <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
               <swiper-slide class="swiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
@@ -109,7 +109,7 @@
           class="moddile_box"
         >
           <div class="nofonts" v-if="!tabList.list || !tabList.list.length || !tabList.list[0].img">
-            暂无照片，请添加~
+            {{ $t('message.systemMenus.noPhotoPleaseAdd') }}
           </div>
           <swiper v-else :options="swiperOption" class="swiperimg">
             <swiper-slide class="swiperimg" v-for="(item, index) in tabList.list" :key="index">
@@ -118,7 +118,7 @@
           </swiper>
         </div>
         <div v-if="name == 'combination_banner'" class="moddile_goods">
-          <div class="nofonts" v-if="tabList.list == ''">暂无照片，请添加~</div>
+          <div class="nofonts" v-if="tabList.list == ''">{{ $t('message.systemMenus.noPhotoPleaseAdd') }}</div>
           <swiper v-else :options="swiperOption" class="swiperimg_goods">
             <swiper-slide class="swiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
               <img :src="item.img" />
@@ -139,10 +139,10 @@
         <div class="agreement-box">
           <div class="template"></div>
           <div class="htmls_box">
-            <div class="htmls_top">服务协议与隐私政策</div>
+            <div class="htmls_top">{{ $t('message.systemMenus.serviceAgreementAndPrivacyPolicy') }}</div>
             <div class="htmls_font">
-              <div class="ok">我同意</div>
-              <div>不同意</div>
+              <div class="ok">{{ $t('message.systemMenus.iAgree') }}</div>
+              <div>{{ $t('message.systemMenus.disagree') }}</div>
             </div>
             <div class="htmls" v-html="formValidate.content"></div>
           </div>
@@ -152,7 +152,7 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">隐私权限页面展示：</div>
+              <div class="title">{{ $t('message.systemMenus.privacyPermissionPageDisplay') }}：</div>
             </div>
           </div>
           <div>
@@ -364,15 +364,15 @@
                     </div>
                     <div class="info">
                       <div class="info-item">
-                        <span>图片名称：</span>
+                        <span>{{ $t('message.systemMenus.imageName') }}：</span>
                         <div class="input-box">
-                          <el-input v-model="item.comment" placeholder="请填写名称" />
+                          <el-input v-model="item.comment" :placeholder="$t('message.systemMenus.pleaseFillName')" />
                         </div>
                       </div>
                       <div class="info-item">
                         <span>链接地址：</span>
                         <div class="input-box" v-db-click>
-                          <el-input v-model="item.link" placeholder="选择链接">
+                          <el-input v-model="item.link" :placeholder="$t('message.systemMenus.selectLink')">
                             <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                           </el-input>
                         </div>
@@ -384,7 +384,7 @@
                   <el-dialog
                     :visible.sync="modalPic"
                     width="950px"
-                    title="上传商品图"
+                    :title="$t('message.systemMenus.uploadProductImage')"
                     :close-on-click-modal="false"
                     :show-close="true"
                   >
@@ -406,7 +406,7 @@
                     style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                     v-db-click
                     @click="addBox"
-                    >添加图片
+                    >{{ $t('message.systemMenus.addImage') }}
                   </el-button>
                 </div>
               </template>
@@ -488,7 +488,7 @@
                   style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                   v-db-click
                   @click="addBox"
-                  >添加图片
+                  >{{ $t('message.systemMenus.addImage') }}
                 </el-button>
               </div>
             </template>

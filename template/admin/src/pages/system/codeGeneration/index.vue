@@ -37,8 +37,8 @@
       </el-card>
     </div>
     <el-card :bordered="false" class="fixed-card" :style="{ left: `${fixBottomWidth}` }" shadow="never">
-      <el-button :disabled="!currentTab" class="mr20" v-db-click @click="beforeTab">上一步</el-button>
-      <el-button type="primary" v-db-click @click="nextTab">{{ currentTab == 2 ? '提交' : '下一步' }}</el-button>
+      <el-button :disabled="!currentTab" class="mr20" v-db-click @click="beforeTab">{{ $t('message.systemMenus.previousStep') }}</el-button>
+      <el-button type="primary" v-db-click @click="nextTab">{{ currentTab == 2 ? $t('message.common.submit') : $t('message.systemMenus.nextStep') }}</el-button>
     </el-card>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       currentTab: 0,
-      headerList: ['基础信息', '字段配置', '存放位置'],
+      headerList: [],
       formItem: {
         foundation: {
           pid: '',
@@ -115,6 +115,12 @@ export default {
     },
   },
   created() {
+    // Initialize headerList with i18n
+    this.headerList = [
+      this.$t('message.systemMenus.basicInfo'),
+      this.$t('message.systemMenus.fieldConfig'),
+      this.$t('message.systemMenus.storageLocation'),
+    ];
     if (this.$route.query.id) {
       this.id = this.$route.query.id;
       this.getDetail(this.$route.query.id);

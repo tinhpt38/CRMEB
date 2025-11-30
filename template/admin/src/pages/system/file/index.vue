@@ -2,8 +2,8 @@
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-tabs class="p-x-20" v-model="fileType">
-        <el-tab-pane name="img" label="图片管理"></el-tab-pane>
-        <el-tab-pane name="video" label="视频管理"></el-tab-pane>
+        <el-tab-pane name="img" :label="$t('message.systemMenus.imageManagement')"></el-tab-pane>
+        <el-tab-pane name="video" :label="$t('message.systemMenus.videoManagement')"></el-tab-pane>
       </el-tabs>
       <div class="box" ref="picBox">
         <upload-file v-if="fileType === 'img'" :isPage="true" :isShow="0" :pageLimit="pageLimit"></upload-file>

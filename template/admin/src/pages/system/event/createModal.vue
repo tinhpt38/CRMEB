@@ -2,19 +2,19 @@
   <div>
     <el-drawer
       :visible.sync="modal"
-      :title="formValidate.id ? '编辑事件' : '添加事件'"
+      :title="formValidate.id ? $t('message.systemMenus.editEvent') : $t('message.systemMenus.addEvent')"
       size="1000px"
       @closed="initData"
     >
       <el-form v-if="modal" class="pb-20" ref="formValidate" :model="formValidate" label-width="97px" label-colon>
-        <el-form-item label="事件名称：" required>
+        <el-form-item :label="$t('message.systemMenus.eventName') + '：'" required>
           <el-row :gutter="16">
             <el-col :span="20">
-              <el-input v-model="formValidate.name" placeholder="请输入事件名称"></el-input>
+              <el-input v-model="formValidate.name" :placeholder="$t('message.systemMenus.pleaseInputEventName')"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="事件类型：" required>
+        <el-form-item :label="$t('message.systemMenus.eventType') + '：'" required>
           <el-row :gutter="16">
             <el-col :span="20">
               <el-select v-model="formValidate.mark" @change="taskChange">
@@ -23,19 +23,19 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="事件说明：">
+        <el-form-item :label="$t('message.systemMenus.eventDescription') + '：'">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
                 v-model="formValidate.content"
                 type="textarea"
                 :autosize="{ minRows: 3, maxRows: 5 }"
-                placeholder="请输入事件说明"
+                :placeholder="$t('message.systemMenus.pleaseInputEventDescription')"
               ></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="执行代码：">
+        <el-form-item :label="$t('message.systemMenus.executionCode') + '：'">
           <el-row :gutter="10">
             <el-col :span="24">
               <div ref="container" id="container" class="monaco-editor"></div>
@@ -54,7 +54,7 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="可用参数：" v-if="copyData">
+        <el-form-item :label="$t('message.systemMenus.availableParameters') + '：'" v-if="copyData">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
@@ -62,7 +62,7 @@
                 v-model="copyData"
                 type="textarea"
                 :autosize="{ minRows: 7, maxRows: 7 }"
-                placeholder="请输入事件说明"
+                :placeholder="$t('message.systemMenus.pleaseInputEventDescription')"
                 readonly
               ></el-input>
               <!-- <span class="text-area">{{ copyData }}</span> -->
@@ -70,27 +70,27 @@
           </el-row>
         </el-form-item>
 
-        <el-form-item label="开发密码：" required>
+        <el-form-item :label="$t('message.systemMenus.developmentPassword') + '：'" required>
           <el-row :gutter="10">
             <el-col :span="24">
-              <el-input v-model="formValidate.password" type="password" placeholder="请输入系统开发密码，开发密码在crmeb/config/filesystem.php中修改password"></el-input>
+              <el-input v-model="formValidate.password" type="password" :placeholder="$t('message.systemMenus.pleaseInputDevelopmentPassword')"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="是否开启：">
+        <el-form-item :label="$t('message.systemMenus.isOpen') + '：'">
           <el-row :gutter="10">
             <el-col :span="12">
               <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.is_open" size="large">
-                <span slot="open">开启</span>
-                <span slot="close">关闭</span>
+                <span slot="open">{{ $t('message.setting.open') }}</span>
+                <span slot="close">{{ $t('message.setting.close') }}</span>
               </el-switch>
             </el-col>
           </el-row>
         </el-form-item>
       </el-form>
       <span class="dialog-footer">
-        <el-button v-db-click @click="modal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit">提 交</el-button>
+        <el-button v-db-click @click="modal = false">{{ $t('message.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit">{{ $t('message.common.submit') }}</el-button>
       </span>
     </el-drawer>
   </div>
@@ -208,7 +208,7 @@ export default {
       this.formValidate.customCode = this.editor.getValue();
       if (!this.formValidate.mark) {
         return this.$message.error({
-          message: '请选择事件类型',
+          message: this.$t('message.systemMenus.pleaseSelectEventType'),
           onClose: () => {
             // this.loading = false;
           },

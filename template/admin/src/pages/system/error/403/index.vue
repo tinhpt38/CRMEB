@@ -1,5 +1,5 @@
 <template>
-  <error-content code="403" desc="抱歉，你无权访问该页面" :src="src" />
+  <error-content code="403" :desc="$t('message.systemMenus.noPermissionToAccess')" :src="src" />
 </template>
 
 <script>

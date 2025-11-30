@@ -212,7 +212,7 @@ export default {
     //搜索配置项
     searchConfig() {
       if (this.config_name == '') {
-        return this.$message.error('请输入要搜索的配置名称');
+        return this.$message.error(this.$t('message.systemMenus.pleaseInputConfigNameToSearch'));
       }
       this.$router.push({
         path: this.$routeProStr + '/system/config/system_config_tab/list/0?config_name=' + this.config_name,
