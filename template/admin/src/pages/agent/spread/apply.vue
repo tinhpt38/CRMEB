@@ -10,16 +10,16 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.agent.search') + '：'">
             <el-input
               clearable
-              placeholder="请输入姓名、UID"
+              :placeholder="$t('message.agent.pleaseInputNameOrUID')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.agent.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -28,7 +28,7 @@
       <el-row class="box-wrapper">
         <el-col :xs="24" :sm="24" ref="rightBox">
           <el-tabs v-model="formValidate.status" @tab-click="userSearchs">
-            <el-tab-pane name="all" label="全部"></el-tab-pane>
+            <el-tab-pane name="all" :label="$t('message.agent.all')"></el-tab-pane>
             <el-tab-pane v-for="(item, index) in statusList" :key="index" :label="item.status_name" :name="item.id"></el-tab-pane>
           </el-tabs>
           <el-table
@@ -36,56 +36,56 @@
             ref="table"
             v-loading="loading"
             highlight-current-row
-            no-formValidate-text="暂无数据"
-            no-filtered-formValidate-text="暂无筛选结果"
+            :no-formValidate-text="$t('message.agent.noData')"
+            :no-filtered-formValidate-text="$t('message.common.noFilteredResults')"
           >
-            <el-table-column label="编号" width="80">
+            <el-table-column :label="$t('message.agent.number')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="用户UID" width="80">
+            <el-table-column :label="$t('message.agent.userUID')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="用户昵称" min-width="150">
+            <el-table-column :label="$t('message.agent.userNickname')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.nickname }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="分销员电话" min-width="150">
+            <el-table-column :label="$t('message.agent.distributorPhone')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.phone }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="分销员姓名" min-width="150">
+            <el-table-column :label="$t('message.agent.distributorName')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.real_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请状态" min-width="150">
+            <el-table-column :label="$t('message.agent.applicationStatus')" min-width="150">
               <template slot-scope="scope">
-                <el-tag>{{ scope.row.status == 0 ? '申请中' : scope.row.status == 1 ? '已同意' : '已拒绝' }}</el-tag>
+                <el-tag>{{ scope.row.status == 0 ? $t('message.agent.pending') : scope.row.status == 1 ? $t('message.agent.approved') : $t('message.agent.rejected') }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="申请时间" min-width="150">
+            <el-table-column :label="$t('message.agent.applicationTime')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请理由" min-width="150">
+            <el-table-column :label="$t('message.agent.applicationReason')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.content }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="170">
+            <el-table-column :label="$t('message.agent.operation')" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 1)">同意</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 1)">{{ $t('message.agent.agree') }}</a>
                 <el-divider v-if="scope.row.status == 0" direction="vertical" />
-                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 2)">拒绝</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 2)">{{ $t('message.agent.reject') }}</a>
                 <el-divider direction="vertical" v-if="scope.row.status == 0" />
-                <a v-db-click @click="del(scope.row, '删除申请', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.agent.deleteApplication'), scope.$index)">{{ $t('message.agent.delete') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -127,20 +127,7 @@ export default {
         proportion: 0,
         image: '',
       },
-      statusList: [
-        {
-          status_name: '申请中',
-          id: '0',
-        },
-        {
-          status_name: '已同意',
-          id: '1',
-        },
-        {
-          status_name: '已拒绝',
-          id: '2',
-        },
-      ],
+      statusList: [],
       FromData: null,
       loading: false,
       current: 0,
@@ -177,9 +164,26 @@ export default {
     },
   },
   mounted() {
+    this.initStatusList();
     this.getList();
   },
   methods: {
+    initStatusList() {
+      this.statusList = [
+        {
+          status_name: this.$t('message.agent.pending'),
+          id: '0',
+        },
+        {
+          status_name: this.$t('message.agent.approved'),
+          id: '1',
+        },
+        {
+          status_name: this.$t('message.agent.rejected'),
+          id: '2',
+        },
+      ];
+    },
     userSearchs() {
       this.formValidate.page = 1;
       this.getList();
@@ -207,7 +211,7 @@ export default {
     examine(id, uid, type) {
       if (type == 1) {
         let data = {
-          title: type == 1 ? '通过分销员申请' : '拒绝分销员申请',
+          title: type == 1 ? this.$t('message.agent.approveDistributorApplication') : this.$t('message.agent.rejectDistributorApplication'),
           url: `agent/spread/apply/examine/${id}/${uid}/${type}`,
           method: 'post',
           ids: '',
@@ -221,9 +225,9 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$prompt('请输入拒绝理由', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$prompt(this.$t('message.agent.pleaseInputRejectionReason'), this.$t('message.agent.tip'), {
+          confirmButtonText: this.$t('message.agent.confirm'),
+          cancelButtonText: this.$t('message.agent.cancel'),
         })
           .then(({ value }) => {
             let data = {
@@ -237,7 +241,7 @@ export default {
           .catch(() => {
             this.$message({
               type: 'info',
-              message: '取消输入',
+              message: this.$t('message.agent.cancelInput'),
             });
           });
       }

@@ -1,0 +1,6131 @@
+{
+  "summary": {
+    "totalFiles": 24,
+    "totalFindings": 336,
+    "generatedAt": "2025-12-01T01:43:43.849Z"
+  },
+  "files": [
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/auth/index.vue",
+      "relativePath": "src/pages/system/auth/index.vue",
+      "findings": [
+        {
+          "line": 100,
+          "context": "text",
+          "chineseTexts": [
+            "验证码模态框是否出现"
+          ],
+          "originalLine": "isShow: false, // 验证码模态框是否出现",
+          "suggestion": [
+            {
+              "originalText": "验证码模态框是否出现",
+              "suggestedKey": "验证码模态框是否出现",
+              "i18nKey": "message.text.验证码模态框是否出现",
+              "replacement": "$t('message.text.验证码模态框是否出现')"
+            }
+          ]
+        },
+        {
+          "line": 108,
+          "context": "text",
+          "chineseTexts": [
+            "版权图片"
+          ],
+          "originalLine": "authorizedPicture: '', // 版权图片",
+          "suggestion": [
+            {
+              "originalText": "版权图片",
+              "suggestedKey": "版权图片",
+              "i18nKey": "message.text.版权图片",
+              "replacement": "$t('message.text.版权图片')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/backendRouting/components/MonacoEditor.vue",
+      "relativePath": "src/pages/system/backendRouting/components/MonacoEditor.vue",
+      "findings": [
+        {
+          "line": 32,
+          "context": "text",
+          "chineseTexts": [
+            "只读"
+          ],
+          "originalLine": "readOnly: this.readOnly, // 只读",
+          "suggestion": [
+            {
+              "originalText": "只读",
+              "suggestedKey": "只读",
+              "i18nKey": "message.text.只读",
+              "replacement": "$t('message.text.只读')"
+            }
+          ]
+        },
+        {
+          "line": 33,
+          "context": "text",
+          "chineseTexts": [
+            "光标样式"
+          ],
+          "originalLine": "cursorStyle: 'line', // 光标样式",
+          "suggestion": [
+            {
+              "originalText": "光标样式",
+              "suggestedKey": "光标样式",
+              "i18nKey": "message.text.光标样式",
+              "replacement": "$t('message.text.光标样式')"
+            }
+          ]
+        },
+        {
+          "line": 34,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "automaticLayout: false, // 自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 35,
+          "context": "text",
+          "chineseTexts": [
+            "字形边缘"
+          ],
+          "originalLine": "glyphMargin: true, // 字形边缘",
+          "suggestion": [
+            {
+              "originalText": "字形边缘",
+              "suggestedKey": "字形边缘",
+              "i18nKey": "message.text.字形边缘",
+              "replacement": "$t('message.text.字形边缘')"
+            }
+          ]
+        },
+        {
+          "line": 37,
+          "context": "text",
+          "chineseTexts": [
+            "字体大小"
+          ],
+          "originalLine": "fontSize: 28, // 字体大小",
+          "suggestion": [
+            {
+              "originalText": "字体大小",
+              "suggestedKey": "字体大小",
+              "i18nKey": "message.text.字体大小",
+              "replacement": "$t('message.text.字体大小')"
+            }
+          ]
+        },
+        {
+          "line": 38,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "autoIndent: true, // 自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 50,
+          "context": "text",
+          "chineseTexts": [
+            "见"
+          ],
+          "originalLine": "value: this.codes, // 见props",
+          "suggestion": [
+            {
+              "originalText": "见",
+              "suggestedKey": "见",
+              "i18nKey": "message.text.见",
+              "replacement": "$t('message.text.见')"
+            }
+          ]
+        },
+        {
+          "line": 52,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器主题",
+            "更多选择详见官网"
+          ],
+          "originalLine": "theme: 'vs', // 编辑器主题：vs, hc-black, or vs-dark，更多选择详见官网",
+          "suggestion": [
+            {
+              "originalText": "编辑器主题",
+              "suggestedKey": "编辑器主题",
+              "i18nKey": "message.text.编辑器主题",
+              "replacement": "$t('message.text.编辑器主题')"
+            },
+            {
+              "originalText": "更多选择详见官网",
+              "suggestedKey": "更多选择详见官网",
+              "i18nKey": "message.text.更多选择详见官网",
+              "replacement": "$t('message.text.更多选择详见官网')"
+            }
+          ]
+        },
+        {
+          "line": 53,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "automaticLayout: true, //自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 57,
+          "context": "text",
+          "chineseTexts": [
+            "竖滚动条"
+          ],
+          "originalLine": "verticalScrollbarSize: 4, // 竖滚动条",
+          "suggestion": [
+            {
+              "originalText": "竖滚动条",
+              "suggestedKey": "竖滚动条",
+              "i18nKey": "message.text.竖滚动条",
+              "replacement": "$t('message.text.竖滚动条')"
+            }
+          ]
+        },
+        {
+          "line": 58,
+          "context": "text",
+          "chineseTexts": [
+            "横滚动条"
+          ],
+          "originalLine": "horizontalScrollbarSize: 10, // 横滚动条",
+          "suggestion": [
+            {
+              "originalText": "横滚动条",
+              "suggestedKey": "横滚动条",
+              "i18nKey": "message.text.横滚动条",
+              "replacement": "$t('message.text.横滚动条')"
+            }
+          ]
+        },
+        {
+          "line": 61,
+          "context": "text",
+          "chineseTexts": [
+            "同"
+          ],
+          "originalLine": "editorOptions: this.editorOptions, // 同codes",
+          "suggestion": [
+            {
+              "originalText": "同",
+              "suggestedKey": "同",
+              "i18nKey": "message.text.同",
+              "replacement": "$t('message.text.同')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/backendRouting/debugging.vue",
+      "relativePath": "src/pages/system/backendRouting/debugging.vue",
+      "findings": [
+        {
+          "line": 68,
+          "context": "title",
+          "chineseTexts": [
+            "必填"
+          ],
+          "originalLine": "<!-- <vxe-column field=\"must\" title=\"必填\" width=\"50\" :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "必填",
+              "suggestedKey": "必填",
+              "i18nKey": "message.title.必填",
+              "replacement": "$t('message.title.必填')"
+            }
+          ]
+        },
+        {
+          "line": 70,
+          "context": "text",
+          "chineseTexts": [
+            "是",
+            "否"
+          ],
+          "originalLine": "<span>{{ row.must == '1' ? '是' : '否' }}</span>",
+          "suggestion": [
+            {
+              "originalText": "是",
+              "suggestedKey": "是",
+              "i18nKey": "message.text.是",
+              "replacement": "$t('message.text.是')"
+            },
+            {
+              "originalText": "否",
+              "suggestedKey": "否",
+              "i18nKey": "message.text.否",
+              "replacement": "$t('message.text.否')"
+            }
+          ]
+        },
+        {
+          "line": 73,
+          "context": "title",
+          "chineseTexts": [
+            "说明"
+          ],
+          "originalLine": "<vxe-column field=\"trip\" width=\"150\" title=\"说明\" :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "说明",
+              "suggestedKey": "说明",
+              "i18nKey": "message.title.说明",
+              "replacement": "$t('message.title.说明')"
+            }
+          ]
+        },
+        {
+          "line": 142,
+          "context": "title",
+          "chineseTexts": [
+            "必填"
+          ],
+          "originalLine": "<!-- <vxe-column field=\"must\" title=\"必填\" width=\"50\" :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "必填",
+              "suggestedKey": "必填",
+              "i18nKey": "message.title.必填",
+              "replacement": "$t('message.title.必填')"
+            }
+          ]
+        },
+        {
+          "line": 144,
+          "context": "text",
+          "chineseTexts": [
+            "是",
+            "否"
+          ],
+          "originalLine": "<span>{{ row.must == '1' ? '是' : '否' }}</span>",
+          "suggestion": [
+            {
+              "originalText": "是",
+              "suggestedKey": "是",
+              "i18nKey": "message.text.是",
+              "replacement": "$t('message.text.是')"
+            },
+            {
+              "originalText": "否",
+              "suggestedKey": "否",
+              "i18nKey": "message.text.否",
+              "replacement": "$t('message.text.否')"
+            }
+          ]
+        },
+        {
+          "line": 147,
+          "context": "title",
+          "chineseTexts": [
+            "说明"
+          ],
+          "originalLine": "<vxe-column field=\"trip\" title=\"说明\" width=\"150\" :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "说明",
+              "suggestedKey": "说明",
+              "i18nKey": "message.title.说明",
+              "replacement": "$t('message.title.说明')"
+            }
+          ]
+        },
+        {
+          "line": 160,
+          "context": "text",
+          "chineseTexts": [
+            "插入"
+          ],
+          "originalLine": ">插入</vxe-button",
+          "suggestion": [
+            {
+              "originalText": "插入",
+              "suggestedKey": "插入",
+              "i18nKey": "message.text.插入",
+              "replacement": "$t('message.text.插入')"
+            }
+          ]
+        },
+        {
+          "line": 162,
+          "context": "button",
+          "chineseTexts": [
+            "删除"
+          ],
+          "originalLine": "<vxe-button type=\"text\" status=\"primary\" v-db-click @click=\"removeRow(row, 'yTable')\">删除</vxe-button>",
+          "suggestion": [
+            {
+              "originalText": "删除",
+              "suggestedKey": "删除",
+              "i18nKey": "message.button.删除",
+              "replacement": "$t('message.button.删除')"
+            }
+          ]
+        },
+        {
+          "line": 170,
+          "context": "text",
+          "chineseTexts": [
+            "添加参数"
+          ],
+          "originalLine": ">添加参数</el-button",
+          "suggestion": [
+            {
+              "originalText": "添加参数",
+              "suggestedKey": "添加参数",
+              "i18nKey": "message.text.添加参数",
+              "replacement": "$t('message.text.添加参数')"
+            }
+          ]
+        },
+        {
+          "line": 187,
+          "context": "title",
+          "chineseTexts": [
+            "属性"
+          ],
+          "originalLine": "<vxe-column field=\"attribute\" width=\"300\" title=\"属性\" tree-node :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "属性",
+              "suggestedKey": "属性",
+              "i18nKey": "message.title.属性",
+              "replacement": "$t('message.title.属性')"
+            }
+          ]
+        },
+        {
+          "line": 197,
+          "context": "title",
+          "chineseTexts": [
+            "操作"
+          ],
+          "originalLine": "<vxe-column title=\"操作\" width=\"100\">",
+          "suggestion": [
+            {
+              "originalText": "操作",
+              "suggestedKey": "操作",
+              "i18nKey": "message.title.操作",
+              "replacement": "$t('message.title.操作')"
+            }
+          ]
+        },
+        {
+          "line": 205,
+          "context": "text",
+          "chineseTexts": [
+            "插入"
+          ],
+          "originalLine": ">插入</vxe-button",
+          "suggestion": [
+            {
+              "originalText": "插入",
+              "suggestedKey": "插入",
+              "i18nKey": "message.text.插入",
+              "replacement": "$t('message.text.插入')"
+            }
+          ]
+        },
+        {
+          "line": 207,
+          "context": "button",
+          "chineseTexts": [
+            "删除"
+          ],
+          "originalLine": "<vxe-button type=\"text\" status=\"primary\" v-db-click @click=\"removeRow(row, 'zTable')\">删除</vxe-button>",
+          "suggestion": [
+            {
+              "originalText": "删除",
+              "suggestedKey": "删除",
+              "i18nKey": "message.button.删除",
+              "replacement": "$t('message.button.删除')"
+            }
+          ]
+        },
+        {
+          "line": 211,
+          "context": "button",
+          "chineseTexts": [
+            "添加参数"
+          ],
+          "originalLine": "<el-button class=\"mt10\" type=\"primary\" v-db-click @click=\"insertEvent('zTable')\">添加参数</el-button>",
+          "suggestion": [
+            {
+              "originalText": "添加参数",
+              "suggestedKey": "添加参数",
+              "i18nKey": "message.button.添加参数",
+              "replacement": "$t('message.button.添加参数')"
+            }
+          ]
+        },
+        {
+          "line": 266,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器对象"
+          ],
+          "originalLine": "editor: '', //当前编辑器对象",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器对象",
+              "suggestedKey": "当前编辑器对象",
+              "i18nKey": "message.text.当前编辑器对象",
+              "replacement": "$t('message.text.当前编辑器对象')"
+            }
+          ]
+        },
+        {
+          "line": 311,
+          "context": "text",
+          "chineseTexts": [
+            "复制成功"
+          ],
+          "originalLine": "this.$message.success('复制成功');",
+          "suggestion": [
+            {
+              "originalText": "复制成功",
+              "suggestedKey": "复制成功",
+              "i18nKey": "message.text.复制成功",
+              "replacement": "$t('message.text.复制成功')"
+            }
+          ]
+        },
+        {
+          "line": 469,
+          "context": "text",
+          "chineseTexts": [
+            "需要指定父节点",
+            "自动插入该节点中"
+          ],
+          "originalLine": "parentId: currRow.id, // 需要指定父节点，自动插入该节点中",
+          "suggestion": [
+            {
+              "originalText": "需要指定父节点",
+              "suggestedKey": "需要指定父节点",
+              "i18nKey": "message.text.需要指定父节点",
+              "replacement": "$t('message.text.需要指定父节点')"
+            },
+            {
+              "originalText": "自动插入该节点中",
+              "suggestedKey": "自动插入该节点中",
+              "i18nKey": "message.text.自动插入该节点中",
+              "replacement": "$t('message.text.自动插入该节点中')"
+            }
+          ]
+        },
+        {
+          "line": 477,
+          "context": "text",
+          "chineseTexts": [
+            "需要指定父节点",
+            "自动插入该节点中"
+          ],
+          "originalLine": "parentId: currRow.id, // 需要指定父节点，自动插入该节点中",
+          "suggestion": [
+            {
+              "originalText": "需要指定父节点",
+              "suggestedKey": "需要指定父节点",
+              "i18nKey": "message.text.需要指定父节点",
+              "replacement": "$t('message.text.需要指定父节点')"
+            },
+            {
+              "originalText": "自动插入该节点中",
+              "suggestedKey": "自动插入该节点中",
+              "i18nKey": "message.text.自动插入该节点中",
+              "replacement": "$t('message.text.自动插入该节点中')"
+            }
+          ]
+        },
+        {
+          "line": 481,
+          "context": "text",
+          "chineseTexts": [
+            "将父节点展开"
+          ],
+          "originalLine": "await $table.setTreeExpand(currRow, true); // 将父节点展开",
+          "suggestion": [
+            {
+              "originalText": "将父节点展开",
+              "suggestedKey": "将父节点展开",
+              "i18nKey": "message.text.将父节点展开",
+              "replacement": "$t('message.text.将父节点展开')"
+            }
+          ]
+        },
+        {
+          "line": 482,
+          "context": "text",
+          "chineseTexts": [
+            "插入子节点"
+          ],
+          "originalLine": "await $table.setActiveRow(newRow); // 插入子节点",
+          "suggestion": [
+            {
+              "originalText": "插入子节点",
+              "suggestedKey": "插入子节点",
+              "i18nKey": "message.text.插入子节点",
+              "replacement": "$t('message.text.插入子节点')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/backendRouting/index.vue",
+      "relativePath": "src/pages/system/backendRouting/index.vue",
+      "findings": [
+        {
+          "line": 72,
+          "context": "text",
+          "chineseTexts": [
+            "新建文件夹"
+          ],
+          "originalLine": "<!-- 新建文件夹 -->",
+          "suggestion": [
+            {
+              "originalText": "新建文件夹",
+              "suggestedKey": "新建文件夹",
+              "i18nKey": "message.text.新建文件夹",
+              "replacement": "$t('message.text.新建文件夹')"
+            }
+          ]
+        },
+        {
+          "line": 209,
+          "context": "title",
+          "chineseTexts": [
+            "属性"
+          ],
+          "originalLine": "<vxe-column field=\"attribute\" width=\"300\" title=\"属性\" tree-node :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "属性",
+              "suggestedKey": "属性",
+              "i18nKey": "message.title.属性",
+              "replacement": "$t('message.title.属性')"
+            }
+          ]
+        },
+        {
+          "line": 284,
+          "context": "title",
+          "chineseTexts": [
+            "属性"
+          ],
+          "originalLine": "<vxe-column field=\"attribute\" width=\"300\" title=\"属性\" tree-node :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "属性",
+              "suggestedKey": "属性",
+              "i18nKey": "message.title.属性",
+              "replacement": "$t('message.title.属性')"
+            }
+          ]
+        },
+        {
+          "line": 354,
+          "context": "title",
+          "chineseTexts": [
+            "属性"
+          ],
+          "originalLine": "<vxe-column field=\"attribute\" width=\"300\" title=\"属性\" tree-node :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "属性",
+              "suggestedKey": "属性",
+              "i18nKey": "message.title.属性",
+              "replacement": "$t('message.title.属性')"
+            }
+          ]
+        },
+        {
+          "line": 430,
+          "context": "title",
+          "chineseTexts": [
+            "属性"
+          ],
+          "originalLine": "<vxe-column field=\"attribute\" title=\"属性\" width=\"300\" tree-node :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "属性",
+              "suggestedKey": "属性",
+              "i18nKey": "message.title.属性",
+              "replacement": "$t('message.title.属性')"
+            }
+          ]
+        },
+        {
+          "line": 449,
+          "context": "title",
+          "chineseTexts": [
+            "必填"
+          ],
+          "originalLine": "<!-- <vxe-column field=\"type\" title=\"必填\" :edit-render=\"{}\">",
+          "suggestion": [
+            {
+              "originalText": "必填",
+              "suggestedKey": "必填",
+              "i18nKey": "message.title.必填",
+              "replacement": "$t('message.title.必填')"
+            }
+          ]
+        },
+        {
+          "line": 486,
+          "context": "label",
+          "chineseTexts": [
+            "请求数据示例"
+          ],
+          "originalLine": "<!-- <el-form-item label=\"请求数据示例：\" prop=\"request_example\">",
+          "suggestion": [
+            {
+              "originalText": "请求数据示例",
+              "suggestedKey": "请求数据示例",
+              "i18nKey": "message.label.请求数据示例",
+              "replacement": "$t('message.label.请求数据示例')"
+            }
+          ]
+        },
+        {
+          "line": 493,
+          "context": "placeholder",
+          "chineseTexts": [
+            "请输入"
+          ],
+          "originalLine": "placeholder=\"请输入\"",
+          "suggestion": [
+            {
+              "originalText": "请输入",
+              "suggestedKey": "请输入",
+              "i18nKey": "message.placeholder.请输入",
+              "replacement": "$t('message.placeholder.请输入')"
+            }
+          ]
+        },
+        {
+          "line": 509,
+          "context": "placeholder",
+          "chineseTexts": [
+            "请输入"
+          ],
+          "originalLine": "placeholder=\"请输入\"",
+          "suggestion": [
+            {
+              "originalText": "请输入",
+              "suggestedKey": "请输入",
+              "i18nKey": "message.placeholder.请输入",
+              "replacement": "$t('message.placeholder.请输入')"
+            }
+          ]
+        },
+        {
+          "line": 565,
+          "context": "button",
+          "chineseTexts": [
+            "保存"
+          ],
+          "originalLine": "<el-button type=\"primary\" class=\"submission\" v-db-click @click=\"handleSubmit('formValidate')\">保存</el-button>",
+          "suggestion": [
+            {
+              "originalText": "保存",
+              "suggestedKey": "保存",
+              "i18nKey": "message.button.保存",
+              "replacement": "$t('message.button.保存')"
+            }
+          ]
+        },
+        {
+          "line": 650,
+          "context": "text",
+          "chineseTexts": [
+            "请输入正确的描述",
+            "不能多于",
+            "位数"
+          ],
+          "originalLine": "title: [{ message: '请输入正确的描述 (不能多于200位数)', trigger: 'blur', max: 200 }],",
+          "suggestion": [
+            {
+              "originalText": "请输入正确的描述",
+              "suggestedKey": "请输入正确的描述",
+              "i18nKey": "message.text.请输入正确的描述",
+              "replacement": "$t('message.text.请输入正确的描述')"
+            },
+            {
+              "originalText": "不能多于",
+              "suggestedKey": "不能多于",
+              "i18nKey": "message.text.不能多于",
+              "replacement": "$t('message.text.不能多于')"
+            },
+            {
+              "originalText": "位数",
+              "suggestedKey": "位数",
+              "i18nKey": "message.text.位数",
+              "replacement": "$t('message.text.位数')"
+            }
+          ]
+        },
+        {
+          "line": 731,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航右键点击是产生的数据对象"
+          ],
+          "originalLine": "contextData: null, //左侧导航右键点击是产生的数据对象",
+          "suggestion": [
+            {
+              "originalText": "左侧导航右键点击是产生的数据对象",
+              "suggestedKey": "左侧导航右键点击是产生的数据对象",
+              "i18nKey": "message.text.左侧导航右键点击是产生的数据对象",
+              "replacement": "$t('message.text.左侧导航右键点击是产生的数据对象')"
+            }
+          ]
+        },
+        {
+          "line": 794,
+          "context": "text",
+          "chineseTexts": [
+            "立即同步"
+          ],
+          "originalLine": "title: '立即同步',",
+          "suggestion": [
+            {
+              "originalText": "立即同步",
+              "suggestedKey": "立即同步",
+              "i18nKey": "message.text.立即同步",
+              "replacement": "$t('message.text.立即同步')"
+            }
+          ]
+        },
+        {
+          "line": 795,
+          "context": "text",
+          "chineseTexts": [
+            "同步之后",
+            "路由文件中新增的接口添加到接口列表中",
+            "路由文件中删除的路由会同步的在接口列表中删除"
+          ],
+          "originalLine": "message: '同步之后，路由文件中新增的接口添加到接口列表中，路由文件中删除的路由会同步的在接口列表中删除',",
+          "suggestion": [
+            {
+              "originalText": "同步之后",
+              "suggestedKey": "同步之后",
+              "i18nKey": "message.text.同步之后",
+              "replacement": "$t('message.text.同步之后')"
+            },
+            {
+              "originalText": "路由文件中新增的接口添加到接口列表中",
+              "suggestedKey": "路由文件中新增的接口添加到接口列表中",
+              "i18nKey": "message.text.路由文件中新增的接口添加到接口列表中",
+              "replacement": "$t('message.text.路由文件中新增的接口添加到接口列表中')"
+            },
+            {
+              "originalText": "路由文件中删除的路由会同步的在接口列表中删除",
+              "suggestedKey": "路由文件中删除的路由会同步的在接口列表中删除",
+              "i18nKey": "message.text.路由文件中删除的路由会同步的在接口列表中删除",
+              "replacement": "$t('message.text.路由文件中删除的路由会同步的在接口列表中删除')"
+            }
+          ]
+        },
+        {
+          "line": 797,
+          "context": "text",
+          "chineseTexts": [
+            "取消"
+          ],
+          "originalLine": "cancelButtonText: '取消',",
+          "suggestion": [
+            {
+              "originalText": "取消",
+              "suggestedKey": "取消",
+              "i18nKey": "message.text.取消",
+              "replacement": "$t('message.text.取消')"
+            }
+          ]
+        },
+        {
+          "line": 798,
+          "context": "text",
+          "chineseTexts": [
+            "确定"
+          ],
+          "originalLine": "confirmButtonText: '确定',",
+          "suggestion": [
+            {
+              "originalText": "确定",
+              "suggestedKey": "确定",
+              "i18nKey": "message.text.确定",
+              "replacement": "$t('message.text.确定')"
+            }
+          ]
+        },
+        {
+          "line": 958,
+          "context": "text",
+          "chineseTexts": [
+            "需要指定父节点",
+            "自动插入该节点中"
+          ],
+          "originalLine": "parentId: currRow.id, // 需要指定父节点，自动插入该节点中",
+          "suggestion": [
+            {
+              "originalText": "需要指定父节点",
+              "suggestedKey": "需要指定父节点",
+              "i18nKey": "message.text.需要指定父节点",
+              "replacement": "$t('message.text.需要指定父节点')"
+            },
+            {
+              "originalText": "自动插入该节点中",
+              "suggestedKey": "自动插入该节点中",
+              "i18nKey": "message.text.自动插入该节点中",
+              "replacement": "$t('message.text.自动插入该节点中')"
+            }
+          ]
+        },
+        {
+          "line": 966,
+          "context": "text",
+          "chineseTexts": [
+            "需要指定父节点",
+            "自动插入该节点中"
+          ],
+          "originalLine": "parentId: currRow.id, // 需要指定父节点，自动插入该节点中",
+          "suggestion": [
+            {
+              "originalText": "需要指定父节点",
+              "suggestedKey": "需要指定父节点",
+              "i18nKey": "message.text.需要指定父节点",
+              "replacement": "$t('message.text.需要指定父节点')"
+            },
+            {
+              "originalText": "自动插入该节点中",
+              "suggestedKey": "自动插入该节点中",
+              "i18nKey": "message.text.自动插入该节点中",
+              "replacement": "$t('message.text.自动插入该节点中')"
+            }
+          ]
+        },
+        {
+          "line": 974,
+          "context": "text",
+          "chineseTexts": [
+            "需要指定父节点",
+            "自动插入该节点中"
+          ],
+          "originalLine": "parentId: currRow.id, // 需要指定父节点，自动插入该节点中",
+          "suggestion": [
+            {
+              "originalText": "需要指定父节点",
+              "suggestedKey": "需要指定父节点",
+              "i18nKey": "message.text.需要指定父节点",
+              "replacement": "$t('message.text.需要指定父节点')"
+            },
+            {
+              "originalText": "自动插入该节点中",
+              "suggestedKey": "自动插入该节点中",
+              "i18nKey": "message.text.自动插入该节点中",
+              "replacement": "$t('message.text.自动插入该节点中')"
+            }
+          ]
+        },
+        {
+          "line": 978,
+          "context": "text",
+          "chineseTexts": [
+            "将父节点展开"
+          ],
+          "originalLine": "await $table.setTreeExpand(currRow, true); // 将父节点展开",
+          "suggestion": [
+            {
+              "originalText": "将父节点展开",
+              "suggestedKey": "将父节点展开",
+              "i18nKey": "message.text.将父节点展开",
+              "replacement": "$t('message.text.将父节点展开')"
+            }
+          ]
+        },
+        {
+          "line": 979,
+          "context": "text",
+          "chineseTexts": [
+            "插入子节点"
+          ],
+          "originalLine": "await $table.setActiveRow(newRow); // 插入子节点",
+          "suggestion": [
+            {
+              "originalText": "插入子节点",
+              "suggestedKey": "插入子节点",
+              "i18nKey": "message.text.插入子节点",
+              "replacement": "$t('message.text.插入子节点')"
+            }
+          ]
+        },
+        {
+          "line": 1094,
+          "context": "text",
+          "chineseTexts": [
+            "侧边栏点击事件"
+          ],
+          "originalLine": "* 侧边栏点击事件",
+          "suggestion": [
+            {
+              "originalText": "侧边栏点击事件",
+              "suggestedKey": "侧边栏点击事件",
+              "i18nKey": "message.text.侧边栏点击事件",
+              "replacement": "$t('message.text.侧边栏点击事件')"
+            }
+          ]
+        },
+        {
+          "line": 1123,
+          "context": "text",
+          "chineseTexts": [
+            "提示"
+          ],
+          "originalLine": "title: '提示',",
+          "suggestion": [
+            {
+              "originalText": "提示",
+              "suggestedKey": "提示",
+              "i18nKey": "message.text.提示",
+              "replacement": "$t('message.text.提示')"
+            }
+          ]
+        },
+        {
+          "line": 1124,
+          "context": "text",
+          "chineseTexts": [
+            "删除后无法恢复",
+            "请确认后删除"
+          ],
+          "originalLine": "message: '删除后无法恢复，请确认后删除！',",
+          "suggestion": [
+            {
+              "originalText": "删除后无法恢复",
+              "suggestedKey": "删除后无法恢复",
+              "i18nKey": "message.text.删除后无法恢复",
+              "replacement": "$t('message.text.删除后无法恢复')"
+            },
+            {
+              "originalText": "请确认后删除",
+              "suggestedKey": "请确认后删除",
+              "i18nKey": "message.text.请确认后删除",
+              "replacement": "$t('message.text.请确认后删除')"
+            }
+          ]
+        },
+        {
+          "line": 1126,
+          "context": "text",
+          "chineseTexts": [
+            "取消"
+          ],
+          "originalLine": "cancelButtonText: '取消',",
+          "suggestion": [
+            {
+              "originalText": "取消",
+              "suggestedKey": "取消",
+              "i18nKey": "message.text.取消",
+              "replacement": "$t('message.text.取消')"
+            }
+          ]
+        },
+        {
+          "line": 1127,
+          "context": "text",
+          "chineseTexts": [
+            "确定"
+          ],
+          "originalLine": "confirmButtonText: '确定',",
+          "suggestion": [
+            {
+              "originalText": "确定",
+              "suggestedKey": "确定",
+              "i18nKey": "message.text.确定",
+              "replacement": "$t('message.text.确定')"
+            }
+          ]
+        },
+        {
+          "line": 1212,
+          "context": "text",
+          "chineseTexts": [
+            "设置溢出滚动"
+          ],
+          "originalLine": "overflow-x: scroll; /* 设置溢出滚动 */",
+          "suggestion": [
+            {
+              "originalText": "设置溢出滚动",
+              "suggestedKey": "设置溢出滚动",
+              "i18nKey": "message.text.设置溢出滚动",
+              "replacement": "$t('message.text.设置溢出滚动')"
+            }
+          ]
+        },
+        {
+          "line": 1215,
+          "context": "text",
+          "chineseTexts": [
+            "隐藏滚动条"
+          ],
+          "originalLine": "/* 隐藏滚动条 */",
+          "suggestion": [
+            {
+              "originalText": "隐藏滚动条",
+              "suggestedKey": "隐藏滚动条",
+              "i18nKey": "message.text.隐藏滚动条",
+              "replacement": "$t('message.text.隐藏滚动条')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/clear/index.vue",
+      "relativePath": "src/pages/system/clear/index.vue",
+      "findings": [
+        {
+          "line": 4,
+          "context": "button",
+          "chineseTexts": [
+            "清除缓存"
+          ],
+          "originalLine": "<el-button type=\"primary\" v-db-click @click=\"clearCache\" class=\"mr20\">清除缓存</el-button>",
+          "suggestion": [
+            {
+              "originalText": "清除缓存",
+              "suggestedKey": "清除缓存",
+              "i18nKey": "message.button.清除缓存",
+              "replacement": "$t('message.button.清除缓存')"
+            }
+          ]
+        },
+        {
+          "line": 5,
+          "context": "button",
+          "chineseTexts": [
+            "清除日志"
+          ],
+          "originalLine": "<el-button type=\"primary\" v-db-click @click=\"clearlog\">清除日志</el-button>",
+          "suggestion": [
+            {
+              "originalText": "清除日志",
+              "suggestedKey": "清除日志",
+              "i18nKey": "message.button.清除日志",
+              "replacement": "$t('message.button.清除日志')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/codeGeneration/components/TableForm.vue",
+      "relativePath": "src/pages/system/codeGeneration/components/TableForm.vue",
+      "findings": [
+        {
+          "line": 305,
+          "context": "text",
+          "chineseTexts": [
+            "字典名称"
+          ],
+          "originalLine": "dictionaryName: '', // 字典名称",
+          "suggestion": [
+            {
+              "originalText": "字典名称",
+              "suggestedKey": "字典名称",
+              "i18nKey": "message.text.字典名称",
+              "replacement": "$t('message.text.字典名称')"
+            }
+          ]
+        },
+        {
+          "line": 306,
+          "context": "text",
+          "chineseTexts": [
+            "默认类型"
+          ],
+          "originalLine": "defaultType: [], // 默认类型",
+          "suggestion": [
+            {
+              "originalText": "默认类型",
+              "suggestedKey": "默认类型",
+              "i18nKey": "message.text.默认类型",
+              "replacement": "$t('message.text.默认类型')"
+            }
+          ]
+        },
+        {
+          "line": 307,
+          "context": "text",
+          "chineseTexts": [
+            "关联表"
+          ],
+          "originalLine": "associationTable: [], // 关联表",
+          "suggestion": [
+            {
+              "originalText": "关联表",
+              "suggestedKey": "关联表",
+              "i18nKey": "message.text.关联表",
+              "replacement": "$t('message.text.关联表')"
+            }
+          ]
+        },
+        {
+          "line": 394,
+          "context": "text",
+          "chineseTexts": [
+            "伪删除"
+          ],
+          "originalLine": "this.$set(this.tableField[i], 'comment', '伪删除');",
+          "suggestion": [
+            {
+              "originalText": "伪删除",
+              "suggestedKey": "伪删除",
+              "i18nKey": "message.text.伪删除",
+              "replacement": "$t('message.text.伪删除')"
+            }
+          ]
+        },
+        {
+          "line": 397,
+          "context": "text",
+          "chineseTexts": [
+            "添加和修改时间"
+          ],
+          "originalLine": "this.$set(this.tableField[i], 'comment', '添加和修改时间');",
+          "suggestion": [
+            {
+              "originalText": "添加和修改时间",
+              "suggestedKey": "添加和修改时间",
+              "i18nKey": "message.text.添加和修改时间",
+              "replacement": "$t('message.text.添加和修改时间')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/codeGeneration/index.vue",
+      "relativePath": "src/pages/system/codeGeneration/index.vue",
+      "findings": [
+        {
+          "line": 166,
+          "context": "text",
+          "chineseTexts": [
+            "请先填写表名"
+          ],
+          "originalLine": "if (!foundation.tableName) return this.$message.warning('请先填写表名');",
+          "suggestion": [
+            {
+              "originalText": "请先填写表名",
+              "suggestedKey": "请先填写表名",
+              "i18nKey": "message.text.请先填写表名",
+              "replacement": "$t('message.text.请先填写表名')"
+            }
+          ]
+        },
+        {
+          "line": 183,
+          "context": "text",
+          "chineseTexts": [
+            "自增"
+          ],
+          "originalLine": "comment: '自增ID',",
+          "suggestion": [
+            {
+              "originalText": "自增",
+              "suggestedKey": "自增",
+              "i18nKey": "message.text.自增",
+              "replacement": "$t('message.text.自增')"
+            }
+          ]
+        },
+        {
+          "line": 201,
+          "context": "text",
+          "chineseTexts": [
+            "请输入表名"
+          ],
+          "originalLine": "if (!this.formItem.foundation.tableName) return this.$message.warning('请输入表名');",
+          "suggestion": [
+            {
+              "originalText": "请输入表名",
+              "suggestedKey": "请输入表名",
+              "i18nKey": "message.text.请输入表名",
+              "replacement": "$t('message.text.请输入表名')"
+            }
+          ]
+        },
+        {
+          "line": 202,
+          "context": "text",
+          "chineseTexts": [
+            "请输入模块名"
+          ],
+          "originalLine": "if (!this.formItem.foundation.modelName) return this.$message.warning('请输入模块名');",
+          "suggestion": [
+            {
+              "originalText": "请输入模块名",
+              "suggestedKey": "请输入模块名",
+              "i18nKey": "message.text.请输入模块名",
+              "replacement": "$t('message.text.请输入模块名')"
+            }
+          ]
+        },
+        {
+          "line": 204,
+          "context": "text",
+          "chineseTexts": [
+            "请先添加表数据"
+          ],
+          "originalLine": "if (!this.$refs.TableForm.tableField.length) return this.$message.warning('请先添加表数据');",
+          "suggestion": [
+            {
+              "originalText": "请先添加表数据",
+              "suggestedKey": "请先添加表数据",
+              "i18nKey": "message.text.请先添加表数据",
+              "replacement": "$t('message.text.请先添加表数据')"
+            }
+          ]
+        },
+        {
+          "line": 212,
+          "context": "text",
+          "chineseTexts": [
+            "请完善",
+            "表数据"
+          ],
+          "originalLine": "return this.$message.warning('请完善sql表数据');",
+          "suggestion": [
+            {
+              "originalText": "请完善",
+              "suggestedKey": "请完善",
+              "i18nKey": "message.text.请完善",
+              "replacement": "$t('message.text.请完善')"
+            },
+            {
+              "originalText": "表数据",
+              "suggestedKey": "表数据",
+              "i18nKey": "message.text.表数据",
+              "replacement": "$t('message.text.表数据')"
+            }
+          ]
+        },
+        {
+          "line": 231,
+          "context": "text",
+          "chineseTexts": [
+            "生成提醒"
+          ],
+          "originalLine": "title: '生成提醒',",
+          "suggestion": [
+            {
+              "originalText": "生成提醒",
+              "suggestedKey": "生成提醒",
+              "i18nKey": "message.text.生成提醒",
+              "replacement": "$t('message.text.生成提醒')"
+            }
+          ]
+        },
+        {
+          "line": 232,
+          "context": "text",
+          "chineseTexts": [
+            "重新提交会重新生成文件",
+            "删除",
+            "新增",
+            "修改的字段将直接从改表中进行修改",
+            "请慎重操作"
+          ],
+          "originalLine": "message: '重新提交会重新生成文件,删除、新增、修改的字段将直接从改表中进行修改,请慎重操作！！',",
+          "suggestion": [
+            {
+              "originalText": "重新提交会重新生成文件",
+              "suggestedKey": "重新提交会重新生成文件",
+              "i18nKey": "message.text.重新提交会重新生成文件",
+              "replacement": "$t('message.text.重新提交会重新生成文件')"
+            },
+            {
+              "originalText": "删除",
+              "suggestedKey": "删除",
+              "i18nKey": "message.text.删除",
+              "replacement": "$t('message.text.删除')"
+            },
+            {
+              "originalText": "新增",
+              "suggestedKey": "新增",
+              "i18nKey": "message.text.新增",
+              "replacement": "$t('message.text.新增')"
+            },
+            {
+              "originalText": "修改的字段将直接从改表中进行修改",
+              "suggestedKey": "修改的字段将直接从改表中进行修改",
+              "i18nKey": "message.text.修改的字段将直接从改表中进行修改",
+              "replacement": "$t('message.text.修改的字段将直接从改表中进行修改')"
+            },
+            {
+              "originalText": "请慎重操作",
+              "suggestedKey": "请慎重操作",
+              "i18nKey": "message.text.请慎重操作",
+              "replacement": "$t('message.text.请慎重操作')"
+            }
+          ]
+        },
+        {
+          "line": 234,
+          "context": "text",
+          "chineseTexts": [
+            "取消"
+          ],
+          "originalLine": "cancelButtonText: '取消',",
+          "suggestion": [
+            {
+              "originalText": "取消",
+              "suggestedKey": "取消",
+              "i18nKey": "message.text.取消",
+              "replacement": "$t('message.text.取消')"
+            }
+          ]
+        },
+        {
+          "line": 235,
+          "context": "text",
+          "chineseTexts": [
+            "确定"
+          ],
+          "originalLine": "confirmButtonText: '确定',",
+          "suggestion": [
+            {
+              "originalText": "确定",
+              "suggestedKey": "确定",
+              "i18nKey": "message.text.确定",
+              "replacement": "$t('message.text.确定')"
+            }
+          ]
+        },
+        {
+          "line": 245,
+          "context": "text",
+          "chineseTexts": [
+            "生成提醒"
+          ],
+          "originalLine": "title: '生成提醒',",
+          "suggestion": [
+            {
+              "originalText": "生成提醒",
+              "suggestedKey": "生成提醒",
+              "i18nKey": "message.text.生成提醒",
+              "replacement": "$t('message.text.生成提醒')"
+            }
+          ]
+        },
+        {
+          "line": 247,
+          "context": "text",
+          "chineseTexts": [
+            "生成后本地开发调试会直接加载生成的",
+            "页面",
+            "如果是上线后进行生成",
+            "可以进行浏览",
+            "代码生成列表中的修改文件将不生效",
+            "需要重新打包上线"
+          ],
+          "originalLine": "'生成后本地开发调试会直接加载生成的vue页面；如果是上线后进行生成,可以进行浏览，代码生成列表中的修改文件将不生效。需要重新打包上线！',",
+          "suggestion": [
+            {
+              "originalText": "生成后本地开发调试会直接加载生成的",
+              "suggestedKey": "生成后本地开发调试会直接加载生成的",
+              "i18nKey": "message.text.生成后本地开发调试会直接加载生成的",
+              "replacement": "$t('message.text.生成后本地开发调试会直接加载生成的')"
+            },
+            {
+              "originalText": "页面",
+              "suggestedKey": "页面",
+              "i18nKey": "message.text.页面",
+              "replacement": "$t('message.text.页面')"
+            },
+            {
+              "originalText": "如果是上线后进行生成",
+              "suggestedKey": "如果是上线后进行生成",
+              "i18nKey": "message.text.如果是上线后进行生成",
+              "replacement": "$t('message.text.如果是上线后进行生成')"
+            },
+            {
+              "originalText": "可以进行浏览",
+              "suggestedKey": "可以进行浏览",
+              "i18nKey": "message.text.可以进行浏览",
+              "replacement": "$t('message.text.可以进行浏览')"
+            },
+            {
+              "originalText": "代码生成列表中的修改文件将不生效",
+              "suggestedKey": "代码生成列表中的修改文件将不生效",
+              "i18nKey": "message.text.代码生成列表中的修改文件将不生效",
+              "replacement": "$t('message.text.代码生成列表中的修改文件将不生效')"
+            },
+            {
+              "originalText": "需要重新打包上线",
+              "suggestedKey": "需要重新打包上线",
+              "i18nKey": "message.text.需要重新打包上线",
+              "replacement": "$t('message.text.需要重新打包上线')"
+            }
+          ]
+        },
+        {
+          "line": 249,
+          "context": "text",
+          "chineseTexts": [
+            "取消"
+          ],
+          "originalLine": "cancelButtonText: '取消',",
+          "suggestion": [
+            {
+              "originalText": "取消",
+              "suggestedKey": "取消",
+              "i18nKey": "message.text.取消",
+              "replacement": "$t('message.text.取消')"
+            }
+          ]
+        },
+        {
+          "line": 250,
+          "context": "text",
+          "chineseTexts": [
+            "确定"
+          ],
+          "originalLine": "confirmButtonText: '确定',",
+          "suggestion": [
+            {
+              "originalText": "确定",
+              "suggestedKey": "确定",
+              "i18nKey": "message.text.确定",
+              "replacement": "$t('message.text.确定')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/codeGeneration/list.vue",
+      "relativePath": "src/pages/system/codeGeneration/list.vue",
+      "findings": [
+        {
+          "line": 5,
+          "context": "button",
+          "chineseTexts": [
+            "重新发布"
+          ],
+          "originalLine": "<!-- <el-button type=\"success\" v-db-click @click=\"buildCode()\" class=\"mr20\">重新发布</el-button> -->",
+          "suggestion": [
+            {
+              "originalText": "重新发布",
+              "suggestedKey": "重新发布",
+              "i18nKey": "message.button.重新发布",
+              "replacement": "$t('message.button.重新发布')"
+            }
+          ]
+        },
+        {
+          "line": 116,
+          "context": "label",
+          "chineseTexts": [
+            "用户管理",
+            "用户管理"
+          ],
+          "originalLine": "<!-- <el-tab-pane label=\"用户管理\" name=\"first\">用户管理</el-tab-pane>",
+          "suggestion": [
+            {
+              "originalText": "用户管理",
+              "suggestedKey": "用户管理",
+              "i18nKey": "message.label.用户管理",
+              "replacement": "$t('message.label.用户管理')"
+            },
+            {
+              "originalText": "用户管理",
+              "suggestedKey": "用户管理",
+              "i18nKey": "message.label.用户管理",
+              "replacement": "$t('message.label.用户管理')"
+            }
+          ]
+        },
+        {
+          "line": 117,
+          "context": "label",
+          "chineseTexts": [
+            "配置管理",
+            "配置管理"
+          ],
+          "originalLine": "<el-tab-pane label=\"配置管理\" name=\"second\">配置管理</el-tab-pane>",
+          "suggestion": [
+            {
+              "originalText": "配置管理",
+              "suggestedKey": "配置管理",
+              "i18nKey": "message.label.配置管理",
+              "replacement": "$t('message.label.配置管理')"
+            },
+            {
+              "originalText": "配置管理",
+              "suggestedKey": "配置管理",
+              "i18nKey": "message.label.配置管理",
+              "replacement": "$t('message.label.配置管理')"
+            }
+          ]
+        },
+        {
+          "line": 118,
+          "context": "label",
+          "chineseTexts": [
+            "角色管理",
+            "角色管理"
+          ],
+          "originalLine": "<el-tab-pane label=\"角色管理\" name=\"third\">角色管理</el-tab-pane>",
+          "suggestion": [
+            {
+              "originalText": "角色管理",
+              "suggestedKey": "角色管理",
+              "i18nKey": "message.label.角色管理",
+              "replacement": "$t('message.label.角色管理')"
+            },
+            {
+              "originalText": "角色管理",
+              "suggestedKey": "角色管理",
+              "i18nKey": "message.label.角色管理",
+              "replacement": "$t('message.label.角色管理')"
+            }
+          ]
+        },
+        {
+          "line": 119,
+          "context": "label",
+          "chineseTexts": [
+            "定时任务补偿",
+            "定时任务补偿"
+          ],
+          "originalLine": "<el-tab-pane label=\"定时任务补偿\" name=\"fourth\">定时任务补偿</el-tab-pane> -->",
+          "suggestion": [
+            {
+              "originalText": "定时任务补偿",
+              "suggestedKey": "定时任务补偿",
+              "i18nKey": "message.label.定时任务补偿",
+              "replacement": "$t('message.label.定时任务补偿')"
+            },
+            {
+              "originalText": "定时任务补偿",
+              "suggestedKey": "定时任务补偿",
+              "i18nKey": "message.label.定时任务补偿",
+              "replacement": "$t('message.label.定时任务补偿')"
+            }
+          ]
+        },
+        {
+          "line": 195,
+          "context": "text",
+          "chineseTexts": [
+            "菜单名"
+          ],
+          "originalLine": "title: '菜单名',",
+          "suggestion": [
+            {
+              "originalText": "菜单名",
+              "suggestedKey": "菜单名",
+              "i18nKey": "message.text.菜单名",
+              "replacement": "$t('message.text.菜单名')"
+            }
+          ]
+        },
+        {
+          "line": 200,
+          "context": "text",
+          "chineseTexts": [
+            "表名"
+          ],
+          "originalLine": "title: '表名',",
+          "suggestion": [
+            {
+              "originalText": "表名",
+              "suggestedKey": "表名",
+              "i18nKey": "message.text.表名",
+              "replacement": "$t('message.text.表名')"
+            }
+          ]
+        },
+        {
+          "line": 205,
+          "context": "text",
+          "chineseTexts": [
+            "字符集"
+          ],
+          "originalLine": "title: '字符集',",
+          "suggestion": [
+            {
+              "originalText": "字符集",
+              "suggestedKey": "字符集",
+              "i18nKey": "message.text.字符集",
+              "replacement": "$t('message.text.字符集')"
+            }
+          ]
+        },
+        {
+          "line": 210,
+          "context": "text",
+          "chineseTexts": [
+            "表备注"
+          ],
+          "originalLine": "title: '表备注',",
+          "suggestion": [
+            {
+              "originalText": "表备注",
+              "suggestedKey": "表备注",
+              "i18nKey": "message.text.表备注",
+              "replacement": "$t('message.text.表备注')"
+            }
+          ]
+        },
+        {
+          "line": 215,
+          "context": "text",
+          "chineseTexts": [
+            "添加时间"
+          ],
+          "originalLine": "title: '添加时间',",
+          "suggestion": [
+            {
+              "originalText": "添加时间",
+              "suggestedKey": "添加时间",
+              "i18nKey": "message.text.添加时间",
+              "replacement": "$t('message.text.添加时间')"
+            }
+          ]
+        },
+        {
+          "line": 220,
+          "context": "text",
+          "chineseTexts": [
+            "操作"
+          ],
+          "originalLine": "title: '操作',",
+          "suggestion": [
+            {
+              "originalText": "操作",
+              "suggestedKey": "操作",
+              "i18nKey": "message.text.操作",
+              "replacement": "$t('message.text.操作')"
+            }
+          ]
+        },
+        {
+          "line": 230,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器数组"
+          ],
+          "originalLine": "editorList: [], //编辑器数组",
+          "suggestion": [
+            {
+              "originalText": "编辑器数组",
+              "suggestedKey": "编辑器数组",
+              "i18nKey": "message.text.编辑器数组",
+              "replacement": "$t('message.text.编辑器数组')"
+            }
+          ]
+        },
+        {
+          "line": 231,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器索引"
+          ],
+          "originalLine": "indexEditor: 0, //当前编辑器索引",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器索引",
+              "suggestedKey": "当前编辑器索引",
+              "i18nKey": "message.text.当前编辑器索引",
+              "replacement": "$t('message.text.当前编辑器索引')"
+            }
+          ]
+        },
+        {
+          "line": 232,
+          "context": "text",
+          "chineseTexts": [
+            "当前文件打开时的内容"
+          ],
+          "originalLine": "code: '', //当前文件打开时的内容",
+          "suggestion": [
+            {
+              "originalText": "当前文件打开时的内容",
+              "suggestedKey": "当前文件打开时的内容",
+              "i18nKey": "message.text.当前文件打开时的内容",
+              "replacement": "$t('message.text.当前文件打开时的内容')"
+            }
+          ]
+        },
+        {
+          "line": 233,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航右键点击是产生的数据对象"
+          ],
+          "originalLine": "contextData: null, //左侧导航右键点击是产生的数据对象",
+          "suggestion": [
+            {
+              "originalText": "左侧导航右键点击是产生的数据对象",
+              "suggestedKey": "左侧导航右键点击是产生的数据对象",
+              "i18nKey": "message.text.左侧导航右键点击是产生的数据对象",
+              "replacement": "$t('message.text.左侧导航右键点击是产生的数据对象')"
+            }
+          ]
+        },
+        {
+          "line": 235,
+          "context": "text",
+          "chineseTexts": [
+            "文件操作类型",
+            "创建文件夹",
+            "创建文件",
+            "删除文件夹或者文件"
+          ],
+          "originalLine": "fileType: '', // 文件操作类型 createFolder|创建文件夹 createFile|创建文件 delFolder|删除文件夹或者文件",
+          "suggestion": [
+            {
+              "originalText": "文件操作类型",
+              "suggestedKey": "文件操作类型",
+              "i18nKey": "message.text.文件操作类型",
+              "replacement": "$t('message.text.文件操作类型')"
+            },
+            {
+              "originalText": "创建文件夹",
+              "suggestedKey": "创建文件夹",
+              "i18nKey": "message.text.创建文件夹",
+              "replacement": "$t('message.text.创建文件夹')"
+            },
+            {
+              "originalText": "创建文件",
+              "suggestedKey": "创建文件",
+              "i18nKey": "message.text.创建文件",
+              "replacement": "$t('message.text.创建文件')"
+            },
+            {
+              "originalText": "删除文件夹或者文件",
+              "suggestedKey": "删除文件夹或者文件",
+              "i18nKey": "message.text.删除文件夹或者文件",
+              "replacement": "$t('message.text.删除文件夹或者文件')"
+            }
+          ]
+        },
+        {
+          "line": 236,
+          "context": "text",
+          "chineseTexts": [
+            "全屏",
+            "名"
+          ],
+          "originalLine": "className: '', //全屏 class名",
+          "suggestion": [
+            {
+              "originalText": "全屏",
+              "suggestedKey": "全屏",
+              "i18nKey": "message.text.全屏",
+              "replacement": "$t('message.text.全屏')"
+            },
+            {
+              "originalText": "名",
+              "suggestedKey": "名",
+              "i18nKey": "message.text.名",
+              "replacement": "$t('message.text.名')"
+            }
+          ]
+        },
+        {
+          "line": 238,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器开关"
+          ],
+          "originalLine": "modals: false, //编辑器开关",
+          "suggestion": [
+            {
+              "originalText": "编辑器开关",
+              "suggestedKey": "编辑器开关",
+              "i18nKey": "message.text.编辑器开关",
+              "replacement": "$t('message.text.编辑器开关')"
+            }
+          ]
+        },
+        {
+          "line": 239,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器对象"
+          ],
+          "originalLine": "editor: '', //当前编辑器对象",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器对象",
+              "suggestedKey": "当前编辑器对象",
+              "i18nKey": "message.text.当前编辑器对象",
+              "replacement": "$t('message.text.当前编辑器对象')"
+            }
+          ]
+        },
+        {
+          "line": 259,
+          "context": "text",
+          "chineseTexts": [
+            "关闭"
+          ],
+          "originalLine": "this.source.close(); //关闭EventSource",
+          "suggestion": [
+            {
+              "originalText": "关闭",
+              "suggestedKey": "关闭",
+              "i18nKey": "message.text.关闭",
+              "replacement": "$t('message.text.关闭')"
+            }
+          ]
+        },
+        {
+          "line": 289,
+          "context": "text",
+          "chineseTexts": [
+            "因",
+            "中",
+            "的指向变了",
+            "所以要提前存储一下"
+          ],
+          "originalLine": "let self = this; //因EventSource中this的指向变了，所以要提前存储一下",
+          "suggestion": [
+            {
+              "originalText": "因",
+              "suggestedKey": "因",
+              "i18nKey": "message.text.因",
+              "replacement": "$t('message.text.因')"
+            },
+            {
+              "originalText": "中",
+              "suggestedKey": "中",
+              "i18nKey": "message.text.中",
+              "replacement": "$t('message.text.中')"
+            },
+            {
+              "originalText": "的指向变了",
+              "suggestedKey": "的指向变了",
+              "i18nKey": "message.text.的指向变了",
+              "replacement": "$t('message.text.的指向变了')"
+            },
+            {
+              "originalText": "所以要提前存储一下",
+              "suggestedKey": "所以要提前存储一下",
+              "i18nKey": "message.text.所以要提前存储一下",
+              "replacement": "$t('message.text.所以要提前存储一下')"
+            }
+          ]
+        },
+        {
+          "line": 296,
+          "context": "text",
+          "chineseTexts": [
+            "暂不支持"
+          ],
+          "originalLine": "console.log('暂不支持EventSource');",
+          "suggestion": [
+            {
+              "originalText": "暂不支持",
+              "suggestedKey": "暂不支持",
+              "i18nKey": "message.text.暂不支持",
+              "replacement": "$t('message.text.暂不支持')"
+            }
+          ]
+        },
+        {
+          "line": 407,
+          "context": "text",
+          "chineseTexts": [
+            "窗口最大化"
+          ],
+          "originalLine": "* 窗口最大化",
+          "suggestion": [
+            {
+              "originalText": "窗口最大化",
+              "suggestedKey": "窗口最大化",
+              "i18nKey": "message.text.窗口最大化",
+              "replacement": "$t('message.text.窗口最大化')"
+            }
+          ]
+        },
+        {
+          "line": 417,
+          "context": "text",
+          "chineseTexts": [
+            "初始化编辑器"
+          ],
+          "originalLine": "* 初始化编辑器",
+          "suggestion": [
+            {
+              "originalText": "初始化编辑器",
+              "suggestedKey": "初始化编辑器",
+              "i18nKey": "message.text.初始化编辑器",
+              "replacement": "$t('message.text.初始化编辑器')"
+            }
+          ]
+        },
+        {
+          "line": 425,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器初始显示文字"
+          ],
+          "originalLine": "value: conetnt, //编辑器初始显示文字",
+          "suggestion": [
+            {
+              "originalText": "编辑器初始显示文字",
+              "suggestedKey": "编辑器初始显示文字",
+              "i18nKey": "message.text.编辑器初始显示文字",
+              "replacement": "$t('message.text.编辑器初始显示文字')"
+            }
+          ]
+        },
+        {
+          "line": 426,
+          "context": "text",
+          "chineseTexts": [
+            "语言支持自行查阅"
+          ],
+          "originalLine": "language: 'sql', //语言支持自行查阅demo",
+          "suggestion": [
+            {
+              "originalText": "语言支持自行查阅",
+              "suggestedKey": "语言支持自行查阅",
+              "i18nKey": "message.text.语言支持自行查阅",
+              "replacement": "$t('message.text.语言支持自行查阅')"
+            }
+          ]
+        },
+        {
+          "line": 427,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "automaticLayout: true, //自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 428,
+          "context": "text",
+          "chineseTexts": [
+            "官方自带三种主题"
+          ],
+          "originalLine": "theme: 'vs', //官方自带三种主题vs, hc-black, or vs-dark",
+          "suggestion": [
+            {
+              "originalText": "官方自带三种主题",
+              "suggestedKey": "官方自带三种主题",
+              "i18nKey": "message.text.官方自带三种主题",
+              "replacement": "$t('message.text.官方自带三种主题')"
+            }
+          ]
+        },
+        {
+          "line": 429,
+          "context": "text",
+          "chineseTexts": [
+            "代码可分小段折叠"
+          ],
+          "originalLine": "foldingStrategy: 'indentation', // 代码可分小段折叠",
+          "suggestion": [
+            {
+              "originalText": "代码可分小段折叠",
+              "suggestedKey": "代码可分小段折叠",
+              "i18nKey": "message.text.代码可分小段折叠",
+              "replacement": "$t('message.text.代码可分小段折叠')"
+            }
+          ]
+        },
+        {
+          "line": 430,
+          "context": "text",
+          "chineseTexts": [
+            "不要滚动条的边框"
+          ],
+          "originalLine": "overviewRulerBorder: false, // 不要滚动条的边框",
+          "suggestion": [
+            {
+              "originalText": "不要滚动条的边框",
+              "suggestedKey": "不要滚动条的边框",
+              "i18nKey": "message.text.不要滚动条的边框",
+              "replacement": "$t('message.text.不要滚动条的边框')"
+            }
+          ]
+        },
+        {
+          "line": 433,
+          "context": "text",
+          "chineseTexts": [
+            "竖滚动条"
+          ],
+          "originalLine": "verticalScrollbarSize: 4, // 竖滚动条",
+          "suggestion": [
+            {
+              "originalText": "竖滚动条",
+              "suggestedKey": "竖滚动条",
+              "i18nKey": "message.text.竖滚动条",
+              "replacement": "$t('message.text.竖滚动条')"
+            }
+          ]
+        },
+        {
+          "line": 434,
+          "context": "text",
+          "chineseTexts": [
+            "横滚动条"
+          ],
+          "originalLine": "horizontalScrollbarSize: 10, // 横滚动条",
+          "suggestion": [
+            {
+              "originalText": "横滚动条",
+              "suggestedKey": "横滚动条",
+              "i18nKey": "message.text.横滚动条",
+              "replacement": "$t('message.text.横滚动条')"
+            }
+          ]
+        },
+        {
+          "line": 436,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "autoIndent: true, // 自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 437,
+          "context": "text",
+          "chineseTexts": [
+            "缩进长度"
+          ],
+          "originalLine": "tabSize: 4, // tab缩进长度",
+          "suggestion": [
+            {
+              "originalText": "缩进长度",
+              "suggestedKey": "缩进长度",
+              "i18nKey": "message.text.缩进长度",
+              "replacement": "$t('message.text.缩进长度')"
+            }
+          ]
+        },
+        {
+          "line": 454,
+          "context": "text",
+          "chineseTexts": [
+            "处理接口回调"
+          ],
+          "originalLine": "* 处理接口回调",
+          "suggestion": [
+            {
+              "originalText": "处理接口回调",
+              "suggestedKey": "处理接口回调",
+              "i18nKey": "message.text.处理接口回调",
+              "replacement": "$t('message.text.处理接口回调')"
+            }
+          ]
+        },
+        {
+          "line": 483,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器开关"
+          ],
+          "originalLine": "that.modals = false; //编辑器开关",
+          "suggestion": [
+            {
+              "originalText": "编辑器开关",
+              "suggestedKey": "编辑器开关",
+              "i18nKey": "message.text.编辑器开关",
+              "replacement": "$t('message.text.编辑器开关')"
+            }
+          ]
+        },
+        {
+          "line": 484,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器对象"
+          ],
+          "originalLine": "that.editor = ''; //当前编辑器对象",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器对象",
+              "suggestedKey": "当前编辑器对象",
+              "i18nKey": "message.text.当前编辑器对象",
+              "replacement": "$t('message.text.当前编辑器对象')"
+            }
+          ]
+        },
+        {
+          "line": 494,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器数组"
+          ],
+          "originalLine": "that.editorList = []; //编辑器数组",
+          "suggestion": [
+            {
+              "originalText": "编辑器数组",
+              "suggestedKey": "编辑器数组",
+              "i18nKey": "message.text.编辑器数组",
+              "replacement": "$t('message.text.编辑器数组')"
+            }
+          ]
+        },
+        {
+          "line": 495,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器索引"
+          ],
+          "originalLine": "that.indexEditor = '0'; //当前编辑器索引",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器索引",
+              "suggestedKey": "当前编辑器索引",
+              "i18nKey": "message.text.当前编辑器索引",
+              "replacement": "$t('message.text.当前编辑器索引')"
+            }
+          ]
+        },
+        {
+          "line": 496,
+          "context": "text",
+          "chineseTexts": [
+            "当前文件打开时的内容"
+          ],
+          "originalLine": "that.code = ''; //当前文件打开时的内容",
+          "suggestion": [
+            {
+              "originalText": "当前文件打开时的内容",
+              "suggestedKey": "当前文件打开时的内容",
+              "i18nKey": "message.text.当前文件打开时的内容",
+              "replacement": "$t('message.text.当前文件打开时的内容')"
+            }
+          ]
+        },
+        {
+          "line": 497,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航右键点击是产生的数据对象"
+          ],
+          "originalLine": "that.contextData = null; //左侧导航右键点击是产生的数据对象",
+          "suggestion": [
+            {
+              "originalText": "左侧导航右键点击是产生的数据对象",
+              "suggestedKey": "左侧导航右键点击是产生的数据对象",
+              "i18nKey": "message.text.左侧导航右键点击是产生的数据对象",
+              "replacement": "$t('message.text.左侧导航右键点击是产生的数据对象')"
+            }
+          ]
+        },
+        {
+          "line": 500,
+          "context": "text",
+          "chineseTexts": [
+            "切换选项卡"
+          ],
+          "originalLine": "* 切换选项卡",
+          "suggestion": [
+            {
+              "originalText": "切换选项卡",
+              "suggestedKey": "切换选项卡",
+              "i18nKey": "message.text.切换选项卡",
+              "replacement": "$t('message.text.切换选项卡')"
+            }
+          ]
+        },
+        {
+          "line": 505,
+          "context": "text",
+          "chineseTexts": [
+            "设置文件打开时的代码"
+          ],
+          "originalLine": "this.code = this.editorList[index].oldCode; //设置文件打开时的代码",
+          "suggestion": [
+            {
+              "originalText": "设置文件打开时的代码",
+              "suggestedKey": "设置文件打开时的代码",
+              "i18nKey": "message.text.设置文件打开时的代码",
+              "replacement": "$t('message.text.设置文件打开时的代码')"
+            }
+          ]
+        },
+        {
+          "line": 506,
+          "context": "text",
+          "chineseTexts": [
+            "设置编辑器实例"
+          ],
+          "originalLine": "this.editor = this.editorList[index].editor; //设置编辑器实例",
+          "suggestion": [
+            {
+              "originalText": "设置编辑器实例",
+              "suggestedKey": "设置编辑器实例",
+              "i18nKey": "message.text.设置编辑器实例",
+              "replacement": "$t('message.text.设置编辑器实例')"
+            }
+          ]
+        },
+        {
+          "line": 511,
+          "context": "text",
+          "chineseTexts": [
+            "关闭选项卡"
+          ],
+          "originalLine": "that.editorIndex[index].tab = false; // 关闭选项卡",
+          "suggestion": [
+            {
+              "originalText": "关闭选项卡",
+              "suggestedKey": "关闭选项卡",
+              "i18nKey": "message.text.关闭选项卡",
+              "replacement": "$t('message.text.关闭选项卡')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/configTab/index.vue",
+      "relativePath": "src/pages/system/configTab/index.vue",
+      "findings": [
+        {
+          "line": 92,
+          "context": "text",
+          "chineseTexts": [
+            "新建",
+            "编辑表单"
+          ],
+          "originalLine": "<!-- 新建  编辑表单-->",
+          "suggestion": [
+            {
+              "originalText": "新建",
+              "suggestedKey": "新建",
+              "i18nKey": "message.text.新建",
+              "replacement": "$t('message.text.新建')"
+            },
+            {
+              "originalText": "编辑表单",
+              "suggestedKey": "编辑表单",
+              "i18nKey": "message.text.编辑表单",
+              "replacement": "$t('message.text.编辑表单')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/configTab/list.vue",
+      "relativePath": "src/pages/system/configTab/list.vue",
+      "findings": [
+        {
+          "line": 11,
+          "context": "button",
+          "chineseTexts": [
+            "配置分类"
+          ],
+          "originalLine": "<!-- <el-button type=\"primary\" v-db-click @click=\"goIndex\">配置分类</el-button> -->",
+          "suggestion": [
+            {
+              "originalText": "配置分类",
+              "suggestedKey": "配置分类",
+              "i18nKey": "message.button.配置分类",
+              "replacement": "$t('message.button.配置分类')"
+            }
+          ]
+        },
+        {
+          "line": 113,
+          "context": "text",
+          "chineseTexts": [
+            "新建",
+            "表单"
+          ],
+          "originalLine": "<!-- 新建 表单-->",
+          "suggestion": [
+            {
+              "originalText": "新建",
+              "suggestedKey": "新建",
+              "i18nKey": "message.text.新建",
+              "replacement": "$t('message.text.新建')"
+            },
+            {
+              "originalText": "表单",
+              "suggestedKey": "表单",
+              "i18nKey": "message.text.表单",
+              "replacement": "$t('message.text.表单')"
+            }
+          ]
+        },
+        {
+          "line": 145,
+          "context": "text",
+          "chineseTexts": [
+            "编辑表单"
+          ],
+          "originalLine": "<!-- 编辑表单-->",
+          "suggestion": [
+            {
+              "originalText": "编辑表单",
+              "suggestedKey": "编辑表单",
+              "i18nKey": "message.text.编辑表单",
+              "replacement": "$t('message.text.编辑表单')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/crontab/createModal.vue",
+      "relativePath": "src/pages/system/crontab/createModal.vue",
+      "findings": [
+        {
+          "line": 154,
+          "context": "text",
+          "chineseTexts": [
+            "每隔",
+            "秒"
+          ],
+          "originalLine": "name: '每隔N秒',",
+          "suggestion": [
+            {
+              "originalText": "每隔",
+              "suggestedKey": "每隔",
+              "i18nKey": "message.text.每隔",
+              "replacement": "$t('message.text.每隔')"
+            },
+            {
+              "originalText": "秒",
+              "suggestedKey": "秒",
+              "i18nKey": "message.text.秒",
+              "replacement": "$t('message.text.秒')"
+            }
+          ]
+        },
+        {
+          "line": 158,
+          "context": "text",
+          "chineseTexts": [
+            "每隔",
+            "分钟"
+          ],
+          "originalLine": "name: '每隔N分钟',",
+          "suggestion": [
+            {
+              "originalText": "每隔",
+              "suggestedKey": "每隔",
+              "i18nKey": "message.text.每隔",
+              "replacement": "$t('message.text.每隔')"
+            },
+            {
+              "originalText": "分钟",
+              "suggestedKey": "分钟",
+              "i18nKey": "message.text.分钟",
+              "replacement": "$t('message.text.分钟')"
+            }
+          ]
+        },
+        {
+          "line": 162,
+          "context": "text",
+          "chineseTexts": [
+            "每隔",
+            "小时"
+          ],
+          "originalLine": "name: '每隔N小时',",
+          "suggestion": [
+            {
+              "originalText": "每隔",
+              "suggestedKey": "每隔",
+              "i18nKey": "message.text.每隔",
+              "replacement": "$t('message.text.每隔')"
+            },
+            {
+              "originalText": "小时",
+              "suggestedKey": "小时",
+              "i18nKey": "message.text.小时",
+              "replacement": "$t('message.text.小时')"
+            }
+          ]
+        },
+        {
+          "line": 166,
+          "context": "text",
+          "chineseTexts": [
+            "每隔",
+            "天"
+          ],
+          "originalLine": "name: '每隔N天',",
+          "suggestion": [
+            {
+              "originalText": "每隔",
+              "suggestedKey": "每隔",
+              "i18nKey": "message.text.每隔",
+              "replacement": "$t('message.text.每隔')"
+            },
+            {
+              "originalText": "天",
+              "suggestedKey": "天",
+              "i18nKey": "message.text.天",
+              "replacement": "$t('message.text.天')"
+            }
+          ]
+        },
+        {
+          "line": 170,
+          "context": "text",
+          "chineseTexts": [
+            "每天"
+          ],
+          "originalLine": "name: '每天',",
+          "suggestion": [
+            {
+              "originalText": "每天",
+              "suggestedKey": "每天",
+              "i18nKey": "message.text.每天",
+              "replacement": "$t('message.text.每天')"
+            }
+          ]
+        },
+        {
+          "line": 174,
+          "context": "text",
+          "chineseTexts": [
+            "每星期"
+          ],
+          "originalLine": "name: '每星期',",
+          "suggestion": [
+            {
+              "originalText": "每星期",
+              "suggestedKey": "每星期",
+              "i18nKey": "message.text.每星期",
+              "replacement": "$t('message.text.每星期')"
+            }
+          ]
+        },
+        {
+          "line": 178,
+          "context": "text",
+          "chineseTexts": [
+            "每月"
+          ],
+          "originalLine": "name: '每月',",
+          "suggestion": [
+            {
+              "originalText": "每月",
+              "suggestedKey": "每月",
+              "i18nKey": "message.text.每月",
+              "replacement": "$t('message.text.每月')"
+            }
+          ]
+        },
+        {
+          "line": 182,
+          "context": "text",
+          "chineseTexts": [
+            "每年"
+          ],
+          "originalLine": "name: '每年',",
+          "suggestion": [
+            {
+              "originalText": "每年",
+              "suggestedKey": "每年",
+              "i18nKey": "message.text.每年",
+              "replacement": "$t('message.text.每年')"
+            }
+          ]
+        },
+        {
+          "line": 190,
+          "context": "text",
+          "chineseTexts": [
+            "键"
+          ],
+          "originalLine": "mark: 'customTimer', //键",
+          "suggestion": [
+            {
+              "originalText": "键",
+              "suggestedKey": "键",
+              "i18nKey": "message.text.键",
+              "replacement": "$t('message.text.键')"
+            }
+          ]
+        },
+        {
+          "line": 204,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器对象"
+          ],
+          "originalLine": "editor: '', //当前编辑器对象",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器对象",
+              "suggestedKey": "当前编辑器对象",
+              "i18nKey": "message.text.当前编辑器对象",
+              "replacement": "$t('message.text.当前编辑器对象')"
+            }
+          ]
+        },
+        {
+          "line": 297,
+          "context": "text",
+          "chineseTexts": [
+            "初始化编辑器"
+          ],
+          "originalLine": "* 初始化编辑器",
+          "suggestion": [
+            {
+              "originalText": "初始化编辑器",
+              "suggestedKey": "初始化编辑器",
+              "i18nKey": "message.text.初始化编辑器",
+              "replacement": "$t('message.text.初始化编辑器')"
+            }
+          ]
+        },
+        {
+          "line": 305,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器初始显示文字"
+          ],
+          "originalLine": "value: conetnt, //编辑器初始显示文字",
+          "suggestion": [
+            {
+              "originalText": "编辑器初始显示文字",
+              "suggestedKey": "编辑器初始显示文字",
+              "i18nKey": "message.text.编辑器初始显示文字",
+              "replacement": "$t('message.text.编辑器初始显示文字')"
+            }
+          ]
+        },
+        {
+          "line": 306,
+          "context": "text",
+          "chineseTexts": [
+            "语言支持自行查阅"
+          ],
+          "originalLine": "language: 'php', //语言支持自行查阅demo",
+          "suggestion": [
+            {
+              "originalText": "语言支持自行查阅",
+              "suggestedKey": "语言支持自行查阅",
+              "i18nKey": "message.text.语言支持自行查阅",
+              "replacement": "$t('message.text.语言支持自行查阅')"
+            }
+          ]
+        },
+        {
+          "line": 307,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "automaticLayout: true, //自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 308,
+          "context": "text",
+          "chineseTexts": [
+            "官方自带三种主题"
+          ],
+          "originalLine": "theme: 'vs-dark', //官方自带三种主题vs, hc-black, or vs-dark",
+          "suggestion": [
+            {
+              "originalText": "官方自带三种主题",
+              "suggestedKey": "官方自带三种主题",
+              "i18nKey": "message.text.官方自带三种主题",
+              "replacement": "$t('message.text.官方自带三种主题')"
+            }
+          ]
+        },
+        {
+          "line": 309,
+          "context": "text",
+          "chineseTexts": [
+            "代码可分小段折叠"
+          ],
+          "originalLine": "foldingStrategy: 'indentation', // 代码可分小段折叠",
+          "suggestion": [
+            {
+              "originalText": "代码可分小段折叠",
+              "suggestedKey": "代码可分小段折叠",
+              "i18nKey": "message.text.代码可分小段折叠",
+              "replacement": "$t('message.text.代码可分小段折叠')"
+            }
+          ]
+        },
+        {
+          "line": 310,
+          "context": "text",
+          "chineseTexts": [
+            "不要滚动条的边框"
+          ],
+          "originalLine": "overviewRulerBorder: false, // 不要滚动条的边框",
+          "suggestion": [
+            {
+              "originalText": "不要滚动条的边框",
+              "suggestedKey": "不要滚动条的边框",
+              "i18nKey": "message.text.不要滚动条的边框",
+              "replacement": "$t('message.text.不要滚动条的边框')"
+            }
+          ]
+        },
+        {
+          "line": 317,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "autoIndent: true, // 自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 318,
+          "context": "text",
+          "chineseTexts": [
+            "缩进长度"
+          ],
+          "originalLine": "tabSize: 4, // tab缩进长度",
+          "suggestion": [
+            {
+              "originalText": "缩进长度",
+              "suggestedKey": "缩进长度",
+              "i18nKey": "message.text.缩进长度",
+              "replacement": "$t('message.text.缩进长度')"
+            }
+          ]
+        },
+        {
+          "line": 359,
+          "context": "text",
+          "chineseTexts": [
+            "示例代码",
+            "直接写入数据库",
+            "调用系统方法"
+          ],
+          "originalLine": "\"<?php\\n\\n//示例代码\\n\\n//直接写入数据库\\n\\\\think\\\\facade\\\\Db::name('cache')->insert(['key' => 'custom_timer_' . rand(), 'result' => rand(), 'expire_time' => 0]);\\n\\n//调用系统方法\\napp()->make(\\\\app\\\\services\\\\other\\\\CacheServices::class)->setDbCache('custom_timer_' . rand(), rand());\",",
+          "suggestion": [
+            {
+              "originalText": "示例代码",
+              "suggestedKey": "示例代码",
+              "i18nKey": "message.text.示例代码",
+              "replacement": "$t('message.text.示例代码')"
+            },
+            {
+              "originalText": "直接写入数据库",
+              "suggestedKey": "直接写入数据库",
+              "i18nKey": "message.text.直接写入数据库",
+              "replacement": "$t('message.text.直接写入数据库')"
+            },
+            {
+              "originalText": "调用系统方法",
+              "suggestedKey": "调用系统方法",
+              "i18nKey": "message.text.调用系统方法",
+              "replacement": "$t('message.text.调用系统方法')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/event/createModal.vue",
+      "relativePath": "src/pages/system/event/createModal.vue",
+      "findings": [
+        {
+          "line": 110,
+          "context": "text",
+          "chineseTexts": [
+            "键"
+          ],
+          "originalLine": "mark: '', //键",
+          "suggestion": [
+            {
+              "originalText": "键",
+              "suggestedKey": "键",
+              "i18nKey": "message.text.键",
+              "replacement": "$t('message.text.键')"
+            }
+          ]
+        },
+        {
+          "line": 119,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器对象"
+          ],
+          "originalLine": "editor: '', //当前编辑器对象",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器对象",
+              "suggestedKey": "当前编辑器对象",
+              "i18nKey": "message.text.当前编辑器对象",
+              "replacement": "$t('message.text.当前编辑器对象')"
+            }
+          ]
+        },
+        {
+          "line": 133,
+          "context": "text",
+          "chineseTexts": [
+            "初始化编辑器"
+          ],
+          "originalLine": "* 初始化编辑器",
+          "suggestion": [
+            {
+              "originalText": "初始化编辑器",
+              "suggestedKey": "初始化编辑器",
+              "i18nKey": "message.text.初始化编辑器",
+              "replacement": "$t('message.text.初始化编辑器')"
+            }
+          ]
+        },
+        {
+          "line": 141,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器初始显示文字"
+          ],
+          "originalLine": "value: conetnt, //编辑器初始显示文字",
+          "suggestion": [
+            {
+              "originalText": "编辑器初始显示文字",
+              "suggestedKey": "编辑器初始显示文字",
+              "i18nKey": "message.text.编辑器初始显示文字",
+              "replacement": "$t('message.text.编辑器初始显示文字')"
+            }
+          ]
+        },
+        {
+          "line": 142,
+          "context": "text",
+          "chineseTexts": [
+            "语言支持自行查阅"
+          ],
+          "originalLine": "language: 'php', //语言支持自行查阅demo",
+          "suggestion": [
+            {
+              "originalText": "语言支持自行查阅",
+              "suggestedKey": "语言支持自行查阅",
+              "i18nKey": "message.text.语言支持自行查阅",
+              "replacement": "$t('message.text.语言支持自行查阅')"
+            }
+          ]
+        },
+        {
+          "line": 143,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "automaticLayout: true, //自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 144,
+          "context": "text",
+          "chineseTexts": [
+            "官方自带三种主题"
+          ],
+          "originalLine": "theme: 'vs-dark', //官方自带三种主题vs, hc-black, or vs-dark",
+          "suggestion": [
+            {
+              "originalText": "官方自带三种主题",
+              "suggestedKey": "官方自带三种主题",
+              "i18nKey": "message.text.官方自带三种主题",
+              "replacement": "$t('message.text.官方自带三种主题')"
+            }
+          ]
+        },
+        {
+          "line": 145,
+          "context": "text",
+          "chineseTexts": [
+            "代码可分小段折叠"
+          ],
+          "originalLine": "foldingStrategy: 'indentation', // 代码可分小段折叠",
+          "suggestion": [
+            {
+              "originalText": "代码可分小段折叠",
+              "suggestedKey": "代码可分小段折叠",
+              "i18nKey": "message.text.代码可分小段折叠",
+              "replacement": "$t('message.text.代码可分小段折叠')"
+            }
+          ]
+        },
+        {
+          "line": 146,
+          "context": "text",
+          "chineseTexts": [
+            "不要滚动条的边框"
+          ],
+          "originalLine": "overviewRulerBorder: false, // 不要滚动条的边框",
+          "suggestion": [
+            {
+              "originalText": "不要滚动条的边框",
+              "suggestedKey": "不要滚动条的边框",
+              "i18nKey": "message.text.不要滚动条的边框",
+              "replacement": "$t('message.text.不要滚动条的边框')"
+            }
+          ]
+        },
+        {
+          "line": 153,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "autoIndent: true, // 自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 154,
+          "context": "text",
+          "chineseTexts": [
+            "缩进长度"
+          ],
+          "originalLine": "tabSize: 4, // tab缩进长度",
+          "suggestion": [
+            {
+              "originalText": "缩进长度",
+              "suggestedKey": "缩进长度",
+              "i18nKey": "message.text.缩进长度",
+              "replacement": "$t('message.text.缩进长度')"
+            }
+          ]
+        },
+        {
+          "line": 194,
+          "context": "text",
+          "chineseTexts": [
+            "示例代码",
+            "参数使用实例",
+            "直接写入数据库",
+            "调用系统方法"
+          ],
+          "originalLine": "\"<?php\\n\\n//示例代码\\n//参数使用实例  $data['uid']\\n\\n//直接写入数据库\\n\\\\think\\\\facade\\\\Db::name('cache')->insert(['key' => 'custom_event_' . rand(), 'result' => $data['nickname'] . rand(), 'expire_time' => 0]);\\n\\n//调用系统方法\\napp()->make(\\\\app\\\\services\\\\other\\\\CacheServices::class)->setDbCache('custom_event_' . rand(), $data['nickname']);\",",
+          "suggestion": [
+            {
+              "originalText": "示例代码",
+              "suggestedKey": "示例代码",
+              "i18nKey": "message.text.示例代码",
+              "replacement": "$t('message.text.示例代码')"
+            },
+            {
+              "originalText": "参数使用实例",
+              "suggestedKey": "参数使用实例",
+              "i18nKey": "message.text.参数使用实例",
+              "replacement": "$t('message.text.参数使用实例')"
+            },
+            {
+              "originalText": "直接写入数据库",
+              "suggestedKey": "直接写入数据库",
+              "i18nKey": "message.text.直接写入数据库",
+              "replacement": "$t('message.text.直接写入数据库')"
+            },
+            {
+              "originalText": "调用系统方法",
+              "suggestedKey": "调用系统方法",
+              "i18nKey": "message.text.调用系统方法",
+              "replacement": "$t('message.text.调用系统方法')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/file/index.vue",
+      "relativePath": "src/pages/system/file/index.vue",
+      "findings": [
+        {
+          "line": 25,
+          "context": "text",
+          "chineseTexts": [
+            "是否显示上传按钮"
+          ],
+          "originalLine": "uploadShow: false, // 是否显示上传按钮",
+          "suggestion": [
+            {
+              "originalText": "是否显示上传按钮",
+              "suggestedKey": "是否显示上传按钮",
+              "i18nKey": "message.text.是否显示上传按钮",
+              "replacement": "$t('message.text.是否显示上传按钮')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/group/index.vue",
+      "relativePath": "src/pages/system/group/index.vue",
+      "findings": [
+        {
+          "line": 78,
+          "context": "text",
+          "chineseTexts": [
+            "新增",
+            "编辑"
+          ],
+          "originalLine": "<!-- 新增 编辑-->",
+          "suggestion": [
+            {
+              "originalText": "新增",
+              "suggestedKey": "新增",
+              "i18nKey": "message.text.新增",
+              "replacement": "$t('message.text.新增')"
+            },
+            {
+              "originalText": "编辑",
+              "suggestedKey": "编辑",
+              "i18nKey": "message.text.编辑",
+              "replacement": "$t('message.text.编辑')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/group/list.vue",
+      "relativePath": "src/pages/system/group/list.vue",
+      "findings": [
+        {
+          "line": 6,
+          "context": "button",
+          "chineseTexts": [
+            "返回"
+          ],
+          "originalLine": "<!--          ><el-button size=\"small\" type=\"text\">返回</el-button></router-link-->",
+          "suggestion": [
+            {
+              "originalText": "返回",
+              "suggestedKey": "返回",
+              "i18nKey": "message.button.返回",
+              "replacement": "$t('message.button.返回')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/group/pc.vue",
+      "relativePath": "src/pages/system/group/pc.vue",
+      "findings": [
+        {
+          "line": 74,
+          "context": "button",
+          "chineseTexts": [
+            "单选"
+          ],
+          "originalLine": "<div class=\"img-box imgBoxs\" v-db-click @click=\"modalPicTap('单选', index)\">",
+          "suggestion": [
+            {
+              "originalText": "单选",
+              "suggestedKey": "单选",
+              "i18nKey": "message.button.单选",
+              "replacement": "$t('message.button.单选')"
+            }
+          ]
+        },
+        {
+          "line": 146,
+          "context": "button",
+          "chineseTexts": [
+            "单选"
+          ],
+          "originalLine": "<div class=\"img-boxs\" v-db-click @click=\"modalPicTap('单选', 0)\">",
+          "suggestion": [
+            {
+              "originalText": "单选",
+              "suggestedKey": "单选",
+              "i18nKey": "message.button.单选",
+              "replacement": "$t('message.button.单选')"
+            }
+          ]
+        },
+        {
+          "line": 225,
+          "context": "text",
+          "chineseTexts": [
+            "是否需要登录"
+          ],
+          "originalLine": "<span>是否需要登录：</span>",
+          "suggestion": [
+            {
+              "originalText": "是否需要登录",
+              "suggestedKey": "是否需要登录",
+              "i18nKey": "message.text.是否需要登录",
+              "replacement": "$t('message.text.是否需要登录')"
+            }
+          ]
+        },
+        {
+          "line": 321,
+          "context": "button",
+          "chineseTexts": [
+            "保存"
+          ],
+          "originalLine": "<el-button type=\"primary\" v-db-click @click=\"save\" >保存</el-button>",
+          "suggestion": [
+            {
+              "originalText": "保存",
+              "suggestedKey": "保存",
+              "i18nKey": "message.button.保存",
+              "replacement": "$t('message.button.保存')"
+            }
+          ]
+        },
+        {
+          "line": 404,
+          "context": "text",
+          "chineseTexts": [
+            "单选"
+          ],
+          "originalLine": "isChoice: '单选',",
+          "suggestion": [
+            {
+              "originalText": "单选",
+              "suggestedKey": "单选",
+              "i18nKey": "message.text.单选",
+              "replacement": "$t('message.text.单选')"
+            }
+          ]
+        },
+        {
+          "line": 422,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器不自动被内容撑高"
+          ],
+          "originalLine": "autoHeightEnabled: false, // 编辑器不自动被内容撑高",
+          "suggestion": [
+            {
+              "originalText": "编辑器不自动被内容撑高",
+              "suggestedKey": "编辑器不自动被内容撑高",
+              "i18nKey": "message.text.编辑器不自动被内容撑高",
+              "replacement": "$t('message.text.编辑器不自动被内容撑高')"
+            }
+          ]
+        },
+        {
+          "line": 423,
+          "context": "text",
+          "chineseTexts": [
+            "初始容器高度"
+          ],
+          "originalLine": "initialFrameHeight: 500, // 初始容器高度",
+          "suggestion": [
+            {
+              "originalText": "初始容器高度",
+              "suggestedKey": "初始容器高度",
+              "i18nKey": "message.text.初始容器高度",
+              "replacement": "$t('message.text.初始容器高度')"
+            }
+          ]
+        },
+        {
+          "line": 424,
+          "context": "text",
+          "chineseTexts": [
+            "初始容器宽度"
+          ],
+          "originalLine": "initialFrameWidth: '100%', // 初始容器宽度",
+          "suggestion": [
+            {
+              "originalText": "初始容器宽度",
+              "suggestedKey": "初始容器宽度",
+              "i18nKey": "message.text.初始容器宽度",
+              "replacement": "$t('message.text.初始容器宽度')"
+            }
+          ]
+        },
+        {
+          "line": 490,
+          "context": "text",
+          "chineseTexts": [
+            "请输入内容"
+          ],
+          "originalLine": "if (this.formValidate.content == '') return this.$message.warning('请输入内容');",
+          "suggestion": [
+            {
+              "originalText": "请输入内容",
+              "suggestedKey": "请输入内容",
+              "i18nKey": "message.text.请输入内容",
+              "replacement": "$t('message.text.请输入内容')"
+            }
+          ]
+        },
+        {
+          "line": 495,
+          "context": "text",
+          "chineseTexts": [
+            "关于我们"
+          ],
+          "originalLine": "title: '关于我们',",
+          "suggestion": [
+            {
+              "originalText": "关于我们",
+              "suggestedKey": "关于我们",
+              "i18nKey": "message.text.关于我们",
+              "replacement": "$t('message.text.关于我们')"
+            }
+          ]
+        },
+        {
+          "line": 555,
+          "context": "text",
+          "chineseTexts": [
+            "最多添加",
+            "张"
+          ],
+          "originalLine": "this.$message.warning('最多添加5张');",
+          "suggestion": [
+            {
+              "originalText": "最多添加",
+              "suggestedKey": "最多添加",
+              "i18nKey": "message.text.最多添加",
+              "replacement": "$t('message.text.最多添加')"
+            },
+            {
+              "originalText": "张",
+              "suggestedKey": "张",
+              "i18nKey": "message.text.张",
+              "replacement": "$t('message.text.张')"
+            }
+          ]
+        },
+        {
+          "line": 564,
+          "context": "text",
+          "chineseTexts": [
+            "最多添加",
+            "个菜单"
+          ],
+          "originalLine": "return this.$message.warning('最多添加6个菜单');",
+          "suggestion": [
+            {
+              "originalText": "最多添加",
+              "suggestedKey": "最多添加",
+              "i18nKey": "message.text.最多添加",
+              "replacement": "$t('message.text.最多添加')"
+            },
+            {
+              "originalText": "个菜单",
+              "suggestedKey": "个菜单",
+              "i18nKey": "message.text.个菜单",
+              "replacement": "$t('message.text.个菜单')"
+            }
+          ]
+        },
+        {
+          "line": 573,
+          "context": "text",
+          "chineseTexts": [
+            "最多添加",
+            "个链接"
+          ],
+          "originalLine": "return this.$message.warning('最多添加20个链接');",
+          "suggestion": [
+            {
+              "originalText": "最多添加",
+              "suggestedKey": "最多添加",
+              "i18nKey": "message.text.最多添加",
+              "replacement": "$t('message.text.最多添加')"
+            },
+            {
+              "originalText": "个链接",
+              "suggestedKey": "个链接",
+              "i18nKey": "message.text.个链接",
+              "replacement": "$t('message.text.个链接')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/group/visualization.vue",
+      "relativePath": "src/pages/system/group/visualization.vue",
+      "findings": [
+        {
+          "line": 182,
+          "context": "text",
+          "chineseTexts": [
+            "暂无照片",
+            "请添加"
+          ],
+          "originalLine": "暂无照片，请添加~",
+          "suggestion": [
+            {
+              "originalText": "暂无照片",
+              "suggestedKey": "暂无照片",
+              "i18nKey": "message.text.暂无照片",
+              "replacement": "$t('message.text.暂无照片')"
+            },
+            {
+              "originalText": "请添加",
+              "suggestedKey": "请添加",
+              "i18nKey": "message.text.请添加",
+              "replacement": "$t('message.text.请添加')"
+            }
+          ]
+        },
+        {
+          "line": 194,
+          "context": "text",
+          "chineseTexts": [
+            "签到天数设置"
+          ],
+          "originalLine": "<div class=\"title\">签到天数设置</div>",
+          "suggestion": [
+            {
+              "originalText": "签到天数设置",
+              "suggestedKey": "签到天数设置",
+              "i18nKey": "message.text.签到天数设置",
+              "replacement": "$t('message.text.签到天数设置')"
+            }
+          ]
+        },
+        {
+          "line": 198,
+          "context": "text",
+          "chineseTexts": [
+            "添加数据"
+          ],
+          "originalLine": "@click=\"groupAdd('添加数据')\"",
+          "suggestion": [
+            {
+              "originalText": "添加数据",
+              "suggestedKey": "添加数据",
+              "i18nKey": "message.text.添加数据",
+              "replacement": "$t('message.text.添加数据')"
+            }
+          ]
+        },
+        {
+          "line": 200,
+          "context": "text",
+          "chineseTexts": [
+            "添加数据"
+          ],
+          "originalLine": ">添加数据</el-button",
+          "suggestion": [
+            {
+              "originalText": "添加数据",
+              "suggestedKey": "添加数据",
+              "i18nKey": "message.text.添加数据",
+              "replacement": "$t('message.text.添加数据')"
+            }
+          ]
+        },
+        {
+          "line": 211,
+          "context": "text",
+          "chineseTexts": [
+            "暂无数据"
+          ],
+          "originalLine": "no-userFrom-text=\"暂无数据\"",
+          "suggestion": [
+            {
+              "originalText": "暂无数据",
+              "suggestedKey": "暂无数据",
+              "i18nKey": "message.text.暂无数据",
+              "replacement": "$t('message.text.暂无数据')"
+            }
+          ]
+        },
+        {
+          "line": 212,
+          "context": "text",
+          "chineseTexts": [
+            "暂无筛选结果"
+          ],
+          "originalLine": "no-filtered-userFrom-text=\"暂无筛选结果\"",
+          "suggestion": [
+            {
+              "originalText": "暂无筛选结果",
+              "suggestedKey": "暂无筛选结果",
+              "i18nKey": "message.text.暂无筛选结果",
+              "replacement": "$t('message.text.暂无筛选结果')"
+            }
+          ]
+        },
+        {
+          "line": 214,
+          "context": "label",
+          "chineseTexts": [
+            "编号"
+          ],
+          "originalLine": "<el-table-column label=\"编号\" width=\"80\">",
+          "suggestion": [
+            {
+              "originalText": "编号",
+              "suggestedKey": "编号",
+              "i18nKey": "message.label.编号",
+              "replacement": "$t('message.label.编号')"
+            }
+          ]
+        },
+        {
+          "line": 219,
+          "context": "label",
+          "chineseTexts": [
+            "第几天"
+          ],
+          "originalLine": "<el-table-column label=\"第几天\" min-width=\"80\">",
+          "suggestion": [
+            {
+              "originalText": "第几天",
+              "suggestedKey": "第几天",
+              "i18nKey": "message.label.第几天",
+              "replacement": "$t('message.label.第几天')"
+            }
+          ]
+        },
+        {
+          "line": 224,
+          "context": "label",
+          "chineseTexts": [
+            "获取积分"
+          ],
+          "originalLine": "<el-table-column label=\"获取积分\" min-width=\"80\">",
+          "suggestion": [
+            {
+              "originalText": "获取积分",
+              "suggestedKey": "获取积分",
+              "i18nKey": "message.label.获取积分",
+              "replacement": "$t('message.label.获取积分')"
+            }
+          ]
+        },
+        {
+          "line": 230,
+          "context": "label",
+          "chineseTexts": [
+            "是否可用"
+          ],
+          "originalLine": "<el-table-column label=\"是否可用\" min-width=\"80\">",
+          "suggestion": [
+            {
+              "originalText": "是否可用",
+              "suggestedKey": "是否可用",
+              "i18nKey": "message.label.是否可用",
+              "replacement": "$t('message.label.是否可用')"
+            }
+          ]
+        },
+        {
+          "line": 243,
+          "context": "label",
+          "chineseTexts": [
+            "排序"
+          ],
+          "originalLine": "<el-table-column label=\"排序\" min-width=\"80\">",
+          "suggestion": [
+            {
+              "originalText": "排序",
+              "suggestedKey": "排序",
+              "i18nKey": "message.label.排序",
+              "replacement": "$t('message.label.排序')"
+            }
+          ]
+        },
+        {
+          "line": 248,
+          "context": "label",
+          "chineseTexts": [
+            "操作"
+          ],
+          "originalLine": "<el-table-column label=\"操作\" fixed=\"right\" width=\"150\">",
+          "suggestion": [
+            {
+              "originalText": "操作",
+              "suggestedKey": "操作",
+              "i18nKey": "message.label.操作",
+              "replacement": "$t('message.label.操作')"
+            }
+          ]
+        },
+        {
+          "line": 250,
+          "context": "button",
+          "chineseTexts": [
+            "编辑",
+            "编辑"
+          ],
+          "originalLine": "<a v-db-click @click=\"edit(scope.row, '编辑')\">编辑</a>",
+          "suggestion": [
+            {
+              "originalText": "编辑",
+              "suggestedKey": "编辑",
+              "i18nKey": "message.button.编辑",
+              "replacement": "$t('message.button.编辑')"
+            },
+            {
+              "originalText": "编辑",
+              "suggestedKey": "编辑",
+              "i18nKey": "message.button.编辑",
+              "replacement": "$t('message.button.编辑')"
+            }
+          ]
+        },
+        {
+          "line": 252,
+          "context": "button",
+          "chineseTexts": [
+            "删除这条信息",
+            "删除"
+          ],
+          "originalLine": "<a v-db-click @click=\"del(scope.row, '删除这条信息', scope.$index)\">删除</a>",
+          "suggestion": [
+            {
+              "originalText": "删除这条信息",
+              "suggestedKey": "删除这条信息",
+              "i18nKey": "message.button.删除这条信息",
+              "replacement": "$t('message.button.删除这条信息')"
+            },
+            {
+              "originalText": "删除",
+              "suggestedKey": "删除",
+              "i18nKey": "message.button.删除",
+              "replacement": "$t('message.button.删除')"
+            }
+          ]
+        },
+        {
+          "line": 263,
+          "context": "text",
+          "chineseTexts": [
+            "充值金额设置"
+          ],
+          "originalLine": "<div class=\"title\">充值金额设置</div>",
+          "suggestion": [
+            {
+              "originalText": "充值金额设置",
+              "suggestedKey": "充值金额设置",
+              "i18nKey": "message.text.充值金额设置",
+              "replacement": "$t('message.text.充值金额设置')"
+            }
+          ]
+        },
+        {
+          "line": 267,
+          "context": "text",
+          "chineseTexts": [
+            "添加数据"
+          ],
+          "originalLine": "@click=\"groupAdd('添加数据')\"",
+          "suggestion": [
+            {
+              "originalText": "添加数据",
+              "suggestedKey": "添加数据",
+              "i18nKey": "message.text.添加数据",
+              "replacement": "$t('message.text.添加数据')"
+            }
+          ]
+        },
+        {
+          "line": 269,
+          "context": "text",
+          "chineseTexts": [
+            "添加数据"
+          ],
+          "originalLine": ">添加数据</el-button",
+          "suggestion": [
+            {
+              "originalText": "添加数据",
+              "suggestedKey": "添加数据",
+              "i18nKey": "message.text.添加数据",
+              "replacement": "$t('message.text.添加数据')"
+            }
+          ]
+        },
+        {
+          "line": 280,
+          "context": "text",
+          "chineseTexts": [
+            "暂无数据"
+          ],
+          "originalLine": "no-userFrom-text=\"暂无数据\"",
+          "suggestion": [
+            {
+              "originalText": "暂无数据",
+              "suggestedKey": "暂无数据",
+              "i18nKey": "message.text.暂无数据",
+              "replacement": "$t('message.text.暂无数据')"
+            }
+          ]
+        },
+        {
+          "line": 281,
+          "context": "text",
+          "chineseTexts": [
+            "暂无筛选结果"
+          ],
+          "originalLine": "no-filtered-userFrom-text=\"暂无筛选结果\"",
+          "suggestion": [
+            {
+              "originalText": "暂无筛选结果",
+              "suggestedKey": "暂无筛选结果",
+              "i18nKey": "message.text.暂无筛选结果",
+              "replacement": "$t('message.text.暂无筛选结果')"
+            }
+          ]
+        },
+        {
+          "line": 307,
+          "context": "button",
+          "chineseTexts": [
+            "编辑",
+            "编辑"
+          ],
+          "originalLine": "<a v-db-click @click=\"edit(scope.row, '编辑')\">编辑</a>",
+          "suggestion": [
+            {
+              "originalText": "编辑",
+              "suggestedKey": "编辑",
+              "i18nKey": "message.button.编辑",
+              "replacement": "$t('message.button.编辑')"
+            },
+            {
+              "originalText": "编辑",
+              "suggestedKey": "编辑",
+              "i18nKey": "message.button.编辑",
+              "replacement": "$t('message.button.编辑')"
+            }
+          ]
+        },
+        {
+          "line": 309,
+          "context": "button",
+          "chineseTexts": [
+            "删除这条信息",
+            "删除"
+          ],
+          "originalLine": "<a v-db-click @click=\"del(scope.row, '删除这条信息', scope.$index)\">删除</a>",
+          "suggestion": [
+            {
+              "originalText": "删除这条信息",
+              "suggestedKey": "删除这条信息",
+              "i18nKey": "message.button.删除这条信息",
+              "replacement": "$t('message.button.删除这条信息')"
+            },
+            {
+              "originalText": "删除",
+              "suggestedKey": "删除",
+              "i18nKey": "message.button.删除",
+              "replacement": "$t('message.button.删除')"
+            }
+          ]
+        },
+        {
+          "line": 324,
+          "context": "text",
+          "chineseTexts": [
+            "幻灯片设置"
+          ],
+          "originalLine": "<div class=\"title\" v-if=\"name == 'admin_login_slide'\">幻灯片设置</div>",
+          "suggestion": [
+            {
+              "originalText": "幻灯片设置",
+              "suggestedKey": "幻灯片设置",
+              "i18nKey": "message.text.幻灯片设置",
+              "replacement": "$t('message.text.幻灯片设置')"
+            }
+          ]
+        },
+        {
+          "line": 325,
+          "context": "text",
+          "chineseTexts": [
+            "轮播图设置"
+          ],
+          "originalLine": "<div class=\"title\" v-else>轮播图设置</div>",
+          "suggestion": [
+            {
+              "originalText": "轮播图设置",
+              "suggestedKey": "轮播图设置",
+              "i18nKey": "message.text.轮播图设置",
+              "replacement": "$t('message.text.轮播图设置')"
+            }
+          ]
+        },
+        {
+          "line": 326,
+          "context": "text",
+          "chineseTexts": [
+            "建议尺寸",
+            "拖拽图片可调整图片顺序哦",
+            "最多添加五张"
+          ],
+          "originalLine": "<div class=\"title-text\">建议尺寸：690 * 240px，拖拽图片可调整图片顺序哦，最多添加五张</div>",
+          "suggestion": [
+            {
+              "originalText": "建议尺寸",
+              "suggestedKey": "建议尺寸",
+              "i18nKey": "message.text.建议尺寸",
+              "replacement": "$t('message.text.建议尺寸')"
+            },
+            {
+              "originalText": "拖拽图片可调整图片顺序哦",
+              "suggestedKey": "拖拽图片可调整图片顺序哦",
+              "i18nKey": "message.text.拖拽图片可调整图片顺序哦",
+              "replacement": "$t('message.text.拖拽图片可调整图片顺序哦')"
+            },
+            {
+              "originalText": "最多添加五张",
+              "suggestedKey": "最多添加五张",
+              "i18nKey": "message.text.最多添加五张",
+              "replacement": "$t('message.text.最多添加五张')"
+            }
+          ]
+        },
+        {
+          "line": 339,
+          "context": "button",
+          "chineseTexts": [
+            "单选"
+          ],
+          "originalLine": "<div class=\"img-box\" v-db-click @click=\"modalPicTap('单选', index)\">",
+          "suggestion": [
+            {
+              "originalText": "单选",
+              "suggestedKey": "单选",
+              "i18nKey": "message.button.单选",
+              "replacement": "$t('message.button.单选')"
+            }
+          ]
+        },
+        {
+          "line": 356,
+          "context": "button",
+          "chineseTexts": [
+            "单选"
+          ],
+          "originalLine": "<div class=\"img-box\" v-db-click @click=\"modalPicTap('单选', index)\">",
+          "suggestion": [
+            {
+              "originalText": "单选",
+              "suggestedKey": "单选",
+              "i18nKey": "message.button.单选",
+              "replacement": "$t('message.button.单选')"
+            }
+          ]
+        },
+        {
+          "line": 373,
+          "context": "text",
+          "chineseTexts": [
+            "链接地址"
+          ],
+          "originalLine": "<span>链接地址：</span>",
+          "suggestion": [
+            {
+              "originalText": "链接地址",
+              "suggestedKey": "链接地址",
+              "i18nKey": "message.text.链接地址",
+              "replacement": "$t('message.text.链接地址')"
+            }
+          ]
+        },
+        {
+          "line": 420,
+          "context": "text",
+          "chineseTexts": [
+            "引导页设置"
+          ],
+          "originalLine": "<div class=\"title\">引导页设置</div>",
+          "suggestion": [
+            {
+              "originalText": "引导页设置",
+              "suggestedKey": "引导页设置",
+              "i18nKey": "message.text.引导页设置",
+              "replacement": "$t('message.text.引导页设置')"
+            }
+          ]
+        },
+        {
+          "line": 421,
+          "context": "text",
+          "chineseTexts": [
+            "建议尺寸",
+            "拖拽图片可调整图片顺序哦",
+            "最多添加五张"
+          ],
+          "originalLine": "<div class=\"title-text\">建议尺寸：750 * 1334px，拖拽图片可调整图片顺序哦，最多添加五张</div>",
+          "suggestion": [
+            {
+              "originalText": "建议尺寸",
+              "suggestedKey": "建议尺寸",
+              "i18nKey": "message.text.建议尺寸",
+              "replacement": "$t('message.text.建议尺寸')"
+            },
+            {
+              "originalText": "拖拽图片可调整图片顺序哦",
+              "suggestedKey": "拖拽图片可调整图片顺序哦",
+              "i18nKey": "message.text.拖拽图片可调整图片顺序哦",
+              "replacement": "$t('message.text.拖拽图片可调整图片顺序哦')"
+            },
+            {
+              "originalText": "最多添加五张",
+              "suggestedKey": "最多添加五张",
+              "i18nKey": "message.text.最多添加五张",
+              "replacement": "$t('message.text.最多添加五张')"
+            }
+          ]
+        },
+        {
+          "line": 425,
+          "context": "label",
+          "chineseTexts": [
+            "开屏广告"
+          ],
+          "originalLine": "<el-form-item label=\"开屏广告:\">",
+          "suggestion": [
+            {
+              "originalText": "开屏广告",
+              "suggestedKey": "开屏广告",
+              "i18nKey": "message.label.开屏广告",
+              "replacement": "$t('message.label.开屏广告')"
+            }
+          ]
+        },
+        {
+          "line": 428,
+          "context": "label",
+          "chineseTexts": [
+            "广告时间"
+          ],
+          "originalLine": "<el-form-item label=\"广告时间:\">",
+          "suggestion": [
+            {
+              "originalText": "广告时间",
+              "suggestedKey": "广告时间",
+              "i18nKey": "message.label.广告时间",
+              "replacement": "$t('message.label.广告时间')"
+            }
+          ]
+        },
+        {
+          "line": 432,
+          "context": "placeholder",
+          "chineseTexts": [
+            "请输入开屏广告时间"
+          ],
+          "originalLine": "placeholder=\"请输入开屏广告时间\"",
+          "suggestion": [
+            {
+              "originalText": "请输入开屏广告时间",
+              "suggestedKey": "请输入开屏广告时间",
+              "i18nKey": "message.placeholder.请输入开屏广告时间",
+              "replacement": "$t('message.placeholder.请输入开屏广告时间')"
+            }
+          ]
+        },
+        {
+          "line": 435,
+          "context": "text",
+          "chineseTexts": [
+            "单位",
+            "秒"
+          ],
+          "originalLine": "单位(秒)",
+          "suggestion": [
+            {
+              "originalText": "单位",
+              "suggestedKey": "单位",
+              "i18nKey": "message.text.单位",
+              "replacement": "$t('message.text.单位')"
+            },
+            {
+              "originalText": "秒",
+              "suggestedKey": "秒",
+              "i18nKey": "message.text.秒",
+              "replacement": "$t('message.text.秒')"
+            }
+          ]
+        },
+        {
+          "line": 444,
+          "context": "button",
+          "chineseTexts": [
+            "单选"
+          ],
+          "originalLine": "<div class=\"img-box\" v-db-click @click=\"modalPicTap('单选', index)\">",
+          "suggestion": [
+            {
+              "originalText": "单选",
+              "suggestedKey": "单选",
+              "i18nKey": "message.button.单选",
+              "replacement": "$t('message.button.单选')"
+            }
+          ]
+        },
+        {
+          "line": 455,
+          "context": "text",
+          "chineseTexts": [
+            "图片名称"
+          ],
+          "originalLine": "<span>图片名称：</span>",
+          "suggestion": [
+            {
+              "originalText": "图片名称",
+              "suggestedKey": "图片名称",
+              "i18nKey": "message.text.图片名称",
+              "replacement": "$t('message.text.图片名称')"
+            }
+          ]
+        },
+        {
+          "line": 457,
+          "context": "placeholder",
+          "chineseTexts": [
+            "请填写名称"
+          ],
+          "originalLine": "<el-input v-model=\"item.comment\" placeholder=\"请填写名称\" />",
+          "suggestion": [
+            {
+              "originalText": "请填写名称",
+              "suggestedKey": "请填写名称",
+              "i18nKey": "message.placeholder.请填写名称",
+              "replacement": "$t('message.placeholder.请填写名称')"
+            }
+          ]
+        },
+        {
+          "line": 461,
+          "context": "text",
+          "chineseTexts": [
+            "链接地址"
+          ],
+          "originalLine": "<span>链接地址：</span>",
+          "suggestion": [
+            {
+              "originalText": "链接地址",
+              "suggestedKey": "链接地址",
+              "i18nKey": "message.text.链接地址",
+              "replacement": "$t('message.text.链接地址')"
+            }
+          ]
+        },
+        {
+          "line": 463,
+          "context": "placeholder",
+          "chineseTexts": [
+            "选择链接"
+          ],
+          "originalLine": "<el-input v-model=\"item.link\" placeholder=\"选择链接\">",
+          "suggestion": [
+            {
+              "originalText": "选择链接",
+              "suggestedKey": "选择链接",
+              "i18nKey": "message.placeholder.选择链接",
+              "replacement": "$t('message.placeholder.选择链接')"
+            }
+          ]
+        },
+        {
+          "line": 472,
+          "context": "title",
+          "chineseTexts": [
+            "上传商品图"
+          ],
+          "originalLine": "<el-dialog :visible.sync=\"modalPic\" width=\"950px\" title=\"上传商品图\" :close-on-click-modal=\"false\">",
+          "suggestion": [
+            {
+              "originalText": "上传商品图",
+              "suggestedKey": "上传商品图",
+              "i18nKey": "message.title.上传商品图",
+              "replacement": "$t('message.title.上传商品图')"
+            }
+          ]
+        },
+        {
+          "line": 558,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器不自动被内容撑高"
+          ],
+          "originalLine": "autoHeightEnabled: false, // 编辑器不自动被内容撑高",
+          "suggestion": [
+            {
+              "originalText": "编辑器不自动被内容撑高",
+              "suggestedKey": "编辑器不自动被内容撑高",
+              "i18nKey": "message.text.编辑器不自动被内容撑高",
+              "replacement": "$t('message.text.编辑器不自动被内容撑高')"
+            }
+          ]
+        },
+        {
+          "line": 559,
+          "context": "text",
+          "chineseTexts": [
+            "初始容器高度"
+          ],
+          "originalLine": "initialFrameHeight: 500, // 初始容器高度",
+          "suggestion": [
+            {
+              "originalText": "初始容器高度",
+              "suggestedKey": "初始容器高度",
+              "i18nKey": "message.text.初始容器高度",
+              "replacement": "$t('message.text.初始容器高度')"
+            }
+          ]
+        },
+        {
+          "line": 560,
+          "context": "text",
+          "chineseTexts": [
+            "初始容器宽度"
+          ],
+          "originalLine": "initialFrameWidth: '100%', // 初始容器宽度",
+          "suggestion": [
+            {
+              "originalText": "初始容器宽度",
+              "suggestedKey": "初始容器宽度",
+              "i18nKey": "message.text.初始容器宽度",
+              "replacement": "$t('message.text.初始容器宽度')"
+            }
+          ]
+        },
+        {
+          "line": 564,
+          "context": "text",
+          "chineseTexts": [
+            "判断的隐私协议"
+          ],
+          "originalLine": "a: 0, //判断的隐私协议",
+          "suggestion": [
+            {
+              "originalText": "判断的隐私协议",
+              "suggestedKey": "判断的隐私协议",
+              "i18nKey": "message.text.判断的隐私协议",
+              "replacement": "$t('message.text.判断的隐私协议')"
+            }
+          ]
+        },
+        {
+          "line": 579,
+          "context": "text",
+          "chineseTexts": [
+            "进度条默认"
+          ],
+          "originalLine": "progress: 0, // 进度条默认0",
+          "suggestion": [
+            {
+              "originalText": "进度条默认",
+              "suggestedKey": "进度条默认",
+              "i18nKey": "message.text.进度条默认",
+              "replacement": "$t('message.text.进度条默认')"
+            }
+          ]
+        },
+        {
+          "line": 600,
+          "context": "text",
+          "chineseTexts": [
+            "视频上传类型",
+            "本地上传",
+            "上传"
+          ],
+          "originalLine": "upload_type: '', //视频上传类型 1 本地上传 2 3 4 OSS上传",
+          "suggestion": [
+            {
+              "originalText": "视频上传类型",
+              "suggestedKey": "视频上传类型",
+              "i18nKey": "message.text.视频上传类型",
+              "replacement": "$t('message.text.视频上传类型')"
+            },
+            {
+              "originalText": "本地上传",
+              "suggestedKey": "本地上传",
+              "i18nKey": "message.text.本地上传",
+              "replacement": "$t('message.text.本地上传')"
+            },
+            {
+              "originalText": "上传",
+              "suggestedKey": "上传",
+              "i18nKey": "message.text.上传",
+              "replacement": "$t('message.text.上传')"
+            }
+          ]
+        },
+        {
+          "line": 601,
+          "context": "text",
+          "chineseTexts": [
+            "上传参数"
+          ],
+          "originalLine": "uploadData: {}, // 上传参数",
+          "suggestion": [
+            {
+              "originalText": "上传参数",
+              "suggestedKey": "上传参数",
+              "i18nKey": "message.text.上传参数",
+              "replacement": "$t('message.text.上传参数')"
+            }
+          ]
+        },
+        {
+          "line": 612,
+          "context": "text",
+          "chineseTexts": [
+            "单选"
+          ],
+          "originalLine": "isChoice: '单选',",
+          "suggestion": [
+            {
+              "originalText": "单选",
+              "suggestedKey": "单选",
+              "i18nKey": "message.text.单选",
+              "replacement": "$t('message.text.单选')"
+            }
+          ]
+        },
+        {
+          "line": 646,
+          "context": "text",
+          "chineseTexts": [
+            "是否显示进度条"
+          ],
+          "originalLine": "videoIng: false, // 是否显示进度条；",
+          "suggestion": [
+            {
+              "originalText": "是否显示进度条",
+              "suggestedKey": "是否显示进度条",
+              "i18nKey": "message.text.是否显示进度条",
+              "replacement": "$t('message.text.是否显示进度条')"
+            }
+          ]
+        },
+        {
+          "line": 695,
+          "context": "text",
+          "chineseTexts": [
+            "只能上传",
+            "文件"
+          ],
+          "originalLine": "return that.$message.error('只能上传MP4文件');",
+          "suggestion": [
+            {
+              "originalText": "只能上传",
+              "suggestedKey": "只能上传",
+              "i18nKey": "message.text.只能上传",
+              "replacement": "$t('message.text.只能上传')"
+            },
+            {
+              "originalText": "文件",
+              "suggestedKey": "文件",
+              "i18nKey": "message.text.文件",
+              "replacement": "$t('message.text.文件')"
+            }
+          ]
+        },
+        {
+          "line": 714,
+          "context": "text",
+          "chineseTexts": [
+            "视频上传成功"
+          ],
+          "originalLine": "that.$message.success('视频上传成功');",
+          "suggestion": [
+            {
+              "originalText": "视频上传成功",
+              "suggestedKey": "视频上传成功",
+              "i18nKey": "message.text.视频上传成功",
+              "replacement": "$t('message.text.视频上传成功')"
+            }
+          ]
+        },
+        {
+          "line": 834,
+          "context": "text",
+          "chineseTexts": [
+            "精品推荐"
+          ],
+          "originalLine": "this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=1&name=精品推荐';",
+          "suggestion": [
+            {
+              "originalText": "精品推荐",
+              "suggestedKey": "精品推荐",
+              "i18nKey": "message.text.精品推荐",
+              "replacement": "$t('message.text.精品推荐')"
+            }
+          ]
+        },
+        {
+          "line": 844,
+          "context": "text",
+          "chineseTexts": [
+            "热门榜单"
+          ],
+          "originalLine": "this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=2&name=热门榜单';",
+          "suggestion": [
+            {
+              "originalText": "热门榜单",
+              "suggestedKey": "热门榜单",
+              "i18nKey": "message.text.热门榜单",
+              "replacement": "$t('message.text.热门榜单')"
+            }
+          ]
+        },
+        {
+          "line": 847,
+          "context": "text",
+          "chineseTexts": [
+            "首发新品"
+          ],
+          "originalLine": "this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=3&name=首发新品';",
+          "suggestion": [
+            {
+              "originalText": "首发新品",
+              "suggestedKey": "首发新品",
+              "i18nKey": "message.text.首发新品",
+              "replacement": "$t('message.text.首发新品')"
+            }
+          ]
+        },
+        {
+          "line": 850,
+          "context": "text",
+          "chineseTexts": [
+            "促销单品"
+          ],
+          "originalLine": "this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=4&name=促销单品';",
+          "suggestion": [
+            {
+              "originalText": "促销单品",
+              "suggestedKey": "促销单品",
+              "i18nKey": "message.text.促销单品",
+              "replacement": "$t('message.text.促销单品')"
+            }
+          ]
+        },
+        {
+          "line": 880,
+          "context": "text",
+          "chineseTexts": [
+            "最多添加五张呦"
+          ],
+          "originalLine": "this.$message.warning('最多添加五张呦');",
+          "suggestion": [
+            {
+              "originalText": "最多添加五张呦",
+              "suggestedKey": "最多添加五张呦",
+              "i18nKey": "message.text.最多添加五张呦",
+              "replacement": "$t('message.text.最多添加五张呦')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/maintain/systemCleardata/index.vue",
+      "relativePath": "src/pages/system/maintain/systemCleardata/index.vue",
+      "findings": [
+        {
+          "line": 26,
+          "context": "text",
+          "chineseTexts": [
+            "更换域名"
+          ],
+          "originalLine": "<!-- 更换域名-->",
+          "suggestion": [
+            {
+              "originalText": "更换域名",
+              "suggestedKey": "更换域名",
+              "i18nKey": "message.text.更换域名",
+              "replacement": "$t('message.text.更换域名')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/maintain/systemDatabackup/index.vue",
+      "relativePath": "src/pages/system/maintain/systemDatabackup/index.vue",
+      "findings": [
+        {
+          "line": 8,
+          "context": "text",
+          "chineseTexts": [
+            "数据库表列表"
+          ],
+          "originalLine": "<!--              <span class=\"ivu-pl-8 mr10\">数据库表列表</span>-->",
+          "suggestion": [
+            {
+              "originalText": "数据库表列表",
+              "suggestedKey": "数据库表列表",
+              "i18nKey": "message.text.数据库表列表",
+              "replacement": "$t('message.text.数据库表列表')"
+            }
+          ]
+        },
+        {
+          "line": 66,
+          "context": "text",
+          "chineseTexts": [
+            "详情模态框"
+          ],
+          "originalLine": "<!-- 详情模态框-->",
+          "suggestion": [
+            {
+              "originalText": "详情模态框",
+              "suggestedKey": "详情模态框",
+              "i18nKey": "message.text.详情模态框",
+              "replacement": "$t('message.text.详情模态框')"
+            }
+          ]
+        },
+        {
+          "line": 226,
+          "context": "text",
+          "chineseTexts": [
+            "截取字符串"
+          ],
+          "originalLine": "return Setting.apiBaseURL.substring(0, start); // 截取字符串",
+          "suggestion": [
+            {
+              "originalText": "截取字符串",
+              "suggestedKey": "截取字符串",
+              "i18nKey": "message.text.截取字符串",
+              "replacement": "$t('message.text.截取字符串')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/maintain/systemFile/components/codemirror.vue",
+      "relativePath": "src/pages/system/maintain/systemFile/components/codemirror.vue",
+      "findings": [
+        {
+          "line": 61,
+          "context": "text",
+          "chineseTexts": [
+            "登录"
+          ],
+          "originalLine": "isShowLogn: false, // 登录",
+          "suggestion": [
+            {
+              "originalText": "登录",
+              "suggestedKey": "登录",
+              "i18nKey": "message.text.登录",
+              "replacement": "$t('message.text.登录')"
+            }
+          ]
+        },
+        {
+          "line": 62,
+          "context": "text",
+          "chineseTexts": [
+            "登录之后列表"
+          ],
+          "originalLine": "isShowList: false, // 登录之后列表",
+          "suggestion": [
+            {
+              "originalText": "登录之后列表",
+              "suggestedKey": "登录之后列表",
+              "i18nKey": "message.text.登录之后列表",
+              "replacement": "$t('message.text.登录之后列表')"
+            }
+          ]
+        },
+        {
+          "line": 81,
+          "context": "text",
+          "chineseTexts": [
+            "默认值是",
+            "代表是否深度监听"
+          ],
+          "originalLine": "deep: true, // 默认值是 false，代表是否深度监听",
+          "suggestion": [
+            {
+              "originalText": "默认值是",
+              "suggestedKey": "默认值是",
+              "i18nKey": "message.text.默认值是",
+              "replacement": "$t('message.text.默认值是')"
+            },
+            {
+              "originalText": "代表是否深度监听",
+              "suggestedKey": "代表是否深度监听",
+              "i18nKey": "message.text.代表是否深度监听",
+              "replacement": "$t('message.text.代表是否深度监听')"
+            }
+          ]
+        },
+        {
+          "line": 87,
+          "context": "text",
+          "chineseTexts": [
+            "默认值是",
+            "代表是否深度监听"
+          ],
+          "originalLine": "deep: true, // 默认值是 false，代表是否深度监听",
+          "suggestion": [
+            {
+              "originalText": "默认值是",
+              "suggestedKey": "默认值是",
+              "i18nKey": "message.text.默认值是",
+              "replacement": "$t('message.text.默认值是')"
+            },
+            {
+              "originalText": "代表是否深度监听",
+              "suggestedKey": "代表是否深度监听",
+              "i18nKey": "message.text.代表是否深度监听",
+              "replacement": "$t('message.text.代表是否深度监听')"
+            }
+          ]
+        },
+        {
+          "line": 92,
+          "context": "text",
+          "chineseTexts": [
+            "文本域默认显示的文本"
+          ],
+          "originalLine": "value: 'http://www.crmeb.com', // 文本域默认显示的文本",
+          "suggestion": [
+            {
+              "originalText": "文本域默认显示的文本",
+              "suggestedKey": "文本域默认显示的文本",
+              "i18nKey": "message.text.文本域默认显示的文本",
+              "replacement": "$t('message.text.文本域默认显示的文本')"
+            }
+          ]
+        },
+        {
+          "line": 94,
+          "context": "text",
+          "chineseTexts": [
+            "样式选择"
+          ],
+          "originalLine": "theme: 'ambiance', // CSS样式选择",
+          "suggestion": [
+            {
+              "originalText": "样式选择",
+              "suggestedKey": "样式选择",
+              "i18nKey": "message.text.样式选择",
+              "replacement": "$t('message.text.样式选择')"
+            }
+          ]
+        },
+        {
+          "line": 95,
+          "context": "text",
+          "chineseTexts": [
+            "缩进单位",
+            "默认"
+          ],
+          "originalLine": "indentUnit: 8, // 缩进单位，默认2",
+          "suggestion": [
+            {
+              "originalText": "缩进单位",
+              "suggestedKey": "缩进单位",
+              "i18nKey": "message.text.缩进单位",
+              "replacement": "$t('message.text.缩进单位')"
+            },
+            {
+              "originalText": "默认",
+              "suggestedKey": "默认",
+              "i18nKey": "message.text.默认",
+              "replacement": "$t('message.text.默认')"
+            }
+          ]
+        },
+        {
+          "line": 96,
+          "context": "text",
+          "chineseTexts": [
+            "是否智能缩进"
+          ],
+          "originalLine": "smartIndent: true, // 是否智能缩进",
+          "suggestion": [
+            {
+              "originalText": "是否智能缩进",
+              "suggestedKey": "是否智能缩进",
+              "i18nKey": "message.text.是否智能缩进",
+              "replacement": "$t('message.text.是否智能缩进')"
+            }
+          ]
+        },
+        {
+          "line": 97,
+          "context": "text",
+          "chineseTexts": [
+            "缩进",
+            "默认"
+          ],
+          "originalLine": "tabSize: 4, // Tab缩进，默认4",
+          "suggestion": [
+            {
+              "originalText": "缩进",
+              "suggestedKey": "缩进",
+              "i18nKey": "message.text.缩进",
+              "replacement": "$t('message.text.缩进')"
+            },
+            {
+              "originalText": "默认",
+              "suggestedKey": "默认",
+              "i18nKey": "message.text.默认",
+              "replacement": "$t('message.text.默认')"
+            }
+          ]
+        },
+        {
+          "line": 98,
+          "context": "text",
+          "chineseTexts": [
+            "是否只读",
+            "默认"
+          ],
+          "originalLine": "readOnly: false, // 是否只读，默认false",
+          "suggestion": [
+            {
+              "originalText": "是否只读",
+              "suggestedKey": "是否只读",
+              "i18nKey": "message.text.是否只读",
+              "replacement": "$t('message.text.是否只读')"
+            },
+            {
+              "originalText": "默认",
+              "suggestedKey": "默认",
+              "i18nKey": "message.text.默认",
+              "replacement": "$t('message.text.默认')"
+            }
+          ]
+        },
+        {
+          "line": 100,
+          "context": "text",
+          "chineseTexts": [
+            "是否显示行号"
+          ],
+          "originalLine": "lineNumbers: true, // 是否显示行号",
+          "suggestion": [
+            {
+              "originalText": "是否显示行号",
+              "suggestedKey": "是否显示行号",
+              "i18nKey": "message.text.是否显示行号",
+              "replacement": "$t('message.text.是否显示行号')"
+            }
+          ]
+        },
+        {
+          "line": 106,
+          "context": "text",
+          "chineseTexts": [
+            "自定义快捷键"
+          ],
+          "originalLine": "}, //自定义快捷键",
+          "suggestion": [
+            {
+              "originalText": "自定义快捷键",
+              "suggestedKey": "自定义快捷键",
+              "i18nKey": "message.text.自定义快捷键",
+              "replacement": "$t('message.text.自定义快捷键')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/maintain/systemFile/opendir.vue",
+      "relativePath": "src/pages/system/maintain/systemFile/opendir.vue",
+      "findings": [
+        {
+          "line": 111,
+          "context": "text",
+          "chineseTexts": [
+            "新建文件夹"
+          ],
+          "originalLine": ">新建文件夹</DropdownItem",
+          "suggestion": [
+            {
+              "originalText": "新建文件夹",
+              "suggestedKey": "新建文件夹",
+              "i18nKey": "message.text.新建文件夹",
+              "replacement": "$t('message.text.新建文件夹')"
+            }
+          ]
+        },
+        {
+          "line": 114,
+          "context": "text",
+          "chineseTexts": [
+            "新建文件"
+          ],
+          "originalLine": ">新建文件</DropdownItem",
+          "suggestion": [
+            {
+              "originalText": "新建文件",
+              "suggestedKey": "新建文件",
+              "i18nKey": "message.text.新建文件",
+              "replacement": "$t('message.text.新建文件')"
+            }
+          ]
+        },
+        {
+          "line": 116,
+          "context": "button",
+          "chineseTexts": [
+            "重命名"
+          ],
+          "originalLine": "<DropdownItem v-db-click @click.native=\"handleContextRename()\">重命名</DropdownItem>",
+          "suggestion": [
+            {
+              "originalText": "重命名",
+              "suggestedKey": "重命名",
+              "i18nKey": "message.button.重命名",
+              "replacement": "$t('message.button.重命名')"
+            }
+          ]
+        },
+        {
+          "line": 117,
+          "context": "button",
+          "chineseTexts": [
+            "删除"
+          ],
+          "originalLine": "<DropdownItem v-db-click @click.native=\"handleContextDelFolder()\" style=\"color: #ed4014\">删除</DropdownItem>",
+          "suggestion": [
+            {
+              "originalText": "删除",
+              "suggestedKey": "删除",
+              "i18nKey": "message.button.删除",
+              "replacement": "$t('message.button.删除')"
+            }
+          ]
+        },
+        {
+          "line": 159,
+          "context": "placeholder",
+          "chineseTexts": [
+            "请输入名字"
+          ],
+          "originalLine": "<el-input type=\"text\" class=\"diy-file\" v-model=\"formFile.filename\" placeholder=\"请输入名字\">",
+          "suggestion": [
+            {
+              "originalText": "请输入名字",
+              "suggestedKey": "请输入名字",
+              "i18nKey": "message.placeholder.请输入名字",
+              "replacement": "$t('message.placeholder.请输入名字')"
+            }
+          ]
+        },
+        {
+          "line": 198,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器开关"
+          ],
+          "originalLine": "modals: false, //编辑器开关",
+          "suggestion": [
+            {
+              "originalText": "编辑器开关",
+              "suggestedKey": "编辑器开关",
+              "i18nKey": "message.text.编辑器开关",
+              "replacement": "$t('message.text.编辑器开关')"
+            }
+          ]
+        },
+        {
+          "line": 199,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器对象"
+          ],
+          "originalLine": "editor: '', //当前编辑器对象",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器对象",
+              "suggestedKey": "当前编辑器对象",
+              "i18nKey": "message.text.当前编辑器对象",
+              "replacement": "$t('message.text.当前编辑器对象')"
+            }
+          ]
+        },
+        {
+          "line": 209,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器数组"
+          ],
+          "originalLine": "editorList: [], //编辑器数组",
+          "suggestion": [
+            {
+              "originalText": "编辑器数组",
+              "suggestedKey": "编辑器数组",
+              "i18nKey": "message.text.编辑器数组",
+              "replacement": "$t('message.text.编辑器数组')"
+            }
+          ]
+        },
+        {
+          "line": 210,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器索引"
+          ],
+          "originalLine": "indexEditor: 0, //当前编辑器索引",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器索引",
+              "suggestedKey": "当前编辑器索引",
+              "i18nKey": "message.text.当前编辑器索引",
+              "replacement": "$t('message.text.当前编辑器索引')"
+            }
+          ]
+        },
+        {
+          "line": 211,
+          "context": "text",
+          "chineseTexts": [
+            "当前文件打开时的内容"
+          ],
+          "originalLine": "code: '', //当前文件打开时的内容",
+          "suggestion": [
+            {
+              "originalText": "当前文件打开时的内容",
+              "suggestedKey": "当前文件打开时的内容",
+              "i18nKey": "message.text.当前文件打开时的内容",
+              "replacement": "$t('message.text.当前文件打开时的内容')"
+            }
+          ]
+        },
+        {
+          "line": 212,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航数据"
+          ],
+          "originalLine": "navList: [], //左侧导航数据",
+          "suggestion": [
+            {
+              "originalText": "左侧导航数据",
+              "suggestedKey": "左侧导航数据",
+              "i18nKey": "message.text.左侧导航数据",
+              "replacement": "$t('message.text.左侧导航数据')"
+            }
+          ]
+        },
+        {
+          "line": 213,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航点击是选中的数据"
+          ],
+          "originalLine": "navItem: {}, //左侧导航点击是选中的数据",
+          "suggestion": [
+            {
+              "originalText": "左侧导航点击是选中的数据",
+              "suggestedKey": "左侧导航点击是选中的数据",
+              "i18nKey": "message.text.左侧导航点击是选中的数据",
+              "replacement": "$t('message.text.左侧导航点击是选中的数据')"
+            }
+          ]
+        },
+        {
+          "line": 214,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航右键点击是产生的数据对象"
+          ],
+          "originalLine": "contextData: null, //左侧导航右键点击是产生的数据对象",
+          "suggestion": [
+            {
+              "originalText": "左侧导航右键点击是产生的数据对象",
+              "suggestedKey": "左侧导航右键点击是产生的数据对象",
+              "i18nKey": "message.text.左侧导航右键点击是产生的数据对象",
+              "replacement": "$t('message.text.左侧导航右键点击是产生的数据对象')"
+            }
+          ]
+        },
+        {
+          "line": 216,
+          "context": "text",
+          "chineseTexts": [
+            "文件操作类型",
+            "创建文件夹",
+            "创建文件",
+            "删除文件夹或者文件"
+          ],
+          "originalLine": "fileType: '', // 文件操作类型 createFolder|创建文件夹 createFile|创建文件 delFolder|删除文件夹或者文件",
+          "suggestion": [
+            {
+              "originalText": "文件操作类型",
+              "suggestedKey": "文件操作类型",
+              "i18nKey": "message.text.文件操作类型",
+              "replacement": "$t('message.text.文件操作类型')"
+            },
+            {
+              "originalText": "创建文件夹",
+              "suggestedKey": "创建文件夹",
+              "i18nKey": "message.text.创建文件夹",
+              "replacement": "$t('message.text.创建文件夹')"
+            },
+            {
+              "originalText": "创建文件",
+              "suggestedKey": "创建文件",
+              "i18nKey": "message.text.创建文件",
+              "replacement": "$t('message.text.创建文件')"
+            },
+            {
+              "originalText": "删除文件夹或者文件",
+              "suggestedKey": "删除文件夹或者文件",
+              "i18nKey": "message.text.删除文件夹或者文件",
+              "replacement": "$t('message.text.删除文件夹或者文件')"
+            }
+          ]
+        },
+        {
+          "line": 217,
+          "context": "text",
+          "chineseTexts": [
+            "全屏",
+            "名"
+          ],
+          "originalLine": "className: '', //全屏 class名",
+          "suggestion": [
+            {
+              "originalText": "全屏",
+              "suggestedKey": "全屏",
+              "i18nKey": "message.text.全屏",
+              "replacement": "$t('message.text.全屏')"
+            },
+            {
+              "originalText": "名",
+              "suggestedKey": "名",
+              "i18nKey": "message.text.名",
+              "replacement": "$t('message.text.名')"
+            }
+          ]
+        },
+        {
+          "line": 219,
+          "context": "text",
+          "chineseTexts": [
+            "当前文件是否保存"
+          ],
+          "originalLine": "isSave: true, //当前文件是否保存",
+          "suggestion": [
+            {
+              "originalText": "当前文件是否保存",
+              "suggestedKey": "当前文件是否保存",
+              "i18nKey": "message.text.当前文件是否保存",
+              "replacement": "$t('message.text.当前文件是否保存')"
+            }
+          ]
+        },
+        {
+          "line": 221,
+          "context": "text",
+          "chineseTexts": [
+            "登录"
+          ],
+          "originalLine": "isShowLogn: false, // 登录",
+          "suggestion": [
+            {
+              "originalText": "登录",
+              "suggestedKey": "登录",
+              "i18nKey": "message.text.登录",
+              "replacement": "$t('message.text.登录')"
+            }
+          ]
+        },
+        {
+          "line": 222,
+          "context": "text",
+          "chineseTexts": [
+            "登录之后列表"
+          ],
+          "originalLine": "isShowList: false, // 登录之后列表",
+          "suggestion": [
+            {
+              "originalText": "登录之后列表",
+              "suggestedKey": "登录之后列表",
+              "i18nKey": "message.text.登录之后列表",
+              "replacement": "$t('message.text.登录之后列表')"
+            }
+          ]
+        },
+        {
+          "line": 235,
+          "context": "text",
+          "chineseTexts": [
+            "当前完整文件路径"
+          ],
+          "originalLine": "dir: '', //当前完整文件路径",
+          "suggestion": [
+            {
+              "originalText": "当前完整文件路径",
+              "suggestedKey": "当前完整文件路径",
+              "i18nKey": "message.text.当前完整文件路径",
+              "replacement": "$t('message.text.当前完整文件路径')"
+            }
+          ]
+        },
+        {
+          "line": 237,
+          "context": "text",
+          "chineseTexts": [
+            "当前文件路径"
+          ],
+          "originalLine": "pathname: '', // 当前文件路径",
+          "suggestion": [
+            {
+              "originalText": "当前文件路径",
+              "suggestedKey": "当前文件路径",
+              "i18nKey": "message.text.当前文件路径",
+              "replacement": "$t('message.text.当前文件路径')"
+            }
+          ]
+        },
+        {
+          "line": 238,
+          "context": "text",
+          "chineseTexts": [
+            "当前文件标题"
+          ],
+          "originalLine": "title: '', //当前文件标题",
+          "suggestion": [
+            {
+              "originalText": "当前文件标题",
+              "suggestedKey": "当前文件标题",
+              "i18nKey": "message.text.当前文件标题",
+              "replacement": "$t('message.text.当前文件标题')"
+            }
+          ]
+        },
+        {
+          "line": 247,
+          "context": "text",
+          "chineseTexts": [
+            "表单开关"
+          ],
+          "originalLine": "formShow: false, //表单开关",
+          "suggestion": [
+            {
+              "originalText": "表单开关",
+              "suggestedKey": "表单开关",
+              "i18nKey": "message.text.表单开关",
+              "replacement": "$t('message.text.表单开关')"
+            }
+          ]
+        },
+        {
+          "line": 248,
+          "context": "text",
+          "chineseTexts": [
+            "表单标题"
+          ],
+          "originalLine": "formTitle: '', //表单标题",
+          "suggestion": [
+            {
+              "originalText": "表单标题",
+              "suggestedKey": "表单标题",
+              "i18nKey": "message.text.表单标题",
+              "replacement": "$t('message.text.表单标题')"
+            }
+          ]
+        },
+        {
+          "line": 250,
+          "context": "text",
+          "chineseTexts": [
+            "打开文件路径"
+          ],
+          "originalLine": "routeList: [], //  打开文件路径",
+          "suggestion": [
+            {
+              "originalText": "打开文件路径",
+              "suggestedKey": "打开文件路径",
+              "i18nKey": "message.text.打开文件路径",
+              "replacement": "$t('message.text.打开文件路径')"
+            }
+          ]
+        },
+        {
+          "line": 282,
+          "context": "text",
+          "chineseTexts": [
+            "文件列表"
+          ],
+          "originalLine": "* 文件列表",
+          "suggestion": [
+            {
+              "originalText": "文件列表",
+              "suggestedKey": "文件列表",
+              "i18nKey": "message.text.文件列表",
+              "replacement": "$t('message.text.文件列表')"
+            }
+          ]
+        },
+        {
+          "line": 283,
+          "context": "text",
+          "chineseTexts": [
+            "是否重新加载"
+          ],
+          "originalLine": "* @param {Object} refresh   // 是否重新加载 bool",
+          "suggestion": [
+            {
+              "originalText": "是否重新加载",
+              "suggestedKey": "是否重新加载",
+              "i18nKey": "message.text.是否重新加载",
+              "replacement": "$t('message.text.是否重新加载')"
+            }
+          ]
+        },
+        {
+          "line": 284,
+          "context": "text",
+          "chineseTexts": [
+            "是否是编辑器中的刷新"
+          ],
+          "originalLine": "* @param {Object} is_edit   // 是否是编辑器中的刷新 bool",
+          "suggestion": [
+            {
+              "originalText": "是否是编辑器中的刷新",
+              "suggestedKey": "是否是编辑器中的刷新",
+              "i18nKey": "message.text.是否是编辑器中的刷新",
+              "replacement": "$t('message.text.是否是编辑器中的刷新')"
+            }
+          ]
+        },
+        {
+          "line": 383,
+          "context": "text",
+          "chineseTexts": [
+            "备注"
+          ],
+          "originalLine": "* 备注",
+          "suggestion": [
+            {
+              "originalText": "备注",
+              "suggestedKey": "备注",
+              "i18nKey": "message.text.备注",
+              "replacement": "$t('message.text.备注')"
+            }
+          ]
+        },
+        {
+          "line": 394,
+          "context": "text",
+          "chineseTexts": [
+            "保存"
+          ],
+          "originalLine": "* 保存",
+          "suggestion": [
+            {
+              "originalText": "保存",
+              "suggestedKey": "保存",
+              "i18nKey": "message.text.保存",
+              "replacement": "$t('message.text.保存')"
+            }
+          ]
+        },
+        {
+          "line": 395,
+          "context": "text",
+          "chineseTexts": [
+            "当前索引"
+          ],
+          "originalLine": "* @param {Object} index   // 当前索引",
+          "suggestion": [
+            {
+              "originalText": "当前索引",
+              "suggestedKey": "当前索引",
+              "i18nKey": "message.text.当前索引",
+              "replacement": "$t('message.text.当前索引')"
+            }
+          ]
+        },
+        {
+          "line": 396,
+          "context": "text",
+          "chineseTexts": [
+            "不更新当前本地数据",
+            "或者为空",
+            "更新当前数据"
+          ],
+          "originalLine": "* @param {Object} type    // true 不更新当前本地数据，false或者为空 更新当前数据",
+          "suggestion": [
+            {
+              "originalText": "不更新当前本地数据",
+              "suggestedKey": "不更新当前本地数据",
+              "i18nKey": "message.text.不更新当前本地数据",
+              "replacement": "$t('message.text.不更新当前本地数据')"
+            },
+            {
+              "originalText": "或者为空",
+              "suggestedKey": "或者为空",
+              "i18nKey": "message.text.或者为空",
+              "replacement": "$t('message.text.或者为空')"
+            },
+            {
+              "originalText": "更新当前数据",
+              "suggestedKey": "更新当前数据",
+              "i18nKey": "message.text.更新当前数据",
+              "replacement": "$t('message.text.更新当前数据')"
+            }
+          ]
+        },
+        {
+          "line": 505,
+          "context": "text",
+          "chineseTexts": [
+            "侧边栏点击事件"
+          ],
+          "originalLine": "* 侧边栏点击事件",
+          "suggestion": [
+            {
+              "originalText": "侧边栏点击事件",
+              "suggestedKey": "侧边栏点击事件",
+              "i18nKey": "message.text.侧边栏点击事件",
+              "replacement": "$t('message.text.侧边栏点击事件')"
+            }
+          ]
+        },
+        {
+          "line": 623,
+          "context": "text",
+          "chineseTexts": [
+            "初始化编辑器"
+          ],
+          "originalLine": "* 初始化编辑器",
+          "suggestion": [
+            {
+              "originalText": "初始化编辑器",
+              "suggestedKey": "初始化编辑器",
+              "i18nKey": "message.text.初始化编辑器",
+              "replacement": "$t('message.text.初始化编辑器')"
+            }
+          ]
+        },
+        {
+          "line": 630,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器初始显示文字"
+          ],
+          "originalLine": "value: that.code, //编辑器初始显示文字",
+          "suggestion": [
+            {
+              "originalText": "编辑器初始显示文字",
+              "suggestedKey": "编辑器初始显示文字",
+              "i18nKey": "message.text.编辑器初始显示文字",
+              "replacement": "$t('message.text.编辑器初始显示文字')"
+            }
+          ]
+        },
+        {
+          "line": 631,
+          "context": "text",
+          "chineseTexts": [
+            "语言支持自行查阅"
+          ],
+          "originalLine": "language: 'sql', //语言支持自行查阅demo",
+          "suggestion": [
+            {
+              "originalText": "语言支持自行查阅",
+              "suggestedKey": "语言支持自行查阅",
+              "i18nKey": "message.text.语言支持自行查阅",
+              "replacement": "$t('message.text.语言支持自行查阅')"
+            }
+          ]
+        },
+        {
+          "line": 632,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "automaticLayout: true, //自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 633,
+          "context": "text",
+          "chineseTexts": [
+            "官方自带三种主题"
+          ],
+          "originalLine": "theme: 'vs', //官方自带三种主题vs, hc-black, or vs-dark",
+          "suggestion": [
+            {
+              "originalText": "官方自带三种主题",
+              "suggestedKey": "官方自带三种主题",
+              "i18nKey": "message.text.官方自带三种主题",
+              "replacement": "$t('message.text.官方自带三种主题')"
+            }
+          ]
+        },
+        {
+          "line": 634,
+          "context": "text",
+          "chineseTexts": [
+            "代码可分小段折叠"
+          ],
+          "originalLine": "foldingStrategy: 'indentation', // 代码可分小段折叠",
+          "suggestion": [
+            {
+              "originalText": "代码可分小段折叠",
+              "suggestedKey": "代码可分小段折叠",
+              "i18nKey": "message.text.代码可分小段折叠",
+              "replacement": "$t('message.text.代码可分小段折叠')"
+            }
+          ]
+        },
+        {
+          "line": 635,
+          "context": "text",
+          "chineseTexts": [
+            "不要滚动条的边框"
+          ],
+          "originalLine": "overviewRulerBorder: false, // 不要滚动条的边框",
+          "suggestion": [
+            {
+              "originalText": "不要滚动条的边框",
+              "suggestedKey": "不要滚动条的边框",
+              "i18nKey": "message.text.不要滚动条的边框",
+              "replacement": "$t('message.text.不要滚动条的边框')"
+            }
+          ]
+        },
+        {
+          "line": 638,
+          "context": "text",
+          "chineseTexts": [
+            "竖滚动条"
+          ],
+          "originalLine": "verticalScrollbarSize: 4, // 竖滚动条",
+          "suggestion": [
+            {
+              "originalText": "竖滚动条",
+              "suggestedKey": "竖滚动条",
+              "i18nKey": "message.text.竖滚动条",
+              "replacement": "$t('message.text.竖滚动条')"
+            }
+          ]
+        },
+        {
+          "line": 639,
+          "context": "text",
+          "chineseTexts": [
+            "横滚动条"
+          ],
+          "originalLine": "horizontalScrollbarSize: 10, // 横滚动条",
+          "suggestion": [
+            {
+              "originalText": "横滚动条",
+              "suggestedKey": "横滚动条",
+              "i18nKey": "message.text.横滚动条",
+              "replacement": "$t('message.text.横滚动条')"
+            }
+          ]
+        },
+        {
+          "line": 641,
+          "context": "text",
+          "chineseTexts": [
+            "自动布局"
+          ],
+          "originalLine": "autoIndent: true, // 自动布局",
+          "suggestion": [
+            {
+              "originalText": "自动布局",
+              "suggestedKey": "自动布局",
+              "i18nKey": "message.text.自动布局",
+              "replacement": "$t('message.text.自动布局')"
+            }
+          ]
+        },
+        {
+          "line": 642,
+          "context": "text",
+          "chineseTexts": [
+            "缩进长度"
+          ],
+          "originalLine": "tabSize: 4, // tab缩进长度",
+          "suggestion": [
+            {
+              "originalText": "缩进长度",
+              "suggestedKey": "缩进长度",
+              "i18nKey": "message.text.缩进长度",
+              "replacement": "$t('message.text.缩进长度')"
+            }
+          ]
+        },
+        {
+          "line": 667,
+          "context": "text",
+          "chineseTexts": [
+            "切换语言"
+          ],
+          "originalLine": "* 切换语言",
+          "suggestion": [
+            {
+              "originalText": "切换语言",
+              "suggestedKey": "切换语言",
+              "i18nKey": "message.text.切换语言",
+              "replacement": "$t('message.text.切换语言')"
+            }
+          ]
+        },
+        {
+          "line": 671,
+          "context": "text",
+          "chineseTexts": [
+            "获取旧模型"
+          ],
+          "originalLine": "var oldModel = this.editorList[this.indexEditor].editor.getModel(); //获取旧模型",
+          "suggestion": [
+            {
+              "originalText": "获取旧模型",
+              "suggestedKey": "获取旧模型",
+              "i18nKey": "message.text.获取旧模型",
+              "replacement": "$t('message.text.获取旧模型')"
+            }
+          ]
+        },
+        {
+          "line": 762,
+          "context": "text",
+          "chineseTexts": [
+            "退出表单"
+          ],
+          "originalLine": "* 退出表单",
+          "suggestion": [
+            {
+              "originalText": "退出表单",
+              "suggestedKey": "退出表单",
+              "i18nKey": "message.text.退出表单",
+              "replacement": "$t('message.text.退出表单')"
+            }
+          ]
+        },
+        {
+          "line": 769,
+          "context": "text",
+          "chineseTexts": [
+            "处理接口回调"
+          ],
+          "originalLine": "* 处理接口回调",
+          "suggestion": [
+            {
+              "originalText": "处理接口回调",
+              "suggestedKey": "处理接口回调",
+              "i18nKey": "message.text.处理接口回调",
+              "replacement": "$t('message.text.处理接口回调')"
+            }
+          ]
+        },
+        {
+          "line": 800,
+          "context": "text",
+          "chineseTexts": [
+            "窗口最大化"
+          ],
+          "originalLine": "* 窗口最大化",
+          "suggestion": [
+            {
+              "originalText": "窗口最大化",
+              "suggestedKey": "窗口最大化",
+              "i18nKey": "message.text.窗口最大化",
+              "replacement": "$t('message.text.窗口最大化')"
+            }
+          ]
+        },
+        {
+          "line": 810,
+          "context": "text",
+          "chineseTexts": [
+            "切换选项卡"
+          ],
+          "originalLine": "* 切换选项卡",
+          "suggestion": [
+            {
+              "originalText": "切换选项卡",
+              "suggestedKey": "切换选项卡",
+              "i18nKey": "message.text.切换选项卡",
+              "replacement": "$t('message.text.切换选项卡')"
+            }
+          ]
+        },
+        {
+          "line": 815,
+          "context": "text",
+          "chineseTexts": [
+            "设置文件打开时的代码"
+          ],
+          "originalLine": "this.code = this.editorList[index].oldCode; //设置文件打开时的代码",
+          "suggestion": [
+            {
+              "originalText": "设置文件打开时的代码",
+              "suggestedKey": "设置文件打开时的代码",
+              "i18nKey": "message.text.设置文件打开时的代码",
+              "replacement": "$t('message.text.设置文件打开时的代码')"
+            }
+          ]
+        },
+        {
+          "line": 816,
+          "context": "text",
+          "chineseTexts": [
+            "设置编辑器实例"
+          ],
+          "originalLine": "this.editor = this.editorList[index].editor; //设置编辑器实例",
+          "suggestion": [
+            {
+              "originalText": "设置编辑器实例",
+              "suggestedKey": "设置编辑器实例",
+              "i18nKey": "message.text.设置编辑器实例",
+              "replacement": "$t('message.text.设置编辑器实例')"
+            }
+          ]
+        },
+        {
+          "line": 846,
+          "context": "text",
+          "chineseTexts": [
+            "关闭选项卡"
+          ],
+          "originalLine": "that.editorIndex[index].tab = false; // 关闭选项卡",
+          "suggestion": [
+            {
+              "originalText": "关闭选项卡",
+              "suggestedKey": "关闭选项卡",
+              "i18nKey": "message.text.关闭选项卡",
+              "replacement": "$t('message.text.关闭选项卡')"
+            }
+          ]
+        },
+        {
+          "line": 868,
+          "context": "text",
+          "chineseTexts": [
+            "文件未保存",
+            "是否要保存该文件"
+          ],
+          "originalLine": "if (confirm(`${that.editorIndex[index].title}文件未保存,是否要保存该文件`)) {",
+          "suggestion": [
+            {
+              "originalText": "文件未保存",
+              "suggestedKey": "文件未保存",
+              "i18nKey": "message.text.文件未保存",
+              "replacement": "$t('message.text.文件未保存')"
+            },
+            {
+              "originalText": "是否要保存该文件",
+              "suggestedKey": "是否要保存该文件",
+              "i18nKey": "message.text.是否要保存该文件",
+              "replacement": "$t('message.text.是否要保存该文件')"
+            }
+          ]
+        },
+        {
+          "line": 872,
+          "context": "text",
+          "chineseTexts": [
+            "已取消",
+            "文件保存"
+          ],
+          "originalLine": "that.$message.info(`已取消${that.editorIndex[index].title}文件保存`);",
+          "suggestion": [
+            {
+              "originalText": "已取消",
+              "suggestedKey": "已取消",
+              "i18nKey": "message.text.已取消",
+              "replacement": "$t('message.text.已取消')"
+            },
+            {
+              "originalText": "文件保存",
+              "suggestedKey": "文件保存",
+              "i18nKey": "message.text.文件保存",
+              "replacement": "$t('message.text.文件保存')"
+            }
+          ]
+        },
+        {
+          "line": 880,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器开关"
+          ],
+          "originalLine": "that.modals = false; //编辑器开关",
+          "suggestion": [
+            {
+              "originalText": "编辑器开关",
+              "suggestedKey": "编辑器开关",
+              "i18nKey": "message.text.编辑器开关",
+              "replacement": "$t('message.text.编辑器开关')"
+            }
+          ]
+        },
+        {
+          "line": 881,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器对象"
+          ],
+          "originalLine": "that.editor = ''; //当前编辑器对象",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器对象",
+              "suggestedKey": "当前编辑器对象",
+              "i18nKey": "message.text.当前编辑器对象",
+              "replacement": "$t('message.text.当前编辑器对象')"
+            }
+          ]
+        },
+        {
+          "line": 891,
+          "context": "text",
+          "chineseTexts": [
+            "编辑器数组"
+          ],
+          "originalLine": "that.editorList = []; //编辑器数组",
+          "suggestion": [
+            {
+              "originalText": "编辑器数组",
+              "suggestedKey": "编辑器数组",
+              "i18nKey": "message.text.编辑器数组",
+              "replacement": "$t('message.text.编辑器数组')"
+            }
+          ]
+        },
+        {
+          "line": 892,
+          "context": "text",
+          "chineseTexts": [
+            "当前编辑器索引"
+          ],
+          "originalLine": "that.indexEditor = '0'; //当前编辑器索引",
+          "suggestion": [
+            {
+              "originalText": "当前编辑器索引",
+              "suggestedKey": "当前编辑器索引",
+              "i18nKey": "message.text.当前编辑器索引",
+              "replacement": "$t('message.text.当前编辑器索引')"
+            }
+          ]
+        },
+        {
+          "line": 893,
+          "context": "text",
+          "chineseTexts": [
+            "当前文件打开时的内容"
+          ],
+          "originalLine": "that.code = ''; //当前文件打开时的内容",
+          "suggestion": [
+            {
+              "originalText": "当前文件打开时的内容",
+              "suggestedKey": "当前文件打开时的内容",
+              "i18nKey": "message.text.当前文件打开时的内容",
+              "replacement": "$t('message.text.当前文件打开时的内容')"
+            }
+          ]
+        },
+        {
+          "line": 894,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航数据"
+          ],
+          "originalLine": "that.navList = []; //左侧导航数据",
+          "suggestion": [
+            {
+              "originalText": "左侧导航数据",
+              "suggestedKey": "左侧导航数据",
+              "i18nKey": "message.text.左侧导航数据",
+              "replacement": "$t('message.text.左侧导航数据')"
+            }
+          ]
+        },
+        {
+          "line": 895,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航点击是选中的数据"
+          ],
+          "originalLine": "that.navItem = {}; //左侧导航点击是选中的数据",
+          "suggestion": [
+            {
+              "originalText": "左侧导航点击是选中的数据",
+              "suggestedKey": "左侧导航点击是选中的数据",
+              "i18nKey": "message.text.左侧导航点击是选中的数据",
+              "replacement": "$t('message.text.左侧导航点击是选中的数据')"
+            }
+          ]
+        },
+        {
+          "line": 896,
+          "context": "text",
+          "chineseTexts": [
+            "左侧导航右键点击是产生的数据对象"
+          ],
+          "originalLine": "that.contextData = null; //左侧导航右键点击是产生的数据对象",
+          "suggestion": [
+            {
+              "originalText": "左侧导航右键点击是产生的数据对象",
+              "suggestedKey": "左侧导航右键点击是产生的数据对象",
+              "i18nKey": "message.text.左侧导航右键点击是产生的数据对象",
+              "replacement": "$t('message.text.左侧导航右键点击是产生的数据对象')"
+            }
+          ]
+        },
+        {
+          "line": 904,
+          "context": "text",
+          "chineseTexts": [
+            "微软雅黑"
+          ],
+          "originalLine": "font-family: SourceHanSansSC-regular, '微软雅黑', Arial, Helvetica, sans-serif;",
+          "suggestion": [
+            {
+              "originalText": "微软雅黑",
+              "suggestedKey": "微软雅黑",
+              "i18nKey": "message.text.微软雅黑",
+              "replacement": "$t('message.text.微软雅黑')"
+            }
+          ]
+        },
+        {
+          "line": 1082,
+          "context": "text",
+          "chineseTexts": [
+            "不换行"
+          ],
+          "originalLine": "word-break: keep-all; /* 不换行 */",
+          "suggestion": [
+            {
+              "originalText": "不换行",
+              "suggestedKey": "不换行",
+              "i18nKey": "message.text.不换行",
+              "replacement": "$t('message.text.不换行')"
+            }
+          ]
+        },
+        {
+          "line": 1083,
+          "context": "text",
+          "chineseTexts": [
+            "不换行"
+          ],
+          "originalLine": "white-space: nowrap; /* 不换行 */",
+          "suggestion": [
+            {
+              "originalText": "不换行",
+              "suggestedKey": "不换行",
+              "i18nKey": "message.text.不换行",
+              "replacement": "$t('message.text.不换行')"
+            }
+          ]
+        },
+        {
+          "line": 1124,
+          "context": "text",
+          "chineseTexts": [
+            "不换行"
+          ],
+          "originalLine": "word-break: keep-all; /* 不换行 */",
+          "suggestion": [
+            {
+              "originalText": "不换行",
+              "suggestedKey": "不换行",
+              "i18nKey": "message.text.不换行",
+              "replacement": "$t('message.text.不换行')"
+            }
+          ]
+        },
+        {
+          "line": 1125,
+          "context": "text",
+          "chineseTexts": [
+            "不换行"
+          ],
+          "originalLine": "white-space: nowrap; /* 不换行 */",
+          "suggestion": [
+            {
+              "originalText": "不换行",
+              "suggestedKey": "不换行",
+              "i18nKey": "message.text.不换行",
+              "replacement": "$t('message.text.不换行')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/onlineUpgrade/index.vue",
+      "relativePath": "src/pages/system/onlineUpgrade/index.vue",
+      "findings": [
+        {
+          "line": 72,
+          "context": "text",
+          "chineseTexts": [
+            "免责声明"
+          ],
+          "originalLine": "<!-- 免责声明 -->",
+          "suggestion": [
+            {
+              "originalText": "免责声明",
+              "suggestedKey": "免责声明",
+              "i18nKey": "message.text.免责声明",
+              "replacement": "$t('message.text.免责声明')"
+            }
+          ]
+        },
+        {
+          "line": 90,
+          "context": "text",
+          "chineseTexts": [
+            "升级"
+          ],
+          "originalLine": "<!-- 升级 -->",
+          "suggestion": [
+            {
+              "originalText": "升级",
+              "suggestedKey": "升级",
+              "i18nKey": "message.text.升级",
+              "replacement": "$t('message.text.升级')"
+            }
+          ]
+        },
+        {
+          "line": 112,
+          "context": "button",
+          "chineseTexts": [
+            "确认"
+          ],
+          "originalLine": "<!-- <div v-if=\"upgradeProgress.speed == '100.0'\"><el-button class=\"back\" type=\"primary\" shape=\"circle\" v-db-click @click=\"updateModal = false\">确认</el-button></div> -->",
+          "suggestion": [
+            {
+              "originalText": "确认",
+              "suggestedKey": "确认",
+              "i18nKey": "message.button.确认",
+              "replacement": "$t('message.button.确认')"
+            }
+          ]
+        },
+        {
+          "line": 120,
+          "context": "button",
+          "chineseTexts": [
+            "返回"
+          ],
+          "originalLine": "<!-- <div><el-button class=\"back\" shape=\"circle\" v-db-click @click=\"backSure()\">返回</el-button></div> -->",
+          "suggestion": [
+            {
+              "originalText": "返回",
+              "suggestedKey": "返回",
+              "i18nKey": "message.button.返回",
+              "replacement": "$t('message.button.返回')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/systemMenus/components/menusFrom.vue",
+      "relativePath": "src/pages/system/systemMenus/components/menusFrom.vue",
+      "findings": [
+        {
+          "line": 480,
+          "context": "text",
+          "chineseTexts": [
+            "定义滚动条高宽及背景",
+            "高宽分别对应横竖滚动条的尺寸"
+          ],
+          "originalLine": "/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/",
+          "suggestion": [
+            {
+              "originalText": "定义滚动条高宽及背景",
+              "suggestedKey": "定义滚动条高宽及背景",
+              "i18nKey": "message.text.定义滚动条高宽及背景",
+              "replacement": "$t('message.text.定义滚动条高宽及背景')"
+            },
+            {
+              "originalText": "高宽分别对应横竖滚动条的尺寸",
+              "suggestedKey": "高宽分别对应横竖滚动条的尺寸",
+              "i18nKey": "message.text.高宽分别对应横竖滚动条的尺寸",
+              "replacement": "$t('message.text.高宽分别对应横竖滚动条的尺寸')"
+            }
+          ]
+        },
+        {
+          "line": 487,
+          "context": "text",
+          "chineseTexts": [
+            "定义滚动条轨道",
+            "内阴影",
+            "圆角"
+          ],
+          "originalLine": "/*定义滚动条轨道 内阴影+圆角*/",
+          "suggestion": [
+            {
+              "originalText": "定义滚动条轨道",
+              "suggestedKey": "定义滚动条轨道",
+              "i18nKey": "message.text.定义滚动条轨道",
+              "replacement": "$t('message.text.定义滚动条轨道')"
+            },
+            {
+              "originalText": "内阴影",
+              "suggestedKey": "内阴影",
+              "i18nKey": "message.text.内阴影",
+              "replacement": "$t('message.text.内阴影')"
+            },
+            {
+              "originalText": "圆角",
+              "suggestedKey": "圆角",
+              "i18nKey": "message.text.圆角",
+              "replacement": "$t('message.text.圆角')"
+            }
+          ]
+        },
+        {
+          "line": 493,
+          "context": "text",
+          "chineseTexts": [
+            "定义滑块",
+            "内阴影",
+            "圆角"
+          ],
+          "originalLine": "/*定义滑块 内阴影+圆角*/",
+          "suggestion": [
+            {
+              "originalText": "定义滑块",
+              "suggestedKey": "定义滑块",
+              "i18nKey": "message.text.定义滑块",
+              "replacement": "$t('message.text.定义滑块')"
+            },
+            {
+              "originalText": "内阴影",
+              "suggestedKey": "内阴影",
+              "i18nKey": "message.text.内阴影",
+              "replacement": "$t('message.text.内阴影')"
+            },
+            {
+              "originalText": "圆角",
+              "suggestedKey": "圆角",
+              "i18nKey": "message.text.圆角",
+              "replacement": "$t('message.text.圆角')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Users/tinhp/Workspace/Projects/CRMEB/template/admin/src/pages/system/systemMenus/index.vue",
+      "relativePath": "src/pages/system/systemMenus/index.vue",
+      "findings": [
+        {
+          "line": 79,
+          "context": "button",
+          "chineseTexts": [
+            "添加规则",
+            "添加规则"
+          ],
+          "originalLine": "<!-- <a v-db-click @click=\"addE(row, '添加规则')\" v-else>添加规则</a> -->",
+          "suggestion": [
+            {
+              "originalText": "添加规则",
+              "suggestedKey": "添加规则",
+              "i18nKey": "message.button.添加规则",
+              "replacement": "$t('message.button.添加规则')"
+            },
+            {
+              "originalText": "添加规则",
+              "suggestedKey": "添加规则",
+              "i18nKey": "message.button.添加规则",
+              "replacement": "$t('message.button.添加规则')"
+            }
+          ]
+        },
+        {
+          "line": 192,
+          "context": "text",
+          "chineseTexts": [
+            "权限树"
+          ],
+          "originalLine": "ruleCateList: [], //权限树",
+          "suggestion": [
+            {
+              "originalText": "权限树",
+              "suggestedKey": "权限树",
+              "i18nKey": "message.text.权限树",
+              "replacement": "$t('message.text.权限树')"
+            }
+          ]
+        },
+        {
+          "line": 213,
+          "context": "text",
+          "chineseTexts": [
+            "基础接口列表"
+          ],
+          "originalLine": "foundationList: [], // 基础接口列表",
+          "suggestion": [
+            {
+              "originalText": "基础接口列表",
+              "suggestedKey": "基础接口列表",
+              "i18nKey": "message.text.基础接口列表",
+              "replacement": "$t('message.text.基础接口列表')"
+            }
+          ]
+        },
+        {
+          "line": 214,
+          "context": "text",
+          "chineseTexts": [
+            "公开接口列表"
+          ],
+          "originalLine": "openList: [], // 公开接口列表",
+          "suggestion": [
+            {
+              "originalText": "公开接口列表",
+              "suggestedKey": "公开接口列表",
+              "i18nKey": "message.text.公开接口列表",
+              "replacement": "$t('message.text.公开接口列表')"
+            }
+          ]
+        },
+        {
+          "line": 215,
+          "context": "text",
+          "chineseTexts": [
+            "选中路由"
+          ],
+          "originalLine": "seletRoute: [], // 选中路由",
+          "suggestion": [
+            {
+              "originalText": "选中路由",
+              "suggestedKey": "选中路由",
+              "i18nKey": "message.text.选中路由",
+              "replacement": "$t('message.text.选中路由')"
+            }
+          ]
+        },
+        {
+          "line": 216,
+          "context": "text",
+          "chineseTexts": [
+            "选中"
+          ],
+          "originalLine": "seletRouteIds: [], // 选中id",
+          "suggestion": [
+            {
+              "originalText": "选中",
+              "suggestedKey": "选中",
+              "i18nKey": "message.text.选中",
+              "replacement": "$t('message.text.选中')"
+            }
+          ]
+        },
+        {
+          "line": 217,
+          "context": "text",
+          "chineseTexts": [
+            "选中分类"
+          ],
+          "originalLine": "menusId: 0, // 选中分类id",
+          "suggestion": [
+            {
+              "originalText": "选中分类",
+              "suggestedKey": "选中分类",
+              "i18nKey": "message.text.选中分类",
+              "replacement": "$t('message.text.选中分类')"
+            }
+          ]
+        },
+        {
+          "line": 218,
+          "context": "text",
+          "chineseTexts": [
+            "选中节点"
+          ],
+          "originalLine": "nodeKey: 0, // 选中节点",
+          "suggestion": [
+            {
+              "originalText": "选中节点",
+              "suggestedKey": "选中节点",
+              "i18nKey": "message.text.选中节点",
+              "replacement": "$t('message.text.选中节点')"
+            }
+          ]
+        },
+        {
+          "line": 516,
+          "context": "text",
+          "chineseTexts": [
+            "定义滚动条高宽及背景",
+            "高宽分别对应横竖滚动条的尺寸"
+          ],
+          "originalLine": "/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/",
+          "suggestion": [
+            {
+              "originalText": "定义滚动条高宽及背景",
+              "suggestedKey": "定义滚动条高宽及背景",
+              "i18nKey": "message.text.定义滚动条高宽及背景",
+              "replacement": "$t('message.text.定义滚动条高宽及背景')"
+            },
+            {
+              "originalText": "高宽分别对应横竖滚动条的尺寸",
+              "suggestedKey": "高宽分别对应横竖滚动条的尺寸",
+              "i18nKey": "message.text.高宽分别对应横竖滚动条的尺寸",
+              "replacement": "$t('message.text.高宽分别对应横竖滚动条的尺寸')"
+            }
+          ]
+        },
+        {
+          "line": 523,
+          "context": "text",
+          "chineseTexts": [
+            "定义滚动条轨道",
+            "内阴影",
+            "圆角"
+          ],
+          "originalLine": "/*定义滚动条轨道 内阴影+圆角*/",
+          "suggestion": [
+            {
+              "originalText": "定义滚动条轨道",
+              "suggestedKey": "定义滚动条轨道",
+              "i18nKey": "message.text.定义滚动条轨道",
+              "replacement": "$t('message.text.定义滚动条轨道')"
+            },
+            {
+              "originalText": "内阴影",
+              "suggestedKey": "内阴影",
+              "i18nKey": "message.text.内阴影",
+              "replacement": "$t('message.text.内阴影')"
+            },
+            {
+              "originalText": "圆角",
+              "suggestedKey": "圆角",
+              "i18nKey": "message.text.圆角",
+              "replacement": "$t('message.text.圆角')"
+            }
+          ]
+        },
+        {
+          "line": 529,
+          "context": "text",
+          "chineseTexts": [
+            "定义滑块",
+            "内阴影",
+            "圆角"
+          ],
+          "originalLine": "/*定义滑块 内阴影+圆角*/",
+          "suggestion": [
+            {
+              "originalText": "定义滑块",
+              "suggestedKey": "定义滑块",
+              "i18nKey": "message.text.定义滑块",
+              "replacement": "$t('message.text.定义滑块')"
+            },
+            {
+              "originalText": "内阴影",
+              "suggestedKey": "内阴影",
+              "i18nKey": "message.text.内阴影",
+              "replacement": "$t('message.text.内阴影')"
+            },
+            {
+              "originalText": "圆角",
+              "suggestedKey": "圆角",
+              "i18nKey": "message.text.圆角",
+              "replacement": "$t('message.text.圆角')"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
