@@ -6,7 +6,7 @@
           <div class="trees-coadd">
             <div class="tree_tit" v-db-click @click="append">
               <i class="el-icon-circle-plus"></i>
-              添加分类
+              {{ $t('message.setting.addCategory') }}
             </div>
             <div class="scollhide">
               <div class="tree" v-if="treeData.length">
@@ -36,9 +36,9 @@
                         <i class="el-icon-more el-icon--right"></i>
                         <template slot="dropdown">
                           <el-dropdown-menu>
-                            <el-dropdown-item v-if="data.pid == 1" command="1">新增分类</el-dropdown-item>
-                            <el-dropdown-item v-if="data.id" command="2">编辑分类</el-dropdown-item>
-                            <el-dropdown-item v-if="data.id" command="3">删除</el-dropdown-item>
+                            <el-dropdown-item v-if="data.pid == 1" command="1">{{ $t('message.setting.addCategory') }}</el-dropdown-item>
+                            <el-dropdown-item v-if="data.id" command="2">{{ $t('message.setting.editCategory') }}</el-dropdown-item>
+                            <el-dropdown-item v-if="data.id" command="3">{{ $t('message.setting.delete') }}</el-dropdown-item>
                           </el-dropdown-menu>
                         </template>
                       </el-dropdown>
@@ -50,50 +50,49 @@
           </div>
         </div>
         <div class="conter">
-          <el-button type="primary" @click="addLink">添加链接</el-button>
+          <el-button type="primary" @click="addLink">{{ $t('message.setting.addLink') }}</el-button>
           <el-table
             :data="linkList"
             ref="couponTable"
             class="mt20"
             v-loading="loading"
             highlight-current-row
-            no-userFrom-text="暂无数据"
-            no-filtered-userFrom-text="暂无筛选结果"
+            :empty-text="$t('message.common.noData')"
           >
-            <el-table-column label="ID" width="70">
+            <el-table-column :label="$t('message.common.id')" width="70">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="名称" width="150">
+            <el-table-column :label="$t('message.setting.name')" width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="H5链接" minWidth="170">
+            <el-table-column :label="$t('message.setting.h5Link')" minWidth="170">
               <template slot-scope="scope">
-                <el-tooltip class="item pointer" content="点击复制">
+                <el-tooltip class="item pointer" :content="$t('message.setting.clickToCopy')">
                   <span v-db-click @click="onCopy(scope.row.h5_url)">{{ scope.row.h5_url }}</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="小程序链接" minWidth="140">
+            <el-table-column :label="$t('message.setting.miniProgramLink')" minWidth="140">
               <template slot-scope="scope">
-                <el-tooltip class="item pointer" content="点击复制">
+                <el-tooltip class="item pointer" :content="$t('message.setting.clickToCopy')">
                   <span v-db-click @click="onCopy(scope.row.url)">{{ scope.row.url }}</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="添加时间" minWidth="90">
+            <el-table-column :label="$t('message.setting.addTime')" minWidth="90">
               <template slot-scope="scope">
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="90">
+            <el-table-column :label="$t('message.common.operation')" fixed="right" width="90">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row)">编辑</a>
+                <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除链接', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.setting.deleteLink'), scope.$index)">{{ $t('message.setting.delete') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -110,29 +109,29 @@
       </div>
     </div>
     <el-dialog
-      title="链接"
+      :title="$t('message.setting.link')"
       :visible.sync="dialogVisible"
       width="40%"
       :before-close="handleClose"
       :close-on-click-modal="false"
     >
       <el-form :model="linkForm" ref="linkForm" label-width="80px">
-        <el-form-item label="名称:" prop="name">
-          <el-input v-model="linkForm.name" placeholder="请输入名称"></el-input>
+        <el-form-item :label="$t('message.setting.name') + ':'" prop="name">
+          <el-input v-model="linkForm.name" :placeholder="$t('message.setting.pleaseInputName')"></el-input>
         </el-form-item>
-        <el-form-item label="跳转链接:" prop="url">
-          <el-input v-model="linkForm.url" placeholder="请输入跳转链接"></el-input>
+        <el-form-item :label="$t('message.setting.jumpLink') + ':'" prop="url">
+          <el-input v-model="linkForm.url" :placeholder="$t('message.setting.pleaseInputJumpLink')"></el-input>
         </el-form-item>
-        <el-form-item label="排序:" prop="url">
-          <el-input v-model="linkForm.sort" placeholder="请输入排序"></el-input>
+        <el-form-item :label="$t('message.setting.sort') + ':'" prop="url">
+          <el-input v-model="linkForm.sort" :placeholder="$t('message.setting.pleaseInputSort')"></el-input>
         </el-form-item>
-        <el-form-item label="是否开启:" prop="url">
+        <el-form-item :label="$t('message.setting.isEnable') + ':'" prop="url">
           <el-switch v-model="linkForm.status" :active-value="1" :inactive-value="0"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addLinkSubmit">确 定</el-button>
+        <el-button @click="dialogVisible = false">{{ $t('message.setting.cancel') }}</el-button>
+        <el-button type="primary" @click="addLinkSubmit">{{ $t('message.setting.confirm') }}</el-button>
       </div>
     </el-dialog>
   </el-card>
@@ -183,10 +182,10 @@ export default {
     onCopy(copyData) {
       this.$copyText(copyData)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success(this.$t('message.setting.copySuccess'));
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('message.setting.copyFailed'));
         });
     },
     edit(row) {
@@ -324,7 +323,7 @@ export default {
     remove(data, tit) {
       this.tits = tit;
       let delfromData = {
-        title: '删除 [ ' + data.title + ' ] ' + '分类',
+        title: this.$t('message.setting.delete') + ' [ ' + data.title + ' ] ' + this.$t('message.setting.category'),
         url: `diy/link/category/del/${data.id}`,
         method: 'DELETE',
         ids: '',

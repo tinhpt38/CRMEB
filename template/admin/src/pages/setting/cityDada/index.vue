@@ -5,8 +5,8 @@
         <el-row>
           <el-col v-bind="grid">
             <div class="button acea-row row-middle">
-              <el-button type="primary" v-db-click @click="add(0)">添加省份</el-button>
-              <el-button v-db-click @click="cleanCache">清除缓存</el-button>
+              <el-button type="primary" v-db-click @click="add(0)">{{ $t('message.setting.addProvince') }}</el-button>
+              <el-button v-db-click @click="cleanCache">{{ $t('message.setting.clearCache') }}</el-button>
             </div>
           </el-col>
         </el-row>
@@ -18,28 +18,28 @@
         :data="cityLists"
         lazy
       >
-        <el-table-column label="编号" width="120">
+        <el-table-column :label="$t('message.setting.number')" width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="地区名称" min-width="300">
+        <el-table-column :label="$t('message.setting.regionName')" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.label }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="上级名称" min-width="300">
+        <el-table-column :label="$t('message.setting.parentName')" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.parent_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-if="scope.row.hasOwnProperty('children')" v-db-click @click="add(scope.row.city_id)">添加</a>
+            <a v-if="scope.row.hasOwnProperty('children')" v-db-click @click="add(scope.row.city_id)">{{ $t('message.setting.add') }}</a>
             <el-divider direction="vertical" v-if="scope.row.hasOwnProperty('children')" />
-            <a v-db-click @click="edit(scope.row.id)">编辑</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除城市', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deleteCity'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

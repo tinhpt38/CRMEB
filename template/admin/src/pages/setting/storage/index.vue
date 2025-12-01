@@ -14,41 +14,41 @@
         </div>
         <el-alert closable v-if="currentTab == 1">
           <template slot="title">
-            <p>上传图片时会生成缩略图</p>
-            <p>未设置按照系统默认生成，系统默认：大图800*800，中图300*300，小图150*150</p>
-            <p>水印只在上传图片时生成，原图，大中小缩略图上都按照比例存在。</p>
-            <p>若上传图片时未开启水印，则该图在开启水印之后依旧无水印效果。</p>
+            <p>{{ $t('message.setting.thumbnailTip1') }}</p>
+            <p>{{ $t('message.setting.thumbnailTip2') }}</p>
+            <p>{{ $t('message.setting.thumbnailTip3') }}</p>
+            <p>{{ $t('message.setting.thumbnailTip4') }}</p>
           </template>
         </el-alert>
         <el-alert closable v-else>
           <template slot="title">
             <p v-if="currentTab == 2">
-              七牛云开通方法：<a href="https://doc.crmeb.com/single/v5/7792" target="_blank">点击查看</a>
+              {{ $t('message.setting.qiniuCloudSetup') }}<a href="https://doc.crmeb.com/single/v5/7792" target="_blank">{{ $t('message.setting.clickToView') }}</a>
             </p>
             <p v-if="currentTab == 3">
-              阿里云oss开通方法：<a href="https://doc.crmeb.com/single/v5/7790" target="_blank">点击查看</a>
+              {{ $t('message.setting.aliyunOssSetup') }}<a href="https://doc.crmeb.com/single/v5/7790" target="_blank">{{ $t('message.setting.clickToView') }}</a>
             </p>
             <p v-if="currentTab == 4">
-              腾讯云cos开通方法：<a href="https://doc.crmeb.com/single/v5/7791" target="_blank">点击查看</a>
+              {{ $t('message.setting.tencentCloudCosSetup') }}<a href="https://doc.crmeb.com/single/v5/7791" target="_blank">{{ $t('message.setting.clickToView') }}</a>
             </p>
             <p v-if="currentTab == 5">
-              京东云cos开通方法：<a href="https://doc.crmeb.com/single/v5/8522" target="_blank">点击查看</a>
+              {{ $t('message.setting.jdCloudCosSetup') }}<a href="https://doc.crmeb.com/single/v5/8522" target="_blank">{{ $t('message.setting.clickToView') }}</a>
             </p>
             <p v-if="currentTab == 6">
-              华为云cos开通方法：<a href="https://doc.crmeb.com/single/v5/8523" target="_blank">点击查看</a>
+              {{ $t('message.setting.huaweiCloudCosSetup') }}<a href="https://doc.crmeb.com/single/v5/8523" target="_blank">{{ $t('message.setting.clickToView') }}</a>
             </p>
             <p v-if="currentTab == 7">
-              天翼云cos开通方法：<a href="https://doc.crmeb.com/single/v5/8524" target="_blank">点击查看</a>
+              {{ $t('message.setting.tianyiCloudCosSetup') }}<a href="https://doc.crmeb.com/single/v5/8524" target="_blank">{{ $t('message.setting.clickToView') }}</a>
             </p>
-            <p>第一步： 添加【存储空间】（空间名称不能重复）</p>
-            <p>第二步： 开启【使用状态】</p>
+            <p>{{ $t('message.setting.step1') }}</p>
+            <p>{{ $t('message.setting.step2') }}</p>
             <template v-if="currentTab == 2">
-              <p>第三步（必选）： 选择云存储空间列表上的修改【空间域名操作】</p>
-              <p>第四步（必选）： 选择云存储空间列表上的修改【CNAME配置】，打开后复制记录值到对应的平台解析</p>
+              <p>{{ $t('message.setting.step3Required') }}</p>
+              <p>{{ $t('message.setting.step4Required') }}</p>
             </template>
             <template v-else>
-              <p>第三步（可选）： 选择云存储空间列表上的修改【空间域名操作】</p>
-              <p>第四步（可选）： 选择云存储空间列表上的修改【CNAME配置】，打开后复制记录值到对应的平台解析</p>
+              <p>{{ $t('message.setting.step3Optional') }}</p>
+              <p>{{ $t('message.setting.step4Optional') }}</p>
             </template>
           </template>
         </el-alert>

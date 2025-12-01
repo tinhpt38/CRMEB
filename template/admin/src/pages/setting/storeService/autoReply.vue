@@ -10,54 +10,53 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="回复类型：" prop="type" label-for="type">
+          <el-form-item :label="$t('message.setting.replyType') + '：'" prop="type" label-for="type">
             <el-select
               v-model="formValidate.type"
-              placeholder="请选择"
+              :placeholder="$t('message.setting.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="text" label="文字消息"></el-option>
-              <el-option value="image" label="图片消息"></el-option>
+              <el-option value="text" :label="$t('message.setting.textMessage')"></el-option>
+              <el-option value="image" :label="$t('message.setting.imageMessage')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="关键字：" prop="key" label-for="key">
-            <el-input clearable v-model="formValidate.key" placeholder="请输入关键字" class="form_content_width" />
+          <el-form-item :label="$t('message.setting.keyword') + '：'" prop="key" label-for="key">
+            <el-input clearable v-model="formValidate.key" :placeholder="$t('message.setting.pleaseInputKeyword')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="add">添加自动回复</el-button>
+      <el-button type="primary" v-db-click @click="add">{{ $t('message.setting.addAutoReply') }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关键字" min-width="130">
+        <el-table-column :label="$t('message.setting.keyword')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.key }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="回复类型" min-width="130">
+        <el-table-column :label="$t('message.setting.replyType')" min-width="130">
           <template slot-scope="scope">
-            <span>{{ scope.row.type == 'text' ? '文字消息' : '图片消息' }}</span>
+            <span>{{ scope.row.type == 'text' ? $t('message.setting.textMessage') : $t('message.setting.imageMessage') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="回复内容" min-width="130">
+        <el-table-column :label="$t('message.setting.replyContent')" min-width="130">
           <template slot-scope="scope">
             <span v-if="scope.row.type == 'text'">{{ scope.row.data.content }}</span>
             <div v-else class="tabBox_img" v-viewer>
@@ -65,7 +64,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="是否开启" min-width="130">
+        <el-table-column :label="$t('message.setting.isEnable')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -75,17 +74,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              :active-text="'开启'"
-              :inactive-text="'关闭'"
+              :active-text="$t('message.setting.open')"
+              :inactive-text="$t('message.setting.close')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '客服自动回复', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.customerServiceAutoReply'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

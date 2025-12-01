@@ -47,16 +47,20 @@ export default {
         file_pwd: '',
         conf_file_pwd: '',
       },
-      ruleValidate: {
-        file_pwd: [{ required: true, message: '请输入您的文件管理新密码', trigger: 'blur' }],
-        conf_file_pwd: [{ required: true, message: '请确认您的文件管理新密码', trigger: 'blur' }],
-      },
+      ruleValidate: {},
     };
   },
   mounted() {
     this.account = this.$store.state.userInfo.userInfo.account;
+    this.initRuleValidate();
   },
   methods: {
+    initRuleValidate() {
+      this.ruleValidate = {
+        file_pwd: [{ required: true, message: this.$t('message.setting.pleaseInputFileManagementNewPassword'), trigger: 'blur' }],
+        conf_file_pwd: [{ required: true, message: this.$t('message.setting.pleaseConfirmFileManagementNewPassword'), trigger: 'blur' }],
+      };
+    },
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {

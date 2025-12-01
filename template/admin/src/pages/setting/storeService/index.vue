@@ -4,7 +4,7 @@
       <el-row class="mb20">
         <el-col :span="24">
           <el-button v-auth="['setting-store_service-add']" type="primary" v-db-click @click="add" class="mr10"
-            >添加客服</el-button
+            >{{ $t('message.setting.addCustomerService') }}</el-button
           >
         </el-col>
       </el-row>
@@ -12,27 +12,26 @@
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="客服头像" min-width="90">
+        <el-table-column :label="$t('message.setting.customerServiceAvatar')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="客服名称" min-width="130">
+        <el-table-column :label="$t('message.setting.customerServiceName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.wx_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="客服状态" min-width="130">
+        <el-table-column :label="$t('message.setting.customerServiceStatus')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -42,24 +41,24 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.setting.open')"
+              :inactive-text="$t('message.setting.close')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.setting.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除客服', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deleteCustomerService'), scope.$index)">{{ $t('message.setting.delete') }}</a>
             <el-divider direction="vertical" v-if="scope.row.status" />
-            <a v-db-click @click="goChat(scope.row)" v-if="scope.row.status">进入工作台</a>
+            <a v-db-click @click="goChat(scope.row)" v-if="scope.row.status">{{ $t('message.setting.enterWorkbench') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -75,30 +74,29 @@
     </el-card>
 
     <!--聊天记录-->
-    <el-dialog :visible.sync="modals3" title="聊天记录" width="720px">
+    <el-dialog :visible.sync="modals3" :title="$t('message.setting.chatRecord')" width="720px">
       <div v-if="isChat" class="modelBox">
         <el-table
           v-loading="loading3"
           highlight-current-row
-          no-userFrom-text="暂无数据"
-          no-filtered-userFrom-text="暂无筛选结果"
+          :empty-text="$t('message.common.noData')"
           :data="tableList3"
         >
-          <el-table-column label="用户名称" width="200">
+          <el-table-column :label="$t('message.setting.userName')" width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.nickname }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="客服头像" min-width="90">
+          <el-table-column :label="$t('message.setting.customerServiceAvatar')" min-width="90">
             <template slot-scope="scope">
               <div class="tabBox_img" v-viewer>
                 <img v-lazy="scope.row.headimgurl" />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" fixed="right" width="170">
+          <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
             <template slot-scope="scope">
-              <a v-db-click @click="look(scope.row)">查看对话</a>
+              <a v-db-click @click="look(scope.row)">{{ $t('message.setting.viewConversation') }}</a>
             </template>
           </el-table-column>
         </el-table>
@@ -113,33 +111,32 @@
         </div>
       </div>
       <div v-if="!isChat">
-        <el-button type="primary" v-db-click @click="isChat = true">返回聊天记录</el-button>
+        <el-button type="primary" v-db-click @click="isChat = true">{{ $t('message.setting.backToChatRecord') }}</el-button>
         <el-table
           v-loading="loading5"
           highlight-current-row
-          no-userFrom-text="暂无数据"
+          :empty-text="$t('message.common.noData')"
           class="mt14"
-          no-filtered-userFrom-text="暂无筛选结果"
           :data="tableList5"
         >
-          <el-table-column label="用户名称" min-width="200">
+          <el-table-column :label="$t('message.setting.userName')" min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.nickname }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="用户头像" min-width="90">
+          <el-table-column :label="$t('message.setting.userAvatar')" min-width="90">
             <template slot-scope="scope">
               <div class="tabBox_img" v-viewer>
                 <img v-lazy="scope.row.avatar" />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="发送消息" min-width="200">
+          <el-table-column :label="$t('message.setting.sendMessage')" min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.msn }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="发送时间" min-width="200">
+          <el-table-column :label="$t('message.setting.sendTime')" min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.add_time }}</span>
             </template>
@@ -178,8 +175,8 @@ export default {
   filters: {
     typeFilter(status) {
       const statusMap = {
-        wechat: '微信用户',
-        routine: '小程序用户',
+        wechat: this.$t('message.setting.wechatUser'),
+        routine: this.$t('message.setting.miniProgramUser'),
       };
       return statusMap[status];
     },
@@ -492,7 +489,7 @@ export default {
     // 添加客服
     putRemark() {
       if (this.addFrom.uids.length === 0) {
-        return this.$message.warning('请选择要添加的客服');
+        return this.$message.warning(this.$t('message.setting.pleaseSelectCustomerServiceToAdd'));
       }
       kefuAddApi(this.addFrom)
         .then(async (res) => {

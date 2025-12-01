@@ -13,8 +13,8 @@
           </el-select>
         </template>
       </el-input>
-      <el-button class="ml20" type="primary" v-db-click @click="requestData">请求</el-button>
-      <el-button class="ml10 copy-btn" type="success" v-db-click @click="insertCopy()">复制</el-button>
+      <el-button class="ml20" type="primary" v-db-click @click="requestData">{{ $t('message.setting.request') }}</el-button>
+      <el-button class="ml10 copy-btn" type="success" v-db-click @click="insertCopy()">{{ $t('message.setting.copy') }}</el-button>
     </div>
     <div class="params">
       <el-tabs class="mt10" v-model="paramsType" @tab-click="changeTab">
@@ -35,17 +35,17 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.request_params"
         >
-          <vxe-column field="attribute" width="150" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="150" :title="$t('message.setting.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.setting.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="类型" width="120" :edit-render="{}">
+          <vxe-column field="type" :title="$t('message.setting.type')" width="120" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select v-model="row.type" transfer>
                 <vxe-option
@@ -57,17 +57,17 @@
               </vxe-select>
             </template>
           </vxe-column>
-          <vxe-column field="must" title="必填" width="50" :edit-render="{}">
+          <vxe-column field="must" :title="$t('message.setting.required')" width="50" :edit-render="{}">
             <template #default="{ row }">
-              <span>{{ row.must == '1' ? '是' : '否' }}</span>
+              <span>{{ row.must == '1' ? $t('message.setting.yes') : $t('message.setting.no') }}</span>
             </template>
           </vxe-column>
-          <vxe-column field="trip" width="150" title="说明" :edit-render="{}">
+          <vxe-column field="trip" width="150" :title="$t('message.setting.description')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.trip" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column title="操作" width="120">
+          <vxe-column :title="$t('message.common.operation')" width="120">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -75,13 +75,13 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'xTable')"
-                >插入</vxe-button
+                >{{ $t('message.setting.insert') }}</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">删除</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">{{ $t('message.setting.delete') }}</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
-        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('xTable')">添加参数</el-button>
+        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('xTable')">{{ $t('message.setting.addParam') }}</el-button>
       </div>
       <div v-show="paramsType === 'Body'">
         <vxe-table
@@ -96,17 +96,17 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.request_body"
         >
-          <vxe-column field="attribute" width="150" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="150" :title="$t('message.setting.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.setting.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="类型" width="120" :edit-render="{}">
+          <vxe-column field="type" :title="$t('message.setting.type')" width="120" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select v-model="row.type" transfer>
                 <vxe-option
@@ -118,17 +118,17 @@
               </vxe-select>
             </template>
           </vxe-column>
-          <vxe-column field="must" title="必填" width="50" :edit-render="{}">
+          <vxe-column field="must" :title="$t('message.setting.required')" width="50" :edit-render="{}">
             <template #default="{ row }">
-              <span>{{ row.must == '1' ? '是' : '否' }}</span>
+              <span>{{ row.must == '1' ? $t('message.setting.yes') : $t('message.setting.no') }}</span>
             </template>
           </vxe-column>
-          <vxe-column field="trip" title="说明" width="150" :edit-render="{}">
+          <vxe-column field="trip" :title="$t('message.setting.description')" width="150" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.trip" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column title="操作" width="120">
+          <vxe-column :title="$t('message.common.operation')" width="120">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -136,13 +136,13 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'yTable')"
-                >插入</vxe-button
+                >{{ $t('message.setting.insert') }}</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'yTable')">删除</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'yTable')">{{ $t('message.setting.delete') }}</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
-        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('yTable')">添加参数</el-button>
+        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('yTable')">{{ $t('message.setting.addParam') }}</el-button>
       </div>
       <div v-show="paramsType === 'Header'">
         <vxe-table
@@ -157,17 +157,17 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.headerData"
         >
-          <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="300" :title="$t('message.setting.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.setting.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+          <vxe-column field="type" :title="$t('message.setting.type')" width="200" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select v-model="row.type" transfer>
                 <vxe-option
@@ -179,7 +179,7 @@
               </vxe-select>
             </template>
           </vxe-column>
-          <vxe-column title="操作" width="100">
+          <vxe-column :title="$t('message.common.operation')" width="100">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -187,14 +187,14 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'zTable')"
-                >插入</vxe-button
+                >{{ $t('message.setting.insert') }}</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">删除</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">{{ $t('message.setting.delete') }}</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
-        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('zTable')">添加参数</el-button>
-        <h4 class="mt10 title">全局Header参数</h4>
+        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('zTable')">{{ $t('message.setting.addParam') }}</el-button>
+        <h4 class="mt10 title">{{ $t('message.setting.globalHeaderParams') }}</h4>
         <vxe-table
           class="mt10"
           resizable
@@ -207,22 +207,22 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.allHeaderData"
         >
-          <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="300" :title="$t('message.setting.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <span>{{ row.attribute || '' }}</span>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.setting.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <span>{{ row.value || '' }}</span>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+          <vxe-column field="type" :title="$t('message.setting.type')" width="200" :edit-render="{}">
             <template #default="{ row }">
               <span>{{ row.type || '' }}</span>
             </template>
           </vxe-column>
-          <vxe-column field="trip" title="说明" :edit-render="{}">
+          <vxe-column field="trip" :title="$t('message.setting.description')" :edit-render="{}">
             <template #default="{ row }">
               <span>{{ row.trip || '' }}</span>
             </template>
@@ -287,10 +287,10 @@ export default {
     insertCopy() {
       this.$copyText(this.codes)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success(this.$t('message.setting.copySuccess'));
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('message.setting.copyFailed'));
         });
     },
     async requestData() {

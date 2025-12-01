@@ -7,22 +7,22 @@
         <div class="f-title acea-row row-middle">
           <div class="acea-row row-middle cup" @click="returnTap">
             <div class="iconfont iconfanhui"></div>
-            <div class="return">返回</div>
+            <div class="return">{{ $t('message.setting.back') }}</div>
           </div>
           <div class="mr20">
-            <span class="name mr5">当前页面：{{ nameTxt || '模板' }}</span>
+            <span class="name mr5">{{ $t('message.setting.currentPage') }}：{{ nameTxt || $t('message.setting.template') }}</span>
             <el-popover v-model="visible" width="347">
               <span slot="reference" class="iconfont iconzidingyicaidan cup"></span>
               <template>
                 <div class="flex">
                   <el-input
                     v-model="nameTxt"
-                    placeholder="必填不超过15个字"
+                    :placeholder="$t('message.setting.requiredNoMoreThan15Characters')"
                     maxlength="15"
                     style="width: 200px"
                   ></el-input>
-                  <el-button type="text" @click="cancel">取消</el-button>
-                  <el-button type="primary" @click="determine">确定</el-button>
+                  <el-button type="text" @click="cancel">{{ $t('message.setting.cancel') }}</el-button>
+                  <el-button type="primary" @click="determine">{{ $t('message.setting.confirm') }}</el-button>
                 </div>
               </template>
             </el-popover>
@@ -31,10 +31,10 @@
         <div class="rbtn">
           <!-- <el-button class="ml20 header-btn look" v-db-click @click="exportView" :loading="loading">导出</el-button>
           <el-button class="ml20 header-btn look" v-db-click @click="importView" :loading="loading">导入</el-button> -->
-          <el-button class="ml20 header-btn look" v-db-click @click="preview" :loading="loading">预览</el-button>
-          <el-button class="ml20 header-btn close" v-db-click @click="saveConfig(1)" :loading="loading">保存</el-button>
+          <el-button class="ml20 header-btn look" v-db-click @click="preview" :loading="loading">{{ $t('message.setting.preview') }}</el-button>
+          <el-button class="ml20 header-btn close" v-db-click @click="saveConfig(1)" :loading="loading">{{ $t('message.setting.save') }}</el-button>
           <el-button class="ml20 header-btn save" v-db-click @click="saveConfig(2)" :loading="loading"
-            >保存并关闭</el-button
+            >{{ $t('message.setting.saveAndClose') }}</el-button
           >
         </div>
       </div>
@@ -73,7 +73,7 @@
                   v-show="item.isOpen"
                 >
                   <div>
-                    <div class="position" style="display: none">释放鼠标将组建添加到此处</div>
+                    <div class="position" style="display: none">{{ $t('message.setting.releaseMouseToAddComponentHere') }}</div>
                     <svg class="conter iconfont-diy icon svg-icon" aria-hidden="true">
                       <use :xlink:href="element.icon"></use>
                     </svg>
@@ -190,9 +190,9 @@
               <div class="defaultData" v-if="pageId !== 0">
                 <!-- <div class="data" @click="setmoren">设置默认</div>
                                   <div class="data" @click="getmoren">恢复默认</div> -->
-                <el-button class="data" @click="showTitle">页面设置</el-button>
-                <el-button class="data" @click="nameModal = true">另存模板</el-button>
-                <el-button class="data" @click="reast">重置</el-button>
+                <el-button class="data" @click="showTitle">{{ $t('message.setting.pageSettings') }}</el-button>
+                <el-button class="data" @click="nameModal = true">{{ $t('message.setting.saveTemplate') }}</el-button>
+                <el-button class="data" @click="reast">{{ $t('message.setting.reset') }}</el-button>
               </div>
             </div>
           </div>
@@ -212,27 +212,27 @@
         </div>
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" width="540px" title="预览">
+    <el-dialog :visible.sync="modal" width="540px" :title="$t('message.setting.preview')">
       <div>
         <div v-viewer class="acea-row row-around code">
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic" ref="qrCodeUrl"></div>
-            <span class="mt10">公众号二维码</span>
+            <span class="mt10">{{ $t('message.setting.officialAccountQRCode') }}</span>
           </div>
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic">
               <img v-lazy="qrcodeImg" />
             </div>
-            <span class="mt10">小程序二维码</span>
+            <span class="mt10">{{ $t('message.setting.miniProgramQRCode') }}</span>
           </div>
         </div>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="nameModal" width="470px" title="设置模版名称" :show-close="true">
-      <el-input v-model="saveName" placeholder="请输入模版名称"></el-input>
+    <el-dialog :visible.sync="nameModal" width="470px" :title="$t('message.setting.setTemplateName')" :show-close="true">
+      <el-input v-model="saveName" :placeholder="$t('message.setting.pleaseInputTemplateName')"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="nameModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="saveModal">确 定</el-button>
+        <el-button v-db-click @click="nameModal = false">{{ $t('message.setting.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="saveModal">{{ $t('message.setting.confirm') }}</el-button>
       </span>
     </el-dialog>
     <!--<div class="foot-box">-->
@@ -420,7 +420,7 @@ export default {
     },
     determine() {
       if (this.nameTxt.trim() == '') {
-        return this.$message.error('请输入模板名称');
+        return this.$message.error(this.$t('message.setting.pleaseInputTemplateName'));
       }
       if (this.pageId == 0) {
         this.$message.success('修改成功');
@@ -438,11 +438,11 @@ export default {
     },
     returnTap() {
       this.$msgbox({
-        title: '温馨提示',
-        message: '确定离开此页面？系统可能不会保存您所做的更改。',
+        title: this.$t('message.setting.warmReminder'),
+        message: this.$t('message.setting.confirmLeavePage'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('message.setting.cancel'),
+        confirmButtonText: this.$t('message.setting.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -857,16 +857,16 @@ export default {
         });
     },
     saveModal() {
-      if (!this.saveName) return this.$message.warning('请先输入模板名称');
+      if (!this.saveName) return this.$message.warning(this.$t('message.setting.pleaseInputTemplateNameFirst'));
       this.saveConfig(1, this.saveName);
     },
     closeWindow() {
       this.$msgbox({
-        title: '提示',
-        message: '关闭页面前请先保存数据，未保存的话数据会丢失',
+        title: this.$t('message.setting.tip'),
+        message: this.$t('message.setting.saveDataBeforeClosingPage'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('message.setting.cancel'),
+        confirmButtonText: this.$t('message.setting.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -881,7 +881,7 @@ export default {
     // 保存配置
     saveConfig(num, type, save) {
       if (this.mConfig.length == 0) {
-        return this.$message.error('暂未添加任何组件，保存失败！');
+        return this.$message.error(this.$t('message.setting.noComponentsAddedSaveFailed'));
       }
       if (num == 1) {
         this.loading = true;
@@ -971,11 +971,11 @@ export default {
     // 重置
     reast() {
       if (this.pageId == 0) {
-        this.$message.error('新增页面，无法重置');
+        this.$message.error(this.$t('message.setting.newPageCannotReset'));
       } else {
-        this.$confirm('此操作将清空模板内容, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('message.setting.clearTemplateContentConfirm'), this.$t('message.setting.tip'), {
+          confirmButtonText: this.$t('message.setting.confirm'),
+          cancelButtonText: this.$t('message.setting.cancel'),
           type: 'warning',
         }).then((res) => {
           this.mConfig = [];

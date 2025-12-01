@@ -10,18 +10,18 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.setting.search') + '：'">
             <div class="acea-row row-middle">
               <el-input
                 clearable
-                placeholder="请输入语言Code"
+                :placeholder="$t('message.setting.pleaseInputLanguageCode')"
                 v-model="formValidate.keyword"
                 class="form_content_width"
               />
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">搜索</el-button>
+            <el-button type="primary" v-db-click @click="selChange">{{ $t('message.setting.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -29,35 +29,35 @@
     <el-card :bordered="false" shadow="never">
       <el-row>
         <el-col v-bind="grid">
-          <el-button type="primary" v-db-click @click="add">添加语言地区</el-button>
+          <el-button type="primary" v-db-click @click="add">{{ $t('message.setting.addLanguageRegion') }}</el-button>
         </el-col>
       </el-row>
-      <el-table ref="table" :data="tabList" class="ivu-mt mt14" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="编号" min-width="100">
+      <el-table ref="table" :data="tabList" class="ivu-mt mt14" v-loading="loading" :empty-text="$t('message.common.noData')">
+        <el-table-column :label="$t('message.common.number')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="浏览器语言识别码" min-width="100">
+        <el-table-column :label="$t('message.setting.browserLanguageCode')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="语言说明" min-width="100">
+        <el-table-column :label="$t('message.setting.languageDescription')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联语言" min-width="100">
+        <el-table-column :label="$t('message.setting.relatedLanguage')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.link_lang }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除地区语言', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deleteRegionLanguage'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

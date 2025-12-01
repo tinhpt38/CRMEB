@@ -4,7 +4,7 @@
       <el-card :bordered="false" shadow="never" class="ivu-mt mr20 card-tree">
         <div class="tree">
           <div class="main-btn">
-            <el-button class="mb10" type="primary" v-db-click @click="clickMenu(4)" long>新增分类</el-button>
+            <el-button class="mb10" type="primary" v-db-click @click="clickMenu(4)" long>{{ $t('message.setting.addCategory') }}</el-button>
           </div>
 
           <vue-tree-list
@@ -12,8 +12,8 @@
             @change-name="onChangeName"
             @delete-node="onDel"
             :model="treeData"
-            default-tree-node-name="默认文件夹"
-            default-leaf-node-name="默认接口名"
+            :default-tree-node-name="$t('message.setting.defaultFolder')"
+            :default-leaf-node-name="$t('message.setting.defaultInterfaceName')"
             v-bind:default-expanded="true"
           >
             <template v-slot:leafNameDisplay="slotProps">
@@ -40,9 +40,9 @@
                   </span>
                   <template slot="dropdown">
                     <el-dropdown-menu>
-                      <el-dropdown-item command="1" v-if="!slotProps.model.method">新增接口</el-dropdown-item>
-                      <el-dropdown-item command="2" v-if="!slotProps.model.method">编辑分类名</el-dropdown-item>
-                      <el-dropdown-item command="3">删除</el-dropdown-item>
+                      <el-dropdown-item command="1" v-if="!slotProps.model.method">{{ $t('message.setting.addInterface') }}</el-dropdown-item>
+                      <el-dropdown-item command="2" v-if="!slotProps.model.method">{{ $t('message.setting.editCategoryName') }}</el-dropdown-item>
+                      <el-dropdown-item command="3">{{ $t('message.setting.delete') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -83,7 +83,7 @@
                 class="submission mr20"
                 v-db-click
                 @click="isEdit = !isEdit"
-                >{{ isEdit ? '返回' : '编辑' }}</el-button
+                >{{ isEdit ? $t('message.setting.back') : $t('message.setting.edit') }}</el-button
               >
               <el-button
                 v-if="isEdit"
@@ -91,7 +91,7 @@
                 class="submission"
                 v-db-click
                 @click="handleSubmit('formValidate')"
-                >保存</el-button
+                >{{ $t('message.setting.save') }}</el-button
               >
             </div>
           </div>
@@ -106,19 +106,19 @@
           >
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">接口信息</div>
-                <el-form-item label="接口名称：" prop="name">
+                <div class="title">{{ $t('message.setting.interfaceInfo') }}</div>
+                <el-form-item :label="$t('message.setting.interfaceName') + '：'" prop="name">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
                     type="text"
                     :rows="4"
                     v-model.trim="formValidate.name"
-                    placeholder="请输入"
+                    :placeholder="$t('message.setting.pleaseEnter')"
                   />
                   <span v-else>{{ formValidate.name || '' }}</span>
                 </el-form-item>
-                <el-form-item label="请求类型：" prop="name">
+                <el-form-item :label="$t('message.setting.requestType') + '：'" prop="name">
                   <el-select v-if="isEdit" v-model="formValidate.method" style="width: 120px">
                     <el-option
                       v-for="(item, index) in requestTypeList"
@@ -131,14 +131,14 @@
                     formValidate.method || ''
                   }}</span>
                 </el-form-item>
-                <el-form-item label="功能描述：" prop="name">
+                <el-form-item :label="$t('message.setting.functionDescription') + '：'" prop="name">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.describe"
-                    placeholder="请输入"
+                    :placeholder="$t('message.setting.pleaseEnter')"
                   />
                   <span v-else class="text-area">{{ formValidate.describe || '' }}</span>
                 </el-form-item>
@@ -146,19 +146,19 @@
             </el-row>
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">调用方式</div>
-                <el-form-item label="调用内容：" prop="url">
+                <div class="title">{{ $t('message.setting.callMethod') }}</div>
+                <el-form-item :label="$t('message.setting.callContent') + '：'" prop="url">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
                     type="text"
                     :rows="4"
                     v-model.trim="formValidate.url"
-                    placeholder="请输入"
+                    :placeholder="$t('message.setting.pleaseEnter')"
                   />
                   <span v-else>{{ formValidate.url || '' }}</span>
                 </el-form-item>
-                <el-form-item label="请求参数：">
+                <el-form-item :label="$t('message.setting.requestParams') + '：'">
                   <vxe-table
                     resizable
                     show-overflow
@@ -172,13 +172,13 @@
                     :data="formValidate.request_params"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" width="300" :title="$t('message.setting.attribute')" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+                    <vxe-column field="type" :title="$t('message.setting.type')" width="200" :edit-render="{}">
                       <template #default="{ row }">
                         <!-- <vxe-select v-if="isEdit" v-model="row.type" type="text" :optionGroups="typeList"></vxe-select> -->
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
@@ -196,7 +196,7 @@
                     </vxe-select> -->
                       </template>
                     </vxe-column>
-                    <vxe-column field="must" title="必填" width="100" :edit-render="{}">
+                    <vxe-column field="must" :title="$t('message.setting.required')" width="100" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-checkbox
                           v-if="isEdit"
@@ -204,16 +204,16 @@
                           :unchecked-value="'0'"
                           :checked-value="'1'"
                         ></vxe-checkbox>
-                        <span v-else>{{ row.must == '1' ? '是' : '否' }}</span>
+                        <span v-else>{{ row.must == '1' ? $t('message.setting.yes') : $t('message.setting.no') }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="trip" title="说明" :edit-render="{}">
+                    <vxe-column field="trip" :title="$t('message.setting.description')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" width="200" v-if="isEdit">
+                    <vxe-column :title="$t('message.common.operation')" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -221,20 +221,20 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'xTable')"
-                          >插入</vxe-button
+                          >{{ $t('message.setting.insert') }}</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.setting.delete') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
 
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('xTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.setting.addParam') }}</el-button
                   >
                 </el-form-item>
-                <el-form-item label="返回参数：">
+                <el-form-item :label="$t('message.setting.returnParams') + '：'">
                   <vxe-table
                     resizable
                     show-overflow
@@ -248,13 +248,13 @@
                     :data="formValidate.return_params"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" title="属性" width="300" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" :title="$t('message.setting.attribute')" width="300" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+                    <vxe-column field="type" :title="$t('message.setting.type')" width="200" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
                           <vxe-option
@@ -273,13 +273,13 @@
                     >{{ row.must }}
                   </template>
                 </vxe-column> -->
-                    <vxe-column field="trip" title="说明" :edit-render="{}">
+                    <vxe-column field="trip" :title="$t('message.setting.description')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" width="200" v-if="isEdit">
+                    <vxe-column :title="$t('message.common.operation')" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -287,46 +287,46 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'resTable')"
-                          >插入</vxe-button
+                          >{{ $t('message.setting.insert') }}</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'resTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.setting.delete') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('resTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.setting.addParam') }}</el-button
                   >
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">调用示例</div>
-                <el-form-item label="请求数据示例：" prop="request_example">
+                <div class="title">{{ $t('message.setting.callExample') }}</div>
+                <el-form-item :label="$t('message.setting.requestDataExample') + '：'" prop="request_example">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.request_example"
-                    placeholder="请输入"
+                    :placeholder="$t('message.setting.pleaseEnter')"
                   />
                   <span v-else class="text-area">{{ formValidate.request_example || '' }}</span>
                 </el-form-item>
-                <el-form-item label="返回数据示例：" prop="return_example">
+                <el-form-item :label="$t('message.setting.returnDataExample') + '：'" prop="return_example">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.return_example"
-                    placeholder="请输入"
+                    :placeholder="$t('message.setting.pleaseEnter')"
                   />
                   <span v-else class="text-area">{{ formValidate.return_example || '' }}</span>
                 </el-form-item>
-                <el-form-item label="错误码：">
+                <el-form-item :label="$t('message.setting.errorCode') + '：'">
                   <vxe-table
                     resizable
                     show-overflow
@@ -340,34 +340,34 @@
                     :data="formValidate.error_code"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="code" title="错误码" tree-node :edit-render="{}">
+                    <vxe-column field="code" :title="$t('message.setting.errorCode')" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.code" type="text"></vxe-input>
                         <span v-else>{{ row.code || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="value" title="错误码取值" :edit-render="{}">
+                    <vxe-column field="value" :title="$t('message.setting.errorCodeValue')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.value" type="text"></vxe-input>
                         <span v-else>{{ row.value || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="solution" title="解决方案" :edit-render="{}">
+                    <vxe-column field="solution" :title="$t('message.setting.solution')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.solution" type="text"></vxe-input>
                         <span v-else>{{ row.solution || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" v-if="isEdit">
+                    <vxe-column :title="$t('message.common.operation')" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'codeTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.setting.delete') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('codeTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.setting.addParam') }}</el-button
                   >
                 </el-form-item>
               </el-col>
@@ -375,7 +375,7 @@
             <!-- <el-row :gutter="24" >
               <el-col :span="24">
                 <el-form-item>
-                  <el-button type="primary" class="submission" v-db-click @click="handleSubmit('formValidate')">保存</el-button>
+                  <el-button type="primary" class="submission" v-db-click @click="handleSubmit('formValidate')">{{ $t('message.setting.save') }}</el-button>
                 </el-form-item>
               </el-col>
             </el-row> -->
@@ -397,12 +397,12 @@
         </div> -->
       </el-card>
     </div>
-    <el-dialog :visible.sync="nameModal" width="470px" title="分组名称" @on-ok="asyncOK">
-      <label>分组名称：</label>
-      <el-input v-model="value" placeholder="请输入分组名称" style="width: 85%" />
+    <el-dialog :visible.sync="nameModal" width="470px" :title="$t('message.setting.groupName')" @on-ok="asyncOK">
+      <label>{{ $t('message.setting.groupName') }}：</label>
+      <el-input v-model="value" :placeholder="$t('message.setting.pleaseInputGroupName')" style="width: 85%" />
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="nameModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="asyncOK">确 定</el-button>
+        <el-button v-db-click @click="nameModal = false">{{ $t('message.setting.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="asyncOK">{{ $t('message.setting.confirm') }}</el-button>
       </span>
     </el-dialog>
     <el-dialog :visible.sync="debuggingModal" :title="formValidate.name" width="1000px">
@@ -442,9 +442,7 @@ export default {
         sm: 24,
         xs: 24,
       },
-      ruleValidate: {
-        title: [{ message: '请输入正确的描述 (不能多于200位数)', trigger: 'blur', max: 200 }],
-      },
+      ruleValidate: {},
       loading: false,
 
       typeList: [
@@ -531,9 +529,15 @@ export default {
     },
   },
   created() {
+    this.initRuleValidate();
     this.getInterfaceList('one');
   },
   methods: {
+    initRuleValidate() {
+      this.ruleValidate = {
+        title: [{ message: this.$t('message.setting.pleaseInputCorrectDescription'), trigger: 'blur', max: 200 }],
+      };
+    },
     debugging() {
       this.debuggingModal = true;
     },
@@ -587,11 +591,11 @@ export default {
     },
     async handleSubmit() {
       if (!this.formValidate.name) {
-        return this.$message.warning('请输入接口名称');
+        return this.$message.warning(this.$t('message.setting.pleaseInputInterfaceName'));
       } else if (!this.formValidate.method) {
-        return this.$message.warning('请选择请求类型');
+        return this.$message.warning(this.$t('message.setting.pleaseSelectRequestType'));
       } else if (!this.formValidate.url) {
-        return this.$message.warning('请输入调用方式');
+        return this.$message.warning(this.$t('message.setting.pleaseInputCallMethod'));
       }
       this.formValidate.request_params = await this.$refs.xTable.getTableData().tableData;
       this.formValidate.return_params = await this.$refs.resTable.getTableData().tableData;
@@ -807,11 +811,11 @@ export default {
     //
     onDel(node) {
       this.$msgbox({
-        title: '提示',
-        message: '删除后无法恢复，请确认后删除！',
+        title: this.$t('message.setting.tip'),
+        message: this.$t('message.setting.cannotRecoverAfterDelete'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('message.setting.cancel'),
+        confirmButtonText: this.$t('message.setting.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })

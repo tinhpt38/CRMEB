@@ -239,7 +239,7 @@ export default {
           if (formData.site_name) {
             localStorage.setItem('ADMIN_TITLE', formData.site_name);
             this.$store.commit('setAdminTitle', formData.site_name);
-            window.document.title = `${formData.site_name} - 系统设置`;
+            window.document.title = `${formData.site_name} - ${this.$t('message.setting.systemSettings')}`;
           }
         })
         .catch((res) => {

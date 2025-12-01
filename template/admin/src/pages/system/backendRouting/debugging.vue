@@ -184,7 +184,7 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.headerData"
         >
-          <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="300" :title="$t('message.systemMenus.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
@@ -194,7 +194,7 @@
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column title="操作" width="100">
+          <vxe-column :title="$t('message.systemMenus.operation')" width="100">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -202,13 +202,13 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'zTable')"
-                >插入</vxe-button
+                >{{ $t('message.systemMenus.insert') }}</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">删除</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">{{ $t('message.systemMenus.delete') }}</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
-        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('zTable')">添加参数</el-button>
+        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('zTable')">{{ $t('message.systemMenus.addParam') }}</el-button>
       </div>
     </div>
     <div class="res mt10 mb10" v-if="codes">

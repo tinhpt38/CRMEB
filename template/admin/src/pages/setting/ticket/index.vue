@@ -12,17 +12,17 @@
           :label-position="labelPosition"
           @submit.native.prevent
         >
-          <el-form-item label="打印机名称：">
+          <el-form-item :label="$t('message.setting.printerName') + '：'">
             <el-input
               v-model="specsFrom.keyword"
-              placeholder="请输入打印机名称"
+              :placeholder="$t('message.setting.pleaseInputPrinterName')"
               class="form_content_width"
               clearable
               @clear="specsSearchs"
               @change="specsSearchs"
             ></el-input>
           </el-form-item>
-          <el-form-item label="平台选择：">
+          <el-form-item :label="$t('message.setting.platformSelection') + '：'">
             <el-select
               class="form_content_width mr10"
               v-model="specsFrom.type"
@@ -32,13 +32,13 @@
             >
               <el-option v-for="(item, i) in optionsList" :value="item.value" :label="item.label" :key="i"></el-option>
             </el-select>
-            <el-button type="primary" @click="specsSearchs">查询</el-button>
+            <el-button type="primary" @click="specsSearchs">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button type="primary" v-db-click @click="add">添加打印机</el-button>
+      <el-button type="primary" v-db-click @click="add">{{ $t('message.setting.addPrinter') }}</el-button>
       <!-- 商品参数表格 -->
       <el-table
         :data="list"
@@ -46,42 +46,41 @@
         class="mt25"
         :loading="loading"
         highlight-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
       >
-        <el-table-column label="ID" min-width="50">
+        <el-table-column :label="$t('message.common.id')" min-width="50">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="打印机名称" min-width="120">
+        <el-table-column :label="$t('message.setting.printerName')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.print_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="平台" min-width="100">
+        <el-table-column :label="$t('message.setting.platform')" min-width="100">
           <template slot-scope="scope">
-            <span v-if="scope.row.type == 1">易联云</span>
-            <span v-if="scope.row.type == 2">飞鹅云</span>
+            <span v-if="scope.row.type == 1">{{ $t('message.setting.yilianyun') }}</span>
+            <span v-if="scope.row.type == 2">{{ $t('message.setting.feieyun') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="应用账号" min-width="100">
+        <el-table-column :label="$t('message.setting.applicationAccount')" min-width="100">
           <template slot-scope="scope">
             <span v-if="scope.row.type == 1">{{ scope.row.yly_app_id }}</span>
             <span v-if="scope.row.type == 2">{{ scope.row.fey_user }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="打印联数" min-width="80">
+        <el-table-column :label="$t('message.setting.printCopies')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.times }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" min-width="130">
+        <el-table-column :label="$t('message.setting.createTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="打印开关" min-width="100">
+        <el-table-column :label="$t('message.setting.printSwitch')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -91,19 +90,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.setting.open')"
+              :inactive-text="$t('message.setting.close')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a @click="setting(scope.row.id)">设计</a>
+            <a @click="setting(scope.row.id)">{{ $t('message.setting.design') }}</a>
             <el-divider direction="vertical" />
-            <a @click="edit(scope.row.id)">编辑</a>
+            <a @click="edit(scope.row.id)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical" />
-            <a @click="del(scope.row, '删除打印机', scope.$index)">删除</a>
+            <a @click="del(scope.row, $t('message.setting.deletePrinter'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -136,20 +135,7 @@ export default {
         xs: 24,
       },
       loading: false,
-      optionsList: [
-        {
-          value: '0',
-          label: '全部',
-        },
-        {
-          value: '1',
-          label: '易联云',
-        },
-        {
-          value: '2',
-          label: '飞鹅云',
-        },
-      ],
+      optionsList: [],
       columns: [
         {
           title: 'ID',
@@ -213,8 +199,26 @@ export default {
     },
   },
   created() {
+    this.initOptionsList();
     this.getList();
   },
+  methods: {
+    initOptionsList() {
+      this.optionsList = [
+        {
+          value: '0',
+          label: this.$t('message.setting.all'),
+        },
+        {
+          value: '1',
+          label: this.$t('message.setting.yilianyun'),
+        },
+        {
+          value: '2',
+          label: this.$t('message.setting.feieyun'),
+        },
+      ];
+    },
   methods: {
     specsSearchs() {
       this.specsFrom.page = 1;
@@ -296,7 +300,8 @@ export default {
         });
     },
   },
-};
+},
+}
 </script>
 
 <style lang="scss" scoped>

@@ -42,7 +42,7 @@
         :no-userFrom-text="$t('message.common.noData')"
         :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>

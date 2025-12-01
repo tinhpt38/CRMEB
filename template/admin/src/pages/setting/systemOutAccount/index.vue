@@ -3,11 +3,11 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-alert type="warning" :closable="false" class="alert-info">
         <template slot="title">
-          获取访问 Token 的接口:<br />
-          请求 URL: /outapi/access_token 请求方式: POST 请求参数: appid和appsecret 返回数据: access_token: 访问令牌
-          exp_time: 令牌过期时间 auth_info: 授权信息<br />
-          使用获取到的 Token 访问对外接口:<br />
-          在 HTTP 请求头中添加 Authorization 字段 字段值为 Bearer access_token(注意 Bearer 后有一个空格)
+          {{ $t('message.setting.getAccessTokenInterface') }}:<br />
+          {{ $t('message.setting.requestUrl') }}: /outapi/access_token {{ $t('message.setting.requestMethod') }}: POST {{ $t('message.setting.requestParams') }}: appid{{ $t('message.setting.and') }}appsecret {{ $t('message.setting.returnData') }}: access_token: {{ $t('message.setting.accessToken') }}
+          exp_time: {{ $t('message.setting.tokenExpirationTime') }} auth_info: {{ $t('message.setting.authorizationInfo') }}<br />
+          {{ $t('message.setting.useTokenToAccessExternalInterface') }}:<br />
+          {{ $t('message.setting.addAuthorizationFieldInHttpHeader') }} {{ $t('message.setting.fieldValueIsBearerAccessToken') }}
         </template>
       </el-alert>
       <el-form
@@ -19,49 +19,48 @@
       >
         <el-row>
           <el-col v-bind="grid">
-            <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">添加账号</el-button>
+            <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">{{ $t('message.setting.addAccount') }}</el-button>
           </el-col>
         </el-row>
       </el-form>
       <el-table
         :data="list"
         class="mt14"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
         v-loading="loading"
         highlight-current-row
       >
-        <el-table-column label="编号" width="80">
+        <el-table-column :label="$t('message.setting.number')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="账号" min-width="130">
+        <el-table-column :label="$t('message.setting.account')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.appid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="描述" min-width="130">
+        <el-table-column :label="$t('message.setting.description')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.setting.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最后登录时间" min-width="130">
+        <el-table-column :label="$t('message.setting.lastLoginTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.last_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最后登录ip" min-width="130">
+        <el-table-column :label="$t('message.setting.lastLoginIp')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="130">
+        <el-table-column :label="$t('message.setting.status')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -71,19 +70,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.setting.open')"
+              :inactive-text="$t('message.setting.close')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="140">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="140">
           <template slot-scope="scope">
-            <a v-db-click @click="setUp(scope.row)">设置</a>
+            <a v-db-click @click="setUp(scope.row)">{{ $t('message.setting.settings') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除账号', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deleteAccount'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -99,7 +98,7 @@
     </el-card>
     <el-dialog
       :visible.sync="modals"
-      :title="type == 0 ? '添加账号' : '编辑账号'"
+      :title="type == 0 ? $t('message.setting.addAccount') : $t('message.setting.editAccount')"
       :close-on-click-modal="false"
       :show-close="true"
       width="720px"
@@ -111,23 +110,23 @@
         label-width="80px"
         label-position="top"
       >
-        <el-form-item label="账号：" prop="appid">
+        <el-form-item :label="$t('message.setting.account') + '：'" prop="appid">
           <div style="display: flex">
             <el-input type="text" v-model="modalsdate.appid" :disabled="type != 0"></el-input>
           </div>
         </el-form-item>
-        <el-form-item label="密码：" prop="appsecret">
+        <el-form-item :label="$t('message.setting.password') + '：'" prop="appsecret">
           <div style="display: flex">
             <el-input type="text" v-model="modalsdate.appsecret" class="input"></el-input>
-            <el-button type="primary" v-db-click @click="reset" class="reset">随机</el-button>
+            <el-button type="primary" v-db-click @click="reset" class="reset">{{ $t('message.setting.random') }}</el-button>
           </div>
         </el-form-item>
-        <el-form-item label="描述：" prop="title">
+        <el-form-item :label="$t('message.setting.description') + '：'" prop="title">
           <div style="display: flex">
             <el-input type="textarea" v-model="modalsdate.title"></el-input>
           </div>
         </el-form-item>
-        <el-form-item label="接口权限：" prop="title">
+        <el-form-item :label="$t('message.setting.interfacePermission') + '：'" prop="title">
           <!-- <el-checkbox-group v-model="modalsdate.rules">
             <el-checkbox
               :disabled="[2, 3].includes(item.id)"
@@ -151,14 +150,14 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="ok('modalsdate')">确 定</el-button>
+        <el-button v-db-click @click="cancel">{{ $t('message.setting.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="ok('modalsdate')">{{ $t('message.setting.confirm') }}</el-button>
       </span>
     </el-dialog>
     <el-dialog
       :visible.sync="settingModals"
       scrollable
-      title="设置推送"
+      :title="$t('message.setting.setPush')"
       width="1000px"
       :close-on-click-modal="false"
       :show-close="true"
@@ -171,82 +170,80 @@
         label-width="155px"
         label-position="top"
       >
-        <el-form-item label="推送开关：" prop="switch">
+        <el-form-item :label="$t('message.setting.pushSwitch') + '：'" prop="switch">
           <el-switch v-model="settingData.push_open" :active-value="1" :inactive-value="0" />
         </el-form-item>
-        <el-form-item label="推送账号：" prop="push_account">
+        <el-form-item :label="$t('message.setting.pushAccount') + '：'" prop="push_account">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.push_account" placeholder="请输入推送账号"></el-input>
-            <span class="tips-info">接受推送方获取token的账号</span>
+            <el-input type="text" v-model="settingData.push_account" :placeholder="$t('message.setting.pleaseInputPushAccount')"></el-input>
+            <span class="tips-info">{{ $t('message.setting.pushAccountTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="推送密码：" prop="push_password">
+        <el-form-item :label="$t('message.setting.pushPassword') + '：'" prop="push_password">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.push_password" placeholder="请输入推送密码"></el-input>
-            <span class="tips-info">接受推送方获取token的密码</span>
+            <el-input type="text" v-model="settingData.push_password" :placeholder="$t('message.setting.pleaseInputPushPassword')"></el-input>
+            <span class="tips-info">{{ $t('message.setting.pushPasswordTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="获取TOKEN接口：" prop="push_token_url">
+        <el-form-item :label="$t('message.setting.getTokenInterface') + '：'" prop="push_token_url">
           <div class="form-content">
             <div class="input-button">
-              <el-input type="text" v-model="settingData.push_token_url" placeholder="请输入获取TOKEN接口"></el-input>
-              <el-button class="ml10" type="primary" v-db-click @click="textOutUrl(settingData.id)">测试链接</el-button>
+              <el-input type="text" v-model="settingData.push_token_url" :placeholder="$t('message.setting.pleaseInputGetTokenInterface')"></el-input>
+              <el-button class="ml10" type="primary" v-db-click @click="textOutUrl(settingData.id)">{{ $t('message.setting.testLink') }}</el-button>
             </div>
-            <span class="tips-info"
-              >接受推送方获取token的URL地址，POST方法，传入push_account和push_password，返回token和有效时间time(秒)</span
-            >
+            <span class="tips-info">{{ $t('message.setting.getTokenInterfaceTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="用户数据修改推送接口：" prop="user_update_push">
+        <el-form-item :label="$t('message.setting.userDataUpdatePushInterface') + '：'" prop="user_update_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.user_update_push"
-              placeholder="请输入用户数据修改推送接口"
+              :placeholder="$t('message.setting.pleaseInputUserDataUpdatePushInterface')"
             ></el-input>
-            <span class="tips-info">用户修改积分，余额，经验等将用户信息推送至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.setting.userDataUpdatePushInterfaceTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="订单创建推送接口：" prop="order_create_push">
+        <el-form-item :label="$t('message.setting.orderCreatePushInterface') + '：'" prop="order_create_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.order_create_push"
-              placeholder="请输入订单创建推送接口"
+              :placeholder="$t('message.setting.pleaseInputOrderCreatePushInterface')"
             ></el-input>
-            <span class="tips-info">订单创建时推送订单信息至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.setting.orderCreatePushInterfaceTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="订单支付推送接口：" prop="order_pay_push">
+        <el-form-item :label="$t('message.setting.orderPayPushInterface') + '：'" prop="order_pay_push">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.order_pay_push" placeholder="请输入订单支付推送接口"></el-input>
-            <span class="tips-info">订单完成支付时推送订单已支付信息至该地址，POST方法</span>
+            <el-input type="text" v-model="settingData.order_pay_push" :placeholder="$t('message.setting.pleaseInputOrderPayPushInterface')"></el-input>
+            <span class="tips-info">{{ $t('message.setting.orderPayPushInterfaceTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="售后订单创建推送接口：" prop="refund_create_push">
+        <el-form-item :label="$t('message.setting.refundCreatePushInterface') + '：'" prop="refund_create_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.refund_create_push"
-              placeholder="请输入售后订单创建推送接口"
+              :placeholder="$t('message.setting.pleaseInputRefundCreatePushInterface')"
             ></el-input>
-            <span class="tips-info">售后订单生成时推送售后单信息至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.setting.refundCreatePushInterfaceTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="售后订单取消推送接口：" prop="refund_cancel_push">
+        <el-form-item :label="$t('message.setting.refundCancelPushInterface') + '：'" prop="refund_cancel_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.refund_cancel_push"
-              placeholder="请输入售后订单取消推送接口"
+              :placeholder="$t('message.setting.pleaseInputRefundCancelPushInterface')"
             ></el-input>
-            <span class="tips-info">售后订单取消时推送售后单取消信息至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.setting.refundCancelPushInterfaceTip') }}</span>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button type="primary" v-db-click @click="submit('settingData')">确定</el-button>
-        <el-button v-db-click @click="settingModals = false">取消</el-button>
+        <el-button type="primary" v-db-click @click="submit('settingData')">{{ $t('message.setting.confirm') }}</el-button>
+        <el-button v-db-click @click="settingModals = false">{{ $t('message.setting.cancel') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -307,14 +304,8 @@ export default {
         switch: 1,
         name: '',
       },
-      ruleValidate: {
-        appid: [{ required: true, message: '请输入正确的账号 (4到30位之间)', trigger: 'blur', min: 4, max: 30 }],
-        appsecret: [{ required: true, message: '请输入正确的密码 (6到32位之间)', trigger: 'blur', min: 6, max: 32 }],
-        title: [{ message: '请输入正确的描述 (不能多于200位数)', trigger: 'blur', max: 200 }],
-      },
-      editValidate: {
-        appsecret: [{ required: false, message: '请输入正确的密码 (6到32位之间)', trigger: 'blur', min: 6, max: 32 }],
-      },
+      ruleValidate: {},
+      editValidate: {},
       props: {
         label: 'title',
         disabled: 'disableCheckbox',
@@ -332,9 +323,20 @@ export default {
     },
   },
   created() {
+    this.initValidationRules();
     this.getList();
   },
   methods: {
+    initValidationRules() {
+      this.ruleValidate = {
+        appid: [{ required: true, message: this.$t('message.setting.pleaseInputCorrectAccount'), trigger: 'blur', min: 4, max: 30 }],
+        appsecret: [{ required: true, message: this.$t('message.setting.pleaseInputCorrectPassword'), trigger: 'blur', min: 6, max: 32 }],
+        title: [{ message: this.$t('message.setting.pleaseInputCorrectDescription'), trigger: 'blur', max: 200 }],
+      };
+      this.editValidate = {
+        appsecret: [{ required: false, message: this.$t('message.setting.pleaseInputCorrectPassword'), trigger: 'blur', min: 6, max: 32 }],
+      };
+    },
     // 开启状态
     onchangeIsShow(row) {
       let data = {
@@ -519,7 +521,7 @@ export default {
               this.$message.error(err.msg);
             });
         } else {
-          this.$message.warning('请完善数据');
+          this.$message.warning(this.$t('message.setting.pleaseCompleteData'));
         }
       });
     },

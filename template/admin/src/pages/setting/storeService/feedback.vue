@@ -11,7 +11,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="留言时间：">
+          <el-form-item :label="$t('message.setting.messageTime') + '：'">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -20,64 +20,64 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.setting.startDate')"
+              :end-placeholder="$t('message.setting.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="留言信息：">
+          <el-form-item :label="$t('message.setting.messageInfo') + '：'">
             <el-input
               clearable
-              placeholder="请输入用户昵称/电话/留言内容搜索"
+              :placeholder="$t('message.setting.pleaseInputUserNicknamePhoneOrMessageContent')"
               v-model="formValidate.title"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">查询</el-button>
+            <el-button type="primary" v-db-click @click="selChange">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-table :data="list" v-loading="loading" no-userFrom-text="暂无数据" no-filtered-userFrom-text="暂无筛选结果">
-        <el-table-column label="ID" width="80">
+      <el-table :data="list" v-loading="loading" :empty-text="$t('message.common.noData')">
+        <el-table-column :label="$t('message.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="昵称" min-width="130">
+        <el-table-column :label="$t('message.setting.nickname')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.rela_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="电话" min-width="130">
+        <el-table-column :label="$t('message.setting.phone')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="内容" min-width="130">
+        <el-table-column :label="$t('message.setting.content')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="130">
+        <el-table-column :label="$t('message.setting.status')" min-width="130">
           <template slot-scope="scope">
-            <div>{{ scope.row.status === 1 ? '已处理' : '未处理' }}</div>
+            <div>{{ scope.row.status === 1 ? $t('message.setting.processed') : $t('message.setting.unprocessed') }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="时间" min-width="130">
+        <el-table-column :label="$t('message.setting.time')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="remarks(scope.row.id)">{{ scope.row.status === 1 ? '备注' : '处理' }}</a>
+            <a v-db-click @click="remarks(scope.row.id)">{{ scope.row.status === 1 ? $t('message.setting.remark') : $t('message.setting.process') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除反馈', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deleteFeedback'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form ref="formValidate" :model="formValidate" inline label-width="80px" @submit.native.prevent>
-          <el-form-item label="核销日期：">
+          <el-form-item :label="$t('message.setting.verificationDate') + '：'">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -12,31 +12,31 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.setting.startDate')"
+              :end-placeholder="$t('message.setting.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="筛选条件：">
+          <el-form-item :label="$t('message.setting.filterCondition') + '：'">
             <el-input
               enter-button
-              placeholder="请输入搜索内容"
+              :placeholder="$t('message.setting.pleaseInputSearchContent')"
               v-model="formValidate.real_name"
               class="form_content_width"
             >
               <el-select v-model="field_key" slot="prepend" style="width: 100px">
-                <el-option value="all" label="全部"></el-option>
-                <el-option value="order_id" label="订单号"></el-option>
-                <el-option value="uid" label="UID"></el-option>
-                <el-option value="real_name" label="用户姓名"></el-option>
-                <el-option value="user_phone" label="用户电话"></el-option>
-                <el-option value="title" label="商品名称(模糊)"></el-option>
+                <el-option value="all" :label="$t('message.setting.all')"></el-option>
+                <el-option value="order_id" :label="$t('message.setting.orderNumber')"></el-option>
+                <el-option value="uid" :label="$t('message.setting.uid')"></el-option>
+                <el-option value="real_name" :label="$t('message.setting.userName')"></el-option>
+                <el-option value="user_phone" :label="$t('message.setting.userPhone')"></el-option>
+                <el-option value="title" :label="$t('message.setting.productNameFuzzy')"></el-option>
               </el-select>
             </el-input>
           </el-form-item>
-          <el-form-item label="选择门店：">
+          <el-form-item :label="$t('message.setting.selectStore') + '：'">
             <el-select
               v-model="formValidate.store_id"
               element-id="store_id"
@@ -48,7 +48,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="">
-            <el-button type="primary" class="mr15" v-db-click @click="userSearchs">搜索</el-button>
+            <el-button type="primary" class="mr15" v-db-click @click="userSearchs">{{ $t('message.common.search') }}</el-button>
             <!--            <el-button class="mr15" v-db-click @click="refresh">刷新</el-button>-->
           </el-form-item>
         </el-form>
@@ -60,20 +60,20 @@
         ref="table"
         v-loading="loading"
         highlight-current-row
-        empty-text="暂无数据"
+        :empty-text="$t('message.common.noData')"
         class="orderData"
       >
-        <el-table-column label="订单号" min-width="180">
+        <el-table-column :label="$t('message.setting.orderNumber')" min-width="180">
           <template slot-scope="scope">
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户信息" min-width="120">
+        <el-table-column :label="$t('message.setting.userInfo')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}/{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品信息" min-width="250">
+        <el-table-column :label="$t('message.setting.productInfo')" min-width="250">
           <template slot-scope="scope">
             <div class="tab" v-for="(item, i) in scope.row._info" :key="i">
               <img
@@ -86,21 +86,21 @@
               <el-tooltip placement="top" :open-delay="300">
                 <div slot="content">
                   <div>
-                    <span>商品名称：</span>
+                    <span>{{ $t('message.setting.productName') }}：</span>
                     <span>{{ item.cart_info.productInfo.store_name || '--' }}</span>
                   </div>
                   <div>
-                    <span>规格名称：</span>
+                    <span>{{ $t('message.setting.specificationName') }}：</span>
                     <span>{{
                       item.cart_info.productInfo.attrInfo ? item.cart_info.productInfo.attrInfo.suk : '---'
                     }}</span>
                   </div>
                   <div>
-                    <span>价格：</span>
+                    <span>{{ $t('message.setting.price') }}：</span>
                     <span>¥{{ item.cart_info.truePrice || '--' }}</span>
                   </div>
                   <div>
-                    <span>数量：</span>
+                    <span>{{ $t('message.setting.quantity') }}：</span>
                     <span>{{ item.cart_info.cart_num || '--' }}</span>
                   </div>
                 </div>
@@ -109,32 +109,32 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="实际支付" min-width="90">
+        <el-table-column :label="$t('message.setting.actualPayment')" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="核销员" min-width="90">
+        <el-table-column :label="$t('message.setting.clerk')" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.clerk_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="核销门店" min-width="120">
+        <el-table-column :label="$t('message.setting.verificationStore')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.store_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付状态" min-width="80">
+        <el-table-column :label="$t('message.setting.paymentStatus')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_type_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="订单状态" min-width="80">
+        <el-table-column :label="$t('message.setting.orderStatus')" min-width="80">
           <template slot-scope="scope">
             <span> {{ scope.row.status_name.status_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="下单时间" min-width="150">
+        <el-table-column :label="$t('message.setting.orderTime')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>

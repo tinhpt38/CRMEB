@@ -4,8 +4,8 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right" v-if="cardShow == 1 || cardShow == 2">
-          <el-button class="bnt" type="primary" v-db-click @click="submit" :loading="loadingExist">保存</el-button>
-          <el-button v-if="cardShow == 1" class="bnt ml20" v-db-click @click="reast">重置</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="submit" :loading="loadingExist">{{ $t('message.setting.save') }}</el-button>
+          <el-button v-if="cardShow == 1" class="bnt ml20" v-db-click @click="reast">{{ $t('message.setting.reset') }}</el-button>
         </div>
       </div>
     </div>
@@ -18,7 +18,7 @@
         <div class="table-box">
           <div class="acea-row row-between-wrapper">
             <div class="button acea-row row-middle">
-              <el-button class="m-r-10" type="primary" @click="createdPage">添加页面</el-button>
+              <el-button class="m-r-10" type="primary" @click="createdPage">{{ $t('message.setting.addPage') }}</el-button>
               <el-upload
                 :action="UploadPath"
                 :before-upload="beforeUpload"
@@ -29,7 +29,7 @@
                 accept=".txt"
                 :headers="header"
               >
-                <el-button type="primary">导入模板</el-button>
+                <el-button type="primary">{{ $t('message.setting.importTemplate') }}</el-button>
               </el-upload>
             </div>
           </div>
@@ -39,36 +39,35 @@
             class="mt14"
             v-loading="loading"
             highlight-current-row
-            no-userFrom-text="暂无数据"
-            no-filtered-userFrom-text="暂无筛选结果"
+            :empty-text="$t('message.common.noData')"
           >
-            <el-table-column label="页面ID" width="80">
+            <el-table-column :label="$t('message.setting.pageId')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="模板名称" min-width="130">
+            <el-table-column :label="$t('message.setting.templateName')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="模板类型" min-width="130">
+            <el-table-column :label="$t('message.setting.templateType')" min-width="130">
               <template slot-scope="scope">
-                <el-tag type="success" size="medium" v-if="scope.row.status == 1">首页</el-tag>
-                <el-tag type="info" size="medium" v-else class="mr10">专题页</el-tag>
+                <el-tag type="success" size="medium" v-if="scope.row.status == 1">{{ $t('message.setting.homePage') }}</el-tag>
+                <el-tag type="info" size="medium" v-else class="mr10">{{ $t('message.setting.topicPage') }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="添加时间" min-width="130">
+            <el-table-column :label="$t('message.setting.addTime')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="更新时间" min-width="130">
+            <el-table-column :label="$t('message.setting.updateTime')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.update_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="210">
+            <el-table-column :label="$t('message.common.operation')" fixed="right" width="210">
               <template slot-scope="scope">
                 <div
                   style="display: inline-block"
@@ -84,9 +83,9 @@
                       scope.row.template_name || 'moren'
                     }`"
                   >
-                    编辑</a
+                    {{ $t('message.setting.edit') }}</a
                   >
-                  <a v-else class="target">编辑</a>
+                  <a v-else class="target">{{ $t('message.setting.edit') }}</a>
                 </div>
                 <el-divider
                   direction="vertical"
@@ -94,22 +93,22 @@
                 />
 
                 <div style="display: inline-block" v-if="scope.row.id != 1 && scope.row.status != 1">
-                  <a v-db-click @click="del(scope.row, '删除此模板', scope.$index)">删除</a>
+                  <a v-db-click @click="del(scope.row, $t('message.setting.deleteThisTemplate'), scope.$index)">{{ $t('message.setting.delete') }}</a>
                 </div>
                 <el-divider
                   direction="vertical"
                   v-if="(scope.row.id != 1 && scope.row.status != 1) || scope.row.is_diy"
                 />
                 <div style="display: inline-block" v-if="scope.row.is_diy">
-                  <a v-db-click @click="preview(scope.row, scope.$index)">预览</a>
+                  <a v-db-click @click="preview(scope.row, scope.$index)">{{ $t('message.setting.preview') }}</a>
                 </div>
                 <el-divider direction="vertical" v-if="scope.row.is_diy && scope.row.status != 1" />
                 <div style="display: inline-block" v-if="scope.row.status != 1">
-                  <a v-db-click @click="setStatus(scope.row, scope.$index)">设为首页</a>
+                  <a v-db-click @click="setStatus(scope.row, scope.$index)">{{ $t('message.setting.setAsHomePage') }}</a>
                 </div>
                 <el-divider direction="vertical" />
                 <div style="display: inline-block">
-                  <a v-db-click @click="exportView(scope.row.id)">导出模版</a>
+                  <a v-db-click @click="exportView(scope.row.id)">{{ $t('message.setting.exportTemplate') }}</a>
                 </div>
               </template>
             </el-table-column>
@@ -128,7 +127,7 @@
     </el-card>
     <goodClass v-else-if="cardShow == 1" ref="category" @parentFun="getChildData"></goodClass>
     <users v-else ref="users" @parentFun="getChildData"></users>
-    <el-dialog :visible.sync="isTemplate" title="开发移动端链接" :z-index="1" width="540px" @closed="cancel">
+    <el-dialog :visible.sync="isTemplate" :title="$t('message.setting.developMobileLink')" :z-index="1" width="540px" @closed="cancel">
       <div class="article-manager">
         <el-card :bordered="false" shadow="never" class="ivu-mt">
           <el-form
@@ -142,7 +141,7 @@
             <el-row :gutter="24">
               <el-col :span="24">
                 <el-col>
-                  <el-form-item label="开发移动端链接：" prop="link" label-for="link">
+                  <el-form-item :label="$t('message.setting.developMobileLink') + '：'" prop="link" label-for="link">
                     <el-input v-model="formItem.link" placeholder="http://localhost:8080" />
                   </el-form-item>
                 </el-col>
@@ -152,21 +151,21 @@
         </el-card>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">提交</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">{{ $t('message.setting.submit') }}</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="modal" width="540px" title="预览">
+    <el-dialog :visible.sync="modal" width="540px" :title="$t('message.setting.preview')">
       <div>
         <div v-viewer class="acea-row row-around code">
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic" ref="qrCodeUrl"></div>
-            <span class="mt10">公众号二维码</span>
+            <span class="mt10">{{ $t('message.setting.officialAccountQRCode') }}</span>
           </div>
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic">
               <img v-lazy="qrcodeImg" />
             </div>
-            <span class="mt10">小程序二维码</span>
+            <span class="mt10">{{ $t('message.setting.miniProgramQRCode') }}</span>
           </div>
         </div>
       </div>
@@ -331,10 +330,10 @@ export default {
       this.cardShow = index;
     },
     onCopy() {
-      this.$message.success('复制预览链接成功');
+      this.$message.success(this.$t('message.setting.copyPreviewLinkSuccess'));
     },
     onError() {
-      this.$message.error('复制预览链接失败');
+      this.$message.error(this.$t('message.setting.copyPreviewLinkFailed'));
     },
     //生成二维码
     creatQrCode(id) {
@@ -422,7 +421,7 @@ export default {
       this.formItem.id = row.id;
       if (!row.is_diy) {
         if (!row.status) {
-          this.$message.error('请先设为首页在进行编辑');
+          this.$message.error(this.$t('message.setting.setAsHomePageFirst'));
         } else {
           this.$router.push({
             path: this.$routeProStr + '/setting/pages/diy',
@@ -464,11 +463,11 @@ export default {
     // 使用模板
     async setStatus(row) {
       this.$msgbox({
-        title: '提示',
-        message: '是否把该模板设为首页',
+        title: this.$t('message.setting.tip'),
+        message: this.$t('message.setting.setTemplateAsHomePage'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('message.setting.cancel'),
+        confirmButtonText: this.$t('message.setting.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })

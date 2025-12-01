@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-row>
         <el-col v-bind="grid">
-          <el-button v-auth="['admin-template']" type="primary" v-db-click @click="add">添加模板</el-button>
+          <el-button v-auth="['admin-template']" type="primary" v-db-click @click="add">{{ $t('message.setting.addTemplate') }}</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -12,51 +12,50 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
       >
-        <el-table-column label="页面ID" width="90">
+        <el-table-column :label="$t('message.setting.pageId')" width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="页面名称" min-width="130">
+        <el-table-column :label="$t('message.setting.pageName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="页面类型" min-width="130">
+        <el-table-column :label="$t('message.setting.pageType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.template_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.setting.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="更新时间" min-width="130">
+        <el-table-column :label="$t('message.setting.updateTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.update_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
           <template slot-scope="scope">
             <div style="display: inline-block" v-if="scope.row.status != 1">
-              <a v-db-click @click="setStatus(scope.row, index)">设为首页</a>
+              <a v-db-click @click="setStatus(scope.row, index)">{{ $t('message.setting.setAsHomePage') }}</a>
             </div>
             <el-divider direction="vertical" v-if="scope.row.status != 1" />
             <div style="display: inline-block" v-if="scope.row.status || scope.row.type">
-              <a v-db-click @click="edit(scope.row)">编辑</a>
+              <a v-db-click @click="edit(scope.row)">{{ $t('message.setting.edit') }}</a>
             </div>
             <el-divider direction="vertical" v-if="scope.row.status || scope.row.type" />
             <template>
               <el-dropdown size="small" @command="changeMenu(scope.row, index, $event)" :transfer="true">
-                <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">{{ $t('message.setting.more') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="1" v-show="!scope.row.type">设置默认数据</el-dropdown-item>
-                  <el-dropdown-item command="2" v-show="!scope.row.type">恢复默认数据</el-dropdown-item>
-                  <el-dropdown-item command="3" v-show="scope.row.id != 1">删除模板</el-dropdown-item>
+                  <el-dropdown-item command="1" v-show="!scope.row.type">{{ $t('message.setting.setDefaultData') }}</el-dropdown-item>
+                  <el-dropdown-item command="2" v-show="!scope.row.type">{{ $t('message.setting.restoreDefaultData') }}</el-dropdown-item>
+                  <el-dropdown-item command="3" v-show="scope.row.id != 1">{{ $t('message.setting.deleteTemplate') }}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </template>
@@ -66,7 +65,7 @@
     </el-card>
     <el-dialog
       :visible.sync="isTemplate"
-      title="开发移动端链接"
+      :title="$t('message.setting.developMobileLink')"
       width="470px"
       :show-close="true"
       :close-on-click-modal="false"
@@ -84,7 +83,7 @@
             <el-row :gutter="24">
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="开发移动端链接：" prop="link" label-for="link">
+                  <el-form-item :label="$t('message.setting.developMobileLink') + '：'" prop="link" label-for="link">
                     <el-input v-model="formItem.link" placeholder="http://localhost:8080" />
                   </el-form-item>
                 </el-col>
@@ -94,8 +93,8 @@
         </el-card>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel">取消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">提交</el-button>
+        <el-button v-db-click @click="cancel">{{ $t('message.setting.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">{{ $t('message.setting.submit') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -123,15 +122,20 @@ export default {
         id: 0,
         link: '',
       },
-      ruleValidate: {
-        link: [{ required: true, message: '请输入移动端链接', trigger: 'blur' }],
-      },
+      ruleValidate: {},
     };
   },
   created() {
     this.formItem.link = getCookies('moveLink');
+    this.initRuleValidate();
     this.getList();
   },
+  methods: {
+    initRuleValidate() {
+      this.ruleValidate = {
+        link: [{ required: true, message: this.$t('message.setting.pleaseInputMobileLink'), trigger: 'blur' }],
+      };
+    },
   methods: {
     cancel() {
       this.$refs['formItem'].resetFields();
@@ -158,7 +162,7 @@ export default {
           this.recovery(row);
           break;
         case '3':
-          this.del(row, '删除此模板', index);
+          this.del(row, this.$t('message.setting.deleteThisTemplate'), index);
           break;
         default:
       }

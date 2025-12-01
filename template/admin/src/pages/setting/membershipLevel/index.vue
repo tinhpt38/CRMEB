@@ -10,61 +10,60 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.setting.isShow2') + '：'">
             <el-select v-model="formValidate.status" clearable @change="search" class="form_content_width">
-              <el-option value="" label="全部"></el-option>
-              <el-option :value="1" label="显示"></el-option>
-              <el-option :value="0" label="不显示"></el-option>
+              <el-option value="" :label="$t('message.setting.all')"></el-option>
+              <el-option :value="1" :label="$t('message.setting.show')"></el-option>
+              <el-option :value="0" :label="$t('message.setting.notShow')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="等级名称：">
+          <el-form-item :label="$t('message.setting.levelName') + '：'">
             <el-input
               clearable
-              placeholder="请输入等级名称"
+              :placeholder="$t('message.setting.pleaseInputLevelName')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="search">查询</el-button>
+            <el-button type="primary" v-db-click @click="search">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button type="primary" v-db-click @click="groupAdd">添加等级</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd">{{ $t('message.setting.addLevel') }}</el-button>
       <el-table
         class="mt14"
         :data="tabList"
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
       >
-        <el-table-column label="ID" width="50">
+        <el-table-column :label="$t('message.common.id')" width="50">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品图片" min-width="90">
+        <el-table-column :label="$t('message.setting.productImage')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="名称" min-width="130">
+        <el-table-column :label="$t('message.setting.name')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="等级" min-width="130">
+        <el-table-column :label="$t('message.setting.level')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.grade }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="一级分佣比例" min-width="150">
+        <el-table-column :label="$t('message.setting.firstLevelCommissionRatio')" min-width="150">
           <template slot-scope="scope">
             <span
               >{{
@@ -75,7 +74,7 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="二级分佣比例" min-width="150">
+        <el-table-column :label="$t('message.setting.secondLevelCommissionRatio')" min-width="150">
           <template slot-scope="scope">
             <span
               >{{
@@ -86,37 +85,17 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="任务总数" min-width="150">
+        <el-table-column :label="$t('message.setting.totalTasks')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.task_total_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="需完成数量" min-width="150">
+        <el-table-column :label="$t('message.setting.requiredCompletionQuantity')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.task_num }}</span>
           </template>
         </el-table-column>
-        <!-- <el-table-column label="一级上浮比例" min-width="130">
-          <template slot-scope="scope">
-            <span>{{ scope.row.one_brokerage }}%</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="一级分佣比例(上浮后)" min-width="150">
-          <template slot-scope="scope">
-            <span>{{ scope.row.one_brokerage_ratio }}%</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="二级上浮比例" min-width="130">
-          <template slot-scope="scope">
-            <span>{{ scope.row.two_brokerage }}%</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="二级分佣比例(上浮后)" min-width="150">
-          <template slot-scope="scope">
-            <span>{{ scope.row.two_brokerage_ratio }}%</span>
-          </template>
-        </el-table-column> -->
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column :label="$t('message.setting.isShow2')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -126,19 +105,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.setting.display')"
+              :inactive-text="$t('message.setting.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="addTask(scope.row)">等级任务</a>
+            <a v-db-click @click="addTask(scope.row)">{{ $t('message.setting.levelTask') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(scope.row, $t('message.setting.edit'))">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deleteThisInformation'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -153,25 +132,25 @@
       </div>
     </el-card>
     <div class="task-modal">
-      <el-dialog :visible.sync="modal2" title="添加任务" width="1000px">
+      <el-dialog :visible.sync="modal2" :title="$t('message.setting.addTask')" width="1000px">
         <el-form :model="taskData" :label-width="labelWidth" :label-position="labelPosition" inline>
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.setting.isShow2') + '：'">
             <el-select v-model="taskData.status" class="form_content_width" clearable>
-              <el-option :value="1" label="显示"></el-option>
-              <el-option :value="0" label="不显示"></el-option>
+              <el-option :value="1" :label="$t('message.setting.show')"></el-option>
+              <el-option :value="0" :label="$t('message.setting.notShow')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="任务名称：">
-            <el-input v-model="taskData.keyword" placeholder="请输入任务名称" clearable class="form_content_width" />
+          <el-form-item :label="$t('message.setting.taskName') + '：'">
+            <el-input v-model="taskData.keyword" :placeholder="$t('message.setting.pleaseInputTaskName')" clearable class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="searchTask">搜索</el-button>
+            <el-button type="primary" v-db-click @click="searchTask">{{ $t('message.common.search') }}</el-button>
           </el-form-item>
         </el-form>
         <div>
           <div class="add-task">
-            <el-button type="primary" v-db-click @click="taskAdd()">添加等级任务</el-button>
-            <el-button type="primary" v-db-click @click="taskEdit()">设置完成数量</el-button>
+            <el-button type="primary" v-db-click @click="taskAdd()">{{ $t('message.setting.addLevelTask') }}</el-button>
+            <el-button type="primary" v-db-click @click="taskEdit()">{{ $t('message.setting.setCompletionQuantity') }}</el-button>
           </div>
           <div>
             <el-table
@@ -180,30 +159,29 @@
               class="mt14"
               v-loading="taskLoading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+              :empty-text="$t('message.common.noData')"
             >
-              <el-table-column label="ID" width="80">
+              <el-table-column :label="$t('message.common.id')" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="名称" min-width="130">
+              <el-table-column :label="$t('message.setting.name')" min-width="130">
                 <template slot-scope="scope">
                   <span>{{ scope.row.name }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="任务类型" min-width="80">
+              <el-table-column :label="$t('message.setting.taskType')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.type_name }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="限定数量" min-width="80">
+              <el-table-column :label="$t('message.setting.limitedQuantity')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.number }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="是否显示" min-width="80">
+              <el-table-column :label="$t('message.setting.isShow2')" min-width="80">
                 <template slot-scope="scope">
                   <el-switch
                     class="defineSwitch"
@@ -212,24 +190,24 @@
                     v-model="scope.row.status"
                     :value="scope.row.status"
                     @change="onchangeTaskIsShow(scope.row)"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    :active-text="$t('message.setting.open')"
+                    :inactive-text="$t('message.setting.close')"
                   >
-                    <span slot="open">开启</span>
-                    <span slot="close">关闭</span>
+                    <span slot="open">{{ $t('message.setting.open') }}</span>
+                    <span slot="close">{{ $t('message.setting.close') }}</span>
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="排序" min-width="50">
+              <el-table-column :label="$t('message.setting.sort')" min-width="50">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" fixed="right" width="170">
+              <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
                 <template slot-scope="scope">
-                  <a v-db-click @click="editTask(scope.row, '编辑')">编辑</a>
+                  <a v-db-click @click="editTask(scope.row, $t('message.setting.edit'))">{{ $t('message.setting.edit') }}</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="delTask(scope.row, '删除这条信息', scope.$index)">删除</a>
+                  <a v-db-click @click="delTask(scope.row, $t('message.setting.deleteThisInformation'), scope.$index)">{{ $t('message.setting.delete') }}</a>
                 </template>
               </el-table-column>
             </el-table>

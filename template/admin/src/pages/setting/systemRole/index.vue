@@ -10,35 +10,35 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="状态：" label-for="status">
+          <el-form-item :label="$t('message.setting.status') + '：'" label-for="status">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('message.setting.pleaseSelect')"
               @change="userSearchs"
               clearable
               class="form_content_width"
             >
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="1" :label="$t('message.setting.display')"></el-option>
+              <el-option value="0" :label="$t('message.setting.hide')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="身份昵称：" label-for="role_name">
+          <el-form-item :label="$t('message.setting.roleNickname') + '：'" label-for="role_name">
             <el-input
               clearable
-              placeholder="请输入身份昵称"
+              :placeholder="$t('message.setting.pleaseInputRoleNickname')"
               v-model="formValidate.role_name"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.setting.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" v-loading="spinShow">
-      <el-button v-auth="['setting-system_role-add']" type="primary" v-db-click @click="add('添加')"
-        >添加身份</el-button
+      <el-button v-auth="['setting-system_role-add']" type="primary" v-db-click @click="add($t('message.setting.add'))"
+        >{{ $t('message.setting.addRole') }}</el-button
       >
       <el-table
         :data="tableList"
@@ -46,15 +46,14 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
       >
-        <el-table-column label="ID" min-width="80">
+        <el-table-column :label="$t('message.common.id')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="身份昵称" min-width="130">
+        <el-table-column :label="$t('message.setting.roleNickname')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.role_name }}</span>
           </template>
@@ -64,7 +63,7 @@
             <span class="line1">{{ scope.row.rules }}</span>
           </template>
         </el-table-column> -->
-        <el-table-column label="状态" min-width="120">
+        <el-table-column :label="$t('message.setting.status')" min-width="120">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -74,17 +73,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.setting.display')"
+              :inactive-text="$t('message.setting.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(scope.row, $t('message.setting.edit'))">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.delete'), scope.$index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -101,7 +100,7 @@
     <!-- 新增编辑-->
     <el-dialog
       :visible.sync="modals"
-      :title="`${modelTit}身份`"
+      :title="modelTit + $t('message.setting.role')"
       :close-on-click-modal="false"
       :show-close="true"
       width="540px"
@@ -115,16 +114,16 @@
         :label-position="labelPosition2"
         @submit.native.prevent
       >
-        <el-form-item label="身份名称：" label-for="role_name" prop="role_name">
-          <el-input placeholder="请输入身份昵称" v-model="formInline.role_name" />
+        <el-form-item :label="$t('message.setting.roleName') + '：'" label-for="role_name" prop="role_name">
+          <el-input :placeholder="$t('message.setting.pleaseInputRoleNickname')" v-model="formInline.role_name" />
         </el-form-item>
-        <el-form-item label="是否开启：" prop="status">
+        <el-form-item :label="$t('message.setting.isEnable') + '：'" prop="status">
           <el-radio-group v-model="formInline.status">
-            <el-radio :label="1">开启</el-radio>
-            <el-radio :label="0">关闭</el-radio>
+            <el-radio :label="1">{{ $t('message.setting.open') }}</el-radio>
+            <el-radio :label="0">{{ $t('message.setting.close') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="权限：">
+        <el-form-item :label="$t('message.setting.permissions') + '：'">
           <div class="trees-coadd">
             <div class="scollhide">
               <div class="iconlist">
@@ -142,13 +141,13 @@
                 ></el-tree>
               </div>
             </div>
-            <span class="iconlist-btn" @click="changeExpandAll">{{ defaultExpandAll ? '折叠' : '展开' }}</span>
+            <span class="iconlist-btn" @click="changeExpandAll">{{ defaultExpandAll ? $t('message.setting.collapse') : $t('message.setting.expand') }}</span>
           </div>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="onCancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formInline')">提 交</el-button>
+        <el-button v-db-click @click="onCancel">{{ $t('message.setting.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formInline')">{{ $t('message.setting.submit') }}</el-button>
       </span>
     </el-dialog>
   </div>

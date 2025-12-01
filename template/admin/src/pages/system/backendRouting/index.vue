@@ -490,7 +490,7 @@
                       type="textarea"
                       :rows="4"
                       v-model.trim="formValidate.request_example"
-                      placeholder="请输入"
+                      :placeholder="$t('message.setting.pleaseEnter')"
                     />
                     <span v-else class="text-area">{{ formValidate.request_example || '' }}</span>
                   </el-form-item> -->
@@ -506,7 +506,7 @@
                         type="textarea"
                         :rows="4"
                         v-model.trim="item.data"
-                        placeholder="请输入"
+                        :placeholder="$t('message.setting.pleaseEnter')"
                       />
                       <span v-else class="text-area">{{ item.data || '' }}</span>
                     </el-collapse-item>
