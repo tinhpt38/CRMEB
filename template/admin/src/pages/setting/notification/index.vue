@@ -14,16 +14,16 @@
       <el-row class="mb14" v-if="currentTab == 1">
         <el-col>
           <el-button v-auth="['app-wechat-template-sync']" type="primary" v-db-click @click="routineTemplate"
-            >同步小程序订阅消息</el-button
+            >{{ $t('message.setting.syncMiniProgramSubscription') }}</el-button
           >
           <el-button v-auth="['app-wechat-template-sync']" type="primary" v-db-click @click="wechatTemplate"
-            >同步微信模版消息</el-button
+            >{{ $t('message.setting.syncWechatTemplateMessage') }}</el-button
           >
         </el-col>
       </el-row>
       <el-row class="mb14" v-if="currentTab == 3">
         <el-col>
-          <el-button type="primary" v-db-click @click="notificationForm(0)">添加通知</el-button>
+          <el-button type="primary" v-db-click @click="notificationForm(0)">{{ $t('message.setting.addNotification') }}</el-button>
         </el-col>
       </el-row>
       <el-alert v-if="currentTab == 1" type="warning" :closable="false">
@@ -44,25 +44,25 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilteredResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="通知类型" min-width="130">
+        <el-table-column :label="$t('message.setting.notificationType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="通知场景说明" min-width="130">
+        <el-table-column :label="$t('message.setting.notificationSceneDescription')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="站内信" min-width="130">
+        <el-table-column :label="$t('message.setting.stationMessage')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_system !== 0"
@@ -78,7 +78,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="公众号模板" min-width="130">
+        <el-table-column :label="$t('message.setting.wechatOfficialAccountTemplate')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_wechat !== 0"
@@ -95,7 +95,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="发送短信" min-width="130">
+        <el-table-column :label="$t('message.setting.sendSMS')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_sms !== 0"
@@ -110,7 +110,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="企业微信" min-width="130" v-if="currentTab != 1">
+        <el-table-column :label="$t('message.setting.enterpriseWechat')" min-width="130" v-if="currentTab != 1">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_ent_wechat !== 0"
@@ -125,7 +125,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="小程序订阅" min-width="130" v-if="currentTab == 1 || currentTab == 3">
+        <el-table-column :label="$t('message.setting.miniProgramSubscription')" min-width="130" v-if="currentTab == 1 || currentTab == 3">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_routine !== 0"
@@ -141,14 +141,14 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" :width="currentTab == 3 ? 130 : 70">
+        <el-table-column :label="$t('message.setting.operation')" fixed="right" :width="currentTab == 3 ? 130 : 70">
           <template slot-scope="scope">
-            <a class="setting btn" v-db-click @click="setting(scope.row)">设置</a>
+            <a class="setting btn" v-db-click @click="setting(scope.row)">{{ $t('message.setting.setting') }}</a>
             <template v-if="currentTab == 3">
               <el-divider direction="vertical"></el-divider>
-              <a class="setting btn" v-db-click @click="notificationForm(scope.row.id)">编辑</a>
+              <a class="setting btn" v-db-click @click="notificationForm(scope.row.id)">{{ $t('message.setting.edit') }}</a>
               <el-divider direction="vertical"></el-divider>
-              <a class="setting btn" v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+              <a class="setting btn" v-db-click @click="del(scope.row, $t('message.setting.delete'), scope.$index)">{{ $t('message.setting.delete') }}</a>
             </template>
           </template>
         </el-table-column>
@@ -166,9 +166,9 @@ export default {
       modalTitle: '',
       notificationModal: false,
       headerList: [
-        { label: '会员通知', value: '1' },
-        { label: '平台通知', value: '2' },
-        { label: '自定义通知', value: '3' },
+        { label: this.$t('message.setting.memberNotification'), value: '1' },
+        { label: this.$t('message.setting.platformNotification'), value: '2' },
+        { label: this.$t('message.setting.customNotification'), value: '3' },
       ],
       levelLists: [],
       currentTab: '1',

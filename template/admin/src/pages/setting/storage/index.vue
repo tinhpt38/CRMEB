@@ -58,15 +58,15 @@
       <el-card :bordered="false" shadow="never" class="ivu-mt">
         <el-row>
           <el-col :span="24">
-            <span class="save-type"> 存储方式： </span>
+            <span class="save-type"> {{ $t('message.setting.storageMethod') }}： </span>
             <el-radio-group v-model="formValidate.upload_type" @input="changeSave">
-              <el-radio label="1">本地存储</el-radio>
-              <el-radio label="2">七牛云存储</el-radio>
-              <el-radio label="3">阿里云存储</el-radio>
-              <el-radio label="4">腾讯云存储</el-radio>
-              <el-radio label="5">京东云存储</el-radio>
-              <el-radio label="6">华为云存储</el-radio>
-              <el-radio label="7">天翼云存储</el-radio>
+              <el-radio label="1">{{ $t('message.setting.localStorage') }}</el-radio>
+              <el-radio label="2">{{ $t('message.setting.qiniuCloudStorage') }}</el-radio>
+              <el-radio label="3">{{ $t('message.setting.aliyunStorage') }}</el-radio>
+              <el-radio label="4">{{ $t('message.setting.tencentCloudStorage') }}</el-radio>
+              <el-radio label="5">{{ $t('message.setting.jdCloudStorage') }}</el-radio>
+              <el-radio label="6">{{ $t('message.setting.huaweiCloudStorage') }}</el-radio>
+              <el-radio label="7">{{ $t('message.setting.tianyiCloudStorage') }}</el-radio>
             </el-radio-group>
             <!-- <el-switch :active-value="1"  :inactive-value="0"
               v-model="localStorage"
@@ -82,15 +82,15 @@
       <el-card :bordered="false" shadow="never" class="ivu-mt">
         <el-form ref="formValidate" :model="formValidate" :rules="ruleValidate">
           <div class="abbreviation">
-            <el-form-item label="是否开启缩略图：" label-width="110px">
+            <el-form-item :label="$t('message.setting.enableThumbnail') + '：'" label-width="110px">
               <el-switch
                 :active-value="1"
                 :inactive-value="0"
                 v-model="formValidate.image_thumb_status"
                 size="large"
               >
-                <span slot="open">开启</span>
-                <span slot="close">关闭</span>
+                <span slot="open">{{ $t('message.setting.open') }}</span>
+                <span slot="close">{{ $t('message.setting.close') }}</span>
               </el-switch>
             </el-form-item>
             <div class="top" v-if="formValidate.image_thumb_status == 1">
@@ -99,25 +99,25 @@
                   <div class="img">
                     <img class="imgs" src="../../../assets/images/abbreviationBig.png" alt="" />
                   </div>
-                  <div>缩略大图</div>
+                  <div>{{ $t('message.setting.thumbnailLarge') }}</div>
                 </div>
                 <div class="topRight">
-                  <el-form-item label="宽：">
+                  <el-form-item :label="$t('message.setting.width') + '：'">
                     <el-input
                       class="topIput"
                       type="number"
                       v-model="formValidate.thumb_big_width"
-                      placeholder="请输入宽度"
+                      :placeholder="$t('message.setting.pleaseInputWidth')"
                     >
                       <span slot="append">px</span>
                     </el-input>
                   </el-form-item>
-                  <el-form-item label="高：">
+                  <el-form-item :label="$t('message.setting.height') + '：'">
                     <el-input
                       class="topIput"
                       type="number"
                       v-model="formValidate.thumb_big_height"
-                      placeholder="请输入高度"
+                      :placeholder="$t('message.setting.pleaseInputHeight')"
                     >
                       <span slot="append">px</span>
                     </el-input>
@@ -129,25 +129,25 @@
                   <div class="img">
                     <img class="imgs" src="../../../assets/images/abbreviation.png" alt="" />
                   </div>
-                  <div>缩略中图</div>
+                  <div>{{ $t('message.setting.thumbnailMedium') }}</div>
                 </div>
                 <div class="topRight">
-                  <el-form-item label="宽：">
+                  <el-form-item :label="$t('message.setting.width') + '：'">
                     <el-input
                       class="topIput"
                       type="number"
                       v-model="formValidate.thumb_mid_width"
-                      placeholder="请输入宽度"
+                      :placeholder="$t('message.setting.pleaseInputWidth')"
                     >
                       <span slot="append">px</span>
                     </el-input>
                   </el-form-item>
-                  <el-form-item label="高：">
+                  <el-form-item :label="$t('message.setting.height') + '：'">
                     <el-input
                       type="number"
                       class="topIput"
                       v-model="formValidate.thumb_mid_height"
-                      placeholder="请输入高度"
+                      :placeholder="$t('message.setting.pleaseInputHeight')"
                     >
                       <span slot="append">px</span>
                     </el-input>
@@ -159,25 +159,25 @@
                   <div class="img">
                     <img class="imgs" src="../../../assets/images/abbreviationSmall.png" alt="" />
                   </div>
-                  <div>缩略小图</div>
+                  <div>{{ $t('message.setting.thumbnailSmall') }}</div>
                 </div>
                 <div class="topRight">
-                  <el-form-item label="宽：">
+                  <el-form-item :label="$t('message.setting.width') + '：'">
                     <el-input
                       class="topIput"
                       type="number"
                       v-model="formValidate.thumb_small_width"
-                      placeholder="请输入宽度"
+                      :placeholder="$t('message.setting.pleaseInputWidth')"
                     >
                       <span slot="append">px</span>
                     </el-input>
                   </el-form-item>
-                  <el-form-item label="高：">
+                  <el-form-item :label="$t('message.setting.height') + '：'">
                     <el-input
                       class="topIput"
                       type="number"
                       v-model="formValidate.thumb_small_height"
-                      placeholder="请输入高度"
+                      :placeholder="$t('message.setting.pleaseInputHeight')"
                     >
                       <span slot="append">px</span>
                     </el-input>
@@ -187,47 +187,47 @@
             </div>
             <el-divider />
             <div class="content mt20">
-              <el-form-item label="是否开启水印：" label-width="110px">
+              <el-form-item :label="$t('message.setting.enableWatermark') + '：'" label-width="110px">
                 <el-switch
                   :active-value="1"
                   :inactive-value="0"
                   v-model="formValidate.image_watermark_status"
                   size="large"
                 >
-                  <span slot="open">开启</span>
-                  <span slot="close">关闭</span>
+                  <span slot="open">{{ $t('message.setting.open') }}</span>
+                  <span slot="close">{{ $t('message.setting.close') }}</span>
                 </el-switch>
               </el-form-item>
               <div v-if="formValidate.image_watermark_status == 1">
-                <el-form-item label="类型：" label-width="110px">
+                <el-form-item :label="$t('message.setting.type') + '：'" label-width="110px">
                   <el-radio-group v-model="formValidate.watermark_type">
-                    <el-radio :label="1">图片</el-radio>
-                    <el-radio :label="2">文字</el-radio>
+                    <el-radio :label="1">{{ $t('message.setting.image') }}</el-radio>
+                    <el-radio :label="2">{{ $t('message.setting.text') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
                 <div v-if="formValidate.watermark_type == 1">
                   <div class="flex">
-                    <el-form-item class="contentIput" label="透明度：" prop="name" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.opacity') + '：'" prop="name" label-width="110px">
                       <el-input
                         class="topIput"
                         type="number"
                         v-model="formValidate.watermark_opacity"
-                        placeholder="请输入水印透明度"
+                        :placeholder="$t('message.setting.pleaseInputWatermarkOpacity')"
                       >
                       </el-input>
                     </el-form-item>
-                    <el-form-item class="contentIput" label="倾斜度：" prop="mail" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.tilt') + '：'" prop="mail" label-width="110px">
                       <el-input
                         class="topIput"
                         type="number"
                         v-model="formValidate.watermark_rotate"
-                        placeholder="请输入水印倾斜度"
+                        :placeholder="$t('message.setting.pleaseInputWatermarkTilt')"
                       >
                       </el-input>
                     </el-form-item>
                   </div>
                   <div class="flex">
-                    <el-form-item class="contentIput" label="图片：" prop="name" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.image') + '：'" prop="name" label-width="110px">
                       <div class="picBox" v-db-click @click="modalPicTap('单选')">
                         <div class="pictrue" v-if="formValidate.watermark_image">
                           <img :src="formValidate.watermark_image" />
@@ -237,7 +237,7 @@
                         </div>
                       </div>
                     </el-form-item>
-                    <el-form-item class="contentIput" label="位置：" prop="mail" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.position') + '：'" prop="mail" label-width="110px">
                       <div class="conents">
                         <div class="positionBox">
                           <div
@@ -254,23 +254,23 @@
                     </el-form-item>
                   </div>
                   <div class="flex">
-                    <el-form-item class="contentIput" label="横坐标偏移量：" label-width="110px" prop="name">
+                    <el-form-item class="contentIput" :label="$t('message.setting.xOffset') + '：'" label-width="110px" prop="name">
                       <el-input
                         class="topIput"
                         type="number"
                         v-model="formValidate.watermark_x"
-                        placeholder="请输入水印横坐标偏移量"
+                        :placeholder="$t('message.setting.pleaseInputWatermarkXOffset')"
                         style="width: 240px"
                       >
                         <span slot="append">px</span>
                       </el-input>
                     </el-form-item>
-                    <el-form-item class="contentIput" label="纵坐标偏移量：" label-width="110px" prop="mail">
+                    <el-form-item class="contentIput" :label="$t('message.setting.yOffset') + '：'" label-width="110px" prop="mail">
                       <el-input
                         class="topIput"
                         type="number"
                         v-model="formValidate.watermark_y"
-                        placeholder="请输入水印纵坐标偏移量"
+                        :placeholder="$t('message.setting.pleaseInputWatermarkYOffset')"
                         style="width: 240px"
                       >
                         <span slot="append">px</span>
@@ -281,25 +281,25 @@
                 <!-- 水印类型为文字 -->
                 <div v-else>
                   <div class="flex">
-                    <el-form-item class="contentIput" label="文字：" label-width="110px" prop="name">
-                      <el-input class="topIput" v-model="formValidate.watermark_text" placeholder="请输入水印文字">
+                    <el-form-item class="contentIput" :label="$t('message.setting.text') + '：'" label-width="110px" prop="name">
+                      <el-input class="topIput" v-model="formValidate.watermark_text" :placeholder="$t('message.setting.pleaseInputWatermarkText')">
                       </el-input>
                     </el-form-item>
-                    <el-form-item class="contentIput" label="文字大小：" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.textSize') + '：'" label-width="110px">
                       <el-input
                         class="topIput"
                         type="number"
                         v-model="formValidate.watermark_text_size"
-                        placeholder="请输入水印文字大小"
+                        :placeholder="$t('message.setting.pleaseInputWatermarkTextSize')"
                       >
                       </el-input>
                     </el-form-item>
                   </div>
                   <div class="flex">
-                    <el-form-item class="contentIput" label="字体颜色：" prop="name" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.fontColor') + '：'" prop="name" label-width="110px">
                       <el-color-picker v-model="formValidate.watermark_text_color"></el-color-picker>
                     </el-form-item>
-                    <el-form-item class="contentIput" label="位置：" prop="mail" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.position') + '：'" prop="mail" label-width="110px">
                       <div class="conents">
                         <div class="positionBox">
                           <div
@@ -316,32 +316,32 @@
                     </el-form-item>
                   </div>
                   <div class="flex">
-                    <el-form-item class="contentIput" label="字体旋转角度：" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.fontRotationAngle') + '：'" label-width="110px">
                       <el-input
                         class="topIput"
                         type="number"
                         v-model="formValidate.watermark_text_angle"
-                        placeholder="请输入水印字体旋转角度"
+                        :placeholder="$t('message.setting.pleaseInputWatermarkFontRotationAngle')"
                       >
                       </el-input>
                     </el-form-item>
-                    <el-form-item class="contentIput" label="横坐标偏移量：" label-width="110px">
+                    <el-form-item class="contentIput" :label="$t('message.setting.xOffset') + '：'" label-width="110px">
                       <el-input
                         class="topIput"
                         type="number"
                         v-model="formValidate.watermark_x"
-                        placeholder="请输入水印横坐标偏移量"
+                        :placeholder="$t('message.setting.pleaseInputWatermarkXOffset')"
                       >
                         <span slot="append">px</span>
                       </el-input>
                     </el-form-item>
                   </div>
-                  <el-form-item class="contentIput" label="纵坐标偏移量：" prop="mail" label-width="110px">
+                  <el-form-item class="contentIput" :label="$t('message.setting.yOffset') + '：'" prop="mail" label-width="110px">
                     <el-input
                       class="topIput"
                       type="number"
                       v-model="formValidate.watermark_y"
-                      placeholder="请输入水印纵坐标偏移量"
+                      :placeholder="$t('message.setting.pleaseInputWatermarkYOffset')"
                     >
                       <span slot="append">px</span>
                     </el-input>
@@ -350,7 +350,7 @@
               </div>
             </div>
             <el-form-item>
-              <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">保存</el-button>
+              <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">{{ $t('message.common.save') }}</el-button>
             </el-form-item>
           </div>
         </el-form>
@@ -362,9 +362,9 @@
       <el-card :bordered="false" shadow="never" class="ivu-mt">
         <el-row class="mb20">
           <el-col :span="24">
-            <el-button type="primary" v-db-click @click="addStorageBtn">添加存储空间</el-button>
-            <el-button type="success" v-db-click @click="synchro" style="margin-left: 20px">同步存储空间</el-button>
-            <el-button v-db-click @click="addConfigBtn" style="float: right">修改配置信息</el-button>
+            <el-button type="primary" v-db-click @click="addStorageBtn">{{ $t('message.setting.addStorageSpace') }}</el-button>
+            <el-button type="success" v-db-click @click="synchro" style="margin-left: 20px">{{ $t('message.setting.syncStorageSpace') }}</el-button>
+            <el-button v-db-click @click="addConfigBtn" style="float: right">{{ $t('message.setting.modifyConfigInfo') }}</el-button>
           </el-col>
         </el-row>
         <el-table
@@ -373,25 +373,25 @@
           class="mt14"
           v-loading="loading"
           highlight-current-row
-          no-userFrom-text="暂无数据"
-          no-filtered-userFrom-text="暂无筛选结果"
+          :empty-text="$t('message.common.noData')"
+          :no-filtered-userFrom-text="$t('message.common.noFilteredResult')"
         >
-          <el-table-column label="储存空间名称" min-width="120">
+          <el-table-column :label="$t('message.setting.storageSpaceName')" min-width="120">
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="区域" min-width="90">
+          <el-table-column :label="$t('message.setting.region')" min-width="90">
             <template slot-scope="scope">
               <span>{{ scope.row._region }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="空间域名" min-width="130">
+          <el-table-column :label="$t('message.setting.spaceDomain')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.domain }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="使用状态" min-width="90">
+          <el-table-column :label="$t('message.setting.usageStatus')" min-width="90">
             <template slot-scope="scope">
               <el-switch
                 class="defineSwitch"
@@ -401,31 +401,31 @@
                 :value="scope.row.status"
                 @change="changeSwitch(scope.row, index)"
                 size="large"
-                active-text="开启"
-                inactive-text="关闭"
+                :active-text="$t('message.setting.open')"
+                :inactive-text="$t('message.setting.close')"
               >
               </el-switch>
             </template>
           </el-table-column>
-          <el-table-column label="创建时间" min-width="130">
+          <el-table-column :label="$t('message.setting.createTime')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row._add_time }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="更新时间" min-width="130">
+          <el-table-column :label="$t('message.setting.updateTime')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row._update_time }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" fixed="right" width="220">
+          <el-table-column :label="$t('message.setting.operation')" fixed="right" width="220">
             <template slot-scope="scope">
               <template v-if="scope.row.domain && scope.row.domain != scope.row.cname">
-                <span class="btn" v-db-click @click="config(scope.row)">CNAME配置</span>
+                <span class="btn" v-db-click @click="config(scope.row)">{{ $t('message.setting.cnameConfig') }}</span>
                 <el-divider direction="vertical"></el-divider>
               </template>
-              <span class="btn" v-db-click @click="edit(scope.row)">修改空间域名</span>
+              <span class="btn" v-db-click @click="edit(scope.row)">{{ $t('message.setting.modifySpaceDomain') }}</span>
               <el-divider direction="vertical"></el-divider>
-              <span class="btn" v-db-click @click="del(scope.row, '删除该数据', scope.$index)">删除</span>
+              <span class="btn" v-db-click @click="del(scope.row, $t('message.setting.deleteThisData'), scope.$index)">{{ $t('message.setting.delete') }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -440,17 +440,17 @@
         </div>
       </el-card>
     </div>
-    <el-dialog :visible.sync="configuModal" title="CNAME配置" width="570px">
+    <el-dialog :visible.sync="configuModal" :title="$t('message.setting.cnameConfig')" width="570px">
       <div>
-        <div class="confignv"><span class="configtit">主机记录：</span>{{ configData.domain }}</div>
-        <div class="confignv"><span class="configtit">记录类型：</span>CNAME</div>
+        <div class="confignv"><span class="configtit">{{ $t('message.setting.hostRecord') }}：</span>{{ configData.domain }}</div>
+        <div class="confignv"><span class="configtit">{{ $t('message.setting.recordType') }}：</span>CNAME</div>
         <div class="confignv">
-          <span class="configtit">记录值：</span>{{ configData.cname }}
-          <span class="copy copy-data" v-db-click @click="insertCopy(configData.cname)">复制</span>
+          <span class="configtit">{{ $t('message.setting.recordValue') }}：</span>{{ configData.cname }}
+          <span class="copy copy-data" v-db-click @click="insertCopy(configData.cname)">{{ $t('message.setting.copy') }}</span>
         </div>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.setting.uploadProductImage')" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -531,14 +531,14 @@ export default {
       configuModal: false,
       configData: '',
       headerList: [
-        { label: '储存配置', value: '1' },
-        { label: '七牛云储存', value: '2' },
-        { label: '阿里云储存', value: '3' },
-        { label: '腾讯云储存', value: '4' },
-        { label: '京东云储存', value: '5' },
-        { label: '华为云储存', value: '6' },
-        { label: '天翼云储存', value: '7' },
-        // { label: "缩略图配置", value: "10" },
+        { label: this.$t('message.setting.storageConfig'), value: '1' },
+        { label: this.$t('message.setting.qiniuCloudStorage'), value: '2' },
+        { label: this.$t('message.setting.aliyunStorage'), value: '3' },
+        { label: this.$t('message.setting.tencentCloudStorage'), value: '4' },
+        { label: this.$t('message.setting.jdCloudStorage'), value: '5' },
+        { label: this.$t('message.setting.huaweiCloudStorage'), value: '6' },
+        { label: this.$t('message.setting.tianyiCloudStorage'), value: '7' },
+        // { label: this.$t('message.setting.thumbnailConfig'), value: "10" },
       ],
 
       total: 0,
@@ -577,10 +577,10 @@ export default {
     insertCopy(text) {
       this.$copyText(text)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success(this.$t('message.setting.copySuccess'));
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('message.setting.copyFailed'));
         });
     },
     changeSave(type) {
@@ -665,11 +665,11 @@ export default {
     changeSwitch(row, item) {
       return new Promise((resolve) => {
         this.$msgbox({
-          title: '切换状态',
-          message: '您确认要切换使用状态吗',
+          title: this.$t('message.setting.switchStatus'),
+          message: this.$t('message.setting.confirmSwitchUsageStatus'),
           showCancelButton: true,
-          cancelButtonText: '取消',
-          confirmButtonText: '确定',
+          cancelButtonText: this.$t('message.setting.cancel2'),
+          confirmButtonText: this.$t('message.setting.confirm2'),
           iconClass: 'el-icon-warning',
           confirmButtonClass: 'btn-custom-cancel',
         })

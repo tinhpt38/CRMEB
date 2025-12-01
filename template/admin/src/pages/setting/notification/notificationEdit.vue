@@ -12,14 +12,14 @@
             <el-tab-pane v-for="(item, index) in tabsList" :key="index" :name="item.slot" :label="item.title">
               <el-form class="form-sty" ref="formData" :model="formData" :rules="ruleValidate" label-width="85px">
                 <div v-if="item.slot === 'is_system' && !loading">
-                  <el-form-item label="通知标题：">
+                  <el-form-item :label="$t('message.setting.notificationTitle') + '：'">
                     <el-input
                       v-model="formData.system_title"
-                      placeholder="请输入通知标题"
+                      :placeholder="$t('message.setting.pleaseInputNotificationTitle')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('message.setting.notificationContent') + '：'">
                     <div class="content">
                       <el-input
                         ref="system_text"
@@ -27,7 +27,7 @@
                         v-model="formData.system_text"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('message.setting.pleaseInputNotificationContent')"
                         style="width: 500px"
                       >
                       </el-input>
@@ -49,20 +49,20 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('message.setting.clickIconToInsertVariable') }}</div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_system">
+                  <el-form-item :label="$t('message.setting.status') + '：'" prop="is_system">
                     <el-radio-group v-model="formData.is_system">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.setting.open') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.setting.close') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <div v-if="item.slot === 'is_sms' && !loading">
-                  <el-form-item label="短信模版ID：">
-                    <el-input v-model="formData.sms_id" placeholder="短信模版ID" style="width: 500px"></el-input>
+                  <el-form-item :label="$t('message.setting.smsTemplateId') + '：'">
+                    <el-input v-model="formData.sms_id" :placeholder="$t('message.setting.smsTemplateId')" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('message.setting.notificationContent') + '：'">
                     <div class="content">
                       <el-input
                         id="sms_text"
@@ -70,7 +70,7 @@
                         type="textarea"
                         :disabled="formData.type_n != 3"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('message.setting.pleaseInputNotificationContent')"
                         style="width: 500px"
                       ></el-input>
                       <div class="value-list" v-if="formData.type_n == 3">
@@ -91,12 +91,12 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('message.setting.clickIconToInsertVariable') }}</div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_sms">
+                  <el-form-item :label="$t('message.setting.status') + '：'" prop="is_sms">
                     <el-radio-group v-model="formData.is_sms">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.setting.open') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.setting.close') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
@@ -244,15 +244,15 @@
                       <el-input v-model="formData.url" placeholder="请输入机器人链接" style="width: 500px"></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_ent_wechat">
+                  <el-form-item :label="$t('message.setting.status') + '：'" prop="is_ent_wechat">
                     <el-radio-group v-model="formData.is_ent_wechat">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.setting.open') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.setting.close') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <el-form-item>
-                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">提交</el-button>
+                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">{{ $t('message.setting.submit') }}</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -270,60 +270,62 @@ export default {
   components: { keysList },
   data() {
     return {
-      tabs: [
-        {
-          title: '系统通知',
-          slot: 'is_system',
-        },
-        {
-          title: '短信通知',
-          slot: 'is_sms',
-        },
-        {
-          title: '微信模板消息',
-          slot: 'is_wechat',
-        },
-        {
-          title: '微信小程序提醒',
-          slot: 'is_routine',
-        },
-        {
-          title: '企业微信',
-          slot: 'is_ent_wechat',
-        },
-      ],
+      tabs: [],
       tabsList: [],
       formData: {},
       id: 0,
       loading: true,
       tagName: 'is_system',
-      ruleValidate: {
-        name: [
-          {
-            required: true,
-            message: '请输入通知场景',
-            trigger: 'blur',
-          },
-        ],
-        title: [
-          {
-            required: true,
-            message: '请输入通知场景',
-            trigger: 'blur',
-          },
-        ],
-        content: [
-          {
-            required: true,
-            message: '请输入通知内容',
-            trigger: 'blur',
-          },
-        ],
-      },
+      ruleValidate: {},
       keyList: [],
     };
   },
   created() {
+    this.tabs = [
+      {
+        title: this.$t('message.setting.systemNotification'),
+        slot: 'is_system',
+      },
+      {
+        title: this.$t('message.setting.smsNotification'),
+        slot: 'is_sms',
+      },
+      {
+        title: this.$t('message.setting.wechatTemplateMessage'),
+        slot: 'is_wechat',
+      },
+      {
+        title: this.$t('message.setting.wechatMiniProgramReminder'),
+        slot: 'is_routine',
+      },
+      {
+        title: this.$t('message.setting.enterpriseWechat'),
+        slot: 'is_ent_wechat',
+      },
+    ];
+    this.ruleValidate = {
+      name: [
+        {
+          required: true,
+          message: this.$t('message.setting.pleaseInputNotificationScene'),
+          trigger: 'blur',
+        },
+      ],
+      title: [
+        {
+          required: true,
+          message: this.$t('message.setting.pleaseInputNotificationScene'),
+          trigger: 'blur',
+        },
+      ],
+      content: [
+        {
+          required: true,
+          message: this.$t('message.setting.pleaseInputNotificationContent'),
+          trigger: 'blur',
+        },
+      ],
+    };
     this.id = this.$route.query.id;
     this.getData(this.id, this.tagName, 1);
   },
@@ -382,7 +384,7 @@ export default {
       this.formData.key_list = this.keyList;
       getNotificationSave(this.formData)
         .then((res) => {
-          this.$message.success('设置成功');
+          this.$message.success(this.$t('message.setting.settingSuccess'));
         })
         .catch((err) => {
           this.$message.error(err);
