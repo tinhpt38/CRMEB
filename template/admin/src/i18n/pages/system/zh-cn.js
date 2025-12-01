@@ -359,6 +359,9 @@ export default {
     tableRemark: '表备注',
     viewCode: '查看代码',
     terminalWarning: '当前终端未运行于安装服务下，部分命令可能无法执行.',
+    create: '创建',
+    terminal: '终端',
+    isDisplay: '是否显示',
     fileManagementPassword: '文件管理密码',
     pleaseInputFileManagementPassword: '请输入文件管理密码',
     // Code Data Dictionary

@@ -359,6 +359,9 @@ export default {
     tableRemark: 'Table Remark',
     viewCode: 'View Code',
     terminalWarning: 'The current terminal is not running under the installation service, some commands may not be executed.',
+    create: 'Create',
+    terminal: 'Terminal',
+    isDisplay: 'Is Display',
     fileManagementPassword: 'File Management Password',
     pleaseInputFileManagementPassword: 'Please enter file management password',
     // Code Data Dictionary

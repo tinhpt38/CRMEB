@@ -12,7 +12,7 @@
         :no-userFrom-text="$t('message.common.noData')"
         :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
@@ -62,7 +62,7 @@
     <el-drawer
       :visible.sync="modals"
       :custom-class="className"
-      title="Create"
+      :title="$t('message.systemMenus.create')"
       size="80%"
       :wrapperClosable="false"
       :styles="styles"
@@ -124,7 +124,7 @@
     </el-drawer>
     <el-dialog
       :visible.sync="buildModals"
-      title="终端"
+      :title="$t('message.systemMenus.terminal')"
       :show-close="true"
       :close-on-click-modal="false"
       width="720px"

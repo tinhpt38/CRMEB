@@ -10,37 +10,37 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.systemMenus.isDisplay') + '：'">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('message.setting.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="1" :label="$t('message.setting.display')"></el-option>
+              <el-option value="0" :label="$t('message.setting.hide')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="分类名称：" label-for="status2">
-            <el-input clearable placeholder="请输入分类名称" v-model="formValidate.title" class="form_content_width" />
+          <el-form-item :label="$t('message.systemMenus.categoryName') + '：'" label-for="status2">
+            <el-input clearable :placeholder="$t('message.systemMenus.pleaseInputCategoryName')" v-model="formValidate.title" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询分类</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.systemMenus.queryCategory') }}</el-button>
           </el-form-item>
           <div>
-            <el-form-item label="配置名称：" label-for="status2">
-              <el-input clearable placeholder="请输入配置名称" v-model="config_name" class="form_content_width" />
+            <el-form-item :label="$t('message.systemMenus.configName') + '：'" label-for="status2">
+              <el-input clearable :placeholder="$t('message.systemMenus.pleaseInputConfigName')" v-model="config_name" class="form_content_width" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" v-db-click @click="searchConfig">查询配置</el-button>
+              <el-button type="primary" v-db-click @click="searchConfig">{{ $t('message.systemMenus.queryConfig') }}</el-button>
             </el-form-item>
           </div>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="classAdd" class="mr20">添加配置分类</el-button>
+      <el-button type="primary" v-db-click @click="classAdd" class="mr20">{{ $t('message.systemMenus.addConfigCategory') }}</el-button>
       <vxe-table
         :border="false"
         class="vxeTable mt14"
@@ -52,10 +52,10 @@
         :data="classList"
         row-id="id"
       >
-        <vxe-table-column field="id" title="ID" tooltip width="85"></vxe-table-column>
-        <vxe-table-column field="title" tree-node title="分类名称" min-width="150"></vxe-table-column>
-        <vxe-table-column field="eng_title" title="分类字段" min-width="150"></vxe-table-column>
-        <vxe-table-column field="statuss" title="状态" width="250">
+        <vxe-table-column field="id" :title="$t('message.common.id')" tooltip width="85"></vxe-table-column>
+        <vxe-table-column field="title" tree-node :title="$t('message.systemMenus.categoryName')" min-width="150"></vxe-table-column>
+        <vxe-table-column field="eng_title" :title="$t('message.systemMenus.categoryField')" min-width="150"></vxe-table-column>
+        <vxe-table-column field="statuss" :title="$t('message.setting.status')" width="250">
           <template v-slot="{ row }">
             <el-switch
               :active-value="1"
@@ -68,13 +68,13 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="action" title="操作" width="160" fixed="right">
+        <vxe-table-column field="action" :title="$t('message.common.operation')" width="160" fixed="right">
           <template v-slot="{ row, index }">
-            <a v-db-click @click="goList(row)">配置列表</a>
+            <a v-db-click @click="goList(row)">{{ $t('message.systemMenus.configList') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(row)">编辑</a>
+            <a v-db-click @click="edit(row)">{{ $t('message.setting.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, '删除分类', index)">删除</a>
+            <a v-db-click @click="del(row, $t('message.systemMenus.deleteCategory'), index)">{{ $t('message.setting.delete') }}</a>
           </template>
         </vxe-table-column>
       </vxe-table>

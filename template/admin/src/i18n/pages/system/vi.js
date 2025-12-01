@@ -359,6 +359,9 @@ export default {
     tableRemark: 'Ghi chú bảng',
     viewCode: 'Xem mã',
     terminalWarning: 'Terminal hiện tại không chạy dưới dịch vụ cài đặt, một số lệnh có thể không được thực thi.',
+    create: 'Tạo',
+    terminal: 'Terminal',
+    isDisplay: 'Có hiển thị',
     fileManagementPassword: 'Mật khẩu quản lý tệp',
     pleaseInputFileManagementPassword: 'Vui lòng nhập mật khẩu quản lý tệp',
     // Code Data Dictionary

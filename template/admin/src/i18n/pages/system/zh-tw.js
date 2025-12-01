@@ -359,6 +359,9 @@ export default {
     tableRemark: '表備註',
     viewCode: '查看代碼',
     terminalWarning: '當前終端未運行於安裝服務下，部分命令可能無法執行.',
+    create: '創建',
+    terminal: '終端',
+    isDisplay: '是否顯示',
     fileManagementPassword: '文件管理密碼',
     pleaseInputFileManagementPassword: '請輸入文件管理密碼',
     // Code Data Dictionary
