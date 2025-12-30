@@ -31,7 +31,7 @@ export default {
       name: `${pre}agentManage`,
       meta: {
         auth: ['agent-agent-manage'],
-        title: '分销员管理',
+        title: 'router.agent.distributorManage',
       },
       component: () => import('@/pages/agent/agentManage'),
     },
@@ -40,7 +40,7 @@ export default {
       name: `${pre}agentManage`,
       meta: {
         auth: ['admin-agent-spread-apply'],
-        title: '分销员申请',
+        title: 'router.agent.distributorApply',
       },
       component: () => import('@/pages/agent/spread/apply'),
     },

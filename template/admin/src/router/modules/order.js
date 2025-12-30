@@ -28,7 +28,7 @@ export default {
       name: `${pre}list`,
       meta: {
         auth: ['admin-order-storeOrder-index'],
-        title: '订单管理',
+        title: 'router.order.manage',
       },
       component: () => import('@/pages/order/orderList/index'),
     },
@@ -37,7 +37,7 @@ export default {
       name: `${pre}offline`,
       meta: {
         auth: ['admin-order-offline'],
-        title: '收银订单',
+        title: 'router.order.offline',
       },
       component: () => import('@/pages/order/offline/index'),
     },
@@ -46,7 +46,7 @@ export default {
       name: `${pre}refund`,
       meta: {
         auth: ['admin-order-refund'],
-        title: '售后订单',
+        title: 'router.order.refund',
       },
       component: () => import('@/pages/order/refund/index'),
     },
@@ -55,7 +55,7 @@ export default {
       name: `${pre}invoice`,
       meta: {
         auth: ['admin-order-startOrderInvoice-index'],
-        title: '发票管理',
+        title: 'router.order.invoice',
       },
       component: () => import('@/pages/order/invoice/index'),
     },

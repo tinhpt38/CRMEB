@@ -116,6 +116,7 @@ export const showTitle = (item, vm) => {
     if (title.includes('{{') && title.includes('}}') && useI18n)
       title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())));
     else if (__titleIsFunction__) title = item.meta.title;
+    else if (item.meta && item.meta.title) title = vm.$t(item.meta.title);
     else title = vm.$t(item.name);
   } else title = (item.meta && item.meta.title) || item.name;
   return title;

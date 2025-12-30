@@ -19,7 +19,7 @@ export default {
   name: 'product',
   header: 'product',
   meta: {
-    title: '商品',
+    title: 'router.product.root',
     // 授权标识
     auth: ['admin-store-index'],
   },
@@ -32,7 +32,7 @@ export default {
       path: 'product_list',
       name: `${pre}productList`,
       meta: {
-        title: '商品管理',
+        title: 'router.product.manage',
         auth: ['admin-store-storeProuduct-index'],
         keepAlive: true,
       },
@@ -42,7 +42,7 @@ export default {
       path: 'product_classify',
       name: `${pre}productClassify`,
       meta: {
-        title: '商品分类',
+        title: 'router.product.category',
         auth: ['admin-store-storeCategory-index'],
       },
       component: () => import('@/pages/product/productClassify'),
@@ -52,7 +52,7 @@ export default {
       name: `${pre}productAdd`,
       meta: {
         auth: ['admin-store-storeProuduct-index'],
-        title: '商品添加',
+        title: 'router.product.add',
         activeMenu: routePre + '/product/product_list',
       },
       component: () => import('@/pages/product/productAdd'),
@@ -62,7 +62,7 @@ export default {
       name: `${pre}productEvaluate`,
       meta: {
         auth: ['admin-store-storeProuduct-index'],
-        title: '商品评论',
+        title: 'router.product.comment',
       },
       component: () => import('@/pages/product/productReply'),
     },
@@ -71,7 +71,7 @@ export default {
       name: `${pre}productAttr`,
       meta: {
         auth: ['admin-store-storeProuduct-index'],
-        title: '商品规格',
+        title: 'router.product.spec',
       },
       component: () => import('@/pages/product/productAttr'),
     },
@@ -80,7 +80,7 @@ export default {
       name: `${pre}paramList`,
       meta: {
         auth: ['admin-product-param-list'],
-        title: '商品参数',
+        title: 'router.product.param',
       },
       component: () => import('@/pages/product/paramList'),
     },
@@ -89,7 +89,7 @@ export default {
       name: `${pre}labelList`,
       meta: {
         auth: ['admin-product-label-list'],
-        title: '商品标签',
+        title: 'router.product.label',
       },
       component: () => import('@/pages/product/labelList'),
     },
@@ -98,7 +98,7 @@ export default {
       name: `${pre}labelList`,
       meta: {
         auth: ['admin-product-protection-list'],
-        title: '商品保障',
+        title: 'router.product.protection',
       },
       component: () => import('@/pages/product/protectionList'),
     },

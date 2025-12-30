@@ -1,19 +1,19 @@
-const lotteryFrom = {
-  name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
-  factor: [{ required: true, type: 'number', message: '请选择活动类型', trigger: 'change' }],
-  attends_user: [{ required: true, type: 'number', message: '请选择参与用户', trigger: 'change' }],
-  factor_num: [{ required: true, type: 'number', message: '请输入抽奖次数', trigger: 'blur' }],
+const createLotteryRules = (t) => ({
+  name: [{ required: true, message: t('message.marketing.lottery.pleaseInputActivityName'), trigger: 'blur' }],
+  factor: [{ required: true, type: 'number', message: t('message.marketing.lottery.selectActivityType'), trigger: 'change' }],
+  attends_user: [{ required: true, type: 'number', message: t('message.marketing.lottery.selectParticipants'), trigger: 'change' }],
+  factor_num: [{ required: true, type: 'number', message: t('message.marketing.lottery.pleaseInputLotteryCount'), trigger: 'blur' }],
   prize: [
     {
       required: true,
       type: 'array',
-      message: '请添加抽奖奖品(8条)',
+      message: t('message.marketing.lottery.pleaseAddPrizes'),
       trigger: 'change',
     },
     {
       type: 'array',
       min: 8,
-      message: '请添加抽奖奖品(8条)',
+      message: t('message.marketing.lottery.pleaseAddPrizes'),
       trigger: 'change',
     },
   ],
@@ -21,7 +21,7 @@ const lotteryFrom = {
     {
       required: true,
       type: 'number',
-      message: '请输入邀请新用户最多可获得抽奖多少次',
+      message: t('message.marketing.lottery.pleaseInputInviteLotteryCount'),
       trigger: 'blur',
     },
   ],
@@ -29,40 +29,24 @@ const lotteryFrom = {
     {
       required: true,
       type: 'number',
-      message: '请输入关注额外抽多少次',
+      message: t('message.marketing.lottery.pleaseInputFollowLotteryCount'),
       trigger: 'blur',
     },
   ],
   image: [
     {
       required: true,
-      message: '请上传活动背景图',
+      message: t('message.marketing.lottery.pleaseUploadBackground'),
       trigger: 'change',
     },
   ],
   content: [
     {
       required: true,
-      message: '请填写活动规则',
+      message: t('message.marketing.lottery.pleaseInputRules'),
       trigger: 'blur',
     },
   ],
-};
-function validate(rule, value, callback) {
-  if (Array.isArray(value)) {
-    //格式为：daterange、datetimerange检测
-    value.map(function (item) {
-      if (item === '') {
-        return callback('日期不能为空');
-      }
-    });
-  } else {
-    //格式为：date、datetime、year、month 检测
-    if (value === '') {
-      return callback('日期不能为空');
-    }
-  }
-  return callback();
-}
+});
 
-export { lotteryFrom };
+export { createLotteryRules };

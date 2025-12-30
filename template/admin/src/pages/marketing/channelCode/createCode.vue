@@ -7,17 +7,17 @@
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
       <el-form :model="formData" label-width="100px" :rules="ruleValidate">
-        <el-form-item label="渠道码名称：">
+        <el-form-item :label="$t('message.marketing.channelCode.nameLabel') + '：'">
           <el-input
             clearable
             v-model="formData.name"
-            placeholder="请输入渠道码名称"
+            :placeholder="$t('message.marketing.channelCode.pleaseInputChannelCodeName')"
             class="content_width"
             maxlength="20"
             show-word-limit
           ></el-input>
         </el-form-item>
-        <el-form-item label="渠道码分组：">
+        <el-form-item :label="$t('message.marketing.channelCode.groupLabel') + '：'">
           <el-select clearable v-model="formData.cate_id" class="content_width">
             <el-option
               :value="item.id"
@@ -27,7 +27,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="用户标签：">
+        <el-form-item :label="$t('message.marketing.channelCode.userTagsLabel') + '：'">
           <div style="display: flex">
             <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
               <div style="width: 90%">
@@ -36,14 +36,14 @@
                     item.label_name
                   }}</el-tag>
                 </div>
-                <span class="span" v-else>选择用户关联标签</span>
+                <span class="span" v-else>{{ $t('message.marketing.channelCode.selectUserTags') }}</span>
               </div>
               <div class="ivu-icon ivu-icon-ios-arrow-down"></div>
             </div>
-            <span class="addfont" v-db-click @click="addLabel">新增标签</span>
+            <span class="addfont" v-db-click @click="addLabel">{{ $t('message.marketing.channelCode.addTag') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="关联推广员：">
+        <el-form-item :label="$t('message.marketing.channelCode.relatedPromoterLabel') + '：'">
           <div class="picBox" v-db-click @click="customer">
             <div class="pictrue" v-if="formData.avatar">
               <img v-lazy="formData.avatar" />
@@ -52,12 +52,12 @@
               <i class="el-icon-user" style="font-size: 24px"></i>
             </div>
           </div>
-          <div class="trip">扫码注册的新用户,将自动成为此推广员的下级,与分销推广功能一致</div>
+          <div class="trip">{{ $t('message.marketing.channelCode.promoterTip') }}</div>
         </el-form-item>
-        <el-form-item label="有效期：">
+        <el-form-item :label="$t('message.marketing.channelCode.validityLabel') + '：'">
           <el-radio-group v-model="isReceiveTime">
-            <el-radio :label="0">永久</el-radio>
-            <el-radio :label="1">有效期</el-radio>
+            <el-radio :label="0">{{ $t('message.marketing.channelCode.permanentOption') }}</el-radio>
+            <el-radio :label="1">{{ $t('message.marketing.channelCode.validityOption') }}</el-radio>
           </el-radio-group>
           <div v-show="isReceiveTime">
             <el-input-number
@@ -65,33 +65,43 @@
               :max="10000"
               :precision="0"
               v-model="formData.time"
-              placeholder="请输入天数"
+              :placeholder="$t('message.marketing.channelCode.pleaseInputDays')"
               class="content_width input-number-unit-class"
-              class-unit="天"
+              :class-unit="$t('message.marketing.channelCode.dayUnit')"
             ></el-input-number>
           </div>
-          <div class="trip">临时码过期后不能再扫码,永久二维码最大创建数量为10万个</div>
+          <div class="trip">{{ $t('message.marketing.channelCode.validityTip') }}</div>
         </el-form-item>
-        <el-form-item label="回复内容：">
+        <el-form-item :label="$t('message.marketing.channelCode.replyContentLabel') + '：'">
           <el-radio-group v-model="formData.type">
-            <el-radio label="text">文字内容</el-radio>
-            <el-radio label="voice">声音消息</el-radio>
-            <el-radio label="image">图片消息</el-radio>
-            <el-radio label="news">图文消息</el-radio>
+            <el-radio label="text">{{ $t('message.marketing.channelCode.textContent') }}</el-radio>
+            <el-radio label="voice">{{ $t('message.marketing.channelCode.voiceMessage') }}</el-radio>
+            <el-radio label="image">{{ $t('message.marketing.channelCode.imageMessage') }}</el-radio>
+            <el-radio label="news">{{ $t('message.marketing.channelCode.newsMessage') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="消息内容：" prop="content" v-if="formData.type === 'text' || formData.type === 'url'">
+        <el-form-item
+          :label="$t('message.marketing.channelCode.messageContentLabel') + '：'"
+          prop="content"
+          v-if="formData.type === 'text' || formData.type === 'url'"
+        >
           <el-input
             type="textarea"
             rows="2"
             clearable
             v-model="formData.content.content"
-            :placeholder="formData.type === 'text' ? '请填写消息内容' : '请填写网址链接'"
+            :placeholder="
+              formData.type === 'text'
+                ? $t('message.marketing.channelCode.pleaseInputMessageContent')
+                : $t('message.marketing.channelCode.pleaseInputUrl')
+            "
             class="content_width"
           ></el-input>
         </el-form-item>
-        <el-form-item label="选取图文：" v-if="formData.type === 'news'">
-          <el-button v-db-click @click="modals = true">选择图文消息</el-button>
+        <el-form-item :label="$t('message.marketing.channelCode.selectNews') + '：'" v-if="formData.type === 'news'">
+          <el-button v-db-click @click="modals = true">
+            {{ $t('message.marketing.channelCode.selectNewsMessage') }}
+          </el-button>
           <div class="news-box" v-if="formData.content.list.title">
             <img class="news_pic" :src="formData.content.list.image_input[0]" />
             <span>{{ formData.content.list.title }}</span>
@@ -99,14 +109,18 @@
           </div>
         </el-form-item>
         <el-form-item
-          :label="formData.type === 'image' ? '图片地址：' : '语音地址：'"
+          :label="
+            (formData.type === 'image'
+              ? $t('message.marketing.channelCode.imageAddressLabel')
+              : $t('message.marketing.channelCode.voiceAddressLabel')) + '：'
+          "
           prop="src"
           v-if="formData.type === 'image' || formData.type === 'voice'"
         >
           <div class="acea-row row-middle">
             <el-input
               readonly="readonly"
-              placeholder="请填入链接地址"
+              :placeholder="$t('message.marketing.channelCode.pleaseInputLink')"
               class="content_width mr15"
               v-model="formData.content.src"
             />
@@ -124,24 +138,36 @@
               accept="image/*,.mp3"
               :before-upload="beforeUpload"
             >
-              <el-button type="primary">上传</el-button>
+              <el-button type="primary">{{ $t('message.marketing.channelCode.upload') }}</el-button>
             </el-upload>
           </div>
-          <span v-show="formData.type === 'image'">文件最大2Mb，支持bmp/png/jpeg/jpg/gif格式</span>
-          <span v-show="formData.type === 'voice'">文件最大2Mb，支持mp3格式,播放长度不超过60s</span>
+          <span v-show="formData.type === 'image'">{{ $t('message.marketing.channelCode.imageUploadTip') }}</span>
+          <span v-show="formData.type === 'voice'">{{ $t('message.marketing.channelCode.voiceUploadTip') }}</span>
         </el-form-item>
         <el-form-item>
-          <el-button class="submit" type="primary" v-db-click @click="save" :loading="loading" :disabled="disabled"
-            >立即提交</el-button
+          <el-button
+            class="submit"
+            type="primary"
+            v-db-click
+            @click="save"
+            :loading="loading"
+            :disabled="disabled"
           >
+            {{ $t('message.marketing.channelCode.submitNow') }}
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
-    <el-dialog :visible.sync="customerShow" title="请选择商城用户" :show-close="true" width="1000px">
+    <el-dialog
+      :visible.sync="customerShow"
+      :title="$t('message.marketing.channelCode.selectMallUser')"
+      :show-close="true"
+      width="1000px"
+    >
       <customerInfo v-if="customerShow" @imageObject="imageObject"></customerInfo>
     </el-dialog>
     <!--图文消息 -->
-    <el-dialog :visible.sync="modals" title="发送消息" width="1200px" class="modelBox">
+    <el-dialog :visible.sync="modals" :title="$t('message.marketing.channelCode.sendMessage')" width="1200px" class="modelBox">
       <news-category
         v-if="modals"
         @getCentList="getCentList"
@@ -154,7 +180,7 @@
     <el-dialog
       :visible.sync="labelShow"
       scrollable
-      title="请选择用户标签"
+      :title="$t('message.marketing.channelCode.selectUserTagsDialog')"
       :closable="false"
       width="540px"
       :footer-hide="true"
@@ -219,22 +245,7 @@ export default {
       labelSort: [],
       isReceiveTime: 0,
       modals: false,
-      ruleValidate: {
-        name: [
-          {
-            required: true,
-            message: '请填写二维码名称',
-            trigger: 'blur',
-          },
-        ],
-        cate_id: [
-          {
-            required: true,
-            message: '请选择二维码分组',
-            trigger: 'change',
-          },
-        ],
-      },
+      ruleValidate: {},
       id: 0,
       dataLabel: [],
       loading: false,
@@ -244,6 +255,7 @@ export default {
     ...mapState('media', ['isMobile']),
   },
   created() {
+    this.initRuleValidate();
     this.getUserLabelAll();
     this.userLabel();
     this.getToken();
@@ -253,6 +265,24 @@ export default {
     }
   },
   methods: {
+    initRuleValidate() {
+      this.ruleValidate = {
+        name: [
+          {
+            required: true,
+            message: this.$t('message.marketing.channelCode.pleaseEnterQRCodeName'),
+            trigger: 'blur',
+          },
+        ],
+        cate_id: [
+          {
+            required: true,
+            message: this.$t('message.marketing.channelCode.pleaseSelectQRCodeGroup'),
+            trigger: 'change',
+          },
+        ],
+      };
+    },
     beforeUpload(file) {
       if (this.formData.type === 'image') {
         return isPicUpload(file);
@@ -327,13 +357,13 @@ export default {
     },
     handleFormatError(file) {
       if (this.formData.type === 'image') {
-        this.$message.warning('请上传bmp/png/jpeg/jpg/gif格式的图片');
+        this.$message.warning(this.$t('message.marketing.channelCode.uploadImageFormatTip'));
       } else {
-        this.$message.warning('请上传mp3/wma/wav/amr格式的语音');
+        this.$message.warning(this.$t('message.marketing.channelCode.uploadVoiceFormatTip'));
       }
     },
     handleMaxSize(file) {
-      this.$message.warning('请上传文件2M以内的文件');
+      this.$message.warning(this.$t('message.marketing.channelCode.uploadMaxSizeTip'));
     },
     // 上传头部token
     getToken() {
@@ -352,13 +382,13 @@ export default {
     // 创建
     save() {
       if (!this.formData.name) {
-        return this.$message.error('请输入二维码名称');
+        return this.$message.error(this.$t('message.marketing.channelCode.pleaseEnterQRCodeName'));
       }
       if (!this.formData.cate_id) {
-        return this.$message.error('请选择分组');
+        return this.$message.error(this.$t('message.marketing.channelCode.pleaseSelectQRCodeGroup'));
       }
       if (!this.dataLabel.length) {
-        return this.$message.error('请选择用户标签');
+        return this.$message.error(this.$t('message.marketing.channelCode.pleaseSelectUserTags'));
       } else {
         let ids = [];
         this.dataLabel.map((i) => {
@@ -367,28 +397,28 @@ export default {
         this.formData.label_id = ids;
       }
       if (!this.formData.uid) {
-        return this.$message.error('请选择推广员');
+        return this.$message.error(this.$t('message.marketing.channelCode.pleaseSelectPromoter'));
       }
       if (this.isReceiveTime) {
         if (this.formData.time < 1) {
-          return this.$message.error('使用有效期限不能小于1天');
+          return this.$message.error(this.$t('message.marketing.channelCode.validityMustBeGreaterThanOneDay'));
         }
       } else {
         this.formData.time = 0;
       }
       if (this.formData.type === 'text' || this.formData.type === 'url') {
         if (!this.formData.content.content.trim()) {
-          return this.$message.error('请输入内容');
+          return this.$message.error(this.$t('message.marketing.channelCode.pleaseInputContent'));
         }
       }
       if (this.formData.type === 'voice' || this.formData.type === 'image') {
         if (!this.formData.content.src.trim()) {
-          return this.$message.error('请先上传消息');
+          return this.$message.error(this.$t('message.marketing.channelCode.pleaseUploadMessage'));
         }
       }
       if (this.formData.type === 'news') {
         if (!this.formData.content.list.title.trim()) {
-          return this.$message.error('请选择图文消息');
+          return this.$message.error(this.$t('message.marketing.channelCode.pleaseSelectNewsMessage'));
         }
       }
       this.disabled = false;

@@ -4,7 +4,7 @@
       <el-col :span="4" class="left-wrapper">
         <div class="tree_tit" v-db-click @click="addSort">
           <i class="el-icon-circle-plus"></i>
-          添加分组
+          {{ $t('message.marketing.channelCode.addGroup') }}
         </div>
         <div class="tree">
           <el-tree
@@ -30,8 +30,8 @@
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
-                      <el-dropdown-item command="1">编辑分组</el-dropdown-item>
-                      <el-dropdown-item v-if="data.id" command="2">删除分组</el-dropdown-item>
+                      <el-dropdown-item command="1">{{ $t('message.marketing.channelCode.editGroup') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="data.id" command="2">{{ $t('message.marketing.channelCode.deleteGroup') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -44,15 +44,21 @@
         <el-card :bordered="false" shadow="never" class="left-radius-none">
           <el-row class="mb14">
             <el-col :span="18">
-              <el-button v-auth="['marketing-channel_code-create']" type="primary" v-db-click @click="add"
-                >新建渠道码</el-button
-              >
+              <el-button v-auth="['marketing-channel_code-create']" type="primary" v-db-click @click="add">
+                {{ $t('message.marketing.channelCode.createChannelCode') }}
+              </el-button>
               <!-- <el-button v-auth="['marketing-channel_code-create']" type="success" v-db-click @click="addSort">添加分组</el-button> -->
             </el-col>
             <el-col :span="6">
               <div class="flex">
-                <el-input class="mr10" v-model="tableFrom.name" search placeholder="请输入渠道码名称"> </el-input>
-                <el-button type="primary" v-db-click @click="userSearchs">搜索</el-button>
+                <el-input
+                  class="mr10"
+                  v-model="tableFrom.name"
+                  search
+                  :placeholder="$t('message.marketing.channelCode.pleaseInputChannelCodeName')"
+                >
+                </el-input>
+                <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.common.search') }}</el-button>
               </div>
             </el-col>
           </el-row>
@@ -60,57 +66,57 @@
             :data="tableList"
             v-loading="loading"
             highlight-current-row
-            no-userFrom-text="暂无数据"
-            no-filtered-userFrom-text="暂无筛选结果"
+            :no-userFrom-text="$t('message.common.noData')"
+            :no-filtered-userFrom-text="$t('message.common.noFilteredResults')"
           >
-            <el-table-column label="渠道码" width="80">
+        <el-table-column :label="$t('message.marketing.channelCode.channelCode')" width="80">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.image" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="渠道码名称" min-width="80">
+        <el-table-column :label="$t('message.marketing.channelCode.channelCodeName')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="总关注数" min-width="80">
+        <el-table-column :label="$t('message.marketing.channelCode.totalFollowers')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.follow }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="昨日新增关注" min-width="80">
+        <el-table-column :label="$t('message.marketing.channelCode.yesterdayNewFollowers')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.y_follow }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="用户标签" min-width="80">
+        <el-table-column :label="$t('message.marketing.channelCode.userTags')" min-width="80">
               <template slot-scope="scope">
                 <el-tag class="label-name" v-for="(item, index) in scope.row.label_name" :key="index">{{
                   item
                 }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="时间" min-width="80">
+        <el-table-column :label="$t('message.marketing.channelCode.timeRange')" min-width="80">
               <template slot-scope="scope">
-                <span v-if="scope.row.stop === 0"> 永久 </span>
+                <span v-if="scope.row.stop === 0"> {{ $t('message.marketing.channelCode.permanent') }} </span>
                 <span v-if="scope.row.stop === 1">
                   <div>{{ scope.row.add_time }}</div>
                   <div>-</div>
                   <div>{{ scope.row.end_time }}</div>
                 </span>
-                <span v-if="scope.row.stop === -1">已过期</span>
+                <span v-if="scope.row.stop === -1">{{ $t('message.marketing.channelCode.expired') }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="关联推广员" min-width="80">
+        <el-table-column :label="$t('message.marketing.channelCode.relatedPromoter')" min-width="80">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.avatar" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="状态" min-width="80">
+        <el-table-column :label="$t('message.common.status')" min-width="80">
               <template slot-scope="scope">
                 <el-switch
                   class="defineSwitch"
@@ -121,24 +127,30 @@
                   :disabled="scope.row.lottery_status == 2 ? true : false"
                   @change="onchangeIsShow(scope.row)"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.marketing.channelCode.enable')"
+                  :inactive-text="$t('message.marketing.channelCode.disable')"
                 >
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.operation')" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row)">编辑</a>
+                <a v-db-click @click="edit(scope.row)">{{ $t('message.common.edit') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除二维码', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.marketing.channelCode.deleteQRCode'), scope.$index)">
+                  {{ $t('message.common.delete') }}
+                </a>
                 <el-divider direction="vertical"></el-divider>
                 <el-dropdown size="small" @command="changeMenu(scope.row, $event)" :transfer="true">
-                  <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                  <span class="el-dropdown-link"
+                    >{{ $t('message.marketing.channelCode.more') }}<i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="1">下载</el-dropdown-item>
-                    <el-dropdown-item command="2">统计</el-dropdown-item>
-                    <el-dropdown-item command="3">用户列表</el-dropdown-item>
+                    <el-dropdown-item command="1">{{ $t('message.marketing.channelCode.download') }}</el-dropdown-item>
+                    <el-dropdown-item command="2">{{ $t('message.marketing.channelCode.statistics') }}</el-dropdown-item>
+                    <el-dropdown-item command="3"
+                      >{{ $t('message.marketing.channelCode.userList') }}</el-dropdown-item
+                    >
                   </el-dropdown-menu>
                 </el-dropdown>
               </template>
@@ -156,21 +168,32 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-dialog :visible.sync="modals" title="渠道码用户列表" :close-on-click-modal="false" width="900px">
-      <el-table ref="selection" :data="tabList" empty-text="暂无数据" highlight-current-row max-height="400">
+    <el-dialog
+      :visible.sync="modals"
+      :title="$t('message.marketing.channelCode.channelCodeUserList')"
+      :close-on-click-modal="false"
+      width="900px"
+    >
+      <el-table
+        ref="selection"
+        :data="tabList"
+        :empty-text="$t('message.common.noData')"
+        highlight-current-row
+        max-height="400"
+      >
         <el-table-column label="UID" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户头像" min-width="120">
+        <el-table-column :label="$t('message.marketing.channelCode.userAvatar')" min-width="120">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="用户昵称" min-width="120">
+        <el-table-column :label="$t('message.marketing.channelCode.userNickname')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
@@ -205,8 +228,8 @@ export default {
   filters: {
     typeFilter(status) {
       const statusMap = {
-        wechat: '微信用户',
-        routine: '小程序用户',
+        wechat: this.$t('message.marketing.channelCode.wechatUser'),
+        routine: this.$t('message.marketing.channelCode.miniProgramUser'),
       };
       return statusMap[status];
     },
@@ -305,7 +328,7 @@ export default {
       }
     },
     downLoadCode(url) {
-      if (!url) return this.$message.warning('暂无二维码');
+      if (!url) return this.$message.warning(this.$t('message.marketing.channelCode.noQRCode'));
       var image = new Image();
       image.src = url;
       // 解决跨域 Canvas 污染问题
@@ -350,7 +373,7 @@ export default {
       wechatQrcodeTree().then((res) => {
         let data = res.data.data;
         let obj = {
-          cate_name: '全部',
+          cate_name: this.$t('message.common.all'),
           id: '',
         };
         data.unshift(obj);
@@ -510,7 +533,7 @@ export default {
       if (name == 1) {
         this.labelEdit(data);
       } else if (name == 2) {
-        this.deleteSort(data, '删除分类');
+        this.deleteSort(data, this.$t('message.marketing.channelCode.deleteCategory'));
       }
     },
   },

@@ -17,7 +17,7 @@
     <cards-data class="mt16" :cardLists="cardLists" v-if="cardLists.length >= 0"></cards-data>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <div class="table-head">
-        <h3>关注趋势</h3>
+        <h3>{{ $t('message.marketing.channelCode.followTrend') }}</h3>
         <el-date-picker
           :editable="false"
           clearable
@@ -28,8 +28,8 @@
           type="daterange"
           value-format="yyyy/MM/dd"
           range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          :start-placeholder="$t('message.common.startDate')"
+          :end-placeholder="$t('message.common.endDate')"
           class="mr20"
         ></el-date-picker>
       </div>
@@ -60,51 +60,20 @@ export default {
       loading: false,
       loading2: false,
       fromList: {
-        title: '选择时间',
+        title: '',
         custom: true,
-        fromTxt: [
-          { text: '全部', val: '' },
-          { text: '今天', val: 'today' },
-          { text: '本周', val: 'week' },
-          { text: '本月', val: 'month' },
-          { text: '本季度', val: 'quarter' },
-          { text: '本年', val: 'year' },
-        ],
+        fromTxt: [],
       },
       formValidate: {
         time: '',
       },
-      cardLists: [
-        {
-          col: 6,
-          count: 0,
-          name: '昨日新增关注',
-          className: 'md-rose',
-        },
-        {
-          col: 6,
-          count: 0,
-          name: '昨日参与',
-          className: 'ios-speedometer-outline',
-        },
-        {
-          col: 6,
-          count: 0,
-          name: '总关注',
-          className: 'ios-speedometer-outline',
-        },
-        {
-          col: 6,
-          count: 0,
-          name: '参与总人数',
-          className: 'md-rose',
-        },
-      ],
+      cardLists: [],
       optionData: {},
       spinShow: false,
     };
   },
   created() {
+    this.initStaticText();
     this.id = this.$route.query.id;
     const end = new Date();
     const start = new Date();
@@ -118,6 +87,46 @@ export default {
     this.wechatQrcodeStatistic();
   },
   methods: {
+    initStaticText() {
+      this.fromList = {
+        title: this.$t('message.marketing.channelCode.selectTime'),
+        custom: true,
+        fromTxt: [
+          { text: this.$t('message.common.all'), val: '' },
+          { text: this.$t('message.marketing.channelCode.today'), val: 'today' },
+          { text: this.$t('message.marketing.channelCode.thisWeek'), val: 'week' },
+          { text: this.$t('message.marketing.channelCode.thisMonth'), val: 'month' },
+          { text: this.$t('message.marketing.channelCode.thisQuarter'), val: 'quarter' },
+          { text: this.$t('message.marketing.channelCode.thisYear'), val: 'year' },
+        ],
+      };
+      this.cardLists = [
+        {
+          col: 6,
+          count: 0,
+          name: this.$t('message.marketing.channelCode.yesterdayNewFollowers'),
+          className: 'md-rose',
+        },
+        {
+          col: 6,
+          count: 0,
+          name: this.$t('message.marketing.channelCode.yesterdayParticipants'),
+          className: 'ios-speedometer-outline',
+        },
+        {
+          col: 6,
+          count: 0,
+          name: this.$t('message.marketing.channelCode.totalFollowers'),
+          className: 'ios-speedometer-outline',
+        },
+        {
+          col: 6,
+          count: 0,
+          name: this.$t('message.marketing.channelCode.totalParticipants'),
+          className: 'md-rose',
+        },
+      ];
+    },
     wechatQrcodeStatistic() {
       wechatQrcodeStatistic(this.id, this.formValidate).then((res) => {
         let arr = ['y_follow', 'y_scan', 'all_follow', 'all_scan'];

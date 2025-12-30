@@ -28,7 +28,7 @@ export default {
       name: `${pre}combinalist`,
       meta: {
         auth: ['marketing-store_combination'],
-        title: '拼团商品',
+        title: 'router.marketing.groupProduct',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/storeCombination/index'),
@@ -38,7 +38,7 @@ export default {
       name: `${pre}combinaList`,
       meta: {
         auth: ['marketing-store_combination-combina_list'],
-        title: '拼团列表',
+        title: 'router.marketing.groupList',
       },
       component: () => import('@/pages/marketing/storeCombination/combinaList'),
     },
@@ -47,7 +47,7 @@ export default {
       name: `${pre}storeCombinationCreate`,
       meta: {
         auth: ['marketing-store_combination-create'],
-        title: '添加拼团',
+        title: 'router.marketing.groupCreate',
         activeMenu: routePre + '/marketing/store_combination/index',
       },
       component: () => import('@/pages/marketing/storeCombination/create'),
@@ -56,7 +56,7 @@ export default {
       path: 'store_combination/statistics/:id?',
       name: `${pre}storeCombinationStatistics`,
       meta: {
-        title: '拼团统计',
+        title: 'router.marketing.groupStatistics',
         activeMenu: routePre + '/marketing/store_combination/index',
       },
       component: () => import('@/pages/marketing/storeCombination/statistics'),
@@ -66,7 +66,7 @@ export default {
       name: `${pre}storeCoupon`,
       meta: {
         auth: ['marketing-store_coupon'],
-        title: '优惠券模板',
+        title: 'router.marketing.couponTemplate',
       },
       component: () => import('@/pages/marketing/storeCoupon/index'),
     },
@@ -75,7 +75,7 @@ export default {
       name: `${pre}storeCouponIssue`,
       meta: {
         auth: ['marketing-store_coupon_issue'],
-        title: '优惠券列表',
+        title: 'router.marketing.couponList',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/storeCouponIssue/index'),
@@ -85,7 +85,7 @@ export default {
       name: `${pre}storeCouponCreate`,
       meta: {
         auth: ['marketing-store_coupon_issue-create'],
-        title: '添加优惠券',
+        title: 'router.marketing.couponCreate',
         activeMenu: routePre + '/marketing/store_coupon_issue/index',
       },
       component: () => import('@/pages/marketing/storeCouponIssue/create'),
@@ -95,7 +95,7 @@ export default {
       name: `${pre}storeCouponUser`,
       meta: {
         auth: ['marketing-store_coupon_user'],
-        title: '用户领取记录',
+        title: 'router.marketing.couponReceiveRecord',
       },
       component: () => import('@/pages/marketing/storeCouponUser/index'),
     },
@@ -104,7 +104,7 @@ export default {
       name: `${pre}coupon`,
       meta: {
         auth: ['admin-order-storeOrder-index'],
-        title: '优惠券配置',
+        title: 'router.marketing.couponConfig',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -113,7 +113,7 @@ export default {
       name: `${pre}storeBargain`,
       meta: {
         auth: ['marketing-store_bargain'],
-        title: '砍价商品',
+        title: 'router.marketing.bargainProduct',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/storeBargain/index'),
@@ -123,7 +123,7 @@ export default {
       name: `${pre}bargainList`,
       meta: {
         auth: ['marketing-store_bargain-bargain_list'],
-        title: '砍价列表',
+        title: 'router.marketing.bargainList',
       },
       component: () => import('@/pages/marketing/storeBargain/bargainList'),
     },
@@ -132,7 +132,7 @@ export default {
       name: `${pre}bargainCreate`,
       meta: {
         auth: ['marketing-store_bargain-create'],
-        title: '添加砍价',
+        title: 'router.marketing.bargainCreate',
         activeMenu: routePre + '/marketing/store_bargain/index',
       },
       component: () => import('@/pages/marketing/storeBargain/create'),
@@ -141,7 +141,7 @@ export default {
       path: 'store_bargain/statistics/:id?',
       name: `${pre}storeBargainStatistics`,
       meta: {
-        title: '砍价统计',
+        title: 'router.marketing.bargainStatistics',
         activeMenu: routePre + '/marketing/store_bargain/index',
       },
       component: () => import('@/pages/marketing/storeBargain/statistics'),
@@ -151,7 +151,7 @@ export default {
       name: `${pre}storeSeckill`,
       meta: {
         auth: ['marketing-store_seckill'],
-        title: '秒杀商品',
+        title: 'router.marketing.seckillProduct',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/storeSeckill/index'),
@@ -161,7 +161,7 @@ export default {
       name: `${pre}storeSeckillData`,
       meta: {
         auth: ['marketing-store_seckill-data'],
-        title: '秒杀配置',
+        title: 'router.marketing.seckillConfig',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -170,7 +170,7 @@ export default {
       name: `${pre}storeSeckillCreate`,
       meta: {
         auth: ['marketing-store_seckill-create'],
-        title: '添加秒杀',
+        title: 'router.marketing.seckillCreate',
         activeMenu: routePre + '/marketing/store_seckill/list',
       },
       component: () => import('@/pages/marketing/storeSeckill/create'),
@@ -180,7 +180,7 @@ export default {
       name: `${pre}storeSeckillCreate`,
       meta: {
         auth: ['marketing-store_seckill-create-more'],
-        title: '添加秒杀',
+        title: 'router.marketing.seckillCreate',
         activeMenu: routePre + '/marketing/store_seckill/list',
       },
       component: () => import('@/pages/marketing/storeSeckill/createMore'),
@@ -189,7 +189,7 @@ export default {
       path: 'store_seckill/list',
       name: `${pre}marketing-store_seckill-list`,
       meta: {
-        title: '秒杀列表',
+        title: 'router.marketing.seckillList',
       },
       component: () => import('@/pages/marketing/storeSeckill/list'),
     },
@@ -197,7 +197,7 @@ export default {
       path: 'store_seckill/statistics/:id?',
       name: `${pre}storeSeckillStatistics`,
       meta: {
-        title: '秒杀统计',
+        title: 'router.marketing.seckillStatistics',
         activeMenu: routePre + '/marketing/store_seckill/index',
       },
       component: () => import('@/pages/marketing/storeSeckill/statistics'),
@@ -207,7 +207,7 @@ export default {
       name: `${pre}integral`,
       meta: {
         auth: ['marketing-integral-system_config'],
-        title: '积分配置',
+        title: 'router.marketing.integralConfig',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -216,7 +216,7 @@ export default {
       name: `${pre}model`,
       meta: {
         auth: ['system-model-system_config'],
-        title: '模块配置',
+        title: 'router.marketing.moduleConfig',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -225,7 +225,7 @@ export default {
       name: `${pre}storeIntegral`,
       meta: {
         auth: ['marketing-store_integral'],
-        title: '积分商品',
+        title: 'router.marketing.integralProduct',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/storeIntegral/index'),
@@ -235,7 +235,7 @@ export default {
       name: `${pre}storeIntegralCreate`,
       meta: {
         auth: ['marketing-store_integral-create'],
-        title: '添加积分商品',
+        title: 'router.marketing.integralProductCreate',
         activeMenu: routePre + '/marketing/store_integral/index',
       },
       component: () => import('@/pages/marketing/storeIntegral/create'),
@@ -245,7 +245,7 @@ export default {
       name: `${pre}storeIntegralOrder`,
       meta: {
         auth: ['marketing-store_integral-order'],
-        title: '兑换订单',
+        title: 'router.marketing.exchangeOrder',
       },
       component: () => import('@/pages/marketing/storeIntegralOrder/index'),
     },
@@ -254,7 +254,7 @@ export default {
       name: `${pre}userPoint`,
       meta: {
         auth: ['marketing-user_point'],
-        title: '积分日志',
+        title: 'router.marketing.integralLog',
       },
       component: () => import('@/pages/marketing/userPoint/index'),
     },
@@ -263,7 +263,7 @@ export default {
       name: `${pre}live_room`,
       meta: {
         auth: true,
-        title: '直播间管理',
+        title: 'router.marketing.liveRoomManage',
       },
       component: () => import('@/pages/marketing/live/index'),
     },
@@ -272,7 +272,7 @@ export default {
       name: `${pre}add_live_room`,
       meta: {
         auth: true,
-        title: '直播间管理',
+        title: 'router.marketing.liveRoomManage',
         activeMenu: routePre + '/marketing/live/live_room',
       },
       component: () => import('@/pages/marketing/live/creat_live'),
@@ -282,7 +282,7 @@ export default {
       name: `${pre}live_goods`,
       meta: {
         auth: true,
-        title: '直播间商品管理',
+        title: 'router.marketing.liveGoodsManage',
       },
       component: () => import('@/pages/marketing/live/live_goods'),
     },
@@ -291,7 +291,7 @@ export default {
       name: `${pre}add_live_goods`,
       meta: {
         auth: true,
-        title: '直播间商品管理',
+        title: 'router.marketing.liveGoodsManage',
         activeMenu: routePre + '/marketing/live/live_goods',
       },
       component: () => import('@/pages/marketing/live/add_goods'),
@@ -301,7 +301,7 @@ export default {
       name: `${pre}anchor`,
       meta: {
         auth: true,
-        title: '主播管理',
+        title: 'router.marketing.anchorManage',
       },
       component: () => import('@/pages/marketing/live/anchor'),
     },
@@ -310,7 +310,7 @@ export default {
       name: `${pre}storePresell`,
       meta: {
         auth: ['marketing-presell'],
-        title: '预售商品',
+        title: 'router.marketing.presellProduct',
       },
       component: () => import('@/pages/marketing/storePresell/index'),
     },
@@ -319,7 +319,7 @@ export default {
       name: `${pre}presellList`,
       meta: {
         auth: ['marketing-presell-presell_list'],
-        title: '预售列表',
+        title: 'router.marketing.presellList',
       },
       component: () => import('@/pages/marketing/storePresell/presellList'),
     },
@@ -328,7 +328,7 @@ export default {
       name: `${pre}storePresellCreate`,
       meta: {
         auth: ['marketing-presell-create'],
-        title: '添加预售',
+        title: 'router.marketing.presellCreate',
       },
       component: () => import('@/pages/marketing/storePresell/create'),
     },
@@ -337,7 +337,7 @@ export default {
       name: `${pre}lottery`,
       meta: {
         auth: true,
-        title: '抽奖列表',
+        title: 'router.marketing.lotteryList',
       },
       component: () => import('@/pages/marketing/lottery/index'),
     },
@@ -346,7 +346,7 @@ export default {
       name: `${pre}create`,
       meta: {
         auth: true,
-        title: '创建抽奖',
+        title: 'router.marketing.lotteryCreate',
         activeMenu: routePre + '/marketing/lottery/list',
       },
       component: () => import('@/pages/marketing/lottery/create'),
@@ -356,7 +356,7 @@ export default {
       name: `${pre}recording_list`,
       meta: {
         auth: true,
-        title: '抽奖记录',
+        title: 'router.marketing.lotteryRecord',
         activeMenu: routePre + '/marketing/lottery/list',
       },
       component: () => import('@/pages/marketing/lottery/recordingList'),
@@ -366,7 +366,7 @@ export default {
       name: `${pre}lottery_config`,
       meta: {
         auth: ['admin-marketing-lottery-config'],
-        title: '抽奖配置',
+        title: 'router.marketing.lotteryConfig',
       },
       component: () => import('@/pages/marketing/lottery/config'),
     },
@@ -375,7 +375,7 @@ export default {
       name: `${pre}list`,
       meta: {
         auth: true,
-        title: '抽奖列表',
+        title: 'router.marketing.lotteryList',
       },
       component: () => import('@/pages/marketing/lottery/lotteryList'),
     },
@@ -384,7 +384,7 @@ export default {
       name: `${pre}channel_code`,
       meta: {
         auth: true,
-        title: '公众号渠道码',
+        title: 'router.marketing.officialAccountChannelCode',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/channelCode/channelCodeIndex'),
@@ -394,7 +394,7 @@ export default {
       name: `${pre}create_code`,
       meta: {
         auth: ['marketing-channel_code-create'],
-        title: '渠道码',
+        title: 'router.marketing.channelCode',
         activeMenu: routePre + '/marketing/channel_code/channelCodeIndex',
       },
       component: () => import('@/pages/marketing/channelCode/createCode'),
@@ -404,7 +404,7 @@ export default {
       name: `${pre}code_statistic`,
       meta: {
         auth: ['marketing-channel_code-statistic'],
-        title: '二维码统计',
+        title: 'router.marketing.qrCodeStatistic',
         activeMenu: routePre + '/marketing/channel_code/channelCodeIndex',
       },
       component: () => import('@/pages/marketing/channelCode/codeStatistic'),
@@ -414,7 +414,7 @@ export default {
       name: `${pre}point_record`,
       meta: {
         auth: ['marketing-point_record-index'],
-        title: '积分记录',
+        title: 'router.marketing.integralRecord',
       },
       component: () => import('@/pages/marketing/point_record/index'),
     },
@@ -423,7 +423,7 @@ export default {
       name: `${pre}point_statistic`,
       meta: {
         auth: ['marketing-point_statistic-index'],
-        title: '积分统计',
+        title: 'router.marketing.integralStatistic',
       },
       component: () => import('@/pages/marketing/point_statistic/index'),
     },
@@ -431,7 +431,7 @@ export default {
       path: 'recharge',
       name: `${pre}recharge`,
       meta: {
-        title: '充值配置',
+        title: 'router.marketing.rechargeConfig',
       },
       component: () => import('@/pages/marketing/recharge/index'),
     },
@@ -439,7 +439,7 @@ export default {
       path: 'sign',
       name: `${pre}sign`,
       meta: {
-        title: '签到配置',
+        title: 'router.marketing.signConfig',
       },
       component: () => import('@/pages/marketing/sign/index'),
     },
@@ -447,7 +447,7 @@ export default {
       path: 'sign_rewards',
       name: `${pre}sign_rewards`,
       meta: {
-        title: '签到奖励',
+        title: 'router.marketing.signRewards',
       },
       component: () => import('@/pages/marketing/sign/rewards'),
     },
@@ -455,7 +455,7 @@ export default {
       path: `member_config/:type?/:tab_id?`,
       name: `${pre}member_config`,
       meta: {
-        title: '会员配置',
+        title: 'router.marketing.memberConfig',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -463,7 +463,7 @@ export default {
       path: `newuser/gift`,
       name: `${pre}gift`,
       meta: {
-        title: '新人礼',
+        title: 'router.marketing.newUserGift',
         auth: ['admin-marketing-new-user-gift'],
       },
       component: () => import('@/pages/marketing/newuser/gift'),

@@ -9,7 +9,7 @@
           type="text"
           v-db-click
           @click="$router.go(-1)"
-          >返回</el-button
+          >{{ $t('message.common.back') }}</el-button
         >
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
@@ -30,18 +30,18 @@
           >
             <el-row>
               <el-col :span="24">
-                <el-form-item label="活动类型：" prop="name" label-for="name">
+                <el-form-item :label="$t('message.marketing.lottery.activityTypeLabel') + '：'" prop="name" label-for="name">
                   <el-radio-group v-model="formValidate.factor" @input="onClickTab">
                     <el-radio v-for="(item, index) in tabs" :label="item.type" :disabled="!!lottery_id" :key="index">{{
-                      item.name
+                      $t(`message.marketing.lottery.${item.nameKey}`)
                     }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动名称：" prop="name" label-for="name">
+                <el-form-item :label="$t('message.marketing.lottery.activityNameLabel') + '：'" prop="name" label-for="name">
                   <el-input
-                    placeholder="请输入活动名称"
+                    :placeholder="$t('message.marketing.lottery.pleaseInputActivityName')"
                     v-model="formValidate.name"
                     class="content_width"
                     maxlength="80"
@@ -50,7 +50,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动时间：">
+                <el-form-item :label="$t('message.marketing.lottery.activityTimeLabel') + '：'">
                   <div class="acea-row row-middle">
                     <el-date-picker
                       v-model="formValidate.period"
@@ -59,8 +59,8 @@
                       format="yyyy-MM-dd"
                       value-format="yyyy-MM-dd"
                       range-separator="-"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
+                      :start-placeholder="$t('message.common.startDate')"
+                      :end-placeholder="$t('message.common.endDate')"
                       @change="onchangeTime"
                       style="width: 460px"
                     ></el-date-picker>
@@ -68,10 +68,10 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="参与用户：" prop="attends_user" label-for="attends_user">
+                <el-form-item :label="$t('message.marketing.lottery.participantsLabel') + '：'" prop="attends_user" label-for="attends_user">
                   <el-radio-group element-id="attends_user" v-model="formValidate.attends_user" @input="changeUsers">
-                    <el-radio :label="1" class="radio">全部用户</el-radio>
-                    <el-radio :label="2">部分用户</el-radio>
+                    <el-radio :label="1" class="radio">{{ $t('message.common.all') }}</el-radio>
+                    <el-radio :label="2">{{ $t('message.marketing.lottery.partialUsers') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -82,7 +82,7 @@
                       multiple
                       v-model="formValidate.user_level"
                       class="content_width"
-                      placeholder="请选择用户等级"
+                      :placeholder="$t('message.marketing.lottery.pleaseSelectUserLevel')"
                     >
                       <el-option
                         v-for="item in userLevelListApi"
@@ -100,14 +100,14 @@
                     <el-select
                       v-model="formValidate.is_svip"
                       clearable
-                      placeholder="请选择是否是付费会员"
+                      :placeholder="$t('message.marketing.lottery.pleaseSelectPaidMember')"
                       class="content_width"
                     >
                       <el-option
                         v-for="item in templateList"
                         :value="item.id"
                         :key="item.id"
-                        :label="item.name"
+                        :label="$t(`message.marketing.lottery.${item.nameKey}`)"
                       ></el-option>
                     </el-select>
                   </div>
@@ -128,29 +128,29 @@
                             >{{ item.label_name }}</el-tag
                           >
                         </div>
-                        <span class="span" v-else>选择用户标签</span>
+                        <span class="span" v-else>{{ $t('message.marketing.lottery.selectUserTagsPlaceholder') }}</span>
                       </div>
                       <div class="ivu-icon ivu-icon-ios-arrow-down"></div>
                     </div>
                   </div>
-                  <div class="tips-info ml100 grey">三个条件都设置后,必须这些条件都满足的用户才能参加抽奖</div>
+                  <div class="tips-info ml100 grey">{{ $t('message.marketing.lottery.conditionTip') }}</div>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.factor == 5">
                 <el-form-item
-                  label="抽奖次数："
+                  :label="$t('message.marketing.lottery.lotteryCountLabel') + '：'"
                   :prop="formValidate.factor == 5 ? 'lottery_num_term' : ''"
                   label-for="status"
                 >
                   <el-radio-group element-id="lottery_num_term" v-model="formValidate.lottery_num_term">
-                    <el-radio :label="1" class="radio">每天N次</el-radio>
-                    <el-radio :label="2">每人N次</el-radio>
+                    <el-radio :label="1" class="radio">{{ $t('message.marketing.lottery.perDayOption') }}</el-radio>
+                    <el-radio :label="2">{{ $t('message.marketing.lottery.perUserOption') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.factor == 5">
                 <el-form-item
-                  label="邀请新用户最多可获得抽奖"
+                  :label="$t('message.marketing.lottery.inviteNewUserLottery')"
                   :prop="formValidate.factor == 5 ? 'lottery_num' : ''"
                   label-for="lottery_num"
                 >
@@ -165,13 +165,13 @@
                       v-model="formValidate.lottery_num"
                       class="content_width"
                     />
-                    <div class="ml10 grey">次</div>
+                    <div class="ml10 grey">{{ $t('message.marketing.lottery.timesUnit') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.factor == 5">
                 <el-form-item
-                  label="邀请一位新用户关注公众号可获得抽奖"
+                  :label="$t('message.marketing.lottery.inviteFollowLottery')"
                   :prop="formValidate.factor == 5 ? 'spread_num' : ''"
                   label-for="spread_num"
                 >
@@ -186,7 +186,7 @@
                       v-model="formValidate.spread_num"
                       class="content_width"
                     />
-                    <div class="ml10 grey">次</div>
+                    <div class="ml10 grey">{{ $t('message.marketing.lottery.timesUnit') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
@@ -195,7 +195,11 @@
                 v-if="formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4"
               >
                 <el-form-item
-                  :label="formValidate.factor == 1 ? '抽奖消耗积分：' : '抽奖次数：'"
+                  :label="
+                    formValidate.factor == 1
+                      ? $t('message.marketing.lottery.lotteryCostPoints') + '：'
+                      : $t('message.marketing.lottery.lotteryCountLabel') + '：'
+                  "
                   :prop="
                     formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4 ? 'factor_num' : ''
                   "
@@ -220,7 +224,7 @@
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item label="规格选择：" prop="prize">
+                <el-form-item :label="$t('message.marketing.lottery.prizeSelection') + '：'" prop="prize">
                   <el-table ref="selection" :data="specsData">
                     <el-table-column min-width="30">
                       <template slot-scope="scope">
@@ -229,8 +233,8 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="序号" type="index" width="50"> </el-table-column>
-                    <el-table-column label="图片" min-width="80">
+                    <el-table-column :label="$t('message.marketing.lottery.tableIndex')" type="index" width="50"> </el-table-column>
+                    <el-table-column :label="$t('message.marketing.lottery.tableImage')" min-width="80">
                       <template slot-scope="scope">
                         <div
                           class="acea-row scope.row-middle scope.row-center-wrapper"
@@ -246,22 +250,22 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="名称" min-width="80">
+                    <el-table-column :label="$t('message.marketing.lottery.tableName')" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.name }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="奖品" min-width="80">
+                    <el-table-column :label="$t('message.marketing.lottery.tablePrize')" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.type | typeName }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="提示语" min-width="80">
+                    <el-table-column :label="$t('message.marketing.lottery.tablePrompt')" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.prompt }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="数量" min-width="80">
+                    <el-table-column :label="$t('message.marketing.lottery.tableQuantity')" min-width="80">
                       <template slot-scope="scope">
                         <el-input-number
                           :controls="false"
@@ -273,7 +277,7 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column label="奖品概率(%)" min-width="80">
+                    <el-table-column :label="$t('message.marketing.lottery.tableProbability')" min-width="80">
                       <template slot-scope="scope">
                         <el-input-number
                           :controls="false"
@@ -285,9 +289,11 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right" width="80">
+                    <el-table-column :label="$t('message.marketing.lottery.tableOperation')" fixed="right" width="80">
                       <template slot-scope="scope">
-                        <a class="submission mr15" v-db-click @click="editGoods(scope.$index)">编辑</a>
+                        <a class="submission mr15" v-db-click @click="editGoods(scope.$index)">{{
+                          $t('message.marketing.lottery.edit')
+                        }}</a>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -297,14 +303,14 @@
                     class="submission mr15 mt20"
                     v-db-click
                     @click="addGoods"
-                    >添加商品</el-button
+                    >{{ $t('message.marketing.lottery.addProduct') }}</el-button
                   >
                 </el-form-item>
                 <el-form-item>
                   <div class="pl60 grey">
-                    奖品必须设置为8个，列表中拖拽可调整奖品在九宫中的位置
+                    {{ $t('message.marketing.lottery.prizeTip') }}
                     <el-tooltip effect="light" placement="bottom" width="380">
-                      <a>查看位置示例图</a>
+                      <a>{{ $t('message.marketing.lottery.viewExample') }}</a>
                       <div class="api" slot="content">
                         <img src="../../../assets/images/lotteryTest.png" alt="" />
                       </div>
@@ -320,8 +326,8 @@
               >
                 <div class="custom-label" slot="label">
                   <div>
-                    <div>活动背景图</div>
-                    <div>(750*750)</div>
+                    <div>{{ $t('message.marketing.lottery.activityBackground') }}</div>
+                    <div>{{ $t('message.marketing.lottery.backgroundSize') }}</div>
                   </div>
                   <div>：</div>
                 </div>
@@ -342,7 +348,7 @@
               </el-form-item>
               <el-form-item
                 v-if="formValidate.factor != 3 && formValidate.factor != 4"
-                label="中奖名单："
+                :label="$t('message.marketing.lottery.winningList') + '：'"
                 :prop="formValidate.factor != 3 && formValidate.factor != 4 ? 'is_all_record' : ''"
                 label-for="is_all_record"
               >
@@ -352,14 +358,14 @@
                   :inactive-value="0"
                   v-model="formValidate.is_all_record"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.common.enable')"
+                  :inactive-text="$t('message.common.disable')"
                 >
                 </el-switch>
               </el-form-item>
               <el-form-item
                 v-if="formValidate.factor != 3 && formValidate.factor != 4"
-                label="个人中奖记录："
+                :label="$t('message.marketing.lottery.personalWinningRecord') + '：'"
                 :prop="formValidate.factor != 3 && formValidate.factor != 4 ? 'is_personal_record' : ''"
                 label-for="is_personal_record"
               >
@@ -369,14 +375,14 @@
                   :inactive-value="0"
                   v-model="formValidate.is_personal_record"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.common.enable')"
+                  :inactive-text="$t('message.common.disable')"
                 >
                 </el-switch>
               </el-form-item>
               <el-form-item
                 v-if="formValidate.factor != 3 && formValidate.factor != 4"
-                label="活动规则："
+                :label="$t('message.marketing.lottery.activityRules') + '：'"
                 prop="is_content"
                 label-for="is_content"
               >
@@ -386,8 +392,8 @@
                   :inactive-value="0"
                   v-model="formValidate.is_content"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.common.enable')"
+                  :inactive-text="$t('message.common.disable')"
                 >
                 </el-switch>
               </el-form-item>
@@ -404,21 +410,23 @@
                   @editorContent="getEditorContent"
                 ></WangEditor>
               </el-form-item>
-              <el-form-item label="活动状态：" prop="status" label-for="status">
+              <el-form-item :label="$t('message.marketing.lottery.activityStatusLabel') + '：'" prop="status" label-for="status">
                 <el-switch
                   class="defineSwitch"
                   :active-value="1"
                   :inactive-value="0"
                   v-model="formValidate.status"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.common.enable')"
+                  :inactive-text="$t('message.common.disable')"
                 >
                 </el-switch>
               </el-form-item>
             </div>
             <el-form-item>
-              <el-button type="primary" :loading="submitOpen" v-db-click @click="next('formValidate')">提交</el-button>
+              <el-button type="primary" :loading="submitOpen" v-db-click @click="next('formValidate')">
+                {{ $t('message.common.submit') }}
+              </el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -426,22 +434,27 @@
     </el-card>
 
     <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog
+      :visible.sync="modalPic"
+      width="950px"
+      :title="$t('message.marketing.lottery.uploadProductImageTitle')"
+      :close-on-click-modal="false"
+    >
       <uploadPictures :isChoice="isChoice" @getPic="getPic" v-if="modalPic"></uploadPictures>
     </el-dialog>
     <!-- 上传图片-->
     <el-dialog :visible.sync="addGoodsModel" width="720px" :title="title" :close-on-click-modal="false">
       <addGoods ref="addGoodsForm" v-if="addGoodsModel" @addGoodsData="addGoodsData" :editData="editData"></addGoods>
       <div class="acea-row row-right mt20">
-        <el-button v-db-click @click="addGoodsModel = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="submitAddGoods">提交</el-button>
+        <el-button v-db-click @click="addGoodsModel = false">{{ $t('message.common.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="submitAddGoods">{{ $t('message.common.submit') }}</el-button>
       </div>
     </el-dialog>
     <!-- 用户标签 -->
     <el-dialog
       :visible.sync="selectLabelShow"
       scrollable
-      title="请选择用户标签"
+      :title="$t('message.marketing.lottery.selectUserTagsDialog')"
       :closable="false"
       width="540px"
       :footer-hide="true"
@@ -467,7 +480,7 @@ import uploadPictures from '@/components/uploadPictures';
 import userLabel from '@/components/userLabel';
 import addGoods from './addGoods';
 import { lotteryNewDetailApi, lotteryDetailApi, lotteryCreateApi, lotteryEditApi } from '@/api/lottery'; //详情 创建 编辑
-import { lotteryFrom } from './formRule/lotteryFrom';
+import { createLotteryRules } from './formRule/lotteryFrom';
 import { labelListApi } from '@/api/product';
 import { levelListApi } from '@/api/user';
 import WangEditor from '@/components/wangEditor/index.vue';
@@ -492,19 +505,19 @@ export default {
       content: '',
       tabs: [
         {
-          name: '积分抽取',
+          nameKey: 'tabPoints',
           type: '1',
         },
         {
-          name: '订单支付',
+          nameKey: 'tabOrderPayment',
           type: '3',
         },
         {
-          name: '订单评价',
+          nameKey: 'tabOrderReview',
           type: '4',
         },
       ],
-      title: '添加商品',
+      title: '',
       loading: false,
       userLabelList: [], //用户标签列表
       userLevelListApi: [], //用户等级列表
@@ -525,9 +538,9 @@ export default {
       modal_loading: false,
       images: [],
       templateList: [
-        { id: -1, name: '不限制会员类型' },
-        { id: 0, name: '非付费会员' },
-        { id: 1, name: '付费会员' },
+        { id: -1, nameKey: 'templateNoLimit' },
+        { id: 0, nameKey: 'templateNonPaid' },
+        { id: 1, nameKey: 'templatePaid' },
       ],
       specsData: [
         {
@@ -642,7 +655,7 @@ export default {
         content: '', //富文本内容
         status: 0, //状态
       },
-      ruleValidate: lotteryFrom,
+      ruleValidate: {},
       currentid: '',
       picTit: '',
       tableIndex: 0,
@@ -656,18 +669,19 @@ export default {
   filters: {
     typeName(type) {
       if (type == 1) {
-        return '未中奖';
+        return this.$t('message.marketing.lottery.prizeTypeNone');
       } else if (type == 2) {
-        return '积分';
+        return this.$t('message.marketing.lottery.prizeTypePoints');
       } else if (type == 3) {
-        return '余额';
+        return this.$t('message.marketing.lottery.prizeTypeBalance');
       } else if (type == 4) {
-        return '红包';
+        return this.$t('message.marketing.lottery.prizeTypeRedPacket');
       } else if (type == 5) {
-        return '优惠券';
+        return this.$t('message.marketing.lottery.prizeTypeCoupon');
       } else if (type == 6) {
-        return '商品';
+        return this.$t('message.marketing.lottery.prizeTypeProduct');
       }
+      return '';
     },
   },
   computed: {
@@ -678,6 +692,10 @@ export default {
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
     },
+  },
+  created() {
+    this.title = this.$t('message.marketing.lottery.addProductDialogTitle');
+    this.ruleValidate = createLotteryRules(this.$t.bind(this));
   },
   mounted() {
     this.labelListApi();
@@ -966,13 +984,13 @@ export default {
     //新增商品
     addGoods() {
       this.addGoodsModel = true;
-      this.title = '添加商品';
+      this.title = this.$t('message.marketing.lottery.addProductDialogTitle');
       this.editData = {};
     },
     //编辑商品
     editGoods(index) {
       this.addGoodsModel = true;
-      this.title = '添加奖品';
+      this.title = this.$t('message.marketing.lottery.addPrizeDialogTitle');
       this.editData = this.specsData[index];
       this.editIndex = index;
     },
@@ -993,7 +1011,7 @@ export default {
         ? this.$set(this.specsData, [this.editIndex], data)
         : this.specsData.length < 8
         ? this.specsData.push(data)
-        : this.$message.warning('最多添加8个奖品');
+        : this.$message.warning(this.$t('message.marketing.lottery.maxPrizesWarning'));
       this.getProbability();
       this.addGoodsModel = false;
       this.editIndex = null;
