@@ -10,10 +10,10 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="文章分类：" label-for="pid">
+          <el-form-item :label="$t('message.pages.cms.article.articleCategory')" label-for="pid">
             <el-cascader
               v-model="artFrom.pid"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.cms.article.pleaseSelect')"
               class="treeSel"
               @change="handleCheckChange"
               :options="treeData"
@@ -22,18 +22,18 @@
             >
             </el-cascader>
           </el-form-item>
-          <el-form-item label="文章搜索：" label-for="title">
-            <el-input clearable placeholder="请输入" v-model="artFrom.title" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.cms.article.articleSearch')" label-for="title">
+            <el-input clearable :placeholder="$t('message.pages.cms.addArticle.placeholderInput')" v-model="artFrom.title" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.cms.article.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <router-link :to="$routeProStr + '/cms/article/add_article'" v-auth="['cms-article-creat']"
-        ><el-button type="primary" class="bnt">添加文章</el-button></router-link
+        ><el-button type="primary" class="bnt">{{ $t('message.pages.cms.article.addArticle') }}</el-button></router-link
       >
       <el-table
         :data="cmsList"
@@ -41,15 +41,15 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.cms.article.noData')"
+        :no-filtered-data-text="$t('message.pages.cms.article.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.cms.article.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="文章图片" min-width="90">
+        <el-table-column :label="$t('message.pages.cms.article.articleImage')" min-width="90">
           <template slot-scope="scope">
             <div v-if="scope.row.image_input.length !== 0" v-viewer>
               <div class="tabBox_img" v-for="(item, index) in scope.row.image_input" :key="index">
@@ -58,7 +58,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="文章名称" min-width="130">
+        <el-table-column :label="$t('message.pages.cms.article.articleName')" min-width="130">
           <template slot-scope="scope">
             <el-tooltip placement="top" :open-delay="600">
               <div slot="content">{{ ' [ ' + scope.row.catename + ' ] ' + scope.row.title }}</div>
@@ -66,36 +66,36 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="关联商品" min-width="130">
+        <el-table-column :label="$t('message.pages.cms.article.relationProduct')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.store_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="浏览量" min-width="80">
+        <el-table-column :label="$t('message.pages.cms.article.pageView')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.visit }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="时间" min-width="130">
+        <el-table-column :label="$t('message.pages.cms.article.time')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="210">
+        <el-table-column :label="$t('message.pages.cms.article.action')" fixed="right" width="210">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.cms.article.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="artRelation(scope.row, '取消关联', index)">{{
-              scope.row.product_id === 0 ? '关联' : '取消关联'
+            <a v-db-click @click="artRelation(scope.row, $t('message.pages.cms.article.unrelation'), index)">{{
+              scope.row.product_id === 0 ? $t('message.pages.cms.article.relation') : $t('message.pages.cms.article.unrelation')
             }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除文章', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.cms.article.delArticleTitle'), scope.$index)">{{ $t('message.pages.cms.article.del') }}</a>
             <el-divider direction="vertical"></el-divider>
             <el-dropdown size="small" @command="onCopy(scope.row, $event)" :transfer="true">
-              <span class="el-dropdown-link">复制链接<i class="el-icon-arrow-down el-icon--right"></i></span>
+              <span class="el-dropdown-link">{{ $t('message.pages.cms.article.copyLink') }}<i class="el-icon-arrow-down el-icon--right"></i></span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="1">移动端链接</el-dropdown-item>
-                <el-dropdown-item command="2">PC端链接</el-dropdown-item>
+                <el-dropdown-item command="1">{{ $t('message.pages.cms.article.mobileLink') }}</el-dropdown-item>
+                <el-dropdown-item command="2">{{ $t('message.pages.cms.article.pcLink') }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -112,7 +112,7 @@
       </div>
     </el-card>
     <!--关联-->
-    <el-dialog :visible.sync="modals" title="商品列表" class="paymentFooter" width="1000px" @closed="cancel">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.cms.article.goodsList')" class="paymentFooter" width="1000px" @closed="cancel">
       <goods-list ref="goodslist" @getProductId="getProductId" v-if="modals"></goods-list>
     </el-dialog>
   </div>
@@ -230,7 +230,7 @@ export default {
           this.treeData = data;
           let obj = {
             id: 0,
-            title: '全部',
+            title: this.$t('message.pages.cms.article.all'),
           };
           this.treeData.unshift(obj);
         })
@@ -298,10 +298,10 @@ export default {
       let copy_url = type == 1 ? row.copy_url : row.copy_url_pc;
       this.$copyText(copy_url)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success(this.$t('message.pages.cms.article.copySuccess'));
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('message.pages.cms.article.copyFail'));
         });
     },
   },

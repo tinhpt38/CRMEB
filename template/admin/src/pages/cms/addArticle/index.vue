@@ -2,7 +2,7 @@
   <div class="article-manager">
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? '编辑文章' : '添加文章'"
+      :title="$route.params.id ? $t('message.pages.cms.addArticle.editArticle') : $t('message.pages.cms.addArticle.addArticle')"
       :backUrl="$routeProStr + '/cms/article/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -16,28 +16,28 @@
         @submit.native.prevent
       >
         <div class="goodsTitle acea-row">
-          <div class="title">文章信息</div>
+          <div class="title">{{ $t('message.pages.cms.addArticle.articleInfo') }}</div>
         </div>
         <div class="grid_box">
-          <el-form-item label="标题：" prop="title" label-for="title">
+          <el-form-item :label="$t('message.pages.cms.addArticle.title')" prop="title" label-for="title">
             <el-input
               v-model="formValidate.title"
-              placeholder="请输入"
+              :placeholder="$t('message.pages.cms.addArticle.placeholderInput')"
               class="content_width"
               maxlength="80"
               show-word-limit
             />
           </el-form-item>
-          <el-form-item label="作者：" prop="author" label-for="author">
+          <el-form-item :label="$t('message.pages.cms.addArticle.author')" prop="author" label-for="author">
             <el-input
               v-model="formValidate.author"
-              placeholder="请输入"
+              :placeholder="$t('message.pages.cms.addArticle.placeholderInput')"
               class="content_width"
               maxlength="10"
               show-word-limit
             />
           </el-form-item>
-          <el-form-item label="文章分类：" label-for="cid" prop="cid">
+          <el-form-item :label="$t('message.pages.cms.addArticle.articleCategory')" label-for="cid" prop="cid">
             <el-cascader
               class="content_width"
               v-model="formValidate.cid"
@@ -47,18 +47,18 @@
               clearable
             ></el-cascader>
           </el-form-item>
-          <el-form-item label="文章简介：" prop="synopsis" label-for="synopsis">
+          <el-form-item :label="$t('message.pages.cms.addArticle.articleSynopsis')" prop="synopsis" label-for="synopsis">
             <el-input
               v-model="formValidate.synopsis"
               type="textarea"
-              placeholder="请输入"
+              :placeholder="$t('message.pages.cms.addArticle.placeholderInput')"
               class="content_width"
               maxlength="300"
               show-word-limit
             />
           </el-form-item>
-          <el-form-item label="图文封面：" prop="image_input">
-            <div class="picBox" v-db-click @click="modalPicTap('单选')">
+          <el-form-item :label="$t('message.pages.cms.addArticle.imageCover')" prop="image_input">
+            <div class="picBox" v-db-click @click="modalPicTap($t('message.pages.cms.addArticle.singleSelect'))">
               <div class="pictrue" v-if="formValidate.image_input">
                 <img :src="formValidate.image_input" />
               </div>
@@ -66,48 +66,43 @@
                 <i class="el-icon-plus" style="font-size: 24px"></i>
               </div>
             </div>
-            <div class="tip">建议尺寸：500 x 312 px</div>
+            <div class="tip">{{ $t('message.pages.cms.addArticle.tipSize') }}</div>
           </el-form-item>
         </div>
         <div class="goodsTitle acea-row">
-          <div class="title">文章内容</div>
+          <div class="title">{{ $t('message.pages.cms.addArticle.articleContent') }}</div>
         </div>
-        <el-form-item label="文章内容：" prop="content">
+        <el-form-item :label="$t('message.pages.cms.addArticle.articleContentLabel')" prop="content">
           <WangEditor style="width: 90%" :content="formValidate.content" @editorContent="getEditorContent"></WangEditor>
         </el-form-item>
         <div class="goodsTitle acea-row">
-          <div class="title">其他设置</div>
+          <div class="title">{{ $t('message.pages.cms.addArticle.otherSettings') }}</div>
         </div>
         <el-row :gutter="24">
-          <!--                    <el-col :span="24">-->
-          <!--                        <el-form-item label="原文链接：">-->
-          <!--                            <el-input v-model="formValidate.url" placeholder="请输入" element-id="url" style="width: 60%"/>-->
-          <!--                        </el-form-item>-->
-          <!--                    </el-col>-->
           <el-col :span="24">
-            <el-form-item label="banner显示：" label-for="is_banner">
+            <el-form-item :label="$t('message.pages.cms.addArticle.bannerShow')" label-for="is_banner">
               <el-radio-group v-model="formValidate.is_banner" element-id="is_banner">
-                <el-radio :label="1" class="radio">显示</el-radio>
-                <el-radio :label="0">不显示</el-radio>
+                <el-radio :label="1" class="radio">{{ $t('message.pages.cms.addArticle.show') }}</el-radio>
+                <el-radio :label="0">{{ $t('message.pages.cms.addArticle.hide') }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="热门文章：" label-for="is_hot">
+            <el-form-item :label="$t('message.pages.cms.addArticle.hotArticle')" label-for="is_hot">
               <el-radio-group v-model="formValidate.is_hot" element-id="is_hot">
-                <el-radio :label="1" class="radio">显示</el-radio>
-                <el-radio :label="0">不显示</el-radio>
+                <el-radio :label="1" class="radio">{{ $t('message.pages.cms.addArticle.show') }}</el-radio>
+                <el-radio :label="0">{{ $t('message.pages.cms.addArticle.hide') }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="">
-              <el-button type="primary" class="submission" v-db-click @click="onsubmit('formValidate')">提交</el-button>
+              <el-button type="primary" class="submission" v-db-click @click="onsubmit('formValidate')">{{ $t('message.pages.cms.addArticle.submit') }}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+      <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.pages.cms.addArticle.uploadProductImage')" :close-on-click-modal="false">
         <uploadPictures
           :isChoice="isChoice"
           @getPic="getPic"
@@ -133,12 +128,12 @@ export default {
       if (this.formValidate.image_input) {
         callback();
       } else {
-        callback(new Error('请上传图文封面'));
+        callback(new Error(this.$t('message.pages.cms.addArticle.msgUploadCover')));
       }
     };
     const validateUpload2 = (rule, value, callback) => {
       if (!this.formValidate.cid) {
-        callback(new Error('请选择文章分类'));
+        callback(new Error(this.$t('message.pages.cms.addArticle.msgSelectCategory')));
       } else {
         callback();
       }
@@ -183,7 +178,7 @@ export default {
       },
       content: '',
       ruleValidate: {
-        title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
+        title: [{ required: true, message: this.$t('message.pages.cms.addArticle.msgInputTitle'), trigger: 'blur' }],
         cid: [
           {
             required: true,
@@ -193,7 +188,7 @@ export default {
           },
         ],
         image_input: [{ required: true, validator: validateUpload, trigger: 'change' }],
-        content: [{ required: true, message: '请输入文章内容', trigger: 'change' }],
+        content: [{ required: true, message: this.$t('message.pages.cms.addArticle.msgInputContent'), trigger: 'change' }],
       },
       value: '',
       modalPic: false,

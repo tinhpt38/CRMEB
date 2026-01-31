@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modals" title="选择商品" :close-on-click-modal="false" width="1000px" @closed="handleReset">
+  <el-dialog :visible.sync="modals" :title="$t('message.pages.cms.relation.selectProduct')" :close-on-click-modal="false" width="1000px" @closed="handleReset">
     <el-form
       ref="levelFrom"
       :model="levelFrom"
@@ -9,12 +9,12 @@
     >
       <el-row :gutter="24">
         <el-col v-bind="grid">
-          <el-form-item label="商品名称：" prop="status2" label-for="status2">
+          <el-form-item :label="$t('message.pages.cms.relation.productName')" prop="status2" label-for="status2">
             <el-input
               search
               enter-button
               v-model="levelFrom.name"
-              placeholder="请输入商品名称"
+              :placeholder="$t('message.pages.cms.relation.placeholderProductName')"
               @on-search="userSearchs"
               style="width: 100%"
             />
@@ -27,8 +27,8 @@
       :data="levelLists"
       ref="table"
       v-loading="loading"
-      no-userFrom-text="暂无数据"
-      no-filtered-userFrom-text="暂无筛选结果"
+      :no-data-text="$t('message.pages.cms.relation.noData')"
+      :no-filtered-data-text="$t('message.pages.cms.relation.noFilterResult')"
     >
       <template slot-scope="{ row, index }" slot="is_shows">
         <el-switch
@@ -49,14 +49,14 @@
           :value="row.is_must"
           size="large"
           @change="onchangeIsMust(row)"
-          active-text="全部完成"
-          inactive-text="达成其一"
+          :active-text="$t('message.pages.cms.relation.allComplete')"
+          :inactive-text="$t('message.pages.cms.relation.achieveOne')"
         >
         </el-switch>
       </template>
       <template slot-scope="{ row, index }" slot="action">
-        <a v-db-click @click="edit(row)">编辑 | </a>
-        <a v-db-click @click="del(row, '删除任务')"> 删除</a>
+        <a v-db-click @click="edit(row)">{{ $t('message.pages.cms.relation.edit') }} | </a>
+        <a v-db-click @click="del(row, $t('message.pages.cms.relation.delTaskTitle'))"> {{ $t('message.pages.cms.relation.del') }}</a>
       </template>
     </el-table>
     <div class="acea-row row-right page">

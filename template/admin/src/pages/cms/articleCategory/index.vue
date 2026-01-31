@@ -10,24 +10,24 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：" label-for="status">
-            <el-select v-model="status" placeholder="请选择" clearable @change="userSearchs" class="form_content_width">
-              <el-option value="all" label="全部"></el-option>
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+          <el-form-item :label="$t('message.pages.cms.articleCategory.isShow')" label-for="status">
+            <el-select v-model="status" :placeholder="$t('message.pages.cms.articleCategory.pleaseSelect')" clearable @change="userSearchs" class="form_content_width">
+              <el-option value="all" :label="$t('message.pages.cms.articleCategory.all')"></el-option>
+              <el-option value="1" :label="$t('message.pages.cms.articleCategory.show')"></el-option>
+              <el-option value="0" :label="$t('message.pages.cms.articleCategory.hide')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="分类名称：" prop="title" label-for="status2">
-            <el-input clearable placeholder="请输入分类名称" v-model="formValidate.title" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.cms.articleCategory.categoryName')" prop="title" label-for="status2">
+            <el-input clearable :placeholder="$t('message.pages.cms.articleCategory.placeholderCategoryName')" v-model="formValidate.title" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.cms.articleCategory.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">添加文章分类</el-button>
+      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">{{ $t('message.pages.cms.articleCategory.addCategory') }}</el-button>
       <vxe-table
         class="vxeTable mt14"
         highlight-hover-row
@@ -36,20 +36,20 @@
         :tree-config="{ children: 'children' }"
         :data="categoryList"
       >
-        <vxe-table-column field="id" title="ID" tooltip width="80"></vxe-table-column>
-        <vxe-table-column field="title" tree-node title="分类名称" min-width="130">
+        <vxe-table-column field="id" :title="$t('message.pages.cms.articleCategory.id')" tooltip width="80"></vxe-table-column>
+        <vxe-table-column field="title" tree-node :title="$t('message.pages.cms.articleCategory.categoryNameCol')" min-width="130">
           <template v-slot="{ row }">
             <span>{{ row.title }}</span>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="image" title="分类图片" min-width="130">
+        <vxe-table-column field="image" :title="$t('message.pages.cms.articleCategory.categoryImage')" min-width="130">
           <template v-slot="{ row }">
             <div class="tabBox_img" v-viewer v-if="row.image">
               <img v-lazy="row.image" />
             </div>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="status" title="状态" min-width="120">
+        <vxe-table-column field="status" :title="$t('message.pages.cms.articleCategory.status')" min-width="120">
           <template v-slot="{ row }">
             <el-switch
               :active-value="1"
@@ -62,13 +62,13 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="date" title="操作" width="160" fixed="right">
+        <vxe-table-column field="date" :title="$t('message.pages.cms.articleCategory.action')" width="160" fixed="right">
           <template v-slot="{ row }">
-            <a v-db-click @click="edit(row)">编辑</a>
+            <a v-db-click @click="edit(row)">{{ $t('message.pages.cms.articleCategory.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, '删除文章分类')">删除</a>
+            <a v-db-click @click="del(row, $t('message.pages.cms.articleCategory.delCategoryTitle'))">{{ $t('message.pages.cms.articleCategory.del') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="lookUp(row)">查看文章</a>
+            <a v-db-click @click="lookUp(row)">{{ $t('message.pages.cms.articleCategory.viewArticle') }}</a>
           </template>
         </vxe-table-column>
       </vxe-table>
