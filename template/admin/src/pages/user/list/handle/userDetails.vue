@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <el-drawer :visible.sync="modals" title="用户详情" :wrapperClosable="false" :size="1100" @closed="draChange">
+    <el-drawer :visible.sync="modals" :title="$t('message.pages.user.list.detailTitle')" :wrapperClosable="false" :size="1100" @closed="draChange">
       <div class="acea-row head">
         <div class="avatar mr15"><img :src="psInfo.avatar" /></div>
         <div class="dashboard-workplace-header-tip">
@@ -12,19 +12,19 @@
           </div>
         </div>
         <div class="edit-btn" v-if="!this.psInfo.is_del">
-          <el-button v-if="!isEdit" type="primary" v-db-click @click="edit">编辑</el-button>
-          <el-button v-if="isEdit" v-db-click @click="edit">取消</el-button>
-          <el-button v-if="isEdit" type="primary" v-db-click @click="editSave">保存</el-button>
+          <el-button v-if="!isEdit" type="primary" v-db-click @click="edit">{{ $t('message.pages.user.list.editBtn') }}</el-button>
+          <el-button v-if="isEdit" v-db-click @click="edit">{{ $t('message.pages.user.list.cancelBtn') }}</el-button>
+          <el-button v-if="isEdit" type="primary" v-db-click @click="editSave">{{ $t('message.pages.user.list.saveBtn') }}</el-button>
         </div>
       </div>
       <el-row justify="space-between" class="mt14">
         <el-col :span="24">
           <el-tabs type="border-card" v-model="activeName" @tab-click="changeTab">
-            <el-tab-pane name="user" label="用户信息">
+            <el-tab-pane name="user" :label="$t('message.pages.user.list.userInfoTab')">
               <userEditForm ref="editForm" :userId="userId" @success="getDetails(userId)" v-if="isEdit"></userEditForm>
               <user-info :ps-info="psInfo" v-else></user-info>
             </el-tab-pane>
-            <el-tab-pane :name="item.val" v-for="(item, index) in list" :key="index" :label="item.label">
+            <el-tab-pane :name="item.val" v-for="(item, index) in list" :key="index" :label="$t('message.pages.user.list.' + item.labelKey)">
               <template>
                 <el-table
                   class="mt20"
@@ -32,8 +32,7 @@
                   max-height="400"
                   ref="table"
                   v-loading="loading"
-                  no-userFrom-text="暂无数据"
-                  no-filtered-userFrom-text="暂无筛选结果"
+                  :empty-text="$t('message.pages.user.list.noDataText')"
                 >
                   <el-table-column :label="item.title" min-width="120" v-for="(item, index) in columns" :key="index">
                     <template slot-scope="scope">
@@ -85,12 +84,12 @@ export default {
       isEdit: false,
       theme2: 'light',
       list: [
-        { val: 'order', label: '消费记录' },
-        { val: 'integral', label: '积分明细' },
-        { val: 'sign', label: '签到记录' },
-        { val: 'coupon', label: '持有优惠券' },
-        { val: 'balance_change', label: '余额变动' },
-        { val: 'spread', label: '好友关系' },
+        { val: 'order', labelKey: 'tabOrder' },
+        { val: 'integral', labelKey: 'tabIntegral' },
+        { val: 'sign', labelKey: 'tabSign' },
+        { val: 'coupon', labelKey: 'tabCoupon' },
+        { val: 'balance_change', labelKey: 'tabBalanceChange' },
+        { val: 'spread', labelKey: 'tabSpread' },
       ],
       modals: false,
       spinShow: false,
@@ -168,161 +167,53 @@ export default {
             switch (this.userFrom.type) {
               case 'order':
                 this.columns = [
-                  {
-                    title: '订单ID',
-                    key: 'order_id',
-                    minWidth: 160,
-                  },
-                  {
-                    title: '收货人',
-                    key: 'real_name',
-                    minWidth: 100,
-                  },
-                  {
-                    title: '商品数量',
-                    key: 'total_num',
-                    minWidth: 90,
-                  },
-                  {
-                    title: '实付金额',
-                    key: 'pay_price',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '交易完成时间',
-                    key: 'pay_time',
-                    minWidth: 120,
-                  },
+                  { title: this.$t('message.pages.user.list.colOrderId'), key: 'order_id', minWidth: 160 },
+                  { title: this.$t('message.pages.user.list.colReceiverName'), key: 'real_name', minWidth: 100 },
+                  { title: this.$t('message.pages.user.list.colProductCount'), key: 'total_num', minWidth: 90 },
+                  { title: this.$t('message.pages.user.list.colPayPrice'), key: 'pay_price', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colPayTime'), key: 'pay_time', minWidth: 120 },
                 ];
                 break;
               case 'integral':
                 this.columns = [
-                  {
-                    title: '来源/用途',
-                    key: 'title',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '积分变化',
-                    slot: 'number',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '变化后积分',
-                    key: 'balance',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '日期',
-                    key: 'add_time',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '备注',
-                    key: 'mark',
-                    minWidth: 120,
-                  },
+                  { title: this.$t('message.pages.user.list.colSourceUsage'), key: 'title', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colIntegralChange'), slot: 'number', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colBalanceAfter'), key: 'balance', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colDate'), key: 'add_time', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colRemark'), key: 'mark', minWidth: 120 },
                 ];
                 break;
               case 'sign':
                 this.columns = [
-                  {
-                    title: '动作',
-                    key: 'title',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '获得积分',
-                    key: 'number',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '签到时间',
-                    key: 'add_time',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '备注',
-                    key: 'mark',
-                    minWidth: 120,
-                  },
+                  { title: this.$t('message.pages.user.list.colAction'), key: 'title', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colPoints'), key: 'number', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colSignTime'), key: 'add_time', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colRemark'), key: 'mark', minWidth: 120 },
                 ];
                 break;
               case 'coupon':
                 this.columns = [
-                  {
-                    title: '优惠券名称',
-                    key: 'coupon_title',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '面值',
-                    key: 'coupon_price',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '有效期(天)',
-                    key: 'coupon_time',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '领取时间',
-                    key: '_add_time',
-                    minWidth: 120,
-                  },
+                  { title: this.$t('message.pages.user.list.colCouponName'), key: 'coupon_title', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colFaceValue'), key: 'coupon_price', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colValidDays'), key: 'coupon_time', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colReceiveTime'), key: '_add_time', minWidth: 120 },
                 ];
                 break;
               case 'balance_change':
                 this.columns = [
-                  {
-                    title: '动作',
-                    key: 'title',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '余额变动',
-                    slot: 'number',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '当前余额',
-                    key: 'balance',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '创建时间',
-                    key: 'add_time',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '备注',
-                    key: 'mark',
-                    minWidth: 120,
-                  },
+                  { title: this.$t('message.pages.user.list.colAction'), key: 'title', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colBalanceChange'), slot: 'number', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colCurrentBalance'), key: 'balance', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colCreateTime'), key: 'add_time', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colRemark'), key: 'mark', minWidth: 120 },
                 ];
                 break;
               default:
                 this.columns = [
-                  {
-                    title: 'ID',
-                    key: 'uid',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '昵称',
-                    key: 'nickname',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '等级',
-                    key: 'type',
-                    minWidth: 120,
-                  },
-                  {
-                    title: '加入时间',
-                    key: 'add_time',
-                    minWidth: 120,
-                  },
+                  { title: this.$t('message.pages.user.list.colId'), key: 'uid', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colNickname'), key: 'nickname', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colLevel'), key: 'type', minWidth: 120 },
+                  { title: this.$t('message.pages.user.list.colJoinTime'), key: 'add_time', minWidth: 120 },
                 ];
             }
             this.$nextTick((e) => {
@@ -383,7 +274,7 @@ export default {
   transition: none;
   height: 40px !important;
   line-height: 40px !important;
-  width: 92px !important;
+
   font-size: 13px;
   font-weight: 400;
   color: #303133;

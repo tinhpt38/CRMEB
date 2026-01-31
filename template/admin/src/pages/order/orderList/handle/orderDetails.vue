@@ -661,7 +661,6 @@ export default {
   transition: none;
   height: 40px !important;
   line-height: 40px !important;
-  width: 92px !important;
   font-size: 13px;
   font-weight: 400;
   color: #303133;

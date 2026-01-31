@@ -89,8 +89,8 @@ class UserLabelCateServices extends BaseServices
      */
     public function labelCateForm(array $cataData = [])
     {
-        $f[] = FormBuilder::input('name', '分类名称', $cataData['name'] ?? '')->required();
-        $f[] = FormBuilder::number('sort', '排序', (int)($cataData['sort'] ?? 0));
+        $f[] = FormBuilder::input('name', get_admin_form_lang('label_cate_form_name'), $cataData['name'] ?? '')->required();
+        $f[] = FormBuilder::number('sort', get_admin_form_lang('label_cate_form_sort'), (int)($cataData['sort'] ?? 0));
         return $f;
     }
 
@@ -101,7 +101,7 @@ class UserLabelCateServices extends BaseServices
      */
     public function createForm()
     {
-        return create_form('添加标签分类', $this->labelCateForm(), $this->url('/user/user_label_cate'), 'POST');
+        return create_form(get_admin_form_lang('label_cate_add_title'), $this->labelCateForm(), $this->url('/user/user_label_cate'), 'POST');
     }
 
     /**
@@ -119,7 +119,7 @@ class UserLabelCateServices extends BaseServices
         if (!$labelCate) {
             throw new AdminException(100026);
         }
-        return create_form('编辑标签分类', $this->labelCateForm($labelCate->toArray()), $this->url('user/user_label_cate/' . $id), 'PUT');
+        return create_form(get_admin_form_lang('label_cate_edit_title'), $this->labelCateForm($labelCate->toArray()), $this->url('user/user_label_cate/' . $id), 'PUT');
     }
 
     /**

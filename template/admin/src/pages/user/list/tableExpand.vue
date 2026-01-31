@@ -2,43 +2,43 @@
   <div>
     <el-row class="expand-row">
       <el-col :span="6">
-        <span class="expand-key">首次访问：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandFirstVisit') }}</span>
         <span class="expand-value"> {{ row.add_time | formatDate }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">近次访问：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandLastVisit') }}</span>
         <span class="expand-value">{{ row.last_time | formatDate }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">身份证号：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandCardId') }}</span>
         <span class="expand-value">{{ row.card_id }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">真实姓名：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandRealName') }}</span>
         <span class="expand-value">{{ row.real_name }}</span>
       </el-col>
     </el-row>
     <el-row class="expand-row">
       <el-col :span="6">
-        <span class="expand-key">标签：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandLabel') }}</span>
         <span class="expand-value">{{ row.labels }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">生日：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandBirthday') }}</span>
         <span class="expand-value">{{ row.birthday }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">推荐人：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandPromoter') }}</span>
         <span class="expand-value">{{ row.spread_uid_nickname }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">地址：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandAddress') }}</span>
         <span class="expand-value">{{ row.addres }}</span>
       </el-col>
     </el-row>
     <el-row class="expand-row">
       <el-col :span="6">
-        <span class="expand-key">备注：</span>
+        <span class="expand-key">{{ $t('message.pages.user.list.expandRemark') }}</span>
         <span class="expand-value">{{ row.mark }}</span>
       </el-col>
     </el-row>

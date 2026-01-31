@@ -23,7 +23,8 @@
 	} from '@/api/api.js';
 	import {
 		getLangJson,
-		getLangVersion
+		getLangVersion,
+		getDefaultLangType
 	} from '@/api/user.js';
 	import {
 		mapGetters
@@ -161,12 +162,28 @@
 			});
 			getLangVersion().then((res) => {
 				let version = res.data.version;
+				let hasLocale = uni.getStorageSync('locale');
 				if (version != uni.getStorageSync('LANG_VERSION')) {
 					getLangJson().then((res) => {
 						let value = Object.keys(res.data)[0];
-						Cache.set('locale', Object.keys(res.data)[0]);
+						Cache.set('locale', value);
 						this.$i18n.setLocaleMessage(value, res.data[value]);
 						uni.setStorageSync('localeJson', res.data);
+					});
+				} else if (!hasLocale) {
+					// Chưa có locale (lần đầu): dùng ngôn ngữ mặc định từ backend
+					getDefaultLangType().then((res) => {
+						let langType = res.data && res.data.lang_type;
+						if (langType) {
+							Cache.set('locale', langType);
+							getLangJson().then((res) => {
+								uni.setStorageSync('localeJson', res.data);
+								if (res.data[langType]) {
+									this.$i18n.setLocaleMessage(langType, res.data[langType]);
+									this.$i18n.locale = langType;
+								}
+							});
+						}
 					});
 				}
 				uni.setStorageSync('LANG_VERSION', version);

@@ -24,11 +24,11 @@ Kế hoạch thực hiện theo từng giai đoạn, dựa trên tài liệu [DA
 
 | # | Công việc | Chi tiết | Trạng thái |
 |---|-----------|----------|------------|
-| 1.1 | Kiểm tra header `cb-lang` | Đảm bảo client (H5/App) gửi `cb-lang: vi-VN` khi người dùng chọn tiếng Việt. Kiểm tra request interceptor / axios. | ☐ |
-| 1.2 | Đặt mặc định ngôn ngữ (nếu cần) | Trong Admin → Cài đặt → Đa ngôn ngữ: đặt Tiếng Việt (vi-VN) làm ngôn ngữ mặc định (is_default = 1). Hoặc cấu hình mặc định trong code client. | ☐ |
-| 1.3 | Kiểm thử API | Gọi vài API (login, lưu, xóa, …) với header `cb-lang: vi-VN`, xác nhận response message tiếng Việt (vd: "Lưu thành công"). | ☐ |
+| 1.1 | Kiểm tra header `cb-lang` | Client (uni-app) đã gửi `Cb-lang` = `uni.getStorageSync('locale')` trong `template/uni-app/utils/request.js`. Người dùng chọn tiếng Việt tại Trang cá nhân → locale = vi-VN → mọi request sau có header vi-VN. | ☑ |
+| 1.2 | Đặt mặc định ngôn ngữ (nếu cần) | Admin đặt Tiếng Việt (id=10) is_default=1; uni-app khi chưa có locale gọi `get_default_lang_type` và set locale theo backend (đã thêm trong App.vue + api/user.js getDefaultLangType). | ☑ |
+| 1.3 | Kiểm thử API | Gọi API với header `cb-lang: vi-VN` (chọn Tiếng Việt trong app), xác nhận response `msg` tiếng Việt (vd: "Lưu thành công"). Backend: `eb_lang_country` có (341, 10, 'vi-VN'), `eb_lang_code` có type_id=10. | ☑ |
 
-**Kết quả:** API trả về thông báo tiếng Việt khi client gửi `cb-lang: vi-VN`. Không cần sửa DB vì `eb_lang_code` đã có type_id = 10.
+**Kết quả:** API trả về thông báo tiếng Việt khi client gửi `cb-lang: vi-VN`. Chi tiết: [HUONG-DAN-TIENG-VIET-ADMIN.md](HUONG-DAN-TIENG-VIET-ADMIN.md) mục 1b.
 
 ---
 
@@ -100,12 +100,12 @@ Kế hoạch thực hiện theo từng giai đoạn, dựa trên tài liệu [DA
 
 | # | Công việc | Chi tiết | Trạng thái |
 |---|-----------|----------|------------|
-| 5.1 | Liệt kê bảng & cột cần dịch | Xác định: eb_agreement (title, content), eb_agent_level (name), eb_category (name), và bảng khác có nội dung hiển thị mặc định. | ☐ |
-| 5.2 | Soạn nội dung tiếng Việt | Dịch title/content/name cho từng bảng (có thể làm từng phần: trước hết agreement, category, agent_level). | ☐ |
-| 5.3 | Tạo patch SQL hoặc hướng dẫn sửa tay | File `crmeb/public/install/crmeb_vn_default_data.sql` (hoặc tên tương tự): các lệnh UPDATE cho eb_agreement, eb_agent_level, eb_category, … Ghi rõ trong readme: chạy sau khi import crmeb.sql. Hoặc chỉ ghi hướng dẫn sửa tay trong Admin. | ☐ |
-| 5.4 | Kiểm thử | Import crmeb.sql + chạy patch (nếu có), vào Admin kiểm tra giao thức, danh mục, cấp đại lý hiển thị tiếng Việt. | ☐ |
+| 5.1 | Liệt kê bảng & cột cần dịch | Xác định: eb_agreement (title, content), eb_agent_level (name), eb_category (name). | ☑ |
+| 5.2 | Soạn nội dung tiếng Việt | Dịch title cho agreement (8 bản ghi), name cho agent_level (5), category (6). Nội dung dài (agreement.content) sửa sau trong Admin. | ☑ |
+| 5.3 | Tạo patch SQL | File **`crmeb/public/install/patch_default_data_vi.sql`**: UPDATE title (eb_agreement), name (eb_agent_level, eb_category). Chạy sau khi import crmeb.sql. | ☑ |
+| 5.4 | Kiểm thử | Import crmeb.sql + chạy patch, vào Admin kiểm tra Thỏa thuận, Cấp phân phối, Nhãn/tag khách hàng hiển thị tiếng Việt. | ☐ |
 
-**Kết quả:** Dữ liệu mặc định (ít nhất agreement, category, agent_level) có bản tiếng Việt khi cài mới.
+**Kết quả:** Dữ liệu mặc định (agreement title, agent_level name, category name) có bản tiếng Việt. Nội dung chi tiết thỏa thuận (HTML) chỉnh trong Admin → Cài đặt → Thỏa thuận.
 
 ---
 

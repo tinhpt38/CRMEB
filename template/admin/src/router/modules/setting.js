@@ -745,6 +745,7 @@ export default {
       meta: {
         ...meta,
         title: '用户配置',
+        titleKey: 'message.pages.setting.userConfigTitle',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },

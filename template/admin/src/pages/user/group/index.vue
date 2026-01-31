@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-row>
         <el-col v-bind="grid">
-          <el-button v-auth="['admin-user-group']" type="primary" v-db-click @click="add">添加分组</el-button>
+          <el-button v-auth="['admin-user-group']" type="primary" v-db-click @click="add">{{ $t('message.pages.user.group.addGroup') }}</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -12,24 +12,24 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.user.group.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.user.group.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="分组" min-width="80">
+        <el-table-column :label="$t('message.pages.user.group.groupCol')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.group_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column fixed="right" :label="$t('message.common.action')" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">修改</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('message.pages.user.group.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除分组', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.user.group.delGroup'), scope.$index)">{{ $t('message.common.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -85,7 +85,7 @@ export default {
   methods: {
     // 添加
     add() {
-      this.$modalForm(groupAddApi(0))
+      this.$modalForm(groupAddApi(0), { titleKey: 'message.pages.user.group.addGroup' })
         .then(() => this.getList())
         .catch(() => {
           console.log('error');
@@ -108,7 +108,7 @@ export default {
     },
     // 修改
     edit(id) {
-      this.$modalForm(groupAddApi(id)).then(() => this.getList());
+      this.$modalForm(groupAddApi(id), { titleKey: 'message.pages.user.group.editGroup' }).then(() => this.getList());
     },
     // 删除
     del(row, tit, num) {

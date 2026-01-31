@@ -1,7 +1,7 @@
 <template>
   <div v-loading="spinShow">
     <div class="i-layout-page-header header-title" v-if="!headerList.length">
-      <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
+      <span class="ivu-page-header-title">{{ $route.meta.titleKey ? $t($route.meta.titleKey) : $route.meta.title }}</span>
     </div>
     <div class="article-manager">
       <el-card :bordered="false" shadow="never" class="ivu-mt fromBox" :body-style="{ padding: '0 20px 20px' }">
@@ -239,7 +239,7 @@ export default {
           if (formData.site_name) {
             localStorage.setItem('ADMIN_TITLE', formData.site_name);
             this.$store.commit('setAdminTitle', formData.site_name);
-            window.document.title = `${formData.site_name} - 系统设置`;
+            window.document.title = `${formData.site_name} - ${this.$t('message.pages.setting.systemSettingSuffix')}`;
           }
         })
         .catch((res) => {

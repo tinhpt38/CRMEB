@@ -11,17 +11,17 @@
           @submit.native.prevent
           class="tabform"
         >
-          <el-form-item label="会员类型：">
+          <el-form-item :label="$t('message.pages.user.grade.record.memberType')">
             <el-select v-model="formValidate.member_type" clearable @change="userSearchs" class="form_content_width">
               <el-option v-for="item in treeSelect" :value="item.id" :key="item.id" :label="item.label"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="支付方式：">
+          <el-form-item :label="$t('message.pages.user.grade.record.payType')">
             <el-select v-model="formValidate.pay_type" clearable @change="paySearchs" class="form_content_width">
               <el-option v-for="item in payList" :value="item.val" :key="item.val" :label="item.label"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="购买时间：">
+          <el-form-item :label="$t('message.pages.user.grade.record.buyTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -30,22 +30,22 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.user.grade.record.startDate')"
+              :end-placeholder="$t('message.pages.user.grade.record.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.user.grade.record.search')">
             <el-input
               clearable
-              placeholder="请输入用户名称搜索"
+              :placeholder="$t('message.pages.user.grade.record.inputUserName')"
               v-model="formValidate.name"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.user.grade.record.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -56,45 +56,45 @@
         ref="table"
         v-loading="loading"
         size="small"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.user.grade.record.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.user.grade.record.noFilterResult')"
       >
-        <el-table-column label="订单号" width="170">
+        <el-table-column :label="$t('message.pages.user.grade.record.orderNo')" width="170">
           <template slot-scope="scope">
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="80">
+        <el-table-column :label="$t('message.pages.user.grade.record.userName')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.user.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="手机号码" min-width="80">
+        <el-table-column :label="$t('message.pages.user.grade.record.phone')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.user.phone || '--' }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="会员类型" min-width="80">
+        <el-table-column :label="$t('message.pages.user.grade.record.memberTypeCol')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.member_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="有效期限（天）" min-width="80">
+        <el-table-column :label="$t('message.pages.user.grade.record.validDays')" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.vip_day === -1 ? '永久' : scope.row.vip_day }}</span>
+            <span>{{ scope.row.vip_day === -1 ? $t('message.pages.user.grade.record.forever') : scope.row.vip_day }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付金额（元）" min-width="50">
+        <el-table-column :label="$t('message.pages.user.grade.record.payAmount')" min-width="50">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付方式" min-width="30">
+        <el-table-column :label="$t('message.pages.user.grade.record.payTypeCol')" min-width="30">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="购买时间" min-width="80">
+        <el-table-column :label="$t('message.pages.user.grade.record.buyTimeCol')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_time }}</span>
           </template>

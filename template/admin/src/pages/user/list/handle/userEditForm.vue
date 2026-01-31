@@ -2,78 +2,78 @@
   <div class="user-info">
     <el-form ref="formItem" :rules="ruleValidate" :model="formItem" label-width="100px" @submit.native.prevent>
       <div class="section">
-        <div class="section-hd">基本信息</div>
+        <div class="section-hd">{{ $t('message.pages.user.list.editSectionBasic') }}</div>
         <div class="section-bd">
           <div class="item">
-            <el-form-item label="用户ID：">
-              <el-input class="form-sty" disabled v-model="formItem.uid" placeholder="请输入编号"></el-input>
+            <el-form-item :label="$t('message.pages.user.list.editLabelUserId')">
+              <el-input class="form-sty" disabled v-model="formItem.uid" :placeholder="$t('message.pages.user.list.editPlaceholderId')"></el-input>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="真实姓名：" prop="real_name">
-              <el-input class="form-sty" v-model.trim="formItem.real_name" placeholder="请输入真实姓名"></el-input>
+            <el-form-item :label="$t('message.pages.user.list.editLabelRealName')" prop="real_name">
+              <el-input class="form-sty" v-model.trim="formItem.real_name" :placeholder="$t('message.pages.user.list.editPlaceholderRealName')"></el-input>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="手机号码：" prop="phone">
-              <el-input class="form-sty" v-model="formItem.phone" placeholder="请输入手机号码"></el-input>
+            <el-form-item :label="$t('message.pages.user.list.editLabelPhone')" prop="phone">
+              <el-input class="form-sty" v-model="formItem.phone" :placeholder="$t('message.pages.user.list.editPlaceholderPhone')"></el-input>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="生日：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelBirthday')">
               <el-date-picker
                 clearable
                 class="form-sty"
                 type="date"
                 v-model="formItem.birthday"
-                placeholder="请选择生日"
+                :placeholder="$t('message.pages.user.list.editPlaceholderBirthday')"
                 format="yyyy-MM-dd"
                 value-format="yyyy-MM-dd"
               ></el-date-picker>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="身份证号：">
-              <el-input class="form-sty" v-model.trim="formItem.card_id" placeholder="请输入身份证号"></el-input>
+            <el-form-item :label="$t('message.pages.user.list.editLabelCardId')">
+              <el-input class="form-sty" v-model.trim="formItem.card_id" :placeholder="$t('message.pages.user.list.editPlaceholderCardId')"></el-input>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="用户地址：">
-              <el-input class="form-sty" v-model="formItem.addres" placeholder="请输入用户地址"></el-input>
+            <el-form-item :label="$t('message.pages.user.list.editLabelAddress')">
+              <el-input class="form-sty" v-model="formItem.addres" :placeholder="$t('message.pages.user.list.editPlaceholderAddress')"></el-input>
             </el-form-item>
           </div>
         </div>
       </div>
       <div class="section">
-        <div class="section-hd">密码</div>
+        <div class="section-hd">{{ $t('message.pages.user.list.editSectionPwd') }}</div>
         <div class="section-bd">
           <div class="item">
-            <el-form-item label="登录密码：" prop="pwd">
+            <el-form-item :label="$t('message.pages.user.list.editLabelLoginPwd')" prop="pwd">
               <el-input
                 class="form-sty"
                 type="password"
                 v-model="formItem.pwd"
-                placeholder="请输入登录密码（修改用户可不填写，不填写不修改原密码）"
+                :placeholder="$t('message.pages.user.list.editPlaceholderPwd')"
               ></el-input>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="确认密码：" prop="true_pwd">
+            <el-form-item :label="$t('message.pages.user.list.editLabelConfirmPwd')" prop="true_pwd">
               <el-input
                 class="form-sty"
                 type="password"
                 v-model="formItem.true_pwd"
-                placeholder="请输入确认密码（修改用户可不填写，不填写不修改原密码）"
+                :placeholder="$t('message.pages.user.list.editPlaceholderPwdConfirm')"
               ></el-input>
             </el-form-item>
           </div>
         </div>
       </div>
       <div class="section">
-        <div class="section-hd">用户概况</div>
+        <div class="section-hd">{{ $t('message.pages.user.list.editSectionProfile') }}</div>
         <div class="section-bd">
           <div class="item">
-            <el-form-item label="用户等级：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelUserLevel')">
               <el-select v-model="formItem.level" class="form-sty" clearable>
                 <el-option
                   v-for="(item, index) in infoData.levelInfo"
@@ -85,7 +85,7 @@
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="用户分组：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelUserGroup')">
               <el-select v-model="formItem.group_id" class="form-sty" clearable>
                 <el-option
                   v-for="(item, index) in infoData.groupInfo"
@@ -97,7 +97,7 @@
             </el-form-item>
           </div>
           <div class="item lang">
-            <el-form-item label="用户标签：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelUserLabel')">
               <div style="display: flex">
                 <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
                   <div style="width: 90%">
@@ -111,60 +111,60 @@
                         >{{ item.label_name }}</el-tag
                       >
                     </div>
-                    <span class="span" v-else>选择用户关联标签</span>
+                    <span class="span" v-else>{{ $t('message.pages.user.list.editSelectLabelPlaceholder') }}</span>
                   </div>
                   <div class="ivu-icon ivu-icon-ios-arrow-down"></div>
                 </div>
-                <span class="addfont" v-db-click @click="addLabel">新增标签</span>
+                <span class="addfont" v-db-click @click="addLabel">{{ $t('message.pages.user.list.addLabelBtn') }}</span>
               </div>
             </el-form-item>
           </div>
           <div class="item lang">
-            <el-form-item label="分销禁用：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelDistributeDisable')">
               <el-radio-group v-model="formItem.spread_open" class="form-sty">
-                <el-radio :label="0">是</el-radio>
-                <el-radio :label="1">否</el-radio>
+                <el-radio :label="0">{{ $t('message.pages.user.list.editYes') }}</el-radio>
+                <el-radio :label="1">{{ $t('message.pages.user.list.editNo') }}</el-radio>
               </el-radio-group>
-              <div class="tip">禁用用户的分销资格后，在任何分销模式下该用户都无分销权限</div>
+              <div class="tip">{{ $t('message.pages.user.list.editTipDistributeDisable') }}</div>
             </el-form-item>
           </div>
           <div class="item lang" v-if="formItem.spread_open == 1">
-            <el-form-item label="分销权限：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelDistributeRight')">
               <el-radio-group v-model="formItem.is_promoter" class="form-sty">
-                <el-radio :label="1">开启</el-radio>
-                <el-radio :label="0">关闭</el-radio>
+                <el-radio :label="1">{{ $t('message.pages.user.list.editOn') }}</el-radio>
+                <el-radio :label="0">{{ $t('message.pages.user.list.editOff') }}</el-radio>
               </el-radio-group>
-              <div class="tip">手动开启或关闭用户的分销权限</div>
+              <div class="tip">{{ $t('message.pages.user.list.editTipDistributeRight') }}</div>
             </el-form-item>
           </div>
           <div class="item lang">
-            <el-form-item label="用户状态：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelUserStatus')">
               <el-radio-group v-model="formItem.status" class="form-sty">
-                <el-radio :label="1">开启</el-radio>
-                <el-radio :label="0">锁定</el-radio>
+                <el-radio :label="1">{{ $t('message.pages.user.list.editOn') }}</el-radio>
+                <el-radio :label="0">{{ $t('message.pages.user.list.editLock') }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </div>
         </div>
       </div>
       <div class="section">
-        <div class="section-hd">用户备注</div>
+        <div class="section-hd">{{ $t('message.pages.user.list.editSectionRemark') }}</div>
         <div class="section-bd">
           <div class="item">
-            <el-form-item label="用户备注：">
+            <el-form-item :label="$t('message.pages.user.list.editLabelUserRemark')">
               <el-input
                 class="form-sty"
                 type="textarea"
                 :rows="5"
                 v-model="formItem.mark"
-                placeholder="请输入用户备注"
+                :placeholder="$t('message.pages.user.list.editPlaceholderMark')"
               ></el-input>
             </el-form-item>
           </div>
         </div>
       </div>
     </el-form>
-    <el-dialog :visible.sync="labelShow" append-to-body title="请选择用户标签" :show-close="true" width="540px">
+    <el-dialog :visible.sync="labelShow" append-to-body :title="$t('message.pages.user.list.dialogSelectLabel')" :show-close="true" width="540px">
       <userLabel v-if="labelShow" :only_get="true" :uid="formItem.uid" @close="labelClose" @activeData="activeData">
       </userLabel>
     </el-dialog>
@@ -195,11 +195,11 @@ export default {
     },
     gender(value) {
       if (value == 1) {
-        return '男';
+        return this.$t('message.pages.user.list.valueMale');
       } else if (value == 2) {
-        return '女';
+        return this.$t('message.pages.user.list.valueFemale');
       } else {
-        return '未知';
+        return this.$t('message.pages.user.list.valueUnknown');
       }
     },
   },
@@ -283,7 +283,7 @@ export default {
       }
     },
     addLabel() {
-      this.$modalForm(userLabelAddApi(0)).then(() => {});
+      this.$modalForm(userLabelAddApi(0), { titleKey: 'message.pages.user.label.addLabel' }).then(() => {});
     },
     openLabel(row) {
       this.labelShow = true;

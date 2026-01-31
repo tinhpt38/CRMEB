@@ -7,35 +7,35 @@
         :data="tbody"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.user.grade.type.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.user.grade.type.noFilterResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="会员名" min-width="130">
+        <el-table-column :label="$t('message.pages.user.grade.type.memberName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="有限期（天）" min-width="130">
+        <el-table-column :label="$t('message.pages.user.grade.type.validDays')" min-width="130">
           <template slot-scope="scope">
-            <span>{{ scope.row.vip_day === -1 ? '永久' : scope.row.vip_day }}</span>
+            <span>{{ scope.row.vip_day === -1 ? $t('message.pages.user.grade.type.forever') : scope.row.vip_day }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="原价" min-width="90">
+        <el-table-column :label="$t('message.pages.user.grade.type.originalPrice')" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠价" min-width="90">
+        <el-table-column :label="$t('message.pages.user.grade.type.discountPrice')" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.pre_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否开启" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.type.isOpen')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="0"
@@ -48,28 +48,27 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="90">
+        <el-table-column :label="$t('message.pages.user.grade.type.sort')" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.common.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a href="javascript:" v-db-click @click="editType(scope.row)">编辑</a>
-            <!-- <el-divider direction="vertical" v-if="scope.row.type !== 'free' && scope.row.type !== 'ever'" />
+            <a href="javascript:" v-db-click @click="editType(scope.row)">{{ $t('message.pages.user.grade.type.editType') }}</a>
             <a
               v-if="scope.row.type !== 'free' && scope.row.type !== 'ever'"
               href="javascript:"
-              v-db-click @click="del(scope.row, '删除类型', scope.$index)"
-              >删除</a
-            > -->
+              v-db-click @click="del(scope.row, $t('message.pages.user.grade.type.delType'), scope.$index)"
+              >{{ $t('message.common.del') }}</a
+            >
           </template>
         </el-table-column>
       </el-table>
     </el-card>
     <el-dialog
       :visible.sync="modal"
-      :title="`${rowModelType}${rowEdit && rowEdit.title}会员`"
+      :title="(rowModelType || '') + (rowEdit && rowEdit.title ? rowEdit.title : '') + $t('message.pages.user.grade.type.memberSuffix')"
       width="540px"
       @closed="cancel"
     >
@@ -89,141 +88,13 @@ export default {
       loading: false,
       modal: false,
       rowEdit: {},
-      rowModelType: '编辑',
+      rowModelType: '',
       options: {
         form: {
           labelWidth: '100px',
         },
       },
-      rule: [
-        {
-          type: 'hidden',
-          field: 'id',
-          value: '',
-        },
-        {
-          type: 'hidden',
-          field: 'type',
-          value: '',
-        },
-        {
-          type: 'input',
-          field: 'title',
-          title: '会员名',
-          value: '',
-          props: {
-            disabled: false,
-            placeholder: '输入会员名',
-          },
-          validate: [
-            {
-              type: 'string',
-              max: 10,
-              min: 1,
-              message: '请输入长度为1-10的名称',
-              requred: true,
-            },
-          ],
-        },
-        {
-          type: 'InputNumber',
-          field: 'vip_day',
-          title: '有限期（天）',
-          value: null,
-          props: {
-            precision: 0,
-            disabled: false,
-            type: 'text',
-            placeholder: '输入有限期',
-            controls: false,
-          },
-          style: {
-            width: '100%',
-          },
-          validate: [
-            {
-              type: 'number',
-              max: 1000000,
-              min: 0,
-              message: '最大只能输入1000000,最小为0',
-              requred: true,
-            },
-          ],
-        },
-        {
-          type: 'InputNumber',
-          field: 'price',
-          title: '原价',
-          value: null,
-          props: {
-            min: 0,
-            disabled: false,
-            placeholder: '输入原价',
-            controls: false,
-          },
-          style: {
-            width: '100%',
-          },
-          validate: [
-            {
-              type: 'number',
-              max: 1000000,
-              min: 0,
-              message: '最大只能输入1000000,最小为0',
-              requred: true,
-            },
-          ],
-        },
-        {
-          type: 'InputNumber',
-          field: 'pre_price',
-          title: '优惠价',
-          value: null,
-          props: {
-            min: 0,
-            disabled: false,
-            placeholder: '输入优惠价',
-            controls: false,
-          },
-          style: {
-            width: '100%',
-          },
-          validate: [
-            {
-              type: 'number',
-              max: 1000000,
-              min: 0,
-              message: '最大只能输入1000000,最小为0',
-              requred: true,
-            },
-          ],
-        },
-        {
-          type: 'InputNumber',
-          field: 'sort',
-          title: '排序',
-          value: 0,
-          props: {
-            min: 1,
-            max: 1000000,
-            disabled: false,
-            placeholder: '请输入排序',
-            controls: false,
-          },
-          style: {
-            width: '100%',
-          },
-          validate: [
-            {
-              type: 'number',
-              max: 1000000,
-              min: 0,
-              message: '最大只能输入1000000,最小为0',
-              requred: true,
-            },
-          ],
-        },
-      ],
+      rule: [],
       fapi: {
         id: '',
         pre_price: null,
@@ -236,10 +107,63 @@ export default {
     };
   },
   created() {
+    this.rowModelType = this.$t('message.pages.user.grade.type.editType');
+    this.rule = this.buildRule();
     this.getMemberShip();
   },
   mounted() {},
   methods: {
+    buildRule() {
+      const t = (key) => this.$t('message.pages.user.grade.type.' + key);
+      return [
+        { type: 'hidden', field: 'id', value: '' },
+        { type: 'hidden', field: 'type', value: '' },
+        {
+          type: 'input',
+          field: 'title',
+          title: t('memberName'),
+          value: '',
+          props: { disabled: false, placeholder: t('inputMemberName') },
+          validate: [{ type: 'string', max: 10, min: 1, message: t('validNameLen'), requred: true }],
+        },
+        {
+          type: 'InputNumber',
+          field: 'vip_day',
+          title: t('validDays'),
+          value: null,
+          props: { precision: 0, disabled: false, type: 'text', placeholder: t('inputDays'), controls: false },
+          style: { width: '100%' },
+          validate: [{ type: 'number', max: 1000000, min: 0, message: t('validDaysNum'), requred: true }],
+        },
+        {
+          type: 'InputNumber',
+          field: 'price',
+          title: t('originalPrice'),
+          value: null,
+          props: { min: 0, disabled: false, placeholder: t('inputOriginalPrice'), controls: false },
+          style: { width: '100%' },
+          validate: [{ type: 'number', max: 1000000, min: 0, message: t('validDaysNum'), requred: true }],
+        },
+        {
+          type: 'InputNumber',
+          field: 'pre_price',
+          title: t('discountPrice'),
+          value: null,
+          props: { min: 0, disabled: false, placeholder: t('inputDiscountPrice'), controls: false },
+          style: { width: '100%' },
+          validate: [{ type: 'number', max: 1000000, min: 0, message: t('validDaysNum'), requred: true }],
+        },
+        {
+          type: 'InputNumber',
+          field: 'sort',
+          title: t('sort'),
+          value: 0,
+          props: { min: 1, max: 1000000, disabled: false, placeholder: t('inputSort'), controls: false },
+          style: { width: '100%' },
+          validate: [{ type: 'number', max: 1000000, min: 0, message: t('validDaysNum'), requred: true }],
+        },
+      ];
+    },
     onchangeIsShow(row) {
       let data = {
         id: row.id,
@@ -284,7 +208,7 @@ export default {
     },
     addType() {
       this.rowEdit.id = 0;
-      this.rowModelType = '新增';
+      this.rowModelType = this.$t('message.pages.user.grade.type.addType');
       this.rule[1].value = 'owner';
       this.rule[3].props.disabled = false;
       this.rule[5].props.disabled = false;
@@ -314,10 +238,10 @@ export default {
           if (row.hasOwnProperty(key)) {
             if (item.field === key) {
               if (key === 'vip_day') {
-                if (row[key] === -1 || row[key] == '永久') {
+                if (row[key] === -1 || row[key] == this.$t('message.pages.user.grade.type.forever')) {
                   item.type = 'input';
                   item.props.disabled = true;
-                  row[key] = '永久';
+                  row[key] = this.$t('message.pages.user.grade.type.forever');
                   item.validate = [{ type: 'string', message: '', requred: true }];
                 } else {
                   item.props.disabled = false;
@@ -341,7 +265,7 @@ export default {
           }
         }
       });
-      this.rowModelType = '编辑';
+      this.rowModelType = this.$t('message.pages.user.grade.type.editType');
       this.rowEdit = JSON.parse(JSON.stringify(row));
       this.modal = true;
     },

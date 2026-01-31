@@ -85,12 +85,12 @@ class UserGroupServices extends BaseServices
         $group = $this->getGroup($id);
         $field = array();
         if (!$group) {
-            $title = '添加分组';
-            $field[] = Form::input('group_name', '分组名称', '')->required();
+            $title = get_admin_form_lang('group_add_title');
+            $field[] = Form::input('group_name', get_admin_form_lang('group_name'), '')->required();
         } else {
-            $title = '修改分组';
+            $title = get_admin_form_lang('group_edit_title');
             $field[] = Form::hidden('id', $id);
-            $field[] = Form::input('group_name', '分组名称', $group->getData('group_name'))->required();
+            $field[] = Form::input('group_name', get_admin_form_lang('group_name'), $group->getData('group_name'))->required();
         }
         return create_form($title, $field, Url::buildUrl('/user/user_group/save'), 'POST');
     }

@@ -163,7 +163,7 @@ export default {
     },
     addRow() {
       let foundation = this.formItem.foundation;
-      if (!foundation.tableName) return this.$message.warning('请先填写表名');
+      if (!foundation.tableName) return this.$message.warning(this.$t('message.pages.system.codeGeneration.fillTableName'));
       let data = {
         menuName: foundation.menuName,
         tableName: foundation.tableName,
@@ -198,10 +198,10 @@ export default {
     nextTab() {
       if (this.currentTab == 0) {
         // if (!this.formItem.foundation.pid) return this.$message.warning('请选择菜单');
-        if (!this.formItem.foundation.tableName) return this.$message.warning('请输入表名');
-        if (!this.formItem.foundation.modelName) return this.$message.warning('请输入模块名');
+        if (!this.formItem.foundation.tableName) return this.$message.warning(this.$t('message.pages.system.codeGeneration.inputTableName'));
+        if (!this.formItem.foundation.modelName) return this.$message.warning(this.$t('message.pages.system.codeGeneration.inputModelName'));
         if (!this.formItem.foundation.isTable) {
-          if (!this.$refs.TableForm.tableField.length) return this.$message.warning('请先添加表数据');
+          if (!this.$refs.TableForm.tableField.length) return this.$message.warning(this.$t('message.pages.system.codeGeneration.addTableData'));
           if (this.$refs.TableForm.tableField.length)
             for (let i = 0; i < this.$refs.TableForm.tableField.length; i++) {
               const el = this.$refs.TableForm.tableField[i];
@@ -209,7 +209,7 @@ export default {
                 ['addSoftDelete', 'addTimestamps'].indexOf(el.field_type) === -1 &&
                 (!el.field || !el.field_type || !el.comment)
               ) {
-                return this.$message.warning('请完善sql表数据');
+                return this.$message.warning(this.$t('message.pages.system.codeGeneration.perfectSqlData'));
               }
             }
         }
@@ -228,11 +228,11 @@ export default {
         if (this.id) {
           data.id = this.id;
           this.$msgbox({
-            title: '生成提醒',
-            message: '重新提交会重新生成文件,删除、新增、修改的字段将直接从改表中进行修改,请慎重操作！！',
+            title: this.$t('message.pages.system.codeGeneration.genRemind'),
+            message: this.$t('message.pages.system.codeGeneration.genRemindMsg'),
             showCancelButton: true,
-            cancelButtonText: '取消',
-            confirmButtonText: '确定',
+            cancelButtonText: this.$t('message.common.cancel'),
+            confirmButtonText: this.$t('message.common.confirm'),
             iconClass: 'el-icon-warning',
             confirmButtonClass: 'btn-custom-cancel',
           })
@@ -242,12 +242,11 @@ export default {
             .catch(() => {});
         } else {
           this.$msgbox({
-            title: '生成提醒',
-            message:
-              '生成后本地开发调试会直接加载生成的vue页面；如果是上线后进行生成,可以进行浏览，代码生成列表中的修改文件将不生效。需要重新打包上线！',
+            title: this.$t('message.pages.system.codeGeneration.genRemind'),
+            message: this.$t('message.pages.system.codeGeneration.genRemindMsg2'),
             showCancelButton: true,
-            cancelButtonText: '取消',
-            confirmButtonText: '确定',
+            cancelButtonText: this.$t('message.common.cancel'),
+            confirmButtonText: this.$t('message.common.confirm'),
             iconClass: 'el-icon-warning',
             confirmButtonClass: 'btn-custom-cancel',
           })

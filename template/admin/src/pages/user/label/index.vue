@@ -4,7 +4,7 @@
       <el-col v-bind="grid1" class="left-wrapper">
         <div class="tree_tit" v-db-click @click="addSort">
           <i class="el-icon-circle-plus"></i>
-          添加分类
+          {{ $t('message.pages.user.label.addCategory') }}
         </div>
         <div class="tree">
           <el-tree
@@ -30,8 +30,8 @@
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
-                      <el-dropdown-item command="1">编辑分类</el-dropdown-item>
-                      <el-dropdown-item v-if="data.id" command="2">删除分类</el-dropdown-item>
+                      <el-dropdown-item command="1">{{ $t('message.pages.user.label.editCategory') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="data.id" command="2">{{ $t('message.pages.user.label.delCategory') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -44,7 +44,7 @@
         <el-card :bordered="false" shadow="never" class="left-radius-none">
           <el-row>
             <el-col>
-              <el-button v-auth="['admin-user-label_add']" type="primary" v-db-click @click="add">添加标签</el-button>
+              <el-button v-auth="['admin-user-label_add']" type="primary" v-db-click @click="add">{{ $t('message.pages.user.label.addLabel') }}</el-button>
               <!-- <el-button v-auth="['admin-user-label_add']" type="success" v-db-click @click="addSort">添加分类</el-button> -->
             </el-col>
           </el-row>
@@ -54,29 +54,29 @@
             class="mt14"
             v-loading="loading"
             highlight-current-row
-            no-userFrom-text="暂无数据"
-            no-filtered-userFrom-text="暂无筛选结果"
+            :no-userFrom-text="$t('message.pages.user.label.noData')"
+            :no-filtered-userFrom-text="$t('message.pages.user.label.noFilterResult')"
           >
-            <el-table-column label="ID" width="80">
+            <el-table-column :label="$t('message.common.id')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="标签名称" width="80">
+            <el-table-column :label="$t('message.pages.user.label.labelName')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.label_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="分类名称" min-width="80">
+            <el-table-column :label="$t('message.pages.user.label.categoryName')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.cate_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
+            <el-table-column fixed="right" :label="$t('message.common.action')" width="100">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row.id)">修改</a>
+                <a v-db-click @click="edit(scope.row.id)">{{ $t('message.pages.user.label.edit') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除分类', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.pages.user.label.delCategory'), scope.$index)">{{ $t('message.pages.user.label.del') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -147,7 +147,7 @@ export default {
   methods: {
     // 添加
     add() {
-      this.$modalForm(userLabelAddApi(0, this.labelFrom.label_cate)).then(() => this.getList());
+      this.$modalForm(userLabelAddApi(0, this.labelFrom.label_cate), { titleKey: 'message.pages.user.label.addLabel' }).then(() => this.getList());
     },
     // 分组列表
     getList() {
@@ -166,7 +166,7 @@ export default {
     },
     // 修改
     edit(id) {
-      this.$modalForm(userLabelAddApi(id)).then(() => this.getList());
+      this.$modalForm(userLabelAddApi(id), { titleKey: 'message.pages.user.label.editLabel' }).then(() => this.getList());
     },
     // 删除
     del(row, tit, num) {
@@ -191,7 +191,7 @@ export default {
     getUserLabelAll(key) {
       userLabelAll().then((res) => {
         let obj = {
-          name: '全部',
+          name: this.$t('message.pages.user.label.all'),
           id: '',
         };
         res.data.unshift(obj);
@@ -218,11 +218,11 @@ export default {
     },
     //编辑标签
     labelEdit(item) {
-      this.$modalForm(userLabelEdit(item.id)).then(() => this.getUserLabelAll(1));
+      this.$modalForm(userLabelEdit(item.id), { titleKey: 'message.pages.user.label.editCategory' }).then(() => this.getUserLabelAll(1));
     },
     // 添加分类
     addSort() {
-      this.$modalForm(userLabelCreate()).then(() => this.getUserLabelAll());
+      this.$modalForm(userLabelCreate(), { titleKey: 'message.pages.user.label.addCategory' }).then(() => this.getUserLabelAll());
     },
     deleteSort(row, tit) {
       let num = this.labelSort.findIndex((e) => {
@@ -250,7 +250,7 @@ export default {
       if (name == 1) {
         this.labelEdit(data);
       } else if (name == 2) {
-        this.deleteSort(data, '删除分类');
+        this.deleteSort(data, this.$t('message.pages.user.label.delCategory'));
       }
     },
     bindMenuItem(name, index) {

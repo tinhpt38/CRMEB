@@ -518,7 +518,7 @@ if (!function_exists('image_to_base64')) {
             $url = $url['host'];
             $header = [
                 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:45.0) Gecko/20100101 Firefox/45.0',
-                'Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3',
+                'Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3,vi-VN;q=0.3',
                 'Accept-Encoding: gzip, deflate, br',
                 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'Host:' . $url
@@ -748,6 +748,25 @@ if (!function_exists('tidy_tree')) {
             }
         }
         return $navList;
+    }
+}
+
+if (!function_exists('get_admin_form_lang')) {
+    /**
+     * 管理端表单文案多语言（根据 header cb-lang）
+     * @param string $key admin_form.php 中的 key
+     * @return string
+     */
+    function get_admin_form_lang(string $key): string
+    {
+        static $data = null;
+        if ($data === null) {
+            $file = app()->getBasePath() . 'lang/admin_form.php';
+            $data = file_exists($file) ? include $file : ['zh_cn' => [], 'vi_vn' => []];
+        }
+        $cbLang = app()->request->header('cb-lang', 'zh-cn');
+        $lang = (strtolower($cbLang) === 'vi-vn' || strtolower($cbLang) === 'vi_vn') ? 'vi_vn' : 'zh_cn';
+        return $data[$lang][$key] ?? $data['zh_cn'][$key] ?? $key;
     }
 }
 

@@ -213,17 +213,17 @@ class UserLevelServices extends BaseServices
                 throw new AdminException(100026);
             }
             $field[] = Form::hidden('id', $id);
-            $msg = '编辑用户等级';
+            $msg = get_admin_form_lang('level_edit_title');
         } else {
-            $msg = '添加用户等级';
+            $msg = get_admin_form_lang('level_add_title');
         }
-        $field[] = Form::input('name', '等级名称', isset($vipInfo) ? $vipInfo->name : '')->maxlength(10)->col(24)->required();
-        $field[] = Form::number('grade', '等级', isset($vipInfo) ? $vipInfo->grade : 0)->min(0)->precision(0)->required();
-        $field[] = Form::number('discount', '享受折扣', isset($vipInfo) ? $vipInfo->discount : 100)->min(0)->max(100)->placeholder('输入折扣数100，代表原价，90代表9折')->required();
-        $field[] = Form::number('exp_num', '解锁经验值', isset($vipInfo) ? $vipInfo->exp_num : 0)->min(0)->precision(0)->required();
-        $field[] = Form::frameImage('icon', '图标', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'icon')), isset($vipInfo) ? $vipInfo->icon : '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $field[] = Form::frameImage('image', '用户等级背景', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')), isset($vipInfo) ? $vipInfo->image : '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $field[] = Form::radio('is_show', '是否显示', isset($vipInfo) ? $vipInfo->is_show : 0)->options([['label' => '显示', 'value' => 1], ['label' => '隐藏', 'value' => 0]])->col(24);
+        $field[] = Form::input('name', get_admin_form_lang('level_name'), isset($vipInfo) ? $vipInfo->name : '')->maxlength(10)->col(24)->required();
+        $field[] = Form::number('grade', get_admin_form_lang('level_grade'), isset($vipInfo) ? $vipInfo->grade : 0)->min(0)->precision(0)->required();
+        $field[] = Form::number('discount', get_admin_form_lang('level_discount'), isset($vipInfo) ? $vipInfo->discount : 100)->min(0)->max(100)->placeholder(get_admin_form_lang('level_discount_placeholder'))->required();
+        $field[] = Form::number('exp_num', get_admin_form_lang('level_exp_num'), isset($vipInfo) ? $vipInfo->exp_num : 0)->min(0)->precision(0)->required();
+        $field[] = Form::frameImage('icon', get_admin_form_lang('level_icon'), Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'icon')), isset($vipInfo) ? $vipInfo->icon : '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $field[] = Form::frameImage('image', get_admin_form_lang('level_image'), Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')), isset($vipInfo) ? $vipInfo->image : '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $field[] = Form::radio('is_show', get_admin_form_lang('level_is_show'), isset($vipInfo) ? $vipInfo->is_show : 0)->options([['label' => get_admin_form_lang('level_show'), 'value' => 1], ['label' => get_admin_form_lang('level_hide'), 'value' => 0]])->col(24);
         return create_form($msg, $field, Url::buildUrl('/user/user_level'), 'POST');
     }
 

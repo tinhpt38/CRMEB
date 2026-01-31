@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modals" title="等级任务" :close-on-click-modal="false" width="1000px" @closed="handleReset">
+  <el-dialog :visible.sync="modals" :title="$t('message.pages.user.level.levelTaskTitle')" :close-on-click-modal="false" width="1000px" @closed="handleReset">
     <el-form
       ref="levelFrom"
       :model="levelFrom"
@@ -9,20 +9,20 @@
     >
       <el-row :gutter="24">
         <el-col v-bind="grid">
-          <el-form-item label="等级状态：">
-            <el-select v-model="levelFrom.is_show" placeholder="是否显示" clearable @change="userSearchs">
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+          <el-form-item :label="$t('message.pages.user.level.levelStatus')">
+            <el-select v-model="levelFrom.is_show" :placeholder="$t('message.pages.user.level.isShow')" clearable @change="userSearchs">
+              <el-option value="1" :label="$t('message.pages.user.level.show')"></el-option>
+              <el-option value="0" :label="$t('message.pages.user.level.hide')"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col v-bind="grid">
-          <el-form-item label="等级名称：" prop="status2" label-for="status2">
+          <el-form-item :label="$t('message.pages.user.level.levelName')" prop="status2" label-for="status2">
             <el-input
               search
               enter-button
               v-model="levelFrom.name"
-              placeholder="请输入等级名称"
+              :placeholder="$t('message.pages.user.level.inputLevelName')"
               @on-search="userSearchs"
               style="width: 100%"
             />
@@ -33,12 +33,12 @@
     <el-divider direction="vertical" dashed />
     <el-row>
       <el-col v-bind="grid" class="mb15">
-        <el-button type="primary" v-db-click @click="add">添加等级任务</el-button>
+        <el-button type="primary" v-db-click @click="add">{{ $t('message.pages.user.level.addLevelTask') }}</el-button>
       </el-col>
       <el-col :span="24" class="userAlert">
         <el-alert show-icon closable>
           <template slot="title">
-            添加等级任务,任务类型中的{$num}会自动替换成限定数量+系统预设的单位生成任务名
+            {{ $t('message.pages.user.level.addLevelTaskDesc') }}
           </template>
         </el-alert>
       </el-col>
@@ -48,25 +48,25 @@
       :data="levelLists"
       ref="table"
       v-loading="loading"
-      no-userFrom-text="暂无数据"
-      no-filtered-userFrom-text="暂无筛选结果"
+      :no-userFrom-text="$t('message.pages.user.level.noData')"
+      :no-filtered-userFrom-text="$t('message.pages.user.level.noFilterResult')"
     >
       <el-table-column label="ID" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="等级名称" min-width="130">
+      <el-table-column :label="$t('message.pages.user.level.levelNameCol')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.level_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="任务名称" min-width="130">
+      <el-table-column :label="$t('message.pages.user.level.taskName')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否显示" min-width="130">
+      <el-table-column :label="$t('message.pages.user.level.isShowCol')" min-width="130">
         <template slot-scope="scope">
           <el-switch
             class="defineSwitch"
@@ -76,13 +76,13 @@
             :value="scope.row.is_show"
             size="large"
             @change="onchangeIsShow(scope.row)"
-            active-text="显示"
-            inactive-text="隐藏"
+            :active-text="$t('message.pages.user.level.show')"
+            :inactive-text="$t('message.pages.user.level.hide')"
           >
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="务必达成" min-width="130">
+      <el-table-column :label="$t('message.pages.user.level.mustComplete')" min-width="130">
         <template slot-scope="scope">
           <el-switch
             class="defineSwitch"
@@ -94,21 +94,21 @@
             :false-value="0"
             size="large"
             @change="onchangeIsMust(scope.row)"
-            active-text="全部"
-            inactive-text="其一"
+            :active-text="$t('message.pages.user.level.allTasks')"
+            :inactive-text="$t('message.pages.user.level.oneOf')"
           >
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="任务说明" min-width="130">
+      <el-table-column :label="$t('message.pages.user.level.taskDesc')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.illustrate }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width="170">
+      <el-table-column :label="$t('message.common.action')" fixed="right" width="170">
         <template slot-scope="scope">
-          <a v-db-click @click="edit(scope.row)">编辑 | </a>
-          <a v-db-click @click="del(scope.row, '删除等级任务', index)"> 删除</a>
+          <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.user.grade.type.editType') }} | </a>
+          <a v-db-click @click="del(scope.row, $t('message.pages.user.level.delLevelTask'), scope.$index)"> {{ $t('message.common.del') }}</a>
         </template>
       </el-table-column>
     </el-table>

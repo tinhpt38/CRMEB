@@ -25,7 +25,7 @@
     </el-row>
     <!-- <el-row class="mb10 content">
       <el-button class="bnt" type="primary" v-db-click @click="save" :loading="loadingExist"
-        >保存</el-button
+        >{{ $t('message.common.save') }}</el-button
       >
     </el-row> -->
 

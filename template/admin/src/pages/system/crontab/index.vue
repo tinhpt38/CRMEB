@@ -15,32 +15,31 @@
     <el-card :bordered="false" shadow="never">
       <el-alert type="warning" :closable="false">
         <template slot="title">
-          启动定时任务两种方式：<br />
-          1、使用命令启动：php think timer start
-          --d；如果更改了执行周期、编辑是否开启、删除定时任务需要重新启动下定时任务确保生效；<br />
-          2、使用接口触发定时任务，建议每分钟调用一次，接口地址 {{ apiBaseURL }}api/crontab/run <br />
+          {{ $t('message.pages.system.crontab.alertLine1') }}<br />
+          {{ $t('message.pages.system.crontab.alertLine2') }}<br />
+          {{ $t('message.pages.system.crontab.alertLine3') }} {{ apiBaseURL }}api/crontab/run <br />
         </template>
       </el-alert>
-      <el-button v-if="currentTab === '1'" type="primary" v-db-click @click="addTask" class="mt14"
-        >添加定时任务</el-button
-      >
+      <el-button v-if="currentTab === '1'" type="primary" v-db-click @click="addTask" class="mt14">
+        {{ $t('message.pages.system.crontab.addTask') }}
+      </el-button>
       <el-table :data="tableData" v-loading="loading" class="ivu-mt">
-        <el-table-column label="标题" min-width="150">
+        <el-table-column :label="$t('message.pages.system.crontab.title')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="任务说明" min-width="130">
+        <el-table-column :label="$t('message.pages.system.crontab.taskDesc')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="执行周期" min-width="130">
+        <el-table-column :label="$t('message.pages.system.crontab.cycle')" min-width="130">
           <template slot-scope="scope">
             <span>{{ taskTrip(scope.row) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否开启" min-width="130">
+        <el-table-column :label="$t('message.pages.system.crontab.isOpen')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -49,23 +48,22 @@
               v-model="scope.row.is_open"
               size="large"
               @change="handleChange(scope.row)"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.common.on')"
+              :inactive-text="$t('message.common.off')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column :label="$t('message.common.action')" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">编辑</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('message.common.edit') }}</a>
             <el-divider direction="vertical" v-if="currentTab === '1'"></el-divider>
             <a
               v-if="currentTab === '1'"
               v-permission="'seckill'"
               v-db-click
-              @click="handleDelete(scope.row, '删除定时任务', scope.$index)"
-              >删除</a
-            >
+              @click="handleDelete(scope.row, $t('message.pages.system.crontab.delTaskTitle'), scope.$index)"
+            >{{ $t('message.common.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -105,23 +103,29 @@ export default {
   },
   methods: {
     taskTrip(row) {
+      const t = this.$t.bind(this);
+      const h = row.hour ?? 0;
+      const m = row.minute ?? 0;
+      const s = row.second ?? 0;
       switch (row.type) {
         case 1:
-          return `每隔${row.second}秒执行一次`;
+          return t('message.pages.system.crontab.taskTripSecond', { n: row.second });
         case 2:
-          return `每隔${row.minute}分钟执行一次`;
+          return t('message.pages.system.crontab.taskTripMinute', { n: row.minute });
         case 3:
-          return `每隔${row.hour}小时执行一次`;
+          return t('message.pages.system.crontab.taskTripHour', { n: row.hour });
         case 4:
-          return `每隔${row.day}天执行一次`;
+          return t('message.pages.system.crontab.taskTripDay', { n: row.day });
         case 5:
-          return `每天${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return t('message.pages.system.crontab.taskTripDaily', { h, m, s });
         case 6:
-          return `每个星期${row.week}的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return t('message.pages.system.crontab.taskTripWeekly', { w: row.week, h, m, s });
         case 7:
-          return `每月${row.day}日的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return t('message.pages.system.crontab.taskTripMonthly', { d: row.day, h, m, s });
         case 8:
-          return `每年${row.month}月${row.day}日的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return t('message.pages.system.crontab.taskTripYearly', { month: row.month, d: row.day, h, m, s });
+        default:
+          return '';
       }
     },
     // 列表

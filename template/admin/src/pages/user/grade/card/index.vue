@@ -9,57 +9,57 @@
           :label-position="labelPosition"
           @submit.native.prevent
         >
-          <el-form-item label="批次名称：" label-for="title">
-            <el-input clearable v-model="gradeFrom.title" placeholder="请输入批次名称" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.user.grade.card.batchName')" label-for="title">
+            <el-input clearable v-model="gradeFrom.title" :placeholder="$t('message.pages.user.grade.card.inputBatchName')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.user.grade.card.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="mt16">
-      <el-button type="primary" v-db-click @click="addBatch">添加批次</el-button>
-      <el-button v-db-click @click="getMemberScan">卡密使用页面二维码</el-button>
+      <el-button type="primary" v-db-click @click="addBatch">{{ $t('message.pages.user.grade.card.addBatch') }}</el-button>
+      <el-button v-db-click @click="getMemberScan">{{ $t('message.pages.user.grade.card.cardQr') }}</el-button>
       <el-table
         class="mt14"
         :data="tbody"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.user.grade.card.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.user.grade.card.noFilterResult')"
       >
-        <el-table-column label="编号" width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.no')" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="批次名称" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.batchNameCol')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="体验天数" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.experienceDays')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.use_day }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="发卡总数量" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.totalNum')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.total_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="使用数量" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.useNum')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.use_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="制卡时间" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.makeTime')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否激活" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.isActive')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -72,24 +72,24 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="120">
+        <el-table-column :label="$t('message.pages.user.grade.card.remark')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.remark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="制卡时间" min-width="100">
+        <el-table-column :label="$t('message.pages.user.grade.card.makeTime')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('message.common.action')" fixed="right" width="120">
           <template slot-scope="scope">
             <el-dropdown size="small" @command="changeMenu(scope.row, $event, scope.$index)" :transfer="true">
-              <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">{{ $t('message.pages.user.list.more') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="1">编辑批次名</el-dropdown-item>
-                <el-dropdown-item command="2">查看卡列表</el-dropdown-item>
-                <el-dropdown-item command="3">导出</el-dropdown-item>
+                <el-dropdown-item command="1">{{ $t('message.pages.user.grade.card.editBatchName') }}</el-dropdown-item>
+                <el-dropdown-item command="2">{{ $t('message.pages.user.grade.card.viewCardList') }}</el-dropdown-item>
+                <el-dropdown-item command="3">{{ $t('message.pages.user.list.export') }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -105,20 +105,19 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" width="540px" :title="`${formValidate.id ? '编辑' : '添加'}批次`">
-      <!-- <form-create v-model="fapi" :rule="rule" @submit="onSubmit"></form-create> -->
+    <el-dialog :visible.sync="modal" width="540px" :title="formValidate.id ? $t('message.pages.user.grade.card.editBatch') + $t('message.pages.user.grade.card.batchTitle') : $t('message.pages.user.grade.card.addBatchTitle')">
       <el-form ref="formValidate" :model="formValidate" label-width="80px" @submit.native.prevent>
-        <el-form-item label="批次名称：">
-          <el-input placeholder="请输入批次名称" element-id="unit_name" v-model="formValidate.title" class="w100" />
+        <el-form-item :label="$t('message.pages.user.grade.card.batchName')">
+          <el-input :placeholder="$t('message.pages.user.grade.card.inputBatchName')" element-id="unit_name" v-model="formValidate.title" class="w100" />
         </el-form-item>
-        <el-form-item label="备注：" v-if="formValidate.id">
-          <el-input type="textarea" placeholder="请输入备注" v-model="formValidate.remark" class="w100" />
+        <el-form-item :label="$t('message.pages.user.grade.card.remarkLabel')" v-if="formValidate.id">
+          <el-input type="textarea" :placeholder="$t('message.pages.user.grade.card.inputRemark')" v-model="formValidate.remark" class="w100" />
         </el-form-item>
         <template v-if="!formValidate.id">
-          <el-form-item label="制卡数量：">
+          <el-form-item :label="$t('message.pages.user.grade.card.cardCount')">
             <el-input-number
               :controls="false"
-              placeholder="请输入制卡数量"
+              :placeholder="$t('message.pages.user.grade.card.inputCardCount')"
               element-id="sort"
               :precision="0"
               :max="100000"
@@ -127,10 +126,10 @@
               class="perW10"
             />
           </el-form-item>
-          <el-form-item label="体验天数：">
+          <el-form-item :label="$t('message.pages.user.grade.card.experienceDaysLabel')">
             <el-input-number
               :controls="false"
-              placeholder="请输入体验天数"
+              :placeholder="$t('message.pages.user.grade.card.inputExperienceDays')"
               element-id="sort"
               :precision="0"
               :max="100000"
@@ -139,38 +138,38 @@
               class="perW10"
             />
           </el-form-item>
-          <el-form-item label="是否激活：">
+          <el-form-item :label="$t('message.pages.user.grade.card.isActiveLabel')">
             <el-radio-group element-id="status" v-model="formValidate.status">
-              <el-radio :label="1" class="radio">激活</el-radio>
-              <el-radio :label="0">冻结</el-radio>
+              <el-radio :label="1" class="radio">{{ $t('message.pages.user.grade.card.activate') }}</el-radio>
+              <el-radio :label="0">{{ $t('message.pages.user.grade.card.freeze') }}</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="备注：">
-            <el-input type="textarea" placeholder="请输入备注" v-model="formValidate.remark" class="w100" />
+          <el-form-item :label="$t('message.pages.user.grade.card.remarkLabel')">
+            <el-input type="textarea" :placeholder="$t('message.pages.user.grade.card.inputRemark')" v-model="formValidate.remark" class="w100" />
           </el-form-item>
         </template>
       </el-form>
       <div class="acea-row row-right">
-        <el-button v-db-click @click="modal = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="onSubmit()">提交</el-button>
+        <el-button v-db-click @click="modal = false">{{ $t('message.common.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="onSubmit()">{{ $t('message.common.submit') }}</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="cardModal" title="卡列表" width="1000px">
+    <el-dialog :visible.sync="cardModal" :title="$t('message.pages.user.grade.card.cardListTitle')" width="1000px">
       <cardList v-if="cardModal" :id="id"></cardList>
     </el-dialog>
-    <el-dialog :visible.sync="modal3" title="二维码" width="540px">
+    <el-dialog :visible.sync="modal3" :title="$t('message.pages.user.grade.card.qrcodeTitle')" width="540px">
       <div v-if="qrcode" class="acea-row row-around">
         <div v-if="qrcode && qrcode.wechat_img" class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">
             <img v-lazy="qrcode.wechat_img" />
           </div>
-          <span class="mt10">公众号二维码</span>
+          <span class="mt10">{{ $t('message.pages.user.grade.card.wechatQr') }}</span>
         </div>
         <div v-if="qrcode && qrcode.routine" class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">
             <img v-lazy="qrcode.routine" />
           </div>
-          <span class="mt10">小程序二维码</span>
+          <span class="mt10">{{ $t('message.pages.user.grade.card.routineQr') }}</span>
         </div>
       </div>
     </el-dialog>

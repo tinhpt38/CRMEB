@@ -702,6 +702,15 @@ export function getLangVersion() {
 }
 
 /**
+ * 获取当前后台设置的默认语言类型（用于 lần đầu chưa có locale 时同步 mặc định）
+ */
+export function getDefaultLangType() {
+	return request.get('get_default_lang_type', {}, {
+		noAuth: true
+	})
+}
+
+/**
  * 
  * 小程序绑定手机号
  * @param object data

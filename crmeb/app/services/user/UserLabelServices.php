@@ -91,19 +91,19 @@ class UserLabelServices extends BaseServices
         $field = array();
         /** @var UserLabelCateServices $service */
         $service = app()->make(UserLabelCateServices::class);
-        $options[] = ['value' => 0, 'label' => '全部'];
+        $options[] = ['value' => 0, 'label' => get_admin_form_lang('label_option_all')];
         foreach ($service->getLabelCateAll() as $item) {
             $options[] = ['value' => $item['id'], 'label' => $item['name']];
         }
         if (!$label) {
-            $title = '添加标签';
-            $field[] = Form::select('label_cate', '标签分类', $cateId)->setOptions($options);
-            $field[] = Form::input('label_name', '标签名称', '')->required();
+            $title = get_admin_form_lang('label_add_title');
+            $field[] = Form::select('label_cate', get_admin_form_lang('label_cate'), $cateId)->setOptions($options);
+            $field[] = Form::input('label_name', get_admin_form_lang('label_name'), '')->required();
         } else {
-            $title = '修改标签';
-            $field[] = Form::select('label_cate', '分类', (int)$label->getData('label_cate'))->setOptions($options);
+            $title = get_admin_form_lang('label_edit_title');
+            $field[] = Form::select('label_cate', get_admin_form_lang('label_cate_name'), (int)$label->getData('label_cate'))->setOptions($options);
             $field[] = Form::hidden('id', $label->getData('id'));
-            $field[] = Form::input('label_name', '标签名称', $label->getData('label_name'))->required('请填写标签名称');
+            $field[] = Form::input('label_name', get_admin_form_lang('label_name'), $label->getData('label_name'))->required(get_admin_form_lang('label_required_name'));
         }
         return create_form($title, $field, Url::buildUrl('/user/user_label/save'), 'POST');
     }

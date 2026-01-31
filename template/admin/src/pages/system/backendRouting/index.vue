@@ -61,9 +61,9 @@
                   </span>
                   <template slot="dropdown">
                     <el-dropdown-menu>
-                      <el-dropdown-item command="1" v-if="!slotProps.model.method">新增接口</el-dropdown-item>
-                      <el-dropdown-item command="2" v-if="!slotProps.model.method">编辑分类名</el-dropdown-item>
-                      <el-dropdown-item command="3">删除</el-dropdown-item>
+                      <el-dropdown-item command="1" v-if="!slotProps.model.method">{{ $t('message.pages.system.backendRouting.addApi') }}</el-dropdown-item>
+                      <el-dropdown-item command="2" v-if="!slotProps.model.method">{{ $t('message.pages.system.backendRouting.editCategoryName') }}</el-dropdown-item>
+                      <el-dropdown-item command="3">{{ $t('message.common.del') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -98,14 +98,14 @@
               {{ formValidate.name }}
             </div>
             <div>
-              <el-button class="submission" v-db-click @click="debugging()">调试</el-button>
+              <el-button class="submission" v-db-click @click="debugging()">{{ $t('message.pages.system.backendRouting.debug') }}</el-button>
               <el-button
                 v-if="formValidate.id"
                 type="primary"
                 class="submission"
                 v-db-click
                 @click="isEdit = !isEdit"
-                >{{ isEdit ? '取消' : '编辑' }}</el-button
+                >{{ isEdit ? $t('message.pages.system.backendRouting.cancel') : $t('message.pages.system.backendRouting.edit') }}</el-button
               >
               <el-button
                 v-if="isEdit"
@@ -113,7 +113,7 @@
                 class="submission"
                 v-db-click
                 @click="handleSubmit('formValidate')"
-                >保存</el-button
+                >{{ $t('message.pages.system.backendRouting.save') }}</el-button
               >
             </div>
           </div>
@@ -128,19 +128,19 @@
           >
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">接口信息</div>
-                <el-form-item label="接口名称：" prop="name">
+                <div class="title">{{ $t('message.pages.system.backendRouting.apiInfo') }}</div>
+                <el-form-item :label="$t('message.pages.system.backendRouting.apiName')" prop="name">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
                     type="text"
                     :rows="4"
                     v-model.trim="formValidate.name"
-                    placeholder="请输入"
+                    :placeholder="$t('message.pages.system.backendRouting.inputPlaceholder')"
                   />
                   <span v-else>{{ formValidate.name || '' }}</span>
                 </el-form-item>
-                <el-form-item label="请求类型：" prop="name">
+                <el-form-item :label="$t('message.pages.system.backendRouting.requestType')" prop="name">
                   <el-select v-if="isEdit" v-model="formValidate.method" style="width: 120px">
                     <el-option
                       v-for="(item, index) in requestTypeList"
@@ -153,18 +153,18 @@
                     formValidate.method || ''
                   }}</span>
                 </el-form-item>
-                <el-form-item label="功能描述：" prop="name">
+                <el-form-item :label="$t('message.pages.system.backendRouting.funcDesc')" prop="name">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.describe"
-                    placeholder="请输入"
+                    :placeholder="$t('message.pages.system.backendRouting.inputPlaceholder')"
                   />
                   <span v-else class="text-area">{{ formValidate.describe || '--' }}</span>
                 </el-form-item>
-                <el-form-item label="所属分类：" prop="name" v-if="isEdit">
+                <el-form-item :label="$t('message.pages.system.backendRouting.belongCategory')" prop="name" v-if="isEdit">
                   <el-cascader
                     v-model="formValidate.cate_id"
                     size="small"
@@ -173,26 +173,26 @@
                     clearable
                   ></el-cascader>
                 </el-form-item>
-                <el-form-item label="是否公共：" prop="name">
+                <el-form-item :label="$t('message.pages.system.backendRouting.isPublic')" prop="name">
                   <el-switch v-if="isEdit" v-model="formValidate.type" :active-value="1" :inactive-value="0">
                   </el-switch>
-                  <span v-else class="text-area">{{ formValidate.type ? '是' : '否' }}</span>
+                  <span v-else class="text-area">{{ formValidate.type ? $t('message.pages.system.backendRouting.yes') : $t('message.pages.system.backendRouting.no') }}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">调用方式</div>
-                <el-form-item label="路由地址：" prop="path">
+                <div class="title">{{ $t('message.pages.system.backendRouting.callMethod') }}</div>
+                <el-form-item :label="$t('message.pages.system.backendRouting.routePath')" prop="path">
                   <span>{{ formValidate.path || '' }}</span>
                 </el-form-item>
-                <el-form-item label="文件地址：" prop="path">
+                <el-form-item :label="$t('message.pages.system.backendRouting.filePath')" prop="path">
                   <span>{{ formValidate.file_path || '' }}</span>
                 </el-form-item>
-                <el-form-item label="方法名：" prop="path">
+                <el-form-item :label="$t('message.pages.system.backendRouting.methodName')" prop="path">
                   <span>{{ formValidate.action || '' }}</span>
                 </el-form-item>
-                <el-form-item label="header参数：">
+                <el-form-item :label="$t('message.pages.system.backendRouting.headerParams')">
                   <vxe-table
                     resizable
                     show-overflow
@@ -206,15 +206,14 @@
                     :data="formValidate.header"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" width="300" :title="$t('message.pages.system.backendRouting.attribute')" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+                    <vxe-column field="type" :title="$t('message.pages.system.backendRouting.type')" width="200" :edit-render="{}">
                       <template #default="{ row }">
-                        <!-- <vxe-select v-if="isEdit" v-model="row.type" type="text" :optionGroups="typeList"></vxe-select> -->
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
                           <vxe-option
                             v-for="item in typeList"
@@ -224,13 +223,9 @@
                           ></vxe-option>
                         </vxe-select>
                         <span v-else>{{ row.type || '' }}</span>
-
-                        <!-- <vxe-select v-model="row.type">
-									    <vxe-option v-for="num in 12" :key="num" :value="num" :label="num"></vxe-option>
-									  </vxe-select> -->
                       </template>
                     </vxe-column>
-                    <vxe-column field="must" title="必填" width="100" :edit-render="{}">
+                    <vxe-column field="must" :title="$t('message.pages.system.backendRouting.required')" width="100" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-checkbox
                           v-if="isEdit"
@@ -238,16 +233,16 @@
                           :unchecked-value="'0'"
                           :checked-value="'1'"
                         ></vxe-checkbox>
-                        <span v-else>{{ row.must == '1' ? '是' : '否' }}</span>
+                        <span v-else>{{ row.must == '1' ? $t('message.pages.system.backendRouting.yes') : $t('message.pages.system.backendRouting.no') }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="trip" title="说明" :edit-render="{}">
+                    <vxe-column field="trip" :title="$t('message.pages.system.backendRouting.description')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" width="200" v-if="isEdit">
+                    <vxe-column :title="$t('message.pages.system.backendRouting.action')" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -255,20 +250,20 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'headTable')"
-                          >插入</vxe-button
+                          >{{ $t('message.pages.system.backendRouting.insert') }}</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'headTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.common.del') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
 
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('headTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.pages.system.backendRouting.addParam') }}</el-button
                   >
                 </el-form-item>
-                <el-form-item label="query参数：">
+                <el-form-item :label="$t('message.pages.system.backendRouting.queryParams')">
                   <vxe-table
                     resizable
                     show-overflow
@@ -281,13 +276,13 @@
                     :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
                     :data="formValidate.query"
                   >
-                    <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" width="300" :title="$t('message.pages.system.backendRouting.attribute')" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+                    <vxe-column field="type" :title="$t('message.pages.system.backendRouting.type')" width="200" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
                           <vxe-option
@@ -300,7 +295,7 @@
                         <span v-else>{{ row.type || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="must" title="必填" width="100" :edit-render="{}">
+                    <vxe-column field="must" :title="$t('message.pages.system.backendRouting.required')" width="100" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-checkbox
                           v-if="isEdit"
@@ -308,16 +303,16 @@
                           :unchecked-value="'0'"
                           :checked-value="'1'"
                         ></vxe-checkbox>
-                        <span v-else>{{ row.must == '1' ? '是' : '否' }}</span>
+                        <span v-else>{{ row.must == '1' ? $t('message.pages.system.backendRouting.yes') : $t('message.pages.system.backendRouting.no') }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="trip" title="说明" :edit-render="{}">
+                    <vxe-column field="trip" :title="$t('message.pages.system.backendRouting.description')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" width="200" v-if="isEdit">
+                    <vxe-column :title="$t('message.pages.system.backendRouting.action')" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -325,19 +320,19 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'xTable')"
-                          >插入</vxe-button
+                          >{{ $t('message.pages.system.backendRouting.insert') }}</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.common.del') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('xTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.pages.system.backendRouting.addParam') }}</el-button
                   >
                 </el-form-item>
-                <el-form-item label="body参数：">
+                <el-form-item :label="$t('message.pages.system.backendRouting.bodyParams')">
                   <vxe-table
                     resizable
                     show-overflow
@@ -351,15 +346,14 @@
                     :data="formValidate.request"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" width="300" :title="$t('message.pages.system.backendRouting.attribute')" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+                    <vxe-column field="type" :title="$t('message.pages.system.backendRouting.type')" width="200" :edit-render="{}">
                       <template #default="{ row }">
-                        <!-- <vxe-select v-if="isEdit" v-model="row.type" type="text" :optionGroups="typeList"></vxe-select> -->
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
                           <vxe-option
                             v-for="item in typeList"
@@ -369,13 +363,9 @@
                           ></vxe-option>
                         </vxe-select>
                         <span v-else>{{ row.type || '' }}</span>
-
-                        <!-- <vxe-select v-model="row.type">
-                      <vxe-option v-for="num in 12" :key="num" :value="num" :label="num"></vxe-option>
-                    </vxe-select> -->
                       </template>
                     </vxe-column>
-                    <vxe-column field="must" title="必填" width="100" :edit-render="{}">
+                    <vxe-column field="must" :title="$t('message.pages.system.backendRouting.required')" width="100" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-checkbox
                           v-if="isEdit"
@@ -383,16 +373,16 @@
                           :unchecked-value="'0'"
                           :checked-value="'1'"
                         ></vxe-checkbox>
-                        <span v-else>{{ row.must == '1' ? '是' : '否' }}</span>
+                        <span v-else>{{ row.must == '1' ? $t('message.pages.system.backendRouting.yes') : $t('message.pages.system.backendRouting.no') }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="trip" title="说明" :edit-render="{}">
+                    <vxe-column field="trip" :title="$t('message.pages.system.backendRouting.description')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" width="200" v-if="isEdit">
+                    <vxe-column :title="$t('message.pages.system.backendRouting.action')" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -400,20 +390,20 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'bodyTable')"
-                          >插入</vxe-button
+                          >{{ $t('message.pages.system.backendRouting.insert') }}</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'bodyTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.common.del') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
 
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('bodyTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.pages.system.backendRouting.addParam') }}</el-button
                   >
                 </el-form-item>
-                <el-form-item label="返回参数：">
+                <el-form-item :label="$t('message.pages.system.backendRouting.returnParams')">
                   <vxe-table
                     resizable
                     show-overflow
@@ -427,13 +417,13 @@
                     :data="formValidate.response"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" title="属性" width="300" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" :title="$t('message.pages.system.backendRouting.attribute')" width="300" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+                    <vxe-column field="type" :title="$t('message.pages.system.backendRouting.type')" width="200" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
                           <vxe-option
@@ -446,19 +436,19 @@
                         <span v-else>{{ row.type || '' }}</span>
                       </template>
                     </vxe-column>
-                    <!-- <vxe-column field="type" title="必填" :edit-render="{}">
+                    <!-- <vxe-column field="type" :title="$t('message.pages.system.backendRouting.required')" :edit-render="{}">
                   <template #default="{ row }">
                     <vxe-checkbox v-model="row.must" :unchecked-value="0" :checked-value="1"></vxe-checkbox
                     >{{ row.must }}
                   </template>
                 </vxe-column> -->
-                    <vxe-column field="trip" title="说明" :edit-render="{}">
+                    <vxe-column field="trip" :title="$t('message.pages.system.backendRouting.description')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" width="200" v-if="isEdit">
+                    <vxe-column :title="$t('message.pages.system.backendRouting.action')" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -466,23 +456,23 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'resTable')"
-                          >插入</vxe-button
+                          >{{ $t('message.pages.system.backendRouting.insert') }}</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'resTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.common.del') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('resTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.pages.system.backendRouting.addParam') }}</el-button
                   >
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">调用示例</div>
+                <div class="title">{{ $t('message.pages.system.backendRouting.callExample') }}</div>
                 <!-- <el-form-item label="请求数据示例：" prop="request_example">
                     <el-input
                       v-if="isEdit"
@@ -494,7 +484,7 @@
                     />
                     <span v-else class="text-area">{{ formValidate.request_example || '' }}</span>
                   </el-form-item> -->
-                <el-form-item v-if="formValidate.response_example" label="返回数据示例：" prop="response_example">
+                <el-form-item v-if="formValidate.response_example" :label="$t('message.pages.system.backendRouting.responseExample')" prop="response_example">
                   <el-collapse v-for="(item, index) in formValidate.response_example" accordion :key="index">
                     <el-collapse-item>
                       <template slot="title">
@@ -506,13 +496,13 @@
                         type="textarea"
                         :rows="4"
                         v-model.trim="item.data"
-                        placeholder="请输入"
+                        :placeholder="$t('message.pages.system.backendRouting.inputPlaceholder')"
                       />
                       <span v-else class="text-area">{{ item.data || '' }}</span>
                     </el-collapse-item>
                   </el-collapse>
                 </el-form-item>
-                <el-form-item label="错误码：">
+                <el-form-item :label="$t('message.pages.system.backendRouting.errorCode')">
                   <vxe-table
                     resizable
                     show-overflow
@@ -526,35 +516,34 @@
                     :tree-config="{ rowField: 'id', parentField: 'parentId' }"
                     :data="formValidate.error_code"
                   >
-                    <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="code" title="错误码" tree-node :edit-render="{}">
+                    <vxe-column field="code" :title="$t('message.pages.system.backendRouting.errorCodeLabel')" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.code" type="text"></vxe-input>
                         <span v-else>{{ row.code || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="value" title="错误码取值" :edit-render="{}">
+                    <vxe-column field="value" :title="$t('message.pages.system.backendRouting.errorCodeValue')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.value" type="text"></vxe-input>
                         <span v-else>{{ row.value || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="solution" title="解决方案" :edit-render="{}">
+                    <vxe-column field="solution" :title="$t('message.pages.system.backendRouting.solution')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.solution" type="text"></vxe-input>
                         <span v-else>{{ row.solution || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" v-if="isEdit">
+                    <vxe-column :title="$t('message.pages.system.backendRouting.action')" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'codeTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.common.del') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('codeTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.pages.system.backendRouting.addParam') }}</el-button
                   >
                 </el-form-item>
               </el-col>
@@ -584,12 +573,12 @@
         </div> -->
       </el-card>
     </div>
-    <el-dialog :visible.sync="nameModal" width="470px" title="分组名称">
-      <label>分组名称：</label>
-      <el-input v-model="value" placeholder="请输入分组名称" style="width: 85%" />
+    <el-dialog :visible.sync="nameModal" width="470px" :title="$t('message.pages.system.backendRouting.groupName')">
+      <label>{{ $t('message.pages.system.backendRouting.groupNameLabel') }}</label>
+      <el-input v-model="value" :placeholder="$t('message.pages.system.backendRouting.groupNamePlaceholder')" style="width: 85%" />
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="nameModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="asyncOK">确 定</el-button>
+        <el-button v-db-click @click="nameModal = false">{{ $t('message.common.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="asyncOK">{{ $t('message.common.confirm') }}</el-button>
       </span>
     </el-dialog>
     <el-drawer
@@ -647,7 +636,7 @@ export default {
         xs: 24,
       },
       ruleValidate: {
-        title: [{ message: '请输入正确的描述 (不能多于200位数)', trigger: 'blur', max: 200 }],
+        title: [],
       },
       loading: false,
       intTypeList: [
@@ -787,15 +776,16 @@ export default {
   },
   created() {
     this.getInterfaceList('one');
+    this.ruleValidate.title = [{ message: this.$t('message.pages.system.backendRouting.descMaxMessage'), trigger: 'blur', max: 200 }];
   },
   methods: {
     syncRoute() {
       this.$msgbox({
-        title: '立即同步',
-        message: '同步之后，路由文件中新增的接口添加到接口列表中，路由文件中删除的路由会同步的在接口列表中删除',
+        title: this.$t('message.pages.system.backendRouting.syncNow'),
+        message: this.$t('message.pages.system.backendRouting.syncMsg'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('message.common.cancel'),
+        confirmButtonText: this.$t('message.common.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -890,11 +880,11 @@ export default {
     },
     async handleSubmit() {
       if (!this.formValidate.name) {
-        return this.$message.warning('请输入接口名称');
+        return this.$message.warning(this.$t('message.pages.system.backendRouting.inputApiName'));
       } else if (!this.formValidate.method) {
-        return this.$message.warning('请选择请求类型');
+        return this.$message.warning(this.$t('message.pages.system.backendRouting.selectRequestType'));
       } else if (!this.formValidate.path) {
-        return this.$message.warning('请输入路由地址');
+        return this.$message.warning(this.$t('message.pages.system.backendRouting.inputRoutePath'));
       }
       this.formValidate.request = await this.$refs.bodyTable.getTableData().tableData;
       this.formValidate.response = await this.$refs.resTable.getTableData().tableData;
@@ -1120,11 +1110,11 @@ export default {
     onDel(node) {
       let method = node.cate_id ? routeDel : routeCateDel;
       this.$msgbox({
-        title: '提示',
-        message: '删除后无法恢复，请确认后删除！',
+        title: this.$t('message.pages.system.backendRouting.delConfirmTitle'),
+        message: this.$t('message.pages.system.backendRouting.delConfirmMsg'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('message.common.cancel'),
+        confirmButtonText: this.$t('message.common.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })

@@ -46,8 +46,9 @@ export default function modalForm(formRequestPromise, config = {}) {
         data.rules.forEach((e) => {
           e.title += '：';
         });
+        const modalTitle = config.titleKey ? this.$t(config.titleKey) : (config.title || data.title);
         this.$msgbox({
-          title: data.title,
+          title: modalTitle,
           showCancelButton: true,
           customClass: config.class || 'modal-form',
           mask: false,
@@ -79,11 +80,11 @@ export default function modalForm(formRequestPromise, config = {}) {
                   request[data.method.toLowerCase()](data.action, formData)
                     .then((res) => {
                       done();
-                      this.$message.success(res.msg || '提交成功');
+                      this.$message.success(res.msg || this.$t('message.common.submitSuccess'));
                       resolve(res);
                     })
                     .catch((err) => {
-                      this.$message.error(err.msg || '提交失败');
+                      this.$message.error(err.msg || this.$t('message.common.submitFail'));
                       // reject(err);
                     })
                     .finally(() => {

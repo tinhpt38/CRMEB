@@ -13,29 +13,28 @@
       </div>
       <el-row class="mb14" v-if="currentTab == 1">
         <el-col>
-          <el-button v-auth="['app-wechat-template-sync']" type="primary" v-db-click @click="routineTemplate"
-            >同步小程序订阅消息</el-button
-          >
-          <el-button v-auth="['app-wechat-template-sync']" type="primary" v-db-click @click="wechatTemplate"
-            >同步微信模版消息</el-button
-          >
+          <el-button v-auth="['app-wechat-template-sync']" type="primary" v-db-click @click="routineTemplate">
+            {{ $t('message.pages.setting.notification.syncSubscribe') }}
+          </el-button>
+          <el-button v-auth="['app-wechat-template-sync']" type="primary" v-db-click @click="wechatTemplate">
+            {{ $t('message.pages.setting.notification.syncTemplate') }}
+          </el-button>
         </el-col>
       </el-row>
       <el-row class="mb14" v-if="currentTab == 3">
         <el-col>
-          <el-button type="primary" v-db-click @click="notificationForm(0)">添加通知</el-button>
+          <el-button type="primary" v-db-click @click="notificationForm(0)">{{ $t('message.pages.setting.notification.addNotify') }}</el-button>
         </el-col>
       </el-row>
       <el-alert v-if="currentTab == 1" type="warning" :closable="false">
         <template slot="title">
-          <p class="alert_title">小程序订阅消息</p>
-          登录微信小程序后台，基本设置，服务类目增加《生活服务 > 百货/超市/便利店》 (否则同步小程序订阅消息会报错)<br />
-          同步小程序订阅消息，是在小程序后台未添加订阅消息模板的前提下使用的，会新增一个模板消息并把信息同步过来，并新本项目数据库。<br />
+          <p class="alert_title">{{ $t('message.pages.setting.notification.subscribeTitle') }}</p>
+          {{ $t('message.pages.setting.notification.subscribeDesc') }}<br />
+          {{ $t('message.pages.setting.notification.subscribeDesc2') }}<br />
           <br />
-          <p class="alert_title">微信模板消息</p>
-          登录微信公众号后台，选择模板消息，在账号详情下的服务类目中手动设置服务类目，《生活服务 >
-          百货/超市/便利店》(否则同步模板消息不成功)<br />
-          同步公众号模板消息，同步公众号模板会删除公众号后台现有的模板，并重新添加新的模板，然后同步信息到数据库，如果多个项目使用同一个公众号的模板，请谨慎操作。
+          <p class="alert_title">{{ $t('message.pages.setting.notification.templateTitle') }}</p>
+          {{ $t('message.pages.setting.notification.templateDesc') }}<br />
+          {{ $t('message.pages.setting.notification.templateDesc2') }}
         </template>
       </el-alert>
       <el-table
@@ -44,25 +43,25 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.common.noData')"
+        :no-filtered-userFrom-text="$t('message.common.noFilterResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="通知类型" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.notification.notifyType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="通知场景说明" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.notification.sceneDesc')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="站内信" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.notification.stationLetter')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_system !== 0"
@@ -78,7 +77,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="公众号模板" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.notification.mpTemplate')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_wechat !== 0"
@@ -95,7 +94,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="发送短信" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.notification.sendSms')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_sms !== 0"
@@ -110,7 +109,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="企业微信" min-width="130" v-if="currentTab != 1">
+        <el-table-column :label="$t('message.pages.setting.notification.workWechat')" min-width="130" v-if="currentTab != 1">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_ent_wechat !== 0"
@@ -125,7 +124,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="小程序订阅" min-width="130" v-if="currentTab == 1 || currentTab == 3">
+        <el-table-column :label="$t('message.pages.setting.notification.miniSubscribe')" min-width="130" v-if="currentTab == 1 || currentTab == 3">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_routine !== 0"
@@ -141,14 +140,14 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" :width="currentTab == 3 ? 130 : 70">
-          <template slot-scope="scope">
-            <a class="setting btn" v-db-click @click="setting(scope.row)">设置</a>
+        <el-table-column :label="$t('message.common.action')" fixed="right" :width="currentTab == 3 ? 130 : 70">
+            <template slot-scope="scope">
+            <a class="setting btn" v-db-click @click="setting(scope.row)">{{ $t('message.common.setting') }}</a>
             <template v-if="currentTab == 3">
               <el-divider direction="vertical"></el-divider>
-              <a class="setting btn" v-db-click @click="notificationForm(scope.row.id)">编辑</a>
+              <a class="setting btn" v-db-click @click="notificationForm(scope.row.id)">{{ $t('message.common.edit') }}</a>
               <el-divider direction="vertical"></el-divider>
-              <a class="setting btn" v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+              <a class="setting btn" v-db-click @click="del(scope.row, $t('message.common.del'), scope.$index)">{{ $t('message.common.del') }}</a>
             </template>
           </template>
         </el-table-column>
