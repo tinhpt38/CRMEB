@@ -1,16 +1,16 @@
 <template>
   <div style="width: 100%">
-    <el-dialog :visible.sync="modals" title="用户详情" :close-on-click-modal="false" width="720px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.finance.commissionDetails.userDetailTitle')" :close-on-click-modal="false" width="720px">
       <div class="" v-loading="spinShow">
         <div class="dashboard-workplace-header-tip">
           <div class="dashboard-workplace-header-tip-desc">
-            <span class="dashboard-workplace-header-tip-desc-sp">姓名：{{ detailsData.nickname }}</span>
+            <span class="dashboard-workplace-header-tip-desc-sp">{{ $t('message.pages.finance.commissionDetails.realName') }}{{ detailsData.nickname }}</span>
             <span class="dashboard-workplace-header-tip-desc-sp"
-              >上级推广人：{{ detailsData.spread_name ? detailsData.spread_name : '无' }}</span
+              >{{ $t('message.pages.finance.commissionDetails.superiorPromoter') }}{{ detailsData.spread_name ? detailsData.spread_name : $t('message.pages.finance.commissionDetails.none') }}</span
             >
-            <span class="dashboard-workplace-header-tip-desc-sp">佣金总收入：{{ detailsData.number }}</span>
-            <span class="dashboard-workplace-header-tip-desc-sp">用户余额：{{ detailsData.now_money }}</span>
-            <span class="dashboard-workplace-header-tip-desc-sp">创建时间：{{ detailsData.add_time }}</span>
+            <span class="dashboard-workplace-header-tip-desc-sp">{{ $t('message.pages.finance.commissionDetails.commissionTotalIncome') }}{{ detailsData.number }}</span>
+            <span class="dashboard-workplace-header-tip-desc-sp">{{ $t('message.pages.finance.commissionDetails.userBalance') }}{{ detailsData.now_money }}</span>
+            <span class="dashboard-workplace-header-tip-desc-sp">{{ $t('message.pages.finance.commissionDetails.createTime') }}{{ detailsData.add_time }}</span>
           </div>
         </div>
       </div>
@@ -23,14 +23,8 @@
         @submit.native.prevent
       >
         <el-row :gutter="24">
-          <!--                    <el-col :span="8">-->
-          <!--                        <el-form-item label="订单号/昵称：">-->
-          <!--                            <el-input enter-button placeholder="请输入" element-id="name" v-model="formValidate.nickname"-->
-          <!--                                   clearable/>-->
-          <!--                        </el-form-item>-->
-          <!--                    </el-col>-->
           <el-col :span="12">
-            <el-form-item label="时间范围：" class="tab_data">
+            <el-form-item :label="$t('message.pages.finance.commissionDetails.timeRange')" class="tab_data">
               <el-date-picker
                 clearable
                 :editable="false"
@@ -38,14 +32,14 @@
                 format="yyyy-MM-dd"
                 value-format="yyyy-MM-dd"
                 type="daterange"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                :start-placeholder="$t('message.pages.finance.commissionDetails.startDate')"
+                :end-placeholder="$t('message.pages.finance.commissionDetails.endDate')"
                 style="width: 100%"
               ></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary" v-db-click @click="userSearchs">搜索</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.finance.commissionDetails.search') }}</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -53,21 +47,21 @@
         :data="tabList"
         ref="table"
         v-loading="loading"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.finance.commissionDetails.noData')"
+        :no-filtered-data-text="$t('message.pages.finance.commissionDetails.noFilterResult')"
         class="table"
       >
-        <el-table-column label="佣金金额" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.commissionDetails.commissionAmount')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.number }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="获得时间" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.commissionDetails.obtainTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row._add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.commissionDetails.remark')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.mark }}</span>
           </template>

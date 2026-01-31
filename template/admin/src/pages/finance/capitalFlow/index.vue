@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="订单时间：">
+          <el-form-item :label="$t('message.pages.finance.capitalFlow.orderTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,77 +19,77 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.finance.capitalFlow.startDate')"
+              :end-placeholder="$t('message.pages.finance.capitalFlow.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="交易类型：">
+          <el-form-item :label="$t('message.pages.finance.capitalFlow.tradingType')">
             <el-select v-model="formValidate.status" @change="selChange" class="form_content_width">
               <el-option :label="item" :value="index" v-for="(item, index) in withdrawal" :key="index"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="流水搜索：">
+          <el-form-item :label="$t('message.pages.finance.capitalFlow.flowSearch')">
             <div class="acea-row row-middle">
               <el-input
                 clearable
-                placeholder="订单号/昵称/电话/用户ID"
+                :placeholder="$t('message.pages.finance.capitalFlow.placeholderFlow')"
                 v-model="formValidate.keywords"
                 class="form_content_width"
               />
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">查询</el-button>
+            <el-button type="primary" v-db-click @click="selChange">{{ $t('message.pages.finance.capitalFlow.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="mt16">
-      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="交易单号" width="180">
+      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" :empty-text="$t('message.pages.finance.capitalFlow.noData')">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.flowNo')" width="180">
           <template slot-scope="scope">
             <span>{{ scope.row.flow_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联订单" min-width="120">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.relationOrder')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="交易时间" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.tradingTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="交易金额" min-width="90">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.tradingAmount')" min-width="90">
           <template slot-scope="scope">
             <div v-if="scope.row.price >= 0" class="z-price">+{{ scope.row.price }}</div>
             <div v-if="scope.row.price < 0" class="f-price">{{ scope.row.price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="交易用户" min-width="90">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.tradingUser')" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付方式" min-width="90">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.payType')" min-width="90">
           <template slot-scope="scope">
             <div v-for="item in payment" :key="item.value">
-              <span v-if="scope.row.pay_type == item.value"> {{ item.title }} </span>
+              <span v-if="scope.row.pay_type == item.value"> {{ $t('message.pages.finance.capitalFlow.' + item.titleKey) }} </span>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="90">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.remark')" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.finance.capitalFlow.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="setMark(scope.row)">备注</a>
+            <a v-db-click @click="setMark(scope.row)">{{ $t('message.pages.finance.capitalFlow.remarkBtn') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -104,10 +104,10 @@
       </div>
     </el-card>
     <!-- 拒绝通过-->
-    <el-dialog :visible.sync="modals" title="备注" :close-on-click-modal="false" width="540px">
-      <el-input v-model="mark_msg.mark" type="textarea" :rows="4" placeholder="请输入备注" />
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.finance.capitalFlow.remarkTitle')" :close-on-click-modal="false" width="540px">
+      <el-input v-model="mark_msg.mark" type="textarea" :rows="4" :placeholder="$t('message.pages.finance.capitalFlow.placeholderRemark')" />
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" v-db-click @click.prevent="oks">确定</el-button>
+        <el-button type="primary" v-db-click @click.prevent="oks">{{ $t('message.pages.finance.capitalFlow.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -142,26 +142,11 @@ export default {
       tabList: [],
       withdrawal: [],
       payment: [
-        {
-          title: '全部',
-          value: '',
-        },
-        {
-          title: '微信',
-          value: 'weixin',
-        },
-        {
-          title: '支付宝',
-          value: 'alipay',
-        },
-        {
-          title: '银行卡',
-          value: 'bank',
-        },
-        {
-          title: '线下支付',
-          value: 'offline',
-        },
+        { titleKey: 'all', value: '' },
+        { titleKey: 'wechat', value: 'weixin' },
+        { titleKey: 'alipay', value: 'alipay' },
+        { titleKey: 'bank', value: 'bank' },
+        { titleKey: 'offlinePay', value: 'offline' },
       ],
       formValidate: {
         trading_type: 0,

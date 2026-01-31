@@ -13,12 +13,12 @@
       >
         <el-row :gutter="24">
           <el-col :xl="6" :lg="12" :md="13" :sm="12" :xs="24">
-            <el-form-item label="关键字：">
-              <el-input enter-button placeholder="请输入" element-id="name" v-model="formValidate.nickname" />
+            <el-form-item :label="$t('message.pages.finance.financialRecordsBill.keyword')">
+              <el-input enter-button :placeholder="$t('message.pages.finance.financialRecordsBill.placeholderInput')" element-id="name" v-model="formValidate.nickname" />
             </el-form-item>
           </el-col>
           <el-col :xl="6" :lg="12" :md="13" :sm="12" :xs="24">
-            <el-form-item label="时间范围：" class="tab_data">
+            <el-form-item :label="$t('message.pages.finance.financialRecordsBill.timeRange')" class="tab_data">
               <el-date-picker
                 clearable
                 :editable="false"
@@ -27,14 +27,14 @@
                 value-format="yyyy/MM/dd"
                 type="daterange"
                 range-separator="-"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                :start-placeholder="$t('message.pages.finance.financialRecordsBill.startDate')"
+                :end-placeholder="$t('message.pages.finance.financialRecordsBill.endDate')"
                 style="width: 80%"
               ></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :xl="6" :lg="12" :md="13" :sm="12" :xs="24">
-            <el-form-item label="筛选类型：" class="tab_data">
+            <el-form-item :label="$t('message.pages.finance.financialRecordsBill.filterType')" class="tab_data">
               <el-select v-model="formValidate.type" style="width: 200px; height: 32px" clearable>
                 <el-option
                   v-for="(item, index) in billList"
@@ -47,41 +47,41 @@
           </el-col>
           <el-col :span="6">
             <el-form-item>
-              <el-button type="primary" v-db-click @click="userSearchs">搜索</el-button>
-              <el-button v-auth="['export-userFinance']" class="export" v-db-click @click="exports">导出 </el-button>
+              <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.finance.financialRecordsBill.search') }}</el-button>
+              <el-button v-auth="['export-userFinance']" class="export" v-db-click @click="exports">{{ $t('message.pages.finance.financialRecordsBill.export') }}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <el-table ref="table" highlight-current-row :data="tabList" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="用户ID" width="80">
+      <el-table ref="table" highlight-current-row :data="tabList" v-loading="loading" :empty-text="$t('message.pages.finance.financialRecordsBill.noData')">
+        <el-table-column :label="$t('message.pages.finance.financialRecordsBill.userId')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="昵称" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.financialRecordsBill.nickname')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="金额" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.financialRecordsBill.amount')" min-width="130">
           <template slot-scope="scope">
             <div :class="[scope.row.pm === 1 ? 'green' : 'red']">
               {{ scope.row.pm === 1 ? scope.row.number : '-' + scope.row.number }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="类型" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.financialRecordsBill.type')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.financialRecordsBill.remark')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.financialRecordsBill.createTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>

@@ -8,65 +8,65 @@
       @submit.native.prevent
       inline
     >
-      <el-form-item label="订单搜索：" label-for="status1">
+      <el-form-item :label="$t('message.pages.finance.commissionDetailsComp.orderSearch')" label-for="status1">
         <el-input
           v-model="formValidate.keywords"
-          placeholder="请输入交易单号/交易人"
+          :placeholder="$t('message.pages.finance.commissionDetailsComp.placeholderFlowUser')"
           class="form_content_width"
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="searchs">搜索</el-button>
+        <el-button type="primary" v-db-click @click="searchs">{{ $t('message.pages.finance.commissionDetailsComp.search') }}</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-db-click @click="reset">重置</el-button>
+        <el-button v-db-click @click="reset">{{ $t('message.pages.finance.commissionDetailsComp.reset') }}</el-button>
       </el-form-item>
     </el-form>
     <el-table
       :data="tabList"
       ref="table"
       v-loading="loading"
-      no-userFrom-text="暂无数据"
-      no-filtered-userFrom-text="暂无筛选结果"
+      :no-data-text="$t('message.pages.finance.commissionDetailsComp.noData')"
+      :no-filtered-data-text="$t('message.pages.finance.commissionDetailsComp.noFilterResult')"
       class="table"
     >
-      <el-table-column label="交易单号" width="180">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.flowNo')" width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.flow_id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="关联订单" min-width="130">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.relationOrder')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.order_id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="交易时间" min-width="130">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.tradingTime')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.add_time }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="交易金额" min-width="130">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.tradingAmount')" min-width="130">
         <template slot-scope="scope">
           <div v-if="scope.row.price >= 0" class="z-price">+{{ scope.row.price }}</div>
           <div v-if="scope.row.price < 0" class="f-price">{{ scope.row.price }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="交易用户" min-width="130">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.tradingUser')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.nickname }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="交易类型" min-width="130">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.tradingType')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.trading_type }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="支付方式" min-width="130">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.payType')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.pay_type_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注" min-width="130">
+      <el-table-column :label="$t('message.pages.finance.commissionDetailsComp.remark')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.mark }}</span>
         </template>
@@ -113,26 +113,11 @@ export default {
       total: 0,
       tabList: [],
       payment: [
-        {
-          title: '全部',
-          value: '',
-        },
-        {
-          title: '微信',
-          value: 'weixin',
-        },
-        {
-          title: '支付宝',
-          value: 'alipay',
-        },
-        {
-          title: '银行卡',
-          value: 'bank',
-        },
-        {
-          title: '线下支付',
-          value: 'offline',
-        },
+        { titleKey: 'all', value: '' },
+        { titleKey: 'wechat', value: 'weixin' },
+        { titleKey: 'alipay', value: 'alipay' },
+        { titleKey: 'bank', value: 'bank' },
+        { titleKey: 'offlinePay', value: 'offline' },
       ],
     };
   },

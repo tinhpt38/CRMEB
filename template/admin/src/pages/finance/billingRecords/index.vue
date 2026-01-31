@@ -9,7 +9,7 @@
           :label-position="labelPosition"
           @submit.native.prevent
         >
-          <el-form-item label="创建时间：">
+          <el-form-item :label="$t('message.pages.finance.billingRecords.createTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -18,8 +18,8 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.finance.billingRecords.startDate')"
+              :end-placeholder="$t('message.pages.finance.billingRecords.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
@@ -31,9 +31,9 @@
     <el-card :bordered="false" shadow="never" class="mt16" :body-style="{ padding: '0 20px 20px' }">
       <div class="ivu-mt">
         <el-tabs v-model="tab" @tab-click="onClickTab">
-          <el-tab-pane label="日账单" name="day" />
-          <el-tab-pane label="周账单" name="week" />
-          <el-tab-pane label="月账单" name="month" />
+          <el-tab-pane :label="$t('message.pages.finance.billingRecords.dayBill')" name="day" />
+          <el-tab-pane :label="$t('message.pages.finance.billingRecords.weekBill')" name="week" />
+          <el-tab-pane :label="$t('message.pages.finance.billingRecords.monthBill')" name="month" />
         </el-tabs>
       </div>
       <div class="table">
@@ -42,44 +42,44 @@
           ref="table"
           v-loading="loading"
           highlight-current-row
-          no-userFrom-text="暂无数据"
-          no-filtered-userFrom-text="暂无筛选结果"
+          :no-data-text="$t('message.pages.finance.billingRecords.noData')"
+          :no-filtered-data-text="$t('message.pages.finance.billingRecords.noFilterResult')"
         >
-          <el-table-column label="ID" width="80">
+          <el-table-column :label="$t('message.pages.finance.billingRecords.id')" width="80">
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="标题" min-width="130">
+          <el-table-column :label="$t('message.pages.finance.billingRecords.title')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.title }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="日期" min-width="130">
+          <el-table-column :label="$t('message.pages.finance.billingRecords.date')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.add_time }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="收入金额" min-width="130">
+          <el-table-column :label="$t('message.pages.finance.billingRecords.incomeAmount')" min-width="130">
             <template slot-scope="scope">
               <span style="color: #f5222d">￥{{ scope.row.income_price }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="支出金额" min-width="130">
+          <el-table-column :label="$t('message.pages.finance.billingRecords.expAmount')" min-width="130">
             <template slot-scope="scope">
               <span style="color: #00c050">￥{{ scope.row.exp_price }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="入账金额" min-width="130">
+          <el-table-column :label="$t('message.pages.finance.billingRecords.entryAmount')" min-width="130">
             <template slot-scope="scope">
               <span>￥{{ scope.row.entry_price }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" fixed="right" width="170">
+          <el-table-column :label="$t('message.pages.finance.billingRecords.action')" fixed="right" width="170">
             <template slot-scope="scope">
-              <a v-db-click @click="Info(scope.row)">账单详情</a>
+              <a v-db-click @click="Info(scope.row)">{{ $t('message.pages.finance.billingRecords.billDetail') }}</a>
               <el-divider direction="vertical"></el-divider>
-              <a v-db-click @click="download(scope.row)">下载</a>
+              <a v-db-click @click="download(scope.row)">{{ $t('message.pages.finance.billingRecords.download') }}</a>
             </template>
           </el-table-column>
         </el-table>
@@ -94,7 +94,7 @@
         </div>
       </div>
     </el-card>
-    <el-dialog :visible.sync="modals" title="账单详情" width="1000px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.finance.billingRecords.billDetailTitle')" width="1000px">
       <commission-details v-if="modals" ref="commission" :ids="ids" :time="formValidate.time"></commission-details>
     </el-dialog>
   </div>

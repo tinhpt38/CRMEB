@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="时间选择：">
+          <el-form-item :label="$t('message.pages.finance.userExtract.timeSelect')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,18 +19,18 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.finance.userExtract.startDate')"
+              :end-placeholder="$t('message.pages.finance.userExtract.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="提现状态：">
+          <el-form-item :label="$t('message.pages.finance.userExtract.extractStatus')">
             <el-select
               clearable
               v-model="formValidate.status"
-              placeholder="请选择状态"
+              :placeholder="$t('message.pages.finance.userExtract.pleaseSelectStatus')"
               @change="selChange"
               class="form_content_width"
             >
@@ -38,15 +38,15 @@
                 v-for="(item, index) in treeData.withdrawal"
                 :key="index"
                 :value="item.value"
-                :label="item.title"
+                :label="$t('message.pages.finance.userExtract.' + item.titleKey)"
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="提现方式：">
+          <el-form-item :label="$t('message.pages.finance.userExtract.extractType')">
             <el-select
               clearable
               v-model="formValidate.extract_type"
-              placeholder="请选择状态"
+              :placeholder="$t('message.pages.finance.userExtract.pleaseSelectStatus')"
               @change="selChange"
               class="form_content_width"
             >
@@ -54,20 +54,20 @@
                 v-for="(item, index) in treeData.payment"
                 :key="index"
                 :value="item.value"
-                :label="item.title"
+                :label="$t('message.pages.finance.userExtract.' + item.titleKey)"
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.finance.userExtract.search')">
             <el-input
               clearable
-              placeholder="微信昵称/姓名/支付宝账号/银行卡号"
+              :placeholder="$t('message.pages.finance.userExtract.placeholderExtract')"
               v-model="formValidate.nireid"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">查询</el-button>
+            <el-button type="primary" v-db-click @click="selChange">{{ $t('message.pages.finance.userExtract.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -75,59 +75,59 @@
     <cards-data :cardLists="cardLists" v-if="extractStatistics"></cards-data>
     <el-card :bordered="false" shadow="never">
       <router-link :to="$routeProStr + '/finance/finance/commission'">
-        <el-button type="primary">佣金记录</el-button>
+        <el-button type="primary">{{ $t('message.pages.finance.userExtract.commissionRecord') }}</el-button>
       </router-link>
-      <el-table ref="table" :data="tabList" v-loading="loading" empty-text="暂无数据" class="mt14">
-        <el-table-column label="ID" width="80">
+      <el-table ref="table" :data="tabList" v-loading="loading" :empty-text="$t('message.pages.finance.userExtract.noData')" class="mt14">
+        <el-table-column :label="$t('message.pages.finance.userExtract.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户信息" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.userExtract.userInfo')" min-width="130">
           <template slot-scope="scope">
             <div>
-              用户昵称: {{ scope.row.nickname }} <br />
-              用户id:{{ scope.row.uid }}
+              {{ $t('message.pages.finance.userExtract.userNickname') }} {{ scope.row.nickname }} <br />
+              {{ $t('message.pages.finance.userExtract.userId') }}{{ scope.row.uid }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="提现金额" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.userExtract.extractAmount')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.extract_price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="提现手续费" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.userExtract.extractFee')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.extract_fee }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="到账金额" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.userExtract.receiveAmount')" min-width="100">
           <template slot-scope="scope">
             <div class="f-price">{{ scope.row.receive_price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="提现方式" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.userExtract.extractTypeCol')" min-width="130">
           <template slot-scope="scope">
             <div class="type" v-if="scope.row.extract_type === 'bank'">
-              <div class="item">姓名:{{ scope.row.real_name }}</div>
-              <div class="item">银行卡号:{{ scope.row.bank_code }}</div>
-              <div class="item">银行开户地址:{{ scope.row.bank_address }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.realName') }}{{ scope.row.real_name }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.bankCode') }}{{ scope.row.bank_code }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.bankAddress') }}{{ scope.row.bank_address }}</div>
             </div>
             <div class="type" v-if="scope.row.extract_type === 'weixin'">
-              <div class="item">昵称:{{ scope.row.nickname }}</div>
-              <div class="item">微信号:{{ scope.row.wechat }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.userNickname') }}{{ scope.row.nickname }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.wechatNo') }}{{ scope.row.wechat }}</div>
             </div>
             <div class="type" v-if="scope.row.extract_type === 'alipay'">
-              <div class="item">姓名:{{ scope.row.real_name }}</div>
-              <div class="item">支付宝号:{{ scope.row.alipay_code }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.realName') }}{{ scope.row.real_name }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.alipayCode') }}{{ scope.row.alipay_code }}</div>
             </div>
             <div class="type" v-if="scope.row.extract_type === 'balance'">
-              <div class="item">姓名:{{ scope.row.real_name }}</div>
-              <div class="item">提现方式：佣金转入余额</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.realName') }}{{ scope.row.real_name }}</div>
+              <div class="item">{{ $t('message.pages.finance.userExtract.extractToBalance') }}</div>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="收款码" min-width="90">
+        <el-table-column :label="$t('message.pages.finance.userExtract.qrcode')" min-width="90">
           <template slot-scope="scope">
             <div
               class="tabBox_img"
@@ -138,35 +138,35 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="申请时间" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.userExtract.applyTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.userExtract.remark')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="审核状态" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.userExtract.auditStatus')" min-width="130">
           <template slot-scope="scope">
             <div class="status" v-if="scope.row.status === 0">
-              <div class="statusVal">申请中</div>
+              <div class="statusVal">{{ $t('message.pages.finance.userExtract.statusApplying') }}</div>
               <div></div>
             </div>
-            <div class="statusVal" v-if="scope.row.status === 1">提现通过</div>
+            <div class="statusVal" v-if="scope.row.status === 1">{{ $t('message.pages.finance.userExtract.extractPassed') }}</div>
             <div class="statusVal" v-if="scope.row.status === -1">
-              提现未通过<br />未通过原因：{{ scope.row.fail_msg }}
+              {{ $t('message.pages.finance.userExtract.extractRejected') }}<br />{{ $t('message.pages.finance.userExtract.rejectReason') }}{{ scope.row.fail_msg }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.finance.userExtract.action')" fixed="right" width="170">
           <template slot-scope="scope" v-if="scope.row.status == 0">
-            <a href="javascript:void(0);" v-db-click @click="edit(scope.row)">编辑</a>
+            <a href="javascript:void(0);" v-db-click @click="edit(scope.row)">{{ $t('message.pages.finance.userExtract.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a class="item" v-db-click @click="adopt(scope.row, '审核通过', index)">通过</a>
+            <a class="item" v-db-click @click="adopt(scope.row, $t('message.pages.finance.userExtract.adoptConfirmTitle'), scope.$index)">{{ $t('message.pages.finance.userExtract.adopt') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a class="item" v-db-click @click="invalid(scope.row)">驳回</a>
+            <a class="item" v-db-click @click="invalid(scope.row)">{{ $t('message.pages.finance.userExtract.reject') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -184,10 +184,10 @@
     <!-- 编辑表单-->
     <edit-from ref="edits" :FromData="FromData" @submitFail="submitFail"></edit-from>
     <!-- 拒绝通过-->
-    <el-dialog :visible.sync="modals" title="未通过原因" :close-on-click-modal="false" width="540px">
-      <el-input v-model="fail_msg.message" type="textarea" :rows="4" placeholder="请输入未通过原因" />
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.finance.userExtract.rejectReasonTitle')" :close-on-click-modal="false" width="540px">
+      <el-input v-model="fail_msg.message" type="textarea" :rows="4" :placeholder="$t('message.pages.finance.userExtract.placeholderRejectReason')" />
       <div slot="footer">
-        <el-button type="primary" size="small" v-db-click @click="oks">确定</el-button>
+        <el-button type="primary" size="small" v-db-click @click="oks">{{ $t('message.pages.finance.userExtract.confirm') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -225,40 +225,16 @@ export default {
       pickerOptions: this.$timeOptions,
       treeData: {
         withdrawal: [
-          {
-            title: '全部',
-            value: '',
-          },
-          {
-            title: '未通过',
-            value: -1,
-          },
-          {
-            title: '申请中',
-            value: 0,
-          },
-          {
-            title: '已通过',
-            value: 1,
-          },
+          { titleKey: 'all', value: '' },
+          { titleKey: 'rejected', value: -1 },
+          { titleKey: 'applying', value: 0 },
+          { titleKey: 'passed', value: 1 },
         ],
         payment: [
-          {
-            title: '全部',
-            value: '',
-          },
-          {
-            title: '微信',
-            value: 'wx',
-          },
-          {
-            title: '支付宝',
-            value: 'alipay',
-          },
-          {
-            title: '银行卡',
-            value: 'bank',
-          },
+          { titleKey: 'all', value: '' },
+          { titleKey: 'wechat', value: 'wx' },
+          { titleKey: 'alipay', value: 'alipay' },
+          { titleKey: 'bank', value: 'bank' },
         ],
       },
       formValidate: {
@@ -370,20 +346,10 @@ export default {
           this.total = data.list.count;
           this.extractStatistics = data.extract_statistics;
           this.cardLists = [
-            {
-              col: 6,
-              count: this.extractStatistics.brokerage_count,
-              name: '佣金总金额',
-              className: 'iconyuezhifujine',
-            },
-            { col: 6, count: this.extractStatistics.price, name: '待提现金额', className: 'iconfufeihuiyuanjine' },
-            { col: 6, count: this.extractStatistics.priced, name: '已提现金额', className: 'iconzhifuyongjinjine' },
-            {
-              col: 6,
-              count: this.extractStatistics.brokerage_not,
-              name: '未提现金额',
-              className: 'iconshangpintuikuanjine',
-            },
+            { col: 6, count: this.extractStatistics.brokerage_count, name: this.$t('message.pages.finance.userExtract.commissionTotal'), className: 'iconyuezhifujine' },
+            { col: 6, count: this.extractStatistics.price, name: this.$t('message.pages.finance.userExtract.pendingExtract'), className: 'iconfufeihuiyuanjine' },
+            { col: 6, count: this.extractStatistics.priced, name: this.$t('message.pages.finance.userExtract.extractedAmount'), className: 'iconzhifuyongjinjine' },
+            { col: 6, count: this.extractStatistics.brokerage_not, name: this.$t('message.pages.finance.userExtract.unextractedAmount'), className: 'iconshangpintuikuanjine' },
           ];
           this.loading = false;
         })

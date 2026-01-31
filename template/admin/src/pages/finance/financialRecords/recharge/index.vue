@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="时间选择：">
+          <el-form-item :label="$t('message.pages.finance.recharge.timeSelect')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,104 +19,103 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.finance.recharge.startDate')"
+              :end-placeholder="$t('message.pages.finance.recharge.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="支付类型：">
+          <el-form-item :label="$t('message.pages.finance.recharge.payType')">
             <el-select
               clearable
               v-model="formValidate.paid"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.finance.recharge.pleaseSelect')"
               @change="selChange"
               class="form_content_width"
             >
-              <el-option value="" label="全部"></el-option>
-              <el-option value="1" label="已支付"></el-option>
-              <el-option value="0" label="未支付"></el-option>
+              <el-option value="" :label="$t('message.pages.finance.recharge.all')"></el-option>
+              <el-option value="1" :label="$t('message.pages.finance.recharge.paid')"></el-option>
+              <el-option value="0" :label="$t('message.pages.finance.recharge.unpaid')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.finance.recharge.search')">
             <el-input
               clearable
-              placeholder="请输入用户昵称、订单号"
+              :placeholder="$t('message.pages.finance.recharge.placeholderNicknameOrder')"
               v-model="formValidate.nickname"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">查询</el-button>
+            <el-button type="primary" v-db-click @click="selChange">{{ $t('message.pages.finance.recharge.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <cards-data :cardLists="cardLists" v-if="cardLists.length >= 0"></cards-data>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['export-userRecharge']" class="mr" v-db-click @click="exports">导出</el-button>
-      <el-table ref="table" :data="tabList" class="mt14" v-loading="loading" empty-text="暂无数据"
-        ><el-table-column label="ID" width="80">
+      <el-button v-auth="['export-userRecharge']" class="mr" v-db-click @click="exports">{{ $t('message.pages.finance.recharge.export') }}</el-button>
+      <el-table ref="table" :data="tabList" class="mt14" v-loading="loading" :empty-text="$t('message.pages.finance.recharge.noData')">
+        <el-table-column :label="$t('message.pages.finance.recharge.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="头像" min-width="90">
+        <el-table-column :label="$t('message.pages.finance.recharge.avatar')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar ? scope.row.avatar : require('../../../../assets/images/moren.jpg')" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="用户昵称" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.recharge.userNickname')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="订单号" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.recharge.orderNo')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付金额" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.recharge.payAmount')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否支付" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.recharge.isPaid')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.paid_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="充值类型" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.recharge.rechargeType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row._recharge_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付时间" min-width="130">
+        <el-table-column :label="$t('message.pages.finance.recharge.payTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row._pay_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column :label="$t('message.pages.finance.recharge.action')" width="100">
           <template slot-scope="scope">
             <a
               href="javascript:void(0);"
               v-if="scope.row.refund_price <= 0 && scope.row.paid && scope.row.recharge_type != 'system'"
               v-db-click
               @click="refund(scope.row)"
-              >退款</a
+              >{{ $t('message.pages.finance.recharge.refund') }}</a
             >
-            <!--                    <el-divider direction="vertical"  v-if="scope.row.paid"/>-->
             <a
               href="javascript:void(0);"
               v-if="scope.row.paid === 0"
               v-db-click
-              @click="del(scope.row, '此条充值记录', scope.$index)"
-              >删除</a
+              @click="del(scope.row, $t('message.pages.finance.recharge.delRechargeTitle'), scope.$index)"
+              >{{ $t('message.pages.finance.recharge.del') }}</a
             >
-            <span class="refund" v-if="scope.row.refund_price > 0">已退款</span>
+            <span class="refund" v-if="scope.row.refund_price > 0">{{ $t('message.pages.finance.recharge.refunded') }}</span>
           </template>
         </el-table-column>
       </el-table>

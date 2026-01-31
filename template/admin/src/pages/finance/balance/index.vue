@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="订单时间：">
+          <el-form-item :label="$t('message.pages.finance.balance.orderTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,14 +19,14 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.finance.balance.startDate')"
+              :end-placeholder="$t('message.pages.finance.balance.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="交易类型：">
+          <el-form-item :label="$t('message.pages.finance.balance.tradingType')">
             <el-select clearable v-model="formValidate.trading_type" @change="selChange" class="form_content_width">
               <el-option
                 :label="item"
@@ -40,46 +40,46 @@
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never">
-      <el-table ref="table" :data="tabList" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="ID" width="70">
+      <el-table ref="table" :data="tabList" v-loading="loading" :empty-text="$t('message.pages.finance.balance.noData')">
+        <el-table-column :label="$t('message.pages.finance.balance.id')" width="70">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联订单" min-width="120">
+        <el-table-column :label="$t('message.pages.finance.balance.relationOrder')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.relation }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="交易时间" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.balance.tradingTime')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="交易金额" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.balance.tradingAmount')" min-width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.pm" class="z-price">+ {{ scope.row.number }}</div>
             <div v-else class="f-price">- {{ scope.row.number }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="用户" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.balance.user')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="交易类型" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.balance.tradingTypeCol')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.type_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="100">
+        <el-table-column :label="$t('message.pages.finance.balance.remark')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="70">
+        <el-table-column :label="$t('message.pages.finance.balance.action')" fixed="right" width="70">
           <template slot-scope="scope">
-            <a v-db-click @click="setMark(scope.row)">备注</a>
+            <a v-db-click @click="setMark(scope.row)">{{ $t('message.pages.finance.balance.remarkBtn') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -94,10 +94,10 @@
       </div>
     </el-card>
     <!-- 拒绝通过-->
-    <el-dialog :visible.sync="modals" title="备注" :close-on-click-modal="false" width="540px">
-      <el-input v-model="mark_msg.mark" type="textarea" :rows="4" placeholder="请输入备注" />
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.finance.balance.remarkTitle')" :close-on-click-modal="false" width="540px">
+      <el-input v-model="mark_msg.mark" type="textarea" :rows="4" :placeholder="$t('message.pages.finance.balance.placeholderRemark')" />
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" v-db-click @click="oks">确 定</el-button>
+        <el-button type="primary" v-db-click @click="oks">{{ $t('message.pages.finance.balance.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -133,26 +133,11 @@ export default {
       withdrawal: [],
       selectIndexTime: '',
       payment: [
-        {
-          title: '全部',
-          value: '',
-        },
-        {
-          title: '微信',
-          value: 'weixin',
-        },
-        {
-          title: '支付宝',
-          value: 'alipay',
-        },
-        {
-          title: '银行卡',
-          value: 'bank',
-        },
-        {
-          title: '线下支付',
-          value: 'offline',
-        },
+        { titleKey: 'all', value: '' },
+        { titleKey: 'wechat', value: 'weixin' },
+        { titleKey: 'alipay', value: 'alipay' },
+        { titleKey: 'bank', value: 'bank' },
+        { titleKey: 'offlinePay', value: 'offline' },
       ],
       formValidate: {
         trading_type: '',
