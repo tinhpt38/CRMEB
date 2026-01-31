@@ -5,12 +5,12 @@
       <span>{{ `${delfromData.title}` }}</span>
     </p>
     <div>
-      <p>{{ `您确定要${delfromData.title}吗?` }}</p>
+      <p>{{ $t('message.components.modelSure.confirmText').replace('{title}', delfromData.title) }}</p>
       <p v-if="delfromData.info !== undefined">{{ `${delfromData.info}` }}</p>
     </div>
     <div slot="footer" class="acea-row row-right">
-      <el-button type="primary" v-db-click @click="cancel">取消</el-button>
-      <el-button type="warning" v-db-click @click="ok">确定</el-button>
+      <el-button type="primary" v-db-click @click="cancel">{{ $t('message.components.modelSure.cancel') }}</el-button>
+      <el-button type="warning" v-db-click @click="ok">{{ $t('message.components.modelSure.confirm') }}</el-button>
     </div>
   </el-dialog>
 </template>

@@ -5,7 +5,7 @@
         <div class="trees-coadd">
           <div v-if="isPage" class="tree_tit" v-db-click @click="addSort">
             <i class="el-icon-circle-plus"></i>
-            添加分类
+            {{ $t('message.components.uploadPictures.addCategory') }}
           </div>
           <div class="scollhide">
             <div :class="isPage ? 'tree' : 'isTree'">
@@ -40,9 +40,9 @@
                       <i class="el-icon-more el-icon--right"></i>
                       <template slot="dropdown">
                         <el-dropdown-menu>
-                          <el-dropdown-item command="1">新增分类</el-dropdown-item>
-                          <el-dropdown-item v-if="data.id" command="2">编辑分类</el-dropdown-item>
-                          <el-dropdown-item v-if="data.id" command="3">删除</el-dropdown-item>
+                          <el-dropdown-item command="1">{{ $t('message.components.uploadPictures.newCategory') }}</el-dropdown-item>
+                          <el-dropdown-item v-if="data.id" command="2">{{ $t('message.components.uploadPictures.editCategory') }}</el-dropdown-item>
+                          <el-dropdown-item v-if="data.id" command="3">{{ $t('message.components.uploadPictures.delCategory') }}</el-dropdown-item>
                         </el-dropdown-menu>
                       </template>
                     </el-dropdown>
@@ -63,20 +63,20 @@
               @click="checkPics"
               size="small"
               v-if="isShow !== 0"
-              >使用选中图片</el-button
+              >{{ $t('message.components.uploadPictures.useSelected') }}</el-button
             >
-            <el-button size="small" type="primary" v-db-click @click="uploadModal">上传图片</el-button>
+            <el-button size="small" type="primary" v-db-click @click="uploadModal">{{ $t('message.components.uploadPictures.uploadImage') }}</el-button>
             <el-button
               class="mr14"
               size="small"
               :disabled="!checkPicList.length && !ids.length"
               v-db-click
               @click.stop="editPicList()"
-              >删除图片</el-button
+              >{{ $t('message.components.uploadPictures.deleteImage') }}</el-button
             >
             <el-cascader
               v-model="pids"
-              placeholder="图片移动至"
+              :placeholder="$t('message.components.uploadPictures.moveTo')"
               style="width: 150px"
               class="treeSel"
               :options="treeData2"
@@ -90,7 +90,7 @@
             <el-input
               class="mr10"
               v-model="fileData.real_name"
-              placeholder="请输入图片名"
+              :placeholder="$t('message.components.uploadPictures.inputImageName')"
               size="small"
               style="width: 150px"
               @change="searchFile"

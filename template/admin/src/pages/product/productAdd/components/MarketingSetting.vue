@@ -2,30 +2,30 @@
   <!-- 营销设置 -->
   <el-row>
     <el-col :span="24">
-      <el-form-item label="购买送积分：" prop="give_integral">
+      <el-form-item :label="$t('message.pages.product.add.buyGiveIntegral')" prop="give_integral">
         <el-input-number
           :controls="false"
           v-model="formValidate.give_integral"
           :min="0"
           :max="9999999999"
-          placeholder="请输入积分"
+          :placeholder="$t('message.pages.product.add.inputIntegral')"
           class="input_width input-number-unit-class"
-          class-unit="积分"
+          :class-unit="$t('message.pages.product.add.integral')"
         />
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="购买送优惠券：">
+      <el-form-item :label="$t('message.pages.product.add.buyGiveCoupon')">
         <div v-if="couponName.length" class="mb10">
           <el-tag class="mr10" closable v-for="(item, index) in couponName" :key="index" @close="handleClose(item)">{{
             item.title
           }}</el-tag>
         </div>
-        <el-button type="primary" v-db-click @click="addCoupon">选择优惠券</el-button>
+        <el-button type="primary" v-db-click @click="addCoupon">{{ $t('message.pages.product.add.selectCoupon') }}</el-button>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="关联用户标签：" prop="label_id">
+      <el-form-item :label="$t('message.pages.product.add.linkUserLabel')" prop="label_id">
         <div style="display: flex">
           <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
             <div style="width: 90%">
@@ -34,11 +34,11 @@
                   item.label_name
                 }}</el-tag>
               </div>
-              <span class="span" v-else>选择用户关联标签</span>
+              <span class="span" v-else>{{ $t('message.pages.product.add.selectUserLabelSpan') }}</span>
             </div>
             <div class="iconfont iconxiayi"></div>
           </div>
-          <span class="addfont" v-db-click @click="addLabel">新增标签</span>
+          <span class="addfont" v-db-click @click="addLabel">{{ $t('message.pages.product.add.newLabel') }}</span>
         </div>
       </el-form-item>
     </el-col>
@@ -46,26 +46,26 @@
       <div class="line"></div>
     </el-col>
     <el-col v-if="formValidate.virtual_type == 0" :span="24">
-      <el-form-item label="起购数量：">
+      <el-form-item :label="$t('message.pages.product.add.minQty')">
         <el-input-number
           :controls="false"
           :min="1"
           :max="9999999999"
           :precision="0"
           v-model="formValidate.min_qty"
-          placeholder="请输入起购数量"
+          :placeholder="$t('message.pages.product.add.inputMinQty')"
           class="input_width input-number-unit-class"
-          :class-unit="formValidate.unit_name || '件'"
+          :class-unit="formValidate.unit_name || $t('message.pages.product.add.pcs')"
         />
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="是否限购：">
+      <el-form-item :label="$t('message.pages.product.add.isLimit')">
         <el-switch
           v-model="formValidate.is_limit"
           class="defineSwitch"
-          active-text="开启"
-          inactive-text="关闭"
+          :active-text="$t('message.pages.product.add.open')"
+          :inactive-text="$t('message.pages.product.add.close')"
           :active-value="1"
           :inactive-value="0"
           size="large"
@@ -74,25 +74,25 @@
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="限购类型：" v-if="formValidate.is_limit">
+      <el-form-item :label="$t('message.pages.product.add.limitType')" v-if="formValidate.is_limit">
         <el-radio-group v-model="formValidate.limit_type">
-          <el-radio :label="1">单次限购</el-radio>
-          <el-radio :label="2">单人限购</el-radio>
+          <el-radio :label="1">{{ $t('message.pages.product.add.limitOnce') }}</el-radio>
+          <el-radio :label="2">{{ $t('message.pages.product.add.limitUser') }}</el-radio>
         </el-radio-group>
-        <div class="tips-info">单次限购是限制每次下单最多购买的数量，单人限购是限制一个用户总共可以购买的数量</div>
+        <div class="tips-info">{{ $t('message.pages.product.add.limitTip') }}</div>
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.is_limit">
-      <el-form-item label="限购数量：" prop="limit_num">
+      <el-form-item :label="$t('message.pages.product.add.limitNum')" prop="limit_num">
         <div class="acea-row row-middle">
           <el-input-number
             :controls="false"
-            placeholder="请输入限购数量"
+            :placeholder="$t('message.pages.product.add.inputLimitNum')"
             :precision="0"
             :min="1"
             v-model="formValidate.limit_num"
             class="input_width input-number-unit-class"
-            :class-unit="formValidate.unit_name || '件'"
+            :class-unit="formValidate.unit_name || $t('message.pages.product.add.pcs')"
           />
         </div>
       </el-form-item>
@@ -101,12 +101,12 @@
       <div class="line"></div>
     </el-col>
     <el-col :span="24" v-if="formValidate.virtual_type == 0 || formValidate.virtual_type == 3">
-      <el-form-item label="预售商品：">
+      <el-form-item :label="$t('message.pages.product.add.presaleProduct')">
         <el-switch
           v-model="formValidate.presale"
           class="defineSwitch"
-          active-text="开启"
-          inactive-text="关闭"
+          :active-text="$t('message.pages.product.add.open')"
+          :inactive-text="$t('message.pages.product.add.close')"
           :active-value="1"
           :inactive-value="0"
           size="large"
@@ -115,7 +115,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.presale">
-      <el-form-item label="预售活动时间：" prop="presale_time">
+      <el-form-item :label="$t('message.pages.product.add.presaleTime')" prop="presale_time">
         <div class="acea-row row-middle">
           <el-date-picker
             clearable
@@ -124,29 +124,29 @@
             format="yyyy-MM-dd HH:mm"
             value-format="yyyy-MM-dd HH:mm"
             range-separator="-"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
+            :start-placeholder="$t('message.pages.product.add.startDate')"
+            :end-placeholder="$t('message.pages.product.add.endDate')"
             @change="onchangeTime"
             v-model="formValidate.presale_time"
           ></el-date-picker>
         </div>
-        <div class="tips-info">设置活动开启结束时间，用户可以在设置时间内发起参与预售</div>
+        <div class="tips-info">{{ $t('message.pages.product.add.presaleTimeTip') }}</div>
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.presale">
-      <el-form-item label="发货时间：" prop="presale_day">
+      <el-form-item :label="$t('message.pages.product.add.deliveryTime')" prop="presale_day">
         <div class="acea-row row-middle">
-          <span class="mr10">预售活动结束后</span>
+          <span class="mr10">{{ $t('message.pages.product.add.afterPresaleEnd') }}</span>
           <el-input-number
             class="w-80 input-number-unit-class"
             :controls="false"
-            placeholder="请输入发货时间"
+            :placeholder="$t('message.pages.product.add.inputDeliveryTime')"
             :precision="0"
             :min="1"
-            class-unit="天"
+            :class-unit="$t('message.pages.product.add.day')"
             v-model="formValidate.presale_day"
           />
-          <span class="ml10"> 之内 </span>
+          <span class="ml10"> {{ $t('message.pages.product.add.days') }} </span>
         </div>
       </el-form-item>
     </el-col>
@@ -154,17 +154,17 @@
       <div class="line"></div>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="商品推荐：">
+      <el-form-item :label="$t('message.pages.product.add.productRecommend')">
         <el-checkbox-group v-model="formValidate.recommend">
-          <el-checkbox label="is_hot">热卖单品</el-checkbox>
-          <el-checkbox label="is_best">精品推荐</el-checkbox>
-          <el-checkbox label="is_new">首发新品</el-checkbox>
-          <el-checkbox label="is_good">优品推荐</el-checkbox>
+          <el-checkbox label="is_hot">{{ $t('message.pages.product.add.hotProduct') }}</el-checkbox>
+          <el-checkbox label="is_best">{{ $t('message.pages.product.add.bestRecommend') }}</el-checkbox>
+          <el-checkbox label="is_new">{{ $t('message.pages.product.add.newProduct') }}</el-checkbox>
+          <el-checkbox label="is_good">{{ $t('message.pages.product.add.goodRecommend') }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="活动优先级：">
+      <el-form-item :label="$t('message.pages.product.add.activityPriority')">
         <div class="color-list acea-row row-middle">
           <div
             class="color-item"
@@ -180,11 +180,11 @@
             {{ color }}
           </div>
         </div>
-        <div class="tips-info">可拖动按钮调整活动的优先展示顺序</div>
+        <div class="tips-info">{{ $t('message.pages.product.add.activityPriorityTip') }}</div>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="优品推荐商品：">
+      <el-form-item :label="$t('message.pages.product.add.goodRecommendProduct')">
         <div class="picBox">
           <div class="pictrue" v-for="(item, index) in formValidate.recommend_list" :key="index">
             <img v-lazy="item.image" />
@@ -200,26 +200,26 @@
       <div class="line"></div>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="已售数量：">
+      <el-form-item :label="$t('message.pages.product.add.soldCount')">
         <el-input-number
           :controls="false"
           :min="0"
           :max="9999999999"
           v-model="formValidate.ficti"
-          placeholder="请输入虚拟销量"
+          :placeholder="$t('message.pages.product.add.inputVirtualSales')"
           class="input_width input-number-unit-class"
-          :class-unit="formValidate.unit_name || '件'"
+          :class-unit="formValidate.unit_name || $t('message.pages.product.add.pcs')"
         />
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="排序：">
+      <el-form-item :label="$t('message.pages.product.add.sort')">
         <el-input-number
           :controls="false"
           :min="0"
           :max="9999999999"
           v-model="formValidate.sort"
-          placeholder="请输入数字越大越靠前"
+          :placeholder="$t('message.pages.product.add.sortPlaceholder')"
           class="input_width"
         />
       </el-form-item>

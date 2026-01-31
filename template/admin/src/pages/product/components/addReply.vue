@@ -1,58 +1,58 @@
 <template>
   <el-dialog
     :visible.sync="visibleModal"
-    title="添加自评"
+    :title="$t('message.pages.product.components.addReplyTitle')"
     width="720px"
     :close-on-click-modal="false"
     @close="onCancel"
   >
     <el-form :model="formData" label-width="100px" label-position="right">
-      <el-form-item label="商品：">
+      <el-form-item :label="$t('message.pages.product.components.product')">
         <div class="upload-box" v-db-click @click="callGoods">
           <img v-if="goods.id" :src="goods.image" class="image" />
           <i v-else class="el-icon-goods"></i>
         </div>
       </el-form-item>
-      <el-form-item v-if="goods.id" label="商品规格：">
+      <el-form-item v-if="goods.id" :label="$t('message.pages.product.components.productSpec')">
         <div class="upload-box" v-db-click @click="callAttr">
           <img v-if="attr.pic" :src="attr.pic" class="image" />
           <i v-else class="el-icon-plus" />
         </div>
         <div>{{ attr.suk }}</div>
       </el-form-item>
-      <el-form-item label="用户头像：">
+      <el-form-item :label="$t('message.pages.product.components.userAvatar')">
         <div class="upload-box" v-db-click @click="callPicture('单选')">
           <img v-if="avatar.att_dir" :src="avatar.att_dir" class="image" />
           <i v-if="avatar.att_dir" class="el-icon-error btn" v-db-click @click.stop="removeUser"></i>
           <i v-else class="el-icon-user" />
         </div>
       </el-form-item>
-      <el-form-item label="用户名称：">
+      <el-form-item :label="$t('message.pages.product.components.userName')">
         <el-input
           v-model="formData.nickname"
-          placeholder="请输入用户名称"
+          :placeholder="$t('message.pages.product.components.inputUserName')"
           class="w100"
           maxlength="20"
           show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item label="评价文字：">
+      <el-form-item :label="$t('message.pages.product.components.commentLabel')">
         <el-input
           v-model="formData.comment"
           type="textarea"
-          placeholder="请输入评价文字"
+          :placeholder="$t('message.pages.product.components.inputComment')"
           class="w100"
           maxlength="200"
           show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item label="商品分数：">
+      <el-form-item :label="$t('message.pages.product.components.productScore')">
         <el-rate v-model="product_score" />
       </el-form-item>
-      <el-form-item label="服务分数：">
+      <el-form-item :label="$t('message.pages.product.components.serviceScore')">
         <el-rate v-model="service_score" />
       </el-form-item>
-      <el-form-item label="评价图片：">
+      <el-form-item :label="$t('message.pages.product.components.commentPic')">
         <div class="df-aic">
           <div v-for="item in picture" :key="item.att_id" class="upload-box">
             <img :src="item.att_dir" class="image" />
@@ -63,22 +63,22 @@
           </div>
         </div>
       </el-form-item>
-      <el-form-item label="评价时间：">
+      <el-form-item :label="$t('message.pages.product.components.commentTime')">
         <el-date-picker
           clearable
           v-model="add_time"
           type="datetime"
           range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          :start-placeholder="$t('message.pages.product.reply.startDate')"
+          :end-placeholder="$t('message.pages.product.reply.endDate')"
           @change="onChange"
           style="width: 414px"
         />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="onCancel">取 消</el-button>
-      <el-button type="primary" v-db-click @click="onOk">确 定</el-button>
+      <el-button v-db-click @click="onCancel">{{ $t('message.pages.product.components.cancel') }}</el-button>
+      <el-button type="primary" v-db-click @click="onOk">{{ $t('message.pages.product.components.confirm') }}</el-button>
     </span>
   </el-dialog>
 </template>

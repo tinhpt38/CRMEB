@@ -10,17 +10,17 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="保障名称：">
-            <el-input clearable placeholder="请输入保障名称" v-model="formValidate.title" class="form_content_width" @change="userSearchs" />
+          <el-form-item :label="$t('message.pages.product.protectionList.guaranteeName')">
+            <el-input clearable :placeholder="$t('message.pages.product.protectionList.inputGuaranteeName')" v-model="formValidate.title" class="form_content_width" @change="userSearchs" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.product.protectionList.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">添加保障</el-button>
+      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">{{ $t('message.pages.product.protectionList.addGuarantee') }}</el-button>
       <vxe-table
         class="vxeTable mt14"
         highlight-hover-row
@@ -29,16 +29,16 @@
         :tree-config="{ children: 'children' }"
         :data="categoryList"
       >
-        <vxe-table-column field="id" title="ID" tooltip width="80"></vxe-table-column>
-        <vxe-table-column field="title" tree-node title="保障名称" min-width="130"></vxe-table-column>
-        <vxe-table-column field="image" title="保障图片" min-width="130">
+        <vxe-table-column field="id" :title="$t('message.pages.product.protectionList.id')" tooltip width="80"></vxe-table-column>
+        <vxe-table-column field="title" tree-node :title="$t('message.pages.product.protectionList.guaranteeNameCol')" min-width="130"></vxe-table-column>
+        <vxe-table-column field="image" :title="$t('message.pages.product.protectionList.guaranteeImage')" min-width="130">
           <template v-slot="{ row }">
             <div class="tabBox_img" v-viewer v-if="row.image">
               <img v-lazy="row.image" />
             </div>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="status" title="状态" min-width="120">
+        <vxe-table-column field="status" :title="$t('message.pages.product.protectionList.status')" min-width="120">
           <template v-slot="{ row }">
             <el-switch
               class="defineSwitch"
@@ -48,19 +48,19 @@
               :value="row.status"
               @change="onchangeIsShow(row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.pages.product.protectionList.open')"
+              :inactive-text="$t('message.pages.product.protectionList.close')"
             >
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="sort" title="排序" min-width="130"></vxe-table-column>
+        <vxe-table-column field="sort" :title="$t('message.pages.product.protectionList.sort')" min-width="130"></vxe-table-column>
 
-        <vxe-table-column field="date" title="操作" width="120" fixed="right">
+        <vxe-table-column field="date" :title="$t('message.pages.product.protectionList.action')" width="120" fixed="right">
           <template v-slot="{ row }">
-            <a v-db-click @click="edit(row)">编辑</a>
+            <a v-db-click @click="edit(row)">{{ $t('message.pages.product.protectionList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, '删除保障')">删除</a>
+            <a v-db-click @click="del(row, $t('message.pages.product.protectionList.delGuarantee'))">{{ $t('message.pages.product.protectionList.del') }}</a>
           </template>
         </vxe-table-column>
       </vxe-table>

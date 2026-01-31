@@ -11,24 +11,24 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="规格搜索：">
+          <el-form-item :label="$t('message.pages.product.attr.specSearch')">
             <el-input
               clearable
               v-model="artFrom.rule_name"
-              placeholder="请输入规格名称"
+              :placeholder="$t('message.pages.product.attr.inputSpecName')"
               class="form_content_width"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.product.attr.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">添加商品规格</el-button>
-      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, '批量删除规格')"
-        >批量删除</el-button
+      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">{{ $t('message.pages.product.attr.addSpec') }}</el-button>
+      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, 'batchDelSpec')"
+        >{{ $t('message.pages.product.attr.batchDel') }}</el-button
       >
       <el-table
         ref="table"
@@ -37,26 +37,26 @@
         highlight-current-row
         :row-key="getRowKey"
         @selection-change="handleSelectRow"
-        empty-text="暂无数据"
+        :empty-text="$t('message.pages.product.attr.noData')"
         class="mt14"
       >
         <el-table-column type="selection" width="60" :reserve-selection="true"> </el-table-column>
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.product.attr.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="规格名称" min-width="130">
+        <el-table-column :label="$t('message.pages.product.attr.specName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.rule_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品规格" min-width="130">
+        <el-table-column :label="$t('message.pages.product.attr.productSpec')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.attr_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品属性" min-width="130">
+        <el-table-column :label="$t('message.pages.product.attr.productAttr')" min-width="130">
           <template slot-scope="scope">
             <span
               v-for="(item, index) in scope.row.attr_value"
@@ -66,11 +66,11 @@
             ></span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('message.pages.product.attr.action')" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.product.attr.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除规格', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.product.attr.delSpec'), scope.$index)">{{ $t('message.pages.product.attr.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -164,8 +164,9 @@ export default {
     // 删除
     del(row, tit) {
       let data = {};
-      if (tit === '批量删除规格') {
-        if (this.selectedIds.size === 0) return this.$message.warning('请选择要删除的规格！');
+      const isBatch = tit === 'batchDelSpec';
+      if (isBatch) {
+        if (this.selectedIds.size === 0) return this.$message.warning(this.$t('message.pages.product.attr.selectSpecToDel'));
         data = {
           ids: this.ids,
         };
@@ -174,8 +175,9 @@ export default {
           ids: row.id,
         };
       }
+      const title = isBatch ? this.$t('message.pages.product.attr.batchDelSpec') : tit;
       let delfromData = {
-        title: tit,
+        title,
         num: 0,
         url: `product/product/rule/delete`,
         method: 'DELETE',

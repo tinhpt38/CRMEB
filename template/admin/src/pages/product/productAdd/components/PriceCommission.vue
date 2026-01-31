@@ -2,25 +2,24 @@
   <!-- 会员价/佣金 -->
   <el-row>
     <el-col :span="24">
-      <el-form-item label="付费会员专属：">
+      <el-form-item :label="$t('message.pages.product.add.vipExclusive')">
         <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.vip_product" size="large">
-          <span slot="open">开启</span>
-          <span slot="close">关闭</span>
+          <span slot="open">{{ $t('message.pages.product.add.open') }}</span>
+          <span slot="close">{{ $t('message.pages.product.add.close') }}</span>
         </el-switch>
-        <div class="tips-info">开启后仅付费会员可以看见并购买此商品</div>
+        <div class="tips-info">{{ $t('message.pages.product.add.vipTip') }}</div>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="单独设置：">
+      <el-form-item :label="$t('message.pages.product.add.separateSetting')">
         <el-checkbox-group v-model="formValidate.is_sub" @change="checkAllGroupChange">
-          <el-checkbox :label="1">佣金设置（数字即返佣金额）</el-checkbox>
-          <el-checkbox :label="0">付费会员价</el-checkbox>
+          <el-checkbox :label="1">{{ $t('message.pages.product.add.brokerageSetting') }}</el-checkbox>
+          <el-checkbox :label="0">{{ $t('message.pages.product.add.vipPrice') }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.is_sub.length">
-      <!--单规格返佣-->
-      <el-form-item label="商品属性：" v-if="formValidate.spec_type === 0">
+      <el-form-item :label="$t('message.pages.product.add.productAttr')" v-if="formValidate.spec_type === 0">
         <el-table :data="oneFormValidate">
           <el-table-column
             :label="item.title"
@@ -65,7 +64,7 @@
                   v-if="!row.coupon_id && formValidate.virtual_type == 2"
                   v-db-click
                   @click="addGoodsCoupon(scope.$index, 'oneFormValidate')"
-                  >选择优惠券</el-button
+                  >{{ $t('message.pages.product.add.selectCoupon') }}</el-button
                 >
                 <span
                   class="see"
@@ -78,14 +77,14 @@
                   v-else-if="!row.virtual_list.length && !row.stock && formValidate.virtual_type == 1"
                   v-db-click
                   @click="addVirtual(scope.$index, 'oneFormValidate')"
-                  >添加卡密</el-button
+                  >{{ $t('message.pages.product.add.addCardBtn') }}</el-button
                 >
                 <span
                   class="see"
                   v-else-if="(row.virtual_list.length || row.stock) && formValidate.virtual_type == 1"
                   v-db-click
                   @click="see(row, 'oneFormValidate', scope.$index)"
-                  >已设置</span
+                  >{{ $t('message.pages.product.add.alreadySet') }}</span
                 >
               </template>
               <template v-else-if="item.slot === 'brokerage'">
@@ -95,7 +94,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="元"
+                  :class-unit="$t('message.pages.product.add.yuan')"
                 ></el-input-number>
               </template>
               <template v-else-if="item.slot === 'brokerage_two'">
@@ -105,7 +104,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="元"
+                  :class-unit="$t('message.pages.product.add.yuan')"
                 ></el-input-number>
               </template>
               <template v-else-if="item.slot === 'vip_price'">
@@ -115,7 +114,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="元"
+                  :class-unit="$t('message.pages.product.add.yuan')"
                   @input="changeVipPrice(0, 'oneFormValidate')"
                 ></el-input-number>
               </template>

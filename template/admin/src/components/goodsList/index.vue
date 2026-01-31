@@ -1,7 +1,7 @@
 <template>
   <div class="goodList">
     <el-form ref="formValidate" :model="formValidate" label-width="80px" label-position="right" inline class="tabform">
-      <el-form-item label="商品分类：" v-if="!liveStatus">
+      <el-form-item :label="$t('message.components.goodsList.productCategory')" v-if="!liveStatus">
         <el-cascader
           v-model="formValidate.cate_id"
           size="small"
@@ -11,25 +11,25 @@
           class="form_content_width"
         ></el-cascader>
       </el-form-item>
-      <el-form-item label="商品类型：" v-if="!type && diy">
+      <el-form-item :label="$t('message.components.goodsList.productType')" v-if="!type && diy">
         <el-select v-model="goodType" clearable @change="userSearchs" class="form_content_width">
           <el-option v-for="item in goodList" :value="item.activeValue" :key="item.activeValue" :label="item.title">
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="商品搜索：">
+      <el-form-item :label="$t('message.components.goodsList.productSearch')">
         <el-input
           clearable
-          placeholder="请输入商品名称/关键字/ID"
+          :placeholder="$t('message.components.goodsList.placeholderKeyword')"
           v-model="formValidate.store_name"
           class="form_content_width"
         />
-        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">查询</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">{{ $t('message.components.goodsList.query') }}</el-button>
       </el-form-item>
     </el-form>
     <el-table
       ref="table"
-      empty-text="暂无数据"
+      :empty-text="$t('message.components.goodsList.noData')"
       max-height="400"
       :highlight-current-row="many !== 'many'"
       :data="tableList"
@@ -58,12 +58,12 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="商品名称" min-width="250">
+      <el-table-column :label="$t('message.components.goodsList.productName')" min-width="250">
         <template slot-scope="scope">
           <span>{{ scope.row.store_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="商品分类" min-width="150" v-if="liveStatus">
+      <el-table-column :label="$t('message.components.goodsList.productCategoryCol')" min-width="150" v-if="liveStatus">
         <template slot-scope="scope">
           <span>{{ scope.row.cate_name }}</span>
         </template>
@@ -77,7 +77,7 @@
         :limit.sync="formValidate.limit"
         @pagination="pageChange"
       />
-      <el-button type="primary" v-db-click @click="ok" v-if="many === 'many' && !diy" class="ml15">提交</el-button>
+      <el-button type="primary" v-db-click @click="ok" v-if="many === 'many' && !diy" class="ml15">{{ $t('message.components.goodsList.submit') }}</el-button>
     </div>
   </div>
 </template>

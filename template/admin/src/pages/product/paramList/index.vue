@@ -11,22 +11,22 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="模板搜索：">
+          <el-form-item :label="$t('message.pages.product.paramList.templateSearch')">
             <el-input
               clearable
               v-model="artFrom.name"
-              placeholder="请输入模板名称"
+              :placeholder="$t('message.pages.product.paramList.inputTemplateName')"
               class="form_content_width"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.product.paramList.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button type="primary" v-db-click @click="paramAdd">添加商品参数</el-button>
+      <el-button type="primary" v-db-click @click="paramAdd">{{ $t('message.pages.product.paramList.addProductParam') }}</el-button>
       <el-table
         ref="table"
         :data="tableList"
@@ -34,30 +34,30 @@
         highlight-current-row
         :row-key="getRowKey"
         @selection-change="handleSelectRow"
-        empty-text="暂无数据"
+        :empty-text="$t('message.pages.product.paramList.noData')"
         class="mt14"
       >
         <!-- <el-table-column type="selection" width="60" :reserve-selection="true"> </el-table-column> -->
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.product.paramList.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="模板名称" min-width="130">
+        <el-table-column :label="$t('message.pages.product.paramList.templateName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" min-width="130">
+        <el-table-column :label="$t('message.pages.product.paramList.createTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('message.pages.product.paramList.action')" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.product.paramList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除参数', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.product.paramList.delParam'), scope.$index)">{{ $t('message.pages.product.paramList.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

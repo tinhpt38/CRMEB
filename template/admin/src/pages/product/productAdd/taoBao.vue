@@ -2,15 +2,15 @@
   <div class="Box" v-loading="spinShow">
     <div>
       <div class="tips">
-        生成的商品默认是没有上架的，请手动上架商品！
-        <a href="https://doc.crmeb.com/single/v5/7785" v-if="copyConfig.copy_type == 2" target="_blank">如何配置密钥</a>
+        {{ $t('message.pages.product.add.copyTip') }}
+        <a href="https://doc.crmeb.com/single/v5/7785" v-if="copyConfig.copy_type == 2" target="_blank">{{ $t('message.pages.product.add.howToConfigKey') }}</a>
         <span v-else
-          >您当前剩余{{ copyConfig.copy_num }}条采集次数，<span class="add" v-db-click @click="mealPay()"
-            >增加采集次数</span
-          ></span
+          >{{ $t('message.pages.product.add.copyNumRemain').replace('{copy_num}', copyConfig.copy_num) }}<span class="add" v-db-click @click="mealPay()">{{
+            $t('message.pages.product.add.addCopyNum')
+          }}</span></span
         >
       </div>
-      <div>商品采集设置：设置 > 系统设置 > 第三方接口设置 > 采集商品配置</div>
+      <div>{{ $t('message.pages.product.add.copyConfigPath') }}</div>
     </div>
     <el-form
       class="formValidate mt20"
@@ -19,9 +19,9 @@
       label-position="right"
       @submit.native.prevent
     >
-      <el-form-item label="链接地址：">
-        <el-input clearable v-model="soure_link" placeholder="请输入链接地址" class="numPut" />
-        <el-button type="primary" class="ml15" v-db-click @click="add">确定</el-button>
+      <el-form-item :label="$t('message.pages.product.add.linkLabel')">
+        <el-input clearable v-model="soure_link" :placeholder="$t('message.pages.product.add.inputLink')" class="numPut" />
+        <el-button type="primary" class="ml15" v-db-click @click="add">{{ $t('message.pages.product.add.confirmBtn') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -80,7 +80,7 @@ export default {
       if (this.soure_link) {
         var reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
         if (!reg.test(this.soure_link)) {
-          return this.$message.warning('请输入以http开头的地址！');
+          return this.$message.warning(this.$t('message.pages.product.add.inputValidUrlMsg'));
         }
         this.spinShow = true;
         this.artFrom.url = this.soure_link;
@@ -95,7 +95,7 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$message.warning('请输入链接地址！');
+        this.$message.warning(this.$t('message.pages.product.add.inputLinkMsg'));
       }
     },
   },

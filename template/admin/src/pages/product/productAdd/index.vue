@@ -2,12 +2,12 @@
   <div class="" id="shopp-manager" v-loading="spinShow">
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? '编辑商品' : '添加商品'"
+      :title="$route.params.id ? $t('message.pages.product.add.editProduct') : $t('message.pages.product.add.addProduct')"
       :backUrl="$routeProStr + '/product/product_list'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16" :body-style="{ padding: '0px 20px' }">
       <el-tabs v-model="currentTab">
-        <el-tab-pane v-for="(item, index) in headTab" :key="index" :label="item.tit" :name="item.name"></el-tab-pane>
+        <el-tab-pane v-for="(item, index) in headTab" :key="index" :label="headTabLabel(item)" :name="item.name"></el-tab-pane>
       </el-tabs>
       <el-form
         class="formValidate mt20"
@@ -154,20 +154,20 @@
         ></other-setting>
 
         <el-form-item>
-          <el-button v-if="currentTab !== '1'" v-db-click @click="upTab">上一步</el-button>
+          <el-button v-if="currentTab !== '1'" v-db-click @click="upTab">{{ $t('message.pages.product.add.prevStep') }}</el-button>
           <el-button
             class="submission"
             v-if="currentTab !== '7' && formValidate.virtual_type == 0"
             v-db-click
             @click="downTab"
-            >下一步</el-button
+            >{{ $t('message.pages.product.add.nextStep') }}</el-button
           >
           <el-button
             class="submission"
             v-if="currentTab !== '6' && formValidate.virtual_type != 0"
             v-db-click
             @click="downTab"
-            >下一步</el-button
+            >{{ $t('message.pages.product.add.nextStep') }}</el-button
           >
           <el-button
             type="primary"
@@ -175,11 +175,11 @@
             v-db-click
             @click="handleSubmit('formValidate')"
             v-if="$route.params.id || currentTab !== '1'"
-            >保存</el-button
+            >{{ $t('message.pages.product.add.save') }}</el-button
           >
         </el-form-item>
       </el-form>
-      <el-dialog :visible.sync="modalPic" width="950px" scrollable title="上传商品图" :close-on-click-modal="false">
+      <el-dialog :visible.sync="modalPic" width="950px" scrollable :title="$t('message.pages.product.add.uploadProductImage')" :close-on-click-modal="false">
         <uploadPictures
           :isChoice="isChoice"
           @getPic="getPic"
@@ -192,7 +192,7 @@
       <el-dialog
         :visible.sync="addVirtualModel"
         width="720px"
-        title="添加卡密"
+        :title="$t('message.pages.product.add.addCard')"
         :show-close="true"
         :close-on-click-modal="false"
         @closed="initVirtualData"
@@ -200,46 +200,43 @@
         <div class="trip"></div>
         <div class="type-radio">
           <el-form label-width="85px">
-            <el-form-item label="卡密类型：">
+            <el-form-item :label="$t('message.pages.product.add.cardType')">
               <el-radio-group v-model="disk_type" size="large">
-                <el-radio :label="1">固定卡密</el-radio>
-                <el-radio :label="2">一次性卡密</el-radio>
+                <el-radio :label="1">{{ $t('message.pages.product.add.fixedCard') }}</el-radio>
+                <el-radio :label="2">{{ $t('message.pages.product.add.oneTimeCard') }}</el-radio>
               </el-radio-group>
               <div v-if="disk_type == 1">
                 <div class="stock-disk">
-                  <el-input v-model="disk_info" size="large" type="textarea" :rows="4" placeholder="填写卡密信息" />
+                  <el-input v-model="disk_info" size="large" type="textarea" :rows="4" :placeholder="$t('message.pages.product.add.fillCardInfo')" />
                 </div>
                 <div class="stock-input">
-                  <!-- <el-input type="number" v-model="stock" size="large" :min='0' placeholder="填写库存数量">
-                    <span slot="append">件</span>
-                  </el-input> -->
                   <el-input-number :controls="false" :max="100000" :min="1" :step="1" :precision="0" v-model="stock" />
-                  <span class="pl10">件</span>
+                  <span class="pl10">{{ $t('message.pages.product.add.pcs') }}</span>
                 </div>
               </div>
               <div class="scroll-virtual" v-if="disk_type == 2">
                 <div class="virtual-data mb10" v-for="(item, index) in virtualList" :key="index">
-                  <span class="mr10 virtual-title">卡号{{ index + 1 }}：</span>
+                  <span class="mr10 virtual-title">{{ $t('message.pages.product.add.cardNo') }}{{ index + 1 }}：</span>
                   <el-input
                     class="mr10"
                     type="text"
                     v-model.trim="item.key"
                     style="width: 150px"
-                    placeholder="请输入卡号(非必填)"
+                    :placeholder="$t('message.pages.product.add.inputCardNo')"
                   ></el-input>
-                  <span class="mr10 virtual-title">卡密{{ index + 1 }}：</span>
+                  <span class="mr10 virtual-title">{{ $t('message.pages.product.add.cardPwd') }}{{ index + 1 }}：</span>
                   <el-input
                     class="mr10"
                     type="text"
                     v-model.trim="item.value"
                     style="width: 150px"
-                    placeholder="请输入卡密"
+                    :placeholder="$t('message.pages.product.add.inputCardPwd')"
                   ></el-input>
-                  <span class="deteal-btn" v-db-click @click="removeVirtual(index)">删除</span>
+                  <span class="deteal-btn" v-db-click @click="removeVirtual(index)">{{ $t('message.pages.product.add.del') }}</span>
                 </div>
               </div>
               <div class="add-more" v-if="disk_type == 2">
-                <el-button class="h-33" type="primary" v-db-click @click="handleAdd">新增</el-button>
+                <el-button class="h-33" type="primary" v-db-click @click="handleAdd">{{ $t('message.pages.product.add.add') }}</el-button>
                 <el-upload
                   class="ml10"
                   :action="cardUrl"
@@ -248,15 +245,15 @@
                   :on-success="upFile"
                   :before-upload="beforeUpload"
                 >
-                  <el-button>导入卡密</el-button>
+                  <el-button>{{ $t('message.pages.product.add.importCard') }}</el-button>
                 </el-upload>
               </div>
             </el-form-item>
           </el-form>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button v-db-click @click="closeVirtual">取 消</el-button>
-          <el-button type="primary" v-db-click @click="upVirtual">确 定</el-button>
+          <el-button v-db-click @click="closeVirtual">{{ $t('message.pages.product.add.cancel') }}</el-button>
+          <el-button type="primary" v-db-click @click="upVirtual">{{ $t('message.pages.product.add.confirm') }}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -280,19 +277,19 @@
       :visible.sync="modals"
       @closed="cancel"
       class="Box"
-      title="复制淘宝、天猫、京东、苏宁、1688"
+      :title="$t('message.pages.product.add.copyTaobaoTitle')"
       :close-on-click-modal="false"
       width="720px"
     >
       <tao-bao ref="taobaos" v-if="modals" @on-close="onClose"></tao-bao>
     </el-dialog>
-    <el-dialog :visible.sync="goods_modals" title="商品列表" footerHide class="paymentFooter" scrollable width="1000px">
+    <el-dialog :visible.sync="goods_modals" :title="$t('message.pages.product.add.productList')" footerHide class="paymentFooter" scrollable width="1000px">
       <goods-list v-if="goods_modals" ref="goodslist" :ischeckbox="true" @getProductId="getProductId"></goods-list>
     </el-dialog>
     <!-- 用户标签 -->
     <el-dialog
       :visible.sync="labelShow"
-      title="请选择用户标签"
+      :title="$t('message.pages.product.add.selectUserLabel')"
       :show-close="true"
       width="540px"
       :close-on-click-modal="false"
@@ -302,7 +299,7 @@
     <!-- 商品标签 -->
     <el-dialog
       :visible.sync="tagShow"
-      title="请选择商品标签"
+      :title="$t('message.pages.product.add.selectProductLabel')"
       :show-close="true"
       width="540px"
       :close-on-click-modal="false"
@@ -708,6 +705,9 @@ export default {
     this.getProtectionList();
   },
   methods: {
+    headTabLabel(item) {
+      return this.$t('message.pages.product.add.tab' + item.name);
+    },
     getProductCache() {
       productCache()
         .then((res) => {

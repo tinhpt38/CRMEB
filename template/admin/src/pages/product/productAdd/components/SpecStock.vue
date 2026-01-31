@@ -2,13 +2,13 @@
   <!-- 规格库存 -->
   <el-row :gutter="24">
     <el-col :span="24">
-      <el-form-item label="规格类型：" props="spec_type">
+      <el-form-item :label="$t('message.pages.product.add.specType')" props="spec_type">
         <el-radio-group v-model="formValidate.spec_type" @input="changeSpec">
-          <el-radio :label="0" class="radio">单规格</el-radio>
-          <el-radio :label="1">多规格</el-radio>
+          <el-radio :label="0" class="radio">{{ $t('message.pages.product.add.singleSpec') }}</el-radio>
+          <el-radio :label="1">{{ $t('message.pages.product.add.multiSpec') }}</el-radio>
         </el-radio-group>
         <el-dropdown v-if="formValidate.spec_type == 1" class="ml20" @command="confirm" trigger="hover">
-          <span class="el-dropdown-link"> 选择规格模版<i class="el-icon-arrow-down el-icon--right"></i> </span>
+          <span class="el-dropdown-link"> {{ $t('message.pages.product.add.selectSpecTemplate') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-for="(item, index) in ruleList" :key="index" :command="item.rule_name">{{
               item.rule_name
@@ -19,7 +19,7 @@
     </el-col>
     <!-- 规格设置 -->
     <el-col :span="24" v-if="formValidate.spec_type === 1" class="noForm">
-      <el-form-item label="商品规格：" prop="">
+      <el-form-item :label="$t('message.pages.product.add.productSpec')" prop="">
         <div class="specifications">
           <draggable
             group="specifications"
@@ -44,7 +44,7 @@
                 <div class="specifications-item-name mb18">
                   <el-input
                     v-model="item.value"
-                    placeholder="规格名称"
+                    :placeholder="$t('message.pages.product.add.specName')"
                     @change="attrChangeValue(index, item.value)"
                     @focus="handleFocus(item.value)"
                     class="specifications-item-name-input"
@@ -58,12 +58,12 @@
                     :true-label="1"
                     :false-label="0"
                     @change="(e) => addPic(e, index)"
-                    >添加规格图</el-checkbox
+                    >{{ $t('message.pages.product.add.addSpecPic') }}</el-checkbox
                   >
                   <el-tooltip
                     class="item"
                     effect="dark"
-                    content="添加规格图片, 仅支持打开一个(建议尺寸:800*800)"
+                    :content="$t('message.pages.product.add.addSpecPicTip')"
                     placement="right"
                   >
                     <i class="el-icon-info"></i>
@@ -83,7 +83,7 @@
                       <el-input
                         style="width: 120px"
                         v-model="det.value"
-                        placeholder="规格值"
+                        :placeholder="$t('message.pages.product.add.specValue')"
                         @change="attrDetailChangeValue(det.value, index)"
                         @focus="handleFocus(det.value)"
                         maxlength="30"
@@ -111,7 +111,7 @@
                     >
                       <el-input
                         :ref="'inputRef_' + index"
-                        placeholder="请输入规格值"
+                        :placeholder="$t('message.pages.product.add.inputSpecValue')"
                         v-model="formDynamic.attrsVal"
                         @keyup.enter.native="createAttr(formDynamic.attrsVal, index)"
                         @blur="createAttr(formDynamic.attrsVal, index)"
@@ -119,22 +119,22 @@
                         show-word-limit
                       >
                       </el-input>
-                      <div class="addfont" slot="reference" type="text" v-db-click>添加规格值</div>
+                      <div class="addfont" slot="reference" type="text" v-db-click>{{ $t('message.pages.product.add.addSpecValue') }}</div>
                     </el-popover>
                   </draggable>
                 </div>
               </div>
             </div>
           </draggable>
-          <el-button v-if="attrs.length < 4" v-db-click @click="handleAddRole()">添加新规格</el-button>
+          <el-button v-if="attrs.length < 4" v-db-click @click="handleAddRole()">{{ $t('message.pages.product.add.addNewSpec') }}</el-button>
           <el-button v-if="attrs.length >= 1" type="text" v-db-click @click="handleSaveAsTemplate()"
-            >另存为模板</el-button
+            >{{ $t('message.pages.product.add.saveAsTemplate') }}</el-button
           >
         </div>
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.spec_type === 1">
-      <el-form-item label="商品属性：" class="labeltop" v-if="manyFormValidate.length">
+      <el-form-item :label="$t('message.pages.product.add.productAttr')" class="labeltop" v-if="manyFormValidate.length">
         <VirtualScroll
           :data="manyFormValidate"
           :buffer="50"
@@ -257,9 +257,9 @@
                   </template>
                   <template v-else-if="item.slot === 'selected_spec'"> -- </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="batchAdd">批量修改</a>
+                    <a v-db-click @click="batchAdd">{{ $t('message.pages.product.add.batchModify') }}</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="batchDel">清空</a>
+                    <a v-db-click @click="batchDel">{{ $t('message.pages.product.add.clear') }}</a>
                   </template>
                 </template>
                 <template v-else>

@@ -2,7 +2,7 @@
   <!-- 商品详情 -->
   <el-row>
     <el-col :span="16">
-      <el-form-item label="商品详情：">
+      <el-form-item :label="$t('message.pages.product.add.productDetail')">
         <WangEditor style="width: 100%" :content="contents" @editorContent="getEditorContent"></WangEditor>
       </el-form-item>
     </el-col>
