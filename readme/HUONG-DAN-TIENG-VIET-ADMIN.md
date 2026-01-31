@@ -118,3 +118,5 @@ Các tab trong trang **Cài đặt hệ thống** (vd: Cấu hình cơ bản, C�
 *Patch SQL: `patch_lang_default_en.sql`, `patch_system_config_tab_lang_vi.sql`, `patch_lang_type_vi.sql`, **`patch_default_data_vi.sql`** (tiêu đề thỏa thuận, tên cấp phân phối, tên nhóm phân loại). Database/PREFIX theo `crmeb/.env`.*
 
 **Kiểm tra đã có bản dịch trong database chưa:** Xem [KIEM-TRA-BAN-DICH-DATABASE.md](KIEM-TRA-BAN-DICH-DATABASE.md) — các câu SQL để kiểm tra `eb_lang_type`, `eb_system_config_tab_lang`, `eb_lang_code` và dữ liệu mặc định (agreement, agent_level, category).
+
+**Quy tắc đa ngôn ngữ (không hardcode):** Xem [QUY-TAC-I18N.md](QUY-TAC-I18N.md) — nguyên tắc, cấu trúc key, cách thêm bản dịch và checklist khi sửa/thêm trang. Mục tiêu: toàn bộ mã nguồn Admin đa ngôn ngữ, không chuỗi hiển thị hardcode.

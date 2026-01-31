@@ -36,7 +36,7 @@ export function headerListApi(data) {
 }
 
 /**
- * @description 设置 系统设置 应用设置 编辑表单
+ * @description 设置 系统设置 应用设置 编辑表单（带 cb-lang 以支持多语言 form label）
  * @param {Object} param data {Object} 传值参数 type类型
  */
 export function dataFromApi(data, url) {
@@ -44,6 +44,7 @@ export function dataFromApi(data, url) {
     url: url,
     method: 'get',
     params: data,
+    headers: getCbLangHeader(),
   });
 }
 

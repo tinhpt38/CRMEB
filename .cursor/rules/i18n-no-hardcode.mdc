@@ -1,0 +1,61 @@
+---
+description: Đa ngôn ngữ (i18n) - không hardcode chuỗi hiển thị trong Admin
+globs: template/admin/src/**/*.vue
+alwaysApply: false
+---
+
+# Quy tắc i18n – Không hardcode chuỗi hiển thị
+
+Mục tiêu: **toàn bộ mã nguồn Admin đa ngôn ngữ**, không chuỗi tiếng Trung/tiếng Anh hardcode trong UI.
+
+## Bắt buộc
+
+- **Không** viết chuỗi hiển thị trực tiếp trong template/script (label, placeholder, title, message, button, option, empty-text, confirmButtonText, v.v.).
+- **Luôn** dùng i18n: `$t('message.pages.<module>.<section>.<key>')` (hoặc key tương ứng đã có trong `i18n/lang`).
+
+## Cách làm đúng
+
+**Template – thuộc tính động với i18n:**
+```vue
+<!-- ❌ BAD -->
+<el-form-item label="请输入订单号">
+<el-input placeholder="请输入" />
+<el-button>查询</el-button>
+<el-option label="全部" value="all" />
+
+<!-- ✅ GOOD -->
+<el-form-item :label="$t('message.pages.order.list.inputOrderNo')">
+<el-input :placeholder="$t('message.pages.order.list.placeholder')" />
+<el-button>{{ $t('message.pages.order.list.query') }}</el-button>
+<el-option :label="$t('message.pages.order.list.all')" value="all" />
+```
+
+**Script – message / confirm:**
+```js
+// ❌ BAD
+this.$message.error('请选择退款数量');
+this.$confirm('确定删除？', '提示', { confirmButtonText: '确定', cancelButtonText: '取消' });
+
+// ✅ GOOD
+this.$message.error(this.$t('message.pages.order.refund.msgSelectRefundNum'));
+this.$confirm(this.$t('message.pages.common.confirmDelete'), this.$t('message.pages.common.tip'), {
+  confirmButtonText: this.$t('message.pages.common.confirm'),
+  cancelButtonText: this.$t('message.pages.common.cancel'),
+});
+```
+
+**Option từ API (dropdown):** Nếu backend trả về `name` bằng một ngôn ngữ cố định, map index/value sang key i18n ở frontend thay vì dùng `item.name` trực tiếp.
+```js
+// Ví dụ: getRefundStatusFilterLabel(index) → $t('message.pages.order.refundList.' + keys[index])
+```
+
+## Thêm key mới
+
+1. Thêm key (tiếng Trung) vào `template/admin/src/i18n/lang/zh-cn.js` trong đúng nhánh `message.pages.<module>.<section>`.
+2. Thêm cùng key (bản dịch tiếng Việt) vào `template/admin/src/i18n/lang/vi-vn.js`.
+3. Trong Vue: dùng `$t('message.pages.<module>.<section>.<key>')` (hoặc `this.$t(...)` trong script).
+
+## Ngoại lệ
+
+- Chuỗi **chỉ dùng trong comment** hoặc **tên biến/field kỹ thuật** (không hiển thị cho user) có thể giữ nguyên.
+- Giá trị so sánh logic (vd: `delivery_name == '顺丰速运'`) có thể giữ để tương thích API; nếu cần hiển thị tên công ty thì dùng i18n hoặc map từ backend.

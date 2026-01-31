@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="创建时间：">
+          <el-form-item :label="$t('message.pages.order.invoice.createTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,88 +19,88 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.order.invoice.startDate')"
+              :end-placeholder="$t('message.pages.order.invoice.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="搜索：" prop="real_name" label-for="real_name">
-            <el-input clearable v-model="orderData.real_name" placeholder="请输入" class="form_content_width">
+          <el-form-item :label="$t('message.pages.order.invoice.search')" prop="real_name" label-for="real_name">
+            <el-input clearable v-model="orderData.real_name" :placeholder="$t('message.pages.order.invoice.placeholder')" class="form_content_width">
               <el-select v-model="orderData.field_key" slot="prepend" style="width: 100px">
-                <el-option value="all" label="全部"></el-option>
-                <el-option value="order_id" label="订单号"></el-option>
-                <el-option value="uid" label="UID"></el-option>
-                <el-option value="real_name" label="用户姓名"></el-option>
-                <el-option value="user_phone" label="用户电话"></el-option>
+                <el-option value="all" :label="$t('message.pages.order.invoice.all')"></el-option>
+                <el-option value="order_id" :label="$t('message.pages.order.invoice.orderNo')"></el-option>
+                <el-option value="uid" :label="$t('message.pages.order.invoice.uid')"></el-option>
+                <el-option value="real_name" :label="$t('message.pages.order.invoice.realName')"></el-option>
+                <el-option value="user_phone" :label="$t('message.pages.order.invoice.userPhone')"></el-option>
               </el-select>
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="orderSearch">查询</el-button>
+            <el-button type="primary" v-db-click @click="orderSearch">{{ $t('message.pages.order.invoice.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" :body-style="{ padding: '0 20px 20px' }">
       <el-tabs v-model="currentTab" @tab-click="onClickTab" v-if="tablists">
-        <el-tab-pane :label="'全部发票（' + tablists.all + '）'" name=" " />
-        <el-tab-pane :label="'待开发票（' + tablists.noOpened + '）'" name="1" />
-        <el-tab-pane :label="'已开发票（' + tablists.opened + '）'" name="2" />
-        <el-tab-pane :label="'退款发票（' + tablists.refund + '）'" name="3" />
+        <el-tab-pane :label="$t('message.pages.order.invoice.tabAll') + '（' + tablists.all + '）'" name=" " />
+        <el-tab-pane :label="$t('message.pages.order.invoice.tabPending') + '（' + tablists.noOpened + '）'" name="1" />
+        <el-tab-pane :label="$t('message.pages.order.invoice.tabInvoiced') + '（' + tablists.opened + '）'" name="2" />
+        <el-tab-pane :label="$t('message.pages.order.invoice.tabRefund') + '（' + tablists.refund + '）'" name="3" />
       </el-tabs>
       <el-table
         :data="orderList"
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.order.invoice.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.order.invoice.noFilterResult')"
       >
-        <el-table-column label="订单号" min-width="140">
+        <el-table-column :label="$t('message.pages.order.invoice.orderNoCol')" min-width="140">
           <template slot-scope="scope">
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="订单金额" min-width="90">
+        <el-table-column :label="$t('message.pages.order.invoice.orderAmount')" min-width="90">
           <template slot-scope="scope">
             <div>¥ {{ scope.row.pay_price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="发票类型" min-width="130">
+        <el-table-column :label="$t('message.pages.order.invoice.invoiceType')" min-width="130">
           <template slot-scope="scope">
-            <div v-if="scope.row.type === 1">电子普通发票</div>
-            <div v-else>纸质专用发票</div>
+            <div v-if="scope.row.type === 1">{{ $t('message.pages.order.invoice.electronicInvoice') }}</div>
+            <div v-else>{{ $t('message.pages.order.invoice.paperSpecialInvoice') }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="发票抬头类型" min-width="130">
+        <el-table-column :label="$t('message.pages.order.invoice.invoiceTitleType')" min-width="130">
           <template slot-scope="scope">
-            <div v-if="scope.row.header_type === 1">个人</div>
-            <div v-else>企业</div>
+            <div v-if="scope.row.header_type === 1">{{ $t('message.pages.order.invoice.personal') }}</div>
+            <div v-else>{{ $t('message.pages.order.invoice.enterprise') }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="下单时间" min-width="130">
+        <el-table-column :label="$t('message.pages.order.invoice.orderTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="开票状态" min-width="130">
+        <el-table-column :label="$t('message.pages.order.invoice.invoiceStatus')" min-width="130">
           <template slot-scope="scope">
-            <div v-if="scope.row.is_invoice === 1">已开票</div>
-            <div v-else>未开票</div>
+            <div v-if="scope.row.is_invoice === 1">{{ $t('message.pages.order.invoice.invoiced') }}</div>
+            <div v-else>{{ $t('message.pages.order.invoice.notInvoiced') }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="订单状态" min-width="130">
+        <el-table-column :label="$t('message.pages.order.invoice.orderStatus')" min-width="130">
           <template slot-scope="scope">
-            <div v-if="scope.row.status === 0">未发货</div>
-            <div v-else-if="scope.row.status === 1">待收货</div>
-            <div v-else-if="scope.row.status === 2">待评价</div>
-            <div v-else-if="scope.row.status === 3">已完成</div>
-            <div v-else-if="scope.row.status === -2">已退款</div>
+            <div v-if="scope.row.status === 0">{{ $t('message.pages.order.invoice.statusUnSend') }}</div>
+            <div v-else-if="scope.row.status === 1">{{ $t('message.pages.order.invoice.statusToReceive') }}</div>
+            <div v-else-if="scope.row.status === 2">{{ $t('message.pages.order.invoice.statusToComment') }}</div>
+            <div v-else-if="scope.row.status === 3">{{ $t('message.pages.order.invoice.statusCompleted') }}</div>
+            <div v-else-if="scope.row.status === -2">{{ $t('message.pages.order.invoice.statusRefunded') }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="300">
+        <el-table-column :label="$t('message.pages.order.invoice.action')" fixed="right" width="300">
           <template slot-scope="scope">
             <template v-if="tablists.elec_invoice && tablists.elec_invoice == 1">
               <a
@@ -112,7 +112,7 @@
                 "
                 v-db-click
                 @click="downInvoice(scope.row)"
-                >下载发票</a
+                >{{ $t('message.pages.order.invoice.downloadInvoice') }}</a
               >
               <el-divider
                 v-if="
@@ -127,7 +127,7 @@
                 v-if="scope.row.is_invoice == 1 && scope.row.unique_num !== '' && scope.row.red_invoice_num == ''"
                 v-db-click
                 @click="openNegative(scope.row)"
-                >开具负数发票</a
+                >{{ $t('message.pages.order.invoice.openNegative') }}</a
               >
               <el-divider
                 v-if="scope.row.is_invoice == 1 && scope.row.unique_num !== '' && scope.row.red_invoice_num == ''"
@@ -137,13 +137,13 @@
                 v-if="scope.row.is_invoice !== 1 && scope.row.refund_status == 0"
                 v-db-click
                 @click="getInvoice(scope.row)"
-                >开具电子发票</a
+                >{{ $t('message.pages.order.invoice.openElectronic') }}</a
               >
               <el-divider v-if="scope.row.is_invoice !== 1 && scope.row.refund_status == 0" direction="vertical" />
             </template>
-            <a v-if="scope.row.status != -2" v-db-click @click="edit(scope.row)">操作</a>
+            <a v-if="scope.row.status != -2" v-db-click @click="edit(scope.row)">{{ $t('message.pages.order.invoice.action') }}</a>
             <el-divider v-if="scope.row.status != -2" direction="vertical" />
-            <a v-db-click @click="orderInfo(scope.row.id)">订单信息</a>
+            <a v-db-click @click="orderInfo(scope.row.id)">{{ $t('message.pages.order.invoice.orderInfo') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -157,128 +157,128 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="invoiceShow" title="发票详情" class="order_box" width="720px" @closed="cancel">
+    <el-dialog :visible.sync="invoiceShow" :title="$t('message.pages.order.invoice.invoiceDetail')" class="order_box" width="720px" @closed="cancel">
       <el-form ref="formInline" :model="formInline" label-width="80px" @submit.native.prevent>
         <div v-if="invoiceDetails.header_type === 1 && invoiceDetails.type === 1">
           <div class="list">
-            <div class="title">发票信息</div>
+            <div class="title">{{ $t('message.pages.order.invoice.invoiceInfo') }}</div>
             <el-row class="row">
               <el-col :span="12"
-                >发票抬头: <span class="info">{{ invoiceDetails.name }}</span></el-col
+                >{{ $t('message.pages.order.invoice.invoiceTitle') }}: <span class="info">{{ invoiceDetails.name }}</span></el-col
               >
-              <el-col :span="12">发票类型: <span class="info">电子普通发票</span></el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.invoiceType') }}: <span class="info">{{ $t('message.pages.order.invoice.electronicInvoice') }}</span></el-col>
             </el-row>
             <el-row class="row">
-              <el-col :span="12">发票抬头类型: 个人</el-col>
-              <el-col :span="12">订单金额: {{ invoiceDetails.pay_price }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.invoiceTitleType') }}: {{ $t('message.pages.order.invoice.personal') }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.orderAmount') }}: {{ invoiceDetails.pay_price }}</el-col>
             </el-row>
           </div>
           <div class="list">
-            <div class="title row">联系信息</div>
+            <div class="title row">{{ $t('message.pages.order.invoice.contactInfo') }}</div>
             <el-row class="row">
-              <el-col :span="12">真实姓名: {{ invoiceDetails.name }}</el-col>
-              <el-col :span="12">联系电话: {{ invoiceDetails.drawer_phone }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.realNameLabel') }}: {{ invoiceDetails.name }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.contactPhone') }}: {{ invoiceDetails.drawer_phone }}</el-col>
             </el-row>
             <el-row class="row">
-              <el-col :span="12">联系邮箱: {{ invoiceDetails.email }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.contactEmail') }}: {{ invoiceDetails.email }}</el-col>
             </el-row>
           </div>
         </div>
         <div v-if="invoiceDetails.header_type === 2 && invoiceDetails.type === 1">
           <div class="list">
-            <div class="title">发票信息</div>
+            <div class="title">{{ $t('message.pages.order.invoice.invoiceInfo') }}</div>
             <el-row class="row">
               <el-col :span="12"
-                >发票抬头: <span class="info">{{ invoiceDetails.name }}</span></el-col
+                >{{ $t('message.pages.order.invoice.invoiceTitle') }}: <span class="info">{{ invoiceDetails.name }}</span></el-col
               >
               <el-col :span="12"
-                >企业税号: <span class="info">{{ invoiceDetails.duty_number }}</span></el-col
+                >{{ $t('message.pages.order.invoice.dutyNumber') }}: <span class="info">{{ invoiceDetails.duty_number }}</span></el-col
               >
             </el-row>
             <el-row class="row">
-              <el-col :span="12">发票类型: 电子普通发票</el-col>
-              <el-col :span="12">发票抬头类型: 企业</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.invoiceType') }}: {{ $t('message.pages.order.invoice.electronicInvoice') }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.invoiceTitleType') }}: {{ $t('message.pages.order.invoice.enterprise') }}</el-col>
             </el-row>
           </div>
           <div class="list">
-            <div class="title row">联系信息</div>
+            <div class="title row">{{ $t('message.pages.order.invoice.contactInfo') }}</div>
             <el-row class="row">
-              <el-col :span="12">真实姓名: {{ invoiceDetails.name }}</el-col>
-              <el-col :span="12">联系电话: {{ invoiceDetails.user_phone }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.realNameLabel') }}: {{ invoiceDetails.name }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.contactPhone') }}: {{ invoiceDetails.user_phone }}</el-col>
             </el-row>
             <el-row class="row">
-              <el-col :span="12">联系邮箱: {{ invoiceDetails.email }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.contactEmail') }}: {{ invoiceDetails.email }}</el-col>
             </el-row>
           </div>
         </div>
         <div v-if="invoiceDetails.header_type === 2 && invoiceDetails.type === 2">
           <div class="list">
-            <div class="title">发票信息</div>
+            <div class="title">{{ $t('message.pages.order.invoice.invoiceInfo') }}</div>
             <el-row class="row">
               <el-col :span="12"
-                >发票抬头: <span class="info">{{ invoiceDetails.name }}</span></el-col
+                >{{ $t('message.pages.order.invoice.invoiceTitle') }}: <span class="info">{{ invoiceDetails.name }}</span></el-col
               >
               <el-col :span="12"
-                >企业税号: <span class="info">{{ invoiceDetails.duty_number }}</span></el-col
-              >
-            </el-row>
-            <el-row class="row">
-              <el-col :span="12">发票类型: 纸质专用发票</el-col>
-              <el-col :span="12">发票抬头类型: 企业</el-col>
-            </el-row>
-            <el-row class="row">
-              <el-col :span="12"
-                >开户银行: <span class="info">{{ invoiceDetails.bank }}</span></el-col
-              >
-              <el-col :span="12"
-                >银行账号: <span class="info">{{ invoiceDetails.card_number }}</span></el-col
+                >{{ $t('message.pages.order.invoice.dutyNumber') }}: <span class="info">{{ invoiceDetails.duty_number }}</span></el-col
               >
             </el-row>
             <el-row class="row">
-              <el-col :span="12">企业地址: {{ invoiceDetails.address }}</el-col>
-              <el-col :span="12">企业电话: {{ invoiceDetails.tell }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.invoiceType') }}: {{ $t('message.pages.order.invoice.paperSpecialInvoice') }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.invoiceTitleType') }}: {{ $t('message.pages.order.invoice.enterprise') }}</el-col>
+            </el-row>
+            <el-row class="row">
+              <el-col :span="12"
+                >{{ $t('message.pages.order.invoice.bank') }}: <span class="info">{{ invoiceDetails.bank }}</span></el-col
+              >
+              <el-col :span="12"
+                >{{ $t('message.pages.order.invoice.cardNumber') }}: <span class="info">{{ invoiceDetails.card_number }}</span></el-col
+              >
+            </el-row>
+            <el-row class="row">
+              <el-col :span="12">{{ $t('message.pages.order.invoice.companyAddress') }}: {{ invoiceDetails.address }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.companyPhone') }}: {{ invoiceDetails.tell }}</el-col>
             </el-row>
           </div>
           <div class="list">
-            <div class="title row">联系信息</div>
+            <div class="title row">{{ $t('message.pages.order.invoice.contactInfo') }}</div>
             <el-row class="row">
-              <el-col :span="12">真实姓名: {{ invoiceDetails.real_name }}</el-col>
-              <el-col :span="12">联系电话: {{ invoiceDetails.user_phone }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.realNameLabel') }}: {{ invoiceDetails.real_name }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.contactPhone') }}: {{ invoiceDetails.user_phone }}</el-col>
             </el-row>
             <el-row class="row">
-              <el-col :span="12">联系邮箱: {{ invoiceDetails.email }}</el-col>
+              <el-col :span="12">{{ $t('message.pages.order.invoice.contactEmail') }}: {{ invoiceDetails.email }}</el-col>
             </el-row>
           </div>
         </div>
-        <el-form-item label="开票状态：" style="margin-top: 14px">
+        <el-form-item :label="$t('message.pages.order.invoice.invoiceStatusLabel')" style="margin-top: 14px">
           <el-radio-group v-model="formInline.is_invoice" @input="kaiInvoice(formInline.is_invoice)">
-            <el-radio :label="1">已开票</el-radio>
-            <el-radio :label="0">未开票</el-radio>
+            <el-radio :label="1">{{ $t('message.pages.order.invoice.invoiced') }}</el-radio>
+            <el-radio :label="0">{{ $t('message.pages.order.invoice.notInvoiced') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="发票编号：" v-if="formInline.is_invoice === 1">
-          <el-input v-model="formInline.invoice_number" placeholder="请输入发票编号"></el-input>
+        <el-form-item :label="$t('message.pages.order.invoice.invoiceNumber')" v-if="formInline.is_invoice === 1">
+          <el-input v-model="formInline.invoice_number" :placeholder="$t('message.pages.order.invoice.inputInvoiceNumber')"></el-input>
         </el-form-item>
-        <el-form-item label="发票备注：" v-if="formInline.is_invoice === 1">
+        <el-form-item :label="$t('message.pages.order.invoice.invoiceRemark')" v-if="formInline.is_invoice === 1">
           <el-input
             v-model="formInline.remark"
-            value="备注"
+            :value="$t('message.pages.order.invoice.remark')"
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 5 }"
-            placeholder="请输入发票备注"
+            :placeholder="$t('message.pages.order.invoice.inputInvoiceRemark')"
           ></el-input>
         </el-form-item>
         <div class="acea-row row-right">
-          <el-button type="primary" v-db-click @click="handleSubmit()">确定</el-button>
+          <el-button type="primary" v-db-click @click="handleSubmit()">{{ $t('message.pages.order.invoice.confirm') }}</el-button>
         </div>
       </el-form>
     </el-dialog>
-    <el-dialog :visible.sync="orderShow" title="订单详情" class="order_box" width="720px">
+    <el-dialog :visible.sync="orderShow" :title="$t('message.pages.order.invoice.orderDetail')" class="order_box" width="720px">
       <orderDetall :orderId="orderId" @detall="detall" v-if="orderShow"></orderDetall>
     </el-dialog>
     <el-dialog
       :visible.sync="invoiceModalShow"
-      title="发票信息"
+      :title="$t('message.pages.order.invoice.invoiceInfo')"
       append-to-body
       :close-on-click-modal="false"
       width="1320px"
@@ -354,10 +354,9 @@ export default {
 
   methods: {
     openNegative(row) {
-      // 弹窗确认
-      this.$confirm('确定开具负数发票？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('message.pages.order.invoice.confirmNegativeTitle'), this.$t('message.pages.order.invoice.tip'), {
+        confirmButtonText: this.$t('message.pages.order.invoice.confirm'),
+        cancelButtonText: this.$t('message.pages.order.invoice.cancel'),
         type: 'warning',
       }).then(() => {
         redInvoiceIssuance(row.invoice_id).then((res) => {
@@ -426,7 +425,7 @@ export default {
     },
     handleSubmit() {
       if (this.formInline.is_invoice === 1) {
-        if (this.formInline.invoice_number.trim() === '') return this.$message.error('请填写发票编号');
+        if (this.formInline.invoice_number.trim() === '') return this.$message.error(this.$t('message.pages.order.invoice.errFillInvoiceNumber'));
       }
       orderInvoiceSet(this.invoiceDetails.invoice_id, this.formInline)
         .then((res) => {

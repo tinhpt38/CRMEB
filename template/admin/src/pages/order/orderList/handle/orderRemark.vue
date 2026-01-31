@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modals" title="请修改内容" class="order_box" :show-close="true" width="540px">
+  <el-dialog :visible.sync="modals" :title="$t('message.pages.order.remark.title')" class="order_box" :show-close="true" width="540px">
     <el-form
       ref="formValidate"
       :model="formValidate"
@@ -8,20 +8,20 @@
       label-position="right"
       @submit.native.prevent
     >
-      <el-form-item label="备注：" prop="remark">
+      <el-form-item :label="$t('message.pages.order.remark.remark')" prop="remark">
         <el-input
           v-model="formValidate.remark"
           :maxlength="200"
           show-word-limit
           type="textarea"
-          placeholder="订单备注"
+          :placeholder="$t('message.pages.order.remark.orderRemarkPlaceholder')"
           style="width: 414px"
         />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="cancel('formValidate')">取消</el-button>
-      <el-button type="primary" v-db-click @click="putRemark('formValidate')">提交</el-button>
+      <el-button v-db-click @click="cancel('formValidate')">{{ $t('message.pages.order.remark.cancel') }}</el-button>
+      <el-button type="primary" v-db-click @click="putRemark('formValidate')">{{ $t('message.pages.order.remark.submit') }}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -38,8 +38,7 @@ export default {
       modals: false,
       ruleValidate: {
         remark: [
-          { required: true, message: '请输入备注信息', trigger: 'blur' },
-          // { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
+          { required: true, message: this.$t('message.pages.order.remark.errRemarkRequired'), trigger: 'blur' },
         ],
       },
     };
@@ -74,7 +73,7 @@ export default {
               this.$message.error(res.msg);
             });
         } else {
-          this.$message.warning('请填写备注信息');
+          this.$message.warning(this.$t('message.pages.order.remark.msgRemarkRequired'));
         }
       });
     },

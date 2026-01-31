@@ -9,28 +9,28 @@
         inline
         @submit.native.prevent
       >
-        <el-form-item label="订单类型：">
-          <el-select v-model="orderData.status" clearable @change="selectChange2" placeholder="全部">
-            <el-option label="全部订单" value="" />
-            <el-option label="普通订单" value="1" />
-            <el-option v-permission="'combination'" label="拼团订单" value="2" />
-            <el-option v-permission="'seckill'" label="秒杀订单" value="3" />
-            <el-option v-permission="'bargain'" label="砍价订单" value="4" />
-            <el-option label="预售订单" value="5" />
+        <el-form-item :label="$t('message.pages.order.list.orderType')">
+          <el-select v-model="orderData.status" clearable @change="selectChange2" :placeholder="$t('message.pages.order.list.all')">
+            <el-option :label="$t('message.pages.order.list.allOrders')" value="" />
+            <el-option :label="$t('message.pages.order.list.normalOrder')" value="1" />
+            <el-option v-permission="'combination'" :label="$t('message.pages.order.list.groupOrder')" value="2" />
+            <el-option v-permission="'seckill'" :label="$t('message.pages.order.list.seckillOrder')" value="3" />
+            <el-option v-permission="'bargain'" :label="$t('message.pages.order.list.bargainOrder')" value="4" />
+            <el-option :label="$t('message.pages.order.list.advanceOrder')" value="5" />
           </el-select>
         </el-form-item>
-        <el-form-item label="支付方式：">
+        <el-form-item :label="$t('message.pages.order.list.payType')">
           <el-select
             v-model="orderData.pay_type"
             clearable
             @change="userSearchs"
-            placeholder="全部"
+            :placeholder="$t('message.pages.order.list.all')"
             class="form_content_width"
           >
             <el-option v-for="item in payList" :value="item.val" :label="item.label" :key="item.id" />
           </el-select>
         </el-form-item>
-        <el-form-item label="创建时间：">
+        <el-form-item :label="$t('message.pages.order.list.createTime')">
           <el-date-picker
             clearable
             v-model="timeVal"
@@ -38,27 +38,27 @@
             @change="onchangeTime"
             format="yyyy/MM/dd"
             value-format="yyyy/MM/dd"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
+            :start-placeholder="$t('message.pages.order.list.startDate')"
+            :end-placeholder="$t('message.pages.order.list.endDate')"
             :picker-options="pickerOptions"
             style="width: 250px"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="订单搜索：" prop="real_name" label-for="real_name">
-          <el-input clearable v-model="orderData.real_name" placeholder="请输入" class="form_content_width">
+        <el-form-item :label="$t('message.pages.order.list.orderSearch')" prop="real_name" label-for="real_name">
+          <el-input clearable v-model="orderData.real_name" :placeholder="$t('message.pages.order.list.placeholder')" class="form_content_width">
             <el-select v-model="orderData.field_key" slot="prepend" style="width: 100px">
-              <el-option value="all" label="全部"></el-option>
-              <el-option value="order_id" label="订单号"></el-option>
-              <el-option value="uid" label="UID"></el-option>
-              <el-option value="real_name" label="用户姓名"></el-option>
-              <el-option value="user_phone" label="用户电话"></el-option>
-              <el-option value="title" label="商品名称"></el-option>
+              <el-option value="all" :label="$t('message.pages.order.list.all')"></el-option>
+              <el-option value="order_id" :label="$t('message.pages.order.list.orderId')"></el-option>
+              <el-option value="uid" :label="$t('message.pages.order.list.uid')"></el-option>
+              <el-option value="real_name" :label="$t('message.pages.order.list.userName')"></el-option>
+              <el-option value="user_phone" :label="$t('message.pages.order.list.userPhone')"></el-option>
+              <el-option value="title" :label="$t('message.pages.order.list.productName')"></el-option>
             </el-select>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="orderSearch">查询</el-button>
-          <el-button v-db-click @click="handleReset">重置</el-button>
+          <el-button type="primary" v-db-click @click="orderSearch">{{ $t('message.pages.order.list.query') }}</el-button>
+          <el-button v-db-click @click="handleReset">{{ $t('message.pages.order.list.reset') }}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -75,16 +75,16 @@ export default {
   data() {
     return {
       fromList: {
-        title: '选择时间',
+        title: this.$t('message.pages.order.list.selectTime'),
         custom: true,
         fromTxt: [
-          { text: '全部', val: '' },
-          { text: '今天', val: 'today' },
-          { text: '昨天', val: 'yesterday' },
-          { text: '最近7天', val: 'lately7' },
-          { text: '最近30天', val: 'lately30' },
-          { text: '本月', val: 'month' },
-          { text: '本年', val: 'year' },
+          { text: this.$t('message.pages.order.list.all'), val: '' },
+          { text: this.$t('message.pages.order.list.today'), val: 'today' },
+          { text: this.$t('message.pages.order.list.yesterday'), val: 'yesterday' },
+          { text: this.$t('message.pages.order.list.lately7'), val: 'lately7' },
+          { text: this.$t('message.pages.order.list.lately30'), val: 'lately30' },
+          { text: this.$t('message.pages.order.list.month'), val: 'month' },
+          { text: this.$t('message.pages.order.list.year'), val: 'year' },
         ],
       },
       currentTab: '',
@@ -111,11 +111,11 @@ export default {
       modals2: false,
       timeVal: [],
       payList: [
-        { label: '全部', val: '' },
-        { label: '微信支付', val: '1' },
-        { label: '支付宝支付', val: '4' },
-        { label: '余额支付', val: '2' },
-        { label: '线下支付', val: '3' },
+        { label: this.$t('message.pages.order.list.all'), val: '' },
+        { label: this.$t('message.pages.order.list.wechatPay'), val: '1' },
+        { label: this.$t('message.pages.order.list.alipayPay'), val: '4' },
+        { label: this.$t('message.pages.order.list.balancePay'), val: '2' },
+        { label: this.$t('message.pages.order.list.offlinePay'), val: '3' },
       ],
       pickerOptions: timeOptions,
     };
@@ -269,14 +269,12 @@ export default {
     // 批量删除
     delAll() {
       if (this.delIdList.length === 0) {
-        this.$message.error('请先选择删除的订单！');
+        this.$message.error(this.$t('message.pages.order.list.msgSelectOrder'));
       } else {
         if (this.isDels) {
-          let idss = {
-            ids: this.delIdList,
-          };
+          let idss = { ids: this.delIdList };
           let delfromData = {
-            title: '删除订单',
+            title: this.$t('message.pages.order.list.delOrderTitle'),
             url: `/order/dels`,
             method: 'post',
             ids: idss,
@@ -290,7 +288,7 @@ export default {
               this.$message.error(res.msg);
             });
         } else {
-          this.$message.error('您选择的的订单存在用户未删除的订单，无法删除用户未删除的订单！');
+          this.$message.error(this.$t('message.pages.order.list.msgUserNotDel'));
         }
       }
     },

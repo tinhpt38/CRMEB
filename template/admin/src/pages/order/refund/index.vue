@@ -10,20 +10,20 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="退款状态：">
+          <el-form-item :label="$t('message.pages.order.refundList.refundStatus')">
             <el-select
               v-model="pagination.refund_type"
               clearable
               class="form_content_width"
               @change="selectChange2"
-              placeholder="全部"
+              :placeholder="$t('message.pages.order.refundList.all')"
             >
-              <el-option v-for="(item, index) in num" :value="index" :key="index" :label="item.name">{{
-                item.name
+              <el-option v-for="(item, index) in num" :value="index" :key="index" :label="getRefundStatusFilterLabel(index)">{{
+                getRefundStatusFilterLabel(index)
               }}</el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="退款时间：">
+          <el-form-item :label="$t('message.pages.order.refundList.refundTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -32,18 +32,18 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.order.refundList.startDate')"
+              :end-placeholder="$t('message.pages.order.refundList.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="订单搜索：" label-for="title">
-            <el-input clearable v-model="pagination.order_id" placeholder="请输入订单号" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.order.refundList.orderSearch')" label-for="title">
+            <el-input clearable v-model="pagination.order_id" :placeholder="$t('message.pages.order.refundList.inputOrderNo')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="orderSearch">查询</el-button>
+            <el-button type="primary" v-db-click @click="orderSearch">{{ $t('message.pages.order.refundList.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -54,10 +54,10 @@
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.order.refundList.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.order.refundList.noFilterResult')"
       >
-        <el-table-column label="退款订单号" min-width="150">
+        <el-table-column :label="$t('message.pages.order.refundList.refundOrderNo')" min-width="150">
           <template slot-scope="scope">
             <span
               class="cup hover-pimary"
@@ -65,10 +65,10 @@
               style="display: block"
               @click="changeMenu(scope.row, '2')"
             ></span>
-            <span v-if="scope.row.is_del === 1" style="color: #ed4014; display: block">用户已删除</span>
+            <span v-if="scope.row.is_del === 1" style="color: #ed4014; display: block">{{ $t('message.pages.order.list.userDeleted') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="原订单号" min-width="150">
+        <el-table-column :label="$t('message.pages.order.refundList.originalOrderNo')" min-width="150">
           <template slot-scope="scope">
             <span
               class="cup hover-pimary"
@@ -78,7 +78,7 @@
             ></span>
           </template>
         </el-table-column>
-        <el-table-column label="商品信息" min-width="250">
+        <el-table-column :label="$t('message.pages.order.refundList.goodsInfo')" min-width="250">
           <template slot-scope="scope">
             <div class="tab" v-for="(item, i) in scope.row._info" :key="i">
               <img
@@ -91,21 +91,21 @@
               <el-tooltip placement="top" :open-delay="300">
                 <div slot="content">
                   <div>
-                    <span>商品名称：</span>
+                    <span>{{ $t('message.pages.order.refundList.productName') }}</span>
                     <span>{{ item.cart_info.productInfo.store_name || '--' }}</span>
                   </div>
                   <div>
-                    <span>规格名称：</span>
+                    <span>{{ $t('message.pages.order.refundList.specName') }}</span>
                     <span>{{
                       item.cart_info.productInfo.attrInfo ? item.cart_info.productInfo.attrInfo.suk : '---'
                     }}</span>
                   </div>
                   <div>
-                    <span>价格：</span>
+                    <span>{{ $t('message.pages.order.refundList.price') }}</span>
                     <span>¥{{ item.cart_info.truePrice || '--' }}</span>
                   </div>
                   <div>
-                    <span>数量：</span>
+                    <span>{{ $t('message.pages.order.refundList.num') }}</span>
                     <span>{{ item.cart_info.cart_num || '--' }}</span>
                   </div>
                 </div>
@@ -114,43 +114,43 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="用户信息" min-width="100">
+        <el-table-column :label="$t('message.pages.order.refundList.userInfo')" min-width="100">
           <template slot-scope="scope">
             <span class="cup hover-pimary" @click="userDetail(scope.row, '2')">{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="实际支付" min-width="70">
+        <el-table-column :label="$t('message.pages.order.refundList.actualPay')" min-width="70">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="发起退款时间" min-width="120">
+        <el-table-column :label="$t('message.pages.order.refundList.refundStartTime')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="退款状态" min-width="100">
+        <el-table-column :label="$t('message.pages.order.refundList.refundStatusCol')" min-width="100">
           <template slot-scope="scope">
-            <div v-if="scope.row.refund_type == 1">仅退款</div>
-            <div v-else-if="scope.row.refund_type == 2">退货退款</div>
+            <div v-if="scope.row.refund_type == 1">{{ $t('message.pages.order.refundList.refundOnly') }}</div>
+            <div v-else-if="scope.row.refund_type == 2">{{ $t('message.pages.order.refundList.returnRefund') }}</div>
             <div v-else-if="scope.row.refund_type == 3">
-              <div>拒绝退款</div>
-              <div class="c-red">原因：{{ scope.row.refuse_reason }}</div>
+              <div>{{ $t('message.pages.order.refundList.refuseRefund') }}</div>
+              <div class="c-red">{{ $t('message.pages.order.refundList.reason') }}{{ scope.row.refuse_reason }}</div>
             </div>
-            <div v-else-if="scope.row.refund_type == 4">商品待退货</div>
+            <div v-else-if="scope.row.refund_type == 4">{{ $t('message.pages.order.refundList.goodsToReturn') }}</div>
             <div v-else-if="scope.row.refund_type == 5">
-              <div>退货待收货</div>
-              <div>单号：{{ scope.row.refund_express }}</div>
+              <div>{{ $t('message.pages.order.refundList.returnToReceive') }}</div>
+              <div>{{ $t('message.pages.order.refundList.expressNo') }}{{ scope.row.refund_express }}</div>
             </div>
-            <div v-else-if="scope.row.refund_type == 6">已退款</div>
+            <div v-else-if="scope.row.refund_type == 6">{{ $t('message.pages.order.refundList.refunded') }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="订单状态" min-width="120">
+        <el-table-column :label="$t('message.pages.order.refundList.orderStatus')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.store_order_status }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="退款信息" min-width="120">
+        <el-table-column :label="$t('message.pages.order.refundList.refundInfo')" min-width="120">
           <template slot-scope="scope">
             <div v-html="scope.row.refund_reason" class="pt5"></div>
             <div class="pictrue-box" v-if="scope.row.refund_img.length">
@@ -160,18 +160,18 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="80">
+        <el-table-column fixed="right" :label="$t('message.pages.order.refundList.action')" width="80">
           <template slot-scope="scope">
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)">
-              <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">{{ $t('message.pages.order.refundList.more') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   command="1"
                   ref="ones"
                   v-show="scope.row._status === 1 && scope.row.paid === 0 && scope.row.pay_type === 'offline'"
-                  >立即支付</el-dropdown-item
+                  >{{ $t('message.pages.order.refundList.payNow') }}</el-dropdown-item
                 >
-                <el-dropdown-item command="2">订单详情</el-dropdown-item>
+                <el-dropdown-item command="2">{{ $t('message.pages.order.refundList.orderDetail') }}</el-dropdown-item>
                 <el-dropdown-item
                   command="4"
                   v-show="
@@ -180,7 +180,7 @@
                       scope.row.use_integral > 0 &&
                       scope.row.use_integral >= scope.row.back_integral)
                   "
-                  >售后备注</el-dropdown-item
+                  >{{ $t('message.pages.order.refundList.afterSaleRemark') }}</el-dropdown-item
                 >
                 <el-dropdown-item
                   command="5"
@@ -188,14 +188,14 @@
                     [1, 2, 5].includes(scope.row.refund_type) &&
                     (parseFloat(scope.row.pay_price) > parseFloat(scope.row.refunded_price) || scope.row.pay_price == 0)
                   "
-                  >{{ scope.row.refund_type == 2 ? '同意退货' : '立即退款' }}</el-dropdown-item
+                  >{{ scope.row.refund_type == 2 ? $t('message.pages.order.refundList.agreeReturn') : $t('message.pages.order.refundList.refundNow') }}</el-dropdown-item
                 >
                 <el-dropdown-item
                   command="7"
                   v-show="[1, 2].includes(scope.row.refund_type) && scope.row.is_pink_cancel === 0"
-                  >不退款</el-dropdown-item
+                  >{{ $t('message.pages.order.refundList.noRefund') }}</el-dropdown-item
                 >
-                <el-dropdown-item command="8" v-show="scope.row.is_del == 1">删除订单</el-dropdown-item>
+                <el-dropdown-item command="8" v-show="scope.row.is_del == 1">{{ $t('message.pages.order.refundList.delOrder') }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -308,7 +308,7 @@ export default {
       switch (name) {
         case '1':
           this.delfromData = {
-            title: '修改立即支付',
+            title: this.$t('message.pages.order.refundList.modifyPayTitle'),
             url: `/order/pay_offline/${row.id}`,
             method: 'post',
             ids: '',
@@ -344,7 +344,7 @@ export default {
           break;
         case '8':
           this.delfromData = {
-            title: '删除订单',
+            title: this.$t('message.pages.order.refundList.delOrderTitle'),
             url: `/order/del/${row.store_order_id}`,
             method: 'DELETE',
             ids: '',
@@ -353,8 +353,8 @@ export default {
           break;
         case '10':
           this.delfromData = {
-            title: '立即打印订单',
-            info: '您确认打印此订单吗?',
+            title: this.$t('message.pages.order.refundList.printOrderTitle'),
+            info: this.$t('message.pages.order.refundList.printOrderConfirm'),
             url: `/order/print/${row.id}`,
             method: 'get',
             ids: '',
@@ -371,8 +371,8 @@ export default {
           break;
         case '11':
           this.delfromData = {
-            title: '立即打印电子面单',
-            info: '您确认打印此电子面单吗?',
+            title: this.$t('message.pages.order.refundList.printExpressTitle'),
+            info: this.$t('message.pages.order.refundList.printExpressConfirm'),
             url: `/order/order_dump/${row.id}`,
             method: 'get',
             ids: '',
@@ -388,7 +388,7 @@ export default {
           break;
         default:
           this.delfromData = {
-            title: '删除订单',
+            title: this.$t('message.pages.order.refundList.delOrderTitle'),
             url: `/order/del/${row.id}`,
             method: 'DELETE',
             ids: '',
@@ -401,7 +401,7 @@ export default {
     getRefundData(id, refund_type) {
       if (refund_type == 2) {
         this.delfromData = {
-          title: '同意退货退款',
+          title: this.$t('message.pages.order.refundList.agreeReturnRefundTitle'),
           url: `/refund/agree/${id}`,
           method: 'get',
         };
@@ -469,12 +469,17 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$message.error('您选择的的订单存在用户未删除的订单，无法删除用户未删除的订单！');
+        this.$message.error(this.$t('message.pages.order.refundList.msgUserNotDel'));
       }
     },
     // 修改成功
     submitFail() {
       this.getOrderList();
+    },
+    // 退款状态下拉选项文案（i18n）
+    getRefundStatusFilterLabel(index) {
+      const keys = ['all', 'refundOnly', 'returnRefund', 'refuseRefund', 'goodsToReturn', 'returnToReceive', 'refunded'];
+      return this.$t('message.pages.order.refundList.' + (keys[index] || 'all'));
     },
     // 订单选择状态
     selectChange2(tab) {

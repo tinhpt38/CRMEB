@@ -1016,6 +1016,18 @@ class SystemConfigServices extends BaseServices
         $service = app()->make(SystemConfigTabServices::class);
         $title = $service->value(['id' => $tabId], 'title');
         $list = $this->dao->getConfigTabAllList($tabId);
+        // 订单配置 tab 113 及子 tab 表单项多语言（header cb-lang）
+        $orderConfigTabIds = [113, 114, 115, 116, 117, 119, 120];
+        if (in_array($tabId, $orderConfigTabIds, true)) {
+            foreach ($list as &$item) {
+                $key = 'order_config_' . ($item['menu_name'] ?? '');
+                $t = get_admin_form_lang($key);
+                if ($t !== '' && $t !== $key) {
+                    $item['info'] = $t;
+                }
+            }
+            unset($item);
+        }
         $formbuider = $this->createForm($list);
         $name = 'setting';
         if ($url) {

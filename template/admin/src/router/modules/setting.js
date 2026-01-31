@@ -755,6 +755,7 @@ export default {
       meta: {
         ...meta,
         title: '订单配置',
+        titleKey: 'message.pages.setting.orderConfigTitle',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },

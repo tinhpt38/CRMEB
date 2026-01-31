@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     :visible.sync="modals"
-    title="订单退款"
+    :title="$t('message.pages.order.refund.title')"
     class="order_box"
     :show-close="true"
     width="1000px"
@@ -15,18 +15,18 @@
       label-width="100px"
       @submit.native.prevent
     >
-      <el-form-item label="订单号：">
-        <el-input v-model="order_id" disabled placeholder="请输入订单号" style="width: 60%"></el-input>
+      <el-form-item :label="$t('message.pages.order.refund.orderNo')">
+        <el-input v-model="order_id" disabled :placeholder="$t('message.pages.order.refund.inputOrderNo')" style="width: 60%"></el-input>
       </el-form-item>
-      <el-form-item label="退款金额：">
+      <el-form-item :label="$t('message.pages.order.refund.refundAmount')">
         <el-input-number
           v-model="formItem.refund_price"
-          placeholder="请输入退款金额"
+          :placeholder="$t('message.pages.order.refund.inputRefundAmount')"
           style="width: 60%"
         ></el-input-number>
       </el-form-item>
       <div v-if="total_num > 1">
-        <el-form-item label="分单退款：">
+        <el-form-item :label="$t('message.pages.order.refund.splitRefund')">
           <el-switch
             :active-value="1"
             :inactive-value="0"
@@ -35,11 +35,11 @@
             :disabled="orderStatus === 8 || orderStatus === 11"
             @change="changeSplitStatus"
           >
-            <span slot="open">开启</span>
-            <span slot="close">关闭</span>
+            <span slot="open">{{ $t('message.pages.order.refund.on') }}</span>
+            <span slot="close">{{ $t('message.pages.order.refund.off') }}</span>
           </el-switch>
           <div class="trips">
-            <p>可选择表格中的商品单独退款，请谨慎操作！</p>
+            <p>{{ $t('message.pages.order.refund.splitRefundTip') }}</p>
           </div>
           <el-table
             v-if="splitSwitch && manyFormValidate.length"
@@ -48,7 +48,7 @@
             @selection-change="selectOne"
           >
             <el-table-column type="selection" width="55"> </el-table-column>
-            <el-table-column label="商品信息" width="200">
+            <el-table-column :label="$t('message.pages.order.refund.goodsInfo')" width="200">
               <template slot-scope="scope">
                 <div class="product-data">
                   <img class="image" :src="scope.row.cart_info.productInfo.image" />
@@ -58,24 +58,24 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="规格" min-width="120">
+            <el-table-column :label="$t('message.pages.order.refund.spec')" min-width="120">
               <template slot-scope="scope">
                 <div>{{ scope.row.cart_info.productInfo.attrInfo.suk }}</div>
               </template>
             </el-table-column>
-            <el-table-column label="价格" min-width="120">
+            <el-table-column :label="$t('message.pages.order.refund.price')" min-width="120">
               <template slot-scope="scope">
                 <div class="product-data">
                   <div>{{ scope.row.cart_info.truePrice }}</div>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="总数" min-width="120">
+            <el-table-column :label="$t('message.pages.order.refund.total')" min-width="120">
               <template slot-scope="scope">
                 <div>{{ scope.row.cart_num }}</div>
               </template>
             </el-table-column>
-            <el-table-column label="退款数量" width="180">
+            <el-table-column :label="$t('message.pages.order.refund.refundNum')" width="180">
               <template slot-scope="scope">
                 <el-input-number
                   v-model="scope.row.num"
@@ -95,8 +95,8 @@
       </div>
     </el-form>
     <div slot="footer">
-      <el-button v-db-click @click="cancel">取消</el-button>
-      <el-button type="primary" v-db-click @click="putSend">提交</el-button>
+      <el-button v-db-click @click="cancel">{{ $t('message.pages.order.refund.cancel') }}</el-button>
+      <el-button type="primary" v-db-click @click="putSend">{{ $t('message.pages.order.refund.submit') }}</el-button>
     </div>
     <!-- <viewer @inited="inited">
             <img :src="temp.pic" style="display:none" />
@@ -218,7 +218,7 @@ export default {
         });
       }
       if (!splitNumStatus) {
-        return this.$message.error('请选择退款数量');
+        return this.$message.error(this.$t('message.pages.order.refund.msgSelectRefundNum'));
       }
       refundPrice(this.orderId, this.formItem)
         .then((res) => {
