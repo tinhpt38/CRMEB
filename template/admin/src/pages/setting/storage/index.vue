@@ -5,9 +5,9 @@
         <div class="">
           <el-tabs v-model="currentTab" @tab-click="changeTab">
             <el-tab-pane
-              :label="item.label"
+              :label="$t('message.tabs.storage.' + item.key)"
               :name="item.value.toString()"
-              v-for="(item, index) in headerList"
+              v-for="(item, index) in headerListKeys"
               :key="index"
             />
           </el-tabs>
@@ -530,15 +530,14 @@ export default {
       ruleValidate: {},
       configuModal: false,
       configData: '',
-      headerList: [
-        { label: '储存配置', value: '1' },
-        { label: '七牛云储存', value: '2' },
-        { label: '阿里云储存', value: '3' },
-        { label: '腾讯云储存', value: '4' },
-        { label: '京东云储存', value: '5' },
-        { label: '华为云储存', value: '6' },
-        { label: '天翼云储存', value: '7' },
-        // { label: "缩略图配置", value: "10" },
+      headerListKeys: [
+        { key: 'config', value: '1' },
+        { key: 'qiniu', value: '2' },
+        { key: 'aliyun', value: '3' },
+        { key: 'tencent', value: '4' },
+        { key: 'jd', value: '5' },
+        { key: 'huawei', value: '6' },
+        { key: 'tianyi', value: '7' },
       ],
 
       total: 0,

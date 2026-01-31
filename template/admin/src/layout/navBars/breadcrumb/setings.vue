@@ -1,7 +1,7 @@
 <template>
   <div class="layout-breadcrumb-seting">
     <el-drawer
-      title="主题编辑"
+      :title="$t('message.layout.configTitle')"
       :visible.sync="getThemeConfig.isDrawer"
       direction="rtl"
       destroy-on-close
@@ -75,6 +75,25 @@
             </section>
           </div>
         </div>
+        <!-- 语言切换 -->
+        <el-divider :content-position="contentPosotion">{{ $t('message.user.title1') }}</el-divider>
+        <div class="layout-breadcrumb-seting-bar-flex mb10">
+          <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.user.title1') }}</div>
+          <div class="layout-breadcrumb-seting-bar-flex-value">
+            <el-select
+              v-model="getThemeConfig.globalI18n"
+              :placeholder="$t('message.common.pleaseSelect')"
+              size="mini"
+              style="width: 120px"
+              @change="onLanguageChange"
+            >
+              <el-option label="简体中文" value="zh-cn"></el-option>
+              <el-option label="English" value="en"></el-option>
+              <el-option label="繁體中文" value="zh-tw"></el-option>
+              <el-option label="Tiếng Việt" value="vi-vn"></el-option>
+            </el-select>
+          </div>
+        </div>
         <!-- 界面设置 -->
         <el-divider :content-position="contentPosotion">{{ $t('message.layout.threeTitle') }}</el-divider>
         <div class="layout-breadcrumb-seting-bar-flex mb10">
@@ -82,7 +101,7 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-select
               v-model="getThemeConfig.themeStyle"
-              placeholder="请选择"
+              :placeholder="$t('message.common.pleaseSelect')"
               size="mini"
               style="width: 90px"
               @change="setLocalTheme"
@@ -244,6 +263,7 @@
 import ClipboardJS from 'clipboard';
 import { Local } from '@/utils/storage.js';
 import { useChangeColor } from '@/utils/theme.js';
+import { localeToHtmlLang } from '@/i18n/index.js';
 import config from '../../../../package.json';
 import { themeList } from './theme';
 export default {
@@ -275,6 +295,14 @@ export default {
     this.initLayoutConfig();
   },
   methods: {
+    // 语言切换
+    onLanguageChange(lang) {
+      Local.remove('themeConfigPrev');
+      this.$store.state.themeConfig.themeConfig.globalI18n = lang;
+      Local.set('themeConfigPrev', this.$store.state.themeConfig.themeConfig);
+      this.$i18n.locale = lang;
+      document.documentElement.lang = localeToHtmlLang(lang);
+    },
     // 全局主题
     onColorPickerChange() {
       // if (!this.getThemeConfig.primary) return;

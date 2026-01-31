@@ -4,9 +4,9 @@
       <div>
         <el-tabs v-model="currentTab" @tab-click="changeTab">
           <el-tab-pane
-            :label="item.label"
+            :label="$t('message.tabs.agreement.' + item.key)"
             :name="item.value.toString()"
-            v-for="(item, index) in headerList"
+            v-for="(item, index) in headerListKeys"
             :key="index"
           />
         </el-tabs>
@@ -31,7 +31,7 @@
 
     <el-card :bordered="false" shadow="never" class="fixed-card" :style="{ left: `${fixBottomWidth}` }">
       <div class="acea-row row-center">
-        <el-button class="bnt" type="primary" v-db-click @click="save" :loading="loadingExist">保存</el-button>
+        <el-button class="bnt" type="primary" v-db-click @click="save" :loading="loadingExist">{{ $t('message.common.save') }}</el-button>
       </div>
     </el-card>
   </div>
@@ -48,14 +48,14 @@ export default {
     return {
       loadingExist: false,
       currentTab: '1',
-      headerList: [
-        { label: '付费会员协议', value: '1' },
-        { label: '代理商协议', value: '2' },
-        { label: '隐私协议', value: '3' },
-        { label: '用户协议', value: '4' },
-        { label: '注销协议', value: '5' },
-        { label: '积分协议', value: '6' },
-        { label: '分销协议', value: '8' },
+      headerListKeys: [
+        { key: 'vip', value: '1' },
+        { key: 'agent', value: '2' },
+        { key: 'privacy', value: '3' },
+        { key: 'user', value: '4' },
+        { key: 'cancel', value: '5' },
+        { key: 'point', value: '6' },
+        { key: 'distribution', value: '8' },
       ],
       ueConfig: {
         autoHeightEnabled: false,

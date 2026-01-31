@@ -4,9 +4,9 @@
       <div>
         <el-tabs v-model="currentTab" @tab-click="changeTab">
           <el-tab-pane
-            :label="item.label"
+            :label="$t('message.tabs.notification.' + item.key)"
             :name="item.value.toString()"
-            v-for="(item, index) in headerList"
+            v-for="(item, index) in headerListKeys"
             :key="index"
           />
         </el-tabs>
@@ -165,10 +165,10 @@ export default {
     return {
       modalTitle: '',
       notificationModal: false,
-      headerList: [
-        { label: '会员通知', value: '1' },
-        { label: '平台通知', value: '2' },
-        { label: '自定义通知', value: '3' },
+      headerListKeys: [
+        { key: 'member', value: '1' },
+        { key: 'platform', value: '2' },
+        { key: 'custom', value: '3' },
       ],
       levelLists: [],
       currentTab: '1',

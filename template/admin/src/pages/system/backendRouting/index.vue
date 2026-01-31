@@ -2,10 +2,10 @@
   <div>
     <div class="tabs">
       <el-tabs v-model="apiType">
-        <el-tab-pane label="管理端接口" name="adminapi"></el-tab-pane>
-        <el-tab-pane label="用户端接口" name="api"></el-tab-pane>
-        <el-tab-pane label="客服端接口" name="kefuapi"></el-tab-pane>
-        <el-tab-pane label="对外接口" name="outapi"></el-tab-pane>
+        <el-tab-pane :label="$t('message.tabs.backendRouting.adminapi')" name="adminapi"></el-tab-pane>
+        <el-tab-pane :label="$t('message.tabs.backendRouting.api')" name="api"></el-tab-pane>
+        <el-tab-pane :label="$t('message.tabs.backendRouting.kefuapi')" name="kefuapi"></el-tab-pane>
+        <el-tab-pane :label="$t('message.tabs.backendRouting.outapi')" name="outapi"></el-tab-pane>
       </el-tabs>
     </div>
     <div class="main" v-loading="winLoading">
@@ -13,9 +13,9 @@
         <div class="tree">
           <div class="main-btn">
             <el-button class="mb5" style="flex: 1" type="primary" v-db-click @click="clickMenu(4)" long
-              >新增分类</el-button
+              >{{ $t('message.common.addCategory') }}</el-button
             >
-            <el-button class="mb5 mr10" type="success" v-db-click @click="syncRoute()">同步</el-button>
+            <el-button class="mb5 mr10" type="success" v-db-click @click="syncRoute()">{{ $t('message.common.sync') }}</el-button>
           </div>
 
           <vue-tree-list
@@ -24,8 +24,8 @@
             @change-name="onChangeName"
             @delete-node="onDel"
             :model="treeData"
-            default-tree-node-name="默认文件夹"
-            default-leaf-node-name="默认接口名"
+            :default-tree-node-name="$t('message.common.defaultFolder')"
+            :default-leaf-node-name="$t('message.common.defaultApiName')"
             v-bind:default-expanded="false"
             :expand-only-one="true"
           >

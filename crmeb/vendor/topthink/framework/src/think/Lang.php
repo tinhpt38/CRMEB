@@ -26,7 +26,7 @@ class Lang
      */
     protected $config = [
         // 默认语言
-        'default_lang'    => 'zh-cn',
+        'default_lang'    => 'vi-VN',
         // 允许的语言列表
         'allow_lang_list' => [],
         // 是否使用Cookie记录
@@ -42,6 +42,7 @@ class Lang
         // Accept-Language转义为对应语言包名称
         'accept_language' => [
             'zh-hans-cn' => 'zh-cn',
+            'vi-hans-vn' => 'vi-vn',
         ],
         // 是否支持语言分组
         'allow_group'     => false,

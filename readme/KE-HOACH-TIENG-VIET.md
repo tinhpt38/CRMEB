@@ -38,7 +38,7 @@ Kế hoạch thực hiện theo từng giai đoạn, dựa trên tài liệu [DA
 
 | # | Công việc | Chi tiết | Trạng thái |
 |---|-----------|----------|------------|
-| 2.1 | Sửa tên ngôn ngữ trong DB | Trong `eb_lang_type`, sửa bản ghi id = 10: `language_name` từ `ViệtName` → **`Tiếng Việt`**. Có thể chạy SQL: `UPDATE eb_lang_type SET language_name = 'Tiếng Việt' WHERE id = 10;` hoặc qua Admin. | ☐ |
+| 2.1 | Sửa tên ngôn ngữ trong DB | Trong `eb_lang_type`, sửa bản ghi id = 10: `language_name` từ `ViệtName` → **`Tiếng Việt`**. Chạy file **`crmeb/public/install/patch_lang_type_vi.sql`** sau khi import crmeb.sql, hoặc qua Admin. | ☐ |
 | 2.2 | (Tùy chọn) Cấu hình .env | Nếu dùng ThinkPHP lang: trong `.env` đặt `[LANG] default_lang = vi-vn` (sau khi hoàn thành giai đoạn 6). | ☐ |
 
 **Kết quả:** Trong danh sách ngôn ngữ hiển thị "Tiếng Việt" thay vì "ViệtName".
@@ -51,11 +51,11 @@ Kế hoạch thực hiện theo từng giai đoạn, dựa trên tài liệu [DA
 
 | # | Công việc | Chi tiết | Trạng thái |
 |---|-----------|----------|------------|
-| 3.1 | Tạo file i18n tiếng Việt – framework | Tạo `template/admin/src/i18n/lang/vi-vn.js`. Copy từ `zh-cn.js`, dịch toàn bộ value sang tiếng Việt (router, user, staticRoutes, …). | ☐ |
-| 3.2 | Tạo file i18n tiếng Việt – pages | Tạo `template/admin/src/i18n/pages/home/vi-vn.js` và `template/admin/src/i18n/pages/login/vi-vn.js`. Copy từ zh-cn rồi dịch. | ☐ |
-| 3.3 | Đăng ký locale vi-vn | Trong `template/admin/src/i18n/index.js`: import các file vi-vn, thêm key `'vi-vn'` vào `messages`, cấu trúc giống `zh-cn`. Element UI: dùng tạm `zh-CN` hoặc thêm locale tiếng Việt nếu có. | ☐ |
-| 3.4 | Thêm lựa chọn ngôn ngữ trong Admin | Trong store/themeConfig (hoặc nơi lưu `globalI18n`): thêm option Tiếng Việt với value `vi-vn`. Đảm bảo dropdown/chọn ngôn ngữ có thể chọn vi-vn. | ☐ |
-| 3.5 | Build & kiểm thử | Chạy build admin, đổi ngôn ngữ sang Tiếng Việt, kiểm tra menu/trang home/login đã dịch. | ☐ |
+| 3.1 | Tạo file i18n tiếng Việt – framework | Tạo `template/admin/src/i18n/lang/vi-vn.js`. Copy từ `zh-cn.js`, dịch toàn bộ value sang tiếng Việt (router, user, staticRoutes, …). | ☑ |
+| 3.2 | Tạo file i18n tiếng Việt – pages | Tạo `template/admin/src/i18n/pages/home/vi-vn.js` và `template/admin/src/i18n/pages/login/vi-vn.js`. Copy từ zh-cn rồi dịch. | ☑ |
+| 3.3 | Đăng ký locale vi-vn | Trong `template/admin/src/i18n/index.js`: import các file vi-vn, thêm key `'vi-vn'` vào `messages`, cấu trúc giống `zh-cn`. Element UI: dùng tạm `enLocale`. | ☑ |
+| 3.4 | Thêm lựa chọn ngôn ngữ trong Admin | Trong drawer cấu hình (setings.vue): thêm dropdown "语言切换" với option Tiếng Việt (vi-vn). user.vue: thêm case `vi-vn` trong initI18n. | ☑ |
+| 3.5 | Build & kiểm thử | Chạy build admin, mở Cài đặt (icon bánh răng) → chọn "Tiếng Việt" trong "语言切换", kiểm tra menu/trang home đã dịch. | ☐ |
 
 **Kết quả:** Admin có locale vi-vn; người dùng chọn Tiếng Việt thì phần đã có trong vi-vn.js hiển thị tiếng Việt.
 
@@ -69,9 +69,9 @@ Kế hoạch thực hiện theo từng giai đoạn, dựa trên tài liệu [DA
 
 | # | Công việc | Chi tiết | Trạng thái |
 |---|-----------|----------|------------|
-| 4.1 | Chuẩn bị dữ liệu tiếng Việt cho config tab | Liệt kê các `id` và `title` hiện tại trong `eb_system_config_tab`. Soạn bản dịch tiếng Việt (vd: 基础配置 → Cấu hình cơ bản, 接口设置 → Cài đặt giao diện). | ☐ |
-| 4.2 | Cập nhật DB | Cách 1: Vào Admin → Cấu hình → Cấu hình phân loại, sửa từng "分类名称" (title) sang tiếng Việt. Cách 2: Viết file patch SQL với các `UPDATE eb_system_config_tab SET title = '...' WHERE id = ...;` và chạy sau khi cài. | ☐ |
-| 4.3 | Kiểm thử trang Cài đặt hệ thống | Mở trang Cài đặt hệ thống, xác nhận tab hiển thị tiếng Việt. | ☐ |
+| 4.1 | Chuẩn bị dữ liệu tiếng Việt cho config tab | Liệt kê các `id` và `title` hiện tại trong `eb_system_config_tab`. Soạn bản dịch tiếng Việt (vd: 基础配置 → Cấu hình cơ bản, 接口设置 → Cài đặt giao diện). | ☑ |
+| 4.2 | Cập nhật DB | File patch: **`crmeb/public/install/patch_system_config_tab_vi.sql`**. Chạy sau khi cài (MySQL): `mysql -u user -p database < patch_system_config_tab_vi.sql` hoặc qua Admin/phpMyAdmin. | ☑ |
+| 4.3 | Kiểm thử trang Cài đặt hệ thống | Mở trang Cài đặt hệ thống, xác nhận tab hiển thị tiếng Việt (sau khi chạy patch). | ☐ |
 
 ### 4B – Tab hardcode trong Vue
 
@@ -86,8 +86,8 @@ Kế hoạch thực hiện theo từng giai đoạn, dựa trên tài liệu [DA
 
 | # | Công việc | Chi tiết | Trạng thái |
 |---|-----------|----------|------------|
-| 4.8 | Thu thập title menu từ backend | Xem API/response trả về menu với `title` (chuỗi tiếng Trung). Liệt kê các giá trị title thường gặp. | ☐ |
-| 4.9 | Thêm bản dịch menu vào i18n | Trong vi-vn.js (và có thể zh-cn.js), thêm object map chuỗi tiếng Trung → tiếng Việt, ví dụ: `'配置分类': 'Phân loại cấu hình'`. Hoặc dùng key chuẩn nếu backend đổi trả về key. | ☐ |
+| 4.8 | Thu thập title menu từ backend | Xem API/response trả về menu với `title` (chuỗi tiếng Trung). Liệt kê các giá trị title thường gặp. | ☑ |
+| 4.9 | Thêm bản dịch menu vào i18n | Trong `vi-vn.js`: export `menuTitlesViVn` (map tiếng Trung → tiếng Việt). Trong `i18n/index.js`: merge `...menuTitlesViVn` vào locale `vi-vn` để `$t(val.title)` hiển thị tiếng Việt. | ☑ |
 | 4.10 | Kiểm thử menu | Đổi locale sang vi-vn, reload, kiểm tra menu trái hiển thị tiếng Việt. | ☐ |
 
 **Kết quả:** Tab (Cài đặt hệ thống + các trang hardcode) và menu sidebar hiển thị tiếng Việt khi chọn locale vi-vn (và với tab từ DB đã cập nhật title).

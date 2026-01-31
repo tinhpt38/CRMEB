@@ -91,7 +91,7 @@ Vue.component('Pagination', Pagination);
 Vue.component('pagesHeader', pagesHeader);
 
 // 配置第三方库
-moment.locale('zh-cn');
+moment.locale('vi');
 Vue.prototype.$moment = moment;
 
 VueClipboard.config.copyText = true;

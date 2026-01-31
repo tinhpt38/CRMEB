@@ -116,6 +116,36 @@ chmod -R 777 crmeb
 - Admin: `http://tên-miền/admin`  
 - Đăng nhập mặc định: **admin** / **crmeb.com**
 
+### Bước 5 (khi sửa code Admin): Build và đưa file lên
+
+Sau khi sửa mã nguồn **template/admin** (Vue), cần build rồi đưa file tĩnh vào đúng chỗ để trang **`/admin`** chạy đúng.
+
+**Đích copy:** Toàn bộ nội dung thư mục **`dist`** (sau khi build) phải nằm trong **`crmeb/public/admin`**.
+
+**Cách 1 – Dùng lệnh CRMEB (khuyến nghị):** Ở thư mục gốc **crmeb** (chứa `app/`, `public/`):
+
+```bash
+php think npm
+```
+
+Lệnh này sẽ: chạy `npm run build` trong template admin, rồi **copy** `template/admin/dist` → **`crmeb/public/admin`**.
+
+**Cách 2 – Build tay rồi copy:**
+
+```bash
+cd template/admin
+npm install
+npm run build
+```
+
+Sau đó **copy toàn bộ nội dung** của thư mục `template/admin/dist` vào **`crmeb/public/admin`** (ghi đè file cũ). Ví dụ:
+
+```bash
+cp -r template/admin/dist/* crmeb/public/admin/
+```
+
+**Lưu ý:** Trang Admin được phục vụ từ **`crmeb/public/admin`** (ví dụ `http://tên-miền/admin` → `public/admin/index.html`). Không đặt `dist` ở chỗ khác nếu muốn giữ đúng cấu trúc CRMEB.
+
 ---
 
 ## 4. Xử lý lỗi sql_mode (MySQL 5.7 / 8.0)
@@ -277,6 +307,7 @@ Trên Windows có thể cần chạy từng service theo tài liệu trong `read
 
 - **Đa ngôn ngữ / Tiếng Việt:** xem [DA-NGON-NGU-TIENG-VIET.md](DA-NGON-NGU-TIENG-VIET.md) – cơ chế đa ngôn ngữ trong DB và cách dùng/chuyển sang tiếng Việt.
 - **Kế hoạch làm việc tiếng Việt:** xem [KE-HOACH-TIENG-VIET.md](KE-HOACH-TIENG-VIET.md) – kế hoạch từng giai đoạn để chuyển hệ thống sang tiếng Việt.
+- **Hiển thị tiếng Việt trên Admin:** xem [HUONG-DAN-TIENG-VIET-ADMIN.md](HUONG-DAN-TIENG-VIET-ADMIN.md) – cách bật tiếng Việt và tìm các trang (Giao thức, Thông báo, Lưu trữ, Định tuyến API, Định thời, Tạo mã, Drawer cấu hình).
 - **Tài liệu chính:** https://doc.crmeb.com/single_open  
 - **Cài nhanh (một bước):** https://doc.crmeb.com/single_open/open_v54/20366  
 - **Cài tay:** https://doc.crmeb.com/single_open/open_v54/20389  

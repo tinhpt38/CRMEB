@@ -14,13 +14,16 @@ import store from '@/store/index.js';
 import nextZhcn from '@/i18n/lang/zh-cn.js';
 import nextEn from '@/i18n/lang/en.js';
 import nextZhtw from '@/i18n/lang/zh-tw.js';
+import nextViVn, { menuTitlesViVn } from '@/i18n/lang/vi-vn.js';
 
 import pagesHomeZhcn from '@/i18n/pages/home/zh-cn.js';
 import pagesHomeEn from '@/i18n/pages/home/en.js';
 import pagesHomeZhtw from '@/i18n/pages/home/zh-tw.js';
+import pagesHomeViVn from '@/i18n/pages/home/vi-vn.js';
 import pagesLoginZhcn from '@/i18n/pages/login/zh-cn.js';
 import pagesLoginEn from '@/i18n/pages/login/en.js';
 import pagesLoginZhtw from '@/i18n/pages/login/zh-tw.js';
+import pagesLoginViVn from '@/i18n/pages/login/vi-vn.js';
 // 使用插件
 Vue.use(VueI18n);
 
@@ -55,12 +58,30 @@ const messages = {
       ...pagesLoginZhtw,
     },
   },
+  'vi-vn': {
+    ...enLocale,
+    message: {
+      ...nextViVn,
+      ...pagesHomeViVn,
+      ...pagesLoginViVn,
+    },
+    // Bản dịch tên menu sidebar (backend trả về tiếng Trung → hiển thị tiếng Việt)
+    ...menuTitlesViVn,
+  },
 };
 
 // 导出语言国际化
 export const i18n = new VueI18n({
   locale: store.state.themeConfig.themeConfig.globalI18n,
-  fallbackLocale: 'zh-cn',
+  fallbackLocale: 'en',
   messages,
   silentTranslationWarn: true, // 去除国际化警告
 });
+
+/**
+ * i18n locale -> HTML lang (BCP 47)，trình duyệt nhận đúng ngôn ngữ trước，tránh Google tự dịch
+ */
+export function localeToHtmlLang(locale) {
+  const map = { en: 'en', 'zh-cn': 'zh-CN', 'zh-tw': 'zh-Hant', 'vi-vn': 'vi' };
+  return map[locale] || 'en';
+}

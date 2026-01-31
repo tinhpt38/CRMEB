@@ -10,9 +10,20 @@
 
 import request from '@/libs/request';
 import { getCookies } from '@/libs/util';
+import store from '@/store';
 
 /**
- * @description 设置 系统设置 应用设置头部
+ * 当前 Admin 语言 -> cb-lang header (vi-vn -> vi-VN 以匹配 eb_lang_type.file_name)
+ */
+function getCbLangHeader() {
+  const locale = store.state?.themeConfig?.themeConfig?.globalI18n || '';
+  if (!locale) return {};
+  const cbLang = locale.length > 2 ? locale.slice(0, 2) + '-' + locale.slice(3).toUpperCase() : locale;
+  return { 'cb-lang': cbLang };
+}
+
+/**
+ * @description 设置 系统设置 应用设置头部（带多语言 header cb-lang）
  * @param {Object} param data {Object} 传值参数 type类型
  */
 export function headerListApi(data) {
@@ -20,6 +31,7 @@ export function headerListApi(data) {
     url: 'setting/config/header_basics',
     method: 'get',
     params: data,
+    headers: getCbLangHeader(),
   });
 }
 

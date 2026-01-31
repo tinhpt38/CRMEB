@@ -7,7 +7,7 @@
     ></pages-header>
     <div class="message mt10">
       <el-card :bordered="false" shadow="never" class="">
-        <steps :stepList="headerList" :isActive="currentTab"></steps>
+        <steps :stepList="stepList" :isActive="currentTab"></steps>
       </el-card>
     </div>
     <div class="pt10 tab-1" v-show="currentTab == '0'" v-loading="isLoading">
@@ -37,8 +37,8 @@
       </el-card>
     </div>
     <el-card :bordered="false" class="fixed-card" :style="{ left: `${fixBottomWidth}` }" shadow="never">
-      <el-button :disabled="!currentTab" class="mr20" v-db-click @click="beforeTab">上一步</el-button>
-      <el-button type="primary" v-db-click @click="nextTab">{{ currentTab == 2 ? '提交' : '下一步' }}</el-button>
+      <el-button :disabled="!currentTab" class="mr20" v-db-click @click="beforeTab">{{ $t('message.common.prevStep') }}</el-button>
+      <el-button type="primary" v-db-click @click="nextTab">{{ currentTab == 2 ? $t('message.common.submit') : $t('message.common.nextStep') }}</el-button>
     </el-card>
   </div>
 </template>
@@ -61,7 +61,6 @@ export default {
   data() {
     return {
       currentTab: 0,
-      headerList: ['基础信息', '字段配置', '存放位置'],
       formItem: {
         foundation: {
           pid: '',
@@ -86,6 +85,13 @@ export default {
     };
   },
   computed: {
+    stepList() {
+      return [
+        this.$t('message.tabs.codeGeneration.baseInfo'),
+        this.$t('message.tabs.codeGeneration.fieldConfig'),
+        this.$t('message.tabs.codeGeneration.storageLocation'),
+      ];
+    },
     // 设置是否显示 tagsView
     fixBottomWidth() {
       let { layout, isCollapse } = this.$store.state.themeConfig.themeConfig;

@@ -13,6 +13,7 @@ import Setings from '@/layout/navBars/breadcrumb/setings.vue';
 import Upgrade from '@/layout/upgrade/index.vue';
 import setting from './setting';
 import { Local } from '@/utils/storage.js';
+import { localeToHtmlLang } from '@/i18n/index.js';
 import config from '../package.json';
 
 export default {
@@ -62,11 +63,15 @@ export default {
     // 获取缓存中的布局配置
     getLayoutThemeConfig() {
       if (Local.get('themeConfigPrev')) {
-        this.$store.dispatch('themeConfig/setThemeConfig', Local.get('themeConfigPrev'));
+        const config = Local.get('themeConfigPrev');
+        this.$store.dispatch('themeConfig/setThemeConfig', config);
         document.documentElement.style.cssText = Local.get('themeConfigStyle');
+        if (config.globalI18n) this.$i18n.locale = config.globalI18n;
       } else {
         Local.set('themeConfigPrev', this.$store.state.themeConfig.themeConfig);
       }
+      // Trình duyệt nhận đúng lang trước，tránh Google tự dịch
+      document.documentElement.lang = localeToHtmlLang(this.$i18n.locale);
     },
     getVersion() {
       this.isVersion = false;

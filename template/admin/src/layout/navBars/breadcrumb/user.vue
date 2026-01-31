@@ -64,6 +64,7 @@ import screenfull from 'screenfull';
 import { AccountLogout } from '@/api/account';
 import { removeCookies } from '@/libs/util';
 import { Session, Local } from '@/utils/storage.js';
+import { localeToHtmlLang } from '@/i18n/index.js';
 import UserNews from '@/layout/navBars/breadcrumb/userNews.vue';
 import Search from '@/layout/navBars/breadcrumb/search.vue';
 export default {
@@ -163,6 +164,7 @@ export default {
       this.$store.state.themeConfig.themeConfig.globalI18n = lang;
       Local.set('themeConfigPrev', this.$store.state.themeConfig.themeConfig);
       this.$i18n.locale = lang;
+      document.documentElement.lang = localeToHtmlLang(lang);
       this.initI18n();
     },
     // 初始化言语国际化
@@ -176,6 +178,9 @@ export default {
           break;
         case 'zh-tw':
           this.disabledI18n = 'zh-tw';
+          break;
+        case 'vi-vn':
+          this.disabledI18n = 'vi-vn';
           break;
       }
     },

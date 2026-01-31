@@ -13,6 +13,7 @@ namespace app\services\system\config;
 
 
 use app\dao\system\config\SystemConfigTabDao;
+use app\dao\system\config\SystemConfigTabLangDao;
 use app\services\BaseServices;
 use app\services\system\SystemMenusServices;
 use crmeb\exceptions\AdminException;
@@ -38,15 +39,26 @@ class SystemConfigTabServices extends BaseServices
     }
 
     /**
-     * 系统设置头部分类读取
+     * 系统设置头部分类读取（支持多语言：lang_type_id 对应 eb_lang_type.id，有则用 bảng eb_system_config_tab_lang 的 title）
+     * @param int $pid
+     * @param int|null $langTypeId eb_lang_type.id，如 10=vi-VN；null 则用 title gốc
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      */
-    public function getConfigTab(int $pid)
+    public function getConfigTab(int $pid, ?int $langTypeId = null)
     {
         $list = $this->dao->getConfigTabAll(['status' => 1, 'pid' => $pid], ['id', 'id as value', 'title as label', 'pid', 'icon', 'type'], $pid ? [] : [['type', '=', '0']]);
+        if ($langTypeId !== null && $langTypeId > 0) {
+            $tabLangDao = app()->make(SystemConfigTabLangDao::class);
+            $titles = $tabLangDao->getTitlesByLangTypeId($langTypeId);
+            foreach ($list as &$item) {
+                if (isset($titles[(int)$item['id']])) {
+                    $item['label'] = $titles[(int)$item['id']];
+                }
+            }
+        }
         return get_tree_children($list);
     }
 

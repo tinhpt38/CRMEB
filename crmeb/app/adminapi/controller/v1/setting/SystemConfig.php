@@ -11,6 +11,7 @@
 namespace app\adminapi\controller\v1\setting;
 
 use app\adminapi\controller\AuthController;
+use app\dao\system\lang\LangTypeDao;
 use app\Request;
 use app\services\system\config\SystemConfigServices;
 use app\services\system\config\SystemConfigTabServices;
@@ -486,23 +487,37 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 获取系统设置头部分类
+     * 获取系统设置头部分类（支持多语言：header cb-lang 如 vi-VN，或 param lang_type_id）
      * @param SystemConfigTabServices $services
+     * @param LangTypeDao $langTypeDao
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      */
-    public function header_basics(SystemConfigTabServices $services)
+    public function header_basics(SystemConfigTabServices $services, LangTypeDao $langTypeDao)
     {
         [$type, $pid] = $this->request->getMore([
             [['type', 'd'], 0],
             [['pid', 'd'], 0]
         ], true);
+        // 多语言：param lang_type_id 或 header cb-lang（如 vi-vn -> vi-VN -> eb_lang_type.id）
+        $langTypeId = $this->request->param('lang_type_id');
+        if ($langTypeId !== null && $langTypeId !== '') {
+            $langTypeId = (int)$langTypeId;
+        } else {
+            $cbLang = $this->request->header('cb-lang');
+            if ($cbLang !== null && $cbLang !== '') {
+                $file_name = strlen($cbLang) > 2 ? substr($cbLang, 0, 2) . '-' . strtoupper(substr($cbLang, 3)) : $cbLang;
+                $langTypeId = $langTypeDao->value(['file_name' => $file_name], 'id') ?: null;
+            } else {
+                $langTypeId = null;
+            }
+        }
         if ($type == 3) {//其它分类
             $config_tab = [];
         } else {
-            $config_tab = $services->getConfigTab($pid);
+            $config_tab = $services->getConfigTab((int)$pid, $langTypeId > 0 ? $langTypeId : null);
             if (empty($config_tab)) $config_tab[] = $services->get($pid, ['id', 'id as value', 'title as label', 'pid', 'icon', 'type']);
         }
         return app('json')->success(compact('config_tab'));

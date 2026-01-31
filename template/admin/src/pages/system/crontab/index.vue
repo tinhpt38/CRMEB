@@ -4,9 +4,9 @@
       <div>
         <el-tabs v-model="currentTab" @tab-click="getList">
           <el-tab-pane
-            :label="item.label"
+            :label="$t('message.tabs.crontab.' + item.key)"
             :name="item.value.toString()"
-            v-for="(item, index) in headerList"
+            v-for="(item, index) in headerListKeys"
             :key="index"
           />
         </el-tabs>
@@ -92,9 +92,9 @@ export default {
       limit: 15,
       total: 1,
       apiBaseURL: '',
-      headerList: [
-        { label: '系统任务', value: '0' },
-        { label: '自定义任务', value: '1' },
+      headerListKeys: [
+        { key: 'systemTask', value: '0' },
+        { key: 'customTask', value: '1' },
       ],
       currentTab: '0',
     };
