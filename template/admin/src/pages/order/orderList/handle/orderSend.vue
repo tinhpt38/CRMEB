@@ -472,7 +472,7 @@ export default {
       printJS({
         printable: url,
         type: 'image',
-        documentTitle: '快递信息',
+        documentTitle: this.$t('message.pages.order.send.documentTitle'),
         style: `img{
           width: 100%;
           height: 476px;

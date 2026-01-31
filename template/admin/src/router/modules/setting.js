@@ -60,6 +60,7 @@ export default {
       meta: {
         auth: ['setting-system-config'],
         title: '系统设置',
+        titleKey: 'message.pages.setting.setSystem.title',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -68,6 +69,7 @@ export default {
       name: `${pre}setApp`,
       meta: {
         title: '系统设置',
+        titleKey: 'message.pages.setting.setSystem.title',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },

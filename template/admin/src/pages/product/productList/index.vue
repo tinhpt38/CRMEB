@@ -151,7 +151,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16" :body-style="{ padding: '0 20px 20px' }">
       <el-tabs v-model="artFrom.type" @tab-click="onClickTab">
         <el-tab-pane
-          :label="item.name + '(' + item.count + ')'"
+          :label="getTabLabel(item)"
           :name="item.type.toString()"
           v-for="(item, index) in headeNum"
           :key="index"
@@ -1031,6 +1031,11 @@ export default {
       this.multipleSelection = [];
       this.$refs.table.clearSelection();
       this.getDataList();
+    },
+    getTabLabel(item) {
+      const key = 'message.pages.product.list.tab' + (item.type || 1);
+      const name = this.$te(key) ? this.$t(key) : item.name;
+      return name + '(' + (item.count || 0) + ')';
     },
     // 下拉树
     handleCheckChange(data) {

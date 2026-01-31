@@ -10,62 +10,62 @@
       >
         <el-row :gutter="24">
           <el-col :span="24">
-            <el-form-item label="数据组名称：" prop="name">
-              <el-input v-model="formValidate.name" placeholder="请输入数据组名称" style="width: 90%"></el-input>
+            <el-form-item :label="$t('message.pages.system.groupForm.groupNameLabel')" prop="name">
+              <el-input v-model="formValidate.name" :placeholder="$t('message.pages.system.groupForm.groupNamePlaceholder')" style="width: 90%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="数据字段：" prop="config_name">
-              <el-input v-model="formValidate.config_name" placeholder="请输入数据字段" style="width: 90%"></el-input>
+            <el-form-item :label="$t('message.pages.system.groupForm.dataFieldLabel')" prop="config_name">
+              <el-input v-model="formValidate.config_name" :placeholder="$t('message.pages.system.groupForm.dataFieldPlaceholder')" style="width: 90%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="数据简介：" prop="info">
-              <el-input v-model="formValidate.info" placeholder="请输入数据简介" style="width: 90%"></el-input>
+            <el-form-item :label="$t('message.pages.system.groupForm.dataIntroLabel')" prop="info">
+              <el-input v-model="formValidate.info" :placeholder="$t('message.pages.system.groupForm.dataIntroPlaceholder')" style="width: 90%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="数据类型：" prop="cate_id">
+            <el-form-item :label="$t('message.pages.system.groupForm.dataTypeLabel')" prop="cate_id">
               <el-radio-group v-model="formValidate.cate_id">
-                <el-radio :label="0">默认</el-radio>
-                <el-radio :label="1">数据</el-radio>
+                <el-radio :label="0">{{ $t('message.pages.system.groupForm.default') }}</el-radio>
+                <el-radio :label="1">{{ $t('message.pages.system.groupForm.data') }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="24" v-for="(item, index) in formValidate.typelist" :key="index">
             <el-col v-bind="grid">
               <el-form-item
-                :label="'字段' + (index + 1) + '：'"
+                :label="$t('message.pages.system.groupForm.fieldN') + (index + 1) + '：'"
                 label-width="90px"
                 :prop="'typelist.' + index + '.name.value'"
-                :rules="{ required: true, message: '请输入字段名称：姓名', trigger: 'blur' }"
+                :rules="fieldNameRules"
               >
-                <el-input v-model="item.name.value" placeholder="字段名称：姓名"></el-input>
+                <el-input v-model="item.name.value" :placeholder="$t('message.pages.system.groupForm.fieldNamePlaceholder')"></el-input>
               </el-form-item>
             </el-col>
             <el-col v-bind="grid" class="goupBox">
               <el-form-item
                 label-width="0"
                 :prop="'typelist.' + index + '.title.value'"
-                :rules="{ required: true, message: '请输入字段配置名', trigger: 'blur' }"
+                :rules="fieldConfigRules"
               >
-                <el-input v-model="item.title.value" placeholder="字段配置名：name"></el-input>
+                <el-input v-model="item.title.value" :placeholder="$t('message.pages.system.groupForm.fieldConfigPlaceholder')"></el-input>
               </el-form-item>
             </el-col>
             <el-col v-bind="grid" prop="type" class="goupBox">
               <el-form-item
                 :prop="'typelist.' + index + '.type.value'"
-                :rules="{ required: true, message: '请选择字段类型', trigger: 'change' }"
+                :rules="fieldTypeRules"
                 label-width="0"
               >
-                <el-select placeholder="字段类型" v-model="item.type.value">
-                  <el-option value="input">文本框</el-option>
-                  <el-option value="textarea">多行文本框</el-option>
-                  <el-option value="radio">单选框</el-option>
-                  <el-option value="checkbox">多选框</el-option>
-                  <el-option value="select">下拉选择</el-option>
-                  <el-option value="upload">单图</el-option>
-                  <el-option value="uploads">多图</el-option>
+                <el-select :placeholder="$t('message.pages.system.groupForm.fieldTypePlaceholder')" v-model="item.type.value">
+                  <el-option value="input" :label="$t('message.pages.system.groupForm.input')"></el-option>
+                  <el-option value="textarea" :label="$t('message.pages.system.groupForm.textarea')"></el-option>
+                  <el-option value="radio" :label="$t('message.pages.system.groupForm.radio')"></el-option>
+                  <el-option value="checkbox" :label="$t('message.pages.system.groupForm.checkbox')"></el-option>
+                  <el-option value="select" :label="$t('message.pages.system.groupForm.select')"></el-option>
+                  <el-option value="upload" :label="$t('message.pages.system.groupForm.singleImage')"></el-option>
+                  <el-option value="uploads" :label="$t('message.pages.system.groupForm.multiImage')"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -77,7 +77,7 @@
             >
               <el-form-item
                 :prop="'typelist.' + index + '.param.value'"
-                :rules="{ required: true, message: '请输入参数方式', trigger: 'blur' }"
+                :rules="paramRules"
               >
                 <el-input
                   type="textarea"
@@ -91,14 +91,14 @@
           </el-col>
           <el-col>
             <el-form-item>
-              <el-button type="primary" v-db-click @click="addType">添加字段</el-button>
+              <el-button type="primary" v-db-click @click="addType">{{ $t('message.pages.system.groupForm.addField') }}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="handleReset">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">确 定</el-button>
+        <el-button v-db-click @click="handleReset">{{ $t('message.pages.system.groupForm.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">{{ $t('message.pages.system.groupForm.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -135,10 +135,10 @@ export default {
       modals: false,
       modal12: false,
       ruleValidate: {
-        name: [{ required: true, message: '请输入数据组名称', trigger: 'blur' }],
-        config_name: [{ required: true, message: '请输入数据字段', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入数据简介', trigger: 'blur' }],
-        names: [{ required: true, message: '请输入字段名称', trigger: 'blur' }],
+        name: [{ required: true, message: '', trigger: 'blur' }],
+        config_name: [{ required: true, message: '', trigger: 'blur' }],
+        info: [{ required: true, message: '', trigger: 'blur' }],
+        names: [{ required: true, message: '', trigger: 'blur' }],
       },
       FromData: [],
       valids: false,
@@ -152,12 +152,32 @@ export default {
       },
     };
   },
+  computed: {
+    fieldNameRules() {
+      return [{ required: true, message: this.$t('message.pages.system.groupForm.inputFieldName'), trigger: 'blur' }];
+    },
+    fieldConfigRules() {
+      return [{ required: true, message: this.$t('message.pages.system.groupForm.inputFieldConfigName'), trigger: 'blur' }];
+    },
+    fieldTypeRules() {
+      return [{ required: true, message: this.$t('message.pages.system.groupForm.selectFieldType'), trigger: 'change' }];
+    },
+    paramRules() {
+      return [{ required: true, message: this.$t('message.pages.system.groupForm.inputParam'), trigger: 'blur' }];
+    },
+  },
   watch: {
     addId(n) {
       if (n === 'addId') {
         this.formValidate.typelist = [];
       }
     },
+  },
+  mounted() {
+    this.ruleValidate.name[0].message = this.$t('message.pages.system.groupForm.groupNamePlaceholder');
+    this.ruleValidate.config_name[0].message = this.$t('message.pages.system.groupForm.dataFieldPlaceholder');
+    this.ruleValidate.info[0].message = this.$t('message.pages.system.groupForm.dataIntroPlaceholder');
+    this.ruleValidate.names[0].message = this.$t('message.pages.system.groupForm.inputFieldName');
   },
   methods: {
     // 点击添加字段
@@ -173,7 +193,7 @@ export default {
           value: '',
         },
         param: {
-          placeholder: '参数方式例如:\n1=白色\n2=红色\n3=黑色',
+          placeholder: this.$t('message.pages.system.groupForm.inputParam'),
           value: '',
         },
       });
@@ -201,7 +221,7 @@ export default {
       };
       this.$refs[name].validate((valid) => {
         if (valid) {
-          if (this.formValidate.typelist.length === 0) return this.$message.error('请添加字段名称：姓名！');
+          if (this.formValidate.typelist.length === 0) return this.$message.error(this.$t('message.pages.system.groupForm.inputFieldName'));
           groupAddApi(data)
             .then(async (res) => {
               this.$message.success(res.msg);
@@ -214,9 +234,9 @@ export default {
               this.$message.error(res.msg);
             });
         } else {
-          if (!this.formValidate.name) return this.$message.error('请添加数据组名称！');
-          if (!this.formValidate.config_name) return this.$message.error('请添加数据字段！');
-          if (!this.formValidate.info) return this.$message.error('请添加数据简介！');
+          if (!this.formValidate.name) return this.$message.error(this.$t('message.pages.system.groupForm.groupNamePlaceholder'));
+          if (!this.formValidate.config_name) return this.$message.error(this.$t('message.pages.system.groupForm.dataFieldPlaceholder'));
+          if (!this.formValidate.info) return this.$message.error(this.$t('message.pages.system.groupForm.dataIntroPlaceholder'));
         }
       });
     },
@@ -226,8 +246,6 @@ export default {
       this.$emit('clearFrom');
     },
   },
-  created() {},
-  mounted() {},
 };
 </script>
 

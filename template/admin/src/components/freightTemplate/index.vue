@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="isTemplate"
-      title="运费模版"
+      :title="$t('message.components.freightTemplate.title')"
       width="1000px"
       if="isTemplate"
       @on-cancel="cancel"
@@ -12,71 +12,71 @@
         <el-form class="form" ref="formData" label-width="120px" label-position="right">
           <el-row :gutter="24">
             <el-col :xl="18" :lg="18" :md="18" :sm="24" :xs="24">
-              <el-form-item label="模板名称：" prop="name">
-                <el-input type="text" placeholder="请输入模板名称" :maxlength="20" v-model="formData.name" />
+              <el-form-item :label="$t('message.components.freightTemplate.templateNameLabel')" prop="name">
+                <el-input type="text" :placeholder="$t('message.components.freightTemplate.templateNamePlaceholder')" :maxlength="20" v-model="formData.name" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="24">
             <el-col :xl="18" :lg="18" :md="18" :sm="24" :xs="24">
-              <el-form-item label="计费方式：" props="state" label-for="state">
+              <el-form-item :label="$t('message.components.freightTemplate.billingMethod')" props="state" label-for="state">
                 <el-radio-group class="radio" v-model="formData.type" @input="changeRadio" element-id="state">
-                  <el-radio :label="1">按件数</el-radio>
-                  <el-radio :label="2">按重量</el-radio>
-                  <el-radio :label="3">按体积</el-radio>
+                  <el-radio :label="1">{{ $t('message.components.freightTemplate.byPiece') }}</el-radio>
+                  <el-radio :label="2">{{ $t('message.components.freightTemplate.byWeight') }}</el-radio>
+                  <el-radio :label="3">{{ $t('message.components.freightTemplate.byVolume') }}</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="24">
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
-              <el-form-item class="label" label="配送区域及运费：" props="state" label-for="state">
-                <el-table ref="table" :data="templateList" class="ivu-mt" empty-text="暂无数据" border>
-                  <el-table-column label="可配送区域" minWidth="100">
+              <el-form-item class="label" :label="$t('message.components.freightTemplate.deliveryAreaAndFee')" props="state" label-for="state">
+                <el-table ref="table" :data="templateList" class="ivu-mt" :empty-text="$t('message.components.freightTemplate.noData')" border>
+                  <el-table-column :label="$t('message.components.freightTemplate.deliveryAreaCol')" minWidth="100">
                     <template slot-scope="scope">
                       <el-input v-model="templateList[scope.$index].regionName" />
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="formData.type === 2 ? '首件重量(KG)' : formData.type === 3 ? '首件体积(m³)' : '首件'"
+                    :label="formData.type === 2 ? $t('message.components.freightTemplate.firstWeightKg') : formData.type === 3 ? $t('message.components.freightTemplate.firstVolumeM3') : $t('message.components.freightTemplate.firstPiece')"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
                       <el-input type="number" v-model="templateList[scope.$index].first" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="运费（元）" minWidth="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.freightYuan')" minWidth="100">
                     <template slot-scope="scope">
                       <el-input type="number" v-model="templateList[scope.$index].price" />
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="formData.type === 2 ? '续件重量(KG)' : formData.type === 3 ? '续件体积(m³)' : '续件'"
+                    :label="formData.type === 2 ? $t('message.components.freightTemplate.continueWeightKg') : formData.type === 3 ? $t('message.components.freightTemplate.continueVolumeM3') : $t('message.components.freightTemplate.continuePiece')"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
                       <el-input type="number" v-model="templateList[scope.$index].continue" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="续费（元）" minWidth="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.continueFeeYuan')" minWidth="100">
                     <template slot-scope="scope">
                       <el-input type="number" v-model="templateList[scope.$index].continue_price" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" fixed="right" width="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.action')" fixed="right" width="100">
                     <template slot-scope="scope">
                       <a
                         v-if="scope.row.regionName !== '默认全国'"
                         v-db-click
-                        @click="delCity(scope.row, '配送区域', scope.$index, 1)"
-                        >删除</a
+                        @click="delCity(scope.row, $t('message.components.freightTemplate.deliveryAreaName'), scope.$index, 1)"
+                        >{{ $t('message.components.freightTemplate.del') }}</a
                       >
                     </template>
                   </el-table-column>
                 </el-table>
                 <el-row class="addTop">
                   <el-col>
-                    <el-button type="primary" icon="md-add" v-db-click @click="addCity(1)">添加配送区域</el-button>
+                    <el-button type="primary" icon="md-add" v-db-click @click="addCity(1)">{{ $t('message.components.freightTemplate.addDeliveryArea') }}</el-button>
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -84,54 +84,54 @@
           </el-row>
           <el-row :gutter="24">
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
-              <el-form-item label="指定包邮：" prop="store_name" label-for="store_name">
+              <el-form-item :label="$t('message.components.freightTemplate.appointFreeShip')" prop="store_name" label-for="store_name">
                 <el-radio-group class="radio" v-model="formData.appoint_check">
-                  <el-radio :label="1">开启</el-radio>
-                  <el-radio :label="0">关闭</el-radio>
+                  <el-radio :label="1">{{ $t('message.components.freightTemplate.open') }}</el-radio>
+                  <el-radio :label="0">{{ $t('message.components.freightTemplate.close') }}</el-radio>
                 </el-radio-group>
                 <el-table
                   ref="table"
                   :data="appointList"
                   class="addTop mt10"
-                  empty-text="暂无数据"
+                  :empty-text="$t('message.components.freightTemplate.noData')"
                   border
                   v-if="formData.appoint_check === 1"
                 >
-                  <el-table-column label="选择区域" minWidth="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.selectAreaCol')" minWidth="100">
                     <template slot-scope="scope">
                       <el-input v-model="appointList[scope.$index].placeName" />
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="formData.type === 2 ? '包邮重量' : formData.type === 3 ? '包邮体积(m³)' : '包邮件数'"
+                    :label="formData.type === 2 ? $t('message.components.freightTemplate.freeShipWeight') : formData.type === 3 ? $t('message.components.freightTemplate.freeShipVolume') : $t('message.components.freightTemplate.freeShipCount')"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
                       <el-input type="number" v-model="appointList[scope.$index].a_num" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="包邮金额（元）" minWidth="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.freeShipAmountYuan')" minWidth="100">
                     <template slot-scope="scope">
                       <el-input type="number" v-model="appointList[scope.$index].a_price" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" fixed="right" width="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.action')" fixed="right" width="100">
                     <template slot-scope="scope">
                       <a
                         v-if="scope.row.regionName !== '默认全国'"
                         v-db-click
-                        @click="delCity(scope.row, '配送区域', scope.$index, 2)"
-                        >删除</a
+                        @click="delCity(scope.row, $t('message.components.freightTemplate.deliveryAreaName'), scope.$index, 2)"
+                        >{{ $t('message.components.freightTemplate.del') }}</a
                       >
                     </template>
                   </el-table-column>
                 </el-table>
                 <div v-if="formData.appoint_check === 1" class="free_tips">
-                  指定地区需同时满足包邮（件数/重量/体积）和包邮金额的条件，才可实现包邮
+                  {{ $t('message.components.freightTemplate.freeShipTip') }}
                 </div>
                 <el-row class="addTop mt5" v-if="formData.appoint_check === 1">
                   <el-col>
-                    <el-button type="primary" icon="md-add" v-db-click @click="addCity(2)">添加包邮区域</el-button>
+                    <el-button type="primary" icon="md-add" v-db-click @click="addCity(2)">{{ $t('message.components.freightTemplate.addFreeShipArea') }}</el-button>
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -139,38 +139,38 @@
           </el-row>
           <el-row :gutter="24">
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
-              <el-form-item label="指定不送达：" prop="store_name" label-for="store_name">
+              <el-form-item :label="$t('message.components.freightTemplate.noDelivery')" prop="store_name" label-for="store_name">
                 <el-radio-group class="radio" v-model="formData.no_delivery_check">
-                  <el-radio :label="1">开启</el-radio>
-                  <el-radio :label="0">关闭</el-radio>
+                  <el-radio :label="1">{{ $t('message.components.freightTemplate.open') }}</el-radio>
+                  <el-radio :label="0">{{ $t('message.components.freightTemplate.close') }}</el-radio>
                 </el-radio-group>
                 <el-table
                   ref="table"
                   :data="noDeliveryList"
                   class="addTop mt10"
-                  empty-text="暂无数据"
+                  :empty-text="$t('message.components.freightTemplate.noData')"
                   border
                   v-if="formData.no_delivery_check === 1"
                 >
-                  <el-table-column label="选择区域" minWidth="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.selectAreaCol')" minWidth="100">
                     <template slot-scope="scope">
                       <el-input v-model="noDeliveryList[scope.$index].placeName" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" fixed="right" width="100">
+                  <el-table-column :label="$t('message.components.freightTemplate.action')" fixed="right" width="100">
                     <template slot-scope="scope">
                       <a
                         v-if="scope.row.regionName !== '默认全国'"
                         v-db-click
-                        @click="delCity(scope.row, '配送区域', scope.$index, 3)"
-                        >删除</a
+                        @click="delCity(scope.row, $t('message.components.freightTemplate.deliveryAreaName'), scope.$index, 3)"
+                        >{{ $t('message.components.freightTemplate.del') }}</a
                       >
                     </template>
                   </el-table-column>
                 </el-table>
                 <el-row class="addTop" v-if="formData.no_delivery_check === 1">
                   <el-col>
-                    <el-button type="primary" icon="md-add" v-db-click @click="addCity(3)">添加不送达区域</el-button>
+                    <el-button type="primary" icon="md-add" v-db-click @click="addCity(3)">{{ $t('message.components.freightTemplate.addNoDeliveryArea') }}</el-button>
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -178,11 +178,11 @@
           </el-row>
           <el-row :gutter="24">
             <el-col :xl="18" :lg="18" :md="18" :sm="24" :xs="24">
-              <el-form-item label="排序：" prop="store_name" label-for="store_name">
+              <el-form-item :label="$t('message.components.freightTemplate.sortLabel')" prop="store_name" label-for="store_name">
                 <el-input-number
                   :controls="false"
                   :min="0"
-                  placeholder="输入值越大越靠前"
+                  :placeholder="$t('message.components.freightTemplate.sortPlaceholder')"
                   v-model="formData.sort"
                 ></el-input-number>
               </el-form-item>
@@ -192,7 +192,7 @@
             <el-col>
               <el-form-item prop="store_name" label-for="store_name">
                 <el-button type="primary" v-db-click @click="handleSubmit">{{
-                  id ? '立即修改' : '立即提交'
+                  id ? $t('message.components.freightTemplate.modifyNow') : $t('message.components.freightTemplate.submitNow')
                 }}</el-button>
               </el-form-item>
             </el-col>

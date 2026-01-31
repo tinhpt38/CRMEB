@@ -162,11 +162,11 @@ export default {
     },
     // 添加
     addClass() {
-      this.$modalForm(productCreateApi()).then(() => this.getList());
+      this.$modalForm(productCreateApi(), { titleKey: 'message.pages.product.classify.form.addCategoryTitle' }).then(() => this.getList());
     },
     // 编辑
     edit(row) {
-      this.$modalForm(productEditApi(row.id)).then(() => this.getList());
+      this.$modalForm(productEditApi(row.id), { titleKey: 'message.pages.product.classify.form.editCategoryTitle' }).then(() => this.getList());
     },
     // 修改状态
     onchangeIsShow(row) {

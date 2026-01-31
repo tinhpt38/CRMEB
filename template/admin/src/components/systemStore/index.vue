@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="isTemplate"
-      :title="formItem.id ? '编辑提货点' : '添加提货点'"
+      :title="formItem.id ? $t('message.components.systemStore.editPickupPoint') : $t('message.components.systemStore.addPickupPoint')"
       width="720px"
       @closed="cancel"
       append-to-body
@@ -19,28 +19,28 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="提货点名称：" prop="name" label-for="name">
-                  <el-input v-model="formItem.name" placeholder="请输入提货点名称" />
+                <el-form-item :label="$t('message.components.systemStore.nameLabel')" prop="name" label-for="name">
+                  <el-input v-model="formItem.name" :placeholder="$t('message.components.systemStore.namePlaceholder')" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="提货点简介：" label-for="introduction">
-                  <el-input v-model="formItem.introduction" placeholder="请输入提货点简介" />
+                <el-form-item :label="$t('message.components.systemStore.introLabel')" label-for="introduction">
+                  <el-input v-model="formItem.introduction" :placeholder="$t('message.components.systemStore.introPlaceholder')" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="提货点电话：" label-for="phone" prop="phone">
-                  <el-input v-model="formItem.phone" placeholder="请输入提货点电话：" />
+                <el-form-item :label="$t('message.components.systemStore.phoneLabel')" label-for="phone" prop="phone">
+                  <el-input v-model="formItem.phone" :placeholder="$t('message.components.systemStore.phonePlaceholder')" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="提货点地址：" label-for="address" prop="address">
+                <el-form-item :label="$t('message.components.systemStore.addressLabel')" label-for="address" prop="address">
                   <el-cascader
                     :options="addresData"
                     v-model="formItem.address"
@@ -52,8 +52,8 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="详细地址：" label-for="detailed_address" prop="detailed_address">
-                  <el-input v-model="formItem.detailed_address" placeholder="请输入详细地址" />
+                <el-form-item :label="$t('message.components.systemStore.detailedAddressLabel')" label-for="detailed_address" prop="detailed_address">
+                  <el-input v-model="formItem.detailed_address" :placeholder="$t('message.components.systemStore.detailedAddressPlaceholder')" />
                 </el-form-item>
               </el-col>
             </el-col>
@@ -66,7 +66,7 @@
             <!--</el-col>-->
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="提货点营业：" label-for="day_time" prop="day_time">
+                <el-form-item :label="$t('message.components.systemStore.businessHoursLabel')" label-for="day_time" prop="day_time">
                   <el-time-picker
                     is-range
                     @change="onchangeTime"
@@ -74,9 +74,9 @@
                     format="HH:mm:ss"
                     value-format="HH:mm:ss"
                     range-separator="-"
-                    start-placeholder="开始时间"
-                    end-placeholder="结束时间"
-                    placeholder="选择时间范围"
+                    :start-placeholder="$t('message.components.systemStore.startTime')"
+                    :end-placeholder="$t('message.components.systemStore.endTime')"
+                    :placeholder="$t('message.components.systemStore.selectTimeRange')"
                     style="width: 100%"
                   ></el-time-picker>
                 </el-form-item>
@@ -84,7 +84,7 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="提货点logo：" prop="image">
+                <el-form-item :label="$t('message.components.systemStore.logoLabel')" prop="image">
                   <div class="picBox" v-db-click @click="modalPicTap('单选', 'logo')">
                     <div class="pictrue" v-if="formItem.image">
                       <img v-lazy="formItem.image" />
@@ -98,7 +98,7 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="提货点大图：" prop="oblong_image">
+                <el-form-item :label="$t('message.components.systemStore.bigImageLabel')" prop="oblong_image">
                   <div class="picBox" v-db-click @click="modalPicTap('单选', 'oblong')">
                     <div class="pictrue" v-if="formItem.oblong_image">
                       <img v-lazy="formItem.oblong_image" />
@@ -112,12 +112,12 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="经纬度：" label-for="status2" prop="latlng">
+                <el-form-item :label="$t('message.components.systemStore.latlngLabel')" label-for="status2" prop="latlng">
                   <el-tooltip>
-                    <el-input v-model="formItem.latlng" style="width: 100%" placeholder="请查找位置">
-                      <el-button type="primary" slot="append" v-db-click @click="onSearch">查找位置</el-button>
+                    <el-input v-model="formItem.latlng" style="width: 100%" :placeholder="$t('message.components.systemStore.findLocationPlaceholder')">
+                      <el-button type="primary" slot="append" v-db-click @click="onSearch">{{ $t('message.components.systemStore.findLocationBtn') }}</el-button>
                     </el-input>
-                    <div slot="content">请点击查找位置选择位置</div>
+                    <div slot="content">{{ $t('message.components.systemStore.clickToSelectTip') }}</div>
                   </el-tooltip>
                 </el-form-item>
               </el-col>
@@ -150,13 +150,13 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">{{
-          formItem.id ? '修改' : '提交'
+          formItem.id ? $t('message.components.systemStore.modify') : $t('message.components.systemStore.submit')
         }}</el-button>
       </span>
     </el-dialog>
     <el-dialog
       :visible.sync="modalMap"
-      title="请选择地址"
+      :title="$t('message.components.systemStore.selectAddressTitle')"
       append-to-body
       :close-on-click-modal="false"
       width="720px"
@@ -179,21 +179,21 @@ export default {
   data() {
     const validatePhone = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请填写电话号码'));
+        return callback(new Error(this.$t('message.components.systemStore.validatePhone')));
       } else {
         callback();
       }
     };
     const validateUpload = (rule, value, callback) => {
       if (!this.formItem.image) {
-        callback(new Error('请上传提货点logo'));
+        callback(new Error(this.$t('message.components.systemStore.validateLogo')));
       } else {
         callback();
       }
     };
     const oblongImageUpload = (rule, value, callback) => {
       if (!this.formItem.oblong_image) {
-        callback(new Error('请上传提货点大图'));
+        callback(new Error(this.$t('message.components.systemStore.validateBigImage')));
       } else {
         callback();
       }

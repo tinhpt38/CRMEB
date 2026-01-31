@@ -43,10 +43,49 @@ export default function modalForm(formRequestPromise, config = {}) {
           },
         };
         data = Vue.observable(data);
+        const action = (data.action || '').toLowerCase();
+        const isCategory = action.includes('category');
+        const isProtection = action.includes('protection');
+        const categoryMap = { cate_name: 'categoryName', pid: 'parentCategory', pic: 'categoryIcon', sort: 'sort', is_show: 'status' };
+        const protectionMap = { title: 'guaranteeName', content: 'guaranteeContent', image: 'image', status: 'status', sort: 'sort' };
         data.rules.forEach((e) => {
-          e.title += '：';
+          let key = null;
+          if (isCategory && categoryMap[e.field]) {
+            key = 'message.pages.product.classify.form.' + categoryMap[e.field];
+          } else if (isProtection && protectionMap[e.field]) {
+            key = 'message.pages.product.protectionList.form.' + protectionMap[e.field];
+          }
+          if (key && this.$te(key)) {
+            e.title = this.$t(key) + (e.title && e.title.endsWith('：') ? '' : '：');
+          } else if (!e.title || !e.title.endsWith('：')) {
+            e.title = (e.title || '') + '：';
+          }
+          // Dịch options trạng thái (显示/隐藏)
+          if ((isCategory && e.field === 'is_show') || (isProtection && e.field === 'status')) {
+            const opts = e.options || e.props?.options;
+            if (Array.isArray(opts)) {
+              opts.forEach((o) => {
+                if (Number(o.value) === 1) o.label = this.$t('message.pages.product.classify.show');
+                else if (Number(o.value) === 0) o.label = this.$t('message.pages.product.classify.hide');
+              });
+            }
+          }
+          // Dịch option "顶级分类" trong select danh mục cha
+          if (isCategory && e.field === 'pid') {
+            const opts = e.options || e.props?.options;
+            if (Array.isArray(opts)) {
+              opts.forEach((o) => {
+                if (Number(o.value) === 0 && this.$te('message.pages.product.classify.form.topCategory')) o.label = this.$t('message.pages.product.classify.form.topCategory');
+              });
+            }
+          }
         });
-        const modalTitle = config.titleKey ? this.$t(config.titleKey) : (config.title || data.title);
+        let modalTitle = config.titleKey ? this.$t(config.titleKey) : (config.title || data.title);
+        if (!config.titleKey) {
+          const isAdd = action.includes('create') || action.includes('/0');
+          if (isCategory) modalTitle = this.$t(isAdd ? 'message.pages.product.classify.form.addCategoryTitle' : 'message.pages.product.classify.form.editCategoryTitle');
+          else if (isProtection) modalTitle = this.$t(isAdd ? 'message.pages.product.protectionList.form.addGuaranteeTitle' : 'message.pages.product.protectionList.form.editGuaranteeTitle');
+        }
         this.$msgbox({
           title: modalTitle,
           showCancelButton: true,
