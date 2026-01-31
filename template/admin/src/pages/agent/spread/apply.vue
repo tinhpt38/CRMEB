@@ -10,16 +10,16 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.agent.spreadApply.search')">
             <el-input
               clearable
-              placeholder="请输入姓名、UID"
+              :placeholder="$t('message.pages.agent.spreadApply.placeholderNameUid')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.agent.spreadApply.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -28,64 +28,64 @@
       <el-row class="box-wrapper">
         <el-col :xs="24" :sm="24" ref="rightBox">
           <el-tabs v-model="formValidate.status" @tab-click="userSearchs">
-            <el-tab-pane name="all" label="全部"></el-tab-pane>
-            <el-tab-pane v-for="(item, index) in statusList" :key="index" :label="item.status_name" :name="item.id"></el-tab-pane>
+            <el-tab-pane name="all" :label="$t('message.pages.agent.spreadApply.all')"></el-tab-pane>
+            <el-tab-pane v-for="(item, index) in statusList" :key="index" :label="$t('message.pages.agent.spreadApply.' + item.statusKey)" :name="item.id"></el-tab-pane>
           </el-tabs>
           <el-table
             :data="userLists"
             ref="table"
             v-loading="loading"
             highlight-current-row
-            no-formValidate-text="暂无数据"
-            no-filtered-formValidate-text="暂无筛选结果"
+            :no-data-text="$t('message.pages.agent.spreadApply.noData')"
+            :no-filtered-data-text="$t('message.pages.agent.spreadApply.noFilterResult')"
           >
-            <el-table-column label="编号" width="80">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.no')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="用户UID" width="80">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.userUid')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="用户昵称" min-width="150">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.userNickname')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.nickname }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="分销员电话" min-width="150">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.agentPhone')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.phone }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="分销员姓名" min-width="150">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.agentName')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.real_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请状态" min-width="150">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.applyStatus')" min-width="150">
               <template slot-scope="scope">
-                <el-tag>{{ scope.row.status == 0 ? '申请中' : scope.row.status == 1 ? '已同意' : '已拒绝' }}</el-tag>
+                <el-tag>{{ scope.row.status == 0 ? $t('message.pages.agent.spreadApply.statusApplying') : scope.row.status == 1 ? $t('message.pages.agent.spreadApply.statusAgreed') : $t('message.pages.agent.spreadApply.statusRejected') }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="申请时间" min-width="150">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.applyTime')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请理由" min-width="150">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.applyReason')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.content }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="170">
+            <el-table-column :label="$t('message.pages.agent.spreadApply.action')" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 1)">同意</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 1)">{{ $t('message.pages.agent.spreadApply.agree') }}</a>
                 <el-divider v-if="scope.row.status == 0" direction="vertical" />
-                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 2)">拒绝</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 2)">{{ $t('message.pages.agent.spreadApply.reject') }}</a>
                 <el-divider direction="vertical" v-if="scope.row.status == 0" />
-                <a v-db-click @click="del(scope.row, '删除申请', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.pages.agent.spreadApply.delApplyTitle'), scope.$index)">{{ $t('message.pages.agent.spreadApply.del') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -128,18 +128,9 @@ export default {
         image: '',
       },
       statusList: [
-        {
-          status_name: '申请中',
-          id: '0',
-        },
-        {
-          status_name: '已同意',
-          id: '1',
-        },
-        {
-          status_name: '已拒绝',
-          id: '2',
-        },
+        { statusKey: 'statusApplying', id: '0' },
+        { statusKey: 'statusAgreed', id: '1' },
+        { statusKey: 'statusRejected', id: '2' },
       ],
       FromData: null,
       loading: false,
@@ -207,7 +198,7 @@ export default {
     examine(id, uid, type) {
       if (type == 1) {
         let data = {
-          title: type == 1 ? '通过分销员申请' : '拒绝分销员申请',
+          title: this.$t('message.pages.agent.spreadApply.approveTitle'),
           url: `agent/spread/apply/examine/${id}/${uid}/${type}`,
           method: 'post',
           ids: '',
@@ -221,9 +212,9 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$prompt('请输入拒绝理由', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$prompt(this.$t('message.pages.agent.spreadApply.promptRejectReason'), this.$t('message.pages.agent.spreadApply.tip'), {
+          confirmButtonText: this.$t('message.pages.agent.spreadApply.confirm'),
+          cancelButtonText: this.$t('message.pages.agent.spreadApply.cancel'),
         })
           .then(({ value }) => {
             let data = {
@@ -237,7 +228,7 @@ export default {
           .catch(() => {
             this.$message({
               type: 'info',
-              message: '取消输入',
+              message: this.$t('message.pages.agent.spreadApply.cancelInput'),
             });
           });
       }
