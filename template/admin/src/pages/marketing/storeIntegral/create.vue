@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? '编辑积分商品' : '添加积分商品'"
+      :title="$route.params.id ? $t('message.pages.marketing.storeIntegral.create.editIntegral') : $t('message.pages.marketing.storeIntegral.create.addIntegral')"
       :backUrl="$routeProStr + '/marketing/store_integral/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -21,7 +21,7 @@
             :label-position="labelPosition"
             @submit.native.prevent
           >
-            <el-form-item label="选择商品：" prop="image_input" v-if="current === 0">
+            <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.selectProduct')" prop="image_input" v-if="current === 0">
               <div class="picBox" v-db-click @click="changeGoods">
                 <div class="pictrue" v-if="formValidate.image">
                   <img v-lazy="formValidate.image" />
@@ -36,7 +36,7 @@
                 <el-form-item prop="image">
                   <div class="custom-label" slot="label">
                     <div>
-                      <div>商品主图</div>
+                      <div>{{ $t('message.pages.marketing.storeIntegral.create.productMainImage') }}</div>
                       <div>(750*750)</div>
                     </div>
                     <div>：</div>
@@ -55,7 +55,7 @@
                 <el-form-item prop="images">
                   <div class="custom-label" slot="label">
                     <div>
-                      <div>商品轮播图</div>
+                      <div>{{ $t('message.pages.marketing.storeIntegral.create.productCarousel') }}</div>
                       <div>(750*750)</div>
                     </div>
                     <div>：</div>
@@ -87,9 +87,9 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="商品标题：" prop="title" label-for="title">
+                  <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.productTitle')" prop="title" label-for="title">
                     <el-input
-                      placeholder="请输入商品标题"
+                      :placeholder="$t('message.pages.marketing.storeIntegral.create.inputProductTitle')"
                       v-model="formValidate.title"
                       class="content_width"
                       maxlength="80"
@@ -99,28 +99,28 @@
                 </el-col>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="用户兑换数量限制：" prop="num">
+                <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.userExchangeLimit')" prop="num">
                   <div class="acea-row row-middle">
                     <el-input-number
                       :controls="false"
                       :min="1"
                       :max="9999999999"
-                      placeholder="请输入数量限制"
+                      :placeholder="$t('message.pages.marketing.storeIntegral.create.inputQuantityLimit')"
                       element-id="num"
                       :precision="0"
                       v-model="formValidate.num"
                       class="content_width"
                     />
                     <div class="ml10 grey">
-                      每个用户可购买该商品总数限制。例如设置为4，表示本活动,每个用户最多可兑换总数4个
+                      {{ $t('message.pages.marketing.storeIntegral.create.exchangeLimitHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单位：" prop="unit_name" label-for="unit_name">
+                <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.unit')" prop="unit_name" label-for="unit_name">
                   <el-input
-                    placeholder="请输入单位"
+                    :placeholder="$t('message.pages.marketing.storeIntegral.create.inputUnit')"
                     element-id="unit_name"
                     v-model="formValidate.unit_name"
                     class="content_width"
@@ -129,10 +129,10 @@
               </el-col>
 
               <el-col :span="24">
-                <el-form-item label="排序：">
+                <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.sortLabel')">
                   <el-input-number
                     :controls="false"
-                    placeholder="请输入排序"
+                    :placeholder="$t('message.pages.marketing.storeIntegral.create.inputSort')"
                     element-id="sort"
                     :precision="0"
                     v-model="formValidate.sort"
@@ -141,23 +141,23 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="上架状态：" props="is_show" label-for="status">
+                <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.onSaleStatus')" props="is_show" label-for="status">
                   <el-radio-group element-id="is_show" v-model="formValidate.is_show">
-                    <el-radio :label="1" class="radio">开启</el-radio>
-                    <el-radio :label="0">关闭</el-radio>
+                    <el-radio :label="1" class="radio">{{ $t('message.pages.marketing.storeIntegral.create.open') }}</el-radio>
+                    <el-radio :label="0">{{ $t('message.pages.marketing.storeIntegral.create.close') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
               <el-col v-bind="grid2">
-                <el-form-item label="热门推荐：" props="is_host" label-for="is_host">
+                <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.hotRecommend')" props="is_host" label-for="is_host">
                   <el-radio-group element-id="is_host" v-model="formValidate.is_host">
-                    <el-radio :label="1" class="radio">开启</el-radio>
-                    <el-radio :label="0">关闭</el-radio>
+                    <el-radio :label="1" class="radio">{{ $t('message.pages.marketing.storeIntegral.create.open') }}</el-radio>
+                    <el-radio :label="0">{{ $t('message.pages.marketing.storeIntegral.create.close') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="规格选择：">
+                <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.specSelect')">
                   <el-table
                     ref="multipleTable"
                     :data="specsData"
@@ -222,7 +222,7 @@
             </el-col>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="内容：">
+                <el-form-item :label="$t('message.pages.marketing.storeIntegral.create.content')">
                   <WangEditor
                     style="width: 90%"
                     :content="formValidate.description"
@@ -238,7 +238,7 @@
                   v-db-click
                   @click="step"
                   :disabled="($route.params.id && current === 1) || current === 0"
-                  >上一步
+                  >{{ $t('message.pages.marketing.storeIntegral.create.prevStep') }}
                 </el-button>
                 <el-button
                   :disabled="submitOpen && current === 2"
@@ -246,7 +246,7 @@
                   class="submission"
                   v-db-click
                   @click="next('formValidate')"
-                  >{{ current === 2 ? '提交' : '下一步' }}</el-button
+                  >{{ current === 2 ? $t('message.pages.marketing.storeIntegral.create.submit') : $t('message.pages.marketing.storeIntegral.create.nextStep') }}</el-button
                 >
               </el-form-item>
             </el-col>
@@ -255,11 +255,11 @@
       </el-row>
     </el-card>
     <!-- 选择商品-->
-    <el-dialog :visible.sync="modals" title="商品列表" class="paymentFooter" width="1000px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.marketing.storeIntegral.create.productList')" class="paymentFooter" width="1000px">
       <goods-list ref="goodslist" @getProductId="getProductId"></goods-list>
     </el-dialog>
     <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.pages.marketing.storeIntegral.create.uploadProductImage')" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -325,7 +325,6 @@ export default {
         UEDITOR_HOME_URL: '/UEditor/',
         serverUrl: '',
       },
-      stepList: ['选择积分商品', '填写基础信息', '修改商品详情'],
       modals: false,
       modal_loading: false,
       images: [],
@@ -364,74 +363,7 @@ export default {
       specsData: [],
       picTit: '',
       tableIndex: 0,
-      ruleValidate: {
-        image: [{ required: true, message: '请选择主图', trigger: 'change' }],
-        images: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择主图',
-            trigger: 'change',
-          },
-          {
-            type: 'array',
-            min: 1,
-            message: 'Choose two hobbies at best',
-            trigger: 'change',
-          },
-        ],
-        title: [{ required: true, message: '请输入商品标题', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入积分活动简介', trigger: 'blur' }],
-        unit_name: [{ required: true, message: '请输入单位', trigger: 'blur' }],
-        price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入兑换积分',
-            trigger: 'blur',
-          },
-        ],
-        ot_price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入原价',
-            trigger: 'blur',
-          },
-        ],
-        cost: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入成本价',
-            trigger: 'blur',
-          },
-        ],
-        stock: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入库存',
-            trigger: 'blur',
-          },
-        ],
-        num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入兑换数量限制',
-            trigger: 'blur',
-          },
-        ],
-        once_num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入单次兑换数量限制',
-            trigger: 'blur',
-          },
-        ],
-      },
+      ruleValidate: {},
       copy: 0,
     };
   },
@@ -443,8 +375,16 @@ export default {
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
     },
+    stepList() {
+      return [
+        this.$t('message.pages.marketing.storeIntegral.create.step1'),
+        this.$t('message.pages.marketing.storeIntegral.create.step2'),
+        this.$t('message.pages.marketing.storeIntegral.create.step3'),
+      ];
+    },
   },
   mounted() {
+    this.setRuleValidate();
     if (this.$route.params.id) {
       this.copy = this.$route.params.copy;
       this.current = 1;
@@ -452,6 +392,26 @@ export default {
     }
   },
   methods: {
+    setRuleValidate() {
+      const t = this.$t.bind(this);
+      const p = 'message.pages.marketing.storeIntegral.create.';
+      this.ruleValidate = {
+        image: [{ required: true, message: t(p + 'msgSelectMainImage'), trigger: 'change' }],
+        images: [
+          { required: true, type: 'array', message: t(p + 'msgSelectMainImage'), trigger: 'change' },
+          { type: 'array', min: 1, message: t(p + 'msgSelectAtLeastOneImage'), trigger: 'change' },
+        ],
+        title: [{ required: true, message: t(p + 'msgInputProductTitle'), trigger: 'blur' }],
+        info: [{ required: true, message: t(p + 'msgInputIntegralIntro'), trigger: 'blur' }],
+        unit_name: [{ required: true, message: t(p + 'msgInputUnit'), trigger: 'blur' }],
+        price: [{ required: true, type: 'number', message: t(p + 'msgInputIntegralPrice'), trigger: 'blur' }],
+        ot_price: [{ required: true, type: 'number', message: t(p + 'msgInputOriginalPrice'), trigger: 'blur' }],
+        cost: [{ required: true, type: 'number', message: t(p + 'msgInputCostPrice'), trigger: 'blur' }],
+        stock: [{ required: true, type: 'number', message: t(p + 'msgInputStock'), trigger: 'blur' }],
+        num: [{ required: true, type: 'number', message: t(p + 'msgInputExchangeLimit'), trigger: 'blur' }],
+        once_num: [{ required: true, type: 'number', message: t(p + 'msgInputOnceExchangeLimit'), trigger: 'blur' }],
+      };
+    },
     getEditorContent(data) {
       this.description = data;
     },
@@ -591,24 +551,24 @@ export default {
         this.$refs[name].validate((valid) => {
           if (valid) {
             if (!that.formValidate.attrs) {
-              return that.$message.error('请选择属性规格');
+              return that.$message.error(that.$t('message.pages.marketing.storeIntegral.create.msgSelectSpec'));
             } else {
               for (let index in that.formValidate.attrs) {
                 if (that.formValidate.attrs[index].quota <= 0) {
-                  return that.$message.error('兑换次数必须大于0');
+                  return that.$message.error(that.$t('message.pages.marketing.storeIntegral.create.msgExchangeGtZero'));
                 }
               }
             }
             this.current += 1;
           } else {
-            return this.$message.warning('请完善您的信息');
+            return this.$message.warning(this.$t('message.pages.marketing.storeIntegral.create.msgCompleteInfo'));
           }
         });
       } else {
         if (this.formValidate.image) {
           this.current += 1;
         } else {
-          this.$message.warning('请选择商品');
+          this.$message.warning(this.$t('message.pages.marketing.storeIntegral.create.msgSelectProduct'));
         }
       }
     },
@@ -623,7 +583,7 @@ export default {
     // 点击商品图
     modalPicTap(tit, picTit, index) {
       this.modalPic = true;
-      this.isChoice = tit === 'dan' ? '单选' : '多选';
+      this.isChoice = tit === 'dan' ? this.$t('message.pages.marketing.storeIntegral.create.singleSelect') : this.$t('message.pages.marketing.storeIntegral.create.multiSelect');
       this.picTit = picTit;
       this.tableIndex = index;
     },

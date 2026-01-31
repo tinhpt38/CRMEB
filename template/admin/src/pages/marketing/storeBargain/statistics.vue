@@ -15,29 +15,29 @@
         @submit.native.prevent
         inline
       >
-        <el-form-item v-if="type == 1" label="订单状态：" label-for="status">
+        <el-form-item v-if="type == 1" :label="$t('message.pages.marketing.storeBargain.statisticsPage.orderStatus')" label-for="status">
           <el-select
             v-model="pagination.status"
-            placeholder="请选择订单状态"
+            :placeholder="$t('message.pages.marketing.storeBargain.statisticsPage.pleaseSelectOrderStatus')"
             clearable
             @change="searchList"
             class="form_content_width"
           >
-            <el-option value="1" label="待发货"></el-option>
-            <el-option value="2" label="待收货"></el-option>
-            <el-option value="3" label="待评价"></el-option>
-            <el-option value="4" label="交易完成"></el-option>
+            <el-option value="1" :label="$t('message.pages.marketing.storeBargain.statisticsPage.pendingShip')"></el-option>
+            <el-option value="2" :label="$t('message.pages.marketing.storeBargain.statisticsPage.pendingReceive')"></el-option>
+            <el-option value="3" :label="$t('message.pages.marketing.storeBargain.statisticsPage.pendingReview')"></el-option>
+            <el-option value="4" :label="$t('message.pages.marketing.storeBargain.statisticsPage.completed')"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="订单搜索：" label-for="title">
+        <el-form-item :label="$t('message.pages.marketing.storeBargain.statisticsPage.orderSearch')" label-for="title">
           <el-input
             v-model="pagination.real_name"
-            :placeholder="type == 1 ? '请输入用户姓名|订单号|UID' : '请输入用户UID'"
+            :placeholder="type == 1 ? $t('message.pages.marketing.storeBargain.statisticsPage.inputUserOrderUid') : $t('message.pages.marketing.storeBargain.statisticsPage.inputUserUid')"
             class="form_content_width"
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="searchList">查询</el-button>
+          <el-button type="primary" v-db-click @click="searchList">{{ $t('message.pages.marketing.storeBargain.statisticsPage.query') }}</el-button>
         </el-form-item>
       </el-form>
       <el-tabs v-model="type" @tab-click="onClickTab">
@@ -48,8 +48,8 @@
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
         <el-table-column
           :label="item.title"
@@ -69,9 +69,9 @@
               </div>
             </template>
             <template v-else-if="item.slot === 'status'">
-              <el-tag size="medium" type="info" v-show="scope.row.status === 1">进行中</el-tag>
-              <el-tag size="medium" type="danger" v-show="scope.row.status === 2">已失败</el-tag>
-              <el-tag size="medium" v-show="scope.row.status === 3">已成功</el-tag>
+              <el-tag size="medium" type="info" v-show="scope.row.status === 1">{{ $t('message.pages.marketing.storeBargain.statisticsPage.statusOngoing') }}</el-tag>
+              <el-tag size="medium" type="danger" v-show="scope.row.status === 2">{{ $t('message.pages.marketing.storeBargain.statisticsPage.statusFailed') }}</el-tag>
+              <el-tag size="medium" v-show="scope.row.status === 3">{{ $t('message.pages.marketing.storeBargain.statisticsPage.statusSuccess') }}</el-tag>
             </template>
             <template v-else-if="item.slot === 'action'">
               <a v-db-click @click="Info(scope.row)">查看详情</a>
@@ -90,12 +90,12 @@
       </div>
     </el-card>
     <!-- 详情模态框-->
-    <el-dialog :visible.sync="modals" class="tableBox" title="查看详情" :close-on-click-modal="false" width="720px">
+    <el-dialog :visible.sync="modals" class="tableBox" :title="$t('message.pages.marketing.storeBargain.statisticsPage.viewDetailTitle')" :close-on-click-modal="false" width="720px">
       <el-table
         ref="selection"
         :data="tabList3"
         v-loading="loading2"
-        empty-text="暂无数据"
+        :empty-text="$t('message.pages.marketing.common.noData')"
         highlight-current-row
         max-height="600"
         size="small"

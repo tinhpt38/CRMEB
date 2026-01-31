@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="创建时间：">
+          <el-form-item :label="$t('message.pages.marketing.storeIntegral.createTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,29 +19,29 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.marketing.storeIntegral.startDate')"
+              :end-placeholder="$t('message.pages.marketing.storeIntegral.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="上架状态：">
+          <el-form-item :label="$t('message.pages.marketing.storeIntegral.onSaleStatus')">
             <el-select
-              placeholder="请选择"
+              :placeholder="$t('message.pages.marketing.common.pleaseSelect')"
               clearable
               v-model="tableFrom.is_show"
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="上架"></el-option>
-              <el-option value="0" label="下架"></el-option>
+              <el-option value="1" :label="$t('message.pages.marketing.storeIntegral.onSale')"></el-option>
+              <el-option value="0" :label="$t('message.pages.marketing.storeIntegral.offSale')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="商品搜索：" label-for="store_name">
-            <el-input placeholder="请输入商品名称，ID" v-model="tableFrom.store_name" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.marketing.storeIntegral.productSearch')" label-for="store_name">
+            <el-input :placeholder="$t('message.pages.marketing.storeIntegral.inputProductName')" v-model="tableFrom.store_name" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.marketing.common.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -69,7 +69,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品图片" min-width="40">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.productImage')" min-width="40">
           <template slot-scope="scope">
             <viewer>
               <div class="tabBox_img">
@@ -78,7 +78,7 @@
             </viewer>
           </template>
         </el-table-column>
-        <el-table-column label="活动标题" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.activityTitle')" min-width="130">
           <template slot-scope="scope">
             <el-tooltip placement="top" :open-delay="600">
               <div slot="content">{{ scope.row.title }}</div>
@@ -86,32 +86,32 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="兑换积分" min-width="60">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.integralPrice')" min-width="60">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="限量" min-width="60">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.limit')" min-width="60">
           <template slot-scope="scope">
             <span>{{ scope.row.quota_show }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="限量剩余" min-width="60">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.limitRemain')" min-width="60">
           <template slot-scope="scope">
             <span>{{ scope.row.quota }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.createTimeCol')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="60">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.sort')" min-width="60">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="60">
+        <el-table-column :label="$t('message.pages.marketing.storeIntegral.status')" min-width="60">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -124,15 +124,15 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="200">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="200">
           <template slot-scope="scope">
-            <a v-db-click @click="orderList(scope.row)">兑换记录</a>
+            <a v-db-click @click="orderList(scope.row)">{{ $t('message.pages.marketing.storeIntegral.exchangeRecord') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.marketing.storeIntegral.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="copy(scope.row)">复制</a>
+            <a v-db-click @click="copy(scope.row)">{{ $t('message.pages.marketing.storeIntegral.copy') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除积分商品', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.marketing.storeIntegral.delIntegralConfirm'), scope.$index)">{{ $t('message.pages.marketing.common.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

@@ -10,33 +10,33 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="时间选择：">
-            <el-date-picker
-              clearable
-              v-model="timeVal"
-              type="daterange"
-              :editable="false"
-              @change="onchangeTime"
-              format="yyyy/MM/dd"
-              value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+<el-form-item :label="$t('message.pages.marketing.storeCombination.combinaList.timeSelect')">
+          <el-date-picker
+            clearable
+            v-model="timeVal"
+            type="daterange"
+            :editable="false"
+            @change="onchangeTime"
+            format="yyyy/MM/dd"
+            value-format="yyyy/MM/dd"
+            :start-placeholder="$t('message.pages.marketing.common.startDate')"
+            :end-placeholder="$t('message.pages.marketing.common.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="拼团状态：">
+          <el-form-item :label="$t('message.pages.marketing.storeCombination.combinaList.combinaStatus')">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.marketing.storeCombination.combinaList.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option :value="1" label="进行中"></el-option>
-              <el-option :value="2" label="已完成"></el-option>
-              <el-option :value="3" label="未完成"></el-option>
+              <el-option :value="1" :label="$t('message.pages.marketing.storeCombination.combinaList.ongoing')"></el-option>
+              <el-option :value="2" :label="$t('message.pages.marketing.storeCombination.combinaList.completed')"></el-option>
+              <el-option :value="3" :label="$t('message.pages.marketing.storeCombination.combinaList.unfinished')"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -48,58 +48,58 @@
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
-        <el-table-column label="头像" min-width="90">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.avatar')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="开团团长" min-width="150">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.groupLeader')" min-width="150">
           <template slot-scope="scope">
             <span> {{ scope.row.nickname + ' / ' + scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="开团时间" min-width="150">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.openTime')" min-width="150">
           <template slot-scope="scope">
             <span> {{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="拼团商品" min-width="180">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.combinaProduct')" min-width="180">
           <template slot-scope="scope">
             <span> {{ scope.row.title + ' / ' + scope.row.cid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="几人团" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.peopleCount')" min-width="80">
           <template slot-scope="scope">
             <span> {{ scope.row.people }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="几人参加" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.joinCount')" min-width="80">
           <template slot-scope="scope">
             <span> {{ scope.row.count_people }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="结束时间" min-width="120">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.endTime')" min-width="120">
           <template slot-scope="scope">
             <span> {{ scope.row.stop_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="120">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.status')" min-width="120">
           <template slot-scope="scope">
-            <el-tag type="info" v-show="scope.row.status === 1">进行中</el-tag>
-            <el-tag v-show="scope.row.status === 2">已完成</el-tag>
-            <el-tag type="warning" v-show="scope.row.status === 3">未完成</el-tag>
+            <el-tag type="info" v-show="scope.row.status === 1">{{ $t('message.pages.marketing.storeCombination.combinaList.ongoing') }}</el-tag>
+            <el-tag v-show="scope.row.status === 2">{{ $t('message.pages.marketing.storeCombination.combinaList.completed') }}</el-tag>
+            <el-tag type="warning" v-show="scope.row.status === 3">{{ $t('message.pages.marketing.storeCombination.combinaList.unfinished') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="150">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="150">
           <template slot-scope="scope">
-            <a v-db-click @click="Info(scope.row)">查看详情</a>
+            <a v-db-click @click="Info(scope.row)">{{ $t('message.pages.marketing.storeCombination.combinaList.viewDetail') }}</a>
             <el-divider v-if="scope.row.status === 1" direction="vertical"></el-divider>
-            <a v-if="scope.row.status === 1" v-db-click @click="joinCombination(scope.row)">立即成团</a>
+            <a v-if="scope.row.status === 1" v-db-click @click="joinCombination(scope.row)">{{ $t('message.pages.marketing.storeCombination.combinaList.joinNow') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -115,47 +115,47 @@
     </el-card>
 
     <!-- 详情模态框-->
-    <el-dialog :visible.sync="modals" class="tableBox" title="查看详情" :close-on-click-modal="false" width="720px">
+    <el-dialog :visible.sync="modals" class="tableBox" :title="$t('message.pages.marketing.storeCombination.combinaList.viewDetailTitle')" :close-on-click-modal="false" width="720px">
       <el-table
         ref="selection"
         :data="tabList3"
         v-loading="loading2"
-        empty-text="暂无数据"
+        :empty-text="$t('message.pages.marketing.common.noData')"
         highlight-current-row
         max-height="600"
         size="small"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名称" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.userName')" min-width="100">
           <template slot-scope="scope">
             <span> {{ scope.row.nickname + ' / ' + scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户头像" min-width="150">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.userAvatar')" min-width="150">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="订单编号" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.orderNo')" min-width="100">
           <template slot-scope="scope">
             <span> {{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="金额" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.amount')" min-width="100">
           <template slot-scope="scope">
             <span> {{ scope.row.total_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="订单状态" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeCombination.combinaList.orderStatus')" min-width="100">
           <template slot-scope="scope">
-            <el-tag v-show="scope.row.is_refund != 0">已退款</el-tag>
-            <el-tag type="danger" v-show="scope.row.is_refund === 0">未退款</el-tag>
+            <el-tag v-show="scope.row.is_refund != 0">{{ $t('message.pages.marketing.storeCombination.combinaList.refunded') }}</el-tag>
+            <el-tag type="danger" v-show="scope.row.is_refund === 0">{{ $t('message.pages.marketing.storeCombination.combinaList.notRefunded') }}</el-tag>
           </template>
         </el-table-column>
       </el-table>

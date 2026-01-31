@@ -14,30 +14,30 @@
         label-position="right"
         @submit.native.prevent
         inline
-        ><el-form-item v-if="type == 1" label="订单状态：" label-for="status">
+        ><el-form-item v-if="type == 1" :label="$t('message.pages.marketing.storeSeckill.statisticsList.orderStatus')" label-for="status">
           <el-select
             v-model="pagination.status"
             clearable
-            placeholder="请选择订单状态"
+            :placeholder="$t('message.pages.marketing.storeSeckill.statisticsList.pleaseSelectOrderStatus')"
             @change="changeStatus"
             class="form_content_width"
           >
-            <el-option value="1" label="待发货"></el-option>
-            <el-option value="2" label="待收货"></el-option>
-            <el-option value="3" label="待评价"></el-option>
-            <el-option value="4" label="交易完成"></el-option>
+            <el-option value="1" :label="$t('message.pages.marketing.storeSeckill.statisticsList.pendingShip')"></el-option>
+            <el-option value="2" :label="$t('message.pages.marketing.storeSeckill.statisticsList.pendingReceive')"></el-option>
+            <el-option value="3" :label="$t('message.pages.marketing.storeSeckill.statisticsList.pendingReview')"></el-option>
+            <el-option value="4" :label="$t('message.pages.marketing.storeSeckill.statisticsList.completed')"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="订单搜索：" label-for="title">
+        <el-form-item :label="$t('message.pages.marketing.storeSeckill.statisticsList.orderSearch')" label-for="title">
           <el-input
             clearable
             v-model="pagination.real_name"
-            placeholder="请输入用户姓名|手机号|UID"
+            :placeholder="$t('message.pages.marketing.storeSeckill.statisticsList.inputUserNamePhoneUid')"
             class="form_content_width"
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="changeStatus">查询</el-button>
+          <el-button type="primary" v-db-click @click="changeStatus">{{ $t('message.pages.marketing.storeSeckill.statisticsList.query') }}</el-button>
         </el-form-item>
       </el-form>
       <el-tabs v-model="type" @tab-click="onClickTab">
@@ -48,8 +48,8 @@
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
         <el-table-column
           :label="item.title"
@@ -97,70 +97,8 @@ export default {
       tbody: [],
       labelWidth: 75,
       total: 0,
-      tabs: [
-        {
-          type: '0',
-          label: '活动参与人',
-        },
-        {
-          type: '1',
-          label: '活动订单',
-        },
-      ],
       type: 0,
       loading: false,
-      thead: [
-        {
-          title: '用户姓名',
-          key: 'real_name',
-        },
-        {
-          title: '购买件数',
-          key: 'goods_num',
-        },
-        {
-          title: '支付订单数',
-          key: 'order_num',
-        },
-        {
-          title: '支付金额',
-          key: 'total_price',
-        },
-        {
-          title: '最近参与时间',
-          key: 'add_time',
-        },
-      ],
-      thead2: [
-        {
-          title: '订单号',
-          key: 'order_id',
-        },
-        {
-          title: '用户',
-          key: 'real_name',
-        },
-        {
-          title: '订单状态',
-          key: 'status',
-        },
-        {
-          title: '订单支付金额',
-          key: 'pay_price',
-        },
-        {
-          title: '订单商品数',
-          key: 'total_num',
-        },
-        {
-          title: '下单时间',
-          key: 'add_time',
-        },
-        {
-          title: '支付时间',
-          key: 'pay_time',
-        },
-      ],
       cardLists: [
         {
           col: 6,
@@ -195,6 +133,40 @@ export default {
       },
       type: 0,
     };
+  },
+  computed: {
+    tabs() {
+      const t = (key) => this.$t(key);
+      const p = 'message.pages.marketing.storeSeckill.statisticsList.';
+      return [
+        { type: '0', label: t(p + 'tabParticipants') },
+        { type: '1', label: t(p + 'tabOrders') },
+      ];
+    },
+    thead() {
+      const t = (key) => this.$t(key);
+      const p = 'message.pages.marketing.storeSeckill.statisticsList.';
+      return [
+        { title: t(p + 'userName'), key: 'real_name' },
+        { title: t(p + 'purchaseQty'), key: 'goods_num' },
+        { title: t(p + 'orderCount'), key: 'order_num' },
+        { title: t(p + 'payAmount'), key: 'total_price' },
+        { title: t(p + 'lastParticipateTime'), key: 'add_time' },
+      ];
+    },
+    thead2() {
+      const t = (key) => this.$t(key);
+      const p = 'message.pages.marketing.storeSeckill.statisticsList.';
+      return [
+        { title: t(p + 'orderNo'), key: 'order_id' },
+        { title: t(p + 'user'), key: 'real_name' },
+        { title: t(p + 'orderStatus'), key: 'status' },
+        { title: t(p + 'orderAmount'), key: 'pay_price' },
+        { title: t(p + 'orderGoodsCount'), key: 'total_num' },
+        { title: t(p + 'orderTime'), key: 'add_time' },
+        { title: t(p + 'payTime'), key: 'pay_time' },
+      ];
+    },
   },
   created() {
     this.id = this.$route.params.id;

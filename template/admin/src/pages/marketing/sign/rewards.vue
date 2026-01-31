@@ -5,7 +5,7 @@
         <el-tab-pane :label="item.name" :name="item.type" v-for="(item, index) in tabList" :key="index" />
       </el-tabs>
       <el-button v-db-click @click="add" type="primary">{{
-        signFrom.type == 0 ? '添加连续签到奖励' : '添加累积签到奖励'
+        signFrom.type == 0 ? $t('message.pages.marketing.sign.rewards.addContinuous') : $t('message.pages.marketing.sign.rewards.addCumulative')
       }}</el-button>
       <el-table
         :data="tableData"
@@ -13,36 +13,36 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
-        <el-table-column label="类型" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.sign.rewards.type')" min-width="80">
           <template slot-scope="scope">
             <span>{{
-              scope.row.type == 0 ? `连续签到${scope.row.days}天奖励` : `累积签到${scope.row.days}天奖励`
+              scope.row.type == 0 ? $t('message.pages.marketing.sign.rewards.continuousReward').replace('N', scope.row.days) : $t('message.pages.marketing.sign.rewards.cumulativeReward').replace('N', scope.row.days)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="天数" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.sign.rewards.days')" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.days }} (天)</span>
+            <span>{{ scope.row.days }} ({{ $t('message.pages.marketing.sign.rewards.dayUnit') }})</span>
           </template>
         </el-table-column>
-        <el-table-column label="奖励积分" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.sign.rewards.rewardPoint')" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.point }} (积分)</span>
+            <span>{{ scope.row.point }} ({{ $t('message.pages.marketing.sign.rewards.pointUnit') }})</span>
           </template>
         </el-table-column>
-        <el-table-column label="奖励经验" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.sign.rewards.rewardExp')" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.exp }} (经验)</span>
+            <span>{{ scope.row.exp }} ({{ $t('message.pages.marketing.sign.rewards.expUnit') }})</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.marketing.sign.rewards.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row)">删除</a>
+            <a v-db-click @click="del(scope.row)">{{ $t('message.pages.marketing.sign.rewards.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -69,10 +69,7 @@ export default {
         page: 1,
         limit: 20,
       },
-      tabList: [
-        { type: '0', name: '连续签到奖励' },
-        { type: '1', name: '累积签到奖励' },
-      ],
+      tabList: [],
       total: 0,
       tableData: [],
       loading: false,
@@ -115,8 +112,11 @@ export default {
       });
     },
     del(row) {
+      const t = (key) => this.$t(key);
+      const p = 'message.pages.marketing.sign.rewards.';
+      const title = row.type == 0 ? t(p + 'delContinuousConfirm').replace('N', row.days) : t(p + 'delCumulativeConfirm').replace('N', row.days);
       let delfromData = {
-        title: row.type == 0 ? `删除连续签到${row.days}天奖励` : `删除累计签到${row.days}天奖励`,
+        title,
         url: `/marketing/sign/del_rewards/${row.id}`,
         method: 'DELETE',
       };

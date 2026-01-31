@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card :bordered="false" shadow="never" class="ivu-mt"> 后台from表单 </el-card>
+    <el-card :bordered="false" shadow="never" class="ivu-mt"> {{ $t('message.pages.marketing.systemConfig.formPlaceholder') }} </el-card>
   </div>
 </template>
 

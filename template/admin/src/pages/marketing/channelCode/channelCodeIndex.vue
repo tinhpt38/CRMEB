@@ -4,7 +4,7 @@
       <el-col :span="4" class="left-wrapper">
         <div class="tree_tit" v-db-click @click="addSort">
           <i class="el-icon-circle-plus"></i>
-          添加分组
+          {{ $t('message.pages.marketing.channelCode.addGroup') }}
         </div>
         <div class="tree">
           <el-tree
@@ -30,8 +30,8 @@
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
-                      <el-dropdown-item command="1">编辑分组</el-dropdown-item>
-                      <el-dropdown-item v-if="data.id" command="2">删除分组</el-dropdown-item>
+                      <el-dropdown-item command="1">{{ $t('message.pages.marketing.channelCode.editGroup') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="data.id" command="2">{{ $t('message.pages.marketing.channelCode.delGroup') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -45,14 +45,14 @@
           <el-row class="mb14">
             <el-col :span="18">
               <el-button v-auth="['marketing-channel_code-create']" type="primary" v-db-click @click="add"
-                >新建渠道码</el-button
+                >{{ $t('message.pages.marketing.channelCode.newChannelCode') }}</el-button
               >
               <!-- <el-button v-auth="['marketing-channel_code-create']" type="success" v-db-click @click="addSort">添加分组</el-button> -->
             </el-col>
             <el-col :span="6">
               <div class="flex">
-                <el-input class="mr10" v-model="tableFrom.name" search placeholder="请输入渠道码名称"> </el-input>
-                <el-button type="primary" v-db-click @click="userSearchs">搜索</el-button>
+                <el-input class="mr10" v-model="tableFrom.name" search :placeholder="$t('message.pages.marketing.channelCode.inputChannelName')"> </el-input>
+                <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.marketing.channelCode.search') }}</el-button>
               </div>
             </el-col>
           </el-row>
@@ -60,57 +60,57 @@
             :data="tableList"
             v-loading="loading"
             highlight-current-row
-            no-userFrom-text="暂无数据"
-            no-filtered-userFrom-text="暂无筛选结果"
+            :no-data-text="$t('message.pages.marketing.common.noData')"
+            :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
           >
-            <el-table-column label="渠道码" width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.channelCodeImage')" width="80">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.image" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="渠道码名称" min-width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.channelCodeName')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="总关注数" min-width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.totalFollow')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.follow }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="昨日新增关注" min-width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.yesterdayFollow')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.y_follow }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="用户标签" min-width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.userTag')" min-width="80">
               <template slot-scope="scope">
                 <el-tag class="label-name" v-for="(item, index) in scope.row.label_name" :key="index">{{
                   item
                 }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="时间" min-width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.time')" min-width="80">
               <template slot-scope="scope">
-                <span v-if="scope.row.stop === 0"> 永久 </span>
+                <span v-if="scope.row.stop === 0"> {{ $t('message.pages.marketing.channelCode.permanent') }} </span>
                 <span v-if="scope.row.stop === 1">
                   <div>{{ scope.row.add_time }}</div>
                   <div>-</div>
                   <div>{{ scope.row.end_time }}</div>
                 </span>
-                <span v-if="scope.row.stop === -1">已过期</span>
+                <span v-if="scope.row.stop === -1">{{ $t('message.pages.marketing.channelCode.expired') }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="关联推广员" min-width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.relatedPromoter')" min-width="80">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.avatar" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="状态" min-width="80">
+            <el-table-column :label="$t('message.pages.marketing.channelCode.status')" min-width="80">
               <template slot-scope="scope">
                 <el-switch
                   class="defineSwitch"

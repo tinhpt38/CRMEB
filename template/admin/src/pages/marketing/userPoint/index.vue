@@ -11,18 +11,18 @@
       >
         <el-row :gutter="24">
           <el-col :xl="6" :lg="10" :md="10" :sm="24" :xs="24">
-            <el-form-item label="搜索：" label-for="store_name">
+            <el-form-item :label="$t('message.pages.marketing.userPoint.search')" label-for="store_name">
               <el-input
                 search
                 enter-button
-                placeholder="请输入用户ID,标题"
+                :placeholder="$t('message.pages.marketing.userPoint.inputUserIdTitle')"
                 v-model="tableFrom.nickname"
                 @on-search="userSearchs"
               />
             </el-form-item>
           </el-col>
           <el-col :xl="6" :lg="10" :md="10" :sm="24" :xs="24">
-            <el-form-item label="选择时间：" label-for="user_time">
+            <el-form-item :label="$t('message.pages.marketing.userPoint.selectTime')" label-for="user_time">
               <el-date-picker
                 clearable
                 :editable="false"
@@ -32,15 +32,15 @@
                 type="daterange"
                 value-format="yyyy-MM-dd"
                 range-separator="-"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                :start-placeholder="$t('message.pages.marketing.userPoint.startDate')"
+                :end-placeholder="$t('message.pages.marketing.userPoint.endDate')"
                 class="perW100"
               ></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :xl="4" :lg="4" :md="4" :sm="24" :xs="24">
             <el-button v-auth="['export-userPoint']" class="export" icon="ios-share-outline" v-db-click @click="exports"
-              >导出</el-button
+              >{{ $t('message.pages.marketing.common.export') }}</el-button
             >
           </el-col>
         </el-row>
@@ -50,36 +50,36 @@
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="标题" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.userPoint.title')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="积分变动" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.userPoint.pointChange')" min-width="130">
           <template slot-scope="scope">
             <div v-if="scope.row.pm" class="z-price">+ {{ scope.row.number }}</div>
             <div v-else class="f-price">- {{ scope.row.number }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="变动后积分" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.userPoint.balanceAfter')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.balance }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.userPoint.remark')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.userPoint.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>

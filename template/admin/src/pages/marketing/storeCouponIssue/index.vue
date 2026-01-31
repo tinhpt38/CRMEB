@@ -10,62 +10,62 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="优惠券名称：" label-for="coupon_title">
+          <el-form-item :label="$t('message.pages.marketing.storeCouponIssue.couponName')" label-for="coupon_title">
             <el-input
               v-model="tableFrom.coupon_title"
-              placeholder="请输入优惠券名称"
+              :placeholder="$t('message.pages.marketing.storeCouponIssue.inputCouponName')"
               class="form_content_width"
               maxlength="18"
               show-word-limit
             />
           </el-form-item>
-          <el-form-item label="优惠券类型：" label-for="coupon_type">
+          <el-form-item :label="$t('message.pages.marketing.storeCouponIssue.couponType')" label-for="coupon_type">
             <el-select
               v-model="tableFrom.coupon_type"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.marketing.common.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="0" label="通用券"></el-option>
-              <el-option value="1" label="品类券"></el-option>
-              <el-option value="2" label="商品券"></el-option>
+              <el-option value="0" :label="$t('message.pages.marketing.storeCouponIssue.generalCoupon')"></el-option>
+              <el-option value="1" :label="$t('message.pages.marketing.storeCouponIssue.categoryCoupon')"></el-option>
+              <el-option value="2" :label="$t('message.pages.marketing.storeCouponIssue.productCoupon')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="是否有效：" label-for="status">
+          <el-form-item :label="$t('message.pages.marketing.storeCouponIssue.validStatus')" label-for="status">
             <el-select
               v-model="tableFrom.status"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.marketing.common.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="正常"></el-option>
-              <el-option value="0" label="未开启"></el-option>
+              <el-option value="1" :label="$t('message.pages.marketing.storeCouponIssue.normal')"></el-option>
+              <el-option value="0" :label="$t('message.pages.marketing.storeCouponIssue.notOpen')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="发放方式：" label-for="status">
+          <el-form-item :label="$t('message.pages.marketing.storeCouponIssue.receiveType')" label-for="status">
             <el-select
               v-model="receive_type"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.marketing.common.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="all" label="全部"></el-option>
-              <el-option value="1" label="用户领取"></el-option>
-              <el-option value="2" label="系统赠送"></el-option>
+              <el-option value="all" :label="$t('message.pages.marketing.storeCouponIssue.all')"></el-option>
+              <el-option value="1" :label="$t('message.pages.marketing.storeCouponIssue.userReceive')"></el-option>
+              <el-option value="2" :label="$t('message.pages.marketing.storeCouponIssue.systemGive')"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.marketing.common.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-button v-auth="['admin-marketing-store_coupon-add']" type="primary" icon="md-add" v-db-click @click="add"
-        >添加优惠券</el-button
+        >{{ $t('message.pages.marketing.storeCouponIssue.addCoupon') }}</el-button
       >
       <el-table
         :data="tableList"
@@ -73,47 +73,47 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券名称" min-width="150">
+        <el-table-column :label="$t('message.pages.marketing.storeCouponIssue.couponNameCol')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券类型" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.storeCouponIssue.couponTypeCol')" min-width="80">
           <template slot-scope="scope">
-            <span v-if="scope.row.type === 1">品类券</span>
-            <span v-else-if="scope.row.type === 2">商品券</span>
-            <span v-else-if="scope.row.type === 3">会员券</span>
-            <span v-else>通用券</span>
+            <span v-if="scope.row.type === 1">{{ $t('message.pages.marketing.storeCouponIssue.categoryCoupon') }}</span>
+            <span v-else-if="scope.row.type === 2">{{ $t('message.pages.marketing.storeCouponIssue.productCoupon') }}</span>
+            <span v-else-if="scope.row.type === 3">{{ $t('message.pages.marketing.storeCouponIssue.memberCoupon') }}</span>
+            <span v-else>{{ $t('message.pages.marketing.storeCouponIssue.generalCoupon') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="面值" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeCouponIssue.faceValue')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="领取方式" min-width="150">
+        <el-table-column :label="$t('message.pages.marketing.storeCouponIssue.receiveMethod')" min-width="150">
           <template slot-scope="scope">
-            <span v-if="scope.row.receive_type === 1 || scope.row.receive_type === 4">用户领取</span>
-            <span v-else>系统赠送</span>
+            <span v-if="scope.row.receive_type === 1 || scope.row.receive_type === 4">{{ $t('message.pages.marketing.storeCouponIssue.userReceive') }}</span>
+            <span v-else>{{ $t('message.pages.marketing.storeCouponIssue.systemGive') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="领取日期" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeCouponIssue.receiveDate')" min-width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.start_time">
               {{ scope.row.start_time | formatDate }} - {{ scope.row.end_time | formatDate }}
             </div>
-            <span v-else>不限时</span>
+            <span v-else>{{ $t('message.pages.marketing.storeCouponIssue.unlimited') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="使用时间" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeCouponIssue.useTime')" min-width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.start_use_time">
               {{ scope.row.start_use_time | formatDate }} -

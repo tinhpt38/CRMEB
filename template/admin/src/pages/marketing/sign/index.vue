@@ -18,14 +18,14 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">签到天数设置</div>
+              <div class="title">{{ $t('message.pages.marketing.sign.signDaySetting') }}</div>
               <el-button
                 type="primary"
                 icon="md-add"
                 v-db-click
-                @click="groupAdd('添加数据')"
+                @click="groupAdd($t('message.pages.marketing.sign.addData'))"
                 style="margin-left: 14px; margin-top: 30px"
-                >添加数据</el-button
+                >{{ $t('message.pages.marketing.sign.addData') }}</el-button
               >
             </div>
           </div>
@@ -36,26 +36,26 @@
               class="mt14"
               v-loading="loading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+              :no-data-text="$t('message.pages.marketing.common.noData')"
+              :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
             >
-              <el-table-column label="编号" width="80">
+              <el-table-column :label="$t('message.pages.marketing.sign.no')" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="第几天" min-width="80">
+              <el-table-column :label="$t('message.pages.marketing.sign.dayLabel')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.day }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="获取积分" min-width="80">
+              <el-table-column :label="$t('message.pages.marketing.sign.getPoint')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sign_num }}</span>
                 </template>
               </el-table-column>
 
-              <el-table-column label="是否可用" min-width="80">
+              <el-table-column :label="$t('message.pages.marketing.sign.isAvailable')" min-width="80">
                 <template slot-scope="scope">
                   <el-switch
                     :active-value="1"
@@ -68,16 +68,16 @@
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="排序" min-width="80">
+              <el-table-column :label="$t('message.pages.marketing.sign.sort')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" fixed="right" width="150">
+              <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="150">
                 <template slot-scope="scope">
-                  <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+                  <a v-db-click @click="edit(scope.row, $t('message.pages.marketing.sign.edit'))">{{ $t('message.pages.marketing.sign.edit') }}</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+                  <a v-db-click @click="del(scope.row, $t('message.pages.marketing.sign.delConfirm'), scope.$index)">{{ $t('message.pages.marketing.common.del') }}</a>
                 </template>
               </el-table-column>
             </el-table>

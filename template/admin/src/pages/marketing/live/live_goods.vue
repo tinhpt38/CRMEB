@@ -11,7 +11,7 @@
           class="tabform"
           @submit.native.prevent
         >
-          <el-form-item label="审核状态：">
+          <el-form-item :label="$t('message.pages.marketing.live.liveGoods.auditStatus')">
             <el-select v-model="formValidate.status" clearable @change="selChange" class="form_content_width">
               <el-option
                 v-for="(item, index) in treeData.withdrawal"
@@ -21,23 +21,23 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.marketing.live.liveGoods.search')">
             <el-input
               clearable
-              placeholder="请输入商品名称/ID"
+              :placeholder="$t('message.pages.marketing.live.liveGoods.inputProductNameId')"
               v-model="formValidate.kerword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">查询</el-button>
+            <el-button type="primary" v-db-click @click="selChange">{{ $t('message.pages.marketing.live.liveGoods.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button v-auth="['setting-system_menus-add']" type="primary" v-db-click @click="menusAdd('添加直播间')"
-        >添加商品
+      <el-button v-auth="['setting-system_menus-add']" type="primary" v-db-click @click="menusAdd($t('message.pages.marketing.live.liveGoods.addLiveRoom'))"
+        >{{ $t('message.pages.marketing.live.liveGoods.addGoods') }}
       </el-button>
       <!-- <el-button
         v-auth="['setting-system_menus-add']"
@@ -52,15 +52,15 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
-        <el-table-column label="商品ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.live.liveGoods.productId')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.product_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品名称" min-width="120">
+        <el-table-column :label="$t('message.pages.marketing.live.liveGoods.productName')" min-width="120">
           <template slot-scope="scope">
             <div class="product_box">
               <div v-viewer>
@@ -70,27 +70,27 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="直播价" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.live.liveGoods.livePrice')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="原价" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.live.liveGoods.originalPrice')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.cost_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="库存" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.live.liveGoods.stock')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.product.stock }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="审核状态" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.live.liveGoods.auditStatusCol')" min-width="80">
           <template slot-scope="scope">
             <div>{{ scope.row.audit_status | liveStatusFilter }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.live.liveGoods.isShow')" min-width="80">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -101,17 +101,17 @@
               @change="onchangeIsShow(scope.row)"
               size="large"
               :disabled="scope.row.audit_status != 2"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.pages.marketing.live.liveGoods.show')"
+              :inactive-text="$t('message.pages.marketing.live.liveGoods.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, '编辑')">详情</a>
+            <a v-db-click @click="edit(scope.row, $t('message.pages.marketing.common.edit'))">{{ $t('message.pages.marketing.live.liveGoods.detail') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.marketing.live.liveGoods.delConfirm'), scope.$index)">{{ $t('message.pages.marketing.live.liveGoods.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -126,7 +126,7 @@
       </div>
     </el-card>
     <!--详情-->
-    <el-dialog :visible.sync="modals" title="商品详情" class="paymentFooter" scrollable width="720px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.marketing.live.liveGoods.productDetail')" class="paymentFooter" scrollable width="720px">
       <goodsFrom ref="goodsDetail" :FormData="FormData" />
     </el-dialog>
   </div>

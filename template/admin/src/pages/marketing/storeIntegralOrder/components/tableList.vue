@@ -5,67 +5,65 @@
       ref="table"
       v-loading="loading"
       highlight-current-row
-      empty-text="暂无数据"
+      :empty-text="$t('message.pages.marketing.common.noData')"
       @select="selectAll"
       @select-all="selectAll"
       class="orderData"
     >
       <!-- <el-table-column type="selection" width="55"> </el-table-column> -->
-      <el-table-column label="订单号" min-width="150">
+      <el-table-column :label="$t('message.pages.marketing.storeIntegralOrder.orderNoCol')" min-width="150">
         <template slot-scope="scope">
           <span v-text="scope.row.order_id" style="display: block"></span>
-          <span v-if="scope.row.is_del == 1" style="color: #ed4014; display: block">用户已删除</span>
+          <span v-if="scope.row.is_del == 1" style="color: #ed4014; display: block">{{ $t('message.pages.marketing.storeIntegralOrder.userDeleted') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="用户信息" min-width="100">
+      <el-table-column :label="$t('message.pages.marketing.storeIntegralOrder.userInfo')" min-width="100">
         <template slot-scope="scope"> {{ scope.row.nickname }}/{{ scope.row.uid }} </template>
       </el-table-column>
-      <el-table-column label="商品信息" min-width="330">
+      <el-table-column :label="$t('message.pages.marketing.storeIntegralOrder.productInfo')" min-width="330">
         <template slot-scope="scope">
           <div class="tabBox">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
             <span class="tabBox_tit"> {{ scope.row.store_name + ' | ' }}{{ scope.row.suk ? scope.row.suk : '' }} </span>
-            <span class="tabBox_pice">{{ '积分' + scope.row.total_price + ' x ' + scope.row.total_num }}</span>
+            <span class="tabBox_pice">{{ $t('message.pages.marketing.storeIntegralOrder.integral') }}{{ scope.row.total_price + ' x ' + scope.row.total_num }}</span>
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="兑换积分" min-width="100">
+      <el-table-column :label="$t('message.pages.marketing.storeIntegralOrder.exchangeIntegral')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.total_price }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="订单状态" min-width="100">
+      <el-table-column :label="$t('message.pages.marketing.storeIntegralOrder.orderStatusCol')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.status_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="下单时间" min-width="100">
+      <el-table-column :label="$t('message.pages.marketing.storeIntegralOrder.orderTimeCol')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.add_time }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width="150">
+      <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="150">
         <template slot-scope="scope">
-          <a v-db-click @click="sendOrder(scope.row)" v-if="scope.row.status === 1">发送货</a>
-          <a v-db-click @click="delivery(scope.row)" v-if="scope.row.status === 2">配送信息</a>
+          <a v-db-click @click="sendOrder(scope.row)" v-if="scope.row.status === 1">{{ $t('message.pages.marketing.storeIntegralOrder.sendGoods') }}</a>
+          <a v-db-click @click="delivery(scope.row)" v-if="scope.row.status === 2">{{ $t('message.pages.marketing.storeIntegralOrder.deliveryInfo') }}</a>
           <el-divider direction="vertical" v-if="scope.row.status === 1 || scope.row.status === 2" />
           <template>
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)" :transfer="true">
-              <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">{{ $t('message.pages.marketing.storeIntegralOrder.more') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
 
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="2">订单详情</el-dropdown-item>
-                <el-dropdown-item command="3">订单记录</el-dropdown-item>
+                <el-dropdown-item command="2">{{ $t('message.pages.marketing.storeIntegralOrder.orderDetail') }}</el-dropdown-item>
+                <el-dropdown-item command="3">{{ $t('message.pages.marketing.storeIntegralOrder.orderRecord') }}</el-dropdown-item>
                 <el-dropdown-item command="11" v-show="scope.row.status >= 1 && scope.row.express_dump"
-                  >电子面单打印</el-dropdown-item
+                  >{{ $t('message.pages.marketing.storeIntegralOrder.expressPrint') }}</el-dropdown-item
                 >
-                <!-- <el-dropdown-item command="10" v-show="scope.row.status >= 1">小票打印</el-dropdown-item> -->
-                <!-- <el-dropdown-item name="10" v-show="scope.row._status >= 2">订单打印</el-dropdown-item> -->
-                <el-dropdown-item command="4" v-show="scope.row.status !== 4">订单备注</el-dropdown-item>
-                <el-dropdown-item command="8" v-show="scope.row.status === 2">已收货</el-dropdown-item>
-                <el-dropdown-item command="9" v-show="scope.row.is_del === 1">删除订单</el-dropdown-item>
+                <el-dropdown-item command="4" v-show="scope.row.status !== 4">{{ $t('message.pages.marketing.storeIntegralOrder.orderRemark') }}</el-dropdown-item>
+                <el-dropdown-item command="8" v-show="scope.row.status === 2">{{ $t('message.pages.marketing.storeIntegralOrder.received') }}</el-dropdown-item>
+                <el-dropdown-item command="9" v-show="scope.row.is_del === 1">{{ $t('message.pages.marketing.storeIntegralOrder.delOrder') }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>

@@ -5,32 +5,32 @@
         <div class="iframe-boxs">
           <div class="moneyBox">
             <div class="box1">
-              <div class="font1">我的余额</div>
+              <div class="font1">{{ $t('message.pages.marketing.recharge.myBalance') }}</div>
               <div>￥ <i class="font2">0.00</i></div>
             </div>
             <div class="moneyBox_content">
               <div class="box2">
-                <div>账户充值</div>
-                <div>佣金导入</div>
+                <div>{{ $t('message.pages.marketing.recharge.accountRecharge') }}</div>
+                <div>{{ $t('message.pages.marketing.recharge.commissionImport') }}</div>
               </div>
               <div class="box3">
                 <div v-show="item.status != 0" class="box3_box" v-for="(item, index) in sginList.list" :key="index">
-                  <div>{{ item.price }}<i class="font">元</i></div>
-                  <div class="font">赠送:{{ item.give_money }}元</div>
+                  <div>{{ item.price }}<i class="font">{{ $t('message.pages.marketing.recharge.yuan') }}</i></div>
+                  <div class="font">{{ $t('message.pages.marketing.recharge.giveAmount') }}:{{ item.give_money }}{{ $t('message.pages.marketing.recharge.yuan') }}</div>
                 </div>
                 <div class="box3_box">
-                  <div class="other">其他</div>
+                  <div class="other">{{ $t('message.pages.marketing.recharge.other') }}</div>
                 </div>
               </div>
               <div class="box4">
-                <div class="tips">注意事项：</div>
+                <div class="tips">{{ $t('message.pages.marketing.recharge.notes') }}</div>
                 <div class="tips-samll">
-                  <p>充值后帐户的金额不能提现，可用于商城消费使用。</p>
-                  <p>佣金导入账户之后不能再次导出、不可提现。</p>
-                  <p>账户充值出现问题可联系商城客服，也可拨打商城客服热线：40088888889。</p>
+                  <p>{{ $t('message.pages.marketing.recharge.notesContent1') }}</p>
+                  <p>{{ $t('message.pages.marketing.recharge.notesContent2') }}</p>
+                  <p>{{ $t('message.pages.marketing.recharge.notesContent3') }}</p>
                 </div>
               </div>
-              <div class="box5">立即充值</div>
+              <div class="box5">{{ $t('message.pages.marketing.recharge.rechargeNow') }}</div>
             </div>
           </div>
         </div>
@@ -40,14 +40,14 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">充值金额设置</div>
+              <div class="title">{{ $t('message.pages.marketing.recharge.amountSetting') }}</div>
               <el-button
                 type="primary"
                 icon="md-add"
                 v-db-click
-                @click="groupAdd('添加数据')"
+                @click="groupAdd($t('message.pages.marketing.recharge.addData'))"
                 style="margin-left: 14px; margin-top: 14px"
-                >添加数据</el-button
+                >{{ $t('message.pages.marketing.recharge.addData') }}</el-button
               >
             </div>
           </div>
@@ -58,8 +58,8 @@
               class="mt14"
               v-loading="loading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+              :no-data-text="$t('message.pages.marketing.common.noData')"
+              :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
             >
               <el-table-column :label="item.title" min-width="130" v-for="(item, index) in columns1" :key="index">
                 <template slot-scope="scope">
@@ -80,9 +80,9 @@
                     </el-switch>
                   </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+                    <a v-db-click @click="edit(scope.row, $t('message.pages.marketing.recharge.edit'))">{{ $t('message.pages.marketing.recharge.edit') }}</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+                    <a v-db-click @click="del(scope.row, $t('message.pages.marketing.recharge.delConfirm'), scope.$index)">{{ $t('message.pages.marketing.common.del') }}</a>
                   </template>
                 </template>
               </el-table-column>

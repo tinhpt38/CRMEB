@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="订单时间：">
+          <el-form-item :label="$t('message.pages.marketing.point_record.orderTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,14 +19,14 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.marketing.point_record.startDate')"
+              :end-placeholder="$t('message.pages.marketing.point_record.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="交易类型：">
+          <el-form-item :label="$t('message.pages.marketing.point_record.tradingType')">
             <el-select
               type="button"
               v-model="formValidate.trading_type"
@@ -46,46 +46,46 @@
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="mt16">
-      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="ID" min-width="70">
+      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" :empty-text="$t('message.pages.marketing.common.noData')">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" min-width="70">
           <template slot-scope="scope">
             <div>{{ scope.row.id }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="关联订单" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.point_record.relatedOrder')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.relation }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="交易时间" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.point_record.tradingTime')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.add_time }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="交易积分" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.point_record.tradingPoint')" min-width="80">
           <template slot-scope="scope">
             <div v-if="scope.row.pm" class="z-price">+ {{ scope.row.number }}</div>
             <div v-else class="f-price">- {{ scope.row.number }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="用户" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.point_record.user')" min-width="80">
           <template slot-scope="scope">
             <div>{{ scope.row.nickname }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="交易类型" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.point_record.tradingTypeCol')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.type_name }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.point_record.remark')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.mark }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="备注" width="100">
+        <el-table-column :label="$t('message.pages.marketing.point_record.remark')" width="100">
           <template slot-scope="scope">
-            <a class="item" v-db-click @click="setMark(scope.row)">修改备注</a>
+            <a class="item" v-db-click @click="setMark(scope.row)">{{ $t('message.pages.marketing.point_record.editRemark') }}</a>
           </template>
         </el-table-column>
       </el-table>

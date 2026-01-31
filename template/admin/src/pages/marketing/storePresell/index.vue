@@ -10,30 +10,30 @@
       >
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item label="预售活动状态：">
-              <el-select placeholder="请选择活动状态" v-model="tableFrom.time_type" clearable @change="userSearchs">
-                <el-option value="0" label="全部"></el-option>
-                <el-option value="1" label="未开始"></el-option>
-                <el-option value="2" label="正在进行"></el-option>
-                <el-option value="3" label="已结束"></el-option>
+            <el-form-item :label="$t('message.pages.marketing.storePresell.presellActivityStatus')">
+              <el-select :placeholder="$t('message.pages.marketing.storePresell.pleaseSelectActivity')" v-model="tableFrom.time_type" clearable @change="userSearchs">
+                <el-option value="0" :label="$t('message.pages.marketing.storePresell.all')"></el-option>
+                <el-option value="1" :label="$t('message.pages.marketing.storePresell.statusNotStart')"></el-option>
+                <el-option value="2" :label="$t('message.pages.marketing.storePresell.statusOngoing')"></el-option>
+                <el-option value="3" :label="$t('message.pages.marketing.storePresell.statusEnded')"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="预售商品状态：">
-              <el-select placeholder="请选择商品状态" v-model="tableFrom.status" clearable @change="userSearchs">
-                <el-option value="" label="全部"></el-option>
-                <el-option value="1" label="上架"></el-option>
-                <el-option value="0" label="下架"></el-option>
+            <el-form-item :label="$t('message.pages.marketing.storePresell.presellProductStatus')">
+              <el-select :placeholder="$t('message.pages.marketing.storePresell.pleaseSelectProduct')" v-model="tableFrom.status" clearable @change="userSearchs">
+                <el-option value="" :label="$t('message.pages.marketing.storePresell.all')"></el-option>
+                <el-option value="1" :label="$t('message.pages.marketing.storePresell.onSale')"></el-option>
+                <el-option value="0" :label="$t('message.pages.marketing.storePresell.offSale')"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="商品搜索：" label-for="title">
+            <el-form-item :label="$t('message.pages.marketing.storePresell.productSearch')" label-for="title">
               <el-input
                 search
                 enter-button
-                placeholder="请输入商品名称/ID"
+                :placeholder="$t('message.pages.marketing.storePresell.inputProductNameId')"
                 v-model="tableFrom.title"
                 @on-search="userSearchs"
               />
@@ -49,7 +49,7 @@
               v-db-click
               @click="add"
               class="mr10"
-              >添加预售商品</el-button
+              >{{ $t('message.pages.marketing.storePresell.addPresellProduct') }}</el-button
             >
             <!-- <el-button
               v-auth="['export-storeBargain']"
@@ -65,53 +65,53 @@
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="预售图片" min-width="90">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.productImage')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="预售名称" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.presellName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="预售价格" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.presellPrice')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="已售商品数" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.soldCount')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sales }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="限量" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.limit')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.quota_show }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="限量剩余" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.limitRemain')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.quota }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="活动时间" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.activityTime')" min-width="130">
           <template slot-scope="scope">
-            <div>起: {{ scope.row.start_time | formatDate }}</div>
-            <div>止: {{ scope.row.stop_time | formatDate }}</div>
+            <div>{{ $t('message.pages.marketing.storePresell.startLabel') }}{{ scope.row.start_time | formatDate }}</div>
+            <div>{{ $t('message.pages.marketing.storePresell.endLabel') }}{{ scope.row.stop_time | formatDate }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="预售状态" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storePresell.presellStatus')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -121,18 +121,18 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="上架"
-              inactive-text="下架"
+              :active-text="$t('message.pages.marketing.storePresell.onSale')"
+              :inactive-text="$t('message.pages.marketing.storePresell.offSale')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.marketing.storePresell.edit') }}</a>
             <el-divider v-if="scope.row.stop_status === 0" direction="vertical" />
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除预售商品', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.marketing.storePresell.delPresellConfirm'), scope.$index)">{{ $t('message.pages.marketing.common.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

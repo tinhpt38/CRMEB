@@ -8,21 +8,21 @@
       @submit.native.prevent
       inline
     >
-      <el-form-item label="订单状态：">
+      <el-form-item :label="$t('message.pages.marketing.storeIntegralOrder.orderStatus')">
         <el-select
-          placeholder="请选择"
+          :placeholder="$t('message.pages.marketing.storeIntegralOrder.pleaseSelect')"
           clearable
           v-model="orderData.is_show"
           @change="selectChange2"
           class="form_content_width"
         >
-          <el-option value="" label="全部"></el-option>
-          <el-option value="1" label="未发货"></el-option>
-          <el-option value="2" label="待收货"></el-option>
-          <el-option value="3" label="交易完成"></el-option>
+          <el-option value="" :label="$t('message.pages.marketing.storeIntegralOrder.all')"></el-option>
+          <el-option value="1" :label="$t('message.pages.marketing.storeIntegralOrder.unshipped')"></el-option>
+          <el-option value="2" :label="$t('message.pages.marketing.storeIntegralOrder.pendingReceive')"></el-option>
+          <el-option value="3" :label="$t('message.pages.marketing.storeIntegralOrder.completed')"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="创建时间：">
+      <el-form-item :label="$t('message.pages.marketing.storeIntegralOrder.createTime')">
         <el-date-picker
           clearable
           v-model="timeVal"
@@ -31,26 +31,26 @@
           @change="onchangeTime"
           format="yyyy/MM/dd"
           value-format="yyyy/MM/dd"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          :start-placeholder="$t('message.pages.marketing.storeIntegralOrder.startDate')"
+          :end-placeholder="$t('message.pages.marketing.storeIntegralOrder.endDate')"
           :picker-options="pickerOptions"
           style="width: 250px"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item label="订单搜索：" prop="real_name" label-for="real_name">
-        <el-input clearable v-model="orderData.real_name" placeholder="请输入" class="form_content_width">
+      <el-form-item :label="$t('message.pages.marketing.storeIntegralOrder.orderSearch')" prop="real_name" label-for="real_name">
+        <el-input clearable v-model="orderData.real_name" :placeholder="$t('message.pages.marketing.storeIntegralOrder.inputPlaceholder')" class="form_content_width">
           <el-select v-model="orderData.field_key" slot="prepend" style="width: 100px">
-            <el-option value="all" label="全部"></el-option>
-            <el-option value="order_id" label="订单号"></el-option>
-            <el-option value="uid" label="UID"></el-option>
-            <el-option value="real_name" label="用户姓名"></el-option>
-            <el-option value="user_phone" label="用户电话"></el-option>
-            <el-option value="store_name" label="商品名称(模糊)"></el-option>
+            <el-option value="all" :label="$t('message.pages.marketing.storeIntegralOrder.all')"></el-option>
+            <el-option value="order_id" :label="$t('message.pages.marketing.storeIntegralOrder.orderNo')"></el-option>
+            <el-option value="uid" :label="$t('message.pages.marketing.storeIntegralOrder.uid')"></el-option>
+            <el-option value="real_name" :label="$t('message.pages.marketing.storeIntegralOrder.userName')"></el-option>
+            <el-option value="user_phone" :label="$t('message.pages.marketing.storeIntegralOrder.userPhone')"></el-option>
+            <el-option value="store_name" :label="$t('message.pages.marketing.storeIntegralOrder.productNameFuzzy')"></el-option>
           </el-select>
         </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="orderSearch">查询</el-button>
+        <el-button type="primary" v-db-click @click="orderSearch">{{ $t('message.pages.marketing.storeIntegralOrder.query') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -97,13 +97,6 @@ export default {
       isDelIdList: [],
       modals2: false,
       timeVal: [],
-      payList: [
-        { label: '全部', val: '' },
-        { label: '微信支付', val: '1' },
-        { label: '支付宝支付', val: '4' },
-        { label: '余额支付', val: '2' },
-        { label: '线下支付', val: '3' },
-      ],
       manualModal: false,
       uploadAction: `${Setting.apiBaseURL}/file/upload/1`,
       uploadHeaders: {},
@@ -112,16 +105,6 @@ export default {
       isShow: false,
       recordModal: false,
       sendOutValue: '',
-      exportList: [
-        {
-          name: '1',
-          label: '导出发货单',
-        },
-        {
-          name: '0',
-          label: '导出订单',
-        },
-      ],
       exportListOn: 0,
       fileList: [],
       orderChartType: {},
@@ -136,6 +119,25 @@ export default {
     },
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
+    },
+    payList() {
+      const t = (key) => this.$t(key);
+      const p = 'message.pages.marketing.storeIntegralOrder.';
+      return [
+        { label: t(p + 'all'), val: '' },
+        { label: t(p + 'wechatPay'), val: '1' },
+        { label: t(p + 'alipayPay'), val: '4' },
+        { label: t(p + 'balancePay'), val: '2' },
+        { label: t(p + 'offlinePay'), val: '3' },
+      ];
+    },
+    exportList() {
+      const t = (key) => this.$t(key);
+      const p = 'message.pages.marketing.storeIntegralOrder.';
+      return [
+        { name: '1', label: t(p + 'exportDelivery') },
+        { name: '0', label: t(p + 'exportOrder') },
+      ];
     },
     today() {
       const end = new Date();

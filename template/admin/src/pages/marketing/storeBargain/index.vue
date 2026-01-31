@@ -10,60 +10,60 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="砍价状态：">
+          <el-form-item :label="$t('message.pages.marketing.storeBargain.bargainStatus')">
             <el-select
-              placeholder="请选择"
+              :placeholder="$t('message.pages.marketing.common.pleaseSelect')"
               v-model="tableFrom.status"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="开启"></el-option>
-              <el-option value="0" label="关闭"></el-option>
+              <el-option value="1" :label="$t('message.pages.marketing.common.open')"></el-option>
+              <el-option value="0" :label="$t('message.pages.marketing.common.close')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="商品搜索：" label-for="store_name">
+          <el-form-item :label="$t('message.pages.marketing.storeBargain.productSearch')" label-for="store_name">
             <el-input
               clearable
-              placeholder="请输入砍价名称，ID"
+              :placeholder="$t('message.pages.marketing.storeBargain.inputBargainName')"
               v-model="tableFrom.store_name"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.marketing.common.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-button v-auth="['marketing-store_bargain-create']" type="primary" v-db-click @click="add"
-        >添加砍价商品</el-button
+        >{{ $t('message.pages.marketing.storeBargain.addBargain') }}</el-button
       >
       <el-button v-auth="['export-storeBargain']" class="export" icon="ios-share-outline" v-db-click @click="exportList"
-        >导出</el-button
+        >{{ $t('message.pages.marketing.common.export') }}</el-button
       >
       <el-table
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
         class="mt14"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" width="80">
           <template slot-scope="scope">
             <div>{{ scope.row.id }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="砍价图片" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.productImage')" min-width="80">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="砍价名称" min-width="150">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.bargainName')" min-width="150">
           <template slot-scope="scope">
             <el-tooltip placement="top" :open-delay="600">
               <div slot="content">{{ scope.row.title }}</div>
@@ -71,55 +71,55 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="砍价价格" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.bargainPrice')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="最低价" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.minPrice')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.min_price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="参与人数" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.participants')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.count_people_all }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="帮忙砍价人数" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.helpCount')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.count_people_help }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="砍价成功人数" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.successCount')" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.count_people_success }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="限量" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.limit')" min-width="80">
           <template slot-scope="scope">
             <div>{{ scope.row.quota_show }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="限量剩余" min-width="80">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.limitRemain')" min-width="80">
           <template slot-scope="scope">
             <div>{{ scope.row.quota }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="活动状态" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.activityStatus')" min-width="100">
           <template slot-scope="scope">
-            <el-tag size="medium" v-show="scope.row.start_name === '进行中'">进行中</el-tag>
-            <el-tag size="medium" type="warning" v-show="scope.row.start_name === '未开始'">未开始</el-tag>
-            <el-tag size="medium" type="info" v-show="scope.row.start_name === '已结束'">已结束</el-tag>
+            <el-tag size="medium" v-show="scope.row.start_name === '进行中'">{{ $t('message.pages.marketing.storeBargain.statusOngoing') }}</el-tag>
+            <el-tag size="medium" type="warning" v-show="scope.row.start_name === '未开始'">{{ $t('message.pages.marketing.storeBargain.statusNotStart') }}</el-tag>
+            <el-tag size="medium" type="info" v-show="scope.row.start_name === '已结束'">{{ $t('message.pages.marketing.storeBargain.statusEnded') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="活动时间" min-width="180">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.activityTime')" min-width="180">
           <template slot-scope="scope">
-            <p>开始：{{ scope.row.start_time }}</p>
-            <p>结束：{{ scope.row.stop_time }}</p>
+            <p>{{ $t('message.pages.marketing.storeBargain.startLabel') }}{{ scope.row.start_time }}</p>
+            <p>{{ $t('message.pages.marketing.storeBargain.endLabel') }}{{ scope.row.stop_time }}</p>
           </template>
         </el-table-column>
-        <el-table-column label="上架状态" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeBargain.onSaleStatus')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -129,21 +129,21 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="上架"
-              inactive-text="下架"
+              :active-text="$t('message.pages.marketing.storeBargain.onSale')"
+              :inactive-text="$t('message.pages.marketing.storeBargain.offSale')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-if="scope.row.stop_status === 0" v-db-click @click="edit(scope.row, 0)">编辑</a>
+            <a v-if="scope.row.stop_status === 0" v-db-click @click="edit(scope.row, 0)">{{ $t('message.pages.marketing.storeBargain.edit') }}</a>
             <el-divider v-if="scope.row.stop_status === 0" direction="vertical" />
-            <a v-db-click @click="edit(scope.row, 1)">复制</a>
+            <a v-db-click @click="edit(scope.row, 1)">{{ $t('message.pages.marketing.storeBargain.copy') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除砍价商品', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.marketing.storeBargain.delBargainConfirm'), scope.$index)">{{ $t('message.pages.marketing.common.del') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="viewInfo(scope.row)">统计</a>
+            <a v-db-click @click="viewInfo(scope.row)">{{ $t('message.pages.marketing.storeBargain.statistics') }}</a>
           </template>
         </el-table-column>
       </el-table>

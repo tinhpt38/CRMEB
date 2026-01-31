@@ -2,7 +2,7 @@
   <div v-loading="spinShow">
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? '编辑秒杀商品' : '添加秒杀商品'"
+      :title="$route.params.id ? $t('message.pages.marketing.storeSeckill.create.editSeckill') : $t('message.pages.marketing.storeSeckill.create.addSeckill')"
       :backUrl="$routeProStr + '/marketing/store_seckill/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -21,7 +21,7 @@
             :label-position="labelPosition"
             @submit.native.prevent
           >
-            <el-form-item label="选择商品：" prop="image_input" v-if="current === 0">
+            <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.selectProduct')" prop="image_input" v-if="current === 0">
               <div class="picBox" v-db-click @click="changeGoods">
                 <div class="pictrue" v-if="formValidate.image">
                   <img v-lazy="formValidate.image" />
@@ -33,7 +33,7 @@
             </el-form-item>
             <el-col v-show="current === 1">
               <el-col :span="24">
-                <el-form-item label="商品轮播图：" prop="images">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.productCarousel')" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -61,10 +61,10 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="商品标题：" prop="title" label-for="title">
+                  <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.productTitle')" prop="title" label-for="title">
                     <el-input
                       clearable
-                      placeholder="请输入商品标题"
+                      :placeholder="$t('message.pages.marketing.storeSeckill.create.inputProductTitle')"
                       v-model="formValidate.title"
                       class="content_width"
                       maxlength="80"
@@ -75,9 +75,9 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="秒杀活动简介：" prop="info" label-for="info">
+                  <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.seckillActivityIntro')" prop="info" label-for="info">
                     <el-input
-                      placeholder="请输入秒杀活动简介"
+                      :placeholder="$t('message.pages.marketing.storeSeckill.create.inputSeckillActivityIntro')"
                       type="textarea"
                       :rows="4"
                       v-model="formValidate.info"
@@ -89,7 +89,7 @@
                 </el-col>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动时间：" prop="section_time">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.activityTimeLabel')" prop="section_time">
                   <div>
                     <el-date-picker
                       clearable
@@ -98,29 +98,29 @@
                       format="yyyy-MM-dd"
                       value-format="yyyy-MM-dd"
                       range-separator="-"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
+                      :start-placeholder="$t('message.pages.marketing.storeSeckill.create.startDate')"
+                      :end-placeholder="$t('message.pages.marketing.storeSeckill.create.endDate')"
                       @change="onchangeTime"
                       class="content_width"
                       v-model="formValidate.section_time"
                     ></el-date-picker>
-                    <div class="grey">设置活动开启结束时间，用户可以在有效时间内参与秒杀</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeSeckill.create.activityTimeHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
-                <el-form-item label="物流方式：" prop="logistics">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.logistics')" prop="logistics">
                   <el-checkbox-group v-model="formValidate.logistics">
-                    <el-checkbox label="1">快递</el-checkbox>
-                    <el-checkbox label="2">到店</el-checkbox>
+                    <el-checkbox label="1">{{ $t('message.pages.marketing.storeSeckill.create.express') }}</el-checkbox>
+                    <el-checkbox label="2">{{ $t('message.pages.marketing.storeSeckill.create.inStore') }}</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
-                <el-form-item label="运费设置：" :prop="formValidate.freight != 1 ? 'freight' : ''">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.freightSetting')" :prop="formValidate.freight != 1 ? 'freight' : ''">
                   <el-radio-group v-model="formValidate.freight">
-                    <el-radio :label="2">固定邮费</el-radio>
-                    <el-radio :label="3">运费模板</el-radio>
+                    <el-radio :label="2">{{ $t('message.pages.marketing.storeSeckill.create.fixedPostage') }}</el-radio>
+                    <el-radio :label="3">{{ $t('message.pages.marketing.storeSeckill.create.freightTemplate') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -135,9 +135,9 @@
                       :min="0"
                       :max="9999999999"
                       v-model="formValidate.postage"
-                      placeholder="请输入金额"
+                      :placeholder="$t('message.pages.marketing.storeSeckill.create.inputAmount')"
                       class="content_width input-number-unit-class"
-                      class-unit="元"
+                      :class-unit="$t('message.pages.marketing.storeSeckill.create.yuan')"
                     />
                   </div>
                 </el-form-item>
@@ -148,7 +148,7 @@
                     <el-select
                       v-model="formValidate.temp_id"
                       clearable
-                      placeholder="请选择运费模板"
+                      :placeholder="$t('message.pages.marketing.storeSeckill.create.selectFreightTemplate')"
                       class="content_width"
                     >
                       <el-option
@@ -158,13 +158,13 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <span class="addfont" v-db-click @click="freight">新增运费模板</span>
+                    <span class="addfont" v-db-click @click="freight">{{ $t('message.pages.marketing.storeSeckill.create.newFreightTemplate') }}</span>
                   </div>
                 </el-form-item>
               </el-col>
 
               <el-col :span="24">
-                <el-form-item label="开始时间：" prop="time_id">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.startTimeLabel')" prop="time_id">
                   <div>
                     <el-select v-model="formValidate.time_id" multiple class="content_width">
                       <el-option
@@ -175,18 +175,18 @@
                       ></el-option>
                     </el-select>
                     <div class="grey">
-                      选择产品开始时间段，该时间段内用户可参与购买；其它时间段会显示活动未开始或已结束。如活动超过一天，则活动期内，每天都会定时开启
+                      {{ $t('message.pages.marketing.storeSeckill.create.startTimeHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="总购买数量限制：" prop="num">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.totalPurchaseLimit')" prop="num">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="1"
-                      placeholder="请输入数量限制"
+                      :placeholder="$t('message.pages.marketing.storeSeckill.create.inputQuantityLimit')"
                       element-id="num"
                       :precision="0"
                       :max="10000"
@@ -194,18 +194,18 @@
                       class="content_width"
                     />
                     <div class="grey">
-                      活动有效期内每个用户可购买该商品总数限制。例如设置为4，表示本次活动有效期内，每个用户最多可购买总数4个
+                      {{ $t('message.pages.marketing.storeSeckill.create.totalPurchaseLimitHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单次购买数量限制：" prop="once_num">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.oncePurchaseLimit')" prop="once_num">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="1"
-                      placeholder="请输入单次购买数量限制"
+                      :placeholder="$t('message.pages.marketing.storeSeckill.create.inputOncePurchaseLimit')"
                       element-id="once_num"
                       :precision="0"
                       :max="10000"
@@ -213,15 +213,15 @@
                       class="content_width"
                     />
                     <div class="grey">
-                      用户参与秒杀时，一次购买最大数量限制。例如设置为2，表示参与秒杀时，用户一次购买数量最大可选择2个
+                      {{ $t('message.pages.marketing.storeSeckill.create.oncePurchaseLimitHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单位：" prop="unit_name" label-for="unit_name">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.unit')" prop="unit_name" label-for="unit_name">
                   <el-input
-                    placeholder="请输入单位"
+                    :placeholder="$t('message.pages.marketing.storeSeckill.create.inputUnit')"
                     element-id="unit_name"
                     v-model="formValidate.unit_name"
                     class="content_width"
@@ -229,10 +229,10 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="排序：">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.sortLabel')">
                   <el-input-number
                     :controls="false"
-                    placeholder="请输入排序"
+                    :placeholder="$t('message.pages.marketing.storeSeckill.create.inputSort')"
                     element-id="sort"
                     :precision="0"
                     :max="10000"
@@ -243,7 +243,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="秒杀是否参与分销：" props="is_commission" label-for="is_commission">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.isCommission')" props="is_commission" label-for="is_commission">
                   <div>
                     <el-switch
                       class="defineSwitch"
@@ -251,30 +251,30 @@
                       :inactive-value="0"
                       v-model="formValidate.is_commission"
                       size="large"
-                      active-text="开启"
-                      inactive-text="关闭"
+                      :active-text="$t('message.pages.marketing.storeSeckill.create.open')"
+                      :inactive-text="$t('message.pages.marketing.storeSeckill.create.close')"
                     >
                     </el-switch>
-                    <div class="grey">商品是否参与商城分销返佣</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeSeckill.create.isCommissionHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动状态：" props="status" label-for="status">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.activityStatusLabel')" props="status" label-for="status">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.status"
                     size="large"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    :active-text="$t('message.pages.marketing.storeSeckill.create.open')"
+                    :inactive-text="$t('message.pages.marketing.storeSeckill.create.close')"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="规格选择：">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.specSelect')">
                   <el-table
                     ref="multipleTable"
                     :row-key="getRowKeys"
@@ -336,7 +336,7 @@
             </el-col>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="内容：">
+                <el-form-item :label="$t('message.pages.marketing.storeSeckill.create.content')">
                   <WangEditor style="width: 90%" :content="formValidate.description" @editorContent="getEditorContent">
                   </WangEditor>
                 </el-form-item>
@@ -349,7 +349,7 @@
                   v-db-click
                   @click="step"
                   :disabled="($route.params.id && current === 1) || current === 0"
-                  >上一步
+                  >{{ $t('message.pages.marketing.storeSeckill.create.prevStep') }}
                 </el-button>
                 <el-button
                   :disabled="submitOpen && current === 2"
@@ -357,7 +357,7 @@
                   class="submission"
                   v-db-click
                   @click="next('formValidate')"
-                  >{{ current === 2 ? '提交' : '下一步' }}</el-button
+                  >{{ current === 2 ? $t('message.pages.marketing.storeSeckill.create.submit') : $t('message.pages.marketing.storeSeckill.create.nextStep') }}</el-button
                 >
               </el-form-item>
             </el-col>
@@ -366,11 +366,11 @@
       </el-row>
     </el-card>
     <!-- 选择商品-->
-    <el-dialog :visible.sync="modals" title="商品列表" class="paymentFooter" width="1000px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.marketing.storeSeckill.create.productList')" class="paymentFooter" width="1000px">
       <goods-list ref="goodslist" @getProductId="getProductId"></goods-list>
     </el-dialog>
     <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.pages.marketing.storeSeckill.create.uploadProductImage')" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -406,7 +406,6 @@ export default {
   },
   data() {
     return {
-      stepList: ['选择秒杀商品', '填写基础信息', '修改商品详情'],
       submitOpen: false,
       spinShow: false,
       isChoice: '',
@@ -489,98 +488,7 @@ export default {
       specsData: [],
       picTit: '',
       tableIndex: 0,
-      ruleValidate: {
-        image: [{ required: true, message: '请选择主图', trigger: 'change' }],
-        images: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择主图',
-            trigger: 'change',
-          },
-          {
-            type: 'array',
-            min: 1,
-            message: 'Choose two hobbies at best',
-            trigger: 'change',
-          },
-        ],
-        title: [{ required: true, message: '请输入商品标题', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入秒杀活动简介', trigger: 'blur' }],
-        section_time: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择活动时间',
-            trigger: 'change',
-          },
-        ],
-        unit_name: [{ required: true, message: '请输入单位', trigger: 'blur' }],
-        price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入秒杀价',
-            trigger: 'blur',
-          },
-        ],
-        ot_price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入原价',
-            trigger: 'blur',
-          },
-        ],
-        cost: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入成本价',
-            trigger: 'blur',
-          },
-        ],
-        stock: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入库存',
-            trigger: 'blur',
-          },
-        ],
-        num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入购买数量限制',
-            trigger: 'blur',
-          },
-        ],
-        once_num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入单次购买数量限制',
-            trigger: 'blur',
-          },
-        ],
-        temp_id: [
-          {
-            required: true,
-            message: '请选择运费模板',
-            trigger: 'change',
-            type: 'number',
-          },
-        ],
-        time_id: [
-          {
-            required: true,
-            message: '请选择开始时间',
-            trigger: 'change',
-            type: 'array',
-          },
-        ],
-      },
+      ruleValidate: {},
       copy: 0,
     };
   },
@@ -592,6 +500,13 @@ export default {
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
     },
+    stepList() {
+      return [
+        this.$t('message.pages.marketing.storeSeckill.create.step1'),
+        this.$t('message.pages.marketing.storeSeckill.create.step2'),
+        this.$t('message.pages.marketing.storeSeckill.create.step3'),
+      ];
+    },
   },
   mounted() {
     if (this.$route.params.id) {
@@ -601,8 +516,31 @@ export default {
     }
     this.productGetTemplate();
     this.seckillTimeList();
+    this.setRuleValidate();
   },
   methods: {
+    setRuleValidate() {
+      const t = (key) => this.$t(key);
+      this.ruleValidate = {
+        image: [{ required: true, message: t('message.pages.marketing.storeSeckill.create.msgSelectMainImage'), trigger: 'change' }],
+        images: [
+          { required: true, type: 'array', message: t('message.pages.marketing.storeSeckill.create.msgSelectMainImage'), trigger: 'change' },
+          { type: 'array', min: 1, message: t('message.pages.marketing.storeSeckill.create.msgSelectMainImage'), trigger: 'change' },
+        ],
+        title: [{ required: true, message: t('message.pages.marketing.storeSeckill.create.msgInputProductTitle'), trigger: 'blur' }],
+        info: [{ required: true, message: t('message.pages.marketing.storeSeckill.create.msgInputSeckillActivityIntro'), trigger: 'blur' }],
+        section_time: [{ required: true, type: 'array', message: t('message.pages.marketing.storeSeckill.create.msgSelectActivityTime'), trigger: 'change' }],
+        unit_name: [{ required: true, message: t('message.pages.marketing.storeSeckill.create.msgInputUnit'), trigger: 'blur' }],
+        price: [{ required: true, type: 'number', message: t('message.pages.marketing.storeSeckill.create.msgInputSeckillPrice'), trigger: 'blur' }],
+        ot_price: [{ required: true, type: 'number', message: t('message.pages.marketing.storeSeckill.create.msgInputOriginalPrice'), trigger: 'blur' }],
+        cost: [{ required: true, type: 'number', message: t('message.pages.marketing.storeSeckill.create.msgInputCostPrice'), trigger: 'blur' }],
+        stock: [{ required: true, type: 'number', message: t('message.pages.marketing.storeSeckill.create.msgInputStock'), trigger: 'blur' }],
+        num: [{ required: true, type: 'number', message: t('message.pages.marketing.storeSeckill.create.msgInputPurchaseLimit'), trigger: 'blur' }],
+        once_num: [{ required: true, type: 'number', message: t('message.pages.marketing.storeSeckill.create.msgInputOncePurchaseLimit'), trigger: 'blur' }],
+        temp_id: [{ required: true, message: t('message.pages.marketing.storeSeckill.create.msgSelectFreightTemplate'), trigger: 'change', type: 'number' }],
+        time_id: [{ required: true, message: t('message.pages.marketing.storeSeckill.create.msgSelectStartTime'), trigger: 'change', type: 'array' }],
+      };
+    },
     getEditorContent(data) {
       this.description = data;
     },
@@ -784,17 +722,17 @@ export default {
         this.$refs[name].validate((valid) => {
           if (valid) {
             if (!that.formValidate.attrs) {
-              return that.$message.error('请选择属性规格');
+              return that.$message.error(that.$t('message.pages.marketing.storeSeckill.create.msgSelectSpec'));
             } else {
               for (let index in that.formValidate.attrs) {
                 if (that.formValidate.attrs[index].price > this.formValidate.attrs[index]['ot_price']) {
-                  return that.$message.error('秒杀价格不能大于原价');
+                  return that.$message.error(that.$t('message.pages.marketing.storeSeckill.create.msgSeckillPriceNotExceedOriginal'));
                 }
                 if (that.formValidate.attrs[index].quota <= 0) {
-                  return that.$message.error('秒杀限量必须大于0');
+                  return that.$message.error(that.$t('message.pages.marketing.storeSeckill.create.msgLimitGtZero'));
                 }
                 if (this.formValidate.attrs[index].quota > this.formValidate.attrs[index]['stock']) {
-                  return this.$message.error('秒杀限量不能超过规格库存');
+                  return this.$message.error(this.$t('message.pages.marketing.storeSeckill.create.msgLimitNotExceedStock'));
                 }
               }
             }
@@ -805,7 +743,7 @@ export default {
         if (this.formValidate.images) {
           this.current += 1;
         } else {
-          this.$message.warning('请选择商品');
+          this.$message.warning(this.$t('message.pages.marketing.storeSeckill.create.msgSelectProduct'));
         }
       }
     },
@@ -820,7 +758,7 @@ export default {
     // 点击商品图
     modalPicTap(tit, picTit, index) {
       this.modalPic = true;
-      this.isChoice = tit === 'dan' ? '单选' : '多选';
+      this.isChoice = tit === 'dan' ? this.$t('message.pages.marketing.storeSeckill.create.singleSelect') : this.$t('message.pages.marketing.storeSeckill.create.multiSelect');
       this.picTit = picTit;
       this.tableIndex = index;
     },

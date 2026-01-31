@@ -10,27 +10,27 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="活动搜索：" label-for="title">
-            <el-input placeholder="请输入活动名称，ID" v-model="tableFrom.title" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.marketing.storeSeckill.list.activitySearch')" label-for="title">
+            <el-input :placeholder="$t('message.pages.marketing.storeSeckill.list.inputActivityNameId')" v-model="tableFrom.title" class="form_content_width" />
           </el-form-item>
-          <el-form-item label="活动状态：">
+          <el-form-item :label="$t('message.pages.marketing.storeSeckill.list.activityStatus')">
             <el-select
-              placeholder="请选择"
+              :placeholder="$t('message.pages.marketing.storeSeckill.list.pleaseSelect')"
               clearable
               v-model="tableFrom.status"
               @change="searchs"
               class="form_content_width"
             >
-              <el-option value="1" label="开启"></el-option>
-              <el-option value="0" label="关闭"></el-option>
+              <el-option value="1" :label="$t('message.pages.marketing.common.open')"></el-option>
+              <el-option value="0" :label="$t('message.pages.marketing.common.close')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="活动时段：">
+          <el-form-item :label="$t('message.pages.marketing.storeSeckill.list.activityPeriod')">
             <el-select v-model="tableFrom.time_ids" multiple class="form_content_width" @change="searchs">
               <el-option v-for="item in timeList" :value="item.id" :key="item.id" :label="item.time_name"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="活动时间：">
+          <el-form-item :label="$t('message.pages.marketing.storeSeckill.list.activityTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -39,35 +39,35 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.marketing.common.startDate')"
+              :end-placeholder="$t('message.pages.marketing.common.endDate')"
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="searchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="searchs">{{ $t('message.pages.marketing.storeSeckill.list.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-button v-auth="['marketing-store_seckill-create']" type="primary" v-db-click @click="add"
-        >添加秒杀活动</el-button
+        >{{ $t('message.pages.marketing.storeSeckill.list.addSeckill') }}</el-button
       >
       <el-table
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :no-filtered-data-text="$t('message.pages.marketing.common.noFilterResult')"
         class="mt14"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="活动标题" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeSeckill.list.activityTitle')" min-width="130">
           <template slot-scope="scope">
             <el-tooltip placement="top" :open-delay="600">
               <div slot="content">{{ scope.row.title }}</div>
@@ -75,35 +75,35 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="单次限购" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeSeckill.list.onceLimit')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.once_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="总购买数量限制" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeSeckill.list.totalLimit')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品数量" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeSeckill.list.productCount')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.product_count }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="活动时段" min-width="200">
+        <el-table-column :label="$t('message.pages.marketing.storeSeckill.list.activityPeriodCol')" min-width="200">
           <template slot-scope="scope">
             <el-tag class="m2" v-for="(item, index) in scope.row.times_list" :key="index" effect="plain">
               {{ item }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="活动时间" min-width="210">
+        <el-table-column :label="$t('message.pages.marketing.storeSeckill.list.activityTimeCol')" min-width="210">
           <template slot-scope="scope">
-            <div>开始: {{ scope.row.start_day }}</div>
-            <div>结束: {{ scope.row.end_day }}</div>
+            <div>{{ $t('message.pages.marketing.storeSeckill.list.startLabel') }} {{ scope.row.start_day }}</div>
+            <div>{{ $t('message.pages.marketing.storeSeckill.list.endLabel') }} {{ scope.row.end_day }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.storeSeckill.list.statusCol')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -113,17 +113,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.pages.marketing.common.open')"
+              :inactive-text="$t('message.pages.marketing.common.close')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.marketing.common.edit') }}</a>
             <el-divider direction="vertical" />
-            <a v-db-click @click="del(scope.row, '删除秒杀活动', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.marketing.storeSeckill.list.delSeckillConfirm'), scope.$index)">{{ $t('message.pages.marketing.common.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

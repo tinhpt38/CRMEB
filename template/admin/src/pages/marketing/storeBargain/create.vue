@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? '编辑砍价商品' : '添加砍价商品'"
+      :title="$route.params.id ? $t('message.pages.marketing.storeBargain.editBargain') : $t('message.pages.marketing.storeBargain.addBargain')"
       :backUrl="$routeProStr + '/marketing/store_bargain/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -21,7 +21,7 @@
             :label-position="labelPosition"
             @submit.native.prevent
           >
-            <el-form-item label="选择商品：" prop="image_input" v-show="current === 0">
+            <el-form-item :label="$t('message.pages.marketing.storeBargain.create.selectProduct')" prop="image_input" v-show="current === 0">
               <div class="picBox" v-db-click @click="changeGoods">
                 <div class="pictrue" v-if="formValidate.image">
                   <img v-lazy="formValidate.image" />
@@ -33,7 +33,7 @@
             </el-form-item>
             <el-row v-show="current === 1">
               <el-col :span="24">
-                <el-form-item label="商品主图：" prop="image">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.productMainImage')" prop="image">
                   <div class="picBox" v-db-click @click="modalPicTap('dan', 'danFrom')">
                     <div class="pictrue" v-if="formValidate.image">
                       <img v-lazy="formValidate.image" />
@@ -45,7 +45,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="商品轮播图：" prop="images">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.productCarousel')" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -73,9 +73,9 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="砍价活动名称：" prop="title" label-for="title">
+                  <el-form-item :label="$t('message.pages.marketing.storeBargain.create.bargainActivityName')" prop="title" label-for="title">
                     <el-input
-                      placeholder="请输入砍价活动名称"
+                      :placeholder="$t('message.pages.marketing.storeBargain.create.inputBargainActivityName')"
                       v-model="formValidate.title"
                       class="content_width"
                       maxlength="30"
@@ -86,9 +86,9 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="砍价活动简介：" prop="info" label-for="info">
+                  <el-form-item :label="$t('message.pages.marketing.storeBargain.create.bargainActivityIntro')" prop="info" label-for="info">
                     <el-input
-                      placeholder="请输入砍价活动简介"
+                      :placeholder="$t('message.pages.marketing.storeBargain.create.inputBargainActivityIntro')"
                       type="textarea"
                       :rows="4"
                       v-model="formValidate.info"
@@ -100,7 +100,7 @@
                 </el-col>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动时间：" prop="section_time">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.activityTimeLabel')" prop="section_time">
                   <div>
                     <el-date-picker
                       clearable
@@ -109,29 +109,29 @@
                       format="yyyy-MM-dd HH:mm"
                       value-format="yyyy-MM-dd HH:mm"
                       range-separator="-"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
+                      :start-placeholder="$t('message.pages.marketing.storeBargain.create.startDate')"
+                      :end-placeholder="$t('message.pages.marketing.storeBargain.create.endDate')"
                       @change="onchangeTime"
                       style="width: 460px"
                       v-model="formValidate.section_time"
                     ></el-date-picker>
-                    <div class="grey">设置活动开启结束时间，用户可以在设置时间内发起参与砍价</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeBargain.create.activityTimeHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
-                <el-form-item label="物流方式：" prop="logistics">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.logistics')" prop="logistics">
                   <el-checkbox-group v-model="formValidate.logistics">
-                    <el-checkbox label="1">快递</el-checkbox>
-                    <el-checkbox label="2">到店</el-checkbox>
+                    <el-checkbox label="1">{{ $t('message.pages.marketing.storeBargain.create.express') }}</el-checkbox>
+                    <el-checkbox label="2">{{ $t('message.pages.marketing.storeBargain.create.inStore') }}</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
-                <el-form-item label="运费设置：" :prop="formValidate.freight != 1 ? 'freight' : ''">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.freightSetting')" :prop="formValidate.freight != 1 ? 'freight' : ''">
                   <el-radio-group v-model="formValidate.freight">
-                    <el-radio :label="2">固定邮费</el-radio>
-                    <el-radio :label="3">运费模板</el-radio>
+                    <el-radio :label="2">{{ $t('message.pages.marketing.storeBargain.create.fixedPostage') }}</el-radio>
+                    <el-radio :label="3">{{ $t('message.pages.marketing.storeBargain.create.freightTemplate') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -146,7 +146,7 @@
                       :min="0"
                       :max="9999999999"
                       v-model="formValidate.postage"
-                      placeholder="请输入金额"
+                      :placeholder="$t('message.pages.marketing.storeBargain.create.inputAmount')"
                       class="content_width"
                     />
                   </div>
@@ -158,7 +158,7 @@
                     <el-select
                       v-model="formValidate.temp_id"
                       clearable
-                      placeholder="请选择运费模板"
+                      :placeholder="$t('message.pages.marketing.storeBargain.create.selectFreightTemplate')"
                       class="content_width"
                     >
                       <el-option
@@ -168,51 +168,51 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <span class="addfont" v-db-click @click="freight">新增运费模板</span>
+                    <span class="addfont" v-db-click @click="freight">{{ $t('message.pages.marketing.storeBargain.create.newFreightTemplate') }}</span>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="砍价人数：" prop="people_num" label-for="people_num">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.peopleNum')" prop="people_num" label-for="people_num">
                   <div>
                     <el-input-number
                       :controls="false"
-                      placeholder="请输入砍价人数"
+                      :placeholder="$t('message.pages.marketing.storeBargain.create.inputPeopleNum')"
                       element-id="people_num"
                       :min="2"
                       :max="10000"
                       :precision="0"
                       v-model="formValidate.people_num"
                       class="content_width input-number-unit-class"
-                      class-unit="人"
+                      :class-unit="$t('message.pages.marketing.storeBargain.create.peopleUnit')"
                     />
-                    <div class="grey">需要多少人砍价成功</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeBargain.create.peopleNumHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="帮砍次数：" prop="bargain_num" label-for="bargain_num">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.helpBargainNum')" prop="bargain_num" label-for="bargain_num">
                   <div>
                     <el-input-number
                       :controls="false"
-                      placeholder="请输入帮砍次数"
+                      :placeholder="$t('message.pages.marketing.storeBargain.create.inputHelpBargainNum')"
                       :min="1"
                       :max="10000"
                       :precision="0"
                       v-model="formValidate.bargain_num"
                       class="content_width input-number-unit-class"
-                      class-unit="次"
+                      :class-unit="$t('message.pages.marketing.storeBargain.create.timesUnit')"
                     />
                     <div class="grey">
-                      单个商品用户可以帮砍的次数，例：次数设置为1，甲和乙同时将商品A的砍价链接发给丙，丙只能帮甲或乙其中一个人砍价
+                      {{ $t('message.pages.marketing.storeBargain.create.helpBargainNumHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单位：" prop="unit_name" label-for="unit_name">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.unit')" prop="unit_name" label-for="unit_name">
                   <el-input
-                    placeholder="请输入单位"
+                    :placeholder="$t('message.pages.marketing.storeBargain.create.inputUnit')"
                     element-id="unit_name"
                     v-model="formValidate.unit_name"
                     class="content_width"
@@ -220,27 +220,27 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="购买数量限制：" prop="num">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.purchaseLimit')" prop="num">
                   <div>
                     <el-input-number
                       :controls="false"
-                      placeholder="购买数量限制"
+                      :placeholder="$t('message.pages.marketing.storeBargain.create.purchaseLimitPlaceholder')"
                       :min="1"
                       :max="10000"
                       :precision="0"
                       v-model="formValidate.num"
                       class="content_width input-number-unit-class"
-                      :class-unit="formValidate.unit_name || '件'"
+                      :class-unit="formValidate.unit_name || $t('message.pages.marketing.storeBargain.create.piece')"
                     />
-                    <div class="grey">单个活动每个用户发起砍价次数限制</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeBargain.create.purchaseLimitHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="排序：">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.sortLabel')">
                   <el-input-number
                     :controls="false"
-                    placeholder="请输入排序"
+                    :placeholder="$t('message.pages.marketing.storeBargain.create.inputSort')"
                     element-id="sort"
                     :min="0"
                     :max="10000"
@@ -251,7 +251,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="砍价是否参与分销：" props="is_commission" label-for="is_commission">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.isCommission')" props="is_commission" label-for="is_commission">
                   <div>
                     <el-switch
                       class="defineSwitch"
@@ -259,30 +259,30 @@
                       :inactive-value="0"
                       v-model="formValidate.is_commission"
                       size="large"
-                      active-text="开启"
-                      inactive-text="关闭"
+                      :active-text="$t('message.pages.marketing.storeBargain.create.open')"
+                      :inactive-text="$t('message.pages.marketing.storeBargain.create.close')"
                     >
                     </el-switch>
-                    <div class="grey">商品是否参与商城分销返佣</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeBargain.create.isCommissionHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动状态：" props="status" label-for="status">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.activityStatusLabel')" props="status" label-for="status">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.status"
                     size="large"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    :active-text="$t('message.pages.marketing.storeBargain.create.open')"
+                    :inactive-text="$t('message.pages.marketing.storeBargain.create.close')"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="规格选择：">
+                <el-form-item :label="$t('message.pages.marketing.storeBargain.create.specSelect')">
                   <el-table :data="specsData" border>
                     <el-table-column width="50">
                       <template slot-scope="scope">
@@ -353,7 +353,7 @@
               </el-col>
             </el-row>
             <div v-if="current === 2">
-              <el-form-item label="内容：">
+              <el-form-item :label="$t('message.pages.marketing.storeBargain.create.content')">
                 <WangEditor
                   style="width: 90%"
                   :content="formValidate.description"
@@ -362,7 +362,7 @@
               </el-form-item>
             </div>
             <div v-if="current === 3">
-              <el-form-item label="规则：">
+              <el-form-item :label="$t('message.pages.marketing.storeBargain.create.rule')">
                 <WangEditor
                   style="width: 90%"
                   :content="formValidate.rule"
@@ -377,7 +377,7 @@
                 v-db-click
                 @click="step"
                 :disabled="($route.params.id && $route.params.id !== '0' && current === 1) || current === 0"
-                >上一步</el-button
+                >{{ $t('message.pages.marketing.storeBargain.create.prevStep') }}</el-button
               >
               <el-button
                 type="primary"
@@ -385,7 +385,7 @@
                 class="submission"
                 v-db-click
                 @click="next('formValidate')"
-                >{{ current === 3 ? '提交' : '下一步' }}</el-button
+                >{{ current === 3 ? $t('message.pages.marketing.storeBargain.create.submit') : $t('message.pages.marketing.storeBargain.create.nextStep') }}</el-button
               >
             </el-form-item>
           </el-form>
@@ -393,12 +393,12 @@
       </el-row>
     </el-card>
     <!-- 选择商品-->
-    <el-dialog :visible.sync="modals" title="商品列表" class="paymentFooter" width="1000px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.marketing.storeBargain.create.productList')" class="paymentFooter" width="1000px">
       <goods-list ref="goodslist" @getProductId="getProductId"></goods-list>
     </el-dialog>
 
     <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.pages.marketing.storeBargain.create.uploadProductImage')" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -444,7 +444,6 @@ export default {
         UEDITOR_HOME_URL: '/UEditor/',
         serverUrl: '',
       },
-      stepList: ['选择砍价商品', '填写基础信息', '修改商品详情', '修改商品规则'],
       isChoice: '',
       current: 0,
       modalPic: false,
@@ -519,105 +518,7 @@ export default {
       },
       description: '',
       rule: '',
-      ruleValidate: {
-        image: [{ required: true, message: '请选择主图', trigger: 'change' }],
-        images: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择主图',
-            trigger: 'change',
-          },
-          {
-            type: 'array',
-            min: 1,
-            message: 'Choose two hobbies at best',
-            trigger: 'change',
-          },
-        ],
-        title: [{ required: true, message: '请输入砍价活动名称', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入砍价活动简介', trigger: 'blur' }],
-        store_name: [{ required: true, message: '请输入砍价商品名称', trigger: 'blur' }],
-        section_time: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择活动时间',
-            trigger: 'change',
-          },
-        ],
-        unit_name: [{ required: true, message: '请输入单位', trigger: 'blur' }],
-        price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入原价',
-            trigger: 'blur',
-          },
-        ],
-        min_price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入最低购买价',
-            trigger: 'blur',
-          },
-        ],
-        // bargain_max_price: [
-        //     { required: true, type: 'number', message: '请输单次砍价最大金额', trigger: 'blur' }
-        // ],
-        // bargain_min_price: [
-        //     { required: true, type: 'number', message: '单次砍价最小金额', trigger: 'blur' }
-        // ],
-        cost: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入成本价',
-            trigger: 'blur',
-          },
-        ],
-        bargain_num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入帮砍次数',
-            trigger: 'blur',
-          },
-        ],
-        people_num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入砍价人数',
-            trigger: 'blur',
-          },
-        ],
-        stock: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入库存',
-            trigger: 'blur',
-          },
-        ],
-        num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入单次允许购买数量',
-            trigger: 'blur',
-          },
-        ],
-        temp_id: [
-          {
-            required: true,
-            message: '请选择运费模板',
-            trigger: 'change',
-            type: 'number',
-          },
-        ],
-      },
+      ruleValidate: {},
       currentid: 0,
       picTit: '',
       tableIndex: 0,
@@ -632,6 +533,14 @@ export default {
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
     },
+    stepList() {
+      return [
+        this.$t('message.pages.marketing.storeBargain.create.step1'),
+        this.$t('message.pages.marketing.storeBargain.create.step2'),
+        this.$t('message.pages.marketing.storeBargain.create.step3'),
+        this.$t('message.pages.marketing.storeBargain.create.step4'),
+      ];
+    },
   },
   mounted() {
     if (this.$route.params.id !== '0' && this.$route.params.id) {
@@ -640,8 +549,32 @@ export default {
       this.getInfo();
     }
     this.productGetTemplate();
+    this.setRuleValidate();
   },
   methods: {
+    setRuleValidate() {
+      const t = (key) => this.$t(key);
+      this.ruleValidate = {
+        image: [{ required: true, message: t('message.pages.marketing.storeBargain.create.msgSelectMainImage'), trigger: 'change' }],
+        images: [
+          { required: true, type: 'array', message: t('message.pages.marketing.storeBargain.create.msgSelectMainImage'), trigger: 'change' },
+          { type: 'array', min: 1, message: t('message.pages.marketing.storeBargain.create.msgSelectMainImage'), trigger: 'change' },
+        ],
+        title: [{ required: true, message: t('message.pages.marketing.storeBargain.create.msgInputBargainActivityName'), trigger: 'blur' }],
+        info: [{ required: true, message: t('message.pages.marketing.storeBargain.create.msgInputBargainActivityIntro'), trigger: 'blur' }],
+        store_name: [{ required: true, message: t('message.pages.marketing.storeBargain.create.msgInputBargainProductName'), trigger: 'blur' }],
+        section_time: [{ required: true, type: 'array', message: t('message.pages.marketing.storeBargain.create.msgSelectActivityTime'), trigger: 'change' }],
+        unit_name: [{ required: true, message: t('message.pages.marketing.storeBargain.create.msgInputUnit'), trigger: 'blur' }],
+        price: [{ required: true, type: 'number', message: t('message.pages.marketing.storeBargain.create.msgInputOriginalPrice'), trigger: 'blur' }],
+        min_price: [{ required: true, type: 'number', message: t('message.pages.marketing.storeBargain.create.msgInputMinPrice'), trigger: 'blur' }],
+        cost: [{ required: true, type: 'number', message: t('message.pages.marketing.storeBargain.create.msgInputCostPrice'), trigger: 'blur' }],
+        bargain_num: [{ required: true, type: 'number', message: t('message.pages.marketing.storeBargain.create.msgInputHelpBargainNum'), trigger: 'blur' }],
+        people_num: [{ required: true, type: 'number', message: t('message.pages.marketing.storeBargain.create.msgInputPeopleNum'), trigger: 'blur' }],
+        stock: [{ required: true, type: 'number', message: t('message.pages.marketing.storeBargain.create.msgInputStock'), trigger: 'blur' }],
+        num: [{ required: true, type: 'number', message: t('message.pages.marketing.storeBargain.create.msgInputPurchaseLimit'), trigger: 'blur' }],
+        temp_id: [{ required: true, message: t('message.pages.marketing.storeBargain.create.msgSelectFreightTemplate'), trigger: 'change', type: 'number' }],
+      };
+    },
     // 详情内容
     getEditorContent(data) {
       this.description = data;
@@ -815,7 +748,7 @@ export default {
         this.$refs[name].validate((valid) => {
           if (valid) {
             if (this.currentid === '') {
-              return this.$message.error('请选择属性规格');
+              return this.$message.error(this.$t('message.pages.marketing.storeBargain.create.msgSelectSpec'));
             } else {
               let val = this.specsData[this.currentid];
               // let formValidate = this.formValidate.attrs[0];
@@ -823,10 +756,10 @@ export default {
               // formValidate.min_price = val.min_price;
               // formValidate.quota = val.quota;
               if (this.formValidate.attrs[0].quota <= 0) {
-                return this.$message.error('砍价限量必须大于0');
+                return this.$message.error(this.$t('message.pages.marketing.storeBargain.create.msgLimitGtZero'));
               }
               if (this.formValidate.attrs[0].quota > this.formValidate.attrs[0]['stock']) {
-                return this.$message.error('砍价限量不能超过规格库存');
+                return this.$message.error(this.$t('message.pages.marketing.storeBargain.create.msgLimitNotExceedStock'));
               }
             }
             this.current += 1;
@@ -834,7 +767,7 @@ export default {
             //   this.formValidate.description += ' ';
             // }, 0);
           } else {
-            return this.$message.warning('请完善您的信息');
+            return this.$message.warning(this.$t('message.pages.marketing.storeBargain.create.msgCompleteInfo'));
           }
         });
       } else {
@@ -846,7 +779,7 @@ export default {
             }, 0);
           }
         } else {
-          this.$message.warning('请选择商品');
+          this.$message.warning(this.$t('message.pages.marketing.storeBargain.create.msgSelectProduct'));
         }
       }
     },
@@ -865,7 +798,7 @@ export default {
     // 点击商品图
     modalPicTap(tit, picTit, index) {
       this.modalPic = true;
-      this.isChoice = tit === 'dan' ? '单选' : '多选';
+      this.isChoice = tit === 'dan' ? this.$t('message.pages.marketing.storeBargain.create.singleSelect') : this.$t('message.pages.marketing.storeBargain.create.multiSelect');
       this.picTit = picTit;
       this.tableIndex = index;
     },

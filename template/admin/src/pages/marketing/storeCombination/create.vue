@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? '编辑拼团商品' : '添加拼团商品'"
+      :title="$route.params.id ? $t('message.pages.marketing.storeCombination.create.editCombination') : $t('message.pages.marketing.storeCombination.create.addCombination')"
       :backUrl="$routeProStr + '/marketing/store_combination/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -21,7 +21,7 @@
             :label-position="labelPosition"
             @submit.native.prevent
           >
-            <el-form-item label="选择商品：" prop="image_input" v-if="current === 0">
+            <el-form-item :label="$t('message.pages.marketing.storeCombination.create.selectProduct')" prop="image_input" v-if="current === 0">
               <div class="picBox" v-db-click @click="changeGoods">
                 <div class="pictrue" v-if="formValidate.image">
                   <img v-lazy="formValidate.image" />
@@ -33,7 +33,7 @@
             </el-form-item>
             <el-row v-show="current === 1">
               <el-col :span="24">
-                <el-form-item label="商品主图：" prop="image">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.productMainImage')" prop="image">
                   <div class="picBox" v-db-click @click="modalPicTap('dan', 'danFrom')">
                     <div class="pictrue" v-if="formValidate.image">
                       <img v-lazy="formValidate.image" />
@@ -45,7 +45,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="商品轮播图：" prop="images">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.productCarousel')" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -73,10 +73,10 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="拼团名称：" prop="title" label-for="title">
+                  <el-form-item :label="$t('message.pages.marketing.storeCombination.create.combinationName')" prop="title" label-for="title">
                     <el-input
-                      elearable
-                      placeholder="请输入拼团名称"
+                      clearable
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputCombinationName')"
                       v-model="formValidate.title"
                       class="content_width"
                       maxlength="80"
@@ -87,9 +87,9 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="拼团简介：" prop="info" label-for="info">
+                  <el-form-item :label="$t('message.pages.marketing.storeCombination.create.combinationIntro')" prop="info" label-for="info">
                     <el-input
-                      placeholder="请输入拼团简介"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputCombinationIntro')"
                       type="textarea"
                       :rows="4"
                       v-model="formValidate.info"
@@ -121,18 +121,18 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
-                <el-form-item label="物流方式：" prop="logistics">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.logistics')" prop="logistics">
                   <el-checkbox-group v-model="formValidate.logistics">
-                    <el-checkbox label="1">快递</el-checkbox>
-                    <el-checkbox label="2">到店</el-checkbox>
+                    <el-checkbox label="1">{{ $t('message.pages.marketing.storeCombination.create.express') }}</el-checkbox>
+                    <el-checkbox label="2">{{ $t('message.pages.marketing.storeCombination.create.inStore') }}</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
-                <el-form-item label="运费设置：" :prop="formValidate.freight != 1 ? 'freight' : ''">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.freightSetting')" :prop="formValidate.freight != 1 ? 'freight' : ''">
                   <el-radio-group v-model="formValidate.freight">
-                    <el-radio :label="2">固定邮费</el-radio>
-                    <el-radio :label="3">运费模板</el-radio>
+                    <el-radio :label="2">{{ $t('message.pages.marketing.storeCombination.create.fixedPostage') }}</el-radio>
+                    <el-radio :label="3">{{ $t('message.pages.marketing.storeCombination.create.freightTemplate') }}</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -147,9 +147,9 @@
                       :min="0"
                       :max="9999999999"
                       v-model="formValidate.postage"
-                      placeholder="请输入金额"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputAmount')"
                       class="content_width input-number-unit-class"
-                      class-unit="元"
+                      :class-unit="$t('message.pages.marketing.storeCombination.create.yuan')"
                     />
                   </div>
                 </el-form-item>
@@ -160,7 +160,7 @@
                     <el-select
                       v-model="formValidate.temp_id"
                       clearable
-                      placeholder="请选择运费模板"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.selectFreightTemplate')"
                       class="content_width"
                     >
                       <el-option
@@ -170,127 +170,127 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <span class="addfont" v-db-click @click="freight">新增运费模板</span>
+                    <span class="addfont" v-db-click @click="freight">{{ $t('message.pages.marketing.storeCombination.create.newFreightTemplate') }}</span>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="拼团时效：" prop="effective_time">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.effectiveTime')" prop="effective_time">
                   <div>
                     <el-input-number
                       :controls="false"
-                      placeholder="请输入拼团时效"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputEffectiveTime')"
                       class="content_width input-number-unit-class"
-                      class-unit="小时"
+                      :class-unit="$t('message.pages.marketing.storeCombination.create.hourUnit')"
                       v-model="formValidate.effective_time"
                     />
                     <div class="grey">
-                      用户发起拼团后开始计时，需在设置时间内邀请到规定好友人数参团，超过时效时间，则系统判定拼团失败，自动发起退款
+                      {{ $t('message.pages.marketing.storeCombination.create.effectiveTimeHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="拼团人数：" prop="people">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.peopleNum')" prop="people">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="2"
                       :max="10000"
-                      placeholder="请输入拼团人数"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputPeopleNum')"
                       :precision="0"
                       v-model="formValidate.people"
                       class="content_width input-number-unit-class"
-                      class-unit="人"
+                      :class-unit="$t('message.pages.marketing.storeCombination.create.peopleUnit')"
                     />
-                    <div class="grey">单次拼团需要参与的用户数</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeCombination.create.peopleNumHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="虚拟成团补齐人数：" prop="virtualPeople">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.virtualPeople')" prop="virtualPeople">
                   <div>
                     <el-input-number
                       :controls="false"
-                      placeholder="设置虚拟成团的补齐人数"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputVirtualPeople')"
                       :precision="0"
                       :max="10000"
                       :min="0"
                       v-model="formValidate.virtualPeople"
                       class="content_width input-number-unit-class"
-                      class-unit="人"
+                      :class-unit="$t('message.pages.marketing.storeCombination.create.peopleUnit')"
                     />
                     <div class="grey">
-                      设置虚拟成团的补齐人数，如：5人团设置补齐2人，当团队成员大于等于3人时，拼团结束时自动补齐剩余最多2个位置，不开启虚拟成团请设置为0
+                      {{ $t('message.pages.marketing.storeCombination.create.virtualPeopleHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单位：" prop="unit_name" label-for="unit_name">
-                  <el-input clearable placeholder="请输入单位" v-model="formValidate.unit_name" class="content_width" />
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.unit')" prop="unit_name" label-for="unit_name">
+                  <el-input clearable :placeholder="$t('message.pages.marketing.storeCombination.create.inputUnit')" v-model="formValidate.unit_name" class="content_width" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="总购买数量限制：" prop="num">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.totalPurchaseLimit')" prop="num">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="1"
-                      placeholder="请输入总数量限制"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputTotalLimit')"
                       :precision="0"
                       :max="10000"
                       v-model="formValidate.num"
                       class="content_width input-number-unit-class"
-                      :class-unit="formValidate.unit_name || '件'"
+                      :class-unit="formValidate.unit_name || $t('message.pages.marketing.storeCombination.create.piece')"
                     />
                     <div class="grey">
-                      该商品活动期间内，用户可购买的最大数量。例如设置为4，表示本次活动有效期内，每个用户最多可购买4件
+                      {{ $t('message.pages.marketing.storeCombination.create.totalLimitHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单次购买数量限制：" prop="once_num">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.oncePurchaseLimit')" prop="once_num">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="1"
-                      placeholder="请输入单次购买数量限制"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputOncePurchaseLimit')"
                       :precision="0"
                       :max="10000"
                       v-model="formValidate.once_num"
                       class="content_width input-number-unit-class"
-                      :class-unit="formValidate.unit_name || '件'"
+                      :class-unit="formValidate.unit_name || $t('message.pages.marketing.storeCombination.create.piece')"
                     />
                     <div class="grey">
-                      用户参与拼团时，一次购买最大数量限制。例如设置为2，表示每次参与拼团时，用户一次购买数量最大可选择2个
+                      {{ $t('message.pages.marketing.storeCombination.create.onceLimitHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
 
               <el-col :span="24">
-                <el-form-item label="团长返佣比例：" prop="head_commission">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.headCommission')" prop="head_commission">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="0"
                       :max="100"
-                      placeholder="团长返佣比例"
+                      :placeholder="$t('message.pages.marketing.storeCombination.create.inputHeadCommission')"
                       :precision="0"
                       v-model="formValidate.head_commission"
                       class="content_width input-number-unit-class"
                       class-unit="%"
                     />
                     <div class="grey">
-                      拼团成功后，如果团长是分销员，则在订单确认收货时会给团长返一定的佣金，佣金比例是实际支付金额的0-100%
+                      {{ $t('message.pages.marketing.storeCombination.create.headCommissionHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="拼团是否参与分销：" props="is_commission" label-for="is_commission">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.isCommission')" props="is_commission" label-for="is_commission">
                   <div>
                     <el-switch
                       class="defineSwitch"
@@ -298,19 +298,19 @@
                       :inactive-value="0"
                       v-model="formValidate.is_commission"
                       size="large"
-                      active-text="开启"
-                      inactive-text="关闭"
+                      :active-text="$t('message.pages.marketing.storeCombination.create.open')"
+                      :inactive-text="$t('message.pages.marketing.storeCombination.create.close')"
                     >
                     </el-switch>
-                    <div class="grey">拼团商品是否参与商城分销返佣</div>
+                    <div class="grey">{{ $t('message.pages.marketing.storeCombination.create.isCommissionHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="排序：">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.sortLabel')">
                   <el-input-number
                     :controls="false"
-                    placeholder="请输入排序"
+                    :placeholder="$t('message.pages.marketing.storeCombination.create.inputSort')"
                     :precision="0"
                     :max="10000"
                     :min="0"
@@ -320,35 +320,35 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="热门推荐：" props="is_hot" label-for="is_hot">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.hotRecommend')" props="is_hot" label-for="is_hot">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.is_host"
                     size="large"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    :active-text="$t('message.pages.marketing.storeCombination.create.open')"
+                    :inactive-text="$t('message.pages.marketing.storeCombination.create.close')"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动状态：" props="is_show" label-for="is_show">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.activityStatusLabel')" props="is_show" label-for="is_show">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.is_show"
                     size="large"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    :active-text="$t('message.pages.marketing.storeCombination.create.open')"
+                    :inactive-text="$t('message.pages.marketing.storeCombination.create.close')"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="规格选择：">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.specSelect')">
                   <el-table
                     ref="multipleTable"
                     :data="specsData"
@@ -410,7 +410,7 @@
             </el-row>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="内容：">
+                <el-form-item :label="$t('message.pages.marketing.storeCombination.create.content')">
                   <WangEditor
                     style="width: 90%"
                     :content="formValidate.description"
@@ -425,7 +425,7 @@
                 v-db-click
                 @click="step"
                 :disabled="($route.params.id && current === 1) || current === 0"
-                >上一步</el-button
+                >{{ $t('message.pages.marketing.storeCombination.create.prevStep') }}</el-button
               >
               <el-button
                 type="primary"
@@ -433,7 +433,7 @@
                 class="submission"
                 v-db-click
                 @click="next('formValidate')"
-                >{{ current === 2 ? '提交' : '下一步' }}</el-button
+                >{{ current === 2 ? $t('message.pages.marketing.storeCombination.create.submit') : $t('message.pages.marketing.storeCombination.create.nextStep') }}</el-button
               >
             </el-form-item>
           </el-form>
@@ -441,11 +441,11 @@
       </el-row>
     </el-card>
     <!-- 选择商品-->
-    <el-dialog :visible.sync="modals" title="商品列表" class="paymentFooter" width="1000px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.marketing.storeCombination.create.productList')" class="paymentFooter" width="1000px">
       <goods-list ref="goodslist" @getProductId="getProductId"></goods-list>
     </el-dialog>
     <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.pages.marketing.storeCombination.create.uploadProductImage')" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -514,7 +514,6 @@ export default {
         sm: 8,
         xs: 8,
       },
-      stepList: ['选择拼团商品', '填写基础信息', '修改商品详情'],
       myConfig: {
         autoHeightEnabled: false, // 编辑器不自动被内容撑高
         initialFrameHeight: 500, // 初始容器高度
@@ -562,114 +561,7 @@ export default {
         freight: 2, //运费设置
         postage: 1, //设置运费金额
       },
-      ruleValidate: {
-        image: [{ required: true, message: '请选择主图', trigger: 'change' }],
-        images: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择主图',
-            trigger: 'change',
-          },
-          {
-            type: 'array',
-            min: 1,
-            message: 'Choose two hobbies at best',
-            trigger: 'change',
-          },
-        ],
-        title: [{ required: true, message: '请输入拼团名称', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入拼团简介', trigger: 'blur' }],
-        section_time: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择活动时间',
-            trigger: 'change',
-          },
-        ],
-        unit_name: [{ required: true, message: '请输入单位', trigger: 'blur' }],
-        price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入拼团价',
-            trigger: 'blur',
-          },
-        ],
-        cost: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入成本价',
-            trigger: 'blur',
-          },
-        ],
-        stock: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入库存',
-            trigger: 'blur',
-          },
-        ],
-        give_integral: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入赠送积分',
-            trigger: 'blur',
-          },
-        ],
-        effective_time: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入拼团时效(单位 小时)',
-            trigger: 'blur',
-          },
-        ],
-        people: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入拼团人数',
-            trigger: 'blur',
-          },
-        ],
-        num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入购买数量限制',
-            trigger: 'blur',
-          },
-        ],
-        once_num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入单次购买数量限制',
-            trigger: 'blur',
-          },
-        ],
-        virtualPeople: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入虚拟成团补齐人数',
-            trigger: 'blur',
-          },
-        ],
-        temp_id: [
-          {
-            required: true,
-            message: '请选择运费模板',
-            trigger: 'change',
-            type: 'number',
-          },
-        ],
-      },
+      ruleValidate: {},
       copy: 0,
       description: '',
     };
@@ -682,6 +574,13 @@ export default {
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
     },
+    stepList() {
+      return [
+        this.$t('message.pages.marketing.storeCombination.create.step1'),
+        this.$t('message.pages.marketing.storeCombination.create.step2'),
+        this.$t('message.pages.marketing.storeCombination.create.step3'),
+      ];
+    },
   },
   mounted() {
     if (this.$route.params.id) {
@@ -690,8 +589,34 @@ export default {
       this.getInfo();
     }
     this.productGetTemplate();
+    this.setRuleValidate();
   },
   methods: {
+    setRuleValidate() {
+      const t = (key) => this.$t(key);
+      const p = 'message.pages.marketing.storeCombination.create.';
+      this.ruleValidate = {
+        image: [{ required: true, message: t(p + 'msgSelectMainImage'), trigger: 'change' }],
+        images: [
+          { required: true, type: 'array', message: t(p + 'msgSelectMainImage'), trigger: 'change' },
+          { type: 'array', min: 1, message: t(p + 'msgSelectMainImage'), trigger: 'change' },
+        ],
+        title: [{ required: true, message: t(p + 'msgInputCombinationName'), trigger: 'blur' }],
+        info: [{ required: true, message: t(p + 'msgInputCombinationIntro'), trigger: 'blur' }],
+        section_time: [{ required: true, type: 'array', message: t(p + 'msgSelectActivityTime'), trigger: 'change' }],
+        unit_name: [{ required: true, message: t(p + 'msgInputUnit'), trigger: 'blur' }],
+        price: [{ required: true, type: 'number', message: t(p + 'msgInputCombinationPrice'), trigger: 'blur' }],
+        cost: [{ required: true, type: 'number', message: t(p + 'msgInputCostPrice'), trigger: 'blur' }],
+        stock: [{ required: true, type: 'number', message: t(p + 'msgInputStock'), trigger: 'blur' }],
+        give_integral: [{ required: true, type: 'number', message: t(p + 'msgInputGiveIntegral'), trigger: 'blur' }],
+        effective_time: [{ required: true, type: 'number', message: t(p + 'msgInputEffectiveTime'), trigger: 'blur' }],
+        people: [{ required: true, type: 'number', message: t(p + 'msgInputPeopleNum'), trigger: 'blur' }],
+        num: [{ required: true, type: 'number', message: t(p + 'msgInputTotalLimit'), trigger: 'blur' }],
+        once_num: [{ required: true, type: 'number', message: t(p + 'msgInputOncePurchaseLimit'), trigger: 'blur' }],
+        virtualPeople: [{ required: true, type: 'number', message: t(p + 'msgInputVirtualPeople'), trigger: 'blur' }],
+        temp_id: [{ required: true, message: t(p + 'msgSelectFreightTemplate'), trigger: 'change', type: 'number' }],
+      };
+    },
     changePrice(e, index) {
       this.$set(this.specsData[index], 'price', e);
     },

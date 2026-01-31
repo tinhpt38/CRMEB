@@ -3,11 +3,11 @@
     <div class="i-layout-page-header">
       <div class="i-layout-page-header">
         <router-link :to="{ path: $routeProStr + '/marketing/presell/index' }">
-          <el-button icon="ios-arrow-back" size="small" class="mr20">返回 </el-button>
+          <el-button icon="ios-arrow-back" size="small" class="mr20">{{ $t('message.pages.marketing.storePresell.create.back') }} </el-button>
         </router-link>
         <span
           class="ivu-page-header-title mr20"
-          v-text="$route.params.id != 0 ? '编辑预售商品' : '添加预售商品'"
+          v-text="$route.params.id != 0 ? $t('message.pages.marketing.storePresell.create.editPresell') : $t('message.pages.marketing.storePresell.create.addPresell')"
         ></span>
       </div>
     </div>
@@ -27,7 +27,7 @@
             :label-position="labelPosition"
             @submit.native.prevent
           >
-            <el-form-item label="选择商品：" prop="image_input" v-if="current === 0">
+            <el-form-item :label="$t('message.pages.marketing.storePresell.create.selectProduct')" prop="image_input" v-if="current === 0">
               <div class="picBox" v-db-click @click="changeGoods">
                 <div class="pictrue" v-if="formValidate.image">
                   <img v-lazy="formValidate.image" />
@@ -39,7 +39,7 @@
             </el-form-item>
             <el-row v-show="current === 1">
               <el-col :span="24">
-                <el-form-item label="商品主图：" prop="image">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.productMainImage')" prop="image">
                   <div class="picBox" v-db-click @click="modalPicTap('dan', 'danFrom')">
                     <div class="pictrue" v-if="formValidate.image">
                       <img v-lazy="formValidate.image" />
@@ -51,7 +51,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="商品轮播图：" prop="images">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.productCarousel')" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -85,16 +85,16 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="预售名称：" prop="title" label-for="title">
-                    <el-input placeholder="请输入预售名称" element-id="title" v-model="formValidate.title" />
+                  <el-form-item :label="$t('message.pages.marketing.storePresell.create.presellName')" prop="title" label-for="title">
+                    <el-input :placeholder="$t('message.pages.marketing.storePresell.create.inputPresellName')" element-id="title" v-model="formValidate.title" />
                   </el-form-item>
                 </el-col>
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="预售简介：" prop="info" label-for="info">
+                  <el-form-item :label="$t('message.pages.marketing.storePresell.create.presellIntro')" prop="info" label-for="info">
                     <el-input
-                      placeholder="请输入预售简介"
+                      :placeholder="$t('message.pages.marketing.storePresell.create.inputPresellIntro')"
                       type="textarea"
                       :rows="4"
                       element-id="info"
@@ -104,7 +104,7 @@
                 </el-col>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="预售活动时间：" prop="section_time">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.presellActivityTime')" prop="section_time">
                   <div class="acea-row row-middle">
                     <el-date-picker
                       clearable
@@ -113,34 +113,34 @@
                       format="yyyy-MM-dd HH:mm"
                       value-format="yyyy-MM-dd HH:mm"
                       range-separator="-"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
+                      :start-placeholder="$t('message.pages.marketing.storePresell.create.startDate')"
+                      :end-placeholder="$t('message.pages.marketing.storePresell.create.endDate')"
                       @change="onchangeTime"
                       class="perW20"
                       v-model="formValidate.section_time"
                     ></el-date-picker>
-                    <div class="ml10 grey">设置活动开启结束时间，用户可以在设置时间内发起参与预售</div>
+                    <div class="ml10 grey">{{ $t('message.pages.marketing.storePresell.create.activityTimeHint') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="发货时间：" prop="deliver_time">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.deliverTime')" prop="deliver_time">
                   <div class="acea-row row-middle">
-                    <span class="mr10">预售活动结束后</span>
+                    <span class="mr10">{{ $t('message.pages.marketing.storePresell.create.afterActivityEnd') }}</span>
                     <el-input-number
                       :controls="false"
-                      placeholder="请输入发货时间"
+                      :placeholder="$t('message.pages.marketing.storePresell.create.inputDeliverDays')"
                       :precision="0"
                       :min="1"
                       v-model="formValidate.deliver_time"
                     />
-                    <span class="ml10"> 天之内 </span>
+                    <span class="ml10"> {{ $t('message.pages.marketing.storePresell.create.daysWithin') }} </span>
                     <div class="ml10 grey"></div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="运费模板：" prop="temp_id">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.freightTemplate')" prop="temp_id">
                   <div class="acea-row row-middle">
                     <el-select v-model="formValidate.temp_id" class="perW20">
                       <el-option
@@ -150,32 +150,32 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <div class="ml10 col" v-db-click @click="freight">添加运费模板</div>
+                    <div class="ml10 col" v-db-click @click="freight">{{ $t('message.pages.marketing.storePresell.create.addFreightTemplate') }}</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="总购买数量限制：" prop="num">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.totalPurchaseLimit')" prop="num">
                   <div class="acea-row row-middle">
                     <el-input-number
                       :controls="false"
                       :min="1"
-                      placeholder="请输入总数量限制"
+                      :placeholder="$t('message.pages.marketing.storePresell.create.inputTotalLimit')"
                       :precision="0"
                       element-id="num"
                       v-model="formValidate.num"
                       class="perW20"
                     />
                     <div class="ml10 grey">
-                      该商品活动期间内，用户可购买的最大数量。例如设置为4，表示本次活动有效期内，每个用户最多可购买4件
+                      {{ $t('message.pages.marketing.storePresell.create.totalLimitHint') }}
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单位：" prop="unit_name" label-for="unit_name">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.unit')" prop="unit_name" label-for="unit_name">
                   <el-input
-                    placeholder="请输入单位"
+                    :placeholder="$t('message.pages.marketing.storePresell.create.inputUnit')"
                     element-id="unit_name"
                     v-model="formValidate.unit_name"
                     class="perW20"
@@ -183,10 +183,10 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="排序：">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.sortLabel')">
                   <el-input-number
                     :controls="false"
-                    placeholder="请输入排序"
+                    :placeholder="$t('message.pages.marketing.storePresell.create.inputSort')"
                     element-id="sort"
                     :precision="0"
                     v-model="formValidate.sort"
@@ -195,21 +195,21 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动状态：" props="status" label-for="status">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.activityStatusLabel')" props="status" label-for="status">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.status"
                     size="large"
-                    active-text="上架"
-                    inactive-text="下架"
+                    :active-text="$t('message.pages.marketing.storePresell.create.onSale')"
+                    :inactive-text="$t('message.pages.marketing.storePresell.create.offSale')"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="规格选择：">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.specSelect')">
                   <el-table :data="specsData" @selection-change="changeCheckbox">
                     <el-table-column type="selection" width="55"> </el-table-column>
                     <el-table-column
@@ -240,7 +240,7 @@
             </el-row>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="内容：">
+                <el-form-item :label="$t('message.pages.marketing.storePresell.create.content')">
                   <WangEditor
                     style="width: 90%"
                     :content="formValidate.description"
@@ -255,7 +255,7 @@
                 v-db-click
                 @click="step"
                 :disabled="($route.params.id && current === 1) || current === 0"
-                >上一步
+                >{{ $t('message.pages.marketing.storePresell.create.prevStep') }}
               </el-button>
               <el-button
                 type="primary"
@@ -263,7 +263,7 @@
                 class="submission"
                 v-db-click
                 @click="next('formValidate')"
-                >{{ current === 2 ? '提交' : '下一步' }}</el-button
+                >{{ current === 2 ? $t('message.pages.marketing.storePresell.create.submit') : $t('message.pages.marketing.storePresell.create.nextStep') }}</el-button
               >
             </el-form-item>
           </el-form>
@@ -271,11 +271,11 @@
       </el-row>
     </el-card>
     <!-- 选择商品-->
-    <el-dialog :visible.sync="modals" title="商品列表" class="paymentFooter" width="1000px">
+    <el-dialog :visible.sync="modals" :title="$t('message.pages.marketing.storePresell.create.productList')" class="paymentFooter" width="1000px">
       <goods-list ref="goodslist" @getProductId="getProductId"></goods-list>
     </el-dialog>
     <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.pages.marketing.storePresell.create.uploadProductImage')" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -311,7 +311,6 @@ export default {
   },
   data() {
     return {
-      stepList: ['选择预售商品', '填写基础信息', '修改商品详情'],
       submitOpen: false,
       spinShow: false,
       isChoice: '',
@@ -383,130 +382,7 @@ export default {
         attrs: [],
         items: [],
       },
-      ruleValidate: {
-        image: [{ required: true, message: '请选择主图', trigger: 'change' }],
-        images: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择主图',
-            trigger: 'change',
-          },
-          {
-            type: 'array',
-            min: 1,
-            message: 'Choose two hobbies at best',
-            trigger: 'change',
-          },
-        ],
-        title: [{ required: true, message: '请输入预售名称', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入预售简介', trigger: 'blur' }],
-        section_time: [
-          {
-            required: true,
-            type: 'array',
-            message: '请选择活动时间',
-            trigger: 'change',
-          },
-        ],
-        // pay_time: [
-        //   {
-        //     required: true,
-        //     type: "array",
-        //     message: "请选择活动时间",
-        //     trigger: "change",
-        //   },
-        // ],
-        unit_name: [{ required: true, message: '请输入单位', trigger: 'blur' }],
-        price: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入预售价',
-            trigger: 'blur',
-          },
-        ],
-        cost: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入成本价',
-            trigger: 'blur',
-          },
-        ],
-        stock: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入库存',
-            trigger: 'blur',
-          },
-        ],
-        give_integral: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入赠送积分',
-            trigger: 'blur',
-          },
-        ],
-        effective_time: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入预售时效(单位 小时)',
-            trigger: 'blur',
-          },
-        ],
-        people: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入预售人数',
-            trigger: 'blur',
-          },
-        ],
-        num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入购买数量限制',
-            trigger: 'blur',
-          },
-        ],
-        deposit: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入定金金额',
-            trigger: 'blur',
-          },
-        ],
-        once_num: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入单次购买数量限制',
-            trigger: 'blur',
-          },
-        ],
-        virtualPeople: [
-          {
-            required: true,
-            type: 'number',
-            message: '请输入虚拟成团补齐人数',
-            trigger: 'blur',
-          },
-        ],
-        temp_id: [
-          {
-            required: true,
-            message: '请选择运费模板',
-            trigger: 'change',
-            type: 'number',
-          },
-        ],
-      },
+      ruleValidate: {},
       copy: 0,
     };
   },
@@ -518,8 +394,16 @@ export default {
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
     },
+    stepList() {
+      return [
+        this.$t('message.pages.marketing.storePresell.create.step1'),
+        this.$t('message.pages.marketing.storePresell.create.step2'),
+        this.$t('message.pages.marketing.storePresell.create.step3'),
+      ];
+    },
   },
   mounted() {
+    this.setRuleValidate();
     if (this.$route.params.id != 0) {
       this.copy = this.$route.params.copy;
       this.current = 1;
@@ -528,6 +412,32 @@ export default {
     this.productGetTemplate();
   },
   methods: {
+    setRuleValidate() {
+      const t = this.$t.bind(this);
+      const p = 'message.pages.marketing.storePresell.create.';
+      this.ruleValidate = {
+        image: [{ required: true, message: t(p + 'msgSelectMainImage'), trigger: 'change' }],
+        images: [
+          { required: true, type: 'array', message: t(p + 'msgSelectMainImage'), trigger: 'change' },
+          { type: 'array', min: 1, message: t(p + 'msgSelectMainImage'), trigger: 'change' },
+        ],
+        title: [{ required: true, message: t(p + 'msgInputPresellName'), trigger: 'blur' }],
+        info: [{ required: true, message: t(p + 'msgInputPresellIntro'), trigger: 'blur' }],
+        section_time: [{ required: true, type: 'array', message: t(p + 'msgSelectActivityTime'), trigger: 'change' }],
+        unit_name: [{ required: true, message: t(p + 'msgInputUnit'), trigger: 'blur' }],
+        price: [{ required: true, type: 'number', message: t(p + 'msgInputPresellPrice'), trigger: 'blur' }],
+        cost: [{ required: true, type: 'number', message: t(p + 'msgInputCostPrice'), trigger: 'blur' }],
+        stock: [{ required: true, type: 'number', message: t(p + 'msgInputStock'), trigger: 'blur' }],
+        give_integral: [{ required: true, type: 'number', message: t(p + 'msgInputGiveIntegral'), trigger: 'blur' }],
+        effective_time: [{ required: true, type: 'number', message: t(p + 'msgInputPresellTime'), trigger: 'blur' }],
+        people: [{ required: true, type: 'number', message: t(p + 'msgInputPresellPeople'), trigger: 'blur' }],
+        num: [{ required: true, type: 'number', message: t(p + 'msgInputPurchaseLimit'), trigger: 'blur' }],
+        deposit: [{ required: true, type: 'number', message: t(p + 'msgInputDeposit'), trigger: 'blur' }],
+        once_num: [{ required: true, type: 'number', message: t(p + 'msgInputOncePurchaseLimit'), trigger: 'blur' }],
+        virtualPeople: [{ required: true, type: 'number', message: t(p + 'msgInputVirtualPeople'), trigger: 'blur' }],
+        temp_id: [{ required: true, message: t(p + 'msgSelectFreightTemplate'), trigger: 'change', type: 'number' }],
+      };
+    },
     getEditorContent(data) {
       this.formValidate.description = data;
     },
@@ -682,33 +592,33 @@ export default {
         this.$refs[name].validate((valid) => {
           if (valid) {
             if (that.formValidate.people < 2) {
-              return that.$message.error('预售人数必须大于2');
+              return that.$message.error(that.$t('message.pages.marketing.storePresell.create.msgPresellPeopleGt2'));
             }
             if (that.formValidate.num < 0) {
-              return that.$message.error('购买数量限制必须大于0');
+              return that.$message.error(that.$t('message.pages.marketing.storePresell.create.msgPurchaseLimitGtZero'));
             }
             if (!that.formValidate.attrs) {
-              return that.$message.error('请选择属性规格');
+              return that.$message.error(that.$t('message.pages.marketing.storePresell.create.msgSelectSpec'));
             } else {
               for (let index in that.formValidate.attrs) {
                 if (that.formValidate.attrs[index].quota <= 0) {
-                  return that.$message.error('预售限量必须大于0');
+                  return that.$message.error(that.$t('message.pages.marketing.storePresell.create.msgPresellQuotaGtZero'));
                 }
                 if (this.formValidate.attrs[index].quota > this.formValidate.attrs[index]['stock']) {
-                  return this.$message.error('预售限量不能超过规格库存');
+                  return this.$message.error(this.$t('message.pages.marketing.storePresell.create.msgPresellQuotaLteStock'));
                 }
               }
             }
             this.current += 1;
           } else {
-            return this.$message.warning('请完善您的信息');
+            return this.$message.warning(this.$t('message.pages.marketing.storePresell.create.msgCompleteInfo'));
           }
         });
       } else {
         if (this.formValidate.image) {
           this.current += 1;
         } else {
-          this.$message.warning('请选择商品');
+          this.$message.warning(this.$t('message.pages.marketing.storePresell.create.msgSelectProduct'));
         }
       }
     },
@@ -723,7 +633,7 @@ export default {
     // 点击商品图
     modalPicTap(tit, picTit, index) {
       this.modalPic = true;
-      this.isChoice = tit === 'dan' ? '单选' : '多选';
+      this.isChoice = tit === 'dan' ? this.$t('message.pages.marketing.storePresell.create.singleSelect') : this.$t('message.pages.marketing.storePresell.create.multiSelect');
       this.picTit = picTit;
       this.tableIndex = index;
     },

@@ -10,26 +10,26 @@
       >
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item label="是否有效：" label-for="status">
+            <el-form-item :label="$t('message.pages.marketing.storeCoupon.validStatus')" label-for="status">
               <el-select
                 v-model="tableFrom.status"
-                placeholder="请选择"
+                :placeholder="$t('message.pages.marketing.common.pleaseSelect')"
                 clearable
                 element-id="status"
                 @change="userSearchs"
               >
-                <el-option value="1" label="有效"></el-option>
-                <el-option value="0" label="无效"></el-option>
+                <el-option value="1" :label="$t('message.pages.marketing.storeCoupon.valid')"></el-option>
+                <el-option value="0" :label="$t('message.pages.marketing.storeCoupon.invalid')"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="优惠券名称：" label-for="title">
+            <el-form-item :label="$t('message.pages.marketing.storeCoupon.couponName')" label-for="title">
               <el-input
                 search
                 enter-button
                 v-model="tableFrom.title"
-                placeholder="请输入优惠券名称"
+                :placeholder="$t('message.pages.marketing.storeCoupon.inputCouponName')"
                 @on-search="userSearchs"
               />
             </el-form-item>
@@ -43,7 +43,7 @@
               icon="md-add"
               v-db-click
               @click="add"
-              >添加优惠券</el-button
+              >{{ $t('message.pages.marketing.storeCoupon.addCoupon') }}</el-button
             >
           </el-col>
         </el-row>
@@ -54,68 +54,68 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.marketing.common.noData')"
+        :empty-text="$t('message.pages.marketing.common.noData')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券名称" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeCoupon.couponNameCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券类型" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeCoupon.couponType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="面值" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeCoupon.faceValue')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最低消费额" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeCoupon.minConsumption')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.use_min_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="有效期限(天)" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeCoupon.validDays')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.common.sort')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否有效" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.storeCoupon.validStatusCol')" min-width="130">
           <template slot-scope="scope">
             <i class="el-icon-check" v-if="scope.row.status === 1" style="color: #0092dc; font-size: 14px" />
             <i class="el-icon-close" v-else style="color: #ed5565; font-size: 14px" />
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.pages.marketing.common.addTime')" min-width="130">
           <template slot-scope="scope">
             <span> {{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="couponInvalid(scope.row, '修改优惠券', index)" v-if="scope.row.status">立即失效</a>
+            <a v-db-click @click="couponInvalid(scope.row, $t('message.pages.marketing.storeCoupon.modifyCoupon'), scope.$index)" v-if="scope.row.status">{{ $t('message.pages.marketing.storeCoupon.invalidNow') }}</a>
             <el-divider direction="vertical" v-if="scope.row.status" />
             <a
               v-db-click
               @click="couponSend(scope.row)"
               v-if="scope.row.status"
               v-auth="['admin-marketing-store_coupon-push']"
-              >发布</a
+              >{{ $t('message.pages.marketing.storeCoupon.publish') }}</a
             >
             <el-divider direction="vertical" v-if="scope.row.status" />
-            <a v-db-click @click="couponDel(scope.row, '删除优惠券', scope.$index)">删除</a>
+            <a v-db-click @click="couponDel(scope.row, $t('message.pages.marketing.storeCoupon.delCoupon'), scope.$index)">{{ $t('message.pages.marketing.common.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

@@ -10,7 +10,7 @@
         inline
         @submit.native.prevent
       >
-        <el-form-item label="活动时间：">
+        <el-form-item :label="$t('message.pages.marketing.lottery.listActivityTime')">
           <el-date-picker
             v-model="timeVal"
             type="daterange"
@@ -18,110 +18,110 @@
             @change="onchangeTime"
             format="yyyy/MM/dd"
             value-format="yyyy/MM/dd"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
+            :start-placeholder="$t('message.pages.marketing.common.startDate')"
+            :end-placeholder="$t('message.pages.marketing.common.endDate')"
             :picker-options="pickerOptions"
             style="width: 250px"
             class="mr20"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="活动状态：">
+        <el-form-item :label="$t('message.pages.marketing.lottery.listActivityStatus')">
           <el-select
             class="form_content_width"
             v-model="tableFrom.start"
             clearable
             @change="userSearchs"
-            placeholder="全部"
+            :placeholder="$t('message.pages.marketing.lottery.all')"
           >
-            <el-option label="全部" value="" />
-            <el-option label="未开始" :value="0" />
-            <el-option label="进行中" :value="1" />
-            <el-option label="已结束" :value="2" />
+            <el-option :label="$t('message.pages.marketing.lottery.all')" value="" />
+            <el-option :label="$t('message.pages.marketing.lottery.statusNotStart')" :value="0" />
+            <el-option :label="$t('message.pages.marketing.lottery.statusOngoing')" :value="1" />
+            <el-option :label="$t('message.pages.marketing.lottery.statusEnded')" :value="2" />
           </el-select>
         </el-form-item>
-        <el-form-item label="活动类型：">
+        <el-form-item :label="$t('message.pages.marketing.lottery.activityType')">
           <el-select
             class="form_content_width"
             v-model="tableFrom.factor"
             clearable
             @change="userSearchs"
-            placeholder="全部"
+            :placeholder="$t('message.pages.marketing.lottery.all')"
           >
-            <el-option label="全部" value="" />
-            <el-option label="积分抽取" :value="1" />
-            <el-option label="订单支付" :value="3" />
-            <el-option label="订单评价" :value="4" />
+            <el-option :label="$t('message.pages.marketing.lottery.all')" value="" />
+            <el-option :label="$t('message.pages.marketing.lottery.integralDraw')" :value="1" />
+            <el-option :label="$t('message.pages.marketing.lottery.orderPay')" :value="3" />
+            <el-option :label="$t('message.pages.marketing.lottery.orderReview')" :value="4" />
           </el-select>
         </el-form-item>
-        <el-form-item label="开启状态：">
+        <el-form-item :label="$t('message.pages.marketing.lottery.listOnSaleStatus')">
           <el-select
             class="form_content_width"
             v-model="tableFrom.status"
             clearable
             @change="userSearchs"
-            placeholder="全部"
+            :placeholder="$t('message.pages.marketing.lottery.all')"
           >
-            <el-option label="全部" value="" />
-            <el-option label="开启" :value="1" />
-            <el-option label="关闭" :value="0" />
+            <el-option :label="$t('message.pages.marketing.lottery.all')" value="" />
+            <el-option :label="$t('message.pages.marketing.lottery.create.open')" :value="1" />
+            <el-option :label="$t('message.pages.marketing.lottery.create.close')" :value="0" />
           </el-select>
         </el-form-item>
 
-        <el-form-item label="搜索抽奖：">
+        <el-form-item :label="$t('message.pages.marketing.lottery.searchLottery')">
           <el-input
             class="form_content_width"
-            placeholder="请输入活动名称"
+            :placeholder="$t('message.pages.marketing.lottery.create.inputActivityName')"
             v-model="tableFrom.keyword"
             @change="userSearchs"
           />
         </el-form-item>
-        <el-button type="primary" v-db-click @click="userSearchs()">搜索</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs()">{{ $t('message.pages.marketing.common.query') }}</el-button>
       </el-form>
     </el-card>
     <el-card class="mt-20" :bordered="false" shadow="never">
-      <el-button class="mb12" type="primary" v-db-click @click="openPage(0)">创建抽奖活动</el-button>
-      <el-table :data="tableList" v-loading="loading" highlight-current-row no-userFrom-text="暂无数据">
-        <el-table-column label="ID" min-width="80">
+      <el-button class="mb12" type="primary" v-db-click @click="openPage(0)">{{ $t('message.pages.marketing.lottery.createLottery') }}</el-button>
+      <el-table :data="tableList" v-loading="loading" highlight-current-row :no-data-text="$t('message.pages.marketing.common.noData')">
+        <el-table-column :label="$t('message.pages.marketing.common.id')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="活动名称" min-width="120">
+        <el-table-column :label="$t('message.pages.marketing.lottery.activityName')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="活动类型" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.lottery.activityTypeCol')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.lottery_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="抽奖人数" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.lottery.lotteryPeople')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.records_total_user }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="中奖人数" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.lottery.winCount')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.records_wins_user }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="抽奖次数" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.lottery.participateCountCol')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.records_total_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="中奖次数" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.lottery.winTimesCol')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.records_wins_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="活动状态" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.lottery.activityStatusCol')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.status_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="开启状态" min-width="100">
+        <el-table-column :label="$t('message.pages.marketing.lottery.onSaleStatusCol')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -131,34 +131,32 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.pages.marketing.lottery.create.open')"
+              :inactive-text="$t('message.pages.marketing.lottery.create.close')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="活动时间" min-width="180">
+        <el-table-column :label="$t('message.pages.marketing.lottery.activityTimeCol')" min-width="180">
           <template slot-scope="scope">
-            <p>开始：{{ scope.row.start_time }}</p>
-            <p>结束：{{ scope.row.end_time }}</p>
+            <p>{{ $t('message.pages.marketing.lottery.listStartTime') }}：{{ scope.row.start_time }}</p>
+            <p>{{ $t('message.pages.marketing.lottery.listEndTime') }}：{{ scope.row.end_time }}</p>
           </template>
         </el-table-column>
-        <el-table-column label="操作" min-width="180" fixed="right">
+        <el-table-column :label="$t('message.pages.marketing.common.action')" min-width="180" fixed="right">
           <template slot-scope="scope">
-            <a @click="edit(scope.row)">编辑</a>
+            <a @click="edit(scope.row)">{{ $t('message.pages.marketing.common.edit') }}</a>
             <el-divider direction="vertical" />
-            <a @click="openPage(1, scope.row)">抽奖记录</a>
+            <a @click="openPage(1, scope.row)">{{ $t('message.pages.marketing.lottery.lotteryRecord') }}</a>
             <el-divider direction="vertical" />
             <template>
               <el-dropdown @command="(command) => changeMenu(scope.row, command, scope.$index)">
-                <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">{{ $t('message.pages.marketing.storeIntegralOrder.more') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
-                  <!-- <el-dropdown-item command="1">拉黑人员</el-dropdown-item>
-                    <el-dropdown-item command="2">拉黑列表</el-dropdown-item> -->
                   <el-dropdown-item command="3">
-                    <span class="copy copy-data" :data-clipboard-text="copyLink(scope.row)">复制链接</span>
+                    <span class="copy copy-data" :data-clipboard-text="copyLink(scope.row)">{{ $t('message.pages.marketing.lottery.copyLink') }}</span>
                   </el-dropdown-item>
-                  <el-dropdown-item command="4">删除抽奖</el-dropdown-item>
+                  <el-dropdown-item command="4">{{ $t('message.pages.marketing.lottery.delLottery') }}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </template>
