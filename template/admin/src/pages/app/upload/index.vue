@@ -17,7 +17,7 @@
         >
           <div slot="default" class="upload-card" v-if="!imgList.length">
             <i class="el-icon-plus"></i>
-            <p class="text">点击选择图片</p>
+            <p class="text">{{ $t('message.pages.app.upload.clickSelectImage') }}</p>
           </div>
           <div slot="file" slot-scope="{ file }">
             <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
@@ -27,13 +27,13 @@
       </div>
 
       <div class="footer">
-        <div v-if="imgList.length">共{{ imgList.length }}/{{ limit }}张，{{ (allSize / 1000000).toFixed(2) }} M</div>
+        <div v-if="imgList.length">{{ $t('message.pages.app.upload.totalCount', { count: imgList.length, limit, size: (allSize / 1000000).toFixed(2) }) }}</div>
         <div v-else></div>
         <div class="upload-btn">
           <div v-if="imgList.length < limit" class="btn" v-db-click @click="selectImgs">
-            {{ imgList.length ? '继续选择' : '选择图片' }}
+            {{ imgList.length ? $t('message.pages.app.upload.continueSelect') : $t('message.pages.app.upload.selectImage') }}
           </div>
-          <div class="btn upload" :class="{ 'no-pic': !imgList.length }" v-db-click @click="submitUpload">确认上传</div>
+          <div class="btn upload" :class="{ 'no-pic': !imgList.length }" v-db-click @click="submitUpload">{{ $t('message.pages.app.upload.confirmUpload') }}</div>
         </div>
       </div>
     </div>
@@ -41,8 +41,8 @@
       <div class="success">
         <img class="image" src="@/assets/images/success.jpg" alt="" />
       </div>
-      <div class="text">图片上传成功</div>
-      <div class="again" v-db-click @click="again">继续上传</div>
+      <div class="text">{{ $t('message.pages.app.upload.uploadSuccess') }}</div>
+      <div class="again" v-db-click @click="again">{{ $t('message.pages.app.upload.continueUpload') }}</div>
     </div>
   </div>
 </template>
@@ -70,7 +70,7 @@ export default {
   created() {
     this.token = this.$route.query.token;
     this.pid = this.$route.query.pid;
-    document.title = '手机端扫码上传';
+    document.title = this.$t('message.pages.app.upload.scanUploadTitle');
   },
   methods: {
     selectImgs() {

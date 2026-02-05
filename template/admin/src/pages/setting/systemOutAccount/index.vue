@@ -3,11 +3,10 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-alert type="warning" :closable="false" class="alert-info">
         <template slot="title">
-          获取访问 Token 的接口:<br />
-          请求 URL: /outapi/access_token 请求方式: POST 请求参数: appid和appsecret 返回数据: access_token: 访问令牌
-          exp_time: 令牌过期时间 auth_info: 授权信息<br />
-          使用获取到的 Token 访问对外接口:<br />
-          在 HTTP 请求头中添加 Authorization 字段 字段值为 Bearer access_token(注意 Bearer 后有一个空格)
+          {{ $t('message.pages.setting.systemOutAccount.tokenTip') }}<br />
+          {{ $t('message.pages.setting.systemOutAccount.tokenTipUrl') }}<br />
+          {{ $t('message.pages.setting.systemOutAccount.useTokenTip') }}<br />
+          {{ $t('message.pages.setting.systemOutAccount.authTip') }}
         </template>
       </el-alert>
       <el-form
@@ -19,49 +18,49 @@
       >
         <el-row>
           <el-col v-bind="grid">
-            <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">添加账号</el-button>
+            <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">{{ $t('message.pages.setting.systemOutAccount.addAccount') }}</el-button>
           </el-col>
         </el-row>
       </el-form>
       <el-table
         :data="list"
         class="mt14"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.setting.systemOutAccount.noData')"
+        :no-filtered-data-text="$t('message.pages.setting.systemOutAccount.noFilterResult')"
         v-loading="loading"
         highlight-current-row
       >
-        <el-table-column label="编号" width="80">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="账号" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.account')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.appid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="描述" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.desc')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最后登录时间" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.lastLoginTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.last_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最后登录ip" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.lastLoginIp')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.status')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -71,19 +70,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.pages.setting.systemOutAccount.on')"
+              :inactive-text="$t('message.pages.setting.systemOutAccount.off')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="140">
+        <el-table-column :label="$t('message.pages.setting.systemOutAccount.action')" fixed="right" width="140">
           <template slot-scope="scope">
-            <a v-db-click @click="setUp(scope.row)">设置</a>
+            <a v-db-click @click="setUp(scope.row)">{{ $t('message.pages.setting.systemOutAccount.setup') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.setting.systemOutAccount.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除账号', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.setting.systemOutAccount.delAccountTitle'), scope.$index)">{{ $t('message.pages.setting.systemOutAccount.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -99,7 +98,7 @@
     </el-card>
     <el-dialog
       :visible.sync="modals"
-      :title="type == 0 ? '添加账号' : '编辑账号'"
+      :title="type == 0 ? $t('message.pages.setting.systemOutAccount.addAccountTitle') : $t('message.pages.setting.systemOutAccount.editAccountTitle')"
       :close-on-click-modal="false"
       :show-close="true"
       width="720px"
@@ -111,23 +110,23 @@
         label-width="80px"
         label-position="right"
       >
-        <el-form-item label="账号：" prop="appid">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.accountLabel')" prop="appid">
           <div style="display: flex">
             <el-input type="text" v-model="modalsdate.appid" :disabled="type != 0"></el-input>
           </div>
         </el-form-item>
-        <el-form-item label="密码：" prop="appsecret">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.passwordLabel')" prop="appsecret">
           <div style="display: flex">
             <el-input type="text" v-model="modalsdate.appsecret" class="input"></el-input>
-            <el-button type="primary" v-db-click @click="reset" class="reset">随机</el-button>
+            <el-button type="primary" v-db-click @click="reset" class="reset">{{ $t('message.pages.setting.systemOutAccount.random') }}</el-button>
           </div>
         </el-form-item>
-        <el-form-item label="描述：" prop="title">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.descLabel')" prop="title">
           <div style="display: flex">
             <el-input type="textarea" v-model="modalsdate.title"></el-input>
           </div>
         </el-form-item>
-        <el-form-item label="接口权限：" prop="title">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.apiPermission')" prop="title">
           <!-- <el-checkbox-group v-model="modalsdate.rules">
             <el-checkbox
               :disabled="[2, 3].includes(item.id)"
@@ -151,14 +150,14 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="ok('modalsdate')">确 定</el-button>
+        <el-button v-db-click @click="cancel">{{ $t('message.pages.setting.systemOutAccount.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="ok('modalsdate')">{{ $t('message.pages.setting.systemOutAccount.confirm') }}</el-button>
       </span>
     </el-dialog>
     <el-dialog
       :visible.sync="settingModals"
       scrollable
-      title="设置推送"
+      :title="$t('message.pages.setting.systemOutAccount.pushSettingTitle')"
       width="1000px"
       :close-on-click-modal="false"
       :show-close="true"
@@ -171,82 +170,80 @@
         label-width="155px"
         label-position="right"
       >
-        <el-form-item label="推送开关：" prop="switch">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.pushSwitch')" prop="switch">
           <el-switch v-model="settingData.push_open" :active-value="1" :inactive-value="0" />
         </el-form-item>
-        <el-form-item label="推送账号：" prop="push_account">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.pushAccount')" prop="push_account">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.push_account" placeholder="请输入推送账号"></el-input>
-            <span class="tips-info">接受推送方获取token的账号</span>
+            <el-input type="text" v-model="settingData.push_account" :placeholder="$t('message.pages.setting.systemOutAccount.pushAccountPlaceholder')"></el-input>
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.pushAccountTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="推送密码：" prop="push_password">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.pushPassword')" prop="push_password">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.push_password" placeholder="请输入推送密码"></el-input>
-            <span class="tips-info">接受推送方获取token的密码</span>
+            <el-input type="text" v-model="settingData.push_password" :placeholder="$t('message.pages.setting.systemOutAccount.pushPasswordPlaceholder')"></el-input>
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.pushPasswordTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="获取TOKEN接口：" prop="push_token_url">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.getTokenApi')" prop="push_token_url">
           <div class="form-content">
             <div class="input-button">
-              <el-input type="text" v-model="settingData.push_token_url" placeholder="请输入获取TOKEN接口"></el-input>
-              <el-button class="ml10" type="primary" v-db-click @click="textOutUrl(settingData.id)">测试链接</el-button>
+              <el-input type="text" v-model="settingData.push_token_url" :placeholder="$t('message.pages.setting.systemOutAccount.getTokenPlaceholder')"></el-input>
+              <el-button class="ml10" type="primary" v-db-click @click="textOutUrl(settingData.id)">{{ $t('message.pages.setting.systemOutAccount.testLink') }}</el-button>
             </div>
-            <span class="tips-info"
-              >接受推送方获取token的URL地址，POST方法，传入push_account和push_password，返回token和有效时间time(秒)</span
-            >
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.getTokenTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="用户数据修改推送接口：" prop="user_update_push">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.userUpdatePush')" prop="user_update_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.user_update_push"
-              placeholder="请输入用户数据修改推送接口"
+              :placeholder="$t('message.pages.setting.systemOutAccount.userUpdatePushPlaceholder')"
             ></el-input>
-            <span class="tips-info">用户修改积分，余额，经验等将用户信息推送至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.userUpdatePushTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="订单创建推送接口：" prop="order_create_push">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.orderCreatePush')" prop="order_create_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.order_create_push"
-              placeholder="请输入订单创建推送接口"
+              :placeholder="$t('message.pages.setting.systemOutAccount.orderCreatePushPlaceholder')"
             ></el-input>
-            <span class="tips-info">订单创建时推送订单信息至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.orderCreatePushTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="订单支付推送接口：" prop="order_pay_push">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.orderPayPush')" prop="order_pay_push">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.order_pay_push" placeholder="请输入订单支付推送接口"></el-input>
-            <span class="tips-info">订单完成支付时推送订单已支付信息至该地址，POST方法</span>
+            <el-input type="text" v-model="settingData.order_pay_push" :placeholder="$t('message.pages.setting.systemOutAccount.orderPayPushPlaceholder')"></el-input>
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.orderPayPushTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="售后订单创建推送接口：" prop="refund_create_push">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.refundCreatePush')" prop="refund_create_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.refund_create_push"
-              placeholder="请输入售后订单创建推送接口"
+              :placeholder="$t('message.pages.setting.systemOutAccount.refundCreatePushPlaceholder')"
             ></el-input>
-            <span class="tips-info">售后订单生成时推送售后单信息至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.refundCreatePushTip') }}</span>
           </div>
         </el-form-item>
-        <el-form-item label="售后订单取消推送接口：" prop="refund_cancel_push">
+        <el-form-item :label="$t('message.pages.setting.systemOutAccount.refundCancelPush')" prop="refund_cancel_push">
           <div class="form-content">
             <el-input
               type="text"
               v-model="settingData.refund_cancel_push"
-              placeholder="请输入售后订单取消推送接口"
+              :placeholder="$t('message.pages.setting.systemOutAccount.refundCancelPushPlaceholder')"
             ></el-input>
-            <span class="tips-info">售后订单取消时推送售后单取消信息至该地址，POST方法</span>
+            <span class="tips-info">{{ $t('message.pages.setting.systemOutAccount.refundCancelPushTip') }}</span>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button type="primary" v-db-click @click="submit('settingData')">确定</el-button>
-        <el-button v-db-click @click="settingModals = false">取消</el-button>
+        <el-button type="primary" v-db-click @click="submit('settingData')">{{ $t('message.pages.setting.systemOutAccount.confirmBtn') }}</el-button>
+        <el-button v-db-click @click="settingModals = false">{{ $t('message.pages.setting.systemOutAccount.cancelBtn') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -308,12 +305,12 @@ export default {
         name: '',
       },
       ruleValidate: {
-        appid: [{ required: true, message: '请输入正确的账号 (4到30位之间)', trigger: 'blur', min: 4, max: 30 }],
-        appsecret: [{ required: true, message: '请输入正确的密码 (6到32位之间)', trigger: 'blur', min: 6, max: 32 }],
-        title: [{ message: '请输入正确的描述 (不能多于200位数)', trigger: 'blur', max: 200 }],
+        appid: [{ required: true, message: '', trigger: 'blur', min: 4, max: 30 }],
+        appsecret: [{ required: true, message: '', trigger: 'blur', min: 6, max: 32 }],
+        title: [{ message: '', trigger: 'blur', max: 200 }],
       },
       editValidate: {
-        appsecret: [{ required: false, message: '请输入正确的密码 (6到32位之间)', trigger: 'blur', min: 6, max: 32 }],
+        appsecret: [{ required: false, message: '', trigger: 'blur', min: 6, max: 32 }],
       },
       props: {
         label: 'title',
@@ -332,6 +329,10 @@ export default {
     },
   },
   created() {
+    this.ruleValidate.appid[0].message = this.$t('message.pages.setting.systemOutAccount.accountRequired');
+    this.ruleValidate.appsecret[0].message = this.$t('message.pages.setting.systemOutAccount.passwordRequired');
+    this.ruleValidate.title[0].message = this.$t('message.pages.setting.systemOutAccount.descMax');
+    this.editValidate.appsecret[0].message = this.$t('message.pages.setting.systemOutAccount.passwordRequired');
     this.getList();
   },
   methods: {
@@ -519,7 +520,7 @@ export default {
               this.$message.error(err.msg);
             });
         } else {
-          this.$message.warning('请完善数据');
+          this.$message.warning(this.$t('message.pages.setting.systemOutAccount.completeData'));
         }
       });
     },

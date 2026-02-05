@@ -4,7 +4,7 @@
       <el-form ref="formValidate" :model="formValidate" class="tabform" @submit.native.prevent>
         <el-row :gutter="24">
           <el-col :span="24">
-            <el-form-item label="订单时间：">
+            <el-form-item :label="$t('message.pages.statistic.integral.orderTime')">
               <el-radio-group
                 v-model="formValidate.data"
                 type="button"
@@ -24,8 +24,8 @@
                 type="daterange"
                 value-format="yyyy/MM/dd"
                 range-separator="-"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                :start-placeholder="$t('message.pages.statistic.integral.startDate')"
+                :end-placeholder="$t('message.pages.statistic.integral.endDate')"
               ></el-date-picker>
             </el-form-item> </el-col
         ></el-row>
@@ -36,8 +36,8 @@
     <div class="code-row-bg">
       <el-card :bordered="false" shadow="never" class="ivu-mt">
         <div class="acea-row row-between-wrapper">
-          <div class="statics-header-title">积分来源</div>
-          <div>切换样式</div>
+          <div class="statics-header-title">{{ $t('message.pages.statistic.integral.integralSource') }}</div>
+          <div>{{ $t('message.pages.statistic.integral.switchStyle') }}</div>
         </div>
         <echarts-new
           :option-data="optionData"
@@ -49,8 +49,8 @@
       </el-card>
       <el-card :bordered="false" shadow="never" class="ivu-mt">
         <div class="acea-row row-between-wrapper">
-          <div class="statics-header-title">积分消耗</div>
-          <div>切换样式</div>
+          <div class="statics-header-title">{{ $t('message.pages.statistic.integral.integralConsume') }}</div>
+          <div>{{ $t('message.pages.statistic.integral.switchStyle') }}</div>
         </div>
         <echarts-new
           :option-data="optionData"

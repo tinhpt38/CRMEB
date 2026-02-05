@@ -10,35 +10,35 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="状态：" label-for="status">
+          <el-form-item :label="$t('message.pages.setting.systemRole.status')" label-for="status">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.setting.systemRole.pleaseSelect')"
               @change="userSearchs"
               clearable
               class="form_content_width"
             >
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="1" :label="$t('message.pages.setting.systemRole.show')"></el-option>
+              <el-option value="0" :label="$t('message.pages.setting.systemRole.hide')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="身份昵称：" label-for="role_name">
+          <el-form-item :label="$t('message.pages.setting.systemRole.roleName')" label-for="role_name">
             <el-input
               clearable
-              placeholder="请输入身份昵称"
+              :placeholder="$t('message.pages.setting.systemRole.placeholderRoleName')"
               v-model="formValidate.role_name"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.setting.systemRole.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" v-loading="spinShow">
-      <el-button v-auth="['setting-system_role-add']" type="primary" v-db-click @click="add('添加')"
-        >添加身份</el-button
+      <el-button v-auth="['setting-system_role-add']" type="primary" v-db-click @click="add($t('message.pages.setting.systemRole.addTitle'))"
+        >{{ $t('message.pages.setting.systemRole.addRole') }}</el-button
       >
       <el-table
         :data="tableList"
@@ -46,15 +46,15 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.setting.systemRole.noData')"
+        :no-filtered-data-text="$t('message.pages.setting.systemRole.noFilterResult')"
       >
-        <el-table-column label="ID" min-width="80">
+        <el-table-column :label="$t('message.pages.setting.systemRole.id')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="身份昵称" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.systemRole.roleNameCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.role_name }}</span>
           </template>
@@ -64,7 +64,7 @@
             <span class="line1">{{ scope.row.rules }}</span>
           </template>
         </el-table-column> -->
-        <el-table-column label="状态" min-width="120">
+        <el-table-column :label="$t('message.pages.setting.systemRole.statusCol')" min-width="120">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -74,17 +74,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.pages.setting.systemRole.show')"
+              :inactive-text="$t('message.pages.setting.systemRole.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('message.pages.setting.systemRole.action')" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(scope.row, $t('message.pages.setting.systemRole.edit'))">{{ $t('message.pages.setting.systemRole.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.setting.systemRole.delTitle'), scope.$index)">{{ $t('message.pages.setting.systemRole.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -98,10 +98,9 @@
         />
       </div>
     </el-card>
-    <!-- 新增编辑-->
     <el-dialog
       :visible.sync="modals"
-      :title="`${modelTit}身份`"
+      :title="modelTit + $t('message.pages.setting.systemRole.roleTitle')"
       :close-on-click-modal="false"
       :show-close="true"
       width="540px"
@@ -115,16 +114,16 @@
         :label-position="labelPosition2"
         @submit.native.prevent
       >
-        <el-form-item label="身份名称：" label-for="role_name" prop="role_name">
-          <el-input placeholder="请输入身份昵称" v-model="formInline.role_name" />
+        <el-form-item :label="$t('message.pages.setting.systemRole.roleNameLabel')" label-for="role_name" prop="role_name">
+          <el-input :placeholder="$t('message.pages.setting.systemRole.placeholderRoleName')" v-model="formInline.role_name" />
         </el-form-item>
-        <el-form-item label="是否开启：" prop="status">
+        <el-form-item :label="$t('message.pages.setting.systemRole.isOpen')" prop="status">
           <el-radio-group v-model="formInline.status">
-            <el-radio :label="1">开启</el-radio>
-            <el-radio :label="0">关闭</el-radio>
+            <el-radio :label="1">{{ $t('message.pages.setting.systemRole.on') }}</el-radio>
+            <el-radio :label="0">{{ $t('message.pages.setting.systemRole.off') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="权限：">
+        <el-form-item :label="$t('message.pages.setting.systemRole.permission')">
           <div class="trees-coadd">
             <div class="scollhide">
               <div class="iconlist">
@@ -142,13 +141,13 @@
                 ></el-tree>
               </div>
             </div>
-            <span class="iconlist-btn" @click="changeExpandAll">{{ defaultExpandAll ? '折叠' : '展开' }}</span>
+            <span class="iconlist-btn" @click="changeExpandAll">{{ defaultExpandAll ? $t('message.pages.setting.systemRole.collapse') : $t('message.pages.setting.systemRole.expand') }}</span>
           </div>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="onCancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formInline')">提 交</el-button>
+        <el-button v-db-click @click="onCancel">{{ $t('message.pages.setting.systemRole.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formInline')">{{ $t('message.pages.setting.systemRole.submit') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -189,8 +188,8 @@ export default {
       selectIds: [],
       modelTit: '',
       ruleValidate: {
-        role_name: [{ required: true, message: '请输入身份昵称', trigger: 'blur' }],
-        status: [{ required: true, type: 'number', message: '请选择是否开启', trigger: 'change' }],
+        role_name: [{ required: true, message: '', trigger: 'blur' }],
+        status: [{ required: true, type: 'number', message: '', trigger: 'change' }],
         // checked_menus: [
         //     { required: true, validator: validateStatus, trigger: 'change' }
         // ]
@@ -214,6 +213,8 @@ export default {
     },
   },
   created() {
+    this.ruleValidate.role_name[0].message = this.$t('message.pages.setting.systemRole.roleNameRequired');
+    this.ruleValidate.status[0].message = this.$t('message.pages.setting.systemRole.statusRequired');
     this.getList();
   },
   methods: {

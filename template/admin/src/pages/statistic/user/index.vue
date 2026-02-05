@@ -3,23 +3,23 @@
     <el-card :bordered="false" shadow="never" class="ivu-mb-16" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form ref="formInline" label-width="80px" label-position="right" :model="formInline" inline>
-          <el-form-item label="用户渠道：">
+          <el-form-item :label="$t('message.pages.statistic.user.userChannel')">
             <el-select
               clearable
               v-model="channel_type"
-              placeholder="请选择用户渠道"
+              :placeholder="$t('message.pages.statistic.user.pleaseSelectChannel')"
               @change="changeTxt"
               class="form_content_width"
             >
-              <el-option value="all" label="全部"></el-option>
-              <el-option value="wechat" label="公众号"></el-option>
-              <el-option value="routine" label="小程序"></el-option>
+              <el-option value="all" :label="$t('message.pages.statistic.user.all')"></el-option>
+              <el-option value="wechat" :label="$t('message.pages.statistic.user.wechat')"></el-option>
+              <el-option value="routine" :label="$t('message.pages.statistic.user.routine')"></el-option>
               <el-option value="h5" label="H5"></el-option>
               <el-option value="pc" label="PC"></el-option>
               <el-option value="app" label="APP"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="选择时间:">
+          <el-form-item :label="$t('message.pages.statistic.user.selectTime')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -28,18 +28,18 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.statistic.user.startDate')"
+              :end-placeholder="$t('message.pages.statistic.user.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="handleSubmit('formInline')">查询</el-button>
+            <el-button type="primary" v-db-click @click="handleSubmit('formInline')">{{ $t('message.pages.statistic.user.query') }}</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button v-db-click @click="excel">导出</el-button>
+            <el-button v-db-click @click="excel">{{ $t('message.pages.statistic.user.export') }}</el-button>
           </el-form-item>
         </el-form>
       </div>

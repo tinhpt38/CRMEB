@@ -5,8 +5,8 @@
         <el-row>
           <el-col v-bind="grid">
             <div class="button acea-row row-middle">
-              <el-button type="primary" v-db-click @click="add(0)">添加省份</el-button>
-              <el-button v-db-click @click="cleanCache">清除缓存</el-button>
+              <el-button type="primary" v-db-click @click="add(0)">{{ $t('message.pages.setting.cityDada.addProvince') }}</el-button>
+              <el-button v-db-click @click="cleanCache">{{ $t('message.pages.setting.cityDada.cleanCache') }}</el-button>
             </div>
           </el-col>
         </el-row>
@@ -18,28 +18,28 @@
         :data="cityLists"
         lazy
       >
-        <el-table-column label="编号" width="120">
+        <el-table-column :label="$t('message.pages.setting.cityDada.id')" width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="地区名称" min-width="300">
+        <el-table-column :label="$t('message.pages.setting.cityDada.regionName')" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.label }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="上级名称" min-width="300">
+        <el-table-column :label="$t('message.pages.setting.cityDada.parentName')" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.parent_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.setting.cityDada.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-if="scope.row.hasOwnProperty('children')" v-db-click @click="add(scope.row.city_id)">添加</a>
+            <a v-if="scope.row.hasOwnProperty('children')" v-db-click @click="add(scope.row.city_id)">{{ $t('message.pages.setting.cityDada.add') }}</a>
             <el-divider direction="vertical" v-if="scope.row.hasOwnProperty('children')" />
-            <a v-db-click @click="edit(scope.row.id)">编辑</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('message.pages.setting.cityDada.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除城市', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.setting.cityDada.delCityTitle'), scope.$index)">{{ $t('message.pages.setting.cityDada.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -62,30 +62,6 @@ export default {
         xs: 24,
       },
       loading: false,
-      columns1: [
-        {
-          title: '编号',
-          key: 'id',
-          width: 80,
-        },
-        {
-          title: '地区名称',
-          key: 'label',
-          minWidth: 300,
-          tree: true,
-        },
-        {
-          title: '上级名称',
-          key: 'parent_name',
-          minWidth: 300,
-        },
-        {
-          title: '操作',
-          slot: 'action',
-          fixed: 'right',
-          minWidth: 120,
-        },
-      ],
       cityLists: [],
       cityId: 0, // 城市id
     };
@@ -97,6 +73,14 @@ export default {
     },
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
+    },
+    columns1() {
+      return [
+        { title: this.$t('message.pages.setting.cityDada.id'), key: 'id', width: 80 },
+        { title: this.$t('message.pages.setting.cityDada.regionName'), key: 'label', minWidth: 300, tree: true },
+        { title: this.$t('message.pages.setting.cityDada.parentName'), key: 'parent_name', minWidth: 300 },
+        { title: this.$t('message.pages.setting.cityDada.action'), slot: 'action', fixed: 'right', minWidth: 120 },
+      ];
     },
   },
   created() {

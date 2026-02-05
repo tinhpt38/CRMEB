@@ -2,9 +2,9 @@
   <div>
     <div class="i-layout-page-header">
       <router-link :to="{ path: $routeProStr + '/setting/pages/devise' }"
-        ><el-button size="small" class="mr20">返回</el-button></router-link
+        ><el-button size="small" class="mr20">{{ $t('router.setting.devise.back') }}</el-button></router-link
       >
-      <span class="ivu-page-header-title mr20">页面设计</span>
+      <span class="ivu-page-header-title mr20">{{ $t('router.setting.devise.pageDesign') }}</span>
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <div class="flex-wrapper">

@@ -6,7 +6,7 @@
           <div class="move-icon">
             <span class="iconfont-diy icondrag"></span>
           </div>
-          <div class="img-box" v-db-click @click="modalPicTap('单选', index)">
+          <div class="img-box" v-db-click @click="modalPicTap($t('router.setting.devise.singleSelect'), index)">
             <img :src="item.pic" alt="" v-if="item.pic && item.pic != ''" />
             <div class="upload-box" v-else>
               <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -14,15 +14,15 @@
           </div>
           <div class="info">
             <div class="info-item" v-if="item.hasOwnProperty('name')">
-              <span>{{ type == 1 ? '管理名称：' : type == 5 ? '广告名称' : '服务名称：' }}</span>
+              <span>{{ type == 1 ? $t('router.setting.devise.manageName') : type == 5 ? $t('router.setting.devise.adName') : $t('router.setting.devise.serviceNameLabel') }}</span>
               <div class="input-box">
-                <el-input v-model="item.name" :placeholder="type == 5 ? '请输入名称' : '服务中心'" :maxlength="4" />
+                <el-input v-model="item.name" :placeholder="type == 5 ? $t('router.setting.devise.placeholderName') : $t('router.setting.devise.serviceCenter')" :maxlength="4" />
               </div>
             </div>
             <div class="info-item">
-              <span>链接地址：</span>
+              <span>{{ $t('router.setting.devise.linkAddress') }}</span>
               <div class="input-box" v-db-click>
-                <el-input v-model="item.url" placeholder="选择链接">
+                <el-input v-model="item.url" :placeholder="$t('router.setting.devise.selectLink')">
                   <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                 </el-input>
               </div>
@@ -34,7 +34,7 @@
         </div>
       </draggable>
       <div>
-        <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+        <el-dialog :visible.sync="modalPic" width="950px" :title="$t('router.setting.devise.uploadProductImg')" :close-on-click-modal="false">
           <uploadPictures
             :isChoice="isChoice"
             @getPic="getPic"
@@ -48,7 +48,7 @@
     <template v-if="listData">
       <div class="add-btn" v-if="type == 2 || (type == 5 && listData.length < 5)">
         <el-button type="primary" ghost style="width: 100px; color: #fff; font-size: 13px" v-db-click @click="addBox"
-          >添加{{ type == 5 ? '广告' : '服务' }}</el-button
+          >添加{{ type == 5 ? $t('router.setting.devise.addAd') : $t('router.setting.devise.addService') }}</el-button
         >
       </div>
     </template>
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       modalPic: false,
-      isChoice: '单选',
+      isChoice: '',
       gridBtn: {
         xl: 4,
         lg: 8,
@@ -101,7 +101,9 @@ export default {
       },
     };
   },
-  mounted() {},
+  mounted() {
+    this.isChoice = this.$t('router.setting.devise.singleSelect');
+  },
   watch: {
     configObj: {
       handler(nVal, oVal) {},

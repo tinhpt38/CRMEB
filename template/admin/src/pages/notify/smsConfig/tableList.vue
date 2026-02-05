@@ -2,57 +2,57 @@
   <div>
     <el-card :bordered="false" shadow="never">
       <el-tabs v-model="isChecked" @tab-click="onChangeType">
-        <el-tab-pane label="短信" name="1"></el-tab-pane>
-        <el-tab-pane label="商品采集" name="4"></el-tab-pane>
-        <el-tab-pane label="物流查询" name="3"></el-tab-pane>
-        <el-tab-pane label="电子面单打印" name="2"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsConfig.sms')" name="1"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsConfig.copy')" name="4"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsConfig.exprQuery')" name="3"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsConfig.exprDump')" name="2"></el-tab-pane>
       </el-tabs>
       <!--短信列表-->
       <div class="note" v-if="isChecked === '1' && sms.open === 1">
         <div class="acea-row row-between-wrapper">
           <div>
-            <span>短信状态：</span>
+            <span>{{ $t('message.pages.notify.smsConfig.smsStatus') }}</span>
             <el-radio-group type="button" v-model="tableFrom.type" @input="selectChange(tableFrom.type)">
-              <el-radio-button label="">全部</el-radio-button>
-              <el-radio-button label="1">成功</el-radio-button>
-              <el-radio-button label="2">失败</el-radio-button>
-              <el-radio-button label="0">发送中</el-radio-button>
+              <el-radio-button label="">{{ $t('message.pages.notify.smsConfig.all') }}</el-radio-button>
+              <el-radio-button label="1">{{ $t('message.pages.notify.smsConfig.success') }}</el-radio-button>
+              <el-radio-button label="2">{{ $t('message.pages.notify.smsConfig.fail') }}</el-radio-button>
+              <el-radio-button label="0">{{ $t('message.pages.notify.smsConfig.sending') }}</el-radio-button>
             </el-radio-group>
           </div>
           <div>
-            <el-button type="primary" v-db-click @click="shortMes">短信模板</el-button>
-            <el-button style="margin-left: 20px" v-db-click @click="editSign">修改签名</el-button>
+            <el-button type="primary" v-db-click @click="shortMes">{{ $t('message.pages.notify.smsConfig.smsTemplate') }}</el-button>
+            <el-button style="margin-left: 20px" v-db-click @click="editSign">{{ $t('message.pages.notify.smsConfig.editSign') }}</el-button>
           </div>
         </div>
         <el-table
           :data="tableList"
           v-loading="loading"
           highlight-current-row
-          no-userFrom-text="暂无数据"
-          no-filtered-userFrom-text="暂无筛选结果"
+          :no-userFrom-text="$t('message.pages.notify.smsConfig.noData')"
+          :no-filtered-userFrom-text="$t('message.pages.notify.smsConfig.noFilterResult')"
           class="mt14"
         >
-          <el-table-column label="手机号" width="100">
+          <el-table-column :label="$t('message.pages.notify.smsConfig.phone')" width="100">
             <template slot-scope="scope">
               <span>{{ scope.row.phone }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="模板内容" min-width="130">
+          <el-table-column :label="$t('message.pages.notify.smsConfig.templateContent')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.content }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="条数(每67/+1)" min-width="130">
+          <el-table-column :label="$t('message.pages.notify.smsConfig.countPer')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.num }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="发送时间" min-width="130">
+          <el-table-column :label="$t('message.pages.notify.smsConfig.sendTime')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.add_time }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="状态码" min-width="130">
+          <el-table-column :label="$t('message.pages.notify.smsConfig.statusCode')" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row._resultcode }}</span>
             </template>

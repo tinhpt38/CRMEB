@@ -12,28 +12,28 @@
         <el-row :gutter="24">
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店名称：" prop="name" label-for="name">
-                <el-input v-model="formItem.name" placeholder="请输入门店名称" />
+              <el-form-item :label="$t('message.pages.setting.systemStore.storeName')" prop="name" label-for="name">
+                <el-input v-model="formItem.name" :placeholder="$t('message.pages.setting.systemStore.placeholderStoreName')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店简介：" label-for="introduction">
-                <el-input v-model="formItem.introduction" placeholder="请输入门店简介" />
+              <el-form-item :label="$t('message.pages.setting.systemStore.storeIntro')" label-for="introduction">
+                <el-input v-model="formItem.introduction" :placeholder="$t('message.pages.setting.systemStore.placeholderStoreIntro')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店手机号：" label-for="phone" prop="phone">
-                <el-input v-model="formItem.phone" type="number" placeholder="请输入门店手机号" />
+              <el-form-item :label="$t('message.pages.setting.systemStore.storePhone')" label-for="phone" prop="phone">
+                <el-input v-model="formItem.phone" type="number" :placeholder="$t('message.pages.setting.systemStore.placeholderStorePhone')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店地址：" label-for="address" prop="address">
+              <el-form-item :label="$t('message.pages.setting.systemStore.storeAddress')" label-for="address" prop="address">
                 <el-cascader
                   :options="addresData"
                   :value="formItem.address"
@@ -45,14 +45,14 @@
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="详细地址：" label-for="detailed_address" prop="detailed_address">
-                <el-input v-model="formItem.detailed_address" placeholder="请输入详细地址" />
+              <el-form-item :label="$t('message.pages.setting.systemStore.detailedAddress')" label-for="detailed_address" prop="detailed_address">
+                <el-input v-model="formItem.detailed_address" :placeholder="$t('message.pages.setting.systemStore.placeholderDetailAddress')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="核销时效：" label-for="valid_time">
+              <el-form-item :label="$t('message.pages.setting.systemStore.verifyTime')" label-for="valid_time">
                 <el-date-picker
                   clearable
                   :editable="false"
@@ -62,23 +62,23 @@
                   type="daterange"
                   value-format="yyyy/MM/dd"
                   range-separator="-"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
+                  :start-placeholder="$t('message.pages.setting.systemStore.startDate')"
+                  :end-placeholder="$t('message.pages.setting.systemStore.endDate')"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店营业：" label-for="day_time">
+              <el-form-item :label="$t('message.pages.setting.systemStore.storeBusiness')" label-for="day_time">
                 <el-time-picker
                   @change="onchangeTime"
                   v-model="formItem.day_time"
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
                   range-separator="-"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
+                  :start-placeholder="$t('message.pages.setting.systemStore.startTime')"
+                  :end-placeholder="$t('message.pages.setting.systemStore.endTime')"
                   placeholder="选择时间范围"
                 ></el-time-picker>
               </el-form-item>

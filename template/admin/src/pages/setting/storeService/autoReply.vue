@@ -10,54 +10,54 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="回复类型：" prop="type" label-for="type">
+          <el-form-item :label="$t('router.setting.storeServiceAutoReply.replyType')" prop="type" label-for="type">
             <el-select
               v-model="formValidate.type"
-              placeholder="请选择"
+              :placeholder="$t('router.setting.storeServiceAutoReply.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="text" label="文字消息"></el-option>
-              <el-option value="image" label="图片消息"></el-option>
+              <el-option value="text" :label="$t('router.setting.storeServiceAutoReply.textMsg')"></el-option>
+              <el-option value="image" :label="$t('router.setting.storeServiceAutoReply.imageMsg')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="关键字：" prop="key" label-for="key">
-            <el-input clearable v-model="formValidate.key" placeholder="请输入关键字" class="form_content_width" />
+          <el-form-item :label="$t('router.setting.storeServiceAutoReply.keyword')" prop="key" label-for="key">
+            <el-input clearable v-model="formValidate.key" :placeholder="$t('router.setting.storeServiceAutoReply.placeholderKeyword')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('router.setting.storeServiceAutoReply.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="add">添加自动回复</el-button>
+      <el-button type="primary" v-db-click @click="add">{{ $t('router.setting.storeServiceAutoReply.addAutoReply') }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('router.setting.storeServiceAutoReply.noData')"
+        :no-filtered-userFrom-text="$t('router.setting.storeServiceAutoReply.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('router.setting.storeServiceAutoReply.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关键字" min-width="130">
+        <el-table-column :label="$t('router.setting.storeServiceAutoReply.keywordCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.key }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="回复类型" min-width="130">
+        <el-table-column :label="$t('router.setting.storeServiceAutoReply.replyTypeCol')" min-width="130">
           <template slot-scope="scope">
-            <span>{{ scope.row.type == 'text' ? '文字消息' : '图片消息' }}</span>
+            <span>{{ scope.row.type == 'text' ? $t('router.setting.storeServiceAutoReply.textMsg') : $t('router.setting.storeServiceAutoReply.imageMsg') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="回复内容" min-width="130">
+        <el-table-column :label="$t('router.setting.storeServiceAutoReply.replyContent')" min-width="130">
           <template slot-scope="scope">
             <span v-if="scope.row.type == 'text'">{{ scope.row.data.content }}</span>
             <div v-else class="tabBox_img" v-viewer>
@@ -65,7 +65,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="是否开启" min-width="130">
+        <el-table-column :label="$t('router.setting.storeServiceAutoReply.isOn')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -75,17 +75,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              :active-text="'开启'"
-              :inactive-text="'关闭'"
+              :active-text="$t('router.setting.storeServiceAutoReply.on')"
+              :inactive-text="$t('router.setting.storeServiceAutoReply.off')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('router.setting.storeServiceAutoReply.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('router.setting.storeServiceAutoReply.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '客服自动回复', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('router.setting.storeServiceAutoReply.delAutoReplyTitle'), scope.$index)">{{ $t('router.setting.storeServiceAutoReply.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

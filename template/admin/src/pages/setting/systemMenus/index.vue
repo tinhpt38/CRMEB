@@ -10,11 +10,11 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="按钮名称：" prop="status2" label-for="status2">
-            <el-input clearable v-model="roleData.keyword" placeholder="请输入按钮名称" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.setting.systemMenus.buttonName')" prop="status2" label-for="status2">
+            <el-input clearable v-model="roleData.keyword" :placeholder="$t('message.pages.setting.systemMenus.placeholderButtonName')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="getData">查询</el-button>
+            <el-button type="primary" v-db-click @click="getData">{{ $t('message.pages.setting.systemMenus.query') }}</el-button>
           </el-form-item>
           <!-- <el-row >
             <el-col v-bind="grid">
@@ -37,16 +37,16 @@
         :data="tableData"
         row-id="id"
       >
-        <vxe-table-column field="menu_name" tree-node title="按钮名称" min-width="100"></vxe-table-column>
-        <vxe-table-column field="menu_path" title="类型" min-width="240" tooltip="true">
+        <vxe-table-column field="menu_name" tree-node :title="$t('message.pages.setting.systemMenus.buttonNameCol')" min-width="100"></vxe-table-column>
+        <vxe-table-column field="menu_path" :title="$t('message.pages.setting.systemMenus.type')" min-width="240" tooltip="true">
           <template v-slot="{ row }">
-            <span v-if="row.auth_type == 1">菜单：{{ row.menu_path }}</span>
-            <span v-if="row.auth_type == 3">按钮</span>
-            <span v-if="row.auth_type == 2">数据权限</span>
+            <span v-if="row.auth_type == 1">{{ $t('message.pages.setting.systemMenus.menu') }}{{ row.menu_path }}</span>
+            <span v-if="row.auth_type == 3">{{ $t('message.pages.setting.systemMenus.button') }}</span>
+            <span v-if="row.auth_type == 2">{{ $t('message.pages.setting.systemMenus.dataPermission') }}</span>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="sort" title="排序" width="150"></vxe-table-column>
-        <vxe-table-column field="flag" title="是否显示" width="150">
+        <vxe-table-column field="sort" :title="$t('message.pages.setting.systemMenus.sort')" width="150"></vxe-table-column>
+        <vxe-table-column field="flag" :title="$t('message.pages.setting.systemMenus.isShow')" width="150">
           <template v-slot="{ row }">
             <el-switch
               :active-value="1"
@@ -59,9 +59,9 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="date" title="操作" align="center" width="150" fixed="right">
+        <vxe-table-column field="date" :title="$t('message.pages.setting.systemMenus.action')" align="center" width="150" fixed="right">
           <template v-slot="{ row }">
-            <a v-db-click @click="edit(row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(row, $t('message.pages.setting.systemMenus.editTitle'))">{{ $t('message.pages.setting.systemMenus.edit') }}</a>
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -74,23 +74,21 @@
       ref="menusFrom"
       @clearFrom="clearFrom"
     ></menus-from>
-    <el-dialog :visible.sync="ruleModal" width="1100px" title="权限列表" @closed="modalchange">
+    <el-dialog :visible.sync="ruleModal" width="1100px" :title="$t('message.pages.setting.systemMenus.ruleListTitle')" @closed="modalchange">
       <div class="search-rule">
-        <el-alert
-          title="基础接口，可多选，并且添加后不会再展示出现；删除权限后才会出现；公共接口，可多选，并且添加后会继续展示；"
-        ></el-alert>
+        <el-alert :title="$t('message.pages.setting.systemMenus.ruleTip')"></el-alert>
         <el-input
           class="mr10"
           v-model="searchRule"
-          placeholder="输入关键词搜索"
+          :placeholder="$t('message.pages.setting.systemMenus.searchPlaceholder')"
           clearable
           style="width: 300px"
           ref="search"
           @on-enter="searchRules"
           @on-clear="searchRules"
         />
-        <el-button type="primary" v-db-click @click="searchRules">搜索</el-button>
-        <el-button v-db-click @click="init">重置</el-button>
+        <el-button type="primary" v-db-click @click="searchRules">{{ $t('message.pages.setting.systemMenus.search') }}</el-button>
+        <el-button v-db-click @click="init">{{ $t('message.pages.setting.systemMenus.reset') }}</el-button>
       </div>
       <div class="route-list">
         <div class="tree">
@@ -115,18 +113,15 @@
             v-db-click
             @click="selectRule(item)"
           >
-            <div>接口名称：{{ item.name }}</div>
-            <div>请求方式：{{ item.method }}</div>
-            <div>接口地址：{{ item.path }}</div>
+            <div>{{ $t('message.pages.setting.systemMenus.apiName') }}{{ item.name }}</div>
+            <div>{{ $t('message.pages.setting.systemMenus.requestMethod') }}{{ item.method }}</div>
+            <div>{{ $t('message.pages.setting.systemMenus.apiPath') }}{{ item.path }}</div>
           </div>
         </div>
       </div>
-      <!-- <el-tabs v-model="routeType" @on-click="changTab">
-        <el-tab-pane :label="item.name" :name="'' + index" v-for="(item, index) in foundationList" :key="item"></el-tab-pane>
-      </el-tabs> -->
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="ruleModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="addRouters">确 定</el-button>
+        <el-button v-db-click @click="ruleModal = false">{{ $t('message.pages.setting.systemMenus.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="addRouters">{{ $t('message.pages.setting.systemMenus.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>

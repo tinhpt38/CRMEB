@@ -5,11 +5,11 @@
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-form label-width="85px" @submit.native.prevent v-loading="spinShow">
-        <el-form-item label="协议内容：">
+        <el-form-item :label="$t('message.pages.division.agreement.agreementContent')">
           <WangEditor :content="agreement.content" @editorContent="getEditorContent"></WangEditor>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="memberAgreementSave">保存</el-button>
+          <el-button type="primary" v-db-click @click="memberAgreementSave">{{ $t('message.pages.division.agreement.save') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -63,7 +63,7 @@ export default {
     memberAgreementSave() {
       agentAgreementSave(this.agreement)
         .then((res) => {
-          this.$message.success('保存成功');
+          this.$message.success(this.$t('message.pages.division.agreement.saveSuccess'));
           this.memberAgreement();
         })
         .catch((err) => {

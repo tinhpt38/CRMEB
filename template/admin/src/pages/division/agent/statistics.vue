@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="时间范围：">
+          <el-form-item :label="$t('message.pages.division.statistics.timeRange')">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -18,15 +18,15 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.pages.division.statistics.startDate')"
+              :end-placeholder="$t('message.pages.division.statistics.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.division.statistics.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -38,7 +38,7 @@
             <el-tab-pane
               v-for="(item, index) in statusList"
               :key="index"
-              :label="item.status_name"
+              :label="getStatisticsTypeLabel(item.id)"
               :name="item.id"
             ></el-tab-pane>
           </el-tabs>
@@ -47,23 +47,23 @@
             ref="table"
             v-loading="loading"
             highlight-current-row
-            no-formValidate-text="暂无数据"
-            no-filtered-formValidate-text="暂无筛选结果"
+            :no-formValidate-text="$t('message.pages.division.statistics.noData')"
+            :no-filtered-formValidate-text="$t('message.pages.division.statistics.noFilterResult')"
             @sort-change="handleSortChange"
           >
-            <el-table-column label="用户UID" width="150">
+            <el-table-column :label="$t('message.pages.division.agent.userUid')" width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="头像" min-width="120">
+            <el-table-column :label="$t('message.pages.division.agent.avatar')" min-width="120">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.avatar" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="名称" min-width="130">
+            <el-table-column :label="$t('message.pages.division.agent.name')" min-width="130">
               <template slot-scope="scope">
                 <div class="acea-row">
                   <div v-text="scope.row.name"></div>
@@ -95,7 +95,7 @@
               </template>
             </el-table-column> -->
             <el-table-column
-              label="订单数"
+              :label="$t('message.pages.division.statistics.orderCount')"
               min-width="150"
               sortable="custom"
               :sort-orders="['ascending', 'descending']"
@@ -106,7 +106,7 @@
               </template>
             </el-table-column>
             <el-table-column
-              label="订单金额"
+              :label="$t('message.pages.division.statistics.orderAmount')"
               min-width="150"
               sortable="custom"
               :sort-orders="['ascending', 'descending']"
@@ -152,18 +152,9 @@ export default {
       total: 0,
       total2: 0,
       statusList: [
-        {
-          status_name: '事业部',
-          id: '1',
-        },
-        {
-          status_name: '代理商',
-          id: '2',
-        },
-        {
-          status_name: '员工',
-          id: '3',
-        },
+        { id: '1' },
+        { id: '2' },
+        { id: '3' },
       ],
       userLists: [],
       formInline: {
@@ -215,6 +206,14 @@ export default {
     this.getList();
   },
   methods: {
+    getStatisticsTypeLabel(id) {
+      const map = {
+        '1': 'message.pages.division.statistics.division',
+        '2': 'message.pages.division.statistics.agent',
+        '3': 'message.pages.division.statistics.staff',
+      };
+      return this.$t(map[id] || '');
+    },
     // 具体日期
     onchangeTime(e) {
       this.timeVal = e || [];

@@ -2,11 +2,11 @@
   <div class="article-manager">
     <div class="i-layout-page-header">
       <div class="i-layout-page-header">
-        <span class="ivu-page-header-title">系统设置</span>
+        <span class="ivu-page-header-title">{{ $t('message.pages.setting.setApp.systemSetting') }}</span>
         <div>
           <el-tabs v-model="currentTab">
-            <el-tab-pane label="公众号配置" name="onsale" />
-            <el-tab-pane label="配置" name="forsale" />
+            <el-tab-pane :label="$t('message.pages.setting.setApp.wechatConfig')" name="onsale" />
+            <el-tab-pane :label="$t('message.pages.setting.setApp.config')" name="forsale" />
           </el-tabs>
         </div>
       </div>

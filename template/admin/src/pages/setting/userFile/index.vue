@@ -8,17 +8,17 @@
         label-width="160px"
         label-position="right"
       >
-        <el-form-item label="账号：" prop="">
+        <el-form-item :label="$t('message.pages.setting.userFile.account')" prop="">
           <el-input type="text" v-model="account" :disabled="true" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="文件管理新密码：" prop="file_pwd">
+        <el-form-item :label="$t('message.pages.setting.userFile.fileNewPassword')" prop="file_pwd">
           <el-input type="password" v-model="formValidate.file_pwd" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="文件管理确认新密码：" prop="conf_file_pwd">
+        <el-form-item :label="$t('message.pages.setting.userFile.fileConfirmPassword')" prop="conf_file_pwd">
           <el-input type="password" v-model="formValidate.conf_file_pwd" class="input"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">提交</el-button>
+          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">{{ $t('message.pages.setting.userFile.submit') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -48,13 +48,15 @@ export default {
         conf_file_pwd: '',
       },
       ruleValidate: {
-        file_pwd: [{ required: true, message: '请输入您的文件管理新密码', trigger: 'blur' }],
-        conf_file_pwd: [{ required: true, message: '请确认您的文件管理新密码', trigger: 'blur' }],
+        file_pwd: [{ required: true, message: '', trigger: 'blur' }],
+        conf_file_pwd: [{ required: true, message: '', trigger: 'blur' }],
       },
     };
   },
   mounted() {
     this.account = this.$store.state.userInfo.userInfo.account;
+    this.ruleValidate.file_pwd[0].message = this.$t('message.pages.setting.userFile.filePasswordRequired');
+    this.ruleValidate.conf_file_pwd[0].message = this.$t('message.pages.setting.userFile.filePasswordConfirmRequired');
   },
   methods: {
     handleSubmit(name) {

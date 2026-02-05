@@ -10,56 +10,56 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="回复类型：" prop="type" label-for="type">
+          <el-form-item :label="$t('message.pages.app.wechatKeyword.replyType')" prop="type" label-for="type">
             <el-select
               v-model="formValidate.type"
-              placeholder="请选择"
+              :placeholder="$t('message.pages.app.wechatKeyword.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="text" label="文字消息"></el-option>
-              <el-option value="image" label="图片消息"></el-option>
-              <el-option value="news" label="图文消息"></el-option>
-              <el-option value="voice" label="声音消息"></el-option>
+              <el-option value="text" :label="$t('message.pages.app.wechatKeyword.textMsg')"></el-option>
+              <el-option value="image" :label="$t('message.pages.app.wechatKeyword.imageMsg')"></el-option>
+              <el-option value="news" :label="$t('message.pages.app.wechatKeyword.newsMsg')"></el-option>
+              <el-option value="voice" :label="$t('message.pages.app.wechatKeyword.voiceMsg')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="关键字：" prop="key" label-for="key">
-            <el-input clearable v-model="formValidate.key" placeholder="请输入关键字" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.app.wechatKeyword.keyword')" prop="key" label-for="key">
+            <el-input clearable v-model="formValidate.key" :placeholder="$t('message.pages.app.wechatKeyword.keywordPlaceholder')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.app.wechatKeyword.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="add">添加关键字</el-button>
+      <el-button type="primary" v-db-click @click="add">{{ $t('message.pages.app.wechatKeyword.addKeyword') }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.app.wechatKeyword.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.app.wechatKeyword.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.app.wechatKeyword.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关键字" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatKeyword.keywordCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.key }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="回复类型" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatKeyword.replyTypeCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatKeyword.isShow')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -69,17 +69,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.pages.app.wechatKeyword.show')"
+              :inactive-text="$t('message.pages.app.wechatKeyword.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.app.wechatKeyword.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.app.wechatKeyword.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '关键字回复', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.app.wechatKeyword.keywordReplyTitle'), scope.$index)">{{ $t('message.pages.app.wechatKeyword.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -93,7 +93,7 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" title="二维码">
+    <el-dialog :visible.sync="modal" :title="$t('message.pages.app.wechatKeyword.qrcode')">
       <div class="acea-row row-around">
         <div class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">

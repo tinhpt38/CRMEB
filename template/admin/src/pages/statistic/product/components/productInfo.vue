@@ -2,31 +2,27 @@
   <el-card :bordered="false" shadow="never" class="ivu-mt" v-loading="spinShow">
     <div class="acea-row row-between-wrapper mb20">
       <div class="statics-header-title">
-        <h4>商品概况</h4>
+        <h4>{{ $t('message.pages.statistic.product.productInfo.overview') }}</h4>
         <el-tooltip width="500" placement="right-start">
           <i class="el-icon-question ml10"></i>
           <div slot="content">
-            <div>商品浏览量</div>
-            <div>在选定条件下，所有商品详情页被访问的次数，一个人在统计时间内访问多次记为多次</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.browseTipTitle') }}</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.browseTipDesc') }}</div>
             <br />
-            <div>商品访客数</div>
-            <div>在选定条件下，访问任何商品详情页的人数，一个人在统计时间范围内访问多次只记为一个</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.visitorTipTitle') }}</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.visitorTipDesc') }}</div>
             <br />
-            <div>支付件数</div>
-            <div>
-              在选定条件下，成功付款订单的商品件数之和（拼团商品在成团之后计入，线下支付订单在后台确认支付后计入，不剔除退款订单）
-            </div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.payCountTipTitle') }}</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.payCountTipDesc') }}</div>
             <br />
-            <div>支付金额</div>
-            <div>
-              在选定条件下，成功付款订单的商品金额之和（拼团商品在成团之后计入，线下支付订单在后台确认支付后计入，不剔除退款订单）
-            </div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.payAmountTipTitle') }}</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.payAmountTipDesc') }}</div>
             <br />
-            <div>退款件数</div>
-            <div>在选定条件下，成功退款的商品件数之和</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.refundCountTipTitle') }}</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.refundCountTipDesc') }}</div>
             <br />
-            <div>退款金额</div>
-            <div>在选定条件下，成功退款的商品金额之和</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.refundAmountTipTitle') }}</div>
+            <div>{{ $t('message.pages.statistic.product.productInfo.refundAmountTipDesc') }}</div>
           </div>
         </el-tooltip>
       </div>
@@ -39,14 +35,14 @@
           @change="onchangeTime"
           format="yyyy/MM/dd"
           value-format="yyyy/MM/dd"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          :start-placeholder="$t('message.pages.statistic.product.productInfo.startDate')"
+          :end-placeholder="$t('message.pages.statistic.product.productInfo.endDate')"
           :picker-options="pickerOptions"
           style="width: 250px"
           class="mr20"
         ></el-date-picker>
-        <el-button type="primary" v-db-click @click="onSeach">查询</el-button>
-        <el-button type="primary" v-db-click @click="excel">导出</el-button>
+        <el-button type="primary" v-db-click @click="onSeach">{{ $t('message.pages.statistic.product.productInfo.query') }}</el-button>
+        <el-button type="primary" v-db-click @click="excel">{{ $t('message.pages.statistic.product.productInfo.export') }}</el-button>
       </div>
     </div>
     <div class="mb20">
@@ -63,7 +59,7 @@
             <span class="sp2" v-if="index === list.length - 1" v-text="item.list.num"></span>
             <span class="sp2" v-else v-text="item.list.num"></span>
             <span class="content-time spBlock"
-              >环比增长：<i class="content-is" :class="Number(item.list.percent) >= 0 ? 'up' : 'down'"
+              >{{ $t('message.pages.statistic.product.productInfo.chainRatio') }}<i class="content-is" :class="Number(item.list.percent) >= 0 ? 'up' : 'down'"
                 >{{ item.list.percent }}%</i
               >
               <i
@@ -99,7 +95,7 @@ export default {
         xs: 24,
       },
       pickerOptions: this.$timeOptions,
-      name: '近30天',
+      name: '',
       timeVal: [],
       dataTime: '',
       list: [],
@@ -108,6 +104,7 @@ export default {
     };
   },
   created() {
+    this.name = this.$t('message.pages.statistic.product.productInfo.last30Days');
     const end = new Date();
     const start = new Date();
     start.setTime(start.setTime(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 29)));
@@ -143,32 +140,32 @@ export default {
           const cardLists = res.data;
           this.list = [
             {
-              name: '商品浏览量',
+              name: this.$t('message.pages.statistic.product.productInfo.browse'),
               icon: 'iconshangpinliulanliang',
               list: cardLists.browse,
             },
             {
-              name: '商品访客数',
+              name: this.$t('message.pages.statistic.product.productInfo.visitor'),
               icon: 'iconshangpinfangkeshu',
               list: cardLists.user,
             },
             {
-              name: '支付件数',
+              name: this.$t('message.pages.statistic.product.productInfo.payCount'),
               icon: 'iconzhifujianshu',
               list: cardLists.pay,
             },
             {
-              name: '支付金额',
+              name: this.$t('message.pages.statistic.product.productInfo.payAmount'),
               icon: 'iconzhifujine',
               list: cardLists.payPrice,
             },
             {
-              name: '退款件数',
+              name: this.$t('message.pages.statistic.product.productInfo.refundCount'),
               icon: 'icontuikuanjianshu',
               list: cardLists.refund,
             },
             {
-              name: '退款金额',
+              name: this.$t('message.pages.statistic.product.productInfo.refundAmount'),
               icon: 'icontuikuan',
               list: cardLists.refundPrice,
             },
@@ -244,7 +241,7 @@ export default {
             yAxis: [
               {
                 type: 'value',
-                name: '金额',
+                name: this.$t('message.pages.statistic.product.productInfo.amount'),
                 axisLine: {
                   show: false,
                 },
@@ -265,7 +262,7 @@ export default {
               },
               {
                 type: 'value',
-                name: '数量',
+                name: this.$t('message.pages.statistic.product.productInfo.quantity'),
                 axisLine: {
                   show: false,
                 },

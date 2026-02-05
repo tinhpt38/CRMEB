@@ -10,16 +10,16 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="提货点搜索：">
+          <el-form-item :label="$t('message.pages.setting.storeList.pickupPointSearch')">
             <el-input
               clearable
-              placeholder="请输入提货点名称,电话"
+              :placeholder="$t('message.pages.setting.storeList.placeholderNamePhone')"
               v-model="artFrom.keywords"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.setting.storeList.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -35,7 +35,7 @@
       <el-row v-auth="['setting-merchant-system_store-save']">
         <el-col v-bind="grid">
           <el-button v-auth="['setting-merchant-system_store-save']" type="primary" v-db-click @click="add"
-            >添加提货点</el-button
+            >{{ $t('message.pages.setting.storeList.addPickupPoint') }}</el-button
           >
         </el-col>
       </el-row>
@@ -45,42 +45,42 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.setting.storeList.noData')"
+        :no-filtered-data-text="$t('message.pages.setting.storeList.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.setting.storeList.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="提货点图片" min-width="90">
+        <el-table-column :label="$t('message.pages.setting.storeList.pickupPointImage')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="提货点名称" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.storeList.pickupPointName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="提货点电话" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.storeList.pickupPointPhone')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="地址" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.storeList.address')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.detailed_address }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="营业时间" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.storeList.businessHours')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.day_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.storeList.isShow')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -90,18 +90,18 @@
               :value="scope.row.is_show"
               @change="onchangeIsShow(scope.row.id, scope.row.is_show)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.pages.setting.storeList.show')"
+              :inactive-text="$t('message.pages.setting.storeList.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.setting.storeList.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">编辑</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('message.pages.setting.storeList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-if="scope.row.is_del == 0" v-db-click @click="del(scope.row, '删除提货点', scope.$index)">删除</a>
-            <a v-else v-db-click @click="del(scope.row, '恢复提货点', scope.$index)">恢复</a>
+            <a v-if="scope.row.is_del == 0" v-db-click @click="del(scope.row, $t('message.pages.setting.storeList.delPickupPointTitle'), scope.$index)">{{ $t('message.pages.setting.storeList.del') }}</a>
+            <a v-else v-db-click @click="del(scope.row, $t('message.pages.setting.storeList.restorePickupPointTitle'), scope.$index)">{{ $t('message.pages.setting.storeList.restore') }}</a>
           </template>
         </el-table-column>
       </el-table>

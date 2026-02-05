@@ -35,7 +35,7 @@
                 <!--:class="{ search: element.cname == '搜索框' , navbar: element.cname == '商品分类' }"-->
                 <div
                   class="list-group-item"
-                  :class="{ search: element.cname == '搜索框' }"
+                  :class="{ search: element.name == 'search_box' }"
                   v-for="(element, index) in item.list"
                   :key="element.id"
                   v-db-click
@@ -43,7 +43,7 @@
                   v-show="item.isOpen"
                 >
                   <div>
-                    <div class="position" style="display: none">释放鼠标将组建添加到此处</div>
+                    <div class="position" style="display: none">{{ $t('router.setting.devise.dropHint') }}</div>
                     <span class="conter iconfont-diy" :class="element.icon"></span>
                     <p class="conter">{{ element.cname }}</p>
                   </div>
@@ -55,14 +55,14 @@
           <div class="wrapper" v-else :style="'height:' + (clientHeight - 46) + 'px;'">
             <div class="link-item" v-for="(item, index) in urlList" :key="index">
               <div class="name">{{ item.name }}</div>
-              <div class="link-txt">地址：{{ item.url }}</div>
+              <div class="link-txt">{{ $t('router.setting.devise.address') }}{{ item.url }}</div>
               <div class="params">
-                <span class="txt">参数：</span>
+                <span class="txt">{{ $t('router.setting.devise.params') }}</span>
                 <span>{{ item.parameter }}</span>
               </div>
               <div class="lable">
-                <p class="txt">例如：{{ item.example }}</p>
-                <el-button size="small" v-db-click @click="onCopy(item.example)">复制 </el-button>
+                <p class="txt">{{ $t('router.setting.devise.example') }}：{{ item.example }}</p>
+                <el-button size="small" v-db-click @click="onCopy(item.example)">{{ $t('router.setting.devise.copy') }}</el-button>
               </div>
             </div>
           </div>
@@ -166,8 +166,8 @@
                 </div>
               </div>
               <div class="defaultData" v-if="pageId !== 0">
-                <div class="data" v-db-click @click="setmoren">设置默认</div>
-                <div class="data" v-db-click @click="getmoren">恢复默认</div>
+                <div class="data" v-db-click @click="setmoren">{{ $t('router.setting.devise.setDefault') }}</div>
+                <div class="data" v-db-click @click="getmoren">{{ $t('router.setting.devise.restoreDefault') }}</div>
               </div>
             </div>
           </div>
@@ -248,16 +248,7 @@ export default {
       pageName: '',
       pageType: '',
       category: [],
-      tabList: [
-        {
-          title: '组件库',
-          key: 0,
-        },
-        {
-          title: '页面链接',
-          key: 1,
-        },
-      ],
+      tabList: [],
       tabCur: 0,
       urlList: [],
       footActive: false,
@@ -269,6 +260,10 @@ export default {
     };
   },
   created() {
+    this.tabList = [
+      { title: this.$t('router.setting.devise.componentLib'), key: 0 },
+      { title: this.$t('router.setting.devise.pageLinks'), key: 1 },
+    ];
     this.categoryList();
     this.getUrlList();
     this.pageId = this.$route.query.id;
@@ -279,12 +274,12 @@ export default {
   mounted() {
     let imgList = {
       imgList: [require('@/assets/images/foot-005.png'), require('@/assets/images/foot-006.png')],
-      name: '购物车',
+      name: this.$t('router.setting.devise.cart'),
       link: '/pages/order_addcart/order_addcart',
     };
     this.$nextTick(() => {
       this.$store.commit('mobildConfig/FOOTER', {
-        title: '是否自定义',
+        title: this.$t('router.setting.devise.isCustom'),
         name: imgList,
       });
       this.arraySort();
@@ -326,14 +321,14 @@ export default {
     onCopy(copyData) {
       this.$copyText(copyData)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success(this.$t('router.setting.devise.copySuccess'));
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('router.setting.devise.copyFail'));
         });
     },
     onError() {
-      this.$message.error('复制失败');
+      this.$message.error(this.$t('router.setting.devise.copyFail'));
     },
     //设置默认数据
     setmoren() {
@@ -375,7 +370,7 @@ export default {
           // this.rConfig = obj
           obj = mConfig[i];
           obj.configName = mConfig[i].name;
-          obj.cname = '页面设置';
+          obj.cname = this.$t('router.setting.devise.pageSetting');
         }
       }
       let abc = obj;
@@ -391,7 +386,7 @@ export default {
           // this.rConfig = obj
           obj = mConfig[i];
           obj.configName = mConfig[i].name;
-          obj.cname = '底部菜单';
+          obj.cname = this.$t('router.setting.devise.bottomMenu');
         }
       }
       let abc = obj;
@@ -408,7 +403,7 @@ export default {
       // 中间拖拽排序
       if (evt.moved) {
         if (evt.moved.element.name == 'search_box' || evt.moved.element.name == 'nav_bar') {
-          return this.$message.warning('该组件禁止拖拽');
+          return this.$message.warning(this.$t('router.setting.devise.componentNoDrag'));
         }
         // if (evt.moved.element.name == "nav_bar") {
         //     return this.$message.warning("该组件禁止拖拽");
@@ -473,7 +468,7 @@ export default {
         }
       }
       if (item.name == 'search_box' || item.name == 'nav_bar') {
-        return this.$message.warning('该组件禁止移动');
+        return this.$message.warning(this.$t('router.setting.devise.componentNoMove'));
       }
       // if (item.name == "nav_bar") {
       //     return this.$message.warning("该组件禁止移动");
@@ -481,7 +476,7 @@ export default {
       if (type) {
         // if(this.mConfig[index-1].name  == "search_box" || this.mConfig[index-1].name  == "nav_bar"){
         if (this.mConfig[index - 1].name == 'search_box') {
-          return this.$message.warning('搜索框必须为顶部');
+          return this.$message.warning(this.$t('router.setting.devise.searchMustTop'));
         }
         this.swapArray(this.mConfig, index - 1, index);
       } else {
@@ -513,15 +508,15 @@ export default {
     // 组件添加
     addDomCon(item, type, index) {
       if (item.name == 'search_box') {
-        if (this.isSearch) return this.$message.error('该组件只能添加一次');
+        if (this.isSearch) return this.$message.error(this.$t('router.setting.devise.componentOnce'));
         this.isSearch = true;
       }
       if (item.name == 'nav_bar') {
-        if (this.isTab) return this.$message.error('该组件只能添加一次');
+        if (this.isTab) return this.$message.error(this.$t('router.setting.devise.componentOnce'));
         this.isTab = true;
       }
       if (item.name == 'home_product') {
-        if (this.isHomeProduct) return this.$message.error('该组件只能添加一次');
+        if (this.isHomeProduct) return this.$message.error(this.$t('router.setting.devise.componentOnce'));
         this.isHomeProduct = true;
       }
       idGlobal += 1;
@@ -630,17 +625,17 @@ export default {
     arraySort() {
       let tempArr = [];
       let basis = {
-        title: '基础组件',
+        title: this.$t('router.setting.devise.basicComponents'),
         list: [],
         isOpen: true,
       };
       let marketing = {
-        title: '营销组件',
+        title: this.$t('router.setting.devise.marketingComponents'),
         list: [],
         isOpen: true,
       };
       let tool = {
-        title: '工具组件',
+        title: this.$t('router.setting.devise.toolComponents'),
         list: [],
         isOpen: true,
       };
@@ -695,7 +690,7 @@ export default {
     // 保存配置
     saveConfig() {
       if (this.mConfig.length == 0) {
-        return this.$message.error('暂未添加任何组件，保存失败！');
+        return this.$message.error(this.$t('router.setting.devise.saveNoComponent'));
       }
       this.loading = true;
       let val = this.$store.state.mobildConfig.defaultArray;
@@ -781,14 +776,14 @@ export default {
     // 重置
     reast() {
       if (this.pageId == 0) {
-        this.$message.error('新增页面，无法重置');
+        this.$message.error(this.$t('router.setting.devise.newPageNoReset'));
       } else {
         this.$msgbox({
-          title: '提示',
-          message: '重置会恢复到上次保存的数据，确定不保存当前操作吗？',
+          title: this.$t('router.setting.devise.tip'),
+          message: this.$t('router.setting.devise.resetConfirm'),
           showCancelButton: true,
-          cancelButtonText: '取消',
-          confirmButtonText: '确定',
+          cancelButtonText: this.$t('router.setting.devise.cancel'),
+          confirmButtonText: this.$t('router.setting.devise.confirm'),
           iconClass: 'el-icon-warning',
           confirmButtonClass: 'btn-custom-cancel',
         })

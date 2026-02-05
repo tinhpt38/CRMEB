@@ -10,16 +10,16 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.division.applyList.search')">
             <el-input
               clearable
-              placeholder="请输入姓名、UID"
+              :placeholder="$t('message.pages.division.applyList.placeholderNameUid')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.division.applyList.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -28,11 +28,11 @@
       <el-row class="ivu-mt box-wrapper">
         <el-col :xs="24" :sm="24" ref="rightBox">
           <el-tabs v-model="formValidate.status" @tab-click="userSearchs">
-            <el-tab-pane name="all" label="全部"></el-tab-pane>
+            <el-tab-pane name="all" :label="$t('message.pages.division.applyList.all')"></el-tab-pane>
             <el-tab-pane
               v-for="(item, index) in statusList"
               :key="index"
-              :label="item.status_name"
+              :label="getApplyStatusLabel(item.id)"
               :name="item.id"
             ></el-tab-pane>
           </el-tabs>
@@ -41,30 +41,30 @@
             ref="table"
             v-loading="loading"
             highlight-current-row
-            no-formValidate-text="暂无数据"
-            no-filtered-formValidate-text="暂无筛选结果"
+            :no-formValidate-text="$t('message.pages.division.applyList.noData')"
+            :no-filtered-formValidate-text="$t('message.pages.division.applyList.noFilterResult')"
           >
-            <el-table-column label="用户UID" width="100">
+            <el-table-column :label="$t('message.pages.division.applyList.userUid')" width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="代理商名称" min-width="150">
+            <el-table-column :label="$t('message.pages.division.applyList.agentName')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.agent_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="代理商电话" min-width="150">
+            <el-table-column :label="$t('message.pages.division.applyList.agentPhone')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.phone }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="事业部名称" min-width="150">
+            <el-table-column :label="$t('message.pages.division.applyList.divisionName')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.division_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请图片" min-width="150">
+            <el-table-column :label="$t('message.pages.division.applyList.applyImages')" min-width="150">
               <template slot-scope="scope">
                 <div class="pictrue-box" v-if="scope.row.images.length">
                   <div v-viewer v-for="(item, index) in scope.row.images || []" :key="index">
@@ -73,28 +73,28 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="申请时间" min-width="150">
+            <el-table-column :label="$t('message.pages.division.applyList.applyTime')" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请状态" min-width="150">
+            <el-table-column :label="$t('message.pages.division.applyList.applyStatus')" min-width="150">
               <template slot-scope="scope">
-                <el-tag>{{ scope.row.status == 0 ? '申请中' : scope.row.status == 1 ? '已同意' : '已拒绝' }}</el-tag>
+                <el-tag>{{ scope.row.status == 0 ? $t('message.pages.division.applyList.statusApplying') : scope.row.status == 1 ? $t('message.pages.division.applyList.statusAgreed') : $t('message.pages.division.applyList.statusRejected') }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="邀请码" min-width="150">
+            <el-table-column :label="$t('message.pages.division.applyList.inviteCode')" min-width="150">
               <template slot-scope="scope">
                 <el-tag>{{ scope.row.division_invite }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="170">
+            <el-table-column :label="$t('message.pages.division.applyList.action')" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 1)">同意</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 1)">{{ $t('message.pages.division.applyList.agree') }}</a>
                 <el-divider v-if="scope.row.status == 0" direction="vertical" />
-                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 0)">拒绝</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 0)">{{ $t('message.pages.division.applyList.reject') }}</a>
                 <el-divider direction="vertical" v-if="scope.row.status == 0" />
-                <a v-db-click @click="del(scope.row, '删除申请', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.pages.division.applyList.delApplyTitle'), scope.$index)">{{ $t('message.pages.division.applyList.del') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -137,18 +137,9 @@ export default {
         image: '',
       },
       statusList: [
-        {
-          status_name: '申请中',
-          id: '0',
-        },
-        {
-          status_name: '已同意',
-          id: '1',
-        },
-        {
-          status_name: '已拒绝',
-          id: '2',
-        },
+        { id: '0' },
+        { id: '1' },
+        { id: '2' },
       ],
       FromData: null,
       loading: false,
@@ -189,6 +180,14 @@ export default {
     this.getList();
   },
   methods: {
+    getApplyStatusLabel(id) {
+      const map = {
+        '0': 'message.pages.division.applyList.statusApplying',
+        '1': 'message.pages.division.applyList.statusAgreed',
+        '2': 'message.pages.division.applyList.statusRejected',
+      };
+      return this.$t(map[id] || '');
+    },
     userSearchs() {
       this.formValidate.page = 1;
       this.getList();

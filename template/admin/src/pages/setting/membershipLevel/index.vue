@@ -10,61 +10,61 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.pages.setting.membershipLevel.isShow')">
             <el-select v-model="formValidate.status" clearable @change="search" class="form_content_width">
-              <el-option value="" label="全部"></el-option>
-              <el-option :value="1" label="显示"></el-option>
-              <el-option :value="0" label="不显示"></el-option>
+              <el-option value="" :label="$t('message.pages.setting.membershipLevel.all')"></el-option>
+              <el-option :value="1" :label="$t('message.pages.setting.membershipLevel.show')"></el-option>
+              <el-option :value="0" :label="$t('message.pages.setting.membershipLevel.hide')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="等级名称：">
+          <el-form-item :label="$t('message.pages.setting.membershipLevel.levelName')">
             <el-input
               clearable
-              placeholder="请输入等级名称"
+              :placeholder="$t('message.pages.setting.membershipLevel.placeholderLevelName')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="search">查询</el-button>
+            <el-button type="primary" v-db-click @click="search">{{ $t('message.pages.setting.membershipLevel.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button type="primary" v-db-click @click="groupAdd">添加等级</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd">{{ $t('message.pages.setting.membershipLevel.addLevel') }}</el-button>
       <el-table
         class="mt14"
         :data="tabList"
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.setting.membershipLevel.noData')"
+        :no-filtered-data-text="$t('message.pages.setting.membershipLevel.noFilterResult')"
       >
-        <el-table-column label="ID" width="50">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.id')" width="50">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品图片" min-width="90">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.productImage')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="名称" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.name')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="等级" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.grade')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.grade }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="一级分佣比例" min-width="150">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.oneBrokerageRatio')" min-width="150">
           <template slot-scope="scope">
             <span
               >{{
@@ -75,7 +75,7 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="二级分佣比例" min-width="150">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.twoBrokerageRatio')" min-width="150">
           <template slot-scope="scope">
             <span
               >{{
@@ -86,12 +86,12 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="任务总数" min-width="150">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.taskTotal')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.task_total_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="需完成数量" min-width="150">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.taskNum')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.task_num }}</span>
           </template>
@@ -116,7 +116,7 @@
             <span>{{ scope.row.two_brokerage_ratio }}%</span>
           </template>
         </el-table-column> -->
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.isShowCol')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -126,19 +126,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.pages.setting.membershipLevel.show')"
+              :inactive-text="$t('message.pages.setting.membershipLevel.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.setting.membershipLevel.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="addTask(scope.row)">等级任务</a>
+            <a v-db-click @click="addTask(scope.row)">{{ $t('message.pages.setting.membershipLevel.levelTask') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(scope.row, $t('message.pages.setting.membershipLevel.edit'))">{{ $t('message.pages.setting.membershipLevel.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.setting.membershipLevel.delInfoTitle'), scope.$index)">{{ $t('message.pages.setting.membershipLevel.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -153,25 +153,25 @@
       </div>
     </el-card>
     <div class="task-modal">
-      <el-dialog :visible.sync="modal2" title="添加任务" width="1000px">
+      <el-dialog :visible.sync="modal2" :title="$t('message.pages.setting.membershipLevel.addTaskTitle')" width="1000px">
         <el-form :model="taskData" :label-width="labelWidth" :label-position="labelPosition" inline>
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.pages.setting.membershipLevel.isShow')">
             <el-select v-model="taskData.status" class="form_content_width" clearable>
-              <el-option :value="1" label="显示"></el-option>
-              <el-option :value="0" label="不显示"></el-option>
+              <el-option :value="1" :label="$t('message.pages.setting.membershipLevel.show')"></el-option>
+              <el-option :value="0" :label="$t('message.pages.setting.membershipLevel.hide')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="任务名称：">
-            <el-input v-model="taskData.keyword" placeholder="请输入任务名称" clearable class="form_content_width" />
+          <el-form-item :label="$t('message.pages.setting.membershipLevel.taskName')">
+            <el-input v-model="taskData.keyword" :placeholder="$t('message.pages.setting.membershipLevel.placeholderTaskName')" clearable class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="searchTask">搜索</el-button>
+            <el-button type="primary" v-db-click @click="searchTask">{{ $t('message.pages.setting.membershipLevel.search') }}</el-button>
           </el-form-item>
         </el-form>
         <div>
           <div class="add-task">
-            <el-button type="primary" v-db-click @click="taskAdd()">添加等级任务</el-button>
-            <el-button type="primary" v-db-click @click="taskEdit()">设置完成数量</el-button>
+            <el-button type="primary" v-db-click @click="taskAdd()">{{ $t('message.pages.setting.membershipLevel.addLevelTask') }}</el-button>
+            <el-button type="primary" v-db-click @click="taskEdit()">{{ $t('message.pages.setting.membershipLevel.setCompleteNum') }}</el-button>
           </div>
           <div>
             <el-table
@@ -180,30 +180,30 @@
               class="mt14"
               v-loading="taskLoading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+              :no-data-text="$t('message.pages.setting.membershipLevel.noData')"
+              :no-filtered-data-text="$t('message.pages.setting.membershipLevel.noFilterResult')"
             >
-              <el-table-column label="ID" width="80">
+              <el-table-column :label="$t('message.pages.setting.membershipLevel.id')" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="名称" min-width="130">
+              <el-table-column :label="$t('message.pages.setting.membershipLevel.name')" min-width="130">
                 <template slot-scope="scope">
                   <span>{{ scope.row.name }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="任务类型" min-width="80">
+              <el-table-column :label="$t('message.pages.setting.membershipLevel.taskType')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.type_name }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="限定数量" min-width="80">
+              <el-table-column :label="$t('message.pages.setting.membershipLevel.limitNum')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.number }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="是否显示" min-width="80">
+              <el-table-column :label="$t('message.pages.setting.membershipLevel.isShowCol')" min-width="80">
                 <template slot-scope="scope">
                   <el-switch
                     class="defineSwitch"
@@ -212,24 +212,24 @@
                     v-model="scope.row.status"
                     :value="scope.row.status"
                     @change="onchangeTaskIsShow(scope.row)"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    :active-text="$t('message.pages.setting.membershipLevel.on')"
+                    :inactive-text="$t('message.pages.setting.membershipLevel.off')"
                   >
-                    <span slot="open">开启</span>
-                    <span slot="close">关闭</span>
+                    <span slot="open">{{ $t('message.pages.setting.membershipLevel.on') }}</span>
+                    <span slot="close">{{ $t('message.pages.setting.membershipLevel.off') }}</span>
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="排序" min-width="50">
+              <el-table-column :label="$t('message.pages.setting.membershipLevel.sort')" min-width="50">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" fixed="right" width="170">
+              <el-table-column :label="$t('message.pages.setting.membershipLevel.action')" fixed="right" width="170">
                 <template slot-scope="scope">
-                  <a v-db-click @click="editTask(scope.row, '编辑')">编辑</a>
+                  <a v-db-click @click="editTask(scope.row, $t('message.pages.setting.membershipLevel.edit'))">{{ $t('message.pages.setting.membershipLevel.edit') }}</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="delTask(scope.row, '删除这条信息', scope.$index)">删除</a>
+                  <a v-db-click @click="delTask(scope.row, $t('message.pages.setting.membershipLevel.delInfoTitle'), scope.$index)">{{ $t('message.pages.setting.membershipLevel.del') }}</a>
                 </template>
               </el-table-column>
             </el-table>

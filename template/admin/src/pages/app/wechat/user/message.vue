@@ -12,7 +12,7 @@
         >
           <el-row :gutter="24" justify="end">
             <el-col :span="24" class="ivu-text-left">
-              <el-form-item label="时间选择：">
+              <el-form-item :label="$t('message.pages.app.wechatMessage.timeSelect')">
                 <el-radio-group
                   v-model="formValidate.data"
                   type="button"
@@ -32,31 +32,31 @@
                   type="daterange"
                   placement="bottom-end"
                   range-separator="-"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
+                  :start-placeholder="$t('message.pages.app.wechatMessage.startDate')"
+                  :end-placeholder="$t('message.pages.app.wechatMessage.endDate')"
                   style="width: 200px"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="24" class="ivu-text-left">
               <el-col :xl="7" :lg="10" :md="12" :sm="24" :xs="24">
-                <el-form-item label="操作名称：">
+                <el-form-item :label="$t('message.pages.app.wechatMessage.operationName')">
                   <el-select v-model="formValidate.type" style="width: 90%" clearable>
-                    <el-option :value="1" label="男"></el-option>
-                    <el-option :value="2" label="女"></el-option>
-                    <el-option :value="0" label="保密"></el-option>
+                    <el-option :value="1" :label="$t('message.pages.app.wechatMessage.male')"></el-option>
+                    <el-option :value="2" :label="$t('message.pages.app.wechatMessage.female')"></el-option>
+                    <el-option :value="0" :label="$t('message.pages.app.wechatMessage.secret')"></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :xl="7" :lg="10" :md="12" :sm="24" :xs="24">
-                <el-form-item label="操作用户：">
-                  <el-input placeholder="请输入用户名称" v-model="formValidate.nickname" style="width: 90%"></el-input>
+                <el-form-item :label="$t('message.pages.app.wechatMessage.operationUser')">
+                  <el-input :placeholder="$t('message.pages.app.wechatMessage.userPlaceholder')" v-model="formValidate.nickname" style="width: 90%"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :xl="3" :lg="4" :md="12" :sm="24" :xs="24" class="btn_box">
                 <el-form-item>
                   <el-button type="primary" label="default" class="userSearch" v-db-click @click="userSearchs"
-                    >搜索</el-button
+                    >{{ $t('message.pages.app.wechatMessage.search') }}</el-button
                   >
                 </el-form-item>
               </el-col>
@@ -64,28 +64,28 @@
           </el-row>
         </el-form>
       </div>
-      <el-table ref="selection" :data="tabList" v-loading="loading" empty-text="暂无数据" highlight-current-row>
+      <el-table ref="selection" :data="tabList" v-loading="loading" :empty-text="$t('message.pages.app.wechatMessage.noData')" highlight-current-row>
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作用户" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatMessage.operationUserCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作名称" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatMessage.operationNameCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.type_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联内容" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatMessage.relationContent')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.headimgurl }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作时间" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatMessage.operationTime')" min-width="130">
           <template slot-scope="scope">
             <span> {{ scope.row.add_time ? scope.row.add_time : '' | formatDate }}</span>
           </template>

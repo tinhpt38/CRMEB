@@ -8,33 +8,33 @@
         label-width="160px"
         label-position="right"
       >
-        <el-form-item label="头像：">
+        <el-form-item :label="$t('message.pages.setting.profile.avatar')">
           <div class="avatar" v-db-click @click="avatarMoadl = true">
             <img v-if="formValidate.head_pic" :src="formValidate.head_pic" alt="" />
             <img v-else src="../../../assets/images/f.png" alt="" />
           </div>
         </el-form-item>
-        <el-form-item label="账号：" prop="">
+        <el-form-item :label="$t('message.pages.setting.profile.account')" prop="">
           <el-input type="text" v-model="account" :disabled="true" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="姓名：" prop="real_name">
+        <el-form-item :label="$t('message.pages.setting.profile.realName')" prop="real_name">
           <el-input type="text" v-model="formValidate.real_name" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="原始密码：">
+        <el-form-item :label="$t('message.pages.setting.profile.oldPassword')">
           <el-input type="password" v-model="formValidate.pwd" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="新密码：">
+        <el-form-item :label="$t('message.pages.setting.profile.newPassword')">
           <el-input type="password" v-model="formValidate.new_pwd" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="确认新密码：">
+        <el-form-item :label="$t('message.pages.setting.profile.confirmNewPassword')">
           <el-input type="password" v-model="formValidate.conf_pwd" class="input"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">提交</el-button>
+          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">{{ $t('message.pages.setting.profile.submit') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
-    <el-dialog :visible.sync="avatarMoadl" title="头像上传" width="720px">
+    <el-dialog :visible.sync="avatarMoadl" :title="$t('message.pages.setting.profile.avatarUpload')" width="720px">
       <CropperImg v-if="avatarMoadl" @uploadImgSuccess="uploadImgSuccess"></CropperImg>
     </el-dialog>
   </div>
@@ -69,7 +69,7 @@ export default {
         conf_pwd: '',
       },
       ruleValidate: {
-        real_name: [{ required: true, message: '您的姓名不能为空', trigger: 'blur' }],
+        real_name: [{ required: true, message: '', trigger: 'blur' }],
       },
     };
   },
@@ -77,6 +77,7 @@ export default {
     this.account = this.$store.state.userInfo.userInfo.account;
     this.formValidate.head_pic = this.$store.state.userInfo.userInfo.head_pic;
     this.formValidate.real_name = this.$store.state.userInfo.userInfo.real_name;
+    this.ruleValidate.real_name[0].message = this.$t('message.pages.setting.profile.realNameRequired');
   },
   methods: {
     uploadImgSuccess(data) {
@@ -97,7 +98,7 @@ export default {
             });
         } else {
           if (this.formValidate.new_pwd !== this.formValidate.conf_pwd) {
-            this.$message.error('您输入的新密码与旧密码不一致');
+            this.$message.error(this.$t('message.pages.setting.profile.passwordMismatch'));
           }
         }
       });

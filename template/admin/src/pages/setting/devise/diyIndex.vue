@@ -7,22 +7,22 @@
         <div class="f-title acea-row row-middle">
           <div class="acea-row row-middle cup" @click="returnTap">
             <div class="iconfont iconfanhui"></div>
-            <div class="return">返回</div>
+            <div class="return">{{ $t('router.setting.devise.back') }}</div>
           </div>
           <div class="mr20">
-            <span class="name mr5">当前页面：{{ nameTxt || '模板' }}</span>
+            <span class="name mr5">{{ $t('router.setting.devise.currentPage') }}{{ nameTxt || $t('router.setting.devise.template') }}</span>
             <el-popover v-model="visible" width="347">
               <span slot="reference" class="iconfont iconzidingyicaidan cup"></span>
               <template>
                 <div class="flex">
                   <el-input
                     v-model="nameTxt"
-                    placeholder="必填不超过15个字"
+                    :placeholder="$t('router.setting.devise.placeholderTitle')"
                     maxlength="15"
                     style="width: 200px"
                   ></el-input>
-                  <el-button type="text" @click="cancel">取消</el-button>
-                  <el-button type="primary" @click="determine">确定</el-button>
+                  <el-button type="text" @click="cancel">{{ $t('router.setting.devise.cancel') }}</el-button>
+                  <el-button type="primary" @click="determine">{{ $t('router.setting.devise.confirm') }}</el-button>
                 </div>
               </template>
             </el-popover>
@@ -31,10 +31,10 @@
         <div class="rbtn">
           <!-- <el-button class="ml20 header-btn look" v-db-click @click="exportView" :loading="loading">导出</el-button>
           <el-button class="ml20 header-btn look" v-db-click @click="importView" :loading="loading">导入</el-button> -->
-          <el-button class="ml20 header-btn look" v-db-click @click="preview" :loading="loading">预览</el-button>
-          <el-button class="ml20 header-btn close" v-db-click @click="saveConfig(1)" :loading="loading">保存</el-button>
+          <el-button class="ml20 header-btn look" v-db-click @click="preview" :loading="loading">{{ $t('router.setting.devise.preview') }}</el-button>
+          <el-button class="ml20 header-btn close" v-db-click @click="saveConfig(1)" :loading="loading">{{ $t('router.setting.devise.save') }}</el-button>
           <el-button class="ml20 header-btn save" v-db-click @click="saveConfig(2)" :loading="loading"
-            >保存并关闭</el-button
+            >{{ $t('router.setting.devise.saveAndClose') }}</el-button
           >
         </div>
       </div>
@@ -62,10 +62,10 @@
                 <div
                   class="list-group-item"
                   :class="{
-                    search: element.cname == '搜索框',
-                    navbar: element.cname == '选项卡',
-                    homeComb: element.cname == '轮播搜索',
-                    service: element.cname == '悬浮按钮',
+                    search: element.name == 'search_box',
+                    navbar: element.name == 'nav_bar',
+                    homeComb: element.name == 'home_comb',
+                    service: element.name == 'service',
                   }"
                   v-for="(element, index) in item.list"
                   :key="element.id"
@@ -73,7 +73,7 @@
                   v-show="item.isOpen"
                 >
                   <div>
-                    <div class="position" style="display: none">释放鼠标将组建添加到此处</div>
+                    <div class="position" style="display: none">{{ $t('router.setting.devise.dropHint') }}</div>
                     <svg class="conter iconfont-diy icon svg-icon" aria-hidden="true">
                       <use :xlink:href="element.icon"></use>
                     </svg>
@@ -190,9 +190,9 @@
               <div class="defaultData" v-if="pageId !== 0">
                 <!-- <div class="data" @click="setmoren">设置默认</div>
                                   <div class="data" @click="getmoren">恢复默认</div> -->
-                <el-button class="data" @click="showTitle">页面设置</el-button>
-                <el-button class="data" @click="nameModal = true">另存模板</el-button>
-                <el-button class="data" @click="reast">重置</el-button>
+                <el-button class="data" @click="showTitle">{{ $t('router.setting.devise.pageSetting') }}</el-button>
+                <el-button class="data" @click="nameModal = true">{{ $t('router.setting.devise.saveAsTemplate') }}</el-button>
+                <el-button class="data" @click="reast">{{ $t('router.setting.devise.reset') }}</el-button>
               </div>
             </div>
           </div>
@@ -212,27 +212,27 @@
         </div>
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" width="540px" title="预览">
+    <el-dialog :visible.sync="modal" width="540px" :title="$t('router.setting.devise.previewTitle')">
       <div>
         <div v-viewer class="acea-row row-around code">
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic" ref="qrCodeUrl"></div>
-            <span class="mt10">公众号二维码</span>
+            <span class="mt10">{{ $t('router.setting.devise.mpQrcode') }}</span>
           </div>
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic">
               <img v-lazy="qrcodeImg" />
             </div>
-            <span class="mt10">小程序二维码</span>
+            <span class="mt10">{{ $t('router.setting.devise.miniQrcode') }}</span>
           </div>
         </div>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="nameModal" width="470px" title="设置模版名称" :show-close="true">
-      <el-input v-model="saveName" placeholder="请输入模版名称"></el-input>
+    <el-dialog :visible.sync="nameModal" width="470px" :title="$t('router.setting.devise.setTemplateName')" :show-close="true">
+      <el-input v-model="saveName" :placeholder="$t('router.setting.devise.placeholderTemplateName')"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="nameModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="saveModal">确 定</el-button>
+        <el-button v-db-click @click="nameModal = false">{{ $t('router.setting.devise.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="saveModal">{{ $t('router.setting.devise.confirm') }}</el-button>
       </span>
     </el-dialog>
     <!--<div class="foot-box">-->
@@ -318,11 +318,11 @@ export default {
       category: [],
       tabList: [
         {
-          title: '组件库',
+          title: '',
           key: 0,
         },
         {
-          title: '页面链接',
+          title: '',
           key: 1,
         },
       ],
@@ -341,6 +341,10 @@ export default {
     };
   },
   created() {
+    this.tabList = [
+      { title: this.$t('router.setting.devise.componentLib'), key: 0 },
+      { title: this.$t('router.setting.devise.pageLinks'), key: 1 },
+    ];
     this.categoryList();
     this.pageId = this.$route.query.id;
     this.pageName = this.$route.query.name;
@@ -348,11 +352,11 @@ export default {
     this.lConfig = this.objToArr(mPage);
     let imgList = {
       imgList: [require('@/assets/images/foot-005.png'), require('@/assets/images/foot-006.png')],
-      name: '购物车',
+      name: this.$t('router.setting.devise.cart'),
       link: '/pages/order_addcart/order_addcart',
     };
     this.$nextTick(() => {
-      this.$store.commit('mobildConfig/FOOTER', { title: '是否自定义', name: imgList });
+      this.$store.commit('mobildConfig/FOOTER', { title: this.$t('router.setting.devise.isCustom'), name: imgList });
       this.arraySort();
       if (this.pageId != 0) {
         this.getDefaultConfig();
@@ -420,10 +424,10 @@ export default {
     },
     determine() {
       if (this.nameTxt.trim() == '') {
-        return this.$message.error('请输入模板名称');
+        return this.$message.error(this.$t('router.setting.devise.templateNameRequired'));
       }
       if (this.pageId == 0) {
-        this.$message.success('修改成功');
+        this.$message.success(this.$t('router.setting.devise.modifySuccess'));
         return false;
       }
       diyUpdateName(this.pageId, { name: this.nameTxt })
@@ -438,11 +442,11 @@ export default {
     },
     returnTap() {
       this.$msgbox({
-        title: '温馨提示',
-        message: '确定离开此页面？系统可能不会保存您所做的更改。',
+        title: this.$t('router.setting.devise.leaveTip'),
+        message: this.$t('router.setting.devise.leaveConfirm'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('router.setting.devise.cancel'),
+        confirmButtonText: this.$t('router.setting.devise.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -471,10 +475,10 @@ export default {
       return true;
     },
     onCopy() {
-      this.$message.success('复制成功');
+      this.$message.success(this.$t('router.setting.devise.copySuccess'));
     },
     onError() {
-      this.$message.error('复制失败');
+      this.$message.error(this.$t('router.setting.devise.copyFail'));
     },
     //设置默认数据
     setmoren() {
@@ -506,7 +510,7 @@ export default {
           // this.rConfig = obj
           obj = mConfig[i];
           obj.configName = mConfig[i].name;
-          obj.cname = '页面设置';
+          obj.cname = this.$t('router.setting.devise.pageSetting');
         }
       }
       let abc = obj;
@@ -522,7 +526,7 @@ export default {
           // this.rConfig = obj
           obj = mConfig[i];
           obj.configName = mConfig[i].name;
-          obj.cname = '底部菜单';
+          obj.cname = this.$t('router.setting.devise.bottomMenu');
         }
       }
       let abc = obj;
@@ -539,7 +543,7 @@ export default {
       // 中间拖拽排序
       if (evt.moved) {
         if (evt.moved.element.name == 'search_box') {
-          return this.$message.warning('该组件禁止拖拽');
+          return this.$message.warning(this.$t('router.setting.devise.componentNoDrag'));
         }
         // if (evt.moved.element.name == "nav_bar") {
         //     return this.$message.warning("该组件禁止拖拽");
@@ -604,7 +608,7 @@ export default {
         }
       }
       if (item.name == 'search_box' || item.name == 'nav_bar' || item.name == 'home_comb') {
-        return this.$message.warning('该组件禁止移动');
+        return this.$message.warning(this.$t('router.setting.devise.componentNoMove'));
       }
       if (type) {
         if (
@@ -612,7 +616,7 @@ export default {
           this.mConfig[index - 1].name == 'nav_bar' ||
           this.mConfig[index - 1].name == 'home_comb'
         ) {
-          return this.$message.warning('搜索框或选项卡或轮播搜索必须为顶部');
+          return this.$message.warning(this.$t('router.setting.devise.searchTabMustTop'));
         }
         this.swapArray(this.mConfig, index - 1, index);
       } else {
@@ -645,22 +649,22 @@ export default {
     // 组件添加
     addDomCon(item, type, index) {
       if (item.name == 'search_box') {
-        if (this.isSearch) return this.$message.error('该组件只能添加一次');
-        if (this.isComb) return this.$message.error('轮播搜索不能和搜索组件与选项卡组件同时存在');
+        if (this.isSearch) return this.$message.error(this.$t('router.setting.devise.componentOnce'));
+        if (this.isComb) return this.$message.error(this.$t('router.setting.devise.componentOnceComb'));
         this.isSearch = true;
       }
       if (item.name == 'nav_bar') {
-        if (this.isTab) return this.$message.error('该组件只能添加一次');
-        if (this.isComb) return this.$message.error('轮播搜索不能和搜索组件与选项卡组件同时存在');
+        if (this.isTab) return this.$message.error(this.$t('router.setting.devise.componentOnce'));
+        if (this.isComb) return this.$message.error(this.$t('router.setting.devise.componentOnceComb'));
         this.isTab = true;
       }
       if (item.name == 'home_comb') {
-        if (this.isComb) return this.$message.error('该组件只能添加一次');
-        if (this.isSearch || this.isTab) return this.$message.error('轮播搜索不能和搜索组件与选项卡组件同时存在');
+        if (this.isComb) return this.$message.error(this.$t('router.setting.devise.componentOnce'));
+        if (this.isSearch || this.isTab) return this.$message.error(this.$t('router.setting.devise.componentOnceComb'));
         this.isComb = true;
       }
       if (item.name == 'home_service') {
-        if (this.isService) return this.$message.error('该组件只能添加一次');
+        if (this.isService) return this.$message.error(this.$t('router.setting.devise.componentOnce'));
         this.isService = true;
       }
       let obj = {};
@@ -784,17 +788,17 @@ export default {
     arraySort() {
       let tempArr = [];
       let basis = {
-        title: '基础组件',
+        title: this.$t('router.setting.devise.basicComponents'),
         list: [],
         isOpen: true,
       };
       let marketing = {
-        title: '营销组件',
+        title: this.$t('router.setting.devise.marketingComponents'),
         list: [],
         isOpen: true,
       };
       let tool = {
-        title: '工具组件',
+        title: this.$t('router.setting.devise.toolComponents'),
         list: [],
         isOpen: true,
       };
@@ -828,7 +832,7 @@ export default {
         type: this.pageType || save,
         value: val,
         title: this.titleTxt,
-        name: this.nameTxt || '模板',
+        name: this.nameTxt || this.$t('router.setting.devise.template'),
         is_show: this.showTxt ? 1 : 0,
         is_bg_color: this.colorTxt ? 1 : 0,
         color_picker: this.colorPickerTxt,
@@ -857,16 +861,16 @@ export default {
         });
     },
     saveModal() {
-      if (!this.saveName) return this.$message.warning('请先输入模板名称');
+      if (!this.saveName) return this.$message.warning(this.$t('router.setting.devise.inputTemplateFirst'));
       this.saveConfig(1, this.saveName);
     },
     closeWindow() {
       this.$msgbox({
-        title: '提示',
-        message: '关闭页面前请先保存数据，未保存的话数据会丢失',
+        title: this.$t('router.setting.devise.closeTip'),
+        message: this.$t('router.setting.devise.closeConfirm'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: this.$t('router.setting.devise.cancel'),
+        confirmButtonText: this.$t('router.setting.devise.confirm'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -881,7 +885,7 @@ export default {
     // 保存配置
     saveConfig(num, type, save) {
       if (this.mConfig.length == 0) {
-        return this.$message.error('暂未添加任何组件，保存失败！');
+        return this.$message.error(this.$t('router.setting.devise.saveNoComponent'));
       }
       if (num == 1) {
         this.loading = true;
@@ -971,11 +975,11 @@ export default {
     // 重置
     reast() {
       if (this.pageId == 0) {
-        this.$message.error('新增页面，无法重置');
+        this.$message.error(this.$t('router.setting.devise.newPageNoReset'));
       } else {
-        this.$confirm('此操作将清空模板内容, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('router.setting.devise.resetConfirmClear'), this.$t('router.setting.devise.tip'), {
+          confirmButtonText: this.$t('router.setting.devise.confirm'),
+          cancelButtonText: this.$t('router.setting.devise.cancel'),
           type: 'warning',
         }).then((res) => {
           this.mConfig = [];

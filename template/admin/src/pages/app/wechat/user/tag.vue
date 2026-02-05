@@ -1,36 +1,36 @@
 <template>
   <div>
     <el-card :bordered="false" shadow="never" class="save_from ivu-mt">
-      <el-button type="primary" v-db-click @click="add">{{ '添加' + $route.meta.title }}</el-button>
+      <el-button type="primary" v-db-click @click="add">{{ $t('message.pages.app.wechatTag.add') + $route.meta.title }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.app.wechatTag.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.app.wechatTag.noFilterResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="标签名" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatTag.tagName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="人数" min-width="130">
+        <el-table-column :label="$t('message.pages.app.wechatTag.count')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.count }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.app.wechatTag.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.app.wechatTag.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除标签', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.app.wechatTag.delTagTitle'), scope.$index)">{{ $t('message.pages.app.wechatTag.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

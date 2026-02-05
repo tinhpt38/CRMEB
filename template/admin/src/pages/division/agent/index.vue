@@ -10,16 +10,16 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.division.agent.search')">
             <el-input
               clearable
-              placeholder="请输入姓名、UID"
+              :placeholder="$t('message.pages.division.agent.placeholderNameUid')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.division.agent.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -29,7 +29,7 @@
         <el-col :xs="24" :sm="24" ref="rightBox">
           <el-row>
             <el-col v-bind="grid">
-              <el-button type="primary" v-db-click @click="groupAdd('0')" class="mr20">添加代理商</el-button>
+              <el-button type="primary" v-db-click @click="groupAdd('0')" class="mr20">{{ $t('message.pages.division.agent.addAgent') }}</el-button>
             </el-col>
           </el-row>
           <el-table
@@ -38,44 +38,44 @@
             class="mt14"
             v-loading="loading"
             highlight-current-row
-            no-formValidate-text="暂无数据"
-            no-filtered-formValidate-text="暂无筛选结果"
+            :no-formValidate-text="$t('message.common.noData')"
+            :no-filtered-formValidate-text="$t('message.common.noFilterResult')"
           >
-            <el-table-column label="用户UID" width="100">
+            <el-table-column :label="$t('message.pages.division.agent.userUid')" width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="头像" min-width="90">
+            <el-table-column :label="$t('message.pages.division.agent.avatar')" min-width="90">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.avatar" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="名称" min-width="130">
+            <el-table-column :label="$t('message.pages.division.agent.name')" min-width="130">
               <template slot-scope="scope">
                 <div class="acea-row">
                   <div v-text="scope.row.division_name" class="ml10"></div>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="分销比例" min-width="130">
+            <el-table-column :label="$t('message.pages.division.agent.divisionPercent')" min-width="130">
               <template slot-scope="scope">
                 <span> {{ scope.row.division_percent }}%</span>
               </template>
             </el-table-column>
-            <el-table-column label="员工数量" min-width="130">
+            <el-table-column :label="$t('message.pages.division.agent.staffCount')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.agent_count }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="截止时间" min-width="130">
+            <el-table-column :label="$t('message.pages.division.agent.endTime')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.division_end_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="状态" min-width="130">
+            <el-table-column :label="$t('message.pages.division.agent.status')" min-width="130">
               <template slot-scope="scope">
                 <el-switch
                   :active-value="1"
@@ -88,15 +88,15 @@
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="220">
+            <el-table-column :label="$t('message.common.action')" fixed="right" width="220">
               <template slot-scope="scope">
-                <a v-db-click @click="staffAdd(scope.row.uid)">添加员工</a>
+                <a v-db-click @click="staffAdd(scope.row.uid)">{{ $t('message.pages.division.agent.addStaff') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="jump(scope.row.uid)">查看员工</a>
+                <a v-db-click @click="jump(scope.row.uid)">{{ $t('message.pages.division.agent.viewStaff') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="groupAdd(scope.row.uid)">编辑</a>
+                <a v-db-click @click="groupAdd(scope.row.uid)">{{ $t('message.pages.division.agent.edit') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除代理商', scope.$index, 2)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.pages.division.agent.delAgentTitle'), scope.$index, 2)">{{ $t('message.pages.division.agent.del') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -112,29 +112,29 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-dialog :visible.sync="staffModal" title="员工列表" class="order_box" width="1000px">
+    <el-dialog :visible.sync="staffModal" :title="$t('message.pages.division.agent.staffList')" class="order_box" width="1000px">
       <el-table
         :data="clerkLists"
         ref="table"
         class="mt20"
         v-loading="loading"
         highlight-current-row
-        no-formValidate-text="暂无数据"
-        no-filtered-formValidate-text="暂无筛选结果"
+        :no-formValidate-text="$t('message.common.noData')"
+        :no-filtered-formValidate-text="$t('message.common.noFilterResult')"
       >
-        <el-table-column label="用户UID" width="120">
+        <el-table-column :label="$t('message.pages.division.agent.userUid')" width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="头像" min-width="120">
+        <el-table-column :label="$t('message.pages.division.agent.avatar')" min-width="120">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="姓名" min-width="130">
+        <el-table-column :label="$t('message.pages.division.agent.nickname')" min-width="130">
           <template slot-scope="scope">
             <div class="acea-row">
               <i class="el-icon-male mr10" v-show="scope.row.sex === '男'" style="color: #2db7f5; font-size: 15px"></i>
@@ -147,14 +147,14 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="分销比例" min-width="130">
+        <el-table-column :label="$t('message.pages.division.agent.divisionPercent')" min-width="130">
           <template slot-scope="scope">
             <span> {{ scope.row.division_percent }}%</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="120">
+        <el-table-column :label="$t('message.common.action')" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="del(scope.row, '删除员工', scope.$index, 3)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.division.agent.delStaffTitle'), scope.$index, 3)">{{ $t('message.pages.division.agent.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

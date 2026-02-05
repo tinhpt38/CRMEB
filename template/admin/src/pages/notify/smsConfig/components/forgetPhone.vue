@@ -12,7 +12,7 @@
                 type="text"
                 v-model="formInline.account"
                 prefix="ios-contact-outline"
-                placeholder="请输入当前手机号"
+                :placeholder="$t('message.pages.notify.forgetPhone.currentPhonePlaceholder')"
                 size="large"
               />
             </el-form-item>
@@ -21,7 +21,7 @@
                 type="password"
                 v-model="formInline.password"
                 prefix="ios-lock-outline"
-                placeholder="请输入密码"
+                :placeholder="$t('message.pages.notify.forgetPhone.passwordPlaceholder')"
               />
             </el-form-item>
           </template>
@@ -31,7 +31,7 @@
                 type="text"
                 v-model="formInline.phone"
                 prefix="ios-lock-outline"
-                placeholder="请输入新手机号"
+                :placeholder="$t('message.pages.notify.forgetPhone.newPhonePlaceholder')"
                 size="large"
               />
             </el-form-item>
@@ -41,7 +41,7 @@
                   type="text"
                   v-model="formInline.verify_code"
                   prefix="ios-keypad-outline"
-                  placeholder="请输入验证码"
+                  :placeholder="$t('message.pages.notify.forgetPhone.codePlaceholder')"
                   size="large"
                 />
                 <el-button :disabled="!this.canClick" v-db-click @click="cutDown" size="large">{{ cutNUm }}</el-button>
@@ -54,7 +54,7 @@
                 type="text"
                 v-model="formInline.phone"
                 prefix="ios-contact-outline"
-                placeholder="请输入手机号"
+                :placeholder="$t('message.pages.notify.forgetPhone.phonePlaceholder')"
               />
             </el-form-item>
             <el-form-item prop="password" class="maxInpt">
@@ -62,7 +62,7 @@
                 type="password"
                 v-model="formInline.password"
                 prefix="ios-lock-outline"
-                placeholder="请输入密码"
+                :placeholder="$t('message.pages.notify.forgetPhone.passwordPlaceholder')"
               />
             </el-form-item>
           </template>
@@ -75,7 +75,7 @@
               v-db-click
               @click="handleSubmit1('formInline', current)"
               class="mb20"
-              >下一步</el-button
+              >{{ $t('message.pages.notify.forgetPhone.nextStep') }}</el-button
             >
             <el-button
               v-if="current === 1"
@@ -85,7 +85,7 @@
               v-db-click
               @click="handleSubmit2('formInline', current)"
               class="mb20"
-              >提交</el-button
+              >{{ $t('message.pages.notify.forgetPhone.submit') }}</el-button
             >
             <el-button
               v-if="current === 2"
@@ -95,9 +95,9 @@
               v-db-click
               @click="handleSubmit('formInline', current)"
               class="mb20"
-              >登录</el-button
+              >{{ $t('message.pages.notify.forgetPhone.stepLogin') }}</el-button
             >
-            <el-button long size="large" v-db-click @click="returns('formInline')" class="btn">返回 </el-button>
+            <el-button long size="large" v-db-click @click="returns('formInline')" class="btn">{{ $t('message.pages.notify.forgetPhone.back') }} </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -119,28 +119,9 @@ export default {
     },
   },
   data() {
-    const validatePhone = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('请填写手机号'));
-      } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        callback(new Error('手机号格式不正确!'));
-      } else {
-        callback();
-      }
-    };
-    var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'));
-      } else {
-        if (this.formInline.checkPass !== '') {
-          this.$refs.formInline.validateField('checkPass');
-        }
-        callback();
-      }
-    };
-
+    const self = this;
     return {
-      cutNUm: '获取验证码',
+      cutNUm: '',
       canClick: true,
       current: 0,
       formInline: {
@@ -150,13 +131,43 @@ export default {
         password: '',
       },
       ruleInline: {
-        phone: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        account: [{ required: true, validator: validatePhone, trigger: 'blur' }],
+        phone: [
+          {
+            required: true,
+            validator: (rule, value, callback) => {
+              if (!value) return callback(new Error(self.$t('message.pages.notify.forgetPhone.fillPhone')));
+              if (!/^1[3456789]\d{9}$/.test(value)) return callback(new Error(self.$t('message.pages.notify.forgetPhone.phoneFormatError')));
+              callback();
+            },
+            trigger: 'blur',
+          },
+        ],
+        verify_code: [{ required: true, message: '', trigger: 'blur' }],
+        password: [{ required: true, message: '', trigger: 'blur' }],
+        account: [
+          {
+            required: true,
+            validator: (rule, value, callback) => {
+              if (!value) return callback(new Error(self.$t('message.pages.notify.forgetPhone.fillPhone')));
+              if (!/^1[3456789]\d{9}$/.test(value)) return callback(new Error(self.$t('message.pages.notify.forgetPhone.phoneFormatError')));
+              callback();
+            },
+            trigger: 'blur',
+          },
+        ],
       },
-      stepList: ['验证账号信息', '修改手机号码', '登录'],
+      stepList: [],
     };
+  },
+  created() {
+    this.cutNUm = this.$t('message.pages.notify.forgetPhone.getCode');
+    this.ruleInline.verify_code[0].message = this.$t('message.pages.notify.forgetPhone.inputCode');
+    this.ruleInline.password[0].message = this.$t('message.pages.notify.forgetPhone.inputPassword');
+    this.stepList = [
+      this.$t('message.pages.notify.forgetPhone.stepVerify'),
+      this.$t('message.pages.notify.forgetPhone.stepModifyPhone'),
+      this.$t('message.pages.notify.forgetPhone.stepLogin'),
+    ];
   },
   methods: {
     // 短信验证码
@@ -178,13 +189,13 @@ export default {
         let time = setInterval(() => {
           this.cutNUm--;
           if (this.cutNUm === 0) {
-            this.cutNUm = '获取验证码';
+            this.cutNUm = this.$t('message.pages.notify.forgetPhone.getCode');
             this.canClick = true;
             clearInterval(time);
           }
         }, 1000);
       } else {
-        this.$message.warning('请填写手机号!');
+        this.$message.warning(this.$t('message.pages.notify.forgetPhone.fillPhoneWarn'));
       }
     },
     handleSubmit1(name) {
@@ -221,7 +232,7 @@ export default {
             password: this.formInline.password,
           })
             .then(async (res) => {
-              num === 1 ? this.$message.success('原手机号密码正确') : this.$message.success('登录成功');
+              num === 1 ? this.$message.success(this.$t('message.pages.notify.forgetPhone.oldPhoneCorrect')) : this.$message.success(this.$t('message.pages.notify.forgetPhone.loginSuccess'));
               num === 1 ? (this.current = 1) : this.$emit('on-Login');
             })
             .catch((res) => {

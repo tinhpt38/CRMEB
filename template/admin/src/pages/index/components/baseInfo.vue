@@ -9,9 +9,9 @@
         <div>
           <div class="number">{{ item.today }}</div>
           <div class="ivu-pt-8" style="height: 42px">
-            <span>昨日 {{ item.yesterday }}</span>
+            <span>{{ $t('message.pages.index.baseInfo.yesterday') }} {{ item.yesterday }}</span>
             <span class="ivu-mr">
-              日环比 {{ Number(item.today_ratio) }}%
+              {{ $t('message.pages.index.baseInfo.dayRatio') }} {{ Number(item.today_ratio) }}%
               <i
                 class="iconColor"
                 :class="[

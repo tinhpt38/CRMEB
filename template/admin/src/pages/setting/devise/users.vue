@@ -10,9 +10,9 @@
                   <img src="../../../assets/images/f.png" />
                 </div>
                 <div class="txt">
-                  <div class="name">用户名称用户名称</div>
+                  <div class="name">{{ $t('router.setting.devise.userName') }}</div>
                   <div class="phone acea-row row-center-wrapper">
-                    绑定手机号<span class="iconfont iconjinru"></span>
+                    {{ $t('router.setting.devise.bindPhone') }}<span class="iconfont iconjinru"></span>
                   </div>
                 </div>
               </div>
@@ -27,58 +27,58 @@
             <div class="center acea-row row-around">
               <div class="item">
                 <div class="num">0.00</div>
-                <div class="font">我的余额</div>
+                <div class="font">{{ $t('router.setting.devise.myBalance') }}</div>
               </div>
               <div class="item">
                 <div class="num">65749</div>
-                <div class="font">当前积分</div>
+                <div class="font">{{ $t('router.setting.devise.currentIntegral') }}</div>
               </div>
               <div class="item">
                 <div class="num">25</div>
-                <div class="font">优惠券</div>
+                <div class="font">{{ $t('router.setting.devise.coupon') }}</div>
               </div>
             </div>
             <div class="bottom acea-row row-between-wrapper" v-if="userData.status == 1">
-              <div>会员到期 2022-12-31</div>
-              <div class="renew">立即续费<span class="iconfont iconjinru"></span></div>
+              <div>{{ $t('router.setting.devise.memberExpire') }} 2022-12-31</div>
+              <div class="renew">{{ $t('router.setting.devise.renewNow') }}<span class="iconfont iconjinru"></span></div>
             </div>
             <div class="bottomB acea-row row-between" v-if="userData.status == 3">
-              <div class="vip"><img src="../../../assets/images/member01.png" />开通会员VIP</div>
-              <div>会员可享多项权益<span class="iconfont iconjinru"></span></div>
+              <div class="vip"><img src="../../../assets/images/member01.png" />{{ $t('router.setting.devise.openVip') }}</div>
+              <div>{{ $t('router.setting.devise.memberBenefits') }}<span class="iconfont iconjinru"></span></div>
             </div>
           </div>
           <div class="member acea-row row-between-wrapper" v-if="userData.status == 2">
             <div class="text">
-              <div class="title">会员可享多项权益</div>
-              <div>会员剩余360天</div>
+              <div class="title">{{ $t('router.setting.devise.memberBenefits') }}</div>
+              <div>{{ $t('router.setting.devise.memberRemainDays') }}</div>
             </div>
-            <div class="bnt">立即续费</div>
+            <div class="bnt">{{ $t('router.setting.devise.renewNow') }}</div>
           </div>
           <div class="orderCenter on dotted p-y-15" :class="current == 4 ? 'solid' : ''" v-db-click @click="currentShow(4)">
             <div class="title acea-row row-between-wrapper">
-              <div>订单中心</div>
-              <div class="all">查看全部<span class="iconfont iconjinru"></span></div>
+              <div>{{ $t('router.setting.devise.orderCenter') }}</div>
+              <div class="all">{{ $t('router.setting.devise.viewAll') }}<span class="iconfont iconjinru"></span></div>
             </div>
             <div class="list acea-row row-around">
               <div class="item">
                 <div class="iconfont" :class="order.dfk"></div>
-                <div>待付款</div>
+                <div>{{ $t('router.setting.devise.pendingPay') }}</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.dfh"></div>
-                <div>待发货</div>
+                <div>{{ $t('router.setting.devise.pendingShip') }}</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.dsh"></div>
-                <div>待收货</div>
+                <div>{{ $t('router.setting.devise.pendingReceive') }}</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.dpj"></div>
-                <div>待评价</div>
+                <div>{{ $t('router.setting.devise.pendingComment') }}</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.sh"></div>
-                <div>售后/退款</div>
+                <div>{{ $t('router.setting.devise.afterSale') }}</div>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
               </swiper-slide>
               <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
-            <div v-else class="default">暂无广告数据</div>
+            <div v-else class="default">{{ $t('router.setting.devise.noAdData') }}</div>
           </div>
           <div
             class="orderCenter service dotted"
@@ -98,7 +98,7 @@
             @click="currentShow(2)"
           >
             <div class="title acea-row row-between-wrapper" v-if="userData.my_menus_status == 1">
-              <div>我的服务</div>
+              <div>{{ $t('router.setting.devise.myService') }}</div>
             </div>
             <div class="list acea-row" v-if="userData.my_menus_status == 1">
               <div class="item" v-for="(item, index) in MyMenus" :key="index" v-if="item.pic">
@@ -106,14 +106,14 @@
                   <img :src="item.pic" v-if="item.pic && item.pic != ''" />
                   <span class="iconfont icontupian1" v-else></span>
                 </div>
-                <div>{{ item.name ? item.name : '服务名称' }}</div>
+                <div>{{ item.name ? item.name : $t('router.setting.devise.serviceName') }}</div>
               </div>
             </div>
             <div class="list-2" v-else-if="userData.my_menus_status == 2">
               <div class="acea-row row-middle item" v-for="(item, index) in MyMenus" :key="index" v-if="item.pic">
                 <img class="pictrue" :src="item.pic" v-if="item.pic && item.pic != ''" />
                 <span class="iconfont icontupian1" v-else></span>
-                <div class="name">{{ item.name ? item.name : '服务名称' }}</div>
+                <div class="name">{{ item.name ? item.name : $t('router.setting.devise.serviceName') }}</div>
                 <i class="el-icon-arrow-right"></i>
               </div>
             </div>
@@ -125,7 +125,7 @@
             @click="currentShow(3)"
           >
             <div class="title acea-row row-between-wrapper" v-if="userData.business_status == 1">
-              <div>商家管理</div>
+              <div>{{ $t('router.setting.devise.storeManage') }}</div>
             </div>
             <div class="list acea-row" v-if="userData.business_status == 1">
               <div class="item" v-for="(item, index) in storeMenu" :key="index" v-if="item.pic">
@@ -139,80 +139,80 @@
               <div class="acea-row row-middle item" v-for="(item, index) in storeMenu" :key="index" v-if="item.pic">
                 <img class="pictrue" :src="item.pic" v-if="item.pic && item.pic != ''" />
                 <span class="iconfont icontupian1" v-else></span>
-                <div class="name">{{ item.name ? item.name : '服务名称' }}</div>
+                <div class="name">{{ item.name ? item.name : $t('router.setting.devise.serviceName') }}</div>
                 <i class="el-icon-arrow-right"></i>
               </div>
             </div>
           </div>
         </div>
         <div class="right">
-          <div class="title">页面设置</div>
+          <div class="title">{{ $t('router.setting.devise.pageSetting') }}</div>
           <div class="c_row-item" v-if="current == 1">
-            <el-col class="label" :span="4"> 页面风格： </el-col>
+            <el-col class="label" :span="4"> {{ $t('router.setting.devise.pageStyle') }} </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.status">
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>{{ $t('router.setting.devise.style1') }}</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>{{ $t('router.setting.devise.style2') }}</span>
                 </el-radio>
                 <el-radio :label="3">
-                  <span>样式3</span>
+                  <span>{{ $t('router.setting.devise.style3') }}</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item" v-if="current == 4">
-            <el-col class="label" :span="4"> 订单中心： </el-col>
+            <el-col class="label" :span="4"> {{ $t('router.setting.devise.orderCenterLabel') }} </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.order_status" @input="orderStyle">
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>{{ $t('router.setting.devise.style1') }}</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>{{ $t('router.setting.devise.style2') }}</span>
                 </el-radio>
                 <el-radio :label="3">
-                  <span>样式3</span>
+                  <span>{{ $t('router.setting.devise.style3') }}</span>
                 </el-radio>
                 <el-radio :label="4">
-                  <span>样式4</span>
+                  <span>{{ $t('router.setting.devise.style4') }}</span>
                 </el-radio>
                 <el-radio :label="5">
-                  <span>样式5</span>
+                  <span>{{ $t('router.setting.devise.style5') }}</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item" v-if="current == 2">
-            <el-col class="label" :span="4"> 我的服务： </el-col>
+            <el-col class="label" :span="4"> {{ $t('router.setting.devise.myServiceLabel') }} </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.my_menus_status">
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>{{ $t('router.setting.devise.style1') }}</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>{{ $t('router.setting.devise.style2') }}</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item" v-if="current == 3">
-            <el-col class="label" :span="4"> 商家服务： </el-col>
+            <el-col class="label" :span="4"> {{ $t('router.setting.devise.storeServiceLabel') }} </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.business_status" >
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>{{ $t('router.setting.devise.style1') }}</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>{{ $t('router.setting.devise.style2') }}</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item acea-row row-top" v-if="current == 5">
-            <el-col class="label" :span="4"> 广告位： </el-col>
+            <el-col class="label" :span="4"> {{ $t('router.setting.devise.adSlot') }} </el-col>
             <el-col :span="20" class="slider-box">
               <el-switch
                 :active-value="1"
@@ -220,21 +220,21 @@
                 v-model="userData.my_banner_status"
                 style="margin-bottom: 12px"
               />
-              <div class="info">建议尺寸：375 * 65px，拖拽图片可调整图片显示顺序哦，最多添加五张</div>
+              <div class="info">{{ $t('router.setting.devise.suggestSize375') }}</div>
               <uploadPic :listData="userData.routine_my_banner" :type="5"></uploadPic>
             </el-col>
           </div>
           <div class="c_row-item acea-row row-top" v-if="current == 2">
-            <el-col class="label" :span="4"> 我的服务： </el-col>
+            <el-col class="label" :span="4"> {{ $t('router.setting.devise.myServiceLabel') }} </el-col>
             <el-col :span="20" class="slider-box">
-              <div class="info">建议尺寸：86 * 86px，拖拽图片可调整图片显示顺序哦</div>
+              <div class="info">{{ $t('router.setting.devise.suggestSize86') }}</div>
               <uploadPic :listData="MyMenus" :type="2"></uploadPic>
             </el-col>
           </div>
           <div class="c_row-item acea-row row-top" v-if="current == 3">
-            <el-col class="label" :span="4"> 商家管理： </el-col>
+            <el-col class="label" :span="4"> {{ $t('router.setting.devise.storeManageLabel') }} </el-col>
             <el-col :span="20" class="slider-box">
-              <div class="info">建议尺寸：86 * 86px，拖拽图片可调整图片显示顺序哦，最多添加五张</div>
+              <div class="info">{{ $t('router.setting.devise.suggestSize86Five') }}</div>
               <uploadPic :listData="storeMenu" :type="1"></uploadPic>
             </el-col>
           </div>

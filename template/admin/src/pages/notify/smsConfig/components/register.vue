@@ -3,7 +3,7 @@
     <el-col :span="24">
       <div class="index_from page-account-container">
         <div class="page-account-top">
-          <span class="page-account-top-tit">一号通账户注册</span>
+          <span class="page-account-top-tit">{{ $t('message.pages.notify.register.title') }}</span>
         </div>
         <el-form ref="formInline" :model="formInline" :rules="ruleInline" @submit.native.prevent>
           <!--<el-form-item prop="account">-->
@@ -15,7 +15,7 @@
               type="number"
               v-model="formInline.phone"
               prefix="ios-contact-outline"
-              placeholder="请输入您的手机号"
+              :placeholder="$t('message.pages.notify.register.phonePlaceholder')"
             />
           </el-form-item>
           <el-form-item prop="password" class="maxInpt">
@@ -23,7 +23,7 @@
               type="password"
               v-model="formInline.password"
               prefix="ios-lock-outline"
-              placeholder="请输入密码"
+              :placeholder="$t('message.pages.notify.register.passwordPlaceholder')"
             />
           </el-form-item>
           <!--<el-form-item prop="password">-->
@@ -43,19 +43,19 @@
                 type="text"
                 v-model="formInline.verify_code"
                 prefix="ios-keypad-outline"
-                placeholder="请输入验证码"
+                :placeholder="$t('message.pages.notify.register.codePlaceholder')"
               />
               <el-button :disabled="!canClick" v-db-click @click="cutDown">{{ cutNUm }}</el-button>
             </div>
           </el-form-item>
           <el-form-item class="maxInpt">
             <el-button type="primary" long size="large" v-db-click @click="handleSubmit('formInline')" class="btn"
-              >注册</el-button
+              >{{ $t('message.pages.notify.register.register') }}</el-button
             >
           </el-form-item>
         </el-form>
         <div class="page-account-other">
-          <span v-db-click @click="changelogo">立即登录</span>
+          <span v-db-click @click="changelogo">{{ $t('message.pages.notify.register.loginNow') }}</span>
         </div>
       </div>
     </el-col>
@@ -67,17 +67,9 @@ import { captchaApi, registerApi } from '@/api/setting';
 export default {
   name: 'register',
   data() {
-    const validatePhone = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('请填写手机号'));
-      } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        callback(new Error('手机号格式不正确!'));
-      } else {
-        callback();
-      }
-    };
+    const self = this;
     return {
-      cutNUm: '获取验证码',
+      cutNUm: '',
       canClick: true,
       formInline: {
         url: '',
@@ -86,14 +78,30 @@ export default {
         phone: '',
       },
       ruleInline: {
-        account: [{ required: true, message: '请输入短信平台账号', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        // url: [{ required: true, message: '请输入网址域名', trigger: 'blur' }],
-        phone: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        sign: [{ required: true, message: '请输入短信签名', trigger: 'blur' }],
-        verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+        account: [{ required: true, message: '', trigger: 'blur' }],
+        password: [{ required: true, message: '', trigger: 'blur' }],
+        phone: [
+          {
+            required: true,
+            validator: (rule, value, callback) => {
+              if (!value) return callback(new Error(self.$t('message.pages.notify.register.fillPhone')));
+              if (!/^1[3456789]\d{9}$/.test(value)) return callback(new Error(self.$t('message.pages.notify.register.phoneFormatError')));
+              callback();
+            },
+            trigger: 'blur',
+          },
+        ],
+        sign: [{ required: true, message: '', trigger: 'blur' }],
+        verify_code: [{ required: true, message: '', trigger: 'blur' }],
       },
     };
+  },
+  created() {
+    this.cutNUm = this.$t('message.pages.notify.register.getCode');
+    this.ruleInline.account[0].message = this.$t('message.pages.notify.register.inputSmsAccount');
+    this.ruleInline.password[0].message = this.$t('message.pages.notify.register.inputPassword');
+    this.ruleInline.sign[0].message = this.$t('message.pages.notify.register.inputSign');
+    this.ruleInline.verify_code[0].message = this.$t('message.pages.notify.register.inputCode');
   },
   methods: {
     // 短信验证码
@@ -115,13 +123,13 @@ export default {
         let time = setInterval(() => {
           this.cutNUm--;
           if (this.cutNUm === 0) {
-            this.cutNUm = '获取验证码';
+            this.cutNUm = this.$t('message.pages.notify.register.getCode');
             this.canClick = true;
             clearInterval(time);
           }
         }, 1000);
       } else {
-        this.$message.warning('请填写手机号!');
+        this.$message.warning(this.$t('message.pages.notify.register.fillPhone') + '!');
       }
     },
     // 注册

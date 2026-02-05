@@ -10,18 +10,18 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.setting.multiLanguage.country.search')">
             <div class="acea-row row-middle">
               <el-input
                 clearable
-                placeholder="请输入语言Code"
+                :placeholder="$t('message.pages.setting.multiLanguage.country.placeholderCode')"
                 v-model="formValidate.keyword"
                 class="form_content_width"
               />
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">搜索</el-button>
+            <el-button type="primary" v-db-click @click="selChange">{{ $t('message.pages.setting.multiLanguage.country.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -29,35 +29,35 @@
     <el-card :bordered="false" shadow="never">
       <el-row>
         <el-col v-bind="grid">
-          <el-button type="primary" v-db-click @click="add">添加语言地区</el-button>
+          <el-button type="primary" v-db-click @click="add">{{ $t('message.pages.setting.multiLanguage.country.addRegion') }}</el-button>
         </el-col>
       </el-row>
-      <el-table ref="table" :data="tabList" class="ivu-mt mt14" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="编号" min-width="100">
+      <el-table ref="table" :data="tabList" class="ivu-mt mt14" v-loading="loading" :empty-text="$t('message.pages.setting.multiLanguage.country.noData')">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.country.id')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="浏览器语言识别码" min-width="100">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.country.browserCode')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="语言说明" min-width="100">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.country.langDesc')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联语言" min-width="100">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.country.linkLang')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.link_lang }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.country.action')" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.setting.multiLanguage.country.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除地区语言', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.setting.multiLanguage.country.delRegionTitle'), scope.$index)">{{ $t('message.pages.setting.multiLanguage.country.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

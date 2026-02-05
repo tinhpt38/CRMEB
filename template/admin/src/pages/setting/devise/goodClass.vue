@@ -26,15 +26,16 @@ export default {
   props: {},
   data() {
     return {
-      classList: [
-        { image: require('@/assets/images/sort01.jpg'), name: '样式1' },
-        { image: require('@/assets/images/sort02.jpg'), name: '样式2' },
-        { image: require('@/assets/images/sort03.png'), name: '样式3' },
-      ],
+      classList: [],
       activeStyle: '-1',
     };
   },
   created() {
+    this.classList = [
+      { image: require('@/assets/images/sort01.jpg'), name: this.$t('router.setting.devise.style1') },
+      { image: require('@/assets/images/sort02.jpg'), name: this.$t('router.setting.devise.style2') },
+      { image: require('@/assets/images/sort03.png'), name: this.$t('router.setting.devise.style3') },
+    ];
     this.getInfo();
   },
   methods: {

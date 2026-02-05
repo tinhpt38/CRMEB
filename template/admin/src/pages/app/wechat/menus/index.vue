@@ -30,11 +30,11 @@
                         v-db-click
                         @click="gettem(j, index, indx)"
                       >
-                        {{ j.name || '二级菜单' }}
+                        {{ j.name || $t('message.pages.app.wechatMenus.subMenu') }}
                       </div>
                     </div>
                   </div>
-                  <div class="text" v-db-click @click="gettem(item, indx, null)">{{ item.name || '一级菜单' }}</div>
+                  <div class="text" v-db-click @click="gettem(item, indx, null)">{{ item.name || $t('message.pages.app.wechatMenus.firstMenu') }}</div>
                 </div>
                 <div class="li" v-show="list.length < 3">
                   <div class="text" v-db-click @click="addtext"><i class="el-icon-plus"></i></div>
@@ -43,10 +43,10 @@
             </el-col>
             <el-col :xl="11" :lg="12" :md="22" :sm="22" :xs="22">
               <el-tabs value="name1" v-if="checkedMenuId !== null">
-                <el-tab-pane label="菜单信息" name="name1">
+                <el-tab-pane :label="$t('message.pages.app.wechatMenus.menuInfo')" name="name1">
                   <el-col :span="24" class="userAlert">
                     <div class="box-card right">
-                      <el-alert type="info" show-icon closable title="已添加子菜单，仅可设置菜单名称"></el-alert>
+                      <el-alert type="info" show-icon closable :title="$t('message.pages.app.wechatMenus.hasSubMenuTip')"></el-alert>
                       <el-form
                         ref="formValidate"
                         :model="formValidate"
@@ -54,45 +54,45 @@
                         label-width="100px"
                         class="mt20"
                       >
-                        <el-form-item label="菜单名称" prop="name">
-                          <el-input v-model="formValidate.name" placeholder="请填写菜单名称" class="spwidth"></el-input>
+                        <el-form-item :label="$t('message.pages.app.wechatMenus.menuName')" prop="name">
+                          <el-input v-model="formValidate.name" :placeholder="$t('message.pages.app.wechatMenus.menuNamePlaceholder')" class="spwidth"></el-input>
                         </el-form-item>
-                        <el-form-item label="规则状态" prop="type">
-                          <el-select v-model="formValidate.type" placeholder="请选择规则状态" class="spwidth">
-                            <el-option value="click" label="关键字"></el-option>
-                            <el-option value="view" label="跳转网页"></el-option>
-                            <el-option value="miniprogram" label="小程序"></el-option>
+                        <el-form-item :label="$t('message.pages.app.wechatMenus.ruleStatus')" prop="type">
+                          <el-select v-model="formValidate.type" :placeholder="$t('message.pages.app.wechatMenus.ruleStatusPlaceholder')" class="spwidth">
+                            <el-option value="click" :label="$t('message.pages.app.wechatMenus.keyword')"></el-option>
+                            <el-option value="view" :label="$t('message.pages.app.wechatMenus.jumpWeb')"></el-option>
+                            <el-option value="miniprogram" :label="$t('message.pages.app.wechatMenus.miniProgram')"></el-option>
                           </el-select>
                         </el-form-item>
                         <div v-if="formValidate.type === 'click'">
-                          <el-form-item label="关键字" prop="key">
-                            <el-input v-model="formValidate.key" placeholder="请填写关键字" class="spwidth"></el-input>
+                          <el-form-item :label="$t('message.pages.app.wechatMenus.keyword')" prop="key">
+                            <el-input v-model="formValidate.key" :placeholder="$t('message.pages.app.wechatMenus.keywordPlaceholder')" class="spwidth"></el-input>
                           </el-form-item>
                         </div>
                         <div v-if="formValidate.type === 'miniprogram'">
                           <el-form-item label="appid" prop="appid">
-                            <el-input v-model="formValidate.appid" placeholder="请填写appid" class="spwidth"></el-input>
+                            <el-input v-model="formValidate.appid" :placeholder="$t('message.pages.app.wechatMenus.appidPlaceholder')" class="spwidth"></el-input>
                           </el-form-item>
-                          <el-form-item label="小程序路径" prop="pagepath">
+                          <el-form-item :label="$t('message.pages.app.wechatMenus.miniProgramPath')" prop="pagepath">
                             <el-input
                               v-model="formValidate.pagepath"
-                              placeholder="请填写小程序路径"
+                              :placeholder="$t('message.pages.app.wechatMenus.miniProgramPathPlaceholder')"
                               class="spwidth"
                             ></el-input>
                           </el-form-item>
-                          <el-form-item label="备用网页" prop="url">
+                          <el-form-item :label="$t('message.pages.app.wechatMenus.backupWeb')" prop="url">
                             <el-input
                               v-model="formValidate.url"
-                              placeholder="请填写备用网页"
+                              :placeholder="$t('message.pages.app.wechatMenus.backupWebPlaceholder')"
                               class="spwidth"
                             ></el-input>
                           </el-form-item>
                         </div>
                         <div v-if="formValidate.type === 'view'">
-                          <el-form-item label="跳转地址" prop="url">
+                          <el-form-item :label="$t('message.pages.app.wechatMenus.jumpUrl')" prop="url">
                             <el-input
                               v-model="formValidate.url"
-                              placeholder="请填写跳转地址"
+                              :placeholder="$t('message.pages.app.wechatMenus.jumpUrlPlaceholder')"
                               class="spwidth"
                             ></el-input>
                           </el-form-item>
@@ -103,8 +103,8 @@
                 </el-tab-pane>
               </el-tabs>
               <el-col :span="24" v-if="isTrue">
-                <el-button size="small" type="danger" v-db-click @click="deltMenus">删除</el-button>
-                <el-button type="primary" v-db-click @click="submenus('formValidate')">保存并发布</el-button>
+                <el-button size="small" type="danger" v-db-click @click="deltMenus">{{ $t('message.pages.app.wechatMenus.del') }}</el-button>
+                <el-button type="primary" v-db-click @click="submenus('formValidate')">{{ $t('message.pages.app.wechatMenus.saveAndPublish') }}</el-button>
               </el-col>
             </el-col>
           </el-col>

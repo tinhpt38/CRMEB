@@ -10,16 +10,16 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.division.list.search')">
             <el-input
               clearable
-              placeholder="请输入姓名、UID"
+              :placeholder="$t('message.pages.division.list.placeholderNameUid')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.division.list.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -27,16 +27,12 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-row class="ivu-mt box-wrapper">
         <el-col :xs="24" :sm="24" ref="rightBox">
-          <el-button type="primary" v-db-click @click="groupAdd('0')">添加事业部</el-button>
+          <el-button type="primary" v-db-click @click="groupAdd('0')">{{ $t('message.pages.division.list.addDivision') }}</el-button>
           <el-tooltip placement="right-start">
             <i class="el-icon-question ml10"></i>
             <div slot="content">
-              <div>
-                事业部层级说明：事业部-代理商-员工。事业部相当于总代理或者区域代理，设置成为事业部之后，关联的用户会清除上级推广人
-              </div>
-              <div>
-                添加时候的管理员身份需要在，设置-管理权限-角色管理中设置对应的角色，事业部可以使用添加时设置的管理员账号密码登录后台
-              </div>
+              <div>{{ $t('message.pages.division.list.divisionLevelTip1') }}</div>
+              <div>{{ $t('message.pages.division.list.divisionLevelTip2') }}</div>
             </div>
           </el-tooltip>
           <el-table
@@ -45,49 +41,49 @@
             class="mt14"
             v-loading="loading"
             highlight-current-row
-            no-formValidate-text="暂无数据"
-            no-filtered-formValidate-text="暂无筛选结果"
+            :no-formValidate-text="$t('message.common.noData')"
+            :no-filtered-formValidate-text="$t('message.common.noFilterResult')"
           >
-            <el-table-column label="用户UID" width="100">
+            <el-table-column :label="$t('message.pages.division.list.userUid')" width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="头像" min-width="90">
+            <el-table-column :label="$t('message.pages.division.list.avatar')" min-width="90">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.avatar" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="名称" min-width="130">
+            <el-table-column :label="$t('message.pages.division.list.name')" min-width="130">
               <template slot-scope="scope">
                 <div class="acea-row">
                   <div v-text="scope.row.division_name" class="ml10"></div>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="邀请码" min-width="130">
+            <el-table-column :label="$t('message.pages.division.list.inviteCode')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.division_invite }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="分销比例" min-width="130">
+            <el-table-column :label="$t('message.pages.division.list.divisionPercent')" min-width="130">
               <template slot-scope="scope">
                 <span> {{ scope.row.division_percent }}%</span>
               </template>
             </el-table-column>
-            <el-table-column label="代理商数量" min-width="130">
+            <el-table-column :label="$t('message.pages.division.list.agentCount')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.agent_count }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="截止时间" min-width="130">
+            <el-table-column :label="$t('message.pages.division.list.endTime')" min-width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.division_end_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="状态" min-width="130">
+            <el-table-column :label="$t('message.pages.division.list.status')" min-width="130">
               <template slot-scope="scope">
                 <el-switch
                   :active-value="1"
@@ -100,13 +96,13 @@
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="170">
+            <el-table-column :label="$t('message.common.action')" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-db-click @click="jump(scope.row.uid)">查看代理商</a>
+                <a v-db-click @click="jump(scope.row.uid)">{{ $t('message.pages.division.list.viewAgent') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="groupAdd(scope.row.uid)">编辑</a>
+                <a v-db-click @click="groupAdd(scope.row.uid)">{{ $t('message.pages.division.list.edit') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除事业部', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.pages.division.list.delDivisionTitle'), scope.$index)">{{ $t('message.pages.division.list.del') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -122,46 +118,46 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-dialog :visible.sync="staffModal" title="代理商列表" class="order_box" width="1000px">
+    <el-dialog :visible.sync="staffModal" :title="$t('message.pages.division.list.agentList')" class="order_box" width="1000px">
       <el-table
         :data="clerkLists"
         ref="table"
         class="mt20"
         v-loading="loading"
         highlight-current-row
-        no-formValidate-text="暂无数据"
-        no-filtered-formValidate-text="暂无筛选结果"
+        :no-formValidate-text="$t('message.common.noData')"
+        :no-filtered-formValidate-text="$t('message.common.noFilterResult')"
       >
-        <el-table-column label="用户UID" width="80">
+        <el-table-column :label="$t('message.pages.division.list.userUid')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="头像" min-width="90">
+        <el-table-column :label="$t('message.pages.division.list.avatar')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="名称" min-width="130">
+        <el-table-column :label="$t('message.pages.division.list.name')" min-width="130">
           <template slot-scope="scope">
             <div class="acea-row">
               <div v-text="scope.row.division_name" class="ml10"></div>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="分销比例" min-width="130">
+        <el-table-column :label="$t('message.pages.division.list.divisionPercent')" min-width="130">
           <template slot-scope="scope">
             <span> {{ scope.row.division_percent }}%</span>
           </template>
         </el-table-column>
-        <el-table-column label="到期时间" min-width="130">
+        <el-table-column :label="$t('message.pages.division.list.expireTime')" min-width="130">
           <template slot-scope="scope">
             <span> {{ scope.row.division_end_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="员工数量" min-width="130">
+        <el-table-column :label="$t('message.pages.division.agent.staffCount')" min-width="130">
           <template slot-scope="scope">
             <span> {{ scope.row.agent_count }}</span>
           </template>

@@ -3,7 +3,7 @@
     <div class="i-layout-page-header header_top">
       <div class="i-layout-page-header fl_header">
         <router-link :to="{ path: $routeProStr + '/setting/sms/sms_config/index' }"
-          ><el-button size="small" type="text">返回</el-button></router-link
+          ><el-button size="small" type="text">{{ $t('message.pages.notify.smsTemplateApply.back') }}</el-button></router-link
         >
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title mr20" style="padding: 0">{{ $route.meta.title }}</span>
@@ -41,15 +41,15 @@
           <!--                        </el-form-item>-->
           <!--                    </el-col>-->
           <el-col :span="24">
-            <el-button type="primary" v-db-click @click="add">申请模板</el-button>
+            <el-button type="primary" v-db-click @click="add">{{ $t('message.pages.notify.smsTemplateApply.applyTemplate') }}</el-button>
           </el-col>
         </el-row>
         <el-row :gutter="24" v-else>
           <el-col v-bind="grid">
-            <el-form-item label="是否拥有：">
-              <el-select v-model="levelFrom.is_have" placeholder="请选择" clearable @change="userSearchs">
-                <el-option value="1" label="有"></el-option>
-                <el-option value="0" label="没有"></el-option>
+            <el-form-item :label="$t('message.pages.notify.smsTemplateApply.isHaveLabel')">
+              <el-select v-model="levelFrom.is_have" :placeholder="$t('message.pages.notify.smsTemplateApply.pleaseSelect')" clearable @change="userSearchs">
+                <el-option value="1" :label="$t('message.pages.notify.smsTemplateApply.have')"></el-option>
+                <el-option value="0" :label="$t('message.pages.notify.smsTemplateApply.noHave')"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -60,8 +60,8 @@
         ref="table"
         class="mt14"
         v-loading="loading"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.pages.notify.smsTemplateApply.noData')"
+        :no-filtered-userFrom-text="$t('message.pages.notify.smsTemplateApply.noFilterResult')"
       >
         <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns" :key="index">
           <template slot-scope="scope">
@@ -71,16 +71,16 @@
               </div>
             </template>
             <template v-else-if="item.slot === 'status'">
-              <span v-show="scope.row.status === 1">可用</span>
-              <span v-show="scope.row.status === 0">不可用</span>
+              <span v-show="scope.row.status === 1">{{ $t('message.pages.notify.smsTemplateApply.available') }}</span>
+              <span v-show="scope.row.status === 0">{{ $t('message.pages.notify.smsTemplateApply.unavailable') }}</span>
             </template>
             <template
               v-else-if="
                 item.slot === 'is_have' && $route.path === $routeProStr + '/setting/sms/sms_template_apply/commons'
               "
             >
-              <span v-show="scope.row.status === 1">有</span>
-              <span v-show="scope.row.status === 0">没有</span>
+              <span v-show="scope.row.status === 1">{{ $t('message.pages.notify.smsTemplateApply.have') }}</span>
+              <span v-show="scope.row.status === 0">{{ $t('message.pages.notify.smsTemplateApply.noHave') }}</span>
             </template>
           </template>
         </el-table-column>
@@ -168,7 +168,7 @@ export default {
         .then(async (res) => {
           let data = res.data;
           if (!data.status) {
-            this.$message.warning('请先登录');
+            this.$message.warning(this.$t('message.pages.notify.smsTemplateApply.pleaseLoginFirst'));
             this.$router.push(this.$routeProStr + '/setting/sms/sms_config/index?url=' + this.$route.path);
           } else {
             this.getList();
@@ -195,33 +195,33 @@ export default {
       };
       let columns1 = [
         {
-          title: 'ID',
+          title: this.$t('message.pages.notify.smsTemplateApply.colId'),
           key: 'id',
           sortable: true,
           minWidth: 80,
         },
         {
-          title: '模板ID',
+          title: this.$t('message.pages.notify.smsTemplateApply.colTemplateId'),
           key: 'templateid',
           minWidth: 110,
         },
         {
-          title: '模板名称',
+          title: this.$t('message.pages.notify.smsTemplateApply.colTemplateName'),
           key: 'title',
           minWidth: 150,
         },
         {
-          title: '模板内容',
+          title: this.$t('message.pages.notify.smsTemplateApply.colTemplateContent'),
           key: 'content',
           minWidth: 550,
         },
         {
-          title: '模板类型',
+          title: this.$t('message.pages.notify.smsTemplateApply.colTemplateType'),
           key: 'type',
           minWidth: 100,
         },
         {
-          title: '模板状态',
+          title: this.$t('message.pages.notify.smsTemplateApply.colTemplateStatus'),
           slot: 'status',
           minWidth: 100,
         },
@@ -231,7 +231,7 @@ export default {
           .slice(0, 6)
           .concat([
             {
-              title: '是否拥有',
+              title: this.$t('message.pages.notify.smsTemplateApply.colIsHave'),
               slot: 'is_have',
               minWidth: 110,
             },

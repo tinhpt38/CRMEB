@@ -3,7 +3,7 @@
     <div class="i-layout-page-header header_top">
       <div class="i-layout-page-header fl_header">
         <router-link :to="{ path: $routeProStr + '/setting/sms/sms_config/index' }"
-          ><el-button size="small" type="text">返回</el-button></router-link
+          ><el-button size="small" type="text">{{ $t('message.pages.notify.smsPay.back') }}</el-button></router-link
         >
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title mr20" style="padding: 0">{{ $route.meta.title }}</span>
@@ -11,15 +11,15 @@
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-tabs v-model="isChecked" @tab-click="onChangeType">
-        <el-tab-pane label="短信" name="sms"></el-tab-pane>
-        <el-tab-pane label="商品采集" name="copy"></el-tab-pane>
-        <el-tab-pane label="物流查询" name="expr_query"></el-tab-pane>
-        <el-tab-pane label="电子面单打印" name="expr_dump"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsPay.sms')" name="sms"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsPay.copy')" name="copy"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsPay.exprQuery')" name="expr_query"></el-tab-pane>
+        <el-tab-pane :label="$t('message.pages.notify.smsPay.exprDump')" name="expr_dump"></el-tab-pane>
       </el-tabs>
       <el-row :gutter="16" class="mt50">
         <el-col :span="24" class="ivu-text-left mb20">
           <el-col :xs="12" :sm="6" :md="4" :lg="2" class="mr20">
-            <span class="ivu-text-right ivu-block">当前剩余条数：</span>
+            <span class="ivu-text-right ivu-block">{{ $t('message.pages.notify.smsPay.currentRemaining') }}</span>
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
             <span>{{ numbers }}</span>
@@ -27,7 +27,7 @@
         </el-col>
         <el-col :span="24" class="ivu-text-left mb20">
           <el-col :xs="12" :sm="6" :md="4" :lg="2" class="mr20">
-            <span class="ivu-text-right ivu-block">选择套餐：</span>
+            <span class="ivu-text-right ivu-block">{{ $t('message.pages.notify.smsPay.selectPackage') }}</span>
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
             <el-row :gutter="20">
@@ -42,7 +42,7 @@
                     ¥ <i>{{ item.price }}</i>
                   </div>
                   <div class="list-goods-list-item-price" :class="{ active: index === current }">
-                    <span>{{ all[isChecked] }}条数: {{ item.num }}</span>
+                    <span>{{ $t('message.pages.notify.smsPay.' + (isChecked === 'expr_query' ? 'exprQuery' : isChecked === 'expr_dump' ? 'exprDump' : isChecked)) }} {{ $t('message.pages.notify.smsPay.countLabel') }}: {{ item.num }}</span>
                   </div>
                 </div>
               </el-col>
@@ -51,7 +51,7 @@
         </el-col>
         <el-col :span="24" class="ivu-text-left mb20" v-if="checkList">
           <el-col :xs="12" :sm="6" :md="4" :lg="2" class="mr20">
-            <span class="ivu-text-right ivu-block">充值条数：</span>
+            <span class="ivu-text-right ivu-block">{{ $t('message.pages.notify.smsPay.rechargeCount') }}</span>
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
             <span>{{ checkList.num }}</span>
@@ -59,7 +59,7 @@
         </el-col>
         <el-col :span="24" class="ivu-text-left mb20" v-if="checkList">
           <el-col :xs="12" :sm="6" :md="4" :lg="2" class="mr20">
-            <span class="ivu-text-right ivu-block">支付金额：</span>
+            <span class="ivu-text-right ivu-block">{{ $t('message.pages.notify.smsPay.payAmount') }}</span>
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
             <span class="list-goods-list-item-number">￥{{ checkList.price }}</span>
@@ -67,11 +67,11 @@
         </el-col>
         <el-col :span="24" class="ivu-text-left mb20">
           <el-col :xs="12" :sm="6" :md="4" :lg="2" class="mr20">
-            <span class="ivu-text-right ivu-block">付款方式：</span>
+            <span class="ivu-text-right ivu-block">{{ $t('message.pages.notify.smsPay.payMethod') }}</span>
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
             <span class="list-goods-list-item-pay"
-              >微信支付<i v-if="code.invalid">{{ '  （ 支付码过期时间：' + code.invalid + ' ）' }}</i></span
+              >{{ $t('message.pages.notify.smsPay.wechatPay') }}<i v-if="code.invalid">{{ '  （ ' + $t('message.pages.notify.smsPay.codeExpire') + code.invalid + ' ）' }}</i></span
             >
           </el-col>
         </el-col>
@@ -92,7 +92,7 @@ export default {
   name: 'smsPay',
   data() {
     return {
-      all: { sms: '短信', copy: '商品采集', expr_query: '物流查询', expr_dump: '电子面单打印' },
+      all: { sms: '', copy: '', expr_query: '', expr_dump: '' },
       isChecked: 'sms',
       numbers: '',
       account: '',

@@ -19,7 +19,7 @@
               type="text"
               v-model="formInline.username"
               prefix="ios-contact-outline"
-              placeholder="请输入用户名"
+              :placeholder="$t('message.pages.account.login.usernamePlaceholder')"
               size="large"
             />
           </el-form-item>
@@ -28,7 +28,7 @@
               type="password"
               v-model="formInline.password"
               prefix="ios-lock-outline"
-              placeholder="请输入密码"
+              :placeholder="$t('message.pages.account.login.passwordPlaceholder')"
               size="large"
               show-password
             />
@@ -53,7 +53,7 @@
               v-db-click
               @click="handleSubmit('formInline')"
               class="btn"
-              >登录</el-button
+              >{{ $t('message.pages.account.login.submit') }}</el-button
             >
           </el-form-item>
         </el-form>

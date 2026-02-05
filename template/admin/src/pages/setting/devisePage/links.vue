@@ -2,9 +2,9 @@
   <div class="right-box">
     <div class="link-item" v-for="(item, index) in list" :key="index">
       <div class="title">{{ item.name }}</div>
-      <div class="txt"><span>地址：</span>{{ item.url }}</div>
+      <div class="txt"><span>{{ $t('message.pages.setting.devisePage.links.address') }}</span>{{ item.url }}</div>
       <div class="txt" v-if="item.parameter">
-        <p><span>参数：</span></p>
+        <p><span>{{ $t('message.pages.setting.devisePage.links.params') }}</span></p>
         <span>{{ item.parameter }}</span>
         <!--<span v-for="(val, key, index) in item.parameter">{{key+"="+val}}<i style="font-style: normal">&</i></span>-->
       </div>
@@ -13,7 +13,7 @@
         <!--<el-button size="small" style="margin-left: 10px" v-clipboard:copy="item.example"-->
         <!--v-clipboard:success="onCopy"-->
         <!--v-clipboard:error="onError">复制</el-button>-->
-        <span class="copy copy-data" v-db-click @click="onCopy(item.example)">复制</span>
+        <span class="copy copy-data" v-db-click @click="onCopy(item.example)">{{ $t('message.pages.setting.devisePage.links.copy') }}</span>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@ export default {
     this.$nextTick(function () {
       this.clipboard = new ClipboardJS('.copy-data');
       this.clipboard.on('success', () => {
-        this.$message.success('复制成功');
+        this.$message.success(this.$t('message.pages.setting.devisePage.links.copySuccess'));
       });
     });
   },
@@ -64,10 +64,10 @@ export default {
     onCopy(copyData) {
       this.$copyText(copyData)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success(this.$t('message.pages.setting.devisePage.links.copySuccess'));
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('message.pages.setting.devisePage.links.copyFail'));
         });
     },
     // onError () {

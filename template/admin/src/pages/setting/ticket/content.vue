@@ -1,62 +1,62 @@
 <template>
   <div>
-    <pages-header ref="pageHeader" title="小票配置" :backUrl="$routeProStr + '/setting/ticket'"></pages-header>
+    <pages-header ref="pageHeader" :title="$t('message.pages.setting.ticket.content.pageTitle')" :backUrl="$routeProStr + '/setting/ticket'"></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
       <div class="flex justify-between warpper">
         <el-form :model="formItem" label-width="120px">
-          <el-form-item label="小票头部：">
-            <el-checkbox v-model="formItem.header" :true-label="1" :false-label="0">商家名称</el-checkbox>
+          <el-form-item :label="$t('message.pages.setting.ticket.content.ticketHeader')">
+            <el-checkbox v-model="formItem.header" :true-label="1" :false-label="0">{{ $t('message.pages.setting.ticket.content.merchantName') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="配送信息：">
-            <el-checkbox v-model="formItem.delivery" :true-label="1" :false-label="0">配送信息</el-checkbox>
+          <el-form-item :label="$t('message.pages.setting.ticket.content.deliveryInfo')">
+            <el-checkbox v-model="formItem.delivery" :true-label="1" :false-label="0">{{ $t('message.pages.setting.ticket.content.deliveryInfoLabel') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="买家备注：">
-            <el-checkbox v-model="formItem.buyer_remarks" :true-label="1" :false-label="0">买家备注</el-checkbox>
+          <el-form-item :label="$t('message.pages.setting.ticket.content.buyerRemarks')">
+            <el-checkbox v-model="formItem.buyer_remarks" :true-label="1" :false-label="0">{{ $t('message.pages.setting.ticket.content.buyerRemarksLabel') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="商品信息：">
+          <el-form-item :label="$t('message.pages.setting.ticket.content.goodsInfo')">
             <el-checkbox-group v-model="formItem.goods">
-              <el-checkbox :label="0">商品基础信息</el-checkbox>
-              <el-checkbox :label="1">规格编码</el-checkbox>
+              <el-checkbox :label="0">{{ $t('message.pages.setting.ticket.content.goodsBasic') }}</el-checkbox>
+              <el-checkbox :label="1">{{ $t('message.pages.setting.ticket.content.specCode') }}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="运费信息：">
-            <el-checkbox v-model="formItem.freight" :true-label="1" :false-label="0">运费</el-checkbox>
+          <el-form-item :label="$t('message.pages.setting.ticket.content.freightInfo')">
+            <el-checkbox v-model="formItem.freight" :true-label="1" :false-label="0">{{ $t('message.pages.setting.ticket.content.freight') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="优惠信息：">
-            <el-checkbox v-model="formItem.preferential" :true-label="1" :false-label="0">优惠总计</el-checkbox>
+          <el-form-item :label="$t('message.pages.setting.ticket.content.preferentialInfo')">
+            <el-checkbox v-model="formItem.preferential" :true-label="1" :false-label="0">{{ $t('message.pages.setting.ticket.content.preferentialTotal') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="支付信息：">
+          <el-form-item :label="$t('message.pages.setting.ticket.content.payInfo')">
             <el-checkbox-group v-model="formItem.pay">
-              <el-checkbox :label="0">支付方式</el-checkbox>
-              <el-checkbox :label="1">实收金额</el-checkbox>
+              <el-checkbox :label="0">{{ $t('message.pages.setting.ticket.content.payMethod') }}</el-checkbox>
+              <el-checkbox :label="1">{{ $t('message.pages.setting.ticket.content.actualAmount') }}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="其他订单信息：">
+          <el-form-item :label="$t('message.pages.setting.ticket.content.otherOrderInfo')">
             <el-checkbox-group v-model="formItem.order">
-              <el-checkbox :label="0">订单编号</el-checkbox>
-              <el-checkbox :label="1">下单时间</el-checkbox>
-              <el-checkbox :label="2">支付时间</el-checkbox>
-              <el-checkbox :label="3">打印时间</el-checkbox>
+              <el-checkbox :label="0">{{ $t('message.pages.setting.ticket.content.orderNo') }}</el-checkbox>
+              <el-checkbox :label="1">{{ $t('message.pages.setting.ticket.content.orderTime') }}</el-checkbox>
+              <el-checkbox :label="2">{{ $t('message.pages.setting.ticket.content.payTime') }}</el-checkbox>
+              <el-checkbox :label="3">{{ $t('message.pages.setting.ticket.content.printTime') }}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="推广二维码：">
-            <el-checkbox v-model="formItem.code" :true-label="1" :false-label="0">选择系统链接</el-checkbox>
+          <el-form-item :label="$t('message.pages.setting.ticket.content.promoQrcode')">
+            <el-checkbox v-model="formItem.code" :true-label="1" :false-label="0">{{ $t('message.pages.setting.ticket.content.selectSystemLink') }}</el-checkbox>
             <div v-if="formItem.code" class="link">
               <div class="select-link">
-                链接：{{ formItem.code_url }}
-                <span class="change" @click="getLink(index)">{{ formItem.code_url ? '修改' : '选择' }}</span>
+                {{ $t('message.pages.setting.ticket.content.link') }}{{ formItem.code_url }}
+                <span class="change" @click="getLink(index)">{{ formItem.code_url ? $t('message.pages.setting.ticket.content.modify') : $t('message.pages.setting.ticket.content.select') }}</span>
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="底部公告：">
-            <el-checkbox v-model="formItem.show_notice" :true-label="1" :false-label="0">底部公告</el-checkbox>
+          <el-form-item :label="$t('message.pages.setting.ticket.content.bottomNotice')">
+            <el-checkbox v-model="formItem.show_notice" :true-label="1" :false-label="0">{{ $t('message.pages.setting.ticket.content.bottomNoticeLabel') }}</el-checkbox>
             <div v-if="formItem.show_notice">
               <el-input
                 v-model="formItem.notice_content"
                 maxlength="80"
                 show-word-limit
                 type="textarea"
-                placeholder="请输入公告内容"
+                :placeholder="$t('message.pages.setting.ticket.content.placeholderNotice')"
                 style="width: 500px"
               />
             </div>
@@ -65,19 +65,18 @@
         <div class="ticket-preview">
           <div class="out-line"></div>
           <div class="ticket-content">
-            <div v-if="formItem.header === 1" class="ticket-header">商家名称</div>
-            <!-- 配送方式 -->
+            <div v-if="formItem.header === 1" class="ticket-header">{{ $t('message.pages.setting.ticket.content.merchantName') }}</div>
             <div class="delivery btn-line" v-if="formItem.delivery === 1">
               <div class="form-box">
-                <div class="label">配送方式：</div>
-                <div class="content">商家配送</div>
+                <div class="label">{{ $t('message.pages.setting.ticket.content.deliveryMethod') }}</div>
+                <div class="content">{{ $t('message.pages.setting.ticket.content.merchantDelivery') }}</div>
               </div>
               <div class="form-box">
-                <div class="label">客户姓名：</div>
-                <div class="content">收货人姓名</div>
+                <div class="label">{{ $t('message.pages.setting.ticket.content.customerName') }}</div>
+                <div class="content">{{ $t('message.pages.setting.ticket.content.receiverName') }}</div>
               </div>
               <div class="form-box">
-                <div class="label">客户电话：</div>
+                <div class="label">{{ $t('message.pages.setting.ticket.content.customerPhone') }}</div>
                 <div class="content">13023354455</div>
               </div>
               <div class="form-box">

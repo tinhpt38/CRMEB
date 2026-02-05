@@ -53,7 +53,7 @@
                     class="mt20"
                     @submit.native.prevent
                   >
-                    <el-form-item label="关键字：" prop="val" v-if="$route.params.id">
+                    <el-form-item :label="$t('message.pages.app.wechatFollow.keyword')" prop="val" v-if="$route.params.id">
                       <div class="arrbox">
                         <!--:closable="$route.params.id==='0'? true : false"-->
                         <el-tag
@@ -68,46 +68,46 @@
                         <input
                           class="arrbox_ip"
                           v-model="val"
-                          placeholder="输入后回车"
+                          :placeholder="$t('message.pages.app.wechatFollow.inputEnterPlaceholder')"
                           style="width: 90%"
                           @keyup.enter="addlabel"
                         />
                       </div>
                     </el-form-item>
-                    <el-form-item label="消息状态：">
+                    <el-form-item :label="$t('message.pages.app.wechatFollow.messageStatus')">
                       <el-radio-group v-model="formValidate.status">
-                        <el-radio :label="1">启用</el-radio>
-                        <el-radio :label="0">禁用</el-radio>
+                        <el-radio :label="1">{{ $t('message.pages.app.wechatFollow.enabled') }}</el-radio>
+                        <el-radio :label="0">{{ $t('message.pages.app.wechatFollow.disabled') }}</el-radio>
                       </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="消息类型：" prop="type">
+                    <el-form-item :label="$t('message.pages.app.wechatFollow.messageType')" prop="type">
                       <el-select
                         v-model="formValidate.type"
-                        placeholder="请选择规则状态"
+                        :placeholder="$t('message.pages.app.wechatFollow.pleaseSelectRule')"
                         style="width: 90%"
                         @change="RuleFactor(formValidate.type)"
                       >
-                        <el-option value="text" label="文字消息"></el-option>
-                        <el-option value="image" label="图片消息"></el-option>
-                        <el-option value="news" label="图文消息"></el-option>
-                        <el-option value="voice" label="声音消息"></el-option>
+                        <el-option value="text" :label="$t('message.pages.app.wechatFollow.textMsg')"></el-option>
+                        <el-option value="image" :label="$t('message.pages.app.wechatFollow.imageMsg')"></el-option>
+                        <el-option value="news" :label="$t('message.pages.app.wechatFollow.newsMsg')"></el-option>
+                        <el-option value="voice" :label="$t('message.pages.app.wechatFollow.voiceMsg')"></el-option>
                       </el-select>
                     </el-form-item>
-                    <el-form-item label="消息内容：" prop="content" v-if="formValidate.type === 'text'">
+                    <el-form-item :label="$t('message.pages.app.wechatFollow.messageContent')" prop="content" v-if="formValidate.type === 'text'">
                       <el-input
                         v-model="formValidate.data.content"
-                        placeholder="请填写消息内容"
+                        :placeholder="$t('message.pages.app.wechatFollow.messageContentPlaceholder')"
                         style="width: 90%"
                         type="textarea"
                         :rows="4"
                       ></el-input>
                     </el-form-item>
-                    <el-form-item label="选取图文：" v-if="formValidate.type === 'news'">
-                      <el-button v-db-click @click="changePic">选择图文消息</el-button>
+                    <el-form-item :label="$t('message.pages.app.wechatFollow.selectNews')" v-if="formValidate.type === 'news'">
+                      <el-button v-db-click @click="changePic">{{ $t('message.pages.app.wechatFollow.selectNewsBtn') }}</el-button>
                     </el-form-item>
 
                     <el-form-item
-                      :label="formValidate.type === 'image' ? '图片地址：' : '语音地址：'"
+                      :label="formValidate.type === 'image' ? $t('message.pages.app.wechatFollow.imageUrl') : $t('message.pages.app.wechatFollow.voiceUrl')"
                       prop="src"
                       v-if="formValidate.type === 'image' || formValidate.type === 'voice'"
                     >

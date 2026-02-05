@@ -4,18 +4,18 @@
       <el-form ref="formValidate" :model="formValidate" label-width="80px" @submit.native.prevent>
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item :label="!authType ? '接口名称：' : '按钮名称：'" prop="menu_name">
+            <el-form-item :label="!authType ? $t('message.pages.setting.systemMenus.menusFrom.apiNameLabel') : $t('message.pages.setting.systemMenus.menusFrom.buttonNameLabel')" prop="menu_name">
               <div class="add">
                 <el-input
                   v-model="formValidate.menu_name"
-                  :placeholder="!authType ? '请输入接口名称' : '请输入按钮名称'"
+                  :placeholder="!authType ? $t('message.pages.setting.systemMenus.menusFrom.placeholderApiName') : $t('message.pages.setting.systemMenus.menusFrom.placeholderButtonName')"
                 >
                 </el-input>
               </div>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="父级分类：">
+            <el-form-item :label="$t('message.pages.setting.systemMenus.menusFrom.parentCategory')">
               <el-cascader
                 :options="menuList"
                 change-on-select
@@ -26,19 +26,19 @@
             </el-form-item>
           </el-col>
           <el-col v-bind="grid" v-if="authType">
-            <el-form-item label="图标：">
-              <el-input v-model="formValidate.icon" placeholder="请选择图标，点击右面图标" icon="ios-appstore">
+            <el-form-item :label="$t('message.pages.setting.systemMenus.menusFrom.icon')">
+              <el-input v-model="formValidate.icon" :placeholder="$t('message.pages.setting.systemMenus.menusFrom.iconPlaceholder')" icon="ios-appstore">
                 <el-button slot="append" icon="el-icon-picture-outline" v-db-click @click="iconClick"></el-button>
               </el-input>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid" v-if="authType">
-            <el-form-item label="排序：">
-              <el-input type="number" v-model="formValidate.sort" placeholder="请输入排序" number></el-input>
+            <el-form-item :label="$t('message.pages.setting.systemMenus.menusFrom.sort')">
+              <el-input type="number" v-model="formValidate.sort" :placeholder="$t('message.pages.setting.systemMenus.menusFrom.sortPlaceholder')" number></el-input>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="是否显示：">
+            <el-form-item :label="$t('message.pages.setting.systemMenus.menusFrom.isShow')">
               <el-radio-group v-model="formValidate.is_show_path">
                 <el-radio :label="item.value" v-for="(item, i) in isShowPathRadio" :key="i">
                   <span>{{ item.label }}</span>
@@ -49,14 +49,14 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="handleReset">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">提 交</el-button>
+        <el-button v-db-click @click="handleReset">{{ $t('message.pages.setting.systemMenus.menusFrom.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">{{ $t('message.pages.setting.systemMenus.menusFrom.submit') }}</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="modal12" width="720px" title="图标选择">
+    <el-dialog :visible.sync="modal12" width="720px" :title="$t('message.pages.setting.systemMenus.menusFrom.iconSelectTitle')">
       <el-input
         v-model="iconVal"
-        placeholder="输入关键词搜索,注意全是英文"
+        :placeholder="$t('message.pages.setting.systemMenus.menusFrom.iconSearchPlaceholder')"
         clearable
         style="width: 300px"
         @change="upIcon(iconVal)"
@@ -74,18 +74,18 @@
         </div>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="ruleModal" width="1100px" title="权限列表" @closed="modalchange">
+    <el-dialog :visible.sync="ruleModal" width="1100px" :title="$t('message.pages.setting.systemMenus.menusFrom.ruleListTitle')" @closed="modalchange">
       <div class="search-rule">
         <el-input
           class="mr10"
           v-model="searchRule"
-          placeholder="输入关键词搜索"
+          :placeholder="$t('message.pages.setting.systemMenus.menusFrom.searchPlaceholder')"
           clearable
           style="width: 300px"
           ref="search"
         />
-        <el-button type="primary" v-db-click @click="searchRules">搜索</el-button>
-        <el-button v-db-click @click="init">重置</el-button>
+        <el-button type="primary" v-db-click @click="searchRules">{{ $t('message.pages.setting.systemMenus.menusFrom.search') }}</el-button>
+        <el-button v-db-click @click="init">{{ $t('message.pages.setting.systemMenus.menusFrom.reset') }}</el-button>
       </div>
       <div class="rule">
         <div
@@ -97,9 +97,9 @@
           v-db-click
           @click="selectRule(item)"
         >
-          <div>接口名称：{{ item.real_name }}</div>
-          <div>请求方式：{{ item.method }}</div>
-          <div>接口地址：{{ item.rule }}</div>
+          <div>{{ $t('message.pages.setting.systemMenus.menusFrom.apiName') }}{{ item.real_name }}</div>
+          <div>{{ $t('message.pages.setting.systemMenus.menusFrom.requestMethod') }}{{ item.method }}</div>
+          <div>{{ $t('message.pages.setting.systemMenus.menusFrom.apiPath') }}{{ item.rule }}</div>
         </div>
       </div>
     </el-dialog>
@@ -322,20 +322,20 @@ export default {
       };
       if (this.authType) {
         if (!this.formValidate.menu_name) {
-          return this.$message.warning('请填写按钮名称');
+          return this.$message.warning(this.$t('message.pages.setting.systemMenus.menusFrom.fillButtonName'));
         }
         if (!this.formValidate.menu_path) {
-          return this.$message.warning('请填写路由地址');
+          return this.$message.warning(this.$t('message.pages.setting.systemMenus.menusFrom.fillRoutePath'));
         }
       } else {
         if (!this.formValidate.menu_name) {
-          return this.$message.warning('请填写接口名称');
+          return this.$message.warning(this.$t('message.pages.setting.systemMenus.menusFrom.fillApiName'));
         }
         if (!this.formValidate.methods) {
-          return this.$message.warning('请选择请求方式');
+          return this.$message.warning(this.$t('message.pages.setting.systemMenus.menusFrom.selectRequestMethod'));
         }
         if (!this.formValidate.api_url) {
-          return this.$message.warning('请选择接口地址');
+          return this.$message.warning(this.$t('message.pages.setting.systemMenus.menusFrom.selectApiPath'));
         }
       }
       this.valids = true;

@@ -12,14 +12,14 @@
             <el-tab-pane v-for="(item, index) in tabsList" :key="index" :name="item.slot" :label="item.title">
               <el-form class="form-sty" ref="formData" :model="formData" :rules="ruleValidate" label-width="85px">
                 <div v-if="item.slot === 'is_system' && !loading">
-                  <el-form-item label="通知标题：">
+                  <el-form-item :label="$t('router.setting.notification.notifyTitle')">
                     <el-input
                       v-model="formData.system_title"
-                      placeholder="请输入通知标题"
+                      :placeholder="$t('router.setting.notification.placeholderNotifyTitle')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('router.setting.notification.notifyContent')">
                     <div class="content">
                       <el-input
                         ref="system_text"
@@ -27,7 +27,7 @@
                         v-model="formData.system_text"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('router.setting.notification.placeholderNotifyContent')"
                         style="width: 500px"
                       >
                       </el-input>
@@ -49,20 +49,20 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('router.setting.notification.tipsInsertVariable') }}</div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_system">
+                  <el-form-item :label="$t('router.setting.notification.statusLabel')" prop="is_system">
                     <el-radio-group v-model="formData.is_system">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('router.setting.notification.on') }}</el-radio>
+                      <el-radio :label="2">{{ $t('router.setting.notification.off') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <div v-if="item.slot === 'is_sms' && !loading">
-                  <el-form-item label="短信模版ID：">
-                    <el-input v-model="formData.sms_id" placeholder="短信模版ID" style="width: 500px"></el-input>
+                  <el-form-item :label="$t('router.setting.notification.smsTemplateId')">
+                    <el-input v-model="formData.sms_id" :placeholder="$t('router.setting.notification.placeholderSmsTemplateId')" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('router.setting.notification.notifyContent')">
                     <div class="content">
                       <el-input
                         id="sms_text"
@@ -70,7 +70,7 @@
                         type="textarea"
                         :disabled="formData.type_n != 3"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('router.setting.notification.placeholderNotifyContent')"
                         style="width: 500px"
                       ></el-input>
                       <div class="value-list" v-if="formData.type_n == 3">
@@ -91,41 +91,41 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('router.setting.notification.tipsInsertVariable') }}</div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_sms">
+                  <el-form-item :label="$t('router.setting.notification.statusLabel')" prop="is_sms">
                     <el-radio-group v-model="formData.is_sms">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('router.setting.notification.on') }}</el-radio>
+                      <el-radio :label="2">{{ $t('router.setting.notification.off') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <div v-else-if="item.slot === 'is_wechat' && !loading">
-                  <el-form-item label="模板编号：">
+                  <el-form-item :label="$t('router.setting.notification.templateNo')">
                     <el-input
                       v-model="formData.tempkey"
                       :disabled="formData.type_n !== 3"
-                      placeholder="请输入通模板编号"
+                      :placeholder="$t('router.setting.notification.placeholderTemplateNo')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="模板ID：">
-                    <el-input v-model="formData.tempid" placeholder="请输入模板ID" style="width: 500px"></el-input>
+                  <el-form-item :label="$t('router.setting.notification.templateId')">
+                    <el-input v-model="formData.tempid" :placeholder="$t('router.setting.notification.placeholderTemplateId')" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="模板：">
+                  <el-form-item :label="$t('router.setting.notification.template')">
                     <div class="content">
                       <el-input
                         :disabled="formData.type_n !== 3"
                         v-model="formData.content"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入模板"
+                        :placeholder="$t('router.setting.notification.placeholderTemplate')"
                         style="width: 500px"
                         @input="handleContentChange"
                       ></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="字段：" v-if="formData.type_n == 3 && keyList.length">
+                  <el-form-item :label="$t('router.setting.notification.field')" v-if="formData.type_n == 3 && keyList.length">
                     <div class="content">
                       <keys-list
                         :key-list="keyList"
@@ -135,55 +135,55 @@
                       />
                     </div>
                   </el-form-item>
-                  <el-form-item label="跳转链接：">
+                  <el-form-item :label="$t('router.setting.notification.jumpLink')">
                     <el-input
                       v-model="formData.wechat_link"
-                      placeholder="请输入模版跳转链接，可携带参数"
+                      :placeholder="$t('router.setting.notification.placeholderJumpLink')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="跳转小程序：" prop="wechat_to_routine">
+                  <el-form-item :label="$t('router.setting.notification.jumpMiniProgram')" prop="wechat_to_routine">
                     <el-radio-group v-model="formData.wechat_to_routine">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="0">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('router.setting.notification.on') }}</el-radio>
+                      <el-radio :label="0">{{ $t('router.setting.notification.off') }}</el-radio>
                     </el-radio-group>
                     <div class="tips-info">
-                      开启之后，点击模版消息，跳转小程序对应的页面，需要小程序已经审核上线才可使用
+                      {{ $t('router.setting.notification.tipsJumpMiniProgram') }}
                     </div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_wechat">
+                  <el-form-item :label="$t('router.setting.notification.statusLabel')" prop="is_wechat">
                     <el-radio-group v-model="formData.is_wechat">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('router.setting.notification.on') }}</el-radio>
+                      <el-radio :label="2">{{ $t('router.setting.notification.off') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <div v-else-if="item.slot === 'is_routine' && !loading">
-                  <el-form-item label="模板编号：">
+                  <el-form-item :label="$t('router.setting.notification.templateNo')">
                     <el-input
                       v-model="formData.tempkey"
                       :disabled="formData.type_n !== 3"
-                      placeholder="请输入通模板编号"
+                      :placeholder="$t('router.setting.notification.placeholderTemplateNo')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="模板ID：">
-                    <el-input v-model="formData.tempid" placeholder="请输入模板ID" style="width: 500px"></el-input>
+                  <el-form-item :label="$t('router.setting.notification.templateId')">
+                    <el-input v-model="formData.tempid" :placeholder="$t('router.setting.notification.placeholderTemplateId')" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="模板：">
+                  <el-form-item :label="$t('router.setting.notification.template')">
                     <div class="content">
                       <el-input
                         :disabled="formData.type_n !== 3"
                         v-model="formData.content"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入模板"
+                        :placeholder="$t('router.setting.notification.placeholderTemplate')"
                         style="width: 500px"
                         @input="handleContentChange"
                       ></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="字段：" v-if="formData.type_n == 3 && keyList.length">
+                  <el-form-item :label="$t('router.setting.notification.field')" v-if="formData.type_n == 3 && keyList.length">
                     <div class="content">
                       <keys-list
                         :key-list="keyList"
@@ -193,30 +193,30 @@
                       />
                     </div>
                   </el-form-item>
-                  <el-form-item label="跳转链接：">
+                  <el-form-item :label="$t('router.setting.notification.jumpLink')">
                     <el-input
                       v-model="formData.routine_link"
-                      placeholder="请输入模版跳转链接，可携带参数"
+                      :placeholder="$t('router.setting.notification.placeholderJumpLink')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_routine">
+                  <el-form-item :label="$t('router.setting.notification.statusLabel')" prop="is_routine">
                     <el-radio-group v-model="formData.is_routine">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('router.setting.notification.on') }}</el-radio>
+                      <el-radio :label="2">{{ $t('router.setting.notification.off') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
 
                 <div v-else-if="item.slot === 'is_ent_wechat' && !loading">
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('router.setting.notification.notifyContent')">
                     <div class="content">
                       <el-input
                         id="ent_wechat_text"
                         v-model="formData.ent_wechat_text"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('router.setting.notification.placeholderNotifyContent')"
                         style="width: 500px"
                       ></el-input>
                       <div class="value-list" v-if="formData.type_n == 3">
@@ -237,22 +237,22 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('router.setting.notification.tipsInsertVariable') }}</div>
                   </el-form-item>
-                  <el-form-item label="机器人链接：">
+                  <el-form-item :label="$t('router.setting.notification.robotLink')">
                     <div class="content">
-                      <el-input v-model="formData.url" placeholder="请输入机器人链接" style="width: 500px"></el-input>
+                      <el-input v-model="formData.url" :placeholder="$t('router.setting.notification.placeholderRobotLink')" style="width: 500px"></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_ent_wechat">
+                  <el-form-item :label="$t('router.setting.notification.statusLabel')" prop="is_ent_wechat">
                     <el-radio-group v-model="formData.is_ent_wechat">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('router.setting.notification.on') }}</el-radio>
+                      <el-radio :label="2">{{ $t('router.setting.notification.off') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <el-form-item>
-                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">提交</el-button>
+                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">{{ $t('router.setting.notification.submit') }}</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -270,60 +270,29 @@ export default {
   components: { keysList },
   data() {
     return {
-      tabs: [
-        {
-          title: '系统通知',
-          slot: 'is_system',
-        },
-        {
-          title: '短信通知',
-          slot: 'is_sms',
-        },
-        {
-          title: '微信模板消息',
-          slot: 'is_wechat',
-        },
-        {
-          title: '微信小程序提醒',
-          slot: 'is_routine',
-        },
-        {
-          title: '企业微信',
-          slot: 'is_ent_wechat',
-        },
-      ],
+      tabs: [],
       tabsList: [],
       formData: {},
       id: 0,
       loading: true,
       tagName: 'is_system',
-      ruleValidate: {
-        name: [
-          {
-            required: true,
-            message: '请输入通知场景',
-            trigger: 'blur',
-          },
-        ],
-        title: [
-          {
-            required: true,
-            message: '请输入通知场景',
-            trigger: 'blur',
-          },
-        ],
-        content: [
-          {
-            required: true,
-            message: '请输入通知内容',
-            trigger: 'blur',
-          },
-        ],
-      },
+      ruleValidate: {},
       keyList: [],
     };
   },
   created() {
+    this.tabs = [
+      { title: this.$t('router.setting.notification.editTabSystem'), slot: 'is_system' },
+      { title: this.$t('router.setting.notification.editTabSms'), slot: 'is_sms' },
+      { title: this.$t('router.setting.notification.editTabWechat'), slot: 'is_wechat' },
+      { title: this.$t('router.setting.notification.editTabRoutine'), slot: 'is_routine' },
+      { title: this.$t('router.setting.notification.editTabEntWechat'), slot: 'is_ent_wechat' },
+    ];
+    this.ruleValidate = {
+      name: [{ required: true, message: this.$t('router.setting.notification.sceneRequired'), trigger: 'blur' }],
+      title: [{ required: true, message: this.$t('router.setting.notification.sceneRequired'), trigger: 'blur' }],
+      content: [{ required: true, message: this.$t('router.setting.notification.contentRequired'), trigger: 'blur' }],
+    };
     this.id = this.$route.query.id;
     this.getData(this.id, this.tagName, 1);
   },
@@ -382,7 +351,7 @@ export default {
       this.formData.key_list = this.keyList;
       getNotificationSave(this.formData)
         .then((res) => {
-          this.$message.success('设置成功');
+          this.$message.success(this.$t('router.setting.notification.setSuccess'));
         })
         .catch((err) => {
           this.$message.error(err);

@@ -4,7 +4,7 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="submit">保存</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="submit">{{ $t('message.pages.setting.themeStyle.save') }}</el-button>
         </div>
       </div>
     </div>
@@ -57,13 +57,7 @@ export default {
         sm: 24,
         xs: 24,
       },
-      tabList: [
-        { tit: '天空蓝', class: 'blue' },
-        { tit: '生鲜绿', class: 'green' },
-        { tit: '热情红', class: 'red' },
-        { tit: '魅力粉', class: 'pink' },
-        { tit: '活力橙', class: 'orange' },
-      ],
+      tabList: [],
       picList: [
         { image: require('@/assets/images/bule.jpg') },
         { image: require('@/assets/images/green.jpg') },
@@ -73,7 +67,6 @@ export default {
       ],
       current: '',
       clientHeight: 0,
-      loadingExist: false,
     };
   },
   computed: {
@@ -86,7 +79,13 @@ export default {
     },
   },
   created() {
-    // this.picList = this.picListBule;
+    this.tabList = [
+      { tit: this.$t('message.pages.setting.themeStyle.skyBlue'), class: 'blue' },
+      { tit: this.$t('message.pages.setting.themeStyle.freshGreen'), class: 'green' },
+      { tit: this.$t('message.pages.setting.themeStyle.warmRed'), class: 'red' },
+      { tit: this.$t('message.pages.setting.themeStyle.charmPink'), class: 'pink' },
+      { tit: this.$t('message.pages.setting.themeStyle.vitalityOrange'), class: 'orange' },
+    ];
     this.getInfo();
   },
   mounted: function () {

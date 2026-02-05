@@ -10,61 +10,61 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：" label-for="keyword">
-            <el-input clearable v-model="levelFrom.name" placeholder="请输入模板名称" class="form_content_width" />
+          <el-form-item :label="$t('message.pages.setting.shippingTemplates.search')" label-for="keyword">
+            <el-input clearable v-model="levelFrom.name" :placeholder="$t('message.pages.setting.shippingTemplates.placeholderName')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.pages.setting.shippingTemplates.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="freight">添加运费模板</el-button>
+      <el-button type="primary" v-db-click @click="freight">{{ $t('message.pages.setting.shippingTemplates.addTemplate') }}</el-button>
       <el-table
         :data="levelLists"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-data-text="$t('message.pages.setting.shippingTemplates.noData')"
+        :no-filtered-data-text="$t('message.pages.setting.shippingTemplates.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.pages.setting.shippingTemplates.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="模板名称" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.shippingTemplates.templateName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="计费方式" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.shippingTemplates.chargeType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="指定包邮" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.shippingTemplates.freeShipping')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.appoint }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.shippingTemplates.sort')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.shippingTemplates.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.pages.setting.shippingTemplates.action')" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">修改</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('message.pages.setting.shippingTemplates.modify') }}</a>
             <el-divider direction="vertical" v-if="scope.row.id !== 1" />
-            <a v-db-click @click="del(scope.row, '删除模版', index)" v-if="scope.row.id !== 1">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.setting.shippingTemplates.delTemplateTitle'), scope.$index)" v-if="scope.row.id !== 1">{{ $t('message.pages.setting.shippingTemplates.del') }}</a>
           </template>
         </el-table-column>
       </el-table>

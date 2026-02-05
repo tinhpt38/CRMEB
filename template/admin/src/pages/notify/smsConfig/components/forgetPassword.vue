@@ -12,7 +12,7 @@
                 type="text"
                 v-model="formInline.phone"
                 prefix="ios-contact-outline"
-                placeholder="请输入手机号"
+                :placeholder="$t('message.pages.notify.forgetPassword.phonePlaceholder')"
                 size="large"
               />
             </el-form-item>
@@ -22,7 +22,7 @@
                   type="text"
                   v-model="formInline.verify_code"
                   prefix="ios-keypad-outline"
-                  placeholder="请输入验证码"
+                  :placeholder="$t('message.pages.notify.forgetPassword.codePlaceholder')"
                   size="large"
                 />
                 <el-button :disabled="!this.canClick" v-db-click @click="cutDown" size="large">{{ cutNUm }}</el-button>
@@ -35,7 +35,7 @@
                 type="password"
                 v-model="formInline.password"
                 prefix="ios-lock-outline"
-                placeholder="请输入新密码"
+                :placeholder="$t('message.pages.notify.forgetPassword.newPasswordPlaceholder')"
                 size="large"
               />
             </el-form-item>
@@ -44,7 +44,7 @@
                 type="password"
                 v-model="formInline.checkPass"
                 prefix="ios-lock-outline"
-                placeholder="请验证新密码"
+                :placeholder="$t('message.pages.notify.forgetPassword.confirmPasswordPlaceholder')"
                 size="large"
               />
             </el-form-item>
@@ -55,7 +55,7 @@
                 type="text"
                 v-model="formInline.phone"
                 prefix="ios-contact-outline"
-                placeholder="请输入手机号"
+                :placeholder="$t('message.pages.notify.forgetPassword.phonePlaceholder')"
               />
             </el-form-item>
             <el-form-item prop="password" class="maxInpt">
@@ -63,7 +63,7 @@
                 type="password"
                 v-model="formInline.password"
                 prefix="ios-lock-outline"
-                placeholder="请输入密码"
+                :placeholder="$t('message.pages.notify.forgetPassword.passwordPlaceholder')"
               />
             </el-form-item>
           </template>
@@ -76,7 +76,7 @@
               v-db-click
               @click="handleSubmit1('formInline', current)"
               class="mb20"
-              >下一步</el-button
+              >{{ $t('message.pages.notify.forgetPassword.nextStep') }}</el-button
             >
             <el-button
               v-if="current === 1"
@@ -86,7 +86,7 @@
               v-db-click
               @click="handleSubmit2('formInline', current)"
               class="mb20"
-              >提交</el-button
+              >{{ $t('message.pages.notify.forgetPassword.submit') }}</el-button
             >
             <el-button
               v-if="current === 2"
@@ -96,9 +96,9 @@
               v-db-click
               @click="handleSubmit('formInline', current)"
               class="mb20"
-              >登录</el-button
+              >{{ $t('message.pages.notify.forgetPassword.stepLogin') }}</el-button
             >
-            <el-button long size="large" v-db-click @click="returns('formInline')" class="btn">返回 </el-button>
+            <el-button long size="large" v-db-click @click="returns('formInline')" class="btn">{{ $t('message.pages.notify.forgetPassword.back') }} </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -115,43 +115,9 @@ export default {
   name: 'forgetPassword',
   components: { steps },
   data() {
-    const validatePhone = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('请填写手机号'));
-      } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        callback(new Error('手机号格式不正确!'));
-      } else {
-        callback();
-      }
-    };
-    var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'));
-      } else {
-        if (this.current === 1) {
-          if (this.formInline.checkPass !== '') {
-            this.$refs.formInline.validateField('checkPass');
-          }
-          callback();
-        } else {
-          if (value !== this.formInline.checkPass) {
-            callback(new Error('请输入正确密码!'));
-          }
-          callback();
-        }
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'));
-      } else if (value !== this.formInline.password) {
-        callback(new Error('两次输入密码不一致!'));
-      } else {
-        callback();
-      }
-    };
+    const self = this;
     return {
-      cutNUm: '获取验证码',
+      cutNUm: '',
       canClick: true,
       current: 0,
       formInline: {
@@ -162,13 +128,55 @@ export default {
         checkPass: '',
       },
       ruleInline: {
-        phone: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
-        password: [{ validator: validatePass, trigger: 'blur' }],
-        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+        phone: [
+          {
+            required: true,
+            validator: (rule, value, callback) => {
+              if (!value) return callback(new Error(self.$t('message.pages.notify.forgetPassword.fillPhone')));
+              if (!/^1[3456789]\d{9}$/.test(value)) return callback(new Error(self.$t('message.pages.notify.forgetPassword.phoneFormatError')));
+              callback();
+            },
+            trigger: 'blur',
+          },
+        ],
+        verify_code: [{ required: true, message: '', trigger: 'blur' }],
+        password: [
+          {
+            validator: (rule, value, callback) => {
+              if (value === '') return callback(new Error(self.$t('message.pages.notify.forgetPassword.inputPassword')));
+              if (self.current === 1) {
+                if (self.formInline.checkPass !== '') self.$refs.formInline.validateField('checkPass');
+                callback();
+              } else {
+                if (value !== self.formInline.checkPass) return callback(new Error(self.$t('message.pages.notify.forgetPassword.inputCorrectPassword')));
+                callback();
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+        checkPass: [
+          {
+            validator: (rule, value, callback) => {
+              if (value === '') return callback(new Error(self.$t('message.pages.notify.forgetPassword.inputPasswordAgain')));
+              if (value !== self.formInline.password) return callback(new Error(self.$t('message.pages.notify.forgetPassword.passwordNotMatch')));
+              callback();
+            },
+            trigger: 'blur',
+          },
+        ],
       },
-      stepList: ['验证账号信息', '修改账户密码', '登录'],
+      stepList: [],
     };
+  },
+  created() {
+    this.cutNUm = this.$t('message.pages.notify.forgetPassword.getCode');
+    this.ruleInline.verify_code[0].message = this.$t('message.pages.notify.forgetPassword.inputCode');
+    this.stepList = [
+      this.$t('message.pages.notify.forgetPassword.stepVerify'),
+      this.$t('message.pages.notify.forgetPassword.stepModifyPwd'),
+      this.$t('message.pages.notify.forgetPassword.stepLogin'),
+    ];
   },
   methods: {
     // 短信验证码
@@ -190,13 +198,13 @@ export default {
         let time = setInterval(() => {
           this.cutNUm--;
           if (this.cutNUm === 0) {
-            this.cutNUm = '获取验证码';
+            this.cutNUm = this.$t('message.pages.notify.forgetPassword.getCode');
             this.canClick = true;
             clearInterval(time);
           }
         }, 1000);
       } else {
-        this.$message.warning('请填写手机号!');
+        this.$message.warning(this.$t('message.pages.notify.forgetPassword.fillPhoneWarn'));
       }
     },
     handleSubmit1(name, current) {
@@ -240,7 +248,7 @@ export default {
             password: this.formInline.password,
           })
             .then(async (res) => {
-              this.$message.success('登录成功!');
+              this.$message.success(this.$t('message.pages.notify.forgetPassword.loginSuccess'));
               this.$emit('on-Login');
             })
             .catch((res) => {

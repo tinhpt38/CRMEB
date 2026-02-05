@@ -9,7 +9,7 @@
               size="small"
               style="color: var(--prev-color-primary); background-color: #e6f7ff"
             ></el-avatar>
-            <h4 class="ivu-pl-8">用户</h4>
+            <h4 class="ivu-pl-8">{{ $t('message.pages.index.userChart.user') }}</h4>
           </div>
           <echarts-from
             ref="userChart"
@@ -28,7 +28,7 @@
               size="small"
               style="color: var(--prev-color-primary); background-color: #e6f7ff"
             ></el-avatar>
-            <h4 class="ivu-pl-8">购买用户统计</h4>
+            <h4 class="ivu-pl-8">{{ $t('message.pages.index.userChart.purchaseUserStat') }}</h4>
           </div>
           <echarts-from ref="visitChart" :infoList="infoList" :echartsTitle="circle"></echarts-from>
         </el-card>
@@ -66,7 +66,7 @@ export default {
           this.series = [
             {
               data: res.data.series,
-              name: '人数（人）',
+              name: this.$t('message.pages.index.userChart.personCount'),
               type: 'line',
               tooltip: true,
               smooth: true,

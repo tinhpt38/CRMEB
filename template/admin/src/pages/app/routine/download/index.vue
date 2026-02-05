@@ -16,32 +16,32 @@
           <div class="content">
             <div class="content-box title">
               <div class="line"></div>
-              <div class="right title">小程序设置</div>
+              <div class="right title">{{ $t('message.pages.app.routineDownload.miniProgramSettings') }}</div>
             </div>
             <el-alert v-if="!pageData.appId && !pageData.code">
               <template slot="title">
-                您尚未配置小程序信息，请<router-link :to="{ path: $routeProStr + '/setting/routine_config/2/7' }"
-                  >立即设置</router-link
+                {{ $t('message.pages.app.routineDownload.notConfigured') }}<router-link :to="{ path: $routeProStr + '/setting/routine_config/2/7' }"
+                  >{{ $t('message.pages.app.routineDownload.setNow') }}</router-link
                 ></template
               >
             </el-alert>
             <div class="content-box">
-              <div class="left">小程序名称：</div>
-              <div class="right">{{ pageData.routine_name || '未命名' }}</div>
+              <div class="left">{{ $t('message.pages.app.routineDownload.routineName') }}</div>
+              <div class="right">{{ pageData.routine_name || $t('message.pages.app.routineDownload.unnamed') }}</div>
             </div>
             <div class="content-box">
-              <div class="left">小程序码：</div>
+              <div class="left">{{ $t('message.pages.app.routineDownload.routineCode') }}</div>
               <div class="right">
-                <el-button type="primary" v-db-click @click="downLoadCode(pageData.code)">下载小程序码</el-button>
+                <el-button type="primary" v-db-click @click="downLoadCode(pageData.code)">{{ $t('message.pages.app.routineDownload.downloadCode') }}</el-button>
               </div>
             </div>
             <div class="content-box">
-              <div class="left">小程序包：</div>
+              <div class="left">{{ $t('message.pages.app.routineDownload.routinePackage') }}</div>
               <div class="right">
-                <span>是否已开通小程序直播</span>
+                <span>{{ $t('message.pages.app.routineDownload.isLiveOpen') }}</span>
                 <el-radio-group class="rad" size="large" v-model="is_live">
-                  <el-radio :label="0">未开通</el-radio>
-                  <el-radio :label="1">已开通</el-radio>
+                  <el-radio :label="0">{{ $t('message.pages.app.routineDownload.notOpen') }}</el-radio>
+                  <el-radio :label="1">{{ $t('message.pages.app.routineDownload.opened') }}</el-radio>
                 </el-radio-group>
               </div>
             </div>
@@ -49,12 +49,12 @@
               <div class="left"></div>
               <div class="right">
                 <div>
-                  请谨慎选择是否有开通小程序直播功能，否则将影响小程序的发布 可前往
-                  <a :href="pageData.help" target="_blank">帮助文档</a>
-                  查看如何开通直播功能
+                  {{ $t('message.pages.app.routineDownload.liveTip') }}
+                  <a :href="pageData.help" target="_blank">{{ $t('message.pages.app.routineDownload.helpDoc') }}</a>
+                  {{ $t('message.pages.app.routineDownload.viewLiveHelp') }}
                 </div>
 
-                <el-button class="mt10" type="primary" v-db-click @click="downLoad()">下载小程序包</el-button>
+                <el-button class="mt10" type="primary" v-db-click @click="downLoad()">{{ $t('message.pages.app.routineDownload.downloadPackage') }}</el-button>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default {
         });
     },
     downLoadCode(url) {
-      if (!url) return this.$message.warning('暂无小程序码');
+      if (!url) return this.$message.warning(this.$t('message.pages.app.routineDownload.noCodeWarn'));
       var image = new Image();
       image.src = url;
       // 解决跨域 Canvas 污染问题

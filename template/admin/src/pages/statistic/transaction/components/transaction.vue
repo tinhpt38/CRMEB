@@ -2,38 +2,36 @@
   <el-card :bordered="false" shadow="never" class="ivu-mt-16" v-loading="spinShow">
     <div class="acea-row row-between-wrapper mb20">
       <div class="statics-header-title">
-        <h4>交易概况</h4>
+        <h4>{{ $t('message.pages.statistic.transaction.overview') }}</h4>
         <el-tooltip placement="right-start">
           <i class="el-icon-question ml10"></i>
           <div slot="content">
-            <div>营业额</div>
-            <div>商品支付金额、充值金额、购买付费会员金额、线下收银金额</div>
+            <div>{{ $t('message.pages.statistic.transaction.turnover') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.turnoverTip') }}</div>
             <br />
-            <div>商品支付金额</div>
-            <div>
-              选定条件下，用户购买商品的实际支付金额，包括微信支付、余额支付、支付宝支付、线下支付金额（拼团商品在成团之后计入，线下支付订单在后台确认支付后计入）
-            </div>
+            <div>{{ $t('message.pages.statistic.transaction.productPay') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.productPayTip') }}</div>
             <br />
-            <div>购买会员金额</div>
-            <div>选定条件下，用户成功购买付费会员的金额</div>
+            <div>{{ $t('message.pages.statistic.transaction.memberPay') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.memberPayTip') }}</div>
             <br />
-            <div>充值金额</div>
-            <div>选定条件下，用户成功充值的金额</div>
+            <div>{{ $t('message.pages.statistic.transaction.rechargeAmount') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.rechargeAmountTip') }}</div>
             <br />
-            <div>线下收银金额</div>
-            <div>选定条件下，用户在线下扫码支付的金额</div>
+            <div>{{ $t('message.pages.statistic.transaction.offlinePay') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.offlinePayTip') }}</div>
             <br />
-            <div>支出金额</div>
-            <div>余额支付金额、支付佣金金额、商品退款金额</div>
+            <div>{{ $t('message.pages.statistic.transaction.expenseAmount') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.expenseAmountTip') }}</div>
             <br />
-            <div>余额支付金额</div>
-            <div>用户下单时使用余额实际支付的金额</div>
+            <div>{{ $t('message.pages.statistic.transaction.balancePay') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.balancePayTip') }}</div>
             <br />
-            <div>佣金支付金额</div>
-            <div>后台给推广员支付的推广佣金，以实际支付为准</div>
+            <div>{{ $t('message.pages.statistic.transaction.commissionPay') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.commissionPayTip') }}</div>
             <br />
-            <div>商品退款金额</div>
-            <div>用户成功退款的商品金额</div>
+            <div>{{ $t('message.pages.statistic.transaction.refundAmount') }}</div>
+            <div>{{ $t('message.pages.statistic.transaction.refundAmountTip') }}</div>
           </div>
         </el-tooltip>
       </div>
@@ -46,14 +44,14 @@
           @change="onchangeTime"
           format="yyyy/MM/dd"
           value-format="yyyy/MM/dd"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          :start-placeholder="$t('message.pages.statistic.transaction.startDate')"
+          :end-placeholder="$t('message.pages.statistic.transaction.endDate')"
           :picker-options="pickerOptions"
           style="width: 250px"
           class="mr20"
         ></el-date-picker>
-        <el-button type="primary" v-db-click @click="onSeach">查询</el-button>
-        <el-button type="primary" v-db-click @click="excel">导出</el-button>
+        <el-button type="primary" v-db-click @click="onSeach">{{ $t('message.pages.statistic.transaction.query') }}</el-button>
+        <el-button type="primary" v-db-click @click="excel">{{ $t('message.pages.statistic.transaction.export') }}</el-button>
       </div>
     </div>
     <div class="acea-row mb20">
@@ -78,7 +76,7 @@
           ></span>
           <span class="sp2" v-else v-text="item.money ? item.money : '0.00'"></span>
           <span class="content-time spBlock"
-            >环比增长：<i class="content-is" :class="Number(item.rate) >= 0 ? 'up' : 'down'">{{ item.rate }}%</i
+            >{{ $t('message.pages.statistic.transaction.chainRatio') }}：<i class="content-is" :class="Number(item.rate) >= 0 ? 'up' : 'down'">{{ item.rate }}%</i
             ><i
               :style="{ color: Number(item.rate) >= 0 ? '#F5222D' : '#39C15B' }"
               :class="[Number(item.rate) >= 0 ? 'el-icon-caret-top' : 'el-icon-caret-bottom']"

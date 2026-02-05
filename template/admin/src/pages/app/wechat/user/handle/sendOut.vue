@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modals" title="等级任务" :close-on-click-modal="false" width="1000px" @closed="handleReset">
+  <el-dialog :visible.sync="modals" :title="$t('message.pages.app.wechatSendOut.levelTask')" :close-on-click-modal="false" width="1000px" @closed="handleReset">
     <el-form
       ref="levelFrom"
       :model="levelFrom"
@@ -9,12 +9,12 @@
     >
       <el-row :gutter="24">
         <el-col v-bind="grid">
-          <el-form-item label="优惠券名称：" prop="status2" label-for="status2">
+          <el-form-item :label="$t('message.pages.app.wechatSendOut.couponName')" prop="status2" label-for="status2">
             <el-input
               search
               enter-button
               v-model="levelFrom.name"
-              placeholder="请输入优惠券名称"
+              :placeholder="$t('message.pages.app.wechatSendOut.couponPlaceholder')"
               @on-search="userSearchs"
               style="width: 100%"
             />
@@ -25,12 +25,12 @@
     <el-divider direction="vertical" dashed />
     <el-row>
       <el-col v-bind="grid" class="mb15">
-        <el-button type="primary" v-db-click @click="add">添加等级任务</el-button>
+        <el-button type="primary" v-db-click @click="add">{{ $t('message.pages.app.wechatSendOut.addLevelTask') }}</el-button>
       </el-col>
       <el-col :span="24" class="userAlert">
         <el-alert type="info" show-icon closable>
           <template slot="title">
-            添加等级任务,任务类型中的{$num}会自动替换成限定数量+系统预设的单位生成任务名
+            {{ $t('message.pages.app.wechatSendOut.taskTip') }}
           </template>
         </el-alert>
       </el-col>
@@ -40,25 +40,25 @@
       :data="levelLists"
       ref="table"
       v-loading="loading"
-      no-userFrom-text="暂无数据"
-      no-filtered-userFrom-text="暂无筛选结果"
+      :no-userFrom-text="$t('message.pages.app.wechatSendOut.noData')"
+      :no-filtered-userFrom-text="$t('message.pages.app.wechatSendOut.noFilterResult')"
     >
       <el-table-column label="ID" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="等级名称" min-width="100">
+      <el-table-column :label="$t('message.pages.app.wechatSendOut.levelName')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.level_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="任务名称" min-width="100">
+      <el-table-column :label="$t('message.pages.app.wechatSendOut.taskName')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否显示" min-width="100">
+      <el-table-column :label="$t('message.pages.app.wechatSendOut.isShow')" min-width="100">
         <template slot-scope="scope">
           <el-switch
             :active-value="1"
@@ -71,7 +71,7 @@
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="务必达成" min-width="100">
+      <el-table-column :label="$t('message.pages.app.wechatSendOut.mustComplete')" min-width="100">
         <template slot-scope="scope">
           <el-switch
             :active-value="1"
@@ -80,22 +80,22 @@
             :value="scope.row.is_must"
             size="large"
             @change="onchangeIsMust(scope.row)"
-            active-text="全部"
-            inactive-text="其一"
+            :active-text="$t('message.pages.app.wechatSendOut.all')"
+            :inactive-text="$t('message.pages.app.wechatSendOut.oneOf')"
           >
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="任务说明" min-width="130">
+      <el-table-column :label="$t('message.pages.app.wechatSendOut.taskDesc')" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.illustrate }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width="170">
+      <el-table-column :label="$t('message.pages.app.wechatSendOut.action')" fixed="right" width="170">
         <template slot-scope="scope">
-          <a v-db-click @click="edit(scope.row)">编辑 | </a>
+          <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.app.wechatSendOut.edit') }} | </a>
           <el-divider direction="vertical"></el-divider>
-          <a v-db-click @click="del(scope.row, '删除等级任务', index)"> 删除</a>
+          <a v-db-click @click="del(scope.row, $t('message.pages.app.wechatSendOut.delLevelTaskTitle'), index)"> {{ $t('message.pages.app.wechatSendOut.del') }}</a>
         </template>
       </el-table-column>
     </el-table>

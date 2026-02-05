@@ -4,7 +4,7 @@
       <el-row class="mb20">
         <el-col :span="24">
           <el-button v-auth="['setting-store_service-add']" type="primary" v-db-click @click="add" class="mr10"
-            >添加客服</el-button
+            >{{ $t('router.setting.storeService.addClerk') }}</el-button
           >
         </el-col>
       </el-row>
@@ -12,27 +12,27 @@
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('router.setting.storeService.noData')"
+        :no-filtered-userFrom-text="$t('router.setting.storeService.noFilterResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('router.setting.storeService.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="客服头像" min-width="90">
+        <el-table-column :label="$t('router.setting.storeService.clerkAvatar')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="客服名称" min-width="130">
+        <el-table-column :label="$t('router.setting.storeService.clerkName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.wx_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="客服状态" min-width="130">
+        <el-table-column :label="$t('router.setting.storeService.clerkStatus')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -42,24 +42,24 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('router.setting.storeService.on')"
+              :inactive-text="$t('router.setting.storeService.off')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('router.setting.storeService.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('router.setting.storeService.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('router.setting.storeService.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除客服', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('router.setting.storeService.delClerkTitle'), scope.$index)">{{ $t('router.setting.storeService.del') }}</a>
             <el-divider direction="vertical" v-if="scope.row.status" />
-            <a v-db-click @click="goChat(scope.row)" v-if="scope.row.status">进入工作台</a>
+            <a v-db-click @click="goChat(scope.row)" v-if="scope.row.status">{{ $t('router.setting.storeService.goWorkbench') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -75,30 +75,30 @@
     </el-card>
 
     <!--聊天记录-->
-    <el-dialog :visible.sync="modals3" title="聊天记录" width="720px">
+    <el-dialog :visible.sync="modals3" :title="$t('router.setting.storeService.chatRecord')" width="720px">
       <div v-if="isChat" class="modelBox">
         <el-table
           v-loading="loading3"
           highlight-current-row
-          no-userFrom-text="暂无数据"
-          no-filtered-userFrom-text="暂无筛选结果"
+          :no-userFrom-text="$t('router.setting.storeService.noData')"
+          :no-filtered-userFrom-text="$t('router.setting.storeService.noFilterResult')"
           :data="tableList3"
         >
-          <el-table-column label="用户名称" width="200">
+          <el-table-column :label="$t('router.setting.storeService.userName')" width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.nickname }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="客服头像" min-width="90">
+          <el-table-column :label="$t('router.setting.storeService.clerkAvatar')" min-width="90">
             <template slot-scope="scope">
               <div class="tabBox_img" v-viewer>
                 <img v-lazy="scope.row.headimgurl" />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" fixed="right" width="170">
+          <el-table-column :label="$t('router.setting.storeService.action')" fixed="right" width="170">
             <template slot-scope="scope">
-              <a v-db-click @click="look(scope.row)">查看对话</a>
+              <a v-db-click @click="look(scope.row)">{{ $t('router.setting.storeService.viewDialog') }}</a>
             </template>
           </el-table-column>
         </el-table>
@@ -113,33 +113,33 @@
         </div>
       </div>
       <div v-if="!isChat">
-        <el-button type="primary" v-db-click @click="isChat = true">返回聊天记录</el-button>
+        <el-button type="primary" v-db-click @click="isChat = true">{{ $t('router.setting.storeService.backChatRecord') }}</el-button>
         <el-table
           v-loading="loading5"
           highlight-current-row
-          no-userFrom-text="暂无数据"
+          :no-userFrom-text="$t('router.setting.storeService.noData')"
           class="mt14"
-          no-filtered-userFrom-text="暂无筛选结果"
+          :no-filtered-userFrom-text="$t('router.setting.storeService.noFilterResult')"
           :data="tableList5"
         >
-          <el-table-column label="用户名称" min-width="200">
+          <el-table-column :label="$t('router.setting.storeService.userName')" min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.nickname }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="用户头像" min-width="90">
+          <el-table-column :label="$t('router.setting.storeService.userAvatar')" min-width="90">
             <template slot-scope="scope">
               <div class="tabBox_img" v-viewer>
                 <img v-lazy="scope.row.avatar" />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="发送消息" min-width="200">
+          <el-table-column :label="$t('router.setting.storeService.sendMsg')" min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.msn }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="发送时间" min-width="200">
+          <el-table-column :label="$t('router.setting.storeService.sendTime')" min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.add_time }}</span>
             </template>
@@ -232,17 +232,9 @@ export default {
       },
       timeVal: [],
       fromList: {
-        title: '选择时间',
+        title: '',
         custom: true,
-        fromTxt: [
-          { text: '全部', val: '' },
-          { text: '今天', val: 'today' },
-          { text: '昨天', val: 'yesterday' },
-          { text: '最近7天', val: 'lately7' },
-          { text: '最近30天', val: 'lately30' },
-          { text: '本月', val: 'month' },
-          { text: '本年', val: 'year' },
-        ],
+        fromTxt: [],
       },
       loading: false,
       tableList: [],
@@ -258,6 +250,16 @@ export default {
     };
   },
   created() {
+    this.fromList.title = this.$t('router.setting.storeService.selectTime');
+    this.fromList.fromTxt = [
+      { text: this.$t('router.setting.storeService.all'), val: '' },
+      { text: this.$t('router.setting.storeService.today'), val: 'today' },
+      { text: this.$t('router.setting.storeService.yesterday'), val: 'yesterday' },
+      { text: this.$t('router.setting.storeService.lately7'), val: 'lately7' },
+      { text: this.$t('router.setting.storeService.lately30'), val: 'lately30' },
+      { text: this.$t('router.setting.storeService.month'), val: 'month' },
+      { text: this.$t('router.setting.storeService.year'), val: 'year' },
+    ];
     this.getList();
   },
   methods: {
@@ -492,7 +494,7 @@ export default {
     // 添加客服
     putRemark() {
       if (this.addFrom.uids.length === 0) {
-        return this.$message.warning('请选择要添加的客服');
+        return this.$message.warning(this.$t('router.setting.storeService.pleaseSelectClerk'));
       }
       kefuAddApi(this.addFrom)
         .then(async (res) => {

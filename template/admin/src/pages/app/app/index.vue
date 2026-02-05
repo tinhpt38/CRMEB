@@ -3,7 +3,7 @@
     <div class="i-layout-page-header header-title">
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div style="float: right">
-        <el-button class="bnt" type="primary" v-db-click @click="onsubmit('formValidate')">保存</el-button>
+        <el-button class="bnt" type="primary" v-db-click @click="onsubmit('formValidate')">{{ $t('message.pages.app.appIndex.save') }}</el-button>
       </div>
     </div>
     <div class="box-wrapper">
@@ -11,10 +11,10 @@
         <div class="agreement-box">
           <div class="template"></div>
           <div class="htmls_box">
-            <div class="htmls_top">服务协议与隐私政策</div>
+            <div class="htmls_top">{{ $t('message.pages.app.appIndex.serviceAgreement') }}</div>
             <div class="htmls_font">
-              <div class="ok">我同意</div>
-              <div>不同意</div>
+              <div class="ok">{{ $t('message.pages.app.appIndex.agree') }}</div>
+              <div>{{ $t('message.pages.app.appIndex.disagree') }}</div>
             </div>
             <div class="htmls" v-html="content"></div>
           </div>
@@ -24,7 +24,7 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">隐私权限页面展示：</div>
+              <div class="title">{{ $t('message.pages.app.appIndex.privacyShow') }}</div>
             </div>
           </div>
           <div>

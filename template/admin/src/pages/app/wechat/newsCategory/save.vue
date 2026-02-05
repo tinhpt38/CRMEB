@@ -53,23 +53,23 @@
           >
             <el-row :gutter="24">
               <el-col :span="24" class="ml40">
-                <el-form-item label="标题：" prop="title">
-                  <el-input style="width: 60%" v-model="saveForm.title" type="text" placeholder="请输入文章标题" />
+                <el-form-item :label="$t('message.pages.app.wechatNewsSave.title')" prop="title">
+                  <el-input style="width: 60%" v-model="saveForm.title" type="text" :placeholder="$t('message.pages.app.wechatNewsSave.titlePlaceholder')" />
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="ml40">
-                <el-form-item label="作者：" prop="author">
-                  <el-input style="width: 60%" v-model="saveForm.author" type="text" placeholder="请输入作者名称" />
+                <el-form-item :label="$t('message.pages.app.wechatNewsSave.author')" prop="author">
+                  <el-input style="width: 60%" v-model="saveForm.author" type="text" :placeholder="$t('message.pages.app.wechatNewsSave.authorPlaceholder')" />
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="ml40">
-                <el-form-item label="摘要：" prop="synopsis">
-                  <el-input style="width: 60%" v-model="saveForm.synopsis" type="textarea" placeholder="请输入摘要" />
+                <el-form-item :label="$t('message.pages.app.wechatNewsSave.synopsis')" prop="synopsis">
+                  <el-input style="width: 60%" v-model="saveForm.synopsis" type="textarea" :placeholder="$t('message.pages.app.wechatNewsSave.synopsisPlaceholder')" />
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="ml40">
-                <el-form-item label="图文封面：" prop="image_input">
-                  <div class="picBox" v-db-click @click="modalPicTap('单选')">
+                <el-form-item :label="$t('message.pages.app.wechatNewsSave.imageCover')" prop="image_input">
+                  <div class="picBox" v-db-click @click="modalPicTap($t('message.pages.app.wechatNewsSave.singleSelect'))">
                     <div class="pictrue" v-if="saveForm.image_input">
                       <img :src="saveForm.image_input" />
                     </div>
@@ -78,16 +78,16 @@
                     </div>
                   </div>
                 </el-form-item>
-                <el-form-item label="正文：" prop="content">
+                <el-form-item :label="$t('message.pages.app.wechatNewsSave.content')" prop="content">
                   <WangEditor style="width: 90%" :content="content" @editorContent="getEditorContent"></WangEditor>
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="ml40">
                 <el-form-item>
-                  <el-button type="primary" class="submission" v-db-click @click="subFrom('saveForm')">提交</el-button>
+                  <el-button type="primary" class="submission" v-db-click @click="subFrom('saveForm')">{{ $t('message.pages.app.wechatNewsSave.submit') }}</el-button>
                 </el-form-item>
               </el-col>
-              <el-dialog :visible.sync="modalPic" width="1024px" title="上传文章图" :close-on-click-modal="false">
+              <el-dialog :visible.sync="modalPic" width="1024px" :title="$t('message.pages.app.wechatNewsSave.uploadArticleImage')" :close-on-click-modal="false">
                 <uploadPictures
                   :isChoice="isChoice"
                   @getPic="getPic"
@@ -136,7 +136,7 @@ export default {
       if (this.saveForm.image_input) {
         callback();
       } else {
-        callback(new Error('请上传图文封面'));
+        callback(new Error(this.$t('message.pages.app.wechatNewsSave.msgUploadCover')));
       }
     };
     return {
@@ -148,13 +148,13 @@ export default {
         serverUrl: '',
       },
       ruleValidate: {
-        title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-        author: [{ required: true, message: '请输入作者', trigger: 'blur' }],
+        title: [{ required: true, message: '', trigger: 'blur' }],
+        author: [{ required: true, message: '', trigger: 'blur' }],
         image_input: [{ required: true, validator: validateUpload, trigger: 'change' }],
-        content: [{ required: true, message: '请输入正文', trigger: 'change' }],
-        synopsis: [{ required: true, message: '请输入文章摘要', trigger: 'blur' }],
+        content: [{ required: true, message: '', trigger: 'change' }],
+        synopsis: [{ required: true, message: '', trigger: 'blur' }],
       },
-      isChoice: '单选',
+      isChoice: '',
       dragging: null,
       isDel: false,
       msg: '',
@@ -166,7 +166,6 @@ export default {
         synopsis: '',
         image_input: '',
         content: '',
-        id: 0,
       },
       current: 0,
       list: [
@@ -206,6 +205,9 @@ export default {
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
     },
+  },
+  created() {
+    this.isChoice = this.$t('message.pages.app.wechatNewsSave.singleSelect');
   },
   mounted() {
     if (this.$route.params.id !== '0') {
@@ -252,7 +254,7 @@ export default {
     // 删除
     del(i) {
       if (i === 0) {
-        this.$message.warning('不能再删除了');
+        this.$message.warning(this.$t('message.pages.app.wechatNewsSave.cannotDeleteMore'));
       } else {
         this.list.splice(i, 1);
         this.saveForm = {};
@@ -299,19 +301,19 @@ export default {
     check() {
       for (let index in this.list) {
         if (!this.list[index].title) {
-          this.$message.warning('请输入文章的标题');
+          this.$message.warning(this.$t('message.pages.app.wechatNewsSave.msgInputTitle'));
           return false;
         } else if (!this.list[index].author) {
-          this.$message.warning('请输入文章的作者');
+          this.$message.warning(this.$t('message.pages.app.wechatNewsSave.msgInputAuthor'));
           return false;
         } else if (!this.list[index].synopsis) {
-          this.$message.warning('请输入文章的摘要');
+          this.$message.warning(this.$t('message.pages.app.wechatNewsSave.msgInputSynopsis'));
           return false;
         } else if (!this.list[index].image_input) {
-          this.$message.warning('请输入文章的图文封面');
+          this.$message.warning(this.$t('message.pages.app.wechatNewsSave.msgInputImageCover'));
           return false;
         } else if (!this.list[index].content) {
-          this.$message.warning('请输入文章的内容');
+          this.$message.warning(this.$t('message.pages.app.wechatNewsSave.msgInputArticleContent'));
           return false;
         } else {
           return true;

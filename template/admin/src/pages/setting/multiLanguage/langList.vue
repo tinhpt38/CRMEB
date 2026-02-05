@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mb-16" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form :model="formValidate" :label-width="labelWidth" label-position="right" @submit.native.prevent inline>
-          <el-form-item label="语言分类：">
+          <el-form-item :label="$t('message.pages.setting.multiLanguage.langList.langCategory')">
             <el-select v-model="formValidate.is_admin" clearable @change="selChange" class="form_content_width">
               <el-option
                 v-for="(item, index) in langType.isAdmin"
@@ -13,7 +13,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="语言类型：">
+          <el-form-item :label="$t('message.pages.setting.multiLanguage.langList.langType')">
             <el-select v-model="formValidate.type_id" clearable @change="selChange" class="form_content_width">
               <el-option
                 v-for="(item, index) in langType.langType"
@@ -23,67 +23,66 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('message.pages.setting.multiLanguage.langList.search')">
             <el-input
               clearable
-              placeholder="请输入语言备注"
+              :placeholder="$t('message.pages.setting.multiLanguage.langList.placeholderRemarks')"
               v-model="formValidate.remarks"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="userSearch" v-db-click @click="selChange">搜索</el-button>
+            <el-button type="primary" class="userSearch" v-db-click @click="selChange">{{ $t('message.pages.setting.multiLanguage.langList.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-alert type="warning" :closable="false">
       <template slot="title">
-        <p class="alert_title">页面语言</p>
-        添加页面语言，添加完成之后状态码为中文文字，移动端页面使用 $t(`xxxx`)，js文件中使用 this.t(`xxxx`) 或者使用
-        that.t(`xxxx`) 实现语言的切换<br />
+        <p class="alert_title">{{ $t('message.pages.setting.multiLanguage.langList.pageLangTitle') }}</p>
+        {{ $t('message.pages.setting.multiLanguage.langList.pageLangDesc') }}<br />
         <br />
-        <p class="alert_title">接口语言</p>
-        添加接口语言，添加完成之后状态码为6位数字，接口返回提示信息时，直接返回对应的错误码即可实现语言的切换
+        <p class="alert_title">{{ $t('message.pages.setting.multiLanguage.langList.apiLangTitle') }}</p>
+        {{ $t('message.pages.setting.multiLanguage.langList.apiLangDesc') }}
       </template>
     </el-alert>
     <el-card class="mt14" :bordered="false" shadow="never">
       <el-row class="mb14">
         <el-col>
-          <el-button type="primary" v-db-click @click="add">添加语句</el-button>
+          <el-button type="primary" v-db-click @click="add">{{ $t('message.pages.setting.multiLanguage.langList.addSentence') }}</el-button>
         </el-col>
       </el-row>
-      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="编号" width="80">
+      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" :empty-text="$t('message.pages.setting.multiLanguage.langList.noData')">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="原语句" min-width="230">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.originalSentence')" min-width="230">
           <template slot-scope="scope">
             <span>{{ scope.row.remarks }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="对应语言翻译" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.translation')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.lang_explain }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态码/文字(接口/页面调用参考)" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.codeRef')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="语言类型" min-width="130">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.langTypeCol')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.language_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.pages.setting.multiLanguage.langList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除语言', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.pages.setting.multiLanguage.langList.delLangTitle'), scope.$index)">{{ $t('message.pages.setting.multiLanguage.langList.del') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -97,9 +96,9 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="addlangModal" width="720px" title="添加需要翻译的语句" @closed="modalChange">
+    <el-dialog :visible.sync="addlangModal" width="720px" :title="$t('message.pages.setting.multiLanguage.langList.addTranslateTitle')" @closed="modalChange">
       <el-form ref="langFormData" :model="langFormData" :rules="ruleValidate">
-        <el-form-item label="应用端：" class="mb20" label-width="120px">
+        <el-form-item :label="$t('message.pages.setting.multiLanguage.langList.appSide')" class="mb20" label-width="120px">
           <el-radio-group type="button" v-model="langFormData.is_admin" class="mr15">
             <el-radio :label="item.value" v-for="(item, index) in langType.isAdmin" :key="index">{{
               item.title
@@ -107,25 +106,25 @@
           </el-radio-group>
         </el-form-item>
         <el-input v-model="langFormData.edit" v-show="false"></el-input>
-        <el-form-item label="需要翻译的语句：" prop="remarks" class="mb20">
+        <el-form-item :label="$t('message.pages.setting.multiLanguage.langList.needTranslate')" prop="remarks" class="mb20">
           <el-input
             v-model="langFormData.remarks"
-            placeholder="请输入需要添加翻译的语句"
+            :placeholder="$t('message.pages.setting.multiLanguage.langList.placeholderTranslate')"
             style="width: 330px"
             search
             @on-search="translate"
           >
-            <el-button type="primary" slot="append" v-db-click @click="translate">翻译</el-button>
+            <el-button type="primary" slot="append" v-db-click @click="translate">{{ $t('message.pages.setting.multiLanguage.langList.translate') }}</el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="remark" class="mb20">
-          <el-table ref="langTable" v-loading="traTabLoading" :data="langFormData.list" empty-text="暂无数据">
-            <el-table-column label="语言类型" width="140">
+          <el-table ref="langTable" v-loading="traTabLoading" :data="langFormData.list" :empty-text="$t('message.pages.setting.multiLanguage.langList.noData')">
+            <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.langTypeCol')" width="140">
               <template slot-scope="scope">
                 <span> {{ scope.row.language_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="对应语言翻译" min-width="250">
+            <el-table-column :label="$t('message.pages.setting.multiLanguage.langList.translation')" min-width="250">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.lang_explain" class="priceBox"></el-input>
               </template>
@@ -134,8 +133,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="addlangModal = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="ok">确定</el-button>
+        <el-button v-db-click @click="addlangModal = false">{{ $t('message.pages.setting.multiLanguage.langList.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="ok">{{ $t('message.pages.setting.multiLanguage.langList.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -161,8 +160,8 @@ export default {
       FormLoading: true,
       loading: false,
       ruleValidate: {
-        code: [{ required: true, message: '请输入状态码/文字', trigger: 'blur' }],
-        remarks: [{ required: true, message: '请输入文字', trigger: 'blur' }],
+        code: [{ required: true, message: '', trigger: 'blur' }],
+        remarks: [{ required: true, message: '', trigger: 'blur' }],
       },
       langColumns: [
         {
@@ -200,12 +199,14 @@ export default {
     },
   },
   mounted() {
+    this.ruleValidate.code[0].message = this.$t('message.pages.setting.multiLanguage.langList.codeRequired');
+    this.ruleValidate.remarks[0].message = this.$t('message.pages.setting.multiLanguage.langList.remarksRequired');
     this.getList();
   },
   methods: {
     translate() {
       if (!this.langFormData.remarks.trim()) {
-        return this.$message.warning('请先输入翻译内容');
+        return this.$message.warning(this.$t('message.pages.setting.multiLanguage.langList.inputTranslateFirst'));
       }
       this.traTabLoading = true;
       langCodeTranslate({
@@ -239,7 +240,7 @@ export default {
         this.$nextTick(() => {
           this.FormLoading = true;
         });
-        return this.$message.error('请先输入语言说明');
+        return this.$message.error(this.$t('message.pages.setting.multiLanguage.langList.inputLangDescFirst'));
       }
       langCodeSettingSave(this.langFormData)
         .then((res) => {
