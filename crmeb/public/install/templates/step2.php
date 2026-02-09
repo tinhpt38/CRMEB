@@ -16,17 +16,17 @@
 <div class="wrap" id="step2">
     <!--    --><?php //require './templates/header.php'; ?>
     <div class="title">
-        安装检测
+        <?php echo t('install_check'); ?>
     </div>
     <div class="content">
         <div class="menu">
             <div class="head">
-                <h1>安装检测</h1>
-                <a class="again" href="<?php echo $_SERVER['PHP_SELF']; ?>?step=2">重新检测
+                <h1><?php echo t('install_check'); ?></h1>
+                <a class="again" href="<?php echo $_SERVER['PHP_SELF']; ?>?step=2&lang=<?php echo isset($install_lang) ? $install_lang : 'zh-cn'; ?>"><?php echo t('recheck'); ?>
                     <img class="upload" src="./images/install/upload.png" alt="">
                 </a>
             </div>
-            <div class="p8">安装环境需满足系统运行要求</div>
+            <div class="p8"><?php echo t('env_requirement'); ?></div>
             <div>
                 <div class="tab" :class="{'on': index === 0}" @click="index = 0">
                     <div class="left-img">
@@ -37,8 +37,8 @@
 
                     </div>
                     <div>
-                        <div>环境及配置</div>
-                        <div class="p8">基础的系统操作环境</div>
+                        <div><?php echo t('env_and_config'); ?></div>
+                        <div class="p8"><?php echo t('env_desc'); ?></div>
                     </div>
                 </div>
                 <div class="tab" :class="{'on': index === 1}" @click="index = 1">
@@ -49,8 +49,8 @@
                         <img v-else class="warring btn-warning" src="./images/install/sure.png" alt="">
                     </div>
                     <div>
-                        <div>权限检测</div>
-                        <div class="p8">目录及文件权限检测</div>
+                        <div><?php echo t('permission_check'); ?></div>
+                        <div class="p8"><?php echo t('permission_desc'); ?></div>
                     </div>
                 </div>
 
@@ -67,83 +67,83 @@
             <div class="server">
                 <table width="100%" v-if="index === 0">
                     <tr>
-                        <td class="td1">环境检测</td>
-                        <td class="td1" width="25%">推荐配置</td>
-                        <td class="td1" width="25%">最低要求</td>
-                        <td class="td1" width="25%">当前状态</td>
+                        <td class="td1"><?php echo t('env_status'); ?></td>
+                        <td class="td1" width="25%"><?php echo t('recommended'); ?></td>
+                        <td class="td1" width="25%"><?php echo t('minimum'); ?></td>
+                        <td class="td1" width="25%"><?php echo t('current'); ?></td>
                     </tr>
                     <tr>
-                        <td>操作系统</td>
-                        <td>类UNIX</td>
-                        <td>不限制</td>
+                        <td><?php echo t('os'); ?></td>
+                        <td><?php echo t('unix_like'); ?></td>
+                        <td><?php echo t('no_limit'); ?></td>
                         <td><div class="ls-td"><img class="yes" src="./images/install/yes.png" alt="对"><?php echo $os; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>服务器环境</td>
+                        <td><?php echo t('server'); ?></td>
                         <td>apache/nginx</td>
-                        <td>apache2.0以上/nginx1.6以上</td>
+                        <td><?php echo t('server_req'); ?></td>
                         <td><div class="ls-td"><img class="yes" src="./images/install/yes.png" alt="对"><?php echo $server; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>PHP版本</td>
+                        <td><?php echo t('php_version'); ?></td>
                         <td>><?php echo PHP_EDITION; ?></td>
-                        <td><?php echo PHP_EDITION; ?>以上</td>
+                        <td><?php echo PHP_EDITION; ?>+</td>
                         <td><div class="ls-td"><img class="yes" src="./images/install/yes.png" alt="对"><?php echo $phpv; ?></div></td>
                     </tr>
                     <tr>
-                        <td>附件上传</td>
+                        <td><?php echo t('upload'); ?></td>
                         <td>>2M</td>
-                        <td>不限制</td>
+                        <td><?php echo t('no_limit'); ?></td>
                         <td><div class="ls-td"><?php echo $uploadSize; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>session</td>
-                        <td>启用</td>
-                        <td>启用</td>
+                        <td><?php echo t('session'); ?></td>
+                        <td><?php echo t('enabled'); ?></td>
+                        <td><?php echo t('enabled'); ?></td>
                         <td><div class="ls-td"><?php echo $session; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>safe_mode</td>
-                        <td>基础配置</td>
-                        <td>启用</td>
+                        <td><?php echo t('safe_mode'); ?></td>
+                        <td><?php echo t('enabled'); ?></td>
+                        <td><?php echo t('enabled'); ?></td>
                         <td><div class="ls-td"><?php echo $safe_mode; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>GD库</td>
+                        <td><?php echo t('gd'); ?></td>
                         <td>必须开启</td>
-                        <td>1.0以上</td>
+                        <td>1.0+</td>
                         <td><div class="ls-td"><?php echo $gd; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>mysqli</td>
+                        <td><?php echo t('mysql'); ?></td>
                         <td>必须开启</td>
-                        <td>启用</td>
+                        <td><?php echo t('enabled'); ?></td>
                         <td><div class="ls-td"><?php echo $mysql; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>curl_init</td>
+                        <td><?php echo t('curl'); ?></td>
                         <td>必须扩展</td>
-                        <td>启用</td>
+                        <td><?php echo t('enabled'); ?></td>
                         <td><div class="ls-td"><?php echo $curl; ?></div></td>
 
                     </tr>
                     <tr>
-                        <td>bcmath</td>
+                        <td><?php echo t('bcmath'); ?></td>
                         <td>必须扩展</td>
-                        <td>启用</td>
+                        <td><?php echo t('enabled'); ?></td>
                         <td><div class="ls-td"><?php echo $bcmath; ?></div></td>
                     </tr>
                     <tr>
-                        <td>openssl</td>
+                        <td><?php echo t('openssl'); ?></td>
                         <td>必须扩展</td>
-                        <td>启用</td>
+                        <td><?php echo t('enabled'); ?></td>
                         <td><div class="ls-td"><?php echo $openssl; ?></div></td>
                     </tr>
                 </table>
@@ -151,10 +151,10 @@
 
                 <table width="100%" v-else>
                     <tr>
-                        <td class="td1">权限检查</td>
-                        <td class="td1" width="25%">推荐配置</td>
-                        <td class="td1" width="25%">写入</td>
-                        <td class="td1" width="25%">读取</td>
+                        <td class="td1"><?php echo t('permission_table'); ?></td>
+                        <td class="td1" width="25%"><?php echo t('recommended'); ?></td>
+                        <td class="td1" width="25%"><?php echo t('write'); ?></td>
+                        <td class="td1" width="25%"><?php echo t('read'); ?></td>
                     </tr>
                     <?php
                     foreach ($folder as $dir) {
@@ -260,17 +260,17 @@
     </div>
     <div class="trip mid">
         <img src="./images/install/trip-icon.png" alt="">
-        温馨提示：程序运行需配置伪静态，否则安装后会存在无法使用的情况
+        <?php echo t('rewrite_tip'); ?>
     </div>
     <div class="bottom-btn">
         <div class="bottom tac up-btn">
-            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?step=1" class="btn">上一步</a>
+            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?step=1&lang=<?php echo isset($install_lang) ? $install_lang : 'zh-cn'; ?>" class="btn"><?php echo t('prev_step'); ?></a>
         </div>
         <div class="bottom tac">
             <?php if ($passOne == 'no' || $passTwo == 'no') { ?>
-                <span class="next" @click="next" class="btn">下一步</span>
+                <span class="next" @click="next" class="btn"><?php echo t('next_step'); ?></span>
             <?php } else { ?>
-                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?step=3" class="btn next">下一步</a>
+                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?step=3&lang=<?php echo isset($install_lang) ? $install_lang : 'zh-cn'; ?>" class="btn next"><?php echo t('next_step'); ?></a>
             <?php } ?>
         </div>
     </div>
@@ -287,7 +287,7 @@
         methods: {
             next() {
                 this.$message({
-                    message: '安装环境检测未通过，请检查',
+                    message: '<?php echo addslashes(t('env_check_fail')); ?>',
                     type: 'warning'
                 });
             }

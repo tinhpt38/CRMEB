@@ -103,8 +103,8 @@ export default {
         password: '',
       },
       ruleInline: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        username: [{ required: true, message: '', trigger: 'blur' }],
+        password: [{ required: true, message: '', trigger: 'blur' }],
       },
       login_captcha: 0,
       login_logo: '',
@@ -117,6 +117,8 @@ export default {
     };
   },
   created() {
+    this.ruleInline.username[0].message = this.$t('message.pages.account.login.usernameRequired');
+    this.ruleInline.password[0].message = this.$t('message.pages.account.login.passwordRequired');
     document.onkeydown = (e) => {
       if (this.$route.name === 'login' && (e.keyCode === 13 || e.which === 13)) {
         this.handleSubmit('formInline');
@@ -141,7 +143,7 @@ export default {
       loginInfoApi()
         .then((res) => {
           const data = res.data || {};
-          document.title = `${data.site_name} - 登录`;
+          document.title = `${data.site_name || ''} - ${this.$t('message.pages.account.login.pageTitle')}`;
           localStorage.setItem('ADMIN_TITLE', data.site_name || '');
           this.$store.commit('setAdminTitle', data.site_name);
           this.login_logo = data.login_logo || require('@/assets/images/logo.png');

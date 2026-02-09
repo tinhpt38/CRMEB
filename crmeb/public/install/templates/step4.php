@@ -13,12 +13,12 @@
 <body>
 <div class="wrap" id="step4">
     <div class="title">
-        安装进度
+        <?php echo t('install_progress'); ?>
     </div>
     <!--  --><?php //require './templates/header.php';?>
     <section class="section">
         <div class="title">
-            <h1>系统安装中，请稍等片刻...</h1>
+            <h1><?php echo t('installing_wait'); ?></h1>
         </div>
         <div class="progress">
             <el-progress :percentage="percentage" color="#37CA71" define-back-color="rgba(255,255,255,0.5)"
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="bottom tac"><a href="javascript:;" class="btn_old mid"><img class="shuaxin" src="./images/install/shuaxin.png"
-                                                                            align="absmiddle"/>&nbsp;正在安装...</a></div>
+                                                                            align="absmiddle"/>&nbsp;<?php echo t('installing'); ?></a></div>
     </section>
     <script type="text/javascript">
         var n = -1;
@@ -96,7 +96,7 @@
                     })
                 },
                 gonext() {
-                    window.location.href = '<?php echo $_SERVER['PHP_SELF']; ?>?step=5';
+                    window.location.href = '<?php echo $_SERVER['PHP_SELF']; ?>?step=5&lang=<?php echo isset($install_lang) ? $install_lang : 'zh-cn'; ?>';
                 }
             }
         })

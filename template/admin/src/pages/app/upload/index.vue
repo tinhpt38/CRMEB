@@ -279,7 +279,7 @@ export default {
     border-radius: 15px;
     color: #000;
     font-size: 14px;
-    font-family: PingFang SC-Regular, PingFang SC;
+    font-family: var(--font-primary);
     font-weight: 400;
     color: #666666;
     display: flex;
@@ -333,7 +333,7 @@ export default {
   }
   .text {
     font-size: 16px;
-    font-family: PingFang SC-Medium, PingFang SC;
+    font-family: var(--font-primary);
     font-weight: 500;
     color: #282828;
     margin-bottom: 40px;

@@ -3,6 +3,10 @@
 初始化【请勿修改】
 ===================
 */
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+:root {
+	--font-primary: 'Google Sans', Arial, sans-serif;
+}
 html,body,
 div, dl, dt, dd, ul, p, th, td,
 h1, h2, h3, h4, h5, h6,
@@ -176,7 +180,7 @@ section {
 }
 .f24{
 	font-size:24px;
-	font-family:Arial, "Microsoft Yahei", Simsun;
+	font-family: var(--font-primary);
 }
 .fn{
 	font-weight:normal !important;
@@ -235,7 +239,7 @@ a:hover{
 	background: linear-gradient(180deg, #134392 0%, #363A8A 100%);
 	box-shadow: 0px 6px 20px 10px rgba(48,114,229,0.15);
 	border-radius: 36px 36px 36px 36px;
-	font-family: PingFang SC, serif;
+	font-family: var(--font-primary);
 	position: relative;
 }
 /*
@@ -480,7 +484,7 @@ LOGO
 	background-position:0 -70px;
 	font-size:20px;
 	color:#fff;
-	font-family:Microsoft Yahei;
+	font-family: var(--font-primary);
 	margin-right:10px;
 	vertical-align:0;
 
@@ -725,7 +729,7 @@ loading
 	color:#fff;
 	padding:30px 80px;
 	font-weight:100;
-	font-family:"Microsoft Yahei";
+	font-family: var(--font-primary);
 	border:1px solid #186196;
 	cursor:pointer;
 	letter-spacing:2px;

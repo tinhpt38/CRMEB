@@ -3993,8 +3993,11 @@ export default {
       login: {
         usernamePlaceholder: 'Nhập tên đăng nhập',
         passwordPlaceholder: 'Nhập mật khẩu',
+        usernameRequired: 'Vui lòng nhập tên đăng nhập',
+        passwordRequired: 'Vui lòng nhập mật khẩu',
         codePlaceholder: 'Nhập mã xác minh',
         submit: 'Đăng nhập',
+        pageTitle: 'Đăng nhập',
         warmTip: 'Nhắc nhở',
         loginFail: 'Đăng nhập thất bại',
         validateError: 'Lỗi xác minh',

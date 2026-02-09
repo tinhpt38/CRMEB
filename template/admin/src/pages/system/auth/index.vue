@@ -346,7 +346,7 @@ export default {
 .auth .text .pro_price {
   height: 18px;
   font-size: 14px;
-  font-family: PingFangSC-Semibold, PingFang SC;
+  font-family: var(--font-primary);
   font-weight: 600;
   color: #f5222d;
   line-height: 18px;

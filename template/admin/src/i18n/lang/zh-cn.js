@@ -3662,8 +3662,11 @@ export default {
       login: {
         usernamePlaceholder: '请输入用户名',
         passwordPlaceholder: '请输入密码',
+        usernameRequired: '请输入用户名',
+        passwordRequired: '请输入密码',
         codePlaceholder: '请输入验证码',
         submit: '登录',
+        pageTitle: '登录',
         warmTip: '温馨提示',
         loginFail: '登录失败',
         validateError: '校验错误',

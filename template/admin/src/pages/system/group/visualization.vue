@@ -1360,7 +1360,7 @@ export default {
   cursor: text;
   transition: border 0.2s ease-in-out, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   font-size: 13px;
-  font-family: PingFangSC-Regular;
+  font-family: var(--font-primary);
   line-height: 22px;
   color: rgba(0, 0, 0, 0.25);
   opacity: 1;

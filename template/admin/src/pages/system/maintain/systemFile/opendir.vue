@@ -901,7 +901,7 @@ export default {
 <style scoped>
 .file-left ::v-deep .ivu-tree-title {
   font-weight: 500;
-  font-family: SourceHanSansSC-regular, '微软雅黑', Arial, Helvetica, sans-serif;
+  font-family: var(--font-primary);
 }
 .file-content ::v-deep .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active {
   border-bottom: 1px solid orange;

@@ -14,16 +14,20 @@
 <!--  --><?php //require './templates/header.php';?>
   <div class="title">
       <img class="logo" src="./images/install/logo-step1.png" alt="">
-      <h1>欢迎使用 CRMEB标准版</h1>
+      <h1><?php echo t('welcome_title'); ?></h1>
       <div class="df agreement cp">
           <div class="radio-box" :class="{'is-shock': isShock}" @click="radio = !radio">
               <img v-if="radio" src="./images/install/success.png" alt="">
           </div>
-          <span @click="radio = !radio">详细阅读并勾选同意</span>
-          <span class="agreements" @click.stop="isShow = 1">《软件使用协议》</span>
+          <span @click="radio = !radio"><?php echo t('read_and_agree'); ?></span>
+          <span class="agreements" @click.stop="isShow = 1"><?php echo t('software_agreement'); ?></span>
       </div>
       <div class="bottom tac"> <span class="btn" :class="{'more-text': radio}" @click="jump">
-              开始安装</span> </div>
+              <?php echo t('start_install'); ?></span> </div>
+      <p style="margin-top:12px;font-size:12px;color:#999;">
+          <a href="?step=1&lang=zh-cn" style="margin-right:8px;">简体中文</a>
+          <a href="?step=1&lang=vi-vn">Tiếng Việt</a>
+      </p>
       <img class="solgen" src="./images/install/solgen.png" alt="">
   </div>
   <div class="section" v-if="isShow">

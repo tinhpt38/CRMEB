@@ -389,6 +389,7 @@
 </script>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 	@import url('@/plugin/emoji-awesome/css/tuoluojiang.css');
 	@import url('@/plugin/animate/animate.min.css');
 	@import 'static/css/base.css';
@@ -398,12 +399,16 @@
 	@import 'static/css/unocss.css';
 	@import 'static/fonts/font.scss';
 
+	:root {
+		--font-primary: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	}
+
 	view {
 		box-sizing: border-box;
 	}
 
 	page {
-		font-family: PingFang SC;
+		font-family: var(--font-primary);
 	}
 
 	.bg-color-red {

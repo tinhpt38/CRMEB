@@ -2764,15 +2764,15 @@
 }
 
 .PingFang {
-	font-family: PingFang SC;
+	font-family: var(--font-primary);
 }
 
 .Regular {
-	font-family: Regular;
+	font-family: var(--font-primary);
 }
 
 .SemiBold {
-	font-family: SemiBold;
+	font-family: var(--font-primary);
 }
 
 .text-w111-F3F9FF {

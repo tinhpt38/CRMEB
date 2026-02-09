@@ -5,23 +5,41 @@ $fileValue = '';
 define('PHP_EDITION', '7.1.0');
 //服务环境检测
 if (function_exists('saeAutoLoader') || isset($_SERVER['HTTP_BAE_ENV_APPID'])) {
-    showHtml('对不起，当前环境不支持本系统，请使用独立服务或云主机！');
+    $LANG = file_exists(__DIR__ . '/lang/zh-cn.php') ? include(__DIR__ . '/lang/zh-cn.php') : [];
+    function _install_t($k) { global $LANG; return isset($LANG[$k]) ? $LANG[$k] : $k; }
+    showHtml(_install_t('env_unsupported'));
 }
 
 define('APP_DIR', _dir_path(substr(dirname(__FILE__), 0, -15)));//项目目录
 define('SITE_DIR', _dir_path(substr(dirname(__FILE__), 0, -8)));//入口文件目录
 
+// i18n: 支持 zh-cn, vi-vn，通过 ?lang=vi-vn 切换
+$install_lang = isset($_GET['lang']) ? $_GET['lang'] : (isset($_COOKIE['install_lang']) ? $_COOKIE['install_lang'] : 'zh-cn');
+if (!in_array($install_lang, ['zh-cn', 'vi-vn'])) {
+    $install_lang = 'zh-cn';
+}
+@setcookie('install_lang', $install_lang, time() + 86400 * 30, '/');
+$lang_file = __DIR__ . '/lang/' . $install_lang . '.php';
+$LANG = file_exists($lang_file) ? include($lang_file) : [];
+if (!is_array($LANG)) {
+    $LANG = [];
+}
+function t($k) {
+    global $LANG;
+    return isset($LANG[$k]) ? $LANG[$k] : $k;
+}
+
 if (file_exists('../install.lock')) {
-    showHtml('你已经安装过该系统，如果想重新安装，请先删除public目录下的 install.lock 文件，然后再安装。');
+    showHtml(t('already_installed'));
 }
 
 @set_time_limit(1000);
 
 if ('7.1.0' > phpversion()) {
-    exit('您的php版本过低，不能安装本软件，兼容php版本7.1~7.4，谢谢！');
+    exit(t('php_too_low'));
 }
 if (phpversion() >= '8.0.0') {
-    exit('您的php版本太高，不能安装本软件，兼容php版本7.1~7.4，谢谢！');
+    exit(t('php_too_high'));
 }
 
 date_default_timezone_set('PRC');
@@ -42,17 +60,17 @@ $REDIS_PASSWORD = getenv('REDIS_PASSWORD')?:'';
 $sqlFile = 'crmeb.sql';
 $configFile = '.env';
 if (!file_exists(SITE_DIR . 'install/' . $sqlFile) || !file_exists(SITE_DIR . 'install/' . $configFile)) {
-    echo '缺少必要的安装文件!';
+    echo t('missing_files');
     exit;
 }
-$Title = "CRMEB安装向导";
-$Powered = "Powered by CRMEB";
+$Title = t('title');
+$Powered = t('powered');
 $steps = array(
-    '1' => '安装许可协议',
-    '2' => '运行环境检测',
-    '3' => '安装参数设置',
-    '4' => '安装详细过程',
-    '5' => '安装完成',
+    '1' => t('step1'),
+    '2' => t('step2'),
+    '3' => t('step3'),
+    '4' => t('step4'),
+    '5' => t('step5'),
 );
 $step = $_GET['step'] ?? 1;
 
@@ -68,7 +86,7 @@ switch ($step) {
 
     case '2':
         if (phpversion() < '7.1.0' || phpversion() >= '8.0.0') {
-            die('本系统需要PHP为 7.1~7.4 版本，当前PHP版本为：' . phpversion());
+            die(t('php_version_required') . phpversion());
         }
 
         $passOne = $passTwo = 'yes';
@@ -79,50 +97,50 @@ switch ($step) {
             $uploadSize = '<img class="yes" src="images/install/yes.png" alt="对">' . ini_get('upload_max_filesize');
         } else {
             $passOne = 'no';
-            $uploadSize = '<img class="no" src="images/install/warring.png" alt="错">禁止上传';
+            $uploadSize = '<img class="no" src="images/install/warring.png" alt="错">' . t('upload_forbidden');
         }
         if (function_exists('session_start')) {
-            $session = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $session = '<img class="yes" src="images/install/yes.png" alt="对">' . t('enabled');
         } else {
             $passOne = 'no';
-            $session = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $session = '<img class="no" src="images/install/warring.png" alt="错">' . t('disabled');
         }
         if (!ini_get('safe_mode')) {
-            $safe_mode = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $safe_mode = '<img class="yes" src="images/install/yes.png" alt="对">' . t('enabled');
         } else {
             $passOne = 'no';
-            $safe_mode = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $safe_mode = '<img class="no" src="images/install/warring.png" alt="错">' . t('disabled');
         }
         $tmp = function_exists('gd_info') ? gd_info() : array();
         if (!empty($tmp['GD Version'])) {
             $gd = '<img class="yes" src="images/install/yes.png" alt="对">' . $tmp['GD Version'];
         } else {
             $passOne = 'no';
-            $gd = '<img class="no" src="images/install/warring.png" alt="错">未安装';
+            $gd = '<img class="no" src="images/install/warring.png" alt="错">' . t('not_installed');
         }
         if (function_exists('mysqli_connect')) {
-            $mysql = '<img class="yes" src="images/install/yes.png" alt="对">已安装';
+            $mysql = '<img class="yes" src="images/install/yes.png" alt="对">' . t('installed');
         } else {
             $passOne = 'no';
-            $mysql = '<img class="no" src="images/install/warring.png" alt="错">请安装mysqli扩展';
+            $mysql = '<img class="no" src="images/install/warring.png" alt="错">' . t('install_mysqli');
         }
         if (function_exists('curl_init')) {
-            $curl = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $curl = '<img class="yes" src="images/install/yes.png" alt="对">' . t('enabled');
         } else {
             $passOne = 'no';
-            $curl = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $curl = '<img class="no" src="images/install/warring.png" alt="错">' . t('disabled');
         }
         if (function_exists('bcadd')) {
-            $bcmath = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $bcmath = '<img class="yes" src="images/install/yes.png" alt="对">' . t('enabled');
         } else {
             $passOne = 'no';
-            $bcmath = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $bcmath = '<img class="no" src="images/install/warring.png" alt="错">' . t('disabled');
         }
         if (function_exists('openssl_encrypt')) {
-            $openssl = '<img class="yes" src="images/install/yes.png" alt="对">启用';
+            $openssl = '<img class="yes" src="images/install/yes.png" alt="对">' . t('enabled');
         } else {
             $passOne = 'no';
-            $openssl = '<img class="no" src="images/install/warring.png" alt="错">关闭';
+            $openssl = '<img class="no" src="images/install/warring.png" alt="错">' . t('disabled');
         }
 
         $folder = array(

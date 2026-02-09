@@ -15,41 +15,42 @@
 <body>
 <div class="wrap" id="step3">
     <div class="title">
-        创建数据
+        <?php echo t('create_data'); ?>
     </div>
     <section class="section">
-        <form id="J_install_form" action="index.php?step=4" method="post">
+        <form id="J_install_form" action="index.php?step=4&lang=<?php echo isset($install_lang) ? $install_lang : 'zh-cn'; ?>" method="post">
+            <input type="hidden" name="install_lang" value="<?php echo isset($install_lang) ? htmlspecialchars($install_lang) : 'zh-cn'; ?>">
             <div class="server"  ref="mianscroll">
                 <table width="100%">
                     <tr>
-                        <td class="td1" width="100">数据库信息</td>
+                        <td class="td1" width="100"><?php echo t('db_info'); ?></td>
                         <td class="td1" width="200">&nbsp;</td>
                         <td class="td1">&nbsp;</td>
                     </tr>
 
                     <tr>
-                        <td class="tar">数据库用户名：</td>
+                        <td class="tar"><?php echo t('db_user'); ?></td>
                         <td><input type="text" name="dbuser" id="dbuser" value="<?php echo $MYSQL_USER; ?>" class="input"></td>
                         <td>
                             <div id="J_install_tip_dbuser"></div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tar">数据库密码：</td>
+                        <td class="tar"><?php echo t('db_pwd'); ?></td>
                         <td><input type="password" name="dbpw" id="dbpw" value="<?php echo $MYSQL_PASSWORD; ?>" class="input" autoComplete="off"></td>
                         <td>
                             <div id="J_install_tip_dbpw"></div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tar">数据库名：</td>
+                        <td class="tar"><?php echo t('db_name'); ?></td>
                         <td><input type="text" name="dbname" id="dbname" value="<?php echo $MYSQL_DATABASE; ?>" class="input"></td>
                         <td>
                             <div id="J_install_tip_dbname"></div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tar">高级设置：</td>
+                        <td class="tar"><?php echo t('advanced'); ?></td>
                         <td colspan="2">
                             <el-switch
                                     v-model="value"
@@ -61,14 +62,14 @@
                         </td>
                     </tr>
                     <tr v-show="value">
-                        <td class="tar">数据库服务器：</td>
+                        <td class="tar"><?php echo t('db_server'); ?></td>
                         <td><input type="text" name="dbhost" id="dbhost" value="<?php echo $MYSQL_HOST_IP; ?>" class="input"></td>
                         <td>
                             <div id="J_install_tip_dbhost"></div>
                         </td>
                     </tr>
                     <tr v-show="value">
-                        <td class="tar">数据库端口：</td>
+                        <td class="tar"><?php echo t('db_port'); ?></td>
                         <td><input type="text" name="dbport" id="dbport" value="<?php echo $MYSQL_PORT; ?>" class="input"
                                    onBlur="mysqlDbPwd(0)"></td>
                         <td>
@@ -77,7 +78,7 @@
                     </tr>
 
                     <tr v-show="value">
-                        <td class="tar">数据库表前缀：</td>
+                        <td class="tar"><?php echo t('db_prefix'); ?></td>
                         <td><input type="text" name="dbprefix" id="dbprefix" value="eb_" class="input"></td>
                         <td></td>
                     </tr>
@@ -85,12 +86,12 @@
                 </table>
                 <table width="100%">
                     <tr>
-                        <td class="td1" width="100">管理员信息</td>
+                        <td class="td1" width="100"><?php echo t('admin_info'); ?></td>
                         <td class="td1" width="200">&nbsp;</td>
                         <td class="td1">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td class="tar">管理员帐号：</td>
+                        <td class="tar"><?php echo t('admin_account'); ?></td>
                         <td><input type="text" name="manager" id="manager" value="admin" class="input"
                                    onblur="checkForm()"></td>
                         <td>
@@ -98,24 +99,24 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tar">管理员密码：</td>
+                        <td class="tar"><?php echo t('admin_pwd'); ?></td>
                         <td><input type="password" name="manager_pwd" id="manager_pwd" class="input" autoComplete="off"
-                                   placeholder="请输入密码(至少6个字符)"  placeholder-class="pl-style" onblur="checkForm()">
+                                   placeholder="<?php echo htmlspecialchars(t('placeholder_pwd')); ?>"  placeholder-class="pl-style" onblur="checkForm()">
                         </td>
                         <td>
-                            <div id="J_install_tip_manager_pwd"><span class="gray">请输入至少6个字符密码</span></div>
+                            <div id="J_install_tip_manager_pwd"><span class="gray"><?php echo t('placeholder_pwd_hint'); ?></span></div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tar">重复密码：</td>
+                        <td class="tar"><?php echo t('repeat_pwd'); ?></td>
                         <td><input type="password" name="manager_ckpwd" id="manager_ckpwd" class="input"
-                                   autoComplete="off" placeholder="请再次输入密码" onkeyup="checkForm()"></td>
+                                   autoComplete="off" placeholder="<?php echo htmlspecialchars(t('placeholder_pwd_again')); ?>" onkeyup="checkForm()"></td>
                         <td>
                             <div id="J_install_tip_manager_ckpwd"></div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tar">演示数据：</td>
+                        <td class="tar"><?php echo t('demo_data'); ?></td>
                         <td colspan="2"><input style="width:14px;height:14px;" type="checkbox" id="demo" name="demo"
                                                value="demo" checked></td>
                     </tr>
@@ -123,31 +124,31 @@
                 </table>
                 <table>
                     <tr>
-                        <td class="td1" width="100">缓存设置</td>
+                        <td class="td1" width="100"><?php echo t('cache_setting'); ?></td>
                         <td class="td1" width="200">&nbsp;</td>
                         <td class="td1">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td class="tar">缓存方式：</td>
+                        <td class="tar"><?php echo t('cache_type'); ?></td>
                         <td>
-                            <el-radio v-model="radio" :label="0" name="cache_type" id="cache_type1">文件缓存</el-radio>
-                            <el-radio v-model="radio" :label="1" name="cache_type" id="cache_type2">redis缓存</el-radio>
+                            <el-radio v-model="radio" :label="0" name="cache_type" id="cache_type1"><?php echo t('file_cache'); ?></el-radio>
+                            <el-radio v-model="radio" :label="1" name="cache_type" id="cache_type2"><?php echo t('redis_cache'); ?></el-radio>
                         </td>
                         <td></td>
                     </tr>
                     <tr v-show="radio == 1">
-                        <td class="tar">服务器地址：</td>
+                        <td class="tar"><?php echo t('redis_host'); ?></td>
                         <td><input type="text" name="rbhost" id="rbhost" value="<?php echo $REDIS_HOST_IP; ?>" class="input"></td>
                         <td>
-                            <div id="J_install_redis_host"><span class="gray">redis服务器地址，一般为127.0.0.1</span></div>
+                            <div id="J_install_redis_host"><span class="gray"><?php echo t('redis_host_hint'); ?></span></div>
                         </td>
                     </tr>
                     <tr v-show="radio == 1">
-                        <td class="tar">端口号：</td>
+                        <td class="tar"><?php echo t('redis_port'); ?></td>
                         <td><input type="text" name="rbport" id="rbport" value="<?php echo $REDIS_PORT; ?>" class="input" autoComplete="off">
                         </td>
                         <td>
-                            <div id="J_install_redis_port"><span class="gray">redis端口,默认为6379</span></div>
+                            <div id="J_install_redis_port"><span class="gray"><?php echo t('redis_port_hint'); ?></span></div>
                         </td>
                     </tr>
                     <tr v-show="radio == 1">
@@ -169,10 +170,10 @@
             </div>
             <div class="bottom-btn">
                 <div class="bottom tac up-btn">
-                    <a href="./index.php?step=2" class="btn">上一步</a>
+                    <a href="./index.php?step=2&lang=<?php echo isset($install_lang) ? $install_lang : 'zh-cn'; ?>" class="btn"><?php echo t('prev_step'); ?></a>
                 </div>
                 <div class="bottom tac next">
-                    <a @click="submitForm();" class="btn">下一步</a>
+                    <a @click="submitForm();" class="btn"><?php echo t('next_step'); ?></a>
                 </div>
             </div>
         </form>

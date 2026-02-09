@@ -216,7 +216,7 @@ export default {
   text-align: center;
   line-height: 32px;
   font-size: 13px;
-  font-family: PingFangSC-Regular, PingFang SC;
+  font-family: var(--font-primary);
   font-weight: 400;
   color: #ffffff;
   cursor: pointer;
@@ -229,7 +229,7 @@ export default {
   text-align: center;
   line-height: 32px;
   font-size: 13px;
-  font-family: PingFangSC-Regular, PingFang SC;
+  font-family: var(--font-primary);
   font-weight: 400;
   color: rgba(0, 0, 0, 0.85);
   cursor: pointer;

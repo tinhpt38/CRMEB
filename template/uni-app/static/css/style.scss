@@ -384,7 +384,7 @@
 }
 .sign-record .list .item .listn .itemn .num {
 	font-size: 36rpx;
-	font-family: 'Guildford Pro';
+	font-family: var(--font-primary);
 	color: #16ac57;
 }
 .sign-record .list .item .listn .itemn .num.font-color {
@@ -699,7 +699,7 @@
 
 .sign-record .list .item .listn .itemn .num {
 	font-size: 36rpx;
-	font-family: 'Guildford Pro';
+	font-family: var(--font-primary);
 	color: #16ac57;
 }
 
