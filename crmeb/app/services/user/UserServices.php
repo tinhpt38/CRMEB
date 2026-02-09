@@ -1218,33 +1218,45 @@ class UserServices extends BaseServices
         return [
             [
                 'title' => '余额',
+                'titleKey' => 'detailBalance',
                 'value' => $userInfo['now_money'] ?? 0,
                 'key' => '元',
+                'unitKey' => 'detailUnitYuan',
             ],
             [
                 'title' => '总计订单',
+                'titleKey' => 'detailTotalOrders',
                 'value' => $orderServices->count($where),
                 'key' => '笔',
+                'unitKey' => 'detailUnitOrder',
             ],
             [
                 'title' => '总消费金额',
+                'titleKey' => 'detailTotalConsume',
                 'value' => $orderServices->together($where, 'pay_price'),
                 'key' => '元',
+                'unitKey' => 'detailUnitYuan',
             ],
             [
                 'title' => '积分',
+                'titleKey' => 'detailIntegral',
                 'value' => $userInfo['integral'] ?? 0,
                 'key' => '',
+                'unitKey' => '',
             ],
             [
                 'title' => '本月订单',
+                'titleKey' => 'detailMonthOrders',
                 'value' => $orderServices->count($where + ['time' => 'month']),
                 'key' => '笔',
+                'unitKey' => 'detailUnitOrder',
             ],
             [
                 'title' => '本月消费金额',
+                'titleKey' => 'detailMonthConsume',
                 'value' => $orderServices->together($where + ['time' => 'month'], 'pay_price'),
                 'key' => '元',
+                'unitKey' => 'detailUnitYuan',
             ]
         ];
     }

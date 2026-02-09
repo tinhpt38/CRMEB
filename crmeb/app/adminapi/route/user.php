@@ -191,4 +191,4 @@ Route::group('user', function () {
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'user', 'mark_name' => '用户管理']);
+])->option(['mark' => 'user', 'mark_name' => 'Người dùng quản lý']);

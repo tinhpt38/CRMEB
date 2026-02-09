@@ -7,7 +7,7 @@
           <p class="dashboard-workplace-header-tip-title f-w-b" v-text="psInfo.nickname || '-'"></p>
           <div class="dashboard-workplace-header-tip-desc">
             <span class="dashboard-workplace-header-tip-desc-sp" v-for="(item, index) in detailsData" :key="index">{{
-              item.title + '：' + item.value
+              (item.titleKey ? $t('message.pages.user.list.' + item.titleKey) : item.title) + '：' + item.value + (item.unitKey ? $t('message.pages.user.list.' + item.unitKey) : (item.key || ''))
             }}</span>
           </div>
         </div>
