@@ -45,24 +45,24 @@
     </div>
     <div class="user-list">
       <div class="acea-row item bgt">
-        <span class="sp1">用户等级</span>
-        <span class="sp2" v-text="activeUserInfo.level_name ? activeUserInfo.level_name : '无'"></span>
+        <span class="sp1">{{ $t('message.pages.kefu.mobile.user.userLevel') }}</span>
+        <span class="sp2" v-text="activeUserInfo.level_name ? activeUserInfo.level_name : $t('message.pages.kefu.pc.rightMenu.noData')"></span>
       </div>
       <div class="acea-row item bgt">
-        <span class="sp1">用户类型</span>
+        <span class="sp1">{{ $t('message.pages.kefu.mobile.user.userType') }}</span>
         <span class="sp2">{{ activeUserInfo.user_type | userType }}</span>
       </div>
       <div class="acea-row item bgt">
-        <span class="sp1">余额</span>
-        <span class="sp2" v-text="activeUserInfo.now_money || '无'"></span>
+        <span class="sp1">{{ $t('message.pages.kefu.mobile.user.balance') }}</span>
+        <span class="sp2" v-text="activeUserInfo.now_money || $t('message.pages.kefu.pc.rightMenu.noData')"></span>
       </div>
       <div class="acea-row item bgt">
-        <span class="sp1">推广员</span>
-        <span class="sp2" v-text="activeUserInfo.is_promoter === 1 ? '是' : '否'"></span>
+        <span class="sp1">{{ $t('message.pages.kefu.mobile.user.promoter') }}</span>
+        <span class="sp2" v-text="activeUserInfo.is_promoter === 1 ? $t('message.pages.kefu.mobile.user.yes') : $t('message.pages.kefu.mobile.user.no')"></span>
       </div>
       <div class="acea-row item">
-        <span class="sp1">生日</span>
-        <span class="sp2" v-text="activeUserInfo.birthday || '无'"></span>
+        <span class="sp1">{{ $t('message.pages.kefu.mobile.user.birthday') }}</span>
+        <span class="sp2" v-text="activeUserInfo.birthday || $t('message.pages.kefu.pc.rightMenu.noData')"></span>
       </div>
     </div>
     <user-labels

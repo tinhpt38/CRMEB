@@ -121,8 +121,8 @@
                   :disabled="scope.row.lottery_status == 2 ? true : false"
                   @change="onchangeIsShow(scope.row)"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.common.on')"
+                  :inactive-text="$t('message.common.off')"
                 >
                 </el-switch>
               </template>

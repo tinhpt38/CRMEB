@@ -79,7 +79,7 @@
                   <img src="@/assets/images/electric.png" />
                 </div>
                 <div class="page-title" :class="{ on: activeIndex == -100 }" v-db-click @click="showTitle">
-                  {{ titleTxt }}
+                  {{ $t(titleTxt) }}
                   <div class="delete-box"></div>
                   <div class="handle"></div>
                 </div>

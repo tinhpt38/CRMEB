@@ -96,3 +96,9 @@ Làm lần lượt theo thứ tự dưới đây. Mỗi bước: thêm khóa và
 - **devise**: khối lượng lớn, nên làm sau khi xong các nhóm 1–4.
 
 Làm xong từng trang thì cập nhật lại bảng “Đã hoàn thành” trong file này.
+
+---
+
+## Kế hoạch i18n toàn dự án
+
+Xem **readme/I18N-FULL-PLAN.md** để có kế hoạch dịch toàn bộ admin (pages, components, layout, …) sang i18n, thứ tự phase và quy trình làm từng module.

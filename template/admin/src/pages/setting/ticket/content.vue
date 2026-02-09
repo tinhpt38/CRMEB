@@ -80,69 +80,69 @@
                 <div class="content">13023354455</div>
               </div>
               <div class="form-box">
-                <div class="label">收货地址：</div>
+                <div class="label">{{ $t('message.pages.setting.ticket.content.deliveryAddress') }}</div>
                 <div class="content">上海市浦东新区世界大道25号B座309室</div>
               </div>
             </div>
             <!-- 备注 -->
             <div class="buyer-remarks btn-line" v-if="formItem.buyer_remarks === 1">
               <div class="form-box">
-                <div class="label">买家备注：</div>
-                <div class="content">请在收货时向商家留言，谢谢！</div>
+                <div class="label">{{ $t('message.pages.setting.ticket.content.buyerRemarks') }}</div>
+                <div class="content">{{ $t('message.pages.setting.ticket.content.buyerRemarksPlaceholder') }}</div>
               </div>
             </div>
             <!-- 商品 -->
             <div v-if="formItem.goods.includes(0)">
               <div class="goods btn-line">
-                <div class="xing">*************************商品***********************</div>
+                <div class="xing">{{ $t('message.pages.setting.ticket.content.goodsSeparator') }}</div>
                 <div class="flex justify-between">
-                  <span>商品</span>
-                  <span>单价</span>
-                  <span>数量</span>
-                  <span>金额</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.goods') }}</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.unitPrice') }}</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.quantity') }}</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.amount') }}</span>
                 </div>
               </div>
               <div class="goods-msg btn-line">
                 <div class="flex justify-between">
-                  <span>商品1</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.goods1') }}</span>
                   <span>100.0</span>
                   <span>2</span>
                   <span>200.0</span>
                 </div>
                 <div class="flex justify-between">
-                  <span>(规格1)</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.spec1') }}</span>
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
                 <div v-if="formItem.goods.includes(1)" class="flex py-10">
-                  <span>规格编码：</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.specCodeColon') }}</span>
                   <span>FKXQW4567vw59</span>
                 </div>
               </div>
               <div class="goods-msg pb-10 pt-10">
                 <div class="flex justify-between">
-                  <span>商品2</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.goods2') }}</span>
                   <span>100.0</span>
                   <span>2</span>
                   <span>200.0</span>
                 </div>
                 <div class="flex justify-between">
-                  <span>(规格2)</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.spec2') }}</span>
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
                 <div v-if="formItem.goods.includes(1)" class="flex py-10">
-                  <span>规格编码：</span>
+                  <span>{{ $t('message.pages.setting.ticket.content.specCodeColon') }}</span>
                   <span>FKXQW4567vw50</span>
                 </div>
               </div>
-              <div class="xing">**************************************************</div>
+              <div class="xing">{{ $t('message.pages.setting.ticket.content.goodsSeparator2') }}</div>
               <!-- 合计 -->
               <div class="pay flex flex-col align-end btn-line">
                 <template>
-                  <div class="fw-500">合计：400.00元</div>
+                  <div class="fw-500">{{ $t('message.pages.setting.ticket.content.totalSample') }}</div>
                 </template>
               </div>
             </div>
@@ -152,24 +152,24 @@
               v-if="formItem.freight === 1 || formItem.preferential === 1"
             >
               <template>
-                <div v-if="formItem.freight === 1">运费：+30.00元</div>
-                <div v-if="formItem.preferential === 1">优惠：-80.00元</div>
-                <div v-if="formItem.preferential === 1">抵扣：-20.00元</div>
+                <div v-if="formItem.freight === 1">{{ $t('message.pages.setting.ticket.content.freightSample') }}</div>
+                <div v-if="formItem.preferential === 1">{{ $t('message.pages.setting.ticket.content.discountSample') }}</div>
+                <div v-if="formItem.preferential === 1">{{ $t('message.pages.setting.ticket.content.deductSample') }}</div>
               </template>
             </div>
             <!-- 支付信息 -->
 
             <div class="pay flex flex-col align-end btn-line" v-if="formItem.pay.length > 0">
-              <div v-if="formItem.pay.includes(0)">支付方式：微信支付</div>
-              <div v-if="formItem.pay.includes(1)" class="fw-500">实际支付：330.00元</div>
+              <div v-if="formItem.pay.includes(0)">{{ $t('message.pages.setting.ticket.content.payMethod') }}：{{ $t('message.pages.setting.ticket.content.payMethodWechat') }}</div>
+              <div v-if="formItem.pay.includes(1)" class="fw-500">{{ $t('message.pages.setting.ticket.content.actualPaySample') }}</div>
             </div>
             <!-- 订单信息 -->
 
             <div class="order pt-10 btn-line" v-if="formItem.order.length > 0">
-              <div v-if="formItem.order.includes(0)">订单编号：wx1234567890</div>
-              <div v-if="formItem.order.includes(1)">下单时间：2022/06/18 12:00:00</div>
-              <div v-if="formItem.order.includes(2)">支付时间：2022/06/18 12:00:00</div>
-              <div v-if="formItem.order.includes(3)">打印时间：2022/06/18 14:20:00</div>
+              <div v-if="formItem.order.includes(0)">{{ $t('message.pages.setting.ticket.content.orderNoSample') }}</div>
+              <div v-if="formItem.order.includes(1)">{{ $t('message.pages.setting.ticket.content.orderTimeSample') }}</div>
+              <div v-if="formItem.order.includes(2)">{{ $t('message.pages.setting.ticket.content.payTimeSample') }}</div>
+              <div v-if="formItem.order.includes(3)">{{ $t('message.pages.setting.ticket.content.printTimeSample') }}</div>
             </div>
             <!-- 二维码 -->
             <div class="code">
@@ -186,7 +186,7 @@
       </div>
     </el-card>
     <el-card :bordered="false" dis-hover class="fixed-card">
-      <el-button type="primary" class="submission" @click="save">保存</el-button>
+      <el-button type="primary" class="submission" @click="save">{{ $t('message.pages.setting.ticket.content.save') }}</el-button>
     </el-card>
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
   </div>
@@ -252,10 +252,10 @@ export default {
     save() {
       printSaveContent(this.id, this.formItem)
         .then((res) => {
-          this.$message.success('保存成功');
+          this.$message.success(this.$t('message.pages.setting.ticket.content.saveSuccess'));
         })
         .catch((err) => {
-          this.$message.error('保存失败');
+          this.$message.error(this.$t('message.pages.setting.ticket.content.saveFail'));
         });
     },
     getLink(index) {

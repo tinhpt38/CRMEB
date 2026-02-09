@@ -2,7 +2,7 @@
   <div class="deliver-goods" v-if="delivery">
     <header>
       <div class="order-num acea-row row-between-wrapper">
-        <div class="num line1">订单号：{{ orderId }}</div>
+        <div class="num line1">{{ $t('message.pages.kefu.mobile.orderDelivery.orderIdLabel') }}{{ orderId }}</div>
         <div class="name line1">
           <span class="iconfontYI icon-yonghu2"></span>{{ delivery.userInfo ? delivery.userInfo.nickname : '' }}
         </div>
@@ -17,7 +17,7 @@
     </header>
     <div class="wrapper">
       <div class="item acea-row row-between-wrapper">
-        <div>发货方式</div>
+        <div>{{ $t('message.pages.kefu.mobile.orderDelivery.deliveryMethod') }}</div>
         <div class="mode acea-row row-middle row-right">
           <div
             class="goods"
@@ -48,7 +48,7 @@
       </div>
       <div class="list" v-if="active === 0">
         <div class="item acea-row row-between-wrapper">
-          <div>快递公司</div>
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.deliveryCompany') }}</div>
           <span class="checkName" v-text="expFrom.delivery_name" v-db-click @click="show"></span>
           <vue-pickers
             :data="pickData"
@@ -61,17 +61,17 @@
           ></vue-pickers>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="expFrom.express_record_type === 1">
-          <div>快递单号</div>
-          <input type="text" placeholder="填写快递单号" v-model="expFrom.delivery_id" class="mode input-input" />
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.deliveryId') }}</div>
+          <input type="text" :placeholder="$t('message.pages.kefu.mobile.orderDelivery.placeholderDeliveryId')" v-model="expFrom.delivery_id" class="mode input-input" />
         </div>
         <div class="item acea-row row-between-wrapper" v-if="expFrom.express_record_type === 1">
-          <div class="tip">顺丰请输入单号：收件人或寄件人手机号后四位,</div>
-          <div class="tip">例如：SF000000000000:3941</div>
+          <div class="tip">{{ $t('message.pages.kefu.mobile.orderDelivery.sfTip') }}</div>
+          <div class="tip">{{ $t('message.pages.kefu.mobile.orderDelivery.example') }}</div>
         </div>
       </div>
       <div class="list" v-if="expTemp.length && active === 0">
         <div class="item acea-row row-between-wrapper">
-          <div>电子面单</div>
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.eWaybill') }}</div>
           <div class="acea-row">
             <span class="checkName" v-text="expFrom.delivery_name" v-db-click @click="showExpTemp"></span>
             <vue-pickers
@@ -83,7 +83,7 @@
               :visible.sync="pickerVisibleExpTemp"
             ></vue-pickers>
             <div class="look">
-              <span>预览</span>
+              <span>{{ $t('message.pages.kefu.mobile.orderDelivery.preview') }}</span>
               <viewer class="viewer" ref="viewer">
                 <img v-lazy="tempImg" class="image" />
               </viewer>
@@ -93,21 +93,21 @@
       </div>
       <div class="list" v-if="expFrom.express_record_type === 2 && active === 0">
         <div class="item acea-row row-between-wrapper">
-          <div>寄件人姓名</div>
-          <input type="text" placeholder="填写寄件人姓名" v-model="expFrom.to_name" class="mode input-input" />
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.senderName') }}</div>
+          <input type="text" :placeholder="$t('message.pages.kefu.mobile.orderDelivery.placeholderSenderName')" v-model="expFrom.to_name" class="mode input-input" />
         </div>
         <div class="item acea-row row-between-wrapper">
-          <div>寄件人电话</div>
-          <input type="text" placeholder="填写寄件人电话" v-model="expFrom.to_tel" class="mode input-input" />
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.senderPhone') }}</div>
+          <input type="text" :placeholder="$t('message.pages.kefu.mobile.orderDelivery.placeholderSenderPhone')" v-model="expFrom.to_tel" class="mode input-input" />
         </div>
         <div class="item acea-row row-between-wrapper">
-          <div>寄件人地址</div>
-          <input type="text" placeholder="填写寄件人地址" v-model="expFrom.to_addr" class="mode input-input" />
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.senderAddress') }}</div>
+          <input type="text" :placeholder="$t('message.pages.kefu.mobile.orderDelivery.placeholderSenderAddress')" v-model="expFrom.to_addr" class="mode input-input" />
         </div>
       </div>
       <div class="list" v-if="active === 1">
         <div class="item acea-row row-between-wrapper">
-          <div>送货人</div>
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.deliveryPerson') }}</div>
           <span class="checkName" v-text="expFrom.sh_delivery_name" v-db-click @click="showName"></span>
           <vue-pickers
             :data="deliveryList"
@@ -119,8 +119,8 @@
           ></vue-pickers>
         </div>
         <div class="item acea-row row-between-wrapper">
-          <div>送货人电话</div>
-          <input type="text" placeholder="填写送货人电话" v-model="expFrom.sh_delivery_id" class="mode input-input" />
+          <div>{{ $t('message.pages.kefu.mobile.orderDelivery.deliveryPersonPhone') }}</div>
+          <input type="text" :placeholder="$t('message.pages.kefu.mobile.orderDelivery.placeholderDeliveryPersonPhone')" v-model="expFrom.sh_delivery_id" class="mode input-input" />
         </div>
       </div>
       <textarea
@@ -354,9 +354,9 @@ export default {
       // save.type = that.expFrom.type;
       switch (type) {
         case '1':
-          if (this.expFrom.type === 1 && !that.expFrom.delivery_name) return that.$dialog.error('请输入快递公司');
+          if (this.expFrom.type === 1 && !that.expFrom.delivery_name) return that.$dialog.error(that.$t('message.pages.kefu.mobile.orderDelivery.inputDeliveryCompany'));
           if (this.expFrom.type === 1 && this.expFrom.express_record_type === 1 && !that.expFrom.delivery_id)
-            return that.$dialog.error('请输入快递单号');
+            return that.$dialog.error(that.$t('message.pages.kefu.mobile.orderDelivery.inputDeliveryId'));
           if (this.expFrom.type === 1 && !that.expFrom.express_temp_id && this.expFrom.express_record_type === 2)
             return that.$dialog.error('请选择电子面单');
           that.setInfo(that.expFrom);

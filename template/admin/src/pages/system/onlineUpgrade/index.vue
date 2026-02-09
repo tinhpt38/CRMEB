@@ -440,7 +440,7 @@ export default {
       clearInterval(this.timer);
       AccountLogout()
         .then((res) => {
-          this.$message.success('您已成功退出');
+          this.$message.success(this.$t('message.user.logOutSuccess'));
           this.$router.replace(this.$routeProStr + '/login');
           localStorage.clear();
           removeCookies('token');

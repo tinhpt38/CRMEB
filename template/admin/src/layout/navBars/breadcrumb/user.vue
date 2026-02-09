@@ -37,7 +37,7 @@
     </div>
     <div class="layout-navbars-breadcrumb-user-icon mr10" v-db-click @click="openMobelPage">
       <i
-        title="商城页面"
+        :title="$t('message.user.mallPage')"
         class="el-icon-mobile-phone"
       ></i>
     </div>
@@ -138,7 +138,7 @@ export default {
     // 全屏点击
     onScreenfullClick() {
       if (!screenfull.isEnabled) {
-        this.$message.warning('暂不不支持全屏');
+        this.$message.warning(this.$t('message.user.fullscreenNotSupport'));
         return false;
       }
       screenfull.toggle();
@@ -219,7 +219,7 @@ export default {
                 instance.confirmButtonText = this.$t('message.user.logOutExit');
                 AccountLogout().then((res) => {
                   done();
-                  this.$message.success('您已成功退出');
+                  this.$message.success(this.$t('message.user.logOutSuccess'));
                   this.$store.commit('clearAll');
                   // localStorage.clear();
                   // sessionStorage.clear();

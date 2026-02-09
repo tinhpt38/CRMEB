@@ -24,17 +24,17 @@
         </div>
         <div class="user-info">
           <div class="item">
-            <span>手机号</span>
-            {{ activeUserInfo.phone || '暂无' }}
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.phone') }}</span>
+            {{ activeUserInfo.phone || $t('message.pages.kefu.pc.rightMenu.noData') }}
           </div>
           <!-- <div class="item">
-                        <span>分组</span>
+                        <span>{{ $t('message.pages.kefu.pc.rightMenu.group') }}</span>
                         <el-select v-model="activeUserInfo.group_id" size="small" @change="onChange" style="flex:1;">
                             <el-option v-for="item in userGroup" :value="item.id" :key="item.value">{{ item.group_name }}</el-option>
                         </el-select>
                     </div> -->
           <div class="label-list">
-            <span>分组</span>
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.group') }}</span>
             <div class="con">
               <div class="label-item">{{ activeUserInfo.group_name }}</div>
             </div>
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="label-list">
-            <span>用户标签</span>
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.userLabel') }}</span>
             <div class="con">
               <div class="label-item" v-for="(item, index) in activeUserInfo.labelNames" :key="index">
                 {{ item }}
@@ -56,24 +56,24 @@
         </div>
         <div class="user-info">
           <div class="item">
-            <span>用户等级</span>
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.userLevel') }}</span>
             {{ activeUserInfo.level_name }}
           </div>
           <div class="item">
-            <span>推荐人</span>
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.recommender') }}</span>
             {{ activeUserInfo.spread_name }}
           </div>
           <div class="item">
-            <span>用户类型</span>
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.userType') }}</span>
             {{ activeUserInfo.user_type | typeFilters }}
           </div>
           <div class="item">
-            <span>余额</span>
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.balance') }}</span>
             {{ activeUserInfo.now_money }}
           </div>
-          <div class="item"><span>推广员</span>{{ activeUserInfo.is_promoter ? '是' : '否' }}</div>
+          <div class="item"><span>{{ $t('message.pages.kefu.pc.rightMenu.promoter') }}</span>{{ activeUserInfo.is_promoter ? $t('message.pages.kefu.pc.rightMenu.yes') : $t('message.pages.kefu.pc.rightMenu.no') }}</div>
           <div class="item">
-            <span>生日</span>
+            <span>{{ $t('message.pages.kefu.pc.rightMenu.birthday') }}</span>
             {{ activeUserInfo.birthday | getDay }}
           </div>
         </div>

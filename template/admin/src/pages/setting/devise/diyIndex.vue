@@ -91,7 +91,7 @@
               <div class="overflowy">
                 <div class="picture"><img src="@/assets/images/electric.png" /></div>
                 <div class="page-title" :class="{ on: activeIndex == -100 }" @click="showTitle">
-                  {{ titleTxt }}
+                  {{ $t(titleTxt) }}
                   <div class="delete-box"></div>
                   <div class="handle"></div>
                 </div>

@@ -144,14 +144,14 @@ export default {
             iframeUrl: this.$routeProStr + '/widget.images/index.html?fodder=dialog',
             editor: editor,
             name: uiName,
-            title: '上传图片',
+            title: this.$t('router.setting.devise.uploadImage'),
             cssRules: 'width:960px;height:550px;padding:20px;',
           });
           this.dialog = dialog;
           // 参考上面的自定义按钮
           var btn = new window.UE.ui.Button({
             name: 'dialog-button',
-            title: '上传图片',
+            title: this.$t('router.setting.devise.uploadImage'),
             cssRules: `background-image: url(../../../assets/images/icons.png);background-position: -726px -77px;`,
             onclick: function () {
               // 渲染dialog

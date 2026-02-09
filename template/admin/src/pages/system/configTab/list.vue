@@ -71,7 +71,7 @@
                 </div>
               </div>
             </div>
-            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? '开启' : '关闭' }}</span>
+            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? $t('message.common.on') : $t('message.common.off') }}</span>
           </template>
         </el-table-column>
         <el-table-column label="关联配置/值" min-width="130">
