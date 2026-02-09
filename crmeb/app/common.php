@@ -361,13 +361,28 @@ if (!function_exists('check_link')) {
 }
 if (!function_exists('check_phone')) {
     /**
-     * 手机号验证
-     * @param $phone
-     * @return false|int
+     * 手机号/电话号码验证（支持中国大陆、越南等格式）
+     * 中国大陆：1[3-9]共11位
+     * 越南：0[35789]共10位，或 84[35789]共11位，或 +84[35789]共11位
+     * @param mixed $phone
+     * @return bool
      */
     function check_phone($phone)
     {
-        return preg_match("/^1[3456789]\d{9}$/", $phone);
+        $phone = is_string($phone) ? trim($phone) : (string)$phone;
+        $phone = preg_replace('/\s+/', '', $phone);
+        if ($phone === '') {
+            return false;
+        }
+        // 中国大陆 11 位
+        if (preg_match("/^1[3456789]\d{9}$/", $phone)) {
+            return true;
+        }
+        // 越南: 0xxxxxxxxx (10 位) 或 84xxxxxxxxx / +84xxxxxxxxx (11 位)
+        if (preg_match("/^(0|\+?84)[35789]\d{8}$/", $phone)) {
+            return true;
+        }
+        return false;
     }
 }
 if (!function_exists('anonymity')) {
