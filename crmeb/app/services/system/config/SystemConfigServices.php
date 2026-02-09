@@ -13,6 +13,7 @@ namespace app\services\system\config;
 
 
 use app\dao\system\config\SystemConfigDao;
+use app\dao\system\config\SystemConfigLangDao;
 use app\dao\system\config\SystemConfigTabLangDao;
 use app\dao\system\lang\LangTypeDao;
 use app\services\agent\AgentManageServices;
@@ -1017,30 +1018,45 @@ class SystemConfigServices extends BaseServices
         /** @var SystemConfigTabServices $service */
         $service = app()->make(SystemConfigTabServices::class);
         $title = $service->value(['id' => $tabId], 'title');
-        // Bổ sung title từ eb_system_config_tab_lang theo cb-lang (không ghi đè bảng gốc)
+        $langTypeId = 0;
         $cbLang = app()->request->header('cb-lang');
         if ($cbLang !== null && $cbLang !== '') {
             $file_name = strlen($cbLang) > 2 ? substr($cbLang, 0, 2) . '-' . strtoupper(substr($cbLang, 3)) : $cbLang;
-            $langTypeId = app()->make(LangTypeDao::class)->value(['file_name' => $file_name], 'id');
+            $langTypeId = (int)(app()->make(LangTypeDao::class)->value(['file_name' => $file_name], 'id') ?: 0);
             if ($langTypeId > 0) {
-                $titles = app()->make(SystemConfigTabLangDao::class)->getTitlesByLangTypeId((int)$langTypeId);
+                $titles = app()->make(SystemConfigTabLangDao::class)->getTitlesByLangTypeId($langTypeId);
                 if (isset($titles[$tabId]) && $titles[$tabId] !== '') {
                     $title = $titles[$tabId];
                 }
             }
         }
         $list = $this->dao->getConfigTabAllList($tabId);
-        // 订单配置 tab 113 及子 tab 表单项多语言（header cb-lang）
-        $orderConfigTabIds = [113, 114, 115, 116, 117, 119, 120];
-        if (in_array($tabId, $orderConfigTabIds, true)) {
+        // Bổ sung info/desc/parameter từ eb_system_config_lang theo cb-lang (tiếng Việt toàn bộ form)
+        if ($langTypeId > 0) {
+            $configIds = array_column($list, 'id');
+            $langMap = app()->make(SystemConfigLangDao::class)->getByConfigIdsAndLang($configIds, $langTypeId);
             foreach ($list as &$item) {
-                $key = 'order_config_' . ($item['menu_name'] ?? '');
-                $t = get_admin_form_lang($key);
-                if ($t !== '' && $t !== $key) {
-                    $item['info'] = $t;
+                $id = (int)($item['id'] ?? 0);
+                if (isset($langMap[$id])) {
+                    if ($langMap[$id]['info'] !== '') $item['info'] = $langMap[$id]['info'];
+                    if ($langMap[$id]['desc'] !== '') $item['desc'] = $langMap[$id]['desc'];
+                    if ($langMap[$id]['parameter'] !== '') $item['parameter'] = $langMap[$id]['parameter'];
                 }
             }
             unset($item);
+        } else {
+            // 订单配置 tab 113 及子 tab 表单项多语言（header cb-lang，file admin_form.php）
+            $orderConfigTabIds = [113, 114, 115, 116, 117, 119, 120];
+            if (in_array($tabId, $orderConfigTabIds, true)) {
+                foreach ($list as &$item) {
+                    $key = 'order_config_' . ($item['menu_name'] ?? '');
+                    $t = get_admin_form_lang($key);
+                    if ($t !== '' && $t !== $key) {
+                        $item['info'] = $t;
+                    }
+                }
+                unset($item);
+            }
         }
         $formbuider = $this->createForm($list);
         $name = 'setting';

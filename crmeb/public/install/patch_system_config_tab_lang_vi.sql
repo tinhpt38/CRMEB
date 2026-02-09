@@ -1,20 +1,17 @@
--- Patch: Đa ngôn ngữ cho tab Cài đặt hệ thống (INSERT bản dịch, không UPDATE bảng gốc)
--- Cấu trúc: eb_system_config_tab không có cột ngôn ngữ; bảng eb_system_config_tab_lang lưu title theo lang_type_id (giống eb_lang_code).
--- Chạy trên database đã cài CRMEB. PREFIX trong .env (vd: eb_) phải trùng với tên bảng dưới đây.
--- eb_lang_type: id=1 中文(zh-CN), id=10 ViệtName(vi-VN).
+-- Patch: Đa ngôn ngữ tab Cài đặt hệ thống (INSERT bản dịch tiếng Việt)
+-- Sinh bởi scripts/patch_system_config_vi.py từ crmeb.sql
+-- lang_type_id = 10 (vi-VN). Chạy sau khi đã import crmeb.sql.
 
--- 1. Tạo bảng dịch (nếu chưa có)
 CREATE TABLE IF NOT EXISTS `eb_system_config_tab_lang` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `tab_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'ID phân loại (eb_system_config_tab.id)',
-  `lang_type_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Ngôn ngữ (eb_lang_type.id, 10=vi-VN)',
+  `tab_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'ID tab (eb_system_config_tab.id)',
+  `lang_type_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Ngôn ngữ (10=vi-VN)',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Tên tab theo ngôn ngữ',
   PRIMARY KEY (`id`),
   UNIQUE KEY `tab_lang` (`tab_id`,`lang_type_id`),
   KEY `lang_type_id` (`lang_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bản dịch tên tab cấu hình theo ngôn ngữ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bản dịch tên tab cấu hình';
 
--- 2. INSERT bản dịch tiếng Việt (lang_type_id = 10, vi-VN)
 INSERT INTO `eb_system_config_tab_lang` (`tab_id`, `lang_type_id`, `title`) VALUES
 (1, 10, 'Cấu hình cơ bản'),
 (2, 10, 'Cấu hình công khai (H5)'),

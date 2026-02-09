@@ -296,3 +296,6 @@ docker-compose一键部署：https://doc.crmeb.com/single_open/open_v54/20145
 
 [返回顶部 :fa-arrow-circle-up: ](https://gitee.com/ZhongBangKeJi/CRMEB#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D)
 
+
+
+Tài liệu: https://doc.crmeb.com/single

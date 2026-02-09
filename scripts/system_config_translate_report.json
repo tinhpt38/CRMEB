@@ -1,0 +1,190 @@
+{
+  "config_missing_vi": [
+    {
+      "id": 194,
+      "field": "info",
+      "zh": "商品付费会员价"
+    },
+    {
+      "id": 198,
+      "field": "info",
+      "zh": "签到赠送经验"
+    },
+    {
+      "id": 199,
+      "field": "info",
+      "zh": "邀新赠送经验"
+    },
+    {
+      "id": 246,
+      "field": "info",
+      "zh": "发票功能启用"
+    },
+    {
+      "id": 247,
+      "field": "info",
+      "zh": "专用发票启用"
+    },
+    {
+      "id": 301,
+      "field": "info",
+      "zh": "发货人姓名"
+    },
+    {
+      "id": 304,
+      "field": "info",
+      "zh": "打印机编号"
+    },
+    {
+      "id": 305,
+      "field": "info",
+      "zh": "客服反馈"
+    },
+    {
+      "id": 326,
+      "field": "info",
+      "zh": "移动端登录LOGO"
+    },
+    {
+      "id": 328,
+      "field": "info",
+      "zh": "备案号"
+    },
+    {
+      "id": 331,
+      "field": "info",
+      "zh": "推广佣金单价"
+    },
+    {
+      "id": 332,
+      "field": "info",
+      "zh": "每日推广佣金上限"
+    },
+    {
+      "id": 334,
+      "field": "info",
+      "zh": "绑定模式"
+    },
+    {
+      "id": 336,
+      "field": "info",
+      "zh": "退货收货人姓名"
+    },
+    {
+      "id": 345,
+      "field": "info",
+      "zh": "关键词"
+    },
+    {
+      "id": 348,
+      "field": "info",
+      "zh": "精品推荐个数"
+    },
+    {
+      "id": 349,
+      "field": "info",
+      "zh": "首发新品个数"
+    },
+    {
+      "id": 355,
+      "field": "info",
+      "zh": "移动端自定义JS"
+    },
+    {
+      "id": 369,
+      "field": "info",
+      "zh": "水印位置"
+    },
+    {
+      "id": 379,
+      "field": "info",
+      "zh": "系统ICO图标"
+    },
+    {
+      "id": 388,
+      "field": "info",
+      "zh": "企业ID"
+    },
+    {
+      "id": 390,
+      "field": "info",
+      "zh": "好友代付"
+    },
+    {
+      "id": 428,
+      "field": "info",
+      "zh": "消息队列"
+    },
+    {
+      "id": 433,
+      "field": "info",
+      "zh": "网安备案"
+    },
+    {
+      "id": 438,
+      "field": "info",
+      "zh": "发货信息管理"
+    },
+    {
+      "id": 450,
+      "field": "info",
+      "zh": "签到模式"
+    },
+    {
+      "id": 451,
+      "field": "info",
+      "zh": "签到提醒"
+    },
+    {
+      "id": 453,
+      "field": "info",
+      "zh": "提醒方式"
+    },
+    {
+      "id": 458,
+      "field": "info",
+      "zh": "手机号获取方式"
+    },
+    {
+      "id": 460,
+      "field": "info",
+      "zh": "售后期限"
+    },
+    {
+      "id": 468,
+      "field": "info",
+      "zh": "电子发票状态"
+    },
+    {
+      "id": 469,
+      "field": "info",
+      "zh": "是否自动开票"
+    },
+    {
+      "id": 470,
+      "field": "info",
+      "zh": "电子发票分类"
+    },
+    {
+      "id": 471,
+      "field": "info",
+      "zh": "电子发票税率"
+    },
+    {
+      "id": 475,
+      "field": "info",
+      "zh": "评论审核"
+    },
+    {
+      "id": 484,
+      "field": "info",
+      "zh": "管理端自定义JS"
+    },
+    {
+      "id": 485,
+      "field": "info",
+      "zh": "PC端自定义JS"
+    }
+  ],
+  "tab_missing_vi": []
+}
