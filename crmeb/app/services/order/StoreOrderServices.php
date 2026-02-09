@@ -1203,7 +1203,7 @@ HTML;
                     }
 
                 }
-                $chartdata['legend'] = ['上月金额', '本月金额', '上月订单数', '本月订单数'];//分类
+                $chartdata['legend'] = ['Tháng trước Doanh thu', 'Tháng này Doanh thu', 'Tháng trước Số lượng đơn hàng', 'Tháng này Số lượng đơn hàng'];//分类
                 $chartdata['xAxis'] = $data['day'];//X轴值
                 $series1 = ['normal' => ['color' => [
                     'x' => 0, 'y' => 0, 'x2' => 0, 'y2' => 1,
@@ -1592,14 +1592,14 @@ HTML;
             'date' => '今日'
         ];
         $info = array_values(compact('sales', 'visits', 'order', 'user'));
-        $info[0]['title'] = '销售额';
-        $info[1]['title'] = '用户访问量';
-        $info[2]['title'] = '订单量';
-        $info[3]['title'] = '新增用户';
-        $info[0]['total_name'] = '本月销售额';
-        $info[1]['total_name'] = '本月访问量';
-        $info[2]['total_name'] = '本月订单量';
-        $info[3]['total_name'] = '本月新增用户';
+        $info[0]['title'] = 'Doanh thu';
+        $info[1]['title'] = 'Người dùng truy cập';
+        $info[2]['title'] = 'Số lượng đơn hàng';
+        $info[3]['title'] = 'Người dùng mới';
+        $info[0]['total_name'] = 'Doanh thu tháng này';
+        $info[1]['total_name'] = 'Người dùng truy cập tháng này';
+        $info[2]['total_name'] = 'Số lượng đơn hàng tháng này';
+        $info[3]['total_name'] = 'Người dùng mới tháng này';
         return $info;
     }
 

@@ -125,37 +125,37 @@ class AgentManageServices extends BaseServices
 
         return [
             [
-                'name' => '分销员人数(人)',
+                'name' => 'Người dùng phân phối(người)',
                 'count' => $data['sum_count'],
                 'className' => 'iconfaqirenshu',
                 'col' => 4,
             ],
             [
-                'name' => '推广用户数量(人)',
+                'name' => 'Người dùng giới thiệu(người)',
                 'count' => $data['spread_sum'],
                 'className' => 'icontuiguangrenshu',
                 'col' => 4,
             ],
             [
-                'name' => '订单数(单)',
+                'name' => 'Số lượng đơn hàng(đơn)',
                 'count' => $data['order_count'],
                 'className' => 'icondingdanliang',
                 'col' => 4,
             ],
             [
-                'name' => '订单金额(元)',
+                'name' => 'Doanh thu đơn hàng(đồng)',
                 'count' => $data['pay_price'],
                 'className' => 'icondingdanjine',
                 'col' => 4,
             ],
             [
-                'name' => '提现次数(次)',
+                'name' => 'Số lần rút tiền(lần)',
                 'count' => $data['extract_count'],
                 'className' => 'iconzhichujine',
                 'col' => 4,
             ],
             [
-                'name' => '未提现金额(元)',
+                'name' => 'Số tiền chưa rút(đồng)',
                 'count' => $data['extract_price'],
                 'className' => 'iconjiaoyijine',
                 'col' => 4,

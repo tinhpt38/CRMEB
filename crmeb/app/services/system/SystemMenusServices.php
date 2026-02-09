@@ -11,7 +11,9 @@
 
 namespace app\services\system;
 
+use app\dao\system\lang\LangTypeDao;
 use app\dao\system\SystemMenusDao;
+use app\dao\system\SystemMenusLangDao;
 use app\services\BaseServices;
 use app\services\system\admin\SystemRoleServices;
 use crmeb\exceptions\AdminException;
@@ -43,7 +45,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 获取菜单没有被修改器修改的数据
+     * 获取菜单没有被修改器修改的数据（支持多语言：header cb-lang 对应 eb_system_menus_lang）
      * @param $menusList
      * @return array
      */
@@ -58,7 +60,46 @@ class SystemMenusServices extends BaseServices
             $data[] = $item;
         }
 
+        $langTypeId = $this->getMenuLangTypeId();
+        if ($langTypeId > 0 && !empty($data)) {
+            $menuIds = array_column($data, 'id');
+            /** @var SystemMenusLangDao $langDao */
+            $langDao = app()->make(SystemMenusLangDao::class);
+            $langMap = $langDao->getByMenuIdsAndLang($menuIds, $langTypeId);
+            foreach ($data as &$row) {
+                $id = (int)($row['id'] ?? 0);
+                if (isset($langMap[$id])) {
+                    if ($langMap[$id]['menu_name'] !== '') {
+                        $row['menu_name'] = $langMap[$id]['menu_name'];
+                    }
+                    if ($langMap[$id]['header'] !== '') {
+                        $row['header'] = $langMap[$id]['header'];
+                    }
+                    if ($langMap[$id]['mark'] !== '') {
+                        $row['mark'] = $langMap[$id]['mark'];
+                    }
+                }
+            }
+            unset($row);
+        }
+
         return $data;
+    }
+
+    /**
+     * 从请求 header cb-lang 解析 lang_type_id（eb_lang_type.id）
+     * @return int
+     */
+    protected function getMenuLangTypeId(): int
+    {
+        $cbLang = app()->request->header('cb-lang');
+        if ($cbLang === null || $cbLang === '') {
+            return 0;
+        }
+        $file_name = strlen($cbLang) > 2 ? substr($cbLang, 0, 2) . '-' . strtoupper(substr($cbLang, 3)) : $cbLang;
+        /** @var LangTypeDao $langTypeDao */
+        $langTypeDao = app()->make(LangTypeDao::class);
+        return (int)($langTypeDao->value(['file_name' => $file_name], 'id') ?: 0);
     }
 
     /**
