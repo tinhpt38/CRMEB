@@ -13,6 +13,8 @@ namespace app\services\system\config;
 
 
 use app\dao\system\config\SystemConfigDao;
+use app\dao\system\config\SystemConfigTabLangDao;
+use app\dao\system\lang\LangTypeDao;
 use app\services\agent\AgentManageServices;
 use app\services\BaseServices;
 use crmeb\exceptions\AdminException;
@@ -1015,6 +1017,18 @@ class SystemConfigServices extends BaseServices
         /** @var SystemConfigTabServices $service */
         $service = app()->make(SystemConfigTabServices::class);
         $title = $service->value(['id' => $tabId], 'title');
+        // Bổ sung title từ eb_system_config_tab_lang theo cb-lang (không ghi đè bảng gốc)
+        $cbLang = app()->request->header('cb-lang');
+        if ($cbLang !== null && $cbLang !== '') {
+            $file_name = strlen($cbLang) > 2 ? substr($cbLang, 0, 2) . '-' . strtoupper(substr($cbLang, 3)) : $cbLang;
+            $langTypeId = app()->make(LangTypeDao::class)->value(['file_name' => $file_name], 'id');
+            if ($langTypeId > 0) {
+                $titles = app()->make(SystemConfigTabLangDao::class)->getTitlesByLangTypeId((int)$langTypeId);
+                if (isset($titles[$tabId]) && $titles[$tabId] !== '') {
+                    $title = $titles[$tabId];
+                }
+            }
+        }
         $list = $this->dao->getConfigTabAllList($tabId);
         // 订单配置 tab 113 及子 tab 表单项多语言（header cb-lang）
         $orderConfigTabIds = [113, 114, 115, 116, 117, 119, 120];
