@@ -1,21 +1,21 @@
 <template>
   <div class="line-settings">
-    <div class="section-title">线条设置</div>
+    <div class="section-title">{{ $t('message.customDesign.lineSetting') }}</div>
     <el-form size="small" label-width="70px">
-      <el-form-item label="线条方向">
+      <el-form-item :label="$t('message.customDesign.lineDirection')">
         <el-radio-group v-model="curComponent.propValue.direction" @change="handleLineDirectionChange">
-          <el-radio label="horizontal">横向</el-radio>
-          <el-radio label="vertical">竖向</el-radio>
+          <el-radio label="horizontal">{{ $t('message.customDesign.horizontal') }}</el-radio>
+          <el-radio label="vertical">{{ $t('message.customDesign.vertical') }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="线条样式">
+      <el-form-item :label="$t('message.customDesign.lineStyle')">
         <el-radio-group v-model="curComponent.propValue.style" @change="onChange">
-          <el-radio label="solid">实线</el-radio>
-          <el-radio label="dashed">虚线</el-radio>
-          <el-radio label="dotted">点线</el-radio>
+          <el-radio label="solid">{{ $t('message.customDesign.solid') }}</el-radio>
+          <el-radio label="dashed">{{ $t('message.customDesign.dashed') }}</el-radio>
+          <el-radio label="dotted">{{ $t('message.customDesign.dotted') }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="线条长度">
+      <el-form-item :label="$t('message.customDesign.lineLength')">
         <div class="row">
           <el-slider
             v-model="lineLength"
@@ -33,7 +33,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="线条粗细">
+      <el-form-item :label="$t('message.customDesign.lineWidth')">
         <div class="row">
           <el-slider
             v-model="lineThickness"
@@ -51,12 +51,12 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="线条颜色">
+      <el-form-item :label="$t('message.customDesign.lineColor')">
         <div class="row">
           <el-color-picker v-model="curComponent.propValue.color" @change="onChange"></el-color-picker>
           <el-input
             v-model="curComponent.propValue.color"
-            placeholder="请输入颜色"
+            :placeholder="$t('message.customDesign.enterColor')"
             @change="onChange"
             style="margin-left: 10px; flex: 1"
           ></el-input>
@@ -66,7 +66,7 @@
               curComponent.propValue.color = '#000000';
               onChange();
             "
-            >重置</el-button
+            >{{ $t('message.customDesign.reset') }}</el-button
           >
         </div>
       </el-form-item>

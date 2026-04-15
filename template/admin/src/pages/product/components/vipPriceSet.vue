@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-dialog :visible.sync="visible" title="自定义会员价" width="900"
+    <el-dialog :visible.sync="visible" :title="$t('message.productVip.customVipPrice')" width="900"
       ><el-form :model="formData" label-width="120px">
-        <el-form-item label="付费会员专属：">
+        <el-form-item :label="$t('message.productVip.vipExclusive') + '：'">
           <el-switch
             v-model="formData.vip_product"
             :active-value="1"
             :inactive-value="0"
-            active-text="开启"
-            inactive-text="关闭"
+            :active-text="$t('message.productCommon.enable')"
+            :inactive-text="$t('message.productCommon.disable')"
             size="large"
             class="defineSwitch"
           >
@@ -17,17 +17,17 @@
         <el-form-item v-if="formData.vip_product">
           <!-- 0仅付费会员可见 1仅付费会员可购买 -->
           <el-radio-group v-model="formData.vip_product_type">
-            <el-radio :label="0">仅付费会员可见</el-radio>
-            <el-radio :label="1">仅付费会员可购买</el-radio>
+            <el-radio :label="0">{{ $t('message.productVip.onlyVipVisible') }}</el-radio>
+            <el-radio :label="1">{{ $t('message.productVip.onlyVipPurchase') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="付费会员价：">
+        <el-form-item :label="$t('message.productVip.vipPrice') + '：'">
           <el-switch
             v-model="formData.is_vip"
             :active-value="1"
             :inactive-value="0"
-            active-text="开启"
-            inactive-text="关闭"
+            :active-text="$t('message.productCommon.enable')"
+            :inactive-text="$t('message.productCommon.disable')"
             size="large"
             class="defineSwitch"
             @change="changeVip"
@@ -36,18 +36,18 @@
         </el-form-item>
         <el-form-item label-width="0px">
           <el-table size="small" border max-height="460" :data="attrData" style="width: 100%">
-            <el-table-column prop="pic" label="规格图" min-width="90" align="center">
+            <el-table-column prop="pic" :label="$t('message.productVip.specImage')" min-width="90" align="center">
               <template slot-scope="scope">
                 <div class="tabBox_img m-auto" v-viewer>
                   <img v-lazy="scope.row.pic" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="suk" label="产品规格" min-width="120" align="center"></el-table-column>
-            <el-table-column prop="price" label="售价" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="suk" :label="$t('message.productVip.productSpec')" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="price" :label="$t('message.productVip.sellPrice')" min-width="120" align="center"></el-table-column>
             <el-table-column min-width="140" align="center" v-if="formData.is_vip == 1">
               <template slot="header" slot-scope="scope">
-                <span>付费会员价</span>
+                <span>{{ $t('message.productVip.vipPrice') }}</span>
                 <el-popover
                   ref="vipSetPopover"
                   :value.sync="vipSetPopoverPopver"
@@ -55,12 +55,12 @@
                   width="290"
                   trigger="click"
                 >
-                  <div class="pop-title">批量修改本列</div>
+                  <div class="pop-title">{{ $t('message.productVip.batchEditColumn') }}</div>
                   <div class="mt-14">
                     <el-radio-group v-model="vipSetType">
-                      <el-radio :label="0">指定价格</el-radio>
-                      <el-radio :label="1">折扣</el-radio>
-                      <el-radio :label="2">减现</el-radio>
+                      <el-radio :label="0">{{ $t('message.productVip.fixedPrice') }}</el-radio>
+                      <el-radio :label="1">{{ $t('message.productVip.discount') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.productVip.minusCash') }}</el-radio>
                     </el-radio-group>
                   </div>
                   <div class="mt10 mb10 acea-row row-middle">
@@ -72,8 +72,8 @@
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
-                      <el-button size="small" @click="closeVipSet">取消</el-button>
-                      <el-button size="small" type="primary" class="ml-14" @click="vipSetConfirm">确认</el-button>
+                      <el-button size="small" @click="closeVipSet">{{ $t('message.productCommon.cancel') }}</el-button>
+                      <el-button size="small" type="primary" class="ml-14" @click="vipSetConfirm">{{ $t('message.productCommon.confirm') }}</el-button>
                     </div>
                   </div>
                   <span class="iconfont iconbianji1" slot="reference" @click.stop="vipSetPopoverPopver = true"></span>
@@ -85,9 +85,9 @@
                     <span>元</span>
                   </template>
                 </el-input>
-                <div class="flex-x-center red" v-show="scope.row.vip_price == 0">会员价不可为0</div>
+                <div class="flex-x-center red" v-show="scope.row.vip_price == 0">{{ $t('message.productVip.vipPriceNotZero') }}</div>
                 <div class="flex-x-center red" v-show="Number(scope.row.vip_price) > Number(scope.row.price)">
-                  会员价不可大于售价
+                  {{ $t('message.productVip.vipPriceNotGreaterSell') }}
                 </div>
               </template>
             </el-table-column>
@@ -95,8 +95,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="onCancel">取消</el-button>
-        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">确认</el-button>
+        <el-button @click="onCancel">{{ $t('message.productCommon.cancel') }}</el-button>
+        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">{{ $t('message.productCommon.confirm') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -161,8 +161,8 @@ export default {
           }
         });
       }
-      if (!isSuccess) return this.$message.error('会员价不可为0');
-      if (!step) return this.$message.error('会员价不可大于售价');
+      if (!isSuccess) return this.$message.error(this.$t('message.productVip.vipPriceNotZero'));
+      if (!step) return this.$message.error(this.$t('message.productVip.vipPriceNotGreaterSell'));
       this.disabled = true;
       let data = {
         ...this.formData,
@@ -192,8 +192,8 @@ export default {
       this.levelSetNum = '';
     },
     vipSetConfirm() {
-      if (this.vipSetNum == 0) return this.$message.error('会员价不可为0');
-      if (this.vipSetType == 1 && this.vipSetNum > 100) return this.$message.error('折扣不可超过100');
+      if (this.vipSetNum == 0) return this.$message.error(this.$t('message.productVip.vipPriceNotZero'));
+      if (this.vipSetType == 1 && this.vipSetNum > 100) return this.$message.error(this.$t('message.productVip.discountMax100'));
       this.attrData.map((item) => {
         if (this.vipSetType == 0) {
           item.vip_price = this.vipSetNum;
@@ -206,8 +206,8 @@ export default {
       this.closeVipSet();
     },
     levelSetConfirm(index) {
-      if (this.levelSetNum == 0) return this.$message.error('等级会员价不可为0');
-      if (this.levelSetType == 1 && this.levelSetNum > 100) return this.$message.error('折扣不可超过100');
+      if (this.levelSetNum == 0) return this.$message.error(this.$t('message.productVip.levelVipPriceNotZero'));
+      if (this.levelSetType == 1 && this.levelSetNum > 100) return this.$message.error(this.$t('message.productVip.discountMax100'));
       this.attrData.map((item) => {
         if (this.levelSetType == 0) {
           item.level_price[index].price = this.levelSetNum;

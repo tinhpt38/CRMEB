@@ -4,42 +4,42 @@
       class="section-title flex justify-between"
       style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px"
     >
-      <span style="font-size: 14px; font-weight: bold; color: #333">位置设置</span>
+      <span style="font-size: 14px; font-weight: bold; color: #333">{{ $t('message.customDesign.positionSetting') }}</span>
     </div>
 
     <el-form size="small" label-width="70px" label-position="left">
-      <el-form-item label="对齐方式">
+      <el-form-item :label="$t('message.customDesign.alignMode')">
         <div class="alignment-bar">
-          <div class="bar-item" @click="alignComponents('left')" title="左对齐">
+          <div class="bar-item" @click="alignComponents('left')" :title="$t('message.customDesign.alignLeft')">
             <span class="iconfont iconzuoduiqi1"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('center')" title="水平居中">
+          <div class="bar-item" @click="alignComponents('center')" :title="$t('message.customDesign.alignCenter')">
             <span class="iconfont iconchuizhijuzhong"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('right')" title="右对齐">
+          <div class="bar-item" @click="alignComponents('right')" :title="$t('message.customDesign.alignRight')">
             <span class="iconfont iconyouduiqi1"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('top')" title="顶部对齐">
+          <div class="bar-item" @click="alignComponents('top')" :title="$t('message.customDesign.alignTop')">
             <span class="iconfont icondingduiqi"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('middle')" title="垂直居中">
+          <div class="bar-item" @click="alignComponents('middle')" :title="$t('message.customDesign.alignMiddle')">
             <span class="iconfont iconshuipingjuzhong"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('bottom')" title="底部对齐">
+          <div class="bar-item" @click="alignComponents('bottom')" :title="$t('message.customDesign.alignBottom')">
             <span class="iconfont icondiduiqi"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('all-center')" title="水平垂直居中">
+          <div class="bar-item" @click="alignComponents('all-center')" :title="$t('message.customDesign.alignAllCenter')">
             <span class="iconfont iconjuzhongduiqi"></span>
           </div>
         </div>
       </el-form-item>
-      <el-form-item label="X 轴">
+      <el-form-item :label="$t('message.customDesign.xAxis')">
         <div class="row" style="display: flex; align-items: center">
           <el-slider
             v-model="localGroupX"
@@ -58,7 +58,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="Y 轴">
+      <el-form-item :label="$t('message.customDesign.yAxis')">
         <div class="row" style="display: flex; align-items: center">
           <el-slider
             v-model="localGroupY"

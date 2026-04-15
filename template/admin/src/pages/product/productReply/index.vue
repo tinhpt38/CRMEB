@@ -10,7 +10,7 @@
           label-position="right"
           @submit.native.prevent
         >
-          <el-form-item label="评论时间：">
+          <el-form-item :label="$t('message.productReply.commentTime') + '：'">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -18,55 +18,55 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.productList.startDate')"
+              :end-placeholder="$t('message.productList.endDate')"
               :picker-options="pickerOptions"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="评价状态：">
+          <el-form-item :label="$t('message.productReply.replyStatus') + '：'">
             <el-select
               v-model="formValidate.is_reply"
-              placeholder="请选择"
+              :placeholder="$t('message.productCommon.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="已回复"></el-option>
-              <el-option value="0" label="未回复"></el-option>
+              <el-option value="1" :label="$t('message.productReply.replied')"></el-option>
+              <el-option value="0" :label="$t('message.productReply.notReplied')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="审核状态：">
+          <el-form-item :label="$t('message.productReply.reviewStatus') + '：'">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('message.productCommon.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="0" label="未审核"></el-option>
-              <el-option value="1" label="已通过"></el-option>
-              <el-option value="2" label="已拒绝"></el-option>
+              <el-option value="0" :label="$t('message.productReply.pendingReview')"></el-option>
+              <el-option value="1" :label="$t('message.productReply.approved')"></el-option>
+              <el-option value="2" :label="$t('message.productReply.rejected')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="商品信息：" label-for="store_name">
+          <el-form-item :label="$t('message.productReply.productInfo') + '：'" label-for="store_name">
             <el-input
-              placeholder="请输入商品信息"
+              :placeholder="$t('message.productReply.productInfoPlaceholder')"
               clearable
               v-model="formValidate.store_name"
               class="form_content_width"
             />
           </el-form-item>
-          <el-form-item label="用户名称：">
+          <el-form-item :label="$t('message.productReply.userName') + '：'">
             <el-input
               enter-button
-              placeholder="请输入"
+              :placeholder="$t('message.productAttribute.enter')"
               clearable
               v-model="formValidate.account"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.productList.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -75,10 +75,10 @@
       <el-row>
         <el-col v-bind="grid">
           <el-button v-auth="['product-reply-save_fictitious_reply']" type="primary" v-db-click @click="addRep"
-            >添加自评</el-button
+            >{{ $t('message.productReply.addSelfReview') }}</el-button
           >
           <el-button v-auth="['product-reply-save_fictitious_reply']" v-db-click @click="openBatchModal"
-            >批量审核</el-button
+            >{{ $t('message.productReply.batchReview') }}</el-button
           >
         </el-col>
       </el-row>
@@ -89,15 +89,15 @@
         v-loading="loading"
         @on-sort-change="sortMethod"
         @selection-change="handleSelectRow"
-        empty-text="暂无数据"
+        :empty-text="$t('message.productList.emptyData')"
       >
         <el-table-column type="selection" width="60"> </el-table-column>
-        <el-table-column label="评论ID" width="80">
+        <el-table-column :label="$t('message.productReply.commentId')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品信息" min-width="130">
+        <el-table-column :label="$t('message.productReply.productInfo')" min-width="130">
           <template slot-scope="scope">
             <div class="imgPic acea-row row-middle">
               <div class="pictrue" v-viewer><img v-lazy="scope.row.image" /></div>
@@ -105,22 +105,22 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="规格" min-width="130">
+        <el-table-column :label="$t('message.productAttribute.spec')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.suk }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名称" min-width="130">
+        <el-table-column :label="$t('message.productReply.userName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="评分" min-width="130">
+        <el-table-column :label="$t('message.productReply.score')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.score }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="评价内容" min-width="130">
+        <el-table-column :label="$t('message.productReply.commentContent')" min-width="130">
           <template slot-scope="scope">
             <div class="mb5 content_font">{{ scope.row.comment }}</div>
             <div v-viewer class="pictrue mr10" v-for="(item, index) in scope.row.pics || []" :key="index">
@@ -128,34 +128,34 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="回复内容" min-width="130">
+        <el-table-column :label="$t('message.productReply.replyContent')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.merchant_reply_content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="审核状态" min-width="80">
+        <el-table-column :label="$t('message.productReply.reviewStatus')" min-width="80">
           <template slot-scope="scope">
-            <el-tag effect="dark" v-if="scope.row.status == 1"> 通过 </el-tag>
-            <el-tag effect="dark" type="warning" v-if="scope.row.status == 0"> 待审核 </el-tag>
-            <el-tag effect="dark" type="danger" v-if="scope.row.status == 2"> 已拒绝 </el-tag>
+            <el-tag effect="dark" v-if="scope.row.status == 1"> {{ $t('message.productReply.approved') }} </el-tag>
+            <el-tag effect="dark" type="warning" v-if="scope.row.status == 0"> {{ $t('message.productReply.pendingReview') }} </el-tag>
+            <el-tag effect="dark" type="danger" v-if="scope.row.status == 2"> {{ $t('message.productReply.rejected') }} </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="评价时间" min-width="130">
+        <el-table-column :label="$t('message.productReply.commentDate')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.productList.operation')" fixed="right" width="170">
           <template slot-scope="scope">
             <template v-if="scope.row.status == 0">
-              <a class="item" v-db-click @click="adopt(scope.row, '审核通过', 1)">通过</a>
+              <a class="item" v-db-click @click="adopt(scope.row, $t('message.productReply.approveConfirm'), 1)">{{ $t('message.productReply.approved') }}</a>
               <el-divider direction="vertical"></el-divider>
-              <a class="item" v-db-click @click="adopt(scope.row, '拒绝', 2)">驳回</a>
+              <a class="item" v-db-click @click="adopt(scope.row, $t('message.productReply.rejectConfirm'), 2)">{{ $t('message.productReply.reject') }}</a>
               <el-divider direction="vertical"></el-divider>
             </template>
-            <a v-if="scope.row.status != 2" v-db-click @click="reply(scope.row)">回复</a>
+            <a v-if="scope.row.status != 2" v-db-click @click="reply(scope.row)">{{ $t('message.productReply.reply') }}</a>
             <el-divider v-if="scope.row.status != 2" direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除评论', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.productReply.deleteCommentConfirm'), scope.$index)">{{ $t('message.productCommon.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -169,15 +169,15 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="modals" scrollable title="回复内容" width="720px">
+    <el-dialog :visible.sync="modals" scrollable :title="$t('message.productReply.replyContent')" width="720px">
       <el-form ref="contents" :model="contents" :rules="ruleInline" label-position="right" @submit.native.prevent>
         <el-form-item prop="content">
-          <el-input v-model="contents.content" type="textarea" :rows="4" placeholder="请输入回复内容" />
+          <el-input v-model="contents.content" type="textarea" :rows="4" :placeholder="$t('message.productReply.replyContentPlaceholder')" />
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="cancels">取消</el-button>
-        <el-button type="primary" v-db-click @click="oks">确定</el-button>
+        <el-button @click="cancels">{{ $t('message.productCommon.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="oks">{{ $t('message.productCommon.confirm') }}</el-button>
       </div>
     </el-dialog>
     <addReply
@@ -192,10 +192,10 @@
       @callPicture="callPicture"
       @removePicture="removePicture"
     ></addReply>
-    <el-dialog :visible.sync="goodsModal" title="选择商品" width="1000px">
+    <el-dialog :visible.sync="goodsModal" :title="$t('message.productReply.selectProduct')" width="1000px">
       <goodsList v-if="replyModal" @getProductId="getProductId"></goodsList>
     </el-dialog>
-    <el-dialog :visible.sync="attrModal" title="选择商品规格" width="1000px">
+    <el-dialog :visible.sync="attrModal" :title="$t('message.productReply.selectProductSpec')" width="1000px">
       <el-table ref="table" :row-key="getRowKey" :data="goodsData.attrs" height="500">
         <el-table-column label="" width="70">
           <template slot-scope="scope">
@@ -204,31 +204,31 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="图片" width="120">
+        <el-table-column :label="$t('message.productList.productImage')" width="120">
           <template slot-scope="scope">
             <div class="product-data">
               <img class="image" :src="scope.row.pic" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="规格" min-width="120">
+        <el-table-column :label="$t('message.productAttribute.spec')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.suk }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="售价" min-width="120">
+        <el-table-column :label="$t('message.productReply.sellPrice')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.ot_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠价" min-width="120">
+        <el-table-column :label="$t('message.productReply.discountPrice')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
       </el-table>
     </el-dialog>
-    <el-dialog :visible.sync="pictureModal" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <el-dialog :visible.sync="pictureModal" width="950px" :title="$t('message.productReply.uploadProductImage')" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -241,7 +241,7 @@
     <el-dialog
       :visible.sync="batchModal"
       class="batch-box"
-      title="审核批量设置"
+      :title="$t('message.productReply.batchReviewSetting')"
       :show-close="true"
       :close-on-click-modal="false"
       width="540px"
@@ -255,18 +255,18 @@
       >
         <el-row :gutter="24">
           <el-col :span="24">
-            <el-form-item label="批量设置：" prop="status">
+            <el-form-item :label="$t('message.productReply.batchSetting') + '：'" prop="status">
               <el-radio-group v-model="batchFormData.status">
-                <el-radio :label="1">通过</el-radio>
-                <el-radio :label="2">拒绝</el-radio>
+                <el-radio :label="1">{{ $t('message.productReply.approved') }}</el-radio>
+                <el-radio :label="2">{{ $t('message.productReply.reject') }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="batchModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="batchSub">确 定</el-button>
+        <el-button v-db-click @click="batchModal = false">{{ $t('message.productCommon.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="batchSub">{{ $t('message.productCommon.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -350,7 +350,7 @@ export default {
         content: '',
       },
       ruleInline: {
-        content: [{ required: true, message: '请输入回复内容', trigger: 'blur' }],
+        content: [{ required: true, message: this.$t('message.productReply.replyContentPlaceholder'), trigger: 'blur' }],
       },
       rows: {},
       ids: [],
@@ -437,7 +437,7 @@ export default {
       this.ids = ids;
     },
     openBatchModal() {
-      if (!this.ids.length) return this.$message.warning('请先选择评论');
+      if (!this.ids.length) return this.$message.warning(this.$t('message.productReply.selectCommentFirst'));
       this.batchModal = true;
     },
     batchSub() {

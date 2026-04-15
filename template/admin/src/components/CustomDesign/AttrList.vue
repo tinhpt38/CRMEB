@@ -14,8 +14,12 @@
 
     <template v-else-if="curComponent">
       <div class="custom-tabs" v-if="curComponent.component !== 'Line'">
-        <div class="tab-item" :class="{ active: activeName === 'attr' }" @click="activeName = 'attr'">内容设置</div>
-        <div class="tab-item" :class="{ active: activeName === 'style' }" @click="activeName = 'style'">样式设置</div>
+        <div class="tab-item" :class="{ active: activeName === 'attr' }" @click="activeName = 'attr'">
+          {{ $t('message.customDesign.contentSetting') }}
+        </div>
+        <div class="tab-item" :class="{ active: activeName === 'style' }" @click="activeName = 'style'">
+          {{ $t('message.customDesign.styleSetting') }}
+        </div>
       </div>
 
       <div class="tab-content" v-show="activeName === 'attr' && curComponent.component !== 'Line'">
@@ -69,16 +73,16 @@
           :canvasHeight="canvasHeight"
           @change="onChange"
         />
-        <div v-if="curComponent.component === 'Picture'" class="section-title">图片设置</div>
-        <div v-if="curComponent.component === 'Icon'" class="section-title">图标设置</div>
+        <div v-if="curComponent.component === 'Picture'" class="section-title">{{ $t('message.customDesign.imageSetting') }}</div>
+        <div v-if="curComponent.component === 'Icon'" class="section-title">{{ $t('message.customDesign.iconSetting') }}</div>
         <el-form size="small" label-width="70px" label-position="left">
           <template v-if="curComponent.component === 'Picture'">
-            <ConfigRadius :curComponent="curComponent" labelPrefix="图片" @change="onChange" />
+            <ConfigRadius :curComponent="curComponent" :labelPrefix="$t('message.customDesign.picture')" @change="onChange" />
             <ConfigSize
               :curComponent="curComponent"
               :canvasWidth="canvasWidth"
               :canvasHeight="canvasHeight"
-              labelPrefix="图片"
+              :labelPrefix="$t('message.customDesign.picture')"
               @change="onChange"
             />
             <ConfigShadow :curComponent="curComponent" @change="onChange" />
@@ -87,7 +91,7 @@
 
           <template v-if="curComponent.component === 'Text'">
             <ConfigText :curComponent="curComponent" @change="onChange" />
-            <div class="section-title">容器设置</div>
+            <div class="section-title">{{ $t('message.customDesign.containerSetting') }}</div>
             <ConfigSize
               :curComponent="curComponent"
               :canvasWidth="canvasWidth"
@@ -95,7 +99,7 @@
               @change="onChange"
             />
             <ConfigBackground :curComponent="curComponent" @change="onChange" />
-            <div class="section-title">圆角样式</div>
+            <div class="section-title">{{ $t('message.customDesign.radiusStyle') }}</div>
             <ConfigRadius :curComponent="curComponent" @change="onChange" />
             <ConfigPadding :curComponent="curComponent" @change="onChange" />
             <ConfigBorder :curComponent="curComponent" @change="onChange" />
@@ -104,7 +108,7 @@
           <template v-if="curComponent.component === 'Icon'">
             <ConfigIconStyle :curComponent="curComponent" @change="onChange" />
 
-            <div class="section-title">容器设置</div>
+            <div class="section-title">{{ $t('message.customDesign.containerSetting') }}</div>
             <ConfigSize
               :curComponent="curComponent"
               :canvasWidth="canvasWidth"
@@ -112,7 +116,7 @@
               @change="onChange"
             />
             <ConfigBackground :curComponent="curComponent" @change="onChange" />
-            <div class="section-title">圆角样式</div>
+            <div class="section-title">{{ $t('message.customDesign.radiusStyle') }}</div>
             <ConfigRadius :curComponent="curComponent" @change="onChange" />
             <ConfigPadding :curComponent="curComponent" @change="onChange" />
             <ConfigBorder :curComponent="curComponent" @change="onChange" />

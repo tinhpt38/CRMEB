@@ -1,7 +1,11 @@
 <template>
   <div>
-    <el-form-item label="文本标题">
-      <el-input v-model="curComponent.propValue.text" placeholder="请填写文本" @change="onChange"></el-input>
+    <el-form-item :label="$t('message.customDesign.textTitle')">
+      <el-input
+        v-model="curComponent.propValue.text"
+        :placeholder="$t('message.customDesign.textPlaceholder')"
+        @change="onChange"
+      ></el-input>
     </el-form-item>
     <ConfigLink
       :curComponent="curComponent"

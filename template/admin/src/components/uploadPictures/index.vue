@@ -732,7 +732,7 @@ export default {
     },
     // 点击使用选中图片
     checkPics() {
-      if (this.isChoice === '单选') {
+      if (this.isChoice === '单选' || this.isChoice === 'single') {
         if (this.checkPicList.length > 1) return this.$message.warning('最多只能选一张图片');
         this.$emit('getPic', this.checkPicList[0]);
       } else {

@@ -137,7 +137,8 @@ export default {
         getLangJson().then((res) => {
           let value = Object.keys(res.data)[0];
           Cache.set("locale", Object.keys(res.data)[0]);
-          this.$i18n.setLocaleMessage(value, res.data[value]);
+          const oldLocaleData = this.$i18n.getLocaleMessage(value) || {};
+          this.$i18n.setLocaleMessage(value, { ...oldLocaleData, ...res.data[value] });
           uni.setStorageSync("localeJson", res.data);
         });
       }
@@ -161,9 +162,7 @@ export default {
     // #endif
     // #ifdef MP
     if (HTTP_REQUEST_URL == "") {
-      console.error(
-        "请配置根目录下的config.js文件中的 'HTTP_REQUEST_URL'\n\n请修改开发者工具中【详情】->【AppID】改为自己的Appid\n\n请前往后台【小程序】->【小程序配置】填写自己的 appId and AppSecret"
-      );
+      console.error(that.$t("mobile.app.configMissing"));
       return false;
     }
 
@@ -175,13 +174,13 @@ export default {
         if (res.hasUpdate) {
           updateManager.onUpdateFailed(function () {
             return that.Tips({
-              title: "新版本下载失败",
+              title: that.$t("mobile.app.updateDownloadFailed"),
             });
           });
           updateManager.onUpdateReady(function () {
             wx.showModal({
-              title: "更新提示",
-              content: "新版本已经下载好，是否重启当前应用？",
+              title: that.$t("mobile.app.updateTipTitle"),
+              content: that.$t("mobile.app.updateRestartContent"),
               success(res) {
                 if (res.confirm) {
                   updateManager.applyUpdate();
@@ -191,8 +190,8 @@ export default {
           });
           updateManager.onUpdateFailed(function () {
             wx.showModal({
-              title: "发现新版本",
-              content: "请删除当前小程序，重启搜索打开...",
+              title: that.$t("mobile.app.newVersionFound"),
+              content: that.$t("mobile.app.deleteAndRestart"),
             });
           });
         }

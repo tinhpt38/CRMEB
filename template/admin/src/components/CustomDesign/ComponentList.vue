@@ -1,7 +1,7 @@
 <template>
   <div class="component-list">
     <el-collapse v-model="activeNames">
-      <el-collapse-item title="组件" name="1">
+      <el-collapse-item :title="$t('message.customDesign.component')" name="1">
         <div class="list-wrapper">
           <div
             v-for="(item, index) in list"
@@ -30,7 +30,7 @@ export default {
       activeNames: ['1'],
       list: [
         {
-          label: '图片',
+          label: this.$t('message.customDesign.picture'),
           icon: 'icontupian-2',
           type: 'Picture',
           propValue: {
@@ -58,7 +58,7 @@ export default {
           },
         },
         {
-          label: '文本',
+          label: this.$t('message.customDesign.text'),
           icon: 'iconwenben-2',
           type: 'Text',
           propValue: {
@@ -102,7 +102,7 @@ export default {
           },
         },
         {
-          label: '图标',
+          label: this.$t('message.customDesign.icon'),
           icon: 'icontubiao-2',
           type: 'Icon',
           propValue: {
@@ -135,13 +135,13 @@ export default {
           },
         },
         {
-          label: '线条',
+          label: this.$t('message.customDesign.line'),
           icon: 'iconxiantiao-2',
           type: 'Line',
           propValue: { style: 'solid', width: 200, height: 2, color: '#000000', direction: 'horizontal' },
         },
         {
-          label: '面板',
+          label: this.$t('message.customDesign.panel'),
           icon: 'iconmianban-2',
           type: 'Panel',
           propValue: {

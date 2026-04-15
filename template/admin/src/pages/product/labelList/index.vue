@@ -4,7 +4,7 @@
       <el-col v-bind="grid1" class="left-wrapper">
         <div class="tree_tit" v-db-click @click="addSort">
           <i class="el-icon-circle-plus"></i>
-          添加分组
+          {{ $t('message.productLabel.addGroup') }}
         </div>
         <div class="tree">
           <el-tree
@@ -30,8 +30,8 @@
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
-                      <el-dropdown-item command="1">编辑分组</el-dropdown-item>
-                      <el-dropdown-item v-if="data.id" command="2">删除分组</el-dropdown-item>
+                      <el-dropdown-item command="1">{{ $t('message.productLabel.editGroup') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="data.id" command="2">{{ $t('message.productLabel.deleteGroup') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -44,7 +44,7 @@
         <el-card :bordered="false" shadow="never">
           <el-row>
             <el-col>
-              <el-button type="primary" v-db-click @click="add">添加标签</el-button>
+              <el-button type="primary" v-db-click @click="add">{{ $t('message.productLabel.addLabel') }}</el-button>
             </el-col>
           </el-row>
           <el-table
@@ -53,8 +53,7 @@
             class="mt14"
             v-loading="loading"
             highlight-current-row
-            no-userFrom-text="暂无数据"
-            no-filtered-userFrom-text="暂无筛选结果"
+            :empty-text="$t('message.productList.emptyData')"
           >
             <el-table-column label="ID" width="80">
               <template slot-scope="scope">
@@ -66,7 +65,7 @@
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column> -->
-            <el-table-column label="标签名称" width="180">
+              <el-table-column :label="$t('message.productLabel.labelName')" width="180">
               <template slot-scope="scope">
                 <div
                   v-if="scope.row.type == 1"
@@ -82,12 +81,12 @@
                 <img :src="scope.row.image" class="tag-img" v-else />
               </template>
             </el-table-column>
-            <el-table-column label="分类名称" min-width="140">
+            <el-table-column :label="$t('message.productLabel.categoryName')" min-width="140">
               <template slot-scope="scope">
                 <span>{{ scope.row.cate_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="状态" min-width="140">
+            <el-table-column :label="$t('message.productList.status')" min-width="140">
               <template slot-scope="scope">
                 <el-switch
                   class="defineSwitch"
@@ -97,13 +96,13 @@
                   :value="scope.row.status"
                   @change="onchangeStatus(scope.row)"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.productCommon.enable')"
+                  :inactive-text="$t('message.productCommon.disable')"
                 >
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column label="移动端展示" min-width="140">
+            <el-table-column :label="$t('message.productLabel.mobileShow')" min-width="140">
               <template slot-scope="scope">
                 <el-switch
                   class="defineSwitch"
@@ -113,17 +112,17 @@
                   :value="scope.row.is_show"
                   @change="onchangeShow(scope.row)"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="$t('message.productCommon.enable')"
+                  :inactive-text="$t('message.productCommon.disable')"
                 >
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
+            <el-table-column fixed="right" :label="$t('message.productList.operation')" width="100">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row.id)">修改</a>
+                <a v-db-click @click="edit(scope.row.id)">{{ $t('message.productLabel.modify') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('message.productCommon.delete'), scope.$index)">{{ $t('message.productCommon.delete') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -137,13 +136,13 @@
             />
           </div>
         </el-card>
-        <el-dialog :visible.sync="modals" closable :title="isEdit ? '编辑标签' : '添加标签'" width="560" @close="cancel">
+        <el-dialog :visible.sync="modals" closable :title="isEdit ? $t('message.productLabel.editLabel') : $t('message.productLabel.addLabel')" width="560" @close="cancel">
           <div>
             <el-form label-position="right" size="small" ref="form" :rules="rules" :model="form" label-width="100px">
-              <el-form-item label="标签名称：" prop="name">
+              <el-form-item :label="$t('message.productLabel.labelName') + '：'" prop="name">
                 <el-input v-model="form.name" class="w-420"></el-input>
               </el-form-item>
-              <el-form-item label="分组选择：" prop="label_cate">
+              <el-form-item :label="$t('message.productLabel.groupSelect') + '：'" prop="label_cate">
                 <el-select v-model="form.cate_id" clearable class="w-420">
                   <el-option
                     v-for="item in labelSort.slice(1)"
@@ -153,28 +152,28 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="移动端展示：">
+              <el-form-item :label="$t('message.productLabel.mobileShow') + '：'">
                 <el-switch v-model="form.is_show" :active-value="1" :inactive-value="0"> </el-switch>
               </el-form-item>
-              <el-form-item label="效果设置：">
+              <el-form-item :label="$t('message.productLabel.effectSetting') + '：'">
                 <el-radio-group v-model="form.type" :true-value="1" :false-value="2">
-                  <el-radio :label="1">自定义</el-radio>
-                  <el-radio :label="2">图片</el-radio>
+                  <el-radio :label="1">{{ $t('message.productLabel.custom') }}</el-radio>
+                  <el-radio :label="2">{{ $t('message.productLabel.image') }}</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="字体颜色：" v-if="form.type == 1">
+              <el-form-item :label="$t('message.productLabel.fontColor') + '：'" v-if="form.type == 1">
                 <el-color-picker v-model="form.font_color" show-alpha></el-color-picker>
-                <p class="tip">若未设置颜色，则为默认色</p>
+                <p class="tip">{{ $t('message.productLabel.defaultColorTip') }}</p>
               </el-form-item>
-              <el-form-item label="背景颜色：" v-if="form.type == 1">
+              <el-form-item :label="$t('message.productLabel.backgroundColor') + '：'" v-if="form.type == 1">
                 <el-color-picker v-model="form.bg_color" show-alpha></el-color-picker>
-                <p class="tip">若未设置颜色，则为默认色</p>
+                <p class="tip">{{ $t('message.productLabel.defaultColorTip') }}</p>
               </el-form-item>
-              <el-form-item label="边框颜色：" v-if="form.type == 1">
+              <el-form-item :label="$t('message.productLabel.borderColor') + '：'" v-if="form.type == 1">
                 <el-color-picker v-model="form.border_color" show-alpha></el-color-picker>
-                <p class="tip">若未设置颜色，则无边框</p>
+                <p class="tip">{{ $t('message.productLabel.noBorderTip') }}</p>
               </el-form-item>
-              <el-form-item label="上传图标：" v-if="form.type == 2">
+              <el-form-item :label="$t('message.productLabel.uploadIcon') + '：'" v-if="form.type == 2">
                 <div v-if="form.image" class="upload-list">
                   <div class="upload-item">
                     <img :src="form.image" />
@@ -190,22 +189,22 @@
                   icon="el-icon-plus"
                   @click="modalPicTap(1)"
                 ></el-button>
-                <p class="tip">建议尺寸：80px*30px，若未上传则为空白</p>
+                <p class="tip">{{ $t('message.productLabel.iconSizeTip') }}</p>
               </el-form-item>
-              <el-form-item label="排序：">
+              <el-form-item :label="$t('message.productList.sort') + '：'">
                 <el-input-number v-model="form.sort" :min="0" :max="999" class="selWidth"></el-input-number>
               </el-form-item>
-              <el-form-item label="是否开启：">
+              <el-form-item :label="$t('message.productLabel.isEnable') + '：'">
                 <el-switch v-model="form.status" :active-value="1" :inactive-value="0" size="large">
-                  <span slot="open">开启</span>
-                  <span slot="close">关闭</span>
+                  <span slot="open">{{ $t('message.productCommon.enable') }}</span>
+                  <span slot="close">{{ $t('message.productCommon.disable') }}</span>
                 </el-switch>
               </el-form-item>
             </el-form>
           </div>
           <span slot="footer" class="dialog-footer">
-            <el-button @click="cancel">取 消</el-button>
-            <el-button type="primary" v-db-click @click="addWordsConfirm">确 定</el-button>
+            <el-button @click="cancel">{{ $t('message.productCommon.cancel') }}</el-button>
+            <el-button type="primary" v-db-click @click="addWordsConfirm">{{ $t('message.productCommon.confirm') }}</el-button>
           </span>
         </el-dialog>
       </el-col>
@@ -274,10 +273,10 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: '请输入标签名称', trigger: 'blur' },
-          { min: 2, max: 6, message: '长度在 2 到 6 个字符', trigger: 'blur' },
+          { required: true, message: this.$t('message.productLabel.enterLabelName'), trigger: 'blur' },
+          { min: 2, max: 6, message: this.$t('message.productLabel.length2To6'), trigger: 'blur' },
         ],
-        cate_id: [{ required: true, message: '请选择分组' }],
+        cate_id: [{ required: true, message: this.$t('message.productLabel.selectGroup') }],
       },
     };
   },
@@ -372,7 +371,7 @@ export default {
     getLabelLabelAll(key) {
       labelCateListApi().then((res) => {
         let obj = {
-          name: '全部',
+          name: this.$t('message.productLabel.all'),
           id: '',
         };
         res.data.unshift(obj);
@@ -399,7 +398,7 @@ export default {
       });
     },
     addWordsConfirm() {
-      if (!this.form.cate_id) return this.$message.error('请选择分组');
+      if (!this.form.cate_id) return this.$message.error(this.$t('message.productLabel.selectGroup'));
       this.$refs.form.validate((valid) => {
         if (valid) {
           productLabelSaveApi(this.form)
@@ -466,7 +465,7 @@ export default {
       if (name == 1) {
         this.labelEdit(data);
       } else if (name == 2) {
-        this.deleteSort(data, '删除分类');
+        this.deleteSort(data, this.$t('message.productLabel.deleteCategory'));
       }
     },
     bindMenuItem(name, index) {

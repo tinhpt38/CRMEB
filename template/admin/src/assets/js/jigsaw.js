@@ -103,7 +103,15 @@ function square(x) {
 }
 
 class jigsaw {
-  constructor({ el, width = 310, height = 155, onSuccess, onFail, onRefresh }) {
+  constructor({
+    el,
+    width = 310,
+    height = 155,
+    onSuccess,
+    onFail,
+    onRefresh,
+    texts = { slideToComplete: 'Slide right to complete puzzle', tryAgain: 'Please try again' },
+  }) {
     w = width;
     h = height;
     el.style.position = 'relative';
@@ -117,6 +125,7 @@ class jigsaw {
     this.onSuccess = onSuccess;
     this.onFail = onFail;
     this.onRefresh = onRefresh;
+    this.texts = texts;
   }
 
   init() {
@@ -137,7 +146,7 @@ class jigsaw {
     const text = createElement('span', 'sliderText');
 
     block.className = 'block';
-    text.innerHTML = '向右滑动填充拼图';
+    text.innerHTML = this.texts.slideToComplete;
 
     const el = this.el;
     el.appendChild(canvas);
@@ -238,7 +247,7 @@ class jigsaw {
           typeof this.onSuccess === 'function' && this.onSuccess();
         } else {
           addClass(this.sliderContainer, 'sliderContainer_fail');
-          this.text.innerHTML = '请再试一次';
+          this.text.innerHTML = this.texts.tryAgain;
           this.reset();
         }
       } else {

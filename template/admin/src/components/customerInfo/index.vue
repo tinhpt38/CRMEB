@@ -1,24 +1,24 @@
 <template>
   <div class="customer">
     <el-form ref="formValidate" :model="formValidate" label-width="80px" inline @submit.native.prevent>
-      <el-form-item label="搜索用户：">
+      <el-form-item :label="$t('message.customerInfo.searchUser')">
         <el-input
           clearable
-          placeholder="请输入用户UID、昵称或手机号"
+          :placeholder="$t('message.customerInfo.searchPlaceholder')"
           v-model="formValidate.nickname"
           class="form_content_width"
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.customerInfo.search') }}</el-button>
       </el-form-item>
     </el-form>
     <el-table
       class="mt15"
       v-loading="loading2"
       highlight-current-row
-      no-userFrom-text="暂无数据"
-      no-filtered-userFrom-text="暂无筛选结果"
+      :no-userFrom-text="$t('message.customerInfo.empty')"
+      :no-filtered-userFrom-text="$t('message.customerInfo.noResult')"
       ref="selection"
       :data="tableList2"
       height="450"
@@ -39,30 +39,30 @@
           <span>{{ scope.row.uid }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="用户头像" min-width="90">
+      <el-table-column :label="$t('message.customerInfo.avatar')" min-width="90">
         <template slot-scope="scope">
           <div class="tabBox_img" v-viewer>
             <img v-lazy="scope.row.headimgurl" />
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="用户昵称" min-width="180">
+      <el-table-column :label="$t('message.customerInfo.nickname')" min-width="180">
         <template slot-scope="scope">
           <div>{{ scope.row.nickname }}</div>
-          <div style="color: red">{{ scope.row.is_del ? '用户已注销' : '' }}</div>
+          <div style="color: red">{{ scope.row.is_del ? $t('message.customerInfo.userDeleted') : '' }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="手机号" min-width="180">
+      <el-table-column :label="$t('message.customerInfo.phone')" min-width="180">
         <template slot-scope="scope">
           <div>{{ scope.row.phone }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="是否关注公众号" min-width="130">
+      <el-table-column :label="$t('message.customerInfo.subscribeStatus')" min-width="130">
         <template slot-scope="scope">
-          <span v-text="scope.row.subscribe === 1 ? '关注' : '未关注'"></span>
+          <span v-text="scope.row.subscribe === 1 ? $t('message.customerInfo.subscribed') : $t('message.customerInfo.unsubscribed')"></span>
         </template>
       </el-table-column>
-      <el-table-column label="注册时间" min-width="180">
+      <el-table-column :label="$t('message.customerInfo.registerTime')" min-width="180">
         <template slot-scope="scope">
           <div>{{ scope.row.add_time }}</div>
         </template>
@@ -94,16 +94,16 @@ export default {
       tableList2: [],
       timeVal: [],
       fromList: {
-        title: '选择时间',
+        title: this.$t('message.customerInfo.selectTime'),
         custom: true,
         fromTxt: [
-          { text: '全部', val: '' },
-          { text: '今天', val: 'today' },
-          { text: '昨天', val: 'yesterday' },
-          { text: '最近7天', val: 'lately7' },
-          { text: '最近30天', val: 'lately30' },
-          { text: '本月', val: 'month' },
-          { text: '本年', val: 'year' },
+          { text: this.$t('message.customerInfo.all'), val: '' },
+          { text: this.$t('message.customerInfo.today'), val: 'today' },
+          { text: this.$t('message.customerInfo.yesterday'), val: 'yesterday' },
+          { text: this.$t('message.customerInfo.lately7'), val: 'lately7' },
+          { text: this.$t('message.customerInfo.lately30'), val: 'lately30' },
+          { text: this.$t('message.customerInfo.month'), val: 'month' },
+          { text: this.$t('message.customerInfo.year'), val: 'year' },
         ],
       },
       currentid: 0,
@@ -171,7 +171,7 @@ export default {
           });
         }
       } else {
-        this.$message.warning('请先选择商品');
+        this.$message.warning(this.$t('message.customerInfo.chooseFirst'));
       }
     },
   },

@@ -11,14 +11,14 @@
                   size="small"
                   style="color: var(--prev-color-primary); background-color: #e6f7ff"
                 ></el-avatar>
-                <h4 class="ivu-pl-8">订单</h4>
+                <h4 class="ivu-pl-8">{{ $t('message.dashboard.order') }}</h4>
               </el-col>
               <el-col :span="16" class="ivu-text-right">
                 <el-radio-group v-model="visitDate" type="button" class="ivu-mr-8" @input="handleChangeVisitType">
-                  <el-radio-button label="thirtyday">30天</el-radio-button>
-                  <el-radio-button label="week">周</el-radio-button>
-                  <el-radio-button label="month">月</el-radio-button>
-                  <el-radio-button label="year">年</el-radio-button>
+                  <el-radio-button label="thirtyday">{{ $t('message.dashboard.last30Days') }}</el-radio-button>
+                  <el-radio-button label="week">{{ $t('message.dashboard.week') }}</el-radio-button>
+                  <el-radio-button label="month">{{ $t('message.dashboard.month') }}</el-radio-button>
+                  <el-radio-button label="year">{{ $t('message.dashboard.year') }}</el-radio-button>
                 </el-radio-group>
               </el-col>
             </el-row>
@@ -61,7 +61,7 @@ export default {
             (this.yAxisData = [
               {
                 type: 'value',
-                name: '金额',
+                name: this.$t('message.dashboard.amount'),
                 axisLine: {
                   show: false,
                 },
@@ -82,7 +82,7 @@ export default {
               },
               {
                 type: 'value',
-                name: '数量',
+                name: this.$t('message.dashboard.quantity'),
                 axisLine: {
                   show: false,
                 },

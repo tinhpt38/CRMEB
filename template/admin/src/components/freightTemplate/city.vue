@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-dialog :visible.sync="addressModal" title="选择可配送区域" width="50%" class="modal">
+    <el-dialog :visible.sync="addressModal" :title="$t('message.freightTemplate.selectRegion')" width="50%" class="modal">
       <el-row :gutter="24">
         <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" class="item">
           <div class="acea-row row-right row-middle">
-            <el-checkbox v-model="iSselect" @change="allCheckbox">全选</el-checkbox>
-            <div class="empty" v-db-click @click="empty">清空</div>
+            <el-checkbox v-model="iSselect" @change="allCheckbox">{{ $t('message.freightTemplate.selectAll') }}</el-checkbox>
+            <div class="empty" v-db-click @click="empty">{{ $t('message.freightTemplate.clear') }}</div>
           </div>
         </el-col>
       </el-row>
@@ -49,8 +49,8 @@
         </el-col>
       </el-row>
       <div slot="footer">
-        <el-button v-db-click @click="close">取消</el-button>
-        <el-button type="primary" v-db-click @click="confirm">确定</el-button>
+        <el-button v-db-click @click="close">{{ $t('message.freightTemplate.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="confirm">{{ $t('message.freightTemplate.confirm') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -224,7 +224,7 @@ export default {
         }
       });
       if (selectList.length === 0) {
-        return that.$message.error('至少选择一个省份或者城市');
+        return that.$message.error(this.$t('message.freightTemplate.chooseOneRegion'));
       } else {
         this.$emit('selectCity', selectList, this.type);
         that.addressModal = false;

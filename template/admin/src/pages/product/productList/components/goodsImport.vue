@@ -3,9 +3,9 @@
   <div class="goods-import">
     <!-- 下载模板 -->
     <div class="download acea-row row-middle">
-      <span>上传前请先按Excel模板中的格式编辑内容</span>
+      <span>{{ $t('message.productImport.beforeUploadTips') }}</span>
       <img src="@/assets/images/excel-icon.png" alt="" />
-      <a href="/product_migration.xlsx" download class="download-text cup">下载Excel模板</a>
+      <a href="/product_migration.xlsx" download class="download-text cup">{{ $t('message.productImport.downloadTemplate') }}</a>
     </div>
 
     <div class="goods-upload mt20">
@@ -23,49 +23,52 @@
       >
         <template>
           <img class="el-upload-dragger__icon mb20" src="@/assets/images/upload-icon.png" alt="" />
-          <div class="el-upload__text">将文件拖到此处，或<em>点击添加</em></div>
-          <div class="el-upload__trip">支持 .xls，.xlsx，限10M以内</div>
+          <div class="el-upload__text">{{ $t('message.productImport.dragTips') }}<em>{{ $t('message.productImport.clickAdd') }}</em></div>
+          <div class="el-upload__trip">{{ $t('message.productImport.fileLimit') }}</div>
         </template>
       </el-upload>
       <div v-show="fileUrl && !importStatus" class="file-info">
         <img class="el-upload-dragger__icon mb20" src="@/assets/images/upload-icon.png" alt="" />
         <div class="el-upload__text">{{ fileName }}</div>
         <div class="flex mt12" v-if="fileUrl && !importLoading">
-          <div class="active-btn" @click="selectFile">重新上传</div>
-          <div class="active-btn" @click="fileUrl = ''">删除</div>
+          <div class="active-btn" @click="selectFile">{{ $t('message.productImport.reupload') }}</div>
+          <div class="active-btn" @click="fileUrl = ''">{{ $t('message.productImport.delete') }}</div>
         </div>
         <div class="el-upload__trip" v-if="importLoading">
-          正在导入，您可关闭当前弹窗，稍候可在列表查看导入结果
+          {{ $t('message.productImport.importingTips') }}
           <i class="el-icon-loading"></i>
         </div>
-        <el-button v-else class="btn-import" type="primary" size="small" @click="importGoods">立即导入</el-button>
+        <el-button v-else class="btn-import" type="primary" size="small" @click="importGoods">{{ $t('message.productImport.importNow') }}</el-button>
       </div>
       <div v-show="fileUrl && importStatus" class="file-info">
         <img class="el-upload-dragger__icon mb20" :src="statusImage" alt="" />
         <div class="el-upload__text">
-          共导入 {{ resultData.all }} 个，成功 {{ resultData.success }} 个，失败 {{ resultData.fail }} 跳过
-          {{ resultData.jump }} 个
+          {{ $t('message.productImport.resultPrefix') }} {{ resultData.all }} {{ $t('message.productImport.item') }}，
+          {{ $t('message.productImport.success') }} {{ resultData.success }} {{ $t('message.productImport.item') }}，
+          {{ $t('message.productImport.fail') }} {{ resultData.fail }} {{ $t('message.productImport.item') }}，
+          {{ $t('message.productImport.skip') }} {{ resultData.jump }} {{ $t('message.productImport.item') }}
         </div>
         <div class="el-upload__trip" v-if="resultData.fail > 0">
-          您可以下载失败数据，修改后再重新导入 <span class="active-btn" @click="downloadFailData">下载失败数据</span>
+          {{ $t('message.productImport.downloadFailTips') }}
+          <span class="active-btn" @click="downloadFailData">{{ $t('message.productImport.downloadFailData') }}</span>
         </div>
         <div>
-          <el-button class="btn-import" size="small" @click="selectFile">再次导入</el-button>
-          <el-button type="primary" class="btn-import" @click="close">完成</el-button>
+          <el-button class="btn-import" size="small" @click="selectFile">{{ $t('message.productImport.importAgain') }}</el-button>
+          <el-button type="primary" class="btn-import" @click="close">{{ $t('message.productImport.finish') }}</el-button>
         </div>
       </div>
     </div>
     <!-- 导入规则 -->
     <div class="import-rule mt20">
-      <div class="rule-title">导入规则</div>
+      <div class="rule-title">{{ $t('message.productImport.importRules') }}</div>
       <!-- 1. 请先下载模板，在模板中按字段填写信息，然后上传该文件。
 2. 导入未完成之前，请勿关闭页面，否则可能数据错误。
 3. 文件大小不超过10MB。
 4. 限制导入10000行记录，超出部分请分多次导入。 -->
-      <div class="rule-text">1. 请先下载模板，在模板中按字段填写信息，然后上传该文件。</div>
-      <div class="rule-text">2. 导入未完成之前，请勿关闭页面，否则可能数据错误。</div>
-      <div class="rule-text">3. 文件大小不超过10MB。</div>
-      <div class="rule-text">4. 限制导入10000行记录，超出部分请分多次导入。</div>
+      <div class="rule-text">1. {{ $t('message.productImport.rule1') }}</div>
+      <div class="rule-text">2. {{ $t('message.productImport.rule2') }}</div>
+      <div class="rule-text">3. {{ $t('message.productImport.rule3') }}</div>
+      <div class="rule-text">4. {{ $t('message.productImport.rule4') }}</div>
     </div>
   </div>
 </template>
@@ -115,7 +118,7 @@ export default {
       if (isXlsUpload(file)) {
         // 限制10M
         if (file.size >= 10485760) {
-          this.$message.error('文件大小不能超过10MB');
+          this.$message.error(this.$t('message.productImport.fileTooLarge'));
           return false;
         } else {
           this.fileName = file.name;

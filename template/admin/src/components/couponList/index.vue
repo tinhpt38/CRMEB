@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :visible.sync="isTemplate" title="优惠券列表" append-to-body width="1000px">
+    <el-dialog :visible.sync="isTemplate" :title="$t('message.couponList.title')" append-to-body width="1000px">
       <el-table
         :data="couponList"
         ref="couponTable"
@@ -8,8 +8,8 @@
         v-loading="loading"
         highlight-current-row
         :row-key="getRowKey"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.couponList.empty')"
+        :no-filtered-userFrom-text="$t('message.couponList.noResult')"
         @selection-change="changeCheckbox"
       >
         <el-table-column v-if="!luckDraw" type="selection" width="55" :reserve-selection="true"> </el-table-column>
@@ -20,56 +20,58 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="ID" width="70">
+        <el-table-column :label="$t('message.couponList.id')" width="70">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券名称" min-width="120">
+        <el-table-column :label="$t('message.couponList.name')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券类型" min-width="100">
+        <el-table-column :label="$t('message.couponList.type')" min-width="100">
           <template slot-scope="scope">
-            <span v-if="scope.row.type === 1">品类券</span>
-            <span v-else-if="scope.row.type === 2">商品券</span>
-            <span v-else-if="scope.row.type === 3">会员券</span>
-            <span v-else>通用券</span>
+            <span v-if="scope.row.type === 1">{{ $t('message.couponList.categoryCoupon') }}</span>
+            <span v-else-if="scope.row.type === 2">{{ $t('message.couponList.productCoupon') }}</span>
+            <span v-else-if="scope.row.type === 3">{{ $t('message.couponList.memberCoupon') }}</span>
+            <span v-else>{{ $t('message.couponList.universalCoupon') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="面值" min-width="100">
+        <el-table-column :label="$t('message.couponList.amount')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最低消费额" min-width="100">
+        <el-table-column :label="$t('message.couponList.minAmount')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.use_min_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="发布数量" min-width="100">
+        <el-table-column :label="$t('message.couponList.publishCount')" min-width="100">
           <template slot-scope="scope">
-            <span v-if="scope.row.is_permanent">不限量</span>
+            <span v-if="scope.row.is_permanent">{{ $t('message.couponList.unlimited') }}</span>
             <div v-else>
-              <span class="fa">发布：{{ scope.row.total_count }}</span>
-              <span class="sheng ml10">剩余：{{ scope.row.remain_count }}</span>
+              <span class="fa">{{ $t('message.couponList.published') }}：{{ scope.row.total_count }}</span>
+              <span class="sheng ml10">{{ $t('message.couponList.remain') }}：{{ scope.row.remain_count }}</span>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="有效期限" min-width="100">
+        <el-table-column :label="$t('message.couponList.validPeriod')" min-width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.start_time">
               {{ scope.row.start_time | formatDate }} - {{ scope.row.end_time | formatDate }}
             </div>
-            <span v-else>不限时</span>
+            <span v-else>{{ $t('message.couponList.noLimitTime') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="100">
+        <el-table-column :label="$t('message.couponList.status')" min-width="100">
           <template slot-scope="scope">
-            <el-tag size="medium" v-show="scope.row.status === 1">正常</el-tag>
-            <el-tag size="medium" type="danger" v-show="scope.row.status === 0">未开启</el-tag>
-            <el-tag size="medium" type="info" v-show="scope.row.status === -1">已失效</el-tag>
+            <el-tag size="medium" v-show="scope.row.status === 1">{{ $t('message.couponList.normal') }}</el-tag>
+            <el-tag size="medium" type="danger" v-show="scope.row.status === 0">{{
+              $t('message.couponList.notStarted')
+            }}</el-tag>
+            <el-tag size="medium" type="info" v-show="scope.row.status === -1">{{ $t('message.couponList.expired') }}</el-tag>
           </template>
         </el-table-column>
       </el-table>
@@ -83,8 +85,8 @@
         />
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="ok">确 定</el-button>
+        <el-button v-db-click @click="cancel">{{ $t('message.couponList.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="ok">{{ $t('message.couponList.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>

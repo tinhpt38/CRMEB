@@ -12,13 +12,13 @@
 					<view class="item">
 						<view class="acea-row row-middle">
 							<image src="../static/phone_1.png" style="width: 24rpx; height: 34rpx"></image>
-							<input type="text" :placeholder="$t(`输入手机号码`)" v-model="account" maxlength="11" required />
+							<input type="text" :placeholder="$t('mobile.login.phonePlaceholder')" v-model="account" maxlength="11" required />
 						</view>
 					</view>
 					<view class="item">
 						<view class="acea-row row-middle">
 							<image src="../static/code_1.png" style="width: 28rpx; height: 32rpx"></image>
-							<input type="password" :placeholder="$t(`填写登录密码`)" v-model="password" required />
+							<input type="password" :placeholder="$t('mobile.login.passwordPlaceholder')" v-model="password" required />
 						</view>
 					</view>
 				</form>
@@ -30,13 +30,13 @@
 				<view class="item">
 					<view class="acea-row row-middle">
 						<image src="../static/phone_1.png" style="width: 24rpx; height: 34rpx"></image>
-						<input type="text" :placeholder="$t(`输入手机号码`)" v-model="account" :maxlength="11" />
+						<input type="text" :placeholder="$t('mobile.login.phonePlaceholder')" v-model="account" :maxlength="11" />
 					</view>
 				</view>
 				<view class="item">
 					<view class="acea-row row-middle">
 						<image src="../static/code_2.png" style="width: 28rpx; height: 32rpx"></image>
-						<input type="text" :placeholder="$t(`填写验证码`)" :maxlength="6" class="codeIput" v-model="captcha" />
+						<input type="text" :placeholder="$t('mobile.login.captchaPlaceholder')" :maxlength="6" class="codeIput" v-model="captcha" />
 						<button class="code" :disabled="disabled" :class="disabled === true ? 'on' : ''" @click="code">
 							{{ text }}
 						</button>
@@ -50,19 +50,19 @@
 					</view>
 				</view> -->
 			</view>
-			<view class="logon" @click="loginMobile" v-if="current !== 0">{{ $t(`登录`) }}</view>
-			<view class="logon" @click="submit" v-if="current === 0">{{ $t(`登录`) }}</view>
+			<view class="logon" @click="loginMobile" v-if="current !== 0">{{ $t('mobile.login.submit') }}</view>
+			<view class="logon" @click="submit" v-if="current === 0">{{ $t('mobile.login.submit') }}</view>
 			<!-- #ifndef APP-PLUS -->
 			<view class="tips">
-				<view v-if="current == 0" @click="current = 1">{{ $t(`快速登录`) }}</view>
-				<view v-if="current == 1" @click="current = 0">{{ $t(`账号登录`) }}</view>
+				<view v-if="current == 0" @click="current = 1">{{ $t('mobile.login.quickLogin') }}</view>
+				<view v-if="current == 1" @click="current = 0">{{ $t('mobile.login.accountLogin') }}</view>
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef APP-PLUS -->
 			<view class="appLogin" v-if="!appLoginStatus && !appleLoginStatus">
 				<view class="hds">
 					<span class="line"></span>
-					<p>{{ $t(`其他方式登录`) }}</p>
+					<p>{{ $t('mobile.login.otherMethods') }}</p>
 					<span class="line"></span>
 				</view>
 				<view class="btn-wrapper">
@@ -84,17 +84,17 @@
 			<view class="protocol">
 				<checkbox-group @change="ChangeIsDefault">
 					<checkbox :class="inAnimation ? 'trembling' : ''" @animationend="inAnimation = false" :checked="protocol ? true : false" />
-					{{ $t(`已阅读并同意`) }}
-					<text class="main-color" @click="privacy(4)">{{ $t(`《用户协议》`) }}</text>
-					{{ $t(`与`) }}
-					<text class="main-color" @click="privacy(3)">{{ $t(`《隐私协议》`) }}</text>
+					{{ $t('mobile.login.readAndAgree') }}
+					<text class="main-color" @click="privacy(4)">{{ $t('mobile.login.userAgreement') }}</text>
+					{{ $t('mobile.login.and') }}
+					<text class="main-color" @click="privacy(3)">{{ $t('mobile.login.privacyAgreement') }}</text>
 				</checkbox-group>
 			</view>
 		</view>
 		<view class="bottom">
 			<view class="ver" v-if="copyRight">{{ copyRight }}</view>
 			<view v-else class="ver">
-				<a href="https://www.crmeb.com">Copyright ©2024 CRMEB. All Rights</a>
+				<a href="https://www.crmeb.com">{{ $t('mobile.login.copyrightDefault') }}</a>
 			</view>
 		</view>
 		<Verify @success="success" :captchaType="captchaType" :imgSize="{ width: '330px', height: '155px' }" ref="verify"></Verify>
@@ -127,7 +127,7 @@ export default {
 			copyRight: '',
 			inAnimation: false,
 			protocol: false,
-			navList: [this.$t(`快速登录`), this.$t(`账号登录`)],
+			navList: [this.$t('mobile.login.quickLogin'), this.$t('mobile.login.accountLogin')],
 			current: 1,
 			account: '',
 			password: '',
@@ -199,11 +199,11 @@ export default {
 			if (!self.protocol) {
 				this.inAnimation = true;
 				return self.$util.Tips({
-					title: '请先阅读并同意协议'
+					title: self.$t('mobile.login.readAndAgreeFirst')
 				});
 			}
 			uni.showLoading({
-				title: this.$t(`登录中`)
+				title: this.$t('mobile.login.loading')
 			});
 			uni.login({
 				provider: 'apple',
@@ -217,7 +217,7 @@ export default {
 						},
 						fail() {
 							uni.showToast({
-								title: self.$t(`获取用户信息失败`),
+								title: self.$t('mobile.login.getUserInfoFailed'),
 								icon: 'none',
 								duration: 2000
 							});
@@ -244,8 +244,8 @@ export default {
 				.then(({ data }) => {
 					if (data.isbind) {
 						uni.showModal({
-							title: self.$t(`提示`),
-							content: self.$t(`请绑定手机号后，继续操作`),
+							title: self.$t('mobile.login.tipTitle'),
+							content: self.$t('mobile.login.bindPhoneFirst'),
 							showCancel: false,
 							success: function (res) {
 								if (res.confirm) {
@@ -269,13 +269,13 @@ export default {
 				})
 				.catch((error) => {
 					uni.showModal({
-						title: self.$t(`提示`),
-						content: self.$t(`错误信息`) + `${error}`,
+						title: self.$t('mobile.login.tipTitle'),
+						content: self.$t('mobile.login.errorInfoPrefix') + `${error}`,
 						success: function (res) {
 							if (res.confirm) {
-								console.log(self.$t(`用户点击确定`));
+								console.log(self.$t('mobile.login.confirmLog'));
 							} else if (res.cancel) {
-								console.log(self.$t(`用户点击取消`));
+								console.log(self.$t('mobile.login.cancelLog'));
 							}
 						}
 					});
@@ -289,11 +289,11 @@ export default {
 			if (!self.protocol) {
 				this.inAnimation = true;
 				return self.$util.Tips({
-					title: '请先阅读并同意协议'
+					title: self.$t('mobile.login.readAndAgreeFirst')
 				});
 			}
 			uni.showLoading({
-				title: self.$t(`登录中`)
+				title: self.$t('mobile.login.loading')
 			});
 			uni.login({
 				provider: 'weixin',
@@ -307,7 +307,7 @@ export default {
 						},
 						fail() {
 							uni.showToast({
-								title: self.$t(`获取用户信息失败`),
+								title: self.$t('mobile.login.getUserInfoFailed'),
 								icon: 'none',
 								duration: 2000
 							});
@@ -319,7 +319,7 @@ export default {
 				},
 				fail() {
 					uni.showToast({
-						title: self.$t(`登录失败`),
+						title: self.$t('mobile.login.loginFailed'),
 						icon: 'none',
 						duration: 2000
 					});
@@ -337,8 +337,8 @@ export default {
 				.then(({ data }) => {
 					if (data.isbind) {
 						uni.showModal({
-							title: self.$t(`提示`),
-							content: self.$t(`请绑定手机号后，继续操作`),
+							title: self.$t('mobile.login.tipTitle'),
+							content: self.$t('mobile.login.bindPhoneFirst'),
 							showCancel: false,
 							success: function (res) {
 								if (res.confirm) {
@@ -362,13 +362,13 @@ export default {
 				})
 				.catch((error) => {
 					uni.showModal({
-						title: self.$t(`提示`),
-						content: self.$t(`错误信息`) + `${error}`,
+						title: self.$t('mobile.login.tipTitle'),
+						content: self.$t('mobile.login.errorInfoPrefix') + `${error}`,
 						success: function (res) {
 							if (res.confirm) {
-								console.log(self.$t(`用户点击确定`));
+								console.log(self.$t('mobile.login.confirmLog'));
 							} else if (res.cancel) {
-								console.log(self.$t(`用户点击取消`));
+								console.log(self.$t('mobile.login.cancelLog'));
 							}
 						}
 					});
@@ -395,16 +395,16 @@ export default {
 			if (!that.protocol) {
 				this.inAnimation = true;
 				return that.$util.Tips({
-					title: '请先阅读并同意协议'
+					title: that.$t('mobile.login.readAndAgreeFirst')
 				});
 			}
 			if (!that.account)
 				return that.$util.Tips({
-					title: that.$t(`请填写手机号码`)
+					title: that.$t('mobile.login.phoneRequired')
 				});
 			if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(that.account))
 				return that.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t('mobile.login.phoneInvalid')
 				});
 			this.$refs.verify.show();
 		},
@@ -419,24 +419,24 @@ export default {
 			if (!that.protocol) {
 				this.inAnimation = true;
 				return that.$util.Tips({
-					title: '请先阅读并同意协议'
+					title: that.$t('mobile.login.readAndAgreeFirst')
 				});
 			}
 			if (!that.account)
 				return that.$util.Tips({
-					title: that.$t(`请填写手机号码`)
+					title: that.$t('mobile.login.phoneRequired')
 				});
 			if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(that.account))
 				return that.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t('mobile.login.phoneInvalid')
 				});
 			if (!that.captcha)
 				return that.$util.Tips({
-					title: that.$t(`请填写验证码`)
+					title: that.$t('mobile.login.captchaRequired')
 				});
 			if (!/^[\w\d]+$/i.test(that.captcha))
 				return that.$util.Tips({
-					title: that.$t(`请输入正确的验证码`)
+					title: that.$t('mobile.login.captchaInvalid')
 				});
 			if (that.appLoginStatus) {
 				that.wxLoginApi();
@@ -447,7 +447,7 @@ export default {
 					this.keyLock = !this.keyLock;
 				} else {
 					return that.$util.Tips({
-						title: that.$t(`请勿重复点击`)
+						title: that.$t('mobile.login.duplicateClick')
 					});
 				}
 				loginMobile({
@@ -488,32 +488,32 @@ export default {
 			if (!that.protocol) {
 				this.inAnimation = true;
 				return that.$util.Tips({
-					title: '请先阅读并同意协议'
+					title: that.$t('mobile.login.readAndAgreeFirst')
 				});
 			}
 			if (!that.account)
 				return that.$util.Tips({
-					title: that.$t(`请填写手机号码`)
+					title: that.$t('mobile.login.phoneRequired')
 				});
 			if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(that.account))
 				return that.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t('mobile.login.phoneInvalid')
 				});
 			if (!that.captcha)
 				return that.$util.Tips({
-					title: that.$t(`请填写验证码`)
+					title: that.$t('mobile.login.captchaRequired')
 				});
 			if (!/^[\w\d]+$/i.test(that.captcha))
 				return that.$util.Tips({
-					title: that.$t(`请输入正确的验证码`)
+					title: that.$t('mobile.login.captchaInvalid')
 				});
 			if (!that.password)
 				return that.$util.Tips({
-					title: that.$t(`请填写密码`)
+					title: that.$t('mobile.login.passwordRequired')
 				});
 			if (/^([0-9]|[a-z]|[A-Z]){0,6}$/i.test(that.password))
 				return that.$util.Tips({
-					title: that.$t(`您输入的密码过于简单`)
+					title: that.$t('mobile.login.passwordTooSimple')
 				});
 			register({
 				account: that.account,
@@ -538,16 +538,16 @@ export default {
 			if (!that.protocol) {
 				this.inAnimation = true;
 				return that.$util.Tips({
-					title: '请先阅读并同意协议'
+					title: that.$t('mobile.login.readAndAgreeFirst')
 				});
 			}
 			if (!that.account)
 				return that.$util.Tips({
-					title: that.$t(`请填写手机号码`)
+					title: that.$t('mobile.login.phoneRequired')
 				});
 			if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(that.account))
 				return that.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t('mobile.login.phoneInvalid')
 				});
 			if (that.formItem == 2) that.type = 'register';
 
@@ -578,26 +578,26 @@ export default {
 			if (!that.protocol) {
 				this.inAnimation = true;
 				return that.$util.Tips({
-					title: '请先阅读并同意协议'
+					title: that.$t('mobile.login.readAndAgreeFirst')
 				});
 			}
 			if (!that.account)
 				return that.$util.Tips({
-					title: that.$t(`请填写账号`)
+					title: that.$t('mobile.login.accountRequired')
 				});
 			if (!/^[\w\d]{5,16}$/i.test(that.account))
 				return that.$util.Tips({
-					title: that.$t(`请输入正确的账号`)
+					title: that.$t('mobile.login.accountInvalid')
 				});
 			if (!that.password)
 				return that.$util.Tips({
-					title: that.$t(`请填写密码`)
+					title: that.$t('mobile.login.passwordRequired')
 				});
 			if (this.keyLock) {
 				this.keyLock = !this.keyLock;
 			} else {
 				return that.$util.Tips({
-					title: that.$t(`请勿重复点击`)
+					title: that.$t('mobile.login.duplicateClick')
 				});
 			}
 			loginH5({

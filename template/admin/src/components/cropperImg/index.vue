@@ -41,13 +41,13 @@
             @change="selectImg($event)"
           />
           <el-button size="mini" type="danger" plain icon="el-icon-zoom-in" v-db-click @click="changeScale(1)"
-            >放大</el-button
+            >{{ $t('message.cropperImg.zoomIn') }}</el-button
           >
           <el-button size="mini" type="danger" plain icon="el-icon-zoom-out" v-db-click @click="changeScale(-1)"
-            >缩小</el-button
+            >{{ $t('message.cropperImg.zoomOut') }}</el-button
           >
-          <el-button size="mini" type="danger" plain v-db-click @click="rotateLeft">↺ 左旋转</el-button>
-          <el-button size="mini" type="danger" plain v-db-click @click="rotateRight">↻ 右旋转</el-button>
+          <el-button size="mini" type="danger" plain v-db-click @click="rotateLeft">↺ {{ $t('message.cropperImg.rotateLeft') }}</el-button>
+          <el-button size="mini" type="danger" plain v-db-click @click="rotateRight">↻ {{ $t('message.cropperImg.rotateRight') }}</el-button>
         </div>
       </div>
     </div>
@@ -57,8 +57,8 @@
         <img :src="previews.url" :style="previews.img" />
       </div>
       <div class="upload-btn">
-        <label class="btn" for="uploads">选择图片</label>
-        <el-button size="mini" type="success" v-db-click @click="uploadImg()">确认上传</el-button>
+        <label class="btn" for="uploads">{{ $t('message.cropperImg.selectImage') }}</label>
+        <el-button size="mini" type="success" v-db-click @click="uploadImg()">{{ $t('message.cropperImg.uploadConfirm') }}</el-button>
       </div>
     </div>
   </div>
@@ -106,7 +106,7 @@ export default {
   methods: {
     //初始化函数
     imgLoad(msg) {
-      console.log('工具初始化函数=====' + msg);
+      console.log('cropper init=====' + msg);
     },
     //图片缩放
     changeScale(num) {
@@ -143,7 +143,7 @@ export default {
       let file = e.target.files[0];
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
         this.$message({
-          message: '图片类型要求：jpeg、jpg、png',
+          message: this.$t('message.cropperImg.imageTypeError'),
           type: 'error',
         });
         return false;
@@ -190,7 +190,7 @@ export default {
           this.$emit('uploadImgSuccess', res.data);
         } else {
           this.$message({
-            message: '上传失败',
+            message: this.$t('message.cropperImg.uploadFailed'),
             type: 'error',
             duration: 1000,
           });

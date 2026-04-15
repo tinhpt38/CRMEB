@@ -3,19 +3,19 @@
     <ul>
       <template v-if="curComponent">
         <template v-if="!curComponent.isLock">
-          <li @click="handleAction('copy')">复制</li>
-          <li @click="handleAction('delete')">删除</li>
-          <li @click="handleAction('lock')">锁定</li>
+          <li @click="handleAction('copy')">{{ $t('message.customDesign.copy') }}</li>
+          <li @click="handleAction('delete')">{{ $t('message.customDesign.delete') }}</li>
+          <li @click="handleAction('lock')">{{ $t('message.customDesign.lock') }}</li>
           <li class="divider"></li>
-          <li @click="handleAction('top')">置顶</li>
-          <li @click="handleAction('bottom')">置底</li>
-          <li @click="handleAction('up')">上移一层</li>
-          <li @click="handleAction('down')">下移一层</li>
+          <li @click="handleAction('top')">{{ $t('message.customDesign.moveTop') }}</li>
+          <li @click="handleAction('bottom')">{{ $t('message.customDesign.moveBottom') }}</li>
+          <li @click="handleAction('up')">{{ $t('message.customDesign.moveUp') }}</li>
+          <li @click="handleAction('down')">{{ $t('message.customDesign.moveDown') }}</li>
         </template>
-        <li v-else @click="handleAction('unlock')">解锁</li>
+        <li v-else @click="handleAction('unlock')">{{ $t('message.customDesign.unlock') }}</li>
       </template>
       <template v-else>
-        <li class="disabled">暂无操作</li>
+        <li class="disabled">{{ $t('message.customDesign.noAction') }}</li>
       </template>
     </ul>
   </div>

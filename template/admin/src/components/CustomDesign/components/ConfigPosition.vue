@@ -1,8 +1,8 @@
 <template>
   <div class="position-settings">
-    <div class="section-title">位置设置</div>
+    <div class="section-title">{{ $t('message.customDesign.positionSetting') }}</div>
     <el-form size="small" label-width="70px" label-position="left">
-      <el-form-item label="X 坐标">
+      <el-form-item :label="$t('message.customDesign.xCoordinate')">
         <div class="row">
           <el-slider
             v-model="curComponent.style.left"
@@ -20,7 +20,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="Y 坐标">
+      <el-form-item :label="$t('message.customDesign.yCoordinate')">
         <div class="row">
           <el-slider
             v-model="curComponent.style.top"
@@ -38,7 +38,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="旋转角度">
+      <el-form-item :label="$t('message.customDesign.rotate')">
         <div class="row">
           <el-slider
             v-model="curComponent.style.rotate"

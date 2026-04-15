@@ -33,8 +33,8 @@
         v-if="modals && type != 1"
       ></goods-list>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="ok">确 定</el-button>
+        <el-button v-db-click @click="cancel">{{ $t('message.diyComponents.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="ok">{{ $t('message.diyComponents.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -75,19 +75,19 @@ export default {
           : 0;
         switch (this.type) {
           case 0:
-            this.titles = '商品列表';
+            this.titles = this.$t('message.diyComponents.goodsList');
             break;
           case 1:
-            this.titles = '分类列表';
+            this.titles = this.$t('message.diyComponents.categoryList');
             break;
           case 8:
-            this.titles = '砍价列表';
+            this.titles = this.$t('message.diyComponents.bargainList');
             break;
           case 2:
-            this.titles = '秒杀列表';
+            this.titles = this.$t('message.diyComponents.seckillList');
             break;
           case 3:
-            this.titles = '拼团列表';
+            this.titles = this.$t('message.diyComponents.groupList');
             break;
           default:
         }
@@ -127,7 +127,7 @@ export default {
     },
     ok() {
       if (!this.tempGoods.length) {
-        return this.$message.warning('请先选择商品');
+        return this.$message.warning(this.$t('message.diyComponents.chooseFirstGoods'));
       }
       let list = this.defaults.goodsList.list;
       list.push.apply(list, this.tempGoods);

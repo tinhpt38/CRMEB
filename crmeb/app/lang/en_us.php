@@ -63,6 +63,7 @@ return [
     '备份成功' => 'Backup successful',
     '备份失败' => 'Backup failed',
     '参数错误' => 'Parameter error',
+    'api.error.invalid_param' => 'Parameter error',
     '非法操作' => 'Illegal operation',
     '数据获取失败' => 'Data acquisition failed',
     '站点升级中，请稍候访问' => 'Site upgrade in progress, please visit later',

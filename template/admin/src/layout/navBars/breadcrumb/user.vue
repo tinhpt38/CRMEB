@@ -38,6 +38,17 @@
     <div class="layout-navbars-breadcrumb-user-icon mr10" v-db-click @click="openMobelPage">
       <i title="商城页面" class="el-icon-mobile-phone"></i>
     </div>
+    <el-dropdown class="layout-navbars-breadcrumb-user-icon" trigger="click" @command="onLanguageChange">
+      <span class="el-dropdown-link language-trigger" :title="$t('message.layout.language')">
+        {{ $t('message.layout.language') }}
+        <i class="el-icon-arrow-down el-icon--right"></i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item :disabled="disabledI18n === 'zh-cn'" command="zh-cn">简体中文</el-dropdown-item>
+        <el-dropdown-item :disabled="disabledI18n === 'en'" command="en">English</el-dropdown-item>
+        <el-dropdown-item :disabled="disabledI18n === 'zh-tw'" command="zh-tw">繁體中文</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
     <el-dropdown :show-timeout="70" @command="onDropdownCommand">
       <span class="layout-navbars-breadcrumb-user-link">
         <img :src="getUserInfos.head_pic" class="layout-navbars-breadcrumb-user-link-photo mr5" />
@@ -90,10 +101,8 @@ export default {
     },
   },
   mounted() {
-    if (Local.get('themeConfigPrev')) {
-      this.initI18n();
-      this.initComponentSize();
-    }
+    if (Local.get('themeConfigPrev')) this.initComponentSize();
+    this.initI18n();
   },
   methods: {
     closePopover() {
@@ -164,7 +173,11 @@ export default {
     },
     // 初始化言语国际化
     initI18n() {
-      switch (Local.get('themeConfigPrev').globalI18n) {
+      const currentLang =
+        (Local.get('themeConfigPrev') && Local.get('themeConfigPrev').globalI18n) ||
+        this.$store.state.themeConfig.themeConfig.globalI18n ||
+        'zh-cn';
+      switch (currentLang) {
         case 'zh-cn':
           this.disabledI18n = 'zh-cn';
           break;
@@ -290,6 +303,12 @@ export default {
   & ::v-deep .el-dropdown {
     color: var(--prev-bg-topBarColor);
     cursor: pointer;
+  }
+  .language-trigger {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    white-space: nowrap;
   }
   & ::v-deep .el-badge {
     height: 40px;

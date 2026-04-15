@@ -35,7 +35,7 @@ class StoreProductController
             ['id', 0],
             ['type', 0]
         ], true);
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail(getLang('api.error.invalid_param'));
         /** @var StoreProductAttrServices $storeProductAttrServices */
         $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
         list($data['productAttr'], $data['productValue']) = $storeProductAttrServices->getProductAttrDetail($id, $request->uid(), $type);

@@ -1,27 +1,29 @@
 <template>
   <div>
-    <el-form-item label="跳转链接">
+    <el-form-item :label="$t('message.customDesign.jumpLink')">
       <div v-if="['article', 'goods'].includes(type) && showLinkType">
         <el-radio-group v-model="curComponent.propValue.linkType" @change="onChange" style="margin-bottom: 2px">
-          <el-radio label="url">网址链接</el-radio>
-          <el-radio label="detail">{{ type === 'article' ? '文章详情' : '商品详情' }}</el-radio>
+          <el-radio label="url">{{ $t('message.customDesign.websiteLink') }}</el-radio>
+          <el-radio label="detail">{{
+            type === 'article' ? $t('message.customDesign.articleDetail') : $t('message.customDesign.productDetail')
+          }}</el-radio>
         </el-radio-group>
       </div>
       <el-input
         v-if="!curComponent.propValue.linkType || curComponent.propValue.linkType === 'url'"
         v-model="curComponent.propValue.link"
-        placeholder="请输入链接"
+        :placeholder="$t('message.customDesign.enterLink')"
         @change="onChange"
       >
         <i class="el-icon-link" slot="suffix" @click="getLink" />
       </el-input>
     </el-form-item>
     <!-- 不是面板 -->
-    <el-form-item label="信息类型" v-if="curComponent.component !== 'Panel'">
+    <el-form-item :label="$t('message.customDesign.infoType')" v-if="curComponent.component !== 'Panel'">
       <el-select
         v-model="curComponent.propValue.fieldType"
         clearable
-        placeholder="请选择信息类型"
+        :placeholder="$t('message.customDesign.chooseInfoType')"
         @change="handleFieldTypeChange"
         style="width: 100%"
       >

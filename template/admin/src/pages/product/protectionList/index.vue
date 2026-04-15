@@ -10,23 +10,23 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="保障名称：">
+          <el-form-item :label="$t('message.productProtection.name') + '：'">
             <el-input
               clearable
-              placeholder="请输入保障名称"
+              :placeholder="$t('message.productProtection.namePlaceholder')"
               v-model="formValidate.title"
               class="form_content_width"
               @change="userSearchs"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.productList.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">添加保障</el-button>
+      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">{{ $t('message.productProtection.add') }}</el-button>
 
       <el-table
         :data="categoryList"
@@ -42,19 +42,19 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="保障名称" prop="title" min-width="130">
+        <el-table-column :label="$t('message.productProtection.name')" prop="title" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="保障图片" prop="image" min-width="130">
+        <el-table-column :label="$t('message.productProtection.image')" prop="image" min-width="130">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer v-if="scope.row.image">
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="状态" prop="status" min-width="120">
+        <el-table-column :label="$t('message.productList.status')" prop="status" min-width="120">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -64,22 +64,22 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.productCommon.enable')"
+              :inactive-text="$t('message.productCommon.disable')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="排序" prop="sort" min-width="130">
+        <el-table-column :label="$t('message.productList.sort')" prop="sort" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="120" fixed="right">
+        <el-table-column :label="$t('message.productList.operation')" width="120" fixed="right">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除保障')">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.productProtection.deleteConfirm'))">{{ $t('message.productCommon.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

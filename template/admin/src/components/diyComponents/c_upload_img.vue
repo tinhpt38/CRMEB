@@ -1,14 +1,14 @@
 <template>
   <div class="upload_img">
     <div class="title">{{ datas[name].title }}</div>
-    <div class="box" v-db-click @click="modalPicTap('单选')">
+    <div class="box" v-db-click @click="modalPicTap(this.$t('message.diyComponents.singleChoice'))">
       <img :src="datas[name].url" alt="" v-if="datas[name].url" />
       <div class="upload-box" v-else>
         <i class="el-icon-picture-outline" style="font-size: 24px"></i>
       </div>
     </div>
     <div>
-      <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :mask-closable="false" :z-index="888">
+      <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.diyComponents.uploadGoodsImage')" :mask-closable="false" :z-index="888">
         <uploadPictures
           :isChoice="isChoice"
           @getPic="getPic"
@@ -57,7 +57,7 @@ export default {
       ],
       defaults: {},
       modalPic: false,
-      isChoice: '单选',
+      isChoice: this.$t('message.diyComponents.singleChoice'),
       gridBtn: {
         xl: 4,
         lg: 8,
@@ -99,14 +99,14 @@ export default {
             iframeUrl: settings.routePre + '/widget.images/index.html?fodder=dialog',
             editor: editor,
             name: uiName,
-            title: '上传图片',
+            title: this.$t('message.diyComponents.uploadImage'),
             cssRules: 'width:960px;height:550px;padding:20px;',
           });
           this.dialog = dialog;
           // 参考上面的自定义按钮
           var btn = new window.UE.ui.Button({
             name: 'dialog-button',
-            title: '上传图片',
+            title: this.$t('message.diyComponents.uploadImage'),
             cssRules: `background-image: url(../../../assets/images/icons.png);background-position: -726px -77px;`,
             onclick: function () {
               // 渲染dialog

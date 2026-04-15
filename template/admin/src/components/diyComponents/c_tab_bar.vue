@@ -8,25 +8,25 @@
         </div>
         <div class="right-wrapper">
           <div class="img-wrapper">
-            <div class="img-item" v-for="(img, j) in item.imgList" v-db-click @click="modalPicTap('单选', index, j)">
+            <div class="img-item" v-for="(img, j) in item.imgList" v-db-click @click="modalPicTap($t('message.diyComponents.singleChoice'), index, j)">
               <img :src="img" alt="" v-if="img" />
-              <p class="txt" v-if="img">{{ j == 0 ? '选中' : '未选中' }}</p>
+              <p class="txt" v-if="img">{{ j == 0 ? $t('message.diyComponents.selected') : $t('message.diyComponents.unselected') }}</p>
               <div class="empty-img" v-else>
                 <span class="iconfont iconjiahao"></span>
-                <p>{{ j == 0 ? '选中' : '未选中' }}</p>
+                <p>{{ j == 0 ? $t('message.diyComponents.selected') : $t('message.diyComponents.unselected') }}</p>
               </div>
             </div>
           </div>
           <div class="c_row-item">
-            <el-col class="label" :span="4"> 名称 </el-col>
+            <el-col class="label" :span="4"> {{ $t('message.diyComponents.name') }} </el-col>
             <el-col :span="19" class="slider-box">
-              <el-input v-model="item.name" placeholder="选填不超过10个字" />
+              <el-input v-model="item.name" :placeholder="$t('message.diyComponents.namePlaceholder10')" />
             </el-col>
           </div>
           <div class="c_row-item">
-            <el-col class="label" :span="4"> 链接 </el-col>
+            <el-col class="label" :span="4"> {{ $t('message.diyComponents.link') }} </el-col>
             <el-col :span="19" class="slider-box">
-              <el-input v-model="item.link" placeholder="选填不超过10个字" />
+              <el-input v-model="item.link" :placeholder="$t('message.diyComponents.namePlaceholder10')" />
             </el-col>
           </div>
         </div>
@@ -42,7 +42,7 @@
         style="width: 100%; height: 40px; border-color: var(--prev-color-primary); color: var(--prev-color-primary)"
         v-db-click
         @click="addMenu"
-        >添加图文导航
+        >{{ $t('message.diyComponents.addImageTextNav') }}
       </el-button>
     </div>
     <div>
@@ -52,7 +52,7 @@
         scrollable
         footer-hide
         :show-close="true"
-        title="上传商品图"
+        :title="$t('message.diyComponents.uploadGoodsImage')"
         :mask-closable="false"
         :z-index="888"
       >
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       modalPic: false,
-      isChoice: '单选',
+      isChoice: this.$t('message.diyComponents.singleChoice'),
       gridBtn: {
         xl: 4,
         lg: 8,
@@ -138,11 +138,11 @@ export default {
     },
     deleteMenu(index) {
       this.$msgbox({
-        title: '提示',
-        message: '是否确定删除该菜单',
+        title: this.$t('message.diyComponents.tip'),
+        message: this.$t('message.diyComponents.confirmDeleteMenu'),
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '删除',
+        cancelButtonText: this.$t('message.diyComponents.cancel'),
+        confirmButtonText: this.$t('message.diyComponents.delete'),
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })

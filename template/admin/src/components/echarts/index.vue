@@ -78,7 +78,7 @@ export default {
           },
           series: [
             {
-              name: '访问来源',
+              name: this.$t('message.chart.visitSource'),
               type: 'pie',
               radius: '70%',
               center: ['50%', '60%'],

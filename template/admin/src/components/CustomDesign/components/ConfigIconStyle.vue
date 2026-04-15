@@ -1,11 +1,11 @@
 <template>
   <div class="icon-style-settings">
-    <el-form-item label="图标颜色">
+    <el-form-item :label="$t('message.customDesign.iconColor')">
       <div class="row">
         <el-color-picker v-model="curComponent.propValue.color" @change="onChange" show-alpha></el-color-picker>
         <el-input
           v-model="curComponent.propValue.color"
-          placeholder="请输入颜色"
+          :placeholder="$t('message.customDesign.enterColor')"
           @change="onChange"
           style="margin-left: 10px; flex: 1"
         ></el-input>
@@ -15,11 +15,11 @@
             curComponent.propValue.color = '#000000';
             onChange();
           "
-          >重置</span
+          >{{ $t('message.customDesign.reset') }}</span
         >
       </div>
     </el-form-item>
-    <el-form-item label="图标大小">
+    <el-form-item :label="$t('message.customDesign.iconSize')">
       <div class="row">
         <el-slider
           v-model="curComponent.propValue.size"
@@ -37,7 +37,7 @@
         ></el-input-number>
       </div>
     </el-form-item>
-    <el-form-item label="图标位置">
+    <el-form-item :label="$t('message.customDesign.iconPosition')">
       <el-radio-group v-model="curComponent.propValue.iconAlign" size="small" @change="onChange">
         <el-radio-button label="flex-start"><span class="iconfont iconzuoduiqi"></span></el-radio-button>
         <el-radio-button label="center"><span class="iconfont iconjuzhongduiqi"></span></el-radio-button>

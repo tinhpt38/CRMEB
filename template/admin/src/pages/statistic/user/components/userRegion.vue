@@ -3,7 +3,7 @@
     <el-col :xs="24" :sm="24" :md="24" :lg="18">
       <el-card :bordered="false" shadow="never" class="ivu-mt-16">
         <div class="acea-row row-between-wrapper">
-          <h4 class="statics-header-title mb20">用户地域分布</h4>
+          <h4 class="statics-header-title mb20">{{ $t('message.chart.userRegionDistribution') }}</h4>
         </div>
         <el-row>
           <el-col :xs="24" :sm="24" :md="24" :lg="10">
@@ -32,7 +32,7 @@
     <el-col :xs="24" :sm="24" :md="24" :lg="6">
       <el-card :bordered="false" shadow="never" class="ivu-mt-16">
         <div class="acea-row row-between-wrapper">
-          <h4 class="statics-header-title mb20">用户性别比例</h4>
+          <h4 class="statics-header-title mb20">{{ $t('message.chart.userGenderRatio') }}</h4>
         </div>
         <echarts-new
           :option-data="optionData"
@@ -74,26 +74,26 @@ export default {
       resdataList: [],
       columns1: [
         {
-          title: 'TOP省份',
+          title: this.$t('message.chart.topProvince'),
           key: 'province',
         },
         {
-          title: '累积用户数',
+          title: this.$t('message.chart.totalUsers'),
           key: 'allNum',
           sortable: true,
         },
         {
-          title: '新增用户数',
+          title: this.$t('message.chart.newUsers'),
           key: 'newNum',
           sortable: true,
         },
         {
-          title: '访客数',
+          title: this.$t('message.chart.visitors'),
           key: 'visitNum',
           sortable: true,
         },
         {
-          title: '支付金额',
+          title: this.$t('message.chart.paidAmount'),
           key: 'payPrice',
           sortable: true,
         },
@@ -127,10 +127,16 @@ export default {
           backgroundColor: '#fff',
           tooltip: {
             trigger: 'item',
-            formatter: function (params) {
+            formatter: (params) => {
               return params.data
-                ? `地区:${params.name}</br>累计用户: ${params.data.value}</br>新增用户: ${params.data.newNum}</br>访客数: ${params.data.visitNum}</br>支付金额: ${params.data.payPrice}`
-                : `地区:${params.name}</br>累计用户: 0</br>新增用户: 0</br>访客数: 0</br>支付金额: 0`;
+                ? `${this.$t('message.chart.region')}:${params.name}</br>${this.$t('message.chart.totalUserCount')}: ${
+                    params.data.value
+                  }</br>${this.$t('message.chart.newUsers')}: ${params.data.newNum}</br>${this.$t('message.chart.visitors')}: ${
+                    params.data.visitNum
+                  }</br>${this.$t('message.chart.paidAmount')}: ${params.data.payPrice}`
+                : `${this.$t('message.chart.region')}:${params.name}</br>${this.$t('message.chart.totalUserCount')}: 0</br>${this.$t(
+                    'message.chart.newUsers',
+                  )}: 0</br>${this.$t('message.chart.visitors')}: 0</br>${this.$t('message.chart.paidAmount')}: 0`;
             },
           }, // 鼠标移到图里面的浮动提示框
           dataRange: {
@@ -215,7 +221,7 @@ export default {
           this.optionData = {
             title: {
               show: true,
-              text: '总用户数', // 当前写死
+              text: this.$t('message.chart.totalUserTitle'),
               subtext: totalSumAll, // 当前写死
               x: 'center',
               y: 'center',
@@ -236,11 +242,11 @@ export default {
             legend: {
               orient: 'vertical',
               left: 10,
-              data: ['未知', '男', '女'],
+              data: [this.$t('message.chart.unknown'), this.$t('message.chart.male'), this.$t('message.chart.female')],
             },
             series: [
               {
-                name: '访问来源',
+                name: this.$t('message.chart.visitSource'),
                 type: 'pie',
                 radius: ['50%', '70%'],
                 avoidLabelOverlap: false,

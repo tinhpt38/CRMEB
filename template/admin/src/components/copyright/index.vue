@@ -20,18 +20,18 @@ export default {
     return {
       links: [
         {
-          title: '官网',
-          key: '官网',
+          title: this.$t('message.copyright.site'),
+          key: 'site',
           href: 'https://www.crmeb.com',
         },
         {
-          title: '社区',
-          key: '社区',
+          title: this.$t('message.copyright.community'),
+          key: 'community',
           href: 'https://www.crmeb.com/ask',
         },
         {
-          title: '文档',
-          key: '文档',
+          title: this.$t('message.copyright.docs'),
+          key: 'docs',
           href: 'http://doc.crmeb.com',
         },
       ],

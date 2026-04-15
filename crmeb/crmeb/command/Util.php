@@ -13,6 +13,7 @@ namespace crmeb\command;
 
 use app\services\system\log\SystemFileInfoServices;
 use app\services\system\SystemRouteServices;
+use app\services\system\lang\LangCodeServices;
 use crmeb\exceptions\AdminException;
 use think\console\Command;
 use think\console\Input;
@@ -27,11 +28,14 @@ class Util extends Command
     protected function configure()
     {
         $this->setName('util')
-            ->addArgument('type', Argument::REQUIRED, '类型replace/route/file/apifox')
+            ->addArgument('type', Argument::REQUIRED, '类型replace/route/file/apifox/lang-package')
             ->addOption('h', null, Option::VALUE_REQUIRED, '替换成当前域名')
             ->addOption('u', null, Option::VALUE_REQUIRED, '替换的域名')
             ->addOption('a', null, Option::VALUE_REQUIRED, '应用名')
             ->addOption('f', null, Option::VALUE_REQUIRED, '导入文件路径，文件只能在项目根目录下或者根目录下的其他文件夹内')
+            ->addOption('action', null, Option::VALUE_REQUIRED, 'lang-package 操作: export/import')
+            ->addOption('out', null, Option::VALUE_REQUIRED, 'lang-package 导出文件路径')
+            ->addOption('file', null, Option::VALUE_REQUIRED, 'lang-package 导入文件路径')
             ->setDescription('工具类');
     }
 
@@ -67,6 +71,22 @@ class Util extends Command
                     return $output->error('缺少导入文件地址');
                 }
                 app()->make(SystemRouteServices::class)->import($filePath);
+                break;
+            case 'lang-package':
+                $action = $input->getOption('action');
+                if (!$action || !in_array($action, ['export', 'import'])) {
+                    return $output->error('lang-package 缺少有效操作，请传 --action=export/import');
+                }
+                if ($action === 'export') {
+                    $out = $input->getOption('out') ?: 'runtime/lang_packages/lang_' . date('Ymd_His') . '.sql';
+                    $this->exportLangPackage($out);
+                } else {
+                    $file = $input->getOption('file');
+                    if (!$file) {
+                        return $output->error('lang-package 导入缺少 --file 参数');
+                    }
+                    $this->importLangPackage($file);
+                }
                 break;
         }
 
@@ -154,5 +174,139 @@ class Util extends Command
                 throw new AdminException('替换失败,失败原因:{:msg}', ['msg' => $e->getMessage()]);
             }
         });
+    }
+
+    /**
+     * 导出多语言包
+     * @param string $outputPath
+     */
+    protected function exportLangPackage(string $outputPath): void
+    {
+        $fullOutputPath = $this->resolveProjectPath($outputPath);
+        $dir = dirname($fullOutputPath);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        $prefix = Config::get('database.connections.' . Config::get('database.default') . '.prefix');
+        $table = $prefix . 'lang_code';
+        $rows = Db::name('lang_code')->order('id asc')->select()->toArray();
+
+        $sql = [
+            '-- CRMEB language package export',
+            '-- generated at: ' . date('Y-m-d H:i:s'),
+            "DELETE FROM `{$table}`;",
+        ];
+        foreach ($rows as $row) {
+            $columns = array_keys($row);
+            $columnSql = implode('`,`', $columns);
+            $values = array_map(function ($value) {
+                if ($value === null) {
+                    return 'NULL';
+                }
+                return "'" . addslashes((string)$value) . "'";
+            }, array_values($row));
+            $valueSql = implode(',', $values);
+            $sql[] = "INSERT INTO `{$table}` (`{$columnSql}`) VALUES ({$valueSql});";
+        }
+
+        file_put_contents($fullOutputPath, implode(PHP_EOL, $sql) . PHP_EOL);
+    }
+
+    /**
+     * 导入多语言包
+     * @param string $filePath
+     */
+    protected function importLangPackage(string $filePath): void
+    {
+        $fullPath = $this->resolveProjectPath($filePath, true);
+        if (!is_file($fullPath)) {
+            throw new AdminException('导入失败，文件不存在：{:file}', ['file' => $filePath]);
+        }
+        $sql = trim((string)file_get_contents($fullPath));
+        if ($sql === '') {
+            throw new AdminException('导入失败，文件为空');
+        }
+        Db::transaction(function () use ($sql) {
+            $sqlList = $this->parseSqlStatements($sql);
+            foreach ($sqlList as $item) {
+                Db::execute($item);
+            }
+            app()->make(LangCodeServices::class)->clearLangCache();
+        });
+    }
+
+    /**
+     * 解析项目内路径
+     * @param string $path
+     * @param bool $mustExist
+     * @return string
+     */
+    protected function resolveProjectPath(string $path, bool $mustExist = false): string
+    {
+        $root = rtrim(app()->getRootPath(), DIRECTORY_SEPARATOR);
+        $candidate = $path;
+        if (substr($path, 0, 1) !== DIRECTORY_SEPARATOR) {
+            $candidate = $root . DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR);
+        }
+        $normalizedCandidate = str_replace('\\', '/', $candidate);
+        $normalizedRoot = str_replace('\\', '/', $root);
+
+        // 先做一次字符串前缀检查，允许导出到项目内的新路径（目录可不存在）
+        if (strpos($normalizedCandidate, $normalizedRoot . '/') !== 0 && $normalizedCandidate !== $normalizedRoot) {
+            throw new AdminException('文件路径不合法，仅允许项目目录内路径');
+        }
+
+        // 防止通过 ../ 逃逸目录
+        $relativePath = ltrim(substr($normalizedCandidate, strlen($normalizedRoot)), '/');
+        $segments = $relativePath === '' ? [] : explode('/', $relativePath);
+        $depth = 0;
+        foreach ($segments as $segment) {
+            if ($segment === '' || $segment === '.') {
+                continue;
+            }
+            if ($segment === '..') {
+                $depth--;
+            } else {
+                $depth++;
+            }
+            if ($depth < 0) {
+                throw new AdminException('文件路径不合法，仅允许项目目录内路径');
+            }
+        }
+
+        if ($mustExist) {
+            $realPath = realpath($candidate);
+            if (!$realPath || strpos(str_replace('\\', '/', $realPath), $normalizedRoot . '/') !== 0) {
+                throw new AdminException('文件路径不合法，仅允许项目目录内路径');
+            }
+        }
+        return $candidate;
+    }
+
+    /**
+     * 解析 SQL 文件为可执行语句
+     * @param string $sqlContent
+     * @return array
+     */
+    protected function parseSqlStatements(string $sqlContent): array
+    {
+        $lines = preg_split('/\r\n|\n|\r/', $sqlContent);
+        $statements = [];
+        $buffer = '';
+        foreach ($lines as $line) {
+            $trim = trim($line);
+            if ($trim === '' || strpos($trim, '--') === 0) {
+                continue;
+            }
+            $buffer .= $line . PHP_EOL;
+            if (substr(rtrim($trim), -1) === ';') {
+                $statements[] = trim($buffer);
+                $buffer = '';
+            }
+        }
+        if (trim($buffer) !== '') {
+            $statements[] = trim($buffer);
+        }
+        return $statements;
     }
 }

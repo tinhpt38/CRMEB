@@ -2,7 +2,7 @@
   <!-- 基础信息 -->
   <el-row :gutter="24">
     <el-col :span="24">
-      <el-form-item label="商品类型：" props="is_virtual">
+      <el-form-item :label="$t('message.productAdd.productType') + '：'" props="is_virtual">
         <div
           class="virtual"
           :class="formValidate.virtual_type == item.id ? 'virtual_boder' : 'virtual_boder2'"
@@ -25,11 +25,11 @@
     </el-col>
 
     <el-col :span="24">
-      <el-form-item label="商品名称：" prop="store_name">
+      <el-form-item :label="$t('message.productAdd.productName') + '：'" prop="store_name">
         <el-input
           class="content_width"
           v-model="formValidate.store_name"
-          placeholder="请输入商品名称"
+          :placeholder="$t('message.productAdd.productNamePlaceholder')"
           maxlength="80"
           show-word-limit
         />
@@ -37,18 +37,18 @@
     </el-col>
 
     <el-col :span="24">
-      <el-form-item label="单位：" prop="unit_name">
+      <el-form-item :label="$t('message.productAdd.unit') + '：'" prop="unit_name">
         <el-input
           class="input_width"
           v-model="formValidate.unit_name"
-          placeholder="请输入单位"
+          :placeholder="$t('message.productAdd.unitPlaceholder')"
           maxlength="5"
           show-word-limit
         />
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="商品轮播图：" prop="slider_image">
+      <el-form-item :label="$t('message.productAdd.sliderImage') + '：'" prop="slider_image">
         <div class="acea-row">
           <div
             class="pictrue"
@@ -74,29 +74,29 @@
           <el-input v-model="formValidate.slider_image[0]" style="display: none"></el-input>
         </div>
 
-        <div class="tips-info">建议尺寸：800*800，可拖拽改变图片顺序，默认首张图为主图，最多上传10张</div>
+        <div class="tips-info">{{ $t('message.productAdd.sliderImageTip') }}</div>
 
         <!-- <div class="tips">(最多10张<br />750*750)</div> -->
       </el-form-item>
     </el-col>
     <el-col :span="24" id="selectvideo">
-      <el-form-item label="添加视频：" prop="video_link">
+      <el-form-item :label="$t('message.productAdd.addVideoLabel') + '：'" prop="video_link">
         <div v-if="!formValidate.video_link" class="videbox" @click="addVideo">
           <i class="el-icon-video-camera"></i>
         </div>
         <div class="box-video-style" v-if="formValidate.video_link">
           <video style="width: 100%; height: 100%" :src="formValidate.video_link" controls="controls">
-            您的浏览器不支持 video 标签。
+            {{ $t('message.productAdd.videoTagNotSupported') }}
           </video>
           <div class="mark"></div>
           <i class="el-icon-delete iconv" v-db-click @click="delVideo"></i>
         </div>
         <Progress class="progress" :percent="progress" :stroke-width="5" v-if="upload.videoIng" />
-        <div class="tips-info">建议时长：9～30秒，视频宽高比16:9</div>
+        <div class="tips-info">{{ $t('message.productAdd.videoTip') }}</div>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="商品分类：" prop="cate_id">
+      <el-form-item :label="$t('message.productList.productCategory') + '：'" prop="cate_id">
         <el-cascader
           class="content_width"
           v-model="formValidate.cate_id"
@@ -106,26 +106,26 @@
           :props="{ multiple: true, checkStrictly: true, emitPath: false }"
           clearable
         ></el-cascader>
-        <span class="addfont" v-db-click @click="addCate">新增分类</span>
+        <span class="addfont" v-db-click @click="addCate">{{ $t('message.productClassify.addCategory') }}</span>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="商品标签：">
+      <el-form-item :label="$t('message.productAdd.productLabel') + '：'">
         <div class="flex">
           <useLabel
             v-if="tileLabelList.length"
             :activeId.sync="formValidate.label_list"
             :listData="tileLabelList"
           ></useLabel>
-          <el-button v-db-click @click="addGoodsTag">选择标签</el-button>
+          <el-button v-db-click @click="addGoodsTag">{{ $t('message.productAdd.selectTag') }}</el-button>
         </div>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="商品状态：">
+      <el-form-item :label="$t('message.productAdd.productStatus') + '：'">
         <el-radio-group v-model="formValidate.is_show">
-          <el-radio :label="1" class="radio">上架</el-radio>
-          <el-radio :label="0">下架</el-radio>
+          <el-radio :label="1" class="radio">{{ $t('message.productList.onShelf') }}</el-radio>
+          <el-radio :label="0">{{ $t('message.productList.offShelf') }}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-col>
