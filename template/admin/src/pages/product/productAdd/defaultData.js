@@ -1,180 +1,199 @@
-// 导出TableHead 数据
+import { i18n } from '@/i18n/index.js';
+
+const t = (key) => i18n.t(key);
+
+const TABLE_TITLE = {
+  image: t('message.productAdd.image'),
+  sellPrice: t('message.productAdd.sellPrice'),
+  costPrice: t('message.productAdd.costPrice'),
+  otPrice: t('message.productAdd.otPrice'),
+  stock: t('message.productAdd.stock'),
+  productCode: t('message.productAdd.productCode'),
+  barcode: t('message.productAdd.barcode'),
+  weight: t('message.productAdd.weight'),
+  volume: t('message.productAdd.volume'),
+  defaultSelectedSpec: t('message.productAdd.defaultSelectedSpec'),
+  operation: t('message.productList.operation'),
+  virtualProduct: t('message.productAdd.virtualProduct'),
+};
+
+// Export table head data
 export const GoodsTableHead = [
   {
-    title: '图片',
+    title: TABLE_TITLE.image,
     slot: 'pic',
     align: 'center',
     minWidth: '80px',
   },
   {
-    title: '售价',
+    title: TABLE_TITLE.sellPrice,
     slot: 'price',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: '成本价',
+    title: TABLE_TITLE.costPrice,
     slot: 'cost',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: '划线价',
+    title: TABLE_TITLE.otPrice,
     slot: 'ot_price',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: '库存',
+    title: TABLE_TITLE.stock,
     slot: 'stock',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: '商品编码',
+    title: TABLE_TITLE.productCode,
     slot: 'bar_code',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: '条形码',
+    title: TABLE_TITLE.barcode,
     slot: 'bar_code_number',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: '重量（KG）',
+    title: TABLE_TITLE.weight,
     slot: 'weight',
     align: 'center',
     minWidth: '95px',
   },
   {
-    title: '体积(m³)',
+    title: TABLE_TITLE.volume,
     slot: 'volume',
     align: 'center',
     minWidth: '95px',
   },
   {
-    title: '默认选中规格',
+    title: TABLE_TITLE.defaultSelectedSpec,
     slot: 'selected_spec',
     fixed: 'right',
     align: 'center',
     minWidth: '100px',
   },
   {
-    title: '操作',
+    title: TABLE_TITLE.operation,
     slot: 'action',
     fixed: 'right',
     align: 'center',
     minWidth: '120px',
   },
 ];
-//   虚拟商品-卡密 优惠券
+// Virtual product - card code/coupon
 export const VirtualTableHead = [
   {
-    title: '图片',
+    title: TABLE_TITLE.image,
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: '售价',
+    title: TABLE_TITLE.sellPrice,
     slot: 'price',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '成本价',
+    title: TABLE_TITLE.costPrice,
     slot: 'cost',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '原价',
+    title: TABLE_TITLE.otPrice,
     slot: 'ot_price',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '库存',
+    title: TABLE_TITLE.stock,
     slot: 'stock',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '产品编号',
+    title: TABLE_TITLE.productCode,
     slot: 'bar_code',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '虚拟商品',
+    title: TABLE_TITLE.virtualProduct,
     slot: 'fictitious',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '默认选中规格',
+    title: TABLE_TITLE.defaultSelectedSpec,
     slot: 'selected_spec',
     fixed: 'right',
     align: 'center',
     minWidth: 90,
   },
   {
-    title: '操作',
+    title: TABLE_TITLE.operation,
     slot: 'action',
     fixed: 'right',
     align: 'center',
     minWidth: 120,
   },
 ];
-//   虚拟商品
+// Virtual product
 export const VirtualTableHead2 = [
   {
-    title: '图片',
+    title: TABLE_TITLE.image,
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: '售价',
+    title: TABLE_TITLE.sellPrice,
     slot: 'price',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '成本价',
+    title: TABLE_TITLE.costPrice,
     slot: 'cost',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '原价',
+    title: TABLE_TITLE.otPrice,
     slot: 'ot_price',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '库存',
+    title: TABLE_TITLE.stock,
     slot: 'stock',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '产品编号',
+    title: TABLE_TITLE.productCode,
     slot: 'bar_code',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '默认选中规格',
+    title: TABLE_TITLE.defaultSelectedSpec,
     slot: 'selected_spec',
     fixed: 'right',
     align: 'center',
     minWidth: 90,
   },
   {
-    title: '操作',
+    title: TABLE_TITLE.operation,
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -184,61 +203,61 @@ export const VirtualTableHead2 = [
 
 export const columns2 = [
   {
-    title: '图片',
+    title: TABLE_TITLE.image,
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: '售价',
+    title: TABLE_TITLE.sellPrice,
     slot: 'price',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '成本价',
+    title: TABLE_TITLE.costPrice,
     slot: 'cost',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '划线价',
+    title: TABLE_TITLE.otPrice,
     slot: 'ot_price',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '库存',
+    title: TABLE_TITLE.stock,
     slot: 'stock',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '商品编码',
+    title: TABLE_TITLE.productCode,
     slot: 'bar_code',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '条形码',
+    title: TABLE_TITLE.barcode,
     slot: 'bar_code_number',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '重量（KG）',
+    title: TABLE_TITLE.weight,
     slot: 'weight',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '体积(m³)',
+    title: TABLE_TITLE.volume,
     slot: 'volume',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '操作',
+    title: TABLE_TITLE.operation,
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -248,49 +267,49 @@ export const columns2 = [
 
 export const columns3 = [
   {
-    title: '图片',
+    title: TABLE_TITLE.image,
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: '售价',
+    title: TABLE_TITLE.sellPrice,
     slot: 'price',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '成本价',
+    title: TABLE_TITLE.costPrice,
     slot: 'cost',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '原价',
+    title: TABLE_TITLE.otPrice,
     slot: 'ot_price',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '库存',
+    title: TABLE_TITLE.stock,
     slot: 'stock',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: '商品编码',
+    title: TABLE_TITLE.productCode,
     slot: 'bar_code',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '条形码',
+    title: TABLE_TITLE.barcode,
     slot: 'bar_code_number',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: '操作',
+    title: TABLE_TITLE.operation,
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -298,69 +317,69 @@ export const columns3 = [
   },
 ];
 
-//自定义留言下拉选择
+// Custom message type options
 export const CustomList = [
   {
     value: 'text',
-    label: '文本框',
+    label: t('message.productAdd.textInput'),
   },
   {
     value: 'number',
-    label: '数字',
+    label: t('message.productAdd.number'),
   },
   {
     value: 'email',
-    label: '邮件',
+    label: t('message.productAdd.email'),
   },
   {
     value: 'data',
-    label: '日期',
+    label: t('message.productAdd.date'),
   },
   {
     value: 'time',
-    label: '时间',
+    label: t('message.productAdd.time'),
   },
   {
     value: 'id',
-    label: '身份证',
+    label: t('message.productAdd.idCard'),
   },
   {
     value: 'phone',
-    label: '手机号',
+    label: t('message.productAdd.phone'),
   },
   {
     value: 'img',
-    label: '图片',
+    label: TABLE_TITLE.image,
   },
 ];
 
 export const RuleValidate = {
-  store_name: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
+  store_name: [{ required: true, message: t('message.productAdd.productNamePlaceholder'), trigger: 'blur' }],
   cate_id: [
     {
       required: true,
-      message: '请选择商品分类',
+      message: t('message.productAdd.productCategoryRequired'),
       trigger: 'change',
       type: 'array',
       min: '1',
     },
   ],
-  unit_name: [{ required: true, message: '请输入单位', trigger: 'blur' }],
+  unit_name: [{ required: true, message: t('message.productAdd.unitPlaceholder'), trigger: 'blur' }],
   slider_image: [
     {
       required: true,
-      message: '请上传商品轮播图',
+      message: t('message.productAdd.productSliderRequired'),
       type: 'array',
       trigger: 'change',
     },
   ],
-  spec_type: [{ required: true, message: '请选择商品规格', trigger: 'change' }],
-  is_virtual: [{ required: true, message: '请选择商品类型', trigger: 'change' }],
-  selectRule: [{ required: true, message: '请选择商品规格属性', trigger: 'change' }],
+  spec_type: [{ required: true, message: t('message.productAdd.selectSpecType'), trigger: 'change' }],
+  is_virtual: [{ required: true, message: t('message.productAdd.selectProductType'), trigger: 'change' }],
+  selectRule: [{ required: true, message: t('message.productAdd.selectSpecAttribute'), trigger: 'change' }],
   temp_id: [
     {
       required: true,
-      message: '请选择运费模板',
+      message: t('message.productAdd.freightTemplateRequired'),
       trigger: 'change',
       type: 'number',
     },
@@ -369,7 +388,7 @@ export const RuleValidate = {
     {
       required: true,
       type: 'array',
-      message: '请选择活动时间',
+      message: t('message.productAdd.selectActivityTime'),
       trigger: 'change',
     },
   ],
@@ -378,15 +397,15 @@ export const RuleValidate = {
       required: true,
       type: 'array',
       min: 1,
-      message: '请选择物流方式',
+      message: t('message.productAdd.selectLogisticsMethod'),
       trigger: 'change',
     },
     {
       type: 'array',
       max: 2,
-      message: '请选择物流方式',
+      message: t('message.productAdd.selectLogisticsMethod'),
       trigger: 'change',
     },
   ],
-  give_integral: [{ type: 'integer', message: '请输入整数' }],
+  give_integral: [{ type: 'integer', message: t('message.productAdd.enterInteger') }],
 };

@@ -129,32 +129,32 @@ export default {
           width: 80,
         },
         {
-          title: '保障名称',
+          title: this.$t('message.productProtection.name'),
           key: 'title',
           minWidth: 130,
         },
         {
-          title: '保障内容',
+          title: this.$t('message.productProtection.content'),
           key: 'content',
           minWidth: 130,
         },
         {
-          title: '图标',
+          title: this.$t('message.productProtection.image'),
           slot: 'images',
           minWidth: 130,
         },
         {
-          title: '状态',
+          title: this.$t('message.productList.status'),
           slot: 'statuss',
           minWidth: 130,
         },
         {
-          title: '排序',
+          title: this.$t('message.productList.sort'),
           key: 'sort',
           minWidth: 130,
         },
         {
-          title: '操作',
+          title: this.$t('message.productList.operation'),
           slot: 'action',
           fixed: 'right',
           minWidth: 120,
@@ -180,13 +180,49 @@ export default {
   },
   methods: {
     ...mapMutations('userLevel', ['getCategoryId']),
+    normalizeProtectionFormResponse(response, id) {
+      const data = response?.data || {};
+      const rules = Array.isArray(data.rules) ? data.rules : [];
+      const fieldTitleMap = {
+        title: this.$t('message.productProtection.name'),
+        content: this.$t('message.productProtection.content'),
+        image: this.$t('message.productProtection.image'),
+        sort: this.$t('message.productList.sort'),
+        status: this.$t('message.productList.status'),
+      };
+      const nextRules = rules.map((rule) => {
+        const nextRule = { ...rule };
+        if (nextRule.field && fieldTitleMap[nextRule.field]) {
+          nextRule.title = fieldTitleMap[nextRule.field];
+        }
+        if (nextRule.field === 'status' && Array.isArray(nextRule.options)) {
+          nextRule.options = nextRule.options.map((option) => ({
+            ...option,
+            label: Number(option.value) === 1 ? this.$t('message.productAdd.show') : this.$t('message.productAdd.hide'),
+          }));
+        }
+        return nextRule;
+      });
+      return {
+        ...response,
+        data: {
+          ...data,
+          title: id ? this.$t('message.productProtection.edit') : this.$t('message.productProtection.add'),
+          rules: nextRules,
+        },
+      };
+    },
     // 添加
     add() {
-      this.$modalForm(productProtectionFormApi(0)).then(() => this.getList());
+      this.$modalForm(productProtectionFormApi(0).then((res) => this.normalizeProtectionFormResponse(res, 0))).then(() =>
+        this.getList(),
+      );
     },
     // 编辑
     edit(row) {
-      this.$modalForm(productProtectionFormApi(row.id)).then(() => this.getList());
+      this.$modalForm(
+        productProtectionFormApi(row.id).then((res) => this.normalizeProtectionFormResponse(res, row.id)),
+      ).then(() => this.getList());
     },
     // 删除
     del(row, tit) {

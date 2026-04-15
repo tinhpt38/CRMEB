@@ -2,15 +2,15 @@
   <div class="Box" v-loading="spinShow">
     <div>
       <div>
-        生成的商品默认是没有上架的，请手动上架商品！
-        <a href="https://doc.crmeb.com/single/v5/7785" v-if="copyConfig.copy_type == 2" target="_blank">如何配置密钥</a>
+        {{ $t('message.productCrawl.defaultOffShelfTip') }}
+        <a href="https://doc.crmeb.com/single/v5/7785" v-if="copyConfig.copy_type == 2" target="_blank">{{ $t('message.productCrawl.howToConfigKey') }}</a>
         <span v-else
-          >您当前剩余{{ copyConfig.copy_num }}条采集次数，<a class="add" v-db-click @click="mealPay('copy')"
-            >增加采集次数</a
+          >{{ $t('message.productCrawl.remainCopyCountPrefix') }}{{ copyConfig.copy_num }}{{ $t('message.productCrawl.copyCountUnit') }}，<a class="add" v-db-click @click="mealPay('copy')"
+            >{{ $t('message.productCrawl.addCopyCount') }}</a
           ></span
         >
       </div>
-      <div>商品采集设置：设置 > 系统设置 > 第三方接口设置 > 采集商品配置</div>
+      <div>{{ $t('message.productCrawl.crawlSettingPath') }}</div>
     </div>
     <el-form
       class="formValidate mt20"
@@ -35,12 +35,12 @@
         <!--</el-form-item>-->
         <!--</el-col>-->
         <el-col span="15">
-          <el-form-item label="链接地址：">
+          <el-form-item :label="$t('message.productCrawl.linkAddress') + '：'">
             <el-input
               search
-              enter-button="确定"
+              :enter-button="$t('message.productCommon.confirm')"
               v-model="soure_link"
-              placeholder="请输入链接地址"
+              :placeholder="$t('message.productCrawl.enterLinkAddress')"
               class="numPut"
               @on-search="add"
             />
@@ -49,17 +49,17 @@
         <div>
           <div v-if="isData">
             <el-col :span="24" class="">
-              <el-form-item label="商品名称：" prop="store_name">
-                <el-input v-model="formValidate.store_name" placeholder="请输入商品名称" />
+              <el-form-item :label="$t('message.productAdd.productName') + '：'" prop="store_name">
+                <el-input v-model="formValidate.store_name" :placeholder="$t('message.productAdd.productNamePlaceholder')" />
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="商品简介：" prop="store_info" label-for="store_info">
-                <el-input v-model="formValidate.store_info" type="textarea" :rows="3" placeholder="请输入商品简介" />
+              <el-form-item :label="$t('message.productAdd.productIntro') + '：'" prop="store_info" label-for="store_info">
+                <el-input v-model="formValidate.store_info" type="textarea" :rows="3" :placeholder="$t('message.productAdd.productIntroPlaceholder')" />
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="商品分类：" prop="cate_id">
+              <el-form-item :label="$t('message.productList.productCategory') + '：'" prop="cate_id">
                 <!-- <el-select v-model="formValidate.cate_id" multiple>
                   <el-option v-for="item in treeSelect" :disabled="item.pid === 0" :value="item.id" :key="item.id">{{
                     item.html + item.cate_name
@@ -76,37 +76,37 @@
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="商品关键字：" prop="keyword" label-for="keyword">
-                <el-input v-model="formValidate.keyword" placeholder="请输入商品关键字" />
+              <el-form-item :label="$t('message.productAdd.productKeyword') + '：'" prop="keyword" label-for="keyword">
+                <el-input v-model="formValidate.keyword" :placeholder="$t('message.productAdd.productKeywordPlaceholder')" />
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="单位：" prop="unit_name" label-for="unit_name">
-                <el-input v-model="formValidate.unit_name" placeholder="请输入单位" />
+              <el-form-item :label="$t('message.productAdd.unit') + '：'" prop="unit_name" label-for="unit_name">
+                <el-input v-model="formValidate.unit_name" :placeholder="$t('message.productAdd.unitPlaceholder')" />
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="虚拟销量：" label-for="ficti">
+              <el-form-item :label="$t('message.productAdd.soldCount') + '：'" label-for="ficti">
                 <el-input-number
                   :controls="false"
                   class="perW100"
                   v-model="formValidate.ficti"
-                  placeholder="请输入虚拟销量"
+                  :placeholder="$t('message.productAdd.virtualSalesPlaceholder')"
                 />
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="积分：" label-for="give_integral">
+              <el-form-item :label="$t('message.productList.points') + '：'" label-for="give_integral">
                 <el-input-number
                   :controls="false"
                   class="perW100"
                   v-model="formValidate.give_integral"
-                  placeholder="请输入积分"
+                  :placeholder="$t('message.productList.enterPoints')"
                 />
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="运费模板：" prop="temp_id">
+              <el-form-item :label="$t('message.productList.freightTemplate') + '：'" prop="temp_id">
                 <el-select v-model="formValidate.temp_id" clearable>
                   <el-option
                     v-for="(item, index) in templateList"
@@ -123,7 +123,7 @@
             <!--</el-form-item>-->
             <!--</el-col>-->
             <el-col :span="24">
-              <el-form-item label="商品图：">
+              <el-form-item :label="$t('message.productList.productImage') + '：'">
                 <div class="pictrueBox">
                   <div class="pictrue" v-if="formValidate.image" v-viewer>
                     <img v-lazy="formValidate.image" />
@@ -132,7 +132,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="商品轮播图：">
+              <el-form-item :label="$t('message.productAdd.sliderImage') + '：'">
                 <div class="acea-row" v-viewer>
                   <div
                     class="lunBox mr15"
@@ -146,15 +146,15 @@
                   >
                     <div class="pictrue"><img v-lazy="item" /></div>
                     <ButtonGroup size="small">
-                      <el-button v-db-click @click.native="checked(item, index)">主图</el-button>
-                      <el-button v-db-click @click.native="handleRemove(index)">移除</el-button>
+                      <el-button v-db-click @click.native="checked(item, index)">{{ $t('message.productCrawl.mainImage') }}</el-button>
+                      <el-button v-db-click @click.native="handleRemove(index)">{{ $t('message.productCrawl.remove') }}</el-button>
                     </ButtonGroup>
                   </div>
                 </div>
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="批量设置：" class="labeltop" v-if="formValidate.attrs">
+              <el-form-item :label="$t('message.productList.batchSetting') + '：'" class="labeltop" v-if="formValidate.attrs">
                 <el-col :xl="23" :lg="24" :md="24" :sm="24" :xs="24">
                   <el-form-item>
                     <el-table :data="oneFormBatch" border>
@@ -234,11 +234,11 @@
                           </template>
                         </template>
                       </el-table-column>
-                      <el-table-column label="操作" fixed="right" width="170">
+                      <el-table-column :label="$t('message.productList.operation')" fixed="right" width="170">
                         <template slot-scope="">
-                          <a v-db-click @click="batchAdd">添加</a>
+                          <a v-db-click @click="batchAdd">{{ $t('message.productCrawl.add') }}</a>
                           <el-divider direction="vertical"></el-divider>
-                          <a v-db-click @click="batchDel">清空</a>
+                          <a v-db-click @click="batchDel">{{ $t('message.productAdd.clear') }}</a>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -247,7 +247,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="商品规格：" props="spec_type" label-for="spec_type">
+              <el-form-item :label="$t('message.productAdd.productSpec') + '：'" props="spec_type" label-for="spec_type">
                 <!-- 单规格表格-->
                 <el-col :xl="23" :lg="24" :md="24" :sm="24" :xs="24">
                   <el-form-item>
@@ -327,9 +327,9 @@
                           </template>
                         </template>
                       </el-table-column>
-                      <el-table-column label="操作" fixed="right" width="170">
+                      <el-table-column :label="$t('message.productList.operation')" fixed="right" width="170">
                         <template slot-scope="scope">
-                          <a v-db-click @click="delAttrTable(scope.$index)">删除</a>
+                          <a v-db-click @click="delAttrTable(scope.$index)">{{ $t('message.productCommon.delete') }}</a>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -338,7 +338,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="商品详情：">
+              <el-form-item :label="$t('message.productAdd.productDescription') + '：'">
                 <WangEditor
                   style="width: 100%"
                   :content="formValidate.description"
@@ -354,7 +354,7 @@
                   class="submission"
                   v-db-click
                   @click="handleSubmit('formValidate')"
-                  >提交</el-button
+                  >{{ $t('message.productCrawl.submit') }}</el-button
                 >
               </el-form-item>
             </el-col>
@@ -365,7 +365,7 @@
     <el-dialog
       :visible.sync="modalPic"
       width="950px"
-      title="上传商品图"
+      :title="$t('message.productReply.uploadProductImage')"
       :mask-closable="false"
       :close-on-click-modal="false"
     >
@@ -404,55 +404,55 @@ export default {
       ],
       columnsBatch: [
         {
-          title: '图片',
+          title: this.$t('message.productAdd.image'),
           slot: 'pic',
           align: 'center',
           minWidth: 80,
         },
         {
-          title: '售价',
+          title: this.$t('message.productAdd.sellPrice'),
           slot: 'price',
           align: 'center',
           minWidth: 95,
         },
         {
-          title: '成本价',
+          title: this.$t('message.productAdd.costPrice'),
           slot: 'cost',
           align: 'center',
           minWidth: 95,
         },
         {
-          title: '原价',
+          title: this.$t('message.productAdd.otPrice'),
           slot: 'ot_price',
           align: 'center',
           minWidth: 95,
         },
         {
-          title: '库存',
+          title: this.$t('message.productAdd.stock'),
           slot: 'stock',
           align: 'center',
           minWidth: 95,
         },
         {
-          title: '商品编码',
+          title: this.$t('message.productAdd.productCode'),
           slot: 'bar_code',
           align: 'center',
           minWidth: 120,
         },
         {
-          title: '重量（KG）',
+          title: this.$t('message.productAdd.weight'),
           slot: 'weight',
           align: 'center',
           minWidth: 95,
         },
         {
-          title: '体积(m³)',
+          title: this.$t('message.productAdd.volume'),
           slot: 'volume',
           align: 'center',
           minWidth: 95,
         },
         {
-          title: '操作',
+          title: this.$t('message.productList.operation'),
           slot: 'action',
           align: 'center',
           minWidth: 140,
@@ -484,7 +484,7 @@ export default {
         cate_id: [
           {
             required: true,
-            message: '请选择商品分类',
+            message: this.$t('message.productAdd.productCategoryRequired'),
             trigger: 'change',
             type: 'array',
             min: '1',
@@ -493,7 +493,7 @@ export default {
         temp_id: [
           {
             required: true,
-            message: '请选择运费模板',
+            message: this.$t('message.productAdd.freightTemplateRequired'),
             trigger: 'change',
             type: 'number',
           },
@@ -669,7 +669,7 @@ export default {
       if (this.soure_link) {
         var reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
         if (!reg.test(this.soure_link)) {
-          return this.$message.warning('请输入以http开头的地址！');
+          return this.$message.warning(this.$t('message.productCrawl.enterHttpAddress'));
         }
         this.spinShow = true;
         this.artFrom.url = this.soure_link;
@@ -692,7 +692,7 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$message.warning('请输入链接地址！');
+        this.$message.warning(this.$t('message.productCrawl.enterLinkAddressWarning'));
       }
     },
     // 提交
@@ -716,7 +716,7 @@ export default {
           // this.formValidate.items = [];
           crawlSaveApi(this.formValidate)
             .then((res) => {
-              this.$message.success('商品默认为不上架状态请手动上架商品!');
+              this.$message.success(this.$t('message.productCrawl.defaultOffShelfSuccess'));
               setTimeout(() => {
                 this.modal_loading = false;
               }, 500);
@@ -730,7 +730,7 @@ export default {
             });
         } else {
           if (!this.formValidate.cate_id) {
-            this.$message.warning('请填写商品分类！');
+            this.$message.warning(this.$t('message.productAdd.productCategoryRequired'));
           }
         }
       });
@@ -738,7 +738,7 @@ export default {
     // 点击商品图
     modalPicTap(tit, index) {
       this.modalPic = true;
-      this.isChoice = tit === 'dan' ? '单选' : '多选';
+      this.isChoice = tit === 'dan' ? 'single' : 'multiple';
       this.tableIndex = index;
     },
     // 获取单张图片信息
@@ -783,13 +783,13 @@ export default {
             iframeUrl: this.$routeProStr + '/widget.images/index.html?fodder=dialog',
             editor: editor,
             name: uiName,
-            title: '上传图片',
+            title: this.$t('message.productReply.uploadProductImage'),
             cssRules: 'width:960px;height:550px;padding:20px;',
           });
           this.dialog = dialog;
           let btn = new window.UE.ui.Button({
             name: 'dialog-button',
-            title: '上传图片',
+            title: this.$t('message.productReply.uploadProductImage'),
             cssRules: `background-image: url(../../../assets/images/icons.png);background-position: -726px -77px;`,
             onclick: function () {
               // 渲染dialog

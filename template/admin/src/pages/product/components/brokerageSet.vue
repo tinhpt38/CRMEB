@@ -42,7 +42,7 @@
                   <div class="mt10 mb10 acea-row">
                     <el-input type="number" class="popover-input" v-model="brokerage" @input="brokerageReplace">
                       <template slot="suffix">
-                        <span>{{ brokerageSetType ? '%' : '元' }}</span>
+                        <span>{{ brokerageSetType ? '%' : $t('message.productList.yuan') }}</span>
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
@@ -60,7 +60,7 @@
                   :disabled="formData.is_sub == 0"
                 >
                   <template slot="suffix">
-                    <span>{{ formData.is_sub ? '元' : '%' }}</span>
+                    <span>{{ formData.is_sub ? $t('message.productList.yuan') : '%' }}</span>
                   </template>
                 </el-input>
                 <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">一级返佣：{{ (scope.row.price * store_brokerage_ratio).toFixed(2) }}</div> -->
@@ -95,7 +95,7 @@
                   <div class="mt10 mb10 acea-row">
                     <el-input type="number" class="popover-input" v-model="brokerage_two">
                       <template slot="suffix">
-                        <span>{{ brokerageSetType ? '%' : '元' }}</span>
+                        <span>{{ brokerageSetType ? '%' : $t('message.productList.yuan') }}</span>
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
@@ -115,7 +115,7 @@
                   :disabled="formData.is_sub == 0"
                 >
                   <template slot="suffix">
-                    <span>{{ formData.is_sub ? '元' : '%' }}</span>
+                    <span>{{ formData.is_sub ? $t('message.productList.yuan') : '%' }}</span>
                   </template>
                 </el-input>
                 <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">二级返佣：{{ (scope.row.price * store_brokerage_two).toFixed(2) }}</div> -->

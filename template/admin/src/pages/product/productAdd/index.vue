@@ -1737,7 +1737,10 @@ export default {
         // 找到slot 等于 fictitious 将title改为规格名称
         this.formValidate.header.map((item) => {
           if (item.slot === 'fictitious') {
-            item.title = this.formValidate.virtual_type == 1 ? '添加卡密/网盘' : '选择优惠券';
+            item.title =
+              this.formValidate.virtual_type == 1
+                ? this.$t('message.productAdd.addCardOrCloudDisk')
+                : this.$t('message.productAdd.selectCoupon');
           }
         });
       } else if (this.formValidate.virtual_type == 3) {

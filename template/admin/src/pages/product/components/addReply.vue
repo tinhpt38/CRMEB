@@ -21,7 +21,7 @@
         <div>{{ attr.suk }}</div>
       </el-form-item>
       <el-form-item :label="$t('message.productReply.userAvatar') + '：'">
-        <div class="upload-box" v-db-click @click="callPicture('单选')">
+        <div class="upload-box" v-db-click @click="callPicture('single')">
           <img v-if="avatar.att_dir" :src="avatar.att_dir" class="image" />
           <i v-if="avatar.att_dir" class="el-icon-error btn" v-db-click @click.stop="removeUser"></i>
           <i v-else class="el-icon-user" />
@@ -58,7 +58,7 @@
             <img :src="item.att_dir" class="image" />
             <i class="el-icon-error btn" v-db-click @click.stop="removePicture(item.att_id)"></i>
           </div>
-          <div v-if="picture.length < 8" class="upload-box" v-db-click @click="callPicture('多选')">
+          <div v-if="picture.length < 8" class="upload-box" v-db-click @click="callPicture('multiple')">
             <i class="el-icon-picture-outline"></i>
           </div>
         </div>

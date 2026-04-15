@@ -64,10 +64,10 @@
                     </el-radio-group>
                   </div>
                   <div class="mt10 mb10 acea-row row-middle">
-                    <span class="mr5" v-show="vipSetType == 2">减</span>
+                    <span class="mr5" v-show="vipSetType == 2">{{ $t('message.productVip.minusCash') }}</span>
                     <el-input type="number" class="popover-input" v-model="vipSetNum">
                       <template slot="suffix">
-                        <span v-show="vipSetType == 0">元</span>
+                        <span v-show="vipSetType == 0">{{ $t('message.productList.yuan') }}</span>
                         <span v-show="vipSetType == 1">%</span>
                       </template>
                     </el-input>
@@ -82,7 +82,7 @@
               <template slot-scope="scope">
                 <el-input type="number" v-model="scope.row.vip_price" @change="vipRowReplace(scope.row)">
                   <template slot="suffix">
-                    <span>元</span>
+                    <span>{{ $t('message.productList.yuan') }}</span>
                   </template>
                 </el-input>
                 <div class="flex-x-center red" v-show="scope.row.vip_price == 0">{{ $t('message.productVip.vipPriceNotZero') }}</div>
