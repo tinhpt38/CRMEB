@@ -96,6 +96,15 @@ public function getUserDetail(int $uid, array $with = []) {
 3. Dữ liệu thử nghiệm được tạo bằng chế độ xuất xưởng
 4. Đặt tên trường hợp thử nghiệm: `testMethodNameWhenConditionThenResult`
 
+## 🌐 Quy chuẩn đa ngôn ngữ (i18n)
+- **Ngôn ngữ giao diện trang**:
+  - Sau khi thêm bản dịch trang, trạng thái nên dùng chuỗi khóa hoặc mã quy ước; phần hiển thị phải lấy từ i18n.
+  - Ở trang mobile dùng `$t('xxxx')`.
+  - Trong tệp JS dùng `this.t('xxxx')` hoặc `that.t('xxxx')`.
+- **Ngôn ngữ giao diện API**:
+  - Sau khi thêm bản dịch API, mã trạng thái nên dùng mã số 6 chữ số.
+  - Khi trả thông báo lỗi/thành công từ API, chỉ trả về mã lỗi tương ứng; phía đa ngôn ngữ sẽ tự ánh xạ theo ngôn ngữ hiện hành.
+
 ---
 
 > **Mẹo**: Tài liệu này được tạo bởi AI và chỉ mang tính chất tham khảo.
