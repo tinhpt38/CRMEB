@@ -55,9 +55,9 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column  :label="$t('customDesign.action')" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">编辑</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical" v-if="currentTab === '1'"></el-divider>
             <a
               v-if="currentTab === '1'"

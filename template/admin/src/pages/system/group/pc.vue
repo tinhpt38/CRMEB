@@ -1,15 +1,15 @@
 <template>
   <div>
     <!-- <div class="i-layout-page-header header-title">
-      <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
+      <span class="ivu-page-header-title mr20">{{ $t($route.meta.title) }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="save">保存</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="save">{{ $t('customDesign.save') }}</el-button>
         </div>
       </div>
     </div> -->
-    <pages-header ref="pageHeader" :title="$route.meta.title">
-      <el-button class="bnt" type="primary" v-db-click @click="save">保存</el-button>
+    <pages-header ref="pageHeader" :title="$t($route.meta.title)">
+      <el-button class="bnt" type="primary" v-db-click @click="save">{{ $t('customDesign.save') }}</el-button>
     </pages-header>
     <el-card :bordered="false" shadow="never" class="h100 mt16">
       <el-row class="box-wrapper">
@@ -71,7 +71,7 @@
                         <div class="move-icon">
                           <span class="iconfont icondrag2"></span>
                         </div>
-                        <div class="img-box imgBoxs" v-db-click @click="modalPicTap('单选', index)">
+                        <div class="img-box imgBoxs" v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'), index)">
                           <img :src="item.image" alt="" v-if="item.image" />
                           <div class="upload-box" v-else>
                             <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -89,14 +89,14 @@
                           <div class="info-item">
                             <span>图片名称：</span>
                             <div class="input-box">
-                              <el-input v-model="item.title" placeholder="请填写名称" />
+                              <el-input v-model="item.title" :placeholder="$t('systemCommon.inputName')" />
                             </div>
                           </div>
                           <div class="info-item">
                             <span>链接地址：</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
-                              <el-input v-model="item.url" placeholder="请填写链接" />
+                              <el-input v-model="item.url" :placeholder="$t('systemCommon.inputLink')" />
                             </div>
                           </div>
                         </div>
@@ -143,7 +143,7 @@
                   <div class="title-text">建议尺寸：140px * 60px</div>
                   <div class="title-text">除LOGO图标外，页面其他内容仅供参考</div>
                   <div class="list-box">
-                    <div class="img-boxs" v-db-click @click="modalPicTap('单选', 0)">
+                    <div class="img-boxs" v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'), 0)">
                       <img :src="pclogo" alt="" />
                       <div class="img_font"></div>
                       <div class="img_fonts">更换图片</div>
@@ -211,14 +211,14 @@
                           <div class="info-item">
                             <span>菜单名称：</span>
                             <div class="input-box">
-                              <el-input v-model="item.title" placeholder="请填写名称" />
+                              <el-input v-model="item.title" :placeholder="$t('systemCommon.inputName')" />
                             </div>
                           </div>
                           <div class="info-item">
                             <span>链接地址：</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
-                              <el-input v-model="item.url" placeholder="请填写链接" />
+                              <el-input v-model="item.url" :placeholder="$t('systemCommon.inputLink')" />
                             </div>
                           </div>
                           <!-- <div class="info-item">
@@ -270,14 +270,14 @@
                           <div class="info-item">
                             <span>链接名称：</span>
                             <div class="input-box">
-                              <el-input v-model="item.title" placeholder="请填写名称" />
+                              <el-input v-model="item.title" :placeholder="$t('systemCommon.inputName')" />
                             </div>
                           </div>
                           <div class="info-item">
                             <span>链接地址：</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
-                              <el-input v-model="item.url" placeholder="请填写链接" />
+                              <el-input v-model="item.url" :placeholder="$t('systemCommon.inputLink')" />
                             </div>
                           </div>
                         </div>
@@ -318,7 +318,7 @@
       </el-row>
     </el-card>
     <!-- <div class="save">
-			<el-button type="primary" v-db-click @click="save" >保存</el-button>
+			<el-button type="primary" v-db-click @click="save" >{{ $t('customDesign.save') }}</el-button>
 		</div> -->
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
   </div>
@@ -401,7 +401,7 @@ export default {
         title: '',
         url: '',
       },
-      isChoice: '单选',
+      isChoice: this.$t('systemCommon.selectSingle'),
       modalPic: false,
       gridPic: {
         xl: 6,

@@ -89,7 +89,7 @@
         </el-form-item>
       </el-form>
       <span class="dialog-footer">
-        <el-button v-db-click @click="modal = false">取 消</el-button>
+        <el-button v-db-click @click="modal = false">{{ $t('customDesign.cancel') }}</el-button>
         <el-button type="primary" v-db-click @click="handleSubmit">提 交</el-button>
       </span>
     </el-drawer>
@@ -169,10 +169,10 @@ export default {
     //   let data = `$data['${copyData}']`;
     //   this.$copyText(data)
     //     .then((message) => {
-    //       this.$message.success('复制成功');
+    //       this.$message.success(this.$t('systemCommon.copySuccess'));
     //     })
     //     .catch((err) => {
-    //       this.$message.error('复制失败');
+    //       this.$message.error(this.$t('systemCommon.copyFailed'));
     //     });
     // },
     initData(status) {

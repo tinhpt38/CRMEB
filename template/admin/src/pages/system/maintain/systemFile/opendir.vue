@@ -20,7 +20,7 @@
         ref="selection"
         :data="tabList"
         v-loading="loading"
-        empty-text="暂无数据"
+         :empty-text="$t('couponList.empty')"
         class="mt14"
       >
         <el-table-column label="文件/文件夹名" min-width="150">
@@ -42,7 +42,7 @@
             <span>{{ scope.row.mtime }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="120">
+        <el-table-column :label="$t('systemCommon.remark')" min-width="120">
           <template slot-scope="scope">
             <div class="mark">
               <div v-if="scope.row.is_edit" class="table-mark" v-db-click @click="isEditMark(scope.row)">
@@ -52,7 +52,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="60">
+        <el-table-column  :label="$t('customDesign.action')" fixed="right" width="60">
           <template slot-scope="scope">
             <el-button type="text" v-db-click @click="open(scope.row)" v-if="scope.row.isDir">打开</el-button>
             <el-button type="text" v-db-click @click="edit(scope.row)" v-else>编辑</el-button>
@@ -708,7 +708,7 @@ export default {
                   };
                   that.getListItem(dataItem);
                   if (that.formShow) that.formShow = false;
-                  that.$message.success('创建成功');
+                  that.$message.success(this.$t('systemCommon.createSuccess'));
                 })
                 .catch((res) => {
                   that.catchFun(res);
@@ -730,7 +730,7 @@ export default {
                   };
                   that.getListItem(dataItem);
                   if (that.formShow) that.formShow = false;
-                  that.$message.success('创建成功');
+                  that.$message.success(this.$t('systemCommon.createSuccess'));
                 })
                 .catch((res) => {
                   that.catchFun(res);

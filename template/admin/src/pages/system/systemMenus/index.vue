@@ -13,7 +13,7 @@
           <el-form-item label="规则状态：">
             <el-select
               v-model="roleData.is_show"
-              placeholder="请选择"
+              :placeholder="$t('systemCommon.pleaseSelect')"
               clearable
               @change="getData"
               class="form_content_width"
@@ -79,9 +79,9 @@
               <!-- <a v-db-click @click="addE(row, '添加规则')" v-else>添加规则</a> -->
             </span>
             <el-divider direction="vertical" v-if="row.auth_type === 1 || row.auth_type === 3"></el-divider>
-            <a v-db-click @click="edit(row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(row, '编辑')">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, '删除规则')">删除</a>
+            <a v-db-click @click="del(row, '删除规则')">{{ $t('customDesign.delete') }}</a>
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -141,8 +141,8 @@
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="ruleModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="addRouters">确 定</el-button>
+        <el-button v-db-click @click="ruleModal = false">{{ $t('customDesign.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="addRouters">{{ $t('customDesign.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>

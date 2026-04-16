@@ -59,7 +59,7 @@ export default {
       name: `${pre}setSystem`,
       meta: {
         auth: ['setting-system-config'],
-        title: '系统设置',
+        title: 'router.system',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -67,7 +67,7 @@ export default {
       path: 'system_config/:type?/:tab_id?',
       name: `${pre}setApp`,
       meta: {
-        title: '系统设置',
+        title: 'router.system',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },

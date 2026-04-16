@@ -32,8 +32,8 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+         :no-userFrom-text="$t('couponList.empty')"
+         :no-filtered-userFrom-text="$t('couponList.noResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
@@ -55,13 +55,13 @@
             <span>{{ scope.row.info }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column  :label="$t('customDesign.action')" fixed="right" width="170">
           <template slot-scope="scope">
             <a v-db-click @click="goList(scope.row)">数据列表</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+            <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除数据组', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, '删除数据组', scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

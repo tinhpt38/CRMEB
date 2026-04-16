@@ -1,10 +1,10 @@
 <template>
   <div :style="bgcolors">
     <div class="i-layout-page-header header-title">
-      <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
+      <span class="ivu-page-header-title mr20">{{ $t($route.meta.title) }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="save">保存</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="save">{{ $t('customDesign.save') }}</el-button>
         </div>
       </div>
     </div>
@@ -195,9 +195,9 @@
               <el-button
                 type="primary"
                 v-db-click
-                @click="groupAdd('添加数据')"
+                @click="groupAdd(this.$t('systemCommon.addData'))"
                 style="margin-left: 14px; margin-top: 30px"
-                >添加数据</el-button
+                >{{ $t('systemCommon.addData') }}</el-button
               >
             </div>
           </div>
@@ -208,8 +208,8 @@
               class="mt14"
               v-loading="loading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+               :no-userFrom-text="$t('couponList.empty')"
+               :no-filtered-userFrom-text="$t('couponList.noResult')"
             >
               <el-table-column label="编号" width="80">
                 <template slot-scope="scope">
@@ -240,16 +240,16 @@
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="排序" min-width="80">
+              <el-table-column :label="$t('systemCommon.sort')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" fixed="right" width="150">
+              <el-table-column  :label="$t('customDesign.action')" fixed="right" width="150">
                 <template slot-scope="scope">
-                  <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+                  <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+                  <a v-db-click @click="del(scope.row, this.$t('systemCommon.deleteThisRecord'), scope.$index)">{{ $t('customDesign.delete') }}</a>
                 </template>
               </el-table-column>
             </el-table>
@@ -264,9 +264,9 @@
               <el-button
                 type="primary"
                 v-db-click
-                @click="groupAdd('添加数据')"
+                @click="groupAdd(this.$t('systemCommon.addData'))"
                 style="margin-left: 14px; margin-top: 30px"
-                >添加数据</el-button
+                >{{ $t('systemCommon.addData') }}</el-button
               >
             </div>
           </div>
@@ -277,8 +277,8 @@
               class="mt14"
               v-loading="loading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+               :no-userFrom-text="$t('couponList.empty')"
+               :no-filtered-userFrom-text="$t('couponList.noResult')"
             >
               <el-table-column
                 :label="item.title"
@@ -304,9 +304,9 @@
                     </el-switch>
                   </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+                    <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+                    <a v-db-click @click="del(scope.row, this.$t('systemCommon.deleteThisRecord'), scope.$index)">{{ $t('customDesign.delete') }}</a>
                   </template>
                 </template>
               </el-table-column>
@@ -336,7 +336,7 @@
                     <div class="move-icon">
                       <span class="iconfont icondrag2"></span>
                     </div>
-                    <div class="img-box" v-db-click @click="modalPicTap('单选', index)">
+                    <div class="img-box" v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'), index)">
                       <img :src="item.slide" alt="" v-if="item.slide" />
                       <div class="upload-box" v-else>
                         <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -353,7 +353,7 @@
                     <div class="move-icon">
                       <span class="iconfont icondrag2"></span>
                     </div>
-                    <div class="img-box" v-db-click @click="modalPicTap('单选', index)">
+                    <div class="img-box" v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'), index)">
                       <img :src="item.img" alt="" v-if="item.img" />
                       <div class="upload-box" v-else>
                         <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -366,7 +366,7 @@
                       <div class="info-item">
                         <span>图片名称：</span>
                         <div class="input-box">
-                          <el-input v-model="item.comment" placeholder="请填写名称" />
+                          <el-input v-model="item.comment" :placeholder="$t('systemCommon.inputName')" />
                         </div>
                       </div>
                       <div class="info-item">
@@ -441,7 +441,7 @@
                   <div class="move-icon">
                     <span class="iconfont icondrag2"></span>
                   </div>
-                  <div class="img-box" v-db-click @click="modalPicTap('单选', index)">
+                  <div class="img-box" v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'), index)">
                     <img :src="item.img" alt="" v-if="item.img" />
                     <div class="upload-box" v-else>
                       <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -454,7 +454,7 @@
                     <div class="info-item">
                       <span>图片名称：</span>
                       <div class="input-box">
-                        <el-input v-model="item.comment" placeholder="请填写名称" />
+                        <el-input v-model="item.comment" :placeholder="$t('systemCommon.inputName')" />
                       </div>
                     </div>
                     <div class="info-item">
@@ -609,7 +609,7 @@ export default {
         sort: '',
         status: 1,
       },
-      isChoice: '单选',
+      isChoice: this.$t('systemCommon.selectSingle'),
       modalPic: false,
       gridPic: {
         xl: 6,

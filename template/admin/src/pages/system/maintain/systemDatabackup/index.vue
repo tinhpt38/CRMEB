@@ -15,7 +15,7 @@
             ref="selection"
             :data="tabList2"
             v-loading="loading"
-            empty-text="暂无数据"
+             :empty-text="$t('couponList.empty')"
             @select="onSelectTab"
             @select-all="onSelectTab"
             class="mt14"
@@ -26,7 +26,7 @@
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="备注" min-width="100">
+            <el-table-column :label="$t('systemCommon.remark')" min-width="100">
               <template slot-scope="scope">
                 <div class="mark">
                   <div v-if="scope.row.is_edit" class="table-mark" v-db-click @click="isEditMark(scope.row)">
@@ -36,7 +36,7 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="类型" min-width="100">
+            <el-table-column :label="$t('systemCommon.type')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.engine }}</span>
               </template>
@@ -56,7 +56,7 @@
                 <span>{{ scope.row.rows }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="70">
+            <el-table-column  :label="$t('customDesign.action')" fixed="right" width="70">
               <template slot-scope="scope">
                 <a v-db-click @click="Info(scope.row)">详情</a>
               </template>
@@ -74,7 +74,7 @@
               ref="selection"
               :data="tabList3"
               v-loading="loading2"
-              empty-text="暂无数据"
+               :empty-text="$t('couponList.empty')"
               max-height="600"
               size="small"
             >
@@ -103,7 +103,7 @@
                   <span>{{ scope.row.EXTRA }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="备注" min-width="100">
+              <el-table-column :label="$t('systemCommon.remark')" min-width="100">
                 <template slot-scope="scope">
                   <div class="mark">
                     <div v-if="scope.row.is_edit" class="table-mark" v-db-click @click="isEditMark(scope.row)">
@@ -126,7 +126,7 @@
             ref="selection"
             :data="tabList"
             v-loading="loading3"
-            empty-text="暂无数据"
+             :empty-text="$t('couponList.empty')"
             highlight-current-row
             size="small"
           >
@@ -155,11 +155,11 @@
                 <span>{{ scope.row.backtime }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="140">
+            <el-table-column  :label="$t('customDesign.action')" fixed="right" width="140">
               <template slot-scope="scope">
                 <a v-db-click @click="ImportFile(scope.row)">导入</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除该备份', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, '删除该备份', scope.$index)">{{ $t('customDesign.delete') }}</a>
                 <el-divider direction="vertical"></el-divider>
                 <a v-db-click @click="download(scope.row)">下载</a>
               </template>
@@ -171,8 +171,8 @@
     <el-dialog :visible.sync="markModal" width="470px" title="修改备注" @closed="cancel">
       <el-input v-model="mark"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel">取 消</el-button>
-        <el-button type="primary" v-db-click @click="ok">确 定</el-button>
+        <el-button v-db-click @click="cancel">{{ $t('customDesign.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="ok">{{ $t('customDesign.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>

@@ -46,9 +46,9 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column  :label="$t('customDesign.action')" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">编辑</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
             <a v-permission="'seckill'" v-db-click @click="handleDelete(scope.row, '删除自定事件', scope.$index)"
               >删除</a

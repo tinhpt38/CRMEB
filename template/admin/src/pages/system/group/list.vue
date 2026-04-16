@@ -3,13 +3,13 @@
     <!--    <div class="i-layout-page-header header-title">-->
     <!--      <div class="fl_header">-->
     <!--        <router-link v-if="$route.params.id != 49" :to="{ path: $routeProStr + '/system/config/system_group/index' }"-->
-    <!--          ><el-button size="small" type="text">返回</el-button></router-link-->
+    <!--          ><el-button size="small" type="text">{{ $t('customDesign.back') }}</el-button></router-link-->
     <!--        >-->
     <!--        <el-divider direction="vertical" v-if="$route.params.id != 49" />-->
     <!--        <span class="ivu-page-header-title mr20" style="padding: 0" v-text="$route.meta.title"></span>-->
     <!--      </div>-->
     <!--    </div>-->
-    <pages-header class="mb16" ref="pageHeader" :title="$route.meta.title"></pages-header>
+    <pages-header class="mb16" ref="pageHeader" :title="$t($route.meta.title)"></pages-header>
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form
@@ -23,7 +23,7 @@
           <el-form-item label="是否显示：">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('systemCommon.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
@@ -36,15 +36,15 @@
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt14">
-      <el-button type="primary" v-db-click @click="groupAdd('添加数据')" class="mr20">添加数据</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd(this.$t('systemCommon.addData'))" class="mr20">{{ $t('systemCommon.addData') }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+         :no-userFrom-text="$t('couponList.empty')"
+         :no-filtered-userFrom-text="$t('couponList.noResult')"
       >
         <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns1" :key="index">
           <template slot-scope="scope">
@@ -70,9 +70,9 @@
               </el-switch>
             </template>
             <template v-else-if="item.slot === 'action'">
-              <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+              <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
               <el-divider direction="vertical"></el-divider>
-              <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+              <a v-db-click @click="del(scope.row, this.$t('systemCommon.deleteThisRecord'), scope.$index)">{{ $t('customDesign.delete') }}</a>
             </template>
           </template>
         </el-table-column>

@@ -67,7 +67,7 @@
           </vxe-column>
           <!-- <vxe-column field="must" title="必填" width="50" :edit-render="{}">
             <template #default="{ row }">
-              <span>{{ row.must == '1' ? '是' : '否' }}</span>
+              <span>{{ row.must == '1' ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
             </template>
           </vxe-column>
           <vxe-column field="trip" width="150" title="说明" :edit-render="{}">
@@ -141,7 +141,7 @@
           </vxe-column>
           <!-- <vxe-column field="must" title="必填" width="50" :edit-render="{}">
             <template #default="{ row }">
-              <span>{{ row.must == '1' ? '是' : '否' }}</span>
+              <span>{{ row.must == '1' ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
             </template>
           </vxe-column>
           <vxe-column field="trip" title="说明" width="150" :edit-render="{}">
@@ -308,10 +308,10 @@ export default {
     insertCopy() {
       this.$copyText(this.codes)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success(this.$t('systemCommon.copySuccess'));
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error(this.$t('systemCommon.copyFailed'));
         });
     },
     async requestData() {

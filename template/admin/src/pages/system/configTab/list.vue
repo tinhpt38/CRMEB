@@ -16,8 +16,8 @@
         :data="classList"
         ref="table"
         v-loading="loading"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+         :no-userFrom-text="$t('couponList.empty')"
+         :no-filtered-userFrom-text="$t('couponList.noResult')"
         class="mt14"
       >
         <el-table-column label="ID" width="80">
@@ -71,7 +71,7 @@
                 </div>
               </div>
             </div>
-            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? '开启' : '关闭' }}</span>
+            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? this.$t('systemCommon.enabled') : this.$t('systemCommon.disabled') }}</span>
           </template>
         </el-table-column>
         <el-table-column label="关联配置/值" min-width="130">
@@ -100,11 +100,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column  :label="$t('customDesign.action')" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除分类', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, '删除分类', scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

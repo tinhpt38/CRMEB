@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="i-layout-page-header header-title">
-      <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
+      <span class="ivu-page-header-title">{{ $t($route.meta.title) }}</span>
       <span class="clear_tit">
         <i class="el-icon-info" style="color: #ed4014" />
         <span>清除数据请谨慎，清除就无法恢复哦！</span>
@@ -32,8 +32,8 @@
         <el-input v-model="value6" type="textarea" :rows="4" placeholder="请输入网站域名..." />
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="modals = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="changeYU">确 定</el-button>
+        <el-button v-db-click @click="modals = false">{{ $t('customDesign.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="changeYU">{{ $t('customDesign.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -56,7 +56,7 @@ export default {
       },
       tabList: [
         {
-          title: '更换域名',
+          title: this.$t('systemCommon.replaceDomain'),
           tlt: '替换所有本地上传的图片域名',
           typeName: 'primary',
           type: '11',

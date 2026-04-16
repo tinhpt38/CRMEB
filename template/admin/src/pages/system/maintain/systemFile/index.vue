@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="i-layout-page-header header-title">
-      <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
+      <span class="ivu-page-header-title">{{ $t($route.meta.title) }}</span>
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-table ref="selection" :data="tabList" v-loading="loading" empty-text="暂无数据" highlight-current-row>
-        <el-table-column label="类型" width="100">
+      <el-table ref="selection" :data="tabList" v-loading="loading"  :empty-text="$t('couponList.empty')" highlight-current-row>
+        <el-table-column :label="$t('systemCommon.type')" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>

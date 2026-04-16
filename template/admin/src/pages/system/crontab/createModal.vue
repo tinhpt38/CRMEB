@@ -128,7 +128,7 @@
         </el-form-item>
       </el-form>
       <span class="dialog-footer">
-        <el-button v-db-click @click="modal = false">取 消</el-button>
+        <el-button v-db-click @click="modal = false">{{ $t('customDesign.cancel') }}</el-button>
         <el-button type="primary" v-db-click @click="handleSubmit">提 交</el-button>
       </span>
     </el-drawer>

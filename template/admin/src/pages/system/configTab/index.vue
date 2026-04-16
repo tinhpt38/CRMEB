@@ -13,7 +13,7 @@
           <el-form-item label="是否显示：">
             <el-select
               v-model="formValidate.status"
-              placeholder="请选择"
+              :placeholder="$t('systemCommon.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
@@ -72,9 +72,9 @@
           <template v-slot="{ row, index }">
             <a v-db-click @click="goList(row)">配置列表</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(row)">编辑</a>
+            <a v-db-click @click="edit(row)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, '删除分类', index)">删除</a>
+            <a v-db-click @click="del(row, '删除分类', index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </vxe-table-column>
       </vxe-table>

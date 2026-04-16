@@ -136,7 +136,7 @@
                     type="text"
                     :rows="4"
                     v-model.trim="formValidate.name"
-                    placeholder="请输入"
+                    :placeholder="$t('systemCommon.inputRequired')"
                   />
                   <span v-else>{{ formValidate.name || '' }}</span>
                 </el-form-item>
@@ -160,7 +160,7 @@
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.describe"
-                    placeholder="请输入"
+                    :placeholder="$t('systemCommon.inputRequired')"
                   />
                   <span v-else class="text-area">{{ formValidate.describe || '--' }}</span>
                 </el-form-item>
@@ -176,7 +176,7 @@
                 <el-form-item label="是否公共：" prop="name">
                   <el-switch v-if="isEdit" v-model="formValidate.type" :active-value="1" :inactive-value="0">
                   </el-switch>
-                  <span v-else class="text-area">{{ formValidate.type ? '是' : '否' }}</span>
+                  <span v-else class="text-area">{{ formValidate.type ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -238,7 +238,7 @@
                           :unchecked-value="'0'"
                           :checked-value="'1'"
                         ></vxe-checkbox>
-                        <span v-else>{{ row.must == '1' ? '是' : '否' }}</span>
+                        <span v-else>{{ row.must == '1' ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
                       </template>
                     </vxe-column>
                     <vxe-column field="trip" title="说明" :edit-render="{}">
@@ -308,7 +308,7 @@
                           :unchecked-value="'0'"
                           :checked-value="'1'"
                         ></vxe-checkbox>
-                        <span v-else>{{ row.must == '1' ? '是' : '否' }}</span>
+                        <span v-else>{{ row.must == '1' ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
                       </template>
                     </vxe-column>
                     <vxe-column field="trip" title="说明" :edit-render="{}">
@@ -383,7 +383,7 @@
                           :unchecked-value="'0'"
                           :checked-value="'1'"
                         ></vxe-checkbox>
-                        <span v-else>{{ row.must == '1' ? '是' : '否' }}</span>
+                        <span v-else>{{ row.must == '1' ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
                       </template>
                     </vxe-column>
                     <vxe-column field="trip" title="说明" :edit-render="{}">
@@ -490,7 +490,7 @@
                       type="textarea"
                       :rows="4"
                       v-model.trim="formValidate.request_example"
-                      placeholder="请输入"
+                      :placeholder="$t('systemCommon.inputRequired')"
                     />
                     <span v-else class="text-area">{{ formValidate.request_example || '' }}</span>
                   </el-form-item> -->
@@ -506,7 +506,7 @@
                         type="textarea"
                         :rows="4"
                         v-model.trim="item.data"
-                        placeholder="请输入"
+                        :placeholder="$t('systemCommon.inputRequired')"
                       />
                       <span v-else class="text-area">{{ item.data || '' }}</span>
                     </el-collapse-item>
@@ -562,7 +562,7 @@
             <!-- <el-row :gutter="24" >
               <el-col :span="24">
                 <el-form-item>
-                  <el-button type="primary" class="submission" v-db-click @click="handleSubmit('formValidate')">保存</el-button>
+                  <el-button type="primary" class="submission" v-db-click @click="handleSubmit('formValidate')">{{ $t('customDesign.save') }}</el-button>
                 </el-form-item>
               </el-col>
             </el-row> -->
@@ -588,8 +588,8 @@
       <label>分组名称：</label>
       <el-input v-model="value" placeholder="请输入分组名称" style="width: 85%" />
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="nameModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="asyncOK">确 定</el-button>
+        <el-button v-db-click @click="nameModal = false">{{ $t('customDesign.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="asyncOK">{{ $t('customDesign.confirm') }}</el-button>
       </span>
     </el-dialog>
     <el-drawer

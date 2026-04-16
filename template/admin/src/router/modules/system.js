@@ -31,7 +31,7 @@ export default {
       name: `${pre}code_generation`,
       meta: {
         auth: ['system-config-code-generation'],
-        title: '代码生成',
+        title: 'router.systemCodeGeneration',
         activeMenu: routePre + '/system/code_generation_list',
       },
       component: () => import('@/pages/system/codeGeneration/index'),
@@ -41,7 +41,7 @@ export default {
       name: `${pre}code_data_dictionary`,
       meta: {
         auth: ['system-code-data_dictionary'],
-        title: '数据字典',
+        title: 'router.systemDataDictionary',
         activeMenu: routePre + '/system/code_data_dictionary',
       },
       component: () => import('@/pages/system/codeDataDictionary/index'),
@@ -51,7 +51,7 @@ export default {
       name: `${pre}code_data_dictionary_datalist`,
       meta: {
         auth: ['system-code-data_dictionary-dataList'],
-        title: '数据管理页面',
+        title: 'router.systemDataManagementPage',
         activeMenu: routePre + '/system/code_data_dictionary',
       },
       component: () => import('@/pages/system/codeDataDictionary/dataList'),
@@ -61,7 +61,7 @@ export default {
       name: `${pre}code_generation_list`,
       meta: {
         auth: ['system-config-code-generation-list'],
-        title: '代码生成列表',
+        title: 'router.systemCodeGenerationList',
       },
       component: () => import('@/pages/system/codeGeneration/list'),
     },
@@ -70,7 +70,7 @@ export default {
       name: `${pre}backend_routing`,
       meta: {
         auth: ['system-config-backend-routing'],
-        title: '接口管理',
+        title: 'router.systemApiManagement',
       },
       component: () => import('@/pages/system/backendRouting/index'),
     },
@@ -79,7 +79,7 @@ export default {
       name: `${pre}file`,
       meta: {
         auth: ['system-file'],
-        title: '附件管理',
+        title: 'router.systemAttachmentManagement',
       },
       component: () => import('@/pages/system/file/index'),
     },
@@ -88,7 +88,7 @@ export default {
       name: `${pre}clear`,
       meta: {
         auth: ['system-clear'],
-        title: '刷新缓存',
+        title: 'router.systemRefreshCache',
       },
       component: () => import('@/pages/system/clear/index'),
     },
@@ -97,7 +97,7 @@ export default {
       name: `${pre}systemLog`,
       meta: {
         auth: ['system-maintain-system-log'],
-        title: '系统日志',
+        title: 'router.systemLog',
       },
       component: () => import('@/pages/system/maintain/systemLog/index'),
     },
@@ -106,7 +106,7 @@ export default {
       name: `${pre}systemFile`,
       meta: {
         auth: ['system-maintain-system-file'],
-        title: '文件校验',
+        title: 'router.systemFileVerification',
       },
       component: () => import('@/pages/system/maintain/systemFile/index'),
     },
@@ -115,7 +115,7 @@ export default {
       name: `${pre}systemCleardata`,
       meta: {
         auth: ['system-maintain-system-cleardata'],
-        title: '清除数据',
+        title: 'router.systemClearData',
       },
       component: () => import('@/pages/system/maintain/systemCleardata/index'),
     },
@@ -124,7 +124,7 @@ export default {
       name: `${pre}systemDatabackup`,
       meta: {
         auth: ['system-maintain-system-databackup'],
-        title: '数据备份',
+        title: 'router.systemDataBackup',
       },
       component: () => import('@/pages/system/maintain/systemDatabackup/index'),
     },
@@ -133,7 +133,7 @@ export default {
       name: `${pre}opendir`,
       meta: {
         auth: ['system-maintain-system-file'],
-        title: '文件管理',
+        title: 'router.systemFileManagement',
       },
       component: () => import('@/pages/system/maintain/systemFile/opendir'),
     },
@@ -142,7 +142,7 @@ export default {
       name: `${pre}opendir_login`,
       meta: {
         auth: ['system-maintain-system-file'],
-        title: '文件管理入口',
+        title: 'router.systemFileManagementEntry',
         activeMenu: routePre + '/system/maintain/system_file/opendir',
       },
       component: () => import('@/pages/system/maintain/systemFile/login'),
@@ -152,7 +152,7 @@ export default {
       name: `${pre}configTab`,
       meta: {
         auth: ['system-config-system_config-tab'],
-        title: '配置分类',
+        title: 'router.systemConfigCategory',
       },
       component: () => import('@/pages/system/configTab/index'),
     },
@@ -161,7 +161,7 @@ export default {
       name: `${pre}configTabList`,
       meta: {
         auth: ['system-config-system_config_tab-list'],
-        title: '配置列表',
+        title: 'router.systemConfigList',
         activeMenu: routePre + '/system/config/system_config_tab/index',
       },
       component: () => import('@/pages/system/configTab/list'),
@@ -171,7 +171,7 @@ export default {
       name: `${pre}group`,
       meta: {
         auth: ['system-config-system_config-group'],
-        title: '组合数据',
+        title: 'router.systemGroupData',
       },
       component: () => import('@/pages/system/group/index'),
     },
@@ -180,7 +180,7 @@ export default {
       name: `${pre}groupList`,
       meta: {
         auth: ['system-config-system_config-list'],
-        title: '组合数据列表',
+        title: 'router.systemGroupDataList',
         activeMenu: routePre + '/system/config/system_group/index',
       },
       component: () => import('@/pages/system/group/list'),
@@ -190,7 +190,7 @@ export default {
       name: `${pre}auth`,
       meta: {
         auth: ['system-maintain-auth'],
-        title: '商业授权',
+        title: 'router.systemBusinessAuthorization',
       },
       component: () => import('@/pages/system/auth/index'),
     },
@@ -199,7 +199,7 @@ export default {
       name: `${pre}upgradeclient`,
       meta: {
         auth: ['system-onlineUpgrade-index'],
-        title: '在线升级',
+        title: 'router.systemOnlineUpgrade',
       },
       component: () => import('@/pages/system/onlineUpgrade/index'),
     },
@@ -208,7 +208,7 @@ export default {
       name: `${pre}crossVersionUpgrade`,
       meta: {
         auth: ['system-crossVersionUpgrade-index'],
-        title: '跨版本升级',
+        title: 'router.systemCrossVersionUpgrade',
       },
       component: () => import('@/pages/system/crossVersionUpgrade/index'),
     },
@@ -217,7 +217,7 @@ export default {
       name: `${pre}crontab`,
       meta: {
         auth: ['system-crontab-index'],
-        title: '定时任务',
+        title: 'router.systemCrontab',
       },
       component: () => import('@/pages/system/crontab/index'),
     },
@@ -226,7 +226,7 @@ export default {
       name: `${pre}event`,
       meta: {
         auth: ['system-event-index'],
-        title: '自定义事件',
+        title: 'router.systemCustomEvent',
       },
       component: () => import('@/pages/system/event/index'),
     },
@@ -235,7 +235,7 @@ export default {
       name: `${pre}systemMenus`,
       meta: {
         auth: ['system-system-menus'],
-        title: '权限规则',
+        title: 'router.systemPermissionRule',
       },
       component: () => import('@/pages/system/systemMenus/index'),
     },

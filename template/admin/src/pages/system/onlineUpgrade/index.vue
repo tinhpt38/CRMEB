@@ -117,10 +117,10 @@
         </div>
         <div v-if="upgradeProgress.speed == '100.0'" slot="footer" class="footer2">
           <el-button class="confirm" type="primary" shape="circle" v-db-click @click="back()">确认</el-button>
-          <!-- <div><el-button class="back" shape="circle" v-db-click @click="backSure()">返回</el-button></div> -->
+          <!-- <div><el-button class="back" shape="circle" v-db-click @click="backSure()">{{ $t('customDesign.back') }}</el-button></div> -->
         </div>
         <span v-if="upgradeProgress.speed == '100.0'" slot="footer" class="dialog-footer">
-          <el-button v-db-click @click="cancel">取 消</el-button>
+          <el-button v-db-click @click="cancel">{{ $t('customDesign.cancel') }}</el-button>
           <el-button type="primary" v-db-click @click="back">确 认</el-button>
         </span>
     </el-dialog>

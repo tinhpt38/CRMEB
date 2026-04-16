@@ -97,8 +97,8 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="handleReset">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">确 定</el-button>
+        <el-button v-db-click @click="handleReset">{{ $t('customDesign.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')" :disabled="valids">{{ $t('customDesign.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>

@@ -99,7 +99,7 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="handleReset">取 消</el-button>
+        <el-button v-db-click @click="handleReset">{{ $t('customDesign.cancel') }}</el-button>
         <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">提 交</el-button>
       </span>
     </el-dialog>
@@ -197,8 +197,8 @@ export default {
       formValidate: {},
       searchData: [],
       isShowRadio: [
-        { value: 1, label: '开启' },
-        { value: 0, label: '关闭' },
+        { value: 1, label: this.$t('systemCommon.enabled') },
+        { value: 0, label: this.$t('systemCommon.disabled') },
       ],
     };
   },

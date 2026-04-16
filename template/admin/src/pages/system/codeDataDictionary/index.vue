@@ -29,8 +29,8 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+         :no-userFrom-text="$t('couponList.empty')"
+         :no-filtered-userFrom-text="$t('couponList.noResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
@@ -39,19 +39,19 @@
         </el-table-column>
         <el-table-column prop="name" label="字典名称" min-width="100"> </el-table-column>
         <el-table-column prop="mark" label="数据标识" min-width="200"> </el-table-column>
-        <el-table-column prop="level" label="类型" min-width="200">
+        <el-table-column prop="level" :label="$t('systemCommon.type')" min-width="200">
           <template slot-scope="scope">
             <span>{{ scope.row.level ? '多级' : '一级' }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="add_time" label="添加时间" min-width="200"> </el-table-column>
-        <el-table-column fixed="right" label="操作" width="200">
+        <el-table-column fixed="right"  :label="$t('customDesign.action')" width="200">
           <template slot-scope="scope">
-            <a v-db-click @click="eidtOptions(scope.row.id)">编辑</a>
+            <a v-db-click @click="eidtOptions(scope.row.id)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="dataOptions(scope.row.id)">数据管理</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, '删除', scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

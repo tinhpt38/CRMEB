@@ -20,7 +20,7 @@
       <el-table
         ref="selection"
         :data="tableField"
-        empty-text="暂无数据"
+         :empty-text="$t('couponList.empty')"
         highlight-current-row
         v-loading="loading"
         max-height="600"
@@ -91,7 +91,7 @@
               v-model="scope.row.search"
               :disabled="disabledInput(scope.$index)"
               slot="prepend"
-              placeholder="请选择"
+              :placeholder="$t('systemCommon.pleaseSelect')"
             >
               <el-option
                 :label="item.label"
@@ -163,7 +163,7 @@
                 v-model="scope.row.default_type"
                 slot="prepend"
                 :disabled="disabledInput(scope.$index)"
-                placeholder="请选择"
+                :placeholder="$t('systemCommon.pleaseSelect')"
                 style="width: 100px"
               >
                 <el-option
@@ -203,7 +203,7 @@
             ></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column  :label="$t('customDesign.action')" fixed="right" width="100">
           <template slot-scope="scope">
             <a v-if="!scope.row.primaryKey && !disabledInput(scope.$index)" v-db-click @click="del(row, scope.$index)"
               >删除</a
@@ -254,8 +254,8 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="optionsModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="addOptions">确 定</el-button>
+        <el-button v-db-click @click="optionsModal = false">{{ $t('customDesign.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="addOptions">{{ $t('customDesign.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -491,10 +491,10 @@ export default {
             field_type: 'timestamp',
             default: '',
             default_type: '-1',
-            comment: '添加时间',
+            comment: this.$t('systemCommon.addTime'),
             required: false,
             is_table: false,
-            table_name: '添加时间',
+            table_name: this.$t('systemCommon.addTime'),
             limit: '',
             primaryKey: 0,
             from_type: '',

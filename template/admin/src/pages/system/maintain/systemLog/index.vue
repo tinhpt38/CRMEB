@@ -52,7 +52,7 @@
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-table ref="selection" :data="tabList" v-loading="loading" empty-text="暂无数据" highlight-current-row>
+      <el-table ref="selection" :data="tabList" v-loading="loading"  :empty-text="$t('couponList.empty')" highlight-current-row>
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
@@ -63,7 +63,7 @@
             <span>{{ scope.row.admin_id + ' / ' + scope.row.admin_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" min-width="100">
+        <el-table-column  :label="$t('customDesign.action')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.path_name }}</span>
           </template>
@@ -78,7 +78,7 @@
             <span>{{ scope.row.ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="类型" min-width="100">
+        <el-table-column :label="$t('systemCommon.type')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>

@@ -33,13 +33,13 @@ export default {
       delfromData: {},
       tabList: [
         {
-          title: '清除缓存',
+          title: this.$t('systemCommon.refreshCache'),
           tlt: '清除系统的所有缓存',
           typeName: 'primary',
           type: '11',
         },
         {
-          title: '清除日志',
+          title: this.$t('systemCommon.clearLog'),
           tlt: '清除系统的所有日志文件',
           typeName: 'primary',
           type: 'temp',
@@ -57,7 +57,7 @@ export default {
     },
     clearCache() {
       let delfromData = {
-        title: '清除缓存',
+        title: this.$t('systemCommon.refreshCache'),
         num: 0,
         url: `system/refresh_cache/cache`,
         method: 'get',
@@ -73,7 +73,7 @@ export default {
     },
     clearlog() {
       let delfromData = {
-        title: '清除日志',
+        title: this.$t('systemCommon.clearLog'),
         num: 0,
         url: `system/refresh_cache/log`,
         method: 'get',

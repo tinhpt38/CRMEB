@@ -9,8 +9,8 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+         :no-userFrom-text="$t('couponList.empty')"
+         :no-filtered-userFrom-text="$t('couponList.noResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
@@ -37,15 +37,15 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="200">
+        <el-table-column  :label="$t('customDesign.action')" fixed="right" width="200">
           <template slot-scope="scope">
             <a v-db-click @click="edit(scope.row, '编辑')">查看代码</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="editItem(scope.row)">编辑</a>
+            <a v-db-click @click="editItem(scope.row)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="downLoad(scope.row)">下载</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, '删除', scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -72,7 +72,7 @@
         <span>{{ title }}</span>
       </p>
       <div class="file" style="height: 100%">
-        <el-button class="save" type="primary" v-db-click @click="pwdModal = true">保存</el-button>
+        <el-button class="save" type="primary" v-db-click @click="pwdModal = true">{{ $t('customDesign.save') }}</el-button>
 
         <div class="file-box">
           <div class="file-fix"></div>
@@ -144,8 +144,8 @@
     >
       <el-input v-model="pwd" type="password" placeholder="请输入文件管理密码"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="pwdModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="crudSaveFile">确 定</el-button>
+        <el-button v-db-click @click="pwdModal = false">{{ $t('customDesign.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="crudSaveFile">{{ $t('customDesign.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -212,12 +212,12 @@ export default {
           minWidth: 130,
         },
         {
-          title: '添加时间',
+          title: this.$t('systemCommon.addTime'),
           key: 'add_time',
           minWidth: 130,
         },
         {
-          title: '操作',
+          title: this.$t('systemCommon.operation'),
           slot: 'action',
           fixed: 'right',
           minWidth: 150,

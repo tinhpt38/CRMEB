@@ -12,7 +12,7 @@
           >返回</el-button
         >
         <el-divider direction="vertical"></el-divider>
-        <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
+        <span class="ivu-page-header-title">{{ $t($route.meta.title) }}</span>
       </div>
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
@@ -25,8 +25,8 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+         :no-userFrom-text="$t('couponList.empty')"
+         :no-filtered-userFrom-text="$t('couponList.noResult')"
         row-key="id"
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
@@ -37,15 +37,15 @@
         </el-table-column>
         <el-table-column prop="name" label="字典名称" min-width="100"> </el-table-column>
         <el-table-column prop="value" label="字典数据" min-width="100"> </el-table-column>
-        <el-table-column prop="sort" label="排序" min-width="100"> </el-table-column>
+        <el-table-column prop="sort" :label="$t('systemCommon.sort')" min-width="100"> </el-table-column>
         <el-table-column prop="add_time" label="添加时间" min-width="200"> </el-table-column>
-        <el-table-column fixed="right" label="操作" width="200">
+        <el-table-column fixed="right"  :label="$t('customDesign.action')" width="200">
           <template slot-scope="scope">
             <a v-db-click @click="addSub(scope.row.id)">添加下级</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="eidtOptions(scope.row.id)">编辑</a>
+            <a v-db-click @click="eidtOptions(scope.row.id)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, '删除', scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

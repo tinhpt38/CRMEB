@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="modals_son" :title="title" :close-on-click-modal="false" width="900px">
-    <el-button type="primary" id="savefile" class="mr5 mb15" v-db-click @click="savefile">保存</el-button>
+    <el-button type="primary" id="savefile" class="mr5 mb15" v-db-click @click="savefile">{{ $t('customDesign.save') }}</el-button>
     <el-button id="undo" class="mr5 mb15" v-db-click @click="undofile">撤销</el-button>
     <el-button id="redo" class="mr5 mb15" v-db-click @click="redofile">回退</el-button>
     <el-button id="refresh" class="mb15" v-db-click @click="refreshfile">刷新</el-button>

@@ -2,7 +2,7 @@
   <div class="code-wapper">
     <pages-header
       ref="pageHeader"
-      :title="$route.meta.title"
+      :title="$t($route.meta.title)"
       :backUrl="$routeProStr + '/system/code_generation_list'"
     ></pages-header>
     <div class="message mt10">
