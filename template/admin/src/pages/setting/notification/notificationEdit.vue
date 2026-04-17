@@ -12,14 +12,14 @@
             <el-tab-pane v-for="(item, index) in tabsList" :key="index" :name="item.slot" :label="item.title">
               <el-form class="form-sty" ref="formData" :model="formData" :rules="ruleValidate" label-width="85px">
                 <div v-if="item.slot === 'is_system' && !loading">
-                  <el-form-item label="通知标题：">
+                  <el-form-item :label="$t('message.notification.notificationTitle') + '：'">
                     <el-input
                       v-model="formData.system_title"
-                      placeholder="请输入通知标题"
+                      :placeholder="$t('message.notification.enterNotificationTitle')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('message.notification.notificationContent') + '：'">
                     <div class="content">
                       <el-input
                         ref="system_text"
@@ -27,7 +27,7 @@
                         v-model="formData.system_text"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('message.notification.enterNotificationContent')"
                         style="width: 500px"
                       >
                       </el-input>
@@ -51,18 +51,18 @@
                     </div>
                     <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_system">
+                  <el-form-item :label="$t('message.systemCommon.status') + '：'" prop="is_system">
                     <el-radio-group v-model="formData.is_system">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.systemCommon.enabled') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.systemCommon.disabled') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <div v-if="item.slot === 'is_sms' && !loading">
-                  <el-form-item label="短信模版ID：">
-                    <el-input v-model="formData.sms_id" placeholder="短信模版ID" style="width: 500px"></el-input>
+                  <el-form-item :label="$t('message.notification.smsTemplateId') + '：'">
+                    <el-input v-model="formData.sms_id" :placeholder="$t('message.notification.smsTemplateId')" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('message.notification.notificationContent') + '：'">
                     <div class="content">
                       <el-input
                         id="sms_text"
@@ -93,10 +93,10 @@
                     </div>
                     <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_sms">
+                  <el-form-item :label="$t('message.systemCommon.status') + '：'" prop="is_sms">
                     <el-radio-group v-model="formData.is_sms">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.systemCommon.enabled') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.systemCommon.disabled') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
@@ -125,7 +125,7 @@
                       ></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="字段：" v-if="formData.type_n == 3 && keyList.length">
+                  <el-form-item :label="$t('message.notification.fields') + '：'" v-if="formData.type_n == 3 && keyList.length">
                     <div class="content">
                       <keys-list
                         :key-list="keyList"
@@ -135,26 +135,26 @@
                       />
                     </div>
                   </el-form-item>
-                  <el-form-item label="跳转链接：">
+                  <el-form-item :label="$t('message.notification.jumpLink') + '：'">
                     <el-input
                       v-model="formData.wechat_link"
-                      placeholder="请输入模版跳转链接，可携带参数"
+                      :placeholder="$t('message.notification.enterJumpLink')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="跳转小程序：" prop="wechat_to_routine">
+                  <el-form-item :label="$t('message.notification.jumpToMiniProgram') + '：'" prop="wechat_to_routine">
                     <el-radio-group v-model="formData.wechat_to_routine">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="0">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.systemCommon.enabled') }}</el-radio>
+                      <el-radio :label="0">{{ $t('message.systemCommon.disabled') }}</el-radio>
                     </el-radio-group>
                     <div class="tips-info">
-                      开启之后，点击模版消息，跳转小程序对应的页面，需要小程序已经审核上线才可使用
+                      {{ $t('message.notification.jumpToMiniProgramTip') }}
                     </div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_wechat">
+                  <el-form-item :label="$t('message.systemCommon.status') + '：'" prop="is_wechat">
                     <el-radio-group v-model="formData.is_wechat">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.systemCommon.enabled') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.systemCommon.disabled') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
@@ -183,7 +183,7 @@
                       ></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="字段：" v-if="formData.type_n == 3 && keyList.length">
+                  <el-form-item :label="$t('message.notification.fields') + '：'" v-if="formData.type_n == 3 && keyList.length">
                     <div class="content">
                       <keys-list
                         :key-list="keyList"
@@ -193,23 +193,23 @@
                       />
                     </div>
                   </el-form-item>
-                  <el-form-item label="跳转链接：">
+                  <el-form-item :label="$t('message.notification.jumpLink') + '：'">
                     <el-input
                       v-model="formData.routine_link"
-                      placeholder="请输入模版跳转链接，可携带参数"
+                      :placeholder="$t('message.notification.enterJumpLink')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_routine">
+                  <el-form-item :label="$t('message.systemCommon.status') + '：'" prop="is_routine">
                     <el-radio-group v-model="formData.is_routine">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.systemCommon.enabled') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.systemCommon.disabled') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
 
                 <div v-else-if="item.slot === 'is_ent_wechat' && !loading">
-                  <el-form-item label="通知内容：">
+                  <el-form-item :label="$t('message.notification.notificationContent') + '：'">
                     <div class="content">
                       <el-input
                         id="ent_wechat_text"
@@ -239,20 +239,20 @@
                     </div>
                     <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
                   </el-form-item>
-                  <el-form-item label="机器人链接：">
+                  <el-form-item :label="$t('message.notification.robotLink') + '：'">
                     <div class="content">
-                      <el-input v-model="formData.url" placeholder="请输入机器人链接" style="width: 500px"></el-input>
+                      <el-input v-model="formData.url" :placeholder="$t('message.notification.enterRobotLink')" style="width: 500px"></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="状态：" prop="is_ent_wechat">
+                  <el-form-item :label="$t('message.systemCommon.status') + '：'" prop="is_ent_wechat">
                     <el-radio-group v-model="formData.is_ent_wechat">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="2">关闭</el-radio>
+                      <el-radio :label="1">{{ $t('message.systemCommon.enabled') }}</el-radio>
+                      <el-radio :label="2">{{ $t('message.systemCommon.disabled') }}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <el-form-item>
-                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">提交</el-button>
+                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">{{ $t('message.systemCommon.submit') }}</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -272,23 +272,23 @@ export default {
     return {
       tabs: [
         {
-          title: '系统通知',
+          title: this.$t('message.notification.systemNotification'),
           slot: 'is_system',
         },
         {
-          title: '短信通知',
+          title: this.$t('message.notification.smsNotification'),
           slot: 'is_sms',
         },
         {
-          title: '微信模板消息',
+          title: this.$t('message.notification.wechatTemplateMessage'),
           slot: 'is_wechat',
         },
         {
-          title: '微信小程序提醒',
+          title: this.$t('message.notification.miniProgramReminder'),
           slot: 'is_routine',
         },
         {
-          title: '企业微信',
+          title: this.$t('message.notification.enterpriseWechat'),
           slot: 'is_ent_wechat',
         },
       ],

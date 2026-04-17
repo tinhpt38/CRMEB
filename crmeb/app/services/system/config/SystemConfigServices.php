@@ -410,6 +410,8 @@ class SystemConfigServices extends BaseServices
     public function createTextForm(string $type, array $data)
     {
         $formbuider = [];
+        $data['info'] = L($data['info']);
+        $data['desc'] = L($data['desc']);
         switch ($type) {
             case 'number':
                 $data['value'] = isset($data['value']) ? json_decode($data['value'], true) : 0;
@@ -479,10 +481,10 @@ class SystemConfigServices extends BaseServices
     {
         $data['value'] = json_decode($data['value'], true) ?: '';
         if ($data['menu_name'] == 'param_filter_data') $data['value'] = base64_decode($data['value']);
-        $formbuider[] = $this->builder->textarea($data['menu_name'], $data['info'], $data['value'])->placeholder($data['desc'])->appendRule('suffix', [
+        $formbuider[] = $this->builder->textarea($data['menu_name'], L($data['info']), $data['value'])->placeholder(L($data['desc']))->appendRule('suffix', [
             'type' => 'div',
             'class' => 'tips-info',
-            'domProps' => ['innerHTML' => $data['desc']]
+            'domProps' => ['innerHTML' => L($data['desc'])]
         ])->rows(6)->col(13);
         return $formbuider;
     }
@@ -505,14 +507,14 @@ class SystemConfigServices extends BaseServices
                 if (strstr($v, $this->cuttingStr) !== false) {
                     $pdata = explode($this->cuttingStr, $v);
                     $res = preg_match('/^[0-9]$/', $pdata[0]);
-                    $options[] = ['label' => $pdata[1], 'value' => $res ? (int)$pdata[0] : $pdata[0]];
+                    $options[] = ['label' => L($pdata[1]), 'value' => $res ? (int)$pdata[0] : $pdata[0]];
                 }
             }
             $res = preg_match('/^[0-9]$/', $data['value']);
-            $formbuider[] = $radio = $this->builder->radio($data['menu_name'], $data['info'], $res ? (int)$data['value'] : $data['value'])->options($options)->appendRule('suffix', [
+            $formbuider[] = $radio = $this->builder->radio($data['menu_name'], L($data['info']), $res ? (int)$data['value'] : $data['value'])->options($options)->appendRule('suffix', [
                 'type' => 'div',
                 'class' => 'tips-info',
-                'domProps' => ['innerHTML' => $data['desc']]
+                'domProps' => ['innerHTML' => L($data['desc'])]
             ])->col(13);
             if ($control) {
                 $radio->appendControl($data['show_value'] ?? 1, is_array($control) ? $control : [$control]);
@@ -536,12 +538,14 @@ class SystemConfigServices extends BaseServices
     public function createUploadForm(int $type, array $data)
     {
         $formbuider = [];
+        $data['info'] = L($data['info']);
+        $data['desc'] = L($data['desc']);
         switch ($type) {
             case 1:
                 $data['value'] = json_decode($data['value'], true) ?: '';
                 if ($data['value'] != '') $data['value'] = set_file_url($data['value']);
                 $formbuider[] = $this->builder->frameImage($data['menu_name'], $data['info'], $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => $data['menu_name']], true), $data['value'])
-                    ->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => '预览'])->appendRule('suffix', [
+                    ->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => L('预览')])->appendRule('suffix', [
                         'type' => 'div',
                         'class' => 'tips-info',
                         'domProps' => ['innerHTML' => $data['desc']]
@@ -552,7 +556,7 @@ class SystemConfigServices extends BaseServices
                 if ($data['value'])
                     $data['value'] = set_file_url($data['value']);
                 $formbuider[] = $this->builder->frameImages($data['menu_name'], $data['info'], $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => $data['menu_name'], 'type' => 'many', 'maxLength' => 5], true), $data['value'])
-                    ->maxLength(5)->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => '预览'])
+                    ->maxLength(5)->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => L('预览')])
                     ->appendRule('suffix', [
                         'type' => 'div',
                         'class' => 'tips-info',
@@ -591,13 +595,13 @@ class SystemConfigServices extends BaseServices
             foreach ($parameter as $v) {
                 if (strstr($v, $this->cuttingStr) !== false) {
                     $pdata = explode($this->cuttingStr, $v);
-                    $options[] = ['label' => $pdata[1], 'value' => $pdata[0]];
+                    $options[] = ['label' => L($pdata[1]), 'value' => $pdata[0]];
                 }
             }
-            $formbuider[] = $this->builder->checkbox($data['menu_name'], $data['info'], $data['value'])->options($options)->appendRule('suffix', [
+            $formbuider[] = $this->builder->checkbox($data['menu_name'], L($data['info']), $data['value'])->options($options)->appendRule('suffix', [
                 'type' => 'div',
                 'class' => 'tips-info',
-                'domProps' => ['innerHTML' => $data['desc']]
+                'domProps' => ['innerHTML' => L($data['desc'])]
             ])->col(13);
         }
         return $formbuider;

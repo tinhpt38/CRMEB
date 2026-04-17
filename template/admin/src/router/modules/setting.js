@@ -32,7 +32,7 @@ export default {
       name: `${pre}systemRole`,
       meta: {
         auth: ['setting-system-role'],
-        title: '身份管理',
+        title: 'message.router.systemRole',
       },
       component: () => import('@/pages/setting/systemRole/index'),
     },
@@ -41,7 +41,7 @@ export default {
       name: `${pre}systemAdmin`,
       meta: {
         auth: ['setting-system-list'],
-        title: '管理员列表',
+        title: 'message.router.systemAdmin',
       },
       component: () => import('@/pages/setting/systemAdmin/index'),
     },
@@ -50,7 +50,7 @@ export default {
       name: `${pre}systemMenus`,
       meta: {
         auth: ['setting-system-menus'],
-        title: '权限规则',
+        title: 'message.router.systemMenus',
       },
       component: () => import('@/pages/setting/systemMenus/index'),
     },
@@ -59,7 +59,7 @@ export default {
       name: `${pre}setSystem`,
       meta: {
         auth: ['setting-system-config'],
-        title: 'router.system',
+        title: 'message.router.system',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -67,7 +67,7 @@ export default {
       path: 'system_config/:type?/:tab_id?',
       name: `${pre}setApp`,
       meta: {
-        title: 'router.system',
+        title: 'message.router.system',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -76,7 +76,7 @@ export default {
       name: `${pre}distributionSet`,
       meta: {
         ...meta,
-        title: '分销配置',
+        title: 'message.router.distributionConfig',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -85,7 +85,7 @@ export default {
       name: `${pre}membershipLevel`,
       meta: {
         ...meta,
-        title: '分销等级',
+        title: 'message.router.membershipLevel',
       },
       component: () => import('@/pages/setting/membershipLevel/index'),
     },
@@ -94,7 +94,7 @@ export default {
       name: `${pre}message`,
       meta: {
         auth: ['setting-system-config-message'],
-        title: '短信开关',
+        title: 'message.router.smsSwitch',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -103,7 +103,7 @@ export default {
       name: `${pre}notification`,
       meta: {
         auth: ['setting-notification'],
-        title: '消息管理',
+        title: 'message.router.notification',
       },
       component: () => import('@/pages/setting/notification/index'),
     },
@@ -112,7 +112,7 @@ export default {
       name: `${pre}notificationEdit`,
       meta: {
         auth: ['setting-notification'],
-        title: '消息编辑',
+        title: 'message.router.notificationEdit',
         activeMenu: routePre + '/setting/notification/index',
       },
       component: () => import('@/pages/setting/notification/notificationEdit'),
@@ -122,7 +122,7 @@ export default {
       name: `${pre}logistics`,
       meta: {
         auth: ['setting-system-config-logistics'],
-        title: '物流配置',
+        title: 'message.router.logisticsConfig',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -131,7 +131,7 @@ export default {
       name: `${pre}config`,
       meta: {
         auth: ['setting-sms-sms-config'],
-        title: '一号通账户',
+        title: 'message.router.smsConfig',
       },
       component: () => import('@/pages/notify/smsConfig/index'),
     },
@@ -140,7 +140,7 @@ export default {
       name: `${pre}elec_invoice`,
       meta: {
         auth: ['setting-elec_invoice'],
-        title: '电子发票配置',
+        title: 'message.router.elecInvoice',
       },
       component: () => import('@/pages/notify/smsConfig/elecInvoice'),
     },
@@ -149,7 +149,7 @@ export default {
       name: `${pre}smsTemplateApply`,
       meta: {
         auth: ['setting-sms-config-template'],
-        title: '短信模板',
+        title: 'message.router.smsTemplate',
       },
       component: () => import('@/pages/notify/smsTemplateApply/index'),
     },
@@ -158,7 +158,7 @@ export default {
       name: `${pre}smsPay`,
       meta: {
         auth: ['setting-sms-sms-template'],
-        title: '短信购买',
+        title: 'message.router.smsPay',
       },
       component: () => import('@/pages/notify/smsPay/index'),
     },
@@ -167,7 +167,7 @@ export default {
       name: `${pre}commons`,
       meta: {
         ...meta,
-        title: '公共短信模板',
+        title: 'message.router.smsTemplateCommon',
       },
       component: () => import('@/pages/notify/smsTemplateApply/index'),
     },
@@ -176,7 +176,7 @@ export default {
       name: `${pre}groupDataIndex`,
       meta: {
         auth: ['setting-system-group_data-index'],
-        title: '首页导航按钮',
+        title: 'message.router.groupDataIndex',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -185,7 +185,7 @@ export default {
       name: `${pre}groupDataSlide`,
       meta: {
         auth: ['setting-system-group_data-slide'],
-        title: '首页幻灯片',
+        title: 'message.router.groupDataSlide',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -194,7 +194,7 @@ export default {
       name: `${pre}groupDataSign`,
       meta: {
         auth: ['setting-system-group_data-sign'],
-        title: '签到天数配置',
+        title: 'message.router.groupDataSign',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -221,7 +221,7 @@ export default {
       name: `${pre}groupDataNew`,
       meta: {
         auth: ['setting-system-group_data-new'],
-        title: '首页滚动新闻',
+        title: 'message.router.groupDataNew',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -230,7 +230,7 @@ export default {
       name: `${pre}groupDataNew`,
       meta: {
         auth: ['setting-system-group_data-search'],
-        title: '热门搜索',
+        title: 'message.router.groupDataSearch',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -239,7 +239,7 @@ export default {
       name: `${pre}groupDataHot`,
       meta: {
         auth: ['setting-system-group_data-hot'],
-        title: '热门榜单推荐',
+        title: 'message.router.groupDataHot',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -248,7 +248,7 @@ export default {
       name: `${pre}groupDataNewProduct`,
       meta: {
         auth: ['setting-system-group_data-new_product'],
-        title: '首发新品推荐',
+        title: 'message.router.groupDataNewProduct',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -257,7 +257,7 @@ export default {
       name: `${pre}groupDataPromotion`,
       meta: {
         auth: ['setting-system-group_data-promotion'],
-        title: '促销单品推荐',
+        title: 'message.router.groupDataPromotion',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -266,7 +266,7 @@ export default {
       name: `${pre}groupDataPoster`,
       meta: {
         auth: ['setting-system-group_data-poster'],
-        title: '个人中心分销海报',
+        title: 'message.router.groupDataPoster',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -275,7 +275,7 @@ export default {
       name: `${pre}groupDataBest`,
       meta: {
         auth: ['setting-system-group_data-best'],
-        title: '精品推荐',
+        title: 'message.router.groupDataBest',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -284,7 +284,7 @@ export default {
       name: `${pre}groupDataActivity`,
       meta: {
         auth: ['setting-system-group_data-activity'],
-        title: '首页活动区域图片',
+        title: 'message.router.groupDataActivity',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -293,7 +293,7 @@ export default {
       name: `${pre}groupDataSystem`,
       meta: {
         auth: ['setting-system-group_data-system'],
-        title: '首页配置',
+        title: 'message.router.groupDataSystem',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -302,7 +302,7 @@ export default {
       name: `${pre}groupDataHotMoney`,
       meta: {
         auth: ['admin-setting-system_group_data-hot_money'],
-        title: '首页超值爆款',
+        title: 'message.router.groupDataHotMoney',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -311,7 +311,7 @@ export default {
       name: `${pre}systemStore`,
       meta: {
         auth: ['setting-system-config-merchant'],
-        title: '门店设置',
+        title: 'message.router.systemStore',
       },
       component: () => import('@/pages/setting/systemStore/index'),
     },
@@ -320,7 +320,7 @@ export default {
       name: `${pre}freight`,
       meta: {
         auth: ['setting-freight-express'],
-        title: '物流公司',
+        title: 'message.router.freight',
       },
       component: () => import('@/pages/setting/freight/index'),
     },
@@ -329,7 +329,7 @@ export default {
       name: `${pre}service`,
       meta: {
         auth: ['setting-store-service'],
-        title: '客服管理',
+        title: 'message.router.storeService',
       },
       component: () => import('@/pages/setting/storeService/index'),
     },
@@ -338,7 +338,7 @@ export default {
       name: `${pre}dada`,
       meta: {
         auth: ['setting-system-city'],
-        title: '城市数据',
+        title: 'message.router.cityDada',
       },
       component: () => import('@/pages/setting/cityDada/index'),
     },
@@ -347,7 +347,7 @@ export default {
       name: `${pre}templates`,
       meta: {
         auth: ['setting-shipping-templates'],
-        title: '运费模板',
+        title: 'message.router.shippingTemplates',
       },
       component: () => import('@/pages/setting/shippingTemplates/index'),
     },
@@ -356,7 +356,7 @@ export default {
       name: `${pre}store`,
       meta: {
         auth: ['setting-merchant-system-store'],
-        title: '提货点',
+        title: 'message.router.storeList',
       },
       component: () => import('@/pages/setting/storeList/index'),
     },
@@ -365,7 +365,7 @@ export default {
       name: `${pre}staff`,
       meta: {
         auth: ['setting-merchant-system-store-staff'],
-        title: '核销员',
+        title: 'message.router.clerkList',
       },
       component: () => import('@/pages/setting/clerkList/index'),
     },
@@ -374,7 +374,7 @@ export default {
       name: `${pre}order`,
       meta: {
         auth: ['setting-merchant-system-verify-order'],
-        title: '核销订单',
+        title: 'message.router.verifyOrder',
       },
       component: () => import('@/pages/setting/verifyOrder/index'),
     },
@@ -383,7 +383,7 @@ export default {
       name: `${pre}themeStyle`,
       meta: {
         auth: ['admin-setting-theme_style'],
-        title: '主题风格',
+        title: 'message.router.themeStyle',
       },
       component: () => import('@/pages/setting/themeStyle/index'),
     },
@@ -392,7 +392,7 @@ export default {
       name: `${pre}microPage`,
       meta: {
         auth: ['setting-theme-micro_page'],
-        title: '微页面',
+        title: 'message.router.microPage',
       },
       component: () => import('@/pages/setting/theme/micro_page/index'),
     },
@@ -409,7 +409,7 @@ export default {
       name: `${pre}devise`,
       meta: {
         auth: ['admin-setting-pages-devise'],
-        title: '店铺装修',
+        title: 'message.router.devise',
       },
       component: () => import('@/pages/setting/devise/list'),
     },
@@ -418,7 +418,7 @@ export default {
       name: `${pre}user`,
       meta: {
         auth: ['admin-setting-pages-user'],
-        title: '个人中心',
+        title: 'message.router.user',
       },
       component: () => import('@/pages/setting/devise/list'),
     },
@@ -427,7 +427,7 @@ export default {
       name: `${pre}link`,
       meta: {
         auth: ['admin-setting-pages-link'],
-        title: '链接管理',
+        title: 'message.router.link',
       },
       component: () => import('@/pages/setting/link'),
     },
@@ -436,7 +436,7 @@ export default {
       name: `${pre}cate`,
       meta: {
         auth: ['admin-setting-pages-cate'],
-        title: '商品分类',
+        title: 'message.router.cate',
       },
       component: () => import('@/pages/setting/devise/list'),
     },
@@ -445,7 +445,7 @@ export default {
       name: `${pre}diy`,
       meta: {
         auth: ['admin-setting-pages-diy'],
-        title: '页面设计',
+        title: 'message.router.diy',
         activeMenu: routePre + '/setting/pages/devise',
       },
       component: () => import('@/pages/setting/devisePage/index'),
@@ -455,7 +455,7 @@ export default {
       name: `${pre}index_diy`,
       meta: {
         auth: ['admin-setting-pages-diy'],
-        title: '首页设计',
+        title: 'message.router.index_diy',
         fullScreen: true, //是否全屏显示main区域
       },
       component: () => import('@/pages/setting/devise/diyIndex'),
@@ -465,7 +465,7 @@ export default {
       name: `${pre}links`,
       meta: {
         auth: ['admin-setting-pages-links'],
-        title: '页面链接',
+        title: 'message.router.links',
       },
       component: () => import('@/pages/setting/devise/links'),
     },
@@ -474,7 +474,7 @@ export default {
       name: `${pre}speechcraft`,
       meta: {
         auth: ['admin-setting-store_service-speechcraft'],
-        title: '客服话术',
+        title: 'message.router.speechcraft',
       },
       component: () => import('@/pages/setting/storeService/speechcraft'),
     },
@@ -483,7 +483,7 @@ export default {
       name: `${pre}feedback`,
       meta: {
         auth: ['admin-setting-store_service-feedback'],
-        title: '用户留言',
+        title: 'message.router.feedback',
       },
       component: () => import('@/pages/setting/storeService/feedback'),
     },
@@ -492,7 +492,7 @@ export default {
       name: `${pre}auto_reply`,
       meta: {
         auth: ['admin-setting-store_service-auto_reply'],
-        title: '自动回复',
+        title: 'message.router.auto_reply',
       },
       component: () => import('@/pages/setting/storeService/autoReply'),
     },
@@ -501,7 +501,7 @@ export default {
       name: `${pre}groupDataPc`,
       meta: {
         auth: ['setting-system-group_data-pc'],
-        title: 'PC主页轮播',
+        title: 'message.router.groupDataPc',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -510,7 +510,7 @@ export default {
       name: `${pre}right`,
       meta: {
         auth: ['setting-system-config-member-right'],
-        title: '会员权益',
+        title: 'message.router.right',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -519,7 +519,7 @@ export default {
       name: `${pre}deliveryService`,
       meta: {
         auth: ['setting-delivery-service'],
-        title: '配送员列表',
+        title: 'message.router.deliveryService',
       },
       component: () => import('@/pages/setting/deliveryService/index'),
     },
@@ -528,7 +528,7 @@ export default {
       name: `${pre}systemPcGroupData`,
       meta: {
         auth: ['setting-system-pc_data'],
-        title: 'PC商城',
+        title: 'message.router.systemPcGroupData',
       },
       component: () => import('@/pages/system/group/pc'),
     },
@@ -537,7 +537,7 @@ export default {
       name: `${pre}systemGroupData`,
       meta: {
         auth: ['admin-setting-system_visualization_data'],
-        title: '数据配置',
+        title: 'message.router.systemGroupData',
       },
       component: () => import('@/pages/system/group/visualization'),
     },
@@ -546,7 +546,7 @@ export default {
       name: `${pre}storage`,
       meta: {
         auth: ['setting-storage'],
-        title: '储存配置',
+        title: 'message.router.storage',
       },
       component: () => import('@/pages/setting/storage'),
     },
@@ -555,7 +555,7 @@ export default {
       name: `${pre}wechat_config`,
       meta: {
         ...meta,
-        title: '公众号配置',
+        title: 'message.router.wechat_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -564,7 +564,7 @@ export default {
       name: `${pre}routine_config`,
       meta: {
         ...meta,
-        title: '小程序配置',
+        title: 'message.router.routine_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -573,7 +573,7 @@ export default {
       name: `${pre}app_config`,
       meta: {
         ...meta,
-        title: 'app配置',
+        title: 'message.router.app_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -582,7 +582,7 @@ export default {
       name: `${pre}pc_config`,
       meta: {
         ...meta,
-        title: 'PC配置',
+        title: 'message.router.pc_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -591,7 +591,7 @@ export default {
       name: `${pre}other_print`,
       meta: {
         auth: ['setting-other-print'],
-        title: '小票打印配置',
+        title: 'message.router.other_print',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -600,7 +600,7 @@ export default {
       name: `${pre}other_copy`,
       meta: {
         auth: ['setting-other-copy'],
-        title: '商品采集配置',
+        title: 'message.router.other_copy',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -609,7 +609,7 @@ export default {
       name: `${pre}other_logistics`,
       meta: {
         auth: ['setting-other-logistics'],
-        title: '物流查询配置',
+        title: 'message.router.other_logistics',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -618,7 +618,7 @@ export default {
       name: `${pre}other_electronic`,
       meta: {
         auth: ['setting-other-electronic'],
-        title: '电子面单配置',
+        title: 'message.router.other_electronic',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -627,7 +627,7 @@ export default {
       name: `${pre}other_sms`,
       meta: {
         auth: ['setting-other-sms'],
-        title: '短信功能配置',
+        title: 'message.router.other_sms',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -636,7 +636,7 @@ export default {
       name: `${pre}other_pay`,
       meta: {
         auth: ['setting-other-sms'],
-        title: '商城支付配置',
+        title: 'message.router.other_pay',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -645,7 +645,7 @@ export default {
       name: `${pre}notification`,
       meta: {
         auth: ['setting-agreement'],
-        title: '协议设置',
+        title: 'message.router.agreement',
       },
       component: () => import('@/pages/setting/agreement/index'),
     },
@@ -654,7 +654,7 @@ export default {
       name: `${pre}other_print`,
       meta: {
         auth: ['setting-other-out'],
-        title: '对外接口配置',
+        title: 'message.router.other_out',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -663,7 +663,7 @@ export default {
       name: `${pre}systemOutAccount`,
       meta: {
         auth: ['setting-system-out-account-index'],
-        title: '账号列表',
+        title: 'message.router.systemOutAccount',
       },
       component: () => import('@/pages/setting/systemOutAccount/index'),
     },
@@ -672,7 +672,7 @@ export default {
       name: `${pre}systemOutAccount`,
       meta: {
         auth: ['setting-system-out-interface-index'],
-        title: '接口文档',
+        title: 'message.router.systemOutInterface',
       },
       component: () => import('@/pages/setting/systemOutInterface/index'),
     },
@@ -681,7 +681,7 @@ export default {
       name: `${pre}langList`,
       meta: {
         auth: ['admin-lang-list'],
-        title: '语言列表',
+        title: 'message.router.langList',
       },
       component: () => import('@/pages/setting/multiLanguage/list'),
     },
@@ -690,7 +690,7 @@ export default {
       name: `${pre}langInfo`,
       meta: {
         auth: ['admin-lang-info'],
-        title: '语言详情',
+        title: 'message.router.langInfo',
       },
       component: () => import('@/pages/setting/multiLanguage/langList'),
     },
@@ -699,7 +699,7 @@ export default {
       name: `${pre}langCountry`,
       meta: {
         auth: ['admin-lang-country'],
-        title: '地区关联语言',
+        title: 'message.router.langCountry',
       },
       component: () => import('@/pages/setting/multiLanguage/country'),
     },
@@ -708,7 +708,7 @@ export default {
       name: `${pre}yihaotong_config`,
       meta: {
         ...meta,
-        title: '一号通配置',
+        title: 'message.router.yihaotong_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -717,7 +717,7 @@ export default {
       name: `${pre}lang_config`,
       meta: {
         ...meta,
-        title: '翻译配置',
+        title: 'message.router.lang_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -726,7 +726,7 @@ export default {
       name: `${pre}kefu_config`,
       meta: {
         ...meta,
-        title: '客服配置',
+        title: 'message.router.kefu_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -735,7 +735,7 @@ export default {
       name: `${pre}recharge_config`,
       meta: {
         ...meta,
-        title: '充值配置',
+        title: 'message.router.recharge_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -744,7 +744,7 @@ export default {
       name: `${pre}member_config`,
       meta: {
         ...meta,
-        title: '付费会员配置',
+        title: 'message.router.member_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -753,7 +753,7 @@ export default {
       name: `${pre}user_config`,
       meta: {
         ...meta,
-        title: '用户配置',
+        title: 'message.router.user_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -762,7 +762,7 @@ export default {
       name: `${pre}order_config`,
       meta: {
         ...meta,
-        title: '订单配置',
+        title: 'message.router.order_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -771,7 +771,7 @@ export default {
       name: `${pre}sign_config`,
       meta: {
         ...meta,
-        title: '签到配置',
+        title: 'message.router.sign_config',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -781,7 +781,7 @@ export default {
       meta: {
         ...meta,
         auth: ['admin-setting-ticket'],
-        title: '打印机设置',
+        title: 'message.router.ticket',
       },
       component: () => import('@/pages/setting/ticket'),
     },
@@ -791,7 +791,7 @@ export default {
       meta: {
         ...meta,
         auth: ['admin-setting-ticket-content'],
-        title: '小票配置',
+        title: 'message.router.content',
         activeMenu: routePre + '/setting/ticket',
       },
       component: () => import('@/pages/setting/ticket/content'),
@@ -800,7 +800,7 @@ export default {
       path: 'my_theme',
       name: `${pre}myTheme`,
       meta: {
-        title: '我的主题',
+        title: 'message.router.my_theme',
       },
       component: () => import('@/pages/setting/theme/myTheme/index'),
     },
@@ -808,7 +808,7 @@ export default {
       path: 'mall_theme',
       name: `${pre}mallTheme`,
       meta: {
-        title: '商城主题',
+        title: 'message.router.store_theme',
       },
       component: () => import('@/pages/setting/theme/mallTheme/index'),
     },
@@ -816,7 +816,7 @@ export default {
       path: 'edit_theme',
       name: `${pre}editTheme`,
       meta: {
-        title: '主题风格',
+        title: 'message.router.themeStyle',
         fullScreen: true, //是否全屏显示main区域
       },
       component: () => import('@/pages/setting/theme/editTheme/index'),

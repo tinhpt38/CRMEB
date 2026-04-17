@@ -47,6 +47,9 @@ class SystemConfigTabServices extends BaseServices
     public function getConfigTab(int $pid)
     {
         $list = $this->dao->getConfigTabAll(['status' => 1, 'pid' => $pid], ['id', 'id as value', 'title as label', 'pid', 'icon', 'type'], $pid ? [] : [['type', '=', '0']]);
+        foreach ($list as &$item) {
+            $item['label'] = L($item['label']);
+        }
         return get_tree_children($list);
     }
 
@@ -83,9 +86,9 @@ class SystemConfigTabServices extends BaseServices
     {
         $menuList = $this->dao->getConfigTabAll([], ['id', 'pid', 'title']);
         $list = sort_list_tier($menuList, 0, 'pid', 'id');
-        $menus = [['value' => 0, 'label' => '顶级按钮']];
+        $menus = [['value' => 0, 'label' => L('顶级按钮')]];
         foreach ($list as $menu) {
-            $menus[] = ['value' => $menu['id'], 'label' => $menu['html'] . $menu['title']];
+            $menus[] = ['value' => $menu['id'], 'label' => $menu['html'] . L($menu['title'])];
         }
         return $menus;
     }
@@ -104,13 +107,16 @@ class SystemConfigTabServices extends BaseServices
     public function getConfigTabListForm($value)
     {
         $configTabList = $this->dao->getConfigTabAll([], ['id as value', 'pid', 'title as label']);
+        foreach ($configTabList as &$item) {
+            $item['label'] = L($item['label']);
+        }
         if ($value) {
             $data = get_tree_value($configTabList, $value);
         } else {
             $data = [0];
         }
         $configTabList = get_tree_children($configTabList, 'children', 'value');
-        array_unshift($configTabList, ['value' => 0, 'pid' => 0, 'label' => '顶级分类']);
+        array_unshift($configTabList, ['value' => 0, 'pid' => 0, 'label' => L('顶级分类')]);
         return [$configTabList, array_reverse($data)];
     }
 
