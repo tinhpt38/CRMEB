@@ -179,6 +179,47 @@ class PublicController
         return app('json')->success($info);
     }
 
+    /**
+     * 获取当前系统后台设置的语言json
+     * @return mixed
+     * @throws \Throwable
+     */
+    public function getLangJson()
+    {
+        /** @var \app\services\system\lang\LangTypeServices $langTypeServices */
+        $langTypeServices = app()->make(\app\services\system\lang\LangTypeServices::class);
+        /** @var \app\services\system\lang\LangCountryServices $langCountryServices */
+        $langCountryServices = app()->make(\app\services\system\lang\LangCountryServices::class);
+
+        $request = app()->request;
+        //获取接口传入的语言类型
+        if (!$range = $request->header('cb-lang')) {
+            //没有传入则使用系统默认语言显示
+            if (!$range = $langTypeServices->value(['is_default' => 1], 'file_name')) {
+                //系统没有设置默认语言的话，根据浏览器语言显示，如果浏览器语言在库中找不到，则使用简体中文
+                if ($request->header('accept-language') !== null) {
+                    $range = explode(',', $request->header('accept-language'))[0];
+                } else {
+                    $range = 'zh-CN';
+                }
+            }
+        }
+        // 获取type_id
+        $typeId = $langCountryServices->value(['code' => $range], 'type_id') ?: 1;
+
+        // 获取缓存key
+        $langData = $langTypeServices->getColumn(['status' => 1, 'is_del' => 0], 'file_name', 'id');
+        $langStr = 'admin_api_lang_' . str_replace('-', '_', $langData[$typeId] ?? 'zh_CN');
+
+        //读取当前语言的语言包
+        $lang = CacheService::remember($langStr, function () use ($typeId, $range) {
+            /** @var \app\services\system\lang\LangCodeServices $langCodeServices */
+            $langCodeServices = app()->make(\app\services\system\lang\LangCodeServices::class);
+            return $langCodeServices->getColumn(['type_id' => $typeId, 'is_admin' => 2], 'lang_explain', 'code');
+        }, 3600);
+        return app('json')->success([$range => $lang]);
+    }
+
     public function customAdminJs()
     {
         return sys_config('custom_admin_js', '');

@@ -62,4 +62,15 @@ export function menusListApi() {
   });
 }
 
+/**
+ * 获取系统后台对应的多语言JSON数据
+ */
+export function langJsonApi(params) {
+  return request({
+    url: '/get_lang_json',
+    method: 'get',
+    params
+  });
+}
+
 export function AccountRegister() {}

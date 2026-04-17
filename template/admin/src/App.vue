@@ -75,11 +75,27 @@ export default {
           this.isVersion = true;
       }
     },
+    // 动态拉取后台配置语言
+    getDbLanguageJSON() {
+      import('@/api/account.js').then(({ langJsonApi }) => {
+        langJsonApi().then(res => {
+          const locale = Object.keys(res.data)[0];
+          if (locale && res.data[locale]) {
+            const dbMessages = res.data[locale];
+            // 直接合并到底层根节点，这样如果是 $t('商品') 就能原生匹配到
+            this.$i18n.mergeLocaleMessage(locale, dbMessages);
+          }
+        }).catch(err => {
+           console.error('Failed to parse remote lang json:', err);
+        });
+      });
+    }
   },
   mounted() {
     this.handleMatchMedia();
     this.openSetingsDrawer();
     this.getLayoutThemeConfig();
+    this.getDbLanguageJSON();
     this.$nextTick((e) => {
       // this.getVersion();
     });

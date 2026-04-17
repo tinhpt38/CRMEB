@@ -45,7 +45,8 @@ class LangCodeServices extends BaseServices
         $langType = [
             'isAdmin' => [
                 ['title' => '页面语言', 'value' => 0],
-                ['title' => '接口语言', 'value' => 1]
+                ['title' => '接口语言', 'value' => 1],
+                ['title' => '后台语言', 'value' => 2]
             ]
         ];
         foreach ($typeList as $value) {
@@ -146,6 +147,7 @@ class LangCodeServices extends BaseServices
         foreach ($typeList as $value) {
             $langStr = 'api_lang_' . str_replace('-', '_', $value);
             CacheService::delete($langStr);
+            CacheService::delete('admin_api_lang_' . str_replace('-', '_', $value));
         }
         CacheService::clear();
         return true;
