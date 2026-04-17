@@ -44,9 +44,9 @@ class LangCodeServices extends BaseServices
         $typeList = $langTypeServices->getColumn([['status', '=', 1], ['is_del', '=', 0]], 'language_name,file_name,id', 'id');
         $langType = [
             'isAdmin' => [
-                ['title' => '页面语言', 'value' => 0],
-                ['title' => '接口语言', 'value' => 1],
-                ['title' => '后台语言', 'value' => 2]
+                ['title' => 'message.setting.lang.pageLang', 'value' => 0],
+                ['title' => 'message.setting.lang.apiLang', 'value' => 1],
+                ['title' => 'message.setting.lang.adminLang', 'value' => 2]
             ]
         ];
         foreach ($typeList as $value) {

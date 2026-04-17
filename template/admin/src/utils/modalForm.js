@@ -42,6 +42,40 @@ export default function modalForm(formRequestPromise, config = {}) {
           },
         };
         data = Vue.observable(data);
+        
+        const translateIfExist = (str) => {
+          if (typeof str === 'string' && this.$t) {
+            return this.$t(str);
+          }
+          return str;
+        };
+
+        if (data.title) data.title = translateIfExist(data.title);
+
+        const walkRules = (rules) => {
+          rules.forEach((e) => {
+            if (e.title) e.title = translateIfExist(e.title);
+            if (e.info) e.info = translateIfExist(e.info);
+            if (e.props) {
+              if (e.props.placeholder) e.props.placeholder = translateIfExist(e.props.placeholder);
+              if (e.props.activeText) e.props.activeText = translateIfExist(e.props.activeText);
+              if (e.props.inactiveText) e.props.inactiveText = translateIfExist(e.props.inactiveText);
+            }
+            if (e.options) {
+              e.options.forEach(opt => {
+                 if (opt.label) opt.label = translateIfExist(opt.label);
+              });
+            }
+            if (e.control) {
+               e.control.forEach(ctrl => {
+                 if (ctrl.rule) walkRules(ctrl.rule);
+               });
+            }
+          });
+        };
+        
+        if (data.rules) walkRules(data.rules);
+
         data.rules.forEach((e) => {
           e.title += '：';
         });
@@ -78,11 +112,11 @@ export default function modalForm(formRequestPromise, config = {}) {
                   request[data.method.toLowerCase()](data.action, formData)
                     .then((res) => {
                       done();
-                      this.$message.success(res.msg || '提交成功');
+                      this.$message.success(res.msg || this.$t('message.setting.success') || '提交成功');
                       resolve(res);
                     })
                     .catch((err) => {
-                      this.$message.error(err.msg || '提交失败');
+                      this.$message.error(err.msg || this.$t('message.setting.failed') || '提交失败');
                       // reject(err);
                     })
                     .finally(() => {

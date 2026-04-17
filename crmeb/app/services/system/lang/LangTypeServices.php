@@ -54,16 +54,16 @@ class LangTypeServices extends BaseServices
     {
         if ($id) $info = $this->dao->get($id);
         $field = [];
-        $field[] = Form::input('language_name', '语言名称', $info['language_name'] ?? '')->required('请填写语言名称');
+        $field[] = Form::input('language_name', 'message.setting.lang.languageName', $info['language_name'] ?? '')->required('message.setting.lang.pleaseEnterLanguageName');
         $langCountryList = app()->make(LangCountryServices::class)->selectList([])->toArray();
         $options = [];
         foreach ($langCountryList as $item) {
             $options[] = ['value' => $item['code'], 'label' => $item['name'] . ' [ ' . $item['code'] . ' ]'];
         }
-        $field[] = Form::select('file_name', '语言标识', $info['file_name'] ?? '')->setOptions(Form::setOptions($options))->filterable(1);
-        $field[] = Form::radio('is_default', '是否默认', $info['is_default'] ?? 0)->options([['label' => '开启', 'value' => 1], ['label' => '关闭', 'value' => 0]]);
-        $field[] = Form::radio('status', '状态', $info['status'] ?? 1)->options([['label' => '开启', 'value' => 1], ['label' => '关闭', 'value' => 0]]);
-        return create_form($id ? '修改语言类型' : '新增语言类型', $field, Url::buildUrl('/setting/lang_type/save/' . $id), 'POST');
+        $field[] = Form::select('file_name', 'message.setting.lang.browserLangCode', $info['file_name'] ?? '')->setOptions(Form::setOptions($options))->filterable(1);
+        $field[] = Form::radio('is_default', 'message.setting.lang.isDefault', $info['is_default'] ?? 0)->options([['label' => 'message.systemCommon.enabled', 'value' => 1], ['label' => 'message.systemCommon.disabled', 'value' => 0]]);
+        $field[] = Form::radio('status', 'message.systemCommon.status', $info['status'] ?? 1)->options([['label' => 'message.systemCommon.enabled', 'value' => 1], ['label' => 'message.systemCommon.disabled', 'value' => 0]]);
+        return create_form($id ? 'message.setting.lang.editLanguage' : 'message.setting.lang.addLanguage', $field, Url::buildUrl('/setting/lang_type/save/' . $id), 'POST');
     }
 
     /**

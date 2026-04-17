@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-row>
         <el-col v-bind="grid">
-          <el-button type="primary" v-db-click @click="add">添加语言</el-button>
+          <el-button type="primary" v-db-click @click="add">{{ $t('message.setting.lang.addLanguage') }}</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -12,28 +12,27 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :empty-text="$t('message.systemCommon.noData')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('message.setting.lang.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="语言名称" min-width="200">
+        <el-table-column :label="$t('message.setting.lang.languageName')" min-width="200">
           <template slot-scope="scope">
             <div class="acea-scope.row scope.row-middle">
               <span>{{ scope.row.language_name }}</span>
-              <el-tag class="ml10" color="default" v-if="scope.row.is_default">默认</el-tag>
+              <el-tag class="ml10" color="default" v-if="scope.row.is_default">{{ $t('message.setting.lang.isDefault') }}</el-tag>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="浏览器语言识别码" min-width="130">
+        <el-table-column :label="$t('message.setting.lang.browserLangCode')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.file_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="150">
+        <el-table-column :label="$t('message.systemCommon.status')" min-width="150">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -43,17 +42,17 @@
               :value="scope.row.status"
               @change="changeSwitch(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.systemCommon.enabled')"
+              :inactive-text="$t('message.systemCommon.disabled')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('message.systemCommon.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, '编辑语言', index)">编辑</a>
+            <a v-db-click @click="edit(scope.row, $t('message.setting.lang.editLanguage'), index)">{{ $t('message.setting.lang.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除语言', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.lang.deleteLang'), scope.$index)">{{ $t('message.setting.lang.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
