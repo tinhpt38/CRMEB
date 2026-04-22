@@ -8,20 +8,20 @@
       inline
       @submit.native.prevent
     >
-      <el-form-item label="卡号：">
-        <el-input v-model="table.card_number" placeholder="请输入卡号" class="form_content_width" />
+      <el-form-item :label="$t('userGrade.cardNo') + '：'">
+        <el-input v-model="table.card_number" :placeholder="$t('userGrade.pleaseInputCardNo')" class="form_content_width" />
       </el-form-item>
-      <el-form-item label="手机号：">
-        <el-input v-model="table.phone" placeholder="请输入手机号" class="form_content_width" />
+      <el-form-item :label="$t('userGrade.mobile') + '：'">
+        <el-input v-model="table.phone" :placeholder="$t('userGrade.pleaseInputMobile')" class="form_content_width" />
       </el-form-item>
-      <el-form-item label="是否领取：">
+      <el-form-item :label="$t('userGrade.isReceived') + '：'">
         <el-select clearable v-model="table.is_use" class="form_content_width">
-          <el-option value="1" label="已领取"></el-option>
-          <el-option value="0" label="未领取"></el-option>
+          <el-option value="1" :label="$t('userGrade.received')"></el-option>
+          <el-option value="0" :label="$t('userGrade.notReceived')"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="formSubmit">查询</el-button>
+        <el-button type="primary" v-db-click @click="formSubmit">{{ $t('userGrade.query') }}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -29,40 +29,40 @@
       ref="table"
       v-loading="loading"
       highlight-current-row
-      no-userFrom-text="暂无数据"
-      no-filtered-userFrom-text="暂无筛选结果"
+      :no-userFrom-text="$t('userGrade.noData')"
+      :no-filtered-userFrom-text="$t('userGrade.noFilteredResult')"
     >
-      <el-table-column label="编号" min-width="100">
+      <el-table-column :label="$t('userGrade.number')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="卡号" min-width="100">
+      <el-table-column :label="$t('userGrade.cardNo')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.card_number }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="密码" min-width="100">
+      <el-table-column :label="$t('userGrade.password')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.card_password }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="领取人名称" min-width="100">
+      <el-table-column :label="$t('userGrade.receiverName')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.username ? scope.row.username : '-' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="领取人电话" min-width="100">
+      <el-table-column :label="$t('userGrade.receiverPhone')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.phone ? scope.row.phone : '-' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="领取时间" min-width="100">
+      <el-table-column :label="$t('userGrade.receiveTime')" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.use_time }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否激活" min-width="100">
+      <el-table-column :label="$t('userGrade.isActive')" min-width="100">
         <template slot-scope="scope">
           <el-switch
             :active-value="1"

@@ -2,17 +2,17 @@
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-form label-width="85px" @submit.native.prevent>
-        <el-form-item label="协议名称：">
+        <el-form-item :label="$t('userGradeAgreement.agreementName') + '：'">
           <el-input v-model="agreement.title"></el-input>
         </el-form-item>
-        <el-form-item label="协议内容：">
+        <el-form-item :label="$t('userGradeAgreement.agreementContent') + '：'">
           <WangEditor :content="agreement.content" @editorContent="getEditorContent"></WangEditor>
         </el-form-item>
-        <el-form-item label="开启状态：">
+        <el-form-item :label="$t('userGradeAgreement.enableStatus') + '：'">
           <el-switch :active-value="1" :inactive-value="0" v-model="agreement.status" size="large"> </el-switch>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="memberAgreementSave">保存</el-button>
+          <el-button type="primary" v-db-click @click="memberAgreementSave">{{ $t('userGradeAgreement.save') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -70,7 +70,7 @@ export default {
     memberAgreementSave() {
       memberAgreementSave(this.id, this.agreement)
         .then((res) => {
-          this.$message.success('保存成功');
+          this.$message.success(this.$t('userGradeAgreement.saveSuccess'));
           this.memberAgreement();
         })
         .catch((err) => {

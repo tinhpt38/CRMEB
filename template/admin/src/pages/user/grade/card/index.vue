@@ -9,57 +9,57 @@
           :label-position="labelPosition"
           @submit.native.prevent
         >
-          <el-form-item label="批次名称：" label-for="title">
-            <el-input clearable v-model="gradeFrom.title" placeholder="请输入批次名称" class="form_content_width" />
+          <el-form-item :label="$t('userGradeCard.batchName') + '：'" label-for="title">
+            <el-input clearable v-model="gradeFrom.title" :placeholder="$t('userGradeCard.pleaseInputBatchName')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('userGradeCard.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="mt16">
-      <el-button type="primary" v-db-click @click="addBatch">添加批次</el-button>
-      <el-button v-db-click @click="getMemberScan">卡密使用页面二维码</el-button>
+      <el-button type="primary" v-db-click @click="addBatch">{{ $t('userGradeCard.addBatch') }}</el-button>
+      <el-button v-db-click @click="getMemberScan">{{ $t('userGradeCard.cardSecretPageQrcode') }}</el-button>
       <el-table
         class="mt14"
         :data="tbody"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('userGradeCard.noData')"
+        :no-filtered-userFrom-text="$t('userGradeCard.noFilteredResult')"
       >
-        <el-table-column label="编号" width="100">
+        <el-table-column :label="$t('userGradeCard.number')" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="批次名称" min-width="100">
+        <el-table-column :label="$t('userGradeCard.batchName')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="体验天数" min-width="100">
+        <el-table-column :label="$t('userGradeCard.trialDays')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.use_day }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="发卡总数量" min-width="100">
+        <el-table-column :label="$t('userGradeCard.totalCardCount')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.total_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="使用数量" min-width="100">
+        <el-table-column :label="$t('userGradeCard.usedCount')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.use_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="制卡时间" min-width="100">
+        <el-table-column :label="$t('userGradeCard.createCardTime')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否激活" min-width="100">
+        <el-table-column :label="$t('userGradeCard.isActive')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -72,24 +72,24 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="120">
+        <el-table-column :label="$t('userGradeCard.remark')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.remark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="制卡时间" min-width="100">
+        <el-table-column :label="$t('userGradeCard.createCardTime')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column :label="$t('userGradeCard.operation')" fixed="right" width="120">
           <template slot-scope="scope">
             <el-dropdown size="small" @command="changeMenu(scope.row, $event, scope.$index)" :transfer="true">
-              <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">{{ $t('userGradeCard.more') }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="1">编辑批次名</el-dropdown-item>
-                <el-dropdown-item command="2">查看卡列表</el-dropdown-item>
-                <el-dropdown-item command="3">导出</el-dropdown-item>
+                <el-dropdown-item command="1">{{ $t('userGradeCard.editBatchName') }}</el-dropdown-item>
+                <el-dropdown-item command="2">{{ $t('userGradeCard.viewCardList') }}</el-dropdown-item>
+                <el-dropdown-item command="3">{{ $t('userGradeCard.export') }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -105,20 +105,20 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" width="540px" :title="`${formValidate.id ? '编辑' : '添加'}批次`">
+    <el-dialog :visible.sync="modal" width="540px" :title="`${formValidate.id ? $t('userGradeCard.edit') : $t('userGradeCard.add')}${$t('userGradeCard.batch')}`">
       <!-- <form-create v-model="fapi" :rule="rule" @submit="onSubmit"></form-create> -->
       <el-form ref="formValidate" :model="formValidate" label-width="80px" @submit.native.prevent>
-        <el-form-item label="批次名称：">
-          <el-input placeholder="请输入批次名称" element-id="unit_name" v-model="formValidate.title" class="w100" />
+        <el-form-item :label="$t('userGradeCard.batchName') + '：'">
+          <el-input :placeholder="$t('userGradeCard.pleaseInputBatchName')" element-id="unit_name" v-model="formValidate.title" class="w100" />
         </el-form-item>
-        <el-form-item label="备注：" v-if="formValidate.id">
-          <el-input type="textarea" placeholder="请输入备注" v-model="formValidate.remark" class="w100" />
+        <el-form-item :label="$t('userGradeCard.remark') + '：'" v-if="formValidate.id">
+          <el-input type="textarea" :placeholder="$t('userGradeCard.pleaseInputRemark')" v-model="formValidate.remark" class="w100" />
         </el-form-item>
         <template v-if="!formValidate.id">
-          <el-form-item label="制卡数量：">
+          <el-form-item :label="$t('userGradeCard.createCardCount') + '：'">
             <el-input-number
               :controls="false"
-              placeholder="请输入制卡数量"
+              :placeholder="$t('userGradeCard.pleaseInputCreateCardCount')"
               element-id="sort"
               :precision="0"
               :max="100000"
@@ -127,10 +127,10 @@
               class="perW10"
             />
           </el-form-item>
-          <el-form-item label="体验天数：">
+          <el-form-item :label="$t('userGradeCard.trialDays') + '：'">
             <el-input-number
               :controls="false"
-              placeholder="请输入体验天数"
+              :placeholder="$t('userGradeCard.pleaseInputTrialDays')"
               element-id="sort"
               :precision="0"
               :max="100000"
@@ -139,38 +139,38 @@
               class="perW10"
             />
           </el-form-item>
-          <el-form-item label="是否激活：">
+          <el-form-item :label="$t('userGradeCard.isActive') + '：'">
             <el-radio-group element-id="status" v-model="formValidate.status">
-              <el-radio :label="1" class="radio">激活</el-radio>
-              <el-radio :label="0">冻结</el-radio>
+              <el-radio :label="1" class="radio">{{ $t('userGradeCard.active') }}</el-radio>
+              <el-radio :label="0">{{ $t('userGradeCard.frozen') }}</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="备注：">
-            <el-input type="textarea" placeholder="请输入备注" v-model="formValidate.remark" class="w100" />
+          <el-form-item :label="$t('userGradeCard.remark') + '：'">
+            <el-input type="textarea" :placeholder="$t('userGradeCard.pleaseInputRemark')" v-model="formValidate.remark" class="w100" />
           </el-form-item>
         </template>
       </el-form>
       <div class="acea-row row-right">
-        <el-button v-db-click @click="modal = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="onSubmit()">提交</el-button>
+        <el-button v-db-click @click="modal = false">{{ $t('userGradeCard.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="onSubmit()">{{ $t('userGradeCard.submit') }}</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="cardModal" title="卡列表" width="1000px">
+    <el-dialog :visible.sync="cardModal" :title="$t('userGradeCard.cardList')" width="1000px">
       <cardList v-if="cardModal" :id="id"></cardList>
     </el-dialog>
-    <el-dialog :visible.sync="modal3" title="二维码" width="540px">
+    <el-dialog :visible.sync="modal3" :title="$t('userGradeCard.qrcode')" width="540px">
       <div v-if="qrcode" class="acea-row row-around">
         <div v-if="qrcode && qrcode.wechat_img" class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">
             <img v-lazy="qrcode.wechat_img" />
           </div>
-          <span class="mt10">公众号二维码</span>
+          <span class="mt10">{{ $t('userGradeCard.wechatQrcode') }}</span>
         </div>
         <div v-if="qrcode && qrcode.routine" class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">
             <img v-lazy="qrcode.routine" />
           </div>
-          <span class="mt10">小程序二维码</span>
+          <span class="mt10">{{ $t('userGradeCard.miniProgramQrcode') }}</span>
         </div>
       </div>
     </el-dialog>

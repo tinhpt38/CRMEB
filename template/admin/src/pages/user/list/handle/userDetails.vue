@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <el-drawer :visible.sync="modals" title="用户详情" :wrapperClosable="false" :size="1100" @closed="draChange">
+    <el-drawer :visible.sync="modals" :title="$t('userDetails.userDetail')" :wrapperClosable="false" :size="1100" @closed="draChange">
       <div class="acea-row head">
         <div class="avatar mr15"><img :src="psInfo.avatar" /></div>
         <div class="dashboard-workplace-header-tip">
@@ -12,15 +12,15 @@
           </div>
         </div>
         <div class="edit-btn" v-if="!this.psInfo.is_del">
-          <el-button v-if="!isEdit" type="primary" v-db-click @click="edit">编辑</el-button>
-          <el-button v-if="isEdit" v-db-click @click="edit">取消</el-button>
-          <el-button v-if="isEdit" type="primary" v-db-click @click="editSave">保存</el-button>
+          <el-button v-if="!isEdit" type="primary" v-db-click @click="edit">{{ $t('userDetails.edit') }}</el-button>
+          <el-button v-if="isEdit" v-db-click @click="edit">{{ $t('userDetails.cancel') }}</el-button>
+          <el-button v-if="isEdit" type="primary" v-db-click @click="editSave">{{ $t('userDetails.save') }}</el-button>
         </div>
       </div>
       <el-row justify="space-between" class="mt14">
         <el-col :span="24">
           <el-tabs type="border-card" v-model="activeName" @tab-click="changeTab">
-            <el-tab-pane name="user" label="用户信息">
+            <el-tab-pane name="user" :label="$t('userDetails.userInfo')">
               <userEditForm ref="editForm" :userId="userId" @success="getDetails(userId)" v-if="isEdit"></userEditForm>
               <user-info :ps-info="psInfo" v-else></user-info>
             </el-tab-pane>
@@ -32,8 +32,8 @@
                   max-height="400"
                   ref="table"
                   v-loading="loading"
-                  no-userFrom-text="暂无数据"
-                  no-filtered-userFrom-text="暂无筛选结果"
+                  :no-userFrom-text="$t('userDetails.noData')"
+                  :no-filtered-userFrom-text="$t('userDetails.noFilteredResult')"
                 >
                   <el-table-column :label="item.title" min-width="120" v-for="(item, index) in columns" :key="index">
                     <template slot-scope="scope">
@@ -85,12 +85,12 @@ export default {
       isEdit: false,
       theme2: 'light',
       list: [
-        { val: 'order', label: '消费记录' },
-        { val: 'integral', label: '积分明细' },
-        { val: 'sign', label: '签到记录' },
-        { val: 'coupon', label: '持有优惠券' },
-        { val: 'balance_change', label: '余额变动' },
-        { val: 'spread', label: '好友关系' },
+        { val: 'order', label: this.$t('userDetails.consumeRecord') },
+        { val: 'integral', label: this.$t('userDetails.integralDetail') },
+        { val: 'sign', label: this.$t('userDetails.signRecord') },
+        { val: 'coupon', label: this.$t('userDetails.holdingCoupon') },
+        { val: 'balance_change', label: this.$t('userDetails.balanceChange') },
+        { val: 'spread', label: this.$t('userDetails.friendRelation') },
       ],
       modals: false,
       spinShow: false,
@@ -169,27 +169,27 @@ export default {
               case 'order':
                 this.columns = [
                   {
-                    title: '订单ID',
+                    title: this.$t('userDetails.orderId'),
                     key: 'order_id',
                     minWidth: 160,
                   },
                   {
-                    title: '收货人',
+                    title: this.$t('userDetails.receiver'),
                     key: 'real_name',
                     minWidth: 100,
                   },
                   {
-                    title: '商品数量',
+                    title: this.$t('userDetails.productCount'),
                     key: 'total_num',
                     minWidth: 90,
                   },
                   {
-                    title: '实付金额',
+                    title: this.$t('userDetails.actualPayAmount'),
                     key: 'pay_price',
                     minWidth: 120,
                   },
                   {
-                    title: '交易完成时间',
+                    title: this.$t('userDetails.transactionCompleteTime'),
                     key: 'pay_time',
                     minWidth: 120,
                   },
@@ -198,27 +198,27 @@ export default {
               case 'integral':
                 this.columns = [
                   {
-                    title: '来源/用途',
+                    title: this.$t('userDetails.sourceUsage'),
                     key: 'title',
                     minWidth: 120,
                   },
                   {
-                    title: '积分变化',
+                    title: this.$t('userDetails.integralChange'),
                     slot: 'number',
                     minWidth: 120,
                   },
                   {
-                    title: '变化后积分',
+                    title: this.$t('userDetails.integralAfterChange'),
                     key: 'balance',
                     minWidth: 120,
                   },
                   {
-                    title: '日期',
+                    title: this.$t('userDetails.date'),
                     key: 'add_time',
                     minWidth: 120,
                   },
                   {
-                    title: '备注',
+                    title: this.$t('userDetails.remark'),
                     key: 'mark',
                     minWidth: 120,
                   },
@@ -227,22 +227,22 @@ export default {
               case 'sign':
                 this.columns = [
                   {
-                    title: '动作',
+                    title: this.$t('userDetails.action'),
                     key: 'title',
                     minWidth: 120,
                   },
                   {
-                    title: '获得积分',
+                    title: this.$t('userDetails.gainIntegral'),
                     key: 'number',
                     minWidth: 120,
                   },
                   {
-                    title: '签到时间',
+                    title: this.$t('userDetails.signTime'),
                     key: 'add_time',
                     minWidth: 120,
                   },
                   {
-                    title: '备注',
+                    title: this.$t('userDetails.remark'),
                     key: 'mark',
                     minWidth: 120,
                   },
@@ -251,22 +251,22 @@ export default {
               case 'coupon':
                 this.columns = [
                   {
-                    title: '优惠券名称',
+                    title: this.$t('userDetails.couponName'),
                     key: 'coupon_title',
                     minWidth: 120,
                   },
                   {
-                    title: '面值',
+                    title: this.$t('userDetails.faceValue'),
                     key: 'coupon_price',
                     minWidth: 120,
                   },
                   {
-                    title: '有效期(天)',
+                    title: this.$t('userDetails.validDays'),
                     key: 'coupon_time',
                     minWidth: 120,
                   },
                   {
-                    title: '领取时间',
+                    title: this.$t('userDetails.receiveTime'),
                     key: '_add_time',
                     minWidth: 120,
                   },
@@ -275,27 +275,27 @@ export default {
               case 'balance_change':
                 this.columns = [
                   {
-                    title: '动作',
+                    title: this.$t('userDetails.action'),
                     key: 'title',
                     minWidth: 120,
                   },
                   {
-                    title: '余额变动',
+                    title: this.$t('userDetails.balanceChangeAmount'),
                     slot: 'number',
                     minWidth: 120,
                   },
                   {
-                    title: '当前余额',
+                    title: this.$t('userDetails.currentBalance'),
                     key: 'balance',
                     minWidth: 120,
                   },
                   {
-                    title: '创建时间',
+                    title: this.$t('userDetails.createTime'),
                     key: 'add_time',
                     minWidth: 120,
                   },
                   {
-                    title: '备注',
+                    title: this.$t('userDetails.remark'),
                     key: 'mark',
                     minWidth: 120,
                   },
@@ -304,22 +304,22 @@ export default {
               default:
                 this.columns = [
                   {
-                    title: 'ID',
+                    title: this.$t('userDetails.id'),
                     key: 'uid',
                     minWidth: 120,
                   },
                   {
-                    title: '昵称',
+                    title: this.$t('userDetails.nickname'),
                     key: 'nickname',
                     minWidth: 120,
                   },
                   {
-                    title: '等级',
+                    title: this.$t('userDetails.level'),
                     key: 'type',
                     minWidth: 120,
                   },
                   {
-                    title: '加入时间',
+                    title: this.$t('userDetails.joinTime'),
                     key: 'add_time',
                     minWidth: 120,
                   },

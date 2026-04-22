@@ -4,7 +4,7 @@
       <el-col v-bind="grid1" class="left-wrapper">
         <div class="tree_tit" v-db-click @click="addSort">
           <i class="el-icon-circle-plus"></i>
-          添加分类
+          {{ $t('userLabel.addCategory') }}
         </div>
         <div class="tree">
           <el-tree
@@ -30,8 +30,8 @@
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
-                      <el-dropdown-item command="1">编辑分类</el-dropdown-item>
-                      <el-dropdown-item v-if="data.id" command="2">删除分类</el-dropdown-item>
+                      <el-dropdown-item command="1">{{ $t('userLabel.editCategory') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="data.id" command="2">{{ $t('userLabel.deleteCategory') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -44,7 +44,9 @@
         <el-card :bordered="false" shadow="never" class="left-radius-none">
           <el-row>
             <el-col>
-              <el-button v-auth="['admin-user-label_add']" type="primary" v-db-click @click="add">添加标签</el-button>
+              <el-button v-auth="['admin-user-label_add']" type="primary" v-db-click @click="add">{{
+                $t('userLabel.addLabel')
+              }}</el-button>
               <!-- <el-button v-auth="['admin-user-label_add']" type="success" v-db-click @click="addSort">添加分类</el-button> -->
             </el-col>
           </el-row>
@@ -54,29 +56,29 @@
             class="mt14"
             v-loading="loading"
             highlight-current-row
-            no-userFrom-text="暂无数据"
-            no-filtered-userFrom-text="暂无筛选结果"
+            :no-userFrom-text="$t('userLabel.noData')"
+            :no-filtered-userFrom-text="$t('userLabel.noFilteredResult')"
           >
-            <el-table-column label="ID" width="80">
+            <el-table-column :label="$t('userLabel.id')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="标签名称" width="80">
+            <el-table-column :label="$t('userLabel.labelName')" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.label_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="分类名称" min-width="80">
+            <el-table-column :label="$t('userLabel.categoryName')" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.cate_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
+            <el-table-column fixed="right" :label="$t('userLabel.operation')" width="100">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row.id)">修改</a>
+                <a v-db-click @click="edit(scope.row.id)">{{ $t('userLabel.edit') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除分类', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, $t('userLabel.deleteCategory'), scope.$index)">{{ $t('userLabel.delete') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -191,7 +193,7 @@ export default {
     getUserLabelAll(key) {
       userLabelAll().then((res) => {
         let obj = {
-          name: '全部',
+          name: this.$t('userLabel.all'),
           id: '',
         };
         res.data.unshift(obj);
@@ -250,7 +252,7 @@ export default {
       if (name == 1) {
         this.labelEdit(data);
       } else if (name == 2) {
-        this.deleteSort(data, '删除分类');
+        this.deleteSort(data, this.$t('userLabel.deleteCategory'));
       }
     },
     bindMenuItem(name, index) {

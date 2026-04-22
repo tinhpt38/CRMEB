@@ -46,7 +46,7 @@
         row-id="id"
       >
         <vxe-table-column field="menu_name" tree-node :title="$t('message.systemMenus.buttonName')" min-width="200" auto-resize>
-          <template v-slot="{ row }">{{ resolveMenuName(row.menu_name, row) }}</template>
+          <template v-slot="{ row }">{{ resolveMenuNameFast(row.menu_name) }}</template>
         </vxe-table-column>
         <vxe-table-column field="unique_auth" :title="$t('message.systemMenus.frontendAuth')" min-width="200"></vxe-table-column>
         <vxe-table-column field="menu_path" :title="$t('message.systemMenus.route')" min-width="240" tooltip="true">
@@ -217,6 +217,11 @@ export default {
       seletRouteIds: [], // 选中id
       menusId: 0, // 选中分类id
       nodeKey: 0, // 选中节点
+      i18nCacheLocaleKey: '',
+      resolvedI18nCache: Object.create(null),
+      rawMenusKeyCache: Object.create(null),
+      rawRouteKeyCache: Object.create(null),
+      menuNameI18nMap: Object.create(null),
     };
   },
   components: { menusFrom, formCreate: formCreate.$form() },
@@ -234,7 +239,24 @@ export default {
   mounted() {
     this.getData();
   },
+  watch: {
+    '$i18n.locale'() {
+      this.ensureI18nCache();
+      this.buildMenuNameI18nMap(this.tableData);
+    },
+  },
   methods: {
+    getLocaleCacheKey() {
+      return `${String(this.$i18n?.locale || '')}|${String(this.$i18n?.fallbackLocale || '')}`;
+    },
+    ensureI18nCache() {
+      const nextLocaleKey = this.getLocaleCacheKey();
+      if (nextLocaleKey === this.i18nCacheLocaleKey) return;
+      this.i18nCacheLocaleKey = nextLocaleKey;
+      this.resolvedI18nCache = Object.create(null);
+      this.rawMenusKeyCache = Object.create(null);
+      this.rawRouteKeyCache = Object.create(null);
+    },
     getI18nValueByPath(keyPath, locale) {
       if (!keyPath || !locale) return '';
       const segments = keyPath.split('.');
@@ -279,58 +301,109 @@ export default {
     resolveI18nValue(value, depth = 0) {
       if (!value) return '';
       if (depth > 4) return value;
+      this.ensureI18nCache();
+      const cacheKey = `${depth}:${value}`;
+      if (cacheKey in this.resolvedI18nCache) {
+        return this.resolvedI18nCache[cacheKey];
+      }
 
       const direct = this.resolveI18nKey(value);
       if (direct && direct !== value) {
-        return this.resolveI18nValue(direct, depth + 1);
+        const result = this.resolveI18nValue(direct, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const routerKey = `message.router.${value}`;
       const routerTranslated = this.resolveI18nKey(routerKey);
       if (routerTranslated && routerTranslated !== value) {
-        return this.resolveI18nValue(routerTranslated, depth + 1);
+        const result = this.resolveI18nValue(routerTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const dbKey = `message.systemMenusDb.${value}`;
       const dbTranslated = this.resolveI18nKey(dbKey);
       if (dbTranslated && dbTranslated !== value) {
-        return this.resolveI18nValue(dbTranslated, depth + 1);
+        const result = this.resolveI18nValue(dbTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const rawDbKey = this.systemMenusDbRawKey(value);
       const rawDbTranslated = this.resolveI18nKey(rawDbKey);
       if (rawDbTranslated && rawDbTranslated !== value) {
-        return this.resolveI18nValue(rawDbTranslated, depth + 1);
+        const result = this.resolveI18nValue(rawDbTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const routeDbKey = `message.systemRouteDb.${value}`;
       const routeDbTranslated = this.resolveI18nKey(routeDbKey);
       if (routeDbTranslated && routeDbTranslated !== value) {
-        return this.resolveI18nValue(routeDbTranslated, depth + 1);
+        const result = this.resolveI18nValue(routeDbTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const routeDbRawKey = this.systemRouteDbRawKey(value);
       const routeDbRawTranslated = this.resolveI18nKey(routeDbRawKey);
       if (routeDbRawTranslated && routeDbRawTranslated !== value) {
-        return this.resolveI18nValue(routeDbRawTranslated, depth + 1);
+        const result = this.resolveI18nValue(routeDbRawTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const decodedValue = this.decodeRawI18nKey(value);
-      return decodedValue || value;
+      const result = decodedValue || value;
+      this.resolvedI18nCache[cacheKey] = result;
+      return result;
     },
     systemMenusDbRawKey(menuName) {
       if (!menuName) return '';
+      this.ensureI18nCache();
+      if (menuName in this.rawMenusKeyCache) return this.rawMenusKeyCache[menuName];
       const encoded = btoa(unescape(encodeURIComponent(menuName))).replace(/=+$/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-      return `message.systemMenusDb.k_${encoded}`;
+      const key = `message.systemMenusDb.k_${encoded}`;
+      this.rawMenusKeyCache[menuName] = key;
+      return key;
     },
     systemRouteDbRawKey(name) {
       if (!name) return '';
+      this.ensureI18nCache();
+      if (name in this.rawRouteKeyCache) return this.rawRouteKeyCache[name];
       const encoded = btoa(unescape(encodeURIComponent(name))).replace(/=+$/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-      return `message.systemRouteDb.k_${encoded}`;
+      const key = `message.systemRouteDb.k_${encoded}`;
+      this.rawRouteKeyCache[name] = key;
+      return key;
     },
     resolveMenuName(menuName) {
       if (!menuName) return '';
       return this.resolveI18nValue(menuName);
+    },
+    resolveMenuNameFast(menuName) {
+      if (!menuName) return '';
+      const cached = this.menuNameI18nMap[menuName];
+      if (cached) return cached;
+      const result = this.resolveMenuName(menuName);
+      this.menuNameI18nMap[menuName] = result;
+      return result;
+    },
+    buildMenuNameI18nMap(tree = []) {
+      this.menuNameI18nMap = Object.create(null);
+      if (!Array.isArray(tree) || !tree.length) return;
+      const stack = [...tree];
+      while (stack.length) {
+        const node = stack.pop();
+        if (!node) continue;
+        const name = node.menu_name;
+        if (name && !(name in this.menuNameI18nMap)) {
+          this.menuNameI18nMap[name] = this.resolveMenuName(name);
+        }
+        if (Array.isArray(node.children) && node.children.length) {
+          stack.push(...node.children);
+        }
+      }
     },
     resolveRuleName(item) {
       if (!item) return '';
@@ -556,6 +629,7 @@ export default {
       getTable(this.roleData)
         .then(async (res) => {
           this.tableData = res.data;
+          this.buildMenuNameI18nMap(this.tableData);
           this.loading = false;
         })
         .catch((res) => {

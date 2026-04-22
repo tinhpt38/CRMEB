@@ -1,19 +1,19 @@
 <template>
   <div v-if="FromData">
-    <el-dialog :visible.sync="modals" :title="FromData.title" width="720px" @closed="cancel">
+    <el-dialog :visible.sync="modals" :title="localizedDialogTitle" width="720px" @closed="cancel">
       <template>
         <div class="radio acea-row row-middle" v-if="FromData.action === '/marketing/coupon/save.html'">
-          <div class="name ivu-form-item-content">优惠券类型</div>
+          <div class="name ivu-form-item-content">{{ $t('dialogCommon.couponType') }}</div>
           <el-radio-group v-model="type" @input="couponsType">
-            <el-radio :label="0">通用券</el-radio>
-            <el-radio :label="1">品类券</el-radio>
-            <el-radio :label="2">商品券</el-radio>
+            <el-radio :label="0">{{ $t('dialogCommon.generalCoupon') }}</el-radio>
+            <el-radio :label="1">{{ $t('dialogCommon.categoryCoupon') }}</el-radio>
+            <el-radio :label="2">{{ $t('dialogCommon.productCoupon') }}</el-radio>
           </el-radio-group>
         </div>
       </template>
       <form-create
         :option="config"
-        :rule="Array.from(this.FromData.rules)"
+        :rule="localizedRules"
         v-model="fapi"
         @submit="onSubmit"
         class="formBox"
@@ -21,8 +21,8 @@
         handleIcon="false"
       ></form-create>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="modals = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="formSubmit">确 定</el-button>
+        <el-button v-db-click @click="modals = false">{{ $t('dialogCommon.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="formSubmit">{{ $t('dialogCommon.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -48,13 +48,6 @@ export default {
     update: {
       type: Boolean,
       default: true,
-    },
-  },
-  watch: {
-    FromData() {
-      this.FromData.rules.forEach((e) => {
-        e.title += '：';
-      });
     },
   },
   data() {
@@ -86,6 +79,48 @@ export default {
     };
   },
   methods: {
+    normalizeText(text) {
+      return String(text || '').replace(/：/g, '').trim();
+    },
+    convertDynamicText(text) {
+      const normalize = this.normalizeText;
+      const mapText = {
+        // user group
+        添加分组: this.$t('userGroup.addGroup'),
+        编辑分组: this.$t('dialogCommon.editGroup'),
+        分组名称: this.$t('userGroup.group'),
+        // user label
+        添加标签: this.$t('userLabel.addLabel'),
+        编辑标签: this.$t('dialogCommon.editLabel'),
+        标签名称: this.$t('userLabel.labelName'),
+        分类名称: this.$t('userLabel.categoryName'),
+        // user level
+        添加用户等级: this.$t('userLevel.addUserLevel'),
+        编辑用户等级: this.$t('dialogCommon.editUserLevel'),
+        添加等级: this.$t('userLevel.addUserLevel'),
+        编辑等级: this.$t('dialogCommon.editUserLevel'),
+        等级名称: this.$t('userLevel.levelName'),
+        等级图标: this.$t('userLevel.levelIcon'),
+        等级背景图: this.$t('userLevel.levelBackground'),
+        经验值要求: this.$t('userLevel.expRequirement'),
+        享受折扣: this.$t('userLevel.discount'),
+        是否显示: this.$t('userLevel.isShow'),
+        排序: this.$t('message.systemMenus.sort'),
+      };
+      const key = normalize(text);
+      if (mapText[key]) return mapText[key];
+      // Fallback by keyword for backend variants like extra spaces/prefixes
+      if (key.includes('添加分组')) return this.$t('userGroup.addGroup');
+      if (key.includes('编辑分组')) return this.$t('dialogCommon.editGroup');
+      if (key.includes('分组名称')) return this.$t('userGroup.group');
+      if (key.includes('添加标签')) return this.$t('userLabel.addLabel');
+      if (key.includes('编辑标签')) return this.$t('dialogCommon.editLabel');
+      if (key.includes('标签名称')) return this.$t('userLabel.labelName');
+      if (key.includes('添加用户等级') || key.includes('添加等级')) return this.$t('userLevel.addUserLevel');
+      if (key.includes('编辑用户等级') || key.includes('编辑等级')) return this.$t('dialogCommon.editUserLevel');
+      if (key.includes('等级名称')) return this.$t('userLevel.levelName');
+      return text;
+    },
     couponsType() {
       this.$parent.addType(this.type);
     },
@@ -121,6 +156,23 @@ export default {
     cancel() {
       this.type = 0;
       // this.$emit('onCancel')
+    },
+  },
+  computed: {
+    localizedDialogTitle() {
+      if (!this.FromData) return '';
+      return this.convertDynamicText(this.FromData.title);
+    },
+    localizedRules() {
+      if (!this.FromData) return [];
+      const rules = Array.isArray(this.FromData.rules) ? this.FromData.rules : Array.from(this.FromData.rules || []);
+      return rules.map((rule) => {
+        const item = { ...rule };
+        if (item.title) {
+          item.title = this.convertDynamicText(item.title).replace(/：/g, '') + '：';
+        }
+        return item;
+      });
     },
   },
 };

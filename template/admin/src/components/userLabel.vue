@@ -1,13 +1,13 @@
 <template>
   <div class="label-wrapper">
-    <div v-if="!labelList[0]" class="nonefont">暂无标签</div>
+    <div v-if="!labelList[0]" class="nonefont">{{ $t('userLabel.noLabel') }}</div>
     <template v-else>
       <div v-if="is_batch" class="flex flex-y-center mb20">
-        <div class="title mr10">设置类型</div>
+        <div class="title mr10">{{ $t('userLabel.setType') }}</div>
         <el-radio-group v-model="label_type">
-          <el-radio :label="0">统一设置</el-radio>
-          <el-radio :label="1">增加</el-radio>
-          <el-radio :label="2">减少</el-radio>
+          <el-radio :label="0">{{ $t('userLabel.unifiedSet') }}</el-radio>
+          <el-radio :label="1">{{ $t('userLabel.increase') }}</el-radio>
+          <el-radio :label="2">{{ $t('userLabel.decrease') }}</el-radio>
         </el-radio-group>
       </div>
       <div class="label-box" v-for="(item, index) in labelList" :key="index">
@@ -27,8 +27,8 @@
       </div>
     </template>
     <div class="acea-row row-right mt20">
-      <el-button v-db-click @click="cancel">取 消</el-button>
-      <el-button type="primary" v-db-click @click="subBtn">确 定</el-button>
+      <el-button v-db-click @click="cancel">{{ $t('dialogCommon.cancel') }}</el-button>
+      <el-button type="primary" v-db-click @click="subBtn">{{ $t('dialogCommon.confirm') }}</el-button>
     </div>
   </div>
 </template>

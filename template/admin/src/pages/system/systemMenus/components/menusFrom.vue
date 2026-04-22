@@ -196,6 +196,10 @@ export default {
       authType: 1,
       formValidate: {},
       searchData: [],
+      i18nCacheLocaleKey: '',
+      resolvedI18nCache: Object.create(null),
+      rawMenusKeyCache: Object.create(null),
+      rawRouteKeyCache: Object.create(null),
       isShowRadio: [
         { value: 1, label: this.$t('systemCommon.enabled') },
         { value: 0, label: this.$t('systemCommon.disabled') },
@@ -293,6 +297,17 @@ export default {
     },
   },
   methods: {
+    getLocaleCacheKey() {
+      return `${String(this.$i18n?.locale || '')}|${String(this.$i18n?.fallbackLocale || '')}`;
+    },
+    ensureI18nCache() {
+      const nextLocaleKey = this.getLocaleCacheKey();
+      if (nextLocaleKey === this.i18nCacheLocaleKey) return;
+      this.i18nCacheLocaleKey = nextLocaleKey;
+      this.resolvedI18nCache = Object.create(null);
+      this.rawMenusKeyCache = Object.create(null);
+      this.rawRouteKeyCache = Object.create(null);
+    },
     getI18nValueByPath(keyPath, locale) {
       if (!keyPath || !locale) return '';
       const segments = keyPath.split('.');
@@ -337,54 +352,81 @@ export default {
     resolveI18nValue(value, depth = 0) {
       if (!value) return '';
       if (depth > 4) return value;
+      this.ensureI18nCache();
+      const cacheKey = `${depth}:${value}`;
+      if (cacheKey in this.resolvedI18nCache) {
+        return this.resolvedI18nCache[cacheKey];
+      }
 
       const direct = this.resolveI18nKey(value);
       if (direct && direct !== value) {
-        return this.resolveI18nValue(direct, depth + 1);
+        const result = this.resolveI18nValue(direct, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const routerKey = `message.router.${value}`;
       const routerTranslated = this.resolveI18nKey(routerKey);
       if (routerTranslated && routerTranslated !== value) {
-        return this.resolveI18nValue(routerTranslated, depth + 1);
+        const result = this.resolveI18nValue(routerTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const dbKey = `message.systemMenusDb.${value}`;
       const dbTranslated = this.resolveI18nKey(dbKey);
       if (dbTranslated && dbTranslated !== value) {
-        return this.resolveI18nValue(dbTranslated, depth + 1);
+        const result = this.resolveI18nValue(dbTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const rawDbKey = this.systemMenusDbRawKey(value);
       const rawDbTranslated = this.resolveI18nKey(rawDbKey);
       if (rawDbTranslated && rawDbTranslated !== value) {
-        return this.resolveI18nValue(rawDbTranslated, depth + 1);
+        const result = this.resolveI18nValue(rawDbTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const routeDbKey = `message.systemRouteDb.${value}`;
       const routeDbTranslated = this.resolveI18nKey(routeDbKey);
       if (routeDbTranslated && routeDbTranslated !== value) {
-        return this.resolveI18nValue(routeDbTranslated, depth + 1);
+        const result = this.resolveI18nValue(routeDbTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const routeDbRawKey = this.systemRouteDbRawKey(value);
       const routeDbRawTranslated = this.resolveI18nKey(routeDbRawKey);
       if (routeDbRawTranslated && routeDbRawTranslated !== value) {
-        return this.resolveI18nValue(routeDbRawTranslated, depth + 1);
+        const result = this.resolveI18nValue(routeDbRawTranslated, depth + 1);
+        this.resolvedI18nCache[cacheKey] = result;
+        return result;
       }
 
       const decodedValue = this.decodeRawI18nKey(value);
-      return decodedValue || value;
+      const result = decodedValue || value;
+      this.resolvedI18nCache[cacheKey] = result;
+      return result;
     },
     systemMenusDbRawKey(menuName) {
       if (!menuName) return '';
+      this.ensureI18nCache();
+      if (menuName in this.rawMenusKeyCache) return this.rawMenusKeyCache[menuName];
       const encoded = btoa(unescape(encodeURIComponent(menuName))).replace(/=+$/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-      return `message.systemMenusDb.k_${encoded}`;
+      const key = `message.systemMenusDb.k_${encoded}`;
+      this.rawMenusKeyCache[menuName] = key;
+      return key;
     },
     systemRouteDbRawKey(name) {
       if (!name) return '';
+      this.ensureI18nCache();
+      if (name in this.rawRouteKeyCache) return this.rawRouteKeyCache[name];
       const encoded = btoa(unescape(encodeURIComponent(name))).replace(/=+$/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-      return `message.systemRouteDb.k_${encoded}`;
+      const key = `message.systemRouteDb.k_${encoded}`;
+      this.rawRouteKeyCache[name] = key;
+      return key;
     },
     resolveMenuName(menuName) {
       if (!menuName) return '';

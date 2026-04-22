@@ -3,7 +3,9 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-row>
         <el-col v-bind="grid">
-          <el-button v-auth="['admin-user-group']" type="primary" v-db-click @click="add">添加分组</el-button>
+          <el-button v-auth="['admin-user-group']" type="primary" v-db-click @click="add">{{
+            $t('userGroup.addGroup')
+          }}</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -12,24 +14,24 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('userGroup.noData')"
+        :no-filtered-userFrom-text="$t('userGroup.noFilteredResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('userGroup.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="分组" min-width="80">
+        <el-table-column :label="$t('userGroup.group')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.group_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column fixed="right" :label="$t('userGroup.operation')" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">修改</a>
+            <a v-db-click @click="edit(scope.row.id)">{{ $t('userGroup.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除分组', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('userGroup.deleteGroup'), scope.$index)">{{ $t('userGroup.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

@@ -1,22 +1,22 @@
 <template>
   <div class="user-info">
     <div class="section">
-      <div class="section-hd">基本信息</div>
+      <div class="section-hd">{{ $t('userList.basicInfo') }}</div>
       <div class="section-bd">
         <div class="item">
-          <div>用户ID：</div>
+          <div>{{ $t('userList.userId') }}：</div>
           <div class="value">{{ psInfo.uid }}</div>
         </div>
         <div class="item">
-          <div>真实姓名：</div>
+          <div>{{ $t('userList.realName') }}：</div>
           <div class="value">{{ psInfo.real_name || '-' }}</div>
         </div>
         <div class="item">
-          <div>手机号码：</div>
+          <div>{{ $t('userList.mobile') }}：</div>
           <div class="value">{{ psInfo.phone || '-' }}</div>
         </div>
         <div class="item">
-          <div>生日：</div>
+          <div>{{ $t('userList.birthday') }}：</div>
           <div class="value">{{ psInfo.birthday | timeFormat('birthday') }}</div>
         </div>
         <!-- <div class="item">
@@ -25,74 +25,78 @@
           <div v-else class="value">保密</div>
         </div> -->
         <div class="item">
-          <div>身份证号：</div>
+          <div>{{ $t('userList.idCardNo') }}：</div>
           <div class="value">{{ psInfo.card_id || '-' }}</div>
         </div>
         <div class="item">
-          <div>用户地址：</div>
+          <div>{{ $t('userList.userAddress') }}：</div>
           <div class="value">{{ `${psInfo.addres}` || '-' }}</div>
         </div>
       </div>
     </div>
     <div class="section">
-      <div class="section-hd">密码</div>
+      <div class="section-hd">{{ $t('userList.password') }}</div>
       <div class="section-bd">
         <div class="item">
-          <div>登录密码：</div>
+          <div>{{ $t('userList.loginPassword') }}：</div>
           <div class="value">********</div>
         </div>
       </div>
     </div>
     <div class="section">
-      <div class="section-hd">用户概况</div>
+      <div class="section-hd">{{ $t('userList.userOverview') }}</div>
       <div class="section-bd">
         <div class="item">
-          <div>推广资格：</div>
-          <div class="value">{{ psInfo.spread_open ? '开启' : '关闭' }}</div>
+          <div>{{ $t('userList.promotionEligibility') }}：</div>
+          <div class="value">{{ psInfo.spread_open ? $t('userList.enabled') : $t('userList.disabled') }}</div>
         </div>
         <div class="item">
-          <div>用户状态：</div>
-          <div class="value">{{ psInfo.status ? '开启' : '锁定' }}</div>
+          <div>{{ $t('userList.userStatus') }}：</div>
+          <div class="value">{{ psInfo.status ? $t('userList.enabled') : $t('userList.locked') }}</div>
         </div>
         <div class="item">
-          <div>用户等级：</div>
+          <div>{{ $t('userList.userLevel') }}：</div>
           <div class="value">{{ psInfo.vip_name || '-' }}</div>
         </div>
         <div class="item">
-          <div>用户标签：</div>
+          <div>{{ $t('userList.userTags') }}：</div>
           <div class="value">{{ psInfo.label_list || '-' }}</div>
         </div>
         <div class="item">
-          <div>用户分组：</div>
+          <div>{{ $t('userList.userGroup') }}：</div>
           <div class="value">{{ psInfo.group_name || '-' }}</div>
         </div>
         <div class="item">
-          <div>推广人：</div>
+          <div>{{ $t('userList.promoter') }}：</div>
           <div class="value">{{ psInfo.spread_uid_nickname || '-' }}</div>
         </div>
         <div class="item">
-          <div>注册时间：</div>
+          <div>{{ $t('userList.registerTime') }}：</div>
           <div class="value">{{ psInfo.add_time | timeFormat }}</div>
         </div>
         <div class="item">
-          <div>登录时间：</div>
+          <div>{{ $t('userList.loginTime') }}：</div>
           <div class="value">{{ psInfo.last_time | timeFormat }}</div>
         </div>
         <div v-if="psInfo.is_money_level" class="item">
-          <div>付费会员：</div>
+          <div>{{ $t('userList.paidMember') }}：</div>
           <div class="value">
             {{
-              psInfo.is_ever_level == 1 ? '永久会员' : psInfo.overdue_time ? `${psInfo.overdue_time} 到期` : '已过期'
+              psInfo.is_ever_level == 1
+                ? $t('userList.permanentMember')
+                : psInfo.overdue_time
+                ? `${psInfo.overdue_time} ${$t('userList.expireAt')}`
+                : $t('userList.expired')
             }}
           </div>
         </div>
       </div>
     </div>
     <div class="section">
-      <div class="section-hd">用户备注</div>
+      <div class="section-hd">{{ $t('userList.userRemark') }}</div>
       <div class="section-bd">
         <div class="item">
-          <div>备注：</div>
+          <div>{{ $t('userList.remark') }}：</div>
           <div class="value">{{ psInfo.mark || '-' }}</div>
         </div>
       </div>
@@ -102,6 +106,7 @@
 
 <script>
 import dayjs from 'dayjs';
+import { i18n } from '@/i18n/index.js';
 
 export default {
   name: 'userInfo',
@@ -117,12 +122,13 @@ export default {
       return dayjs(value * 1000).format(i);
     },
     gender(value) {
+      const t = (key) => i18n.t(key);
       if (value == 1) {
-        return '男';
+        return t('userList.male');
       } else if (value == 2) {
-        return '女';
+        return t('userList.female');
       } else {
-        return '未知';
+        return t('userList.unknown');
       }
     },
   },

@@ -1,72 +1,72 @@
 <template>
   <div class="pb-50">
     <el-form ref="formItem" :rules="ruleValidate" :model="formItem" label-width="100px" @submit.native.prevent>
-      <el-form-item label="用户ID：" v-if="formItem.uid">
+      <el-form-item :label="$t('userList.userId') + '：'" v-if="formItem.uid">
         <el-input
           class="form-sty"
           disabled
           v-model="formItem.uid"
-          placeholder="请输入编号"
+          :placeholder="$t('userEditForm.pleaseInputNumber')"
           style="width: 80%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="真实姓名：" prop="real_name">
+      <el-form-item :label="$t('userList.realName') + '：'" prop="real_name">
         <el-input
           class="form-sty"
           v-model.trim="formItem.real_name"
-          placeholder="请输入真实姓名"
+          :placeholder="$t('userEditForm.pleaseInputRealName')"
           style="width: 80%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="手机号码：" prop="phone">
-        <el-input class="form-sty" v-model="formItem.phone" placeholder="请输入手机号码" style="width: 80%"></el-input>
+      <el-form-item :label="$t('userList.mobile') + '：'" prop="phone">
+        <el-input class="form-sty" v-model="formItem.phone" :placeholder="$t('userEditForm.pleaseInputMobile')" style="width: 80%"></el-input>
       </el-form-item>
-      <el-form-item label="生日：">
+      <el-form-item :label="$t('userList.birthday') + '：'">
         <el-date-picker
           clearable
           class="form-sty"
           type="date"
           v-model="formItem.birthday"
-          placeholder="请选择生日"
+          :placeholder="$t('userEditForm.pleaseSelectBirthday')"
           style="width: 80%"
           format="yyyy-MM-dd"
           value-format="yyyy-MM-dd"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item label="身份证号：">
+      <el-form-item :label="$t('userList.idCardNo') + '：'">
         <el-input
           class="form-sty"
           v-model.trim="formItem.card_id"
-          placeholder="请输入身份证号"
+          :placeholder="$t('userEditForm.pleaseInputIdCardNo')"
           style="width: 80%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="用户地址：">
-        <el-input class="form-sty" v-model="formItem.addres" placeholder="请输入用户地址" style="width: 80%"></el-input>
+      <el-form-item :label="$t('userList.userAddress') + '：'">
+        <el-input class="form-sty" v-model="formItem.addres" :placeholder="$t('userEditForm.pleaseInputUserAddress')" style="width: 80%"></el-input>
       </el-form-item>
-      <el-form-item label="用户备注：">
-        <el-input class="form-sty" v-model="formItem.mark" placeholder="请输入用户备注" style="width: 80%"></el-input>
+      <el-form-item :label="$t('userList.userRemark') + '：'">
+        <el-input class="form-sty" v-model="formItem.mark" :placeholder="$t('userEditForm.pleaseInputUserRemark')" style="width: 80%"></el-input>
       </el-form-item>
-      <el-form-item label="登录密码：" prop="pwd">
+      <el-form-item :label="$t('userList.loginPassword') + '：'" prop="pwd">
         <el-input
           class="form-sty"
           type="password"
           v-model="formItem.pwd"
-          placeholder="请输入登录密码（修改用户可不填写，不填写不修改原密码）"
+          :placeholder="$t('userEditForm.pleaseInputLoginPasswordTip')"
           style="width: 80%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="确认密码：" prop="true_pwd">
+      <el-form-item :label="$t('userEditForm.confirmPassword') + '：'" prop="true_pwd">
         <el-input
           class="form-sty"
           type="password"
           v-model="formItem.true_pwd"
-          placeholder="请输入确认密码（修改用户可不填写，不填写不修改原密码）"
+          :placeholder="$t('userEditForm.pleaseInputConfirmPasswordTip')"
           style="width: 80%"
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="用户等级：">
+      <el-form-item :label="$t('userList.userLevel') + '：'">
         <el-select v-model="formItem.level" class="form-sty" clearable>
           <el-option
             v-for="(item, index) in infoData.levelInfo"
@@ -76,7 +76,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="用户分组：">
+      <el-form-item :label="$t('userList.userGroup') + '：'">
         <el-select v-model="formItem.group_id" class="form-sty" clearable>
           <el-option
             v-for="(item, index) in infoData.groupInfo"
@@ -86,7 +86,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="用户标签：">
+      <el-form-item :label="$t('userList.userTags') + '：'">
         <!-- <el-select v-model="formItem.label_id">
           <el-option
             v-for="(item, index) in infoData.labelInfo"
@@ -108,31 +108,31 @@
                   >{{ item.label_name }}</el-tag
                 >
               </div>
-              <span class="span" v-else>选择用户关联标签</span>
+              <span class="span" v-else>{{ $t('userList.selectUserTags') }}</span>
             </div>
             <div class="ivu-icon ivu-icon-ios-arrow-down"></div>
           </div>
-          <span class="addfont" v-db-click @click="addLabel">新增标签</span>
+          <span class="addfont" v-db-click @click="addLabel">{{ $t('userEditForm.addLabel') }}</span>
         </div>
       </el-form-item>
-      <el-form-item label="分销禁用：">
+      <el-form-item :label="$t('userEditForm.distributionDisabled') + '：'">
         <el-radio-group v-model="formItem.spread_open" class="form-sty">
-          <el-radio :label="0">是</el-radio>
-          <el-radio :label="1">否</el-radio>
+          <el-radio :label="0">{{ $t('userList.yes') }}</el-radio>
+          <el-radio :label="1">{{ $t('userList.no') }}</el-radio>
         </el-radio-group>
-        <div class="tip">禁用用户的分销资格后，在任何分销模式下该用户都无分销权限</div>
+        <div class="tip">{{ $t('userEditForm.distributionDisabledTip') }}</div>
       </el-form-item>
-      <el-form-item label="分销权限：" v-if="formItem.spread_open == 1">
+      <el-form-item :label="$t('userEditForm.distributionPermission') + '：'" v-if="formItem.spread_open == 1">
         <el-radio-group v-model="formItem.is_promoter" class="form-sty">
-          <el-radio :label="1">开启</el-radio>
-          <el-radio :label="0">关闭</el-radio>
+          <el-radio :label="1">{{ $t('userList.enabled') }}</el-radio>
+          <el-radio :label="0">{{ $t('userList.disabled') }}</el-radio>
         </el-radio-group>
-        <div class="tip">手动开启或关闭用户的分销权限</div>
+        <div class="tip">{{ $t('userEditForm.distributionPermissionTip') }}</div>
       </el-form-item>
-      <el-form-item label="用户状态：">
+      <el-form-item :label="$t('userList.userStatus') + '：'">
         <el-radio-group v-model="formItem.status" class="form-sty">
-          <el-radio :label="1">开启</el-radio>
-          <el-radio :label="0">锁定</el-radio>
+          <el-radio :label="1">{{ $t('userList.enabled') }}</el-radio>
+          <el-radio :label="0">{{ $t('userList.locked') }}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -140,7 +140,7 @@
     <el-dialog
       :visible.sync="labelShow"
       scrollable
-      title="请选择用户标签"
+      :title="$t('userList.selectUserTags')"
       :modal="false"
       :show-close="true"
       width="540px"

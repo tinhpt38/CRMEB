@@ -10,22 +10,22 @@
       >
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item label="状态：" label-for="status1">
+            <el-form-item :label="$t('userCancel.status') + '：'" label-for="status1">
               <el-radio-group v-model="levelFrom.status" type="button" @input="userSearchs(levelFrom.status)">
-                <el-radio-button label="">全部</el-radio-button>
-                <el-radio-button label="0">待审核</el-radio-button>
-                <el-radio-button label="1">通过</el-radio-button>
-                <el-radio-button label="2">拒绝</el-radio-button>
+                <el-radio-button label="">{{ $t('userCancel.all') }}</el-radio-button>
+                <el-radio-button label="0">{{ $t('userCancel.pendingReview') }}</el-radio-button>
+                <el-radio-button label="1">{{ $t('userCancel.approved') }}</el-radio-button>
+                <el-radio-button label="2">{{ $t('userCancel.rejected') }}</el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="用户搜索：" label-for="title">
+            <el-form-item :label="$t('userCancel.userSearch') + '：'" label-for="title">
               <el-input
                 search
                 enter-button
                 v-model="levelFrom.keywords"
-                placeholder="请输入用户昵称/ID/手机号"
+                :placeholder="$t('userCancel.pleaseInputUserSearch')"
                 @on-search="userSearchs"
               />
             </el-form-item>
@@ -38,51 +38,51 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('userCancel.noData')"
+        :no-filtered-userFrom-text="$t('userCancel.noFilteredResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('userCancel.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="昵称" min-width="130">
+        <el-table-column :label="$t('userCancel.nickname')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="手机号" min-width="130">
+        <el-table-column :label="$t('userCancel.mobile')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="130">
+        <el-table-column :label="$t('userCancel.status')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.status }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="申请时间" min-width="130">
+        <el-table-column :label="$t('userCancel.applyTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="审核时间" min-width="130">
+        <el-table-column :label="$t('userCancel.reviewTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.up_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="130">
+        <el-table-column :label="$t('userCancel.remark')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.remark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column :label="$t('userCancel.operation')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="agree(scope.row)">同意</a>
+            <a v-db-click @click="agree(scope.row)">{{ $t('userCancel.agree') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="refuse(scope.row)">拒绝</a>
+            <a v-db-click @click="refuse(scope.row)">{{ $t('userCancel.refuse') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="remark(scope.row)">备注</a>
+            <a v-db-click @click="remark(scope.row)">{{ $t('userCancel.remark') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -151,7 +151,7 @@ export default {
     },
     agree(row) {
       this.delfromData = {
-        title: '注销用户',
+        title: this.$t('userCancel.cancelUser'),
         url: `/user/cancel/agree/${row.id}`,
         method: 'get',
       };
@@ -166,8 +166,8 @@ export default {
     },
     refuse(row) {
       this.delfromData = {
-        title: '拒绝注销用户',
-        info: '您确认拒绝注销此用户吗?',
+        title: this.$t('userCancel.refuseCancelUser'),
+        info: this.$t('userCancel.refuseCancelUserConfirm'),
         url: `/user/cancel/refuse/${row.id}`,
         method: 'get',
       };

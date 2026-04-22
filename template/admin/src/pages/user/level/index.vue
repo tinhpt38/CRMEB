@@ -10,79 +10,86 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="等级状态：" label-for="status1">
+          <el-form-item :label="$t('userLevel.levelStatus') + '：'" label-for="status1">
             <el-select
               v-model="levelFrom.is_show"
-              placeholder="请选择"
+              :placeholder="$t('userLevel.pleaseSelect')"
               clearable
               element-id="status1"
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="1" :label="$t('userLevel.show')"></el-option>
+              <el-option value="0" :label="$t('userLevel.hide')"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="等级名称：" label-for="title">
-            <el-input clearable v-model="levelFrom.title" placeholder="请输入等级名称" class="form_content_width" />
+          <el-form-item :label="$t('userLevel.levelName') + '：'" label-for="title">
+            <el-input
+              clearable
+              v-model="levelFrom.title"
+              :placeholder="$t('userLevel.pleaseInputLevelName')"
+              class="form_content_width"
+            />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('userLevel.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button v-auth="['admin-user-level_add']" type="primary" v-db-click @click="add">添加用户等级</el-button>
+      <el-button v-auth="['admin-user-level_add']" type="primary" v-db-click @click="add">{{
+        $t('userLevel.addUserLevel')
+      }}</el-button>
       <el-table
         :data="levelLists"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('userLevel.noData')"
+        :no-filtered-userFrom-text="$t('userLevel.noFilteredResult')"
       >
-        <el-table-column label="ID" width="80">
+        <el-table-column :label="$t('userLevel.id')" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="等级图标" min-width="100">
+        <el-table-column :label="$t('userLevel.levelIcon')" min-width="100">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.icon" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="等级背景图" min-width="100">
+        <el-table-column :label="$t('userLevel.levelBackground')" min-width="100">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="等级名称" min-width="120">
+        <el-table-column :label="$t('userLevel.levelName')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="等级" min-width="120">
+        <el-table-column :label="$t('userLevel.level')" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.grade }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="享受折扣" min-width="100">
+        <el-table-column :label="$t('userLevel.discount')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.discount }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="经验值要求" min-width="100">
+        <el-table-column :label="$t('userLevel.expRequirement')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.exp_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="100">
+        <el-table-column :label="$t('userLevel.isShow')" min-width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -95,11 +102,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column fixed="right" :label="$t('userLevel.operation')" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('userLevel.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除等级', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('userLevel.deleteLevel'), scope.$index)">{{ $t('userLevel.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

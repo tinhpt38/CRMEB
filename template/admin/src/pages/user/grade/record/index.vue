@@ -11,17 +11,17 @@
           @submit.native.prevent
           class="tabform"
         >
-          <el-form-item label="会员类型：">
+          <el-form-item :label="$t('userGrade.memberType') + '：'">
             <el-select v-model="formValidate.member_type" clearable @change="userSearchs" class="form_content_width">
               <el-option v-for="item in treeSelect" :value="item.id" :key="item.id" :label="item.label"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="支付方式：">
+          <el-form-item :label="$t('userGrade.payType') + '：'">
             <el-select v-model="formValidate.pay_type" clearable @change="paySearchs" class="form_content_width">
               <el-option v-for="item in payList" :value="item.val" :key="item.val" :label="item.label"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="购买时间：">
+          <el-form-item :label="$t('userGrade.purchaseTime') + '：'">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -30,22 +30,22 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('userGrade.startDate')"
+              :end-placeholder="$t('userGrade.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="搜索：">
+          <el-form-item :label="$t('userGrade.search') + '：'">
             <el-input
               clearable
-              placeholder="请输入用户名称搜索"
+              :placeholder="$t('userGrade.pleaseInputUserName')"
               v-model="formValidate.name"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('userGrade.query') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -56,45 +56,45 @@
         ref="table"
         v-loading="loading"
         size="small"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('userGrade.noData')"
+        :no-filtered-userFrom-text="$t('userGrade.noFilteredResult')"
       >
-        <el-table-column label="订单号" width="170">
+        <el-table-column :label="$t('userGrade.orderNo')" width="170">
           <template slot-scope="scope">
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="80">
+        <el-table-column :label="$t('userGrade.userName')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.user.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="手机号码" min-width="80">
+        <el-table-column :label="$t('userGrade.mobile')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.user.phone || '--' }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="会员类型" min-width="80">
+        <el-table-column :label="$t('userGrade.memberType')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.member_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="有效期限（天）" min-width="80">
+        <el-table-column :label="$t('userGrade.validPeriodDays')" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.vip_day === -1 ? '永久' : scope.row.vip_day }}</span>
+            <span>{{ scope.row.vip_day === -1 ? $t('userGrade.forever') : scope.row.vip_day }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付金额（元）" min-width="50">
+        <el-table-column :label="$t('userGrade.payAmountYuan')" min-width="50">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="支付方式" min-width="30">
+        <el-table-column :label="$t('userGrade.payType')" min-width="30">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="购买时间" min-width="80">
+        <el-table-column :label="$t('userGrade.purchaseTime')" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_time }}</span>
           </template>
@@ -124,45 +124,45 @@ export default {
       treeSelect: [
         {
           id: 'free',
-          label: '试用',
+          label: this.$t('userGrade.trial'),
         },
         {
           id: 'card',
-          label: '卡密',
+          label: this.$t('userGrade.cardSecret'),
         },
         {
           id: 'month',
-          label: '月卡',
+          label: this.$t('userGrade.monthCard'),
         },
         {
           id: 'quarter',
-          label: '季卡',
+          label: this.$t('userGrade.quarterCard'),
         },
         {
           id: 'year',
-          label: '年卡',
+          label: this.$t('userGrade.yearCard'),
         },
         {
           id: 'ever',
-          label: '永久',
+          label: this.$t('userGrade.forever'),
         },
       ],
       payList: [
         {
           val: 'free',
-          label: '免费',
+          label: this.$t('userGrade.free'),
         },
         {
           val: 'yue',
-          label: '余额',
+          label: this.$t('userGrade.balance'),
         },
         {
           val: 'weixin',
-          label: '微信',
+          label: this.$t('userGrade.wechat'),
         },
         {
           val: 'alipay',
-          label: '支付宝',
+          label: this.$t('userGrade.alipay'),
         },
       ],
       tbody: [],

@@ -45,6 +45,7 @@ Vue.use(VueI18n);
 const messages = {
   'zh-cn': {
     ...zhcnLocale,
+    ...nextZhcn,
     message: {
       ...nextZhcn,
       ...pagesHomeZhcn,
@@ -55,6 +56,7 @@ const messages = {
   },
   en: {
     ...enLocale,
+    ...nextEn,
     message: {
       ...nextEn,
       ...pagesHomeEn,
@@ -65,6 +67,7 @@ const messages = {
   },
   'zh-tw': {
     ...zhtwLocale,
+    ...nextZhtw,
     message: {
       ...nextZhtw,
       ...pagesHomeZhtw,
@@ -75,6 +78,7 @@ const messages = {
   },
   vi: {
     ...viLocale,
+    ...nextVi,
     message: {
       ...nextVi,
       ...pagesHomeVi,
