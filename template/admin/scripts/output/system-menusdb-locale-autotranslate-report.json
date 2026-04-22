@@ -1,0 +1,1307 @@
+{
+  "count": 186,
+  "items": [
+    {
+      "key": "k_Q-G6pXAgxJHhu5kgbmfGsOG7nWkgZMO5bmc",
+      "src": "Cấp độ người dùng",
+      "en": "User level",
+      "zh-cn": "用户级别",
+      "zh-tw": "使用者等級"
+    },
+    {
+      "key": "k_Q-G6pXUgaMOsbmg",
+      "src": "Cấu hình",
+      "en": "Configuration",
+      "zh-cn": "配置",
+      "zh-tw": "配置"
+    },
+    {
+      "key": "k_Q-G6pXUgaMOsbmggbcO0LcSRdW4",
+      "src": "Cấu hình mô-đun",
+      "en": "Module configuration",
+      "zh-cn": "模块配置",
+      "zh-tw": "模組配置"
+    },
+    {
+      "key": "k_Q-G6pXUgaMOsbmggbmfGsOG7nWkgZMO5bmc",
+      "src": "Cấu hình người dùng",
+      "en": "User configuration",
+      "zh-cn": "用户配置",
+      "zh-tw": "使用者配置"
+    },
+    {
+      "key": "k_Q-G6pXUgaMOsbmggxJHGoW4gaMOgbmc",
+      "src": "Cấu hình đơn hàng",
+      "en": "Order configuration",
+      "zh-cn": "订单配置",
+      "zh-tw": "訂單配置"
+    },
+    {
+      "key": "k_Q01T",
+      "src": "CMS",
+      "en": "CMS",
+      "zh-cn": "内容管理",
+      "zh-tw": "內容管理"
+    },
+    {
+      "key": "k_Q2jhu4luaCBz4butYSBiaeG7g3UgbeG6q3UgY8OibiBi4bqxbmcgxJFp4buDbQ",
+      "src": "Chỉnh sửa biểu mẫu cân bằng điểm",
+      "en": "Edit the grade balance form",
+      "zh-cn": "编辑成绩平衡表",
+      "zh-tw": "編輯成績平衡表"
+    },
+    {
+      "key": "k_Q2jhu4luaCBz4butYSBuZ8aw4budaSBkw7luZw",
+      "src": "Chỉnh sửa người dùng",
+      "en": "Edit users",
+      "zh-cn": "编辑用户",
+      "zh-tw": "編輯使用者"
+    },
+    {
+      "key": "k_Q3VuZyBj4bqlcCB0aOG7nWkgZ2lhbiB0aMOgbmggdmnDqm4gdHI",
+      "src": "Cung cấp thời gian thành viên tr",
+      "en": "Provide membership period p",
+      "zh-cn": "提供会员期限p",
+      "zh-tw": "提供會員期限p"
+    },
+    {
+      "key": "k_Q3VzdG9tZXIgU2VyaXZjZQ",
+      "src": "Customer Serivce",
+      "en": "Customer Serivce",
+      "zh-cn": "客户服务",
+      "zh-tw": "客戶服務"
+    },
+    {
+      "key": "k_Q8O0bmcgY-G7pSBwaMOhdCB0cmnhu4Nu",
+      "src": "Công cụ phát triển",
+      "en": "Development tools",
+      "zh-cn": "开发工具",
+      "zh-tw": "開發工具"
+    },
+    {
+      "key": "k_Q8OgaSDEkeG6t3QgbmfDtG4gbmfhu68",
+      "src": "Cài đặt ngôn ngữ",
+      "en": "Language settings",
+      "zh-cn": "语言设置",
+      "zh-tw": "語言設定"
+    },
+    {
+      "key": "k_QVBQ",
+      "src": "APP",
+      "en": "APP",
+      "zh-cn": "应用",
+      "zh-tw": "應用程式"
+    },
+    {
+      "key": "k_QXBw",
+      "src": "App",
+      "en": "App",
+      "zh-cn": "应用",
+      "zh-tw": "應用程式"
+    },
+    {
+      "key": "k_Qmnhu4N1IG3huqt1IFRow6ptL0No4buJbmggc-G7rWEgTmjDs20",
+      "src": "Biểu mẫu Thêm/Chỉnh sửa Nhóm",
+      "en": "Add/Edit Group form",
+      "zh-cn": "添加/编辑组表单",
+      "zh-tw": "新增/編輯群組表單"
+    },
+    {
+      "key": "k_Qmnhu4N1IG3huqt1IG5ow7NtIG5nxrDhu51pIGTDuW5n",
+      "src": "Biểu mẫu nhóm người dùng",
+      "en": "User group form",
+      "zh-cn": "用户组形式",
+      "zh-tw": "使用者群組形式"
+    },
+    {
+      "key": "k_Qmnhu4N1IG3huqt1IGLDrG5oIGx14bqtbiDhuqNv",
+      "src": "Biểu mẫu bình luận ảo",
+      "en": "Virtual comment form",
+      "zh-cn": "虚拟评论表",
+      "zh-tw": "虛擬評論表"
+    },
+    {
+      "key": "k_QuG6o28gaMOgbmggc-G6o24gcGjhuqlt",
+      "src": "Bảo hành sản phẩm",
+      "en": "Product warranty",
+      "zh-cn": "产品保修",
+      "zh-tw": "產品保固"
+    },
+    {
+      "key": "k_QuG6o28gdHLDrCBhbiB0b8Ogbg",
+      "src": "Bảo trì an toàn",
+      "en": "Safe maintenance",
+      "zh-cn": "安全维护",
+      "zh-tw": "安全維護"
+    },
+    {
+      "key": "k_QuG6o28gdHLDrCBk4buvIGxp4buHdQ",
+      "src": "Bảo trì dữ liệu",
+      "en": "Data maintenance",
+      "zh-cn": "数据维护",
+      "zh-tw": "資料維護"
+    },
+    {
+      "key": "k_R-G7rWkgZGFuaCBzw6FjaCBwaGnhur91IGdp4bqjbSBnacOh",
+      "src": "Gửi danh sách phiếu giảm giá",
+      "en": "Submit coupon list",
+      "zh-cn": "提交优惠券列表",
+      "zh-tw": "提交優惠券列表"
+    },
+    {
+      "key": "k_R-G7rWkgcGhp4bq_dSBnaeG6o20gZ2nDoQ",
+      "src": "Gửi phiếu giảm giá",
+      "en": "Submit coupons",
+      "zh-cn": "提交优惠券",
+      "zh-tw": "提交優惠券"
+    },
+    {
+      "key": "k_R2lhbyBkaeG7h24gYsOqbiBuZ2_DoGk",
+      "src": "Giao diện bên ngoài",
+      "en": "External interface",
+      "zh-cn": "外部接口",
+      "zh-tw": "外部介面"
+    },
+    {
+      "key": "k_RGFuaCBt4bulYyBj4bqldSBow6xuaA",
+      "src": "Danh mục cấu hình",
+      "en": "Configuration directory",
+      "zh-cn": "配置目录",
+      "zh-tw": "配置目錄"
+    },
+    {
+      "key": "k_RGFuaCBt4bulYyBz4bqjbiBwaOG6qW0",
+      "src": "Danh mục sản phẩm",
+      "en": "Product catalog",
+      "zh-cn": "产品目录",
+      "zh-tw": "產品目錄"
+    },
+    {
+      "key": "k_ROG7ryBsaeG7h3Uga-G6v3QgaOG7o3A",
+      "src": "Dữ liệu kết hợp",
+      "en": "Combined data",
+      "zh-cn": "综合数据",
+      "zh-tw": "綜合數據"
+    },
+    {
+      "key": "k_RmluYW5jZQ",
+      "src": "Finance",
+      "en": "Finance",
+      "zh-cn": "财务",
+      "zh-tw": "財務"
+    },
+    {
+      "key": "k_SOG7kyBzxqEgeMOhYyBtaW5o",
+      "src": "Hồ sơ xác minh",
+      "en": "Verification profile",
+      "zh-cn": "验证资料",
+      "zh-tw": "驗證資料"
+    },
+    {
+      "key": "k_T3JkZXI",
+      "src": "Order",
+      "en": "Order",
+      "zh-cn": "订单",
+      "zh-tw": "訂單"
+    },
+    {
+      "key": "k_TMawdSB0aOG6uyBuZ8aw4budaSBkw7luZw",
+      "src": "Lưu thẻ người dùng",
+      "en": "Save user tags",
+      "zh-cn": "保存用户标签",
+      "zh-tw": "儲存用戶標籤"
+    },
+    {
+      "key": "k_TMawdSBiw6xuaCBsdeG6rW4g4bqjbw",
+      "src": "Lưu bình luận ảo",
+      "en": "Save virtual comments",
+      "zh-cn": "保存虚拟评论",
+      "zh-tw": "保存虛擬評論"
+    },
+    {
+      "key": "k_TMawdSBjw6FjIGRhbmggbeG7pWMgY-G6pXUgaMOsbmggaOG7hyB0aOG7kQ",
+      "src": "Lưu các danh mục cấu hình hệ thố",
+      "en": "Save system configuration categories",
+      "zh-cn": "保存系统配置类别",
+      "zh-tw": "儲存系統配置類別"
+    },
+    {
+      "key": "k_TMawdSBk4buvIGxp4buHdSBiaeG7g3UgbeG6q3UgbmjDs20",
+      "src": "Lưu dữ liệu biểu mẫu nhóm",
+      "en": "Save group form data",
+      "zh-cn": "保存组表单数据",
+      "zh-tw": "儲存群組表單數據"
+    },
+    {
+      "key": "k_TMawdSBk4buvIGxp4buHdSBr4bq_dCBo4bujcA",
+      "src": "Lưu dữ liệu kết hợp",
+      "en": "Save combined data",
+      "zh-cn": "保存组合数据",
+      "zh-tw": "儲存組合數據"
+    },
+    {
+      "key": "k_TMawdSBkYW5oIG3hu6VjIHR1eeG6v24gxJHGsOG7nW5n",
+      "src": "Lưu danh mục tuyến đường",
+      "en": "Save route catalog",
+      "zh-cn": "保存路线目录",
+      "zh-tw": "儲存路線目錄"
+    },
+    {
+      "key": "k_TMawdSBuZ8aw4budaSBkw7luZw",
+      "src": "Lưu người dùng",
+      "en": "Save users",
+      "zh-cn": "保存用户",
+      "zh-tw": "儲存用戶"
+    },
+    {
+      "key": "k_TOG6pXkgYmnhu4N1IG3huqt1IGNo4buJbmggc-G7rWEgbmfGsOG7nWkgZMO5bg",
+      "src": "Lấy biểu mẫu chỉnh sửa người dùn",
+      "en": "Get the user edit form",
+      "zh-cn": "获取用户编辑表单",
+      "zh-tw": "取得使用者編輯表單"
+    },
+    {
+      "key": "k_TOG6pXkgYmnhu4N1IG3huqt1IGRhbmggbeG7pWMgY-G6pXUgaMOsbmggaA",
+      "src": "Lấy biểu mẫu danh mục cấu hình h",
+      "en": "Get configuration catalog form h",
+      "zh-cn": "获取配置目录形式 h",
+      "zh-tw": "取得配置目錄形式 h"
+    },
+    {
+      "key": "k_TOG6pXkgYmnhu4N1IG3huqt1IMSR4buDIHThuqFvIGRhbmggbeG7pWMgdHV5",
+      "src": "Lấy biểu mẫu để tạo danh mục tuy",
+      "en": "Get the form to create a portfolio",
+      "zh-cn": "获取创建作品集的表格",
+      "zh-tw": "取得創建作品集的表格"
+    },
+    {
+      "key": "k_TOG6pXkgZGFuaCBzw6FjaCBjw6FjIGxv4bqhaSB0dXnhur9uIMSRxrDhu50",
+      "src": "Lấy danh sách các loại tuyến đườ",
+      "en": "Get a list of types of routes",
+      "zh-cn": "获取路线类型列表",
+      "zh-tw": "取得路線類型列表"
+    },
+    {
+      "key": "k_TOG6pXkgZGFuaCBzw6FjaCBk4buvIGxp4buHdSBr4bq_dCBo4bujcA",
+      "src": "Lấy danh sách dữ liệu kết hợp",
+      "en": "Get a list of combined data",
+      "zh-cn": "获取组合数据的列表",
+      "zh-tw": "取得組合資料的列表"
+    },
+    {
+      "key": "k_TOG6pXkgZGFuaCBzw6FjaCBkYW5oIG3hu6VjIGPhuqV1IGjDrG5oIA",
+      "src": "Lấy danh sách danh mục cấu hình ",
+      "en": "Get a list of configuration categories",
+      "zh-cn": "获取配置类别列表",
+      "zh-tw": "取得配置類別列表"
+    },
+    {
+      "key": "k_TOG6pXkgdGjDtG5nIHRpbiBj4bunYSBt4buZdCBuZ8aw4budaSBkw7luZw",
+      "src": "Lấy thông tin của một người dùng",
+      "en": "Get a user's information",
+      "zh-cn": "获取用户信息",
+      "zh-tw": "獲取用戶資訊"
+    },
+    {
+      "key": "k_TOG6pXkgdGjDtG5nIHRpbiBjaGkgdGnhur90IG5nxrDhu51pIGTDuW4",
+      "src": "Lấy thông tin chi tiết người dùn",
+      "en": "Get detailed user information",
+      "zh-cn": "获取详细的用户信息",
+      "zh-tw": "獲取詳細的用戶信息"
+    },
+    {
+      "key": "k_TOG6pXkgdGjhursgbmfGsOG7nWkgZMO5bmc",
+      "src": "Lấy thẻ người dùng",
+      "en": "Get the user card",
+      "zh-cn": "获取用户卡",
+      "zh-tw": "取得用戶卡"
+    },
+    {
+      "key": "k_TWFya2V0aW5n",
+      "src": "Marketing",
+      "en": "Marketing",
+      "zh-cn": "营销",
+      "zh-tw": "行銷"
+    },
+    {
+      "key": "k_Tmhp4buHbSB24bulIHRoZW8gbOG7i2NoIHRyw6xuaA",
+      "src": "Nhiệm vụ theo lịch trình",
+      "en": "Scheduled tasks",
+      "zh-cn": "计划任务",
+      "zh-tw": "計劃任務"
+    },
+    {
+      "key": "k_TmjDo24gc-G6o24gcGjhuqlt",
+      "src": "Nhãn sản phẩm",
+      "en": "Product label",
+      "zh-cn": "产品标签",
+      "zh-tw": "產品標籤"
+    },
+    {
+      "key": "k_TmjDs20gbmfGsOG7nWkgZMO5bmc",
+      "src": "Nhóm người dùng",
+      "en": "User group",
+      "zh-cn": "用户组",
+      "zh-tw": "使用者群組"
+    },
+    {
+      "key": "k_U-G7kSDEkWnhu4NtIGPDsm4gbOG6oWk",
+      "src": "Số điểm còn lại",
+      "en": "Remaining points",
+      "zh-cn": "剩余积分",
+      "zh-tw": "剩餘積分"
+    },
+    {
+      "key": "k_U-G7sSBraeG7h24gdMO5eSBjaOG7iW5o",
+      "src": "Sự kiện tùy chỉnh",
+      "en": "Custom events",
+      "zh-cn": "自定义事件",
+      "zh-tw": "自訂事件"
+    },
+    {
+      "key": "k_U2V0dGluZ3M",
+      "src": "Settings",
+      "en": "Settings",
+      "zh-cn": "设置",
+      "zh-tw": "設定"
+    },
+    {
+      "key": "k_U2hvcA",
+      "src": "Shop",
+      "en": "Shop",
+      "zh-cn": "商城",
+      "zh-tw": "商城"
+    },
+    {
+      "key": "k_U3VwcGxpZXI",
+      "src": "Supplier",
+      "en": "Supplier",
+      "zh-cn": "供应商",
+      "zh-tw": "供應商"
+    },
+    {
+      "key": "k_U3lzdGVt",
+      "src": "System",
+      "en": "System",
+      "zh-cn": "系统",
+      "zh-tw": "系統"
+    },
+    {
+      "key": "k_UGjDom4gbG_huqFpIGdpYW8gZGnhu4du",
+      "src": "Phân loại giao diện",
+      "en": "Interface classification",
+      "zh-cn": "接口分类",
+      "zh-tw": "介面分類"
+    },
+    {
+      "key": "k_UGjDom4gbmjDs20gdGhlbyBsw7Q",
+      "src": "Phân nhóm theo lô",
+      "en": "Grouping by batch",
+      "zh-cn": "按批次分组",
+      "zh-tw": "按批次分組"
+    },
+    {
+      "key": "k_UHJvbW90aW9u",
+      "src": "Promotion",
+      "en": "Promotion",
+      "zh-cn": "推广",
+      "zh-tw": "推廣"
+    },
+    {
+      "key": "k_UXXhuqNuIGzDvSB04bqtcCB0aW4",
+      "src": "Quản lý tập tin",
+      "en": "File management",
+      "zh-cn": "文件管理",
+      "zh-tw": "文件管理"
+    },
+    {
+      "key": "k_UXXhuqNuIGzDvSBjxqEgc-G7nyBk4buvIGxp4buHdQ",
+      "src": "Quản lý cơ sở dữ liệu",
+      "en": "Database management",
+      "zh-cn": "数据库管理",
+      "zh-tw": "資料庫管理"
+    },
+    {
+      "key": "k_UXXhuqNuIGzDvSBnaWFvIGRp4buHbg",
+      "src": "Quản lý giao diện",
+      "en": "Interface management",
+      "zh-cn": "界面管理",
+      "zh-tw": "介面管理"
+    },
+    {
+      "key": "k_UXXhuqNuIGzDvSBuZ8aw4budaSBkw7luZw",
+      "src": "Quản lý người dùng",
+      "en": "User management",
+      "zh-cn": "用户管理",
+      "zh-tw": "使用者管理"
+    },
+    {
+      "key": "k_UXXhuqNuIGzDvSBz4bqjbiBwaOG6qW0",
+      "src": "Quản lý sản phẩm",
+      "en": "Product management",
+      "zh-cn": "产品管理",
+      "zh-tw": "產品管理"
+    },
+    {
+      "key": "k_UXXhuqNuIGzDvSDEkcahbiBow6BuZw",
+      "src": "Quản lý đơn hàng",
+      "en": "Order management",
+      "zh-cn": "订单管理",
+      "zh-tw": "訂單管理"
+    },
+    {
+      "key": "k_VGh14buZYyB0w61uaCBz4bqjbiBwaOG6qW0",
+      "src": "Thuộc tính sản phẩm",
+      "en": "Product attributes",
+      "zh-cn": "产品属性",
+      "zh-tw": "產品屬性"
+    },
+    {
+      "key": "k_VGhp4bq_dCBs4bqtcCBuaMOzbSBuZ8aw4budaSBkw7luZw",
+      "src": "Thiết lập nhóm người dùng",
+      "en": "Set up user groups",
+      "zh-cn": "设置用户组",
+      "zh-tw": "設定用戶群組"
+    },
+    {
+      "key": "k_VGjDoG5oIHZpw6puIG1p4buFbiBwaMOt",
+      "src": "Thành viên miễn phí",
+      "en": "Free membership",
+      "zh-cn": "免费会员资格",
+      "zh-tw": "免費會員資格"
+    },
+    {
+      "key": "k_VGjDqm0gaG_hurdjIGNo4buJbmggc-G7rWEgdGjhursgbmfGsOG7nWkgZMO5",
+      "src": "Thêm hoặc chỉnh sửa thẻ người dù",
+      "en": "Add or edit parachute tags",
+      "zh-cn": "添加或编辑降落伞标签",
+      "zh-tw": "新增或編輯降落傘標籤"
+    },
+    {
+      "key": "k_VGjDqm0gaG_hurdjIHPhu61hIMSR4buVaSBiaeG7g3UgbeG6q3UgdGjhursgbg",
+      "src": "Thêm hoặc sửa đổi biểu mẫu thẻ n",
+      "en": "Add or modify n tag form",
+      "zh-cn": "添加或修改n标签形式",
+      "zh-tw": "新增或修改n標籤形式"
+    },
+    {
+      "key": "k_VGjDqm0gbeG7m2k",
+      "src": "Thêm mới",
+      "en": "Add new",
+      "zh-cn": "添加新的",
+      "zh-tw": "新增新的"
+    },
+    {
+      "key": "k_VGjDqm0gbmfGsOG7nWkgZMO5bmc",
+      "src": "Thêm người dùng",
+      "en": "Add users",
+      "zh-cn": "添加用户",
+      "zh-tw": "新增用戶"
+    },
+    {
+      "key": "k_VGjDqm0gbmjDs20",
+      "src": "Thêm nhóm",
+      "en": "Add group",
+      "zh-cn": "添加群组",
+      "zh-tw": "新增群組"
+    },
+    {
+      "key": "k_VGjDqm0gbmjDs20gZOG7ryBsaeG7h3U",
+      "src": "Thêm nhóm dữ liệu",
+      "en": "Add data group",
+      "zh-cn": "添加数据组",
+      "zh-tw": "新增資料組"
+    },
+    {
+      "key": "k_VGjDqm0gcGjhuqduIHThu7EgxJHDoW5oIGdpw6E",
+      "src": "Thêm phần tự đánh giá",
+      "en": "Add self-assessment",
+      "zh-cn": "添加自我评估",
+      "zh-tw": "新增自我評估"
+    },
+    {
+      "key": "k_VGjDtG5nIHPhu5Egc-G6o24gcGjhuqlt",
+      "src": "Thông số sản phẩm",
+      "en": "Product specifications",
+      "zh-cn": "产品规格",
+      "zh-tw": "產品規格"
+    },
+    {
+      "key": "k_VGjDtG5nIHRpbiBj4bqnbiBsxrB1IMO9IGtoaSB0aMOqbSBob-G6tw",
+      "src": "Thông tin cần lưu ý khi thêm hoặ",
+      "en": "Information to note when adding or",
+      "zh-cn": "添加或添加时需要注意的信息",
+      "zh-tw": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+    },
+    {
+      "key": "k_VGjDtG5nIHRpbiBo4buHIHRo4buRbmc",
+      "src": "Thông tin hệ thống",
+      "en": "System information",
+      "zh-cn": "系统信息",
+      "zh-tw": "系統資訊"
+    },
+    {
+      "key": "k_VGjDtG5nIHRpbiBuZ8aw4budaSBkw7luZw",
+      "src": "Thông tin người dùng",
+      "en": "User information",
+      "zh-cn": "用户信息",
+      "zh-tw": "使用者資訊"
+    },
+    {
+      "key": "k_VGjhu51pIGdpYW4gdGjDoG5oIHZpw6puIHRy4bqjIHBow60gbWnhu4U",
+      "src": "Thời gian thành viên trả phí miễ",
+      "en": "Paid membership period is free",
+      "zh-cn": "付费会员期间免费",
+      "zh-tw": "付費會員期間免費"
+    },
+    {
+      "key": "k_VGjhursgbmfGsOG7nWkgZMO5bmc",
+      "src": "Thẻ người dùng",
+      "en": "User card",
+      "zh-cn": "用户卡",
+      "zh-tw": "用戶卡"
+    },
+    {
+      "key": "k_VHJhbmcgY2jhu6c",
+      "src": "Trang chủ",
+      "en": "Home",
+      "zh-cn": "主页",
+      "zh-tw": "首頁"
+    },
+    {
+      "key": "k_VHLhuqMgbOG7nWkgYsOsbmggbHXhuq1u",
+      "src": "Trả lời bình luận",
+      "en": "Reply to comments",
+      "zh-cn": "回复评论",
+      "zh-tw": "回覆評論"
+    },
+    {
+      "key": "k_VXNlcg",
+      "src": "User",
+      "en": "User",
+      "zh-cn": "用户",
+      "zh-tw": "使用者"
+    },
+    {
+      "key": "k_WHXhuqV0IGRhbmggc8OhY2ggbmfGsOG7nWkgZMO5bmc",
+      "src": "Xuất danh sách người dùng",
+      "en": "Export user list",
+      "zh-cn": "导出用户列表",
+      "zh-tw": "匯出使用者列表"
+    },
+    {
+      "key": "k_WHXhuqV0IGThu68gbGnhu4d1IG5nxrDhu51pIGTDuW5n",
+      "src": "Xuất dữ liệu người dùng",
+      "en": "Export user data",
+      "zh-cn": "导出用户数据",
+      "zh-tw": "匯出用戶數據"
+    },
+    {
+      "key": "k_WMOzYSBiw6xuaCBsdeG6rW4",
+      "src": "Xóa bình luận",
+      "en": "Delete comments",
+      "zh-cn": "删除评论",
+      "zh-tw": "刪除評論"
+    },
+    {
+      "key": "k_c3lzdGVtTWVudQ",
+      "src": "systemMenu",
+      "en": "systemMenu",
+      "zh-cn": "系统菜单",
+      "zh-tw": "系統選單"
+    },
+    {
+      "key": "k_c3lzdGVtUGVybWlzc2lvblJ1bGU",
+      "src": "systemPermissionRule",
+      "en": "systemPermissionRule",
+      "zh-cn": "系统权限规则",
+      "zh-tw": "系統權限規則"
+    },
+    {
+      "key": "k_xJBp4buBdSBjaOG7iW5oIHPhu5EgZMawIMSRaeG7g20",
+      "src": "Điều chỉnh số dư điểm",
+      "en": "Adjust point balance",
+      "zh-cn": "调整积分平衡",
+      "zh-tw": "調整積分平衡"
+    },
+    {
+      "key": "k_xJDDoW5oIGdpw6Egc-G6o24gcGjhuqlt",
+      "src": "Đánh giá sản phẩm",
+      "en": "Product reviews",
+      "zh-cn": "产品评论",
+      "zh-tw": "商品評論"
+    },
+    {
+      "key": "k_xJDGoW4gxJHhurd0IGjDoG5nIGPhu6dhIHRodSBuZ8Oibg",
+      "src": "Đơn đặt hàng của thu ngân",
+      "en": "Cashier's order",
+      "zh-cn": "银行本票",
+      "zh-tw": "銀行本票"
+    },
+    {
+      "key": "k_xJDGoW4gxJHhurd0IGjDoG5nIHNhdSBiw6FuIGjDoG5n",
+      "src": "Đơn đặt hàng sau bán hàng",
+      "en": "After-sales orders",
+      "zh-cn": "售后订单",
+      "zh-tw": "售後訂單"
+    },
+    {
+      "key": "k_xJDhurd0IHRo4bq7IGjDoG5nIGxv4bqhdA",
+      "src": "Đặt thẻ hàng loạt",
+      "en": "Order cards in bulk",
+      "zh-cn": "批量订购卡片",
+      "zh-tw": "大量訂購卡片"
+    },
+    {
+      "key": "sm_03f0c66427dc00033958e15d",
+      "src": "Trang chủ",
+      "en": "Home",
+      "zh-cn": "主页",
+      "zh-tw": "首頁"
+    },
+    {
+      "key": "sm_0455f99329697b10080c957c",
+      "src": "Thuộc tính sản phẩm",
+      "en": "Product attributes",
+      "zh-cn": "产品属性",
+      "zh-tw": "產品屬性"
+    },
+    {
+      "key": "sm_060e7ac2f1b0f63c84a0a37e",
+      "src": "Thêm hoặc chỉnh sửa thẻ người dù",
+      "en": "Add or edit parachute tags",
+      "zh-cn": "添加或编辑降落伞标签",
+      "zh-tw": "新增或編輯降落傘標籤"
+    },
+    {
+      "key": "sm_0915a8397ff53125b3aa3385",
+      "src": "Thông tin người dùng",
+      "en": "User information",
+      "zh-cn": "用户信息",
+      "zh-tw": "使用者資訊"
+    },
+    {
+      "key": "sm_0ace9ff4bca157ce3cd99790",
+      "src": "Nhãn sản phẩm",
+      "en": "Product label",
+      "zh-cn": "产品标签",
+      "zh-tw": "產品標籤"
+    },
+    {
+      "key": "sm_0bdbb2c325525e986d55ef50",
+      "src": "APP",
+      "en": "APP",
+      "zh-cn": "应用",
+      "zh-tw": "應用程式"
+    },
+    {
+      "key": "sm_0c9d2ba546647078ede04f03",
+      "src": "Điều chỉnh số dư điểm",
+      "en": "Adjust point balance",
+      "zh-cn": "调整积分平衡",
+      "zh-tw": "調整積分平衡"
+    },
+    {
+      "key": "sm_0e12a1ffe7285a76120d55e2",
+      "src": "Xóa bình luận",
+      "en": "Delete comments",
+      "zh-cn": "删除评论",
+      "zh-tw": "刪除評論"
+    },
+    {
+      "key": "sm_1090b68c14863a758c3c3883",
+      "src": "Thêm phần tự đánh giá",
+      "en": "Add self-assessment",
+      "zh-cn": "添加自我评估",
+      "zh-tw": "新增自我評估"
+    },
+    {
+      "key": "sm_18bf545567a3ed7d997454be",
+      "src": "Biểu mẫu nhóm người dùng",
+      "en": "User group form",
+      "zh-cn": "用户组形式",
+      "zh-tw": "使用者群組形式"
+    },
+    {
+      "key": "sm_1c7f5ddefe443a9c7dbfd968",
+      "src": "Lấy thông tin của một người dùng",
+      "en": "Get a user's information",
+      "zh-cn": "获取用户信息",
+      "zh-tw": "獲取用戶資訊"
+    },
+    {
+      "key": "sm_2093dda8952890778dd5f132",
+      "src": "Thêm người dùng",
+      "en": "Add users",
+      "zh-cn": "添加用户",
+      "zh-tw": "新增用戶"
+    },
+    {
+      "key": "sm_22a1622a06cdf580a0208578",
+      "src": "Hồ sơ xác minh",
+      "en": "Verification profile",
+      "zh-cn": "验证资料",
+      "zh-tw": "驗證資料"
+    },
+    {
+      "key": "sm_22a7b0eeb3dc174fa0811f59",
+      "src": "Nhiệm vụ theo lịch trình",
+      "en": "Scheduled tasks",
+      "zh-cn": "计划任务",
+      "zh-tw": "計劃任務"
+    },
+    {
+      "key": "sm_27820ec7aec4d49cc15ca4e0",
+      "src": "Công cụ phát triển",
+      "en": "Development tools",
+      "zh-cn": "开发工具",
+      "zh-tw": "開發工具"
+    },
+    {
+      "key": "sm_332c1caa3b343bdee797b1dd",
+      "src": "Quản lý sản phẩm",
+      "en": "Product management",
+      "zh-cn": "产品管理",
+      "zh-tw": "產品管理"
+    },
+    {
+      "key": "sm_33b59f085830c6de6395fce3",
+      "src": "Thông số sản phẩm",
+      "en": "Product specifications",
+      "zh-cn": "产品规格",
+      "zh-tw": "產品規格"
+    },
+    {
+      "key": "sm_34f357eb903e689d27b8a790",
+      "src": "Lưu các danh mục cấu hình hệ thố",
+      "en": "Save system configuration categories",
+      "zh-cn": "保存系统配置类别",
+      "zh-tw": "儲存系統配置類別"
+    },
+    {
+      "key": "sm_3597a246d62d50f72ec33dc0",
+      "src": "Lấy biểu mẫu danh mục cấu hình h",
+      "en": "Get configuration catalog form h",
+      "zh-cn": "从 h 中获取配置类别",
+      "zh-tw": "取得配置目錄形式 h"
+    },
+    {
+      "key": "sm_36a23e75693806be721814d0",
+      "src": "Bảo trì an toàn",
+      "en": "Safe maintenance",
+      "zh-cn": "安全维护",
+      "zh-tw": "安全維護"
+    },
+    {
+      "key": "sm_3919aea2614d120c1bd3feb5",
+      "src": "Thẻ người dùng",
+      "en": "User card",
+      "zh-cn": "用户卡",
+      "zh-tw": "用戶卡"
+    },
+    {
+      "key": "sm_3ade0de429716d9aecf469ed",
+      "src": "Thời gian thành viên trả phí miễ",
+      "en": "Paid membership period is free",
+      "zh-cn": "付费会员期间免费",
+      "zh-tw": "付費會員期間免費"
+    },
+    {
+      "key": "sm_3cae4908e3787768bc925e0a",
+      "src": "Thêm nhóm dữ liệu",
+      "en": "Add data group",
+      "zh-cn": "添加数据组",
+      "zh-tw": "新增資料組"
+    },
+    {
+      "key": "sm_46eed0314afb69cd1abb6713",
+      "src": "Phân nhóm theo lô",
+      "en": "Grouping by batch",
+      "zh-cn": "按批次分组",
+      "zh-tw": "按批次分組"
+    },
+    {
+      "key": "sm_4c4c92f9de2b13b217b351be",
+      "src": "Cấu hình",
+      "en": "Configuration",
+      "zh-cn": "配置",
+      "zh-tw": "配置"
+    },
+    {
+      "key": "sm_552fed94c6874623573a8698",
+      "src": "Giao diện bên ngoài",
+      "en": "External interface",
+      "zh-cn": "外部接口",
+      "zh-tw": "外部介面"
+    },
+    {
+      "key": "sm_5969f854a393f6748649fa81",
+      "src": "Danh mục cấu hình",
+      "en": "Configuration directory",
+      "zh-cn": "配置目录",
+      "zh-tw": "配置目錄"
+    },
+    {
+      "key": "sm_5ebe30a4b33351657574938f",
+      "src": "Xuất dữ liệu người dùng",
+      "en": "Export user data",
+      "zh-cn": "导出用户数据",
+      "zh-tw": "匯出用戶數據"
+    },
+    {
+      "key": "sm_6103e8495d800341a8a35457",
+      "src": "systemMenu",
+      "en": "systemMenu",
+      "zh-cn": "系统菜单",
+      "zh-tw": "系統選單"
+    },
+    {
+      "key": "sm_626a54d37d402d449d6d7541",
+      "src": "Promotion",
+      "en": "Promotion",
+      "zh-cn": "推广",
+      "zh-tw": "推廣"
+    },
+    {
+      "key": "sm_63fbe2ff6fb81a26a78d32ec",
+      "src": "Chỉnh sửa người dùng",
+      "en": "Edit users",
+      "zh-cn": "编辑用户",
+      "zh-tw": "編輯使用者"
+    },
+    {
+      "key": "sm_6703d8f6c141e47362e73717",
+      "src": "Thành viên miễn phí",
+      "en": "Free membership",
+      "zh-cn": "免费会员资格",
+      "zh-tw": "免費會員資格"
+    },
+    {
+      "key": "sm_67d1e7aad444c847a5d15eea",
+      "src": "Thêm hoặc sửa đổi biểu mẫu thẻ n",
+      "en": "Add or modify n tag form",
+      "zh-cn": "添加或修改n标签形式",
+      "zh-tw": "新增或修改n標籤形式"
+    },
+    {
+      "key": "sm_68a33e75bcee5dd8768e694d",
+      "src": "Xuất danh sách người dùng",
+      "en": "Export user list",
+      "zh-cn": "导出用户列表",
+      "zh-tw": "匯出使用者列表"
+    },
+    {
+      "key": "sm_6cb70e386dc93ea2d7cf772e",
+      "src": "Số điểm còn lại",
+      "en": "Remaining points",
+      "zh-cn": "剩余积分",
+      "zh-tw": "剩餘積分"
+    },
+    {
+      "key": "sm_6f109acc1b8ccb211999e424",
+      "src": "Lưu bình luận ảo",
+      "en": "Save virtual comments",
+      "zh-cn": "保存虚拟评论",
+      "zh-tw": "保存虛擬評論"
+    },
+    {
+      "key": "sm_70e3112591005831e3d206ab",
+      "src": "Bảo hành sản phẩm",
+      "en": "Product warranty",
+      "zh-cn": "产品保修",
+      "zh-tw": "產品保固"
+    },
+    {
+      "key": "sm_71b4d792d1eb46447532d660",
+      "src": "Thông tin hệ thống",
+      "en": "System information",
+      "zh-cn": "系统信息",
+      "zh-tw": "系統資訊"
+    },
+    {
+      "key": "sm_751cea6d4e6e310fb48fb3e2",
+      "src": "Quản lý đơn hàng",
+      "en": "Order management",
+      "zh-cn": "订单管理",
+      "zh-tw": "訂單管理"
+    },
+    {
+      "key": "sm_77f6903f0ac02331b5a7001a",
+      "src": "Thêm mới",
+      "en": "Add new",
+      "zh-cn": "添加新的",
+      "zh-tw": "新增新的"
+    },
+    {
+      "key": "sm_7a37fc86f99edf5d3472faa7",
+      "src": "Quản lý người dùng",
+      "en": "User management",
+      "zh-cn": "用户管理",
+      "zh-tw": "使用者管理"
+    },
+    {
+      "key": "sm_7bc31302f4f6ee0359cd82e5",
+      "src": "Lấy biểu mẫu để tạo danh mục tuy",
+      "en": "Get the form to create a portfolio",
+      "zh-cn": "获取创建作品集的表格",
+      "zh-tw": "取得創建作品集的表格"
+    },
+    {
+      "key": "sm_7cb15e416d62919b1b402983",
+      "src": "Marketing",
+      "en": "Marketing",
+      "zh-cn": "营销",
+      "zh-tw": "行銷"
+    },
+    {
+      "key": "sm_7dc759fc5f5718cd7f1a7645",
+      "src": "Đặt thẻ hàng loạt",
+      "en": "Order cards in bulk",
+      "zh-cn": "批量订购卡片",
+      "zh-tw": "大量訂購卡片"
+    },
+    {
+      "key": "sm_7f423fe3ff34c3b26acaabdc",
+      "src": "Lấy danh sách dữ liệu kết hợp",
+      "en": "Get a list of combined data",
+      "zh-cn": "获取组合数据的列表",
+      "zh-tw": "取得組合資料的列表"
+    },
+    {
+      "key": "sm_82b0fc417f3d64ece536606c",
+      "src": "Lấy thẻ người dùng",
+      "en": "Get the user card",
+      "zh-cn": "获取用户卡",
+      "zh-tw": "取得用戶卡"
+    },
+    {
+      "key": "sm_85d1ae33ce77a0572c7327b3",
+      "src": "Lưu dữ liệu biểu mẫu nhóm",
+      "en": "Save group form data",
+      "zh-cn": "保存组表单数据",
+      "zh-tw": "儲存群組表單數據"
+    },
+    {
+      "key": "sm_86c41f0e6a220b5725f44189",
+      "src": "Quản lý giao diện",
+      "en": "Interface management",
+      "zh-cn": "界面管理",
+      "zh-tw": "介面管理"
+    },
+    {
+      "key": "sm_89deb25440654f72f3652324",
+      "src": "Cấp độ người dùng",
+      "en": "User level",
+      "zh-cn": "用户级别",
+      "zh-tw": "使用者等級"
+    },
+    {
+      "key": "sm_8e997fc6ee526031cc96af9a",
+      "src": "Lưu thẻ người dùng",
+      "en": "Save user tags",
+      "zh-cn": "保存用户标签",
+      "zh-tw": "儲存用戶標籤"
+    },
+    {
+      "key": "sm_8eab6f912f80f9bdacd442f1",
+      "src": "Lấy danh sách danh mục cấu hình ",
+      "en": "Get a list of configuration categories",
+      "zh-cn": "获取配置类别列表",
+      "zh-tw": "取得配置類別列表"
+    },
+    {
+      "key": "sm_8f44e2b47406a153d97c79db",
+      "src": "Lấy thông tin chi tiết người dùn",
+      "en": "Get detailed user information",
+      "zh-cn": "获取详细的用户信息",
+      "zh-tw": "獲取詳細的用戶信息"
+    },
+    {
+      "key": "sm_8f9bfe9d1345237cb3b2b205",
+      "src": "User",
+      "en": "User",
+      "zh-cn": "用户",
+      "zh-tw": "使用者"
+    },
+    {
+      "key": "sm_980affada1cecf11e511634c",
+      "src": "Lưu người dùng",
+      "en": "Save users",
+      "zh-cn": "保存用户",
+      "zh-tw": "儲存用戶"
+    },
+    {
+      "key": "sm_98d52da29afe873e461a49c9",
+      "src": "Gửi phiếu giảm giá",
+      "en": "Submit coupons",
+      "zh-cn": "提交优惠券",
+      "zh-tw": "提交優惠券"
+    },
+    {
+      "key": "sm_9f82518d468b9fee614fcc92",
+      "src": "Shop",
+      "en": "Shop",
+      "zh-cn": "商城",
+      "zh-tw": "商城"
+    },
+    {
+      "key": "sm_a0e6390f785e27d6c7fc2ae9",
+      "src": "Cấu hình người dùng",
+      "en": "User configuration",
+      "zh-cn": "用户配置",
+      "zh-tw": "使用者配置"
+    },
+    {
+      "key": "sm_a240fa27925a635b08dc28c9",
+      "src": "Order",
+      "en": "Order",
+      "zh-cn": "订单",
+      "zh-tw": "訂單"
+    },
+    {
+      "key": "sm_a45da96d0bf6575970f2d27a",
+      "src": "System",
+      "en": "System",
+      "zh-cn": "系统",
+      "zh-tw": "系統"
+    },
+    {
+      "key": "sm_a51adbee91f32c76f4cbfbc3",
+      "src": "Lưu dữ liệu kết hợp",
+      "en": "Save combined data",
+      "zh-cn": "保存组合数据",
+      "zh-tw": "儲存組合數據"
+    },
+    {
+      "key": "sm_a77c6b2e60219ee4558e4088",
+      "src": "Dữ liệu kết hợp",
+      "en": "Combined data",
+      "zh-cn": "综合数据",
+      "zh-tw": "綜合數據"
+    },
+    {
+      "key": "sm_a85285b4bde628b49831b814",
+      "src": "Lưu danh mục tuyến đường",
+      "en": "Save route catalog",
+      "zh-cn": "保存路线目录",
+      "zh-tw": "儲存路線目錄"
+    },
+    {
+      "key": "sm_aa868e66c13f296d9245fc6d",
+      "src": "Đánh giá sản phẩm",
+      "en": "Product reviews",
+      "zh-cn": "产品评论",
+      "zh-tw": "商品評論"
+    },
+    {
+      "key": "sm_abbd0ae0ba2df1d63bbf7fcc",
+      "src": "Quản lý cơ sở dữ liệu",
+      "en": "Database management",
+      "zh-cn": "数据库管理",
+      "zh-tw": "資料庫管理"
+    },
+    {
+      "key": "sm_ac863f346e618f9a959b5c95",
+      "src": "App",
+      "en": "App",
+      "zh-cn": "应用",
+      "zh-tw": "應用程式"
+    },
+    {
+      "key": "sm_afe8df2e7abfe8aad9929eb6",
+      "src": "Đơn đặt hàng sau bán hàng",
+      "en": "After-sales orders",
+      "zh-cn": "售后订单",
+      "zh-tw": "售後訂單"
+    },
+    {
+      "key": "sm_b0f1bc6420472dca98b7af37",
+      "src": "Thông tin cần lưu ý khi thêm hoặ",
+      "en": "Information to note when adding or",
+      "zh-cn": "添加或添加时需要注意的信息",
+      "zh-tw": "新增或新增時需要注意的訊息"
+    },
+    {
+      "key": "sm_b79b7db8bc35938e9b7496cd",
+      "src": "Biểu mẫu bình luận ảo",
+      "en": "Virtual comment form",
+      "zh-cn": "虚拟评论表",
+      "zh-tw": "虛擬評論表"
+    },
+    {
+      "key": "sm_b9cf2f4b1b5b58ea61d4d7c7",
+      "src": "Cấu hình đơn hàng",
+      "en": "Order configuration",
+      "zh-cn": "订单配置",
+      "zh-tw": "訂單配置"
+    },
+    {
+      "key": "sm_bb0840dcbcfb1f7d43f9a77a",
+      "src": "Thiết lập nhóm người dùng",
+      "en": "Set up user groups",
+      "zh-cn": "设置用户组",
+      "zh-tw": "設定用戶群組"
+    },
+    {
+      "key": "sm_be8fc4a1c83cfaa0d6617a55",
+      "src": "Nhóm người dùng",
+      "en": "User group",
+      "zh-cn": "用户组",
+      "zh-tw": "使用者群組"
+    },
+    {
+      "key": "sm_bea8d472fbaf7060c51fb674",
+      "src": "Phân loại giao diện",
+      "en": "Interface classification",
+      "zh-cn": "接口分类",
+      "zh-tw": "介面分類"
+    },
+    {
+      "key": "sm_bf3c63aba21bdeeb0992e363",
+      "src": "Chỉnh sửa biểu mẫu cân bằng điểm",
+      "en": "Edit the grade balance form",
+      "zh-cn": "编辑成绩平衡表",
+      "zh-tw": "編輯成績平衡表"
+    },
+    {
+      "key": "sm_bf9a014db1423a2734d3ff28",
+      "src": "Biểu mẫu Thêm/Chỉnh sửa Nhóm",
+      "en": "Add/Edit Group form",
+      "zh-cn": "添加/编辑组表单",
+      "zh-tw": "新增/編輯群組表單"
+    },
+    {
+      "key": "sm_c347f5ef2d9edd624aa9e45d",
+      "src": "Lấy biểu mẫu chỉnh sửa người dùn",
+      "en": "Get the user edit form",
+      "zh-cn": "获取用户编辑表单",
+      "zh-tw": "取得使用者編輯表單"
+    },
+    {
+      "key": "sm_c482980d384a9d0e7bc39e11",
+      "src": "Finance",
+      "en": "Finance",
+      "zh-cn": "财务",
+      "zh-tw": "財務"
+    },
+    {
+      "key": "sm_c4ea134c599dd1fd1132db3b",
+      "src": "Cài đặt ngôn ngữ",
+      "en": "Language settings",
+      "zh-cn": "语言设置",
+      "zh-tw": "語言設定"
+    },
+    {
+      "key": "sm_c50bd355c644d5b8f6740521",
+      "src": "Cấu hình mô-đun",
+      "en": "Module configuration",
+      "zh-cn": "模块配置",
+      "zh-tw": "模組配置"
+    },
+    {
+      "key": "sm_c7da501f54544eba67879602",
+      "src": "CMS",
+      "en": "CMS",
+      "zh-cn": "内容管理",
+      "zh-tw": "內容管理"
+    },
+    {
+      "key": "sm_ca23f10a22278003f771cd2e",
+      "src": "Trả lời bình luận",
+      "en": "Reply to comments",
+      "zh-cn": "回复评论",
+      "zh-tw": "回覆評論"
+    },
+    {
+      "key": "sm_cb9c481099054b5788dfed19",
+      "src": "Sự kiện tùy chỉnh",
+      "en": "Custom events",
+      "zh-cn": "自定义事件",
+      "zh-tw": "自訂事件"
+    },
+    {
+      "key": "sm_d229e757cf01179f997c48a7",
+      "src": "Đơn đặt hàng của thu ngân",
+      "en": "Cashier's order",
+      "zh-cn": "银行本票",
+      "zh-tw": "銀行本票"
+    },
+    {
+      "key": "sm_d236d1b89ad7459fe593e082",
+      "src": "systemPermissionRule",
+      "en": "systemPermissionRule",
+      "zh-cn": "系统权限规则",
+      "zh-tw": "系統權限規則"
+    },
+    {
+      "key": "sm_d6c4533bcd89411bfff53a08",
+      "src": "Gửi danh sách phiếu giảm giá",
+      "en": "Submit coupon list",
+      "zh-cn": "提交优惠券列表",
+      "zh-tw": "提交優惠券列表"
+    },
+    {
+      "key": "sm_d938f1e146ecce473b2beaa6",
+      "src": "Thêm nhóm",
+      "en": "Add group",
+      "zh-cn": "添加群组",
+      "zh-tw": "新增群組"
+    },
+    {
+      "key": "sm_dcc14469082887008f74ad4c",
+      "src": "Cung cấp thời gian thành viên tr",
+      "en": "Provide membership period p",
+      "zh-cn": "提供会员期限p",
+      "zh-tw": "提供會員期限p"
+    },
+    {
+      "key": "sm_deb8d0fe5c31df5850165ee9",
+      "src": "Lấy danh sách các loại tuyến đườ",
+      "en": "Get a list of types of routes",
+      "zh-cn": "获取路线类型列表",
+      "zh-tw": "取得路線類型列表"
+    },
+    {
+      "key": "sm_e7afdc6f864e885f1fecfc7e",
+      "src": "Customer Serivce",
+      "en": "Customer Serivce",
+      "zh-cn": "客户服务",
+      "zh-tw": "客戶服務"
+    },
+    {
+      "key": "sm_ea78409bc49b4b74a3080b3d",
+      "src": "Quản lý tập tin",
+      "en": "File management",
+      "zh-cn": "文件管理",
+      "zh-tw": "文件管理"
+    },
+    {
+      "key": "sm_ec136b444eede3bc85639fac",
+      "src": "Supplier",
+      "en": "Supplier",
+      "zh-cn": "供应商",
+      "zh-tw": "供應商"
+    },
+    {
+      "key": "sm_f4f70727dc34561dfde1a3c5",
+      "src": "Settings",
+      "en": "Settings",
+      "zh-cn": "设置",
+      "zh-tw": "設定"
+    },
+    {
+      "key": "sm_f71d86a1bea053451e16e6d3",
+      "src": "Bảo trì dữ liệu",
+      "en": "Data maintenance",
+      "zh-cn": "数据维护",
+      "zh-tw": "資料維護"
+    },
+    {
+      "key": "sm_fd51e1e3895899233428f6b4",
+      "src": "Danh mục sản phẩm",
+      "en": "Product catalog",
+      "zh-cn": "产品目录",
+      "zh-tw": "產品目錄"
+    }
+  ]
+}

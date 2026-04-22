@@ -147,7 +147,7 @@
           v-db-click
           @click="selectRule(item)"
         >
-          <div>{{ $t('message.systemMenus.apiName') }}{{ item.real_name }}</div>
+          <div>{{ $t('message.systemMenus.apiName') }}{{ resolveRuleName(item) }}</div>
           <div>{{ $t('message.systemMenus.requestMethod') }}{{ item.method }}</div>
           <div>{{ $t('message.systemMenus.apiAddress') }}{{ item.rule }}</div>
         </div>
@@ -293,12 +293,108 @@ export default {
     },
   },
   methods: {
+    getI18nValueByPath(keyPath, locale) {
+      if (!keyPath || !locale) return '';
+      const segments = keyPath.split('.');
+      let cursor = this.$i18n?.messages?.[locale];
+      for (const segment of segments) {
+        if (!cursor || typeof cursor !== 'object' || !(segment in cursor)) return '';
+        cursor = cursor[segment];
+      }
+      return typeof cursor === 'string' ? cursor : '';
+    },
+    resolveI18nKey(keyPath) {
+      if (!keyPath) return '';
+      const localeOrder = [];
+      const pushLocale = (loc) => {
+        if (!loc) return;
+        const normalized = String(loc).toLowerCase();
+        if (!localeOrder.includes(normalized)) localeOrder.push(normalized);
+      };
+      pushLocale(this.$i18n?.locale);
+      pushLocale(this.$i18n?.fallbackLocale);
+      ['vi', 'zh-cn', 'en', 'zh-tw'].forEach(pushLocale);
+
+      for (const locale of localeOrder) {
+        const val = this.getI18nValueByPath(keyPath, locale);
+        if (val) return val;
+      }
+      return '';
+    },
+    decodeRawI18nKey(value) {
+      if (!value || typeof value !== 'string' || !value.startsWith('k_')) return '';
+      try {
+        const base64 = value
+          .slice(2)
+          .replace(/-/g, '+')
+          .replace(/_/g, '/')
+          .padEnd(Math.ceil((value.length - 2) / 4) * 4, '=');
+        return decodeURIComponent(escape(atob(base64)));
+      } catch (e) {
+        return '';
+      }
+    },
+    resolveI18nValue(value, depth = 0) {
+      if (!value) return '';
+      if (depth > 4) return value;
+
+      const direct = this.resolveI18nKey(value);
+      if (direct && direct !== value) {
+        return this.resolveI18nValue(direct, depth + 1);
+      }
+
+      const routerKey = `message.router.${value}`;
+      const routerTranslated = this.resolveI18nKey(routerKey);
+      if (routerTranslated && routerTranslated !== value) {
+        return this.resolveI18nValue(routerTranslated, depth + 1);
+      }
+
+      const dbKey = `message.systemMenusDb.${value}`;
+      const dbTranslated = this.resolveI18nKey(dbKey);
+      if (dbTranslated && dbTranslated !== value) {
+        return this.resolveI18nValue(dbTranslated, depth + 1);
+      }
+
+      const rawDbKey = this.systemMenusDbRawKey(value);
+      const rawDbTranslated = this.resolveI18nKey(rawDbKey);
+      if (rawDbTranslated && rawDbTranslated !== value) {
+        return this.resolveI18nValue(rawDbTranslated, depth + 1);
+      }
+
+      const routeDbKey = `message.systemRouteDb.${value}`;
+      const routeDbTranslated = this.resolveI18nKey(routeDbKey);
+      if (routeDbTranslated && routeDbTranslated !== value) {
+        return this.resolveI18nValue(routeDbTranslated, depth + 1);
+      }
+
+      const routeDbRawKey = this.systemRouteDbRawKey(value);
+      const routeDbRawTranslated = this.resolveI18nKey(routeDbRawKey);
+      if (routeDbRawTranslated && routeDbRawTranslated !== value) {
+        return this.resolveI18nValue(routeDbRawTranslated, depth + 1);
+      }
+
+      const decodedValue = this.decodeRawI18nKey(value);
+      return decodedValue || value;
+    },
+    systemMenusDbRawKey(menuName) {
+      if (!menuName) return '';
+      const encoded = btoa(unescape(encodeURIComponent(menuName))).replace(/=+$/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+      return `message.systemMenusDb.k_${encoded}`;
+    },
+    systemRouteDbRawKey(name) {
+      if (!name) return '';
+      const encoded = btoa(unescape(encodeURIComponent(name))).replace(/=+$/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+      return `message.systemRouteDb.k_${encoded}`;
+    },
     resolveMenuName(menuName) {
       if (!menuName) return '';
-      if (this.$te(menuName)) return this.$t(menuName);
-      const routerKey = `message.router.${menuName}`;
-      if (this.$te(routerKey)) return this.$t(routerKey);
-      return menuName;
+      return this.resolveI18nValue(menuName);
+    },
+    resolveRuleName(item) {
+      if (!item) return '';
+      const name = item.real_name || '';
+      if (!name) return '';
+      return this.resolveI18nValue(name);
     },
     translateCascaderOptions(options = []) {
       return options.map((item) => ({

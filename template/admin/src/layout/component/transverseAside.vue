@@ -9,15 +9,15 @@
           ref="columnsAsideOffsetLeftRefs"
           class="layout-columns"
           :class="{ 'layout-columns-active': v.k === liIndex }"
-          :title="$t(v.title)"
+          :title="resolveMenuTitle(v.title)"
         >
           <div :class="setColumnsAsidelayout" v-if="!v.isLink || (v.isLink && v.isIframe)">
             <!-- <i :class="'el-icon-' + v.icon"></i> -->
             <div class="font14">
               {{
-                $t(v.title) && $t(v.title).length >= 4
-                  ? $t(v.title).substr(0, setColumnsAsidelayout === 'columns-vertical' ? 4 : 3)
-                  : $t(v.title)
+                resolveMenuTitle(v.title) && resolveMenuTitle(v.title).length >= 4
+                  ? resolveMenuTitle(v.title).substr(0, setColumnsAsidelayout === 'columns-vertical' ? 4 : 3)
+                  : resolveMenuTitle(v.title)
               }}
             </div>
           </div>
@@ -26,9 +26,9 @@
               <!-- <i :class="'el-icon-' + v.icon"></i> -->
               <div class="font14">
                 {{
-                  $t(v.title) && $t(v.title).length >= 4
-                    ? $t(v.title).substr(0, setColumnsAsidelayout === 'columns-vertical' ? 4 : 3)
-                    : $t(v.title)
+                  resolveMenuTitle(v.title) && resolveMenuTitle(v.title).length >= 4
+                    ? resolveMenuTitle(v.title).substr(0, setColumnsAsidelayout === 'columns-vertical' ? 4 : 3)
+                    : resolveMenuTitle(v.title)
                 }}
               </div>
             </a>
@@ -85,6 +85,28 @@ export default {
     });
   },
   methods: {
+    decodeRawI18nKey(value) {
+      if (!value || typeof value !== 'string' || !value.startsWith('k_')) return '';
+      try {
+        const raw = value.slice(2);
+        const base64 = raw.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(raw.length / 4) * 4, '=');
+        return decodeURIComponent(escape(atob(base64)));
+      } catch (e) {
+        return '';
+      }
+    },
+    resolveMenuTitle(title) {
+      if (!title) return '';
+      const key = String(title);
+      if (this.$te(key)) return this.$t(key);
+      const routerKey = `message.router.${key}`;
+      if (this.$te(routerKey)) return this.$t(routerKey);
+      const menuDbKey = `message.systemMenusDb.${key}`;
+      if (this.$te(menuDbKey)) return this.$t(menuDbKey);
+      const routeDbKey = `message.systemRouteDb.${key}`;
+      if (this.$te(routeDbKey)) return this.$t(routeDbKey);
+      return this.decodeRawI18nKey(key) || key;
+    },
     // 设置横向滚动条可以鼠标滚轮滚动
     onElMenuHorizontalScroll(e) {
       const eventDelta = e.wheelDelta || -e.deltaY * 40;
@@ -138,7 +160,7 @@ export default {
         this.$store.state.themeConfig.themeConfig.isCollapse = true;
         return false;
       }
-      this.bus.$emit('oneCatName', resData.item[0].title);
+      this.bus.$emit('oneCatName', this.resolveMenuTitle(resData.item[0].title));
       this.onColumnsAsideDown(resData.item[0].k);
       // 刷新时，初始化一个路由设置自动收起菜单
       resData.children.length > 0
@@ -208,7 +230,7 @@ export default {
         const resData = this.setSendChildren(HeadName);
         if (resData.length <= 0) return false;
         this.onColumnsAsideDown(resData.item[0].k);
-        this.bus.$emit('oneCatName', resData.item[0].title);
+        this.bus.$emit('oneCatName', this.resolveMenuTitle(resData.item[0].title));
         this.bus.$emit('setSendColumnsChildren', asideList || []);
         this.$store.commit('menus/childMenuList', asideList || []);
       },

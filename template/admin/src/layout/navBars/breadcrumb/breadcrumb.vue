@@ -16,14 +16,14 @@
               :type="v.icon"
               class="ivu-icon layout-navbars-breadcrumb-iconfont"
               v-if="getThemeConfig.isBreadcrumbIcon"
-            />{{ $t(v.title) }}
+            />{{ resolveMenuTitle(v.title) }}
           </span>
           <a v-else v-db-click @click.prevent="onBreadcrumbClick(v)">
             <Icon
               :type="v.icon"
               class="ivu-icon layout-navbars-breadcrumb-iconfont"
               v-if="getThemeConfig.isBreadcrumbIcon"
-            />{{ $t(v.title) }}
+            />{{ resolveMenuTitle(v.title) }}
           </a>
         </el-breadcrumb-item>
       </transition-group>
@@ -106,6 +106,28 @@ export default {
     this.initRouteSplit(this.$route.path);
   },
   methods: {
+    decodeRawI18nKey(value) {
+      if (!value || typeof value !== 'string' || !value.startsWith('k_')) return '';
+      try {
+        const raw = value.slice(2);
+        const base64 = raw.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(raw.length / 4) * 4, '=');
+        return decodeURIComponent(escape(atob(base64)));
+      } catch (e) {
+        return '';
+      }
+    },
+    resolveMenuTitle(title) {
+      if (!title) return '';
+      const key = String(title);
+      if (this.$te(key)) return this.$t(key);
+      const routerKey = `message.router.${key}`;
+      if (this.$te(routerKey)) return this.$t(routerKey);
+      const menuDbKey = `message.systemMenusDb.${key}`;
+      if (this.$te(menuDbKey)) return this.$t(menuDbKey);
+      const routeDbKey = `message.systemRouteDb.${key}`;
+      if (this.$te(routeDbKey)) return this.$t(routeDbKey);
+      return this.decodeRawI18nKey(key) || key;
+    },
     // breadcrumb 当前项点击时
     onBreadcrumbClick(v) {
       const { redirect, path } = v;

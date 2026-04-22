@@ -25,6 +25,14 @@ import pagesLoginZhcn from '@/i18n/pages/login/zh-cn.js';
 import pagesLoginEn from '@/i18n/pages/login/en.js';
 import pagesLoginZhtw from '@/i18n/pages/login/zh-tw.js';
 import pagesLoginVi from '@/i18n/pages/login/vi.js';
+import pagesSystemMenusDbZhcn from '@/i18n/pages/systemMenusDb/zh-cn.js';
+import pagesSystemMenusDbEn from '@/i18n/pages/systemMenusDb/en.js';
+import pagesSystemMenusDbZhtw from '@/i18n/pages/systemMenusDb/zh-tw.js';
+import pagesSystemMenusDbVi from '@/i18n/pages/systemMenusDb/vi.js';
+import pagesSystemRouteDbZhcn from '@/i18n/pages/systemRouteDb/zh-cn.js';
+import pagesSystemRouteDbEn from '@/i18n/pages/systemRouteDb/en.js';
+import pagesSystemRouteDbZhtw from '@/i18n/pages/systemRouteDb/zh-tw.js';
+import pagesSystemRouteDbVi from '@/i18n/pages/systemRouteDb/vi.js';
 // 使用插件
 Vue.use(VueI18n);
 
@@ -41,6 +49,8 @@ const messages = {
       ...nextZhcn,
       ...pagesHomeZhcn,
       ...pagesLoginZhcn,
+      ...pagesSystemMenusDbZhcn,
+      ...pagesSystemRouteDbZhcn,
     },
   },
   en: {
@@ -49,6 +59,8 @@ const messages = {
       ...nextEn,
       ...pagesHomeEn,
       ...pagesLoginEn,
+      ...pagesSystemMenusDbEn,
+      ...pagesSystemRouteDbEn,
     },
   },
   'zh-tw': {
@@ -57,6 +69,8 @@ const messages = {
       ...nextZhtw,
       ...pagesHomeZhtw,
       ...pagesLoginZhtw,
+      ...pagesSystemMenusDbZhtw,
+      ...pagesSystemRouteDbZhtw,
     },
   },
   vi: {
@@ -65,6 +79,8 @@ const messages = {
       ...nextVi,
       ...pagesHomeVi,
       ...pagesLoginVi,
+      ...pagesSystemMenusDbVi,
+      ...pagesSystemRouteDbVi,
     },
   },
 };

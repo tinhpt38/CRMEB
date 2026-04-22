@@ -1,0 +1,14 @@
+{
+  "summary": {
+    "menu_rows": 1095,
+    "route_rows": 1156,
+    "menu_non_key_rows": 0,
+    "route_non_key_rows": 0,
+    "menu_all_locale_same_value_keys": 0,
+    "route_all_locale_same_value_keys": 0
+  },
+  "menu_non_key_rows": [],
+  "route_non_key_rows": [],
+  "menu_all_locale_same_value_keys_sample": [],
+  "route_all_locale_same_value_keys_sample": []
+}
