@@ -21,39 +21,39 @@
           >
             {{ item.name }}
           </div>
-          <div class="tab-item" :class="{ active: pageId == 1617 }" v-db-click @click="edits(2)">开屏广告</div>
+          <div class="tab-item" :class="{ active: pageId == 1617 }" v-db-click @click="edits(2)">{{ $t('message.systemGroup.splashAd') }}</div>
         </div>
       </div>
       <div v-if="name == 'user_recharge_quota'" class="iframe">
         <div class="iframe-boxs">
           <div class="moneyBox">
             <div class="box1">
-              <div class="font1">我的余额</div>
+              <div class="font1">{{ $t('message.systemGroup.myBalance') }}</div>
               <div>￥ <i class="font2">0.00</i></div>
             </div>
             <div class="moneyBox_content">
               <div class="box2">
-                <div>账户充值</div>
-                <div>佣金导入</div>
+                <div>{{ $t('message.systemGroup.accountRecharge') }}</div>
+                <div>{{ $t('message.systemGroup.commissionImport') }}</div>
               </div>
               <div class="box3">
                 <div v-show="item.status != 0" class="box3_box" v-for="(item, index) in sginList.list" :key="index">
-                  <div>{{ item.price }}<i class="font">元</i></div>
-                  <div class="font">赠送:{{ item.give_money }}元</div>
+                  <div>{{ item.price }}<i class="font">{{ $t('message.systemGroup.currencyYuan') }}</i></div>
+                  <div class="font">{{ $t('message.systemGroup.gift') }}:{{ item.give_money }}{{ $t('message.systemGroup.currencyYuan') }}</div>
                 </div>
                 <div class="box3_box">
-                  <div class="other">其他</div>
+                  <div class="other">{{ $t('message.systemGroup.other') }}</div>
                 </div>
               </div>
               <div class="box4">
-                <div class="tips">注意事项：</div>
+                <div class="tips">{{ $t('message.systemGroup.notesLabel') }}</div>
                 <div class="tips-samll">
-                  <p>充值后帐户的金额不能提现，可用于商城消费使用。</p>
-                  <p>佣金导入账户之后不能再次导出、不可提现。</p>
-                  <p>账户充值出现问题可联系商城客服，也可拨打商城客服热线：40088888889。</p>
+                  <p>{{ $t('message.systemGroup.rechargeNote1') }}</p>
+                  <p>{{ $t('message.systemGroup.rechargeNote2') }}</p>
+                  <p>{{ $t('message.systemGroup.rechargeNote3') }}</p>
                 </div>
               </div>
-              <div class="box5">立即充值</div>
+              <div class="box5">{{ $t('message.systemGroup.rechargeNow') }}</div>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
       <div v-if="name == 'admin_login_slide'" class="pciframe" :bordered="false" shadow="never">
         <img src="../../../assets/images/pclogin.png" class="pciframe-box" />
         <div class="pcmoddile_goods">
-          <div class="nofont" v-if="tabList.list == ''">暂无照片，请添加~</div>
+          <div class="nofont" v-if="tabList.list == ''">{{ $t('message.systemGroup.noPhotoPleaseAdd') }}</div>
           <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
             <swiper-slide class="spcwiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
               <img :src="item.slide" />
@@ -74,7 +74,7 @@
           <img src="../../../assets/images/integral.png" style="width: 100%" />
           <div class="moddile_goods">
             <div class="nofonts" v-if="tabList.list == '' || !tabList.list.length || !tabList.list[0].img">
-              暂无照片，请添加~
+              {{ $t('message.systemGroup.noPhotoPleaseAdd') }}
             </div>
             <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
               <swiper-slide class="swiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
@@ -109,7 +109,7 @@
           class="moddile_box"
         >
           <div class="nofonts" v-if="!tabList.list || !tabList.list.length || !tabList.list[0].img">
-            暂无照片，请添加~
+            {{ $t('message.systemGroup.noPhotoPleaseAdd') }}
           </div>
           <swiper v-else :options="swiperOption" class="swiperimg">
             <swiper-slide class="swiperimg" v-for="(item, index) in tabList.list" :key="index">
@@ -118,7 +118,7 @@
           </swiper>
         </div>
         <div v-if="name == 'combination_banner'" class="moddile_goods">
-          <div class="nofonts" v-if="tabList.list == ''">暂无照片，请添加~</div>
+          <div class="nofonts" v-if="tabList.list == ''">{{ $t('message.systemGroup.noPhotoPleaseAdd') }}</div>
           <swiper v-else :options="swiperOption" class="swiperimg_goods">
             <swiper-slide class="swiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
               <img :src="item.img" />
@@ -139,10 +139,10 @@
         <div class="agreement-box">
           <div class="template"></div>
           <div class="htmls_box">
-            <div class="htmls_top">服务协议与隐私政策</div>
+            <div class="htmls_top">{{ $t('message.systemGroup.serviceAgreementAndPrivacyPolicy') }}</div>
             <div class="htmls_font">
-              <div class="ok">我同意</div>
-              <div>不同意</div>
+              <div class="ok">{{ $t('message.systemGroup.iAgree') }}</div>
+              <div>{{ $t('message.systemGroup.disagree') }}</div>
             </div>
             <div class="htmls" v-html="formValidate.content"></div>
           </div>
@@ -152,7 +152,7 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">隐私权限页面展示：</div>
+              <div class="title">{{ $t('message.systemGroup.privacyPermissionPageDisplay') }}</div>
             </div>
           </div>
           <div>
@@ -179,7 +179,7 @@
       </div>
       <div v-if="guide == 2" class="iframe" :bordered="false">
         <div class="nofonts" v-if="tabList.list == '' || !tabList.list.length || !tabList.list[0].img">
-          暂无照片，请添加~
+          {{ $t('message.systemGroup.noPhotoPleaseAdd') }}
         </div>
         <swiper :options="swiperOption" class="swiperimgs" v-else>
           <swiper-slide class="swiperimgs" v-for="(item, index) in tabList.list" :key="index">
@@ -191,7 +191,7 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">签到天数设置</div>
+              <div class="title">{{ $t('message.systemGroup.signInDaysSettings') }}</div>
               <el-button
                 type="primary"
                 v-db-click
@@ -211,23 +211,23 @@
                :no-userFrom-text="$t('couponList.empty')"
                :no-filtered-userFrom-text="$t('couponList.noResult')"
             >
-              <el-table-column label="编号" width="80">
+              <el-table-column :label="$t('message.systemGroup.number')" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="第几天" min-width="80">
+              <el-table-column :label="$t('message.systemGroup.dayNumber')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.day }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="获取积分" min-width="80">
+              <el-table-column :label="$t('message.systemGroup.pointsEarned')" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sign_num }}</span>
                 </template>
               </el-table-column>
 
-              <el-table-column label="是否可用" min-width="80">
+              <el-table-column :label="$t('message.systemGroup.isAvailable')" min-width="80">
                 <template slot-scope="scope">
                   <el-switch
                     :active-value="1"
@@ -247,7 +247,7 @@
               </el-table-column>
               <el-table-column  :label="$t('customDesign.action')" fixed="right" width="150">
                 <template slot-scope="scope">
-                  <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
+                  <a v-db-click @click="edit(scope.row, $t('productList.edit'))">{{ $t('productList.edit') }}</a>
                   <el-divider direction="vertical"></el-divider>
                   <a v-db-click @click="del(scope.row, this.$t('systemCommon.deleteThisRecord'), scope.$index)">{{ $t('customDesign.delete') }}</a>
                 </template>
@@ -260,7 +260,7 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">充值金额设置</div>
+              <div class="title">{{ $t('message.systemGroup.rechargeAmountSettings') }}</div>
               <el-button
                 type="primary"
                 v-db-click
@@ -304,7 +304,7 @@
                     </el-switch>
                   </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
+                    <a v-db-click @click="edit(scope.row, $t('productList.edit'))">{{ $t('productList.edit') }}</a>
                     <el-divider direction="vertical"></el-divider>
                     <a v-db-click @click="del(scope.row, this.$t('systemCommon.deleteThisRecord'), scope.$index)">{{ $t('customDesign.delete') }}</a>
                   </template>
@@ -321,9 +321,9 @@
         >
           <div class="right-box">
             <div class="hot_imgs">
-              <div class="title" v-if="name == 'admin_login_slide'">幻灯片设置</div>
-              <div class="title" v-else>轮播图设置</div>
-              <div class="title-text">建议尺寸：690 * 240px，拖拽图片可调整图片顺序哦，最多添加五张</div>
+              <div class="title" v-if="name == 'admin_login_slide'">{{ $t('message.systemGroup.slideSettings') }}</div>
+              <div class="title" v-else>{{ $t('message.systemGroup.bannerSettings') }}</div>
+              <div class="title-text">{{ $t('message.systemGroup.bannerSizeTip') }}</div>
               <div class="list-box">
                 <draggable
                   v-if="name == 'admin_login_slide'"
@@ -364,15 +364,15 @@
                     </div>
                     <div class="info">
                       <div class="info-item">
-                        <span>图片名称：</span>
+                        <span>{{ $t('message.systemGroup.imageNameLabel') }}</span>
                         <div class="input-box">
                           <el-input v-model="item.comment" :placeholder="$t('systemCommon.inputName')" />
                         </div>
                       </div>
                       <div class="info-item">
-                        <span>链接地址：</span>
+                        <span>{{ $t('message.systemGroup.linkAddressLabel') }}</span>
                         <div class="input-box" v-db-click>
-                          <el-input v-model="item.link" placeholder="选择链接">
+                          <el-input v-model="item.link" :placeholder="$t('message.systemGroup.selectLink')">
                             <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                           </el-input>
                         </div>
@@ -384,7 +384,7 @@
                   <el-dialog
                     :visible.sync="modalPic"
                     width="950px"
-                    title="上传商品图"
+                    :title="$t('message.systemGroup.uploadProductImage')"
                     :close-on-click-modal="false"
                     :show-close="true"
                   >
@@ -406,7 +406,7 @@
                     style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                     v-db-click
                     @click="addBox"
-                    >添加图片
+                    >{{ $t('message.systemGroup.addImage') }}
                   </el-button>
                 </div>
               </template>
@@ -417,22 +417,22 @@
       <div v-if="guide === 2" :class="name != 'admin_login_slide' ? 'content' : 'contents'">
         <div class="right-box">
           <div class="hot_imgs">
-            <div class="title">引导页设置</div>
-            <div class="title-text">建议尺寸：750 * 1334px，拖拽图片可调整图片顺序哦，最多添加五张</div>
+            <div class="title">{{ $t('message.systemGroup.guidePageSettings') }}</div>
+            <div class="title-text">{{ $t('message.systemGroup.guidePageSizeTip') }}</div>
             <div class="list-box">
               <div>
                 <el-form :model="formItem" label-width="85px">
-                  <el-form-item label="开屏广告:">
+                  <el-form-item :label="$t('message.systemGroup.splashAdLabel')">
                     <el-switch active-value="1" inactive-value="0" v-model="formItem.status" size="large"> </el-switch>
                   </el-form-item>
-                  <el-form-item label="广告时间:">
+                  <el-form-item :label="$t('message.systemGroup.adDurationLabel')">
                     <el-input
                       v-model.number="formItem.time"
                       type="number"
-                      placeholder="请输入开屏广告时间"
+                      :placeholder="$t('message.systemGroup.enterSplashAdTime')"
                       style="width: 150px"
                     ></el-input>
-                    单位(秒)
+                    {{ $t('message.systemGroup.secondsUnit') }}
                   </el-form-item>
                 </el-form>
               </div>
@@ -452,15 +452,15 @@
                   </div>
                   <div class="info">
                     <div class="info-item">
-                      <span>图片名称：</span>
+                      <span>{{ $t('message.systemGroup.imageNameLabel') }}</span>
                       <div class="input-box">
                         <el-input v-model="item.comment" :placeholder="$t('systemCommon.inputName')" />
                       </div>
                     </div>
                     <div class="info-item">
-                      <span>链接地址：</span>
+                      <span>{{ $t('message.systemGroup.linkAddressLabel') }}</span>
                       <div class="input-box" v-db-click>
-                        <el-input v-model="item.link" placeholder="选择链接">
+                        <el-input v-model="item.link" :placeholder="$t('message.systemGroup.selectLink')">
                           <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                         </el-input>
                       </div>
@@ -469,7 +469,7 @@
                 </div>
               </draggable>
               <div>
-                <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+                <el-dialog :visible.sync="modalPic" width="950px" :title="$t('message.systemGroup.uploadProductImage')" :close-on-click-modal="false">
                   <uploadPictures
                     :isChoice="isChoice"
                     @getPic="getPic"
@@ -488,7 +488,7 @@
                   style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                   v-db-click
                   @click="addBox"
-                  >添加图片
+                  >{{ $t('message.systemGroup.addImage') }}
                 </el-button>
               </div>
             </template>
@@ -692,7 +692,7 @@ export default {
       let that = this;
       let suffix = evfile.target.files[0].name.substr(evfile.target.files[0].name.indexOf('.'));
       if (suffix.indexOf('.mp4') === -1) {
-        return that.$message.error('只能上传MP4文件');
+        return that.$message.error(this.$t('message.systemGroup.onlyMp4Allowed'));
       }
       let types = {
         key: evfile.target.files[0].name,
@@ -711,7 +711,7 @@ export default {
             })
             .then((res) => {
               that.formValidate.video_link = res.url;
-              that.$message.success('视频上传成功');
+              that.$message.success(this.$t('message.systemGroup.videoUploadSuccess'));
             })
             .catch((res) => {
               that.$message.error(res);
@@ -831,7 +831,7 @@ export default {
         this.a = 0;
         switch (row.config_name) {
           case 'routine_home_bast_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=1&name=精品推荐';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=1&name=' + this.$t('message.systemGroup.featuredRecommendation');
             break;
           case 'sign_day_num':
             this.url = '';
@@ -841,13 +841,13 @@ export default {
             this.url = this.BaseURL + 'pages/activity/goods_combination/index';
             break;
           case 'routine_home_hot_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=2&name=热门榜单';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=2&name=' + this.$t('message.systemGroup.hotRanking');
             break;
           case 'routine_home_new_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=3&name=首发新品';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=3&name=' + this.$t('message.systemGroup.newArrivals');
             break;
           case 'routine_home_benefit_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=4&name=促销单品';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=4&name=' + this.$t('message.systemGroup.promotionalItems');
             break;
           case 'user_recharge_quota':
             this.url = '';
@@ -877,7 +877,7 @@ export default {
         };
       } else {
         if (this.tabList.list.length == 5) {
-          this.$message.warning('最多添加五张呦');
+          this.$message.warning(this.$t('message.systemGroup.maxAddFiveImagesFriendly'));
         } else {
           let obj = JSON.parse(JSON.stringify(this.lastObj));
           this.tabList.list.push(obj);

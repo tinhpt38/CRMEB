@@ -1,20 +1,20 @@
 <template>
   <div class="main">
     <el-alert closable class="mb14">
-      <template v-slot:title>crud生成说明</template>
+      <template v-slot:title>{{ $t('message.systemCodeGen.crudGenerateTitle') }}</template>
       <template>
         <p>
-          1、字段配置中表存在生成的字段为表内列的信息,并且主键、伪删除字段不允许设置为列，主键默认展示在列表中，伪删除字段不允许展示
+          {{ $t('message.systemCodeGen.tableFieldTip1') }}
         </p>
-        <p>2、在字段配置中新建表时，主键不需要增加列，会自动增加一行主键id</p>
-        <p>3、在字段配置中，表单类型为不生成时创建后不会生成对应的表单项</p>
-        <p>4、添加字段id、create_time、update_time、delete_time为不可用字段</p>
+        <p>{{ $t('message.systemCodeGen.tableFieldTip2') }}</p>
+        <p>{{ $t('message.systemCodeGen.tableFieldTip3') }}</p>
+        <p>{{ $t('message.systemCodeGen.tableFieldTip4') }}</p>
       </template>
     </el-alert>
     <div class="df mb14">
-      <el-button class="mr20" type="primary" v-db-click @click="addRow">添加一行</el-button>
-      <el-checkbox class="mr10" v-model="isCreate" @change="addCreate">添加与修改时间</el-checkbox>
-      <el-checkbox class="mr10" v-model="isDelete" @change="addDelete">伪删除</el-checkbox>
+      <el-button class="mr20" type="primary" v-db-click @click="addRow">{{ $t('message.systemCodeGen.addRow') }}</el-button>
+      <el-checkbox class="mr10" v-model="isCreate" @change="addCreate">{{ $t('message.systemCodeGen.createAndUpdateTime') }}</el-checkbox>
+      <el-checkbox class="mr10" v-model="isDelete" @change="addDelete">{{ $t('message.systemCodeGen.softDelete') }}</el-checkbox>
     </div>
     <div>
       <el-table
@@ -33,7 +33,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="表单名" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.formName')" min-width="130">
           <template slot-scope="scope">
             <el-input
               v-model="scope.row.table_name"
@@ -42,7 +42,7 @@
             ></el-input>
           </template>
         </el-table-column>
-        <el-table-column label="表单类型" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.formType')" min-width="130">
           <template slot-scope="scope">
             <el-select
               clearable
@@ -59,7 +59,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="数据字典" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.dataDictionary')" min-width="130">
           <template slot-scope="scope">
             <div class="table-options" v-if="['select', 'radio', 'checkbox'].includes(scope.row.from_type)">
               <el-select clearable v-model="scope.row.dictionary_id">
@@ -75,7 +75,7 @@
             <div v-else>--</div>
           </template>
         </el-table-column>
-        <el-table-column label="必填" width="50">
+        <el-table-column :label="$t('message.systemCodeGen.required')" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.required"
@@ -84,7 +84,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="查询方式" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.searchType')" min-width="130">
           <template slot-scope="scope">
             <el-select
               clearable
@@ -102,7 +102,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="列表" width="50">
+        <el-table-column :label="$t('message.systemCodeGen.listColumn')" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.is_table"
@@ -110,7 +110,7 @@
             ></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column label="字段名称" min-width="120">
+        <el-table-column :label="$t('message.systemCodeGen.fieldName')" min-width="120">
           <template slot-scope="scope">
             <el-input
               :disabled="disabledInput(scope.$index)"
@@ -119,7 +119,7 @@
             ></el-input>
           </template>
         </el-table-column>
-        <el-table-column label="字段类型" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.fieldType')" min-width="130">
           <template slot-scope="scope">
             <el-select
               v-model="scope.row.field_type"
@@ -131,7 +131,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="长度" min-width="80">
+        <el-table-column :label="$t('message.systemCodeGen.length')" min-width="80">
           <template slot-scope="scope">
             <el-input
               v-if="scope.row.field_type !== 'enum'"
@@ -146,11 +146,11 @@
               allow-create
               clearable
               default-first-option
-              placeholder="请添加"
+              :placeholder="$t('message.systemCodeGen.pleaseAdd')"
             />
           </template>
         </el-table-column>
-        <el-table-column label="默认值" min-width="180">
+        <el-table-column :label="$t('message.systemCodeGen.defaultValue')" min-width="180">
           <template slot-scope="scope">
             <el-input
               class="input-with-select"
@@ -177,13 +177,13 @@
             <!-- <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option> -->
           </template>
         </el-table-column>
-        <el-table-column label="字段描述" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.fieldDescription')" min-width="130">
           <template slot-scope="scope">
             <el-input v-model="scope.row.comment" :disabled="disabledInput(scope.$index)"></el-input>
           </template>
         </el-table-column>
 
-        <el-table-column label="关联表" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.relatedTable')" min-width="130">
           <template slot-scope="scope">
             <el-cascader
               clearable
@@ -195,7 +195,7 @@
             ></el-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="索引" width="50">
+        <el-table-column :label="$t('message.systemCodeGen.index')" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.index"
@@ -215,7 +215,7 @@
     </div>
     <el-dialog
       :visible.sync="optionsModal"
-      title="字典配置"
+      :title="$t('message.systemCodeGen.dictionaryConfig')"
       @close="beforeChange"
       :close-on-click-modal="false"
       width="600px"
@@ -223,29 +223,29 @@
       <div class="options-list">
         <el-form ref="form" :inline="true" label-width="80px">
           <div class="mb10">
-            <el-form-item label="字典名称：">
-              <el-input class="mr10" v-model="dictionaryName" placeholder="字典名称" style="width: 310px" />
+            <el-form-item :label="$t('message.systemCodeGen.dictionaryNameLabel')">
+              <el-input class="mr10" v-model="dictionaryName" :placeholder="$t('message.systemCodeGen.dictionaryName')" style="width: 310px" />
             </el-form-item>
           </div>
           <div class="item" v-for="(item, index) in optionsList" :key="index">
-            <el-form-item label="数据名称：">
+            <el-form-item :label="$t('message.systemCodeGen.dataNameLabel')">
               <el-input class="mr10" v-model="item.label" placeholder="label" style="width: 150px" />
             </el-form-item>
-            <el-form-item label="数据值：">
+            <el-form-item :label="$t('message.systemCodeGen.dataValueLabel')">
               <el-input class="mr10" v-model="item.value" placeholder="value" style="width: 150px" />
             </el-form-item>
             <div style="display: inline-block; margin-bottom: 14px">
               <i
                 v-if="index == optionsList.length - 1"
                 class="el-icon-circle-plus-outline add"
-                title="新增"
+                :title="$t('message.systemCodeGen.add')"
                 v-db-click
                 @click="addOneOptions"
               />
               <i
                 v-if="index > 0"
                 class="el-icon-remove-outline delete"
-                title="删除"
+                :title="$t('message.systemCommon.delete')"
                 v-db-click
                 @click="delOneOptions(index)"
               />
@@ -391,10 +391,10 @@ export default {
     },
     changeItemField(e, i) {
       if (e === 'addSoftDelete') {
-        this.$set(this.tableField[i], 'comment', '伪删除');
+        this.$set(this.tableField[i], 'comment', this.$t('message.systemCodeGen.softDelete'));
       }
       if (e === 'addTimestamps') {
-        this.$set(this.tableField[i], 'comment', '添加和修改时间');
+        this.$set(this.tableField[i], 'comment', this.$t('message.systemCodeGen.createAndUpdateTime'));
       }
     },
     eidtOptions(i) {
@@ -434,7 +434,7 @@ export default {
       for (let i = 0; i < this.tableField.length; i++) {
         const el = this.tableField[i];
         if ((!el.field || !el.field_type) && !['addTimestamps', 'addSoftDelete'].includes(el.field_type)) {
-          return this.$message.warning('请先完善上一条数据');
+          return this.$message.warning(this.$t('message.systemCodeGen.completePreviousRow'));
         }
         if (
           el.is_table &&
@@ -442,7 +442,7 @@ export default {
           !Number(el.primaryKey) &&
           !['addTimestamps', 'addSoftDelete'].includes(el.field_type)
         ) {
-          return this.$message.warning('请输入列表名');
+          return this.$message.warning(this.$t('message.systemCodeGen.enterListName'));
         }
       }
       let i = this.tableField.length;
@@ -483,7 +483,7 @@ export default {
           this.$nextTick((e) => {
             this.isCreate = false;
           });
-          return this.$message.warning('已存在 create_time或update_time');
+          return this.$message.warning(this.$t('message.systemCodeGen.createOrUpdateExists'));
         }
         let data = [
           {
@@ -508,10 +508,10 @@ export default {
             field_type: 'timestamp',
             default_type: '-1',
             default: '',
-            comment: '修改时间',
+            comment: this.$t('message.systemCodeGen.updateTime'),
             required: false,
             is_table: false,
-            table_name: '修改时间',
+            table_name: this.$t('message.systemCodeGen.updateTime'),
             limit: '',
             primaryKey: 0,
             from_type: '',
@@ -532,7 +532,7 @@ export default {
         let haveDel = this.tableField.findIndex((e) => e.field === 'delete_time');
         if (haveDel > 0) {
           this.isDelete = false;
-          return this.$message.warning('已存在 delete_time');
+          return this.$message.warning(this.$t('message.systemCodeGen.deleteTimeExists'));
         }
         let data = [
           {
@@ -540,10 +540,10 @@ export default {
             field_type: 'timestamp',
             default: '',
             default_type: '-1',
-            comment: '伪删除',
+            comment: this.$t('message.systemCodeGen.softDelete'),
             required: false,
             is_table: false,
-            table_name: '伪删除',
+            table_name: this.$t('message.systemCodeGen.softDelete'),
             limit: '',
             primaryKey: 0,
             from_type: '',
@@ -564,7 +564,7 @@ export default {
         for (let i = 0; i < this.tableField.length; i++) {
           const e = this.tableField[i];
           if (['id', 'create_time', 'update_time', 'delete_time'].includes(this.tableField[index].field)) {
-            this.$message.warning('列表中已存在该字段名称');
+            this.$message.warning(this.$t('message.systemCodeGen.fieldAlreadyExists'));
             this.tableField[index].field = '';
             return;
           }

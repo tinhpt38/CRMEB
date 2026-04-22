@@ -13,8 +13,8 @@
           </el-select>
         </template>
       </el-input>
-      <el-button class="ml20" type="primary" v-db-click @click="requestData">请求</el-button>
-      <el-button v-if="codes" class="ml10 copy-btn" type="success" v-db-click @click="insertCopy()">复制结果</el-button>
+      <el-button class="ml20" type="primary" v-db-click @click="requestData">{{ $t('message.systemApiDoc.request') }}</el-button>
+      <el-button v-if="codes" class="ml10 copy-btn" type="success" v-db-click @click="insertCopy()">{{ $t('message.systemApiDoc.copyResult') }}</el-button>
     </div>
     <div class="params">
       <el-tabs class="mt10" v-model="paramsType" @tab-click="changeTab">
@@ -35,17 +35,17 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.query"
         >
-          <vxe-column field="attribute" width="150" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="150" :title="$t('message.systemApiDoc.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.systemApiDoc.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="类型" width="120" :edit-render="{}">
+          <vxe-column field="type" :title="$t('message.systemCommon.type')" width="120" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select
                 v-model="row.type"
@@ -75,7 +75,7 @@
               <vxe-input v-model="row.trip" type="text"></vxe-input>
             </template>
           </vxe-column> -->
-          <vxe-column title="操作" width="120">
+          <vxe-column :title="$t('message.systemCommon.operation')" width="120">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -83,13 +83,13 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'xTable')"
-                >插入</vxe-button
+                >{{ $t('message.systemApiDoc.insert') }}</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">删除</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">{{ $t('message.systemCommon.delete') }}</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
-        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('xTable')">添加参数</el-button>
+        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('xTable')">{{ $t('message.systemApiDoc.addParam') }}</el-button>
       </div>
       <div v-show="paramsType === 'Body'">
         <el-radio-group v-model="bodyType" class="mt10">
@@ -164,10 +164,10 @@
           </vxe-column>
         </vxe-table>
         <div v-else>
-          <el-input v-model="jsonBody" type="textarea" :rows="8" placeholder="请求数据" />
+          <el-input v-model="jsonBody" type="textarea" :rows="8" :placeholder="$t('message.systemApiDoc.requestData')" />
         </div>
         <el-button v-if="bodyType == 'form-data'" class="mt10" type="primary" v-db-click @click="insertEvent('yTable')"
-          >添加参数</el-button
+          >{{ $t('message.systemApiDoc.addParam') }}</el-button
         >
       </div>
 
@@ -184,17 +184,17 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.headerData"
         >
-          <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="300" :title="$t('message.systemApiDoc.attribute')" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="value" title="参数值" :edit-render="{}">
+          <vxe-column field="value" :title="$t('message.systemApiDoc.paramValue')" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column title="操作" width="100">
+          <vxe-column :title="$t('message.systemCommon.operation')" width="100">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -202,13 +202,13 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'zTable')"
-                >插入</vxe-button
+                >{{ $t('message.systemApiDoc.insert') }}</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">删除</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">{{ $t('message.systemCommon.delete') }}</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
-        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('zTable')">添加参数</el-button>
+        <el-button class="mt10" type="primary" v-db-click @click="insertEvent('zTable')">{{ $t('message.systemApiDoc.addParam') }}</el-button>
       </div>
     </div>
     <div class="res mt10 mb10" v-if="codes">
@@ -328,11 +328,11 @@ export default {
       this.codes = '';
       requestMethod(url, method, params, body, headers)
         .then((res) => {
-          if (!res) return this.$message.error('接口异常');
+          if (!res) return this.$message.error(this.$t('message.systemApiDoc.apiException'));
           this.codes = JSON.stringify(res);
         })
         .catch((err) => {
-          if (!err) return this.$message.error('接口异常');
+          if (!err) return this.$message.error(this.$t('message.systemApiDoc.apiException'));
           this.codes = JSON.stringify(err);
         });
     },

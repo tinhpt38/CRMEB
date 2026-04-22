@@ -32,7 +32,11 @@
         :data="tableData"
         row-id="id"
       >
-        <vxe-table-column field="menu_name" tree-node :title="$t('message.systemMenus.buttonName')" min-width="100"></vxe-table-column>
+        <vxe-table-column field="menu_name" tree-node :title="$t('message.systemMenus.buttonName')" min-width="100">
+          <template v-slot="{ row }">
+            <span>{{ resolveMenuName(row.menu_name) }}</span>
+          </template>
+        </vxe-table-column>
         <vxe-table-column field="menu_path" :title="$t('message.systemCommon.type')" min-width="240" tooltip="true">
           <template v-slot="{ row }">
             <span v-if="row.auth_type == 1">{{ $t('message.systemMenus.menu') }}：{{ row.menu_path }}</span>
@@ -199,6 +203,13 @@ export default {
     this.getData();
   },
   methods: {
+    resolveMenuName(menuName) {
+      if (!menuName) return '';
+      if (this.$te(menuName)) return this.$t(menuName);
+      const routerKey = `message.router.${menuName}`;
+      if (this.$te(routerKey)) return this.$t(routerKey);
+      return menuName;
+    },
     init() {
       this.searchRule = '';
       this.searchRules();

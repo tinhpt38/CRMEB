@@ -46,7 +46,7 @@
         row-id="id"
       >
         <vxe-table-column field="menu_name" tree-node :title="$t('message.systemMenus.buttonName')" min-width="200" auto-resize>
-          <template v-slot="{ row }">{{  $t(row.menu_name) }}</template>
+          <template v-slot="{ row }">{{ resolveMenuName(row.menu_name) }}</template>
         </vxe-table-column>
         <vxe-table-column field="unique_auth" :title="$t('message.systemMenus.frontendAuth')" min-width="200"></vxe-table-column>
         <vxe-table-column field="menu_path" :title="$t('message.systemMenus.route')" min-width="240" tooltip="true">
@@ -234,6 +234,13 @@ export default {
     this.getData();
   },
   methods: {
+    resolveMenuName(menuName) {
+      if (!menuName) return '';
+      if (this.$te(menuName)) return this.$t(menuName);
+      const routerKey = `message.router.${menuName}`;
+      if (this.$te(routerKey)) return this.$t(routerKey);
+      return menuName;
+    },
     init() {
       this.searchRule = '';
       this.searchRules();

@@ -15,19 +15,19 @@
       <el-row class="box-wrapper">
         <el-col :xs="24" :sm="24" :md="6" :lg="3">
           <div class="left_box">
-            <div class="left_cont" :class="pageId == 1 ? 'on' : ''" v-db-click @click="menu(1)">网站LOGO</div>
+            <div class="left_cont" :class="pageId == 1 ? 'on' : ''" v-db-click @click="menu(1)">{{ $t('message.systemGroup.pcWebsiteLogo') }}</div>
             <div
               class="left_cont"
               :class="pageId == 'pc_home_banner' ? 'on' : ''"
               v-db-click
               @click="menu('pc_home_banner')"
             >
-              首页轮播图
+              {{ $t('message.systemGroup.pcHomeBanner') }}
             </div>
-            <div class="left_cont" :class="pageId == 3 ? 'on' : ''" v-db-click @click="menu(3)">客服页面广告</div>
-            <div class="left_cont" :class="pageId == 4 ? 'on' : ''" v-db-click @click="menu(4)">顶部菜单配置</div>
-            <div class="left_cont" :class="pageId == 5 ? 'on' : ''" v-db-click @click="menu(5)">友情链接配置</div>
-            <div class="left_cont" :class="pageId == 6 ? 'on' : ''" v-db-click @click="menu(6)">关于我们</div>
+            <div class="left_cont" :class="pageId == 3 ? 'on' : ''" v-db-click @click="menu(3)">{{ $t('message.systemGroup.pcKfAd') }}</div>
+            <div class="left_cont" :class="pageId == 4 ? 'on' : ''" v-db-click @click="menu(4)">{{ $t('message.systemGroup.pcTopMenuConfig') }}</div>
+            <div class="left_cont" :class="pageId == 5 ? 'on' : ''" v-db-click @click="menu(5)">{{ $t('message.systemGroup.pcFriendlyLinksConfig') }}</div>
+            <div class="left_cont" :class="pageId == 6 ? 'on' : ''" v-db-click @click="menu(6)">{{ $t('message.systemGroup.aboutUs') }}</div>
           </div>
         </el-col>
         <div style="display: flex; width: 83%">
@@ -37,7 +37,7 @@
               <img :src="pclogo" />
             </div>
             <div v-if="pageId == 'pc_home_banner'" class="pcmoddile_goods">
-              <div class="nofonts" v-if="tabList.list == ''">暂无照片，请添加~</div>
+              <div class="nofonts" v-if="tabList.list == ''">{{ $t('message.systemGroup.noPhotoPleaseAdd') }}</div>
               <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
                 <swiper-slide class="spcwiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
                   <img :src="item.image" />
@@ -56,9 +56,9 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">轮播图设置</div>
-                  <div class="title-text">建议尺寸：690 * 240px，拖拽图片可调整图片顺序哦，最多添加五张。</div>
-                  <div class="title-text">除轮播图外，页面其他内容仅供参考</div>
+                  <div class="title">{{ $t('message.systemGroup.bannerSettings') }}</div>
+                  <div class="title-text">{{ $t('message.systemGroup.pcBannerSizeTip') }}</div>
+                  <div class="title-text">{{ $t('message.systemGroup.pcBannerReferenceTip') }}</div>
                   <div class="list-box">
                     <draggable
                       v-if="pageId == 'pc_home_banner'"
@@ -87,13 +87,13 @@
                         </div>
                         <div class="info">
                           <div class="info-item">
-                            <span>图片名称：</span>
+                            <span>{{ $t('message.systemGroup.imageNameLabel') }}</span>
                             <div class="input-box">
                               <el-input v-model="item.title" :placeholder="$t('systemCommon.inputName')" />
                             </div>
                           </div>
                           <div class="info-item">
-                            <span>链接地址：</span>
+                            <span>{{ $t('message.systemGroup.linkAddressLabel') }}</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
                               <el-input v-model="item.url" :placeholder="$t('systemCommon.inputLink')" />
@@ -106,7 +106,7 @@
                       <el-dialog
                         :visible.sync="modalPic"
                         width="950px"
-                        title="上传商品图"
+                        :title="$t('message.systemGroup.uploadProductImage')"
                         :close-on-click-modal="false"
                       >
                         <uploadPictures
@@ -127,7 +127,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addBox"
-                        >添加图片
+                        >{{ $t('message.systemGroup.addImage') }}
                       </el-button>
                     </div>
                   </template>
@@ -139,20 +139,20 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">页面设置</div>
-                  <div class="title-text">建议尺寸：140px * 60px</div>
-                  <div class="title-text">除LOGO图标外，页面其他内容仅供参考</div>
+                  <div class="title">{{ $t('message.systemGroup.pageSettings') }}</div>
+                  <div class="title-text">{{ $t('message.systemGroup.pcLogoSizeTip') }}</div>
+                  <div class="title-text">{{ $t('message.systemGroup.pcLogoReferenceTip') }}</div>
                   <div class="list-box">
                     <div class="img-boxs" v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'), 0)">
                       <img :src="pclogo" alt="" />
                       <div class="img_font"></div>
-                      <div class="img_fonts">更换图片</div>
+                      <div class="img_fonts">{{ $t('message.systemGroup.changeImage') }}</div>
                     </div>
                     <div>
                       <el-dialog
                         :visible.sync="modalPic"
                         width="950px"
-                        title="上传商品图"
+                        :title="$t('message.systemGroup.uploadProductImage')"
                         :close-on-click-modal="false"
                       >
                         <uploadPictures
@@ -173,7 +173,7 @@
             <div class="table_box">
               <el-row>
                 <el-col v-bind="grid">
-                  <div class="title">客服广告内容：</div>
+                  <div class="title">{{ $t('message.systemGroup.kfAdContent') }}</div>
                 </el-col>
               </el-row>
               <div>
@@ -197,7 +197,7 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">顶部菜单设置</div>
+                  <div class="title">{{ $t('message.systemGroup.topMenuSettings') }}</div>
                   <div class="list-box">
                     <draggable class="dragArea list-group" :list="menuList" group="peoples" handle=".move-icon">
                       <div class="item" v-for="(item, index) in menuList" :key="index">
@@ -209,13 +209,13 @@
                         </div>
                         <div class="info">
                           <div class="info-item">
-                            <span>菜单名称：</span>
+                            <span>{{ $t('message.systemGroup.menuNameLabel') }}</span>
                             <div class="input-box">
                               <el-input v-model="item.title" :placeholder="$t('systemCommon.inputName')" />
                             </div>
                           </div>
                           <div class="info-item">
-                            <span>链接地址：</span>
+                            <span>{{ $t('message.systemGroup.linkAddressLabel') }}</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
                               <el-input v-model="item.url" :placeholder="$t('systemCommon.inputLink')" />
@@ -239,7 +239,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addMenu"
-                        >添加菜单
+                        >{{ $t('message.systemGroup.addMenu') }}
                       </el-button>
                     </div>
                   </template>
@@ -251,7 +251,7 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">友情链接配置</div>
+                  <div class="title">{{ $t('message.systemGroup.friendlyLinksConfig') }}</div>
                   <div class="list-box">
                     <draggable class="dragArea list-group" :list="linkList" group="peoples" handle=".move-icon">
                       <div class="item" v-for="(item, index) in linkList" :key="index">
@@ -268,13 +268,13 @@
                         </div>
                         <div class="info">
                           <div class="info-item">
-                            <span>链接名称：</span>
+                            <span>{{ $t('message.systemGroup.linkNameLabel') }}</span>
                             <div class="input-box">
                               <el-input v-model="item.title" :placeholder="$t('systemCommon.inputName')" />
                             </div>
                           </div>
                           <div class="info-item">
-                            <span>链接地址：</span>
+                            <span>{{ $t('message.systemGroup.linkAddressLabel') }}</span>
                             <!-- v-db-click @click="link(index)"-->
                             <div class="input-box">
                               <el-input v-model="item.url" :placeholder="$t('systemCommon.inputLink')" />
@@ -292,7 +292,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addLink"
-                        >添加链接
+                        >{{ $t('message.systemGroup.addLink') }}
                       </el-button>
                     </div>
                   </template>
@@ -304,7 +304,7 @@
             <div class="content">
               <div class="right-box">
                 <div class="hot_imgs">
-                  <div class="title">关于我们-详情</div>
+                  <div class="title">{{ $t('message.systemGroup.aboutUsDetail') }}</div>
                   <WangEditor
                     style="width: 100%"
                     :content="formValidate.content"
@@ -487,12 +487,12 @@ export default {
       });
     },
     setAboutUs(id) {
-      if (this.formValidate.content == '') return this.$message.warning('请输入内容');
+      if (this.formValidate.content == '') return this.$message.warning(this.$t('message.systemGroup.enterContent'));
       let data = {
         id: id,
         content: this.formValidate.content,
         type: id,
-        title: '关于我们',
+        title: this.$t('message.systemGroup.aboutUs'),
       };
 
       setAgreements(data).then((res) => {
@@ -552,7 +552,7 @@ export default {
         };
       } else {
         if (this.tabList.list.length == 5) {
-          this.$message.warning('最多添加5张');
+          this.$message.warning(this.$t('message.systemGroup.maxAddFiveImages'));
         } else {
           let obj = JSON.parse(JSON.stringify(this.lastObj));
           this.tabList.list.push(obj);
@@ -561,7 +561,7 @@ export default {
     },
     addMenu() {
       if (this.menuList.length >= 6) {
-        return this.$message.warning('最多添加6个菜单');
+        return this.$message.warning(this.$t('message.systemGroup.maxAddSixMenus'));
       }
       this.menuList.push({
         title: '',
@@ -570,7 +570,7 @@ export default {
     },
     addLink() {
       if (this.linkList.length >= 20) {
-        return this.$message.warning('最多添加20个链接');
+        return this.$message.warning(this.$t('message.systemGroup.maxAddTwentyLinks'));
       }
       this.linkList.push({
         title: '',

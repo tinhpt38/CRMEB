@@ -289,10 +289,24 @@ export default {
           a = item.props.options;
         }
       });
-      return a;
+      return this.translateCascaderOptions(a);
     },
   },
   methods: {
+    resolveMenuName(menuName) {
+      if (!menuName) return '';
+      if (this.$te(menuName)) return this.$t(menuName);
+      const routerKey = `message.router.${menuName}`;
+      if (this.$te(routerKey)) return this.$t(routerKey);
+      return menuName;
+    },
+    translateCascaderOptions(options = []) {
+      return options.map((item) => ({
+        ...item,
+        label: this.resolveMenuName(item.label),
+        children: item.children ? this.translateCascaderOptions(item.children) : undefined,
+      }));
+    },
     handleClose() {
       this.formValidate = {};
     },

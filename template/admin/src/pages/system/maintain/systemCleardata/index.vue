@@ -4,7 +4,7 @@
       <span class="ivu-page-header-title">{{ $t($route.meta.title) }}</span>
       <span class="clear_tit">
         <i class="el-icon-info" style="color: #ed4014" />
-        <span>清除数据请谨慎，清除就无法恢复哦！</span>
+        <span>{{ $t('message.systemMaintain.clearDangerTip') }}</span>
       </span>
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
@@ -15,7 +15,7 @@
             <span class="clear_box_sp2" v-text="item.tlt"></span>
             <el-button
               :type="item.typeName"
-              v-text="item.typeName === 'primary' ? '立即更换' : '立即清理'"
+              v-text="item.typeName === 'primary' ? $t('message.systemMaintain.replaceNow') : $t('message.systemMaintain.clearNow')"
               v-db-click
               @click="onChange(item)"
             ></el-button>
@@ -24,12 +24,12 @@
       </el-row>
     </el-card>
     <!-- 更换域名-->
-    <el-dialog :visible.sync="modals" class="tableBox" title="更换域名" width="540px" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modals" class="tableBox" :title="$t('message.systemMaintain.replaceDomain')" width="540px" :close-on-click-modal="false">
       <div class="acea-row row-column">
-        <span>请输入需要替换的域名，格式为：http://域名。</span>
-        <span>替换规则：会使用当前[设置]里面的[网站域名]去替换成当前您输入的域名。</span>
-        <span class="mb15">替换成功后再去更换[网站域名]。</span>
-        <el-input v-model="value6" type="textarea" :rows="4" placeholder="请输入网站域名..." />
+        <span>{{ $t('message.systemMaintain.replaceDomainInputTip') }}</span>
+        <span>{{ $t('message.systemMaintain.replaceDomainRuleTip') }}</span>
+        <span class="mb15">{{ $t('message.systemMaintain.replaceDomainSuccessTip') }}</span>
+        <el-input v-model="value6" type="textarea" :rows="4" :placeholder="$t('message.systemMaintain.enterDomainPlaceholder')" />
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="modals = false">{{ $t('customDesign.cancel') }}</el-button>
@@ -57,73 +57,73 @@ export default {
       tabList: [
         {
           title: this.$t('systemCommon.replaceDomain'),
-          tlt: '替换所有本地上传的图片域名',
+          tlt: this.$t('message.systemMaintain.replaceUploadedImageDomain'),
           typeName: 'primary',
           type: '11',
         },
         {
-          title: '清除用户生成的临时附件',
-          tlt: '清除用户生成的临时附件，不会影响商品图',
+          title: this.$t('message.systemMaintain.clearUserTempAttachment'),
+          tlt: this.$t('message.systemMaintain.clearUserTempAttachmentTip'),
           typeName: 'error',
           type: 'temp',
         },
         {
-          title: '清除回收站商品',
-          tlt: '清除回收站商品，谨慎操作',
+          title: this.$t('message.systemMaintain.clearRecycleProducts'),
+          tlt: this.$t('message.systemMaintain.clearRecycleProductsTip'),
           typeName: 'error',
           type: 'recycle',
         },
         {
-          title: '清除用户数据',
-          tlt: '用户相关的所有表都将被清除，谨慎操作',
+          title: this.$t('message.systemMaintain.clearUserData'),
+          tlt: this.$t('message.systemMaintain.clearUserDataTip'),
           typeName: 'error',
           type: 'user',
         },
         {
-          title: '清除商城数据',
-          tlt: '清除所有商城数据，谨慎操作',
+          title: this.$t('message.systemMaintain.clearMallData'),
+          tlt: this.$t('message.systemMaintain.clearMallDataTip'),
           typeName: 'error',
           type: 'store',
         },
         {
-          title: '清除商品分类',
-          tlt: '会清除所有商品分类，谨慎操作',
+          title: this.$t('message.systemMaintain.clearProductCategory'),
+          tlt: this.$t('message.systemMaintain.clearProductCategoryTip'),
           typeName: 'error',
           type: 'category',
         },
         {
-          title: '清除订单数据',
-          tlt: '清除用户所有订单数据，谨慎操作',
+          title: this.$t('message.systemMaintain.clearOrderData'),
+          tlt: this.$t('message.systemMaintain.clearOrderDataTip'),
           typeName: 'error',
           type: 'order',
         },
         {
-          title: '清除客服数据',
-          tlt: '清除添加的客服数据，谨慎操作',
+          title: this.$t('message.systemMaintain.clearCustomerServiceData'),
+          tlt: this.$t('message.systemMaintain.clearCustomerServiceDataTip'),
           typeName: 'error',
           type: 'kefu',
         },
         {
-          title: '清除微信数据',
-          tlt: '清除微信菜单保存数据，微信关键字无效回复',
+          title: this.$t('message.systemMaintain.clearWechatData'),
+          tlt: this.$t('message.systemMaintain.clearWechatDataTip'),
           typeName: 'error',
           type: 'wechat',
         },
         {
-          title: '清除内容分类',
-          tlt: '清除添加的文章和文章分类,谨慎操作',
+          title: this.$t('message.systemMaintain.clearContentCategory'),
+          tlt: this.$t('message.systemMaintain.clearContentCategoryTip'),
           typeName: 'error',
           type: 'article',
         },
         {
-          title: '清除所有附件',
-          tlt: '清除所有附件用户生成和后台上传,谨慎操作',
+          title: this.$t('message.systemMaintain.clearAllAttachments'),
+          tlt: this.$t('message.systemMaintain.clearAllAttachmentsTip'),
           typeName: 'error',
           type: 'attachment',
         },
         {
-          title: '清除系统记录',
-          tlt: '清除系统记录,谨慎操作',
+          title: this.$t('message.systemMaintain.clearSystemRecord'),
+          tlt: this.$t('message.systemMaintain.clearSystemRecordTip'),
           typeName: 'error',
           type: 'system',
         },

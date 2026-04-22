@@ -3,7 +3,7 @@
     <el-col :span="24">
       <div class="index_from page-account-container">
         <div class="page-account-top">
-          <span class="page-account-top-tit">文件管理登录</span>
+          <span class="page-account-top-tit">{{ $t('message.systemFile.fileManagerLogin') }}</span>
         </div>
         <el-form ref="formInline" :model="formInline" :rules="ruleInline" @submit.native.prevent>
           <!-- <el-form-item prop="sms_account" class="maxInpt">
@@ -14,12 +14,12 @@
               type="password"
               v-model="formInline.password"
               prefix="ios-lock-outline"
-              placeholder="请输入密码"
+              :placeholder="$t('message.systemFile.enterPassword')"
             />
           </el-form-item>
           <el-form-item class="maxInpt">
             <el-button type="primary" long size="large" v-db-click @click="handleSubmit('formInline')" class="btn"
-              >登录</el-button
+              >{{ $t('message.login.login') }}</el-button
             >
           </el-form-item>
         </el-form>
@@ -49,7 +49,7 @@ export default {
       },
       ruleInline: {
         // account: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        password: [{ required: true, message: this.$t('message.systemFile.enterPassword'), trigger: 'blur' }],
       },
     };
   },
@@ -68,7 +68,7 @@ export default {
         if (valid) {
           opendirLoginApi(this.formInline)
             .then(async (res) => {
-              this.$message.success('登录成功!');
+              this.$message.success(this.$t('message.systemFile.loginSuccess'));
               this.$emit('on-Login', res.data);
             })
             .catch((res) => {

@@ -56,11 +56,11 @@ service.interceptors.response.use(
       case 200:
         return obj;
       default:
-        return Promise.reject(obj || { msg: '未知错误' });
+        return Promise.reject(obj || { msg: 'Unknown error' });
     }
   },
   (error) => {
-    Message.error('接口异常');
+    Message.error('API exception');
 
     // return Promise.reject(error);
   },

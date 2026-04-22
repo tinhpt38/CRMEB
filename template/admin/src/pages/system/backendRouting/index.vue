@@ -2,10 +2,10 @@
   <div>
     <div class="tabs">
       <el-tabs v-model="apiType">
-        <el-tab-pane label="管理端接口" name="adminapi"></el-tab-pane>
-        <el-tab-pane label="用户端接口" name="api"></el-tab-pane>
-        <el-tab-pane label="客服端接口" name="kefuapi"></el-tab-pane>
-        <el-tab-pane label="对外接口" name="outapi"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemApiDoc.adminApi')" name="adminapi"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemApiDoc.userApi')" name="api"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemApiDoc.kefuApi')" name="kefuapi"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemApiDoc.outApi')" name="outapi"></el-tab-pane>
       </el-tabs>
     </div>
     <div class="main" v-loading="winLoading">
@@ -13,9 +13,9 @@
         <div class="tree">
           <div class="main-btn">
             <el-button class="mb5" style="flex: 1" type="primary" v-db-click @click="clickMenu(4)" long
-              >新增分类</el-button
+              >{{ $t('message.systemApiDoc.addCategory') }}</el-button
             >
-            <el-button class="mb5 mr10" type="success" v-db-click @click="syncRoute()">同步</el-button>
+            <el-button class="mb5 mr10" type="success" v-db-click @click="syncRoute()">{{ $t('message.systemApiDoc.sync') }}</el-button>
           </div>
 
           <vue-tree-list
@@ -98,14 +98,14 @@
               {{ formValidate.name }}
             </div>
             <div>
-              <el-button class="submission" v-db-click @click="debugging()">调试</el-button>
+              <el-button class="submission" v-db-click @click="debugging()">{{ $t('message.systemApiDoc.debug') }}</el-button>
               <el-button
                 v-if="formValidate.id"
                 type="primary"
                 class="submission"
                 v-db-click
                 @click="isEdit = !isEdit"
-                >{{ isEdit ? '取消' : '编辑' }}</el-button
+                >{{ isEdit ? $t('message.systemCommon.cancel') : $t('message.systemCommon.edit') }}</el-button
               >
               <el-button
                 v-if="isEdit"
@@ -113,7 +113,7 @@
                 class="submission"
                 v-db-click
                 @click="handleSubmit('formValidate')"
-                >保存</el-button
+                >{{ $t('message.systemCommon.save') }}</el-button
               >
             </div>
           </div>
@@ -128,8 +128,8 @@
           >
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">接口信息</div>
-                <el-form-item label="接口名称：" prop="name">
+                <div class="title">{{ $t('message.systemApiDoc.apiInfo') }}</div>
+                <el-form-item :label="$t('message.systemApiDoc.apiNameLabel')" prop="name">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
@@ -140,7 +140,7 @@
                   />
                   <span v-else>{{ formValidate.name || '' }}</span>
                 </el-form-item>
-                <el-form-item label="请求类型：" prop="name">
+                <el-form-item :label="$t('message.systemApiDoc.requestTypeLabel')" prop="name">
                   <el-select v-if="isEdit" v-model="formValidate.method" style="width: 120px">
                     <el-option
                       v-for="(item, index) in requestTypeList"
@@ -153,7 +153,7 @@
                     formValidate.method || ''
                   }}</span>
                 </el-form-item>
-                <el-form-item label="功能描述：" prop="name">
+                <el-form-item :label="$t('message.systemApiDoc.functionDescLabel')" prop="name">
                   <el-input
                     v-if="isEdit"
                     class="perW20"
@@ -164,7 +164,7 @@
                   />
                   <span v-else class="text-area">{{ formValidate.describe || '--' }}</span>
                 </el-form-item>
-                <el-form-item label="所属分类：" prop="name" v-if="isEdit">
+                <el-form-item :label="$t('message.systemApiDoc.categoryLabel')" prop="name" v-if="isEdit">
                   <el-cascader
                     v-model="formValidate.cate_id"
                     size="small"
@@ -173,7 +173,7 @@
                     clearable
                   ></el-cascader>
                 </el-form-item>
-                <el-form-item label="是否公共：" prop="name">
+                <el-form-item :label="$t('message.systemApiDoc.publicLabel')" prop="name">
                   <el-switch v-if="isEdit" v-model="formValidate.type" :active-value="1" :inactive-value="0">
                   </el-switch>
                   <span v-else class="text-area">{{ formValidate.type ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
@@ -182,17 +182,17 @@
             </el-row>
             <el-row :gutter="24">
               <el-col :span="24">
-                <div class="title">调用方式</div>
-                <el-form-item label="路由地址：" prop="path">
+                <div class="title">{{ $t('message.systemApiDoc.callMethod') }}</div>
+                <el-form-item :label="$t('message.systemApiDoc.routePathLabel')" prop="path">
                   <span>{{ formValidate.path || '' }}</span>
                 </el-form-item>
-                <el-form-item label="文件地址：" prop="path">
+                <el-form-item :label="$t('message.systemApiDoc.filePathLabel')" prop="path">
                   <span>{{ formValidate.file_path || '' }}</span>
                 </el-form-item>
-                <el-form-item label="方法名：" prop="path">
+                <el-form-item :label="$t('message.systemApiDoc.actionNameLabel')" prop="path">
                   <span>{{ formValidate.action || '' }}</span>
                 </el-form-item>
-                <el-form-item label="header参数：">
+                <el-form-item :label="$t('message.systemApiDoc.headerParamLabel')">
                   <vxe-table
                     resizable
                     show-overflow
@@ -206,13 +206,13 @@
                     :data="formValidate.header"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" width="300" title="属性" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" width="300" :title="$t('message.systemApiDoc.attribute')" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="类型" width="200" :edit-render="{}">
+                    <vxe-column field="type" :title="$t('message.systemCommon.type')" width="200" :edit-render="{}">
                       <template #default="{ row }">
                         <!-- <vxe-select v-if="isEdit" v-model="row.type" type="text" :optionGroups="typeList"></vxe-select> -->
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
@@ -230,7 +230,7 @@
 									  </vxe-select> -->
                       </template>
                     </vxe-column>
-                    <vxe-column field="must" title="必填" width="100" :edit-render="{}">
+                    <vxe-column field="must" :title="$t('message.systemApiDoc.required')" width="100" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-checkbox
                           v-if="isEdit"
@@ -241,13 +241,13 @@
                         <span v-else>{{ row.must == '1' ? this.$t('systemCommon.yes') : this.$t('systemCommon.no') }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="trip" title="说明" :edit-render="{}">
+                    <vxe-column field="trip" :title="$t('message.systemCommon.description')" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="操作" width="200" v-if="isEdit">
+                    <vxe-column :title="$t('message.systemCommon.operation')" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -255,17 +255,17 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'headTable')"
-                          >插入</vxe-button
+                          >{{ $t('message.systemApiDoc.insert') }}</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'headTable')"
-                          >删除</vxe-button
+                          >{{ $t('message.systemCommon.delete') }}</vxe-button
                         >
                       </template>
                     </vxe-column>
                   </vxe-table>
 
                   <el-button class="mt10" v-if="isEdit" type="primary" v-db-click @click="insertEvent('headTable')"
-                    >添加参数</el-button
+                    >{{ $t('message.systemApiDoc.addParam') }}</el-button
                   >
                 </el-form-item>
                 <el-form-item label="query参数：">
@@ -584,9 +584,9 @@
         </div> -->
       </el-card>
     </div>
-    <el-dialog :visible.sync="nameModal" width="470px" title="分组名称">
-      <label>分组名称：</label>
-      <el-input v-model="value" placeholder="请输入分组名称" style="width: 85%" />
+    <el-dialog :visible.sync="nameModal" width="470px" :title="$t('message.systemApiDoc.groupName')">
+      <label>{{ $t('message.systemApiDoc.groupNameLabel') }}</label>
+      <el-input v-model="value" :placeholder="$t('message.systemApiDoc.enterGroupName')" style="width: 85%" />
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="nameModal = false">{{ $t('customDesign.cancel') }}</el-button>
         <el-button type="primary" v-db-click @click="asyncOK">{{ $t('customDesign.confirm') }}</el-button>

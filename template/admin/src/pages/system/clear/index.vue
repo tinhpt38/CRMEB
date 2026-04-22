@@ -10,7 +10,7 @@
           <div class="clear_box">
             <span class="clear_box_sp1" v-text="item.title"></span>
             <span class="clear_box_sp2" v-text="item.tlt"></span>
-            <el-button :type="item.typeName" v-db-click @click="onChange(index)">立即清除</el-button>
+            <el-button :type="item.typeName" v-db-click @click="onChange(index)">{{ $t('message.systemMaintain.clearNow') }}</el-button>
           </div>
         </el-col>
       </el-row>
@@ -34,13 +34,13 @@ export default {
       tabList: [
         {
           title: this.$t('systemCommon.refreshCache'),
-          tlt: '清除系统的所有缓存',
+          tlt: this.$t('message.systemGeneral.clearAllCacheTip'),
           typeName: 'primary',
           type: '11',
         },
         {
           title: this.$t('systemCommon.clearLog'),
-          tlt: '清除系统的所有日志文件',
+          tlt: this.$t('message.systemGeneral.clearAllLogTip'),
           typeName: 'primary',
           type: 'temp',
         },

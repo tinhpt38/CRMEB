@@ -2,19 +2,19 @@
   <div>
     <el-drawer
       :visible.sync="modal"
-      :title="formValidate.id ? '编辑事件' : '添加事件'"
+      :title="formValidate.id ? $t('message.systemTask.editEvent') : $t('message.systemTask.addEvent')"
       size="1000px"
       @closed="initData"
     >
       <el-form v-if="modal" class="pb-20" ref="formValidate" :model="formValidate" label-width="97px" label-colon>
-        <el-form-item label="事件名称：" required>
+        <el-form-item :label="$t('message.systemTask.eventNameLabel')" required>
           <el-row :gutter="16">
             <el-col :span="20">
-              <el-input v-model="formValidate.name" placeholder="请输入事件名称"></el-input>
+              <el-input v-model="formValidate.name" :placeholder="$t('message.systemTask.enterEventName')"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="事件类型：" required>
+        <el-form-item :label="$t('message.systemTask.eventTypeLabel')" required>
           <el-row :gutter="16">
             <el-col :span="20">
               <el-select v-model="formValidate.mark" @change="taskChange">
@@ -23,19 +23,19 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="事件说明：">
+        <el-form-item :label="$t('message.systemTask.eventDescriptionLabel')">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
                 v-model="formValidate.content"
                 type="textarea"
                 :autosize="{ minRows: 3, maxRows: 5 }"
-                placeholder="请输入事件说明"
+                :placeholder="$t('message.systemTask.enterEventDescription')"
               ></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="执行代码：">
+        <el-form-item :label="$t('message.systemTask.executeCodeLabel')">
           <el-row :gutter="10">
             <el-col :span="24">
               <div ref="container" id="container" class="monaco-editor"></div>
@@ -54,7 +54,7 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="可用参数：" v-if="copyData">
+        <el-form-item :label="$t('message.systemTask.availableParamsLabel')" v-if="copyData">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
@@ -62,7 +62,7 @@
                 v-model="copyData"
                 type="textarea"
                 :autosize="{ minRows: 7, maxRows: 7 }"
-                placeholder="请输入事件说明"
+                :placeholder="$t('message.systemTask.enterEventDescription')"
                 readonly
               ></el-input>
               <!-- <span class="text-area">{{ copyData }}</span> -->
@@ -70,19 +70,19 @@
           </el-row>
         </el-form-item>
 
-        <el-form-item label="开发密码：" required>
+        <el-form-item :label="$t('message.systemTask.devPasswordLabel')" required>
           <el-row :gutter="10">
             <el-col :span="24">
-              <el-input v-model="formValidate.password" type="password" placeholder="请输入系统开发密码，开发密码在crmeb/config/filesystem.php中修改password"></el-input>
+              <el-input v-model="formValidate.password" type="password" :placeholder="$t('message.systemTask.enterDevPassword')"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="是否开启：">
+        <el-form-item :label="$t('message.systemTask.isEnabledLabel')">
           <el-row :gutter="10">
             <el-col :span="12">
               <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.is_open" size="large">
-                <span slot="open">开启</span>
-                <span slot="close">关闭</span>
+                <span slot="open">{{ $t('message.systemCommon.enabled') }}</span>
+                <span slot="close">{{ $t('message.systemCommon.disabled') }}</span>
               </el-switch>
             </el-col>
           </el-row>
@@ -90,7 +90,7 @@
       </el-form>
       <span class="dialog-footer">
         <el-button v-db-click @click="modal = false">{{ $t('customDesign.cancel') }}</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit">提 交</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit">{{ $t('message.systemCommon.submit') }}</el-button>
       </span>
     </el-drawer>
   </div>
@@ -191,7 +191,7 @@ export default {
       if (!id) {
         this.modal = true;
         this.initEditor(
-          "<?php\n\n//示例代码\n//参数使用实例  $data['uid']\n\n//直接写入数据库\n\\think\\facade\\Db::name('cache')->insert(['key' => 'custom_event_' . rand(), 'result' => $data['nickname'] . rand(), 'expire_time' => 0]);\n\n//调用系统方法\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_event_' . rand(), $data['nickname']);",
+          "<?php\n\n// example code\n// parameter usage  $data['uid']\n\n// direct database write\n\\think\\facade\\Db::name('cache')->insert(['key' => 'custom_event_' . rand(), 'result' => $data['nickname'] . rand(), 'expire_time' => 0]);\n\n// call service class\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_event_' . rand(), $data['nickname']);",
         );
         return;
       }
@@ -208,7 +208,7 @@ export default {
       this.formValidate.customCode = this.editor.getValue();
       if (!this.formValidate.mark) {
         return this.$message.error({
-          message: '请选择事件类型',
+          message: this.$t('message.systemTask.selectEventType'),
           onClose: () => {
             // this.loading = false;
           },

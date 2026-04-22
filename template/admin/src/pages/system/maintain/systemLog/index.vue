@@ -19,12 +19,12 @@
               format="yyyy/MM/dd"
               type="daterange"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.systemMaintain.startDate')"
+              :end-placeholder="$t('message.systemMaintain.endDate')"
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="名称：">
+          <el-form-item :label="$t('message.systemMaintain.nameLabel') + '：'">
             <el-select v-model="formValidate.admin_id" clearable @change="userSearchs" class="form_content_width">
               <el-option
                 :value="item.id"
@@ -34,19 +34,19 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="链接：">
+          <el-form-item :label="$t('message.systemMaintain.linkLabel') + '：'">
             <el-input
-              placeholder="请输入链接"
+              :placeholder="$t('message.systemMaintain.enterLink')"
               v-model="formValidate.path"
               class="form_content_width"
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item label="IP：">
-            <el-input placeholder="请输入IP" v-model="formValidate.ip" clearable class="form_content_width"></el-input>
+            <el-input :placeholder="$t('message.systemMaintain.enterIp')" v-model="formValidate.ip" clearable class="form_content_width"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="userSearch" v-db-click @click="userSearchs">搜索</el-button>
+            <el-button type="primary" class="userSearch" v-db-click @click="userSearchs">{{ $t('message.systemCommon.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -58,7 +58,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="ID/名称" min-width="100">
+        <el-table-column :label="$t('message.systemMaintain.idName')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.admin_id + ' / ' + scope.row.admin_name }}</span>
           </template>
@@ -68,12 +68,12 @@
             <span>{{ scope.row.path_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="链接" min-width="100">
+        <el-table-column :label="$t('message.systemMaintain.linkLabel')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.path }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作ip" min-width="100">
+        <el-table-column :label="$t('message.systemMaintain.operationIp')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.ip }}</span>
           </template>
@@ -83,7 +83,7 @@
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作时间" min-width="100">
+        <el-table-column :label="$t('message.systemMaintain.operationTime')" min-width="100">
           <template slot-scope="scope">
             <span> {{ scope.row.add_time | formatDate }}</span>
           </template>
@@ -119,7 +119,7 @@ export default {
   data() {
     return {
       fromList: {
-        title: '选择时间',
+        title: this.$t('message.systemMaintain.selectTime'),
         custom: true,
         fromTxt: [
           { text: '全部', val: '' },

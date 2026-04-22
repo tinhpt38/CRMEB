@@ -23,7 +23,7 @@
          :empty-text="$t('couponList.empty')"
         class="mt14"
       >
-        <el-table-column label="文件/文件夹名" min-width="150">
+        <el-table-column :label="$t('message.systemFile.fileOrFolderName')" min-width="150">
           <template slot-scope="scope">
             <div class="file-name" v-db-click @click="currentChange(scope.row)">
               <i v-if="scope.row.isDir" class="el-icon-folder mr5" />
@@ -32,12 +32,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="文件/文件夹大小" min-width="100">
+        <el-table-column :label="$t('message.systemFile.fileOrFolderSize')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.size }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="更新时间" min-width="100">
+        <el-table-column :label="$t('message.systemFile.updateTime')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.mtime }}</span>
           </template>
@@ -54,8 +54,8 @@
         </el-table-column>
         <el-table-column  :label="$t('customDesign.action')" fixed="right" width="60">
           <template slot-scope="scope">
-            <el-button type="text" v-db-click @click="open(scope.row)" v-if="scope.row.isDir">打开</el-button>
-            <el-button type="text" v-db-click @click="edit(scope.row)" v-else>编辑</el-button>
+            <el-button type="text" v-db-click @click="open(scope.row)" v-if="scope.row.isDir">{{ $t('message.systemFile.open') }}</el-button>
+            <el-button type="text" v-db-click @click="edit(scope.row)" v-else>{{ $t('message.systemFile.edit') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -83,16 +83,16 @@
       <div style="height: 100%">
         <div class="top-button">
           <el-button type="primary" id="savefile" class="diy-button" v-db-click @click="savefile(indexEditor)"
-            >保存</el-button
+            >{{ $t('message.systemFile.save') }}</el-button
           >
-          <el-button id="refresh" class="diy-button" v-db-click @click="refreshfile">刷新</el-button>
+          <el-button id="refresh" class="diy-button" v-db-click @click="refreshfile">{{ $t('message.systemFile.refresh') }}</el-button>
         </div>
         <div class="file-box">
           <div class="show-info">
-            <div class="show-text" :title="navItem.pathname">目录: {{ navItem.pathname }}</div>
+            <div class="show-text" :title="navItem.pathname">{{ $t('message.systemFile.directoryLabel') }} {{ navItem.pathname }}</div>
             <div class="diy-button-list">
-              <el-button class="diy-button" v-db-click @click="goBack(true)">返回上一级</el-button>
-              <el-button class="diy-button" v-db-click @click="getList(true, true)">刷新</el-button>
+              <el-button class="diy-button" v-db-click @click="goBack(true)">{{ $t('message.systemFile.backToParent') }}</el-button>
+              <el-button class="diy-button" v-db-click @click="getList(true, true)">{{ $t('message.systemFile.refresh') }}</el-button>
             </div>
           </div>
           <div class="file-left">
@@ -156,15 +156,15 @@
       </div>
       <el-form ref="formInline" :model="formFile" :rules="ruleInline" inline>
         <el-form-item prop="filename" class="diy-file">
-          <el-input type="text" class="diy-file" v-model="formFile.filename" placeholder="请输入名字">
+          <el-input type="text" class="diy-file" v-model="formFile.filename" :placeholder="$t('message.systemFile.enterName')">
             <i class="el-icon-folder-opened" slot="prepend"></i>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="diy-button" v-db-click @click="handleSubmit('formInline')">确定</el-button>
+          <el-button class="diy-button" v-db-click @click="handleSubmit('formInline')">{{ $t('message.systemFile.confirm') }}</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button class="diy-button" v-db-click @click="formExit()">取消</el-button>
+          <el-button class="diy-button" v-db-click @click="formExit()">{{ $t('message.systemFile.cancel') }}</el-button>
         </el-form-item>
         <div class="form-mask" v-show="formShow"></div>
       </el-form>
@@ -242,7 +242,7 @@ export default {
         filename: '',
       },
       ruleInline: {
-        filename: [{ required: true, message: '请输入文件或文件夹的名字', trigger: 'blur' }],
+        filename: [{ required: true, message: this.$t('message.systemFile.enterFileOrFolderName'), trigger: 'blur' }],
       },
       formShow: false, //表单开关
       formTitle: '', //表单标题
@@ -543,14 +543,14 @@ export default {
     //创建文件夹
     handleContextCreateFolder() {
       this.formFile.filename = '';
-      this.formTitle = '创建文件夹';
+      this.formTitle = this.$t('message.systemFile.createFolder');
       this.formShow = true;
       this.fileType = 'createFolder';
     },
     //创建文件
     handleContextCreateFile() {
       this.formFile.filename = '';
-      this.formTitle = '创建文件';
+      this.formTitle = this.$t('message.systemFile.createFile');
       this.formShow = true;
       this.fileType = 'createFile';
     },
@@ -558,8 +558,8 @@ export default {
     handleContextDelFolder() {
       let that = this;
       that.$Modal.confirm({
-        title: '删除文件夹和文件',
-        content: '您确定要删除改文件？',
+        title: this.$t('message.systemFile.deleteFolderAndFile'),
+        content: this.$t('message.systemFile.confirmDeleteFile'),
         loading: true,
         onOk: () => {
           let data = {
@@ -570,21 +570,21 @@ export default {
             .then(async (res) => {
               that.loopDel(that.navList, that.contextData.nodeKey);
               that.$Modal.remove();
-              that.$message.success('删除成功');
+              that.$message.success(this.$t('message.systemFile.deleteSuccess'));
             })
             .catch((res) => {
               that.catchFun(res);
             });
         },
         onCancel: () => {
-          that.$message.info('取消删除');
+          that.$message.info(this.$t('message.systemFile.cancelDelete'));
         },
       });
     },
     //重命名
     handleContextRename() {
       this.formFile.filename = this.contextData.title;
-      this.formTitle = '重命名文件';
+      this.formTitle = this.$t('message.systemFile.renameFile');
       this.formShow = true;
       this.fileType = 'renameFile';
     },
@@ -745,7 +745,7 @@ export default {
               rename(data)
                 .then(async (res) => {
                   that.$set(that.contextData, 'title', that.formFile.filename);
-                  that.$message.success('修改成功');
+                  that.$message.success(this.$t('message.systemFile.updateSuccess'));
                   if (that.formShow) that.formShow = false;
                 })
                 .catch((res) => {
@@ -754,7 +754,7 @@ export default {
               break;
           }
         } else {
-          this.$message.error('Fail!');
+          this.$message.error(this.$t('message.systemFile.operationFailed'));
         }
       });
     },
@@ -847,15 +847,15 @@ export default {
       // 判断当前文件有没有保存
       if (!that.editorList[index].isSave) {
         that.$Modal.confirm({
-          title: '文件未保存',
-          content: '您是否需要保存当前文件',
+          title: this.$t('message.systemFile.fileNotSaved'),
+          content: this.$t('message.systemFile.confirmSaveCurrentFile'),
           loading: true,
           onOk: () => {
             // 保存文件
             that.savefile(index);
           },
           onCancel: () => {
-            that.$message.info('取消保存');
+            that.$message.info(this.$t('message.systemFile.cancelSave'));
           },
         });
       }
@@ -865,11 +865,11 @@ export default {
       let that = this;
       that.editorList.forEach(function (value, index) {
         if (value.isSave === false) {
-          if (confirm(`${that.editorIndex[index].title}文件未保存,是否要保存该文件`)) {
+          if (confirm(`${that.editorIndex[index].title}${this.$t('message.systemFile.fileNotSavedConfirmSuffix')}`)) {
             // 保存当前文件
             that.savefile(index, true);
           } else {
-            that.$message.info(`已取消${that.editorIndex[index].title}文件保存`);
+            that.$message.info(`${this.$t('message.systemFile.cancelledSavePrefix')}${that.editorIndex[index].title}${this.$t('message.systemFile.cancelledSaveSuffix')}`);
           }
         }
         // 销毁当前编辑器

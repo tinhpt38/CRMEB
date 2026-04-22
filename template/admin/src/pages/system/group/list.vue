@@ -20,7 +20,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：">
+          <el-form-item :label="$t('message.systemConfig.isShowLabel')">
             <el-select
               v-model="formValidate.status"
               :placeholder="$t('systemCommon.pleaseSelect')"
@@ -28,8 +28,8 @@
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="1" :label="$t('message.systemCommon.show')"></el-option>
+              <el-option value="0" :label="$t('message.systemCommon.hide')"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -70,7 +70,7 @@
               </el-switch>
             </template>
             <template v-else-if="item.slot === 'action'">
-              <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
+              <a v-db-click @click="edit(scope.row, $t('message.systemCommon.edit'))">{{ $t('productList.edit') }}</a>
               <el-divider direction="vertical"></el-divider>
               <a v-db-click @click="del(scope.row, this.$t('systemCommon.deleteThisRecord'), scope.$index)">{{ $t('customDesign.delete') }}</a>
             </template>

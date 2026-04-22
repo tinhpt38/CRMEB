@@ -2,14 +2,14 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="`配置列表${$route.query.config_name ? ` - ` + $route.query.config_name : ''}`"
+      :title="`${$t('message.systemConfig.configList')}${$route.query.config_name ? ` - ` + $route.query.config_name : ''}`"
       :backUrl="$routeProStr + '/system/config/system_config_tab/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
       <el-row v-if="!$route.query.config_name">
         <el-col v-bind="grid">
           <!-- <el-button type="primary" v-db-click @click="goIndex">配置分类</el-button> -->
-          <el-button type="primary" v-db-click @click="configureAdd">添加配置</el-button>
+          <el-button type="primary" v-db-click @click="configureAdd">{{ $t('message.systemConfig.addConfig') }}</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -25,22 +25,22 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="配置名称" min-width="130">
+        <el-table-column :label="$t('message.systemConfig.configName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.info }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="字段变量" min-width="130">
+        <el-table-column :label="$t('message.systemConfig.fieldVariable')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.menu_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="字段类型" min-width="130">
+        <el-table-column :label="$t('message.systemConfig.fieldType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="值" min-width="130">
+        <el-table-column :label="$t('message.systemConfig.value')" min-width="130">
           <template slot-scope="scope">
             <span
               v-if="
@@ -74,17 +74,17 @@
             <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? this.$t('systemCommon.enabled') : this.$t('systemCommon.disabled') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联配置/值" min-width="130">
+        <el-table-column :label="$t('message.systemConfig.relatedConfigValue')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.link_data }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="配置分类" min-width="130">
+        <el-table-column :label="$t('message.systemConfig.configCategory')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.config_tab_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column :label="$t('message.systemConfig.isShow')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -94,8 +94,8 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.systemCommon.show')"
+              :inactive-text="$t('message.systemCommon.hide')"
             >
             </el-switch>
           </template>
@@ -104,7 +104,7 @@
           <template slot-scope="scope">
             <a v-db-click @click="edit(scope.row)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除分类', scope.$index)">{{ $t('customDesign.delete') }}</a>
+            <a v-db-click @click="del(scope.row, $t('message.systemConfig.deleteCategory'), scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -113,19 +113,19 @@
     <!-- 新建 表单-->
     <el-dialog
       :visible.sync="modals2"
-      :title="`${rowId ? '修改' : '添加'}配置字段`"
+      :title="`${rowId ? $t('message.systemCommon.edit') : $t('message.systemConfig.add')}${$t('message.systemConfig.configField')}`"
       :close-on-click-modal="false"
       :show-close="true"
       width="720px"
     >
       <el-tabs v-if="!rowId" v-model="typeFrom.type" @tab-click="onhangeTab" class="tabsName">
-        <el-tab-pane label="文本框 " name="0"></el-tab-pane>
-        <el-tab-pane label="多行文本框" name="1"></el-tab-pane>
-        <el-tab-pane label="单选框" name="2"></el-tab-pane>
-        <el-tab-pane label="文件上传" name="3"></el-tab-pane>
-        <el-tab-pane label="多选框" name="4"></el-tab-pane>
-        <el-tab-pane label="下拉框" name="5"></el-tab-pane>
-        <el-tab-pane label="开关" name="6"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemConfig.input')" name="0"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemConfig.textarea')" name="1"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemConfig.radio')" name="2"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemConfig.upload')" name="3"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemConfig.checkbox')" name="4"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemConfig.select')" name="5"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemConfig.switch')" name="6"></el-tab-pane>
       </el-tabs>
       <form-create
         v-if="rules.length != 0"
@@ -138,8 +138,8 @@
         handleIcon="false"
       ></form-create>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="modals2 = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="submitForm">确定</el-button>
+        <el-button v-db-click @click="modals2 = false">{{ $t('message.systemCommon.cancel') }}</el-button>
+        <el-button type="primary" v-db-click @click="submitForm">{{ $t('message.systemCommon.confirm') }}</el-button>
       </span>
     </el-dialog>
     <!-- 编辑表单-->

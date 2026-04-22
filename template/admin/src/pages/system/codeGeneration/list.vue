@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" v-loading="spinShow">
-      <el-button type="primary" v-db-click @click="groupAdd()" class="mr20">添加功能</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd()" class="mr20">{{ $t('message.systemCodeGen.addFeature') }}</el-button>
       <!-- <el-button type="success" v-db-click @click="buildCode()" class="mr20">重新发布</el-button> -->
       <el-table
         :data="tabList"
@@ -17,35 +17,35 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="菜单名" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.menuName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="表名" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.tableName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.table_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="表备注" min-width="130">
+        <el-table-column :label="$t('message.systemCodeGen.tableComment')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.table_comment }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.systemCommon.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
         <el-table-column  :label="$t('customDesign.action')" fixed="right" width="200">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, '编辑')">查看代码</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.systemCodeGen.viewCode') }}</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="editItem(scope.row)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="downLoad(scope.row)">下载</a>
+            <a v-db-click @click="downLoad(scope.row)">{{ $t('message.systemCodeGen.download') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">{{ $t('customDesign.delete') }}</a>
+            <a v-db-click @click="del(scope.row, $t('message.systemCommon.delete'), scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
@@ -124,13 +124,13 @@
     </el-drawer>
     <el-dialog
       :visible.sync="buildModals"
-      title="终端"
+      :title="$t('message.systemCodeGen.terminal')"
       :show-close="true"
       :close-on-click-modal="false"
       width="720px"
       @close="editModalChange"
     >
-      <el-alert type="warning" title="当前终端未运行于安装服务下，部分命令可能无法执行."></el-alert>
+      <el-alert type="warning" :title="$t('message.systemCodeGen.terminalWarning')"></el-alert>
       <div>
         <div v-for="(item, index) in codeBuildList" :key="index">{{ item }}</div>
       </div>
@@ -138,11 +138,11 @@
     <el-dialog
       :visible.sync="pwdModal"
       width="470px"
-      title="文件管理密码"
+      :title="$t('message.systemCodeGen.fileManagerPassword')"
       :show-close="true"
       :close-on-click-modal="false"
     >
-      <el-input v-model="pwd" type="password" placeholder="请输入文件管理密码"></el-input>
+      <el-input v-model="pwd" type="password" :placeholder="$t('message.systemCodeGen.enterFileManagerPassword')"></el-input>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="pwdModal = false">{{ $t('customDesign.cancel') }}</el-button>
         <el-button type="primary" v-db-click @click="crudSaveFile">{{ $t('customDesign.confirm') }}</el-button>
@@ -192,22 +192,22 @@ export default {
           width: 80,
         },
         {
-          title: '菜单名',
+          title: this.$t('message.systemCodeGen.menuName'),
           key: 'name',
           minWidth: 130,
         },
         {
-          title: '表名',
+          title: this.$t('message.systemCodeGen.tableName'),
           key: 'table_name',
           minWidth: 130,
         },
         {
-          title: '字符集',
+          title: this.$t('message.systemCodeGen.charset'),
           key: 'table_collation',
           minWidth: 130,
         },
         {
-          title: '表备注',
+          title: this.$t('message.systemCodeGen.tableComment'),
           key: 'table_comment',
           minWidth: 130,
         },
@@ -293,7 +293,7 @@ export default {
           //链接失败后EventSource会每隔三秒左右重新发起链接
         };
       } else {
-        console.log('暂不支持EventSource');
+        console.log('EventSource is not supported');
       }
     },
     // 跳转到组合数据列表页面

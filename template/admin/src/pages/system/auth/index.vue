@@ -3,10 +3,10 @@
     <el-card v-for="(value, key, index) in tableList" :key="index" :bordered="false" shadow="never" class="ivu-mt mb16">
       <div class="head acea-row row-between-wrapper">{{ key | headText }}</div>
       <el-table ref="table" :data="tableList[key]"  :empty-text="$t('couponList.empty')">
-        <el-table-column :label="key == 'permissions' ? '文件/目录' : '环境'" minWidth="180">
+        <el-table-column :label="key == 'permissions' ? $t('message.systemGeneral.fileOrDirectory') : $t('message.systemGeneral.environment')" minWidth="180">
           <template slot-scope="scope">{{ scope.row.name }} </template>
         </el-table-column>
-        <el-table-column label="要求" minWidth="180">
+        <el-table-column :label="$t('message.systemGeneral.requirement')" minWidth="180">
           <template slot-scope="scope">
             <span>{{ scope.row.require }} </span>
             <el-tooltip placement="top" v-if="key == 'process' && !scope.row.value">
@@ -27,16 +27,16 @@
       </el-table>
     </el-card>
 
-    <el-dialog :visible.sync="isTemplate" title="商业授权" width="550px" @closed="cancel">
+    <el-dialog :visible.sync="isTemplate" :title="$t('message.systemGeneral.businessAuthorization')" width="550px" @closed="cancel">
       <iframe width="100%" height="780" :src="iframeUrl" frameborder="0"></iframe>
     </el-dialog>
-    <el-dialog :visible.sync="modalCopyright" title="版权信息" width="550px">
+    <el-dialog :visible.sync="modalCopyright" :title="$t('message.systemGeneral.copyrightInfo')" width="550px">
       <div class="auth">
-        <div class="update">修改版权信息:</div>
+        <div class="update">{{ $t('message.systemGeneral.modifyCopyright') }}:</div>
         <el-input style="width: 460px" v-model="copyrightText" />
       </div>
       <div class="auth">
-        <div class="update">上传版权图片:</div>
+        <div class="update">{{ $t('message.systemGeneral.uploadCopyrightImage') }}:</div>
         <div>
           <div class="uploadPictrue" v-if="authorizedPicture" v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'))">
             <img v-lazy="authorizedPicture" />
@@ -45,7 +45,7 @@
           <div class="upload" v-else v-db-click @click="modalPicTap(this.$t('systemCommon.selectSingle'))">
             <div class="iconfont">+</div>
           </div>
-          <div class="tips-info">建议尺寸：宽290px*高100px</div>
+          <div class="tips-info">{{ $t('message.systemGeneral.copyrightImageSizeTip') }}</div>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -53,7 +53,7 @@
         <el-button type="primary" v-db-click @click="saveCopyRight">{{ $t('customDesign.save') }}</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="modalPic" width="1024px" title="上传授权图片" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="1024px" :title="$t('message.systemGeneral.uploadAuthorizedImage')" :close-on-click-modal="false">
       <uploadPictures :isChoice="isChoice" @getPic="getPic" :gridBtn="gridBtn" :gridPic="gridPic" v-if="modalPic">
       </uploadPictures>
     </el-dialog>
@@ -130,17 +130,17 @@ export default {
         {
           title: this.$t('systemCommon.warmTips'),
           message:
-            '您的【长连接】未开启，没有开启会导致系统默认客服无法使用,后台订单通知无法收到。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+            this.$t('message.systemGeneral.tripLongConnection'),
         },
         {
           title: this.$t('systemCommon.warmTips'),
           message:
-            '您的【定时任务】未开启，没有开启会导致自动收货、未支付自动取消订单、订单自动好评、拼团到期退款等任务无法正常执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+            this.$t('message.systemGeneral.tripCrontab'),
         },
         {
           title: this.$t('systemCommon.warmTips'),
           message:
-            '您的【消息队列】未开启，没有开启会导致异步任务无法执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+            this.$t('message.systemGeneral.tripQueue'),
         },
       ],
     };
@@ -154,13 +154,13 @@ export default {
     },
     headText(z) {
       if (z === 'server') {
-        return '服务器信息';
+        return this.$t('message.systemGeneral.serverInfo');
       } else if (z === 'environment') {
-        return '系统环境要求';
+        return this.$t('message.systemGeneral.systemEnvironmentRequirement');
       } else if (z === 'permissions') {
-        return '权限状态';
+        return this.$t('message.systemGeneral.permissionStatus');
       } else if (z === 'process') {
-        return '启动进程';
+        return this.$t('message.systemGeneral.startupProcess');
       }
     },
   },

@@ -10,18 +10,18 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="字典名称：" label-for="name">
-            <el-input clearable v-model="from.name" placeholder="请输入字典名称" class="form_content_width" />
+          <el-form-item :label="$t('message.systemDictionary.dictionaryNameLabel')" label-for="name">
+            <el-input clearable v-model="from.name" :placeholder="$t('message.systemDictionary.enterDictionaryName')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="searchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="searchs">{{ $t('message.systemCommon.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-button v-auth="['system-crud-data_dictionary']" type="primary" v-db-click @click="add"
-        >添加数据字典</el-button
+        >{{ $t('message.systemDictionary.addDictionary') }}</el-button
       >
       <el-table
         :data="dictionaryList"
@@ -37,21 +37,21 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="字典名称" min-width="100"> </el-table-column>
-        <el-table-column prop="mark" label="数据标识" min-width="200"> </el-table-column>
+        <el-table-column prop="name" :label="$t('message.systemDictionary.dictionaryName')" min-width="100"> </el-table-column>
+        <el-table-column prop="mark" :label="$t('message.systemDictionary.dataMark')" min-width="200"> </el-table-column>
         <el-table-column prop="level" :label="$t('systemCommon.type')" min-width="200">
           <template slot-scope="scope">
-            <span>{{ scope.row.level ? '多级' : '一级' }}</span>
+            <span>{{ scope.row.level ? $t('message.systemDictionary.multiLevel') : $t('message.systemDictionary.singleLevel') }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="add_time" label="添加时间" min-width="200"> </el-table-column>
+        <el-table-column prop="add_time" :label="$t('message.systemCommon.addTime')" min-width="200"> </el-table-column>
         <el-table-column fixed="right"  :label="$t('customDesign.action')" width="200">
           <template slot-scope="scope">
             <a v-db-click @click="eidtOptions(scope.row.id)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="dataOptions(scope.row.id)">数据管理</a>
+            <a v-db-click @click="dataOptions(scope.row.id)">{{ $t('message.systemDictionary.dataManage') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除', scope.$index)">{{ $t('customDesign.delete') }}</a>
+            <a v-db-click @click="del(scope.row, $t('message.systemCommon.delete'), scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

@@ -36,7 +36,7 @@
       ></i>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon mr10" v-db-click @click="openMobelPage">
-      <i title="商城页面" class="el-icon-mobile-phone"></i>
+      <i :title="$t('message.user.title8')" class="el-icon-mobile-phone"></i>
     </div>
     <el-dropdown class="layout-navbars-breadcrumb-user-icon" trigger="click" @command="onLanguageChange">
       <span class="el-dropdown-link language-trigger" :title="$t('message.layout.language')">
@@ -47,6 +47,7 @@
         <el-dropdown-item :disabled="disabledI18n === 'zh-cn'" command="zh-cn">简体中文</el-dropdown-item>
         <el-dropdown-item :disabled="disabledI18n === 'en'" command="en">English</el-dropdown-item>
         <el-dropdown-item :disabled="disabledI18n === 'zh-tw'" command="zh-tw">繁體中文</el-dropdown-item>
+        <el-dropdown-item :disabled="disabledI18n === 'vi'" command="vi">Tiếng Việt</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     <el-dropdown :show-timeout="70" @command="onDropdownCommand">
@@ -143,7 +144,7 @@ export default {
     // 全屏点击
     onScreenfullClick() {
       if (!screenfull.isEnabled) {
-        this.$message.warning('暂不不支持全屏');
+        this.$message.warning(this.$t('message.user.notSupportFullscreen'));
         return false;
       }
       screenfull.toggle();
@@ -187,6 +188,9 @@ export default {
         case 'zh-tw':
           this.disabledI18n = 'zh-tw';
           break;
+        case 'vi':
+          this.disabledI18n = 'vi';
+          break;
       }
     },
     // 初始化全局组件大小
@@ -225,7 +229,7 @@ export default {
                 AccountLogout()
                   .then((res) => {
                     done();
-                    this.$message.success('您已成功退出');
+                    this.$message.success(this.$t('message.user.logOutSuccess'));
                     this.$store.commit('clearAll');
                     // localStorage.clear();
                     // sessionStorage.clear();

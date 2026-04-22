@@ -15,32 +15,31 @@
     <el-card :bordered="false" shadow="never">
       <el-alert type="warning" :closable="false">
         <template slot="title">
-          启动定时任务两种方式：<br />
-          1、使用命令启动：php think timer start
-          --d；如果更改了执行周期、编辑是否开启、删除定时任务需要重新启动下定时任务确保生效；<br />
-          2、使用接口触发定时任务，建议每分钟调用一次，接口地址 {{ apiBaseURL }}api/crontab/run <br />
+          {{ $t('message.systemTask.cronTipTitle') }}<br />
+          {{ $t('message.systemTask.cronTip1') }}<br />
+          {{ $t('message.systemTask.cronTip2', { url: apiBaseURL + 'api/crontab/run' }) }}<br />
         </template>
       </el-alert>
       <el-button v-if="currentTab === '1'" type="primary" v-db-click @click="addTask" class="mt14"
-        >添加定时任务</el-button
+        >{{ $t('message.systemTask.addCronTask') }}</el-button
       >
       <el-table :data="tableData" v-loading="loading" class="ivu-mt">
-        <el-table-column label="标题" min-width="150">
+        <el-table-column :label="$t('message.systemTask.title')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="任务说明" min-width="130">
+        <el-table-column :label="$t('message.systemTask.taskDescription')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="执行周期" min-width="130">
+        <el-table-column :label="$t('message.systemTask.executeCycle')" min-width="130">
           <template slot-scope="scope">
             <span>{{ taskTrip(scope.row) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否开启" min-width="130">
+        <el-table-column :label="$t('message.systemTask.isEnabled')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -49,8 +48,8 @@
               v-model="scope.row.is_open"
               size="large"
               @change="handleChange(scope.row)"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.systemCommon.enabled')"
+              :inactive-text="$t('message.systemCommon.disabled')"
             >
             </el-switch>
           </template>
@@ -63,8 +62,8 @@
               v-if="currentTab === '1'"
               v-permission="'seckill'"
               v-db-click
-              @click="handleDelete(scope.row, '删除定时任务', scope.$index)"
-              >删除</a
+              @click="handleDelete(scope.row, $t('message.systemTask.deleteCronTask'), scope.$index)"
+              >{{ $t('message.systemCommon.delete') }}</a
             >
           </template>
         </el-table-column>
@@ -93,8 +92,8 @@ export default {
       total: 1,
       apiBaseURL: '',
       headerList: [
-        { label: '系统任务', value: '0' },
-        { label: '自定义任务', value: '1' },
+        { label: this.$t('message.systemTask.systemTask'), value: '0' },
+        { label: this.$t('message.systemTask.customTask'), value: '1' },
       ],
       currentTab: '0',
     };
@@ -107,21 +106,21 @@ export default {
     taskTrip(row) {
       switch (row.type) {
         case 1:
-          return `每隔${row.second}秒执行一次`;
+          return this.$t('message.systemTask.everyNSecond', { n: row.second });
         case 2:
-          return `每隔${row.minute}分钟执行一次`;
+          return this.$t('message.systemTask.everyNMinute', { n: row.minute });
         case 3:
-          return `每隔${row.hour}小时执行一次`;
+          return this.$t('message.systemTask.everyNHour', { n: row.hour });
         case 4:
-          return `每隔${row.day}天执行一次`;
+          return this.$t('message.systemTask.everyNDay', { n: row.day });
         case 5:
-          return `每天${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return this.$t('message.systemTask.everyDayAt', { hour: row.hour, minute: row.minute, second: row.second });
         case 6:
-          return `每个星期${row.week}的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return this.$t('message.systemTask.everyWeekAt', { week: row.week, hour: row.hour, minute: row.minute, second: row.second });
         case 7:
-          return `每月${row.day}日的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return this.$t('message.systemTask.everyMonthAt', { day: row.day, hour: row.hour, minute: row.minute, second: row.second });
         case 8:
-          return `每年${row.month}月${row.day}日的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return this.$t('message.systemTask.everyYearAt', { month: row.month, day: row.day, hour: row.hour, minute: row.minute, second: row.second });
       }
     },
     // 列表

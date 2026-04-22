@@ -2,14 +2,14 @@
   <div>
     <el-card :bordered="false" :body-style="{ padding: '0 20px 20px' }">
       <el-tabs>
-        <el-tab-pane label="数据库列表">
+        <el-tab-pane :label="$t('message.systemMaintain.databaseList')">
           <!--          <el-card :bordered="false" shadow="never" class="tableBox">-->
           <div class="mb10">
             <!--              <span class="ivu-pl-8 mr10">数据库表列表</span>-->
-            <el-button v-db-click @click="getBackup">备份</el-button>
-            <el-button v-db-click @click="getOptimize">优化表</el-button>
-            <el-button v-db-click @click="getRepair">修复表</el-button>
-            <el-button v-db-click @click="exportData(1)">导出文件</el-button>
+            <el-button v-db-click @click="getBackup">{{ $t('message.systemMaintain.backup') }}</el-button>
+            <el-button v-db-click @click="getOptimize">{{ $t('message.systemMaintain.optimizeTable') }}</el-button>
+            <el-button v-db-click @click="getRepair">{{ $t('message.systemMaintain.repairTable') }}</el-button>
+            <el-button v-db-click @click="exportData(1)">{{ $t('message.systemMaintain.exportFile') }}</el-button>
           </div>
           <el-table
             ref="selection"
@@ -21,7 +21,7 @@
             class="mt14"
           >
             <el-table-column type="selection" width="55"> </el-table-column>
-            <el-table-column label="表名称" min-width="100">
+            <el-table-column :label="$t('message.systemMaintain.tableName')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
@@ -41,24 +41,24 @@
                 <span>{{ scope.row.engine }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="大小" min-width="100">
+            <el-table-column :label="$t('message.systemCommon.size')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.data_length }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="更新时间" min-width="100">
+            <el-table-column :label="$t('message.systemMaintain.updateTime')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.update_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="行数" min-width="100">
+            <el-table-column :label="$t('message.systemMaintain.rowCount')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.rows }}</span>
               </template>
             </el-table-column>
             <el-table-column  :label="$t('customDesign.action')" fixed="right" width="70">
               <template slot-scope="scope">
-                <a v-db-click @click="Info(scope.row)">详情</a>
+                <a v-db-click @click="Info(scope.row)">{{ $t('message.systemMaintain.detail') }}</a>
               </template>
             </el-table-column>
           </el-table>
@@ -78,27 +78,27 @@
               max-height="600"
               size="small"
             >
-              <el-table-column label="字段名" min-width="100">
+              <el-table-column :label="$t('message.systemMaintain.fieldName')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_NAME }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="数据类型" min-width="100">
+              <el-table-column :label="$t('message.systemMaintain.dataType')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_TYPE }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="默认值" min-width="100">
+              <el-table-column :label="$t('message.systemMaintain.defaultValue')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_DEFAULT }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="允许非空" min-width="100">
+              <el-table-column :label="$t('message.systemMaintain.allowNull')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.IS_NULLABLE }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="自动递增" min-width="100">
+              <el-table-column :label="$t('message.systemMaintain.autoIncrement')" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.EXTRA }}</span>
                 </template>
@@ -121,7 +121,7 @@
             </el-table>
           </el-drawer>
         </el-tab-pane>
-        <el-tab-pane label="备份列表">
+        <el-tab-pane :label="$t('message.systemMaintain.backupList')">
           <el-table
             ref="selection"
             :data="tabList"
@@ -130,7 +130,7 @@
             highlight-current-row
             size="small"
           >
-            <el-table-column label="备份名称" min-width="200">
+            <el-table-column :label="$t('message.systemMaintain.backupName')" min-width="200">
               <template slot-scope="scope">
                 <span>{{ scope.row.filename }}</span>
               </template>
@@ -140,7 +140,7 @@
                 <span>{{ scope.row.part }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="大小" min-width="100">
+            <el-table-column :label="$t('message.systemCommon.size')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.size }}</span>
               </template>
@@ -150,25 +150,25 @@
                 <span>{{ scope.row.compress }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="时间" min-width="100">
+            <el-table-column :label="$t('message.systemMaintain.time')" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.backtime }}</span>
               </template>
             </el-table-column>
             <el-table-column  :label="$t('customDesign.action')" fixed="right" width="140">
               <template slot-scope="scope">
-                <a v-db-click @click="ImportFile(scope.row)">导入</a>
+                <a v-db-click @click="ImportFile(scope.row)">{{ $t('message.systemMaintain.import') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, '删除该备份', scope.$index)">{{ $t('customDesign.delete') }}</a>
+                <a v-db-click @click="del(scope.row, $t('message.systemMaintain.deleteBackup'), scope.$index)">{{ $t('customDesign.delete') }}</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="download(scope.row)">下载</a>
+                <a v-db-click @click="download(scope.row)">{{ $t('message.systemMaintain.download') }}</a>
               </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
     </el-card>
-    <el-dialog :visible.sync="markModal" width="470px" title="修改备注" @closed="cancel">
+    <el-dialog :visible.sync="markModal" width="470px" :title="$t('message.systemMaintain.editRemark')" @closed="cancel">
       <el-input v-model="mark"></el-input>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="cancel">{{ $t('customDesign.cancel') }}</el-button>
@@ -310,7 +310,7 @@ export default {
     exportData() {
       const columns = this.columns.slice(1, 7);
       this.$refs.selection.exportCsv({
-        filename: '导出',
+        filename: this.$t('message.systemMaintain.exportFile'),
         columns: columns,
         data: this.tabList2,
       });
@@ -329,7 +329,7 @@ export default {
     // 备份表
     getBackup() {
       if (this.selectionList.length === 0) {
-        return this.$message.warning('请选择表');
+        return this.$message.warning(this.$t('message.systemMaintain.selectTableFirst'));
       }
       backupBackupApi(this.dataList)
         .then(async (res) => {
@@ -358,7 +358,7 @@ export default {
     // 优化表
     getOptimize() {
       if (this.selectionList.length === 0) {
-        return this.$message.warning('请选择表');
+        return this.$message.warning(this.$t('message.systemMaintain.selectTableFirst'));
       }
       backupOptimizeApi(this.dataList)
         .then(async (res) => {
@@ -371,7 +371,7 @@ export default {
     // 修复表
     getRepair() {
       if (this.selectionList.length === 0) {
-        return this.$message.warning('请选择表');
+        return this.$message.warning(this.$t('message.systemMaintain.selectTableFirst'));
       }
       backupRepairApi(this.dataList)
         .then(async (res) => {

@@ -3,30 +3,30 @@
     <el-card :bordered="false" shadow="never">
       <el-alert type="warning" :closable="false">
         <template slot="title">
-          自定义事件说明：<br />
-          1、新增的事件会在对应的事件类型相关的流程中触发，例：选择用户登录，则在用户登录时执行代码。<br />
-          2、可以使用对应事件类型中对应的参数，例：$data['nickname']、$data['phone']等。<br />
-          3、调用类的时候请写入完整路径，例：\think\facade\Db、\app\services\other\CacheServices::class等。<br />
+          {{ $t('message.systemTask.eventTipTitle') }}<br />
+          {{ $t('message.systemTask.eventTip1') }}<br />
+          {{ $t('message.systemTask.eventTip2') }}<br />
+          {{ $t('message.systemTask.eventTip3') }}<br />
         </template>
       </el-alert>
-      <el-button type="primary" v-db-click @click="addTask" class="mt14">新增系统事件</el-button>
+      <el-button type="primary" v-db-click @click="addTask" class="mt14">{{ $t('message.systemTask.addSystemEvent') }}</el-button>
       <el-table :data="tableData" v-loading="loading" class="ivu-mt">
-        <el-table-column label="编号" min-width="100">
+        <el-table-column :label="$t('message.systemTask.id')" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="事件名" min-width="150">
+        <el-table-column :label="$t('message.systemTask.eventName')" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="事件类型" min-width="130">
+        <el-table-column :label="$t('message.systemTask.eventType')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.mark_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否开启" min-width="130">
+        <el-table-column :label="$t('message.systemTask.isEnabled')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -35,13 +35,13 @@
               v-model="scope.row.is_open"
               size="large"
               @change="handleChange(scope.row)"
-              active-text="开启"
-              inactive-text="关闭"
+              :active-text="$t('message.systemCommon.enabled')"
+              :inactive-text="$t('message.systemCommon.disabled')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" min-width="130">
+        <el-table-column :label="$t('message.systemTask.createTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -50,8 +50,8 @@
           <template slot-scope="scope">
             <a v-db-click @click="edit(scope.row.id)">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-permission="'seckill'" v-db-click @click="handleDelete(scope.row, '删除自定事件', scope.$index)"
-              >删除</a
+            <a v-permission="'seckill'" v-db-click @click="handleDelete(scope.row, $t('message.systemTask.deleteCustomEvent'), scope.$index)"
+              >{{ $t('message.systemCommon.delete') }}</a
             >
           </template>
         </el-table-column>
@@ -80,8 +80,8 @@ export default {
       total: 1,
       apiBaseURL: '',
       headerList: [
-        { label: '系统任务', value: '0' },
-        { label: '自定义任务', value: '1' },
+        { label: this.$t('message.systemTask.systemTask'), value: '0' },
+        { label: this.$t('message.systemTask.customTask'), value: '1' },
       ],
       currentTab: '0',
     };

@@ -3,8 +3,8 @@
     <!-- 功能 Tabs -->
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-tabs v-model="currentTab" @tab-click="handleTabClick">
-        <el-tab-pane label="系统升级" name="upgrade"></el-tab-pane>
-        <el-tab-pane label="升级记录" name="logs"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemUpgrade.systemUpgrade')" name="upgrade"></el-tab-pane>
+        <el-tab-pane :label="$t('message.systemUpgrade.upgradeRecords')" name="logs"></el-tab-pane>
       </el-tabs>
 
       <!-- 系统升级 Tab -->
@@ -14,14 +14,14 @@
             <span class="summary-icon-wrap">
               <img src="@/assets/images/new.png" class="summary-icon-img" alt="upgrade" />
             </span>
-            <div class="summary-title">版本升级完成</div>
+            <div class="summary-title">{{ $t('message.systemUpgrade.versionUpgradeCompleted') }}</div>
             <div class="summary-sub">
-              请上传小程序代码至微信服务器，完成后需在小程序后台发布，
-              <a href="https://mp.weixin.qq.com" target="_blank" style="color: #409eff">点击发布</a>
+              {{ $t('message.systemUpgrade.uploadMiniProgramTip') }}
+              <a href="https://mp.weixin.qq.com" target="_blank" style="color: #409eff">{{ $t('message.systemUpgrade.clickToPublish') }}</a>
             </div>
             <div class="summary-actions">
-              <el-button type="primary" @click="handleUploadMini" :loading="uploadingMini">上传小程序</el-button>
-              <el-button class="ml8" @click="handleRefreshStatus">暂不上传</el-button>
+              <el-button type="primary" @click="handleUploadMini" :loading="uploadingMini">{{ $t('message.systemUpgrade.uploadMiniProgram') }}</el-button>
+              <el-button class="ml8" @click="handleRefreshStatus">{{ $t('message.systemUpgrade.notUploadNow') }}</el-button>
             </div>
           </div>
         </div>
@@ -35,20 +35,20 @@
               <img src="@/assets/images/upgrade.png" class="summary-icon-img" alt="upgrade" />
             </span>
             <div class="summary-title">
-              发现新版本
+              {{ $t('message.systemUpgrade.newVersionFound') }}
               <span v-if="upgradeablePackage">
                 v{{ upgradeablePackage.first_version }}.{{ upgradeablePackage.second_version }}.{{
                   upgradeablePackage.third_version
                 }}
               </span>
             </div>
-            <div class="summary-sub">发现可升级的新版本，点击立即升级</div>
+            <div class="summary-sub">{{ $t('message.systemUpgrade.newVersionFoundDesc') }}</div>
             <div class="summary-actions">
               <el-button type="primary" @click="startDownload" :disabled="startingDownload" :loading="startingDownload"
-                >立即升级</el-button
+                >{{ $t('message.systemUpgrade.upgradeNow') }}</el-button
               >
               <el-button class="ml8 check-update-btn" @click="checkRemoteUpdate" :loading="checkingRemote"
-                >检测更新</el-button
+                >{{ $t('message.systemUpgrade.checkUpdates') }}</el-button
               >
             </div>
           </div>
@@ -57,9 +57,9 @@
               V{{ upgradeablePackage.first_version }}.{{ upgradeablePackage.second_version }}.{{
                 upgradeablePackage.third_version
               }}
-              更新说明
+              {{ $t('message.systemUpgrade.updateDescription') }}
               <span class="release-time" v-if="upgradeablePackage.release_time"
-                >更新日期：{{ upgradeablePackage.release_time }}</span
+                >{{ $t('message.systemUpgrade.updateDateLabel') }}{{ upgradeablePackage.release_time }}</span
               >
             </div>
             <div class="content-desc" v-html="upgradeablePackage.content"></div>
@@ -74,11 +74,11 @@
             <span class="summary-icon-wrap">
               <img src="@/assets/images/new.png" class="summary-icon-img" alt="upgrade" />
             </span>
-            <div class="summary-title">当前版本 {{ versionInfo.current_version_main || '-' }}</div>
-            <div class="summary-sub">当前版本号为 {{ versionInfo.current_version || '-' }}</div>
+            <div class="summary-title">{{ $t('message.systemUpgrade.currentVersion') }} {{ versionInfo.current_version_main || '-' }}</div>
+            <div class="summary-sub">{{ $t('message.systemUpgrade.currentVersionCode') }} {{ versionInfo.current_version || '-' }}</div>
             <div class="summary-actions">
               <el-button class="check-update-btn" @click="checkRemoteUpdate" :loading="checkingRemote"
-                >检测更新</el-button
+                >{{ $t('message.systemUpgrade.checkUpdates') }}</el-button
               >
             </div>
           </div>
@@ -87,8 +87,8 @@
         <!-- 升级进度展示 -->
         <div v-if="downloadStage !== 'idle' && !this.showUpgradeComplete" class="upgrade-section">
           <div class="section-title">
-            升级进度
-            <el-button type="text" class="ml8" @click="handleRefreshStatus">刷新状态</el-button>
+            {{ $t('message.systemUpgrade.upgradeProgress') }}
+            <el-button type="text" class="ml8" @click="handleRefreshStatus">{{ $t('message.systemUpgrade.refreshStatus') }}</el-button>
           </div>
           <!-- 顶部进度条（加粗蓝色） -->
           <el-progress :percentage="downloadProgress" :show-text="false" :stroke-width="10" class="progress-line" />
@@ -112,7 +112,7 @@
                     ? 'status-ok'
                     : 'status-muted'
                 "
-                >检测</span
+                >{{ $t('message.systemUpgrade.check') }}</span
               >
             </div>
             <div class="status-item">
@@ -133,7 +133,7 @@
                     ? 'status-ok'
                     : 'status-muted'
                 "
-                >备份</span
+                >{{ $t('message.systemUpgrade.backup') }}</span
               >
             </div>
             <div class="status-item">
@@ -154,7 +154,7 @@
                     ? 'status-ok'
                     : 'status-muted'
                 "
-                >下载</span
+                >{{ $t('message.systemUpgrade.download') }}</span
               >
             </div>
             <div class="status-item">
@@ -175,7 +175,7 @@
                     ? 'status-ok'
                     : 'status-muted'
                 "
-                >{{ downloadType === 4 ? '完成' : '更新中' }}</span
+                >{{ downloadType === 4 ? $t('message.systemUpgrade.completed') : $t('message.systemUpgrade.updating') }}</span
               >
             </div>
             <!-- <div class="status-item">
@@ -191,49 +191,49 @@
         <div class="upgrade-section" v-if="downloadType >= 0 && downloadSteps[0].status !== 'loading' && !this.showUpgradeComplete">
           <div class="section-title">
             <span class="step-num">1</span>
-            <span>检测</span>
+            <span>{{ $t('message.systemUpgrade.check') }}</span>
           </div>
           <template v-if="downloadSteps[0].status === 'error'">
             <div class="check-error-box mt16">
               <div class="check-error-desc">
-                {{ downloadSteps[0].message || '您的系统功能做了修改，导致升级失败' }}
+                {{ downloadSteps[0].message || $t('message.systemUpgrade.checkFailedTip') }}
               </div>
             </div>
             <!-- 变更文件列表 -->
             <div v-if="normalizedCheckErrorFiles.length && downloadType === 0" class="mt16">
               <div class="error-files-table-wrap">
                 <el-table :data="normalizedCheckErrorFiles" size="small" class="error-files-table" :max-height="325">
-                  <el-table-column type="index" label="序号" width="120"></el-table-column>
-                  <el-table-column prop="path" label="文件路径" min-width="360" show-overflow-tooltip></el-table-column>
+                  <el-table-column type="index" :label="$t('message.systemUpgrade.serialNumber')" width="120"></el-table-column>
+                  <el-table-column prop="path" :label="$t('message.systemUpgrade.filePath')" min-width="360" show-overflow-tooltip></el-table-column>
                 </el-table>
               </div>
             </div>
             <div class="check-error-actions mt10" v-if="downloadType === 0">
-              <el-button size="small" type="primary" @click="cancelUpgrade">取消升级</el-button>
-              <el-button size="small" class="ml8" @click="ignoreAndProceed(0)">忽略并执行</el-button>
+              <el-button size="small" type="primary" @click="cancelUpgrade">{{ $t('message.systemUpgrade.cancelUpgrade') }}</el-button>
+              <el-button size="small" class="ml8" @click="ignoreAndProceed(0)">{{ $t('message.systemUpgrade.ignoreAndProceed') }}</el-button>
             </div>
           </template>
-          <div v-else class="check-success-box mt16">{{ downloadSteps[0].message || '检测完成' }}</div>
+          <div v-else class="check-success-box mt16">{{ downloadSteps[0].message || $t('message.systemUpgrade.checkCompleted') }}</div>
         </div>
         <!-- 步骤2: 备份 -->
         <div class="upgrade-section" v-if="downloadType >= 1 && downloadSteps[1].status !== 'loading' && !this.showUpgradeComplete">
           <div class="section-title">
             <span class="step-num">2</span>
-            <span>备份</span>
+            <span>{{ $t('message.systemUpgrade.backup') }}</span>
           </div>
           <div v-if="downloadSteps[1].status === 'success'" class="check-success-box mt16">
-            {{ downloadSteps[1].message || '数据库备份完成' }}
+            {{ downloadSteps[1].message || $t('message.systemUpgrade.databaseBackupCompleted') }}
           </div>
           <template v-else>
             <div class="check-error-box mt16">
               <div class="check-error-desc">
-                {{ downloadSteps[1].message || '数据库备份失败' }}
+                {{ downloadSteps[1].message || $t('message.systemUpgrade.databaseBackupFailed') }}
               </div>
             </div>
             <div class="check-error-actions mt10">
-              <el-button size="small" type="primary" @click="cancelUpgrade">取消升级</el-button>
-              <el-button size="small" class="ml8" @click="ignoreAndProceed(1)">忽略并执行</el-button>
-              <el-button size="small" class="ml8" @click="reExecuteUpgrade">重新备份</el-button>
+              <el-button size="small" type="primary" @click="cancelUpgrade">{{ $t('message.systemUpgrade.cancelUpgrade') }}</el-button>
+              <el-button size="small" class="ml8" @click="ignoreAndProceed(1)">{{ $t('message.systemUpgrade.ignoreAndProceed') }}</el-button>
+              <el-button size="small" class="ml8" @click="reExecuteUpgrade">{{ $t('message.systemUpgrade.retryBackup') }}</el-button>
             </div>
           </template>
         </div>
@@ -241,9 +241,9 @@
         <div class="upgrade-section" v-if="downloadType >= 2 && downloadSteps[2].status !== 'loading' && !this.showUpgradeComplete">
           <div class="section-title">
             <span class="step-num">3</span>
-            <span>下载更新</span>
+            <span>{{ $t('message.systemUpgrade.downloadUpdates') }}</span>
           </div>
-          <div class="check-success-box mt16">{{ downloadSteps[2].message || '更新文件下载完成' }}</div>
+          <div class="check-success-box mt16">{{ downloadSteps[2].message || $t('message.systemUpgrade.updateFileDownloadCompleted') }}</div>
         </div>
         <div
           class="upgrade-section"
@@ -253,16 +253,16 @@
           <template>
             <div class="section-title">
               <span class="step-num">4</span>
-              <span>执行数据库升级</span>
+              <span>{{ $t('message.systemUpgrade.executeDatabaseUpgrade') }}</span>
             </div>
             <div class="upgrade-progress-detail">
               <!-- SQL执行详情 -->
               <div class="sql-execution-logs">
                 <div class="logs-header">
-                  <span>SQL执行详情</span>
-                  <el-tag size="mini" type="success">成功: {{ sqlSuccessCount }}</el-tag>
-                  <el-tag size="mini" type="danger" v-if="sqlFailedCount > 0">失败: {{ sqlFailedCount }}</el-tag>
-                  <el-tag size="mini" type="info" v-if="sqlSkippedCount > 0">跳过: {{ sqlSkippedCount }}</el-tag>
+                  <span>{{ $t('message.systemUpgrade.sqlExecutionDetails') }}</span>
+                  <el-tag size="mini" type="success">{{ $t('message.systemUpgrade.successCount') }}: {{ sqlSuccessCount }}</el-tag>
+                  <el-tag size="mini" type="danger" v-if="sqlFailedCount > 0">{{ $t('message.systemUpgrade.failedCount') }}: {{ sqlFailedCount }}</el-tag>
+                  <el-tag size="mini" type="info" v-if="sqlSkippedCount > 0">{{ $t('message.systemUpgrade.skippedCount') }}: {{ sqlSkippedCount }}</el-tag>
                 </div>
                 <div class="logs-content">
                   <div
@@ -284,7 +284,7 @@
                       size="mini"
                       :type="log.status === 'success' ? 'success' : log.status === 'failed' ? 'danger' : 'info'"
                     >
-                      {{ log.status === 'success' ? '成功' : log.status === 'failed' ? '失败' : '跳过' }}
+                      {{ log.status === 'success' ? $t('message.systemUpgrade.success') : log.status === 'failed' ? $t('message.systemUpgrade.failed') : $t('message.systemUpgrade.skipped') }}
                     </el-tag>
                     <span v-if="log.message" class="log-message">{{ log.message }}</span>
                   </div>
@@ -294,15 +294,15 @@
               <!-- 升级结果 -->
               <div class="upgrade-result">
                 <el-alert
-                  :title="sqlFailedCount === 0 ? '升级成功' : '升级完成(有失败项)'"
+                  :title="sqlFailedCount === 0 ? $t('message.systemUpgrade.upgradeSuccess') : $t('message.systemUpgrade.upgradeCompletedWithFailures')"
                   :type="sqlFailedCount === 0 ? 'success' : 'warning'"
                   :closable="false"
                   show-icon
                 >
                   <template slot="default">
-                    <span>执行成功: {{ sqlSuccessCount }} 条；</span>
-                    <span v-if="sqlFailedCount > 0"> 执行失败: {{ sqlFailedCount }} 条；</span>
-                    <span v-if="sqlSkippedCount > 0"> 跳过: {{ sqlSkippedCount }} 条；</span>
+                    <span>{{ $t('message.systemUpgrade.executedSuccessCount', { n: sqlSuccessCount }) }}</span>
+                    <span v-if="sqlFailedCount > 0"> {{ $t('message.systemUpgrade.executedFailedCount', { n: sqlFailedCount }) }}</span>
+                    <span v-if="sqlSkippedCount > 0"> {{ $t('message.systemUpgrade.executedSkippedCount', { n: sqlSkippedCount }) }}</span>
                   </template>
                 </el-alert>
               </div>
@@ -314,24 +314,24 @@
       <!-- 升级记录 Tab -->
       <div v-if="currentTab === 'logs'" class="upgrade-logs">
         <el-table :data="upgradeLogList" style="width: 100%" v-loading="loadingLogs">
-          <el-table-column prop="title" label="升级标题" min-width="120" show-overflow-tooltip />
-          <el-table-column label="版本" width="100">
+          <el-table-column prop="title" :label="$t('message.systemUpgrade.upgradeTitle')" min-width="120" show-overflow-tooltip />
+          <el-table-column :label="$t('message.systemUpgrade.version')" width="100">
             <template slot-scope="scope">
               v{{ scope.row.first_version }}.{{ scope.row.second_version }}.{{ scope.row.third_version }}
             </template>
           </el-table-column>
-          <el-table-column prop="upgrade_time" label="升级时间" width="200" />
-          <el-table-column label="备份状态" min-width="150">
+          <el-table-column prop="upgrade_time" :label="$t('message.systemUpgrade.upgradeTime')" width="200" />
+          <el-table-column :label="$t('message.systemUpgrade.backupStatus')" min-width="150">
             <template slot-scope="scope">
               <el-tag size="mini" :type="scope.row.file_status ? 'success' : 'danger'">
-                项目: {{ scope.row.file_status ? scope.row.package_link : '无' }}
+                {{ $t('message.systemUpgrade.project') }}: {{ scope.row.file_status ? scope.row.package_link : $t('message.systemUpgrade.none') }}
               </el-tag><br/>
               <el-tag size="mini" :type="scope.row.data_status ? 'success' : 'danger'">
-                数据库: {{ scope.row.data_status ? scope.row.data_link : '无' }}
+                {{ $t('message.systemUpgrade.database') }}: {{ scope.row.data_status ? scope.row.data_link : $t('message.systemUpgrade.none') }}
               </el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="content" label="更新内容" min-width="200" show-overflow-tooltip>
+          <el-table-column prop="content" :label="$t('message.systemUpgrade.updateContent')" min-width="200" show-overflow-tooltip>
             <template slot-scope="scope">
               <span v-html="scope.row.content"></span>
             </template>
@@ -355,7 +355,7 @@
     <!-- 升级协议弹窗 -->
     <el-dialog
       :visible.sync="agreementVisible"
-      title="系统升级协议"
+      :title="$t('message.systemUpgrade.systemUpgradeAgreement')"
       width="800px"
       destroy-on-close
       :close-on-click-modal="false"
@@ -366,8 +366,8 @@
         <div v-html="agreementContent"></div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="agreementVisible = false">不同意</el-button>
-        <el-button type="primary" @click="doStartDownload" :loading="startingDownload">同意并升级</el-button>
+        <el-button @click="agreementVisible = false">{{ $t('message.systemUpgrade.disagree') }}</el-button>
+        <el-button type="primary" @click="doStartDownload" :loading="startingDownload">{{ $t('message.systemUpgrade.agreeAndUpgrade') }}</el-button>
       </span>
     </el-dialog>
     <!-- 页面本地蒙层，仅在本页显示 -->
@@ -383,14 +383,14 @@
     >
       <div class="upload-success-content">
         <i class="el-icon-circle-check" style="font-size: 48px; color: #67c23a; margin-bottom: 16px"></i>
-        <div class="success-title">上传成功</div>
+        <div class="success-title">{{ $t('message.systemUpgrade.uploadSuccess') }}</div>
         <div class="success-desc">
-          已上传小程序代码至微信服务器，<a href="https://mp.weixin.qq.com" target="_blank" style="color: #409eff"
-            >点击发布</a
+          {{ $t('message.systemUpgrade.uploadSuccessTip') }}<a href="https://mp.weixin.qq.com" target="_blank" style="color: #409eff"
+            >{{ $t('message.systemUpgrade.clickToPublish') }}</a
           >
         </div>
         <el-button type="primary" @click="handleUploadSuccessClose" style="margin-top: 24px; width: 120px"
-          >我知道了</el-button
+          >{{ $t('message.systemUpgrade.gotIt') }}</el-button
         >
       </div>
     </el-dialog>
@@ -519,7 +519,7 @@ export default {
           await this.loadUpgradeableList();
         }
       } catch (err) {
-        this.$message.error(err.msg || '检测远程更新失败');
+        this.$message.error(err.msg || this.$t('message.systemUpgrade.checkRemoteUpdateFailed'));
       } finally {
         this.checkingRemote = false;
       }
@@ -534,7 +534,7 @@ export default {
           this.upgradeablePackage = list[0]; // 取第一个
         }
       } catch (err) {
-        console.error('获取可升级包列表失败', err);
+        console.error(this.$t('message.systemUpgrade.loadUpgradeableListFailed'), err);
       }
     },
 
@@ -549,7 +549,7 @@ export default {
           current_code: res.data.current_code,
         };
       } catch (err) {
-        console.error('检测本地版本失败', err);
+        console.error(this.$t('message.systemUpgrade.checkLocalVersionFailed'), err);
       }
     },
 
@@ -566,7 +566,7 @@ export default {
         this.agreementContent = res.data?.content || res.data || '';
         this.agreementVisible = true;
       } catch (err) {
-        this.$message.error(err.msg || '获取升级协议失败');
+        this.$message.error(err.msg || this.$t('message.systemUpgrade.getAgreementFailed'));
       } finally {
         this.agreementLoading = false;
       }
@@ -574,7 +574,7 @@ export default {
 
     async doStartDownload() {
       if (!this.upgradeablePackage?.package_key) {
-        this.$message.error('未获取到升级包信息，请重新检测更新');
+        this.$message.error(this.$t('message.systemUpgrade.noUpgradeablePackage'));
         return;
       }
 
@@ -588,9 +588,9 @@ export default {
         this.downloadType = 0;
         this.startDownloadProgressPolling();
       } catch (err) {
-        this.$message.error(err.msg || '开始下载失败');
+        this.$message.error(err.msg || this.$t('message.systemUpgrade.startDownloadFailed'));
         this.downloadStage = 'error';
-        this.downloadMessage = err.msg || '开始下载失败';
+        this.downloadMessage = err.msg || this.$t('message.systemUpgrade.startDownloadFailed');
       } finally {
         this.startingDownload = false;
       }
@@ -650,7 +650,7 @@ export default {
             }
           }
         } catch (err) {
-          console.error('获取下载进度失败', err);
+          console.error(this.$t('message.systemUpgrade.getDownloadProgressFailed'), err);
         }
       }, 2000);
     },
@@ -686,9 +686,9 @@ export default {
     async ignoreAndProceed(type) {
       if (type === 0) {
         this.normalizedCheckErrorFiles = [];
-        this.downloadSteps[0].message = '忽略并执行!';
+        this.downloadSteps[0].message = this.$t('message.systemUpgrade.ignoredAndProceeded');
         this.downloadSteps[0].status = 'success';
-        this.downloadMessage = '忽略并执行...';
+        this.downloadMessage = this.$t('message.systemUpgrade.ignoredAndProceeding');
       }
       this.downloadType += 1;
       this.startDownloadProgressPolling();
@@ -699,7 +699,7 @@ export default {
         await reExecuteUpgradeApi();
         this.startDownloadProgressPolling();
       } catch (err) {
-        this.$message.error(err.msg || '重新执行升级失败');
+        this.$message.error(err.msg || this.$t('message.systemUpgrade.reExecuteUpgradeFailed'));
       }
     },
     // 判断阶段是否完成
@@ -729,7 +729,7 @@ export default {
         this.upgradeLogList = res.data.list || [];
         this.logsTotal = res.data.count || 0;
       } catch (err) {
-        this.$message.error(err.msg || '加载升级记录失败');
+        this.$message.error(err.msg || this.$t('message.systemUpgrade.loadUpgradeLogsFailed'));
       } finally {
         this.loadingLogs = false;
       }
@@ -743,17 +743,17 @@ export default {
     // SQL类型名称
     getTypeName(type) {
       const typeMap = {
-        1: '建表',
-        2: '删表',
-        3: '添加字段',
-        4: '修改字段',
-        5: '删除字段',
-        6: this.$t('systemCommon.addData'),
-        7: '修改数据',
-        8: '删除数据',
-        '-1': '执行SQL',
+        1: this.$t('message.systemUpgrade.createTable'),
+        2: this.$t('message.systemUpgrade.dropTable'),
+        3: this.$t('message.systemUpgrade.addField'),
+        4: this.$t('message.systemUpgrade.modifyField'),
+        5: this.$t('message.systemUpgrade.deleteField'),
+        6: this.$t('message.systemCommon.addData'),
+        7: this.$t('message.systemUpgrade.modifyData'),
+        8: this.$t('message.systemUpgrade.deleteData'),
+        '-1': this.$t('message.systemUpgrade.executeSql'),
       };
-      return typeMap[type] || '未知';
+      return typeMap[type] || this.$t('message.systemUpgrade.unknown');
     },
 
     getTypeTagType(type) {
@@ -782,7 +782,7 @@ export default {
         });
         this.uploadSuccessVisible = true;
       } catch (err) {
-        this.$message.error(err.msg || '上传小程序失败');
+        this.$message.error(err.msg || this.$t('message.systemUpgrade.uploadMiniProgramFailed'));
         this.$router.push({ path: `${setting.routePre}/app/routine/ci_upload` });
       } finally {
         this.uploadingMini = false;

@@ -10,22 +10,22 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="数据搜索：">
+          <el-form-item :label="$t('message.systemGroup.dataSearchLabel')">
             <el-input
               clearable
-              placeholder="请输入ID,KEY,数据组名称,简介"
+              :placeholder="$t('message.systemGroup.searchPlaceholder')"
               v-model="formValidate.title"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">{{ $t('message.systemCommon.search') }}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="groupAdd('添加数据组')" class="mr20">添加数据组</el-button>
+      <el-button type="primary" v-db-click @click="groupAdd($t('message.systemGroup.addDataGroup'))" class="mr20">{{ $t('message.systemGroup.addDataGroup') }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
@@ -45,23 +45,23 @@
             <span>{{ scope.row.config_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="数据组名称" min-width="130">
+        <el-table-column :label="$t('message.systemGroup.dataGroupName')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="简介" min-width="130">
+        <el-table-column :label="$t('message.systemCommon.description')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.info }}</span>
           </template>
         </el-table-column>
         <el-table-column  :label="$t('customDesign.action')" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="goList(scope.row)">数据列表</a>
+            <a v-db-click @click="goList(scope.row)">{{ $t('message.systemGroup.dataList') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row, '编辑')">{{ $t('productList.edit') }}</a>
+            <a v-db-click @click="edit(scope.row, $t('message.systemCommon.edit'))">{{ $t('productList.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除数据组', scope.$index)">{{ $t('customDesign.delete') }}</a>
+            <a v-db-click @click="del(scope.row, $t('message.systemGroup.deleteDataGroup'), scope.$index)">{{ $t('customDesign.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>
