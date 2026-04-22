@@ -28,7 +28,7 @@
         <div class="main-content">
           <div class="filters-header">
             <div v-if="type != 'mall'" class="filter-left">
-              <el-select v-model="currentFilter" size="small" placeholder="首页" style="width: 204px">
+              <el-select v-model="currentFilter" size="small" :placeholder="$t('message.setting.home')" style="width: 204px">
                 <el-option
                   v-for="item in filterOptions"
                   :key="item.value"
@@ -40,7 +40,7 @@
             <div class="search-box">
               <el-input
                 v-model="searchKeyword"
-                placeholder="请输入主题名称"
+                :placeholder="$t('message.setting.enterThemeName')"
                 suffix-icon="el-icon-search"
                 size="small"
                 @change="searchTheme"

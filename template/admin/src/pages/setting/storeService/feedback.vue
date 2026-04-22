@@ -20,8 +20,8 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.setting.startDate')"
+              :end-placeholder="$t('message.setting.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
@@ -30,7 +30,7 @@
           <el-form-item label="留言信息：">
             <el-input
               clearable
-              placeholder="请输入用户昵称/电话/留言内容搜索"
+              :placeholder="$t('message.setting.enterNoticeSearch')"
               v-model="formValidate.title"
               class="form_content_width"
             />

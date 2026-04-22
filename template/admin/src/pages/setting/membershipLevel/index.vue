@@ -20,7 +20,7 @@
           <el-form-item label="等级名称：">
             <el-input
               clearable
-              placeholder="请输入等级名称"
+              :placeholder="$t('message.setting.enterLevelName')"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
@@ -162,7 +162,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="任务名称：">
-            <el-input v-model="taskData.keyword" placeholder="请输入任务名称" clearable class="form_content_width" />
+            <el-input v-model="taskData.keyword" :placeholder="$t('message.setting.enterTaskName')" clearable class="form_content_width" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" v-db-click @click="searchTask">查询</el-button>

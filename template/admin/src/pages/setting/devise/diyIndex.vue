@@ -219,7 +219,7 @@
       </div>
     </el-dialog>
     <el-dialog :visible.sync="nameModal" width="470px" title="设置模版名称" :show-close="true">
-      <el-input v-model="saveName" placeholder="请输入模版名称"></el-input>
+      <el-input v-model="saveName" :placeholder="$t('message.setting.enterTemplateName')"></el-input>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="nameModal = false">取 消</el-button>
         <el-button type="primary" v-db-click @click="saveModal">确 定</el-button>

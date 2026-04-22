@@ -16,13 +16,13 @@
             <div class="info-item" v-if="item.hasOwnProperty('name')">
               <span>{{ type == 1 ? '管理名称：' : type == 5 ? '广告名称' : '服务名称：' }}</span>
               <div class="input-box">
-                <el-input v-model="item.name" :placeholder="type == 5 ? '请输入名称' : '服务中心'" :maxlength="4" />
+                <el-input v-model="item.name" :placeholder="type == 5 ? $t('message.setting.enterName') : $t('message.setting.serviceCenter')" :maxlength="4" />
               </div>
             </div>
             <div class="info-item">
               <span>链接地址：</span>
               <div class="input-box" v-db-click>
-                <el-input v-model="item.url" placeholder="选择链接">
+                <el-input v-model="item.url" :placeholder="$t('message.setting.selectLink')">
                   <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                 </el-input>
               </div>

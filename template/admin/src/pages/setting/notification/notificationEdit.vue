@@ -49,7 +49,7 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('message.notification.insertCustomVariableTip') }}</div>
                   </el-form-item>
                   <el-form-item :label="$t('message.systemCommon.status') + '：'" prop="is_system">
                     <el-radio-group v-model="formData.is_system">
@@ -70,7 +70,7 @@
                         type="textarea"
                         :disabled="formData.type_n != 3"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('message.notification.enterNotificationContent')"
                         style="width: 500px"
                       ></el-input>
                       <div class="value-list" v-if="formData.type_n == 3">
@@ -91,7 +91,7 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('message.notification.insertCustomVariableTip') }}</div>
                   </el-form-item>
                   <el-form-item :label="$t('message.systemCommon.status') + '：'" prop="is_sms">
                     <el-radio-group v-model="formData.is_sms">
@@ -101,25 +101,25 @@
                   </el-form-item>
                 </div>
                 <div v-else-if="item.slot === 'is_wechat' && !loading">
-                  <el-form-item label="模板编号：">
+                  <el-form-item :label="$t('message.notification.templateCode') + '：'">
                     <el-input
                       v-model="formData.tempkey"
                       :disabled="formData.type_n !== 3"
-                      placeholder="请输入通模板编号"
+                      :placeholder="$t('message.notification.enterTemplateCode')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="模板ID：">
-                    <el-input v-model="formData.tempid" placeholder="请输入模板ID" style="width: 500px"></el-input>
+                  <el-form-item :label="$t('message.notification.templateId') + '：'">
+                    <el-input v-model="formData.tempid" :placeholder="$t('message.notification.enterTemplateId')" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="模板：">
+                  <el-form-item :label="$t('message.notification.template') + '：'">
                     <div class="content">
                       <el-input
                         :disabled="formData.type_n !== 3"
                         v-model="formData.content"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入模板"
+                        :placeholder="$t('message.notification.enterTemplateContent')"
                         style="width: 500px"
                         @input="handleContentChange"
                       ></el-input>
@@ -159,25 +159,25 @@
                   </el-form-item>
                 </div>
                 <div v-else-if="item.slot === 'is_routine' && !loading">
-                  <el-form-item label="模板编号：">
+                  <el-form-item :label="$t('message.notification.templateCode') + '：'">
                     <el-input
                       v-model="formData.tempkey"
                       :disabled="formData.type_n !== 3"
-                      placeholder="请输入通模板编号"
+                      :placeholder="$t('message.notification.enterTemplateCode')"
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="模板ID：">
-                    <el-input v-model="formData.tempid" placeholder="请输入模板ID" style="width: 500px"></el-input>
+                  <el-form-item :label="$t('message.notification.templateId') + '：'">
+                    <el-input v-model="formData.tempid" :placeholder="$t('message.notification.enterTemplateId')" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="模板：">
+                  <el-form-item :label="$t('message.notification.template') + '：'">
                     <div class="content">
                       <el-input
                         :disabled="formData.type_n !== 3"
                         v-model="formData.content"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入模板"
+                        :placeholder="$t('message.notification.enterTemplateContent')"
                         style="width: 500px"
                         @input="handleContentChange"
                       ></el-input>
@@ -216,7 +216,7 @@
                         v-model="formData.ent_wechat_text"
                         type="textarea"
                         :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="请输入通知内容"
+                        :placeholder="$t('message.notification.enterNotificationContent')"
                         style="width: 500px"
                       ></el-input>
                       <div class="value-list" v-if="formData.type_n == 3">
@@ -237,7 +237,7 @@
                         </el-popover>
                       </div>
                     </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">可点击右下角图标,插入自定义变量</div>
+                    <div class="tips-info" v-if="formData.type_n == 3">{{ $t('message.notification.insertCustomVariableTip') }}</div>
                   </el-form-item>
                   <el-form-item :label="$t('message.notification.robotLink') + '：'">
                     <div class="content">
@@ -301,21 +301,21 @@ export default {
         name: [
           {
             required: true,
-            message: '请输入通知场景',
+            message: this.$t('message.notification.enterNotificationScene'),
             trigger: 'blur',
           },
         ],
         title: [
           {
             required: true,
-            message: '请输入通知场景',
+            message: this.$t('message.notification.enterNotificationScene'),
             trigger: 'blur',
           },
         ],
         content: [
           {
             required: true,
-            message: '请输入通知内容',
+            message: this.$t('message.notification.enterNotificationContent'),
             trigger: 'blur',
           },
         ],
@@ -382,7 +382,7 @@ export default {
       this.formData.key_list = this.keyList;
       getNotificationSave(this.formData)
         .then((res) => {
-          this.$message.success('设置成功');
+          this.$message.success(this.$t('message.notification.settingSuccess'));
         })
         .catch((err) => {
           this.$message.error(err);

@@ -110,7 +110,7 @@
                 <div class="search-box">
                   <el-input
                     v-model="searchKeyword"
-                    placeholder="请输入主题名称"
+                    :placeholder="$t('message.setting.enterThemeName')"
                     prefix-icon="el-icon-search"
                     size="small"
                   ></el-input>

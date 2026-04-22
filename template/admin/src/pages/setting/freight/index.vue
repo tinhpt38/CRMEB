@@ -13,7 +13,7 @@
           <el-form-item label="是否显示：">
             <el-select
               v-model="levelFrom.is_show"
-              placeholder="请选择"
+              :placeholder="$t('message.systemCommon.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
@@ -24,7 +24,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="搜索：" label-for="keyword">
-            <el-input class="form_content_width" v-model="levelFrom.keyword" placeholder="请输入物流公司名称或者编码" />
+            <el-input class="form_content_width" v-model="levelFrom.keyword" :placeholder="$t('message.setting.enterLogisticsNameOrCode')" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>

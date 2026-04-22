@@ -22,7 +22,7 @@
             v-model="form.title"
             :maxlength="20"
             show-word-limit
-            :placeholder="`请输入${isMicroPage ? '专题' : '主题'}名称`"
+            :placeholder="isMicroPage ? $t('message.setting.enterTopicName') : $t('message.setting.enterThemeName')"
           ></el-input>
         </el-form-item>
         <el-form-item :label="`${isMicroPage ? '专题' : '主题'}简介：`">
@@ -31,7 +31,7 @@
             v-model="form.info"
             :maxlength="200"
             show-word-limit
-            :placeholder="`请输入${isMicroPage ? '专题' : '主题'}简介`"
+            :placeholder="isMicroPage ? $t('message.setting.enterTopicDescription') : $t('message.setting.enterThemeDescription')"
             :rows="4"
           ></el-input>
         </el-form-item>

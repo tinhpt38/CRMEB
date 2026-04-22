@@ -118,13 +118,13 @@
     >
       <el-form :model="linkForm" ref="linkForm" label-width="80px">
         <el-form-item label="名称:" prop="name">
-          <el-input v-model="linkForm.name" placeholder="请输入名称"></el-input>
+          <el-input v-model="linkForm.name" :placeholder="$t('message.setting.enterName')"></el-input>
         </el-form-item>
         <el-form-item label="跳转链接:" prop="url">
-          <el-input v-model="linkForm.url" placeholder="请输入跳转链接"></el-input>
+          <el-input v-model="linkForm.url" :placeholder="$t('message.setting.enterLink')"></el-input>
         </el-form-item>
         <el-form-item label="排序:" prop="url">
-          <el-input v-model="linkForm.sort" placeholder="请输入排序"></el-input>
+          <el-input v-model="linkForm.sort" :placeholder="$t('message.setting.enterSort')"></el-input>
         </el-form-item>
         <el-form-item label="是否开启:" prop="url">
           <el-switch v-model="linkForm.status" :active-value="1" :inactive-value="0"></el-switch>

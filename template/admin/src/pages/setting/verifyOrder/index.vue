@@ -12,8 +12,8 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :start-placeholder="$t('message.setting.verifyOrder.startDate')"
+              :end-placeholder="$t('message.setting.verifyOrder.endDate')"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
@@ -22,7 +22,7 @@
           <el-form-item label="筛选条件：">
             <el-input
               enter-button
-              placeholder="请输入搜索内容"
+              :placeholder="$t('message.setting.verifyOrder.enterSearchContent')"
               v-model="formValidate.real_name"
               class="form_content_width"
               clearable

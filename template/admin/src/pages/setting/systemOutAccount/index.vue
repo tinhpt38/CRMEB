@@ -176,20 +176,20 @@
         </el-form-item>
         <el-form-item label="推送账号：" prop="push_account">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.push_account" placeholder="请输入推送账号"></el-input>
+            <el-input type="text" v-model="settingData.push_account" :placeholder="$t('message.setting.enterPushAccount')"></el-input>
             <span class="tips-info">接受推送方获取token的账号</span>
           </div>
         </el-form-item>
         <el-form-item label="推送密码：" prop="push_password">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.push_password" placeholder="请输入推送密码"></el-input>
+            <el-input type="text" v-model="settingData.push_password" :placeholder="$t('message.setting.enterPushPassword')"></el-input>
             <span class="tips-info">接受推送方获取token的密码</span>
           </div>
         </el-form-item>
         <el-form-item label="获取TOKEN接口：" prop="push_token_url">
           <div class="form-content">
             <div class="input-button">
-              <el-input type="text" v-model="settingData.push_token_url" placeholder="请输入获取TOKEN接口"></el-input>
+              <el-input type="text" v-model="settingData.push_token_url" :placeholder="$t('message.setting.enterTokenApi')"></el-input>
               <el-button class="ml10" type="primary" v-db-click @click="textOutUrl(settingData.id)">测试链接</el-button>
             </div>
             <span class="tips-info"
@@ -202,7 +202,7 @@
             <el-input
               type="text"
               v-model="settingData.user_update_push"
-              placeholder="请输入用户数据修改推送接口"
+              :placeholder="$t('message.setting.enterUserDataModifyPushApi')"
             ></el-input>
             <span class="tips-info">用户修改积分，余额，经验等将用户信息推送至该地址，POST方法</span>
           </div>
@@ -212,14 +212,14 @@
             <el-input
               type="text"
               v-model="settingData.order_create_push"
-              placeholder="请输入订单创建推送接口"
+              :placeholder="$t('message.setting.enterOrderCreatePushApi')"
             ></el-input>
             <span class="tips-info">订单创建时推送订单信息至该地址，POST方法</span>
           </div>
         </el-form-item>
         <el-form-item label="订单支付推送接口：" prop="order_pay_push">
           <div class="form-content">
-            <el-input type="text" v-model="settingData.order_pay_push" placeholder="请输入订单支付推送接口"></el-input>
+            <el-input type="text" v-model="settingData.order_pay_push" :placeholder="$t('message.setting.enterOrderPayPushApi')"></el-input>
             <span class="tips-info">订单完成支付时推送订单已支付信息至该地址，POST方法</span>
           </div>
         </el-form-item>
@@ -228,7 +228,7 @@
             <el-input
               type="text"
               v-model="settingData.refund_create_push"
-              placeholder="请输入售后订单创建推送接口"
+              :placeholder="$t('message.setting.enterAfterSaleCreatePushApi')"
             ></el-input>
             <span class="tips-info">售后订单生成时推送售后单信息至该地址，POST方法</span>
           </div>
@@ -238,7 +238,7 @@
             <el-input
               type="text"
               v-model="settingData.refund_cancel_push"
-              placeholder="请输入售后订单取消推送接口"
+              :placeholder="$t('message.setting.enterAfterSaleCancelPushApi')"
             ></el-input>
             <span class="tips-info">售后订单取消时推送售后单取消信息至该地址，POST方法</span>
           </div>

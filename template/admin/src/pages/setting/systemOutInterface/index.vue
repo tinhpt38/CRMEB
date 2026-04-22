@@ -114,7 +114,7 @@
                     type="text"
                     :rows="4"
                     v-model.trim="formValidate.name"
-                    placeholder="请输入"
+                    :placeholder="$t('message.systemCommon.inputRequired')"
                   />
                   <span v-else>{{ formValidate.name || '' }}</span>
                 </el-form-item>
@@ -138,7 +138,7 @@
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.describe"
-                    placeholder="请输入"
+                    :placeholder="$t('message.systemCommon.inputRequired')"
                   />
                   <span v-else class="text-area">{{ formValidate.describe || '' }}</span>
                 </el-form-item>
@@ -154,7 +154,7 @@
                     type="text"
                     :rows="4"
                     v-model.trim="formValidate.url"
-                    placeholder="请输入"
+                    :placeholder="$t('message.systemCommon.inputRequired')"
                   />
                   <span v-else>{{ formValidate.url || '' }}</span>
                 </el-form-item>
@@ -311,7 +311,7 @@
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.request_example"
-                    placeholder="请输入"
+                    :placeholder="$t('message.systemCommon.inputRequired')"
                   />
                   <span v-else class="text-area">{{ formValidate.request_example || '' }}</span>
                 </el-form-item>
@@ -322,7 +322,7 @@
                     type="textarea"
                     :rows="4"
                     v-model.trim="formValidate.return_example"
-                    placeholder="请输入"
+                    :placeholder="$t('message.systemCommon.inputRequired')"
                   />
                   <span v-else class="text-area">{{ formValidate.return_example || '' }}</span>
                 </el-form-item>
@@ -399,7 +399,7 @@
     </div>
     <el-dialog :visible.sync="nameModal" width="470px" title="分组名称" @on-ok="asyncOK">
       <label>分组名称：</label>
-      <el-input v-model="value" placeholder="请输入分组名称" style="width: 85%" />
+      <el-input v-model="value" :placeholder="$t('message.setting.enterGroupName')" style="width: 85%" />
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="nameModal = false">取 消</el-button>
         <el-button type="primary" v-db-click @click="asyncOK">确 定</el-button>

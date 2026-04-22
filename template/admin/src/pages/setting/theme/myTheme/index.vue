@@ -17,7 +17,7 @@
           <img class="theme-in" src="https://www.crmeb.com/static/images/zhutishichang.png" alt="" @click="toTheme" />
         </div>
         <div class="right-actions flex">
-          <el-input v-model="searchKeyword" placeholder="请输入主题名称" class="search-input m-r-10"> </el-input>
+          <el-input v-model="searchKeyword" :placeholder="$t('message.setting.enterThemeName')" class="search-input m-r-10"> </el-input>
           <el-button type="primary" @click="getList">搜索</el-button>
         </div>
       </div>

@@ -1,62 +1,62 @@
 <template>
   <div>
-    <pages-header ref="pageHeader" title="小票配置" :backUrl="$routeProStr + '/setting/ticket'"></pages-header>
+    <pages-header ref="pageHeader" :title="$t('message.setting.ticket.ticketConfig')" :backUrl="$routeProStr + '/setting/ticket'"></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
       <div class="flex justify-between warpper">
         <el-form :model="formItem" label-width="120px">
-          <el-form-item label="小票头部：">
-            <el-checkbox v-model="formItem.header" :true-label="1" :false-label="0">商家名称</el-checkbox>
+          <el-form-item :label="$t('message.setting.ticket.ticketHeader') + '：'">
+            <el-checkbox v-model="formItem.header" :true-label="1" :false-label="0">{{ $t('message.setting.ticket.merchantName') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="配送信息：">
-            <el-checkbox v-model="formItem.delivery" :true-label="1" :false-label="0">配送信息</el-checkbox>
+          <el-form-item :label="$t('message.setting.ticket.deliveryInfo') + '：'">
+            <el-checkbox v-model="formItem.delivery" :true-label="1" :false-label="0">{{ $t('message.setting.ticket.deliveryInfo') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="买家备注：">
-            <el-checkbox v-model="formItem.buyer_remarks" :true-label="1" :false-label="0">买家备注</el-checkbox>
+          <el-form-item :label="$t('message.setting.ticket.buyerRemark') + '：'">
+            <el-checkbox v-model="formItem.buyer_remarks" :true-label="1" :false-label="0">{{ $t('message.setting.ticket.buyerRemark') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="商品信息：">
+          <el-form-item :label="$t('message.setting.ticket.productInfo') + '：'">
             <el-checkbox-group v-model="formItem.goods">
-              <el-checkbox :label="0">商品基础信息</el-checkbox>
-              <el-checkbox :label="1">规格编码</el-checkbox>
+              <el-checkbox :label="0">{{ $t('message.setting.ticket.productBasicInfo') }}</el-checkbox>
+              <el-checkbox :label="1">{{ $t('message.setting.ticket.specCode') }}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="运费信息：">
-            <el-checkbox v-model="formItem.freight" :true-label="1" :false-label="0">运费</el-checkbox>
+          <el-form-item :label="$t('message.setting.ticket.freightInfo') + '：'">
+            <el-checkbox v-model="formItem.freight" :true-label="1" :false-label="0">{{ $t('message.setting.ticket.freight') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="优惠信息：">
-            <el-checkbox v-model="formItem.preferential" :true-label="1" :false-label="0">优惠总计</el-checkbox>
+          <el-form-item :label="$t('message.setting.ticket.discountInfo') + '：'">
+            <el-checkbox v-model="formItem.preferential" :true-label="1" :false-label="0">{{ $t('message.setting.ticket.discountTotal') }}</el-checkbox>
           </el-form-item>
-          <el-form-item label="支付信息：">
+          <el-form-item :label="$t('message.setting.ticket.paymentInfo') + '：'">
             <el-checkbox-group v-model="formItem.pay">
-              <el-checkbox :label="0">支付方式</el-checkbox>
-              <el-checkbox :label="1">实收金额</el-checkbox>
+              <el-checkbox :label="0">{{ $t('message.setting.ticket.paymentMethod') }}</el-checkbox>
+              <el-checkbox :label="1">{{ $t('message.setting.ticket.actualPaid') }}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="其他订单信息：">
+          <el-form-item :label="$t('message.setting.ticket.otherOrderInfo') + '：'">
             <el-checkbox-group v-model="formItem.order">
-              <el-checkbox :label="0">订单编号</el-checkbox>
-              <el-checkbox :label="1">下单时间</el-checkbox>
-              <el-checkbox :label="2">支付时间</el-checkbox>
-              <el-checkbox :label="3">打印时间</el-checkbox>
+              <el-checkbox :label="0">{{ $t('message.setting.ticket.orderNo') }}</el-checkbox>
+              <el-checkbox :label="1">{{ $t('message.setting.ticket.orderTime') }}</el-checkbox>
+              <el-checkbox :label="2">{{ $t('message.setting.ticket.payTime') }}</el-checkbox>
+              <el-checkbox :label="3">{{ $t('message.setting.ticket.printTime') }}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="推广二维码：">
-            <el-checkbox v-model="formItem.code" :true-label="1" :false-label="0">选择系统链接</el-checkbox>
+          <el-form-item :label="$t('message.setting.ticket.promoQrcode') + '：'">
+            <el-checkbox v-model="formItem.code" :true-label="1" :false-label="0">{{ $t('message.setting.ticket.selectSystemLink') }}</el-checkbox>
             <div v-if="formItem.code" class="link">
               <div class="select-link">
-                链接：{{ formItem.code_url }}
-                <span class="change" @click="getLink(index)">{{ formItem.code_url ? '修改' : '选择' }}</span>
+                {{ $t('message.setting.ticket.link') }}：{{ formItem.code_url }}
+                <span class="change" @click="getLink(index)">{{ formItem.code_url ? $t('message.systemCommon.edit') : $t('message.systemCommon.pleaseSelect') }}</span>
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="底部公告：">
-            <el-checkbox v-model="formItem.show_notice" :true-label="1" :false-label="0">底部公告</el-checkbox>
+          <el-form-item :label="$t('message.setting.ticket.bottomNotice') + '：'">
+            <el-checkbox v-model="formItem.show_notice" :true-label="1" :false-label="0">{{ $t('message.setting.ticket.bottomNotice') }}</el-checkbox>
             <div v-if="formItem.show_notice">
               <el-input
                 v-model="formItem.notice_content"
                 maxlength="80"
                 show-word-limit
                 type="textarea"
-                placeholder="请输入公告内容"
+                :placeholder="$t('message.setting.ticket.enterNoticeContent')"
                 style="width: 500px"
               />
             </div>
@@ -65,77 +65,77 @@
         <div class="ticket-preview">
           <div class="out-line"></div>
           <div class="ticket-content">
-            <div v-if="formItem.header === 1" class="ticket-header">商家名称</div>
+            <div v-if="formItem.header === 1" class="ticket-header">{{ $t('message.setting.ticket.merchantName') }}</div>
             <!-- 配送方式 -->
             <div class="delivery btn-line" v-if="formItem.delivery === 1">
               <div class="form-box">
-                <div class="label">配送方式：</div>
-                <div class="content">商家配送</div>
+                <div class="label">{{ $t('message.setting.ticket.deliveryMethod') }}：</div>
+                <div class="content">{{ $t('message.setting.ticket.merchantDelivery') }}</div>
               </div>
               <div class="form-box">
-                <div class="label">客户姓名：</div>
-                <div class="content">收货人姓名</div>
+                <div class="label">{{ $t('message.setting.ticket.customerName') }}：</div>
+                <div class="content">{{ $t('message.setting.ticket.receiverName') }}</div>
               </div>
               <div class="form-box">
-                <div class="label">客户电话：</div>
+                <div class="label">{{ $t('message.setting.ticket.customerPhone') }}：</div>
                 <div class="content">13023354455</div>
               </div>
               <div class="form-box">
-                <div class="label">收货地址：</div>
-                <div class="content">上海市浦东新区世界大道25号B座309室</div>
+                <div class="label">{{ $t('message.setting.ticket.receiverAddress') }}：</div>
+                <div class="content">{{ $t('message.setting.ticket.receiverAddressExample') }}</div>
               </div>
             </div>
             <!-- 备注 -->
             <div class="buyer-remarks btn-line" v-if="formItem.buyer_remarks === 1">
               <div class="form-box">
-                <div class="label">买家备注：</div>
-                <div class="content">请在收货时向商家留言，谢谢！</div>
+                <div class="label">{{ $t('message.setting.ticket.buyerRemark') }}：</div>
+                <div class="content">{{ $t('message.setting.ticket.buyerRemarkExample') }}</div>
               </div>
             </div>
             <!-- 商品 -->
             <div v-if="formItem.goods.includes(0)">
               <div class="goods btn-line">
-                <div class="xing">*************************商品***********************</div>
+                <div class="xing">*************************{{ $t('message.setting.ticket.product') }}***********************</div>
                 <div class="flex justify-between">
-                  <span>商品</span>
-                  <span>单价</span>
-                  <span>数量</span>
-                  <span>金额</span>
+                  <span>{{ $t('message.setting.ticket.product') }}</span>
+                  <span>{{ $t('message.setting.ticket.unitPrice') }}</span>
+                  <span>{{ $t('message.setting.ticket.quantity') }}</span>
+                  <span>{{ $t('message.setting.ticket.amount') }}</span>
                 </div>
               </div>
               <div class="goods-msg btn-line">
                 <div class="flex justify-between">
-                  <span>商品1</span>
+                  <span>{{ $t('message.setting.ticket.product') }}1</span>
                   <span>100.0</span>
                   <span>2</span>
                   <span>200.0</span>
                 </div>
                 <div class="flex justify-between">
-                  <span>(规格1)</span>
+                  <span>({{ $t('message.setting.ticket.spec') }}1)</span>
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
                 <div v-if="formItem.goods.includes(1)" class="flex py-10">
-                  <span>规格编码：</span>
+                  <span>{{ $t('message.setting.ticket.specCode') }}：</span>
                   <span>FKXQW4567vw59</span>
                 </div>
               </div>
               <div class="goods-msg pb-10 pt-10">
                 <div class="flex justify-between">
-                  <span>商品2</span>
+                  <span>{{ $t('message.setting.ticket.product') }}2</span>
                   <span>100.0</span>
                   <span>2</span>
                   <span>200.0</span>
                 </div>
                 <div class="flex justify-between">
-                  <span>(规格2)</span>
+                  <span>({{ $t('message.setting.ticket.spec') }}2)</span>
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
                 <div v-if="formItem.goods.includes(1)" class="flex py-10">
-                  <span>规格编码：</span>
+                  <span>{{ $t('message.setting.ticket.specCode') }}：</span>
                   <span>FKXQW4567vw50</span>
                 </div>
               </div>
@@ -143,7 +143,7 @@
               <!-- 合计 -->
               <div class="pay flex flex-col align-end btn-line">
                 <template>
-                  <div class="fw-500">合计：400.00元</div>
+                  <div class="fw-500">{{ $t('message.setting.ticket.total') }}：400.00{{ $t('message.setting.ticket.yuan') }}</div>
                 </template>
               </div>
             </div>
@@ -153,24 +153,24 @@
               v-if="formItem.freight === 1 || formItem.preferential === 1"
             >
               <template>
-                <div v-if="formItem.freight === 1">运费：+30.00元</div>
-                <div v-if="formItem.preferential === 1">优惠：-80.00元</div>
-                <div v-if="formItem.preferential === 1">抵扣：-20.00元</div>
+                <div v-if="formItem.freight === 1">{{ $t('message.setting.ticket.freight') }}：+30.00{{ $t('message.setting.ticket.yuan') }}</div>
+                <div v-if="formItem.preferential === 1">{{ $t('message.setting.ticket.discount') }}：-80.00{{ $t('message.setting.ticket.yuan') }}</div>
+                <div v-if="formItem.preferential === 1">{{ $t('message.setting.ticket.deduction') }}：-20.00{{ $t('message.setting.ticket.yuan') }}</div>
               </template>
             </div>
             <!-- 支付信息 -->
 
             <div class="pay flex flex-col align-end btn-line" v-if="formItem.pay.length > 0">
-              <div v-if="formItem.pay.includes(0)">支付方式：微信支付</div>
-              <div v-if="formItem.pay.includes(1)" class="fw-500">实际支付：330.00元</div>
+              <div v-if="formItem.pay.includes(0)">{{ $t('message.setting.ticket.paymentMethod') }}：{{ $t('message.setting.ticket.wechatPay') }}</div>
+              <div v-if="formItem.pay.includes(1)" class="fw-500">{{ $t('message.setting.ticket.actualPaid') }}：330.00{{ $t('message.setting.ticket.yuan') }}</div>
             </div>
             <!-- 订单信息 -->
 
             <div class="order pt-10 btn-line" v-if="formItem.order.length > 0">
-              <div v-if="formItem.order.includes(0)">订单编号：wx1234567890</div>
-              <div v-if="formItem.order.includes(1)">下单时间：2022/06/18 12:00:00</div>
-              <div v-if="formItem.order.includes(2)">支付时间：2022/06/18 12:00:00</div>
-              <div v-if="formItem.order.includes(3)">打印时间：2022/06/18 14:20:00</div>
+              <div v-if="formItem.order.includes(0)">{{ $t('message.setting.ticket.orderNo') }}：wx1234567890</div>
+              <div v-if="formItem.order.includes(1)">{{ $t('message.setting.ticket.orderTime') }}：2022/06/18 12:00:00</div>
+              <div v-if="formItem.order.includes(2)">{{ $t('message.setting.ticket.payTime') }}：2022/06/18 12:00:00</div>
+              <div v-if="formItem.order.includes(3)">{{ $t('message.setting.ticket.printTime') }}：2022/06/18 14:20:00</div>
             </div>
             <!-- 二维码 -->
             <div class="code">
@@ -187,7 +187,7 @@
       </div>
     </el-card>
     <el-card :bordered="false" dis-hover class="fixed-card">
-      <el-button type="primary" class="submission" @click="save">保存</el-button>
+      <el-button type="primary" class="submission" @click="save">{{ $t('message.systemCommon.save') }}</el-button>
     </el-card>
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
   </div>
@@ -253,10 +253,10 @@ export default {
     save() {
       printSaveContent(this.id, this.formItem)
         .then((res) => {
-          this.$message.success('保存成功');
+          this.$message.success(this.$t('message.systemCommon.save') + this.$t('message.systemCommon.success'));
         })
         .catch((err) => {
-          this.$message.error('保存失败');
+          this.$message.error(this.$t('message.systemCommon.save') + this.$t('message.systemCommon.failed'));
         });
     },
     getLink(index) {

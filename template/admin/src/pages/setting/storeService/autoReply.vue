@@ -13,7 +13,7 @@
           <el-form-item label="回复类型：" prop="type" label-for="type">
             <el-select
               v-model="formValidate.type"
-              placeholder="请选择"
+              :placeholder="$t('message.systemCommon.pleaseSelect')"
               clearable
               @change="userSearchs"
               class="form_content_width"
@@ -23,7 +23,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="关键字：" prop="key" label-for="key">
-            <el-input clearable v-model="formValidate.key" placeholder="请输入关键字" class="form_content_width" />
+            <el-input clearable v-model="formValidate.key" :placeholder="$t('message.setting.enterKeyword')" class="form_content_width" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>

@@ -14,7 +14,7 @@
             <div class="acea-row row-middle">
               <el-input
                 clearable
-                placeholder="请输入语言Code"
+                :placeholder="$t('message.setting.enterLanguageCode')"
                 v-model="formValidate.keyword"
                 class="form_content_width"
               />

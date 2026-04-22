@@ -13,7 +13,7 @@
           <el-form-item label="提货点搜索：">
             <el-input
               clearable
-              placeholder="请输入提货点名称,电话"
+              :placeholder="$t('message.setting.enterStorePickupNameOrPhone')"
               v-model="artFrom.keywords"
               class="form_content_width"
             />

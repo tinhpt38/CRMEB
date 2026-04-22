@@ -4,7 +4,7 @@
       <el-row class="mb20">
         <el-col :span="24">
           <el-button v-auth="['setting-delivery_service-add']" type="primary" v-db-click @click="add" class="mr10"
-            >添加配送员</el-button
+            >{{ $t('message.setting.deliveryService.addDeliveryStaff') }}</el-button
           >
         </el-col>
       </el-row>
@@ -12,32 +12,32 @@
         :data="data1"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        :no-userFrom-text="$t('message.systemCommon.noData')"
+        :no-filtered-userFrom-text="$t('message.systemCommon.noFilterResult')"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="头像" min-width="90">
+        <el-table-column :label="$t('message.setting.deliveryService.avatar')" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="名称" min-width="130">
+        <el-table-column :label="$t('message.setting.deliveryService.name')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="手机号码" min-width="130">
+        <el-table-column :label="$t('message.setting.deliveryService.phone')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column :label="$t('message.setting.deliveryService.isShow')" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -47,22 +47,22 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              :active-text="$t('message.systemCommon.show')"
+              :inactive-text="$t('message.systemCommon.hide')"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column :label="$t('message.systemCommon.addTime')" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column :label="$t('message.systemCommon.operation')" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">{{ $t('message.systemCommon.edit') }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除配送员', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, $t('message.setting.deliveryService.deleteDeliveryStaff'), scope.$index)">{{ $t('message.systemCommon.delete') }}</a>
           </template>
         </el-table-column>
       </el-table>

@@ -12,28 +12,28 @@
         <el-row :gutter="24">
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店名称：" prop="name" label-for="name">
-                <el-input v-model="formItem.name" placeholder="请输入门店名称" />
+              <el-form-item :label="$t('message.setting.systemStore.storeName') + '：'" prop="name" label-for="name">
+                <el-input v-model="formItem.name" :placeholder="$t('message.setting.enterStoreName')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店简介：" label-for="introduction">
-                <el-input v-model="formItem.introduction" placeholder="请输入门店简介" />
+              <el-form-item :label="$t('message.setting.systemStore.storeIntro') + '：'" label-for="introduction">
+                <el-input v-model="formItem.introduction" :placeholder="$t('message.setting.enterStoreIntro')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店手机号：" label-for="phone" prop="phone">
-                <el-input v-model="formItem.phone" type="number" placeholder="请输入门店手机号" />
+              <el-form-item :label="$t('message.setting.systemStore.storePhone') + '：'" label-for="phone" prop="phone">
+                <el-input v-model="formItem.phone" type="number" :placeholder="$t('message.setting.enterStorePhone')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店地址：" label-for="address" prop="address">
+              <el-form-item :label="$t('message.setting.systemStore.storeAddress') + '：'" label-for="address" prop="address">
                 <el-cascader
                   :options="addresData"
                   :value="formItem.address"
@@ -45,14 +45,14 @@
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="详细地址：" label-for="detailed_address" prop="detailed_address">
-                <el-input v-model="formItem.detailed_address" placeholder="请输入详细地址" />
+              <el-form-item :label="$t('message.setting.systemStore.detailAddress') + '：'" label-for="detailed_address" prop="detailed_address">
+                <el-input v-model="formItem.detailed_address" :placeholder="$t('message.setting.enterDetailAddress')" />
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="核销时效：" label-for="valid_time">
+              <el-form-item :label="$t('message.setting.systemStore.verificationPeriod') + '：'" label-for="valid_time">
                 <el-date-picker
                   clearable
                   :editable="false"
@@ -62,31 +62,31 @@
                   type="daterange"
                   value-format="yyyy/MM/dd"
                   range-separator="-"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
+                  :start-placeholder="$t('message.setting.startDate')"
+                  :end-placeholder="$t('message.setting.endDate')"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店营业：" label-for="day_time">
+              <el-form-item :label="$t('message.setting.systemStore.businessHours') + '：'" label-for="day_time">
                 <el-time-picker
                   @change="onchangeTime"
                   v-model="formItem.day_time"
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
                   range-separator="-"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
-                  placeholder="选择时间范围"
+                  :start-placeholder="$t('message.setting.startTime')"
+                  :end-placeholder="$t('message.setting.endTime')"
+                  :placeholder="$t('message.setting.selectTimeRange')"
                 ></el-time-picker>
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="门店logo：" prop="image">
+              <el-form-item :label="$t('message.setting.systemStore.storeLogo') + '：'" prop="image">
                 <div class="picBox" v-db-click @click="modalPicTap('单选')">
                   <div class="pictrue" v-if="formItem.image"><img v-lazy="formItem.image" /></div>
                   <div class="upLoad acea-row row-center-wrapper" v-else>
@@ -98,12 +98,12 @@
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="经纬度：" label-for="status2" prop="latlng">
+              <el-form-item :label="$t('message.setting.systemStore.latlng') + '：'" label-for="status2" prop="latlng">
                 <el-tooltip>
-                  <el-input v-model="formItem.latlng" style="width: 100%" placeholder="请查找位置">
-                    <el-button type="primary" slot="append" v-db-click @click="onSearch">查找位置</el-button>
+                  <el-input v-model="formItem.latlng" style="width: 100%" :placeholder="$t('message.setting.searchLocation')">
+                    <el-button type="primary" slot="append" v-db-click @click="onSearch">{{ $t('message.setting.searchLocation') }}</el-button>
                   </el-input>
-                  <div slot="content">请点击查找位置选择位置</div>
+                  <div slot="content">{{ $t('message.setting.systemStore.searchLocationTip') }}</div>
                 </el-tooltip>
               </el-form-item>
             </el-col>
@@ -111,7 +111,7 @@
         </el-row>
         <el-row>
           <el-col v-bind="grid">
-            <el-button type="primary" class="ml20" v-db-click @click="handleSubmit('formItem')">提交</el-button>
+            <el-button type="primary" class="ml20" v-db-click @click="handleSubmit('formItem')">{{ $t('message.systemCommon.submit') }}</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -120,7 +120,7 @@
     <el-dialog
       :visible.sync="modalPic"
       width="1024px"
-      title="上传商品图"
+      :title="$t('message.systemCommon.uploadProductImage')"
       :close-on-click-modal="false"
       :show-close="true"
     >
@@ -135,7 +135,7 @@
 
     <el-dialog
       :visible.sync="modalMap"
-      title="上传商品图"
+      :title="$t('message.systemCommon.uploadProductImage')"
       :show-close="true"
       :close-on-click-modal="false"
       class="mapBox"
@@ -158,16 +158,16 @@ export default {
   data() {
     const validatePhone = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请填写手机号'));
+        return callback(new Error(this.$t('message.setting.systemStore.pleaseFillPhone')));
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        callback(new Error('手机号格式不正确!'));
+        callback(new Error(this.$t('message.setting.systemStore.phoneFormatInvalid')));
       } else {
         callback();
       }
     };
     const validateUpload = (rule, value, callback) => {
       if (!this.formItem.image) {
-        callback(new Error('请上传门店logo'));
+        callback(new Error(this.$t('message.setting.systemStore.pleaseUploadStoreLogo')));
       } else {
         callback();
       }
@@ -189,29 +189,29 @@ export default {
         id: 0,
       },
       ruleValidate: {
-        name: [{ required: true, message: '请输入门店名称', trigger: 'blur' }],
+        name: [{ required: true, message: this.$t('message.setting.enterStoreName'), trigger: 'blur' }],
         mail: [
           { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
           { type: 'email', message: 'Incorrect email format', trigger: 'blur' },
         ],
-        address: [{ required: true, message: '请选择门店地址', type: 'array', trigger: 'change' }],
+        address: [{ required: true, message: this.$t('message.setting.systemStore.selectStoreAddress'), type: 'array', trigger: 'change' }],
         valid_time: [
           {
             required: true,
             type: 'array',
-            message: '请选择核销时效',
+            message: this.$t('message.setting.systemStore.selectVerificationPeriod'),
             trigger: 'change',
             fields: {
-              0: { type: 'date', required: true, message: '请选择年度范围' },
-              1: { type: 'date', required: true, message: '请选择年度范围' },
+              0: { type: 'date', required: true, message: this.$t('message.setting.systemStore.selectYearRange') },
+              1: { type: 'date', required: true, message: this.$t('message.setting.systemStore.selectYearRange') },
             },
           },
         ],
-        day_time: [{ required: true, type: 'array', message: '请选择门店营业时间', trigger: 'change' }],
+        day_time: [{ required: true, type: 'array', message: this.$t('message.setting.systemStore.selectBusinessHours'), trigger: 'change' }],
         phone: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        detailed_address: [{ required: true, message: '请输入详细地址', trigger: 'blur' }],
+        detailed_address: [{ required: true, message: this.$t('message.setting.enterDetailAddress'), trigger: 'blur' }],
         image: [{ required: true, validator: validateUpload, trigger: 'change' }],
-        latlng: [{ required: true, message: '请选择经纬度', trigger: 'blur' }],
+        latlng: [{ required: true, message: this.$t('message.setting.systemStore.selectLatlng'), trigger: 'blur' }],
       },
       keyUrl: '',
       grid: {
@@ -236,7 +236,7 @@ export default {
         xs: 8,
       },
       modalPic: false,
-      isChoice: '单选',
+      isChoice: this.$t('message.systemCommon.selectSingle'),
     };
   },
   created() {
