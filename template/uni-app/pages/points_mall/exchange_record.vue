@@ -4,7 +4,7 @@
 			<view class="bargain-record" ref="container">
 				<view class="item" v-for="(item, index) in bargain" :key="index">
 					<view class="exchange_record-time">
-						<view class="">{{ $t(`兑换时间`) }}：{{ item.add_time }}</view>
+						<view class="">{{ $t(`Thời gian quy đổi`) }}：{{ item.add_time }}</view>
 						<view class="status">
 							{{ $t(item.status_name) }}
 						</view>
@@ -16,7 +16,7 @@
 						<view class="text acea-row row-column-around">
 							<view class="line1" style="width: 100%">{{ item.store_name }}</view>
 							<view class="line1 gray-sty">{{ item.suk }}</view>
-							<view class="line1 gray-sty">{{ $t(`积分`) }}:{{ item.total_price }}</view>
+							<view class="line1 gray-sty">{{ $t(`tích phân`) }}:{{ item.total_price }}</view>
 						</view>
 					</view>
 					<view class="bottom acea-row row-between-wrapper">
@@ -24,12 +24,12 @@
 						<view class="acea-row row-middle row-right">
 							<view class="bnt cancel" v-if="item.status === 2 && item.delivery_type === 'express'"
 								@click="getLogistics(item.order_id)">
-								{{ $t(`查看物流`) }}
+								{{ $t(`kiểm tra hậu cần`) }}
 							</view>
 							<view class="bnt bg-color-red" @click="goDetail(item.order_id)">
-								{{ $t(`查看详情`) }}
+								{{ $t(`kiểm tra chi tiết`) }}
 							</view>
-							<!-- <view class="bnt bg-color-red" v-else @click="goList">重开一个</view> -->
+							<!-- <view class="bnt bg-color-red" v-else @click="goList">Mở lại một</view> -->
 						</view>
 					</view>
 				</view>
@@ -37,7 +37,7 @@
 			</view>
 		</block>
 		<block v-if="bargain.length == 0">
-			<emptyPage :title="$t(`暂无兑换记录～`)"></emptyPage>
+			<emptyPage :title="$t(`Chưa có hồ sơ quy đổi～`)"></emptyPage>
 		</block>
 		<!-- #ifndef MP -->
 		<home></home>
@@ -66,10 +66,10 @@
 		data() {
 			return {
 				bargain: [],
-				status: false, //砍价列表是否获取完成 false 未完成 true 完成
-				loadingList: false, //当前接口是否请求完成 false 完成 true 未完成
-				page: 1, //页码
-				limit: 20, //数量
+				status: false, //Việc mua lại danh sách mặc cả đã hoàn thành hay chưa, sai, chưa hoàn thành, đúng, đã hoàn thành
+				loadingList: false, //Yêu cầu giao diện hiện tại đã hoàn thành hay chưa, sai, đã hoàn thành, đúng, chưa hoàn thành
+				page: 1, //số trang
+				limit: 20, //Số lượng
 				userInfo: {}
 			};
 		},
@@ -120,7 +120,7 @@
 </script>
 
 <style lang="scss">
-	/*砍价记录*/
+	/*Kỷ lục thương lượng*/
 	.bargain-record .item .picTxt .text .time .styleAll {
 		color: #fc4141;
 		font-size: 24rpx;

@@ -17,7 +17,7 @@
 				</view>
 				<view class='list'>
 					<view class='item acea-row row-between-wrapper' v-if="expressList.length">
-						<view>{{$t(`快递公司`)}}</view>
+						<view>{{$t(`công ty chuyển phát nhanh`)}}</view>
 						<picker class='num' @change="bindPickerChange" :value="seIndex" :range="expressList"
 							range-key="name">
 							<view class="picker acea-row row-between-wrapper">
@@ -27,24 +27,24 @@
 						</picker>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`快递单号`)}}</view>
-						<input class="input" type="text" :placeholder="$t(`填写快递单号`)" placeholder-class='placeholder'
+						<view>{{$t(`Số theo dõi nhanh`)}}</view>
+						<input class="input" type="text" :placeholder="$t(`Điền số chuyển phát nhanh`)" placeholder-class='placeholder'
 							v-model="refundInfo.refund_express" />
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`联系电话`)}}</view>
-						<input class="input" type="number" :placeholder="$t(`请输入手机号`)" placeholder-class='placeholder'
+						<view>{{$t(`Số liên lạc`)}}</view>
+						<input class="input" type="number" :placeholder="$t(`Vui lòng nhập số điện thoại di động`)" placeholder-class='placeholder'
 							v-model="refundInfo.refund_phone" />
 					</view>
 					<view class='item textarea acea-row row-between'>
-						<view>{{$t(`备注说明`)}}</view>
-						<textarea :placeholder='$t(`填写备注信息，100字以内`)' class='num'
+						<view>{{$t(`Bình luận`)}}</view>
+						<textarea :placeholder='$t(`Điền thông tin nhận xét, trong vòng 100 từ`)' class='num'
 							v-model="refundInfo.refund_explain"></textarea>
 					</view>
 					<view class='item acea-row row-between'>
 						<view class='title acea-row row-between-wrapper'>
-							<view>{{$t(`上传图片`)}}</view>
-							<view class='tip'>{{$t(`最多可上传3张`)}}</view>
+							<view>{{$t(`Tải ảnh lên`)}}</view>
+							<view class='tip'>{{$t(`Có thể tải lên tối đa 3 ảnh`)}}</view>
 						</view>
 						<view class='upload acea-row row-middle'>
 							<view class='pictrue' v-for="(item,index) in refund_reason_wap_img" :key="index">
@@ -54,12 +54,12 @@
 							<view class='pictrue acea-row row-center-wrapper row-column' @tap='uploadpic'
 								v-if="refund_reason_wap_img.length < 3">
 								<text class='iconfont icon-icon25201'></text>
-								<view>{{$t(`上传图片`)}}</view>
+								<view>{{$t(`Tải ảnh lên`)}}</view>
 							</view>
 						</view>
 					</view>
 				</view>
-				<button class='returnBnt bg-color' form-type="submit">{{$t(`提交`)}}</button>
+				<button class='returnBnt bg-color' form-type="submit">{{$t(`nộp`)}}</button>
 			</view>
 		</form>
 	</view>
@@ -115,18 +115,18 @@
 		},
 		methods: {
 			/**
-			 * 申请退货
+			 * Nộp đơn xin trả lại
 			 */
 			subRefund: function(e) {
 				let that = this
 				if (!that.refundInfo.refund_express) return this.$util.Tips({
-					title: that.$t(`填写快递单号`)
+					title: that.$t(`Điền số chuyển phát nhanh`)
 				});
 				if (!that.refundInfo.refund_phone) return this.$util.Tips({
-					title: that.$t(`请输入手机号`)
+					title: that.$t(`Vui lòng nhập số điện thoại di động`)
 				});
 				if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(that.refundInfo.refund_phone)) return this.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t(`Vui lòng nhập đúng số điện thoại di động`)
 				});
 				that.refundInfo.refund_express_name = that.expressList[that.seIndex].name;
 				that.refundInfo.refund_img = that.refund_reason_wap_img.join(',');
@@ -145,7 +145,7 @@
 				})
 			},
 			/**
-			 * 删除图片
+			 * Xóa ảnh
 			 * 
 			 */
 			DelPic: function(e) {
@@ -157,7 +157,7 @@
 			},
 
 			/**
-			 * 上传文件
+			 * Tải tập tin lên
 			 * 
 			 */
 			uploadpic: function() {
@@ -168,7 +168,7 @@
 				});
 			},
 			/**
-			 * 获取订单详情
+			 * Nhận chi tiết đơn hàng
 			 * 
 			 */
 			getOrderInfo: function() {

@@ -4,9 +4,9 @@
 			<view class="header"></view>
 			<view class="whiteBg">
 				<view class="input">
-					<input type="number" placeholder="请输入核销码" v-model="verify_code" />
+					<input type="number" placeholder="Vui lòng nhập mã xác minh" v-model="verify_code" />
 				</view>
-				<view class="bnt" @click="codeChange">{{ $t(`立即核销`) }}</view>
+				<view class="bnt" @click="codeChange">{{ $t(`Viết tắt ngay lập tức`) }}</view>
 			</view>
 			<!-- #ifdef MP || MP-WEIXIN || APP-PLUS -->
 			<view class="scan" @click="scanCode">
@@ -27,13 +27,13 @@
 				<view class="num acea-row row-center-wrapper">
 					<text>{{ orderInfo.order_id }}</text>
 					<view class="views" @click="goOrderDetails(orderInfo.order_id, orderInfo.order_type)">
-						{{ $t(`查看`) }}
+						{{ $t(`Kiểm tra`) }}
 						<text class="iconfont icon-jiantou views-jian"></text>
 					</view>
 				</view>
-				<view class="tip">{{ $t(`确定要核销此订单吗`) }}</view>
-				<view class="btn sure" @click="confirm">{{ $t(`确定核销`) }}</view>
-				<view class="btn cancel" @click="cancel">{{ $t(`取消`) }}</view>
+				<view class="tip">{{ $t(`Bạn có chắc chắn muốn hủy đơn hàng này không?`) }}</view>
+				<view class="btn sure" @click="confirm">{{ $t(`Xác nhận xóa nợ`) }}</view>
+				<view class="btn cancel" @click="cancel">{{ $t(`Hủy bỏ`) }}</view>
 			</view>
 			<view class="mask"></view>
 		</view>
@@ -78,7 +78,7 @@ export default {
 	},
 	methods: {
 		/**
-		 * 去订单详情
+		 * Đi tới chi tiết đơn hàng
 		 */
 		goOrderDetails: function (id, type) {
 			if (type == 'integral') {
@@ -91,20 +91,20 @@ export default {
 				});
 			}
 		},
-		// 立即核销
+		// Viết tắt ngay lập tức
 		codeChange: function () {
 			let self = this;
 			let ref = /[0-9]{12}/;
 			if (!this.verify_code)
 				return self.$util.Tips({
-					title: this.$t(`请输入核销码`)
+					title: this.$t(`Vui lòng nhập mã xác minh`)
 				});
 			if (!ref.test(this.verify_code))
 				return self.$util.Tips({
-					title: this.$t(`请输入正确的核销码`)
+					title: this.$t(`Vui lòng nhập đúng mã xác minh`)
 				});
 			self.$util.Tips({
-				title: this.$t(`查询中`)
+				title: this.$t(`Truy vấn`)
 			});
 			setTimeout(() => {
 				orderVerific(this.verify_code, 0)
@@ -120,7 +120,7 @@ export default {
 					});
 			}, 800);
 		},
-		// 扫码核
+		// Quét lõi mã
 		scanCode() {
 			var self = this;
 			// #ifdef MP || APP-PLUS
@@ -151,7 +151,7 @@ export default {
 		},
 
 		/**
-		 * 确定销码
+		 * Xác nhận mã pin
 		 */
 		confirm: function () {
 			let self = this;
@@ -170,7 +170,7 @@ export default {
 				});
 		},
 		/**
-		 * 取消
+		 * Hủy bỏ
 		 */
 		cancel: function () {
 			this.iShidden = false;

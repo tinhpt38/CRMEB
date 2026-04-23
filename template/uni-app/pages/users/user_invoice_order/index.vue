@@ -4,159 +4,159 @@
 			<view v-if="orderInfo && orderInfo.invoice" class='header bg-color acea-row row-middle'>
 				<view class='iconfont icon-fapiao1'></view>
 				<view class='data'>
-					<view class='state'>{{orderInfo.invoice.is_invoice ? $t(`已开票`) : $t(`未开票`)}}</view>
+					<view class='state'>{{orderInfo.invoice.is_invoice ? $t(`Đã lập hoá đơn`) : $t(`Không được lập hóa đơn`)}}</view>
 					<view>{{orderInfo.invoice.add_time}}</view>
 				</view>
 			</view>
 			<view v-if="orderInfo && orderInfo.invoice" class="wrapper">
 				<view class="item acea-row row-between-wrapper">
-					<view>{{$t(`发票类型`)}}</view>
-					<view class="conter">{{orderInfo.invoice.type === 1 ? $t(`增值税电子普通发票`) : $t(`增值税电子专用发票`)}}</view>
+					<view>{{$t(`Loại hóa đơn`)}}</view>
+					<view class="conter">{{orderInfo.invoice.type === 1 ? $t(`Hóa đơn điện tử tổng hợp VAT`) : $t(`Hóa đơn điện tử đặc biệt thuế giá trị gia tăng`)}}</view>
 				</view>
 				<view class="item acea-row row-between-wrapper">
-					<view>{{$t(`发票抬头`)}}</view>
+					<view>{{$t(`Tiêu đề hóa đơn`)}}</view>
 					<view class="conter">{{orderInfo.invoice.name}}</view>
 				</view>
 				<view v-if="orderInfo.invoice.duty_number" class="item acea-row row-between-wrapper">
-					<view>{{$t(`税号`)}}</view>
+					<view>{{$t(`Mã số thuế`)}}</view>
 					<view class="conter">{{orderInfo.invoice.duty_number}}</view>
 				</view>
 				<view class="item acea-row row-between-wrapper">
-					<view>{{$t(`手机号`)}}</view>
+					<view>{{$t(`Số điện thoại`)}}</view>
 					<view class="conter">{{orderInfo.invoice.drawer_phone}}</view>
 				</view>
 				<view class="item acea-row row-between-wrapper">
-					<view>{{$t(`邮箱`)}}</view>
+					<view>{{$t(`Thư`)}}</view>
 					<view class="conter">{{orderInfo.invoice.email}}</view>
 				</view>
 				<template v-if="orderInfo.invoice.type === 2">
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`开户银行`)}}</view>
+						<view>{{$t(`Ngân hàng tiền gửi`)}}</view>
 						<view class="conter">{{orderInfo.invoice.bank}}</view>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`银行账号`)}}</view>
+						<view>{{$t(`số tài khoản ngân hàng`)}}</view>
 						<view class="conter">{{orderInfo.invoice.card_number}}</view>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`企业地址`)}}</view>
+						<view>{{$t(`Địa chỉ doanh nghiệp`)}}</view>
 						<view class="conter">{{orderInfo.invoice.address}}</view>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`企业电话`)}}</view>
+						<view>{{$t(`Điện thoại doanh nghiệp`)}}</view>
 						<view class="conter">{{orderInfo.invoice.tell}}</view>
 					</view>
 				</template>
 				<view class="item acea-row row-between-wrapper" v-if='orderInfo.invoice.invoice_number'>
-					<view>{{$t(`发票编号`)}}</view>
+					<view>{{$t(`Số hóa đơn`)}}</view>
 					<view class="conter">{{orderInfo.invoice.invoice_number}}</view>
 				</view>
 				<view class="item acea-row row-between-wrapper" v-if='orderInfo.invoice.remark'>
-					<view>{{$t(`发票备注`)}}</view>
+					<view>{{$t(`nhận xét hóa đơn`)}}</view>
 					<view class="conter">{{orderInfo.invoice.remark}}</view>
 				</view>
 			</view>
 			<orderGoods :evaluate='evaluate' :orderId="order_id" :cartInfo="cartInfo" :jump="true" :paid="orderInfo.paid" :oid="orderInfo.id" :isShow="false" :statusType="status.type"></orderGoods>
 			<view class='wrapper'>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`订单编号`)}}：</view>
+					<view>{{$t(`số thứ tự`)}}：</view>
 					<view class='conter acea-row row-middle row-right'>{{orderInfo.order_id}}
 						<!-- #ifndef H5 -->
-						<text class='copy' @tap='copy'>{{$t(`复制`)}}</text>
+						<text class='copy' @tap='copy'>{{$t(`sao chép`)}}</text>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
-						<text class='copy copy-data' :data-clipboard-text="orderInfo.order_id">{{$t(`复制`)}}</text>
+						<text class='copy copy-data' :data-clipboard-text="orderInfo.order_id">{{$t(`sao chép`)}}</text>
 						<!-- #endif -->
 					</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`下单时间`)}}：</view>
+					<view>{{$t(`thời gian đặt hàng`)}}：</view>
 					<view class='conter'>{{(orderInfo.add_time_y || '') +' '+(orderInfo.add_time_h || 0)}}</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`支付状态`)}}：</view>
-					<view class='conter' v-if="orderInfo.paid">{{$t(`已支付`)}}</view>
-					<view class='conter' v-else>{{$t(`未支付`)}}</view>
+					<view>{{$t(`Trạng thái thanh toán`)}}：</view>
+					<view class='conter' v-if="orderInfo.paid">{{$t(`trả`)}}</view>
+					<view class='conter' v-else>{{$t(`Chưa thanh toán`)}}</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`支付方式`)}}：</view>
+					<view>{{$t(`Phương thức thanh toán`)}}：</view>
 					<view class='conter'>{{orderInfo._status._payType}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="orderInfo.mark">
-					<view>{{$t(`买家留言`)}}：</view>
+					<view>{{$t(`Tin nhắn của người mua`)}}：</view>
 					<view class='conter'>{{orderInfo.mark}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="orderInfo.fictitious_content">
-					<view>{{$t(`备注`)}}：</view>
+					<view>{{$t(`Nhận xét`)}}：</view>
 					<view class='conter'>{{orderInfo.fictitious_content}}</view>
 				</view>
 			</view>
-			<!-- 退款订单详情 -->
+			<!-- Chi tiết đơn hàng hoàn tiền -->
 			<view class='wrapper' v-if="isGoodsReturn">
 				<view class='item acea-row row-between'>
-					<view>{{$t(`收货人`)}}：</view>
+					<view>{{$t(`người nhận hàng`)}}：</view>
 					<view class='conter'>{{orderInfo.real_name}}</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`联系电话`)}}：</view>
+					<view>{{$t(`Số liên lạc`)}}：</view>
 					<view class='conter'>{{orderInfo.user_phone}}</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`收货地址`)}}：</view>
+					<view>{{$t(`Địa chỉ giao hàng`)}}：</view>
 					<view class='conter'>{{orderInfo.user_address}}</view>
 				</view>
 			</view>
 			<view v-if="orderInfo.status!=0">
 				<view class='wrapper' v-if='orderInfo.delivery_type=="express"'>
 					<view class='item acea-row row-between'>
-						<view>{{$t(`配送方式`)}}：</view>
-						<view class='conter'>{{$t(`发货`)}}</view>
+						<view>{{$t(`Phương thức giao hàng`)}}：</view>
+						<view class='conter'>{{$t(`vận chuyển`)}}</view>
 					</view>
 					<view class='item acea-row row-between'>
-						<view>{{$t(`快递公司`)}}：</view>
+						<view>{{$t(`công ty chuyển phát nhanh`)}}：</view>
 						<view class='conter'>{{orderInfo.delivery_name || ''}}</view>
 					</view>
 					<view class='item acea-row row-between'>
-						<view>{{$t(`快递号`)}}：</view>
+						<view>{{$t(`Số nhanh`)}}：</view>
 						<view class='conter'>{{orderInfo.delivery_id || ''}}</view>
 					</view>
 				</view>
 				<view class='wrapper' v-else-if='orderInfo.delivery_type=="send"'>
 					<view class='item acea-row row-between'>
-						<view>{{$t(`配送方式`)}}：</view>
-						<view class='conter'>{{$t(`送货`)}}</view>
+						<view>{{$t(`Phương thức giao hàng`)}}：</view>
+						<view class='conter'>{{$t(`giao hàng`)}}</view>
 					</view>
 					<view class='item acea-row row-between'>
-						<view>{{$t(`配送人姓名`)}}：</view>
+						<view>{{$t(`Tên người giao hàng`)}}：</view>
 						<view class='conter'>{{orderInfo.delivery_name || ''}}</view>
 					</view>
 					<view class='item acea-row row-between'>
-						<view>{{$t(`联系电话`)}}：</view>
+						<view>{{$t(`Số liên lạc`)}}：</view>
 						<view class='conter acea-row row-middle row-right'>{{orderInfo.delivery_id || ''}}<text class='copy' @tap='goTel'>{{$t(`dial`)}}</text></view>
 					</view>
 				</view>
 				<view class='wrapper' v-else-if='orderInfo.delivery_type=="fictitious"'>
 					<view class='item acea-row row-between'>
-						<view>{{$t(`虚拟发货`)}}：</view>
-						<view class='conter'>{{$t(`已发货，请注意查收`)}}</view>
+						<view>{{$t(`giao hàng ảo`)}}：</view>
+						<view class='conter'>{{$t(`Đã gửi hàng rồi, bạn kiểm tra nhé`)}}</view>
 					</view>
 				</view>
 			</view>
 			<view class='wrapper'>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`支付金额`)}}：</view>
+					<view>{{$t(`Số tiền thanh toán`)}}：</view>
 					<view class='conter'>{{$t(`￥`)}}{{orderInfo.pay_price}}</view>
 				</view>
 				<!-- <view class='item acea-row row-between' v-if='orderInfo.coupon_id'>
-					<view>{{$t(`优惠券抵扣`)}}：</view>
+					<view>{{$t(`Khấu trừ phiếu giảm giá`)}}：</view>
 					<view class='conter'>-{{$t(`￥`)}}{{orderInfo.coupon_price}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="orderInfo.use_integral > 0">
-					<view>{{$t(`积分抵扣`)}}：</view>
+					<view>{{$t(`Trừ điểm`)}}：</view>
 					<view class='conter'>-{{$t(`￥`)}}{{orderInfo.deduction_price}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="orderInfo.pay_postage > 0">
-					<view>{{$t(`运费`)}}：</view>
+					<view>{{$t(`vận chuyển hàng hóa`)}}：</view>
 					<view class='conter'>{{$t(`￥`)}}{{orderInfo.pay_postage}}</view>
 				</view> -->
 			</view>
@@ -568,20 +568,20 @@
 			return {
 				order_id: '',
 				evaluate: 0,
-				cartInfo: [], //购物车产品
+				cartInfo: [], //Sản phẩm giỏ hàng
 				orderInfo: {
 					system_store: {},
 					_status: {}
-				}, //订单详情
+				}, //Chi tiết đặt hàng
 				system_store: {},
-				isGoodsReturn: false, //是否为退款订单
-				status: {}, //订单底部按钮状态
+				isGoodsReturn: false, //Đây có phải là lệnh hoàn tiền không?
+				status: {}, //Trạng thái nút đặt hàng dưới cùng
 				isClose: false,
 				pay_close: false,
 				pay_order_id: '',
 				totalPrice: '0',
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false //Có ẩn ủy quyền hay không
 			};
 		},
 		computed: mapGetters(['isLogin']),
@@ -606,7 +606,7 @@
 				const clipboard = new ClipboardJS(".copy-data");
 				clipboard.on("success", () => {
 					this.$util.Tips({
-						title: this.$t(`复制成功`)
+						title: this.$t(`Đã sao chép thành công`)
 					});
 				});
 			});
@@ -622,7 +622,7 @@
 			openSubcribe: function(e) {
 				let page = e;
 				uni.showLoading({
-					title: this.$t(`正在加载中`),
+					title: this.$t(`Đang tải`),
 				})
 				openOrderRefundSubscribe().then(res => {
 					uni.hideLoading();
@@ -634,7 +634,7 @@
 				});
 			},
 			/**
-			 * 事件回调
+			 * gọi lại sự kiện
 			 * 
 			 */
 			onChangeFun: function(e) {
@@ -644,7 +644,7 @@
 				(action && this[action]) && this[action](value);
 			},
 			/**
-			 * 拨打电话
+			 * Thực hiện cuộc gọi
 			 */
 			makePhone: function() {
 				uni.makePhoneCall({
@@ -652,12 +652,12 @@
 				})
 			},
 			/**
-			 * 打开地图
+			 * Mở bản đồ
 			 * 
 			 */
 			showMaoLocation: function() {
 				if (!this.system_store.latitude || !this.system_store.longitude) return this.$util.Tips({
-					title: this.$t(`缺少经纬度信息无法查看地图！`)
+					title: this.$t(`Không thể xem bản đồ do thiếu thông tin vĩ độ và kinh độ！`)
 				});
 				uni.openLocation({
 					latitude: parseFloat(this.system_store.latitude),
@@ -671,20 +671,20 @@
 				});
 			},
 			/**
-			 * 登录授权回调
+			 * Gọi lại ủy quyền đăng nhập
 			 * 
 			 */
 			onLoadFun: function() {
 				this.getOrderInfo();
 			},
 			/**
-			 * 获取订单详细信息
+			 * Nhận chi tiết đơn hàng
 			 * 
 			 */
 			getOrderInfo: function() {
 				let that = this;
 				uni.showLoading({
-					title: that.$t(`正在加载中`)
+					title: that.$t(`Đang tải`)
 				});
 				orderInvoiceDetail(this.order_id).then(res => {
 					let _type = res.data._status._type;
@@ -706,7 +706,7 @@
 			},
 			/**
 			 * 
-			 * 剪切订单号
+			 * Cắt số thứ tự
 			 */
 			// #ifndef H5
 			copy: function() {
@@ -717,7 +717,7 @@
 			},
 			// #endif
 			/**
-			 * 打电话
+			 * Gọi lên
 			 */
 			goTel: function() {
 				uni.makePhoneCall({
@@ -725,7 +725,7 @@
 				})
 			},
 			/**
-			 * 设置底部按钮
+			 * Đặt nút dưới cùng
 			 * 
 			 */
 			getOrderStatus: function() {
@@ -743,15 +743,15 @@
 					type: type == 9 ? -9 : type,
 					class_status: 0
 				};
-				if (type == 1 && combination_id > 0) status.class_status = 1; //查看拼团
-				if (type == 2 && delivery_type == 'express') status.class_status = 2; //查看物流
-				if (type == 2) status.class_status = 3; //确认收货
-				if (type == 4 || type == 0) status.class_status = 4; //删除订单
-				if (!seckill_id && !bargain_id && !combination_id && (type == 3 || type == 4)) status.class_status = 5; //再次购买
+				if (type == 1 && combination_id > 0) status.class_status = 1; //Xem chia sẻ nhóm
+				if (type == 2 && delivery_type == 'express') status.class_status = 2; //kiểm tra hậu cần
+				if (type == 2) status.class_status = 3; //xác nhận đã nhận hàng
+				if (type == 4 || type == 0) status.class_status = 4; //Xóa đơn hàng
+				if (!seckill_id && !bargain_id && !combination_id && (type == 3 || type == 4)) status.class_status = 5; //mua lại
 				this.$set(this, 'status', status);
 			},
 			/**
-			 * 去拼团详情
+			 * Đi đến chi tiết đặt phòng theo nhóm
 			 * 
 			 */
 			goJoinPink: function() {
@@ -760,7 +760,7 @@
 				});
 			},
 			/**
-			 * 再此购买
+			 * Mua ở đây một lần nữa
 			 * 
 			 */
 			goOrderConfirm: function() {
@@ -774,13 +774,13 @@
 			confirmOrder: function() {
 				let that = this;
 				uni.showModal({
-					title: this.$t(`确认收货`),
-					content: this.$t(`为保障权益，请收到货确认无误后，再确认收货`),
+					title: this.$t(`xác nhận đã nhận hàng`),
+					content: this.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng xác nhận đã nhận hàng trước khi xác nhận đã nhận.`),
 					success: function(res) {
 						if (res.confirm) {
 							orderTake(that.order_id).then(res => {
 								return that.$util.Tips({
-									title: that.$t(`操作成功`),
+									title: that.$t(`Hoạt động thành công`),
 									icon: 'success'
 								}, function() {
 									that.getOrderInfo();
@@ -796,13 +796,13 @@
 			},
 			/**
 			 * 
-			 * 删除订单
+			 * Xóa đơn hàng
 			 */
 			delOrder: function() {
 				let that = this;
 				orderDel(this.order_id).then(res => {
 					return that.$util.Tips({
-						title: that.$t(`删除成功`),
+						title: that.$t(`Xóa thành công`),
 						icon: 'success'
 					}, {
 						tab: 3,
@@ -817,8 +817,8 @@
 			cancelOrder() {
 				let self = this
 				uni.showModal({
-					title: that.$t(`提示`),
-					content: that.$t(`确认取消该订单`),
+					title: that.$t(`gợi ý`),
+					content: that.$t(`Xác nhận việc hủy đơn hàng`),
 					success: function(res) {
 						if (res.confirm) {
 							orderCancel(self.orderInfo.order_id)

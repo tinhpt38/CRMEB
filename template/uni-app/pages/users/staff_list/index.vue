@@ -5,19 +5,19 @@
 				<view class="headerCon acea-row row-between-wrapper">
 					<view>
 						<view class="name">
-							{{ $t(`员工人数`) }}
-							<view class="invitation" @click="showCode">{{ $t(`邀请`) }}</view>
+							{{ $t(`Số lượng nhân viên`) }}
+							<view class="invitation" @click="showCode">{{ $t(`mời`) }}</view>
 						</view>
 						<view>
 							<text class="num">{{ teamCount }}</text>
-							{{ $t(`人`) }}
+							{{ $t(`mọi người`) }}
 						</view>
 					</view>
 					<view class="iconfont icon-tuandui"></view>
 				</view>
 			</view>
 			<!-- <view class='search acea-row row-between-wrapper'>
-				<view class='input'><input placeholder='点击搜索会员名称' placeholder-class='placeholder' v-model="keyword"
+				<view class='input'><input placeholder='Click để tìm kiếm tên thành viên' placeholder-class='placeholder' v-model="keyword"
 						@confirm="submitForm" confirm-type='search' name="search"></input></view>
 				<button class='iconfont icon-sousuo2' @click="submitForm"></button>
 			</view> -->
@@ -30,28 +30,28 @@
 							</view>
 							<view class="text">
 								<view class="name line1">{{ item.nickname }}</view>
-								<view>{{ $t(`加入时间`) }}: {{ item.division_change_time }}</view>
-								<view>{{ $t(`分佣比例`) }}: {{ item.division_percent }}%</view>
+								<view>{{ $t(`thời gian tham gia`) }}: {{ item.division_change_time }}</view>
+								<view>{{ $t(`tỷ lệ hoa hồng`) }}: {{ item.division_percent }}%</view>
 							</view>
 						</view>
 						<view class="right">
 							<view>
 								<text class="num font-color">{{ item.childCount ? item.childCount : 0 }}</text>
-								{{ $t(`人`) }}
+								{{ $t(`mọi người`) }}
 							</view>
 							<view>
 								<text class="num">{{ item.orderCount ? item.orderCount : 0 }}</text>
-								{{ $t(`单`) }}
+								{{ $t(`một`) }}
 							</view>
 							<view>
 								<text class="num">{{ item.numberCount ? item.numberCount : 0 }}</text>
-								{{ $t(`元`) }}
+								{{ $t(`Nhân dân tệ`) }}
 							</view>
 						</view>
 					</view>
 					<view class="item-btn">
-						<view class="change" @click="changeData(item)">{{ $t(`修改分佣比例`) }}</view>
-						<view class="clear" @click="clear(item, index)">{{ $t(`删除`) }}</view>
+						<view class="change" @click="changeData(item)">{{ $t(`Sửa đổi tỷ lệ hoa hồng`) }}</view>
+						<view class="clear" @click="clear(item, index)">{{ $t(`xóa bỏ`) }}</view>
 					</view>
 				</block>
 			</view>
@@ -63,13 +63,13 @@
 		<view class="refund-input" :class="refund_close ? 'on' : ''">
 			<view class="input-msg">
 				<text class="iconfont icon-guanbi5" @tap="refund_close = false"></text>
-				<view class="refund-input-title">{{ $t(`修改分佣比例`) }}</view>
+				<view class="refund-input-title">{{ $t(`Sửa đổi tỷ lệ hoa hồng`) }}</view>
 				<view class="refund-input-sty">
-					<input type="number" v-model="agent_percent" :placeholder="$t(`请输入百分比`)" />
+					<input type="number" v-model="agent_percent" :placeholder="$t(`Vui lòng nhập phần trăm`)" />
 				</view>
 				<view class="refund-bth">
-					<!-- <view class="close-refund" @click="refund_close = false">取消</view> -->
-					<view class="submit-refund" @click="refundSubmit()">{{ $t(`提交`) }}</view>
+					<!-- <view class="close-refund" @click="refund_close = false">Hủy bỏ</view> -->
+					<view class="submit-refund" @click="refundSubmit()">{{ $t(`nộp`) }}</view>
 				</view>
 			</view>
 		</view>
@@ -101,10 +101,10 @@
 			<!-- #endif -->
 
 			<!-- #ifndef H5  -->
-			<view class="save-poster" @click="savePosterPath">{{ $t(`保存到手机`) }}</view>
+			<view class="save-poster" @click="savePosterPath">{{ $t(`Lưu vào điện thoại`) }}</view>
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
-			<view class="keep">{{ $t(`长按图片可以保存到手机`) }}</view>
+			<view class="keep">{{ $t(`Nhấn và giữ hình ảnh để lưu nó vào điện thoại của bạn`) }}</view>
 			<!-- #endif -->
 		</view>
 	</view>
@@ -146,24 +146,24 @@ export default {
 			status: false,
 			recordList: [],
 			refund_close: false,
-			isAuto: false, //没有授权的不会自动授权
-			isShowAuth: false, //是否隐藏授权
-			//二维码参数
+			isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+			isShowAuth: false, //Có ẩn ủy quyền hay không
+			// tham số mã QR
 			codeShow: false,
 			cid: '1',
 			ifShow: true,
-			val: HTTP_REQUEST_URL + '/pages/index/index?agent_id=' + this.$store.state.app.uid, // 要生成的二维码值
-			size: 430, // 二维码大小
-			unit: 'upx', // 单位
-			background: '#FFF', // 背景色
-			foreground: '#000', // 前景色
-			pdground: '#000', // 角标色
-			icon: '', // 二维码图标
-			iconsize: 70, // 二维码图标大小
-			lv: 3, // 二维码容错级别 ， 一般不用设置，默认就行
-			onval: true, // val值变化时自动重新生成二维码
-			loadMake: true, // 组件加载完成后自动生成二维码
-			src: '', // 二维码生成后的图片地址或base64
+			val: HTTP_REQUEST_URL + '/pages/index/index?agent_id=' + this.$store.state.app.uid, // Giá trị mã QR sẽ được tạo
+			size: 430, // Kích thước mã QR
+			unit: 'upx', // đơn vị
+			background: '#FFF', // màu nền
+			foreground: '#000', // màu nền trước
+			pdground: '#000', // Màu nhân vật
+			icon: '', // Biểu tượng mã QR
+			iconsize: 70, // Kích thước biểu tượng mã QR
+			lv: 3, // Mức độ chấp nhận lỗi mã QR, nói chung không cần đặt, mặc định là ổn
+			onval: true, // valTự động tạo lại mã QR khi giá trị thay đổi
+			loadMake: true, // Sau khi thành phần được tải, mã QR sẽ được tạo tự động.
+			src: '', // Địa chỉ hình ảnh sau khi mã QR được tạo hoặcbase64
 			codeSrc: '',
 			codeModal: false
 		};
@@ -196,7 +196,7 @@ export default {
 		onLoadFun: function (e) {
 			this.userSpreadNewList();
 		},
-		// 授权关闭
+		// Ủy quyền đã đóng
 		authColse: function (e) {
 			this.isShowAuth = e;
 		},
@@ -222,8 +222,8 @@ export default {
 		clear(data, index) {
 			let that = this;
 			uni.showModal({
-				title: that.$t(`删除员工`),
-				content: that.$t(`确定删除该员工?`),
+				title: that.$t(`Xóa nhân viên`),
+				content: that.$t(`Xác nhận xóa nhân viên này?`),
 				success: (res) => {
 					if (res.confirm) {
 						delClerkPercent(data.uid)
@@ -233,7 +233,7 @@ export default {
 								// that.userSpreadNewList();
 								that.teamCount -= 1;
 								return that.$util.Tips({
-									title: that.$t(`删除成功`),
+									title: that.$t(`Xóa thành công`),
 									icon: 'success'
 								});
 							})
@@ -244,7 +244,7 @@ export default {
 							});
 					} else if (res.cancel) {
 						return that.$util.Tips({
-							title: that.$t(`已取消`)
+							title: that.$t(`Đã hủy`)
 						});
 					}
 				}
@@ -257,7 +257,7 @@ export default {
 		refundSubmit() {
 			if (this.agent_percent < 0) {
 				return this.$util.Tips({
-					title: this.$t(`请输入比例`)
+					title: this.$t(`Hãy nhập tỷ lệ`)
 				});
 			}
 			setClerkPercent({
@@ -361,13 +361,13 @@ export default {
 										success: function (res) {
 											that.posterImageClose();
 											that.$util.Tips({
-												title: that.$t(`保存成功`),
+												title: that.$t(`Đã lưu thành công`),
 												icon: 'success'
 											});
 										},
 										fail: function (res) {
 											that.$util.Tips({
-												title: that.$t(`保存失败`)
+												title: that.$t(`Lưu không thành công`)
 											});
 										}
 									});
@@ -379,13 +379,13 @@ export default {
 								success: function (res) {
 									that.posterImageClose();
 									that.$util.Tips({
-										title: that.$t(`保存成功`),
+										title: that.$t(`Đã lưu thành công`),
 										icon: 'success'
 									});
 								},
 								fail: function (res) {
 									that.$util.Tips({
-										title: that.$t(`保存失败`)
+										title: that.$t(`Lưu không thành công`)
 									});
 								}
 							});

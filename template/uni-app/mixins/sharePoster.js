@@ -1,39 +1,39 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2021 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 import { imageBase64 } from "@/api/public";
 import {
-  getProductCode, // 普通商品小程序code
+  getProductCode, // Applet hàng hóa thông thườngcode
 } from "@/api/store.js";
 import {
-  scombinationCode, // 拼团code
-  seckillCode, // 秒杀
+  scombinationCode, // Chia sẻ nhómcode
+  seckillCode, // bán chớp nhoáng
 } from "@/api/activity.js";
 import i18n from "../utils/lang.js";
 let sysHeight = uni.getWindowInfo().statusBarHeight + "px";
 export const sharePoster = {
   data() {
     return {
-      //二维码参数
+      //Thông số mã QR
       codeShow: false,
       cid: "1",
-      codeVal: "", // 要生成的二维码值
-      size: 200, // 二维码大小
-      unit: "upx", // 单位
-      background: "#FFF", // 背景色
-      foreground: "#000", // 前景色
-      pdground: "#000", // 角标色
-      codeIcon: "", // 二维码图标
-      iconsize: 40, // 二维码图标大小
-      lv: 3, // 二维码容错级别 ， 一般不用设置，默认就行
-      onval: true, // val值变化时自动重新生成二维码
-      loadMake: true, // 组件加载完成后自动生成二维码
+      codeVal: "", // Giá trị mã QR sẽ được tạo
+      size: 200, // Kích thước mã QR
+      unit: "upx", // đơn vị
+      background: "#FFF", // màu nền
+      foreground: "#000", // màu nền trước
+      pdground: "#000", // Màu nhân vật
+      codeIcon: "", // Biểu tượng mã QR
+      iconsize: 40, // Kích thước biểu tượng mã QR
+      lv: 3, // Mức độ chấp nhận lỗi mã QR, nói chung không cần đặt, mặc định là ổn
+      onval: true, // valTự động tạo lại mã QR khi giá trị thay đổi
+      loadMake: true, // Sau khi thành phần được tải, mã QR sẽ được tạo tự động.
       base64Show: 0,
       shareQrcode: 0,
       followCode: "",
@@ -73,12 +73,12 @@ export const sharePoster = {
         src: that.PromotionCode,
         success() {
           if (arr2[2] == "") {
-            //海报二维码不存在则从新下载
+            //Nếu mã QR của người đăng không tồn tại, hãy tải lại.
             that.downloadFilePromotionCode(function (msgPromotionCode) {
               arr2[2] = msgPromotionCode;
               if (arr2[2] == "")
                 return that.$util.Tips({
-                  title: i18n.t(`海报二维码生成失败`),
+                  title: i18n.t(`Việc tạo mã QR áp phích không thành công`),
                 });
               that.$util.PosterCanvas(
                 arr2,
@@ -94,7 +94,7 @@ export const sharePoster = {
               );
             });
           } else {
-            //生成推广海报
+            //Tạo áp phích quảng cáo
             that.$nextTick((e) => {
               that.$util.PosterCanvas(
                 arr2,
@@ -119,14 +119,14 @@ export const sharePoster = {
           // #endif
           // #ifdef MP
           return that.$util.Tips({
-            title: i18n.t(`正在下载海报,请稍后再试`),
+            title: i18n.t(`Đang tải áp phích,Vui lòng thử lại sau`),
           });
           // #endif
         },
       });
     },
     /**
-     * 生成海报
+     * Tạo áp phích
      */
     async goPoster(type) {
       let that = this;
@@ -170,19 +170,19 @@ export const sharePoster = {
       arr2 = [that.posterbackgd, that.storeImageBase64, that.PromotionCode];
       if (!that.storeImageBase64)
         return that.$util.Tips({
-          title: i18n.t(`正在下载海报,请稍后再试`),
+          title: i18n.t(`Đang tải áp phích,Vui lòng thử lại sau`),
         });
       that.initPoster(arr2);
       // #endif
     },
-    //替换安全域名
+    //Thay thế tên miền an toàn
     setDomain(url) {
       url = url ? url.toString() : "";
-      //本地调试打开,生产请注销
+      //Đã bật gỡ lỗi cục bộ,Vui lòng đăng xuất để sản xuất
       if (url.indexOf("https://") > -1) return url;
       else return url.replace("http://", "https://");
     },
-    //获取海报产品图
+    //Nhận hình ảnh sản phẩm áp phích
     downloadFilestoreImage() {
       let that = this;
       uni.downloadFile({
@@ -200,8 +200,8 @@ export const sharePoster = {
       });
     },
     /**
-     * 获取产品分销二维码
-     * @param function successFn 下载完成回调
+     * Nhận mã QR phân phối sản phẩm
+     * Hàm @param gọi lại hoàn tất tải xuống thành côngFn
      *
      */
     downloadFilePromotionCode(successFn) {

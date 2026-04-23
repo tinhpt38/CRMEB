@@ -725,7 +725,8 @@ export default {
             font-size: 14px;
             overflow: hidden;
             .txt-wrapper {
-              word-break: break-all;
+              word-break: break-word;
+              overflow-wrap: anywhere;
               white-space: pre-wrap;
             }
             .pad16 {

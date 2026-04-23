@@ -41,17 +41,17 @@
 								<text class="y_money">{{ $t(`￥`) }}{{ item.product_price }}</text>
 							</view>
 							<view class="limit">
-								{{ $t(`限量`) }}
+								{{ $t(`phiên bản giới hạn`) }}
 								<text class="limitPrice">{{ item.quota_show }}{{ $t(item.unit_name) || '' }}</text>
 							</view>
 							<view class="progress">
 								<view class="bg-reds" :style="'width:' + item.percent + '%;'"></view>
-								<view class="piece">{{ $t(`已抢`) }}{{ item.percent }}%</view>
+								<view class="piece">{{ $t(`Đã giật rồi`) }}{{ item.percent }}%</view>
 							</view>
 						</view>
-						<view class="grab bg-color" v-if="status == 1">{{ $t(`抢购中`) }}</view>
-						<view class="grab bg-color" v-else-if="status == 2">{{ $t(`未开始`) }}</view>
-						<view class="grab bg-color-hui" v-else>{{ $t(`已结束`) }}</view>
+						<view class="grab bg-color" v-if="status == 1">{{ $t(`Đang giảm giá`) }}</view>
+						<view class="grab bg-color" v-else-if="status == 2">{{ $t(`Chưa bắt đầu`) }}</view>
+						<view class="grab bg-color-hui" v-else>{{ $t(`đã kết thúc`) }}</view>
 					</view>
 				</block>
 			</view>
@@ -59,7 +59,7 @@
 		<view class="noCommodity" v-if="seckillList.length == 0 && (page != 1 || active == 0)">
 			<view class="emptyBox">
 				<image :src="imgHost + '/statics/images/no-thing.png'"></image>
-				<view class="tips">{{ $t(`暂无商品，去看点别的吧`) }}</view>
+				<view class="tips">{{ $t(`Hiện tại chưa có sản phẩm nào, vui lòng tìm sản phẩm khác.`) }}</view>
 			</view>
 		</view>
 		<!-- #ifndef MP -->
@@ -172,7 +172,7 @@ export default {
 		}
 	},
 	/**
-	 * 页面上拉触底事件的处理函数
+	 * Chức năng xử lý sự kiện kéo trang xuống
 	 */
 	onReachBottom: function () {
 		this.getSeckillList();

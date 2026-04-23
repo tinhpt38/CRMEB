@@ -506,7 +506,8 @@ export default {
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid #ccc;
-  word-break: break-all;
+  word-break: break-word;
+  overflow-wrap: anywhere;
   word-wrap: break-word;
   line-height: 1.5;
   border-radius: 5px;

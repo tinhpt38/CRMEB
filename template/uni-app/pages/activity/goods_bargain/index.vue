@@ -16,16 +16,16 @@
 							<view class="name line1">{{ item.title || '' }}</view>
 							<view class="num">
 								<text class="iconfont icon-pintuan"></text>
-								{{ item.people }}{{ $t(`人正在参与`) }}
+								{{ item.people }}{{ $t(`mọi người đang tham gia`) }}
 							</view>
 							<view class="money">
-								{{ $t(`最低`) }} : {{ $t(`￥`) }}
+								{{ $t(`thấp nhất`) }} : {{ $t(`￥`) }}
 								<text class="price">{{ item.min_price }}</text>
 							</view>
 						</view>
 						<view class="cutBnt">
 							<text class="iconfont icon-kanjia"></text>
-							{{ $t(`参与砍价`) }}
+							{{ $t(`Tham gia thương lượng`) }}
 						</view>
 					</view>
 				</block>
@@ -71,8 +71,8 @@ export default {
 			loadend: false,
 			userInfo: {},
 			navH: '',
-			isAuto: false, //没有授权的不会自动授权
-			isShowAuth: false, //是否隐藏授权
+			isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+			isShowAuth: false, //Có ẩn ủy quyền hay không
 			returnShow: true,
 			picUrl: {},
 			picList: [
@@ -120,7 +120,7 @@ export default {
 		var pages = getCurrentPages();
 		this.returnShow = pages.length === 1 ? false : true;
 		uni.setNavigationBarTitle({
-			title: this.$t(`砍价列表`)
+			title: this.$t(`Danh sách mặc cả`)
 		});
 		// #ifdef MP
 		this.navH = app.globalData.navH * 2.5;
@@ -156,12 +156,12 @@ export default {
 					break;
 			}
 		},
-		// 授权关闭
+		// Ủy quyền đã đóng
 		authColse: function (e) {
 			this.isShowAuth = e;
 		},
 		/*
-		 * 获取用户信息
+		 * Lấy thông tin người dùng
 		 */
 		getUserInfo: function () {
 			let that = this;
@@ -190,7 +190,7 @@ export default {
 			// #endif
 			// #ifdef MP
 			uni.showLoading({
-				title: this.$t(`正在加载中`)
+				title: this.$t(`Đang tải`)
 			});
 			openBargainSubscribe()
 				.then((res) => {

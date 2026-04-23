@@ -342,13 +342,15 @@ checkbox .uni-checkbox-input.uni-checkbox-input-checked::before {
 	-moz-line-clamp: 2;
 	-moz-box-orient: vertical;
 	word-wrap: break-word;
-	word-break: break-all;
+	word-break: normal;
+	overflow-wrap: anywhere;
 	white-space: normal;
 	overflow: hidden;
 }
 
 .line3 {
-	word-break: break-all;
+	word-break: normal;
+	overflow-wrap: anywhere;
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
@@ -442,9 +444,9 @@ checkbox .uni-checkbox-input.uni-checkbox-input-checked::before {
 
 .uni-p-b-98 {
 	height: 100rpx;
-	/* 兼容 IOS<11.2 */
+	/* tương thích IOS<11.2 */
 	height: calc(100rpx + constant(safe-area-inset-bottom));
-	/* 兼容 IOS>11.2 */
+	/* tương thích IOS>11.2 */
 	height: calc(100rpx + env(safe-area-inset-bottom));
 }
 

@@ -1,41 +1,41 @@
 <template>
 	<view :style="colorStyle">
 		<view class='payment-status'>
-			<!--失败时： 用icon-iconfontguanbi fail替换icon-duihao2 bg-color-->
+			<!--Khi thất bại: thay thế bằng icon-iconfontguanbi failedicon-duihao2 bg-color-->
 			<view class='iconfont icons icon-duihao2 bg-color'></view>
-			<!-- 失败时：商品兑换失败 -->
-			<view class='status' v-if="order_pay_info.pay_type != 'offline'">{{$t(`商品兑换成功`)}}
+			<!-- Trường hợp thất bại: Đổi sản phẩm không thành công -->
+			<view class='status' v-if="order_pay_info.pay_type != 'offline'">{{$t(`Trao đổi sản phẩm thành công`)}}
 			</view>
-			<view class='status' v-else>{{$t(`订单创建成功`)}}</view>
+			<view class='status' v-else>{{$t(`Đơn hàng được tạo thành công`)}}</view>
 			<view class='wrapper'>
 				<view class='item acea-row row-between-wrapper'>
-					<view>{{$t(`订单编号`)}}</view>
+					<view>{{$t(`số thứ tự`)}}</view>
 					<view class='itemCom'>{{orderId}}</view>
 				</view>
 				<view class='item acea-row row-between-wrapper'>
-					<view>{{$t(`兑换时间`)}}</view>
+					<view>{{$t(`Thời gian quy đổi`)}}</view>
 					<view class='itemCom'>{{order_pay_info.add_time}}</view>
 				</view>
 				<view class='item acea-row row-between-wrapper'>
-					<view>{{$t(`兑换方式`)}}</view>
-					<view class='itemCom'>{{$t(`积分兑换`)}}</view>
+					<view>{{$t(`Phương thức quy đổi`)}}</view>
+					<view class='itemCom'>{{$t(`Đổi điểm`)}}</view>
 				</view>
 				<view class='item acea-row row-between-wrapper'>
-					<view>{{$t(`支付积分`)}}</view>
+					<view>{{$t(`Trả điểm`)}}</view>
 					<view class='itemCom'>{{order_pay_info.total_price}}</view>
 				</view>
-				<!--失败时加上这个  -->
+				<!--Thêm cái này khi thất bại  -->
 				<view class='item acea-row row-between-wrapper'
 					v-if="order_pay_info.paid==0 && order_pay_info.pay_type != 'offline'">
-					<view>{{$t(`失败原因`)}}</view>
-					<view class='itemCom'>{{status==2 ? $t(`取消兑换`):msg}}</view>
+					<view>{{$t(`Lý do thất bại`)}}</view>
+					<view class='itemCom'>{{status==2 ? $t(`Hủy đổi quà`):msg}}</view>
 				</view>
 			</view>
-			<!--失败时： 重新购买 -->
+			<!--Trường hợp không thành công: mua lại -->
 			<view @tap="goOrderDetails">
-				<button formType="submit" class='returnBnt bg-color' hover-class='none'>{{$t(`查看详情`)}}</button>
+				<button formType="submit" class='returnBnt bg-color' hover-class='none'>{{$t(`kiểm tra chi tiết`)}}</button>
 			</view>
-			<button @click="goIndex" class='returnBnt cart-color' formType="submit" hover-class='none'>{{$t(`返回首页`)}}</button>
+			<button @click="goIndex" class='returnBnt cart-color' formType="submit" hover-class='none'>{{$t(`Trở về trang chủ`)}}</button>
 		</view>
 		<!-- #ifdef MP -->
 		<!-- <authorize @onLoadFun="onLoadFun" :isAuto="isAuto" :isShowAuth="isShowAuth" @authColse="authColse"></authorize> -->
@@ -74,8 +74,8 @@
 					paid: 1,
 					_status: {}
 				},
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				status: 0,
 				msg: '',
 				couponsHidden: true,
@@ -95,7 +95,7 @@
 		},
 		onLoad: function(options) {
 			if (!options.order_id) return this.$util.Tips({
-				title: this.$t(`缺少参数无法查看订单兑换状态`)
+				title: this.$t(`Không thể xem trạng thái đổi đơn hàng do thiếu thông số`)
 			}, {
 				tab: 3,
 				url: 1
@@ -112,7 +112,7 @@
 			document.addEventListener('visibilitychange', (e) => {
 				let state = document.visibilityState
 				if (state == 'hidden') {
-					console.log(this.$t(`用户离开了`));
+					console.log(this.$t(`Người dùng đã rời khỏi`));
 				}
 				if (state == 'visible') {
 					this.getOrderPayInfo();
@@ -129,19 +129,19 @@
 			},
 			/**
 			 * 
-			 * 兑换完成查询兑换状态
+			 * Việc quy đổi đã hoàn tất Kiểm tra trạng thái quy đổi
 			 * 
 			 */
 			getOrderPayInfo: function() {
 				let that = this;
 				uni.showLoading({
-					title: that.$t(`正在加载中`)
+					title: that.$t(`Đang tải`)
 				});
 				integralOrderDetails(that.orderId).then(res => {
 					uni.hideLoading();
 					that.$set(that, 'order_pay_info', res.data);
 					uni.setNavigationBarTitle({
-						title: that.$t(`兑换成功`)
+						title: that.$t(`Đổi thưởng thành công`)
 					});
 					that.getOrderCoupon();
 				}).catch(err => {
@@ -155,7 +155,7 @@
 				})
 			},
 			/**
-			 * 去首页关闭当前所有页面
+			 * Đi tới trang chủ và đóng tất cả các trang hiện tại
 			 */
 			goIndex: function(e) {
 				uni.switchTab({
@@ -164,7 +164,7 @@
 			},
 			/**
 			 * 
-			 * 去订单详情页面
+			 * Đến trang chi tiết đơn hàng
 			 */
 			goOrderDetails: function(e) {
 				let that = this;

@@ -4,11 +4,11 @@
 			<view class="ChangePassword">
 				<view class="list">
 					<view class="item">
-						<input type='number' :placeholder='$t(`填写手机号码`)' placeholder-class='placeholder'
+						<input type='number' :placeholder='$t(`Điền số điện thoại di động`)' placeholder-class='placeholder'
 							v-model="phone"></input>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<input type='number' :placeholder='$t(`填写验证码`)' placeholder-class='placeholder' class="codeIput"
+						<input type='number' :placeholder='$t(`Điền mã xác minh`)' placeholder-class='placeholder' class="codeIput"
 							v-model="captcha"></input>
 						<button class="code font-num" :class="disabled === true ? 'on' : ''" :disabled='disabled'
 							@click="code">
@@ -16,7 +16,7 @@
 						</button>
 					</view>
 				</view>
-				<button form-type="submit" class="confirmBnt bg-color">{{$t(`确认绑定`)}}</button>
+				<button form-type="submit" class="confirmBnt bg-color">{{$t(`Xác nhận ràng buộc`)}}</button>
 			</view>
 		</form>
 
@@ -57,8 +57,8 @@
 			return {
 				phone: '',
 				captcha: '',
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				key: '',
 				authKey: '',
 				type: 0
@@ -79,20 +79,20 @@
 		},
 		methods: {
 			onLoadFun: function() {},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
 			editPwd: function() {
 				let that = this;
 				if (!that.phone) return that.$util.Tips({
-					title: that.$t(`请填写手机号码`)
+					title: that.$t(`Vui lòng điền số điện thoại di động của bạn`)
 				});
 				if (!(/^1(3|4|5|7|8|9|6)\d{9}$/i.test(that.phone))) return that.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t(`Vui lòng nhập đúng số điện thoại di động`)
 				});
 				if (!that.captcha) return that.$util.Tips({
-					title: that.$t(`请填写验证码`)
+					title: that.$t(`Vui lòng điền mã xác minh`)
 				});
 				if (this.type == 0) {
 					bindingUserPhone({
@@ -101,9 +101,9 @@
 					}).then(res => {
 						if (res.data !== undefined && res.data.is_bind) {
 							uni.showModal({
-								title: that.$t(`是否绑定账号`),
+								title: that.$t(`Có ràng buộc tài khoản hay không`),
 								content: res.msg,
-								confirmText: that.$t(`绑定`),
+								confirmText: that.$t(`ràng buộc`),
 								success(res) {
 									if (res.confirm) {
 										bindingUserPhone({
@@ -125,7 +125,7 @@
 										})
 									} else if (res.cancel) {
 										return that.$util.Tips({
-											title: that.$t(`您已取消绑定！`)
+											title: that.$t(`Bạn đã hủy liên kết！`)
 										}, {
 											tab: 5,
 											url: '/pages/users/user_info/index'
@@ -135,7 +135,7 @@
 							});
 						} else
 							return that.$util.Tips({
-								title: that.$t(`绑定成功`),
+								title: that.$t(`Ràng buộc thành công`),
 								icon: 'success'
 							}, {
 								tab: 5,
@@ -184,16 +184,16 @@
 
 			},
 			/**
-			 * 发送验证码
+			 * Gửi mã xác minh
 			 *
 			 */
 			async code() {
 				let that = this;
 				if (!that.phone) return that.$util.Tips({
-					title: that.$t(`请填写手机号码`)
+					title: that.$t(`Vui lòng điền số điện thoại di động của bạn`)
 				});
 				if (!(/^1(3|4|5|7|8|9|6)\d{9}$/i.test(that.phone))) return that.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t(`Vui lòng nhập đúng số điện thoại di động`)
 				});
 				this.$refs.verify.show();
 				return;

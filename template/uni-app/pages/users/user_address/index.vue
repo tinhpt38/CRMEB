@@ -4,17 +4,17 @@
 			<view class='addAddress'>
 				<view class='list'>
 					<view class='item acea-row row-between-wrapper'>
-						<view class='name'>{{$t(`姓名`)}}</view>
-						<input type='text' :placeholder='$t(`请输入姓名`)' name='real_name' :value="userAddress.real_name"
+						<view class='name'>{{$t(`Tên`)}}</view>
+						<input type='text' :placeholder='$t(`Vui lòng nhập tên`)' name='real_name' :value="userAddress.real_name"
 							placeholder-class='placeholder'></input>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view class='name'>{{$t(`联系电话`)}}</view>
-						<input type='number' :placeholder='$t(`请输入联系电话`)' name="phone" :value='userAddress.phone'
+						<view class='name'>{{$t(`Số liên lạc`)}}</view>
+						<input type='number' :placeholder='$t(`Vui lòng nhập số liên lạc`)' name="phone" :value='userAddress.phone'
 							placeholder-class='placeholder' pattern="\d*"></input>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view class='name'>{{$t(`所在地区`)}}</view>
+						<view class='name'>{{$t(`khu vực`)}}</view>
 						<view class="address">
 							<picker mode="multiSelector" @change="bindRegionChange"
 								@columnchange="bindMultiPickerColumnChange" :value="valueRegion" :range="multiArray">
@@ -25,23 +25,23 @@
 						</view>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view class='name'>{{$t(`详细地址`)}}</view>
-						<input type='text' :placeholder='$t(`请填写具体地址`)' name='detail' placeholder-class='placeholder'
+						<view class='name'>{{$t(`Địa chỉ chi tiết`)}}</view>
+						<input type='text' :placeholder='$t(`Vui lòng điền địa chỉ cụ thể`)' name='detail' placeholder-class='placeholder'
 							:value='userAddress.detail'></input>
 					</view>
 				</view>
 				<view class='default acea-row row-middle' @click='ChangeIsDefault'>
 					<checkbox-group>
-						<checkbox :checked="userAddress.is_default ? true : false" />{{$t(`设置为默认地址`)}}
+						<checkbox :checked="userAddress.is_default ? true : false" />{{$t(`Đặt làm địa chỉ mặc định`)}}
 					</checkbox-group>
 				</view>
 
-				<button class='keepBnt bg-color' form-type="submit">{{$t(`立即保存`)}}</button>
+				<button class='keepBnt bg-color' form-type="submit">{{$t(`lưu ngay bây giờ`)}}</button>
 				<!-- #ifdef MP -->
-				<view class="wechatAddress" v-if="!id" @click="getWxAddress">{{$t(`导入微信地址`)}}</view>
+				<view class="wechatAddress" v-if="!id" @click="getWxAddress">{{$t(`Nhập địa chỉ WeChat`)}}</view>
 				<!-- #endif -->
 				<!-- #ifdef H5 -->
-				<view class="wechatAddress" v-if="this.$wechat.isWeixin() && !id" @click="getAddress">{{$t(`导入微信地址`)}}
+				<view class="wechatAddress" v-if="this.$wechat.isWeixin() && !id" @click="getAddress">{{$t(`Nhập địa chỉ WeChat`)}}
 				</view>
 				<!-- #endif -->
 			</view>
@@ -85,23 +85,23 @@
 		mixins: [colors],
 		data() {
 			return {
-				regionDval: [this.$t(`浙江省`), this.$t(`杭州市`), this.$t(`滨江区`)],
-				cartId: '', //购物车id
-				pinkId: 0, //拼团id
-				couponId: 0, //优惠券id
-				id: 0, //地址id
+				regionDval: [this.$t(`tỉnh Chiết Giang`), this.$t(`Thành phố Hàng Châu`), this.$t(`Quận Tân Giang`)],
+				cartId: '', //giỏ hàngid
+				pinkId: 0, //Chia sẻ nhómid
+				couponId: 0, //Phiếu giảm giáid
+				id: 0, //Địa chỉid
 				userAddress: {
 					is_default: false
-				}, //地址详情
-				region: [this.$t(`省`), this.$t(`市`), this.$t(`区`)],
+				}, //Chi tiết địa chỉ
+				region: [this.$t(`Tỉnh`), this.$t(`thành phố`), this.$t(`huyện`)],
 				valueRegion: [0, 0, 0],
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				district: [],
 				multiArray: [],
 				multiIndex: [0, 0, 0],
 				cityId: 0,
-				defaultRegion: [this.$t(`广东省`), this.$t(`广州市`), this.$t(`番禺区`)],
+				defaultRegion: [this.$t(`Tỉnh Quảng Đông`), this.$t(`thành phố Quảng Châu`), this.$t(`Quận Phiên Ngung`)],
 				defaultRegionCode: '110101',
 				news: '',
 				noCoupon: 0,
@@ -131,7 +131,7 @@
 				this.is_gift = options.is_gift || '';
 				this.orderId = options.order_id || '';
 				uni.setNavigationBarTitle({
-					title: options.id ? this.$t(`修改地址`) : this.$t(`添加地址`)
+					title: options.id ? this.$t(`Sửa đổi địa chỉ`) : this.$t(`Thêm địa chỉ`)
 				})
 				this.getUserAddress();
 				this.getCityList();
@@ -141,12 +141,12 @@
 		},
 		methods: {
 			// #ifdef APP-PLUS
-			// 获取选择的地区
+			// Nhận vùng đã chọn
 			handleGetRegion(region) {
 				this.region = region
 			},
 			// #endif
-			// 回去地址数据
+			// Trả về dữ liệu địa chỉ
 			getCityList: function() {
 				let that = this;
 				getCity().then(res => {
@@ -250,11 +250,11 @@
 				this.multiIndex = multiIndex
 				// this.setData({ multiArray: multiArray, multiIndex: multiIndex});
 			},
-			// 授权回调
+			// Gọi lại ủy quyền
 			onLoadFun: function() {
 				this.getUserAddress();
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
@@ -278,7 +278,7 @@
 					that.cityId = res.data.city_id
 				});
 			},
-			// 导入共享地址（小程序）
+			// Nhập địa chỉ dùng chung (chương trình nhỏ）
 			getWxAddress: function() {
 				let that = this;
 				uni.authorize({
@@ -334,7 +334,7 @@
 										}
 									}, 1000);
 									return that.$util.Tips({
-										title: that.$t(`添加成功`),
+										title: that.$t(`Đã thêm thành công`),
 										icon: 'success'
 									});
 								}).catch(err => {
@@ -346,15 +346,15 @@
 							fail: function(res) {
 								if (res.errMsg == 'chooseAddress:cancel') return that.$util
 									.Tips({
-										title: that.$t(`取消选择`)
+										title: that.$t(`Bỏ chọn`)
 									});
 							},
 						})
 					},
 					fail: function(res) {
 						uni.showModal({
-							title: that.$t(`您已拒绝导入微信地址权限`),
-							content: that.$t(`是否进入权限管理，调整授权？`),
+							title: that.$t(`Bạn đã bị từ chối cấp phép nhập địa chỉ WeChat`),
+							content: that.$t(`Có nên vào quản lý quyền và điều chỉnh ủy quyền hay không？`),
 							success(res) {
 								if (res.confirm) {
 									uni.openSetting({
@@ -362,7 +362,7 @@
 									});
 								} else if (res.cancel) {
 									return that.$util.Tips({
-										title: that.$t(`已取消！`)
+										title: that.$t(`Đã hủy！`)
 									});
 								}
 							}
@@ -370,7 +370,7 @@
 					},
 				})
 			},
-			// 导入共享地址（微信）；
+			// Nhập địa chỉ dùng chung (WeChat）；
 			getAddress() {
 				let that = this;
 				that.$wechat.openAddress().then(userInfo => {
@@ -391,7 +391,7 @@
 						.then((res) => {
 							// close();
 							that.$util.Tips({
-								title: that.$t(`添加成功`),
+								title: that.$t(`Đã thêm thành công`),
 								icon: 'success'
 							}, () => {
 								if (that.cartId) {
@@ -421,32 +421,32 @@
 						.catch(err => {
 							// close();
 							return that.$util.Tips({
-								title: err || that.$t(`添加失败`)
+								title: err || that.$t(`Thêm không thành công`)
 							});
 						});
 				}).catch(err => {});
 			},
 			/**
-			 * 提交用户添加地址
+			 * Gửi người dùng để thêm địa chỉ
 			 * 
 			 */
 			formSubmit: function(e) {
 				let that = this,
 					value = e.detail.value;
 				if (!value.real_name.trim()) return that.$util.Tips({
-					title: that.$t(`请填写收货人姓名`)
+					title: that.$t(`Vui lòng điền tên người nhận hàng`)
 				});
 				if (!value.phone) return that.$util.Tips({
-					title: that.$t(`请填写联系电话`)
+					title: that.$t(`Vui lòng điền số liên lạc`)
 				});
 				if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(value.phone)) return that.$util.Tips({
-					title: that.$t(`请输入正确的手机号码`)
+					title: that.$t(`Vui lòng nhập đúng số điện thoại di động`)
 				});
-				if (that.region[0] == that.$t(`省`)) return that.$util.Tips({
-					title: that.$t(`请选择所在地区`)
+				if (that.region[0] == that.$t(`Tỉnh`)) return that.$util.Tips({
+					title: that.$t(`Vui lòng chọn khu vực của bạn`)
 				});
 				if (!value.detail.trim()) return that.$util.Tips({
-					title: that.$t(`请填写详细地址`)
+					title: that.$t(`Vui lòng điền địa chỉ chi tiết`)
 				});
 				value.id = that.id;
 				let regionArray = that.region;
@@ -459,18 +459,18 @@
 				value.is_default = that.userAddress.is_default ? 1 : 0;
 
 				uni.showLoading({
-					title: that.$t(`保存中`),
+					title: that.$t(`Đang lưu`),
 					mask: true
 				})
 				editAddress(value).then(res => {
 					if (that.id)
 						that.$util.Tips({
-							title: that.$t(`修改成功`),
+							title: that.$t(`Sửa đổi thành công`),
 							icon: 'success'
 						});
 					else
 						that.$util.Tips({
-							title: that.$t(`添加成功`),
+							title: that.$t(`Đã thêm thành công`),
 							icon: 'success'
 						});
 					setTimeout(function() {

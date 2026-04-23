@@ -38,7 +38,7 @@
 <script>
 import { Throttle } from "@/utils/validate.js";
 
-// 生成全局唯一id
+// Tạo duy nhất trên toàn cầuid
 function generateUUID() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     let r = (Math.random() * 16) | 0,
@@ -98,7 +98,7 @@ export default {
       borderLoaded: 0,
       showTransition: false,
       scrollFn: Throttle(function () {
-        // 加载img时才执行滚动监听判断是否可加载
+        // Giám sát cuộn chỉ được thực hiện khi img được tải để xác định xem nó có thể được tải hay không.
         if (that.loadImg || that.isLoadError) return;
         const id = that.uid;
         const query = uni.createSelectorQuery().in(that);
@@ -180,12 +180,12 @@ export default {
   left: 0;
 }
 
-/* 官方优化图片tips */
+/* Hình ảnh được tối ưu hóa chính thứctips */
 image {
   will-change: transform;
 }
 
-/* 渐变过渡效果处理 */
+/* Xử lý hiệu ứng chuyển tiếp gradient */
 image.origin-img {
   width: 100%;
   height: 100%;
@@ -202,7 +202,7 @@ image.origin-img.no-transition {
   opacity: 1;
 }
 
-/* 渐变过渡效果处理 */
+/* Xử lý hiệu ứng chuyển tiếp gradient */
 image.border-img {
   width: 100%;
   height: 100%;
@@ -219,7 +219,7 @@ image.border-img.no-transition {
   opacity: 1;
 }
 
-/* 加载失败、加载中的占位图样式控制 */
+/* Tải không thành công, đang tải điều khiển kiểu hình ảnh giữ chỗ */
 .loadfail-img {
   height: 100%;
   background: url("~@/static/easy-loadimage/loadfail.png") no-repeat center;
@@ -230,13 +230,13 @@ image.border-img.no-transition {
   height: 100%;
 }
 
-/* 转圈 */
+/* quay vòng tròn */
 .spin-circle {
   background: url("~@/static/easy-loadimage/loading.png") no-repeat center;
   background-size: 60%;
 }
 
-/* 动态灰色若隐若现 */
+/* Màu xám năng động hiện ra lờ mờ */
 .looming-gray {
   animation: looming-gray 1s infinite linear;
   background-color: #e3e3e3;
@@ -257,7 +257,7 @@ image.border-img.no-transition {
   }
 }
 
-/* 骨架屏1 */
+/* màn hình bộ xương1 */
 .skeleton-1 {
   background-color: #e3e3e3;
   background-image: linear-gradient(
@@ -278,7 +278,7 @@ image.border-img.no-transition {
   }
 }
 
-/* 骨架屏2 */
+/* màn hình bộ xương2 */
 .skeleton-2 {
   background-image: linear-gradient(
     -90deg,

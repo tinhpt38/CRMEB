@@ -5,26 +5,26 @@
 				<text class="iconfont icon-gou"></text>
 				<view class="pay-status-r">
 					<text class="pay-status-text">
-						{{$t(`支付成功`)}}
+						{{$t(`Thanh toán thành công`)}}
 					</text>
 					<text>
-						{{$t(`支付金额`)}}：{{$t(`￥`)}}{{totalPrice}}
+						{{$t(`Số tiền thanh toán`)}}：{{$t(`￥`)}}{{totalPrice}}
 					</text>
 				</view>
 			</view>
 			<view class="jump">
 				<view class="jump-det" @click="orderDetails">
-					{{$t(`查看订单`)}}
+					{{$t(`Xem đơn hàng`)}}
 				</view>
 				<view class="jump-index" @click="goIndex">
-					{{$t(`返回首页`)}}
+					{{$t(`Trở về trang chủ`)}}
 				</view>
 			</view>
 		</view>
 		<view class="grids-top" v-show="lotteryShow">
 			<image src="../static/pay-lottery-l.png" mode=""></image>
 			<view class="grids-title">
-				<view>{{$t(`恭喜您`)}}，{{$t(`获得`)}} {{lottery_num}} {{$t(`机会`)}}</view>
+				<view>{{$t(`Chúc mừng`)}}，{{$t(`lấy`)}} {{lottery_num}} {{$t(`Cơ hội`)}}</view>
 			</view>
 			<image src="../static/pay-lottery-r.png" mode=""></image>
 		</view>
@@ -92,10 +92,10 @@
 				aleartType: 0,
 				aleartStatus: false,
 				lottery_draw_param: {
-					startIndex: 3, //开始抽奖位置，从0开始
-					totalCount: 3, //一共要转的圈数
-					winingIndex: 1, //中奖的位置，从0开始
-					speed: 100 //抽奖动画的速度 [数字越大越慢,默认100]
+					startIndex: 3, //Bắt đầu vị trí xổ số, bắt đầu từ 0
+					totalCount: 3, //Tổng số lượt thực hiện
+					winingIndex: 1, //Vị trí chiến thắng bắt đầu từ 0
+					speed: 100 //Tốc độ của hoạt hình xổ số [Số càng cao thì tốc độ càng chậm,mặc định100]
 				},
 				alData: {},
 				type: '',
@@ -105,8 +105,8 @@
 					paid: 1,
 					_status: {}
 				},
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				couponsHidden: true,
 				couponList: [],
 				totalPrice: 0
@@ -166,10 +166,10 @@
 						title: err
 					});
 				})
-				// //props修改在小程序和APP端不成功，所以在这里使用回调函数传参，
+				// //propsViệc sửa đổi không thành công ở phía chương trình mini và APP, do đó chức năng gọi lại được sử dụng để truyền tham số ở đây.，
 			},
 			/**
-			 * 去首页关闭当前所有页面
+			 * Đi tới trang chủ và đóng tất cả các trang hiện tại
 			 */
 			goIndex: function(e) {
 				uni.switchTab({
@@ -178,12 +178,12 @@
 			},
 			/**
 			 * 
-			 * 去订单详情页面
+			 * Đến trang chi tiết đơn hàng
 			 */
 			goOrderDetails: function(e) {
 				// #ifdef MP
 				uni.showLoading({
-					title: this.$t(`正在加载中`),
+					title: this.$t(`Đang tải`),
 				})
 				openOrderSubscribe().then(res => {
 					uni.hideLoading();
@@ -224,7 +224,7 @@
 				addData.address = data.address.province + data.address.city + data.address.district + data.detail
 				receiveLottery(addData).then(res => {
 					this.$util.Tips({
-						title: this.$t(`领取成功`)
+						title: this.$t(`Đã nhận thành công`)
 					});
 					this.addressModel = false
 				}).catch(err => {
@@ -250,9 +250,9 @@
 						title: err
 					});
 				})
-				// //props修改在小程序和APP端不成功，所以在这里使用回调函数传参，
+				// //propsViệc sửa đổi không thành công ở phía chương trình mini và APP, do đó chức năng gọi lại được sử dụng để truyền tham số ở đây.，
 			},
-			// 抽奖完成
+			// Xổ số đã hoàn thành
 			luck_draw_finish(param) {
 				this.aleartType = 2
 				this.aleartStatus = true

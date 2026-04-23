@@ -7,25 +7,25 @@
 			<radio-group class="radio-group" @change="radioChange" v-if="addressList.length">
 				<view class='item' v-for="(item,index) in addressList" :key="index">
 					<view class='address' @click='goOrder(item.id)'>
-						<view class='consignee'>{{$t(`收货人`)}}：{{item.real_name}}<text
+						<view class='consignee'>{{$t(`người nhận hàng`)}}：{{item.real_name}}<text
 								class='phone'>{{item.phone}}</text></view>
-						<view>{{$t(`收货地址`)}}：{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
+						<view>{{$t(`Địa chỉ giao hàng`)}}：{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
 					</view>
 					<view class='operation acea-row row-between-wrapper'>
 						<!-- #ifndef MP -->
 						<radio class="radio" :value="index.toString()" :checked="item.is_default ? true : false">
-							<text>{{$t(`设为默认`)}}</text>
+							<text>{{$t(`Đặt làm mặc định`)}}</text>
 						</radio>
 						<!-- #endif -->
 						<!-- #ifdef MP -->
 						<radio class="radio" :value="index" :checked="item.is_default ? true : false">
-							<text>{{$t(`设为默认`)}}</text>
+							<text>{{$t(`Đặt làm mặc định`)}}</text>
 						</radio>
 						<!-- #endif -->
 						<view class='acea-row row-middle'>
-							<view @click='editAddress(item.id)'><text class='iconfont icon-bianji'></text>{{$t(`编辑`)}}
+							<view @click='editAddress(item.id)'><text class='iconfont icon-bianji'></text>{{$t(`biên tập`)}}
 							</view>
-							<view @click='delAddress(index)'><text class='iconfont icon-shanchu'></text>{{$t(`删除`)}}
+							<view @click='delAddress(index)'><text class='iconfont icon-shanchu'></text>{{$t(`xóa bỏ`)}}
 							</view>
 						</view>
 					</view>
@@ -43,21 +43,21 @@
 			<view class='footer acea-row row-between-wrapper'>
 				<!-- #ifdef APP-PLUS -->
 				<view class='addressBnt on' @click='addAddress'><text
-						class='iconfont icon-tianjiadizhi'></text>{{$t(`添加新地址`)}}</view>
+						class='iconfont icon-tianjiadizhi'></text>{{$t(`Thêm địa chỉ mới`)}}</view>
 				<!-- #endif -->
 				<!-- #ifdef MP-->
 				<view class='addressBnt wxbnt' @click='addAddress'><text
-						class='iconfont icon-tianjiadizhi'></text>{{$t(`添加新地址`)}}</view>
+						class='iconfont icon-tianjiadizhi'></text>{{$t(`Thêm địa chỉ mới`)}}</view>
 				<view class='addressBnt' @click='getWxAddress'><text
-						class='iconfont icon-weixin2'></text>{{$t(`导入微信地址`)}}
+						class='iconfont icon-weixin2'></text>{{$t(`Nhập địa chỉ WeChat`)}}
 				</view>
 				<!-- #endif -->
 				<!-- #ifdef H5-->
 				<view class='addressBnt' :class="this.$wechat.isWeixin()?'wxbnt':'on'" @click='addAddress'><text
-						class='iconfont icon-tianjiadizhi'></text>{{$t(`添加新地址`)}}</view>
+						class='iconfont icon-tianjiadizhi'></text>{{$t(`Thêm địa chỉ mới`)}}</view>
 				<view class=""></view>
 				<view class='addressBnt' @click='getAddress' v-if="this.$wechat.isWeixin()"><text
-						class='iconfont icon-weixin2'></text>{{$t(`导入微信地址`)}}</view>
+						class='iconfont icon-weixin2'></text>{{$t(`Nhập địa chỉ WeChat`)}}</view>
 				<!-- #endif -->
 			</view>
 		</view>
@@ -109,11 +109,11 @@
 				couponId: 0,
 				loading: false,
 				loadend: false,
-				loadTitle: this.$t(`加载更多`),
+				loadTitle: this.$t(`tải thêm`),
 				page: 1,
 				limit: 20,
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				news: '',
 				noCoupon: 0,
 				is_gift: 0,
@@ -143,12 +143,12 @@
 			onLoadFun: function() {
 				this.getAddressList();
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
 			/*
-			 * 导入微信地址（小程序）
+			 * Nhập địa chỉ WeChat (chương trình nhỏ）
 			 */
 			getWxAddress: function() {
 				let that = this;
@@ -173,7 +173,7 @@
 									type: 1
 								}).then(res => {
 									that.$util.Tips({
-										title: that.$t(`添加成功`),
+										title: that.$t(`Đã thêm thành công`),
 										icon: 'success'
 									}, function() {
 										that.getAddressList(true);
@@ -187,15 +187,15 @@
 							fail: function(err) {
 								if (err.errMsg == 'chooseAddress:cancel') return that.$util
 									.Tips({
-										title: that.$t(`取消选择`)
+										title: that.$t(`Bỏ chọn`)
 									});
 							},
 						})
 					},
 					fail: function(res) {
 						uni.showModal({
-							title: that.$t(`您已拒绝导入微信地址权限`),
-							content: that.$t(`是否进入权限管理，调整授权？`),
+							title: that.$t(`Bạn đã bị từ chối cấp phép nhập địa chỉ WeChat`),
+							content: that.$t(`Có nên vào quản lý quyền và điều chỉnh ủy quyền hay không？`),
 							success(res) {
 								if (res.confirm) {
 									uni.openSetting({
@@ -203,7 +203,7 @@
 									});
 								} else if (res.cancel) {
 									return that.$util.Tips({
-										title: that.$t(`已取消！`)
+										title: that.$t(`Đã hủy！`)
 									});
 								}
 							}
@@ -212,7 +212,7 @@
 				})
 			},
 			/*
-			 * 导入微信地址（公众号）
+			 * Nhập địa chỉ WeChat (tài khoản công khai）
 			 */
 			getAddress() {
 				let that = this;
@@ -233,7 +233,7 @@
 						})
 						.then(() => {
 							that.$util.Tips({
-								title: that.$t(`添加成功`),
+								title: that.$t(`Đã thêm thành công`),
 								icon: 'success'
 							}, function() {
 								// close();
@@ -243,13 +243,13 @@
 						.catch(err => {
 							// close();
 							return that.$util.Tips({
-								title: err || that.$t(`添加失败`)
+								title: err || that.$t(`Thêm không thành công`)
 							});
 						});
 				});
 			},
 			/**
-			 * 获取地址列表
+			 * Lấy danh sách địa chỉ
 			 * 
 			 */
 			getAddressList: function(isPage) {
@@ -272,23 +272,23 @@
 					that.addressList = that.$util.SplitArray(list, that.addressList);
 					that.$set(that, 'addressList', that.addressList);
 					that.loadend = loadend;
-					that.loadTitle = loadend ? that.$t(`我也是有底线的`) : that.$t(`加载更多`);
+					that.loadTitle = loadend ? that.$t(`Tôi cũng có một điểm mấu chốt`) : that.$t(`tải thêm`);
 					that.page = that.page + 1;
 					that.loading = false;
 				}).catch(err => {
 					that.loading = false;
-					that.loadTitle = that.$t(`加载更多`);
+					that.loadTitle = that.$t(`tải thêm`);
 				});
 			},
 			/**
-			 * 设置默认地址
+			 * Đặt địa chỉ mặc định
 			 */
 			radioChange: function(e) {
 				let index = parseInt(e.detail.value),
 					that = this;
 				let address = this.addressList[index];
 				if (address == undefined) return that.$util.Tips({
-					title: that.$t(`您设置的默认地址不存在!`)
+					title: that.$t(`Địa chỉ mặc định bạn đặt không tồn tại!`)
 				});
 				setAddressDefault(address.id).then(res => {
 					for (let i = 0, len = that.addressList.length; i < len; i++) {
@@ -296,7 +296,7 @@
 						else that.addressList[i].is_default = false;
 					}
 					that.$util.Tips({
-						title: that.$t(`设置成功`),
+						title: that.$t(`Thiết lập thành công`),
 						icon: 'success'
 					}, function() {
 						that.$set(that, 'addressList', that.addressList);
@@ -308,7 +308,7 @@
 				});
 			},
 			/**
-			 * 编辑地址
+			 * Chỉnh sửa địa chỉ
 			 */
 			editAddress: function(id) {
 				let cartId = this.cartId,
@@ -324,17 +324,17 @@
 				})
 			},
 			/**
-			 * 删除地址
+			 * Xóa địa chỉ
 			 */
 			delAddress: function(index) {
 				let that = this,
 					address = this.addressList[index];
 				if (address == undefined) return that.$util.Tips({
-					title: that.$t(`您删除的地址不存在!`)
+					title: that.$t(`Địa chỉ bạn đã xóa không tồn tại!`)
 				});
 				delAddress(address.id).then(res => {
 					that.$util.Tips({
-						title: that.$t(`删除成功`),
+						title: that.$t(`Xóa thành công`),
 						icon: 'success'
 					}, function() {
 						that.addressList.splice(index, 1);
@@ -347,7 +347,7 @@
 				});
 			},
 			/**
-			 * 新增地址
+			 * Thêm địa chỉ
 			 */
 			addAddress: function() {
 				let cartId = this.cartId,

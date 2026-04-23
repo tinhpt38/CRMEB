@@ -882,7 +882,8 @@ body {
       color: var(--prev-color-text-regular);
 
       p {
-        word-break: break-all;
+        word-break: break-word;
+        overflow-wrap: anywhere;
       }
     }
   }

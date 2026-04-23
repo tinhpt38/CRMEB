@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,8 +20,8 @@ export function auth() {
 }
 
 /**
- * 支付成功后订阅消息id
- * 订阅  确认收货通知 订单支付成功  新订单管理员提醒 
+ * Id tin nhắn đăng ký sau khi thanh toán thành công
+ * Đăng ký Xác nhận thông báo đã nhận Thanh toán đơn hàng thành công Nhắc nhở quản trị viên đơn hàng mới 
  */
 export function openPaySubscribe() {
 	let tmplIds = auth();
@@ -33,8 +33,8 @@ export function openPaySubscribe() {
 }
 
 /**
- * 订单相关订阅消息
- * 送货 发货 取消订单
+ * Đặt hàng tin nhắn đăng ký liên quan
+ * Giao hàng Giao hàng Hủy đơn hàng
  */
 export function openOrderSubscribe() {
 	let tmplIds = auth();
@@ -45,8 +45,8 @@ export function openOrderSubscribe() {
 }
 
 /**
- * 提现消息订阅
- * 成功 和 失败 消息
+ * Đăng ký tin nhắn rút tiền
+ * Thông báo thành công và thất bại
  */
 export function openExtrctSubscribe() {
 	let tmplIds = auth();
@@ -56,7 +56,7 @@ export function openExtrctSubscribe() {
 }
 
 /**
- * 拼团成功
+ * Trận chiến nhóm thành công
  */
 export function openPinkSubscribe() {
 	let tmplIds = auth();
@@ -66,7 +66,7 @@ export function openPinkSubscribe() {
 }
 
 /**
- * 砍价成功
+ * Thương lượng thành công
  */
 export function openBargainSubscribe() {
 	let tmplIds = auth();
@@ -76,7 +76,7 @@ export function openBargainSubscribe() {
 }
 
 /**
- * 订单退款
+ * Hoàn tiền đơn hàng
  */
 export function openOrderRefundSubscribe() {
 	let tmplIds = auth();
@@ -86,7 +86,7 @@ export function openOrderRefundSubscribe() {
 }
 
 /**
- * 充值成功
+ * Nạp tiền thành công
  */
 export function openRechargeSubscribe() {
 	let tmplIds = auth();
@@ -96,7 +96,7 @@ export function openRechargeSubscribe() {
 }
 
 /**
- * 提现成功
+ * Rút tiền thành công
  */
 export function openRevenueSubscribe() {
 	let tmplIds = auth();
@@ -106,8 +106,8 @@ export function openRevenueSubscribe() {
 }
 
 /**
- * 调起订阅界面
- * array tmplIds 模板id
+ * Gọi lên giao diện đăng ký
+ * mẫu tmplIds mảngid
  */
 export function subscribe(subscrip443tionmessagee502call) {
 	 let weChat = wx;

@@ -6,34 +6,34 @@
 					<view class='headerCon'>
 						<view class='account acea-row row-top row-between'>
 							<view class='assets'>
-								<view>{{$t(`总资产(元)`)}}</view>
+								<view>{{$t(`tổng tài sản(Nhân dân tệ)`)}}</view>
 								<view class='money'>{{userInfo.now_money || 0}}</view>
 							</view>
 							<!-- #ifdef APP-PLUS || H5 -->
 							<navigator url="/pages/users/user_payment/index" hover-class="none" class='recharge'>
-								{{$t(`充值`)}}
+								{{$t(`nạp tiền`)}}
 							</navigator>
 							<!-- #endif -->
 							<!-- #ifdef MP -->
 							<view v-if="recharge_switch" @click="openSubscribe('/pages/users/user_payment/index')"
-								class='recharge'>{{$t(`充值`)}}</view>
+								class='recharge'>{{$t(`nạp tiền`)}}</view>
 							<!-- #endif -->
 						</view>
 						<view class='cumulative acea-row row-top'>
 							<!-- #ifdef APP-PLUS || H5 -->
 							<view class='item'>
-								<view>{{$t(`累计充值(元)`)}}</view>
+								<view>{{$t(`Nạp tiền tích lũy(Nhân dân tệ)`)}}</view>
 								<view class='money'>{{userInfo.recharge || 0}}</view>
 							</view>
 							<!-- #endif -->
 							<!-- #ifdef MP -->
 							<view class='item' v-if="recharge_switch">
-								<view>{{$t(`累计充值(元)`)}}</view>
+								<view>{{$t(`Nạp tiền tích lũy(Nhân dân tệ)`)}}</view>
 								<view class='money'>{{userInfo.recharge || 0}}</view>
 							</view>
 							<!-- #endif -->
 							<view class='item'>
-								<view>{{$t(`累计消费(元)`)}}</view>
+								<view>{{$t(`Tiêu thụ tích lũy(Nhân dân tệ)`)}}</view>
 								<view class='money'>{{userInfo.orderStatusSum || 0}}</view>
 							</view>
 						</view>
@@ -42,28 +42,28 @@
 				<view class='nav acea-row row-middle'>
 					<navigator class='item' hover-class='none' url='/pages/users/user_bill/index'>
 						<view class='iconfont icon-s-zhangdanjilu'></view>
-						<view>{{$t(`账单记录`)}}</view>
+						<view>{{$t(`hồ sơ thanh toán`)}}</view>
 					</navigator>
 					<navigator class='item' hover-class='none' url='/pages/users/user_bill/index?type=1'>
 						<view class='iconfont icon-s-xiaofeijilu'></view>
-						<view>{{$t(`消费记录`)}}</view>
+						<view>{{$t(`Kỷ lục tiêu thụ`)}}</view>
 					</navigator>
 					<navigator class='item' hover-class='none' url='/pages/users/user_bill/index?type=2'
 						v-if="recharge_switch">
 						<view class='iconfont icon-s-chongzhijilu'></view>
-						<view>{{$t(`充值记录`)}}</view>
+						<view>{{$t(`Kỷ lục nạp tiền`)}}</view>
 					</navigator>
 					<navigator class='item' hover-class='none' url='/pages/users/user_integral/index'>
 						<view class='iconfont icon-jifenzhongxin'></view>
-						<view>{{$t(`积分中心`)}}</view>
+						<view>{{$t(`Trung tâm điểm`)}}</view>
 					</navigator>
 				</view>
 				<view class='advert acea-row row-between-wrapper'>
 					<navigator class='item acea-row row-between-wrapper' hover-class='none'
 						url='/pages/users/user_sgin/index'>
 						<view class='text'>
-							<view class='name'>{{$t(`签到领积分`)}}</view>
-							<view>{{$t(`赚积分抵现金`)}}</view>
+							<view class='name'>{{$t(`Đăng nhập để nhận điểm`)}}</view>
+							<view>{{$t(`Kiếm điểm bằng tiền mặt`)}}</view>
 						</view>
 						<view class='pictrue'>
 							<image src='../static/gift.png'></image>
@@ -72,8 +72,8 @@
 					<navigator class='item on acea-row row-between-wrapper' hover-class='none'
 						url='/pages/users/user_get_coupon/index'>
 						<view class='text'>
-							<view class='name'>{{$t(`领取优惠券`)}}</view>
-							<view>{{$t(`满减享优惠`)}}</view>
+							<view class='name'>{{$t(`Nhận phiếu giảm giá`)}}</view>
+							<view>{{$t(`Tận hưởng giảm giá khi mua hàng`)}}</view>
 						</view>
 						<view class='pictrue'>
 							<image src='../static/money.png'></image>
@@ -85,37 +85,37 @@
 						<view class='picTxt acea-row row-between-wrapper'>
 							<view class='iconfont icon-hebingxingzhuang'></view>
 							<view class='text'>
-								<view class='line1'>{{$t(`最新拼团活动`)}}</view>
-								<view class='infor line1'>{{$t(`最新的优惠商品上架拼团`)}}</view>
+								<view class='line1'>{{$t(`Hoạt động nhóm mới nhất`)}}</view>
+								<view class='infor line1'>{{$t(`Các sản phẩm giảm giá mới nhất có sẵn cho mua theo nhóm`)}}</view>
 							</view>
 						</view>
 						<navigator hover-class='none' url='/pages/activity/goods_combination/index' class='bnt'
-							v-if="activity.is_pink">{{$t(`立即参与`)}}</navigator>
-						<view class='bnt end' v-else>{{$t(`已结束`)}}</view>
+							v-if="activity.is_pink">{{$t(`Tham gia ngay bây giờ`)}}</navigator>
+						<view class='bnt end' v-else>{{$t(`đã kết thúc`)}}</view>
 					</view>
 					<view class='item acea-row row-between-wrapper' v-if="$permission('seckill')">
 						<view class='picTxt acea-row row-between-wrapper'>
 							<view class='iconfont icon-miaosha yellow'></view>
 							<view class='text'>
-								<view class='line1'>{{$t(`当前限时秒杀`)}}</view>
-								<view class='infor line1'>{{$t(`最新商品秒杀进行中`)}}</view>
+								<view class='line1'>{{$t(`Khuyến mãi flash trong thời gian giới hạn hiện tại`)}}</view>
+								<view class='infor line1'>{{$t(`Chương trình flash sale sản phẩm mới nhất đang diễn ra`)}}</view>
 							</view>
 						</view>
 						<navigator hover-class='none' url='/pages/activity/goods_seckill/index' class='bnt'
-							v-if="activity.is_seckill">{{$t(`立即参与`)}}</navigator>
-						<view class='bnt end' v-else>{{$t(`已结束`)}}</view>
+							v-if="activity.is_seckill">{{$t(`Tham gia ngay bây giờ`)}}</navigator>
+						<view class='bnt end' v-else>{{$t(`đã kết thúc`)}}</view>
 					</view>
 					<view class='item acea-row row-between-wrapper' v-if="$permission('bargain')">
 						<view class='picTxt acea-row row-between-wrapper'>
 							<view class='iconfont icon-kanjia1 green'></view>
 							<view class='text'>
-								<view class='line1'>{{$t(`砍价活动`)}}</view>
-								<view class='infor line1'>{{$t(`呼朋唤友来砍价`)}}</view>
+								<view class='line1'>{{$t(`Hoạt động mặc cả`)}}</view>
+								<view class='infor line1'>{{$t(`Mời bạn bè thương lượng giá`)}}</view>
 							</view>
 						</view>
 						<navigator hover-class='none' url='/pages/activity/goods_bargain/index' class='bnt'
-							v-if="activity.is_bargin">{{$t(`立即参与`)}}</navigator>
-						<view class='bnt end' v-else>{{$t(`已结束`)}}</view>
+							v-if="activity.is_bargin">{{$t(`Tham gia ngay bây giờ`)}}</navigator>
+						<view class='bnt end' v-else>{{$t(`đã kết thúc`)}}</view>
 					</view>
 				</view>
 			</view>
@@ -169,8 +169,8 @@
 				isClose: false,
 				recharge_switch: 0,
 				activity: {},
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				hotScroll: false,
 				hotPage: 1,
 				hotLimit: 10
@@ -204,14 +204,14 @@
 				this.get_host_product();
 				this.get_activity();
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
 			// #ifdef MP
 			openSubscribe: function(page) {
 				uni.showLoading({
-					title: this.$t(`正在加载`),
+					title: this.$t(`Đang tải`),
 				})
 				openRechargeSubscribe().then(res => {
 					uni.hideLoading();
@@ -224,7 +224,7 @@
 			},
 			// #endif
 			/**
-			 * 获取用户详情
+			 * Nhận thông tin chi tiết người dùng
 			 */
 			getUserInfo: function() {
 				let that = this;
@@ -234,7 +234,7 @@
 				});
 			},
 			/**
-			 * 获取活动可参与否
+			 * Nhận biết liệu bạn có thể tham gia sự kiện hay không
 			 */
 			get_activity: function() {
 				let that = this;
@@ -243,7 +243,7 @@
 				})
 			},
 			/**
-			 * 获取我的推荐
+			 * Nhận đề xuất của tôi
 			 */
 			get_host_product: function() {
 				let that = this;
@@ -261,9 +261,9 @@
 		onReachBottom() {
 			this.get_host_product();
 		},
-		// 滚动监听
+		// người nghe cuộn
 		onPageScroll(e) {
-			// 传入scrollTop值并触发所有easy-loadimage组件下的滚动监听事件
+			// Truyền giá trị ScrollTop và kích hoạt các sự kiện nghe cuộn trong tất cả các thành phần hình ảnh dễ tải
 			uni.$emit('scroll');
 		},
 	}

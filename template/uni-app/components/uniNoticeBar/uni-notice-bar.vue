@@ -82,23 +82,23 @@ const animation = weex.requireModule("animation");
 // #endif
 
 /**
- * NoticeBar 自定义导航栏
- * @description 通告栏组件
+ * NoticeBar Thanh điều hướng tùy chỉnh
+ * Thành phần bảng thông báo @description
  * @tutorial https://ext.dcloud.net.cn/plugin?id=30
- * @property {Number} speed 文字滚动的速度，默认100px/秒
- * @property {String} text 显示文字
- * @property {String} backgroundColor 背景颜色
- * @property {String} color 文字颜色
- * @property {String} moreColor 查看更多文字的颜色
- * @property {String} moreText 设置“查看更多”的文本
- * @property {Boolean} single = [true|false] 是否单行
- * @property {Boolean} scrollable = [true|false] 是否滚动，为true时，NoticeBar为单行
- * @property {Boolean} showIcon = [true|false] 是否显示左侧喇叭图标
- * @property {Boolean} showClose = [true|false] 是否显示左侧关闭按钮
- * @property {Boolean} showGetMore = [true|false] 是否显示右侧查看更多图标，为true时，NoticeBar为单行
- * @event {Function} click 点击 NoticeBar 触发事件
- * @event {Function} close 关闭 NoticeBar 触发事件
- * @event {Function} getmore 点击”查看更多“时触发事件
+ * @property {Number} speed Tốc độ cuộn văn bản, mặc định 100px/giây
+ * @property {String} text Hiển thị văn bản
+ * @property {String} backgroundColor màu nền
+ * @property {String} color màu văn bản
+ * @property {String} moreColor Xem thêm màu văn bản
+ * @property {String} moreText cài đặt“Xem thêm”văn bản của
+ * @property {Boolean} single = [true|false] Đây có phải là một dòng duy nhất?
+ * @property {Boolean} scrollable = [true|false] Có nên cuộn hay không. Khi đúng, NoticeBar là một dòng duy nhất.
+ * @property {Boolean} showIcon = [true|false] Có hiển thị biểu tượng loa ở bên trái hay không
+ * @property {Boolean} showClose = [true|false] Có hiển thị nút đóng ở bên trái hay không
+ * @property {Boolean} showGetMore = [true|false] Có hiển thị biểu tượng xem thêm ở bên phải hay không. Khi đúng, NoticeBar là một dòng duy nhất.
+ * @event {Function} click Nhấp vào NoticeBar để kích hoạt sự kiện
+ * @event {Function} close Đóng sự kiện kích hoạt NoticeBar
+ * @event {Function} getmore nhấp chuột”Xem thêm“sự kiện kích hoạt
  */
 
 export default {
@@ -122,7 +122,7 @@ export default {
       default: "#FFF9EA",
     },
     speed: {
-      // 默认1s滚动100px
+      // Cuộn 1 giây mặc định100px
       type: Number,
       default: 100,
     },
@@ -135,27 +135,27 @@ export default {
       default: "#FF9A43",
     },
     single: {
-      // 是否单行
+      // Đây có phải là một dòng duy nhất?
       type: [Boolean, String],
       default: false,
     },
     scrollable: {
-      // 是否滚动，添加后控制单行效果取消
+      // Có cuộn hay không. Sau khi thêm, điều khiển hiệu ứng dòng đơn sẽ bị hủy.
       type: [Boolean, String],
       default: false,
     },
     showIcon: {
-      // 是否显示左侧icon
+      // Có hiển thị bên trái hay khôngicon
       type: [Boolean, String],
       default: false,
     },
     showGetMore: {
-      // 是否显示右侧查看更多
+      // Có nên hiển thị bên phải để xem thêm không
       type: [Boolean, String],
       default: false,
     },
     showClose: {
-      // 是否显示左侧关闭按钮
+      // Có hiển thị nút đóng ở bên trái hay không
       type: [Boolean, String],
       default: false,
     },

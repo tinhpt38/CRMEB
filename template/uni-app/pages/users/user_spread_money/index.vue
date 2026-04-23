@@ -32,14 +32,14 @@
 													class="extract-tag"
 													:class="{ 'bg-success': child.extract_status == 1, 'bg-ing': child.extract_status == 0, 'bg-fail': child.extract_status == -1 }"
 												>
-													{{ child.extract_status == 1 ? '成功' : child.extract_status == 0 ? '提现中' : '失败' }}
+													{{ child.extract_status == 1 ? 'thành công' : child.extract_status == 0 ? 'Rút tiền' : 'thất bại' }}
 												</view>
-												<view v-if="type == 2 && child.is_frozen == 1" class="extract-tag bg-ing">冻结中</view>
+												<view v-if="type == 2 && child.is_frozen == 1" class="extract-tag bg-ing">Đóng băng</view>
 												{{ type == 1 ? $t(child.mark) : $t(child.title) }}
 											</view>
 											<view>{{ child.add_time }}</view>
-											<view class="fail-msg" v-if="child.fail_msg">{{ $t(`原因`) }}：{{ child.fail_msg }}</view>
-											<view class="fail-msg" v-if="type == 2 && child.is_frozen == 1">佣金冻结中，解冻时间：{{ child.frozen_time }}</view>
+											<view class="fail-msg" v-if="child.fail_msg">{{ $t(`lý do`) }}：{{ child.fail_msg }}</view>
+											<view class="fail-msg" v-if="type == 2 && child.is_frozen == 1">Hoa hồng bị đóng băng, thời gian giải phóng：{{ child.frozen_time }}</view>
 										</view>
 										<view class="acea-row row-column items-end">
 											<view class="num font-color" v-if="child.pm == 1">+{{ child.number }}</view>
@@ -49,7 +49,7 @@
 													class="w-100 h-48 rd-30rpx flex-center mt-16 bg-color fs-26 text--w111-fff"
 													@tap="jumpPath('/pages/users/user_spread_money/receiving?type=1&id=' + child.wechat_order_id)"
 												>
-													收款
+													Bộ sưu tập
 												</view>
 											</template>
 										</view>
@@ -64,7 +64,7 @@
 					{{ loadTitle }}
 				</view>
 				<view v-if="recordList.length < 1 && page > 1">
-					<emptyPage :title="$t(`暂无数据~`)"></emptyPage>
+					<emptyPage :title="$t(`Chưa có dữ liệu~`)"></emptyPage>
 				</view>
 			</view>
 		</view>
@@ -101,7 +101,7 @@ export default {
 			limit: 15,
 			loading: false,
 			loadend: false,
-			loadTitle: this.$t(`加载更多`),
+			loadTitle: this.$t(`tải thêm`),
 			recordList: [],
 			recordType: 0,
 			recordCount: 0,
@@ -114,12 +114,12 @@ export default {
 		...mapGetters(['isLogin'])
 		// showWithdrawal() {
 		// 	//#ifdef H5
-		// 	// 仅编译到 H5 平台
+		// 	// Chỉ được biên dịch sang nền tảng H5
 		// 	return this.isWeixin;
 		// 	// #endif
 
 		// 	//#ifndef H5
-		// 	// 非 H5 平台直接返回 false
+		// 	// Nền tảng không phải H5 quay trở lại trực tiếp false
 		// 	return true;
 		// 	// #endif
 		// }
@@ -142,23 +142,23 @@ export default {
 		this.recordList = [];
 		if (type == 1) {
 			uni.setNavigationBarTitle({
-				title: '提现记录'
+				title: 'Hồ sơ rút tiền'
 			});
-			this.name = '提现总额';
+			this.name = 'Tổng số tiền rút';
 			this.recordType = 4;
 			this.getRecordList();
 			this.getRecordListCount();
 		} else if (type == 2) {
 			uni.setNavigationBarTitle({
-				title: '佣金记录'
+				title: 'hồ sơ ủy ban'
 			});
-			this.name = '佣金明细';
+			this.name = 'Chi tiết hoa hồng';
 			this.recordType = 3;
 			this.getRecordList();
 			this.getRecordListCount();
 		} else {
 			uni.showToast({
-				title: '参数错误',
+				title: 'Lỗi tham số',
 				icon: 'none',
 				duration: 1000,
 				mask: true,
@@ -218,13 +218,13 @@ export default {
 					}
 					let loadend = res.data.list.length < that.limit;
 					that.loadend = loadend;
-					that.loadTitle = loadend ? that.$t(`我也是有底线的`) : that.$t(`加载更多`);
+					that.loadTitle = loadend ? that.$t(`Tôi cũng có một điểm mấu chốt`) : that.$t(`tải thêm`);
 					that.page += 1;
 					that.loading = false;
 				})
 				.catch((err) => {
 					that.loading = false;
-					that.loadTitle = that.$t(`加载更多`);
+					that.loadTitle = that.$t(`tải thêm`);
 				});
 		},
 		getRecordListCount: function () {

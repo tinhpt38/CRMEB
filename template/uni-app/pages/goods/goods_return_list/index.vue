@@ -2,7 +2,7 @@
 	<view :style="colorStyle">
 		<view class='apply-return'>
 			<splitOrder :splitGoods="returnGoodsList" @getList="getCheckList" :select_all="false"></splitOrder>
-			<button class='returnBnt bg-color' @click="subRefund">{{$t(`申请退款`)}}</button>
+			<button class='returnBnt bg-color' @click="subRefund">{{$t(`Yêu cầu hoàn lại tiền`)}}</button>
 		</view>
 	</view>
 </template>
@@ -44,7 +44,7 @@
 		},
 		onLoad(options) {
 			if (!options.id) return this.$util.Tips({
-				title: this.$t(`缺少参数`)
+				title: this.$t(`Thiếu tham số`)
 			}, {
 				tab: 3,
 				url: 1
@@ -64,7 +64,7 @@
 		},
 		methods: {
 			/**
-			 * 获取商品列表
+			 * Nhận danh sách sản phẩm
 			 */
 			getGoodsList() {
 				let that = this;
@@ -92,13 +92,13 @@
 				})
 			},
 			/**
-			 * 申请退货
+			 * Nộp đơn xin trả lại
 			 */
 			subRefund(e) {
 				let that = this
-				//收集form表单
+				//Thu thập các biểu mẫu
 				if (!this.cartList.length) return this.$util.Tips({
-					title: this.$t(`请先选择退货商品`)
+					title: this.$t(`Vui lòng chọn mặt hàng trả lại trước`)
 				});
 				let obj = JSON.stringify(this.cartList);
 				uni.navigateTo({

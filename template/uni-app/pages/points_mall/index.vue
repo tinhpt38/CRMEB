@@ -21,8 +21,8 @@
 		</view>
 		<view class="body">
 			<view class="body-title">
-				<text class="title">{{$t(`大家都在换`)}}</text>
-				<text class="jump-trip" @click="jumpMore">{{$t(`查看更多`)}}
+				<text class="title">{{$t(`Mọi người đang thay đổi`)}}</text>
+				<text class="jump-trip" @click="jumpMore">{{$t(`Xem thêm`)}}
 					<text class="iconfont icon-xiangyou"></text></text>
 			</view>
 			<view class="product-list" v-if="goodList.length">
@@ -31,19 +31,19 @@
 					<view class="info">
 						<view class="title line1">{{ item.title }}</view>
 						<view class="price-box">
-							{{ item.price }} {{$t(`积分`)}}
+							{{ item.price }} {{$t(`tích phân`)}}
 						</view>
-						<view class="sales">{{item.sales}}{{$t(`人兑换`)}}</view>
+						<view class="sales">{{item.sales}}{{$t(`Mọi người trao đổi`)}}</view>
 					</view>
 				</view>
 			</view>
 			<view v-else class="no-goods">
 				<image :src="imgHost + '/statics/images/no-thing.png'" mode=""></image>
-				<view class="fontimg">{{$t(`暂无商品，去看点别的吧`)}}</view>
+				<view class="fontimg">{{$t(`Hiện tại chưa có sản phẩm nào, vui lòng tìm sản phẩm khác.`)}}</view>
 			</view>
 			<view class="footer">
 				<view class="body-title">
-					<text class="title">{{$t(`轻松赚积分`)}}</text>
+					<text class="title">{{$t(`Kiếm điểm dễ dàng`)}}</text>
 					<text></text>
 				</view>
 				<view class="footer-list">
@@ -51,16 +51,16 @@
 						<image class="icon-sty" src="./static/go-shoping.png" mode=""></image>
 						<view class="list-left-right">
 							<view class="title">
-								{{$t(`购买商品`)}}
+								{{$t(`mua hàng`)}}
 							</view>
 							<view class="trip">
-								{{$t(`购买商品可获得积分奖励`)}}
+								{{$t(`Tích điểm thưởng khi mua hàng`)}}
 							</view>
 						</view>
 					</view>
 					<navigator url="/pages/index/index" open-type="switchTab" class="right-box">
 						<text class="go-jump">
-							{{$t(`去完成`)}}
+							{{$t(`để hoàn thành`)}}
 						</text>
 					</navigator>
 				</view>
@@ -69,16 +69,16 @@
 						<image class="icon-sty" src="./static/everyday.png" mode=""></image>
 						<view class="list-left-right">
 							<view class="title">
-								{{$t(`每日签到活动`)}}
+								{{$t(`Hoạt động check-in hàng ngày`)}}
 							</view>
 							<view class="trip">
-								{{$t(`每日签到可获得积分奖励`)}}
+								{{$t(`Đăng nhập hàng ngày để nhận điểm thưởng`)}}
 							</view>
 						</view>
 					</view>
 					<navigator url="/pages/users/user_sgin/index" class="right-box">
 						<text class="go-jump">
-							{{$t(`去完成`)}}
+							{{$t(`để hoàn thành`)}}
 						</text>
 					</navigator>
 				</view>
@@ -87,16 +87,16 @@
 						<image class="icon-sty" src="./static/luck-draw.png" mode=""></image>
 						<view class="list-left-right">
 							<view class="title">
-								{{$t(`九宫格抽奖活动`)}}
+								{{$t(`Rút thăm may mắn Cửu Công Ca`)}}
 							</view>
 							<view class="trip">
-								{{$t(`幸运抽奖可获得积分奖励`)}}
+								{{$t(`Điểm rút thăm may mắn sẽ được trao`)}}
 							</view>
 						</view>
 					</view>
 					<navigator url="/pages/goods/lottery/grids/index?type=1" class="right-box">
 						<text class="go-jump">
-							{{$t(`去完成`)}}
+							{{$t(`để hoàn thành`)}}
 						</text>
 					</navigator>
 				</view>
@@ -135,20 +135,20 @@
 				imgUrls: [],
 				goodList: [],
 				modelList: [{
-						title: this.$t(`我的积分`),
+						title: this.$t(`điểm của tôi`),
 						imgUrl: './static/my-point.png',
 						url: "/pages/users/user_integral/index"
 					},
 					{
-						title: this.$t(`每日签到`),
+						title: this.$t(`Nhận phòng hàng ngày`),
 						imgUrl: './static/sign-in.png',
 						url: '/pages/users/user_sgin/index'
 					}, {
-						title: this.$t(`积分抽奖`),
+						title: this.$t(`Xổ số điểm`),
 						imgUrl: './static/points-lottery.png',
 						url: '/pages/goods/lottery/grids/index?type=1'
 					}, {
-						title: this.$t(`兑换记录`),
+						title: this.$t(`Trao đổi hồ sơ`),
 						imgUrl: './static/exchange.png',
 						url: "/pages/points_mall/exchange_record"
 					},
@@ -176,7 +176,7 @@
 					this.goodList = res.data.list
 				})
 			},
-			// 去商品详情
+			// Đi tới chi tiết sản phẩm
 			goGoodsDetail(item) {
 				goShopDetail(item).then(res => {
 					uni.navigateTo({

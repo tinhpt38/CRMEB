@@ -1754,7 +1754,8 @@ $transition-slow: 300ms ease;
         font-family: 'SF Mono', Monaco, 'Consolas', monospace;
         font-size: 14px;
         color: #4ade80;
-        word-break: break-all;
+        word-break: break-word;
+        overflow-wrap: anywhere;
         line-height: 1.5;
       }
     }
@@ -1871,7 +1872,8 @@ $transition-slow: 300ms ease;
           color: $text-primary;
           line-height: 1.5;
           white-space: pre-wrap;
-          word-break: break-all;
+          word-break: break-word;
+          overflow-wrap: anywhere;
         }
       }
 

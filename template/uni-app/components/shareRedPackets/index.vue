@@ -3,10 +3,10 @@
 		<view class='sharing-con' @click='goShare'>
 			<image :src="imgHost + '/statics/images/red-packets.png'" />
 			<view class='text font-color'>
-				<view>{{$t(`最高返佣`)}}</view>
+				<view>{{$t(`Giảm giá tối đa`)}}</view>
 				<view class='money'><text class='label'>{{$t(`￥`)}}</text>{{sharePacket.priceName}}</view>
-				<view class='tip'>{{$t(`推广享佣金`)}}</view>
-				<view class='shareBut'>{{$t(`立即分享`)}}</view>
+				<view class='tip'>{{$t(`Khuyến mãi được hưởng hoa hồng`)}}</view>
+				<view class='shareBut'>{{$t(`Chia sẻ ngay bây giờ`)}}</view>
 			</view>
 		</view>
 	</view>

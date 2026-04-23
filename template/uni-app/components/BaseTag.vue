@@ -8,11 +8,11 @@
 		name: "tag",
 		props: {
 			size: {
-				// 标签大小 normal, small
+				// kích thước nhãn normal, small
 				type: String,
 				default: "normal"
 			},
-			// 标签内容
+			// Gắn thẻ nội dung
 			text: {
 				type: String,
 				default: ""

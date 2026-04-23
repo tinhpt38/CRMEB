@@ -1,12 +1,12 @@
 <template>
 	<view class="pos-order-list" ref="container">
 		<!-- #ifdef MP || APP-PLUS -->
-		<NavBar titleText="售后订单" bagColor="#F5F5F5" :iconColor="iconColor" :textColor="iconColor" :isScrolling="isScrolling" showBack></NavBar>
+		<NavBar titleText="Đơn hàng sau bán hàng" bagColor="#F5F5F5" :iconColor="iconColor" :textColor="iconColor" :isScrolling="isScrolling" showBack></NavBar>
 		<!-- #endif -->
 		<view class="searchCon acea-row">
 			<view class="search acea-row row-middle">
 				<text class="iconfont icon-ic_search"></text>
-				<input class="inputs" placeholder='请输入订单号/售后单号/用户ID/手机号' placeholder-class='placeholder' confirm-type='search' name="search" v-model="where.keywords"
+				<input class="inputs" placeholder='Vui lòng nhập mã đơn hàng/mã đơn hàng/ID người dùng/số điện thoại di động' placeholder-class='placeholder' confirm-type='search' name="search" v-model="where.keywords"
 					@confirm="searchSubmit"></input>
 			</view>
 			<!-- <view class="btn" @click="filterShow = true">
@@ -16,19 +16,19 @@
 		<view class="nav acea-row row-around row-middle" id="nav" :style="{
 			top: getHeight.barTop + getHeight.barHeight + 'px'}">
 			<view class="item" :class="state == 1 ? 'on' : ''" @click="changeStatus(1)">
-				待审核
+				Đang chờ xem xét
 				<image src="../static/adorn.png" v-if="state == 1"></image>
 			</view>
 			<view class="item" :class="state == 2 ? 'on' : ''" @click="changeStatus(2)">
-				待退货
+				Đang chờ trả lại
 				<image src="../static/adorn.png" v-if="state == 2"></image>
 			</view>
 			<view class="item" :class="state == 3 ? 'on' : ''" @click="changeStatus(3)">
-				待收货
+				Đang chờ nhận
 				<image src="../static/adorn.png" v-if="state == 3"></image>
 			</view>
 			<view class="item" :class="state == 4 ? 'on' : ''" @click="changeStatus(4)">
-				已完成
+				Hoàn thành
 				<image src="../static/adorn.png" v-if="state == 4"></image>
 			</view>
 		</view>
@@ -36,13 +36,13 @@
 			<view class="item" v-for="(item, index) in list" :key="index">
 				<view class="order-num acea-row row-between-wrapper" @click="toDetail(item)">
 					<view>
-						<view>售后单号：{{ item.order_id }}</view>
+						<view>Số đơn hàng sau bán hàng：{{ item.order_id }}</view>
 					</view>
-					<view class="state" v-if="[0, 1, 2].includes(item.refund_type)">待审核</view>
+					<view class="state" v-if="[0, 1, 2].includes(item.refund_type)">Đang chờ xem xét</view>
 					<view class="state" v-if="[4, 5].includes(item.refund_type)">
-						待退货
+						Đang chờ trả lại
 					</view>
-					<view class="state" v-if="[3, 6].includes(item.refund_type)">已完成</view>
+					<view class="state" v-if="[3, 6].includes(item.refund_type)">Hoàn thành</view>
 				</view>
 				<view class="pos-order-goods">
 					<view class="goods acea-row" @click="toDetail(item)">
@@ -58,7 +58,7 @@
 								</view>
 								<view class="text">
 									<view class="info line2">
-										<!-- <text v-if="val.cart_info.is_gift == 1" class="label">[赠品]</text> -->
+										<!-- <text v-if="val.cart_info.is_gift == 1" class="label">[quà tặng]</text> -->
 										{{ val.cart_info.productInfo.store_name }}
 									</view>
 									<view class="attr" v-if="val.cart_info.productInfo.attrInfo">
@@ -70,44 +70,44 @@
 						<view class="money">
 							<!-- <view class="x-money">￥{{ item.pay_price }}</view> -->
 							<BaseMoney :money="item.pay_price" symbolSize="20" integerSize="32" decimalSize="20"></BaseMoney>
-							<view class="num">共{{ item.total_num }}件</view>
+							<view class="num">chung{{ item.total_num }}miếng</view>
 							<!-- 	<view class="y-money">
 								￥{{ val.cart_info.productInfo.ot_price }}
 							</view> -->
-							<!-- <view class="info" v-if="val.cart_info.refund_num && item._status._type !=-2">{{val.cart_info.refund_num}}件退款中</view> -->
+							<!-- <view class="info" v-if="val.cart_info.refund_num && item._status._type !=-2">{{val.cart_info.refund_num}}Quá trình hoàn tiền đang được tiến hành</view> -->
 						</view>
 					</view>
 				</view>
 				<!-- <view class="public-total">
-					共{{ item.total_num }}件商品，实付款
-					<span class="money">￥{{ item.pay_price }}</span> ( 邮费 ¥{{
+					chung{{ item.total_num }}mặt hàng, thanh toán thực tế
+					<span class="money">￥{{ item.pay_price }}</span> ( Bưu phí ¥{{
 	            item.pay_postage
 	          }}
 					)
 				</view> -->
 				<view class="operation acea-row row-between-wrapper">
 					<view v-if="item.refund_type == 1" class="more acea-row row-middle">
-						<text class="iconfont icon-ic_returnmoney"></text>仅退款
+						<text class="iconfont icon-ic_returnmoney"></text>Chỉ hoàn tiền
 					</view>
 					<view v-else-if="item.refund_type == 2" class="more acea-row row-middle">
-						<text class="iconfont icon-ic_returnofgoods"></text>退货退款
+						<text class="iconfont icon-ic_returnofgoods"></text>Trả lại và hoàn tiền
 					</view>
 					<view v-else></view>
 					<view class="acea-row row-middle">
-						<view class="btn" @click="modify(item, 1)">订单备注</view>
+						<view class="btn" @click="modify(item, 1)">Ghi chú đặt hàng</view>
 						<view class="btn on" @click="modify(item,'2',1)" v-if="item.refund_type == 1">
-							退款审核
+							Xem xét hoàn tiền
 						</view>
 						<view class="btn on" @click="modify(item,'2',0)" v-if="item.refund_type == 2">
-							退款审核
+							Xem xét hoàn tiền
 						</view>
-						<view class="btn" v-if="item.refund_type == 5" @click="goLogistics(item)">查看物流</view>
-						<view class="btn on" v-if="item.refund_type == 5" @click="modify(item, 2, 1)">确认收货</view>
+						<view class="btn" v-if="item.refund_type == 5" @click="goLogistics(item)">kiểm tra hậu cần</view>
+						<view class="btn on" v-if="item.refund_type == 5" @click="modify(item, 2, 1)">xác nhận đã nhận hàng</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		<emptyPage v-else title="暂无订单～" src="/statics/images/noOrder.gif"></emptyPage>
+		<emptyPage v-else title="Chưa có đơn đặt hàng nào～" src="/statics/images/noOrder.gif"></emptyPage>
 		<Loading :loaded="loaded" :loading="loading"></Loading>
 		<PriceChange :change="change" :orderInfo="orderInfo" :isRefund="isRefund" v-on:statusChange="statusChange($event)" v-on:closechange="changeclose($event)" v-on:savePrice="savePrice"
 			:status="status"></PriceChange>
@@ -115,7 +115,7 @@
 		<view class="filter-popup" :class="{ on: filterShow }">
 			<view class="content">
 				<view class="item">
-					<view class="title">按退货类型</view>
+					<view class="title">Theo kiểu trả về</view>
 					<view class="acea-row list">
 						<view class="cell" v-for="(item, index) in dateList" :key="index" :class="{ on: item.val == apply_type }" @click="dateChange(item.val)">{{ item.label }}</view>
 					</view>
@@ -182,40 +182,40 @@ import home from '@/components/home';
 				orderInfo: {},
 				status: "",
 				state: 1,
-				isRefund: 0, //1是仅退款;0是退货退款
+				isRefund: 0, //1Có, chỉ hoàn lại tiền;0Đó là trả lại và hoàn tiền
 				imgHost: HTTP_REQUEST_URL,
 				dateSelected: '',
 				dateList: [{
-						label: '全部',
+						label: 'tất cả',
 						val: '',
 					},
 					{
-						label: '退货退款',
+						label: 'Trả lại và hoàn tiền',
 						val: '2',
 					},
 					{
-						label: '仅退款',
+						label: 'Chỉ hoàn tiền',
 						val: '1',
 					},
 				],
 				payList: [{
-						label: '全部',
+						label: 'tất cả',
 						val: '',
 					},
 					{
-						label: '微信支付',
+						label: 'WeChat trả tiền',
 						val: '1'
 					},
 					{
-						label: '支付宝支付',
+						label: 'thanh toán Alipay',
 						val: '4'
 					},
 					{
-						label: '余额抵扣',
+						label: 'Khấu trừ số dư',
 						val: '2'
 					},
 					{
-						label: '线下支付',
+						label: 'Thanh toán ngoại tuyến',
 						val: '3'
 					},
 				],
@@ -265,7 +265,7 @@ import home from '@/components/home';
 					})
 				})
 			},
-			// 获取数据
+			// Nhận dữ liệu
 			getIndex: function() {
 				let that = this;
 				if (that.loading || that.loaded) return;
@@ -285,7 +285,7 @@ import home from '@/components/home';
 					}
 				);
 			},
-			// 初始化
+			// khởi tạo
 			init: function() {
 				this.list = [];
 				this.where.page = 1;
@@ -297,7 +297,7 @@ import home from '@/components/home';
 			searchSubmit() {
 				this.init();
 			},
-			// 导航切换
+			// Chuyển đổi điều hướng
 			changeStatus(val) {
 				if (this.state != val) {
 					this.state = val;
@@ -305,7 +305,7 @@ import home from '@/components/home';
 					this.init();
 				}
 			},
-			// 商品操作
+			// Vận hành sản phẩm
 			modify: function(item, status, type) {
 				if (this.openErp && status != 1) return
 				this.change = true;
@@ -348,7 +348,7 @@ import home from '@/components/home';
 				if (that.status == 0) {
 					if (!isMoney(price)) {
 						return that.$util.Tips({
-							title: '请输入正确的金额'
+							title: 'Vui lòng nhập đúng số tiền'
 						});
 					}
 					data.price = price;
@@ -356,7 +356,7 @@ import home from '@/components/home';
 						res => {
 							that.change = false;
 							that.$util.Tips({
-								title: '改价成功',
+								title: 'Thay đổi giá thành công',
 								icon: 'success'
 							})
 							that.init();
@@ -364,7 +364,7 @@ import home from '@/components/home';
 						err => {
 							that.change = false;
 							that.$util.Tips({
-								title: '改价失败',
+								title: 'Thay đổi giá không thành công',
 								icon: 'none'
 							})
 						}
@@ -384,7 +384,7 @@ import home from '@/components/home';
 						// );
 						if (!isMoney(refund_price)) {
 							return that.$util.Tips({
-								title: '请输入正确的金额'
+								title: 'Vui lòng nhập đúng số tiền'
 							});
 						}
 						data.price = refund_price;
@@ -423,7 +423,7 @@ import home from '@/components/home';
 				} else {
 					if (!remark) {
 						return this.$util.Tips({
-							title: '请输入备注'
+							title: 'Vui lòng nhập nhận xét'
 						})
 					}
 					data.remark = remark;
@@ -492,8 +492,8 @@ import home from '@/components/home';
 
 <style lang="scss" scoped>
 	.pos-order-list {
-		padding-bottom: constant(safe-area-inset-bottom); ///兼容 IOS<11.2/
-		padding-bottom: env(safe-area-inset-bottom); ///兼容 IOS>11.2/
+		padding-bottom: constant(safe-area-inset-bottom); ///tương thích IOS<11.2/
+		padding-bottom: env(safe-area-inset-bottom); ///tương thích IOS>11.2/
 	}
 
 	.searchCon {

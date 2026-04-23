@@ -7,10 +7,10 @@
 						<easy-loadimage mode="widthFix" :image-src="item.image"></easy-loadimage>
 						<view class="info">
 							<view class="title line2">
-								<text class="tag" v-if="item.activity && item.activity.type === '1' && $permission('seckill')">{{$t(`秒杀`)}}</text>
-								<text class="tag" v-if="item.activity && item.activity.type === '2' && $permission('bargain')">{{$t(`砍价`)}}</text>
-								<text class="tag" v-if="item.activity && item.activity.type === '3' && $permission('combination')">{{$t(`拼团`)}}</text>
-								<text class="tag" v-if="item.checkCoupon">{{$t(`券`)}}</text>
+								<text class="tag" v-if="item.activity && item.activity.type === '1' && $permission('seckill')">{{$t(`bán chớp nhoáng`)}}</text>
+								<text class="tag" v-if="item.activity && item.activity.type === '2' && $permission('bargain')">{{$t(`Mặc cả`)}}</text>
+								<text class="tag" v-if="item.activity && item.activity.type === '3' && $permission('combination')">{{$t(`Chia sẻ nhóm`)}}</text>
+								<text class="tag" v-if="item.checkCoupon">{{$t(`phiếu giảm giá`)}}</text>
 								{{ item.store_name }}
 							</view>
 
@@ -20,7 +20,7 @@
 									{{ item.price }}
 								</view>
 								<view class="sales">
-									{{$t(`已售`)}} {{item.sales}}
+									{{$t(`đã bán`)}} {{item.sales}}
 								</view>
 							</view>
 						</view>

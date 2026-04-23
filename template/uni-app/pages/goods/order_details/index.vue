@@ -1,7 +1,7 @@
 <template>
 	<view :style="colorStyle">
 		<view class="order-details">
-			<!-- 给header上与data上加on为退款订单-->
+			<!-- Thêm vào tiêu đề và dữ liệu để cho biết lệnh hoàn tiền.-->
 			<view class="header bg-color acea-row row-middle" :class="isGoodsReturn ? 'on' : ''">
 				<view class="pictrue" v-if="isGoodsReturn == false">
 					<image :src="orderInfo.status_pic"></image>
@@ -20,11 +20,11 @@
 						<text class="name">{{ orderInfo._status.refund_name }}</text>
 						<text>{{ orderInfo._status.refund_phone }}</text>
 						<!-- #ifndef H5 -->
-						<text class="copy-refund-msg" @click="copyAddress()">{{ $t(`复制`) }}</text>
+						<text class="copy-refund-msg" @click="copyAddress()">{{ $t(`sao chép`) }}</text>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
 						<text class="copy-refund-msg" :data-clipboard-text="orderInfo._status.refund_name + orderInfo._status.refund_phone + orderInfo._status.refund_address">
-							{{ $t(`复制`) }}
+							{{ $t(`sao chép`) }}
 						</text>
 						<!-- #endif -->
 					</view>
@@ -33,13 +33,13 @@
 					</view>
 					<view class="refund-tip">
 						<text class="iconfont icon-zhuyi-copy"></text>
-						{{ $t(`请按以上退货信息将商品退回`) }}
+						{{ $t(`Quý khách vui lòng gửi lại sản phẩm theo thông tin đổi trả trên`) }}
 					</view>
 				</view>
 				<view v-else>
 					<view class="refund-tip1">
 						<text class="iconfont icon-zhuyi-copy"></text>
-						{{ $t(`请联系管理员获取退货地址`) }}
+						{{ $t(`Vui lòng liên hệ với quản trị viên để biết địa chỉ trả lại`) }}
 					</view>
 				</view>
 			</view>
@@ -49,19 +49,19 @@
 			<view class="mb-16" v-if="isGoodsReturn == false">
 				<view class="nav" v-if="is_gift != 2">
 					<view class="navCon acea-row row-between-wrapper" v-if="!is_gift">
-						<view :class="status.type == 0 || status.type == -9 ? 'on' : ''">{{ $t(`待付款`) }}</view>
+						<view :class="status.type == 0 || status.type == -9 ? 'on' : ''">{{ $t(`Đang chờ thanh toán`) }}</view>
 						<view :class="status.type == 1 || status.type == 5 ? 'on' : ''">
-							{{ orderInfo.shipping_type == 1 ? $t(`待发货`) : $t(`待核销`) }}
+							{{ orderInfo.shipping_type == 1 ? $t(`Đang chờ vận chuyển`) : $t(`Đang chờ xóa nợ`) }}
 						</view>
-						<view :class="status.type == 2 ? 'on' : ''" v-if="orderInfo.shipping_type == 1">{{ $t(`待收货`) }}</view>
-						<view :class="status.type == 3 ? 'on' : ''">{{ $t(`待评价`) }}</view>
-						<view :class="status.type == 4 ? 'on' : ''">{{ $t(`已完成`) }}</view>
+						<view :class="status.type == 2 ? 'on' : ''" v-if="orderInfo.shipping_type == 1">{{ $t(`Đang chờ nhận`) }}</view>
+						<view :class="status.type == 3 ? 'on' : ''">{{ $t(`Đang chờ đánh giá`) }}</view>
+						<view :class="status.type == 4 ? 'on' : ''">{{ $t(`Hoàn thành`) }}</view>
 					</view>
 					<view class="navCon acea-row row-between-wrapper" v-else-if="is_gift !== 2">
-						<view :class="status.type == 0 || status.type == -9 || orderInfo.paid == 1 ? 'on' : ''">{{ $t(`待付款`) }}</view>
-						<view :class="orderInfo.paid == 1 ? 'on' : ''">{{ $t(`待领取`) }}</view>
-						<view :class="orderInfo.gift_uid ? 'on' : ''">{{ $t(`已领取`) }}</view>
-						<view :class="status.type == 4 ? 'on' : ''">{{ $t(`已完成`) }}</view>
+						<view :class="status.type == 0 || status.type == -9 || orderInfo.paid == 1 ? 'on' : ''">{{ $t(`Đang chờ thanh toán`) }}</view>
+						<view :class="orderInfo.paid == 1 ? 'on' : ''">{{ $t(`Sẽ được thu thập`) }}</view>
+						<view :class="orderInfo.gift_uid ? 'on' : ''">{{ $t(`Đã nhận`) }}</view>
+						<view :class="status.type == 4 ? 'on' : ''">{{ $t(`Hoàn thành`) }}</view>
 					</view>
 					<view class="progress acea-row row-between-wrapper" v-if="!is_gift">
 						<view class="iconfont" :class="(status.type == 0 || status.type == -9 ? 'icon-webicon318' : 'icon-yuandianxiao') + ' ' + (status.type >= 0 ? 'font-num' : '')"></view>
@@ -108,7 +108,7 @@
 				<view v-if="giftData && is_gift == 2" class="gift-box">
 					<view class="acea-row row-middle user-msg">
 						<image class="avatar mr-12" :src="giftData.avatar" mode=""></image>
-						<text class="nickname">{{ giftData.nickname }} 赠您一份礼物，请查收！</text>
+						<text class="nickname">{{ giftData.nickname }} Quà tặng cho bạn, mời bạn xem nhé！</text>
 					</view>
 					<view class="line"></view>
 					<view class="gift-mark" v-if="giftData.gift_mark">
@@ -117,7 +117,7 @@
 				</view>
 				<!-- <view class="writeOff" v-if="orderInfo.shipping_type == 2 && orderInfo.paid"> -->
 				<view class="writeOff" v-if="orderInfo.verify_code && orderInfo.paid == 1">
-					<view class="title">{{ $t(`核销信息`) }}</view>
+					<view class="title">{{ $t(`Thông tin xóa sổ`) }}</view>
 					<view class="grayBg">
 						<view class="written" v-if="orderInfo.status == 2">
 							<image src="../static/written.png"></image>
@@ -150,29 +150,29 @@
 						<view class="item" v-if="orderInfo.shipping_type == 2">
 							<view class="rulesTitle acea-row row-middle">
 								<text class="iconfont icon-shijian"></text>
-								{{ $t(`营业时间`) }}
+								{{ $t(`Giờ làm việc`) }}
 							</view>
 							<view class="info">
-								{{ $t(`每日`) }}：
+								{{ $t(`hằng ngày`) }}：
 								<text class="time">{{ orderInfo.system_store.day_time }}</text>
 							</view>
 						</view>
 						<view class="item">
 							<view class="rulesTitle acea-row row-middle">
 								<text class="iconfont icon-shuoming1"></text>
-								{{ $t(`使用说明`) }}
+								{{ $t(`Hướng dẫn sử dụng`) }}
 							</view>
 							<view class="info">
-								{{ orderInfo.shipping_type == 2 ? $t(`可将二维码出示给店员扫描或提供数字核销码`) : $t(`可将二维码出示给配送员进行核销`) }}
+								{{ orderInfo.shipping_type == 2 ? $t(`Bạn có thể đưa mã QR cho nhân viên cửa hàng để quét hoặc cung cấp mã xác minh kỹ thuật số`) : $t(`Bạn có thể đưa mã QR cho người giao hàng để xác minh`) }}
 							</view>
 						</view>
 					</view>
 				</view>
 				<view class="map acea-row row-between-wrapper" v-if="orderInfo.shipping_type == 2">
-					<view>{{ $t(`地址信息`) }}</view>
+					<view>{{ $t(`Thông tin địa chỉ`) }}</view>
 					<view class="place cart-color acea-row row-center-wrapper" @tap="showMaoLocation">
 						<text class="iconfont icon-weizhi"></text>
-						{{ $t(`查看位置`) }}
+						{{ $t(`Xem vị trí`) }}
 					</view>
 				</view>
 				<view class="mt-12" v-if="orderInfo.virtual_type == 0 && (is_gift == 0 || is_gift == 2)">
@@ -203,13 +203,13 @@
 				<view v-if="orderInfo.virtual_type != 0" style="paddingtop: 6px"></view>
 			</view>
 			<view v-else>
-				<!-- 拒绝退款 -->
+				<!-- Từ chối hoàn tiền -->
 				<view class="refund" v-if="orderInfo.refund_type == 3">
 					<view class="title">
 						<image src="../static/shuoming.png" mode=""></image>
-						{{ $t(`拒绝退款`) }}
+						{{ $t(`Từ chối hoàn tiền`) }}
 					</view>
-					<view class="con">{{ $t(`拒绝原因`) }}：{{ orderInfo.refuse_reason || '' }}</view>
+					<view class="con">{{ $t(`Lý do từ chối`) }}：{{ orderInfo.refuse_reason || '' }}</view>
 				</view>
 			</view>
 			<orderGoods
@@ -253,34 +253,34 @@
 			<!-- #ifdef H5 || APP-PLUS -->
 			<div class="goodCall" @click="goGoodCall">
 				<span class="iconfont icon-kefu"></span>
-				<span>{{ $t(`联系客服`) }}</span>
+				<span>{{ $t(`Liên hệ với dịch vụ khách hàng`) }}</span>
 			</div>
 			<!-- #endif -->
 			<!-- #ifdef MP -->
 			<div class="goodCall" @click="goGoodCall" v-if="routineContact == 0">
 				<button hover-class="none">
 					<span class="iconfont icon-kefu"></span>
-					<span>{{ $t(`联系客服`) }}</span>
+					<span>{{ $t(`Liên hệ với dịch vụ khách hàng`) }}</span>
 				</button>
 			</div>
 			<div class="goodCall" v-else>
 				<button hover-class="none" open-type="contact">
 					<span class="iconfont icon-kefu"></span>
-					<span>{{ $t(`联系客服`) }}</span>
+					<span>{{ $t(`Liên hệ với dịch vụ khách hàng`) }}</span>
 				</button>
 			</div>
 			<!-- #endif -->
 			<view class="wrapper" v-if="isReturn == 1 && (is_gift == 0 || is_gift == 1)">
 				<view class="item acea-row row-between">
-					<view>{{ $t(`申请理由`) }}：</view>
+					<view>{{ $t(`Lý do ứng dụng`) }}：</view>
 					<view class="conter">{{ orderInfo.refund_reason }}</view>
 				</view>
 				<view class="item acea-row row-between">
-					<view>{{ $t(`用户备注`) }}：</view>
+					<view>{{ $t(`Nhận xét của người dùng`) }}：</view>
 					<view class="conter">{{ orderInfo.refund_explain }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.refund_img && orderInfo.refund_img.length">
-					<view>{{ $t(`申请图片`) }}：</view>
+					<view>{{ $t(`Áp dụng cho hình ảnh`) }}：</view>
 					<view class="upload acea-row row-middle">
 						<view class="conter">
 							<view class="pictrue" v-for="(item, index) in orderInfo.refund_img" :key="index">
@@ -292,45 +292,45 @@
 			</view>
 			<view class="wrapper" v-if="is_gift == 0 || is_gift == 1">
 				<view class="item acea-row row-between">
-					<view>{{ $t(`订单号`) }}：</view>
+					<view>{{ $t(`Số đơn hàng`) }}：</view>
 					<view class="conter acea-row row-middle row-right">
 						<text>{{ orderInfo.order_id }}</text>
 						<!-- #ifndef H5 -->
-						<text class="copy" @tap="copy(orderInfo.order_id)">{{ $t(`复制`) }}</text>
+						<text class="copy" @tap="copy(orderInfo.order_id)">{{ $t(`sao chép`) }}</text>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
-						<text class="copy copy-data" :data-clipboard-text="orderInfo.order_id">{{ $t(`复制`) }}</text>
+						<text class="copy copy-data" :data-clipboard-text="orderInfo.order_id">{{ $t(`sao chép`) }}</text>
 						<!-- #endif -->
 					</view>
 				</view>
 				<view class="item acea-row row-between">
-					<view>{{ $t(`下单时间`) }}：</view>
+					<view>{{ $t(`thời gian đặt hàng`) }}：</view>
 					<view class="conter">{{ (orderInfo.add_time_y || '') + ' ' + (orderInfo.add_time_h || 0) }}</view>
 				</view>
 				<view class="item acea-row row-between">
-					<view>{{ $t(`支付状态`) }}：</view>
-					<view class="conter" v-if="orderInfo.paid">{{ $t(`已支付`) }}</view>
-					<view class="conter" v-else>{{ $t(`未支付`) }}</view>
+					<view>{{ $t(`Trạng thái thanh toán`) }}：</view>
+					<view class="conter" v-if="orderInfo.paid">{{ $t(`trả`) }}</view>
+					<view class="conter" v-else>{{ $t(`Chưa thanh toán`) }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.paid">
-					<view>{{ $t(`支付方式`) }}：</view>
+					<view>{{ $t(`Phương thức thanh toán`) }}：</view>
 					<view class="conter">{{ $t(orderInfo._status._payType) }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.mark && isReturn != 1">
-					<view v-if="orderInfo.pid">{{ $t(`买家备注`) }}：</view>
-					<view v-else>{{ $t(`买家留言`) }}：</view>
+					<view v-if="orderInfo.pid">{{ $t(`Ghi chú của người mua`) }}：</view>
+					<view v-else>{{ $t(`Tin nhắn của người mua`) }}：</view>
 					<view class="conter">{{ orderInfo.mark }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.remark">
-					<view>{{ $t(`商家备注`) }}：</view>
+					<view>{{ $t(`Nhận xét của người bán`) }}：</view>
 					<view class="conter">
 						{{ orderInfo.remark }}
 						<!-- #ifndef H5 -->
-						<view v-if="orderInfo.virtual_type == 1" class="copy" @tap="copy(orderInfo.remark)">{{ $t(`复制`) }}</view>
+						<view v-if="orderInfo.virtual_type == 1" class="copy" @tap="copy(orderInfo.remark)">{{ $t(`sao chép`) }}</view>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
 						<view v-if="orderInfo.virtual_type == 1" class="copy copy-data" :data-clipboard-text="orderInfo.remark">
-							{{ $t(`复制`) }}
+							{{ $t(`sao chép`) }}
 						</view>
 						<!-- #endif -->
 					</view>
@@ -347,136 +347,136 @@
 					<view v-if="item.label !== 'img'" class="diy-from-title">{{ item.title }}：</view>
 					<view v-if="item.label !== 'img'" class="conter">{{ item.value }}</view>
 				</view>
-				<view class="copy-text" @click="copyText()">{{ $t(`复制`) }}</view>
+				<view class="copy-text" @click="copyText()">{{ $t(`sao chép`) }}</view>
 			</view>
-			<!-- 退款订单详情 -->
+			<!-- Chi tiết đơn hàng hoàn tiền -->
 			<view class="wrapper" v-if="isGoodsReturn && orderInfo.cartInfo[0].productInfo.virtual_type != 3 && (is_gift == 0 || is_gift == 1)">
 				<view class="item acea-row row-between">
-					<view>{{ $t(`收货人`) }}：</view>
+					<view>{{ $t(`người nhận hàng`) }}：</view>
 					<view class="conter">{{ orderInfo.real_name }}</view>
 				</view>
 				<view class="item acea-row row-between">
-					<view>{{ $t(`联系电话`) }}：</view>
+					<view>{{ $t(`Số liên lạc`) }}：</view>
 					<view class="conter">{{ orderInfo.user_phone }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.shipping_type && orderInfo.shipping_type == 1">
-					<view>{{ $t(`收货地址`) }}：</view>
+					<view>{{ $t(`Địa chỉ giao hàng`) }}：</view>
 					<view class="conter">{{ orderInfo.user_address }}</view>
 				</view>
 			</view>
 			<view v-if="orderInfo.status != 0 && (is_gift == 0 || is_gift == 1)">
 				<view class="wrapper" v-if="orderInfo.delivery_type == 'express'">
 					<view class="item acea-row row-between">
-						<view>{{ $t(`配送方式`) }}：</view>
-						<view class="conter">{{ $t(`发货`) }}</view>
+						<view>{{ $t(`Phương thức giao hàng`) }}：</view>
+						<view class="conter">{{ $t(`vận chuyển`) }}</view>
 					</view>
 					<view class="item acea-row row-between">
-						<view>{{ $t(`快递公司`) }}：</view>
+						<view>{{ $t(`công ty chuyển phát nhanh`) }}：</view>
 						<view class="conter">{{ orderInfo.delivery_name || '' }}</view>
 					</view>
 					<view class="item acea-row row-between">
-						<view>{{ $t(`快递单号`) }}：</view>
+						<view>{{ $t(`Số theo dõi nhanh`) }}：</view>
 						<view class="conter">{{ orderInfo.delivery_id || '' }}</view>
 					</view>
 				</view>
 				<view class="wrapper" v-else-if="orderInfo.delivery_type == 'send'">
 					<view class="item acea-row row-between">
-						<view>{{ $t(`配送方式`) }}：</view>
-						<view class="conter">{{ $t(`送货`) }}</view>
+						<view>{{ $t(`Phương thức giao hàng`) }}：</view>
+						<view class="conter">{{ $t(`giao hàng`) }}</view>
 					</view>
 					<view class="item acea-row row-between">
-						<view>{{ $t(`配送人姓名`) }}：</view>
+						<view>{{ $t(`Tên người giao hàng`) }}：</view>
 						<view class="conter">{{ orderInfo.delivery_name || '' }}</view>
 					</view>
 					<view class="item acea-row row-between">
-						<view>{{ $t(`送货人电话`) }}：</view>
+						<view>{{ $t(`Số điện thoại người giao hàng`) }}：</view>
 						<view class="conter acea-row row-middle row-right">
 							{{ orderInfo.delivery_id || '' }}
-							<text class="copy" @tap="goTel">{{ $t(`拨打`) }}</text>
+							<text class="copy" @tap="goTel">{{ $t(`quay số`) }}</text>
 						</view>
 					</view>
 				</view>
 				<view class="wrapper" v-else-if="orderInfo.delivery_type == 'fictitious'">
 					<view class="item acea-row row-between">
-						<view>{{ $t(`虚拟发货`) }}：</view>
-						<view class="conter">{{ $t(`已发货，请注意查收`) }}</view>
+						<view>{{ $t(`giao hàng ảo`) }}：</view>
+						<view class="conter">{{ $t(`Đã gửi hàng rồi, bạn kiểm tra nhé`) }}</view>
 					</view>
 
 					<view class="item acea-row row-between" v-if="orderInfo.fictitious_content">
-						<view>{{ $t(`虚拟备注`) }}：</view>
+						<view>{{ $t(`ghi chú ảo`) }}：</view>
 						<view class="conter acea-row row-middle row-right">
 							<text>{{ orderInfo.fictitious_content }}</text>
-							<view class="copy" @click="copyText(orderInfo.fictitious_content)">{{ $t(`复制`) }}</view>
+							<view class="copy" @click="copyText(orderInfo.fictitious_content)">{{ $t(`sao chép`) }}</view>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view class="wrapper" v-if="orderInfo.total_price && (is_gift == 0 || is_gift == 1)">
 				<view class="item acea-row row-between">
-					<view>{{ $t(`商品总价`) }}：</view>
+					<view>{{ $t(`Tổng giá sản phẩm`) }}：</view>
 					<view class="conter">{{ $t(`￥`) }}{{ (parseFloat(orderInfo.total_price) + parseFloat(orderInfo.vip_true_price)).toFixed(2) }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.pay_postage > 0">
-					<view>{{ $t(`配送运费`) }}：</view>
+					<view>{{ $t(`Phí vận chuyển`) }}：</view>
 					<view class="conter">{{ $t(`￥`) }}{{ parseFloat(orderInfo.pay_postage).toFixed(2) }}</view>
 				</view>
 				<view v-if="orderInfo.levelPrice > 0" class="item acea-row row-between">
-					<view>{{ $t(`用户等级优惠`) }}：</view>
+					<view>{{ $t(`Giảm giá ở cấp độ người dùng`) }}：</view>
 					<view class="conter">-{{ $t(`￥`) }}{{ parseFloat(orderInfo.levelPrice).toFixed(2) }}</view>
 				</view>
 				<view v-if="orderInfo.memberPrice > 0" class="item acea-row row-between">
-					<view>{{ $t(`付费会员优惠`) }}：</view>
+					<view>{{ $t(`Lợi ích thành viên trả phí`) }}：</view>
 					<view class="conter">-{{ $t(`￥`) }}{{ parseFloat(orderInfo.memberPrice).toFixed(2) }}</view>
 				</view>
 				<view v-if="orderInfo.gift_price > 0" class="item acea-row row-between">
-					<view>{{ $t(`礼品附加费用`) }}：</view>
+					<view>{{ $t(`Phụ phí quà tặng`) }}：</view>
 					<view class="conter">-{{ $t(`￥`) }}{{ parseFloat(orderInfo.gift_price).toFixed(2) }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.coupon_price > 0">
-					<view>{{ $t(`优惠券抵扣`) }}：</view>
+					<view>{{ $t(`Khấu trừ phiếu giảm giá`) }}：</view>
 					<view class="conter">-{{ $t(`￥`) }}{{ parseFloat(orderInfo.coupon_price).toFixed(2) }}</view>
 				</view>
 				<view class="item acea-row row-between" v-if="orderInfo.use_integral > 0">
-					<view>{{ $t(`积分抵扣`) }}：</view>
+					<view>{{ $t(`Trừ điểm`) }}：</view>
 					<view class="conter">-{{ $t(`￥`) }}{{ parseFloat(orderInfo.deduction_price).toFixed(2) }}</view>
 				</view>
 				<view class="actualPay acea-row row-right" v-if="!orderInfo.help_info.help_status">
-					{{ $t(`实付款`) }}：
+					{{ $t(`thanh toán thực tế`) }}：
 					<text class="money font-color">{{ $t(`￥`) }}{{ parseFloat(orderInfo.pay_price).toFixed(2) }}</text>
 				</view>
 				<view class="actualPay acea-row row-right" v-else>
 					<view class="pay-people">
-						<image :src="orderInfo.help_info.pay_avatar" mode="代付头像"></image>
+						<image :src="orderInfo.help_info.pay_avatar" mode="Trả tiền cho hình đại diện"></image>
 						<view class="pay-nickname">
 							{{ orderInfo.help_info.pay_nickname || '' }}
 						</view>
 					</view>
-					{{ $t(`总代付`) }}：
+					{{ $t(`Tổng số tiền thanh toán`) }}：
 					<text class="money font-color">{{ $t(`￥`) }}{{ parseFloat(orderInfo.pay_price).toFixed(2) }}</text>
 				</view>
 			</view>
 			<view style="height: 120rpx"></view>
 			<view class="footer acea-row row-right row-middle" v-if="isGoodsReturn == false || status.type == 9 || orderInfo.refund_type || orderInfo.is_apply_refund">
 				<view class="more" v-if="(invoice_func || invoiceData) && orderInfo.paid && !orderInfo.refund_status" @click="more">
-					{{ $t(`更多`) }}
+					{{ $t(`Hơn`) }}
 					<span class="iconfont icon-xiangshang"></span>
 				</view>
 				<view class="" v-else></view>
 				<view class="more-box" v-if="moreBtn">
-					<view class="more-btn" v-if="invoice_func && !invoiceData" @click="invoiceApply">{{ $t(`申请开票`) }}</view>
-					<view class="more-btn" v-if="invoiceData" @click="aleartStatusChange">{{ $t(`查看发票`) }}</view>
+					<view class="more-btn" v-if="invoice_func && !invoiceData" @click="invoiceApply">{{ $t(`Yêu cầu lập hóa đơn`) }}</view>
+					<view class="more-btn" v-if="invoiceData" @click="aleartStatusChange">{{ $t(`Xem hóa đơn`) }}</view>
 				</view>
 				<view class="right-btn">
 					<view class="qs-btn" v-if="status.type == 0 || status.type == -9" @click.stop="cancelOrder">
-						{{ $t(`取消订单`) }}
+						{{ $t(`Hủy đơn hàng`) }}
 					</view>
-					<view class="bnt bg-color" v-if="status.type == 0" @tap="pay_open(orderInfo.order_id)">{{ $t(`立即付款`) }}</view>
+					<view class="bnt bg-color" v-if="status.type == 0" @tap="pay_open(orderInfo.order_id)">{{ $t(`Thanh toán ngay`) }}</view>
 					<view
 						@click="openSubcribe(`/pages/goods/${cartInfo.length > 1 ? 'goods_return_list' : 'goods_return'}/index?orderId=` + orderInfo.order_id + '&id=' + orderInfo.id)"
 						class="bnt cancel"
 						v-else-if="orderInfo.is_apply_refund && orderInfo.refund_status == 0 && cartInfo.length > 1 && !orderInfo.virtual_type && orderInfo.is_refund_available"
 					>
-						{{ cartInfo.length > 1 ? $t(`批量退款`) : $t(`申请退款`) }}
+						{{ cartInfo.length > 1 ? $t(`Hoàn tiền hàng loạt`) : $t(`Yêu cầu hoàn lại tiền`) }}
 					</view>
 					<navigator
 						class="bnt cancel"
@@ -484,25 +484,25 @@
 						hover-class="none"
 						:url="'/pages/goods/goods_logistics/index?orderId=' + orderInfo.order_id"
 					>
-						{{ $t(`查看物流`) }}
+						{{ $t(`kiểm tra hậu cần`) }}
 					</navigator>
 					<view class="bnt bg-color" v-if="orderInfo.type == 3 && orderInfo.refund_type == 0 && orderInfo.paid" @tap="goJoinPink">
-						{{ $t(`查看拼团`) }}
+						{{ $t(`Xem chia sẻ nhóm`) }}
 					</view>
 					<view class="bnt bg-color" v-if="status.class_status == 3 && !split.length" @click="confirmOrder()">
-						{{ $t(`确认收货`) }}
+						{{ $t(`xác nhận đã nhận hàng`) }}
 					</view>
-					<view class="bnt bg-color" v-if="orderInfo.paid == 1 && !is_gift && isReturn != 1" @tap="goOrderConfirm">{{ $t(`再次购买`) }}</view>
-					<view class="bnt bg-color" v-if="orderInfo.paid == 1 && is_gift != 0 && orderInfo.gift_uid == 0" @tap="giftModalShow = true">{{ $t(`送给好友`) }}</view>
+					<view class="bnt bg-color" v-if="orderInfo.paid == 1 && !is_gift && isReturn != 1" @tap="goOrderConfirm">{{ $t(`mua lại`) }}</view>
+					<view class="bnt bg-color" v-if="orderInfo.paid == 1 && is_gift != 0 && orderInfo.gift_uid == 0" @tap="giftModalShow = true">{{ $t(`Gửi cho bạn bè`) }}</view>
 					<view
 						class="bnt bg-color"
 						v-if="[1, 2, 4].includes(orderInfo.refund_type) && !orderInfo.is_cancel && orderInfo.type != 3 && orderInfo.refund_status != 2"
 						@tap="cancelRefundOrder"
 					>
-						{{ $t(`取消申请`) }}
+						{{ $t(`Hủy đơn đăng ký`) }}
 					</view>
 					<view class="bnt bg-color refundBnt" v-if="orderInfo.refund_type == 4" @tap="refundInput">
-						{{ $t(`填写退货信息`) }}
+						{{ $t(`Điền thông tin trả lại`) }}
 					</view>
 					<navigator
 						class="bnt cancel refundBnt"
@@ -510,10 +510,10 @@
 						hover-class="none"
 						:url="'/pages/goods/goods_logistics/index?orderId=' + orderInfo.order_id + '&type=refund'"
 					>
-						{{ $t(`查看退货物流`) }}
+						{{ $t(`Xem hậu cần trả lại`) }}
 					</navigator>
 					<view class="bnt cancel" v-if="(status.type == 4 && !split.length) || status.type == -2" @tap="delOrder">
-						{{ $t(`删除订单`) }}
+						{{ $t(`Xóa đơn hàng`) }}
 					</view>
 				</view>
 			</view>
@@ -523,13 +523,13 @@
 		<!-- 		<view class="refund-input" :class="refund_close ? 'on' : ''">
 			<view class="input-msg">
 				<text class='iconfont icon-guanbi5' @tap='refund_close = false'></text>
-				<view class="refund-input-title">填写物流单号
+				<view class="refund-input-title">Điền số đơn hàng hậu cần
 				</view>
 				<view class="refund-input-sty">
-					<input type="text" v-model="express_num" placeholder="请输入物流单号" />
+					<input type="text" v-model="express_num" placeholder="Vui lòng nhập số đơn hàng hậu cần" />
 				</view>
 				<view class="refund-bth">
-					<view class="submit-refund" @click="refundSubmit()">提交</view>
+					<view class="submit-refund" @click="refundSubmit()">nộp</view>
 				</view>
 			</view>
 		</view> -->
@@ -596,23 +596,23 @@ export default {
 	data() {
 		return {
 			imgHost: HTTP_REQUEST_URL,
-			customForm: '', //自定义留言
-			//二维码参数
+			customForm: '', //Tin nhắn tùy chỉnh
+			// tham số mã QR
 			codeShow: false,
 			cid: '1',
 			ifShow: true,
-			val: '', // 要生成的二维码值
-			size: 200, // 二维码大小
-			unit: 'upx', // 单位
-			background: '#FFF', // 背景色
-			foreground: '#000', // 前景色
-			pdground: '#000', // 角标色
-			icon: '', // 二维码图标
-			iconsize: 40, // 二维码图标大小
-			lv: 3, // 二维码容错级别 ， 一般不用设置，默认就行
-			onval: true, // val值变化时自动重新生成二维码
-			loadMake: true, // 组件加载完成后自动生成二维码
-			src: '', // 二维码生成后的图片地址或base64
+			val: '', // Giá trị mã QR sẽ được tạo
+			size: 200, // Kích thước mã QR
+			unit: 'upx', // đơn vị
+			background: '#FFF', // màu nền
+			foreground: '#000', // màu nền trước
+			pdground: '#000', // Màu nhân vật
+			icon: '', // Biểu tượng mã QR
+			iconsize: 40, // Kích thước biểu tượng mã QR
+			lv: 3, // Mức độ chấp nhận lỗi mã QR, nói chung không cần đặt, mặc định là ổn
+			onval: true, // valTự động tạo lại mã QR khi giá trị thay đổi
+			loadMake: true, // Sau khi thành phần được tải, mã QR sẽ được tạo tự động.
+			src: '', // Địa chỉ hình ảnh sau khi mã QR được tạo hoặcbase64
 			codeSrc: '',
 			wd: 0,
 			hg: 0,
@@ -620,66 +620,66 @@ export default {
 
 			order_id: '',
 			evaluate: 0,
-			cartInfo: [], //购物车产品
-			pid: 0, //上级订单ID
-			split: [], //分单商品
+			cartInfo: [], //Sản phẩm giỏ hàng
+			pid: 0, //Lệnh cấp trênID
+			split: [], //các mục riêng biệt
 			orderInfo: {
 				help_info: {},
 				system_store: {},
 				_status: {}
-			}, //订单详情
+			}, //Chi tiết đặt hàng
 			system_store: {},
-			isGoodsReturn: false, //是否为退款订单
-			status: {}, //订单底部按钮状态
+			isGoodsReturn: false, //Đây có phải là lệnh hoàn tiền không?
+			status: {}, //Trạng thái nút đặt hàng dưới cùng
 			refund_close: false,
 			isClose: false,
 			H5ShareBox: false,
 			giftModalShow: false,
 			payMode: [
 				{
-					name: this.$t(`微信支付`),
+					name: this.$t(`WeChat trả tiền`),
 					icon: 'icon-weixinzhifu',
 					value: 'weixin',
-					title: this.$t(`使用微信快捷支付`),
+					title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),
 					payStatus: true
 				},
 				// #ifdef H5 || APP-PLUS
 				{
-					name: this.$t(`支付宝支付`),
+					name: this.$t(`thanh toán Alipay`),
 					icon: 'icon-zhifubao',
 					value: 'alipay',
-					title: this.$t(`使用支付宝支付`),
+					title: this.$t(`Thanh toán bằng Alipay`),
 					payStatus: true
 				},
 				// #endif
 				{
-					name: this.$t(`余额支付`),
+					name: this.$t(`thanh toán số dư`),
 					icon: 'icon-yuezhifu',
 					value: 'yue',
-					title: this.$t(`可用余额`),
+					title: this.$t(`số dư khả dụng`),
 					number: 0,
 					payStatus: true
 				},
 				{
-					name: this.$t(`好友代付`),
+					name: this.$t(`Bạn bè trả tiền thay mặt`),
 					icon: 'icon-haoyoudaizhifu',
 					value: 'friend',
-					title: this.$t(`找微信好友支付`),
+					title: this.$t(`Thanh toán với bạn bè WeChat`),
 					payStatus: 1
 				},
 				{
-					name: this.$t(`通联支付`),
+					name: this.$t(`thanh toán Tonglian`),
 					icon: 'icon-tonglianzhifu1',
 					value: 'allinpay',
-					title: this.$t(`使用通联支付付款`),
+					title: this.$t(`Thanh toán bằng Tonglian Pay`),
 					payStatus: 1
 				}
 			],
 			pay_close: false,
 			pay_order_id: '',
 			totalPrice: '0',
-			isAuto: false, //没有授权的不会自动授权
-			isShowAuth: false, //是否隐藏授权
+			isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+			isShowAuth: false, //Có ẩn ủy quyền hay không
 			routineContact: 0,
 			express_num: '',
 			invoice_func: false,
@@ -688,14 +688,14 @@ export default {
 			invChecked: '',
 			moreBtn: false,
 			invShow: false,
-			aleartStatus: false, //发票弹窗
+			aleartStatus: false, //Cửa sổ bật lên hóa đơn
 			special_invoice: false,
 			invList: [],
 			customerInfo: {},
 			userInfo: {},
 			isReturn: '',
 			urlQuery: '',
-			is_gift: 0, // 0正常商品 || 无人领取   1 购买者   2领取人
+			is_gift: 0, // 0hàng hóa thông thường || Không ai nhận 1 người mua 2 người nhận
 			giftData: null,
 			giftModalData: null,
 			mpGiftImg: HTTP_REQUEST_URL + '/statics/images/gift_share.jpg'
@@ -719,24 +719,24 @@ export default {
 			this.getCustomerType();
 			let opt = wx.getEnterOptionsSync();
 			if (opt.scene == '1038' && opt.referrerInfo.appId == 'wxef277996acc166c3') {
-				// 代表从收银台小程序返回
+				// Người đại diện trả về từ applet thanh toán
 				let extraData = opt.referrerInfo.extraData;
 				if (!extraData) {
-					// "当前通过物理按键返回，未接收到返参，建议自行查询交易结果";
+					// "Việc trả về hiện tại được thực hiện thông qua các nút vật lý và không nhận được thông số trả về nào. Bạn nên tự mình kiểm tra kết quả giao dịch.";
 					this.getOrderInfo();
 				} else {
 					if (extraData.code == 'success') {
-						// "支付成功";
+						// "Thanh toán thành công";
 						this.getOrderInfo();
 					} else if (extraData.code == 'cancel') {
-						// "支付已取消";
+						// "Đã hủy thanh toán";
 						this.$util.Tips({
-							title: this.$t(`支付已取消`)
+							title: this.$t(`Đã hủy thanh toán`)
 						});
 					} else {
-						// "支付失败：" + extraData.errmsg;
+						// "Thanh toán không thành công：" + extraData.errmsg;
 						this.$util.Tips({
-							title: this.$t(`支付失败：${extraData.errmsg}`)
+							title: this.$t(`Thanh toán không thành công：${extraData.errmsg}`)
 						});
 					}
 				}
@@ -754,13 +754,13 @@ export default {
 			const clipboard = new ClipboardJS('.copy-data');
 			clipboard.on('success', () => {
 				this.$util.Tips({
-					title: this.$t(`复制成功`)
+					title: this.$t(`Đã sao chép thành công`)
 				});
 			});
 			const address = new ClipboardJS('.copy-refund-msg');
 			address.on('success', () => {
 				this.$util.Tips({
-					title: this.$t(`复制成功`)
+					title: this.$t(`Đã sao chép thành công`)
 				});
 			});
 		});
@@ -768,7 +768,7 @@ export default {
 		// #endif
 	},
 	/**
-	 * 用户点击右上角分享
+	 * Người dùng nhấn vào góc trên bên phải để chia sẻ
 	 */
 	// #ifdef MP
 	onShareAppMessage: function () {
@@ -796,7 +796,7 @@ export default {
 	// #endif
 	methods: {
 		// #ifdef H5
-		// 微信分享；
+		// chia sẻ WeChat；
 		setOpenShare: function () {
 			let that = this;
 			if (that.$wechat.isWeixin()) {
@@ -819,15 +819,15 @@ export default {
 		cancelRefundOrder(orderId) {
 			let that = this;
 			uni.showModal({
-				title: that.$t(`取消申请`),
-				content: that.$t(`您确认放弃此次申请吗`),
+				title: that.$t(`Hủy đơn đăng ký`),
+				content: that.$t(`Bạn có chắc chắn từ bỏ ứng dụng này?`),
 				success: (res) => {
 					if (res.confirm) {
 						cancelRefundOrder(that.order_id)
 							.then((res) => {
 								return that.$util.Tips(
 									{
-										title: that.$t(`操作成功`),
+										title: that.$t(`Hoạt động thành công`),
 										icon: 'success'
 									},
 									{
@@ -873,7 +873,7 @@ export default {
 			// #endif
 			// #ifdef MP
 			uni.showLoading({
-				title: this.$t(`正在加载中`)
+				title: this.$t(`Đang tải`)
 			});
 			openOrderRefundSubscribe()
 				.then((res) => {
@@ -889,7 +889,7 @@ export default {
 		},
 		goReturnGoods() {},
 		/**
-		 * 拨打电话
+		 * Thực hiện cuộc gọi
 		 */
 		makePhone: function () {
 			uni.makePhoneCall({
@@ -897,13 +897,13 @@ export default {
 			});
 		},
 		/**
-		 * 打开地图
+		 * Mở bản đồ
 		 *
 		 */
 		showMaoLocation: function () {
 			if (!this.system_store.latitude || !this.system_store.longitude)
 				return this.$util.Tips({
-					title: this.$t(`缺少经纬度信息无法查看地图`)
+					title: this.$t(`Không thể xem bản đồ do thiếu thông tin vĩ độ và kinh độ`)
 				});
 			uni.openLocation({
 				latitude: parseFloat(this.system_store.latitude),
@@ -915,7 +915,7 @@ export default {
 			});
 		},
 		/**
-		 * 打开支付组件
+		 * Thành phần thanh toán mở
 		 *
 		 */
 		pay_open: function () {
@@ -927,7 +927,7 @@ export default {
 			// this.totalPrice = this.orderInfo.pay_price;
 		},
 		/**
-		 * 支付失败回调
+		 * Gọi lại thanh toán thất bại
 		 *
 		 */
 		pay_fail: function () {
@@ -935,7 +935,7 @@ export default {
 			this.pay_order_id = '';
 		},
 		/**
-		 * 登录授权回调
+		 * Gọi lại ủy quyền đăng nhập
 		 *
 		 */
 		onLoadFun: function () {
@@ -943,7 +943,7 @@ export default {
 			this.getUserInfo();
 		},
 		/**
-		 * 获取用户信息
+		 * Lấy thông tin người dùng
 		 *
 		 */
 		getUserInfo: function () {
@@ -963,13 +963,13 @@ export default {
 			});
 		},
 		/**
-		 * 获取订单详细信息
+		 * Nhận chi tiết đơn hàng
 		 *
 		 */
 		getOrderInfo: function () {
 			let that = this;
 			uni.showLoading({
-				title: this.$t(`正在加载中`)
+				title: this.$t(`Đang tải`)
 			});
 			let obj = '';
 			if (that.isReturn) {
@@ -982,7 +982,7 @@ export default {
 					if (res.data.pid && res.data.pid == -1) {
 						that.$util.Tips(
 							{
-								title: this.$t(`订单信息不存在`)
+								title: this.$t(`Thông tin đặt hàng không tồn tại`)
 							},
 							'/pages/goods/order_list/index'
 						);
@@ -990,7 +990,7 @@ export default {
 					let _type = res.data._status._type;
 					uni.hideLoading();
 					that.$set(that, 'orderInfo', res.data);
-					//处理自定义留言非必填项的数据展示
+					//Xử lý dữ liệu hiển thị các trường tùy chọn trong tin nhắn tùy chỉnh
 					let arr = [];
 					that.orderInfo.custom_form.map((i) => {
 						if (i.value != '') {
@@ -1008,7 +1008,7 @@ export default {
 						let giftStatus = res.data.gift_uid === this.$store.state.app.uid;
 						that.$set(that, 'is_gift', giftStatus ? 2 : 1);
 						uni.setNavigationBarTitle({
-							title: '礼物详情'
+							title: 'Chi tiết quà tặng'
 						});
 						this.giftData = {
 							avatar: res.data.avatar,
@@ -1091,13 +1091,13 @@ export default {
 					);
 				});
 		},
-		// 不开发票
+		// Không xuất hóa đơn
 		invCancel() {
 			this.invChecked = '';
-			this.invTitle = this.$t(`不开发票`);
+			this.invTitle = this.$t(`Không xuất hóa đơn`);
 			this.invShow = false;
 		},
-		// 选择发票
+		// Chọn hóa đơn
 		invSub(id) {
 			this.invChecked = id;
 			let data = {
@@ -1107,7 +1107,7 @@ export default {
 			makeUpinvoice(data)
 				.then((res) => {
 					uni.showToast({
-						title: this.$t(`申请成功`),
+						title: this.$t(`Ứng dụng thành công`),
 						icon: 'success'
 					});
 					this.invShow = false;
@@ -1121,12 +1121,12 @@ export default {
 					});
 				});
 		},
-		// 关闭发票
+		// Đóng hóa đơn
 		invClose() {
 			this.invShow = false;
 			this.getInvoiceList();
 		},
-		//申请开票
+		//Yêu cầu lập hóa đơn
 		invoiceApply() {
 			this.urlQuery = `&specialInvoice=${this.userInfo.special_invoice}`;
 			this.getInvoiceList();
@@ -1139,7 +1139,7 @@ export default {
 		},
 		getInvoiceList() {
 			uni.showLoading({
-				title: this.$t(`正在加载中`)
+				title: this.$t(`Đang tải`)
 			});
 			invoiceList()
 				.then((res) => {
@@ -1151,9 +1151,9 @@ export default {
 					const result = this.invList.find((item) => item.id == this.invChecked);
 					if (result) {
 						let name = '';
-						name += result.header_type === 1 ? this.$t(`个人`) : this.$t(`企业`);
-						name += result.type === 1 ? this.$t(`普通`) : this.$t(`专用`);
-						name += this.$t(`发票`);
+						name += result.header_type === 1 ? this.$t(`riêng tư`) : this.$t(`doanh nghiệp`);
+						name += result.type === 1 ? this.$t(`bình thường`) : this.$t(`tận tụy`);
+						name += this.$t(`hóa đơn`);
 						this.invTitle = name;
 					}
 				})
@@ -1169,7 +1169,7 @@ export default {
 		},
 		/**
 		 *
-		 * 剪切订单号
+		 * Cắt số thứ tự
 		 */
 		// #ifndef H5
 		copy: function (text) {
@@ -1185,7 +1185,7 @@ export default {
 				data: this.orderInfo._status.refund_name + this.orderInfo._status.refund_phone + this.orderInfo._status.refund_address,
 				success() {
 					uni.Tips({
-						title: this.$t(`复制成功`),
+						title: this.$t(`Đã sao chép thành công`),
 						icon: 'success'
 					});
 				}
@@ -1214,7 +1214,7 @@ export default {
 		},
 		// #endif
 		/**
-		 * 打电话
+		 * Gọi lên
 		 */
 		goTel: function () {
 			uni.makePhoneCall({
@@ -1222,7 +1222,7 @@ export default {
 			});
 		},
 		/**
-		 * 设置底部按钮
+		 * Đặt nút dưới cùng
 		 *
 		 */
 		getOrderStatus: function () {
@@ -1241,15 +1241,15 @@ export default {
 				type: type == 9 ? -9 : type,
 				class_status: 0
 			};
-			if (type == 1 && combination_id > 0) status.class_status = 1; //查看拼团
-			if (type == 2 && delivery_type == 'express') status.class_status = 2; //查看物流
-			if (type == 2) status.class_status = 3; //确认收货
-			if (type == 4 || type == 0) status.class_status = 4; //删除订单
-			if (!seckill_id && !bargain_id && !combination_id && !discount_id && !orderInfo.type && (type == 3 || type == 4)) status.class_status = 5; //再次购买
+			if (type == 1 && combination_id > 0) status.class_status = 1; //Xem chia sẻ nhóm
+			if (type == 2 && delivery_type == 'express') status.class_status = 2; //kiểm tra hậu cần
+			if (type == 2) status.class_status = 3; //xác nhận đã nhận hàng
+			if (type == 4 || type == 0) status.class_status = 4; //Xóa đơn hàng
+			if (!seckill_id && !bargain_id && !combination_id && !discount_id && !orderInfo.type && (type == 3 || type == 4)) status.class_status = 5; //mua lại
 			this.$set(this, 'status', status);
 		},
 		/**
-		 * 去拼团详情
+		 * Đi đến chi tiết đặt phòng theo nhóm
 		 *
 		 */
 		goJoinPink: function () {
@@ -1258,7 +1258,7 @@ export default {
 			});
 		},
 		/**
-		 * 再此购买
+		 * Mua ở đây một lần nữa
 		 *
 		 */
 		goOrderConfirm: function () {
@@ -1280,7 +1280,7 @@ export default {
 			// #ifdef MP
 			if (wx.openBusinessView && this.orderInfo.order_shipping_open && this.orderInfo.trade_no && this.orderInfo.uid == this.orderInfo.pay_uid) {
 				uni.showLoading({
-					title: this.$t(`加载中`)
+					title: this.$t(`đang tải`)
 				});
 				wx.openBusinessView({
 					businessType: 'weappOrderConfirm',
@@ -1309,15 +1309,15 @@ export default {
 		defaultTake(orderId) {
 			let that = this;
 			uni.showModal({
-				title: that.$t(`确认收货`),
-				content: that.$t(`为保障权益，请收到货确认无误后，再确认收货`),
+				title: that.$t(`xác nhận đã nhận hàng`),
+				content: that.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng xác nhận đã nhận hàng trước khi xác nhận đã nhận.`),
 				success: (res) => {
 					if (res.confirm) {
 						orderTake(orderId ? orderId : that.order_id)
 							.then((res) => {
 								return that.$util.Tips(
 									{
-										title: that.$t(`操作成功`),
+										title: that.$t(`Hoạt động thành công`),
 										icon: 'success'
 									},
 									function () {
@@ -1336,13 +1336,13 @@ export default {
 		},
 		/**
 		 *
-		 * 删除订单
+		 * Xóa đơn hàng
 		 */
 		delOrder() {
 			let that = this;
 			uni.showModal({
-				title: this.$t(`删除订单`),
-				content: this.$t(`确定删除该订单`),
+				title: this.$t(`Xóa đơn hàng`),
+				content: this.$t(`Xác nhận xóa đơn hàng`),
 				success: (res) => {
 					if (res.confirm) {
 						(that.isReturn ? refundOrderDel : orderDel)(that.order_id)
@@ -1350,7 +1350,7 @@ export default {
 								if (that.status.type == -2) {
 									return that.$util.Tips(
 										{
-											title: that.$t(`删除成功`),
+											title: that.$t(`Xóa thành công`),
 											icon: 'success'
 										},
 										{
@@ -1361,7 +1361,7 @@ export default {
 								} else {
 									return that.$util.Tips(
 										{
-											title: that.$t(`删除成功`),
+											title: that.$t(`Xóa thành công`),
 											icon: 'success'
 										},
 										{
@@ -1378,7 +1378,7 @@ export default {
 							});
 					} else if (res.cancel) {
 						return that.$util.Tips({
-							title: that.$t(`已取消`)
+							title: that.$t(`Đã hủy`)
 						});
 					}
 				}
@@ -1387,8 +1387,8 @@ export default {
 		cancelOrder() {
 			let self = this;
 			uni.showModal({
-				title: this.$t(`提示`),
-				content: this.$t(`确认取消该订单`),
+				title: this.$t(`gợi ý`),
+				content: this.$t(`Xác nhận việc hủy đơn hàng`),
 				success: function (res) {
 					if (res.confirm) {
 						orderCancel(self.orderInfo.order_id)
@@ -1561,8 +1561,8 @@ export default {
 }
 
 .order-details {
-	padding-bottom: calc(15rpx + constant(safe-area-inset-bottom)); ///兼容 IOS<11.2/
-	padding-bottom: calc(15rpx + env(safe-area-inset-bottom)); ///兼容 IOS>11.2/
+	padding-bottom: calc(15rpx + constant(safe-area-inset-bottom)); ///tương thích IOS<11.2/
+	padding-bottom: calc(15rpx + env(safe-area-inset-bottom)); ///tương thích IOS>11.2/
 }
 
 .order-details .header {
@@ -1761,8 +1761,8 @@ export default {
 	left: 0;
 	background-color: #fff;
 	padding: 20rpx 30rpx;
-	padding-bottom: calc(20rpx + constant(safe-area-inset-bottom)); ///兼容 IOS<11.2/
-	padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); ///兼容 IOS>11.2/
+	padding-bottom: calc(20rpx + constant(safe-area-inset-bottom)); ///tương thích IOS<11.2/
+	padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); ///tương thích IOS>11.2/
 	box-sizing: border-box;
 	border-top: 1px solid #f5f5f5;
 
@@ -1795,8 +1795,8 @@ export default {
 		box-shadow: 0px 0px 3px 0px rgba(200, 200, 200, 0.75);
 		bottom: 110rpx;
 		/* #ifdef APP-PLUS */
-		bottom: calc(110rpx + constant(safe-area-inset-bottom)); ///兼容 IOS<11.2/
-		bottom: calc(110rpx + env(safe-area-inset-bottom)); ///兼容 IOS>11.2/
+		bottom: calc(110rpx + constant(safe-area-inset-bottom)); ///tương thích IOS<11.2/
+		bottom: calc(110rpx + env(safe-area-inset-bottom)); ///tương thích IOS>11.2/
 
 		/* #endif */
 		.more-btn {

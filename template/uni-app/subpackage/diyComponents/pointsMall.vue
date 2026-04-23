@@ -20,7 +20,7 @@
             height="32rpx"
           ></easy-loadimage>
           <view class="more" :style="[buttonStyle]" @click="goPointsMall">
-            <text>{{ $t(`更多`) }}</text>
+            <text>{{ $t(`Hơn`) }}</text>
             <text
               class="iconfont icon-ic_rightarrow"
               :style="[buttonStyle]"
@@ -51,7 +51,7 @@
                   :style="[priceBoxStyle]"
                 >
                   <view class="point">{{ item.price }}</view>
-                  <view class="">{{ $t(`积分`) }}</view>
+                  <view class="">{{ $t(`tích phân`) }}</view>
                 </view>
               </view>
             </scroll-view>
@@ -315,7 +315,7 @@ export default {
         color: color,
       };
     },
-    // 数字样式
+    // Kiểu số
     numStyle() {
       let styleConfig = this.dataConfig.styleConfig.tabVal;
       let goodStyleConfig = this.dataConfig.goodStyleConfig.tabVal;

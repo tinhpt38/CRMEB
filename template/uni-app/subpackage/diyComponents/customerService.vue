@@ -1,5 +1,5 @@
 <template>
-  <!-- 在线客服 -->
+  <!-- Dịch vụ khách hàng trực tuyến -->
   <view class="custmer" v-show="!isSortType">
     <!-- #ifdef H5 || APP-PLUS -->
     <view

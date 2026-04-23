@@ -15,6 +15,6 @@ const i18n = new VueI18n({
 	locale: lang,
 	fallbackLocale: 'zh-CN',
 	messages: uni.getStorageSync('localeJson'),
-	silentTranslationWarn: true, // 去除国际化警告
+	silentTranslationWarn: true, // Xóa cảnh báo quốc tế hóa
 })
 export default i18n

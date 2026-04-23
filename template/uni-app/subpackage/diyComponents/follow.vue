@@ -1,5 +1,5 @@
 <template>
-  <!-- 关注公众号 -->
+  <!-- Theo dõi tài khoản công khai -->
   <view>
     <common-wrapper :config="configData">
       <view :style="[followStyle]" class="follow acea-row row-between-wrapper">
@@ -22,27 +22,27 @@
           class="notes acea-row row-center-wrapper"
           @click="followTap"
         >
-          {{ $t(`关注`) }}
+          {{ $t(`tập trung vào`) }}
         </view>
         <view class="iconfont icon-iconfontguanbi"></view>
       </view>
     </common-wrapper>
     <view class="followCode" v-if="followCode">
       <view class="pictrue">
-        <view class="title">{{ $t(`关注公众号`) }}</view>
-        <view class="tips">{{ $t(`活动福利，第一时间了解`) }}</view>
+        <view class="title">{{ $t(`Theo dõi tài khoản công khai`) }}</view>
+        <view class="tips">{{ $t(`Các hoạt động và lợi ích, hãy tìm hiểu về chúng càng sớm càng tốt`) }}</view>
         <view class="code-bg">
           <image class="imgs" :src="dataConfig.codeConfig.url" mode=""></image>
         </view>
         <!-- #ifdef MP || APP-PLUS -->
-        <view class="btn" @tap="savePic">{{ $t(`保存图片`) }}</view>
+        <view class="btn" @tap="savePic">{{ $t(`lưu hình ảnh`) }}</view>
         <!-- #endif -->
         <!-- #ifdef H5 -->
         <view class="btn" v-show="isWeixin" @tap="savePic">{{
-          $t(`长按保存图片`)
+          $t(`Nhấn và giữ để lưu ảnh`)
         }}</view>
         <view class="btn" v-show="!isWeixin" @tap="savePic">{{
-          $t(`保存图片`)
+          $t(`lưu hình ảnh`)
         }}</view>
         <!-- #endif -->
         <view
@@ -184,18 +184,18 @@ export default {
   methods: {
     savePic() {
       // #ifdef H5
-      var a = document.createElement("a"); // 生成一个a元素
-      a.download = "wechat"; // 设置图片名称
+      var a = document.createElement("a"); // Tạo phần tử a
+      a.download = "wechat"; // Đặt tên ảnh
       a.style.display = "none";
-      a.href = this.dataConfig.codeConfig.url; // 将生成的URL设置为a.href属性
-      document.body.appendChild(a); // 将a标签追加到文档对象中
-      a.click(); // 触发a的单击事件
-      a.remove(); // 一次性的，用完就删除a标签
+      a.href = this.dataConfig.codeConfig.url; // Đặt URL được tạo thành thuộc tính a.href
+      document.body.appendChild(a); // Nối thẻ vào đối tượng tài liệu
+      a.click(); // Kích hoạt sự kiện nhấp chuột
+      a.remove(); // Dùng một lần, xóa thẻ sau khi sử dụng
       // #endif
       // #ifdef MP
       let _that = this;
       uni.downloadFile({
-        url: _that.dataConfig.codeConfig.url, //图片地址
+        url: _that.dataConfig.codeConfig.url, //Địa chỉ hình ảnh
         success: function (response) {
           uni.getSetting({
             success(res) {
@@ -208,13 +208,13 @@ export default {
                       success: function (res) {
                         _that.closeFollowCode();
                         _that.$util.Tips({
-                          title: "保存成功",
+                          title: "Đã lưu thành công",
                           icon: "success",
                         });
                       },
                       fail: function (res) {
                         _that.$util.Tips({
-                          title: "保存失败",
+                          title: "Lưu không thành công",
                         });
                       },
                     });
@@ -226,13 +226,13 @@ export default {
                   success: function (res) {
                     _that.closeFollowCode();
                     _that.$util.Tips({
-                      title: "保存成功",
+                      title: "Đã lưu thành công",
                       icon: "success",
                     });
                   },
                   fail: function (res) {
                     _that.$util.Tips({
-                      title: "保存失败",
+                      title: "Lưu không thành công",
                     });
                   },
                 });
@@ -245,20 +245,20 @@ export default {
       //#ifdef APP-PLUS
       let thatApp = this;
       uni.downloadFile({
-        url: thatApp.dataConfig.codeConfig.url, //图片地址
+        url: thatApp.dataConfig.codeConfig.url, //Địa chỉ hình ảnh
         success: function (response) {
           uni.saveImageToPhotosAlbum({
             filePath: response.tempFilePath,
             success: function (res) {
               thatApp.posterImageClose();
               thatApp.$util.Tips({
-                title: "保存成功",
+                title: "Đã lưu thành công",
                 icon: "success",
               });
             },
             fail: function (res) {
               thatApp.$util.Tips({
-                title: "保存失败",
+                title: "Lưu không thành công",
               });
             },
           });

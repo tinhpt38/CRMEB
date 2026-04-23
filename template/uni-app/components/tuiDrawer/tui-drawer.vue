@@ -15,7 +15,7 @@
 
 <script>
 /**
- * 超过一屏时插槽使用scroll-view
+ * Sử dụng khe khi có nhiều màn hìnhscroll-view
  **/
 export default {
 	name: 'tuiDrawer',

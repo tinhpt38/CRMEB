@@ -1,5 +1,5 @@
 <template>
-  <!-- 标题 -->
+  <!-- tiêu đề -->
   <common-wrapper :config="configData" v-show="!isSortType">
     <view :style="[titleWrapStyle]">
       <view

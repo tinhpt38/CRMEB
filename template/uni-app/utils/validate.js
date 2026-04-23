@@ -1,17 +1,17 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 
 /**
- * 验证小数点后两位及多个小数
- * money 金额
+ * Xác minh hai chữ số thập phân và nhiều chữ số thập phân
+ * số tiền
 */ 
 export function isMoney(money) {
   var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/
@@ -23,8 +23,8 @@ export function isMoney(money) {
 }
 
 /**
- * 验证手机号码
- * money 金额
+ * Xác minh số điện thoại di động
+ * số tiền
 */ 
 export function checkPhone(c2543fff3bfa6f144c2f06a7de6cd10c0b650cae) {
   var reg = /^1(3|4|5|6|7|8|9)\d{9}$/
@@ -36,7 +36,7 @@ export function checkPhone(c2543fff3bfa6f144c2f06a7de6cd10c0b650cae) {
 }
 
 /**
- * 函数防抖 (只执行最后一次点击)
+ * chức năng chống rung (Chỉ thực hiện lần nhấp chuột cuối cùng)
  * @param fn
  * @param delay
  * @returns {Function}
@@ -57,7 +57,7 @@ export const Debounce = (fn, t) => {
   }
 }
 /**
- * 函数节流
+ * điều tiết chức năng
  * @param fn
  * @param interval
  * @returns {Function}

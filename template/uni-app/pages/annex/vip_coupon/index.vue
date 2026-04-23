@@ -1,26 +1,26 @@
 <template>
 	<view>
 		<view class='coupon-list' v-if="couponsList.length">
-			<view class='item acea-row row-center-wrapper' :class="{gray: item.is_fail || item.status === $t(`已使用`)}" v-for='(item,index) in couponsList'
+			<view class='item acea-row row-center-wrapper' :class="{gray: item.is_fail || item.status === $t(`Đã sử dụng`)}" v-for='(item,index) in couponsList'
 			 :key="index">
 				<view class='money' :class='item.is_fail ? "moneyGray" : ""'>
 					<view>{{$t(`￥`)}}<text class='num'>{{item.coupon_price | money}}</text></view>
-					<view class="pic-num" v-if="item.use_min_price > 0">{{$t(`满`)}}{{ item.use_min_price | money }}{{$t(`元可用`)}}</view>
-					<view class="pic-num" v-else>{{$t(`无门槛券`)}}</view>
+					<view class="pic-num" v-if="item.use_min_price > 0">{{$t(`Đầy`)}}{{ item.use_min_price | money }}{{$t(`nhân dân tệ có sẵn`)}}</view>
+					<view class="pic-num" v-else>{{$t(`Không có phiếu giảm giá ngưỡng`)}}</view>
 				</view>
 				<view class='text'>
 					<view class='condition'>
 						<view class="name line2">
-							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-if="item.applicable_type === 0">{{$t(`通用劵`)}}</view>
-							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else-if="item.applicable_type === 1">{{$t(`品类券`)}}</view>
-							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else>{{$t(`商品券`)}}</view>
+							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-if="item.applicable_type === 0">{{$t(`Phiếu giảm giá phổ quát`)}}</view>
+							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else-if="item.applicable_type === 1">{{$t(`Phiếu giảm giá danh mục`)}}</view>
+							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else>{{$t(`phiếu giảm giá hàng hóa`)}}</view>
 							<text>{{item.coupon_title}}</text>
 						</view>
 					</view>
 					<view class='data acea-row row-between-wrapper'>
 						<!-- item.start_time | format -->
 						<view>{{item.add_time}}-{{item.end_time}}</view>
-						<!-- is_fail:1为失效；0为可用 -->
+						<!-- is_fail:1có nghĩa là không hợp lệ; 0 có nghĩa là có sẵn -->
 						<view class='bnt gray' v-if="item.is_fail">{{item.status}}</view>
 						<view class='bnt' v-else>{{item.status}}</view>
 					</view>
@@ -69,8 +69,8 @@
 				imgHost:HTTP_REQUEST_URL,
 				couponsList: [],
 				loading: false,
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false //Có ẩn ủy quyền hay không
 			};
 		},
 		filters: {
@@ -103,17 +103,17 @@
 		},
 		methods: {
 			/**
-			 * 授权回调
+			 * Gọi lại ủy quyền
 			 */
 			onLoadFun: function() {
 				this.getUseCoupons();
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
 			/**
-			 * 获取领取优惠券列表
+			 * Nhận danh sách phiếu giảm giá
 			 */
 			getUseCoupons: function() {
 				let that = this;

@@ -316,7 +316,8 @@ export default {
   position: relative;
   display: flex;
   justify-content: space-between;
-  word-break: break-all;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 ::v-deep .el-tabs__item {
   height: 54px;

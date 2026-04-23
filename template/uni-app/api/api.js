@@ -1,16 +1,16 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 import request from "@/utils/request.js";
 /**
- * 公共接口 ，优惠券接口 , 行业此讯 , 手机号码注册
+ * Giao diện công cộng, giao diện phiếu giảm giá , Tin tức ngành , Đăng ký số điện thoại di động
  *
  */
 export function getAjcaptcha(data) {
@@ -26,7 +26,7 @@ export function ajcaptchaCheck(data) {
 }
 
 /**
- * 获取主页数据 无需授权
+ * Nhận dữ liệu trang chủ mà không được phép
  *
  */
 export function getIndexData() {
@@ -39,7 +39,7 @@ export function getIndexData() {
   );
 }
 /**
- * 获取服务器类型
+ * Nhận loại máy chủ
  *
  */
 export function getServerType() {
@@ -53,7 +53,7 @@ export function getServerType() {
 }
 
 /**
- * 获取登录授权login
+ * Nhận ủy quyền đăng nhậplogin
  *
  */
 export function getLogo() {
@@ -67,7 +67,7 @@ export function getLogo() {
 }
 
 /**
- * 保存form_id
+ * cứuform_id
  * @param string formId
  */
 export function setFormId(formId) {
@@ -77,7 +77,7 @@ export function setFormId(formId) {
 }
 
 /**
- * 领取优惠卷
+ * Nhận phiếu giảm giá
  * @param int couponId
  *
  */
@@ -87,7 +87,7 @@ export function setCouponReceive(couponId) {
   });
 }
 /**
- * 优惠券列表
+ * Danh sách phiếu giảm giá
  * @param object data
  */
 export function getCoupons(data) {
@@ -96,7 +96,7 @@ export function getCoupons(data) {
   });
 }
 /**
- * 首页优惠券列表组件数据
+ * Dữ liệu thành phần danh sách phiếu giảm giá trang chủ
  * @param object data
  */
 export function getCouponsIndex(data) {
@@ -106,15 +106,15 @@ export function getCouponsIndex(data) {
 }
 
 /**
- * 我的优惠券
- * @param int types 0全部  1未使用 2已使用
+ * phiếu giảm giá của tôi
+ * @param int loại 0 tất cả 1 chưa sử dụng 2 đã sử dụng
  */
 export function getUserCoupons(types, data) {
   return request.get("coupons/user/" + types, data);
 }
 
 /**
- * 首页新人优惠券
+ * Trang chủ Phiếu giảm giá cho người mới
  *
  */
 export function getNewCoupon() {
@@ -122,7 +122,7 @@ export function getNewCoupon() {
 }
 
 /**
- * 文章分类列表
+ * Danh sách danh mục bài viết
  *
  */
 export function getArticleCategoryList() {
@@ -136,7 +136,7 @@ export function getArticleCategoryList() {
 }
 
 /**
- * 文章列表
+ * Danh sách bài viết
  * @param int cid
  *
  */
@@ -147,7 +147,7 @@ export function getArticleList(cid, data) {
 }
 
 /**
- * 文章 热门列表
+ * Danh sách bài viết Hot
  *
  */
 export function getArticleHotList() {
@@ -161,7 +161,7 @@ export function getArticleHotList() {
 }
 
 /**
- * 文章 轮播列表
+ * Danh sách băng chuyền bài viết
  *
  */
 export function getArticleBannerList() {
@@ -175,7 +175,7 @@ export function getArticleBannerList() {
 }
 
 /**
- * 文章详情
+ * Chi tiết bài viết
  * @param int id
  *
  */
@@ -190,7 +190,7 @@ export function getArticleDetails(id) {
 }
 
 /**
- * 手机号+验证码登录接口
+ * Số điện thoại di động + giao diện đăng nhập mã xác minh
  * @param object data
  */
 export function loginMobile(data) {
@@ -200,7 +200,7 @@ export function loginMobile(data) {
 }
 
 /**
- * 获取短信KEY
+ * Nhận tin nhắn SMSKEY
  * @param object phone
  */
 export function verifyCode() {
@@ -214,7 +214,7 @@ export function verifyCode() {
 }
 
 /**
- * 验证码发送
+ * Mã xác minh đã được gửi
  * @param object phone
  */
 export function registerVerify(
@@ -240,7 +240,7 @@ export function registerVerify(
 }
 
 /**
- * 手机号注册
+ * Đăng ký số điện thoại di động
  * @param object data
  *
  */
@@ -251,7 +251,7 @@ export function phoneRegister(data) {
 }
 
 /**
- * 手机号修改密码
+ * Đổi mật khẩu số điện thoại di động
  * @param object data
  *
  */
@@ -262,7 +262,7 @@ export function phoneRegisterReset(data) {
 }
 
 /**
- * 手机号+密码登录
+ * Đăng nhập bằng số điện thoại + mật khẩu
  * @param object data
  *
  */
@@ -273,7 +273,7 @@ export function phoneLogin(data) {
 }
 
 /**
- * 切换H5登录
+ * Chuyển đăng nhập H5
  * @param object data
  */
 // #ifdef MP
@@ -285,7 +285,7 @@ export function switchH5Login() {
 // #endif
 
 /*
- * h5切换公众号登录
+ * h5Chuyển đổi đăng nhập tài khoản chính thức
  * */
 // #ifdef H5
 export function switchH5Login() {
@@ -296,7 +296,7 @@ export function switchH5Login() {
 // #endif
 
 /**
- * 绑定手机号
+ * Ràng buộc số điện thoại di động
  *
  */
 export function bindingPhone(data) {
@@ -306,7 +306,7 @@ export function bindingPhone(data) {
 }
 
 /**
- * 绑定手机号
+ * Ràng buộc số điện thoại di động
  *
  */
 export function bindingUserPhone(data) {
@@ -314,7 +314,7 @@ export function bindingUserPhone(data) {
 }
 
 /**
- * 退出登錄
+ * Đăng xuất
  *
  */
 export function logout() {
@@ -322,7 +322,7 @@ export function logout() {
 }
 
 /**
- * 获取订阅消息id
+ * Nhận tin nhắn đăng kýid
  */
 export function getTempIds() {
   return request.get(
@@ -335,7 +335,7 @@ export function getTempIds() {
 }
 
 /**
- * 首页拼团数据
+ * Dữ liệu nhóm nhà
  */
 export function pink() {
   return request.get(
@@ -348,7 +348,7 @@ export function pink() {
 }
 
 /**
- * 获取城市信息
+ * Nhận thông tin thành phố
  */
 export function getCity() {
   return request.get(
@@ -361,7 +361,7 @@ export function getCity() {
 }
 
 /**
- * 获取列表
+ * Nhận danh sách
  */
 export function getLiveList(page, limit) {
   return request.get(
@@ -377,7 +377,7 @@ export function getLiveList(page, limit) {
 }
 
 /**
- * 获取首页DIY；
+ * Nhận trang chủDIY；
  */
 export function getDiy(id) {
   return request.get(
@@ -390,7 +390,7 @@ export function getDiy(id) {
 }
 
 /**
- * 一键换色；
+ * Thay đổi màu bằng một cú nhấp chuột；
  */
 export function colorChange(name) {
   return request.get(
@@ -403,7 +403,7 @@ export function colorChange(name) {
 }
 
 /**
- * 获取公众号关注
+ * Thu hút sự chú ý của tài khoản công cộng
  * @returns {*}
  */
 export function follow() {
@@ -417,7 +417,7 @@ export function follow() {
 }
 
 /**
- * 更换手机号码
+ * Thay đổi số điện thoại di động
  * @returns {*}
  */
 export function updatePhone(data) {
@@ -427,7 +427,7 @@ export function updatePhone(data) {
 }
 
 /**
- * 首页优惠券弹窗
+ * Cửa sổ bật lên phiếu giảm giá trang chủ
  * @returns {*}
  */
 export function getCouponV2() {
@@ -441,7 +441,7 @@ export function getCouponV2() {
 }
 
 /**
- * 新用户优惠券弹窗
+ * Cửa sổ bật lên phiếu giảm giá người dùng mới
  * @returns {*}
  */
 export function getCouponNewUser() {
@@ -455,7 +455,7 @@ export function getCouponNewUser() {
 }
 
 /**
- * 首页快速选择数据
+ * Chọn nhanh dữ liệu trên trang chủ
  * @param {Object} data
  */
 export function category(data) {
@@ -465,7 +465,7 @@ export function category(data) {
 }
 
 /**
- * 个人搜索历史
+ * Lịch sử tìm kiếm cá nhân
  * @param {Object} data
  */
 export function searchList(data) {
@@ -475,13 +475,13 @@ export function searchList(data) {
 }
 
 /**
- * 删除搜索历史
+ * Xóa lịch sử tìm kiếm
  */
 export function clearSearch() {
   return request.get("v2/user/clean_search");
 }
 /**
- * 获取网站基础配置
+ * Lấy cấu hình cơ bản của website
  */
 export function siteConfig(data) {
   return request.get("site_config", data, {
@@ -490,7 +490,7 @@ export function siteConfig(data) {
 }
 
 /**
- * App微信登录
+ * Appđăng nhập WeChat
  * @returns {*}
  */
 export function wechatAppAuth(data) {
@@ -499,7 +499,7 @@ export function wechatAppAuth(data) {
   });
 }
 /**
- * 获取客服类型
+ * Nhận loại dịch vụ khách hàng
  * @returns {*}
  */
 export function getCustomerType(data) {
@@ -513,7 +513,7 @@ export function getCustomerType(data) {
 }
 
 /**
- * 获取开屏广告
+ * Nhận quảng cáo màn hình mở
  * @returns {*}
  */
 export function getOpenAdv(data) {
@@ -527,7 +527,7 @@ export function getOpenAdv(data) {
 }
 
 /**
- * 获取版权信息
+ * Nhận thông tin bản quyền
  */
 export function getCrmebCopyRight() {
   return request.get(
@@ -539,7 +539,7 @@ export function getCrmebCopyRight() {
   );
 }
 /**
- * 获取DIY版本接口
+ * Nhận giao diện phiên bản DIY
  * @param {Object} id
  */
 export function getDiyVersion(name) {
@@ -552,7 +552,7 @@ export function getDiyVersion(name) {
   );
 }
 /**
- * 获取主题信息接口
+ * Giao diện lấy thông tin chủ đề
  * @param {Object} id
  */
 export function getThemeInfo(type, data) {
@@ -562,7 +562,7 @@ export function getThemeInfo(type, data) {
 }
 
 /**
- * 获取DIY签到信息
+ * Nhận thông tin đăng ký DIY
  * @param {Object} id
  */
 export function getSign() {
@@ -575,7 +575,7 @@ export function getSign() {
   );
 }
 /**
- * @description 获取主题商品列表
+ * @description Nhận danh sách các sản phẩm theo chủ đề
  */
 export function getThemeProduct(data) {
   return request.get("theme/product", data, {
@@ -583,7 +583,7 @@ export function getThemeProduct(data) {
   });
 }
 /**
- * @description 获取文章列表
+ * @description Nhận danh sách bài viết
  */
 export function getThemeArticle(data) {
   return request.get("theme/article", data, {
@@ -591,7 +591,7 @@ export function getThemeArticle(data) {
   });
 }
 /**
- * @description 获取优惠券列表
+ * @description Nhận danh sách phiếu giảm giá
  */
 export function getThemeCoupon(data) {
   return request.get("theme/coupon", data, {
@@ -600,7 +600,7 @@ export function getThemeCoupon(data) {
 }
 
 /**
- * 获取用户信息(DIY)
+ * Lấy thông tin người dùng(DIY)
  *
  */
 export function getThemeUser() {

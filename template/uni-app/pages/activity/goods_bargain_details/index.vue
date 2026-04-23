@@ -6,14 +6,14 @@
 			<!-- #endif -->
 			<view :style="'background-image: url(' + (bargainUid != userInfo.uid ? imgHost + picUrl.support : imgHost + picUrl.barga) + ');'" class="header">
 				<view class="people">
-					{{ peopleCount.lookCount || 0 }}{{ $t(`人查看`) }} 丨 {{ peopleCount.shareCount || 0 }}{{ $t(`人分享`) }} 丨 {{ peopleCount.userCount || 0 }}{{ $t(`人参与`) }}
+					{{ peopleCount.lookCount || 0 }}{{ $t(`mọi người xem`) }} 丨 {{ peopleCount.shareCount || 0 }}{{ $t(`mọi người chia sẻ`) }} 丨 {{ peopleCount.userCount || 0 }}{{ $t(`mọi người tham gia`) }}
 				</view>
 				<countDown
-					:tipText="$t(`倒计时`)"
-					:dayText="$t(`天`)"
-					:hourText="$t(`时`)"
-					:minuteText="$t(`分`)"
-					:secondText="$t(`秒`)"
+					:tipText="$t(`Đếm ngược`)"
+					:dayText="$t(`bầu trời`)"
+					:hourText="$t(`giờ`)"
+					:minuteText="$t(`điểm`)"
+					:secondText="$t(`Thứ hai`)"
 					:datatime="datatime"
 					:isDay="true"
 					v-if="bargainUid == userInfo.uid"
@@ -24,7 +24,7 @@
 					</view>
 					<view class="text">
 						{{ bargainUserInfo.nickname || '' }}
-						<text>{{ $t(`邀请您帮忙砍价`) }}</text>
+						<text>{{ $t(`Mời bạn giúp thương lượng giá`) }}</text>
 					</view>
 				</view>
 			</view>
@@ -33,69 +33,69 @@
 					<view class="pictrue">
 						<image :src="bargainInfo.image"></image>
 						<view class="bargain_view" v-if="bargainInfo.product_is_show">
-							{{ $t(`查看商品`) }}
+							{{ $t(`Xem sản phẩm`) }}
 							<text class="iconfont icon-jiantou iconfonts"></text>
 						</view>
 					</view>
 					<view class="text acea-row row-column-around">
 						<view class="line2">{{ bargainInfo.title || '' }}</view>
 						<view class="money">
-							{{ $t(`当前`) }}: {{ $t(`￥`) }}
+							{{ $t(`hiện hành`) }}: {{ $t(`￥`) }}
 							<text class="num">{{ bargainInfo.price || '' }}</text>
 						</view>
-						<view class="successNum">{{ $t(`最低`) }}:{{ $t(`￥`) }}{{ bargainInfo.min_price || '' }}</view>
+						<view class="successNum">{{ $t(`thấp nhất`) }}:{{ $t(`￥`) }}{{ bargainInfo.min_price || '' }}</view>
 					</view>
 				</view>
-				<!-- 进度条 -->
+				<!-- thanh tiến trình -->
 				<block v-if="userBargainInfo.price > 0">
 					<view class="cu-progress acea-row row-middle round margin-top">
 						<view class="acea-row row-middle bg-red" :style="'width:' + userBargainInfo.pricePercent + '%;'"></view>
 					</view>
 					<view class="money acea-row row-between-wrapper">
-						<view>{{ $t(`已砍`) }}{{ userBargainInfo.alreadyPrice }}</view>
-						<view>{{ $t(`还剩`) }}{{ userBargainInfo.price }}</view>
+						<view>{{ $t(`Cắt`) }}{{ userBargainInfo.alreadyPrice }}</view>
+						<view>{{ $t(`bên trái`) }}{{ userBargainInfo.price }}</view>
 					</view>
 				</block>
-				<!-- 自己砍价 -->
+				<!-- Mặc cả bản thân -->
 				<view v-if="userBargainInfo.bargainType == 1">
-					<view class="bargainBnt" @tap="userBargain" v-if="productStock > 0 && quota > 0">{{ $t(`立即参与砍价`) }}</view>
-					<view class="bargainBnt grey" v-if="productStock <= 0 || quota <= 0">{{ $t(`商品暂无库存`) }}</view>
+					<view class="bargainBnt" @tap="userBargain" v-if="productStock > 0 && quota > 0">{{ $t(`Tham gia thương lượng ngay bây giờ`) }}</view>
+					<view class="bargainBnt grey" v-if="productStock <= 0 || quota <= 0">{{ $t(`Sản phẩm hiện đã hết hàng`) }}</view>
 				</view>
-				<!-- 帮助砍价、帮砍成功： -->
+				<!-- Giúp đàm phán giá cả và thành công trong thương lượng： -->
 				<view v-if="userBargainInfo.bargainType == 2">
-					<view class="bargainBnt" @tap="shareModal">{{ $t(`邀请好友帮砍价`) }}</view>
+					<view class="bargainBnt" @tap="shareModal">{{ $t(`Mời bạn bè giúp thương lượng giá`) }}</view>
 					<view class="tip">
-						{{ $t(`已有`) }}
+						{{ $t(`Đã có rồi`) }}
 						<text class="num">{{ userBargainInfo.count }}</text>
-						{{ $t(`位好友成功砍价`) }}
+						{{ $t(`bạn bè đã thương lượng thành công`) }}
 					</view>
 				</view>
 
 				<view v-if="userBargainInfo.bargainType == 3">
-					<view class="bargainBnt" @tap="setBargainHelp">{{ $t(`帮好友砍一刀`) }}</view>
+					<view class="bargainBnt" @tap="setBargainHelp">{{ $t(`Đưa cho một người bạn một con dao`) }}</view>
 				</view>
 				<view v-if="userBargainInfo.bargainType == 4">
 					<view class="bargainSuccess">
 						<text class="iconfont icon-xiaolian"></text>
-						{{ $t(`好友已砍价成功`) }}
+						{{ $t(`Bạn bè đã mặc cả thành công`) }}
 					</view>
-					<view class="bargainBnt" @tap="currentBargainUser">{{ $t(`我也要参与`) }}</view>
+					<view class="bargainBnt" @tap="currentBargainUser">{{ $t(`Tôi cũng muốn tham gia`) }}</view>
 				</view>
 
 				<view v-if="userBargainInfo.bargainType == 5">
 					<view class="bargainSuccess">
 						<text class="iconfont icon-xiaolian"></text>
-						{{ $t(`已成功帮助好友砍价`) }}
+						{{ $t(`Đã giúp bạn bè mặc cả thành công`) }}
 					</view>
-					<view class="bargainBnt" @tap="currentBargainUser">{{ $t(`我也要参与`) }}</view>
+					<view class="bargainBnt" @tap="currentBargainUser">{{ $t(`Tôi cũng muốn tham gia`) }}</view>
 				</view>
 				<view v-if="userBargainInfo.bargainType == 6">
 					<view class="bargainSuccess">
 						<text class="iconfont icon-xiaolian"></text>
-						{{ $t(`恭喜您砍价成功，快去支付`) }}
+						{{ $t(`Chúc mừng bạn đã thương lượng thành công, hãy đi và thanh toán`) }}
 					</view>
-					<view class="bargainBnt" @tap="goPay">{{ $t(`立即支付`) }}</view>
-					<view class="bargainBnt on" @tap="goBargainList">{{ $t(`抢更多商品`) }}</view>
+					<view class="bargainBnt" @tap="goPay">{{ $t(`Thanh toán ngay`) }}</view>
+					<view class="bargainBnt on" @tap="goBargainList">{{ $t(`Lấy thêm sản phẩm`) }}</view>
 				</view>
 
 				<view class="lock" :style="'background-image: url(' + imgHost + picUrl.lock + ');'"></view>
@@ -105,7 +105,7 @@
 					<view class="pictrue">
 						<image :src="picUrl.lace"></image>
 					</view>
-					<view class="titleCon">{{ $t(`砍价帮`) }}</view>
+					<view class="titleCon">{{ $t(`Nhóm mặc cả`) }}</view>
 					<view class="pictrue on">
 						<image :src="picUrl.lace"></image>
 					</view>
@@ -124,16 +124,16 @@
 							</view>
 							<view class="money">
 								<text class="iconfont icon-kanjia"></text>
-								{{ $t(`砍掉`) }}{{ $t(`￥`) }}{{ item.price }}
+								{{ $t(`cắt đứt`) }}{{ $t(`￥`) }}{{ item.price }}
 							</view>
 						</view>
 					</block>
 					<view class="open acea-row row-center-wrapper" @click="openTap" v-if="bargainUserHelpList.length > 3">
-						{{ couponsHidden ? $t(`更多`) : $t(`关闭`) }}
+						{{ couponsHidden ? $t(`Hơn`) : $t(`đóng cửa`) }}
 						<text class="iconfont" :class="couponsHidden == true ? 'icon-xiangxia' : 'icon-xiangshang'"></text>
 					</view>
 				</view>
-				<view class="load" v-if="!limitStatus" @tap="getBargainUser">{{ $t(`点击加载更多`) }}</view>
+				<view class="load" v-if="!limitStatus" @tap="getBargainUser">{{ $t(`Bấm để tải thêm`) }}</view>
 				<view class="lock" :style="'background-image: url(' + imgHost + picUrl.lock + ');'"></view>
 			</view>
 			<view class="goodsDetails">
@@ -141,7 +141,7 @@
 					<view class="pictrue">
 						<image src="/images/left.png"></image>
 					</view>
-					<view class="titleCon">{{ $t(`商品详情`) }}</view>
+					<view class="titleCon">{{ $t(`Chi tiết sản phẩm`) }}</view>
 					<view class="pictrue on">
 						<image src="/images/left.png"></image>
 					</view>
@@ -156,7 +156,7 @@
 					<view class="pictrue">
 						<image src="/images/left.png"></image>
 					</view>
-					<view class="titleCon">{{ $t(`砍价规则`) }}</view>
+					<view class="titleCon">{{ $t(`quy tắc thương lượng`) }}</view>
 					<view class="pictrue on">
 						<image src="/images/left.png"></image>
 					</view>
@@ -171,26 +171,26 @@
 				</view>
 				<view v-if="bargainUid == userInfo.uid">
 					<view class="cutOff">
-						{{ $t(`您已砍掉`) }}
+						{{ $t(`bạn đã cắt`) }}
 						<text style="color: var(--view-theme)">{{ userBargainPrice }}</text>
-						{{ $t(`元，听说分享次数越多砍价成功的机会越大哦`) }}
+						{{ $t(`Yuan, tôi nghe nói chia sẻ càng nhiều thì cơ hội thương lượng thành công càng lớn.`) }}
 					</view>
 					<!-- #ifdef MP -->
-					<button class="tipBnt" @tap="shareModal">{{ $t(`邀请好友帮砍价`) }}</button>
+					<button class="tipBnt" @tap="shareModal">{{ $t(`Mời bạn bè giúp thương lượng giá`) }}</button>
 					<!-- #endif -->
 					<!-- #ifdef H5 -->
-					<view class="tipBnt" @tap="shareModal">{{ $t(`邀请好友帮砍价`) }}</view>
+					<view class="tipBnt" @tap="shareModal">{{ $t(`Mời bạn bè giúp thương lượng giá`) }}</view>
 					<!-- #endif -->
 				</view>
 				<view v-else>
-					<view class="help" style="color: #fc4141">{{ $t(`成功帮砍`) }}{{ $t(`￥`) }}{{ userBargainPrice }}</view>
-					<view class="cutOff on">{{ $t(`您也可以砍价低价拿哦，快去挑选心仪的商品吧`) }}</view>
-					<view @tap="currentBargainUser" class="tipBnt">{{ $t(`我也要参与`) }}</view>
+					<view class="help" style="color: #fc4141">{{ $t(`Đã giúp cắt thành công`) }}{{ $t(`￥`) }}{{ userBargainPrice }}</view>
+					<view class="cutOff on">{{ $t(`Bạn cũng có thể mặc cả và mua nó với giá thấp. Hãy đi và lựa chọn sản phẩm bạn yêu thích.`) }}</view>
+					<view @tap="currentBargainUser" class="tipBnt">{{ $t(`Tôi cũng muốn tham gia`) }}</view>
 				</view>
 			</view>
 			<view class="mask" catchtouchmove="true" v-show="active == true" @tap="close"></view>
 		</view>
-		<!-- 发送给朋友图片 -->
+		<!-- Gửi ảnh cho bạn bè -->
 		<view class="share-box" v-if="H5ShareBox">
 			<image :src="imgHost + '/statics/images/share-info.png'" @click="H5ShareBox = false"></image>
 		</view>
@@ -228,41 +228,41 @@
 		<div class="posters" v-if="bargainPosterModal">
 			<bargainPoster v-if="bargainPosterModal" ref="bargainPoster" comType="1" :comId="id" :comBargain="bargainUid" @getPosterImgae="getPosterImgae"></bargainPoster>
 		</div>
-		<!-- 海报展示 -->
+		<!-- hiển thị áp phích -->
 		<view class="mask" v-if="posterImageModal" @click="listenerActionClose"></view>
 		<view class="poster-pop" v-if="posterImageModal">
 			<image src="/static/images/poster-close.png" class="close" @click="listenerActionClose"></image>
 			<image class="poster-img" :src="posterImage"></image>
 			<!-- #ifndef H5  -->
-			<view class="save-poster" @click="savePosterPath">{{ $t(`保存到手机`) }}</view>
+			<view class="save-poster" @click="savePosterPath">{{ $t(`Lưu vào điện thoại`) }}</view>
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
-			<view class="keep">{{ $t(`长按图片可以保存到手机`) }}</view>
+			<view class="keep">{{ $t(`Nhấn và giữ hình ảnh để lưu nó vào điện thoại của bạn`) }}</view>
 			<!-- #endif -->
 		</view>
-		<!-- 分享按钮 -->
+		<!-- nút chia sẻ -->
 		<view class="generate-posters acea-row row-middle" :class="posters ? 'on' : ''">
 			<!-- #ifndef MP -->
 			<button class="item" hover-class="none" v-if="weixinStatus === true" @click="H5ShareBox = true">
 				<view class="iconfont icon-weixin3"></view>
-				<view class="">{{ $t(`发送给朋友`) }}</view>
+				<view class="">{{ $t(`Gửi cho bạn bè`) }}</view>
 			</button>
 			<!-- #endif -->
 			<!-- #ifdef MP -->
 			<button class="item" open-type="share" hover-class="none" @click="goFriend">
 				<view class="iconfont icon-weixin3"></view>
-				<view class="">{{ $t(`发送给朋友`) }}</view>
+				<view class="">{{ $t(`Gửi cho bạn bè`) }}</view>
 			</button>
 			<!-- #endif -->
 			<!-- #ifdef APP-PLUS -->
 			<view class="item" @click="appShare('WXSceneSession')">
 				<view class="iconfont icon-weixin3"></view>
-				<view class="">{{ $t(`微信好友`) }}</view>
+				<view class="">{{ $t(`bạn bè WeChat`) }}</view>
 			</view>
 			<!-- #endif -->
 			<button class="item" hover-class="none" @click="getBargainUserBargainPricePoster">
 				<view class="iconfont icon-haibao"></view>
-				<view class="">{{ $t(`生成海报`) }}</view>
+				<view class="">{{ $t(`Tạo áp phích`) }}</view>
 			</button>
 		</view>
 		<view class="mask" v-if="posters" @click="listenerActionClose"></view>
@@ -299,7 +299,7 @@ export default {
 		bargainPoster
 	},
 	/**
-	 * 页面的初始数据
+	 * Dữ liệu ban đầu của trang
 	 */
 	mixins: [colors],
 	data() {
@@ -310,12 +310,12 @@ export default {
 			countDownMinute: '00',
 			countDownSecond: '00',
 			active: false,
-			id: 0, //砍价产品编号
-			userInfo: {}, //当前用户信息
-			bargainUid: 0, //开启砍价用户
-			bargainUserInfo: {}, //开启砍价用户信息
-			bargainUserId: 0, //开启砍价编号
-			bargainInfo: [], //砍价产品
+			id: 0, //Số sản phẩm ưu đãi
+			userInfo: {}, //Thông tin người dùng hiện tại
+			bargainUid: 0, //Cho phép người dùng thương lượng
+			bargainUserInfo: {}, //Cho phép thương lượng thông tin người dùng
+			bargainUserId: 0, //Kích hoạt số thương lượng
+			bargainInfo: [], //Sản phẩm ưu đãi
 			userBargainInfo: [],
 			offset: 0,
 			limit: 20,
@@ -323,16 +323,16 @@ export default {
 			bargainUserHelpList: [],
 			bargainUserHelpInfo: [],
 			userBargainPrice: 0,
-			status: '', // 0 开启砍价   1  朋友帮忙砍价  2 朋友帮忙砍价成功 3 完成砍价  4 砍价失败 5已创建订单
-			peopleCount: [], //分享人数  浏览人数 参与人数
+			status: '', // 0 Bắt đầu thương lượng 1 Bạn bè đã giúp mặc cả 2 Bạn bè đã giúp mặc cả thành công 3 Thương lượng hoàn thành 4 Thương lượng không thành công 5 Đơn hàng được tạo
+			peopleCount: [], //Số người đã chia sẻ Số người đã xem Số người đã tham gia
 			retunTop: true,
 			bargainPartake: 0,
 			isHelp: false,
 			interval: null,
-			userBargainStatus: 0, //判断自己是否砍价
-			bargainSumCount: 0, // 购买次数
-			productStock: 0, //判断是否售罄；
-			quota: 0, //判断是否已限量；
+			userBargainStatus: 0, //Quyết định xem có nên mặc cả không
+			bargainSumCount: 0, // Số lượng mua hàng
+			productStock: 0, //Xác định xem đã bán hết chưa；
+			quota: 0, //Xác định xem nó có bị giới hạn không；
 			userBargainStatusHelp: true,
 			navH: '',
 			statusPay: '',
@@ -344,31 +344,31 @@ export default {
 				table: 'width:100%',
 				video: 'width:100%'
 			},
-			H5ShareBox: false, //公众号分享图片
+			H5ShareBox: false, //Hình ảnh chia sẻ tài khoản công khai
 			systemH: 100,
-			isAuto: false, //没有授权的不会自动授权
-			isShowAuth: false, //是否隐藏授权
+			isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+			isShowAuth: false, //Có ẩn ủy quyền hay không
 			pages: '',
 			posters: false,
 			weixinStatus: false,
 			couponsHidden: true,
 			followCode: false,
-			//二维码参数
+			//Thông số mã QR
 			codeShow: false,
 			cid: '1',
 			ifShow: true,
-			val: '', // 要生成的二维码值
-			size: 200, // 二维码大小
-			unit: 'upx', // 单位
-			background: '#FFF', // 背景色
-			foreground: '#000', // 前景色
-			pdground: '#000', // 角标色
-			icon: '', // 二维码图标
-			iconsize: 40, // 二维码图标大小
-			lv: 3, // 二维码容错级别 ， 一般不用设置，默认就行
-			onval: true, // val值变化时自动重新生成二维码
-			loadMake: true, // 组件加载完成后自动生成二维码
-			src: '', // 二维码生成后的图片地址或base64
+			val: '', // Giá trị mã QR sẽ được tạo
+			size: 200, // Kích thước mã QR
+			unit: 'upx', // đơn vị
+			background: '#FFF', // màu nền
+			foreground: '#000', // màu nền trước
+			pdground: '#000', // Màu nhân vật
+			icon: '', // Biểu tượng mã QR
+			iconsize: 40, // Kích thước biểu tượng mã QR
+			lv: 3, // Mức độ chấp nhận lỗi mã QR, nói chung không cần đặt, mặc định là ổn
+			onval: true, // valTự động tạo lại mã QR khi giá trị thay đổi
+			loadMake: true, // Sau khi thành phần được tải, mã QR sẽ được tạo tự động.
+			src: '', // Địa chỉ hình ảnh sau khi mã QR được tạo hoặcbase64
 			codeSrc: '',
 			picUrl: {},
 			picList: [
@@ -431,7 +431,7 @@ export default {
 		}
 	},
 	/**
-	 * 生命周期函数--监听页面加载
+	 * Chức năng vòng đời--nghe tải trang
 	 */
 	onLoad(options) {
 		var that = this;
@@ -458,20 +458,20 @@ export default {
 		if (pages.length <= 1) {
 			that.retunTop = false;
 		}
-		//扫码携带参数处理
+		//Quét mã để thực hiện xử lý tham số
 		// #ifdef MP
 		if (options.scene) {
 			var value = util.getUrlParams(decodeURIComponent(options.scene));
 			if (typeof value === 'object') {
 				if (value.id) options.id = value.id;
 				if (value.bargain) options.bargain = value.bargain;
-				//记录推广人uid
+				//người quảng bá kỷ lụcuid
 				if (value.pid) app.globalData.spid = value.pid;
 			} else {
 				app.globalData.spid = value;
 			}
 		}
-		//记录推广人uid
+		//người quảng bá kỷ lụcuid
 		if (options.spid) app.globalData.spid = options.spid;
 		// #endif
 		if (options.hasOwnProperty('id')) {
@@ -490,7 +490,7 @@ export default {
 			toLogin();
 		}
 		uni.setNavigationBarTitle({
-			title: this.$t(`砍价详情`)
+			title: this.$t(`Chi tiết mặc cả`)
 		});
 	},
 	methods: {
@@ -521,12 +521,12 @@ export default {
 					break;
 			}
 		},
-		// app分享
+		// appchia sẻ
 		// #ifdef APP-PLUS
 		appShare(scene) {
 			let that = this;
-			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-			let curRoute = routes[routes.length - 1].$page.fullPath; // 获取当前页面路由，也就是最后一个打开的页面路由
+			let routes = getCurrentPages(); // Lấy mảng định tuyến trang hiện đang mở
+			let curRoute = routes[routes.length - 1].$page.fullPath; // Nhận lộ trình trang hiện tại, là tuyến trang được mở cuối cùng
 
 			uni.share({
 				provider: 'weixin',
@@ -537,14 +537,14 @@ export default {
 				imageUrl: that.bargainInfo.small_image,
 				success: function (res) {
 					uni.showToast({
-						title: this.$t(`分享成功`),
+						title: this.$t(`Chia sẻ thành công`),
 						icon: 'success'
 					});
 					that.posters = false;
 				},
 				fail: function (err) {
 					uni.showToast({
-						title: this.$t(`分享失败`),
+						title: this.$t(`Chia sẻ không thành công`),
 						icon: 'none',
 						duration: 2000
 					});
@@ -557,7 +557,7 @@ export default {
 		},
 		// #endif
 		/**
-		 * 分享打开
+		 * Chia sẻ mở
 		 *
 		 */
 		listenerActionSheet() {
@@ -588,36 +588,36 @@ export default {
 			// 	url: '/pages/activity/poster-poster/index?type=1&id=' + this.id + '&bargain=' + this.bargainUid
 			// });
 		},
-		// 分享关闭
+		// Tắt chia sẻ
 		listenerActionClose() {
 			this.posters = false;
 			this.posterImageModal = false;
 		},
-		// 小程序关闭分享弹窗；
+		// Chương trình nhỏ đóng cửa sổ bật lên chia sẻ；
 		goFriend() {
 			this.posters = false;
 		},
 		openTap() {
 			this.$set(this, 'couponsHidden', !this.couponsHidden);
 		},
-		// 授权关闭
+		// Ủy quyền đã đóng
 		authColse(e) {
 			this.isShowAuth = e;
 		},
-		// 去商品页
+		// Tới trang sản phẩm
 		goProduct() {
 			if (!this.bargainInfo.product_is_show) return;
 			uni.navigateTo({
 				url: `/pages/goods_details/index?id=${this.bargainInfo.product_id}`
 			});
 		},
-		// 自己砍价；
+		// Mặc cả bản thân；
 		userBargain() {
 			let that = this;
 			if (that.userInfo.uid == that.bargainUid) {
 				if (that.userBargainInfo.bargainOrderCount >= that.bargainInfo.num) {
 					return that.$util.Tips({
-						title: that.$t(`该商品每人限购`) + `${that.bargainInfo.num}${that.bargainInfo.unit_name}`
+						title: that.$t(`Sản phẩm này được giới hạn mua cho mỗi người`) + `${that.bargainInfo.num}${that.bargainInfo.unit_name}`
 					});
 				} else {
 					that.setBargain();
@@ -630,7 +630,7 @@ export default {
 			});
 		},
 		gobargainUserInfo() {
-			//获取开启砍价用户信息
+			//Lấy thông tin người dùng cho phép thương lượng
 			var that = this;
 			var data = {
 				userId: that.bargainUid
@@ -643,7 +643,7 @@ export default {
 			});
 		},
 		goPay() {
-			//立即支付
+			//Thanh toán ngay
 			var that = this;
 			var data = {
 				productId: that.bargainInfo.product_id,
@@ -667,7 +667,7 @@ export default {
 				});
 		},
 		getBargainDetails() {
-			//获取砍价产品详情
+			//Nhận thông tin chi tiết sản phẩm giá hời
 			var that = this;
 			var id = that.id;
 			getBargainDetail(id, that.bargainUid)
@@ -703,12 +703,12 @@ export default {
 				});
 		},
 		currentBargainUser() {
-			//当前用户砍价
+			//Ưu đãi của người dùng hiện tại
 			this.$set(this, 'bargainUid', this.userInfo.uid);
 			this.setBargain();
 		},
 		setBargain() {
-			//参与砍价
+			//Tham gia thương lượng
 			var that = this;
 			postBargainStart(that.id).then(
 				(res) => {
@@ -725,7 +725,7 @@ export default {
 			);
 		},
 		setBargainHelp() {
-			//帮好友砍价
+			//Mặc cả cho bạn bè
 			var that = this;
 			var data = {
 				bargainId: that.id,
@@ -745,7 +745,7 @@ export default {
 				});
 		},
 		getBargainUser() {
-			//获取砍价帮
+			//Nhận trợ giúp thương lượng
 			var that = this;
 			var data = {
 				bargainId: that.id,
@@ -774,7 +774,7 @@ export default {
 			this.$set(this, 'active', false);
 		},
 		addShareBargain() {
-			//添加分享次数 获取人数
+			//Thêm số lượng chia sẻ và nhận được số lượng người
 			var that = this;
 			postBargainShare(this.id).then((res) => {
 				that.$set(that, 'peopleCount', res.data);
@@ -785,7 +785,7 @@ export default {
 		setOpenShare() {
 			let that = this;
 			let configTimeline = {
-				title: that.$t(`您的好友`) + that.userInfo.nickname + that.$t(`邀请您砍价`) + that.bargainInfo.title,
+				title: that.$t(`bạn bè của bạn`) + that.userInfo.nickname + that.$t(`Mời bạn thương lượng`) + that.bargainInfo.title,
 				desc: that.bargainInfo.info,
 				link:
 					window.location.protocol +
@@ -830,13 +830,13 @@ export default {
 									success: function (res) {
 										that.posterImageClose();
 										that.$util.Tips({
-											title: that.$t(`保存成功`),
+											title: that.$t(`Đã lưu thành công`),
 											icon: 'success'
 										});
 									},
 									fail: function (res) {
 										that.$util.Tips({
-											title: that.$t(`保存失败`)
+											title: that.$t(`Lưu không thành công`)
 										});
 									}
 								});
@@ -848,13 +848,13 @@ export default {
 							success: function (res) {
 								that.posterImageClose();
 								that.$util.Tips({
-									title: that.$t(`保存成功`),
+									title: that.$t(`Đã lưu thành công`),
 									icon: 'success'
 								});
 							},
 							fail: function (res) {
 								that.$util.Tips({
-									title: that.$t(`保存失败`)
+									title: that.$t(`Lưu không thành công`)
 								});
 							}
 						});
@@ -864,25 +864,25 @@ export default {
 		}
 	},
 	/**
-	 * 生命周期函数--监听页面隐藏
+	 * Chức năng vòng đời - nghe ẩn trang
 	 */
 	onHide: function () {
 		if (this.interval !== null) clearInterval(this.interval);
 	},
 	/**
-	 * 生命周期函数--监听页面卸载
+	 * Chức năng vòng đời--lắng nghe quá trình tải trang
 	 */
 	onUnload: function () {
 		if (this.interval !== null) clearInterval(this.interval);
 	},
 	//#ifdef MP
 	/**
-	 * 用户点击右上角分享
+	 * Người dùng nhấn vào góc trên bên phải để chia sẻ
 	 */
 	onShareAppMessage: function () {
 		let that = this,
 			share = {
-				title: that.$t(`您的好友`) + that.userInfo.nickname + this.$t(`邀请您砍价`) + that.bargainInfo.title + this.$t(`go_help`),
+				title: that.$t(`bạn bè của bạn`) + that.userInfo.nickname + this.$t(`Mời bạn thương lượng`) + that.bargainInfo.title + this.$t(`go_help`),
 				path: '/pages/activity/goods_bargain_details/index?id=' + this.id + '&bargain=' + this.bargainUid + '&spid=' + this.userInfo.uid,
 				imageUrl: that.bargainInfo.image
 			};

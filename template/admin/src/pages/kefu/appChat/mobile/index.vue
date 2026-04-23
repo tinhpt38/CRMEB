@@ -925,7 +925,8 @@ export default {
       padding: 0.1rem 0.24rem;
       background: #fff;
       border-radius: 0.14rem;
-      word-break: break-all;
+      word-break: break-word;
+      overflow-wrap: anywhere;
       font-size: 0.28rem;
     }
     .img-box {

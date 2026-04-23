@@ -35,7 +35,7 @@ export default {
   computed: mapGetters(["isLogin", "cartNum"]),
   watch: {
     isLogin: {
-      deep: true, //深度监听设置为 true
+      deep: true, //Giám sát độ sâu được đặt thành true
       handler: function (newV, oldV) {
         if (newV) {
           // this.getCartNum()
@@ -59,7 +59,7 @@ export default {
     },
   },
   onShow() {
-    const queryData = uni.getEnterOptionsSync(); // uni-app版本 3.5.1+ 支持
+    const queryData = uni.getEnterOptionsSync(); // uni-appHỗ trợ phiên bản 3.5.1+
     if (queryData.query.spread) {
       this.$Cache.set("spread", queryData.query.spread);
       this.globalData.spid = queryData.query.spread;
@@ -88,19 +88,19 @@ export default {
         this.globalData.pid = param.pid;
       } else {
         switch (queryData.scene) {
-          //扫描小程序码
+          //Quét mã chương trình mini
           case 1047:
             this.globalData.code = queryData.query.scene;
             break;
-          //长按图片识别小程序码
+          //Nhấn và giữ mã applet nhận dạng hình ảnh
           case 1048:
             this.globalData.code = queryData.query.scene;
             break;
-          //手机相册选取小程序码
+          //Mã applet lựa chọn album điện thoại di động
           case 1049:
             this.globalData.code = queryData.query.scene;
             break;
-          //直接进入小程序
+          //Nhập trực tiếp chương trình mini
           case 1001:
             this.globalData.spid = queryData.query.scene;
             break;
@@ -147,8 +147,8 @@ export default {
     // #ifdef APP-PLUS || H5
     uni.getSystemInfo({
       success: function (res) {
-        // 首页没有title获取的整个页面的高度，里面的页面有原生标题要减掉就是视口的高度
-        // 状态栏是动态的可以拿到 标题栏是固定写死的是44px
+        // Nếu trang chủ không có tiêu đề thì sẽ lấy được chiều cao của toàn bộ trang. Nếu các trang bên trong có tiêu đề gốc thì chiều cao của khung nhìn phải giảm xuống.
+        // Thanh trạng thái động và có thể truy cập được. Thanh tiêu đề được cố định và mã hóa cứng.44px
         let height = res.windowHeight - res.statusBarHeight - 44;
         // #ifdef H5 || APP-PLUS
         that.globalData.windowHeight = res.windowHeight + "px";
@@ -162,7 +162,7 @@ export default {
     // #ifdef MP
     if (HTTP_REQUEST_URL == "") {
       console.error(
-        "请配置根目录下的config.js文件中的 'HTTP_REQUEST_URL'\n\n请修改开发者工具中【详情】->【AppID】改为自己的Appid\n\n请前往后台【小程序】->【小程序配置】填写自己的 appId and AppSecret"
+        "Vui lòng định cấu hình tệp config.js trong thư mục gốc 'HTTP_REQUEST_URL'\n\nVui lòng sửa đổi [Chi tiết trong công cụ dành cho nhà phát triển】->【AppID】Thay đổi nó thành của riêng bạnAppid\n\nVui lòng chuyển đến phần phụ trợ [Chương trình nhỏ]】->【Cấu hình chương trình nhỏ] Điền thông tin của riêng bạn appId and AppSecret"
       );
       return false;
     }
@@ -175,13 +175,13 @@ export default {
         if (res.hasUpdate) {
           updateManager.onUpdateFailed(function () {
             return that.Tips({
-              title: "新版本下载失败",
+              title: "Tải xuống phiên bản mới không thành công",
             });
           });
           updateManager.onUpdateReady(function () {
             wx.showModal({
-              title: "更新提示",
-              content: "新版本已经下载好，是否重启当前应用？",
+              title: "Cập nhật mẹo",
+              content: "Phiên bản mới đã được tải xuống. Bạn có muốn khởi động lại ứng dụng hiện tại không?？",
               success(res) {
                 if (res.confirm) {
                   updateManager.applyUpdate();
@@ -191,15 +191,15 @@ export default {
           });
           updateManager.onUpdateFailed(function () {
             wx.showModal({
-              title: "发现新版本",
-              content: "请删除当前小程序，重启搜索打开...",
+              title: "phiên bản mới được tìm thấy",
+              content: "Vui lòng xóa applet hiện tại và khởi động lại tìm kiếm để mở nó....",
             });
           });
         }
       });
     }
     // #endif
-    // 获取导航高度；
+    // Nhận chiều cao điều hướng；
     uni.getSystemInfo({
       success: function (res) {
         that.globalData.navHeight =
@@ -218,7 +218,7 @@ export default {
     // #endif
 
     // #ifdef MP
-    // 小程序静默授权
+    // Ủy quyền im lặng chương trình nhỏ
     // if (!this.$store.getters.isLogin) {
     // 	Routine.getCode()
     // 		.then(code => {
@@ -230,7 +230,7 @@ export default {
     // }
     // #endif
     // #ifdef H5
-    // 添加crmeb chat 统计
+    // Thêm số liệu thống kê trò chuyện crmeb
     // var __s = document.createElement('script');
     // __s.src = `${HTTP_REQUEST_URL}/api/get_script`;
     // document.head.appendChild(__s);
@@ -238,14 +238,14 @@ export default {
     fetch(`${HTTP_REQUEST_URL}/api/get_script`)
       .then((response) => response.text())
       .then((content) => {
-        // 尝试解析是否为HTML（带<script>标签）
+        // Hãy thử phân tích xem đó có phải là HTML hay không (với<script>Nhãn）
         const isHTML = content.trim().startsWith("<script");
 
         let externalScripts = [];
         let inlineScripts = [];
 
         if (isHTML) {
-          // 情况1：带<script>标签，用DOMParser解析
+          // Trường hợp 1: Với<script>Thẻ, được phân tích cú pháp bằng DOMParser
           const parser = new DOMParser();
           const doc = parser.parseFromString(content, "text/html");
           const scripts = doc.querySelectorAll("script");
@@ -253,7 +253,7 @@ export default {
           externalScripts = Array.from(scripts).filter((script) => script.src);
           inlineScripts = Array.from(scripts).filter((script) => !script.src);
         } else {
-          // 情况2：不带<script>标签，直接当作内联脚本处理
+          // Trường hợp 2: Không có<script>thẻ, được xử lý trực tiếp dưới dạng tập lệnh nội tuyến
           inlineScripts = [
             {
               textContent: content,
@@ -261,7 +261,7 @@ export default {
           ];
         }
 
-        // 1. 先加载所有外部脚本（如果有）
+        // 1. Tải tất cả các tập lệnh bên ngoài trước (nếu có）
         const loadExternalScripts = externalScripts.map((script) => {
           return new Promise((resolve, reject) => {
             const newScript = document.createElement("script");
@@ -272,7 +272,7 @@ export default {
           });
         });
 
-        // 2. 等外部脚本加载完成后，再执行内联脚本
+        // 2. Đợi cho đến khi tập lệnh bên ngoài được tải trước khi thực thi tập lệnh nội tuyến.
         Promise.all(loadExternalScripts)
           .then(() => {
             inlineScripts.forEach((script) => {
@@ -316,7 +316,7 @@ export default {
         }
       });
     },
-    // 小程序静默授权
+    // Ủy quyền im lặng chương trình nhỏ
     // silenceAuth(code) {
     // 	let that = this;
     // 	let spread = that.globalData.spid ? that.globalData.spid : '';
@@ -375,7 +375,7 @@ page {
 }
 
 .uni-scroll-view::-webkit-scrollbar {
-  /* 隐藏滚动条，但依旧具备可以滚动的功能 */
+  /* Ẩn thanh cuộn nhưng vẫn có chức năng cuộn */
   display: none;
 }
 

@@ -20,7 +20,7 @@
 <script>
 	export default {
 		props: {
-			size: { // 尺寸：单位px
+			size: { // Kích thước: Đơn vịpx
 				type: Number,
 				default: 20
 			},
@@ -70,9 +70,9 @@
 						starT = Date.now()
 					let Sx = endX - starX,
 						Sy = endY - starY,
-						Ax = -(2 * Sx / (t * t)) / 5, // 加速度
+						Ax = -(2 * Sx / (t * t)) / 5, // tăng tốc
 						Ay = Math.abs(Ax),
-						Vox = Sx / t - (Ax * t) / 2, // 初速度
+						Vox = Sx / t - (Ax * t) / 2, // vận tốc ban đầu
 						Voy = Sy / t - (Ay * t) / 2
 
 

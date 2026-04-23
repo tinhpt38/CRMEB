@@ -1,8 +1,8 @@
 <template>
-	<!-- 无缝滚动效果 -->
+	<!-- Hiệu ứng cuộn liền mạch -->
 	<div class="marquee-wrap">
 		<ul class="marquee-list" :class="{'animate-up': animateUp}">
-			<li v-for="(item, index) in listData" :key="index">{{$t(`恭喜您`)}} {{item.user.nickname || '**'}} {{$t(`获得`)}} {{item.prize.name}}
+			<li v-for="(item, index) in listData" :key="index">{{$t(`Chúc mừng`)}} {{item.user.nickname || '**'}} {{$t(`lấy`)}} {{item.prize.name}}
 			</li>
 		</ul>
 	</div>

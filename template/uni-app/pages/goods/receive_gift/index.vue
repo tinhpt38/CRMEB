@@ -3,7 +3,7 @@
 		<image class="top-bg" src="../static/receive-gift-bag.png" mode=""></image>
 		<image class="top-bow" src="../static/bow.png" mode=""></image>
 		<view class="aleart">
-			<view class="from">{{ nickname }} 送给您的一份礼物</view>
+			<view class="from">{{ nickname }} một món quà cho bạn</view>
 			<view class="message">{{ gift_mark }}</view>
 			<view class="aleart-body">
 				<image class="goods-img" :src="image" mode=""></image>
@@ -16,10 +16,10 @@
 			{{ giftStatusText }}
 		</view>
 		<view v-if="giftStatus == 3 && refund_status == 0" class="btn-n">
-			{{ $t('礼物已被领取') }}
+			{{ $t('Món quà đã được nhận') }}
 		</view>
 		<view v-if="refund_status != 0" class="btn-n">
-			{{ $t('礼物已失效') }}
+			{{ $t('Quà tặng đã hết hạn') }}
 		</view>
 	</view>
 </template>
@@ -60,7 +60,7 @@ export default {
 			if (options.scene) {
 				let value = this.$util.getUrlParams(decodeURIComponent(options.scene));
 				if (value.id) this.order_id = value.id;
-				//记录推广人uid
+				//người quảng bá kỷ lụcuid
 				if (value.pid) app.globalData.spid = value.pid;
 			}
 			// #endif
@@ -93,10 +93,10 @@ export default {
 				this.o_id = res.data.order_id
 				if (this.gift_uid === 0) {
 					this.giftStatus = 1;
-					this.giftStatusText = this.$t('收下礼物');
+					this.giftStatusText = this.$t('chấp nhận món quà');
 				} else if (this.gift_uid === this.uid) {
 					this.giftStatus = 2;
-					this.giftStatusText = this.$t('查看礼物');
+					this.giftStatusText = this.$t('xem quà tặng');
 				} else if (this.gift_uid !== this.uid) {
 					this.giftStatus = 3;
 				}

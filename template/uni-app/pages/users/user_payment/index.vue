@@ -2,7 +2,7 @@
 	<view>
 		<form :style="colorStyle">
 			<view class="payment-top acea-row row-column row-center-wrapper">
-				<span class="name">{{$t(`我的余额`)}}</span>
+				<span class="name">{{$t(`số dư của tôi`)}}</span>
 				<view class="pic">
 					<span class="pic-font"><span class="num"> {{$t(`￥`)}}</span>{{ userinfo.now_money || 0 }}</span>
 				</view>
@@ -17,18 +17,18 @@
 						:class="activePic == index ? 'pic-box-color-active' : ''" v-for="(item, index) in picList" :key="index"
 						@click="picCharge(index, item)" v-if="item.price">
 						<view class="pic-number-pic">
-							{{ item.price }}<span class="pic-number"> {{$t(`元`)}}</span>
+							{{ item.price }}<span class="pic-number"> {{$t(`Nhân dân tệ`)}}</span>
 						</view>
-						<view class="pic-number">{{$t(`赠送`)}}: {{ item.give_money }} {{$t(`元`)}} </view>
+						<view class="pic-number">{{$t(`cho đi`)}}: {{ item.give_money }} {{$t(`Nhân dân tệ`)}} </view>
 					</view>
 					<view class="pic-box pic-box-color acea-row row-center-wrapper"
 						:class="activePic == picList.length ? 'pic-box-color-active' : ''" @click="picCharge(picList.length)">
-						<input type="digit" @input="replaceInput" :placeholder="$t(`其他`)" v-model="money"
+						<input type="digit" @input="replaceInput" :placeholder="$t(`khác`)" v-model="money"
 							class="pic-box-money pic-number-pic" :placeholder-class="activePic == picList.length ? 'active' :''"
 							:class="activePic == picList.length ? 'pic-box-color-active' : ''" />
 					</view>
 					<view class="tips-box">
-						<view class="tips mt-30">{{$t(`注意事项`)}}：</view>
+						<view class="tips mt-30">{{$t(`Những điều cần lưu ý`)}}：</view>
 						<view class="tips-samll" v-for="item in rechargeAttention" :key="item">
 							{{ $t(item) }}
 						</view>
@@ -39,19 +39,19 @@
 					<view class='input'><text>{{$t(`￥`)}}</text><input v-model="number" placeholder="0.00" type='number'
 							placeholder-class='placeholder' name="number"></input></view>
 					<view class="tips-title">
-						<view style="font-weight: bold; font-size: 26rpx;">{{$t(`提示`)}}：</view>
-						<view style="margin-top: 10rpx;">{{$t(`当前可转入佣金为`)}} <text
-								class='font-color'>{{$t(`￥`)}}{{userinfo.commissionCount || 0}}</text>{{$t(`冻结佣金为`)}}<text
+						<view style="font-weight: bold; font-size: 26rpx;">{{$t(`gợi ý`)}}：</view>
+						<view style="margin-top: 10rpx;">{{$t(`Hoa hồng hiện tại có thể được chuyển là`)}} <text
+								class='font-color'>{{$t(`￥`)}}{{userinfo.commissionCount || 0}}</text>{{$t(`Hoa hồng cố định là`)}}<text
 								class='font-color'>{{$t(`￥`)}}{{userinfo.broken_commission}}</text></view>
 					</view>
 					<view class="tips-box">
-						<view class="tips mt-30">{{$t(`注意事项`)}}：</view>
+						<view class="tips mt-30">{{$t(`Những điều cần lưu ý`)}}：</view>
 						<view class="tips-samll" v-for="item in rechargeAttention" :key="item">
 							{{ $t(item) }}
 						</view>
 					</view>
 				</view>
-				<button class='but bg-color' @click="submitSub"> {{active ? $t(`立即转入`): $t(`立即充值`) }}</button>
+				<button class='but bg-color' @click="submitSub"> {{active ? $t(`Chuyển ngay`): $t(`Nạp tiền ngay bây giờ`) }}</button>
 			</view>
 		</form>
 		<payment :payMode="payMode" :pay_close="pay_close" :is-call="true" @onChangeFun="onChangeFun"
@@ -100,15 +100,15 @@
 			let that = this;
 			return {
 				now_money: 0,
-				navRecharge: [this.$t(`账户充值`), this.$t(`佣金转入`)],
+				navRecharge: [this.$t(`Nạp tiền tài khoản`), this.$t(`Chuyển khoản hoa hồng`)],
 				active: 0,
 				number: '',
 				formContent: '',
 				userinfo: {},
 				placeholder: "0.00",
 				from: '',
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				picList: [],
 				activePic: 0,
 				money: "",
@@ -117,18 +117,18 @@
 				rechargeAttention: [],
 				pay_close: false,
 				payMode: [{
-						name: this.$t(`微信支付`),
+						name: this.$t(`WeChat trả tiền`),
 						icon: 'icon-weixinzhifu',
 						value: 'weixin',
-						title: this.$t(`微信支付`),
+						title: this.$t(`WeChat trả tiền`),
 						payStatus: true
 					},
 					// #ifdef H5 ||APP-PLUS
 					{
-						name: this.$t(`支付宝支付`),
+						name: this.$t(`thanh toán Alipay`),
 						icon: 'icon-zhifubao',
 						value: 'alipay',
-						title: this.$t(`支付宝支付`),
+						title: this.$t(`thanh toán Alipay`),
 						payStatus: true
 					},
 					// #endif
@@ -162,7 +162,7 @@
 		},
 		methods: {
 			replaceInput(event) {
-				// 必须在nextTick中
+				// Phải có trong nextTick
 				this.$nextTick(() => {
 					this.money = event.target.value.match(/^\d*(\.?\d{0,2})/g)[0]
 				})
@@ -189,7 +189,7 @@
 			},
 
 			/**
-			 * 选择金额
+			 * Chọn số tiền
 			 */
 			picCharge(idx, item) {
 				this.activePic = idx;
@@ -204,7 +204,7 @@
 			},
 
 			/**
-			 * 充值额度选择
+			 * Lựa chọn số tiền nạp
 			 */
 			getRecharge() {
 				getRechargeApi()
@@ -228,7 +228,7 @@
 				this.getUserInfo();
 				this.getRecharge();
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
@@ -236,14 +236,14 @@
 				this.active = index;
 			},
 			/**
-			 * 获取用户信息
+			 * Lấy thông tin người dùng
 			 */
 			getUserInfo: function() {
 				let that = this;
 				getUserInfo().then(res => {
 					that.$set(that, 'userinfo', res.data);
 					if (!res.data.extract_type.includes('3')) {
-						this.$set(this, 'navRecharge', [this.$t(`账户充值`)])
+						this.$set(this, 'navRecharge', [this.$t(`Nạp tiền tài khoản`)])
 					}
 				})
 			},
@@ -257,7 +257,7 @@
 			payCheck(type) {
 				let that = this
 				uni.showLoading({
-					title: that.$t(`正在支付`),
+					title: that.$t(`Thanh toán`),
 				})
 				recharge({
 					price: that.rechar_id == 0 ? that.money : that.numberPic,
@@ -319,7 +319,7 @@
 						case 'SUCCESS':
 							uni.hideLoading();
 							return that.$util.Tips({
-								title: that.$t(`支付成功`),
+								title: that.$t(`Thanh toán thành công`),
 								icon: 'success'
 							}, {
 								tab: 5,
@@ -348,7 +348,7 @@
 										.number, that.userinfo
 										.now_money));
 									return that.$util.Tips({
-										title: that.$t(`支付成功`),
+										title: that.$t(`Thanh toán thành công`),
 										icon: 'success'
 									}, {
 										tab: 5,
@@ -358,16 +358,16 @@
 								fail: function(e) {
 									uni.hideLoading();
 									return that.$util.Tips({
-										title: that.$t(`支付失败`)
+										title: that.$t(`Thanh toán không thành công`)
 									});
 								},
 								complete: function(e) {
 									uni.hideLoading();
-									//关闭当前页面跳转至订单状态
+									//Đóng trang hiện tại và chuyển sang trạng thái đơn hàng
 									if (res.errMsg == 'requestPayment:cancel' || e.errMsg ==
 										'requestOrderPayment:cancel') return that.$util
 										.Tips({
-											title: that.$t(`取消支付`)
+											title: that.$t(`Hủy thanh toán`)
 										});
 								},
 							})
@@ -378,7 +378,7 @@
 									.number, that.userinfo
 									.now_money));
 								return that.$util.Tips({
-									title: that.$t(`支付成功`),
+									title: that.$t(`Thanh toán thành công`),
 									icon: 'success'
 								}, {
 									tab: 5,
@@ -387,11 +387,11 @@
 							}).catch(res => {
 								if (!this.$wechat.isWeixin()) {
 									return that.$util.Tips({
-										title: that.$t(`支付失败`)
+										title: that.$t(`Thanh toán không thành công`)
 									});
 								}
 								if (res.errMsg == 'chooseWXPay:cancel') return that.$util.Tips({
-									title: that.$t(`取消支付`)
+									title: that.$t(`Hủy thanh toán`)
 								});
 							})
 							// #endif
@@ -405,7 +405,7 @@
 										that.userinfo
 										.now_money));
 									return that.$util.Tips({
-										title: that.$t(`支付成功`),
+										title: that.$t(`Thanh toán thành công`),
 										icon: 'success'
 									}, {
 										tab: 5,
@@ -414,7 +414,7 @@
 								},
 								fail: (e) => {
 									return that.$util.Tips({
-										title: that.$t(`支付失败`)
+										title: that.$t(`Thanh toán không thành công`)
 									});
 								},
 								complete: () => {
@@ -425,7 +425,7 @@
 							break;
 						case 'PAY_DEFICIENCY':
 							uni.hideLoading();
-							//余额不足
+							//Số dư không đủ
 							return that.$util.Tips({
 								title: res.msg
 							}, {
@@ -464,7 +464,7 @@
 										that.userinfo
 										.now_money));
 									return that.$util.Tips({
-										title: that.$t(`支付成功`),
+										title: that.$t(`Thanh toán thành công`),
 										icon: 'success'
 									}, {
 										tab: 5,
@@ -474,7 +474,7 @@
 								},
 								fail: (e) => {
 									return that.$util.Tips({
-										title: that.$t(`支付失败`)
+										title: that.$t(`Thanh toán không thành công`)
 									});
 								},
 								complete: () => {
@@ -512,21 +512,21 @@
 				this.pay_close = true;
 			},
 			/*
-			 * 用户充值
+			 * Nạp tiền người dùng
 			 */
 			submitSub() {
 				let that = this
 				let value = this.number;
-				// 转入余额
+				// Chuyển số dư
 				if (that.active) {
 					if (parseFloat(value) < 0 || parseFloat(value) == NaN || value == undefined || value == "") {
 						return that.$util.Tips({
-							title: that.$t(`请输入金额`)
+							title: that.$t(`Vui lòng nhập số tiền`)
 						});
 					}
 					uni.showModal({
-						title: that.$t(`转入余额`),
-						content: that.$t(`转入余额后无法再次转出，确认是否转入余额`),
+						title: that.$t(`Chuyển số dư`),
+						content: that.$t(`Sau khi chuyển số dư, bạn không thể chuyển số tiền đó ra ngoài nữa. Vui lòng xác nhận xem có chuyển số dư hay không.`),
 						success(res) {
 							if (res.confirm) {
 								recharge({
@@ -536,7 +536,7 @@
 									.then(res => {
 										// that.$set(that, 'userinfo.now_money', that.$util.$h.Add(value, that.userinfo.now_money))
 										return that.$util.Tips({
-											title: that.$t(`转入成功`),
+											title: that.$t(`Chuyển thành công`),
 											icon: 'success'
 										}, {
 											tab: 5,
@@ -549,7 +549,7 @@
 									});
 							} else if (res.cancel) {
 								return that.$util.Tips({
-									title: that.$t(`已取消`)
+									title: that.$t(`Đã hủy`)
 								});
 							}
 						},

@@ -5,7 +5,7 @@
 				<text class="iconfont icon-gou"></text>
 				<view class="pay-status-r">
 					<text class="pay-status-text">
-						{{$t(`评价完成`)}}
+						{{$t(`Đánh giá đã hoàn thành`)}}
 					</text>
 					<text class="date">
 						{{$util.getNowTime()}}
@@ -14,14 +14,14 @@
 			</view>
 			<view class="jump">
 				<view class="jump-index" @click="goIndex">
-					{{$t(`返回首页`)}}
+					{{$t(`Trở về trang chủ`)}}
 				</view>
 			</view>
 		</view>
 		<view class="grids-top" v-show="lotteryShow">
 			<image src="../static/pay-lottery-l.png" mode=""></image>
 			<view class="grids-title">
-				<view>{{$t(`恭喜您`)}}，{{$t(`获得`)}} {{lottery_num}} {{$t(`机会`)}}</view>
+				<view>{{$t(`Chúc mừng`)}}，{{$t(`lấy`)}} {{lottery_num}} {{$t(`Cơ hội`)}}</view>
 			</view>
 			<image src="../static/pay-lottery-r.png" mode=""></image>
 		</view>
@@ -85,10 +85,10 @@
 				aleartType: 0,
 				aleartStatus: false,
 				lottery_draw_param: {
-					startIndex: 3, //开始抽奖位置，从0开始
-					totalCount: 3, //一共要转的圈数
-					winingIndex: 1, //中奖的位置，从0开始
-					speed: 100 //抽奖动画的速度 [数字越大越慢,默认100]
+					startIndex: 3, //Bắt đầu vị trí xổ số, bắt đầu từ 0
+					totalCount: 3, //Tổng số lượt thực hiện
+					winingIndex: 1, //Vị trí chiến thắng bắt đầu từ 0
+					speed: 100 //Tốc độ của hoạt hình xổ số [Số càng cao thì tốc độ càng chậm,mặc định100]
 				},
 				alData: {},
 				type: '',
@@ -99,8 +99,8 @@
 					paid: 1,
 					_status: {}
 				},
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				couponsHidden: true,
 				couponList: []
 			};
@@ -140,24 +140,24 @@
 			set_time(str) {
 				var n = parseInt(str);
 				var D = new Date(n);
-				var year = D.getFullYear(); //四位数年份
+				var year = D.getFullYear(); //năm có bốn chữ số
 
-				var month = D.getMonth() + 1; //月份(0-11),0为一月份
+				var month = D.getMonth() + 1; //tháng(0-11),0cho tháng Giêng
 				month = month < 10 ? ('0' + month) : month;
 
-				var day = D.getDate(); //月的某一天(1-31)
+				var day = D.getDate(); //một ngày trong tháng(1-31)
 				day = day < 10 ? ('0' + day) : day;
 
-				var hours = D.getHours(); //小时(0-23)
+				var hours = D.getHours(); //Giờ(0-23)
 				hours = hours < 10 ? ('0' + hours) : hours;
 
-				var minutes = D.getMinutes(); //分钟(0-59)
+				var minutes = D.getMinutes(); //phút(0-59)
 				minutes = minutes < 10 ? ('0' + minutes) : minutes;
 
-				// var seconds = D.getSeconds();//秒(0-59)
+				// var seconds = D.getSeconds();//Thứ hai(0-59)
 				// seconds = seconds<10?('0'+seconds):seconds;
-				// var week = D.getDay();//周几(0-6),0为周日
-				// var weekArr = ['周日','周一','周二','周三','周四','周五','周六'];
+				// var week = D.getDay();//Ngày trong tuần(0-6),0cho ngày chủ nhật
+				// var weekArr = ['Chủ nhật','vào thứ Hai','Thứ ba','Thứ Tư','Thứ năm','Thứ sáu','Thứ bảy'];
 
 				var now_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
 				return now_time;
@@ -184,7 +184,7 @@
 				})
 			},
 			/**
-			 * 去首页关闭当前所有页面
+			 * Đi tới trang chủ và đóng tất cả các trang hiện tại
 			 */
 			goIndex: function(e) {
 				uni.switchTab({
@@ -220,7 +220,7 @@
 				addData.address = data.address.province + data.address.city + data.address.district + data.detail
 				receiveLottery(addData).then(res => {
 					this.$util.Tips({
-						title: this.$t(`领取成功`)
+						title: this.$t(`Đã nhận thành công`)
 					});
 					this.addressModel = false
 				}).catch(err => {
@@ -246,9 +246,9 @@
 						title: err
 					});
 				})
-				// //props修改在小程序和APP端不成功，所以在这里使用回调函数传参，
+				// //propsViệc sửa đổi không thành công ở phía chương trình mini và APP, do đó chức năng gọi lại được sử dụng để truyền tham số ở đây.，
 			},
-			// 抽奖完成
+			// Xổ số đã hoàn thành
 			luck_draw_finish(param) {
 				this.aleartType = 2
 				this.aleartStatus = true

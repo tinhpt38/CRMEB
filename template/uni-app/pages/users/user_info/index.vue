@@ -4,7 +4,7 @@
 			<view class='personal-data' :style="colorStyle">
 				<view class='list'>
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`头像`)}}</view>
+						<view>{{$t(`hình đại diện`)}}</view>
 						<view class="avatar-box" v-if="!mp_is_new" @click.stop='uploadpic'>
 							<image :src="userInfo.avatar"></image>
 						</view>
@@ -13,23 +13,23 @@
 						</button>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`昵称`)}}</view>
+						<view>{{$t(`biệt danh`)}}</view>
 						<view class='input'><input type='nickname' name='nickname' :maxlength="10"
 								:value='userInfo.nickname'></input>
 						</view>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`手机号码`)}}</view>
+						<view>{{$t(`số điện thoại`)}}</view>
 						<!-- #ifdef MP -->
 						<button class="input" open-type="getPhoneNumber" @getphonenumber="getphonenumber"
-							v-if="!userInfo.phone">{{$t(`点击绑定手机号`)}}
+							v-if="!userInfo.phone">{{$t(`Bấm để liên kết số điện thoại di động`)}}
 							<text class="iconfont icon-xiangyou"></text>
 						</button>
 						<!-- #endif -->
 						<!-- #ifndef MP -->
 						<navigator url="/pages/users/user_phone/index" hover-class="none" class="input"
 							v-if="!userInfo.phone">
-							{{$t(`点击绑定手机号`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm để liên kết số điện thoại di động`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 						<!-- #endif -->
 
@@ -44,7 +44,7 @@
 						</view>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`ID号`)}}</view>
+						<view>{{$t(`IDCon số`)}}</view>
 						<view class='input acea-row row-between-wrapper'>
 							<view class=""></view>
 							<view class="">
@@ -55,48 +55,48 @@
 					</view>
 					<!-- #ifdef MP -->
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`权限设置`)}}</view>
+						<view>{{$t(`Cài đặt quyền`)}}</view>
 						<view class="input" @click="Setting">
-							{{$t(`点击管理`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm để quản lý`)}}<text class="iconfont icon-xiangyou"></text>
 						</view>
 					</view>
 					<!-- #endif -->
 					<!-- #ifdef H5 -->
 					<view class="item acea-row row-between-wrapper" v-if="userInfo.phone && !this.$wechat.isWeixin()">
-						<view>{{$t(`密码`)}}</view>
+						<view>{{$t(`mật khẩu`)}}</view>
 						<navigator url="/pages/users/user_pwd_edit/index" hover-class="none" class="input">
-							{{$t(`点击修改密码`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm để đổi mật khẩu`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 					<!-- #endif -->
 					<view class="item acea-row row-between-wrapper" v-if="userInfo.phone">
-						<view>{{$t(`更换手机号码`)}}</view>
+						<view>{{$t(`Thay đổi số điện thoại di động`)}}</view>
 						<navigator url="/pages/users/user_phone/index?type=1" hover-class="none" class="input">
-							{{$t(`点击更换手机号码`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm để thay đổi số điện thoại di động`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 					<!-- #ifdef APP-PLUS -->
 					<view class="item acea-row row-between-wrapper" v-if="userInfo.phone">
-						<view>{{$t(`密码`)}}</view>
+						<view>{{$t(`mật khẩu`)}}</view>
 						<navigator url="/pages/users/user_pwd_edit/index" hover-class="none" class="input">
-							{{$t(`点击修改密码`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm để đổi mật khẩu`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 					<view class="item acea-row row-between-wrapper" @click="initData">
-						<view>{{$t(`缓存大小`)}}</view>
+						<view>{{$t(`kích thước bộ đệm`)}}</view>
 						<view class="input">
 							{{fileSizeString}}<text class="iconfont icon-xiangyou"></text>
 						</view>
 					</view>
 					<view class="item acea-row row-between-wrapper" @click="updateApp">
-						<view>{{$t(`当前版本`)}}</view>
+						<view>{{$t(`Phiên bản hiện tại`)}}</view>
 						<view class="input">
 							{{version}}<text class="iconfont icon-xiangyou"></text>
 						</view>
 					</view>
 					<!-- #endif -->
 					<view class="item acea-row row-between-wrapper" v-if="array.length">
-						<view>{{$t(`语言切换`)}}</view>
+						<view>{{$t(`chuyển đổi ngôn ngữ`)}}</view>
 						<view class="uni-list-cell-db">
 							<picker @change="bindPickerChange" range-key="name" :value="setIndex" :range="array">
 								<view class="uni-input input">{{array[setIndex].name}}<text
@@ -105,41 +105,41 @@
 						</view>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`地址管理`)}}</view>
+						<view>{{$t(`Quản lý địa chỉ`)}}</view>
 						<navigator url="/pages/users/user_address_list/index" hover-class="none" class="input">
-							{{$t(`点击前往`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm để đi`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 					<view class="item acea-row row-between-wrapper" v-if="userInfo.invioce_func">
-						<view>{{$t(`发票管理`)}}</view>
+						<view>{{$t(`Quản lý hóa đơn`)}}</view>
 						<navigator url="/pages/users/user_invoice_list/index" hover-class="none" class="input">
-							{{$t(`点击前往`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm để đi`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`账号注销`)}}</view>
+						<view>{{$t(`Đăng xuất tài khoản`)}}</view>
 						<navigator url="/pages/users/user_cancellation/index" hover-class="none" class="input">
-							{{$t(`注销后无法恢复`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Không thể phục hồi sau khi đăng xuất`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`用户协议`)}}</view>
+						<view>{{$t(`Thỏa thuận người dùng`)}}</view>
 						<navigator url="/pages/users/privacy/index?type=4" hover-class="none" class="input">
-							{{$t(`点击查看`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm vào để xem`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 					<view class="item acea-row row-between-wrapper">
-						<view>{{$t(`隐私协议`)}}</view>
+						<view>{{$t(`thỏa thuận quyền riêng tư`)}}</view>
 						<navigator url="/pages/users/privacy/index?type=3" hover-class="none" class="input">
-							{{$t(`点击查看`)}}<text class="iconfont icon-xiangyou"></text>
+							{{$t(`Bấm vào để xem`)}}<text class="iconfont icon-xiangyou"></text>
 						</navigator>
 					</view>
 
 				</view>
 
-				<button class='modifyBnt bg-color' formType="submit">{{$t(`保存修改`)}}</button>
+				<button class='modifyBnt bg-color' formType="submit">{{$t(`Lưu thay đổi`)}}</button>
 				<!-- #ifdef H5 || APP-PLUS || MP -->
-				<view class="logOut cartcolor acea-row row-center-wrapper" @click="outLogin">{{$t(`退出登录`)}}</view>
+				<view class="logOut cartcolor acea-row row-center-wrapper" @click="outLogin">{{$t(`Đăng xuất`)}}</view>
 				<!-- #endif -->
 				<!-- #ifdef APP-PLUS -->
 				<app-update ref="appUpdate" :force="true" :tabbar="false" :getVer='true' @isNew="isNew"></app-update>
@@ -197,8 +197,8 @@
 				loginType: 'h5', //app.globalData.loginType
 				userIndex: 0,
 				switchUserInfo: [],
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				canvasWidth: "",
 				canvasHeight: "",
 				canvasStatus: false,
@@ -226,7 +226,7 @@
 				this.getLangList()
 				// #ifdef APP-PLUS
 				this.formatSize()
-				// 获取版本号
+				// Nhận số phiên bản
 				plus.runtime.getProperty(plus.runtime.appid, (inf) => {
 					this.version = inf.version;
 				});
@@ -244,7 +244,7 @@
 			},
 			isNew() {
 				this.$util.Tips({
-					title: this.$t(`当前为最新版本`)
+					title: this.$t(`Hiện nay phiên bản mới nhất`)
 				});
 			},
 			getphonenumber(e) {
@@ -294,7 +294,7 @@
 			},
 
 			updateApp() {
-				this.$refs.appUpdate.update(); //调用子组件 检查更新
+				this.$refs.appUpdate.update(); //Gọi thành phần con để kiểm tra cập nhật
 			},
 			formatSize() {
 				let that = this;
@@ -316,15 +316,15 @@
 
 			initData() {
 				uni.showModal({
-					title: this.$t(`清除缓存`),
-					content: this.$t(`确定清楚本地缓存数据吗`),
+					title: this.$t(`xóa bộ nhớ đệm`),
+					content: this.$t(`Bạn có chắc chắn xóa dữ liệu bộ nhớ đệm cục bộ không?`),
 					success: (res) => {
 						if (res.confirm) {
 							this.clearCache()
 							this.formatSize()
 						} else if (res.cancel) {
 							return that.$util.Tips({
-								title: that.$t(`取消`)
+								title: that.$t(`Hủy bỏ`)
 							});
 						}
 					}
@@ -339,15 +339,15 @@
 					let files = plus.android.invoke(sdRoot, "listFiles");
 					let len = files.length;
 					for (let i = 0; i < len; i++) {
-						let filePath = '' + files[i]; // 没有找到合适的方法获取路径，这样写可以转成文件路径  
+						let filePath = '' + files[i]; // Tôi chưa tìm được cách phù hợp để có được con đường. Viết như thế này có thể được chuyển đổi thành một đường dẫn tập tin.  
 						plus.io.resolveLocalFileSystemURL(filePath, function(entry) {
 							if (entry.isDirectory) {
-								entry.removeRecursively(function(entry) { //递归删除其下的所有文件及子目录  
+								entry.removeRecursively(function(entry) { //Đệ quy xóa tất cả các tập tin và thư mục con bên dưới nó  
 									uni.showToast({
-										title: that.$t(`缓存清理完成`),
+										title: that.$t(`Đã hoàn tất dọn dẹp bộ nhớ đệm`),
 										duration: 2000
 									});
-									that.formatSize(); // 重新计算缓存  
+									that.formatSize(); // Tính toán lại bộ đệm  
 								}, function(e) {
 									console.log(e.message)
 								});
@@ -356,10 +356,10 @@
 							}
 						}, function(e) {});
 					}
-				} else { // ios暂时未找到清理缓存的方法，以下是官方提供的方法，但是无效，会报错  
+				} else { // iosVẫn chưa có cách nào để xóa bộ nhớ đệm. Sau đây là phương pháp chính thức, nhưng nó không hợp lệ và sẽ được báo lỗi.  
 					plus.cache.clear(function() {
 						uni.showToast({
-							title: that.$t(`缓存清理完成`),
+							title: that.$t(`Đã hoàn tất dọn dẹp bộ nhớ đệm`),
 							duration: 2000
 						});
 						that.formatSize();
@@ -367,17 +367,17 @@
 				}
 			},
 			/**
-			 * 授权回调
+			 * Gọi lại ủy quyền
 			 */
 			onLoadFun: function() {
 				this.getUserInfo();
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
 			/**
-			 * 小程序设置
+			 * Cài đặt chương trình nhỏ
 			 */
 			Setting: function() {
 				uni.openSetting({
@@ -390,11 +390,11 @@
 				that.userIndex = index;
 				if (that.switchUserInfo.length <= 1) return true;
 				if (userInfo === undefined) return that.$util.Tips({
-					title: that.$t(`切换的账号不存在`)
+					title: that.$t(`Tài khoản cần chuyển không tồn tại`)
 				});
 				if (userInfo.user_type === 'h5') {
 					uni.showLoading({
-						title: that.$t(`正在切换中`)
+						title: that.$t(`Chuyển đổi`)
 					});
 					switchH5Login().then(res => {
 						uni.hideLoading();
@@ -412,21 +412,21 @@
 				} else {
 					that.$store.commit("LOGOUT");
 					uni.showLoading({
-						title: that.$t(`正在切换中`)
+						title: that.$t(`Chuyển đổi`)
 					});
 					toLogin();
 				}
 			},
 			/**
-			 * 退出登录
+			 * Đăng xuất
 			 * 
 			 */
 			outLogin: function() {
 				let that = this;
 				if (that.loginType == 'h5') {
 					uni.showModal({
-						title: that.$t(`提示`),
-						content: that.$t(`确认退出登录`),
+						title: that.$t(`gợi ý`),
+						content: that.$t(`Xác nhận đăng xuất`),
 						success: function(res) {
 							if (res.confirm) {
 								getLogout()
@@ -444,7 +444,7 @@
 				}
 			},
 			/**
-			 * 获取用户详情
+			 * Nhận thông tin chi tiết người dùng
 			 */
 			getUserInfo: function() {
 				let that = this;
@@ -453,7 +453,7 @@
 					let switchUserInfo = res.data.switchUserInfo || [];
 					for (let i = 0; i < switchUserInfo.length; i++) {
 						if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;
-						// 切割h5用户；user_type状态：h5、routine（小程序）、wechat（公众号）；注：只有h5未注册手机号时，h5才可和小程序或是公众号数据想通；
+						// Cắt người dùng h5; trạng thái user_type: h5, thói quen (chương trình nhỏ), wechat (tài khoản chính thức); Lưu ý: chỉ khi h5 chưa đăng ký số điện thoại di động thì h5 mới liên lạc được với chương trình mini hoặc data tài khoản chính thức；
 						//#ifdef H5
 						if (
 							!that.$wechat.isWeixin() &&
@@ -467,7 +467,7 @@
 				});
 			},
 			/**
-			 * 上传文件
+			 * Tải tập tin lên
 			 * 
 			 */
 			uploadpic: function() {
@@ -488,7 +488,7 @@
 					this.canvasHeight = res.h
 				});
 			},
-			// 微信头像获取
+			// Nhận hình đại diện WeChat
 			onChooseAvatar(e) {
 				const {
 					avatarUrl
@@ -500,14 +500,14 @@
 				})
 			},
 			/**
-			 * 提交修改
+			 * Gửi thay đổi
 			 */
 			formSubmit: function(e) {
 				let that = this,
 					value = e.detail.value,
 					userInfo = that.switchUserInfo[that.userIndex];
 				if (!value.nickname) return that.$util.Tips({
-					title: that.$t(`请输入姓名`)
+					title: that.$t(`Vui lòng nhập tên`)
 				});
 				value.avatar = this.userInfo.avatar;
 				userEdit(value).then(res => {
@@ -520,7 +520,7 @@
 					});
 				}).catch(msg => {
 					return that.$util.Tips({
-						title: msg || that.$t(`保存失败`)
+						title: msg || that.$t(`Lưu không thành công`)
 					}, {
 						tab: 3,
 						url: 1
@@ -539,8 +539,8 @@
 
 	.personal-data {
 		padding-bottom: 50rpx;
-		padding-bottom: calc(50rpx + constant(safe-area-inset-bottom)); ///兼容 IOS<11.2/
-		padding-bottom: calc(50rpx + env(safe-area-inset-bottom)); ///兼容 IOS>11.2/
+		padding-bottom: calc(50rpx + constant(safe-area-inset-bottom)); ///tương thích IOS<11.2/
+		padding-bottom: calc(50rpx + env(safe-area-inset-bottom)); ///tương thích IOS>11.2/
 	}
 
 	.personal-data .wrapper {

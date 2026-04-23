@@ -78,7 +78,7 @@ export default {
 		},
 		loadingText: {
 			type: String,
-			default: '二维码生成中'
+			default: 'Mã QR đang được tạo'
 		},
 	},
 	data() {
@@ -91,26 +91,26 @@ export default {
 			let that = this
 			if (!this._empty(this.val)) {
 				qrcode = new QRCode({
-					context: that, // 上下文环境
+					context: that, // bối cảnh
 					canvasId:that.cid, // canvas-id
-					usingComponents: that.usingComponents, // 是否是自定义组件
-					showLoading: that.showLoading, // 是否显示loading
-					loadingText: that.loadingText, // loading文字
-					text: that.val, // 生成内容
-					size: that.cpSize, // 二维码大小
-					background: that.background, // 背景色
-					foreground: that.foreground, // 前景色
-					pdground: that.pdground, // 定位角点颜色
-					correctLevel: that.lv, // 容错级别
-					image: that.icon, // 二维码图标
-					imageSize: that.iconSize,// 二维码图标大小
-					cbResult: function (res) { // 生成二维码的回调
+					usingComponents: that.usingComponents, // Đây có phải là thành phần tùy chỉnh không?
+					showLoading: that.showLoading, // Có hiển thị hay khôngloading
+					loadingText: that.loadingText, // loadingTừ
+					text: that.val, // Tạo nội dung
+					size: that.cpSize, // Kích thước mã QR
+					background: that.background, // màu nền
+					foreground: that.foreground, // màu nền trước
+					pdground: that.pdground, // Màu góc định vị
+					correctLevel: that.lv, // mức độ chịu lỗi
+					image: that.icon, // Biểu tượng mã QR
+					imageSize: that.iconSize,// Kích thước biểu tượng mã QR
+					cbResult: function (res) { // Gọi lại để tạo mã QR
 						that._result(res)
 					},
 				});
 			} else {
 				uni.showToast({
-					title: '二维码内容不能为空',
+					title: 'Nội dung mã QR không được để trống',
 					icon: 'none',
 					duration: 2000
 				});
@@ -127,7 +127,7 @@ export default {
 					filePath: that.result,
 					success: function () {
 						uni.showToast({
-							title: '二维码保存成功',
+							title: 'Đã lưu mã QR thành công',
 							icon: 'success',
 							duration: 2000
 						});

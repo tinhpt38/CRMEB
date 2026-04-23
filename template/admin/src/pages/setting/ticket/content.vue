@@ -413,7 +413,8 @@ export default {
   .btn-line {
     border-bottom: 1px dashed #eee;
     padding: 10px 0;
-    word-break: break-all;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
   .fw-500 {
     font-weight: 500;

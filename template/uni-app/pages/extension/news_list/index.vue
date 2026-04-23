@@ -122,7 +122,7 @@
 			};
 		},
 		/**
-		 * 生命周期函数--监听页面显示
+		 * Chức năng vòng đời - hiển thị trang giám sát
 		 */
 		onShow: function() {
 			// this.getArticleHot();
@@ -134,7 +134,7 @@
 			this.getArticleCate();
 		},
 		/**
-		 * 页面上拉触底事件的处理函数
+		 * Chức năng xử lý sự kiện kéo trang xuống
 		 */
 		onReachBottom: function() {
 			this.getCidArticle(this.activeCou);

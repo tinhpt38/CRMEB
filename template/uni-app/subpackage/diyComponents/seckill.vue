@@ -1,9 +1,9 @@
 <template>
-  <!-- 秒杀列表 -->
+  <!-- danh sách bán chớp nhoáng -->
   <common-wrapper v-show="!isSortType" :config="configData">
     <view class="seckill" v-if="spikeList.length > 0">
       <view>
-        <!-- 秒杀头部 -->
+        <!-- Tiêu diệt ngay đầu -->
         <view
           class="w-full h-96 px-24 flex-between-center bg-cover"
           :style="[headerStyle]"
@@ -19,7 +19,7 @@
             <text
               class="fs-26 text--w111-999 lh-36rpx pl-20"
               :style="[tipsColor]"
-              >{{ $t(`距离结束`) }}</text
+              >{{ $t(`khoảng cách kết thúc`) }}</text
             >
             <countDown
               :is-day="false"
@@ -46,7 +46,7 @@
             ></text>
           </view>
         </view>
-        <!-- 单列 -->
+        <!-- cột đơn -->
         <view
           class="pt-32 pr-20 pb-32 pl-20 bg--w111-fff"
           :style="[boxContentStyle]"
@@ -102,7 +102,7 @@
                   <text
                     class="fs-22 lh-30rpx pl-12"
                     :style="{ color: priceColor }"
-                    >已抢{{ item.percent + "%" }}</text
+                    >Đã giật rồi{{ item.percent + "%" }}</text
                   >
                 </view>
               </view>
@@ -115,7 +115,7 @@
                     decimalSize="36"
                     weight
                     :color="priceColor"
-                    preFix="秒杀价"
+                    preFix="giá bán chớp nhoáng"
                     preFixSize="24"
                     :textColor="priceColor"
                     v-if="checkboxInfo.includes(2)"
@@ -136,13 +136,13 @@
                   class="w-144 h-56 rd-30rpx flex-center fs-24 text--w111-fff"
                   v-if="!showBtn"
                   :style="[btnBgColor]"
-                  >{{ $t(`去抢购`) }}</view
+                  >{{ $t(`Đi mua sắm`) }}</view
                 >
               </view>
             </view>
           </view>
         </view>
-        <!-- 两列 -->
+        <!-- hai cột -->
         <view
           class="grid-column-2 grid-gap-22rpx pt-32 pr-20 pb-32 pl-20"
           :style="[boxContentStyle]"
@@ -193,12 +193,12 @@
                 class="w-144 h-56 rd-30rpx flex-center fs-24 text--w111-fff bg--w111-E93323"
                 v-if="!showBtn"
                 :style="[btnBgColor]"
-                >{{ $t(`去抢购`) }}</view
+                >{{ $t(`Đi mua sắm`) }}</view
               >
             </view>
           </view>
         </view>
-        <!-- 三列 -->
+        <!-- ba cột -->
         <view
           class="grid-column-3 grid-gap-18rpx pt-32 pr-20 pb-32 pl-20"
           :style="[boxContentStyle]"
@@ -253,7 +253,7 @@
             >
           </view>
         </view>
-        <!-- 滑动 -->
+        <!-- cầu trượt -->
         <scroll-view
           scroll-x="true"
           show-scrollbar="false"
@@ -308,7 +308,7 @@
                 class="qiang flex-center fs-24 text--w111-fff"
                 v-if="!showBtn"
                 :style="[btnBgColor]"
-                >{{ $t(`抢`) }}</view
+                >{{ $t(`cướp`) }}</view
               >
             </view>
           </view>
@@ -441,7 +441,7 @@ export default {
         background: `linear-gradient(90deg, ${this.dataConfig.moduleColor.color[0].item} 0%, ${this.dataConfig.moduleColor.color[1].item} 100%)`,
       };
     },
-    /*商品模板*/
+    /*Mẫu sản phẩm*/
     goodStyleConfig() {
       return this.dataConfig.goodStyleConfig.tabVal;
     },
@@ -466,15 +466,15 @@ export default {
         borderRadius,
       };
     },
-    /*标题是文本还是图片*/
+    /*Tiêu đề là văn bản hay hình ảnh?*/
     titleConfig() {
       return this.dataConfig.titleConfig.tabVal;
     },
-    /*标题文本*/
+    /*văn bản tiêu đề*/
     titleTxtConfig() {
       return this.dataConfig.titleTxtConfig.value;
     },
-    /*标题图片*/
+    /*hình ảnh tiêu đề*/
     titleImg() {
       return this.styleConfig ? this.titleUrl : this.titleColorUrl;
     },
@@ -484,7 +484,7 @@ export default {
     titleUrl() {
       return this.dataConfig.imgConfig.url;
     },
-    /*标题提示文字*/
+    /*Văn bản nhắc tiêu đề*/
     tipsColor() {
       return {
         color: this.styleConfig
@@ -492,11 +492,11 @@ export default {
           : this.dataConfig.tipsColor2.color[0].item,
       };
     },
-    /*头部按钮文本*/
+    /*Văn bản nút tiêu đề*/
     rightBntTxt() {
       return this.dataConfig.rightBntConfig.value;
     },
-    /*头部按钮样式*/
+    /*Kiểu nút đầu*/
     headerBntColor() {
       return {
         color: this.styleConfig
@@ -505,7 +505,7 @@ export default {
         fontSize: `${this.dataConfig.bntNumber.val * 2}rpx`,
       };
     },
-    /*商品图片圆角样式*/
+    /*Hình ảnh sản phẩm kiểu dáng bo tròn góc cạnh*/
     imgStyle() {
       let borderRadius = `${this.dataConfig.filletImg.val * 2}rpx`;
       if (this.dataConfig.filletImg.type) {
@@ -517,24 +517,24 @@ export default {
       }
       return borderRadius;
     },
-    /*商品名称样式*/
+    /*Kiểu tên sản phẩm*/
     productStyle() {
       return {
         color: this.dataConfig.goodsNameColor.color[0].item,
         fontWeight: this.dataConfig.goodsName.tabVal ? "normal" : "bold",
       };
     },
-    /* 展示信息 */
+    /* hiển thị thông tin */
     checkboxInfo() {
       return this.dataConfig.checkboxInfo.type;
     },
-    /* 价格颜色 */
+    /* màu giá */
     priceColor() {
       return this.dataConfig.toneConfig.tabVal
         ? this.dataConfig.progressTxtColor.color[0].item
         : "var(--view-theme)";
     },
-    /* 划线价颜色 */
+    /* Màu gạch chân giá */
     otPriceColor() {
       return {
         color: this.dataConfig.goodsPriceColor.color[0].item,
@@ -543,7 +543,7 @@ export default {
     showBtn() {
       return this.dataConfig.seckillConfig.tabVal;
     },
-    /* 按钮颜色 */
+    /* màu nút */
     btnBgColor() {
       return {
         background: this.dataConfig.toneConfig.tabVal
@@ -557,7 +557,7 @@ export default {
         ? `linear-gradient(90deg,${this.dataConfig.progressColor.color[0].item} 0%,${this.dataConfig.progressColor.color[1].item} 100%)`
         : "linear-gradient(45deg, var(--view-gradient) 0%, var(--view-theme) 100%)";
     },
-    /*倒计时背景色*/
+    /*Màu nền đếm ngược*/
     numberBgColor() {
       return this.styleConfig
         ? `linear-gradient(90deg, ${this.dataConfig.numberBgColor.color[0].item} 0%, ${this.dataConfig.numberBgColor.color[1].item} 100%)`
@@ -573,7 +573,7 @@ export default {
         ? this.dataConfig.numberBgColor.color[0].item
         : this.dataConfig.numberBgColor2.color[0].item;
     },
-    /*商品数量*/
+    /*số lượng sản phẩm*/
     numberConfig() {
       return this.dataConfig.numberConfig.val;
     },

@@ -11,7 +11,7 @@
 				</view>
 			</view>
 			<view class="orderGoods">
-				<view class='total'>{{$t(`共`)}}{{cartInfo.total_num}}{{$t(`件商品`)}}</view>
+				<view class='total'>{{$t(`chung`)}}{{cartInfo.total_num}}{{$t(`mặt hàng`)}}</view>
 				<view class='goodWrapper'>
 					<view class='item acea-row row-between-wrapper' @click="jumpCon(cartInfo.product_id)">
 						<view class='pictrue'>
@@ -25,7 +25,7 @@
 							<view class='attr line1'>{{cartInfo.suk}}
 							</view>
 							<view class='money font-num'>
-								{{cartInfo.price}}{{$t(`积分`)}}
+								{{cartInfo.price}}{{$t(`tích phân`)}}
 							</view>
 						</view>
 					</view>
@@ -33,74 +33,74 @@
 			</view>
 			<view class='wrapper'>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`订单编号`)}}：</view>
+					<view>{{$t(`số thứ tự`)}}：</view>
 					<view class='conter acea-row row-middle row-right'>{{cartInfo.order_id}}
 						<!-- #ifndef H5 -->
-						<text class='copy' @tap='copy'>{{$t(`复制`)}}</text>
+						<text class='copy' @tap='copy'>{{$t(`sao chép`)}}</text>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
-						<text class='copy copy-data' :data-clipboard-text="cartInfo.order_id">{{$t(`复制`)}}</text>
+						<text class='copy copy-data' :data-clipboard-text="cartInfo.order_id">{{$t(`sao chép`)}}</text>
 						<!-- #endif -->
 					</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`订单状态`)}}：</view>
+					<view>{{$t(`Trạng thái đơn hàng`)}}：</view>
 					<view class='conter'>{{$t(cartInfo.status_name)}}</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`下单时间`)}}：</view>
+					<view>{{$t(`thời gian đặt hàng`)}}：</view>
 					<view class='conter'>{{cartInfo.add_time}}</view>
 				</view>
 				<view class='item acea-row row-between'>
-					<view>{{$t(`支付积分`)}}：</view>
+					<view>{{$t(`Trả điểm`)}}：</view>
 					<view class='conter'>{{cartInfo.total_price}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.mark">
-					<view>{{$t(`订单备注`)}}：</view>
+					<view>{{$t(`Ghi chú đặt hàng`)}}：</view>
 					<view class='conter'>{{cartInfo.mark}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.remark">
-					<view>{{$t(`商家备注`)}}：</view>
+					<view>{{$t(`Nhận xét của người bán`)}}：</view>
 					<view class='conter'>{{cartInfo.remark}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.delivery_type === 'express'">
-					<view>{{$t(`快递单号`)}}：</view>
+					<view>{{$t(`Số theo dõi nhanh`)}}：</view>
 					<view class='conter'>{{cartInfo.delivery_id}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.delivery_type === 'express'">
-					<view>{{$t(`快递公司`)}}：</view>
+					<view>{{$t(`công ty chuyển phát nhanh`)}}：</view>
 					<view class='conter'>{{cartInfo.delivery_name}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.delivery_type === 'send'">
-					<view>{{$t(`送货人电话`)}}：</view>
+					<view>{{$t(`Số điện thoại người giao hàng`)}}：</view>
 					<view class='conter'>{{cartInfo.delivery_id}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.delivery_type === 'send'">
-					<view>{{$t(`配送人姓名`)}}：</view>
+					<view>{{$t(`Tên người giao hàng`)}}：</view>
 					<view class='conter'>{{cartInfo.delivery_name}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.delivery_type === 'fictitious'">
-					<view>{{$t(`虚拟发货`)}}：</view>
-					<view class='conter'>{{$t(`已发货，请注意查收`)}}</view>
+					<view>{{$t(`giao hàng ảo`)}}：</view>
+					<view class='conter'>{{$t(`Đã gửi hàng rồi, bạn kiểm tra nhé`)}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.fictitious_content">
-					<view>{{$t(`虚拟备注`)}}：</view>
+					<view>{{$t(`ghi chú ảo`)}}：</view>
 					<view class='conter'>{{cartInfo.fictitious_content}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.delivery_type === 'send'">
-					<view>{{$t(`配送核销码`)}}：</view>
+					<view>{{$t(`Mã xác minh vận chuyển`)}}：</view>
 					<view class='conter'>{{cartInfo.verify_code}}</view>
 				</view>
 			</view>
 
 			<view style='height:120rpx;'></view>
 			<view class='footer acea-row row-right row-middle'>
-				<view class='bnt bg-color' v-if="cartInfo.status==3" @tap='delOrder'>{{$t(`删除订单`)}}</view>
+				<view class='bnt bg-color' v-if="cartInfo.status==3" @tap='delOrder'>{{$t(`Xóa đơn hàng`)}}</view>
 				<navigator class='bnt cancel' hover-class='none'
 					v-if="cartInfo.delivery_id && cartInfo.delivery_type === 'express'"
-					:url="'/pages/points_mall/logistics_details?order_id='+ cartInfo.order_id">{{$t(`查看物流`)}}
+					:url="'/pages/points_mall/logistics_details?order_id='+ cartInfo.order_id">{{$t(`kiểm tra hậu cần`)}}
 				</navigator>
-				<view class='bnt bg-color' v-if="cartInfo.status==2" @tap='confirmOrder'>{{$t(`确认收货`)}}</view>
+				<view class='bnt bg-color' v-if="cartInfo.status==2" @tap='confirmOrder'>{{$t(`xác nhận đã nhận hàng`)}}</view>
 			</view>
 		</view>
 		<!-- #ifndef MP -->
@@ -147,36 +147,36 @@
 			return {
 				order_id: '',
 				evaluate: 0,
-				cartInfo: [], //购物车产品
+				cartInfo: [], //Sản phẩm giỏ hàng
 				orderInfo: {
 					system_store: {},
 					_status: {}
-				}, //订单详情
+				}, //Chi tiết đặt hàng
 				system_store: {},
-				isGoodsReturn: false, //是否为退款订单
-				status: {}, //订单底部按钮状态
+				isGoodsReturn: false, //Đây có phải là lệnh hoàn tiền không?
+				status: {}, //Trạng thái nút đặt hàng dưới cùng
 				isClose: false,
 				payMode: [{
-						name: this.$t(`微信支付`),
+						name: this.$t(`WeChat trả tiền`),
 						icon: "icon-weixinzhifu",
 						value: 'weixin',
-						title: this.$t(`使用微信快捷支付`),
+						title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),
 						payStatus: true,
 					},
 					// #ifdef H5 || APP-PLUS
 					{
-						name: this.$t(`支付宝支付`),
+						name: this.$t(`thanh toán Alipay`),
 						icon: 'icon-zhifubao',
 						value: 'alipay',
-						title: this.$t(`使用线上支付宝支付`),
+						title: this.$t(`Thanh toán trực tuyến bằng Alipay`),
 						payStatus: true
 					},
 					// #endif
 					{
-						name: this.$t(`余额支付`),
+						name: this.$t(`thanh toán số dư`),
 						icon: "icon-yuezhifu",
 						value: 'yue',
-						title: this.$t(`当前可用余额：`),
+						title: this.$t(`Số dư hiện có：`),
 						number: 0,
 						payStatus: true
 					},
@@ -184,8 +184,8 @@
 				pay_close: false,
 				pay_order_id: '',
 				totalPrice: '0',
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
 				routineContact: '0'
 			};
 		},
@@ -212,7 +212,7 @@
 				const clipboard = new ClipboardJS(".copy-data");
 				clipboard.on("success", () => {
 					this.$util.Tips({
-						title: this.$t(`复制成功`)
+						title: this.$t(`Đã sao chép thành công`)
 					});
 				});
 			});
@@ -233,7 +233,7 @@
 			openSubcribe: function(e) {
 				let page = e;
 				uni.showLoading({
-					title: this.$t(`正在加载`),
+					title: this.$t(`Đang tải`),
 				})
 				openOrderRefundSubscribe().then(res => {
 					uni.hideLoading();
@@ -245,7 +245,7 @@
 				});
 			},
 			/**
-			 * 事件回调
+			 * gọi lại sự kiện
 			 * 
 			 */
 			onChangeFun: function(e) {
@@ -255,7 +255,7 @@
 				(action && this[action]) && this[action](value);
 			},
 			/**
-			 * 拨打电话
+			 * Thực hiện cuộc gọi
 			 */
 			makePhone: function() {
 				uni.makePhoneCall({
@@ -263,12 +263,12 @@
 				})
 			},
 			/**
-			 * 打开地图
+			 * Mở bản đồ
 			 * 
 			 */
 			showMaoLocation: function() {
 				if (!this.system_store.latitude || !this.system_store.longitude) return this.$util.Tips({
-					title: this.$t(`缺少经纬度信息无法查看地图！`)
+					title: this.$t(`Không thể xem bản đồ do thiếu thông tin vĩ độ và kinh độ！`)
 				});
 				uni.openLocation({
 					latitude: parseFloat(this.system_store.latitude),
@@ -282,14 +282,14 @@
 				});
 			},
 			/**
-			 * 关闭支付组件
+			 * Đóng thành phần thanh toán
 			 * 
 			 */
 			payClose: function() {
 				this.pay_close = false;
 			},
 			/**
-			 * 打开支付组件
+			 * Thành phần thanh toán mở
 			 * 
 			 */
 			pay_open: function() {
@@ -298,7 +298,7 @@
 				this.totalPrice = this.orderInfo.pay_price;
 			},
 			/**
-			 * 支付成功回调
+			 * Thanh toán gọi lại thành công
 			 * 
 			 */
 			pay_complete: function() {
@@ -307,7 +307,7 @@
 				this.getOrderInfo();
 			},
 			/**
-			 * 支付失败回调
+			 * Gọi lại thanh toán thất bại
 			 * 
 			 */
 			pay_fail: function() {
@@ -315,7 +315,7 @@
 				this.pay_order_id = '';
 			},
 			/**
-			 * 登录授权回调
+			 * Gọi lại ủy quyền đăng nhập
 			 * 
 			 */
 			onLoadFun: function() {
@@ -323,7 +323,7 @@
 				this.getUserInfo();
 			},
 			/**
-			 * 获取用户信息
+			 * Lấy thông tin người dùng
 			 * 
 			 */
 			getUserInfo: function() {
@@ -339,13 +339,13 @@
 				})
 			},
 			/**
-			 * 获取订单详细信息
+			 * Nhận chi tiết đơn hàng
 			 * 
 			 */
 			getOrderInfo: function() {
 				let that = this;
 				uni.showLoading({
-					title: this.$t(`正在加载中`)
+					title: this.$t(`Đang tải`)
 				});
 				integralOrderDetails(this.order_id).then(res => {
 					uni.hideLoading();
@@ -359,7 +359,7 @@
 			},
 			/**
 			 * 
-			 * 剪切订单号
+			 * Cắt số thứ tự
 			 */
 			// #ifndef H5
 			copy: function() {
@@ -370,7 +370,7 @@
 			},
 			// #endif
 			/**
-			 * 打电话
+			 * Gọi lên
 			 */
 			goTel: function() {
 				uni.makePhoneCall({
@@ -378,7 +378,7 @@
 				})
 			},
 			/**
-			 * 设置底部按钮
+			 * Đặt nút dưới cùng
 			 * 
 			 */
 			getOrderStatus: function() {
@@ -396,16 +396,16 @@
 					type: type == 9 ? -9 : type,
 					class_status: 0
 				};
-				if (type == 1 && combination_id > 0) status.class_status = 1; //查看拼团
-				if (type == 2 && delivery_type == 'express') status.class_status = 2; //查看物流
-				if (type == 2) status.class_status = 3; //确认收货
-				if (type == 4 || type == 0) status.class_status = 4; //删除订单
+				if (type == 1 && combination_id > 0) status.class_status = 1; //Xem chia sẻ nhóm
+				if (type == 2 && delivery_type == 'express') status.class_status = 2; //kiểm tra hậu cần
+				if (type == 2) status.class_status = 3; //xác nhận đã nhận hàng
+				if (type == 4 || type == 0) status.class_status = 4; //Xóa đơn hàng
 				if (!seckill_id && !bargain_id && !combination_id && (type == 3 || type == 4)) status.class_status =
-					5; //再次购买
+					5; //mua lại
 				this.$set(this, 'status', status);
 			},
 			/**
-			 * 去拼团详情
+			 * Đi đến chi tiết đặt phòng theo nhóm
 			 * 
 			 */
 			goJoinPink: function() {
@@ -416,15 +416,15 @@
 			confirmOrder: function() {
 				let that = this;
 				uni.showModal({
-					title: this.$t(`确认收货`),
-					content: this.$t(`为保障权益，请收到货确认无误后，再确认收货`),
+					title: this.$t(`xác nhận đã nhận hàng`),
+					content: this.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng xác nhận đã nhận hàng trước khi xác nhận đã nhận.`),
 					success: (res) => {
 						if (res.confirm) {
 							orderTake({
 								order_id: that.order_id
 							}).then(res => {
 								return that.$util.Tips({
-									title: that.$t(`操作成功`),
+									title: that.$t(`Hoạt động thành công`),
 									icon: 'success'
 								}, () => {
 									that.getOrderInfo();
@@ -440,7 +440,7 @@
 			},
 			/**
 			 * 
-			 * 删除订单
+			 * Xóa đơn hàng
 			 */
 			delOrder: function() {
 				let that = this;
@@ -448,7 +448,7 @@
 					order_id: that.order_id
 				}).then(res => {
 					return that.$util.Tips({
-						title: that.$t(`删除成功`),
+						title: that.$t(`Xóa thành công`),
 						icon: 'success'
 					}, {
 						tab: 5,

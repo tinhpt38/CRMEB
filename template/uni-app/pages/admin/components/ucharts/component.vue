@@ -115,7 +115,7 @@
 						min: 10,
 						max: 180,
 						format: (val) => {
-							return val.toFixed(0) + '元'
+							return val.toFixed(0) + 'Nhân dân tệ'
 						}
 					},
 					width: this.cWidth * this.pixelRatio,
@@ -127,7 +127,7 @@
 					}
 				});
 			},
-			// 这里仅作为示例传入两个参数，cid为canvas-id,newdata为更新的数据，需要更多参数请自行修改
+			// Ở đây chỉ có hai tham số được truyền vào làm ví dụ, cid làcanvas-id,newdataĐể cập nhật dữ liệu, nếu bạn cần thêm thông số, vui lòng tự sửa đổi chúng.
 			changeData(cid,newdata) {
 				canvases[cid].updateData({
 					series: newdata.series,

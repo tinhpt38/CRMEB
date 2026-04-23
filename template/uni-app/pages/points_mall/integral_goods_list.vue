@@ -3,22 +3,22 @@
 		<view class='productList'>
 			<view class='search bg-color acea-row row-between-wrapper'>
 				<view class='input acea-row row-between-wrapper'><text class='iconfont icon-sousuo'></text>
-					<input :placeholder='$t(`搜索商品名称`)' placeholder-class='placeholder' confirm-type='search'
+					<input :placeholder='$t(`Tìm kiếm tên sản phẩm`)' placeholder-class='placeholder' confirm-type='search'
 						name="search" :value='where.store_name' @confirm="searchSubmit"></input>
 				</view>
 				<view class='iconfont' :class='is_switch==true?"icon-pailie":"icon-tupianpailie"' @click='Changswitch'>
 				</view>
 			</view>
 			<view class='nav acea-row row-middle'>
-				<view class='item line1' :class='title ? "font-num":""' @click='set_where(1)'>{{$t(`默认`)}}</view>
+				<view class='item line1' :class='title ? "font-num":""' @click='set_where(1)'>{{$t(`mặc định`)}}</view>
 				<view class='item' @click='set_where(2)'>
-					{{$t(`积分`)}}
+					{{$t(`tích phân`)}}
 					<image v-if="price==1" src='../../static/images/up.png'></image>
 					<image v-else-if="price==2" src='../../static/images/down.png'></image>
 					<image v-else src='../../static/images/horn.png'></image>
 				</view>
 				<view class='item' @click='set_where(3)'>
-					{{$t(`销量`)}}
+					{{$t(`Doanh số bán hàng`)}}
 					<image v-if="stock==1" src='../../static/images/up.png'></image>
 					<image v-else-if="stock==2" src='../../static/images/down.png'></image>
 					<image v-else src='../../static/images/horn.png'></image>
@@ -33,17 +33,17 @@
 					<view class='text' :class='is_switch==true?"":"on"'>
 						<view class='name line1'>{{item.title}}</view>
 						<view class='money font-color' :class='is_switch==true?"":"on"'><text
-								class='num'>{{item.price}}{{$t(`积分`)}}</text></view>
+								class='num'>{{item.price}}{{$t(`tích phân`)}}</text></view>
 						<view class='vip acea-row row-between-wrapper' :class='is_switch==true?"":"on"'>
 							<view class='vip-money' v-if="item.vip_price && item.vip_price > 0">{{item.vip_price}}
-								{{$t(`积分`)}}
+								{{$t(`tích phân`)}}
 								<image src='../../static/images/vip.png'></image>
 							</view>
 							<view class="sales">
 								<view class="">
-									{{item.sales}}{{$t(`人兑换`)}}
+									{{item.sales}}{{$t(`Mọi người trao đổi`)}}
 								</view>
-								<view class="exchange">{{$t(`兑换`)}}</view>
+								<view class="exchange">{{$t(`trao đổi`)}}</view>
 							</view>
 						</view>
 					</view>
@@ -108,7 +108,7 @@
 				nows: false,
 				loadend: false,
 				loading: false,
-				loadTitle: this.$t(`加载更多`),
+				loadTitle: this.$t(`tải thêm`),
 				title: '',
 				hostProduct: [],
 				hotPage: 1,
@@ -116,9 +116,9 @@
 				hotScroll: false
 			};
 		},
-		// 滚动监听
+		// người nghe cuộn
 		onPageScroll(e) {
-			// 传入scrollTop值并触发所有easy-loadimage组件下的滚动监听事件
+			// Truyền giá trị ScrollTop và kích hoạt các sự kiện nghe cuộn trong tất cả các thành phần hình ảnh dễ tải
 			uni.$emit('scroll');
 		},
 		onLoad: function(options) {
@@ -131,7 +131,7 @@
 		},
 
 		methods: {
-			// 去详情页
+			// Đi tới trang chi tiết
 			godDetail(item) {
 				goShopDetail(item, this.uid).then(res => {
 					uni.navigateTo({
@@ -151,7 +151,7 @@
 				this.get_product_list(true);
 			},
 			/**
-			 * 获取我的推荐
+			 * Nhận đề xuất của tôi
 			 */
 			get_host_product: function() {
 				let that = this;
@@ -166,7 +166,7 @@
 					// that.$set(that, 'hostProduct', res.data)
 				});
 			},
-			//点击事件处理
+			//Nhấp vào xử lý sự kiện
 			set_where: function(e) {
 				switch (e) {
 					case 1:
@@ -200,7 +200,7 @@
 				this.$set(this.where, 'page', 1);
 				this.get_product_list(true);
 			},
-			//设置where条件
+			//Đặt điều kiện ở đâu
 			setWhere: function() {
 				if (this.price == 0) this.where.priceOrder = '';
 				else if (this.price == 1) this.where.priceOrder = 'asc';
@@ -210,7 +210,7 @@
 				else if (this.stock == 2) this.where.salesOrder = 'desc';
 				this.where.news = this.nows ? 1 : 0;
 			},
-			//查找产品
+			//Tìm sản phẩm
 			get_product_list: function(isPage) {
 				let that = this;
 				that.setWhere();
@@ -225,12 +225,12 @@
 					let loadend = list.length < that.where.limit;
 					that.loadend = loadend;
 					that.loading = false;
-					that.loadTitle = loadend ? that.$t(`我也是有底线的`) : that.$t(`加载更多`);
+					that.loadTitle = loadend ? that.$t(`Tôi cũng có một điểm mấu chốt`) : that.$t(`tải thêm`);
 					that.$set(that, 'productList', productList);
 					that.$set(that.where, 'page', that.where.page + 1);
 				}).catch(err => {
 					that.loading = false;
-					that.loadTitle = that.$t(`加载更多`);
+					that.loadTitle = that.$t(`tải thêm`);
 				});
 			},
 		},

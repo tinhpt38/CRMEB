@@ -1,18 +1,18 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 module.exports = {
-  // Socket链接 暂不做配置
+  // SocketLiên kết Chưa cần cấu hình
   WSS_SERVER_URL:'',
-  // Socket调试模式
+  // Socketchế độ gỡ lỗi
   SERVER_DEBUG:true,
-  // 心跳间隔
+  // khoảng nhịp tim
   PINGINTERVAL:3000
 }

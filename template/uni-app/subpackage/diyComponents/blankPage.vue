@@ -1,5 +1,5 @@
 <template>
-  <!-- 辅助空白 -->
+  <!-- Khoảng trắng phụ trợ -->
   <common-wrapper v-show="!isSortType" :config="configData">
     <view class="blankPage">
       <view class="bankCon" :style="[blankStyle]"></view>

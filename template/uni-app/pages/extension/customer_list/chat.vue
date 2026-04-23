@@ -10,7 +10,7 @@
 		</view> -->
     <!-- #endif -->
     <view class="broadcast-details_order">
-      <!-- 商品信息 -->
+      <!-- Thông tin sản phẩm -->
       <view class="broadcast-details_box" v-if="productId && productInfo.id">
         <view class="broadcast_details_img">
           <image class="goods-img" :src="productInfo.image" />
@@ -30,15 +30,15 @@
               >
             </view>
             <view class="broadcast_details_btn" @click="sendProduct">{{
-              $t(`发送客服`)
+              $t(`Gửi dịch vụ khách hàng`)
             }}</view>
           </view>
         </view>
       </view>
-      <!-- 订单信息 -->
+      <!-- Thông tin đặt hàng -->
       <view class="broadcast_box" v-if="orderId && orderInfo.id">
         <view class="broadcast-details_num broadcast_num">
-          <text>{{ $t(`订单号`) }}：{{ orderInfo.order_id }}</text>
+          <text>{{ $t(`Số đơn hàng`) }}：{{ orderInfo.order_id }}</text>
           <text>{{ orderInfo.add_time_y }} {{ orderInfo.add_time_h }}</text>
         </view>
         <view class="broadcast-details_box">
@@ -49,7 +49,7 @@
             />
             <view class="broadcast_details_model">
               {{ orderInfo.cartInfo ? orderInfo.cartInfo.length : 0
-              }}{{ $t(`件商品`) }}
+              }}{{ $t(`mặt hàng`) }}
             </view>
           </view>
           <view class="broadcast_details_picBox">
@@ -64,7 +64,7 @@
                 >
               </view>
               <view class="broadcast_details_btn" @click="sendOrder">{{
-                $t(`发送客服`)
+                $t(`Gửi dịch vụ khách hàng`)
               }}</view>
             </view>
           </view>
@@ -88,13 +88,13 @@
             <view class="day-box" v-if="item.show">{{ item._add_time }}</view>
             <view class="chat-item" :class="{ 'right-box': item.uid == myUid }">
               <image class="avatar" :src="item.avatar" mode=""></image>
-              <!-- 消息 -->
+              <!-- thông tin -->
               <view
                 class="msg-box"
                 v-if="item.msn_type <= 2"
                 v-html="item.msn"
               ></view>
-              <!-- 图片 -->
+              <!-- hình ảnh -->
               <view class="img-box" v-if="item.msn_type == 3">
                 <image
                   :src="item.msn"
@@ -102,7 +102,7 @@
                   @tap="previewImage(item.msn)"
                 ></image>
               </view>
-              <!-- 商品 -->
+              <!-- hàng hóa -->
               <view
                 class="product-box"
                 v-if="item.msn_type == 5"
@@ -119,14 +119,14 @@
                   }}</view>
                 </view>
               </view>
-              <!-- 订单 -->
+              <!-- Đặt hàng -->
               <view
                 class="order-box"
                 v-if="item.msn_type == 6 && item.orderInfo"
                 @click="goOrder(item)"
               >
                 <view class="title"
-                  >{{ $t(`订单号`) }}: {{ item.orderInfo.order_id }}</view
+                  >{{ $t(`Số đơn hàng`) }}: {{ item.orderInfo.order_id }}</view
                 >
                 <view class="info">
                   <image
@@ -155,7 +155,7 @@
       <view class="input-box">
         <input
           type="text"
-          :placeholder="$t(`请输入内容`)"
+          :placeholder="$t(`Vui lòng nhập nội dung`)"
           v-model="con"
           confirm-type="send"
           @confirm="sendText"
@@ -170,7 +170,7 @@
         ><span class="iconfont icon-biaoqing"></span
       ></view>
     </view>
-    <!-- 表情 -->
+    <!-- sự biểu lộ -->
     <view class="banner slider-banner" v-if="isSwiper">
       <swiper
         class="swiper-wrapper"
@@ -301,7 +301,7 @@ export default {
   },
   onLoad(options) {
     uni.showLoading({
-      title: this.$t(`客服连接中`),
+      title: this.$t(`Kết nối dịch vụ khách hàng`),
     });
     this.myUid = this.$store.state.app.uid;
     this.toUid = options.to_uid;
@@ -347,7 +347,7 @@ export default {
         this.$socket.onStart(this.$store.state.app.token, form_type);
       }
       uni.$once("socketOpen", () => {
-        // 登录
+        // Đăng nhập
         this.$socket.send({
           data: this.$store.state.app.token,
           //#ifdef MP || APP-PLUS
@@ -364,9 +364,9 @@ export default {
       });
     };
     initSocket();
-    // 初始化
+    // khởi tạo
 
-    // 监听客服转接
+    // Giám sát việc chuyển dịch vụ khách hàng
     uni.$on("to_transfer", (data) => {
       this.toUid = data.toUid;
       this.$socket.send({
@@ -381,20 +381,20 @@ export default {
         }
       });
     });
-    // 超时了
+    // Đã hết thời gian
     uni.$once("timeout", () => {
       uni.showLoading({
-        title: "重连中",
+        title: "Đang kết nối lại",
         mask: true,
       });
       this.chatList = [];
       initSocket();
     });
-    // 链接成功
+    // Liên kết thành công
     uni.$once("success", () => {
       this.$socket.init();
     });
-    // 消息接收
+    // Tiếp nhận tin nhắn
     uni.$on(["reply", "chat"], (data) => {
       if (data.msn_type == 1) {
         data.msn = this.replace_em(data.msn);
@@ -407,7 +407,7 @@ export default {
     });
     uni.$on("socket_error", () => {
       this.$util.Tips({
-        title: this.$t(`连接失败`),
+        title: this.$t(`Kết nối không thành công`),
       });
     });
     uni.$on("err_tip", (e) => {
@@ -418,8 +418,8 @@ export default {
     uni.$on("online", (data) => {
       if (data.online == 0) {
         uni.showModal({
-          title: this.$t(`提示`),
-          content: this.$t(`客服已下线，是否需要反馈？`),
+          title: this.$t(`gợi ý`),
+          content: this.$t(`Dịch vụ khách hàng đang ngoại tuyến. Bạn có cần phản hồi không?？`),
           success: function (res) {
             if (res.confirm) {
               uni.redirectTo({
@@ -441,11 +441,11 @@ export default {
         urls: [n],
       });
     },
-    // 返回
+    // trở lại
     goBack() {
       uni.navigateBack();
     },
-    // 商品信息
+    // Thông tin sản phẩm
     getproductInfo() {
       let that = this;
       if (!this.productId) return;
@@ -453,13 +453,13 @@ export default {
         that.productInfo = res.data.storeInfo;
       });
     },
-    // 商品信息
+    // Thông tin sản phẩm
     goProduct(item) {
       uni.navigateTo({
         url: `/pages/goods_details/index?id=${item.msn}`,
       });
     },
-    // 订单详情
+    // Chi tiết đặt hàng
     goOrder(item) {
       if (this.userType) {
         uni.navigateTo({
@@ -471,7 +471,7 @@ export default {
         });
       }
     },
-    // 订单消息
+    // Tin nhắn đặt hàng
     getOrderInfo() {
       if (!this.orderId) return;
       getOrderDetail(this.orderId).then((res) => {
@@ -487,12 +487,12 @@ export default {
         }
       });
     },
-    // 表情点击
+    // bấm vào biểu tượng cảm xúc
     addEmoji(item) {
       let val = `[${item}]`;
       this.con += val;
     },
-    // 聊天表情转换
+    // Chuyển đổi biểu tượng cảm xúc trò chuyện
     replace_em(str) {
       str = str.replace(
         /\[([^\[\]]+)\]/g,
@@ -502,7 +502,7 @@ export default {
       );
       return str;
     },
-    // 获取聊天列表
+    // Nhận danh sách trò chuyện
     getChatList() {
       let self = this;
       getChatRecord({
@@ -566,7 +566,7 @@ export default {
         });
     },
 
-    // 设置页面滚动位置
+    // Đặt vị trí cuộn trang
     setPageScrollTo(selector) {
       let view = uni.createSelectorQuery().in(this).select(selector);
       view
@@ -576,17 +576,17 @@ export default {
         .exec();
     },
 
-    // 发送消息
+    // Gửi tin nhắn
     sendText() {
       if (!this.isSend) {
         return this.$util.Tips({
-          title: this.$t(`请输入内容`),
+          title: this.$t(`Vui lòng nhập nội dung`),
         });
       }
       this.sendMsg(this.con, 1);
       this.con = "";
     },
-    // ws发送
+    // wsgửi
     sendMsg(msn, type) {
       this.$socket.send({
         data: {
@@ -622,19 +622,19 @@ export default {
         }
       );
     },
-    // 发送商品
+    // Gửi hàng
     sendProduct() {
       this.sendMsg(this.productId, 5);
       this.productId = 0;
       this.productInfo = {};
     },
-    // 发送订单
+    // Gửi đơn đặt hàng
     sendOrder() {
       this.sendMsg(this.orderId, 6);
       this.orderId = 0;
       this.orderInfo = {};
     },
-    // 滚动到底部
+    // cuộn xuống dưới cùng
     height() {
       let self = this;
       var scrollTop = 0;
@@ -642,7 +642,7 @@ export default {
       setTimeout((res) => {
         info
           .boundingClientRect(function (data) {
-            //data - 各种参数
+            //data - Các thông số khác nhau
             scrollTop = data.height;
             if (self.active) {
               self.scrollTop = parseInt(scrollTop) + 500;
@@ -653,7 +653,7 @@ export default {
           .exec();
       }, 200);
     },
-    // 滚动到顶部
+    // cuộn lên trên cùng
     scrollToTop() {
       let self = this;
       if (this.isScroll) {
@@ -734,8 +734,8 @@ body {
     /* #ifdef APP-PLUS */
     padding: 0 30rpx;
     height: 70rpx;
-    height: (70rpx + constant(safe-area-inset-bottom)); ///兼容 IOS<11.2/
-    height: calc(70rpx + env(safe-area-inset-bottom)); ///兼容 IOS>11.2/
+    height: (70rpx + constant(safe-area-inset-bottom)); ///tương thích IOS<11.2/
+    height: calc(70rpx + env(safe-area-inset-bottom)); ///tương thích IOS>11.2/
     /* #endif */
 
     /* #ifndef APP-PLUS */
@@ -808,8 +808,8 @@ body {
 .slider-banner {
   background: #fff;
   padding-bottom: 0rpx;
-  padding-bottom: calc(constant(safe-area-inset-bottom)); ///兼容 IOS<11.2/
-  padding-bottom: calc(env(safe-area-inset-bottom)); ///兼容 IOS>11.2/
+  padding-bottom: calc(constant(safe-area-inset-bottom)); ///tương thích IOS<11.2/
+  padding-bottom: calc(env(safe-area-inset-bottom)); ///tương thích IOS>11.2/
 }
 
 .words-mask {

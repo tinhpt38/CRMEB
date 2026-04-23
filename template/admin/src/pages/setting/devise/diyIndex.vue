@@ -1629,13 +1629,15 @@ export default {
 
       .link-txt {
         margin-top: 2px;
-        word-break: break-all;
+        word-break: break-word;
+        overflow-wrap: anywhere;
       }
 
       .params {
         margin-top: 5px;
         color: #1cbe6b;
-        word-break: break-all;
+        word-break: break-word;
+        overflow-wrap: anywhere;
 
         .txt {
           color: #323232;
@@ -1656,7 +1658,8 @@ export default {
 
         p {
           flex: 1;
-          word-break: break-all;
+          word-break: break-word;
+          overflow-wrap: anywhere;
         }
 
         button {

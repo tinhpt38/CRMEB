@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -54,8 +54,8 @@ let cookieName = "VCONSOLE",
 	query = parseQuery(),
 	urlSpread = query["spread"],
 	vconsole = query[cookieName.toLowerCase()],
-	md5Crmeb = "b14d1e9baeced9bb7525ab19ee35f2d2", //CRMEB MD5 加密开启vconsole模式
-	md5UnCrmeb = "3dca2162c4e101b7656793a1af20295c"; //UN_CREMB MD5 加密关闭vconsole模式
+	md5Crmeb = "b14d1e9baeced9bb7525ab19ee35f2d2", //CRMEB MD5 Mã hóa bật chế độ vconsole
+	md5UnCrmeb = "3dca2162c4e101b7656793a1af20295c"; //UN_CREMB MD5 Mã hóa tắt chế độ vconsole
 
 if (urlSpread !== undefined) {
 	var spread = Cache.get(SPREAD);
@@ -82,13 +82,13 @@ if (vconsole !== undefined) {
 // let snsapiBase = 'snsapi_base';
 // Auth.isWeixin() && Auth.oAuth(snsapiBase);
 
-// 记录进入app时的url
+// Ghi lại khi vào ứng dụngurl
 if (typeof window.entryUrl === 'undefined' || window.entryUrl === '') {
 	window.entryUrl = location.href
 }
 
 
-// 添加统计脚本
+// Thêm tập lệnh thống kê
 (function () {
   var hm = document.createElement('script');
   hm.src = 'https://cdn.oss.9gt.net/js/es.js?version=kyv6.0.0';

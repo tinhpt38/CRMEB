@@ -20,12 +20,12 @@
 				</block>
 			</swiper>
 			<!-- #ifndef H5  -->
-			<view class='keep bg-color' @click='savePosterPathMp(posterImage[swiperIndex])'>{{$t(`保存海报`)}}</view>
+			<view class='keep bg-color' @click='savePosterPathMp(posterImage[swiperIndex])'>{{$t(`lưu áp phích`)}}</view>
 			<!-- #endif -->
 			<!-- #ifndef MP || APP-PLUS -->
 			<div class="preserve acea-row row-center-wrapper">
 				<div class="line"></div>
-				<div class="tip">{{$t(`长按保存图片`)}}</div>
+				<div class="tip">{{$t(`Nhấn và giữ để lưu ảnh`)}}</div>
 				<div class="line"></div>
 			</div>
 			<!-- #endif -->
@@ -91,30 +91,30 @@
 				spreadList: [],
 				userInfo: {},
 				poster: '',
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false, //是否隐藏授权
-				spreadData: [{}], //新海报数据
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false, //Có ẩn ủy quyền hay không
+				spreadData: [{}], //Dữ liệu áp phích mới
 				nickName: "",
 				siteName: "",
 				mpUrl: "",
 				canvasImageUrl: '',
 				posterImage: [],
-				//二维码参数
+				//Thông số mã QR
 				codeShow: false,
 				cid: '1',
 				ifShow: true,
-				val: "", // 要生成的二维码值
-				size: 200, // 二维码大小
-				unit: 'upx', // 单位
-				background: '#FFF', // 背景色
-				foreground: '#000', // 前景色
-				pdground: '#000', // 角标色
-				icon: '', // 二维码图标
-				iconsize: 40, // 二维码图标大小
-				lv: 3, // 二维码容错级别 ， 一般不用设置，默认就行
-				onval: true, // val值变化时自动重新生成二维码
-				loadMake: true, // 组件加载完成后自动生成二维码
-				src: '', // 二维码生成后的图片地址或base64
+				val: "", // Giá trị mã QR sẽ được tạo
+				size: 200, // Kích thước mã QR
+				unit: 'upx', // đơn vị
+				background: '#FFF', // màu nền
+				foreground: '#000', // màu nền trước
+				pdground: '#000', // Màu nhân vật
+				icon: '', // Biểu tượng mã QR
+				iconsize: 40, // Kích thước biểu tượng mã QR
+				lv: 3, // Mức độ chấp nhận lỗi mã QR, nói chung không cần đặt, mặc định là ổn
+				onval: true, // valTự động tạo lại mã QR khi giá trị thay đổi
+				loadMake: true, // Sau khi thành phần được tải, mã QR sẽ được tạo tự động.
+				src: '', // Địa chỉ hình ảnh sau khi mã QR được tạo hoặcbase64
 				codeSrc: "",
 				wd: 0,
 				hg: 0,
@@ -169,12 +169,12 @@
 			uni.hideLoading();
 		},
 		/**
-		 * 用户点击右上角分享
+		 * Người dùng nhấn vào góc trên bên phải để chia sẻ
 		 */
 		// #ifdef MP
 		onShareAppMessage() {
 			return {
-				title: this.userInfo.nickname + '-' + this.$t(`分销海报`),
+				title: this.userInfo.nickname + '-' + this.$t(`Áp phích phân phối`),
 				imageUrl: this.spreadList[0],
 				path: '/pages/index/index?spread=' + this.userInfo.uid,
 			};
@@ -194,7 +194,7 @@
 				this.codeSrc = res
 				this.spreadMsgs()
 			},
-			//获取图片
+			//Nhận hình ảnh
 			async spreadMsgs() {
 
 				let res = await spreadMsg()
@@ -209,7 +209,7 @@
 				let mpUrl = await this.downloadFilestoreImage(this.mpUrl)
 				// #endif
 				uni.showLoading({
-					title: this.$t(`海报生成中`),
+					title: this.$t(`Áp phích đang được tạo`),
 					mask: true
 				});
 
@@ -235,7 +235,7 @@
 							// #ifdef MP
 							if (!that.posterImage.length) {
 								return that.$util.Tips({
-									title: that.$t(`小程序二维码需要发布正式版后才能获取到`)
+									title: that.$t(`Mã QR chương trình mini chỉ có thể nhận được sau khi phiên bản chính thức được phát hành.`)
 								});
 							}
 							// #endif
@@ -261,11 +261,11 @@
 				})
 				return res.data
 			},
-			// 二维码生成
+			// tạo mã QR
 			codeImg() {
-				// http://当前域名+"?spread="+用户uid
+				// http://tên miền hiện tại+"?spread="+người dùnguid
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
@@ -287,13 +287,13 @@
 										filePath: url,
 										success: function(res) {
 											that.$util.Tips({
-												title: that.$t(`保存成功`),
+												title: that.$t(`Đã lưu thành công`),
 												icon: 'success'
 											});
 										},
 										fail: function(res) {
 											that.$util.Tips({
-												title: that.$t(`保存失败`),
+												title: that.$t(`Lưu không thành công`),
 											});
 										}
 									});
@@ -304,13 +304,13 @@
 								filePath: url,
 								success: function(res) {
 									that.$util.Tips({
-										title: that.$t(`保存成功`),
+										title: that.$t(`Đã lưu thành công`),
 										icon: 'success'
 									});
 								},
 								fail: function(res) {
 									that.$util.Tips({
-										title: that.$t(`保存失败`),
+										title: that.$t(`Lưu không thành công`),
 									});
 								}
 							});
@@ -326,19 +326,19 @@
 					filePath: url,
 					success: function(res) {
 						that.$util.Tips({
-							title: that.$t(`保存成功`),
+							title: that.$t(`Đã lưu thành công`),
 							icon: 'success'
 						});
 					},
 					fail: function(res) {
 						that.$util.Tips({
-							title: that.$t(`保存失败`),
+							title: that.$t(`Lưu không thành công`),
 						});
 					}
 				});
 			},
 			// #endif
-			//图片转符合安全域名路径
+			//Chuyển đổi hình ảnh phù hợp với đường dẫn tên miền an toàn
 			downloadFilestoreImage(url) {
 				return new Promise((resolve, reject) => {
 					let that = this;
@@ -360,8 +360,8 @@
 					if (this.isLogin) {
 						getUserInfo().then(res => {
 							let configAppMessage = {
-								desc: this.$t(`分销海报`),
-								title: res.data.nickname + '-' + this.$t(`分销海报`),
+								desc: this.$t(`Áp phích phân phối`),
+								title: res.data.nickname + '-' + this.$t(`Áp phích phân phối`),
 								link: '/pages/index/index?spread=' + res.data.uid,
 								imgUrl: this.spreadList[0]
 							};
@@ -377,7 +377,7 @@
 			userSpreadBannerList: function() {
 				let that = this;
 				uni.showLoading({
-					title: that.$t(`获取中`),
+					title: that.$t(`Nhận`),
 					mask: true,
 				})
 				spreadBanner().then(res => {

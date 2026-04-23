@@ -69,7 +69,7 @@ export default {
     isNodes: {
       type: Number,
       value: false,
-    }, //控制什么时候开始抓取元素节点,只要数值改变就重新抓取
+    }, //Kiểm soát thời điểm bắt đầu tìm nạp các nút phần tử,Tìm nạp lại bất cứ khi nào giá trị thay đổi
   },
   data() {
     return {
@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     attachedAction: function () {
-      //默认的首屏宽高，防止内容闪现
+      //Chiều rộng và chiều cao mặc định của màn hình đầu tiên để ngăn nội dung nhấp nháy
       const systemInfo = uni.getWindowInfo();
       this.systemInfo = {
         width: systemInfo.windowWidth,
@@ -101,7 +101,7 @@ export default {
     },
     readyAction: function () {
       const that = this;
-      //绘制背景
+      //vẽ nền
       uni
         .createSelectorQuery()
         .selectAll(`.${this.selector}`)
@@ -111,16 +111,16 @@ export default {
         })
         .exec();
 
-      //绘制矩形
+      //Vẽ một hình chữ nhật
       this.rectHandle();
 
-      //绘制圆形
+      //Vẽ một vòng tròn
       this.radiusHandle();
     },
     rectHandle: function () {
       const that = this;
 
-      //绘制不带样式的节点
+      //Vẽ các nút không được định kiểu
       uni
         .createSelectorQuery()
         .selectAll(`.${this.selector}-rect`)

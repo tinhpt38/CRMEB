@@ -1,16 +1,16 @@
 {
     "version" : "1",
     "prompt" : "template",
-    "title" : "用户协议与隐私政策",
-    "message" : "\t请务必审慎阅读、充分理解“用户协议与 隐私政策”各条款，包括但不限于：为了 向你提供即时通讯、内容分享等服务，我 们需要收集你的设备信息、操作日志等个 人信息。你可以在“设置”中查看、变更、删除个人信息并管理你的授权。<br/>
- 你可以阅读 <a href=\"pages/columnGoods/static/yhxy.html\">《用户协议》</a>与 <a href=\"pages/columnGoods/static/yszc.html\">《隐私政策》</a>了解详细信息。如你同意，请点击“我同意”开始接受我们的服务。",
-    "buttonAccept" : "同意并接受",
-    "buttonRefuse" : "暂不同意",
+    "title" : "Thỏa thuận người dùng và Chính sách quyền riêng tư",
+    "message" : "\tVui lòng đọc kỹ và hiểu đầy đủ“Thỏa thuận người dùng và Chính sách quyền riêng tư”Các điều khoản khác nhau, bao gồm nhưng không giới hạn ở: Để cung cấp cho bạn tính năng nhắn tin tức thời, chia sẻ nội dung và các dịch vụ khác, chúng tôi cần thu thập thông tin thiết bị, nhật ký hoạt động và thông tin cá nhân khác của bạn. bạn có thể“cài đặt”Xem, thay đổi, xóa thông tin cá nhân và quản lý ủy quyền của bạn。<br/>
+ bạn có thể đọc <a href=\"pages/columnGoods/static/yhxy.html\">《Thỏa thuận người dùng》</a>Và <a href=\"pages/columnGoods/static/yszc.html\">《chính sách bảo mật》</a>Tìm hiểu thêm. Nếu đồng ý hãy bấm vào“tôi đồng ý”Bắt đầu nhận dịch vụ của chúng tôi。",
+    "buttonAccept" : "đồng ý và chấp nhận",
+    "buttonRefuse" : "Chưa đồng ý",
     "second" : {
-        "title" : "确认提示",
-        "message" : "进入应用前，你需先同意<a href=\"pages/columnGoods/static/yhxy.html\">《用户协议》</a>与<a href=\"pages/columnGoods/static/yszc.html\">《隐私政策》</a>，否则将退出应用。",
-        "buttonAccept" : "同意并继续",
-        "buttonRefuse" : "退出应用"
+        "title" : "Lời nhắc xác nhận",
+        "message" : "Trước khi vào ứng dụng, bạn cần phải đồng ý<a href=\"pages/columnGoods/static/yhxy.html\">《Thỏa thuận người dùng》</a>Và<a href=\"pages/columnGoods/static/yszc.html\">《chính sách bảo mật》</a>，Nếu không ứng dụng sẽ thoát。",
+        "buttonAccept" : "Đồng ý và tiếp tục",
+        "buttonRefuse" : "Thoát ứng dụng"
     },
     "styles" : {
         "backgroundColor" : "#fff",

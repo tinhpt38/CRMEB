@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -40,7 +40,7 @@ class Routine {
 			code = await this.getCode();
 		return code;
 	}
-	// 小程序静默授权
+	// Ủy quyền im lặng chương trình nhỏ
 	// silenceAuth(code) {
 	// 	const app = getApp();
 	// 	let that = this;
@@ -75,7 +75,7 @@ class Routine {
 	// 	})
 	// }
 	/**
-	 * 获取用户信息
+	 * Lấy thông tin người dùng
 	 */
 	getUserInfo() {
 		let that = this,
@@ -98,13 +98,13 @@ class Routine {
 	}
 
 	/**
-	 * 新版小程序获取用户信息 2021 4.13微信小程序开始正式启用
+	 * Phiên bản mới của chương trình mini lấy thông tin người dùng 2021 4.13 Chương trình mini WeChat sẽ chính thức ra mắt
 	 */
 	getUserProfile(code) {
 		return new Promise((resolve, reject) => {
 			uni.getUserProfile({
 				lang: 'zh_CN',
-				desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+				desc: 'Dùng để điền thông tin thành viên', // Khai báo mục đích lấy thông tin cá nhân của người dùng sẽ được hiển thị trong cửa sổ bật lên sau đó. Hãy điền nó một cách cẩn thận.
 				success(user) {
 					if (code) user.code = code;
 					resolve({
@@ -120,7 +120,7 @@ class Routine {
 	}
 
 	/**
-	 * 获取用户信息
+	 * Lấy thông tin người dùng
 	 */
 	authorize() {
 		let that = this;
@@ -164,7 +164,7 @@ class Routine {
 	}
 
 	/**
-	 * 获取服务供应商
+	 * Nhận nhà cung cấp dịch vụ
 	 */
 	getProvider() {
 		return new Promise((resolve, reject) => {
@@ -181,7 +181,7 @@ class Routine {
 	}
 
 	/**
-	 * 是否授权
+	 * Cho phép hay không
 	 */
 	isAuth() {
 		let that = this;
@@ -201,9 +201,9 @@ class Routine {
 		});
 	}
 	/**
-	 * 小程序比较版本信息
-	 * @param v1 当前版本
-	 * @param v2 进行比较的版本 
+	 * Chương trình mini so sánh thông tin phiên bản
+	 * @param v1 phiên bản hiện tại
+	 * @param v2 Phiên bản để so sánh với 
 	 * @return boolen
 	 * 
 	 */

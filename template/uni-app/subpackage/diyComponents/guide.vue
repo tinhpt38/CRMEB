@@ -1,5 +1,5 @@
 <template>
-  <!-- 辅助线 -->
+  <!-- đường phụ trợ -->
   <view v-show="!isSortType">
     <common-wrapper :config="configData">
       <view class="lines">

@@ -3,7 +3,7 @@
 		<view class='productList'>
 			<view class='search bg-color acea-row row-between-wrapper'>
 				<view class='input acea-row row-between-wrapper'><text class='iconfont icon-sousuo'></text>
-					<input :placeholder='$t(`搜索商品名称`)' placeholder-class='placeholder' confirm-type='search'
+					<input :placeholder='$t(`Tìm kiếm tên sản phẩm`)' placeholder-class='placeholder' confirm-type='search'
 						name="search" :value='where.keyword' @confirm="searchSubmit"></input>
 				</view>
 				<view class='iconfont' :class='is_switch==true?"icon-pailie":"icon-tupianpailie"' @click='Changswitch'>
@@ -12,22 +12,22 @@
 
 			<view class='nav acea-row row-middle'>
 				<view class='item line1' :class='title ? "font-num":""' @click='set_where(1)'>
-					{{title ? $t(title) : $t(`默认`)}}
+					{{title ? $t(title) : $t(`mặc định`)}}
 				</view>
 				<view class='item' @click='set_where(2)'>
-					{{$t(`价格`)}}
+					{{$t(`giá`)}}
 					<image v-if="price==1" src='../../../static/images/up.png'></image>
 					<image v-else-if="price==2" src='../../../static/images/down.png'></image>
 					<image v-else src='../../../static/images/horn.png'></image>
 				</view>
 				<view class='item' @click='set_where(3)'>
-					{{$t(`销量`)}}
+					{{$t(`Doanh số bán hàng`)}}
 					<image v-if="stock==1" src='../../../static/images/up.png'></image>
 					<image v-else-if="stock==2" src='../../../static/images/down.png'></image>
 					<image v-else src='../../../static/images/horn.png'></image>
 				</view>
 				<!-- down -->
-				<view class='item' :class='nows ? "font-color":""' @click='set_where(4)'>{{$t(`新品`)}}</view>
+				<view class='item' :class='nows ? "font-color":""' @click='set_where(4)'>{{$t(`Sản phẩm mới`)}}</view>
 			</view>
 			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scroll="scroll"
 				@scrolltolower="scrolltolower">
@@ -38,13 +38,13 @@
 							<image :src='item.image' :class='is_switch==true?"":"on"'></image>
 							<span class="pictrue_log_class"
 								:class="is_switch === true ? 'pictrue_log_big' : 'pictrue_log'"
-								v-if="item.activity && item.activity.type === '1' && $permission('seckill')">{{$t(`秒杀`)}}</span>
+								v-if="item.activity && item.activity.type === '1' && $permission('seckill')">{{$t(`bán chớp nhoáng`)}}</span>
 							<span class="pictrue_log_class"
 								:class="is_switch === true ? 'pictrue_log_big' : 'pictrue_log'"
-								v-if="item.activity && item.activity.type === '2' && $permission('bargain')">{{$t(`砍价`)}}</span>
+								v-if="item.activity && item.activity.type === '2' && $permission('bargain')">{{$t(`Mặc cả`)}}</span>
 							<span class="pictrue_log_class"
 								:class="is_switch === true ? 'pictrue_log_big' : 'pictrue_log'"
-								v-if="item.activity && item.activity.type === '3' && $permission('combination')">{{$t(`拼团`)}}</span>
+								v-if="item.activity && item.activity.type === '3' && $permission('combination')">{{$t(`Chia sẻ nhóm`)}}</span>
 						</view>
 						<view class='text' :class='is_switch==true?"":"on"'>
 							<view class='name line2'>{{item.store_name}}</view>
@@ -56,7 +56,7 @@
 									<image src='../../../static/images/vip.png'></image>
 								</view>
 								<view v-else></view>
-								<view>{{$t(`已售`)}} {{item.sales}}{{$t(item.unit_name) || $t(`件`)}}</view>
+								<view>{{$t(`đã bán`)}} {{item.sales}}{{$t(item.unit_name) || $t(`miếng`)}}</view>
 							</view>
 						</view>
 					</view>
@@ -71,7 +71,7 @@
 		<view class='noCommodity' v-if="productList.length==0 && where.page > 1">
 			<view class='emptyBox'>
 				<image :src="imgHost + '/statics/images/no-thing.png'"></image>
-				<view class="tips">{{$t(`暂无商品，去看点别的吧`)}}</view>
+				<view class="tips">{{$t(`Hiện tại chưa có sản phẩm nào, vui lòng tìm sản phẩm khác.`)}}</view>
 			</view>
 			<recommend :hostProduct="hostProduct"></recommend>
 		</view>
@@ -128,7 +128,7 @@
 				nows: false,
 				loadend: false,
 				loading: false,
-				loadTitle: this.$t(`加载更多`),
+				loadTitle: this.$t(`tải thêm`),
 				title: '',
 				hostProduct: [],
 				hotPage: 1,
@@ -156,13 +156,13 @@
 				this.old.scrollTop = e.detail.scrollTop
 			},
 			goTop(e) {
-				// 解决view层不同步的问题
+				// Giải quyết vấn đề về lớp xem không đồng bộ
 				this.scrollTop = this.old.scrollTop
 				this.$nextTick(() => {
 					this.scrollTop = 0
 				});
 			},
-			// 去详情页
+			// Đi tới trang chi tiết
 			godDetail(item) {
 				goShopDetail(item, this.uid).then(res => {
 					uni.navigateTo({
@@ -182,7 +182,7 @@
 				this.get_product_list(true);
 			},
 			/**
-			 * 获取我的推荐
+			 * Nhận đề xuất của tôi
 			 */
 			get_host_product: function() {
 				let that = this;
@@ -197,7 +197,7 @@
 					// that.$set(that, 'hostProduct', res.data)
 				});
 			},
-			//点击事件处理
+			//Nhấp vào xử lý sự kiện
 			set_where: function(e) {
 				switch (e) {
 					case 1:
@@ -230,7 +230,7 @@
 				this.$set(this.where, 'page', 1);
 				this.get_product_list(true);
 			},
-			//设置where条件
+			//Đặt điều kiện ở đâu
 			setWhere: function() {
 				if (this.price == 0) this.where.priceOrder = '';
 				else if (this.price == 1) this.where.priceOrder = 'asc';
@@ -240,7 +240,7 @@
 				else if (this.stock == 2) this.where.salesOrder = 'desc';
 				this.where.news = this.nows ? 1 : 0;
 			},
-			//查找产品
+			//Tìm sản phẩm
 			get_product_list: function(isPage) {
 				let that = this;
 				that.setWhere();
@@ -255,13 +255,13 @@
 					let loadend = list.length < that.where.limit;
 					that.loadend = loadend;
 					that.loading = false;
-					that.loadTitle = loadend ? that.$t(`没有更多内容啦~`) : that.$t(`加载更多`);
+					that.loadTitle = loadend ? that.$t(`Không còn nội dung nữa~`) : that.$t(`tải thêm`);
 					that.$set(that, 'productList', productList);
 					that.$set(that.where, 'page', that.where.page + 1);
 					if (!that.productList.length) this.get_host_product();
 				}).catch(err => {
 					that.loading = false;
-					that.loadTitle = that.$t(`加载更多`);
+					that.loadTitle = that.$t(`tải thêm`);
 				});
 			},
 			scrolltolower() {
@@ -276,9 +276,9 @@
 		},
 		onPullDownRefresh() {},
 		onReachBottom() {},
-		// 滚动监听
+		// người nghe cuộn
 		onPageScroll(e) {
-			// 传入scrollTop值并触发所有easy-loadimage组件下的滚动监听事件
+			// Truyền giá trị ScrollTop và kích hoạt các sự kiện nghe cuộn trong tất cả các thành phần hình ảnh dễ tải
 			uni.$emit('scroll');
 		},
 	}

@@ -18,7 +18,7 @@
 		    <view class='loadingicon acea-row row-center-wrapper' v-if="signList.length > 0">
 		        <text class='loading iconfont icon-jiazai' :hidden='loading==false'></text>{{loadtitle}}
 		    </view>
-			<view v-if="signList.length == 0"><emptyPage :title="$t(`暂无签到记录~`)"></emptyPage></view>
+			<view v-if="signList.length == 0"><emptyPage :title="$t(`Chưa có hồ sơ đăng ký~`)"></emptyPage></view>
 		</view>
 		<!-- #ifdef MP -->
 		<!-- <authorize @onLoadFun="onLoadFun" :isAuto="isAuto" :isShowAuth="isShowAuth" @authColse="authColse"></authorize> -->
@@ -45,12 +45,12 @@
 			return {
 				loading:false,
 				    loadend:false,
-				    loadtitle:this.$t(`加载更多`),
+				    loadtitle:this.$t(`tải thêm`),
 				    page:1,
 				    limit:8,
 				    signList:[],
-					isAuto: false, //没有授权的不会自动授权
-					isShowAuth: false //是否隐藏授权
+					isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+					isShowAuth: false //Có ẩn ủy quyền hay không
 			};
 		},
 		computed: mapGetters(['isLogin']),
@@ -77,17 +77,17 @@
 		methods: {
 			  /**
 			   * 
-			   * 授权回调
+			   * Gọi lại ủy quyền
 			  */
 			  onLoadFun:function(){
 			    this.getSignMoneList();
 			  },
-			  // 授权关闭
+			  // Ủy quyền đã đóng
 			  authColse:function(e){
 			  	this.isShowAuth = e
 			  },
 			  /**
-			     * 获取签到记录列表
+			     * Lấy danh sách hồ sơ đăng ký
 			    */
 			    getSignMoneList:function(){
 			      let that=this;
@@ -102,10 +102,10 @@
 					that.$set(that,'signList',that.signList);
 					that.loadend = loadend;
 					that.loading = false;
-					that.loadtitle = loadend ? that.$t(`我也是有底线的`) : that.$t(`加载更多`);
+					that.loadtitle = loadend ? that.$t(`Tôi cũng có một điểm mấu chốt`) : that.$t(`tải thêm`);
 			      }).catch(err=>{
 					that.loading = false;
-					that.loadtitle = that.$t(`加载更多`);
+					that.loadtitle = that.$t(`tải thêm`);
 			      });
 			    },
 		}

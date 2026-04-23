@@ -4,8 +4,8 @@
 			<view class='promoterHeader bg-color'>
 				<view class='headerCon acea-row row-between-wrapper'>
 					<view>
-						<view class='name'>{{$t(`累计推广订单`)}}</view>
-						<view><text class='num'>{{count || 0}}</text>{{$t(`单`)}}</view>
+						<view class='name'>{{$t(`Lệnh khuyến mãi tích lũy`)}}</view>
+						<view><text class='num'>{{count || 0}}</text>{{$t(`một`)}}</view>
 					</view>
 					<view class='iconfont icon-2'></view>
 				</view>
@@ -15,7 +15,7 @@
 					<view class='item'>
 						<view class='title acea-row row-column row-center'>
 							<view class='data'>{{item.time}}</view>
-							<view>{{$t(`本月累计推广订单`)}}：{{item.count || 0}}{{$t(`单`)}}</view>
+							<view>{{$t(`Tích lũy đơn hàng khuyến mãi trong tháng này`)}}：{{item.count || 0}}{{$t(`một`)}}</view>
 						</view>
 						<view class='listn'>
 							<block v-for="(child,indexn) in item.child" :key="indexn">
@@ -27,17 +27,17 @@
 											</view>
 											<view class='text line1'>{{child.nickname}}</view>
 										</view>
-										<view class='money' v-if="child.type == 'brokerage'">{{$t(`返佣`)}}：<text
+										<view class='money' v-if="child.type == 'brokerage'">{{$t(`Hạ giá`)}}：<text
 												class='font-color'>{{$t(`￥`)}}{{child.number}}</text></view>
-										<view class='money' v-else>{{$t(`暂未返佣`)}}：<text
+										<view class='money' v-else>{{$t(`Chưa có giảm giá hoa hồng`)}}：<text
 												class='font-color'>{{$t(`￥`)}}{{child.number}}</text></view>
 									</view>
 									<view class='bottom'>
-										<view><text class='name'>{{$t(`订单编号`)}}：</text>{{child.order_id}}</view>
-										<view><text class='name'>{{$t(`下单时间`)}}：</text>{{child.time}}</view>
+										<view><text class='name'>{{$t(`số thứ tự`)}}：</text>{{child.order_id}}</view>
+										<view><text class='name'>{{$t(`thời gian đặt hàng`)}}：</text>{{child.time}}</view>
 										<view class="more" v-if="child.children && child.children.length"
 											@click="open(child)">
-											{{child.open?$t(`收起`):$t(`更多`)}}
+											{{child.open?$t(`đóng`):$t(`Hơn`)}}
 											<text class="iconfont"
 												:class="child.open?'icon-xiangshang':'icon-xiangxia'"></text>
 										</view>
@@ -46,10 +46,10 @@
 										<view class="more-record-list" v-for="(sp,indexs) in child.children"
 											:key="indexs">
 											<view class="more-record-box">
-												<view><text class='name'>{{$t(`单号`)}}：</text>{{sp.order_id}}</view>
-												<view class='money' v-if="sp.type == 'brokerage'">{{$t(`返佣`)}}：<text
+												<view><text class='name'>{{$t(`Số đơn hàng`)}}：</text>{{sp.order_id}}</view>
+												<view class='money' v-if="sp.type == 'brokerage'">{{$t(`Hạ giá`)}}：<text
 														class='font-color'>{{$t(`￥`)}}{{sp.number}}</text></view>
-												<view class='money' v-else>{{$t(`暂未返佣`)}}：<text
+												<view class='money' v-else>{{$t(`Chưa có giảm giá hoa hồng`)}}：<text
 														class='font-color'>{{$t(`￥`)}}{{sp.number}}</text></view>
 											</view>
 										</view>
@@ -61,7 +61,7 @@
 				</block>
 			</view>
 			<view v-if="recordList.length == 0">
-				<emptyPage :title="$t(`暂无推广订单～`)"></emptyPage>
+				<emptyPage :title="$t(`Chưa có lệnh khuyến mãi nào～`)"></emptyPage>
 			</view>
 		</view>
 		<!-- #ifdef MP -->
@@ -109,8 +109,8 @@
 				recordCount: 0,
 				count: 0,
 				orderType: 0,
-				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false //是否隐藏授权
+				isAuto: false, //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+				isShowAuth: false //Có ẩn ủy quyền hay không
 			};
 		},
 		computed: mapGetters(['isLogin']),
@@ -129,7 +129,7 @@
 			onLoadFun() {
 				this.getRecordOrderList();
 			},
-			// 授权关闭
+			// Ủy quyền đã đóng
 			authColse: function(e) {
 				this.isShowAuth = e
 			},
@@ -143,7 +143,7 @@
 				if (this.orderType) {
 					fun = divisionOrder
 					uni.setNavigationBarTitle({
-						title: that.$t(`推广订单列表`)
+						title: that.$t(`Danh sách đơn hàng khuyến mãi`)
 					})
 				} else {
 					fun = spreadOrder

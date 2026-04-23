@@ -12,7 +12,7 @@
         ></image>
         <view class="text">
           <view class="name-wrap acea-row row-middle">
-            <view class="name">{{ $t(`签到立即获取`) }}</view>
+            <view class="name">{{ $t(`Đăng nhập và nhận ngay`) }}</view>
             <view class="num acea-row row-middle" :style="[numStyle]">
               <view
                 class="inner acea-row row-middle"
@@ -28,12 +28,12 @@
             </view>
           </view>
           <view
-            >{{ $t(`连续签到`) }} {{ continuousSignDays || 0
-            }}{{ $t(`天`) }}</view
+            >{{ $t(`Đăng nhập liên tục`) }} {{ continuousSignDays || 0
+            }}{{ $t(`bầu trời`) }}</view
           >
         </view>
         <view class="button" :style="[buttonStyle]" @click="goUserSgin">{{
-          $t(`立即签到`)
+          $t(`Đăng nhập ngay bây giờ`)
         }}</view>
       </view>
       <view v-else class="week-wrap acea-row row-middle">
@@ -61,11 +61,11 @@
               mode="widthFix"
               class="image"
             ></image>
-            <view>{{ $t(`周`) }}{{ index | weekFormat }}</view>
+            <view>{{ $t(`tuần`) }}{{ index | weekFormat }}</view>
           </view>
         </view>
         <view class="button" :style="[buttonStyle]" @click="goUserSgin">{{
-          $t(`签到`)
+          $t(`Đăng nhập`)
         }}</view>
       </view>
     </view>
@@ -89,7 +89,7 @@ export default {
   },
   filters: {
     weekFormat: function (value) {
-      return ["一", "二", "三", "四", "五", "六", "日"][value];
+      return ["một", "hai", "ba", "bốn", "năm", "sáu", "ngày"][value];
     },
   },
   data() {

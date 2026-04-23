@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 import request from "@/utils/request.js";
 
 /**
- * 获取抽奖详情信息
+ * Nhận chi tiết xổ số
  * 
  */
 export function getLotteryData(type, lottery_id) {
@@ -19,7 +19,7 @@ export function getLotteryData(type, lottery_id) {
 }
 
 /**
- * 参与抽奖
+ * Tham gia xổ số
  * 
  */
 export function startLottery(data) {
@@ -27,7 +27,7 @@ export function startLottery(data) {
 }
 
 /**
- * 领奖
+ * Nhận giải thưởng
  * 
  */
 export function receiveLottery(data) {
@@ -35,7 +35,7 @@ export function receiveLottery(data) {
 }
 
 /**
- * 获取中奖记录
+ * Nhận kỷ lục chiến thắng
  * 
  */
 export function getLotteryList(data) {

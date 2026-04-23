@@ -71,7 +71,7 @@
 		height: 120rpx;
 	}
 
-	/*返回主页按钮*/
+	/*Quay lại nút trang chủ*/
 	.home {
 		position: fixed;
 		color: white;

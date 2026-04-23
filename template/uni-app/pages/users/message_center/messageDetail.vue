@@ -8,7 +8,7 @@
 			{{msgData.content}}
 		</view>
 		<view class="add-time">
-			{{$t(`通知于`)}}{{msgData.add_time}}
+			{{$t(`Đã thông báo vào`)}}{{msgData.add_time}}
 		</view>
 		<!-- #ifndef MP -->
 		<home></home>
@@ -36,7 +36,7 @@
 		methods: {
 			getMsgDetails(id) {
 				uni.showLoading({
-					title: this.$t(`加载中`)
+					title: this.$t(`đang tải`)
 				});
 				getMsgDetails(id).then(res => {
 					uni.hideLoading();

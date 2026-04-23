@@ -25,7 +25,7 @@
       </view>
 
       <view v-if="tempArr.length > 0" class="list">
-        <!-- 单列 -->
+        <!-- cột đơn -->
         <view v-if="styleConfig == 0">
           <view
             class="w-full flex justify-between item bg--w111-fff p-20"
@@ -84,7 +84,7 @@
                     class="w-96 h-56 rd-28rpx flex-center fs-24 text--w111-fff"
                     v-if="btnStyle == 0"
                     :style="[btnBgColor]"
-                    >{{ $t(`购买`) }}</view
+                    >{{ $t(`Mua`) }}</view
                   >
                   <view
                     class="rd-24rpx w-44 h-44"
@@ -138,13 +138,13 @@
                       class="fs-22"
                       v-if="checkboxInfo.includes(3)"
                       :style="[uniStyle]"
-                      >{{ $t(`已售`) }}{{ item.sales
+                      >{{ $t(`đã bán`) }}{{ item.sales
                       }}{{ item.unit_name }}</text
                     >
                     <text
                       class="fs-22 text--w111-999 pl-16"
                       v-if="checkboxInfo.includes(4)"
-                      >评分{{ item.star || 0 }}</text
+                      >điểm{{ item.star || 0 }}</text
                     >
                   </view>
                   <view
@@ -156,7 +156,7 @@
                       class="w-96 h-56 rd-28rpx flex-center fs-24 text--w111-fff"
                       v-if="btnStyle == 0"
                       :style="[btnBgColor]"
-                      >{{ $t(`购买`) }}</view
+                      >{{ $t(`Mua`) }}</view
                     >
                     <view
                       class="rd-24rpx w-44 h-44"
@@ -184,7 +184,7 @@
             </view>
           </view>
         </view>
-        <!-- 两列瀑布流 -->
+        <!-- hai thác nước -->
         <view class="wf-page" v-if="goodStyleConfig == 1">
           <!-- left -->
           <view class="item-box">
@@ -303,7 +303,7 @@
                         class="fs-22"
                         v-if="checkboxInfo.includes(3)"
                         :style="[uniStyle]"
-                        >{{ $t(`已售`) }}{{ item.sales
+                        >{{ $t(`đã bán`) }}{{ item.sales
                         }}{{ item.unit_name }}</text
                       >
                       <view
@@ -456,7 +456,7 @@
                         class="fs-22"
                         v-if="checkboxInfo.includes(3)"
                         :style="[uniStyle]"
-                        >{{ $t(`已售`) }}{{ item.sales
+                        >{{ $t(`đã bán`) }}{{ item.sales
                         }}{{ item.unit_name }}</text
                       >
                       <view
@@ -493,7 +493,7 @@
             </view>
           </view>
         </view>
-        <!-- 两列展示(横向) -->
+        <!-- Hiển thị hai cột(Nằm ngang) -->
         <view
           class="pt-32 pr-24 pb-32 pl-24 bg--w111-fff"
           :style="[bgRadius, bgColor]"
@@ -538,7 +538,7 @@
             </view>
           </view>
         </view>
-        <!-- 三列 -->
+        <!-- ba cột -->
         <view
           class="pt-32 pr-24 pb-32 pl-24 bg--w111-fff"
           :style="[bgColor, bgRadius]"
@@ -602,7 +602,7 @@
             </view>
           </view>
         </view>
-        <!-- 大图展示 -->
+        <!-- Hiển thị hình ảnh lớn -->
         <view v-if="goodStyleConfig == 4">
           <view
             class="w-full bg--w111-fff item"
@@ -662,7 +662,7 @@
                     class="w-96 h-56 rd-28rpx flex-center fs-24 text--w111-fff"
                     v-if="btnStyle == 0"
                     :style="[btnBgColor]"
-                    >{{ $t(`购买`) }}</view
+                    >{{ $t(`Mua`) }}</view
                   >
                   <view
                     class="rd-24rpx w-44 h-44"
@@ -716,13 +716,13 @@
                       class="fs-22 text--w111-999"
                       v-if="checkboxInfo.includes(3)"
                       :style="[uniStyle]"
-                      >{{ $t(`已售`) }}{{ item.sales
+                      >{{ $t(`đã bán`) }}{{ item.sales
                       }}{{ item.unit_name }}</text
                     >
                     <text
                       class="fs-22 text--w111-999 pl-16"
                       v-if="checkboxInfo.includes(4)"
-                      >{{ $t(`评分`) }}{{ item.star || 0 }}</text
+                      >{{ $t(`điểm`) }}{{ item.star || 0 }}</text
                     >
                   </view>
                   <view @tap.stop="addCartChange(item, index)" v-if="!showBtn">
@@ -730,7 +730,7 @@
                       class="w-96 h-56 rd-28rpx flex-center fs-24 text--w111-fff"
                       v-if="btnStyle == 0"
                       :style="[btnBgColor]"
-                      >{{ $t(`购买`) }}</view
+                      >{{ $t(`Mua`) }}</view
                     >
                     <view
                       class="rd-24rpx w-44 h-44"
@@ -758,7 +758,7 @@
             </view>
           </view>
         </view>
-        <!-- 横向滑动 -->
+        <!-- Trượt theo chiều ngang -->
         <view
           class="pt-32 pb-32 pl-24 bg--w111-fff"
           :style="[bgRadius, bgColor]"
@@ -891,14 +891,14 @@ export default {
       },
       id: 0,
       productValue: [],
-      attrValue: "", //已选属性
-      storeName: "", //多属性产品名称
+      attrValue: "", //Thuộc tính đã chọn
+      storeName: "", //Tên sản phẩm nhiều thuộc tính
       storeInfo: {},
-      allList: [], // 全部列表
-      leftList: [], // 左边列表
-      rightList: [], // 右边列表
-      mark: 0, // 列表标记
-      boxHeight: [], // 下标0和1分别为左列和右列高度
+      allList: [], // Tất cả danh sách
+      leftList: [], // danh sách bên trái
+      rightList: [], // danh sách bên phải
+      mark: 0, // dấu danh sách
+      boxHeight: [], // Chỉ số 0 và 1 lần lượt là chiều cao của cột bên trái và bên phải.
     };
   },
   watch: {
@@ -908,10 +908,10 @@ export default {
       },
       deep: true,
     },
-    // 监听列表数据变化
+    // Theo dõi thay đổi dữ liệu danh sách
     tempArr: {
       handler(nVal, oVal) {
-        // 如果数据为空或新的列表数据少于旧的列表数据（通常为下拉刷新或切换排序或使用筛选器），初始化变量
+        // Nếu dữ liệu trống hoặc dữ liệu danh sách mới nhỏ hơn dữ liệu danh sách cũ (thường làm mới thả xuống hoặc chuyển đổi sắp xếp hoặc sử dụng bộ lọc), hãy khởi tạo biến
         if (
           !this.tempArr.length ||
           (this.tempArr.length === this.updateNum &&
@@ -923,7 +923,7 @@ export default {
           this.boxHeight = [];
           this.mark = 0;
         }
-        // 如果列表有值，调用waterfall方法
+        // Nếu danh sách có giá trị, hãy gọi phương thức thác nước
 
         if (this.tempArr.length) {
           this.allList = this.tempArr;
@@ -958,7 +958,7 @@ export default {
       immediate: true,
       deep: true,
     },
-    // 监听标记，当标记发生变化，则执行下一个item排序
+    // Theo dõi nhãn hiệu. Khi dấu thay đổi, thực hiện sắp xếp mục tiếp theo.
     mark() {
       const len = this.allList.length;
       if (this.mark < len && this.mark !== 0 && this.boxHeight.length) {
@@ -1094,7 +1094,7 @@ export default {
     styleConfig() {
       return this.dataConfig.styleConfig.tabVal;
     },
-    /*商品图片圆角样式*/
+    /*Hình ảnh sản phẩm kiểu dáng bo tròn góc cạnh*/
     imgStyle() {
       let borderRadius = `${this.dataConfig.filletImg.val * 2}rpx`;
       if (this.dataConfig.styleConfig.tabVal == 1) {
@@ -1124,24 +1124,24 @@ export default {
       }
       return this.dataConfig.name == "promotionList" ? imgRadius : borderRadius;
     },
-    /*商品名称样式*/
+    /*Kiểu tên sản phẩm*/
     productStyle() {
       return {
         color: this.dataConfig.goodsNameColor.color[0].item,
         fontWeight: this.dataConfig.goodsName.tabVal ? "normal" : "bold",
       };
     },
-    /* 展示信息 */
+    /* hiển thị thông tin */
     checkboxInfo() {
       return this.dataConfig.checkboxInfo.type;
     },
-    /* 价格颜色 */
+    /* màu giá */
     priceColor() {
       return this.dataConfig.toneCartConfig.tabVal
         ? this.dataConfig.goodsPriceColor.color[0].item
         : "var(--view-theme)";
     },
-    /* 划线价颜色 */
+    /* Màu gạch chân giá */
     otPriceColor() {
       return this.dataConfig.goodsPriceColor.color[0].item;
     },
@@ -1151,7 +1151,7 @@ export default {
     showBtn() {
       return this.dataConfig.cartConfig.tabVal;
     },
-    /* 按钮颜色 */
+    /* màu nút */
     btnBgColor() {
       return {
         background: this.dataConfig.toneConfig.tabVal
@@ -1174,19 +1174,19 @@ export default {
           : "#999",
       };
     },
-    /*商品数量*/
+    /*số lượng sản phẩm*/
     numberConfig() {
       return this.dataConfig.numberConfig.val;
     },
-    /*商品模板*/
+    /*Mẫu sản phẩm*/
     goodStyleConfig() {
       return this.dataConfig.styleConfig.tabVal;
     },
-    /*检索条件  0综合 1销量 2价格*/
+    /*Điều kiện tìm kiếm 0 Toàn diện 1 Khối lượng bán hàng 2 Giá cả*/
     goodsSort() {
       return this.dataConfig.goodsSort.tabVal;
     },
-    /*按照什么方式选择商品 1 指定商品 3指定分类 4 商品标签 */
+    /*Cách chọn sản phẩm 1 Ghi rõ sản phẩm 3 Ghi rõ danh mục 4 Thẻ sản phẩm */
     typeConfig() {
       return this.dataConfig.typeConfig.activeValue;
     },
@@ -1272,7 +1272,7 @@ export default {
         });
       });
     },
-    // 商品详情接口；
+    // Giao diện chi tiết sản phẩm；
     getAttrs(id) {
       let that = this;
       getAttr(id, 0).then((res) => {
@@ -1299,21 +1299,21 @@ export default {
         this.$store.commit("indexData/setCartNum", res.data.count);
       });
     },
-    // 瀑布流排序
+    // phân loại thác nước
     waterFall() {
       const i = this.mark;
       if (i == 0) {
-        // 初始化，从左边开始插入
+        // Khởi tạo, chèn từ bên trái
         this.leftList.push(this.allList[i]);
-        // 更新左边列表高度
+        // Cập nhật chiều cao danh sách bên trái
         this.getViewHeight(0);
       } else if (i == 1) {
-        // 第二个item插入，默认为右边插入
+        // Mục thứ 2 được chèn vào, mặc định là chèn vào bên phải.
         this.rightList.push(this.allList[i]);
-        // 更新右边列表高度
+        // Cập nhật chiều cao của danh sách bên phải
         this.getViewHeight(1);
       } else {
-        // 根据左右列表高度判断下一个item应该插入哪边
+        // Xác định vị trí chèn mục tiếp theo dựa trên chiều cao của danh sách bên trái và bên phải
         if (!this.boxHeight.length) {
           this.rightList.length < this.leftList.length
             ? this.rightList.push(this.allList[i])
@@ -1326,13 +1326,13 @@ export default {
             this.leftList.push(this.allList[i]);
           }
         }
-        // 更新插入列表高度
+        // Cập nhật chiều cao danh sách chèn
         this.getViewHeight();
       }
     },
-    // 获取列表高度
+    // Lấy chiều cao danh sách
     getViewHeight() {
-      // 使用nextTick，确保页面更新结束后，再请求高度
+      // Sử dụng nextTick để đảm bảo rằng trang được cập nhật trước khi yêu cầu chiều cao.
       this.$nextTick(() => {
         setTimeout(() => {
           uni

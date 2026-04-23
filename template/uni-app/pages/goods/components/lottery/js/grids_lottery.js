@@ -1,10 +1,10 @@
 
 function LotteryDraw(obj, callback) {
-	this.timer = null; //计时器
-	this.startIndex = obj.startIndex-1 || 0; //从第几个位置开始抽奖 [默认为零]
-	this.count = 0; //计数，跑的圈数
-	this.winingIndex = obj.winingIndex || 0;//获奖的位置
-	this.totalCount = obj.totalCount || 6;//抽奖跑的圈数
+	this.timer = null; //hẹn giờ
+	this.startIndex = obj.startIndex-1 || 0; //Xổ số sẽ bắt đầu từ vị trí nào? [Mặc định là 0]
+	this.count = 0; //đếm, chạy vòng
+	this.winingIndex = obj.winingIndex || 0;//Vị trí đạt giải thưởng
+	this.totalCount = obj.totalCount || 6;//Số vòng chạy xổ số
 	this.speed = obj.speed || 100;
 	this.domData=obj.domData;
 	this.rollFn();
@@ -14,24 +14,24 @@ function LotteryDraw(obj, callback) {
 LotteryDraw.prototype = {
 	rollFn: function() {
 		var that = this;
-		// 活动index值增加，即移动到下一个格子
+		// Giá trị chỉ số hoạt động tăng lên, nghĩa là chuyển sang lưới tiếp theo
 		this.startIndex++;
 		
-		//startIndex是最后一个时一圈走完，重新开始
+		//startIndexGiờ cuối cùng rồi. Hoàn thành vòng tròn và bắt đầu lại.
 		if (this.startIndex >= this.domData.length - 1) {
 			this.startIndex = 0;
 			this.count++;
 		}
 		
-		// 当跑的圈数等于设置的圈数，且活动的index值是奖品的位置时停止
+		// Dừng khi số vòng chạy bằng số vòng đã đặt và giá trị chỉ số của hoạt động là vị trí của giải thưởng
 		if (this.count >= this.totalCount && this.startIndex === this.winingIndex) {
 			if (typeof this.callback === 'function') {
 				setTimeout(function() {
-					that.callback(that.startIndex,that.count); //执行回调函数，抽奖完成的相关操作
+					that.callback(that.startIndex,that.count); //Thực hiện chức năng gọi lại và hoàn thành các thao tác liên quan của xổ số
 				}, 400);
 			}
 			clearInterval(this.timer);
-		}else { //重新开始一圈
+		}else { //Bắt đầu lại một vòng tròn
 			if (this.count >= this.totalCount - 1) {
 				this.speed += 30;
 			}

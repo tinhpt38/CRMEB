@@ -362,7 +362,8 @@ export default {
   position: relative;
   display: flex;
   justify-content: space-between;
-  word-break: break-all;
+  word-break: break-word;
+  overflow-wrap: anywhere;
   &:hover .icon-box {
     display: block;
   }

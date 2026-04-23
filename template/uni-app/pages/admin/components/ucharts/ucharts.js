@@ -37,7 +37,7 @@ let assign = function(target, ...varArgs) {
 	if (!varArgs || varArgs.length <= 0) {
 		return target;
 	}
-	// 深度合并对象
+	// Các đối tượng hợp nhất sâu
 	function deepAssign(obj1, obj2) {
 		for (let key in obj2) {
 			obj1[key] = obj1[key] && obj1[key].toString() === "[object Object]" ?
@@ -86,7 +86,7 @@ var util = {
 	}
 };
 
-//兼容H5点击事件
+//Tương thích với các sự kiện nhấp chuột H5
 function getH5Offset(e) {
 	e.mp = {
 		changedTouches: []
@@ -98,7 +98,7 @@ function getH5Offset(e) {
 	return e;
 }
 
-// hex 转 rgba
+// hex thay đổi rgba
 function hexToRgb(hexValue, opc) {
 	var rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
 	var hex = hexValue.replace(rgx, function(m, r, g, b) {
@@ -584,7 +584,7 @@ function getCandleToolTipData(series, seriesData, calPoints, index, categories, 
 	var option = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : {};
 	let upColor = extra.color.upFill;
 	let downColor = extra.color.downFill;
-	//颜色顺序为开盘，收盘，最低，最高
+	//Thứ tự màu sắc là mở cửa, đóng cửa, thấp nhất, cao nhất
 	let color = [upColor, upColor, downColor, upColor];
 	var textList = [];
 	let text0 = {
@@ -610,19 +610,19 @@ function getCandleToolTipData(series, seriesData, calPoints, index, categories, 
 			}
 		}
 		let text1 = {
-			text: '开盘：' + item.data[0],
+			text: 'khai mạc：' + item.data[0],
 			color: color[0]
 		};
 		let text2 = {
-			text: '收盘：' + item.data[1],
+			text: 'đóng：' + item.data[1],
 			color: color[1]
 		};
 		let text3 = {
-			text: '最低：' + item.data[2],
+			text: 'thấp nhất：' + item.data[2],
 			color: color[2]
 		};
 		let text4 = {
-			text: '最高：' + item.data[3],
+			text: 'Cao nhất：' + item.data[3],
 			color: color[3]
 		};
 		textList.push(text1, text2, text3, text4);
@@ -1051,7 +1051,7 @@ function getXAxisTextList(series, opts, config) {
 		minData = Math.min.apply(this, sorted);
 		maxData = Math.max.apply(this, sorted);
 	}
-	//为了兼容v1.9.0之前的项目
+	//Để tương thích với các dự án trước v1.9.0
 	if (index > -1) {
 		if (typeof opts.xAxis.data[index].min === 'number') {
 			minData = Math.min(opts.xAxis.data[index].min, minData);
@@ -1100,15 +1100,15 @@ function calXAxisData(series, opts, config) {
 	});
 
 	var xAxisScaleValues = result.ranges.map(function(item) {
-		// 如果刻度值是浮点数,则保留两位小数
+		// Nếu giá trị đánh dấu là số dấu phẩy động,sau đó giữ hai chữ số thập phân
 		item = util.toFixed(item, 2);
-		// 若有自定义格式则调用自定义的格式化函数
+		// Nếu có định dạng tùy chỉnh, hãy gọi chức năng định dạng tùy chỉnh
 		item = opts.xAxis.format ? opts.xAxis.format(Number(item)) : item;
 		return item;
 	});
 
 	result = Object.assign(result, getXAxisPoints(xAxisScaleValues, opts, config));
-	// 计算X轴刻度的属性譬如每个刻度的间隔,刻度的起始点\结束点以及总长
+	// Tính toán các thuộc tính của thang đo trục X, chẳng hạn như khoảng cách giữa mỗi thang đo,điểm bắt đầu của thang đo\điểm cuối và tổng chiều dài
 	var eachSpacing = result.eachSpacing;
 
 	var textLength = xAxisScaleValues.map(function(item) {
@@ -1118,7 +1118,7 @@ function calXAxisData(series, opts, config) {
 	// get max length of categories text
 	var maxTextLength = Math.max.apply(this, textLength);
 
-	// 如果刻度值文本内容过长,则将其逆时针旋转45°
+	// Nếu nội dung văn bản giá trị đánh dấu quá dài,sau đó xoay nó ngược chiều kim đồng hồ45°
 	if (maxTextLength + 2 * config.xAxisTextPadding > eachSpacing) {
 		result.angle = 45 * Math.PI / 180;
 		result.xAxisHeight = 2 * config.xAxisTextPadding + maxTextLength * Math.sin(result.angle);
@@ -1562,7 +1562,7 @@ function getYAxisTextList(series, opts, config, stack) {
 		minData = Math.min.apply(this, sorted);
 		maxData = Math.max.apply(this, sorted);
 	}
-	//为了兼容v1.9.0之前的项目
+	//Để tương thích với các dự án trước v1.9.0
 	if (index > -1) {
 		if (typeof opts.yAxis.data[index].min === 'number') {
 			minData = Math.min(opts.yAxis.data[index].min, minData);
@@ -1599,11 +1599,11 @@ function getYAxisTextList(series, opts, config, stack) {
 }
 
 function calYAxisData(series, opts, config) {
-	//堆叠图重算Y轴
+	//Biểu đồ xếp chồng tính toán lại trục Y
 	var columnstyle = assign({}, {
 		type: ""
 	}, opts.extra.column);
-	//如果是多Y轴，重新计算
+	//Nếu có nhiều trục Y thì tính lại
 	var YLength = opts.yAxis.data.length;
 	var newSeries = new Array(YLength);
 	if (YLength > 0) {
@@ -1621,7 +1621,7 @@ function calYAxisData(series, opts, config) {
 
 		for (let i = 0; i < YLength; i++) {
 			let yData = opts.yAxis.data[i];
-			//如果总开关不显示，强制每个Y轴为不显示
+			//Nếu công tắc chính không hiển thị, buộc từng trục Y không hiển thị.
 			if (opts.yAxis.disabled == true) {
 				yData.disabled = true;
 			}
@@ -1822,7 +1822,7 @@ function drawRingTitle(opts, config, context, center) {
 }
 
 function drawPointText(points, series, config, context) {
-	// 绘制数据文案
+	// Vẽ bản sao dữ liệu
 	var data = series.data;
 	points.forEach(function(item, index) {
 		if (item !== null) {
@@ -2385,7 +2385,7 @@ function drawColumnDataPoints(series, opts, config, context) {
 				};
 				break;
 			case 'stack':
-				// 绘制堆叠数据图
+				// Vẽ dữ liệu xếp chồng
 				var points = getStackDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts,
 					config, seriesIndex, series, process);
 				calPoints.push(points);
@@ -2411,7 +2411,7 @@ function drawColumnDataPoints(series, opts, config, context) {
 				};
 				break;
 			case 'meter':
-				// 绘制温度计数据图
+				// Vẽ dữ liệu nhiệt kế
 				var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config,
 					process);
 				calPoints.push(points);
@@ -2421,7 +2421,7 @@ function drawColumnDataPoints(series, opts, config, context) {
 					for (let i = 0; i < points.length; i++) {
 						let item = points[i];
 						if (item !== null && i > leftNum && i < rightNum) {
-							//画背景颜色
+							//Sơn màu nền
 							context.beginPath();
 							context.setFillStyle(columnOption.meter.fillColor);
 							var startX = item.x - item.width / 2;
@@ -2430,7 +2430,7 @@ function drawColumnDataPoints(series, opts, config, context) {
 							context.fillRect(startX, item.y, item.width, height);
 							context.closePath();
 							context.fill();
-							//画边框线
+							//Vẽ đường viền
 							if (columnOption.meter.border > 0) {
 								context.beginPath();
 								context.setStrokeStyle(eachSeries.color);
@@ -2543,7 +2543,7 @@ function drawCandleDataPoints(series, seriesMA, opts, config, context) {
 		rightSpace = leftSpace + (opts.xAxis.itemCount + 4) * eachSpacing;
 	}
 
-	//画均线
+	//Vẽ đường trung bình động
 	if (candleOption.average.show) {
 		seriesMA.forEach(function(eachSeries, seriesIndex) {
 			let ranges, minRange, maxRange;
@@ -2586,7 +2586,7 @@ function drawCandleDataPoints(series, seriesMA, opts, config, context) {
 			}
 		});
 	}
-	//画K线
+	//Vẽ đường K
 	series.forEach(function(eachSeries, seriesIndex) {
 		let ranges, minRange, maxRange;
 		ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
@@ -2602,37 +2602,37 @@ function drawCandleDataPoints(series, seriesMA, opts, config, context) {
 			if (i > leftNum && i < rightNum) {
 				let item = splitPointList[0][i];
 				context.beginPath();
-				//如果上涨
+				//nếu nó tăng
 				if (data[i][1] - data[i][0] > 0) {
 					context.setStrokeStyle(candleOption.color.upLine);
 					context.setFillStyle(candleOption.color.upFill);
 					context.setLineWidth(1 * opts.pixelRatio);
-					context.moveTo(item[3].x, item[3].y); //顶点
-					context.lineTo(item[1].x, item[1].y); //收盘中间点
-					context.lineTo(item[1].x - eachSpacing / 4, item[1].y); //收盘左侧点
-					context.lineTo(item[0].x - eachSpacing / 4, item[0].y); //开盘左侧点
-					context.lineTo(item[0].x, item[0].y); //开盘中间点
-					context.lineTo(item[2].x, item[2].y); //底点
-					context.lineTo(item[0].x, item[0].y); //开盘中间点
-					context.lineTo(item[0].x + eachSpacing / 4, item[0].y); //开盘右侧点
-					context.lineTo(item[1].x + eachSpacing / 4, item[1].y); //收盘右侧点
-					context.lineTo(item[1].x, item[1].y); //收盘中间点
-					context.moveTo(item[3].x, item[3].y); //顶点
+					context.moveTo(item[3].x, item[3].y); //đỉnh
+					context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+					context.lineTo(item[1].x - eachSpacing / 4, item[1].y); //Điểm đóng bên trái
+					context.lineTo(item[0].x - eachSpacing / 4, item[0].y); //Mở điểm bên trái
+					context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+					context.lineTo(item[2].x, item[2].y); //đáy
+					context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+					context.lineTo(item[0].x + eachSpacing / 4, item[0].y); //Mở điểm bên phải
+					context.lineTo(item[1].x + eachSpacing / 4, item[1].y); //Đóng điểm bên phải
+					context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+					context.moveTo(item[3].x, item[3].y); //đỉnh
 				} else {
 					context.setStrokeStyle(candleOption.color.downLine);
 					context.setFillStyle(candleOption.color.downFill);
 					context.setLineWidth(1 * opts.pixelRatio);
-					context.moveTo(item[3].x, item[3].y); //顶点
-					context.lineTo(item[0].x, item[0].y); //开盘中间点
-					context.lineTo(item[0].x - eachSpacing / 4, item[0].y); //开盘左侧点
-					context.lineTo(item[1].x - eachSpacing / 4, item[1].y); //收盘左侧点
-					context.lineTo(item[1].x, item[1].y); //收盘中间点
-					context.lineTo(item[2].x, item[2].y); //底点
-					context.lineTo(item[1].x, item[1].y); //收盘中间点
-					context.lineTo(item[1].x + eachSpacing / 4, item[1].y); //收盘右侧点
-					context.lineTo(item[0].x + eachSpacing / 4, item[0].y); //开盘右侧点
-					context.lineTo(item[0].x, item[0].y); //开盘中间点
-					context.moveTo(item[3].x, item[3].y); //顶点
+					context.moveTo(item[3].x, item[3].y); //đỉnh
+					context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+					context.lineTo(item[0].x - eachSpacing / 4, item[0].y); //Mở điểm bên trái
+					context.lineTo(item[1].x - eachSpacing / 4, item[1].y); //Điểm đóng bên trái
+					context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+					context.lineTo(item[2].x, item[2].y); //đáy
+					context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+					context.lineTo(item[1].x + eachSpacing / 4, item[1].y); //Đóng điểm bên phải
+					context.lineTo(item[0].x + eachSpacing / 4, item[0].y); //Mở điểm bên phải
+					context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+					context.moveTo(item[3].x, item[3].y); //đỉnh
 				}
 				context.closePath();
 				context.fill();
@@ -2688,7 +2688,7 @@ function drawAreaDataPoints(series, opts, config, context) {
 		let splitPointList = splitPoints(points);
 		for (let i = 0; i < splitPointList.length; i++) {
 			let points = splitPointList[i];
-			// 绘制区域数
+			// Số vùng vẽ
 			context.beginPath();
 			context.setStrokeStyle(hexToRgb(eachSeries.color, areaOption.opacity));
 			if (areaOption.gradient) {
@@ -2745,7 +2745,7 @@ function drawAreaDataPoints(series, opts, config, context) {
 			context.closePath();
 			context.fill();
 
-			//画连线
+			//vẽ đường kết nối
 			if (areaOption.addLine) {
 				if (eachSeries.lineType == 'dash') {
 					let dashLength = eachSeries.dashLength ? eachSeries.dashLength : 8;
@@ -2793,7 +2793,7 @@ function drawAreaDataPoints(series, opts, config, context) {
 			}
 		}
 
-		//画点
+		//vẽ dấu chấm
 		if (opts.dataPointShape !== false) {
 			drawPointShape(points, eachSeries.color, eachSeries.pointShape, context, opts);
 		}
@@ -2972,7 +2972,7 @@ function drawMixDataPoints(series, opts, config, context) {
 		var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
 		calPoints.push(points);
 
-		// 绘制柱状数据图
+		// Vẽ biểu đồ dữ liệu
 		if (eachSeries.type == 'column') {
 			points = fixColumeData(points, eachSpacing, columnLength, columnIndex, config, opts);
 			for (let i = 0; i < points.length; i++) {
@@ -3000,13 +3000,13 @@ function drawMixDataPoints(series, opts, config, context) {
 			columnIndex += 1;
 		}
 
-		//绘制区域图数据
+		//Vẽ biểu đồ vùng dữ liệu
 
 		if (eachSeries.type == 'area') {
 			let splitPointList = splitPoints(points);
 			for (let i = 0; i < splitPointList.length; i++) {
 				let points = splitPointList[i];
-				// 绘制区域数据
+				// Dữ liệu vùng vẽ
 				context.beginPath();
 				context.setStrokeStyle(eachSeries.color);
 				context.setFillStyle(hexToRgb(eachSeries.color, 0.2));
@@ -3057,7 +3057,7 @@ function drawMixDataPoints(series, opts, config, context) {
 			}
 		}
 
-		// 绘制折线数据图
+		// Vẽ biểu đồ dữ liệu đường
 		if (eachSeries.type == 'line') {
 			var splitPointList = splitPoints(points);
 			splitPointList.forEach(function(points, index) {
@@ -3107,7 +3107,7 @@ function drawMixDataPoints(series, opts, config, context) {
 			});
 		}
 
-		// 绘制点数据图
+		// Vẽ dữ liệu điểm
 		if (eachSeries.type == 'point') {
 			eachSeries.addPoint = true;
 		}
@@ -3179,7 +3179,7 @@ function drawXAxis(categories, opts, config, context) {
 	var startY = opts.height - opts.area[2];
 	var endY = opts.area[0];
 
-	//绘制滚动条
+	//Vẽ thanh cuộn
 	if (opts.enableScroll && opts.xAxis.scrollShow) {
 		var scrollY = opts.height - opts.area[2] + config.xAxisHeight;
 		var scrollScreenWidth = endX - startX;
@@ -3214,7 +3214,7 @@ function drawXAxis(categories, opts, config, context) {
 		context.translate(opts._scrollDistance_, 0);
 	}
 
-	//绘制X轴刻度线
+	//Vẽ dấu tích trục X
 	if (opts.xAxis.calibration === true) {
 		context.setStrokeStyle(opts.xAxis.gridColor || "#cccccc");
 		context.setLineCap('butt');
@@ -3229,7 +3229,7 @@ function drawXAxis(categories, opts, config, context) {
 			}
 		});
 	}
-	//绘制X轴网格
+	//Vẽ lưới trục X
 	if (opts.xAxis.disableGrid !== true) {
 		context.setStrokeStyle(opts.xAxis.gridColor || "#cccccc");
 		context.setLineCap('butt');
@@ -3250,14 +3250,14 @@ function drawXAxis(categories, opts, config, context) {
 	}
 
 
-	//绘制X轴文案
+	//Vẽ bản sao trục X
 	if (opts.xAxis.disabled !== true) {
-		// 对X轴列表做抽稀处理
-		//默认全部显示X轴标签
+		// Làm mỏng danh sách trục X
+		// Hiển thị tất cả các nhãn trục X theo mặc định
 		let maxXAxisListLength = categories.length;
-		//如果设置了X轴单屏数量
+		//Nếu số lượng màn hình đơn trục X được đặt
 		if (opts.xAxis.labelCount) {
-			//如果设置X轴密度
+			//Nếu bạn đặt mật độ trục X
 			if (opts.xAxis.itemCount) {
 				maxXAxisListLength = Math.ceil(categories.length / opts.xAxis.itemCount * opts.xAxis.labelCount);
 			} else {
@@ -3326,7 +3326,7 @@ function drawXAxis(categories, opts, config, context) {
 	}
 	context.restore();
 
-	//绘制X轴轴线
+	//Vẽ trục trục X
 	if (opts.xAxis.axisLine) {
 		context.beginPath();
 		context.setStrokeStyle(opts.xAxis.axisLineColor);
@@ -3417,7 +3417,7 @@ function drawYAxis(series, opts, config, context) {
 			let rangesFormat = opts.chartData.yAxisData.rangesFormat[i];
 			let yAxisFontSize = yData.fontSize || config.fontSize;
 			let yAxisWidth = opts.chartData.yAxisData.yAxisWidth[i];
-			//画Y轴刻度及文案
+			//Vẽ tỷ lệ trục Y và copywriting
 			rangesFormat.forEach(function(item, index) {
 				var pos = points[index] ? points[index] : endY;
 				context.beginPath();
@@ -3427,14 +3427,14 @@ function drawYAxis(series, opts, config, context) {
 				context.setFillStyle(yData.fontColor || '#666666');
 				if (yAxisWidth.position == 'left') {
 					context.fillText(String(item), tStartLeft - yAxisWidth.width, pos + yAxisFontSize / 2);
-					//画刻度线
+					//vẽ dấu tích
 					if (yData.calibration == true) {
 						context.moveTo(tStartLeft, pos);
 						context.lineTo(tStartLeft - 3 * opts.pixelRatio, pos);
 					}
 				} else {
 					context.fillText(String(item), tStartRight + 4 * opts.pixelRatio, pos + yAxisFontSize / 2);
-					//画刻度线
+					//vẽ dấu tích
 					if (yData.calibration == true) {
 						context.moveTo(tStartRight, pos);
 						context.lineTo(tStartRight + 3 * opts.pixelRatio, pos);
@@ -3443,7 +3443,7 @@ function drawYAxis(series, opts, config, context) {
 				context.closePath();
 				context.stroke();
 			});
-			//画Y轴轴线
+			//Vẽ trục trục Y
 			if (yData.axisLine !== false) {
 				context.beginPath();
 				context.setStrokeStyle(yData.axisLineColor || '#cccccc');
@@ -3458,7 +3458,7 @@ function drawYAxis(series, opts, config, context) {
 				context.stroke();
 			}
 
-			//画Y轴标题
+			//Vẽ tiêu đề trục Y
 			if (opts.yAxis.showTitle) {
 
 				let titleFontSize = yData.titleFontSize || config.fontSize;
@@ -3499,7 +3499,7 @@ function drawLegend(series, opts, config, context, chartData) {
 	let itemGap = opts.legend.itemGap;
 	let lineHeight = Math.max(opts.legend.lineHeight * opts.pixelRatio, fontSize);
 
-	//画背景及边框
+	//Vẽ nền và đường viền
 	context.beginPath();
 	context.setLineWidth(opts.legend.borderWidth);
 	context.setStrokeStyle(opts.legend.borderColor);
@@ -3821,7 +3821,7 @@ function drawArcbarDataPoints(series, opts, config, context) {
 
 	for (let i = 0; i < series.length; i++) {
 		let eachSeries = series[i];
-		//背景颜色
+		//màu nền
 		context.setLineWidth(arcbarOption.width);
 		context.setStrokeStyle(arcbarOption.backgroundColor || '#E9E9E9');
 		context.setLineCap('round');
@@ -3834,7 +3834,7 @@ function drawArcbarDataPoints(series, opts, config, context) {
 				Math.PI, false);
 		}
 		context.stroke();
-		//进度条
+		//thanh tiến trình
 		context.setLineWidth(arcbarOption.width);
 		context.setStrokeStyle(eachSeries.color);
 		context.setLineCap('round');
@@ -3892,22 +3892,22 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 	var innerRadius = radius - gaugeOption.width;
 	var totalAngle = 0;
 
-	//判断仪表盘的样式：default百度样式，progress新样式
+	//Xác định kiểu của bảng điều khiển: kiểu Baidu mặc định, kiểu mới tiến bộ
 	if (gaugeOption.type == 'progress') {
 
-		//## 第一步画中心圆形背景和进度条背景
-		//中心圆形背景
+		//## Bước đầu tiên là vẽ nền hình tròn trung tâm và nền thanh tiến trình.
+		//nền tròn ở giữa
 		var pieRadius = radius - gaugeOption.width * 3;
 		context.beginPath();
 		let gradient = context.createLinearGradient(centerPosition.x, centerPosition.y - pieRadius, centerPosition.x,
 			centerPosition.y + pieRadius);
-		//配置渐变填充（起点：中心点向上减半径；结束点中心点向下加半径）
+		//Định cấu hình tô màu gradient (điểm bắt đầu: điểm trung tâm trừ bán kính hướng lên trên; điểm trung tâm điểm cuối cộng bán kính hướng xuống)）
 		gradient.addColorStop('0', hexToRgb(series[0].color, 0.3));
 		gradient.addColorStop('1.0', hexToRgb("#FFFFFF", 0.1));
 		context.setFillStyle(gradient);
 		context.arc(centerPosition.x, centerPosition.y, pieRadius, 0, 2 * Math.PI, false);
 		context.fill();
-		//画进度条背景
+		//Vẽ nền thanh tiến trình
 		context.setLineWidth(gaugeOption.width);
 		context.setStrokeStyle(hexToRgb(series[0].color, 0.3));
 		context.setLineCap('round');
@@ -3916,7 +3916,7 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 			.endAngle * Math.PI, false);
 		context.stroke();
 
-		//## 第二步画刻度线
+		//## Bước 2: Vẽ dấu tích
 		totalAngle = gaugeOption.startAngle - gaugeOption.endAngle + 1;
 		let splitAngle = totalAngle / gaugeOption.splitLine.splitNumber;
 		let childAngle = totalAngle / gaugeOption.splitLine.splitNumber / gaugeOption.splitLine.childNumber;
@@ -3929,7 +3929,7 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 		let proc = series[0].data * process;
 		for (let i = 0; i < len; i++) {
 			context.beginPath();
-			//刻度线随进度变色
+			//Các dấu tích thay đổi màu sắc khi tiến trình diễn ra
 			if (proc > (i / len)) {
 				context.setStrokeStyle(hexToRgb(series[0].color, 1));
 			} else {
@@ -3943,7 +3943,7 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 		}
 		context.restore();
 
-		//## 第三步画进度条
+		//## Bước thứ ba là vẽ thanh tiến trình
 		series = getArcbarDataPoints(series, gaugeOption, process);
 		context.setLineWidth(gaugeOption.width);
 		context.setStrokeStyle(series[0].color);
@@ -3953,7 +3953,7 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 			._proportion_ * Math.PI, false);
 		context.stroke();
 
-		//## 第四步画指针
+		//## Bước 4: Vẽ con trỏ
 		let pointerRadius = radius - gaugeOption.width * 2.5;
 		context.save();
 		context.translate(centerPosition.x, centerPosition.y);
@@ -3979,9 +3979,9 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 		context.fill();
 		context.restore();
 
-		//default百度样式
+		//defaultPhong cách Baidu
 	} else {
-		//画背景
+		//Sơn nền
 		context.setLineWidth(gaugeOption.width);
 		context.setLineCap('butt');
 		for (let i = 0; i < categories.length; i++) {
@@ -3994,7 +3994,7 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 		}
 		context.save();
 
-		//画刻度线
+		//vẽ dấu tích
 		totalAngle = gaugeOption.startAngle - gaugeOption.endAngle + 1;
 		let splitAngle = totalAngle / gaugeOption.splitLine.splitNumber;
 		let childAngle = totalAngle / gaugeOption.splitLine.splitNumber / gaugeOption.splitLine.childNumber;
@@ -4032,7 +4032,7 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 		}
 		context.restore();
 
-		//画指针
+		//vẽ con trỏ
 		series = getGaugeDataPoints(series, categories, gaugeOption, process);
 
 		for (let i = 0; i < series.length; i++) {
@@ -4061,7 +4061,7 @@ function drawGaugeDataPoints(categories, series, opts, config, context) {
 		}
 	}
 
-	//画仪表盘标题，副标题
+	//Vẽ tiêu đề và phụ đề của bảng điều khiển
 	drawRingTitle(opts, config, context, centerPosition);
 
 	if (process === 1 && opts.type === 'gauge') {
@@ -4095,7 +4095,7 @@ function drawRadarDataPoints(series, opts, config, context) {
 
 	var radius = Math.min(centerPosition.x - (getMaxTextListLength(opts.categories) + config.radarLabelTextMargin),
 		centerPosition.y - config.radarLabelTextMargin);
-	//TODO逻辑不对
+	//TODOLogic sai
 	radius -= opts.padding[1];
 
 	// draw grid
@@ -4138,7 +4138,7 @@ function drawRadarDataPoints(series, opts, config, context) {
 	var radarDataPoints = getRadarDataPoints(coordinateAngle, centerPosition, radius, series, opts, process);
 
 	radarDataPoints.forEach(function(eachSeries, seriesIndex) {
-		// 绘制区域数据
+		// Dữ liệu vùng vẽ
 		context.beginPath();
 		context.setFillStyle(hexToRgb(eachSeries.color, radarOption.opacity));
 		eachSeries.data.forEach(function(item, index) {
@@ -4407,7 +4407,7 @@ function getWordCloudPoint(opts, type) {
 			break;
 		case 'vertical':
 			function Spin() {
-				//获取均匀随机值，是否旋转，旋转的概率为（1-0.5）
+				//Nhận một giá trị ngẫu nhiên thống nhất, có quay hay không thì xác suất quay là（1-0.5）
 				if (Math.random() > 0.7) {
 					return true;
 				} else {
@@ -4803,18 +4803,18 @@ function drawCharts(type, opts, config, context) {
 		seriesMA = series;
 	}
 
-	/* 过滤掉show=false的series */
+	/* lọc rashow=falsecủaseries */
 	opts._series_ = series = filterSeries(series);
 
-	//重新计算图表区域
+	//Tính toán lại diện tích biểu đồ
 
 	opts.area = new Array(4);
-	//复位绘图区域
+	//Đặt lại vùng vẽ
 	for (let j = 0; j < 4; j++) {
 		opts.area[j] = opts.padding[j];
 	}
 
-	//通过计算三大区域：图例、X轴、Y轴的大小，确定绘图区域
+	//Xác định vùng vẽ bằng cách tính kích thước của 3 vùng chính: chú giải, trục X và trục Y
 	var _calLegendData = calLegendData(seriesMA, opts, config, opts.chartData),
 		legendHeight = _calLegendData.area.wholeHeight,
 		legendWidth = _calLegendData.area.wholeWidth;
@@ -4840,7 +4840,7 @@ function drawCharts(type, opts, config, context) {
 		'candle') {
 		_calYAxisData = calYAxisData(series, opts, config);
 		yAxisWidth = _calYAxisData.yAxisWidth;
-		//如果显示Y轴标题
+		//Nếu tiêu đề trục Y được hiển thị
 		if (opts.yAxis.showTitle) {
 			let maxTitleHeight = 0;
 			for (let i = 0; i < opts.yAxis.data.length; i++) {
@@ -4851,7 +4851,7 @@ function drawCharts(type, opts, config, context) {
 		}
 		let rightIndex = 0,
 			leftIndex = 0;
-		//计算主绘图区域左右位置
+		//Tính toán vị trí bên trái và bên phải của vùng vẽ chính
 		for (let i = 0; i < yAxisWidth.length; i++) {
 			if (yAxisWidth[i].position == 'left') {
 				if (leftIndex > 0) {
@@ -4900,7 +4900,7 @@ function drawCharts(type, opts, config, context) {
 			};
 		}
 	}
-	//计算右对齐偏移距离
+	//Tính khoảng cách offset căn phải
 	if (opts.enableScroll && opts.xAxis.scrollAlign == 'right' && opts._scrollDistance_ === undefined) {
 		let offsetLeft = 0,
 			xAxisPoints = opts.chartData.xAxisData.xAxisPoints,
@@ -5328,7 +5328,7 @@ var Charts = function Charts(opts) {
 	config$$1.pieChartTextPadding = opts.dataLabel === false ? 0 : config$$1.pieChartTextPadding * opts.pixelRatio;
 	config$$1.yAxisSplit = opts.yAxis.splitNumber ? opts.yAxis.splitNumber : config.yAxisSplit;
 
-	//屏幕旋转
+	//xoay màn hình
 	config$$1.rotate = opts.rotate;
 	if (opts.rotate) {
 		let tempWidth = opts.width;
@@ -5337,7 +5337,7 @@ var Charts = function Charts(opts) {
 		opts.height = tempWidth;
 	}
 
-	//适配高分屏
+	//Thích ứng với màn hình độ phân giải cao
 	opts.padding = opts.padding ? opts.padding : config$$1.padding;
 	for (let i = 0; i < 4; i++) {
 		opts.padding[i] *= opts.pixelRatio;
@@ -5357,7 +5357,7 @@ var Charts = function Charts(opts) {
 	opts.$this = opts.$this ? opts.$this : this;
 
 	this.context = uni.createCanvasContext(opts.canvasId, opts.$this);
-	/* 兼容原生H5
+	/* Tương thích với bản địaH5
 	this.context = document.getElementById(opts.canvasId).getContext("2d");
 	this.context.setStrokeStyle = function(e){ return this.strokeStyle=e; }
 	this.context.setLineWidth = function(e){ return this.lineWidth=e; }
@@ -5428,16 +5428,16 @@ Charts.prototype.updateData = function() {
 Charts.prototype.zoom = function() {
 	var val = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.opts.xAxis.itemCount;
 	if (this.opts.enableScroll !== true) {
-		console.log('请启用滚动条后使用！')
+		console.log('Vui lòng bật thanh cuộn trước khi sử dụng！')
 		return;
 	}
-	//当前屏幕中间点
+	//Điểm trung tâm màn hình hiện tại
 	let centerPoint = Math.round(Math.abs(this.scrollOption.currentOffset) / this.opts.chartData.eachSpacing) + Math
 		.round(
 			this.opts.xAxis.itemCount / 2);
 	this.opts.animation = false;
 	this.opts.xAxis.itemCount = val.itemCount;
-	//重新计算x轴偏移距离
+	//Tính toán lại khoảng cách lệch trục x
 	let _calYAxisData = calYAxisData(this.opts.series, this.opts, this.config),
 		yAxisWidth = _calYAxisData.yAxisWidth;
 	this.config.yAxisWidth = yAxisWidth;
@@ -5800,5 +5800,5 @@ Charts.prototype.scrollEnd = function(e) {
 };
 if (typeof module === "object" && typeof module.exports === "object") {
 	module.exports = Charts;
-	//export default Charts;//建议使用nodejs的module导出方式，如报错请使用export方式导出
+	//export default Charts;//Bạn nên sử dụng phương thức xuất mô-đun nodejs. Nếu báo lỗi, vui lòng sử dụng phương thức xuất để xuất.
 }

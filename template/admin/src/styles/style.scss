@@ -183,7 +183,7 @@
 /*Hình thành phong cách công cộng*/
 html,
 body {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .ivu-table-wrapper {
@@ -217,7 +217,7 @@ body {
 }
 
 .ivu-form .ivu-form-item-label {
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 .ivu-radio-group-button .ivu-radio-wrapper,
@@ -234,15 +234,17 @@ body {
 }
 
 .form_content_width {
-  width: 250px;
+  width: 280px;
+  max-width: 100%;
 }
 
 .form_range_content_width {
-  width: 117px;
+  width: 130px;
+  max-width: 100%;
 }
 
 .ivu-btn {
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 .ivu-icon-ios-refresh {

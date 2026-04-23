@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2024 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 import request from "@/utils/request.js";
 
 /**
- * 获取产品详情
+ * Nhận chi tiết sản phẩm
  * @param int id
  * 
  */
@@ -22,7 +22,7 @@ export function getProductDetail(id) {
 }
 
 /**
- * 产品分享二维码 推广员
+ * Quảng cáo mã QR chia sẻ sản phẩm
  * @param int id
  */
 // #ifdef H5  || APP-PLUS
@@ -43,9 +43,9 @@ export function getProductCode(id) {
 // #endif
 
 /**
- * 添加收藏
+ * Thêm vào mục yêu thích
  * @param int id
- * @param string category product=普通产品,product_seckill=秒杀产品
+ * @param string category product=Sản phẩm thông thường,product_seckill=sản phẩm khuyến mại chớp nhoáng
  */
 export function collectAdd(id, category) {
 	return request.post('collect/add', {
@@ -55,9 +55,9 @@ export function collectAdd(id, category) {
 }
 
 /**
- * 删除收藏产品
+ * Xóa sản phẩm yêu thích
  * @param int id
- * @param string category product=普通产品,product_seckill=秒杀产品
+ * @param string category product=Sản phẩm thông thường,product_seckill=sản phẩm khuyến mại chớp nhoáng
  */
 export function collectDel(id, category) {
 	return request.post('collect/del', {
@@ -67,7 +67,7 @@ export function collectDel(id, category) {
 }
 
 /**
- * 购车添加
+ * Thêm mua xe
  * 
  */
 export function postCartAdd(data) {
@@ -75,7 +75,7 @@ export function postCartAdd(data) {
 }
 
 /**
- * 获取分类列表
+ * Nhận danh sách danh mục
  * 
  */
 export function getCategoryList() {
@@ -85,7 +85,7 @@ export function getCategoryList() {
 }
 
 /**
- * 获取产品列表
+ * Nhận danh sách sản phẩm
  * @param object data
  */
 export function getProductslist(data) {
@@ -97,7 +97,7 @@ export function getProductslist(data) {
 
 
 /**
- * 获取推荐产品
+ * Nhận sản phẩm được đề xuất
  * 
  */
 export function getProductHot(page, limit) {
@@ -109,9 +109,9 @@ export function getProductHot(page, limit) {
 	});
 }
 /**
- * 批量收藏
- * 
- * @param object id  产品编号 join(',') 切割成字符串
+ * Bộ sưu tập hàng loạt
+ *
+ * @param số sản phẩm id đối tượng join(',') cắt thành chuỗi
  * @param string category 
  */
 export function collectAll(id, category) {
@@ -122,7 +122,7 @@ export function collectAll(id, category) {
 }
 
 /**
- * 首页产品的轮播图和产品信息
+ * Hình ảnh băng chuyền và thông tin sản phẩm của sản phẩm trang chủ
  * @param int type 
  * 
  */
@@ -133,7 +133,7 @@ export function getGroomList(type, data) {
 }
 
 /**
- * 获取收藏列表
+ * Nhận danh sách yêu thích
  * @param object data
  */
 export function getCollectUserList(data) {
@@ -141,7 +141,7 @@ export function getCollectUserList(data) {
 }
 
 /**
- * 获取产品评论
+ * Nhận đánh giá sản phẩm
  * @param int id
  * @param object data
  * 
@@ -151,7 +151,7 @@ export function getReplyList(id, data) {
 }
 
 /**
- * 产品评价数量和好评度
+ * Số lượng đánh giá sản phẩm và xếp hạng tích cực
  * @param int id
  */
 export function getReplyConfig(id) {
@@ -159,7 +159,7 @@ export function getReplyConfig(id) {
 }
 
 /**
- * 获取搜索关键字获取
+ * Nhận từ khóa tìm kiếm nhận
  * 
  */
 export function getSearchKeyword() {
@@ -169,7 +169,7 @@ export function getSearchKeyword() {
 }
 
 /**
- * 门店列表
+ * Danh sách cửa hàng
  * @returns {*}
  */
 export function storeListApi(data) {
@@ -177,7 +177,7 @@ export function storeListApi(data) {
 }
 
 /**
- * 套餐列表
+ * Danh sách gói hàng
  * @param int id
  * 
  */
@@ -188,14 +188,14 @@ export function storeDiscountsList(id) {
 }
 
 /**
- * 购车添加、减少、修改
+ * Thêm, bớt, sửa đổi khi mua xe
  * 
  */
 export function postCartNum(data) {
 	return request.post('v2/set_cart_num', data);
 }
 /**
- * 代理商申请
+ * Ứng dụng đại lý
  * 
  */
 export function create(data) {
@@ -203,7 +203,7 @@ export function create(data) {
 }
 
 /**
- * 代理商规则
+ * Quy tắc đại lý
  * @param object data
  */
 export function getAgentAgreement(data) {
@@ -213,8 +213,8 @@ export function getAgentAgreement(data) {
 }
 
 /**
- * h5用户发送验证码
- * @param data object 用户手机号
+ * h5Người dùng gửi mã xác minh
+ * Đối tượng dữ liệu @param Số điện thoại di động của người dùng
  */
 export function registerVerify(data) {
 	return request.post("register/verify", data, {
@@ -223,7 +223,7 @@ export function registerVerify(data) {
 }
 
 /**
- * 验证码key
+ * Mã xác minhkey
  */
 export function getCodeApi() {
 	return request.get("verify_code", {}, {
@@ -231,7 +231,7 @@ export function getCodeApi() {
 	});
 }
 /**
- * 获取代理商表单信息
+ * Nhận thông tin mẫu đại lý
  */
 export function getHistoryData() {
 	return request.get("agent/apply/info", {}, {
@@ -240,14 +240,14 @@ export function getHistoryData() {
 }
 
 /**
- * 获取首页的属性
+ * Nhận các thuộc tính của trang chủ
  * @returns {*}
  */
 export function getAttr(id, type) {
 	return request.get("v2/get_attr/" + id + "/" + type);
 }
 /**
- * 获取首页商品列表（所有活动的）
+ * Lấy danh sách sản phẩm trang chủ (tất cả đều hoạt động）
  * @param object data
  */
 export function getHomeProducts(data) {
@@ -257,7 +257,7 @@ export function getHomeProducts(data) {
 }
 
 /**
- * 预售详情
+ * Chi tiết trước khi bán
  * @returns {*}
  */
 export function getPresellProductDetail(id) {
@@ -265,7 +265,7 @@ export function getPresellProductDetail(id) {
 }
 
 /**
- * 获取浏览记录列表
+ * Nhận danh sách lịch sử duyệt web
  * @param object data
  */
 export function getVisitList(data) {
@@ -273,7 +273,7 @@ export function getVisitList(data) {
 }
 
 /**
- * 获取浏览记录列表-删除 
+ * Nhận danh sách lịch sử duyệt web-xóa 
  * @param object data
  */
 export function deleteVisitList(data) {
@@ -281,7 +281,7 @@ export function deleteVisitList(data) {
 }
 
 /**
- * 申请分销员详情接口
+ * Đăng ký giao diện chi tiết nhà phân phối
  *
  */
 export function userSpreadInfo() {
@@ -289,7 +289,7 @@ export function userSpreadInfo() {
 }
 
 /**
- * 分销员申请
+ * Ứng dụng phân phối
  * @param data
  * 
  */
@@ -298,7 +298,7 @@ export function spreadCreateApi(id, data) {
 }
 
 /**
- * 到手价获取
+ * Nhận giá
  * 
  */
 export function realPrice(id, unique) {

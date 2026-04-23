@@ -81,7 +81,7 @@
 		},
 		watch: {
 			num: function(val, oldVal) {
-				// 处理新老数据长度不一样的情况
+				// Xử lý tình huống độ dài dữ liệu mới và cũ khác nhau
 				let arr = Array.prototype.slice.apply(this.indexArr);
 				let newLen = val.toString().length;
 				let oldLen = oldVal.toString().length;
@@ -101,7 +101,7 @@
 			}
 		},
 		mounted() {
-			//定时器作用：app显示数字滚动
+			//Chức năng hẹn giờ: ứng dụng hiển thị cuộn kỹ thuật số
 			this._time = setTimeout(() => {
 				this.numChange(this.num);
 				clearTimeout(this._time);
@@ -109,8 +109,8 @@
 		},
 		methods: {
 			/**
-			 * 数字改变
-			 * @value 数字
+			 * số thay đổi
+			 * @value số
 			 */
 			numChange(num) {
 				this.$nextTick(() => {

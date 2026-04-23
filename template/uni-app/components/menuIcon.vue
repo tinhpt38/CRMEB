@@ -42,36 +42,36 @@
 		data() {
 			return {
 				Active: false,
-				returnShow: true, //判断顶部返回是否出现
+				returnShow: true, //Xác định xem lợi nhuận cao nhất có xuất hiện hay không
 				homeTop: 20,
 				text_opacity: 0,
 				menuButton:{},
 				iconList: [{
-						name: this.$t(`首页`),
+						name: this.$t(`trang đầu`),
 						iconName: "icon-shouye8",
 						path: '/pages/index/index',
 						jumpType: 1
 					},
 					{
-						name: this.$t(`购物车`),
+						name: this.$t(`giỏ hàng`),
 						iconName: "icon-gouwuche7",
 						path: '/pages/order_addcart/order_addcart',
 						jumpType: 1
 					},
 					{
-						name: this.$t(`搜索`),
+						name: this.$t(`tìm kiếm`),
 						iconName: "icon-sousuo6",
 						path: '/pages/goods/goods_search/index',
 						jumpType: 0
 					},
 					{
-						name: this.$t(`我的收藏`),
+						name: this.$t(`bộ sưu tập của tôi`),
 						iconName: "icon-shoucang3",
 						path: '/pages/users/user_goods_collection/index',
 						jumpType: 0
 					},
 					{
-						name: this.$t(`个人中心`),
+						name: this.$t(`Trung tâm cá nhân`),
 						iconName: "icon-yonghu1",
 						path: '/pages/user/index',
 						jumpType: 1
@@ -118,7 +118,7 @@
 				this.Active = !this.Active
 				if (this.Active) this.$emit('open', true)
 			},
-			// 后退
+			// Mặt sau
 			returns() {
 				uni.navigateBack();
 			},

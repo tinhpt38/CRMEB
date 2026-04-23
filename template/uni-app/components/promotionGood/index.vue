@@ -92,9 +92,9 @@
 				font-size: 30rpx;
 				color: var(--view-priceColor);
 				margin-top: 10rpx;
-				overflow: hidden; //超出的文本隐藏
-				text-overflow: ellipsis; //溢出用省略号显示
-				white-space: nowrap; //溢出不换行
+				overflow: hidden; //Văn bản vượt quá bị ẩn
+				text-overflow: ellipsis; //Tràn được hiển thị bằng dấu chấm lửng
+				white-space: nowrap; //Tràn không quấn
 				margin: 0 auto;
 
 				.rmb {

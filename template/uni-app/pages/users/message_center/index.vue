@@ -8,7 +8,7 @@
 				</view>
 			</view>
 			<view class="read-all" @click="allLook()">
-				{{$t(`全部已读`)}}
+				{{$t(`Tất cả đã đọc`)}}
 			</view>
 		</view>
 		<view v-if="list.length && type ===1" class="list">
@@ -24,10 +24,10 @@
 					<view class="info-wrap">
 						<view v-if="item.message_type === 1" class="info" v-html="item.message"></view>
 						<view v-if="item.message_type === 2" class="info" v-html="item.message"></view>
-						<view v-if="item.message_type === 3" class="info">{{$t(`[图片]`)}}</view>
-						<view v-if="item.message_type === 4" class="info">{{$t(`[语音]`)}}</view>
-						<view v-if="item.message_type === 5" class="info">{{$t(`[商品]`)}}</view>
-						<view v-if="item.message_type === 6" class="info">{{$t(`[订单]`)}}</view>
+						<view v-if="item.message_type === 3" class="info">{{$t(`[hình ảnh]`)}}</view>
+						<view v-if="item.message_type === 4" class="info">{{$t(`[tiếng nói]`)}}</view>
+						<view v-if="item.message_type === 5" class="info">{{$t(`[hàng hóa]`)}}</view>
+						<view v-if="item.message_type === 6" class="info">{{$t(`[Đặt hàng]`)}}</view>
 						<view class="num" v-if="item.mssage_num">{{ item.mssage_num }}</view>
 					</view>
 				</view>
@@ -64,7 +64,7 @@
 			<view class="image-wrap">
 				<image class="image" :src="imgHost + '/statics/images/noMessage.png'"></image>
 			</view>
-			<view>{{$t(`亲、暂无消息记录哟！`)}}</view>
+			<view>{{$t(`Bạn thân mến, chưa có bản ghi tin nhắn nào.！`)}}</view>
 		</view>
 		<!-- #ifndef MP -->
 		<home></home>
@@ -101,35 +101,35 @@
 				finished: false,
 				tabsList: [{
 					key: 0,
-					name: '站内消息'
+					name: 'tin tức trang web'
 				}, {
 					key: 1,
-					name: '客服消息'
+					name: 'Tin nhắn dịch vụ khách hàng'
 				}],
 				startData: {
 					clientX: 0,
 					clientY: 0
 				},
 				actions: [{
-						name: '删除',
+						name: 'xóa bỏ',
 						color: '#fff',
-						fontsize: 28, //单位rpx
-						width: 70, //单位px
+						fontsize: 28, //đơn vịrpx
+						width: 70, //đơn vịpx
 						background: '#E6A23C'
 					},
 					{
-						name: '已读',
+						name: 'Đọc',
 						color: '#fff',
-						fontsize: 28, //单位rpx
-						width: 70, //单位px
+						fontsize: 28, //đơn vịrpx
+						width: 70, //đơn vịpx
 						background: '#409EFF'
 					},
 				],
 				actionsIsLook: [{
-					name: '删除',
+					name: 'xóa bỏ',
 					color: '#fff',
-					fontsize: 28, //单位rpx
-					width: 70, //单位px
+					fontsize: 28, //đơn vịrpx
+					width: 70, //đơn vịpx
 					background: '#E6A23C'
 				}, ]
 			};
@@ -165,10 +165,10 @@
 				const subX = e.changedTouches[0].clientX - this.startData.clientX;
 				const subY = e.changedTouches[0].clientY - this.startData.clientY;
 				if (subY > 50 || subY < -50) {
-					console.log('上下滑')
+					console.log('Lên và xuống')
 				} else {
 					if (subX > 50) {
-						console.log('右滑')
+						console.log('Vuốt sang phải')
 						if (this.type == 1) {
 							this.type = 0
 							this.changeTabs(this.type)
@@ -178,13 +178,13 @@
 							this.type = 1
 							this.changeTabs(this.type)
 						}
-						console.log('左滑')
+						console.log('Vuốt sang trái')
 					} else {
-						console.log('无效')
+						console.log('không hợp lệ')
 					}
 				}
 			},
-			// 滑动点击操作
+			// Thao tác bấm trượt
 			bindClick(e, item) {
 				if (e.index == 0) {
 					msgLookDel({
@@ -203,7 +203,7 @@
 						})
 					})
 				} else {
-					// 已读
+					// Đọc
 					msgLookDel({
 						id: item.id,
 						key: 'look',
@@ -253,14 +253,14 @@
 					this.messageSystem()
 				}
 			},
-			// 站内信
+			// Thông báo trang web
 			messageSystem() {
 				if (this.loading || this.finished) {
 					return;
 				}
 				this.loading = true;
 				uni.showLoading({
-					title: this.$t(`加载中`)
+					title: this.$t(`đang tải`)
 				});
 				messageSystem({
 						page: this.page,
@@ -282,14 +282,14 @@
 						})
 					})
 			},
-			// 客服list
+			// dịch vụ khách hànglist
 			getList() {
 				if (this.loading || this.finished) {
 					return;
 				}
 				this.loading = true;
 				uni.showLoading({
-					title: '加载中'
+					title: 'đang tải'
 				});
 				serviceRecord({
 						page: this.page,

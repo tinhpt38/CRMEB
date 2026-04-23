@@ -26,7 +26,7 @@ export default {
 		WaterfallsFlowItem
 	},
 	props: {
-		// 瀑布流列表
+		// Danh sách thác nước
 		wfList: {
 			type: Array,
 			require: true
@@ -54,18 +54,18 @@ export default {
 	},
 	data() {
 		return {
-			allList: [], // 全部列表
-			leftList: [], // 左边列表
-			rightList: [], // 右边列表
-			mark: 0, // 列表标记
-			boxHeight: [] // 下标0和1分别为左列和右列高度
+			allList: [], // Tất cả danh sách
+			leftList: [], // danh sách bên trái
+			rightList: [], // danh sách bên phải
+			mark: 0, // dấu danh sách
+			boxHeight: [] // Chỉ số 0 và 1 lần lượt là chiều cao của cột bên trái và bên phải.
 		};
 	},
 	watch: {
-		// 监听列表数据变化
+		// Theo dõi thay đổi dữ liệu danh sách
 		wfList: {
 			handler(nVal, oVal) {
-				// 如果数据为空或新的列表数据少于旧的列表数据（通常为下拉刷新或切换排序或使用筛选器），初始化变量
+				// Nếu dữ liệu trống hoặc dữ liệu danh sách mới nhỏ hơn dữ liệu danh sách cũ (thường làm mới thả xuống hoặc chuyển đổi sắp xếp hoặc sử dụng bộ lọc), hãy khởi tạo biến
 
 				if (!this.wfList.length || (this.wfList.length === this.updateNum && this.wfList.length <= this.allList.length)) {
 					this.allList = [];
@@ -75,7 +75,7 @@ export default {
 					this.mark = 0;
 				}
 
-				// 如果列表有值，调用waterfall方法
+				// Nếu danh sách có giá trị, hãy gọi phương thức thác nước
 
 				if (this.wfList.length) {
 					this.allList = this.wfList;
@@ -108,7 +108,7 @@ export default {
 		},
 		mounted() {},
 
-		// 监听标记，当标记发生变化，则执行下一个item排序
+		// Theo dõi nhãn hiệu. Khi dấu thay đổi, thực hiện sắp xếp mục tiếp theo.
 		mark() {
 			const len = this.allList.length;
 			if (this.mark < len && this.mark !== 0 && this.boxHeight.length) {
@@ -117,21 +117,21 @@ export default {
 		}
 	},
 	methods: {
-		// 瀑布流排序
+		// phân loại thác nước
 		waterFall() {
 			const i = this.mark;
 			if (i == 0) {
-				// 初始化，从左边开始插入
+				// Khởi tạo, chèn từ bên trái
 				this.leftList.push(this.allList[i]);
-				// 更新左边列表高度
+				// Cập nhật chiều cao danh sách bên trái
 				this.getViewHeight(0);
 			} else if (i == 1) {
-				// 第二个item插入，默认为右边插入
+				// Mục thứ 2 được chèn vào, mặc định là chèn vào bên phải.
 				this.rightList.push(this.allList[i]);
-				// 更新右边列表高度
+				// Cập nhật chiều cao của danh sách bên phải
 				this.getViewHeight(1);
 			} else {
-				// 根据左右列表高度判断下一个item应该插入哪边
+				// Xác định vị trí chèn mục tiếp theo dựa trên chiều cao của danh sách bên trái và bên phải
 				if (!this.boxHeight.length) {
 					this.rightList.length < this.leftList.length ? this.rightList.push(this.allList[i]) : this.leftList.push(this.allList[i]);
 				} else {
@@ -142,13 +142,13 @@ export default {
 						this.leftList.push(this.allList[i]);
 					}
 				}
-				// 更新插入列表高度
+				// Cập nhật chiều cao danh sách chèn
 				this.getViewHeight();
 			}
 		},
-		// 获取列表高度
+		// Lấy chiều cao danh sách
 		getViewHeight() {
-			// 使用nextTick，确保页面更新结束后，再请求高度
+			// Sử dụng nextTick để đảm bảo rằng trang được cập nhật trước khi yêu cầu chiều cao.
 			this.$nextTick(() => {
 				setTimeout(() => {
 					uni
@@ -171,11 +171,11 @@ export default {
 				}, 100);
 			});
 		},
-		// item点击
+		// itemnhấp chuột
 		itemTap(item) {
 			this.$emit('itemTap', item);
 		},
-		// item点击
+		// itemnhấp chuột
 
 		goShop(item) {
 			this.$emit('goShop', item);

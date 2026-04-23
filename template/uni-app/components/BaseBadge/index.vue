@@ -8,27 +8,27 @@
 
 <script>
 	/**
-	 * Badge 数字角标
-	 * @description 数字角标一般和其它控件（列表、9宫格等）配合使用，用于进行数量提示，默认为实心灰色背景
+	 * Badge dấu góc kỹ thuật số
+	 * @description Điểm đánh dấu góc kỹ thuật số thường được sử dụng cùng với các điều khiển khác (danh sách, lưới 9 ô vuông, v.v.) để nhắc nhở về số lượng. Mặc định là nền màu xám đồng nhất.
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=21
-	 * @property {String} text 角标内容
-	 * @property {String} size = [normal|small] 角标内容
-	 * @property {String} type = [info|primary|success|warning|error] 颜色类型
-	 * 	@value info 灰色
-	 * 	@value primary 蓝色
-	 * 	@value success 绿色
-	 * 	@value warning 黄色
-	 * 	@value error 红色
-	 * @property {String} inverted = [true|false] 是否无需背景颜色
-	 * @property {Number} maxNum 展示封顶的数字值，超过 99 显示 99+
-	 * @property {String} absolute = [rightTop|rightBottom|leftBottom|leftTop] 开启绝对定位, 角标将定位到其包裹的标签的四角上		
-	 * 	@value rightTop 右上
-	 * 	@value rightBottom 右下
-	 * 	@value leftTop 左上
-	 * 	@value leftBottom 左下
-	 * @property {Array[number]} offset	距定位角中心点的偏移量，只有存在 absolute 属性时有效，例如：[-10, -10] 表示向外偏移 10px，[10, 10] 表示向 absolute 指定的内偏移 10px
-	 * @property {String} isDot = [true|false] 是否显示为一个小点
-	 * @event {Function} click 点击 Badge 触发事件
+	 * @property {String} text Nội dung phụ đề
+	 * @property {String} size = [normal|small] Nội dung phụ đề
+	 * @property {String} type = [info|primary|success|warning|error] loại màu
+	 * Thông tin @value màu xám
+	 * @value màu xanh chính
+	 * @value thành công xanh
+	 * @value cảnh báo màu vàng
+	 * Lỗi @value màu đỏ
+	 * @property {String} inverted = [true|false] Có cần màu nền hay không
+	 * @property {Number} maxNum Hiển thị giá trị số bị giới hạn, trên 99 99+
+	 * @property {String} absolute = [rightTop|rightBottom|leftBottom|leftTop] Bật định vị tuyệt đối, Nhãn góc sẽ được định vị trên bốn góc của nhãn mà nó bao bọc
+	 * @value rightTop phía trên bên phải
+	 * @value rightDưới cùng bên phải
+	 * @value leftTop phía trên bên trái
+	 * @value leftDưới dưới bên trái
+	 * @property {Array[number]} offset	Offset từ tâm của góc định vị, chỉ hợp lệ khi tồn tại thuộc tính tuyệt đối chẳng hạn：[-10, -10] Biểu thị sự dịch chuyển ra bên ngoài 10px，[10, 10] Đại diện cho một phần bù bên trong được chỉ định bởi tuyệt đối 10px
+	 * @property {String} isDot = [true|false] Có hiển thị dưới dạng dấu chấm nhỏ hay không
+	 * @event {Function} click Nhấp vào Huy hiệu để kích hoạt sự kiện
 	 * @example <uni-badge text="1"></uni-badge>
 	 */
 

@@ -2,14 +2,14 @@
 	<view :class="mode=='pop'?'masks':''" v-show="showBox">
 		<view :class="mode=='pop'?'verifybox':''" :style="{'max-width':parseInt(imgSize.width)+30+'px'}">
 			<view class="verifybox-top" v-if="mode=='pop'">
-				请完成安全验证
+				Vui lòng hoàn tất xác minh bảo mật
 				<text class="verifybox-close" @click="clickShow = false">
 					<text class="iconfont icon-close"></text>
 				</text>
 			</view>
 			<view class="verifybox-bottom" :style="{padding:mode=='pop'?'15px':'0'}">
-				<!-- 验证码容器 -->
-				<!-- 滑动 -->
+				<!-- Vùng chứa mã xác minh -->
+				<!-- cầu trượt -->
 				<view v-if="componentType=='VerifySlide'">
 					<!-- #ifndef H5 -->
 					<VerifySlide @success="success" :captchaType="captchaType" :type="verifyType" :figure="figure"
@@ -23,7 +23,7 @@
 					</verifySliderPc>
 					<!-- #endif -->
 				</view>
-				<!-- 点选 -->
+				<!-- nhấp chuột -->
 				<view v-if="componentType=='VerifyPoints'">
 					<VerifyPoint :captchaType="captchaType" :type="verifyType" :figure="figure" :arith="arith"
 						:mode="mode" :vSpace="vSpace" :explain="explain" :imgSize="imgSize" :blockSize="blockSize"
@@ -35,8 +35,8 @@
 </template>
 <script>
 	/**
-	 * Verify 验证码组件
-	 * @description 分发验证码使用
+	 * Verify Thành phần mã xác minh
+	 * @description Sử dụng để phân phối mã xác minh
 	 * */
 	import VerifySlide from './verifySlider/index.vue'
 	import verifySliderPc from './verifySlider/verifySliderPc'
@@ -65,7 +65,7 @@
 			},
 			explain: {
 				type: String,
-				default: '向右滑动完成验证'
+				default: 'Vuốt sang phải để hoàn tất xác minh'
 			},
 			imgSize: {
 				type: Object,
@@ -93,9 +93,9 @@
 			return {
 				// showBox:true,
 				clickShow: false,
-				// 内部类型
+				// loại nội bộ
 				verifyType: undefined,
-				// 所用组件类型
+				// Loại thành phần được sử dụng
 				componentType: undefined,
 				defaultImg: ''
 			}
@@ -131,7 +131,7 @@
 			// #endif
 		},
 		methods: {
-			// 生成 uuid
+			// phát ra uuid
 			uuid() {
 				var s = [];
 				var hexDigits = "0123456789abcdef";
@@ -144,7 +144,7 @@
 
 				var slider = 'slider' + '-' + s.join("");
 				var point = 'point' + '-' + s.join("");
-				// 判断下是否存在 slider
+				// Xác định xem nó có tồn tại không slider
 				if (!uni.getStorageSync('slider')) {
 					uni.setStorageSync('slider', slider)
 				}
@@ -157,7 +157,7 @@
 			},
 			/**
 			 * refresh
-			 * @description 刷新
+			 * @description làm cho khỏe lại
 			 * */
 			refresh() {
 				if (this.instance.refresh) {
@@ -293,7 +293,7 @@
 	}
 
 	/* ---------------------------- */
-	/*常规验证码*/
+	/*Mã xác minh chung*/
 	.verify-code {
 		font-size: 20px;
 		text-align: center;
@@ -344,7 +344,7 @@
 	}
 
 
-	/*滑动验证码*/
+	/*Mã xác minh trượt*/
 	.verify-bar-area {
 		position: relative;
 		background: #FFFFFF;
@@ -436,7 +436,7 @@
 		z-index: 3;
 	}
 
-	/*字体图标的css*/
+	/*biểu tượng phông chữcss*/
 	/*@font-face {font-family: "iconfont";*/
 	/*src: url('../fonts/iconfont.eot?t=1508229193188'); !* IE9*!*/
 	/*src: url('../fonts/iconfont.eot?t=1508229193188#iefix') format('embedded-opentype'), !* IE6-IE8 *!*/

@@ -8,42 +8,42 @@
 						{{ item.prize.name }}
 					</view>
 					<view class="goods-msg">
-						{{ $t(`奖品类型`) }}：
+						{{ $t(`Loại giải thưởng`) }}：
 						<text class="num">
 							{{ item.prize.type | typeName }}
 						</text>
 					</view>
 					<view class="goods-msg exchange" v-if="item.type == 6 && !item.receive_time" @click="fromAddress(item)">
-						{{ $t(`立即兑换`) }}
+						{{ $t(`Đổi ngay bây giờ`) }}
 					</view>
 					<view class="goods-msg exchange" v-if="item.type == 4 && item.state == 'WAIT_USER_CONFIRM'"
 						@click="goDetail(item)">
-						{{ $t(`去领取`) }}
+						{{ $t(`Đi và lấy nó`) }}
 					</view>
 					<view class="goods-msg fail-btn" v-if="item.type == 4 && item.state == 'FAIL'">
-						{{ $t(`已失效`) }}
+						{{ $t(`Hết hạn`) }}
 					</view>
 					<view class="goods-msg" v-else>
-						{{ $t(`兑换时间`) }}：
+						{{ $t(`Thời gian quy đổi`) }}：
 						{{ item.receive_time || '--' }}
 					</view>
 
 					<view class="goods-msg" v-if="item.deliver_info.deliver_name">
-						{{ $t(`快递公司`) }}：
+						{{ $t(`công ty chuyển phát nhanh`) }}：
 						{{ item.deliver_info.deliver_name || '--' }}
 					</view>
 					<view class="goods-msg" v-if="item.deliver_info.deliver_number">
-						{{ $t(`快递单号`) }}：
+						{{ $t(`Số theo dõi nhanh`) }}：
 						{{ item.deliver_info.deliver_number || '--' }}
 						<!-- #ifndef H5 -->
 						<view v-if="item.deliver_info.deliver_number" class="copy"
-							@tap="copyOrderId(item.deliver_info.deliver_number)">{{ $t(`复制`) }}</view>
+							@tap="copyOrderId(item.deliver_info.deliver_number)">{{ $t(`sao chép`) }}</view>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
 						<view v-if="item.deliver_info.deliver_number" class="copy copy-data"
-							:data-clipboard-text="item.deliver_info.deliver_number">{{ $t(`复制`) }}</view>
+							:data-clipboard-text="item.deliver_info.deliver_number">{{ $t(`sao chép`) }}</view>
 						<!-- #endif -->
-						<!-- <view v-if="item.deliver_info.deliver_number" class='copy' @tap='copyOrderId(item.deliver_info.deliver_number)'>复制</view> -->
+						<!-- <view v-if="item.deliver_info.deliver_number" class='copy' @tap='copyOrderId(item.deliver_info.deliver_number)'>sao chép</view> -->
 					</view>
 				</view>
 			</view>
@@ -53,7 +53,7 @@
 			</view>
 		</view>
 		<block v-if="lotteryList.length === 0 && !loading">
-			<emptyPage :title="$t(`暂无中奖记录`)"></emptyPage>
+			<emptyPage :title="$t(`Chưa có kỷ lục chiến thắng`)"></emptyPage>
 		</block>
 		<userAddress :aleartStatus="addressModel" @getAddress="getAddress" @close="
 				() => {
@@ -106,15 +106,15 @@
 		filters: {
 			typeName(type) {
 				if (type == 2) {
-					return '积分';
+					return 'tích phân';
 				} else if (type == 3) {
-					return '余额';
+					return 'THĂNG BẰNG';
 				} else if (type == 4) {
-					return '红包';
+					return 'phong bì màu đỏ';
 				} else if (type == 5) {
-					return '优惠券';
+					return 'Phiếu giảm giá';
 				} else if (type == 6) {
-					return '商品';
+					return 'hàng hóa';
 				}
 			}
 		},
@@ -125,7 +125,7 @@
 				const clipboard = new ClipboardJS('.copy-data');
 				clipboard.on('success', () => {
 					this.$util.Tips({
-						title: this.$t(`复制成功`)
+						title: this.$t(`Đã sao chép thành công`)
 					});
 				});
 			});
@@ -139,7 +139,7 @@
 				receiveLottery(addData)
 					.then((res) => {
 						this.$util.Tips({
-							title: this.$t(`领取成功`)
+							title: this.$t(`Đã nhận thành công`)
 						});
 						this.addressModel = false;
 						this.where.page = 1;
@@ -185,13 +185,13 @@
 						let loadend = list.length < this.where.limit;
 						this.loadend = loadend;
 						this.loading = false;
-						this.loadTitle = loadend ? that.$t(`没有更多内容啦~`) : that.$t(`加载更多`);
+						this.loadTitle = loadend ? that.$t(`Không còn nội dung nữa~`) : that.$t(`tải thêm`);
 						this.$set(this, 'lotteryList', lotteryList);
 						this.$set(this.where, 'page', this.where.page + 1);
 					})
 					.catch((err) => {
 						that.loading = false;
-						that.loadTitle = that.$t(`加载更多`);
+						that.loadTitle = that.$t(`tải thêm`);
 					});
 			}
 		},

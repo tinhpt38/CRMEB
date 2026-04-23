@@ -8,7 +8,7 @@
           v-if="checkList.includes(0) && (couponList.length || activity.length)"
         >
           <view class="label" :style="{ color: titleColor }">{{
-            $t("活动")
+            $t("Hoạt động")
           }}</view>
           <view class="content" @click="activityTap">
             <view class="tags-wrapper">
@@ -20,7 +20,7 @@
                 @click.stop="activityTap"
               >
                 <text class="iconfont icon-ic_sale"></text>
-                {{ $t("优惠券")
+                {{ $t("Phiếu giảm giá")
                 }}<text
                   class="iconfont icon-you2"
                   :style="{ color: activityColor }"
@@ -35,7 +35,7 @@
                   @click.stop="goActivity(item)"
                 >
                   <text class="iconfont icon-miaosha1"></text>
-                  {{ $t("秒杀")
+                  {{ $t("bán chớp nhoáng")
                   }}<text
                     class="iconfont icon-you2"
                     :style="{ color: activityColor }"
@@ -48,7 +48,7 @@
                   @click.stop="goActivity(item)"
                 >
                   <text class="iconfont icon-yaoqinghaoyou1"></text>
-                  {{ $t("砍价")
+                  {{ $t("Mặc cả")
                   }}<text
                     class="iconfont icon-you2"
                     :style="{ color: activityColor }"
@@ -61,7 +61,7 @@
                   @click.stop="goActivity(item)"
                 >
                   <text class="iconfont icon-wodetuandui"></text>
-                  {{ $t("拼团")
+                  {{ $t("Chia sẻ nhóm")
                   }}<text
                     class="iconfont icon-you2"
                     :style="{ color: activityColor }"
@@ -85,7 +85,7 @@
           @click="showSpecModal"
         >
           <view class="label" :style="{ color: titleColor }">{{
-            $t("选择")
+            $t("chọn")
           }}</view>
           <view class="content">
             <view class="text line1" :style="{ color: contentColor }">
@@ -109,7 +109,7 @@
           @click="openModal('specs')"
         >
           <view class="label" :style="{ color: titleColor }">{{
-            $t("参数")
+            $t("tham số")
           }}</view>
           <view class="content">
             <view class="text line1" :style="{ color: contentColor }">
@@ -138,7 +138,7 @@
           @click="openModal('protection')"
         >
           <view class="label" :style="{ color: titleColor }">{{
-            $t("服务")
+            $t("Phục vụ")
           }}</view>
           <view class="content">
             <view class="text line1" :style="{ color: contentColor }">
