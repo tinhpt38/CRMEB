@@ -250,6 +250,23 @@ body,
 .white-space-nowrap {
   white-space: nowrap;
 }
+
+/* Vietnamese localization helpers */
+.text-wrap-vi {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.text-2-line-vi {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+}
 .p30 {
   padding: 30px;
 }

@@ -2,7 +2,7 @@
   <div class="article-manager">
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <el-form ref="artFrom" :model="artFrom" label-width="80px" label-position="right" inline @submit.native.prevent>
+        <el-form ref="artFrom" :model="artFrom" label-width="auto" label-position="right" inline @submit.native.prevent>
           <div class="acea-row search-form">
             <div class="search-form-box">
               <el-form-item label="Tìm kiếm sản phẩm：" label-for="store_name">
@@ -82,7 +82,7 @@
 
                 <el-form-item label="Thêm thời gian：">
                   <el-date-picker
-                    class="form_range_content_width"
+                    class="form_range_content_width date-range-vi"
                     clearable
                     v-model="timeVal"
                     type="daterange"
@@ -93,7 +93,6 @@
                     start-placeholder="ngày bắt đầu"
                     end-placeholder="ngày kết thúc"
                     :picker-options="pickerOptions"
-                    style="width: 250px"
                   ></el-date-picker>
                 </el-form-item>
                 <el-form-item label="trong kho：" label-for="store_name">
@@ -220,7 +219,7 @@
           </template>
         </el-table-column>
         <el-table-column type="selection" width="60" :reserve-selection="true"> </el-table-column>
-        <el-table-column label="hàng hóaID" width="80">
+        <el-table-column label="hàng hóaID" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
@@ -232,12 +231,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Tên sản phẩm" min-width="250">
+        <el-table-column label="Tên sản phẩm" min-width="280" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.store_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Tham gia các hoạt động" width="90">
+        <el-table-column label="Tham gia các hoạt động" min-width="120">
           <template slot-scope="scope">
             <el-tag
               class="mb5 cup"
@@ -1255,8 +1254,14 @@ export default {
 </script>
 <style scoped lang="scss">
 ::v-deep .el-tabs__item {
-  height: 54px !important;
-  line-height: 54px !important;
+  height: auto !important;
+  min-height: 40px;
+  line-height: 1.35 !important;
+  white-space: normal;
+  display: inline-flex;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 ::v-deep .ivu-modal-mask {
   z-index: 999 !important;
@@ -1346,6 +1351,11 @@ export default {
     margin-left: 5px;
     font-size: 12px;
   }
+}
+
+.date-range-vi {
+  width: 280px;
+  max-width: 100%;
 }
 .el-dropdown-link {
   cursor: pointer;

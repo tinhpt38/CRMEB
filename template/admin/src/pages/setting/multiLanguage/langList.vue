@@ -59,27 +59,27 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="câu gốc" min-width="230">
+        <el-table-column label="câu gốc" min-width="260" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.remarks }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Dịch ngôn ngữ tương ứng" min-width="130">
+        <el-table-column label="Dịch ngôn ngữ tương ứng" min-width="220" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.lang_explain }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="mã trạng thái/văn bản(Tham chiếu cuộc gọi giao diện/trang)" min-width="130">
+        <el-table-column label="mã trạng thái/văn bản(Tham chiếu cuộc gọi giao diện/trang)" min-width="280" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại ngôn ngữ" min-width="130">
+        <el-table-column label="loại ngôn ngữ" min-width="160" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.language_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="vận hành" fixed="right" width="190">
           <template slot-scope="scope">
             <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>

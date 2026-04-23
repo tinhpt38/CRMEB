@@ -57,7 +57,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="Số đơn hàng hoàn tiền" min-width="150">
+        <el-table-column label="Số đơn hàng hoàn tiền" min-width="170" show-overflow-tooltip>
           <template slot-scope="scope">
             <span
               class="cup hover-pimary"
@@ -68,7 +68,7 @@
             <span v-if="scope.row.is_del === 1" style="color: #ed4014; display: block">Người dùng đã bị xóa</span>
           </template>
         </el-table-column>
-        <el-table-column label="Số đơn hàng gốc" min-width="150">
+        <el-table-column label="Số đơn hàng gốc" min-width="170" show-overflow-tooltip>
           <template slot-scope="scope">
             <span
               class="cup hover-pimary"
@@ -114,7 +114,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Thông tin người dùng" min-width="100">
+        <el-table-column label="Thông tin người dùng" min-width="140" show-overflow-tooltip>
           <template slot-scope="scope">
             <span class="cup hover-pimary" @click="userDetail(scope.row, '2')">{{ scope.row.nickname }}</span>
           </template>
@@ -160,7 +160,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="vận hành" width="80">
+        <el-table-column fixed="right" label="vận hành" width="120">
           <template slot-scope="scope">
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)">
               <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>

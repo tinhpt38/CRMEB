@@ -54,7 +54,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Biệt danh nhận dạng" min-width="130">
+        <el-table-column label="Biệt danh nhận dạng" min-width="180" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.role_name }}</span>
           </template>
@@ -80,7 +80,7 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="vận hành" fixed="right" width="150">
           <template slot-scope="scope">
             <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
             <el-divider direction="vertical"></el-divider>
@@ -204,7 +204,7 @@ export default {
   computed: {
     ...mapState('media', ['isMobile']),
     labelWidth() {
-      return this.isMobile ? undefined : '80px';
+      return this.isMobile ? undefined : 'auto';
     },
     labelPosition() {
       return this.isMobile ? 'top' : 'right';

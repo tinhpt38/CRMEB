@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs v-model="currentTab" @tab-click="onClickTab" v-if="tablists">
+    <el-tabs v-model="currentTab" @tab-click="onClickTab" v-if="tablists" class="tabs-vi">
       <el-tab-pane name="null" label="tất cả"></el-tab-pane>
       <el-tab-pane
         name="0"
@@ -42,7 +42,7 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column label="Số đơn hàng | kiểu" width="200">
+      <el-table-column label="Số đơn hàng | kiểu" min-width="220" show-overflow-tooltip>
         <template slot-scope="scope">
           <div>{{ scope.row.order_id }}</div>
           <div class="pink_name" :style="{ color: scope.row.color }">{{ scope.row.pink_name }}</div>
@@ -53,7 +53,7 @@
           <span v-if="scope.row.refund_type === 6" style="color: #ed4014; display: block">Đơn hàng đã được hoàn lại</span>
         </template>
       </el-table-column>
-      <el-table-column label="Thông tin sản phẩm" min-width="250">
+      <el-table-column label="Thông tin sản phẩm" min-width="280">
         <template slot-scope="scope">
           <div class="tab" v-for="(item, i) in scope.row._info" :key="i">
             <img
@@ -89,7 +89,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="Thông tin người dùng" min-width="150">
+      <el-table-column label="Thông tin người dùng" min-width="180" show-overflow-tooltip>
         <template slot-scope="scope">
           <span class="nickname">{{ scope.row.nickname }} | {{ scope.row.uid }}</span>
         </template>
@@ -109,7 +109,7 @@
           <span>{{ scope.row._pay_time || '--' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Trạng thái đơn hàng" min-width="100">
+      <el-table-column label="Trạng thái đơn hàng" min-width="140">
         <template slot-scope="scope">
           <div v-html="scope.row.status_name.status_name" class="pt5"></div>
           <div v-if="!scope.row.is_all_refund && scope.row.refund.length" class="trip">Đang hoàn lại một phần</div>
@@ -133,7 +133,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="vận hành" fixed="right" width="170">
+      <el-table-column label="vận hành" fixed="right" width="210">
         <template slot-scope="scope">
           <a v-db-click @click="changeMenu(scope.row, '2')">Chi tiết</a>
           <el-divider direction="vertical" />
@@ -1003,9 +1003,15 @@ export default {
   display: none;
 }
 
-::v-deep .el-tabs__item {
-  height: 54px;
-  line-height: 54px;
+::v-deep .tabs-vi .el-tabs__item {
+  height: auto;
+  min-height: 40px;
+  line-height: 1.35;
+  white-space: normal;
+  display: inline-flex;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 img {

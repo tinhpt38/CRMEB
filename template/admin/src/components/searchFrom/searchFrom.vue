@@ -4,7 +4,7 @@
       ref="DataList"
       :model="DataList"
       :rules="rules"
-      label-width="85px"
+      label-width="auto"
       :label-position="labelPosition"
       class="tabform"
     >
@@ -39,7 +39,7 @@
                 range-separator="-"
                 start-placeholder="ngày bắt đầu"
                 end-placeholder="ngày kết thúc"
-                style="width: 200px"
+                class="date-range-vi"
               ></el-date-picker>
             </el-form-item>
           </el-col>
@@ -139,6 +139,11 @@ export default {
 }
 .tabform {
   margin-bottom: 10px;
+}
+
+.date-range-vi {
+  width: 260px;
+  max-width: 100%;
 }
 .Refresh {
   font-size: 12px;

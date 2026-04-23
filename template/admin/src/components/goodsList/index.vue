@@ -1,6 +1,6 @@
 <template>
   <div class="goodList">
-    <el-form ref="formValidate" :model="formValidate" label-width="80px" label-position="right" inline class="tabform">
+    <el-form ref="formValidate" :model="formValidate" label-width="auto" label-position="right" inline class="tabform">
       <el-form-item label="Phân loại sản phẩm：" v-if="!liveStatus">
         <el-cascader
           v-model="formValidate.cate_id"
@@ -46,24 +46,24 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="hàng hóaID" width="80">
+      <el-table-column label="hàng hóaID" min-width="90">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="hình ảnh" width="80">
+      <el-table-column label="hình ảnh" min-width="90">
         <template slot-scope="scope">
           <div class="tabBox_img" v-viewer>
             <img v-lazy="scope.row.image" />
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="Tên sản phẩm" min-width="250">
+      <el-table-column label="Tên sản phẩm" min-width="260" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{ scope.row.store_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Phân loại sản phẩm" min-width="150" v-if="liveStatus">
+      <el-table-column label="Phân loại sản phẩm" min-width="180" show-overflow-tooltip v-if="liveStatus">
         <template slot-scope="scope">
           <span>{{ scope.row.cate_name }}</span>
         </template>

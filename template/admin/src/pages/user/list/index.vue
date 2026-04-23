@@ -5,7 +5,7 @@
         <el-form
           ref="userFrom"
           :model="userFrom"
-          label-width="80px"
+          label-width="auto"
           label-position="right"
           @submit.native.prevent
           inline
@@ -14,7 +14,7 @@
             <div>
               <el-form-item label="Tìm kiếm người dùng：" label-for="nickname">
                 <el-input v-model="userFrom.nickname" placeholder="Vui lòng nhập người dùng" clearable class="form_content_width">
-                  <el-select v-model="field_key" slot="prepend" style="width: 100px">
+                  <el-select v-model="field_key" slot="prepend" class="field-key-select">
                     <el-option value="all" label="tất cả"></el-option>
                     <el-option value="uid" label="UID"></el-option>
                     <el-option value="phone" label="Số điện thoại"></el-option>
@@ -58,7 +58,7 @@
             <div class="search-form-box">
               <el-form-item label="Tìm kiếm người dùng：" label-for="nickname">
                 <el-input v-model="userFrom.nickname" placeholder="Vui lòng nhập người dùng" clearable class="form_content_width">
-                  <el-select v-model="field_key" slot="prepend" style="width: 100px">
+                  <el-select v-model="field_key" slot="prepend" class="field-key-select">
                     <el-option value="all" label="tất cả"></el-option>
                     <el-option value="uid" label="UID"></el-option>
                     <el-option value="phone" label="Số điện thoại"></el-option>
@@ -168,7 +168,7 @@
                   start-placeholder="ngày bắt đầu"
                   end-placeholder="ngày kết thúc"
                   :picker-options="pickerOptions"
-                  style="width: 250px"
+                  class="date-range-vi"
                 ></el-date-picker>
               </el-form-item>
               <el-form-item label="Số lượng đơn đặt hàng：" label-for="pay_count">
@@ -236,7 +236,7 @@
                   start-placeholder="ngày bắt đầu"
                   end-placeholder="ngày kết thúc"
                   :picker-options="pickerOptions"
-                  style="width: 250px"
+                  class="date-range-vi"
                 ></el-date-picker>
               </el-form-item>
               <!-- <el-form-item label="khu vực：" label-for="country">
@@ -1286,8 +1286,23 @@ export default {
 
 <style scoped lang="scss">
 ::v-deep .el-tabs__item {
-  height: 54px !important;
-  line-height: 54px !important;
+  height: auto !important;
+  min-height: 40px;
+  line-height: 1.35 !important;
+  white-space: normal;
+  display: inline-flex;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.field-key-select {
+  width: 120px;
+}
+
+.date-range-vi {
+  width: 280px;
+  max-width: 100%;
 }
 
 .picBox {
