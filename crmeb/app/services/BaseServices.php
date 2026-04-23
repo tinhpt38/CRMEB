@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -22,36 +22,36 @@ use think\Model;
 /**
  * Class BaseServices
  * @package app\services
- * @method array|Model|null get($id, ?array $field = []) 获取一条数据
- * @method array|Model|null getOne(array $where, ?string $field = '*') 获取一条数据（不走搜素器）
- * @method string|null batchUpdate(array $ids, array $data, ?string $key = null) 批量修改
- * @method float sum(array $where, string $field, bool $search = false) 求和
- * @method mixed update($id, array $data, ?string $field = '') 修改数据
- * @method bool be($map, string $field = '') 查询一条数据是否存在
- * @method mixed value(array $where, string $field) 获取指定条件下的数据
- * @method int count(array $where = []) 读取数据条数
- * @method int getCount(array $where = []) 获取某些条件总数（不走搜素器）
- * @method array getColumn(array $where, string $field, string $key = '') 获取某个字段数组（不走搜素器）
- * @method mixed delete($id, ?string $key = null) 删除
- * @method mixed save(array $data) 保存数据
- * @method mixed saveAll(array $data) 批量保存数据
- * @method Model selectList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = '', array $with = [], bool $search = false) 获取列表
- * @method bool bcInc($key, string $incField, string $inc, string $keyField = null, int $acc = 2) 高精度加法
- * @method bool bcDec($key, string $decField, string $dec, string $keyField = null, int $acc = 2) 高精度 减法
- * @method mixed decStockIncSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales') 减库存加销量
- * @method mixed incStockDecSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales') 加库存减销量
+ * @method array|Model|null get($id, ?array $field = []) Lấy một phần dữ liệu
+ * @method array|Model|null getOne(array $where, ?string $field = '*') Nhận một phần dữ liệu (không cần sử dụng công cụ tìm kiếm)）
+ * @method string|null batchUpdate(array $ids, array $data, ?string $key = null) Chỉnh sửa hàng loạt
+ * @method float sum(array $where, string $field, bool $search = false) Tổng
+ * @method mixed update($id, array $data, ?string $field = '') Sửa đổi dữ liệu
+ * @method bool be($map, string $field = '') Truy vấn xem một phần dữ liệu có tồn tại không
+ * @method mixed value(array $where, string $field) Nhận dữ liệu theo các điều kiện được chỉ định
+ * @method int count(array $where = []) Số mục dữ liệu được đọc
+ * @method int getCount(array $where = []) Lấy tổng số điều kiện nhất định (không cần sử dụng công cụ tìm kiếm)）
+ * @method array getColumn(array $where, string $field, string $key = '') Nhận một mảng trường nhất định (không cần sử dụng công cụ tìm kiếm)）
+ * @method mixed delete($id, ?string $key = null) xóa bỏ
+ * @method mixed save(array $data) lưu dữ liệu
+ * @method mixed saveAll(array $data) Lưu dữ liệu theo lô
+ * @method Model selectList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = '', array $with = [], bool $search = false) Nhận danh sách
+ * @method bool bcInc($key, string $incField, string $inc, string $keyField = null, int $acc = 2) Phép cộng có độ chính xác cao
+ * @method bool bcDec($key, string $decField, string $dec, string $keyField = null, int $acc = 2) Phép trừ có độ chính xác cao
+ * @method mixed decStockIncSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales') Giảm hàng tồn kho và tăng doanh số bán hàng
+ * @method mixed incStockDecSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales') Tăng hàng tồn kho và giảm doanh số bán hàng
  */
 abstract class BaseServices
 {
 
     /**
-     * 模型注入
+     * Tiêm mô hình
      * @var object
      */
     protected $dao;
 
     /**
-     * 获取分页配置
+     * Nhận cấu hình phân trang
      * @param bool $isPage
      * @param bool $isRelieve
      * @return int[]
@@ -72,7 +72,7 @@ abstract class BaseServices
     }
 
     /**
-     * 数据库事务操作
+     * Hoạt động giao dịch cơ sở dữ liệu
      * @param callable $closure
      * @param bool $isTran
      * @return mixed
@@ -83,7 +83,7 @@ abstract class BaseServices
     }
 
     /**
-     * 创建token
+     * tạo nêntoken
      * @param int $id
      * @param $type
      * @param string $pwd
@@ -95,17 +95,17 @@ abstract class BaseServices
         /** @var JwtAuth $jwtAuth */
         $jwtAuth = app()->make(JwtAuth::class);
         if ($type == 'api' && !app()->make(UserServices::class)->value(['uid' => $id], 'status')) {
-            throw new ApiException('您已被禁止登录，请联系管理员');
+            throw new ApiException('Bạn đã bị cấm đăng nhập, vui lòng liên hệ với quản trị viên');
         }
         if ($type == 'api') {
             $user = app()->make(UserServices::class)->get($id);
             $user = $user->toArray();
-            //自定义消息-用户登录成功
+            //Đăng nhập người dùng tin nhắn tùy chỉnh thành công
             $user['last_time'] = date('Y-m-d H:i:s', $user['last_time']);
             $user['time'] = date('Y-m-d H:i:s');
             event('CustomNoticeListener', [$id, $user, 'login_success']);
 
-            //自定义事件-用户登录
+            //Đăng nhập người dùng sự kiện tùy chỉnh
             event('CustomEventListener', ['user_login', [
                 'uid' => $user['uid'],
                 'nickname' => $user['nickname'],
@@ -121,7 +121,7 @@ abstract class BaseServices
     }
 
     /**
-     * 获取路由地址
+     * Nhận địa chỉ định tuyến
      * @param string $path
      * @param array $params
      * @param bool $suffix
@@ -134,7 +134,7 @@ abstract class BaseServices
     }
 
     /**
-     * 密码hash加密
+     * Mã hóa băm mật khẩu
      * @param string $password
      * @return false|string|null
      */
@@ -155,7 +155,7 @@ abstract class BaseServices
     }
 
     /**
-     * 处理城市数据
+     * Xử lý dữ liệu thành phố
      * @param $address
      * @return array
      */
@@ -163,17 +163,17 @@ abstract class BaseServices
     {
         if ($address) {
             try {
-                preg_match('/(.*?(省|自治区|北京市|天津市|上海市|重庆市|澳门特别行政区|香港特别行政区))/', $address, $matches);
+                preg_match('/(.*?(Tỉnh|khu tự trị|Bắc Kinh|thành phố Thiên Tân|Thượng Hải|thành phố Trùng Khánh|Đặc khu hành chính Macao|Đặc khu hành chính Hồng Kông))/', $address, $matches);
                 if (count($matches) > 1) {
                     $province = $matches[count($matches) - 2];
-                    $address = preg_replace('/(.*?(省|自治区|北京市|天津市|上海市|重庆市|澳门特别行政区|香港特别行政区))/', '', $address, 1);
+                    $address = preg_replace('/(.*?(Tỉnh|khu tự trị|Bắc Kinh|thành phố Thiên Tân|Thượng Hải|thành phố Trùng Khánh|Đặc khu hành chính Macao|Đặc khu hành chính Hồng Kông))/', '', $address, 1);
                 }
-                preg_match('/(.*?(市|自治州|地区|区划|县))/', $address, $matches);
+                preg_match('/(.*?(thành phố|tỉnh tự trị|khu vực|phân công|quận))/', $address, $matches);
                 if (count($matches) > 1) {
                     $city = $matches[count($matches) - 2];
                     $address = str_replace($city, '', $address);
                 }
-                preg_match('/(.*?(区|县|镇|乡|街道))/', $address, $matches);
+                preg_match('/(.*?(huyện|quận|thị trấn|thị trấn|đường phố))/', $address, $matches);
                 if (count($matches) > 1) {
                     $area = $matches[count($matches) - 2];
                     $address = str_replace($area, '', $address);

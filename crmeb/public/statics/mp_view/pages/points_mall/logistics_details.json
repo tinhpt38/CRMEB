@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "兑换物流详情",
+  "navigationBarTitleText": "Chi tiết hậu cần quy đổi",
   "usingComponents": {
     "recommend": "/components/recommend/index",
     "authorize": "/components/Authorize"

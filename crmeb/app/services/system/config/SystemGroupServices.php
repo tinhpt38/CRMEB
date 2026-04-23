@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,16 +15,16 @@ use app\dao\system\config\SystemGroupDao;
 use app\services\BaseServices;
 
 /**
- * 组合数据
+ * Dữ liệu kết hợp
  * Class SystemGroupServices
  * @package app\services\system\config
- * @method getConfigNameId(string $configName) 获取配置id
- * @method save(array $data) 新增数据
- * @method get(int $id, ?array $field = []) 获取一条数据
- * @method count(array $where = []): int 根据条件获取条数
- * @method update($id, array $data, ?string $key = null) 修改数据
- * @method delete($id, ?string $key = null) 删除数据
- * @method value(array $where, ?string $field = '') 获取某个值
+ * @method getConfigNameId(string $configName) Nhận cấu hìnhid
+ * @method save(array $data) Thêm dữ liệu mới
+ * @method get(int $id, ?array $field = []) Lấy một phần dữ liệu
+ * @method count(array $where = []): int Lấy số lượng vật phẩm dựa trên điều kiện
+ * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
+ * @method delete($id, ?string $key = null) Xóa dữ liệu
+ * @method value(array $where, ?string $field = '') Nhận một giá trị
  */
 class SystemGroupServices extends BaseServices
 {
@@ -39,7 +39,7 @@ class SystemGroupServices extends BaseServices
     }
 
     /**
-     * 获取组合数据列表
+     * Nhận danh sách dữ liệu kết hợp
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -61,7 +61,7 @@ class SystemGroupServices extends BaseServices
     }
 
     /**
-     * 获取组合数据tab下的header头部
+     * Lấy tiêu đề dưới tab dữ liệu kết hợp
      * @param int $id
      * @return array
      */
@@ -83,13 +83,13 @@ class SystemGroupServices extends BaseServices
             }
             $header[$key]['title'] = $item['name'];
         }
-        array_unshift($header, ['key' => 'id', 'title' => '编号', 'minWidth' => 60]);
-        array_push($header, ['slot' => 'status', 'title' => '是否可用', 'minWidth' => 80], ['key' => 'sort', 'title' => '排序', 'minWidth' => 80], ['slot' => 'action', 'fixed' => 'right', 'title' => '操作', 'minWidth' => 120]);
+        array_unshift($header, ['key' => 'id', 'title' => 'số seri', 'minWidth' => 60]);
+        array_push($header, ['slot' => 'status', 'title' => 'Nó có sẵn không', 'minWidth' => 80], ['key' => 'sort', 'title' => 'loại', 'minWidth' => 80], ['slot' => 'action', 'fixed' => 'right', 'title' => 'vận hành', 'minWidth' => 120]);
         return compact('header');
     }
 
     /**
-     * 获取组合数据fields字段
+     * Lấy các trường dữ liệu kết hợp
      * @param int $id
      * @return array|mixed
      */

@@ -1,27 +1,27 @@
-crmeb/config目录用来存放项目的配置文件。
+crmeb/configThư mục được sử dụng để lưu trữ các tập tin cấu hình dự án.
 
-在PHP项目开发中,配置文件扮演着非常重要的角色:
+Trong phát triển dự án PHP,File cấu hình đóng vai trò rất quan trọng:
 
-- 放置各种系统级参数和设置,如数据库连接信息等
-- 分离软件代码和运行环境设置,方便部署
-- 运行时根据配置加载系统服务和组件
-- 参数可在不修改代码的情况下进行变更
+- Đặt các thông số và cài đặt cấp hệ thống khác nhau,Chẳng hạn như thông tin kết nối cơ sở dữ liệu, v.v.
+- Tách biệt mã phần mềm và cài đặt môi trường hoạt động,Dễ dàng triển khai
+- Tải các dịch vụ và thành phần hệ thống theo cấu hình khi chạy
+- Các thông số có thể được thay đổi mà không cần sửa đổi mã
 
-CRMEB项目中config目录负责:
+Thư mục cấu hình trong dự án CRMEB chịu trách nhiệm:
 
-- 放置如数据库、本地缓存、第三方开放API等系统配置
-- 定义项目组件自动加载机制
-- 路由和URL重写规则
-- 错误和日志输出级别
-- 各环境参数差异配置隔离
+- Đặt các cấu hình hệ thống như cơ sở dữ liệu, bộ đệm cục bộ, API mở của bên thứ ba, v.v.
+- Xác định cơ chế tải tự động các thành phần dự án
+- Quy tắc định tuyến và viết lại URL
+- Mức độ lỗi và nhật ký đầu ra
+- Cấu hình cách ly sự khác biệt trong các thông số môi trường khác nhau
 
-项目在运行时会加载并解析这些配置:
+Dự án sẽ tải và phân tích các cấu hình này khi chạy:
 
-- 初始化系统服务如数据库连接
-- 注册组件到容器
-- 根据配置加载运行环境
-- 提供参数和变量给其它模块
+- Khởi tạo các dịch vụ hệ thống như kết nối cơ sở dữ liệu
+- Đăng ký các thành phần vào container
+- Load môi trường đang chạy theo cấu hình
+- Cung cấp các tham số và biến cho các module khác
 
-所以该目录定义了项目的系统架构和运行环境,对项目有重要影响。
+Vì vậy thư mục này xác định kiến trúc hệ thống và môi trường vận hành của dự án,Có tác động quan trọng đến dự án.
 
-它通过配置实现项目的可配置性和扩展性。
+Nó đạt được khả năng cấu hình và khả năng mở rộng của dự án thông qua cấu hình。

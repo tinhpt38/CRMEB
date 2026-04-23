@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,7 +21,7 @@ use crmeb\exceptions\ApiException;
 class AccessTokenServeService extends HttpService
 {
     /**
-     * 配置
+     * Cấu hình
      * @var string
      */
     protected $account;
@@ -47,19 +47,19 @@ class AccessTokenServeService extends HttpService
     protected $apiHost = 'https://sms.crmeb.net/api/';
 
     /**
-     * 沙盒地址
+     * Địa chỉ hộp cát
      * @var string
      */
     protected $sandBoxApi = 'https://api_v2.crmeb.net/api/';
 
     /**
-     * 沙盒模式
+     * chế độ hộp cát
      * @var bool
      */
     protected $sandBox = false;
 
     /**
-     * 登录接口
+     * Giao diện đăng nhập
      */
     const USER_LOGIN = "v2/user/login";
 
@@ -76,7 +76,7 @@ class AccessTokenServeService extends HttpService
     }
 
     /**
-     * 获取配置
+     * Nhận cấu hình
      * @return array
      */
     public function getConfig()
@@ -88,7 +88,7 @@ class AccessTokenServeService extends HttpService
     }
 
     /**
-     * 获取缓存token
+     * Nhận bộ đệmtoken
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
@@ -108,7 +108,7 @@ class AccessTokenServeService extends HttpService
     }
 
     /**
-     * 从服务器获取token
+     * Nhận từ máy chủtoken
      * @return mixed
      */
     public function getTokenFromServer()
@@ -120,17 +120,17 @@ class AccessTokenServeService extends HttpService
         $response = $this->postRequest($this->get(self::USER_LOGIN), $params);
         $response = json_decode($response, true);
         if (!$response) {
-            throw new ApiException('获取token失败{:msg}', ['msg' => '']);
+            throw new ApiException('Không thể lấy được mã thông báo{:msg}', ['msg' => '']);
         }
         if ($response['status'] === 200) {
             return $response['data'];
         } else {
-            throw new ApiException('获取token失败{:msg}', ['msg' => ':' . $response['msg']]);
+            throw new ApiException('Không thể lấy được mã thông báo{:msg}', ['msg' => ':' . $response['msg']]);
         }
     }
 
     /**
-     * 请求
+     * hỏi
      * @param string $url
      * @param array $data
      * @param string $method
@@ -142,14 +142,14 @@ class AccessTokenServeService extends HttpService
         if ($isHeader) {
             $this->getToken();
             if (!$this->accessToken) {
-                throw new ApiException('配置已更改或token已失效');
+                throw new ApiException('Cấu hình đã được thay đổi hoặc mã thông báo đã hết hạn');
             }
             $header = array_merge($header, ['Authorization:Bearer-' . $this->accessToken]);
         }
 
         $res = $this->request($this->get($url), $method, $data, $header);
         if (!$res) {
-            throw new ApiException('平台错误：发生异常，请稍后重试');
+            throw new ApiException('Lỗi nền tảng: Đã xảy ra ngoại lệ, vui lòng thử lại sau');
 
         }
         $result = json_decode($res, true) ?: false;

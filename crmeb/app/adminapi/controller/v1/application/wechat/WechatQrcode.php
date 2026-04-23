@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ class WechatQrcode extends AuthController
     }
 
     /**
-     * 分类列表
+     * Danh sách danh mục
      * @return mixed
      */
     public function getCateList()
@@ -47,7 +47,7 @@ class WechatQrcode extends AuthController
     }
 
     /**
-     * 添加编辑表单
+     * Thêm biểu mẫu chỉnh sửa
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -61,7 +61,7 @@ class WechatQrcode extends AuthController
     }
 
     /**
-     * 保存数据
+     * lưu dữ liệu
      * @return mixed
      */
     public function saveCate()
@@ -71,22 +71,22 @@ class WechatQrcode extends AuthController
             ['cate_name', '']
         ]);
         $this->qrcodeCateServices->saveData($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 删除分类
+     * Xóa danh mục
      * @param $id
      * @return mixed
      */
     public function delCate($id)
     {
         $this->qrcodeCateServices->delCate($id);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 保存渠道码
+     * Lưu mã kênh
      * @param $id
      * @return mixed
      */
@@ -103,11 +103,11 @@ class WechatQrcode extends AuthController
             ['time', 0],
         ]);
         $this->wechatQrcodeServices->saveQrcode($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 获取渠道码列表
+     * Lấy danh sách mã kênh
      * @return mixed
      */
     public function qrcodeList()
@@ -122,44 +122,44 @@ class WechatQrcode extends AuthController
     }
 
     /**
-     * 获取详情
+     * Nhận thông tin chi tiết
      * @param int $id
      * @return mixed
      */
     public function qrcodeInfo($id = 0)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->wechatQrcodeServices->qrcodeInfo($id);
         return app('json')->success($info);
     }
 
     /**
-     * 删除渠道码
+     * Xóa mã kênh
      * @param int $id
      * @return mixed
      */
     public function delQrcode($id = 0)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->wechatQrcodeServices->update($id, ['is_del' => 1]);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 切换状态
+     * Chuyển trạng thái
      * @param $id
      * @param $status
      * @return mixed
      */
     public function setStatus($id, $status)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->wechatQrcodeServices->update($id, ['status' => $status]);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 用户列表
+     * Danh sách người dùng
      * @param $qid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -173,7 +173,7 @@ class WechatQrcode extends AuthController
 
 
     /**
-     * 渠道码统计
+     * Thống kê mã kênh
      * @param $qid
      * @return mixed
      */

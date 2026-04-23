@@ -5,7 +5,7 @@
         <el-tab-pane :label="item.name" :name="item.type" v-for="(item, index) in tabList" :key="index" />
       </el-tabs>
       <el-button v-db-click @click="add" type="primary">{{
-        signFrom.type == 0 ? '添加连续签到奖励' : '添加累积签到奖励'
+        signFrom.type == 0 ? 'Thêm phần thưởng đăng nhập liên tục' : 'Thêm phần thưởng đăng nhập tích lũy'
       }}</el-button>
       <el-table
         :data="tableData"
@@ -13,36 +13,36 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="类型" min-width="80">
+        <el-table-column label="kiểu" min-width="80">
           <template slot-scope="scope">
             <span>{{
-              scope.row.type == 0 ? `连续签到${scope.row.days}天奖励` : `累积签到${scope.row.days}天奖励`
+              scope.row.type == 0 ? `Đăng nhập liên tục${scope.row.days}phần thưởng ngày` : `Số lượt đăng ký tích lũy${scope.row.days}phần thưởng ngày`
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="天数" min-width="80">
+        <el-table-column label="ngày" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.days }} (天)</span>
+            <span>{{ scope.row.days }} (bầu trời)</span>
           </template>
         </el-table-column>
-        <el-table-column label="奖励积分" min-width="80">
+        <el-table-column label="điểm thưởng" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.point }} (积分)</span>
+            <span>{{ scope.row.point }} (tích phân)</span>
           </template>
         </el-table-column>
-        <el-table-column label="奖励经验" min-width="80">
+        <el-table-column label="Kinh nghiệm thưởng" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.exp }} (经验)</span>
+            <span>{{ scope.row.exp }} (kinh nghiệm)</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column label="vận hành" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row)">删除</a>
+            <a v-db-click @click="del(scope.row)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -70,8 +70,8 @@ export default {
         limit: 20,
       },
       tabList: [
-        { type: '0', name: '连续签到奖励' },
-        { type: '1', name: '累积签到奖励' },
+        { type: '0', name: 'Phần thưởng đăng nhập liên tục' },
+        { type: '1', name: 'Phần thưởng đăng nhập tích lũy' },
       ],
       total: 0,
       tableData: [],
@@ -116,7 +116,7 @@ export default {
     },
     del(row) {
       let delfromData = {
-        title: row.type == 0 ? `删除连续签到${row.days}天奖励` : `删除累计签到${row.days}天奖励`,
+        title: row.type == 0 ? `Xóa các lần đăng ký liên tiếp${row.days}phần thưởng ngày` : `Xóa lượt đăng ký tích lũy${row.days}phần thưởng ngày`,
         url: `/marketing/sign/del_rewards/${row.id}`,
         method: 'DELETE',
       };

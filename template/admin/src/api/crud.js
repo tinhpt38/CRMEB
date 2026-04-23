@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 import request from '@/libs/request';
 
 /**
- * @description 获取接口配置
- * @param {Object} param data {Object} 传值参数
+ * @description Nhận cấu hình giao diện
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function crudApi(table_name) {
   return request({
@@ -22,7 +22,7 @@ export function crudApi(table_name) {
 }
 
 /**
- * @description 列表接口
+ * @description Giao diện danh sách
  */
 export function getList(url, params) {
   return request({
@@ -32,7 +32,7 @@ export function getList(url, params) {
   });
 }
 /**
- * @description 创建接口
+ * @description Tạo giao diện
  */
 export function getCreateApi(url) {
   return request({
@@ -49,7 +49,7 @@ export function getStatusApi(url, data) {
   });
 }
 /**
- * @description 创建接口
+ * @description Tạo giao diện
  */
 export function getEditApi(url) {
   return request({

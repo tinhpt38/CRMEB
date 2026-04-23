@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,7 +26,7 @@ use crmeb\services\CacheService;
  *
  * Class StoreProductCouponServices
  * @package app\services\coupon
- * @method delete($id, ?string $key = null) 删除
+ * @method delete($id, ?string $key = null) xóa bỏ
  */
 class StoreProductCouponServices extends BaseServices
 {
@@ -41,7 +41,7 @@ class StoreProductCouponServices extends BaseServices
     }
 
     /**
-     * 商品关联优惠券
+     * Phiếu giảm giá liên quan đến sản phẩm
      * @param int $id
      * @param array $coupon_ids
      * @return bool
@@ -63,13 +63,13 @@ class StoreProductCouponServices extends BaseServices
             if ($data_all) {
                 $res = $this->dao->saveAll($data_all);
             }
-            if (!$res) throw new AdminException('关联优惠券失败');
+            if (!$res) throw new AdminException('Không thể liên kết phiếu giảm giá');
         }
         return true;
     }
 
     /**
-     * 获取下单赠送优惠券
+     * Nhận phiếu giảm giá miễn phí với đơn đặt hàng của bạn
      * @param int $uid
      * @param $orderId
      * @return mixed
@@ -81,14 +81,14 @@ class StoreProductCouponServices extends BaseServices
         $storeOrder = app()->make(StoreOrderServices::class);
         $order = $storeOrder->getOne(['order_id' => $orderId]);
         if (!$order || $order['uid'] != $uid) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
         $key = 'order_product_coupon_' . $uid . '_' . $order['id'];
         return CacheService::get($key, []);
     }
 
     /**
-     * 下单赠送优惠劵
+     * Nhận ngay voucher giảm giá khi đặt hàng
      * @param int $uid
      * @param $orderId
      * @return array
@@ -102,13 +102,13 @@ class StoreProductCouponServices extends BaseServices
         $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         /** @var StoreOrderServices $storeOrder */
         $storeOrder = app()->make(StoreOrderServices::class);
         $order = $storeOrder->getOne(['id' => $orderId]);
         if (!$order || $order['uid'] != $uid) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
         /** @var StoreOrderCartInfoServices $storeOrderCartInfo */
         $storeOrderCartInfo = app()->make(StoreOrderCartInfoServices::class);

@@ -2,57 +2,57 @@
   <div>
     <el-card :bordered="false" shadow="never">
       <el-tabs v-model="isChecked" @tab-click="onChangeType">
-        <el-tab-pane label="短信" name="1"></el-tab-pane>
-        <el-tab-pane label="商品采集" name="4"></el-tab-pane>
-        <el-tab-pane label="物流查询" name="3"></el-tab-pane>
-        <el-tab-pane label="电子面单打印" name="2"></el-tab-pane>
+        <el-tab-pane label="Tin nhắn ngắn" name="1"></el-tab-pane>
+        <el-tab-pane label="Bộ sưu tập sản phẩm" name="4"></el-tab-pane>
+        <el-tab-pane label="Điều tra hậu cần" name="3"></el-tab-pane>
+        <el-tab-pane label="In biểu mẫu điện tử" name="2"></el-tab-pane>
       </el-tabs>
-      <!--短信列表-->
+      <!--danh sách tin nhắn SMS-->
       <div class="note" v-if="isChecked === '1' && sms.open === 1">
         <div class="acea-row row-between-wrapper">
           <div>
-            <span>短信状态：</span>
+            <span>trạng thái tin nhắn：</span>
             <el-radio-group type="button" v-model="tableFrom.type" @input="selectChange(tableFrom.type)">
-              <el-radio-button label="">全部</el-radio-button>
-              <el-radio-button label="1">成功</el-radio-button>
-              <el-radio-button label="2">失败</el-radio-button>
-              <el-radio-button label="0">发送中</el-radio-button>
+              <el-radio-button label="">tất cả</el-radio-button>
+              <el-radio-button label="1">thành công</el-radio-button>
+              <el-radio-button label="2">thất bại</el-radio-button>
+              <el-radio-button label="0">Đang gửi</el-radio-button>
             </el-radio-group>
           </div>
           <div>
-            <el-button type="primary" v-db-click @click="shortMes">短信模板</el-button>
-            <el-button style="margin-left: 20px" v-db-click @click="editSign">修改签名</el-button>
+            <el-button type="primary" v-db-click @click="shortMes">mẫu tin nhắn</el-button>
+            <el-button style="margin-left: 20px" v-db-click @click="editSign">Sửa đổi chữ ký</el-button>
           </div>
         </div>
         <el-table
           :data="tableList"
           v-loading="loading"
           highlight-current-row
-          no-userFrom-text="暂无数据"
-          no-filtered-userFrom-text="暂无筛选结果"
+          no-userFrom-text="Chưa có dữ liệu"
+          no-filtered-userFrom-text="Chưa có kết quả lọc nào"
           class="mt14"
         >
-          <el-table-column label="手机号" width="100">
+          <el-table-column label="Số điện thoại" width="100">
             <template slot-scope="scope">
               <span>{{ scope.row.phone }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="模板内容" min-width="130">
+          <el-table-column label="Nội dung mẫu" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.content }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="条数(每67/+1)" min-width="130">
+          <el-table-column label="Số lượng mặt hàng(Mọi67/+1)" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.num }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="发送时间" min-width="130">
+          <el-table-column label="Gửi thời gian" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.add_time }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="状态码" min-width="130">
+          <el-table-column label="mã trạng thái" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row._resultcode }}</span>
             </template>
@@ -68,7 +68,7 @@
           />
         </div>
       </div>
-      <!--商品采集，物流，电子面单列表-->
+      <!--Thu thập sản phẩm, hậu cần, danh sách đơn hàng điện tử-->
       <div
         v-else-if="
           (isChecked === '3' && query.open === 1) ||
@@ -80,8 +80,8 @@
           :data="tableList"
           v-loading="loading"
           highlight-current-row
-          no-userFrom-text="暂无数据"
-          no-filtered-userFrom-text="暂无筛选结果"
+          no-userFrom-text="Chưa có dữ liệu"
+          no-filtered-userFrom-text="Chưa có kết quả lọc nào"
           class="mt14"
         >
           <el-table-column
@@ -112,9 +112,9 @@
           />
         </div>
       </div>
-      <!--无开通-->
+      <!--Không kích hoạt-->
       <div v-else>
-        <!--开通按钮-->
+        <!--Nút kích hoạt-->
         <div
           v-if="
             (isChecked === '1' && !isSms) ||
@@ -126,28 +126,28 @@
         >
           <div class="wuTu"><img src="../../../assets/images/wutu.png" /></div>
           <span v-if="isChecked === '1'">
-            <span class="wuSp1">短信服务未开通哦</span>
-            <span class="wuSp2">点击立即开通按钮，即可使用短信服务哦～～～</span>
+            <span class="wuSp1">Dịch vụ SMS chưa được kích hoạt</span>
+            <span class="wuSp2">Nhấn nút Kích hoạt ngay để sử dụng dịch vụ SMS～～～</span>
           </span>
           <span v-if="isChecked === '4'">
-            <span class="wuSp1">商品采集服务未开通哦</span>
-            <span class="wuSp2">点击立即开通按钮，即可使用商品采集服务哦～～～</span>
+            <span class="wuSp1">Dịch vụ thu thập sản phẩm chưa được kích hoạt.</span>
+            <span class="wuSp2">Nhấn nút Kích hoạt ngay để sử dụng dịch vụ nhận sản phẩm～～～</span>
           </span>
           <span v-if="isChecked === '3'">
-            <span class="wuSp1">物流查询未开通哦</span>
-            <span class="wuSp2">点击立即开通按钮，即可使用物流查询服务哦～～～</span>
+            <span class="wuSp1">Truy vấn hậu cần không được kích hoạt</span>
+            <span class="wuSp2">Bấm vào nút Kích hoạt ngay để sử dụng dịch vụ tra cứu hậu cần～～～</span>
           </span>
           <span v-if="isChecked === '2'">
-            <span class="wuSp1">电子面单打印未开通哦</span>
-            <span class="wuSp2">点击立即开通按钮，即可使用电子面单打印服务哦～～～</span>
+            <span class="wuSp1">In biểu mẫu điện tử không được kích hoạt.</span>
+            <span class="wuSp2">Bấm vào nút Kích hoạt ngay để sử dụng dịch vụ in biểu mẫu điện tử.～～～</span>
           </span>
-          <el-button size="default" type="primary" v-db-click @click="onOpen">立即开通</el-button>
+          <el-button size="default" type="primary" v-db-click @click="onOpen">Kích hoạt ngay bây giờ</el-button>
         </div>
-        <!--短信立即开通-->
+        <!--Kích hoạt SMS ngay bây giờ-->
         <div class="smsBox" v-if="isSms && isChecked === '1'">
           <div class="index_from page-account-container">
             <div class="page-account-top">
-              <span class="page-account-top-tit">开通短信服务</span>
+              <span class="page-account-top-tit">Kích hoạt dịch vụ SMS</span>
             </div>
             <el-form
               ref="formInline"
@@ -161,23 +161,23 @@
                   type="text"
                   v-model="formInline.sign"
                   prefix="ios-contact-outline"
-                  placeholder="请输入短信签名"
+                  placeholder="Vui lòng nhập chữ ký SMS"
                 />
               </el-form-item>
               <el-form-item class="maxInpt">
                 <el-button type="primary" long size="default" v-db-click @click="handleSubmit('formInline')" class="btn"
-                  >登录</el-button
+                  >Đăng nhập</el-button
                 >
               </el-form-item>
             </el-form>
           </div>
         </div>
-        <!--电子面单立即开通-->
+        <!--Hiện đã có hóa đơn điện tử-->
         <div class="smsBox" v-if="isDump && isChecked === '2'">
           <div class="index_from page-account-container">
             <div class="page-account-top">
-              <span class="page-account-top-tit" v-if="isChecked === '2'">开通电子面单服务</span>
-              <span class="page-account-top-tit" v-if="isChecked === '3'">开通物流查询服务</span>
+              <span class="page-account-top-tit" v-if="isChecked === '2'">Kích hoạt dịch vụ hóa đơn điện tử</span>
+              <span class="page-account-top-tit" v-if="isChecked === '3'">Dịch vụ điều tra hậu cần mở</span>
             </div>
             <el-form
               ref="formInlineDump"
@@ -189,7 +189,7 @@
               <el-form-item prop="com" class="maxInpt">
                 <el-select
                   v-model="formInlineDump.com"
-                  placeholder="请选择快递公司"
+                  placeholder="Hãy chọn công ty chuyển phát nhanh"
                   @change="onChangeExport"
                   style="text-align: left"
                 >
@@ -205,7 +205,7 @@
                 <div class="acea-row">
                   <el-select
                     v-model="formInlineDump.temp_id"
-                    placeholder="请选择电子面单模板"
+                    placeholder="Vui lòng chọn mẫu biểu mẫu điện tử"
                     style="text-align: left"
                     :class="[formInlineDump.temp_id ? 'width9' : 'width10']"
                     @change="onChangeImg"
@@ -218,7 +218,7 @@
                     ></el-option>
                   </el-select>
                   <div v-if="formInlineDump.temp_id">
-                    <span class="tempImg">预览</span>
+                    <span class="tempImg">Xem trước</span>
                     <div class="tabBox_img" v-viewer>
                       <img v-lazy="tempImg" />
                     </div>
@@ -230,7 +230,7 @@
                   type="text"
                   v-model="formInlineDump.to_name"
                   prefix="ios-contact-outline"
-                  placeholder="请填写寄件人姓名"
+                  placeholder="Vui lòng điền tên người gửi"
                 />
               </el-form-item>
               <el-form-item prop="to_tel" class="maxInpt">
@@ -238,7 +238,7 @@
                   type="text"
                   v-model="formInlineDump.to_tel"
                   prefix="ios-contact-outline"
-                  placeholder="请填写寄件人电话"
+                  placeholder="Vui lòng điền số điện thoại người gửi"
                 />
               </el-form-item>
               <el-form-item prop="to_address" class="maxInpt">
@@ -246,7 +246,7 @@
                   type="text"
                   v-model="formInlineDump.to_address"
                   prefix="ios-contact-outline"
-                  placeholder="请填写寄件人详细地址"
+                  placeholder="Vui lòng điền địa chỉ chi tiết của người gửi"
                 />
               </el-form-item>
               <el-form-item prop="siid" class="maxInpt">
@@ -254,7 +254,7 @@
                   type="text"
                   v-model="formInlineDump.siid"
                   prefix="ios-contact-outline"
-                  placeholder="请填写云打印编号"
+                  placeholder="Vui lòng điền số in trên đám mây"
                 />
               </el-form-item>
               <el-form-item class="maxInpt">
@@ -265,7 +265,7 @@
                   v-db-click
                   @click="handleSubmitDump('formInlineDump')"
                   class="btn"
-                  >立即开通</el-button
+                  >Kích hoạt ngay bây giờ</el-button
                 >
               </el-form-item>
             </el-form>
@@ -275,7 +275,7 @@
     </el-card>
     <el-dialog
       :visible.sync="modals"
-      title="短信账户签名修改"
+      title="Sửa đổi chữ ký tài khoản SMS"
       width="540px"
       class="order_box"
       @closed="cancel('formInline')"
@@ -294,7 +294,7 @@
           <el-input
             v-model="formInline.sign"
             prefix="ios-document-outline"
-            placeholder="请输入短信签名，例如：CRMEB"
+            placeholder="Vui lòng nhập chữ ký SMS của bạn, ví dụ：CRMEB"
             size="large"
             style="width: 87%"
           ></el-input>
@@ -303,7 +303,7 @@
           <el-input
             v-model="formInline.phone"
             prefix="ios-call-outline"
-            placeholder="请输入您的手机号"
+            placeholder="Vui lòng nhập số điện thoại di động của bạn"
             size="large"
             style="width: 87%"
           ></el-input>
@@ -314,7 +314,7 @@
               type="text"
               v-model="formInline.code"
               prefix="ios-keypad-outline"
-              placeholder="验证码"
+              placeholder="Mã xác minh"
               size="large"
               style="width: 75%"
             />
@@ -330,7 +330,7 @@
             @click="editSubmit('formInline')"
             class="btn"
             style="width: 87%"
-            >确认修改</el-button
+            >Xác nhận thay đổi</el-button
           >
         </el-form-item>
       </el-form>
@@ -379,15 +379,15 @@ export default {
   data() {
     const validatePhone = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请填写手机号'));
+        return callback(new Error('Vui lòng điền số điện thoại di động của bạn'));
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        callback(new Error('手机号格式不正确!'));
+        callback(new Error('Định dạng số điện thoại di động không chính xác!'));
       } else {
         callback();
       }
     };
     return {
-      cutNUm: '获取验证码',
+      cutNUm: 'Nhận mã xác minh',
       canClick: true,
       spinShow: true,
       formInline: {
@@ -396,9 +396,9 @@ export default {
         code: '',
       },
       ruleInline: {
-        sign: [{ required: true, message: '请输入短信签名', trigger: 'blur' }],
+        sign: [{ required: true, message: 'Vui lòng nhập chữ ký SMS', trigger: 'blur' }],
         phone: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+        code: [{ required: true, message: 'Vui lòng nhập mã xác minh', trigger: 'blur' }],
       },
       isChecked: '1',
       columns2: [],
@@ -419,21 +419,21 @@ export default {
         to_address: '',
       },
       ruleInlineDump: {
-        com: [{ required: true, message: '请选择快递公司', trigger: 'change' }],
-        temp_id: [{ required: true, message: '请选择打印模板', trigger: 'change' }],
-        to_name: [{ required: true, message: '请输寄件人姓名', trigger: 'blur' }],
+        com: [{ required: true, message: 'Hãy chọn công ty chuyển phát nhanh', trigger: 'change' }],
+        temp_id: [{ required: true, message: 'Vui lòng chọn mẫu in', trigger: 'change' }],
+        to_name: [{ required: true, message: 'Vui lòng nhập tên người gửi', trigger: 'blur' }],
         to_tel: [{ required: true, validator: validatePhone, trigger: 'blur' }],
-        siid: [{ required: true, message: '请输入云打印机编号', trigger: 'blur' }],
-        to_address: [{ required: true, message: '请输寄件人地址', trigger: 'blur' }],
+        siid: [{ required: true, message: 'Vui lòng nhập số máy in trên đám mây', trigger: 'blur' }],
+        to_address: [{ required: true, message: 'Vui lòng nhập địa chỉ người gửi', trigger: 'blur' }],
       },
-      tempImg: '', // 图片
-      exportTempList: [], // 电子面单模板
-      exportList: [], // 快递公司列表
-      isSms: false, // 是否开通短信
-      isDump: false, // 是否开通电子面单
-      isCopy: false, // 是否开通商品采集
+      tempImg: '', // hình ảnh
+      exportTempList: [], // Mẫu biểu mẫu điện tử
+      exportList: [], // Danh sách công ty chuyển phát nhanh
+      isSms: false, // Có bật SMS hay không
+      isDump: false, // Có kích hoạt biểu mẫu điện tử hay không
+      isCopy: false, // Có bật bộ sưu tập sản phẩm hay không
       modals: false,
-      isLogistics: false, //是否开通物流查询
+      isLogistics: false, //Có bật truy vấn hậu cần hay không
     };
   },
   watch: {
@@ -450,13 +450,13 @@ export default {
   //     })
   // },
   methods: {
-    //短信模板页
+    //Trang mẫu SMS
     shortMes() {
       this.$router.push({
         path: this.$routeProStr + '/setting/sms/sms_template_apply/index',
       });
     },
-    // 短信验证码
+    // Mã xác minh SMS
     cutDown() {
       if (this.formInline.phone) {
         if (!this.canClick) return;
@@ -475,13 +475,13 @@ export default {
         let time = setInterval(() => {
           this.cutNUm--;
           if (this.cutNUm === 0) {
-            this.cutNUm = '获取验证码';
+            this.cutNUm = 'Nhận mã xác minh';
             this.canClick = true;
             clearInterval(time);
           }
         }, 1000);
       } else {
-        this.$message.warning('请填写手机号!');
+        this.$message.warning('Vui lòng điền số điện thoại di động của bạn!');
       }
     },
     editSign() {
@@ -492,7 +492,7 @@ export default {
       this.modals = false;
       this.$refs[name].resetFields();
     },
-    // 提交
+    // nộp
     editSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
@@ -513,7 +513,7 @@ export default {
         if (i.temp_id === item) this.tempImg = i.pic;
       });
     },
-    // 物流公司
+    // Công ty hậu cần
     exportTempAllList() {
       exportAllApi()
         .then(async (res) => {
@@ -523,12 +523,12 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 快递公司选择
+    // Lựa chọn công ty chuyển phát nhanh
     onChangeExport(val) {
       this.formInlineDump.temp_id = '';
       this.exportTemp(val);
     },
-    // 电子面单模板
+    // Mẫu biểu mẫu điện tử
     exportTemp(val) {
       exportTempApi({ com: val })
         .then(async (res) => {
@@ -549,7 +549,7 @@ export default {
         if (this.dump.open === 1 || this.query.open === 1 || this.copy.open === 1) this.getRecordList();
       }
     },
-    // 其他列表
+    // Danh sách khác
     getRecordList() {
       this.loading = true;
       this.tableFrom.type = this.isChecked;
@@ -562,37 +562,37 @@ export default {
             case '2':
               this.columns2 = [
                 {
-                  title: '订单号',
+                  title: 'Số đơn hàng',
                   key: 'order_id',
                   minWidth: 150,
                 },
                 {
-                  title: '发货人',
+                  title: 'người gửi hàng',
                   key: 'from_name',
                   minWidth: 120,
                 },
                 {
-                  title: '收货人',
+                  title: 'người nhận hàng',
                   key: 'to_name',
                   minWidth: 120,
                 },
                 {
-                  title: '快递单号',
+                  title: 'Số theo dõi nhanh',
                   key: 'num',
                   minWidth: 120,
                 },
                 {
-                  title: '快递公司编码',
+                  title: 'Mã công ty chuyển phát nhanh',
                   key: 'code',
                   minWidth: 120,
                 },
                 {
-                  title: '状态',
+                  title: 'tình trạng',
                   key: '_resultcode',
                   minWidth: 100,
                 },
                 {
-                  title: '打印时间',
+                  title: 'Thời gian in',
                   key: 'add_time',
                   minWidth: 150,
                 },
@@ -601,22 +601,22 @@ export default {
             case '3':
               this.columns2 = [
                 {
-                  title: '快递单号',
+                  title: 'Số theo dõi nhanh',
                   slot: 'num',
                   minWidth: 120,
                 },
                 {
-                  title: '快递公司编码',
+                  title: 'Mã công ty chuyển phát nhanh',
                   key: 'code',
                   minWidth: 120,
                 },
                 {
-                  title: '状态',
+                  title: 'tình trạng',
                   key: '_resultcode',
                   minWidth: 120,
                 },
                 {
-                  title: '添加时间',
+                  title: 'Thêm thời gian',
                   key: 'add_time',
                   minWidth: 150,
                 },
@@ -625,17 +625,17 @@ export default {
             default:
               this.columns2 = [
                 {
-                  title: '复制URL',
+                  title: 'sao chépURL',
                   key: 'url',
                   minWidth: 400,
                 },
                 {
-                  title: '请求状态',
+                  title: 'Trạng thái yêu cầu',
                   key: '_resultcode',
                   minWidth: 120,
                 },
                 {
-                  title: '添加时间',
+                  title: 'Thêm thời gian',
                   key: 'add_time',
                   minWidth: 150,
                 },
@@ -649,13 +649,13 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 开通短信提交
+    // Bật gửi SMS
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
           serveSmsOpenApi(this.formInline)
             .then(async (res) => {
-              this.$message.success('开通成功!');
+              this.$message.success('Kích hoạt thành công!');
               this.getList();
               this.$emit('openService', 'sms');
             })
@@ -667,7 +667,7 @@ export default {
         }
       });
     },
-    // 首页去开通
+    // Vào trang chủ để kích hoạt
     onOpenIndex(val) {
       switch (val) {
         case 'sms':
@@ -688,21 +688,21 @@ export default {
           break;
       }
     },
-    // 开通按钮
+    // Nút kích hoạt
     onOpen() {
       if (this.isChecked === '1') this.isSms = true;
       if (this.isChecked === '2') this.openDump();
       if (this.isChecked === '3') this.onDumpOpen();
       if (this.isChecked === '4') this.openOther();
     },
-    // 开通物流
+    // Hậu cần mở
     onDumpOpen() {
       this.$msgbox({
-        title: '开通物流查询吗',
-        message: '确定要开通物流查询吗？',
+        title: 'Mở cuộc điều tra hậu cần?',
+        message: 'Bạn có chắc chắn muốn kích hoạt yêu cầu hậu cần không?？',
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Chắc chắn',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -716,14 +716,14 @@ export default {
         })
         .catch(() => {});
     },
-    // 开通其他
+    // Mở cái khác
     openOther() {
       this.$msgbox({
-        title: '开通商品采集吗',
-        message: '确定要开通商品采集吗？',
+        title: 'Bộ sưu tập sản phẩm có được bật không?',
+        message: 'Bạn có chắc chắn muốn bật bộ sưu tập sản phẩm không?？',
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Chắc chắn',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -741,18 +741,18 @@ export default {
         })
         .catch(() => {});
     },
-    // 开通电子面单
+    // Mở biểu mẫu điện tử
     openDump() {
       this.exportTempAllList();
       this.isDump = true;
     },
-    // 选择
+    // chọn
     selectChange(tab) {
       this.tableFrom.type = tab;
       this.tableFrom.page = 1;
       this.getList();
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       smsRecordApi(this.tableFrom)
@@ -769,7 +769,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.getList();
     },
@@ -778,7 +778,7 @@ export default {
         if (valid) {
           serveOpnExpressApi(this.formInlineDump)
             .then(async (res) => {
-              this.$message.success('开通成功!');
+              this.$message.success('Kích hoạt thành công!');
               this.getRecordList();
               this.$emit('openService', 'dump');
             })

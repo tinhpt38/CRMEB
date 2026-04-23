@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "SVIP会员",
+  "navigationBarTitleText": "SVIPthành viên",
   "usingComponents": {
     "home": "/components/home/index",
     "payment": "/components/payment/index"

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use think\facade\Db;
 use think\facade\Env;
 
 /**
- * 数据库备份
+ * Sao lưu cơ sở dữ liệu
  * Class SystemDatabackupServices
  * @package app\services\system
  */
@@ -32,21 +32,21 @@ class SystemDatabackupServices extends BaseServices
     protected $dbBackup;
 
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemDatabackupServices constructor.
      */
     public function __construct()
     {
         $this->dbBackup = app()->make(MysqlBackupService::class, [[
-            //数据库备份卷大小
+            //Kích thước khối lượng sao lưu cơ sở dữ liệu
             'compress' => 1,
-            //数据库备份文件是否启用压缩 0不压缩 1 压缩
+            //Có bật tính năng nén tệp sao lưu cơ sở dữ liệu hay không 0 Không nén 1 Nén
             'level' => 5,
         ]]);
     }
 
     /**
-     * 获取数据库列表
+     * Lấy danh sách cơ sở dữ liệu
      * @return array
      * @throws \think\db\exception\BindParamException
      */
@@ -58,7 +58,7 @@ class SystemDatabackupServices extends BaseServices
     }
 
     /**
-     * 获取表详情
+     * Nhận chi tiết bảng
      * @param string $tablename
      * @return array
      */
@@ -68,7 +68,7 @@ class SystemDatabackupServices extends BaseServices
         $list = Db::query("select * from information_schema.columns where table_name = '" . $tablename . "' and table_schema = '" . $database . "'");
         $count = count($list);
         foreach ($list as $key => $f) {
-            $list[$key]['EXTRA'] = ($f['EXTRA'] == 'auto_increment' ? '是' : ' ');
+            $list[$key]['EXTRA'] = ($f['EXTRA'] == 'auto_increment' ? 'Đúng' : ' ');
         }
         return compact('list', 'count');
     }
@@ -82,7 +82,7 @@ class SystemDatabackupServices extends BaseServices
     }
 
     /**
-     * 备份表
+     * bảng dự phòng
      * @param string $tables
      * @return string
      * @throws \think\db\exception\BindParamException
@@ -102,7 +102,7 @@ class SystemDatabackupServices extends BaseServices
     }
 
     /**
-     * 获取备份列表
+     * Nhận danh sách dự phòng
      * @return array
      */
     public function getBackup()
@@ -117,7 +117,7 @@ class SystemDatabackupServices extends BaseServices
             $data[$key]['backtime'] = $key;
             $data[$key]['time'] = $t['time'];
         }
-        krsort($data);//根据时间降序
+        krsort($data);//Thứ tự giảm dần theo thời gian
         return ['count' => count($data), 'list' => array_values($data)];
     }
 

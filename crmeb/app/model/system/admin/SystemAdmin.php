@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * 管理员模型
+ * Mô hình quản trị viên
  * Class SystemAdmin
  * @package app\model\system\admin
  */
@@ -27,13 +27,13 @@ class SystemAdmin extends BaseModel
     use JwtAuthModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'system_admin';
@@ -41,7 +41,7 @@ class SystemAdmin extends BaseModel
     protected $insert = ['add_time'];
 
     /**
-     * 权限数据
+     * Dữ liệu quyền
      * @param $value
      * @return false|string[]
      */
@@ -51,7 +51,7 @@ class SystemAdmin extends BaseModel
     }
 
     /**
-     * 管理员级别搜索器
+     * Trình tìm kiếm cấp quản trị viên
      * @param Model $query
      * @param $value
      * @param $data
@@ -66,7 +66,7 @@ class SystemAdmin extends BaseModel
     }
 
     /**
-     * 管理员账号和姓名搜索器
+     * Tài khoản quản trị viên và người tìm kiếm tên
      * @param Model $query
      * @param $value
      */
@@ -78,7 +78,7 @@ class SystemAdmin extends BaseModel
     }
 
     /**
-     * 管理员账号搜索器
+     * Trình tìm kiếm tài khoản quản trị viên
      * @param Model $query
      * @param $value
      */
@@ -90,7 +90,7 @@ class SystemAdmin extends BaseModel
     }
 
     /**
-     * 管理员权限搜索器
+     * Công cụ tìm quyền quản trị
      * @param Model $query
      * @param $roles
      */
@@ -102,7 +102,7 @@ class SystemAdmin extends BaseModel
     }
 
     /**
-     * 是否删除搜索器
+     * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
      */
@@ -112,7 +112,7 @@ class SystemAdmin extends BaseModel
     }
 
     /**
-     * 状态搜索器
+     * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
      */

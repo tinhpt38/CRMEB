@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -41,9 +41,9 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * TODO 根据砍价商品编号获取正在参与人的编号
-     * @param int $bargainId $bargainId  砍价商品ID
-     * @param int $status $status  状态  1 进行中  2 结束失败  3结束成功
+     * TODO Lấy số lượng người tham gia dựa trên số lượng sản phẩm thương lượng
+     * @param int $bargainId $bargainId  mặt hàng giá hờiID
+     * @param int $status $status  Trạng thái 1 Đang tiến hành 2 Không thể kết thúc 3 Đã kết thúc thành công
      * @return array
      */
     public function getUserIdList($bargainId = 0, $status = 1)
@@ -55,7 +55,7 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * 获取砍价
+     * Nhận được một món hời
      * @param Request $request
      * @param int $bargainId
      * @param int $bargainUserUid
@@ -63,15 +63,15 @@ class StoreBargainUserServices extends BaseServices
      */
     public function helpCount(Request $request, int $bargainId, int $bargainUserUid)
     {
-        $bargainUserTableId = $this->dao->value(['bargain_id' => $bargainId, 'uid' => $bargainUserUid, 'is_del' => 0, 'status' => 1]);//TODO 获取用户参与砍价表编号
+        $bargainUserTableId = $this->dao->value(['bargain_id' => $bargainId, 'uid' => $bargainUserUid, 'is_del' => 0, 'status' => 1]);//TODO Lấy số bảng thương lượng tham gia của người dùng
         $data['userBargainStatus'] = $this->isBargainUserHelpCount($bargainId, $request->uid(), $bargainUserTableId);
         /** @var StoreBargainUserHelpServices $helpService */
         $helpService = app()->make(StoreBargainUserHelpServices::class);
         if ($bargainUserTableId) {
-            $count = $helpService->count(['bargain_user_id' => $bargainUserTableId, 'bargain_id' => $bargainId]);//TODO 获取砍价帮总人数
-            $price = $this->getSurplusPrice($bargainUserTableId, 1);//TODO 获取砍价剩余金额
-            $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO 用户已经砍掉的价格 好友砍价之后获取用户已经砍掉的价格
-            $pricePercent = $this->getSurplusPrice($bargainUserTableId, 2);//TODO 获取砍价进度条
+            $count = $helpService->count(['bargain_user_id' => $bargainUserTableId, 'bargain_id' => $bargainId]);//TODO Lấy tổng số người giúp đỡ thương lượng
+            $price = $this->getSurplusPrice($bargainUserTableId, 1);//TODO Nhận số tiền còn lại của món hời
+            $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO Giá mà người dùng đã cắt giảm. Nhận mức giá mà người dùng đã cắt sau khi người bạn đã mặc cả.
+            $pricePercent = $this->getSurplusPrice($bargainUserTableId, 2);//TODO Nhận thanh tiến trình thương lượng
             $data['count'] = $count;
             $data['price'] = $price;
             $data['status'] = $this->dao->value(['id' => $bargainUserTableId], 'status') ?? 0;
@@ -90,7 +90,7 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * 获取砍价状态
+     * Nhận trạng thái thương lượng
      * @param int $bargainId
      * @param int $bargainUserUid
      * @param int $bargainUserHelpUid
@@ -107,17 +107,17 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * 获取砍价剩余金额 或者 砍价百分比
+     * Nhận số tiền còn lại của món hời hoặc tỷ lệ phần trăm của món hời
      * @param $bargainUserTableId
      * @param $type
      * @return float
      */
     public function getSurplusPrice($bargainUserTableId, $type)
     {
-        $coverPrice = $this->getBargainUserDiffPriceFloat($bargainUserTableId);//TODO 获取用户可以砍掉的金额  好友砍价之后获取砍价金额
-        $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO 用户已经砍掉的价格 好友砍价之后获取用户已经砍掉的价格
+        $coverPrice = $this->getBargainUserDiffPriceFloat($bargainUserTableId);//TODO Nhận số tiền mà người dùng có thể cắt giảm. Nhận số tiền thương lượng sau khi người bạn mặc cả.
+        $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO Giá mà người dùng đã cắt giảm. Nhận mức giá mà người dùng đã cắt sau khi người bạn đã mặc cả.
         if ($type == 1) {
-            return (float)bcsub((string)$coverPrice, (string)$alreadyPrice, 2);//TODO 用户剩余要砍掉的价格
+            return (float)bcsub((string)$coverPrice, (string)$alreadyPrice, 2);//TODO Mức giá mà thặng dư người dùng cần phải được cắt giảm
         } else {
             if ($alreadyPrice) return (int)bcmul((string)bcdiv((string)$alreadyPrice, (string)$coverPrice, 2), '100', 0);
             else return 100;
@@ -125,7 +125,7 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * 获取用户可以砍掉的金额  好友砍价之后获取砍价金额
+     * Nhận số tiền mà người dùng có thể cắt giảm. Nhận số tiền thương lượng sau khi người bạn mặc cả.
      * @param $id
      * @return float
      */
@@ -136,7 +136,7 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * 添加砍价信息
+     * Thêm thông tin thương lượng
      * @param int $bargainId
      * @param int $bargainUserUid
      * @param array $bargainInfo
@@ -157,7 +157,7 @@ class StoreBargainUserServices extends BaseServices
 
 
     /**
-     * 修改砍价状态
+     * Sửa đổi trạng thái thương lượng
      * @param $uid
      * @return bool
      */
@@ -172,14 +172,14 @@ class StoreBargainUserServices extends BaseServices
             if (!in_array($item, $bargainProduct)) {
                 $closeBargain[] = $item;
             }
-        }// TODO 获取已经结束的砍价商品
+        }// TODO Nhận hàng giá hời đã hết
         if (count($closeBargain)) $this->dao->update([['uid', '=', $uid], ['status', '=', 1], ['bargain_id', 'in', implode(',', $closeBargain)]], ['status' => 2]);
     }
 
 
     /**
-     * TODO 获取用户的砍价商品
-     * @param int $bargainUserUid $bargainUserUid  开启砍价用户编号
+     * TODO Nhận vật phẩm giá hời của người dùng
+     * @param int $bargainUserUid $bargainUserUid  Kích hoạt ID người dùng thương lượng
      * @return array
      */
     public function getBargainUserAll(int $bargainUserUid)
@@ -200,7 +200,7 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * 取消砍价
+     * Hủy bỏ thương lượng
      * @param $bargainId
      * @param $uid
      * @return mixed
@@ -208,13 +208,13 @@ class StoreBargainUserServices extends BaseServices
     public function cancelBargain($bargainId, $uid)
     {
         $status = $this->dao->getBargainUserStatus($bargainId, $uid);
-        if ($status != 1) return app('json')->fail('取消失败');
+        if ($status != 1) return app('json')->fail('Hủy không thành công');
         $id = $this->dao->value(['bargain_id' => $bargainId, 'uid' => $uid, 'is_del' => 0], 'id');
         return $this->dao->update($id, ['is_del' => 1, 'status' => 2]);
     }
 
     /**
-     * 下架删除砍价时修改砍价状态 砍价失败
+     * Sửa đổi trạng thái thương lượng khi xóa và xóa món hời. Cuộc mặc cả thất bại.
      * @param $bargain_id
      */
     public function userBargainStatusFail($bargain_id, $is_true)
@@ -231,7 +231,7 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * 砍价列表
+     * Danh sách mặc cả
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException

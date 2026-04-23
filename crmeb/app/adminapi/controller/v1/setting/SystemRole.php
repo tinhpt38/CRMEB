@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -35,7 +35,7 @@ class SystemRole extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @return mixed
      */
     public function index()
@@ -49,7 +49,7 @@ class SystemRole extends AuthController
     }
 
     /**
-     * 显示创建资源表单页
+     * Hiển thị trang biểu mẫu tạo tài nguyên
      * @param SystemMenusServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -63,7 +63,7 @@ class SystemRole extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      *
      * @return \think\Response
      */
@@ -74,25 +74,25 @@ class SystemRole extends AuthController
             ['status', 0],
             ['checked_menus', [], '', 'rules']
         ]);
-        if (!$data['role_name']) return app('json')->fail('请输入身份名称');
+        if (!$data['role_name']) return app('json')->fail('Vui lòng nhập tên nhận dạng của bạn');
         if (!is_array($data['rules']) || !count($data['rules']))
-            return app('json')->fail('请选择最少一个权限');
+            return app('json')->fail('Vui lòng chọn ít nhất một quyền');
 
         $data['rules'] = implode(',', $data['rules']);
         if ($id) {
-            if (!$this->services->update($id, $data)) return app('json')->fail('修改失败');
+            if (!$this->services->update($id, $data)) return app('json')->fail('Sửa đổi không thành công');
             CacheService::clear();
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         } else {
             $data['level'] = $this->adminInfo['level'] + 1;
-            if (!$this->services->save($data)) return app('json')->fail('添加身份失败');
+            if (!$this->services->save($data)) return app('json')->fail('Không thêm được danh tính');
             CacheService::clear();
-            return app('json')->success('添加身份成功');
+            return app('json')->success('Thêm danh tính thành công');
         }
     }
 
     /**
-     * 显示编辑资源表单页
+     * Hiển thị trang biểu mẫu tài nguyên chỉnh sửa
      * @param SystemMenusServices $services
      * @param $id
      * @return mixed
@@ -104,14 +104,14 @@ class SystemRole extends AuthController
     {
         $role = $this->services->get($id);
         if (!$role) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $menus = $services->getMenus($this->adminInfo['level'] == 0 ? [] : $this->adminInfo['roles'], explode(',', $role['rules']));
         return app('json')->success(['role' => $role->toArray(), 'menus' => $menus]);
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @param SystemAdminServices $adminServices
      * @param $id
      * @return mixed
@@ -119,18 +119,18 @@ class SystemRole extends AuthController
     public function delete(SystemAdminServices $adminServices, $id)
     {
         if ($adminServices->checkRoleUse($id)) {
-            return app('json')->fail('身份使用中，无法删除');
+            return app('json')->fail('Danh tính đang được sử dụng và không thể xóa được.');
         }
         if (!$this->services->delete($id))
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         else {
             CacheService::clear();
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         }
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param $id
      * @param $status
      * @return mixed
@@ -138,18 +138,18 @@ class SystemRole extends AuthController
     public function set_status($id, $status)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $role = $this->services->get($id);
         if (!$role) {
-            return app('json')->fail('没有查到此身份');
+            return app('json')->fail('Danh tính này không được tìm thấy');
         }
         $role->status = $status;
         if ($role->save()) {
             CacheService::clear();
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         } else {
-            return app('json')->fail('修改失败');
+            return app('json')->fail('Sửa đổi không thành công');
         }
     }
 }

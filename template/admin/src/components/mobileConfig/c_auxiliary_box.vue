@@ -103,7 +103,7 @@ export default {
     patchConfig(config) {
       if (!config.paddingConfig) {
         config.paddingConfig = {
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -118,7 +118,7 @@ export default {
       }
       if (!config.marginConfig) {
         config.marginConfig = {
-          title: '外边距',
+          title: 'lề',
           isAll: false,
           val: 0,
           min: 0,
@@ -129,17 +129,17 @@ export default {
       if (!config.c_common_style) {
         config.c_common_style = {
           color: {
-            title: '背景颜色',
+            title: 'màu nền',
             val: '',
             name: 'bgColor',
           },
           color2: {
-            title: '线条颜色',
+            title: 'màu đường',
             val: '',
             name: 'lineColor',
           },
           lr: {
-            title: '左右边距',
+            title: 'lề trái và lề phải',
             val: 0,
             min: 0,
             max: 100,
@@ -149,7 +149,7 @@ export default {
       }
       return config;
     },
-    // 获取组件参数
+    // Lấy tham số thành phần
     getConfig(data) {},
   },
 };

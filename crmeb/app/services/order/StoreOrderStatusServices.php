@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\dao\order\StoreOrderStatusDao;
 use app\services\BaseServices;
 
 /**
- * 订单状态
+ * Trạng thái đơn hàng
  * Class StoreOrderStatusServices
  * @package app\services\order
  */
@@ -24,7 +24,7 @@ class StoreOrderStatusServices extends BaseServices
 {
 
     /**
-     * 构造方法
+     * Người xây dựng
      * StoreOrderStatusServices constructor.
      * @param StoreOrderStatusDao $dao
      */
@@ -34,7 +34,7 @@ class StoreOrderStatusServices extends BaseServices
     }
 
     /**
-     * 订单状态分页
+     * Phân trang trạng thái đơn hàng
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException

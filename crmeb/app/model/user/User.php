@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -40,7 +40,7 @@ class User extends BaseModel
     ];
 
     /**
-     * 自动转类型
+     * Tự động thay đổi loại
      * @var string[]
      */
     protected $type = [
@@ -75,7 +75,7 @@ class User extends BaseModel
 //    }
 
     /**
-     * 链接会员登陆设置表
+     * Link form cài đặt đăng nhập thành viên
      * @return \think\model\relation\HasOne
      */
     public function systemUserLevel()
@@ -84,7 +84,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联用户分组
+     * Nhóm người dùng được liên kết
      * @return \think\model\relation\HasOne
      */
     public function userGroup()
@@ -93,7 +93,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联自己
+     * Liên quan đến chính mình
      * @return \think\model\relation\HasOne
      */
     public function spreadUser()
@@ -102,7 +102,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联自己
+     * Liên quan đến chính mình
      * @return \think\model\relation\HasOne
      */
     public function spreadCount()
@@ -111,7 +111,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联用户标签关系
+     * Mối quan hệ thẻ người dùng được liên kết
      * @return \think\model\relation\HasMany
      */
     public function LabelRelation()
@@ -120,7 +120,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联用户标签
+     * Thẻ người dùng được liên kết
      * @return \think\model\relation\HasManyThrough
      */
     public function label()
@@ -129,7 +129,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联用户地址
+     * Địa chỉ người dùng được liên kết
      * @return \think\model\relation\HasMany
      */
     public function address()
@@ -138,7 +138,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联提现
+     * Rút tiền liên quan
      * @return \think\model\relation\HasMany
      */
     public function extract()
@@ -147,7 +147,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联订单
+     * Đơn hàng liên kết
      * @return User|\think\model\relation\HasMany
      */
     public function order()
@@ -156,7 +156,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联分销等级
+     * Các mức phân phối liên quan
      * @return \think\model\relation\HasOne
      */
     public function agentLevel()
@@ -165,7 +165,7 @@ class User extends BaseModel
     }
 
     /**
-     * 关联佣金数据
+     * Dữ liệu hoa hồng liên kết
      * @return \think\model\relation\HasMany
      */
     public function bill()
@@ -174,7 +174,7 @@ class User extends BaseModel
     }
 
     /**
-     * 用户uid
+     * người dùnguid
      * @param Model $query
      * @param $value
      */
@@ -187,7 +187,7 @@ class User extends BaseModel
     }
 
     /**
-     * 账号搜索器
+     * Trình tìm tài khoản
      * @param Model $query
      * @param $value
      */
@@ -197,7 +197,7 @@ class User extends BaseModel
     }
 
     /**
-     * 密码搜索器
+     * người tìm kiếm mật khẩu
      * @param Model $query
      * @param $value
      */
@@ -207,7 +207,7 @@ class User extends BaseModel
     }
 
     /**
-     * uid范围查询搜索器
+     * uidtrình tìm kiếm truy vấn phạm vi
      * @param Model $query
      * @param $value
      */
@@ -217,7 +217,7 @@ class User extends BaseModel
     }
 
     /**
-     * 模糊条件搜索器
+     * Trình tìm kiếm điều kiện mờ
      * @param Model $query
      * @param $value
      */
@@ -227,7 +227,7 @@ class User extends BaseModel
     }
 
     /**
-     * 手机号搜索器
+     * Công cụ tìm số điện thoại di động
      * @param Model $query
      * @param $value
      */
@@ -237,7 +237,7 @@ class User extends BaseModel
     }
 
     /**
-     * 分组搜索器
+     * Người tìm kiếm nhóm
      * @param Model $query
      * @param $value
      */
@@ -247,7 +247,7 @@ class User extends BaseModel
     }
 
     /**
-     * 是否推广人搜索器
+     * Có nên quảng bá công cụ tìm người hay không
      * @param Model $query
      * @param $value
      */
@@ -257,7 +257,7 @@ class User extends BaseModel
     }
 
     /**
-     * 状态搜索器
+     * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
      */
@@ -267,7 +267,7 @@ class User extends BaseModel
     }
 
     /**
-     * 会员等级搜索器
+     * Trình tìm kiếm cấp độ thành viên
      * @param Model $query
      * @param $value
      */
@@ -277,7 +277,7 @@ class User extends BaseModel
     }
 
     /**
-     * 推广人uid搜索器
+     * Trình tìm kiếm uid của nhà quảng cáo
      * @param Model $query
      * @param $value
      */
@@ -287,7 +287,7 @@ class User extends BaseModel
     }
 
     /**
-     * 推广人uid不等于搜索器
+     * Uid của người khởi xướng không bằng người tìm kiếm
      * @param Model $query
      * @param $value
      */
@@ -297,7 +297,7 @@ class User extends BaseModel
     }
 
     /**
-     * 推广人时间搜索器
+     * Công cụ tìm thời gian của nhà quảng bá
      * @param Model $query
      * @param $value
      */
@@ -313,7 +313,7 @@ class User extends BaseModel
     }
 
     /**
-     * 用户类型搜索器
+     * Công cụ tìm loại người dùng
      * @param Model $query
      * @param $value
      */
@@ -323,7 +323,7 @@ class User extends BaseModel
     }
 
     /**
-     * 购买次数搜索器
+     * Công cụ tìm số lượng mua hàng
      * @param Model $query
      * @param $value
      */
@@ -333,7 +333,7 @@ class User extends BaseModel
     }
 
     /**
-     * 用户推广资格
+     * Trình độ khuyến mãi của người dùng
      * @param Model $query
      * @param $value
      */
@@ -343,7 +343,7 @@ class User extends BaseModel
     }
 
     /**
-     * nickname搜索器
+     * nicknameNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -353,7 +353,7 @@ class User extends BaseModel
     }
 
     /**
-     * division_type搜索器
+     * division_typeNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -363,7 +363,7 @@ class User extends BaseModel
     }
 
     /**
-     * division_id搜索器
+     * division_idNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -373,7 +373,7 @@ class User extends BaseModel
     }
 
     /**
-     * agent_id搜索器
+     * agent_idNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -383,7 +383,7 @@ class User extends BaseModel
     }
 
     /**
-     * staff_id搜索器
+     * staff_idNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -393,7 +393,7 @@ class User extends BaseModel
     }
 
     /**
-     * is_division搜索器
+     * is_divisionNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -403,7 +403,7 @@ class User extends BaseModel
     }
 
     /**
-     * is_agent搜索器
+     * is_agentNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -413,7 +413,7 @@ class User extends BaseModel
     }
 
     /**
-     * is_staff搜索器
+     * is_staffNgười tìm kiếm
      * @param $query
      * @param $value
      */
@@ -432,7 +432,7 @@ class User extends BaseModel
     }
 
     /**
-     * 注销搜索器
+     * Đăng xuất khỏi người tìm kiếm
      * @param $query
      * @param $value
      */
@@ -442,7 +442,7 @@ class User extends BaseModel
     }
 
     /**
-     * 不等于uid搜索器
+     * Không bằng trình tìm kiếm uid
      * @param $query
      * @param $value
      */

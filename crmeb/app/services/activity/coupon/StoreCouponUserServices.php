@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,7 +23,7 @@ use crmeb\utils\Arr;
  *
  * Class StoreCouponUserServices
  * @package app\services\coupon
- * @method useCoupon(int $id) 使用优惠券修改优惠券状态
+ * @method useCoupon(int $id) Sử dụng phiếu giảm giá để sửa đổi trạng thái phiếu giảm giá
  * @method delUserCoupon(array $where)
  */
 class StoreCouponUserServices extends BaseServices
@@ -39,7 +39,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @param array $where
      * @return array
      */
@@ -55,7 +55,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -70,7 +70,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 获取用户优惠券
+     * Nhận phiếu giảm giá người dùng
      * @param int $id
      */
     public function getUserCouponList(int $id)
@@ -89,7 +89,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 恢复优惠券
+     * khôi phục phiếu giảm giá
      * @param int $id
      * @return bool|mixed
      */
@@ -101,7 +101,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 过期优惠卷失效
+     * Phiếu giảm giá hết hạn không hợp lệ
      */
     public function checkInvalidCoupon()
     {
@@ -109,7 +109,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 获取用户有效优惠劵数量
+     * Lấy số lượng coupon hợp lệ cho người dùng
      * @param int $uid
      * @return int
      */
@@ -120,7 +120,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 下单页面显示可用优惠券
+     * Phiếu giảm giá có sẵn được hiển thị trên trang đặt hàng
      * @param $uid
      * @param $cartGroup
      * @param $price
@@ -143,7 +143,7 @@ class StoreCouponUserServices extends BaseServices
                             $count++;
                         }
                         break;
-                    case 1://品类券
+                    case 1://Phiếu giảm giá danh mục
                         /** @var StoreCategoryServices $storeCategoryServices */
                         $storeCategoryServices = app()->make(StoreCategoryServices::class);
                         $coupon_category = explode(',', (string)$coupon['category_id']);
@@ -185,7 +185,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 下单页面显示可用优惠券
+     * Phiếu giảm giá có sẵn được hiển thị trên trang đặt hàng
      * @param $uid
      * @param $cartGroup
      * @param $price
@@ -230,7 +230,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 用户领取优惠券
+     * Người dùng nhận được phiếu giảm giá
      * @param $uid
      * @param $issueCouponInfo
      * @param string $type
@@ -256,7 +256,7 @@ class StoreCouponUserServices extends BaseServices
         return $this->dao->save($data);
     }
 
-    /**会员领取优惠券
+    /**Thành viên nhận được phiếu giảm giá
      * @param $uid
      * @param $issueCouponInfo
      * @param string $type
@@ -278,7 +278,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 获取用户已领取的优惠卷
+     * Nhận phiếu giảm giá mà người dùng đã nhận được
      * @param int $uid
      * @param $type
      * @return array
@@ -310,7 +310,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 格式化优惠券
+     * Định dạng phiếu giảm giá
      * @param $couponList
      * @return mixed
      */
@@ -318,39 +318,39 @@ class StoreCouponUserServices extends BaseServices
     {
         $time = time();
         foreach ($couponList as &$coupon) {
-            if ($coupon['status'] == '已使用') {
+            if ($coupon['status'] == 'Đã sử dụng') {
                 $coupon['_type'] = 0;
-                $coupon['_msg'] = '已使用';
+                $coupon['_msg'] = 'Đã sử dụng';
                 $coupon['pc_type'] = 0;
-                $coupon['pc_msg'] = '已使用';
-            } else if ($coupon['status'] == '已过期') {
+                $coupon['pc_msg'] = 'Đã sử dụng';
+            } else if ($coupon['status'] == 'Hết hạn') {
                 $coupon['is_fail'] = 1;
                 $coupon['_type'] = 0;
-                $coupon['_msg'] = '已过期';
+                $coupon['_msg'] = 'Hết hạn';
                 $coupon['pc_type'] = 0;
-                $coupon['pc_msg'] = '已过期';
+                $coupon['pc_msg'] = 'Hết hạn';
             } else if ($coupon['end_time'] < $time) {
                 $coupon['is_fail'] = 1;
                 $coupon['_type'] = 0;
-                $coupon['_msg'] = '已过期';
+                $coupon['_msg'] = 'Hết hạn';
                 $coupon['pc_type'] = 0;
-                $coupon['pc_msg'] = '已过期';
+                $coupon['pc_msg'] = 'Hết hạn';
             } else if ($coupon['start_time'] > $time) {
                 $coupon['_type'] = 0;
-                $coupon['_msg'] = '未开始';
+                $coupon['_msg'] = 'Chưa bắt đầu';
                 $coupon['pc_type'] = 1;
-                $coupon['pc_msg'] = '未开始';
+                $coupon['pc_msg'] = 'Chưa bắt đầu';
             } else {
                 if ($coupon['start_time'] + 3600 * 24 > $time) {
                     $coupon['_type'] = 2;
-                    $coupon['_msg'] = '立即使用';
+                    $coupon['_msg'] = 'Sử dụng ngay bây giờ';
                     $coupon['pc_type'] = 1;
-                    $coupon['pc_msg'] = '可使用';
+                    $coupon['pc_msg'] = 'Có sẵn';
                 } else {
                     $coupon['_type'] = 1;
-                    $coupon['_msg'] = '立即使用';
+                    $coupon['_msg'] = 'Sử dụng ngay bây giờ';
                     $coupon['pc_type'] = 1;
-                    $coupon['pc_msg'] = '可使用';
+                    $coupon['pc_msg'] = 'Có sẵn';
                 }
             }
             $coupon['add_time'] = $coupon['_add_time'] = $coupon['start_time'] ? date('Y/m/d', $coupon['start_time']) : date('Y/m/d', $coupon['add_time']);
@@ -361,7 +361,7 @@ class StoreCouponUserServices extends BaseServices
         return $couponList;
     }
 
-    /** 获取会员优惠券列表
+    /** Nhận danh sách phiếu giảm giá thành viên
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -389,7 +389,7 @@ class StoreCouponUserServices extends BaseServices
         return $couponList ? $this->tidyCouponList($couponList) : [];
     }
 
-    /**根据月分组看会员发放优惠券情况
+    /**Xem việc phát hành phiếu giảm giá cho các thành viên theo nhóm hàng tháng
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -401,7 +401,7 @@ class StoreCouponUserServices extends BaseServices
         return $this->dao->memberCouponUserGroupBymonth($where);
     }
 
-    /**会员券失效
+    /**Phiếu thành viên hết hạn
      * @param $coupon_user_id
      * @return bool|mixed
      */
@@ -413,7 +413,7 @@ class StoreCouponUserServices extends BaseServices
         }
     }
 
-    /**根据id查询会员优惠劵
+    /**Truy vấn phiếu giảm giá thành viên dựa trên ID
      * @param $id
      * @return array|bool|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -427,7 +427,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 根据时间查询用户优惠券
+     * Truy vấn phiếu giảm giá người dùng dựa trên thời gian
      * @param array $where
      * @return array|bool|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -441,7 +441,7 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * 检查付费会员是否领取了会员券
+     * Kiểm tra xem thành viên trả phí có nhận được phiếu giảm giá thành viên hay không
      * @param $uid
      * @param $vipCouponIds
      * @return array
@@ -481,7 +481,7 @@ class StoreCouponUserServices extends BaseServices
                             $count++;
                         }
                         break;
-                    case 1://品类券
+                    case 1://Phiếu giảm giá danh mục
                         /** @var StoreCategoryServices $storeCategoryServices */
                         $storeCategoryServices = app()->make(StoreCategoryServices::class);
                         $coupon_category = explode(',', (string)$canReceive['category_id']);

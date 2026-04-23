@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,19 +24,19 @@ use app\model\product\product\StoreProductReply;
 class StoreProductReplyStoreProductDao extends BaseDao
 {
     /**
-     * 表别名
+     * bí danh bảng
      * @var string
      */
     protected $alias = '';
 
     /**
-     * 链表别名
+     * Bí danh danh sách liên kết
      * @var string
      */
     protected $joinAlis = '';
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -45,7 +45,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
     }
 
     /**
-     * 链表模型
+     * mô hình danh sách liên kết
      * @return string
      */
     public function setJoinModel(): string
@@ -54,7 +54,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
     }
 
     /**
-     * 关联模型
+     * mô hình liên kết
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
@@ -70,7 +70,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
     }
 
     /**
-     * 获取评论列表
+     * Lấy danh sách bình luận
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -85,7 +85,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
     }
 
     /**
-     * 获取评论条数
+     * Lấy số lượng bình luận
      * @param array $where
      * @return int
      */
@@ -95,7 +95,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
     }
 
     /**
-     * 搜索
+     * tìm kiếm
      * @param array $where
      * @return \crmeb\basic\BaseModel
      */

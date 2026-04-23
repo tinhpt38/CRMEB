@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,19 +21,19 @@ class UserBrokerage extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'user_brokerage';
 
     /**
-     * 关联订单表
+     * Bảng thứ tự liên kết
      * @return UserBill|model\relation\HasOne
      */
     public function order()
@@ -42,7 +42,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 关联用户
+     * Người dùng được liên kết
      * @return model\relation\HasOne
      */
     public function user()
@@ -51,7 +51,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 用户uid
+     * người dùnguid
      * @param Model $query
      * @param $value
      */
@@ -66,7 +66,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 关联id
+     * sự kết hợpid
      * @param Model $query
      * @param $value
      */
@@ -79,7 +79,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 支出|获得
+     * chi tiêu|lấy
      * @param Model $query
      * @param $value
      */
@@ -90,7 +90,7 @@ class UserBrokerage extends BaseModel
 
 
     /**
-     * 类型
+     * kiểu
      * @param Model $query
      * @param $value
      */
@@ -115,7 +115,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 状态 0：带确定 1：有效 -1：无效
+     * Trạng thái 0: Đã xác nhận 1: Hợp lệ -1: Không hợp lệ
      * @param Model $query
      * @param $value
      */
@@ -125,7 +125,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 是否收货 0：未收货 1：已收货
+     * Có nhận hàng hay không 0: Chưa nhận 1: Đã nhận
      * @param Model $query
      * @param $value
      */
@@ -135,7 +135,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 模糊搜索
+     * tìm kiếm mờ
      * @param Model $query
      * @param $value
      */
@@ -149,7 +149,7 @@ class UserBrokerage extends BaseModel
     }
 
     /**
-     * 时间
+     * thời gian
      * @param Model $query
      * @param $value
      */

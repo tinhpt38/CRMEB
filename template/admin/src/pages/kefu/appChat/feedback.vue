@@ -2,7 +2,7 @@
   <div>
     <div class="feedback" :class="change === true ? 'on' : ''">
       <div class="feedback-header acea-row">
-        <span class="sp1">商城客服已离线</span>
+        <span class="sp1">Dịch vụ khách hàng của trung tâm mua sắm đang ngoại tuyến</span>
         <div>
           <i class="el-icon-close" style="font-size: 18px" v-db-click @click="close"></i>
         </div>
@@ -14,17 +14,17 @@
         <div>
           <el-form :model="formItem" ref="formItem" class="pl15" :rules="ruleValidate">
             <el-form-item prop="rela_name">
-              <el-input v-model="formItem.rela_name" placeholder="请输入您的姓名"></el-input>
+              <el-input v-model="formItem.rela_name" placeholder="Vui lòng nhập tên của bạn"></el-input>
             </el-form-item>
             <el-form-item prop="phone">
-              <el-input v-model="formItem.phone" placeholder="请输入您的联系电话"></el-input>
+              <el-input v-model="formItem.phone" placeholder="Vui lòng nhập số liên lạc của bạn"></el-input>
             </el-form-item>
             <el-form-item prop="content">
-              <el-input v-model="formItem.content" class="mb10" type="textarea" placeholder="请输入留言内容"></el-input>
+              <el-input v-model="formItem.content" class="mb10" type="textarea" placeholder="Vui lòng nhập nội dung tin nhắn"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" v-db-click @click="handleSubmit('formItem')" style="width: 100%"
-                >提交留言</el-button
+                >Gửi tin nhắn</el-button
               >
             </el-form-item>
           </el-form>
@@ -32,9 +32,9 @@
       </div>
       <div class="sure" v-if="isShow">
         <div class="sure-yuan"></div>
-        <div class="sp1 mb10">提交成功</div>
-        <div class="sp2 mb30">您的信息提交成功，我们会尽快与您取得联系！</div>
-        <el-button type="primary" v-db-click @click="close">好的</el-button>
+        <div class="sp1 mb10">Gửi thành công</div>
+        <div class="sp2 mb30">Thông tin của bạn đã được gửi thành công, chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất！</div>
+        <el-button type="primary" v-db-click @click="close">ĐƯỢC RỒI</el-button>
       </div>
     </div>
     <div class="maskModel" @touchmove.prevent v-show="change === true"></div>
@@ -58,11 +58,11 @@ export default {
       },
       notice: '',
       ruleValidate: {
-        rela_name: [{ required: true, message: '请输入您的姓名', trigger: 'blur' }],
-        content: [{ required: true, message: '请输入留言内容', trigger: 'blur' }],
+        rela_name: [{ required: true, message: 'Vui lòng nhập tên của bạn', trigger: 'blur' }],
+        content: [{ required: true, message: 'Vui lòng nhập nội dung tin nhắn', trigger: 'blur' }],
         phone: [
-          { required: true, message: '请填写手机号码', trigger: 'change' },
-          { pattern: /^1[3456789]\d{9}$/, message: '手机号码格式不正确', trigger: 'blur' },
+          { required: true, message: 'Vui lòng điền số điện thoại di động của bạn', trigger: 'change' },
+          { pattern: /^1[3456789]\d{9}$/, message: 'Định dạng số điện thoại di động không chính xác', trigger: 'blur' },
         ],
       },
     };
@@ -88,7 +88,7 @@ export default {
     close: function () {
       this.$emit('closeChange', false);
     },
-    // 广告
+    // quảng cáo
     getNotice() {
       feedbackDataApi()
         .then((res) => {

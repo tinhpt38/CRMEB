@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -35,8 +35,8 @@ use crmeb\services\CacheService;
  * Class StoreCombinationServices
  * @package app\services\activity
  * @method getPinkIdsArray(array $ids, array $field)
- * @method getOne(array $where, ?string $field = '*', array $with = []) 根据条件获取一条数据
- * @method get(int $id, array $field) 获取一条数据
+ * @method getOne(array $where, ?string $field = '*', array $with = []) Nhận một phần dữ liệu dựa trên các điều kiện
+ * @method get(int $id, array $field) Lấy một phần dữ liệu
  */
 class StoreCombinationServices extends BaseServices
 {
@@ -51,7 +51,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 获取指定条件下的条数
+     * Lấy số lượng vật phẩm theo điều kiện quy định
      * @param array $where
      */
     public function getCount(array $where)
@@ -60,7 +60,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 获取是否有拼团商品
+     * Nhận xem có sản phẩm nhóm hay không
      * */
     public function validCombination()
     {
@@ -72,7 +72,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 拼团商品添加
+     * Thêm sản phẩm nhóm
      * @param int $id
      * @param array $data
      */
@@ -83,7 +83,7 @@ class StoreCombinationServices extends BaseServices
         $items = $data['items'];
         $data['start_time'] = strtotime($data['section_time'][0]);
         $data['stop_time'] = strtotime($data['section_time'][1]);
-        if ($data['stop_time'] < strtotime(date('Y-m-d', time()))) throw new AdminException('结束时间不能小于今天');
+        if ($data['stop_time'] < strtotime(date('Y-m-d', time()))) throw new AdminException('Thời gian kết thúc không thể ít hơn ngày hôm nay');
         $data['image'] = $data['image'];
         $data['images'] = json_encode($data['images']);
         $data['price'] = min(array_column($detail, 'price'));
@@ -98,7 +98,7 @@ class StoreCombinationServices extends BaseServices
         /** @var StoreProductServices $storeProductServices */
         $storeProductServices = app()->make(StoreProductServices::class);
         if ($data['quota'] > $storeProductServices->value(['id' => $data['product_id']], 'stock')) {
-            throw new AdminException('限量不能超过商品库存');
+            throw new AdminException('Giới hạn không thể vượt quá số lượng sản phẩm tồn kho');
         }
         $this->transaction(function () use ($id, $data, $description, $detail, $items, $storeDescriptionServices, $storeProductAttrServices, $storeProductServices) {
             if ($id) {
@@ -106,23 +106,23 @@ class StoreCombinationServices extends BaseServices
                 $storeDescriptionServices->saveDescription((int)$id, $description, 3);
                 $skuList = $storeProductServices->validateProductAttr($items, $detail, (int)$id, 3);
                 $valueGroup = $storeProductAttrServices->saveProductAttr($skuList, (int)$id, 3);
-                if (!$res) throw new AdminException('修改失败');
+                if (!$res) throw new AdminException('Sửa đổi không thành công');
             } else {
                 if (!$storeProductServices->getOne(['is_del' => 0, 'id' => $data['product_id']])) {
-                    throw new AdminException('无法添加回收站商品');
+                    throw new AdminException('Không thể thêm các mục trong thùng rác');
                 }
                 $data['add_time'] = time();
                 $res = $this->dao->save($data);
                 $storeDescriptionServices->saveDescription((int)$res->id, $description, 3);
                 $skuList = $storeProductServices->validateProductAttr($items, $detail, (int)$res->id, 3, 1, true);
                 $valueGroup = $storeProductAttrServices->saveProductAttr($skuList, (int)$res->id, 3);
-                if (!$res) throw new AdminException('添加失败');
+                if (!$res) throw new AdminException('Thêm không thành công');
             }
         });
     }
 
     /**
-     * 拼团列表
+     * Danh sách nhóm nhóm
      * @param array $where
      * @return array
      */
@@ -138,22 +138,22 @@ class StoreCombinationServices extends BaseServices
         $countPeople = $storePinkServices->getPinkCount(['k_id' => 0]);
         $stopIds = [];
         foreach ($list as &$item) {
-            $item['count_people'] = $countPeople[$item['id']] ?? 0;//拼团数量
-            $item['count_people_all'] = $countAll[$item['id']] ?? 0;//参与人数
-            $item['count_people_pink'] = $countTeam[$item['id']] ?? 0;//成团数量
+            $item['count_people'] = $countPeople[$item['id']] ?? 0;//Số lượng nhóm
+            $item['count_people_all'] = $countAll[$item['id']] ?? 0;//Số lượng người tham gia
+            $item['count_people_pink'] = $countTeam[$item['id']] ?? 0;//Số lượng nhóm
             $item['stop_status'] = $item['stop_time'] < time() ? 1 : 0;
             if ($item['is_show']) {
                 if ($item['start_time'] > time()) {
-                    $item['start_name'] = '未开始';
+                    $item['start_name'] = 'Chưa bắt đầu';
                 } else if ($item['stop_time'] < time()) {
-                    $item['start_name'] = '已结束';
+                    $item['start_name'] = 'đã kết thúc';
                     $item['is_show'] = 0;
                     $stopIds[] = $item['id'];
                 } else if ($item['stop_time'] > time() && $item['start_time'] < time()) {
-                    $item['start_name'] = '进行中';
+                    $item['start_name'] = 'đang tiến hành';
                 }
             } else {
-                $item['start_name'] = '已结束';
+                $item['start_name'] = 'đã kết thúc';
             }
             $item['start_time'] = $item['start_time'] ? date('Y-m-d H:i:s', $item['start_time']) : '';
             $item['stop_time'] = $item['stop_time'] ? date('Y-m-d 23:59:59', $item['stop_time']) : '';
@@ -165,7 +165,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 获取详情
+     * Nhận thông tin chi tiết
      * @param int $id
      * @return array|\think\Model|null
      */
@@ -173,10 +173,10 @@ class StoreCombinationServices extends BaseServices
     {
         $info = $this->dao->get($id);
         if (!$info) {
-            throw new ApiException('商品不存在');
+            throw new ApiException('Sản phẩm không tồn tại');
         }
         if ($info->is_del) {
-            throw new ApiException('商品已被删除');
+            throw new ApiException('Sản phẩm đã bị xóa');
         }
         if ($info['start_time'])
             $start_time = date('Y-m-d H:i:s', $info['start_time']);
@@ -201,7 +201,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 获取规格
+     * Nhận thông số kỹ thuật
      * @param int $id
      * @param int $pid
      * @return mixed
@@ -248,22 +248,22 @@ class StoreCombinationServices extends BaseServices
         foreach ($items as $key => $item) {
             $header[] = ['title' => $item['value'], 'key' => 'value' . ($key + 1), 'align' => 'center', 'minWidth' => 80];
         }
-        $header[] = ['title' => '图片', 'slot' => 'pic', 'align' => 'center', 'minWidth' => 120];
-        $header[] = ['title' => '拼团价', 'slot' => 'price', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '成本价', 'key' => 'cost', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '日常售价', 'key' => 'r_price', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '库存', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '限量', 'slot' => 'quota', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '重量(KG)', 'key' => 'weight', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '体积(m³)', 'key' => 'volume', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '商品编码', 'key' => 'bar_code', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => '条形码', 'key' => 'bar_code_number', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'hình ảnh', 'slot' => 'pic', 'align' => 'center', 'minWidth' => 120];
+        $header[] = ['title' => 'Giá nhóm', 'slot' => 'price', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'giá thành', 'key' => 'cost', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'giá bán hàng ngày', 'key' => 'r_price', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'phiên bản giới hạn', 'slot' => 'quota', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'cân nặng(KG)', 'key' => 'weight', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'âm lượng(m³)', 'key' => 'volume', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'Mã sản phẩm', 'key' => 'bar_code', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'mã vạch', 'key' => 'bar_code_number', 'align' => 'center', 'minWidth' => 80];
         $attrs['header'] = $header;
         return $attrs;
     }
 
     /**
-     * 获得规格
+     * Nhận thông số kỹ thuật
      * @param $attr
      * @param $id
      * @param $type
@@ -304,7 +304,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 根据id获取拼团数据列表
+     * Lấy danh sách dữ liệu nhóm dựa trên id
      * @param array $ids
      * @param string $field
      * @return array
@@ -326,7 +326,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     *首页获取拼团数据
+     *Nhận dữ liệu đặt phòng nhóm trên trang chủ
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -352,7 +352,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 后台页面设计获取拼团列表
+     * Thiết kế trang phụ trợ để lấy danh sách nhóm nhóm
      * @param $where
      */
     public function getDiyCombinationList($where)
@@ -381,7 +381,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 拼团商品详情
+     * Chi tiết sản phẩm nhóm
      * @param Request $request
      * @param int $id
      * @return mixed
@@ -394,7 +394,7 @@ class StoreCombinationServices extends BaseServices
         $uid = (int)$request->uid();
         $storeInfo = $this->dao->getOne(['id' => $id], '*', ['description', 'total']);
         if (!$storeInfo) {
-            throw new ApiException('商品已被删除');
+            throw new ApiException('Sản phẩm đã bị xóa');
         } else {
             $storeInfo = $storeInfo->toArray();
         }
@@ -426,7 +426,7 @@ class StoreCombinationServices extends BaseServices
 
         /** @var StorePinkServices $pinkService */
         $pinkService = app()->make(StorePinkServices::class);
-        list($pink, $pinkAll) = $pinkService->getPinkList($id, true);//拼团列表
+        list($pink, $pinkAll) = $pinkService->getPinkList($id, true);//Danh sách nhóm nhóm
         $data['pink_ok_list'] = $pinkService->getPinkOkList($uid);
         $data['pink_ok_sum'] = $pinkService->getPinkOkSumTotalNum();
         $data['pink'] = $pink;
@@ -450,15 +450,15 @@ class StoreCombinationServices extends BaseServices
         $data['productValue'] = $productValue;
         $data['routine_contact_type'] = sys_config('routine_contact_type', 0);
 
-        //用户访问事件
+        //Sự kiện truy cập của người dùng
         event('UserVisitListener', [$uid, $id, 'combination', $storeInfo['product_id'], 'view']);
-        //浏览记录
+        //Lịch sử duyệt web
         ProductLogJob::dispatch(['visit', ['uid' => $uid, 'product_id' => $storeInfo['product_id']]]);
         return $data;
     }
 
     /**
-     * 修改销量和库存
+     * Sửa đổi doanh số bán hàng và hàng tồn kho
      * @param $num
      * @param $CombinationId
      * @return bool
@@ -469,26 +469,26 @@ class StoreCombinationServices extends BaseServices
         if ($unique) {
             /** @var StoreProductAttrValueServices $skuValueServices */
             $skuValueServices = app()->make(StoreProductAttrValueServices::class);
-            //减去拼团商品的sku库存增加销量
+            //Trừ đi tồn kho sku của các sản phẩm nhóm làm tăng doanh số bán hàng
             $res = false !== $skuValueServices->decProductAttrStock($CombinationId, $unique, $num, 3);
-            //减去拼团库存
+            //Trừ hàng tồn kho nhóm nhóm
             $res = $res && $this->dao->decStockIncSales(['id' => $CombinationId, 'type' => 3], $num);
-            //获取拼团的sku
+            //Nhận ưu đãi nhómsku
             $sku = $skuValueServices->value(['product_id' => $CombinationId, 'unique' => $unique, 'type' => 3], 'suk');
-            //减去当前普通商品sku的库存增加销量
+            //Trừ đi lượng hàng tồn kho hiện tại của mã sản phẩm phổ biến để tăng doanh số bán hàng
             $res = $res && $skuValueServices->decStockIncSales(['product_id' => $product_id, 'suk' => $sku, 'type' => 0], $num);
         } else {
             $res = false !== $this->dao->decStockIncSales(['id' => $CombinationId, 'type' => 3], $num);
         }
         /** @var StoreProductServices $services */
         $services = app()->make(StoreProductServices::class);
-        //减去普通商品库存
+        //trừ đi hàng tồn kho chung
         $res = $res && $services->decProductStock($num, $product_id);
         return $res;
     }
 
     /**
-     * 加库存减销量
+     * Tăng hàng tồn kho và giảm doanh số bán hàng
      * @param int $num
      * @param int $CombinationId
      * @param string $unique
@@ -500,11 +500,11 @@ class StoreCombinationServices extends BaseServices
         if ($unique) {
             /** @var StoreProductAttrValueServices $skuValueServices */
             $skuValueServices = app()->make(StoreProductAttrValueServices::class);
-            //增加拼团商品的sku库存,减去销量
+            //Tăng tồn kho SKU của các sản phẩm nhóm,trừ doanh số bán hàng
             $res = false !== $skuValueServices->incProductAttrStock($CombinationId, $unique, $num, 3);
-            //增加拼团库存
+            //Tăng khoảng không quảng cáo nhóm nhóm
             $res = $res && $this->dao->incStockDecSales(['id' => $CombinationId, 'type' => 3], $num);
-            //增加当前普通商品sku的库存,减去销量
+            //Tăng lượng tồn kho của mã hàng hóa thông thường hiện tại,trừ doanh số bán hàng
             $suk = $skuValueServices->value(['unique' => $unique, 'product_id' => $CombinationId], 'suk');
             $productUnique = $skuValueServices->value(['suk' => $suk, 'product_id' => $product_id], 'unique');
             if ($productUnique) {
@@ -515,13 +515,13 @@ class StoreCombinationServices extends BaseServices
         }
         /** @var StoreProductServices $services */
         $services = app()->make(StoreProductServices::class);
-        //增加普通商品库存
+        //Tăng hàng tồn kho nói chung
         $res = $res && $services->incProductStock($num, $product_id);
         return $res;
     }
 
     /**
-     * 获取一条拼团数据
+     * Nhận một phần dữ liệu nhóm
      * @param $id
      * @param $field
      * @return mixed
@@ -532,7 +532,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 获取拼团详情
+     * Nhận thông tin chi tiết chia sẻ nhóm
      * @param Request $request
      * @param int $id
      * @return mixed
@@ -545,20 +545,20 @@ class StoreCombinationServices extends BaseServices
         /** @var StorePinkServices $pinkService */
         $pinkService = app()->make(StorePinkServices::class);
 
-        $is_ok = 0;//判断拼团是否完成
-        $userBool = 0;//判断当前用户是否在团内  0未在 1在
-        $pinkBool = 0;//判断拼团是否成功  0未在 1在
+        $is_ok = 0;//Xác định xem cuộc chiến nhóm đã hoàn thành chưa
+        $userBool = 0;//Xác định xem người dùng hiện tại có thuộc nhóm 0 không thuộc 1 có thuộc nhóm không
+        $pinkBool = 0;//Xác định xem cuộc chiến nhóm có thành công hay không 0 không có mặt 1 có mặt
         $user = $request->user();
-        if (!$id) throw new ApiException('参数错误');
+        if (!$id) throw new ApiException('Lỗi tham số');
         $pink = $pinkService->getPinkUserOne($id);
-        if (!$pink) throw new ApiException('参数错误');
+        if (!$pink) throw new ApiException('Lỗi tham số');
         $pink = $pink->toArray();
         if (isset($pink['is_refund']) && $pink['is_refund']) {
             if ($pink['is_refund'] != $pink['id']) {
                 $id = $pink['is_refund'];
                 return $this->getPinkInfo($request, $id);
             } else {
-                throw new ApiException('订单已退款');
+                throw new ApiException('Đơn hàng đã được hoàn lại');
             }
         }
         list($pinkAll, $pinkT, $count, $idAll, $uidAll) = $pinkService->getPinkMemberAndPinkK($pink);
@@ -569,7 +569,7 @@ class StoreCombinationServices extends BaseServices
             $pinkBool = -1;
             $is_ok = 0;
         } else {
-            if ($count < 1) {//组团完成
+            if ($count < 1) {//Việc thành lập nhóm đã hoàn thành
                 $is_ok = 1;
                 $pinkBool = $pinkService->pinkComplete($uidAll, $idAll, $user['uid'], $pinkT);
             } else {
@@ -585,7 +585,7 @@ class StoreCombinationServices extends BaseServices
         if ($pinkT['uid'] == $user['uid']) $userBool = 1;
         $combinationOne = $this->getCombinationOne($pink['cid']);
         if (!$combinationOne) {
-            throw new ApiException('拼团不存在或已下架,请手动申请退款');
+            throw new ApiException('Gói nhóm không tồn tại hoặc đã bị xóa khỏi kệ,Vui lòng yêu cầu hoàn tiền theo cách thủ công');
         }
 
         $data['userInfo']['uid'] = $user['uid'];
@@ -621,7 +621,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 验证拼团下单库存限量
+     * Xác minh giới hạn hàng tồn kho cho các đơn đặt hàng nhóm
      * @param int $uid
      * @param int $combinationId
      * @param int $cartNum
@@ -640,30 +640,30 @@ class StoreCombinationServices extends BaseServices
         }
         $attrInfo = $attrValueServices->getOne(['product_id' => $combinationId, 'unique' => $unique, 'type' => 3]);
         if (!$attrInfo || $attrInfo['product_id'] != $combinationId) {
-            throw new ApiException('请选择有效的商品属性');
+            throw new ApiException('Vui lòng chọn thuộc tính sản phẩm hợp lệ');
         }
         $StoreCombinationInfo = $productInfo = $this->getCombinationOne($combinationId, '*,title as store_name');
         if (!$StoreCombinationInfo) {
-            throw new ApiException('该商品已下架或删除');
+            throw new ApiException('Sản phẩm này đã bị gỡ bỏ khỏi kệ hoặc bị xóa');
         }
         /** @var StoreOrderServices $orderServices */
         $orderServices = app()->make(StoreOrderServices::class);
         $userBuyCount = $orderServices->getBuyCount($uid, 'combination_id', $combinationId);
         if ($StoreCombinationInfo['once_num'] < $cartNum) {
-            throw new ApiException('每个订单限购{:num}件', ['num' => $StoreCombinationInfo['once_num']]);
+            throw new ApiException('Giới hạn mua mỗi đơn hàng{:num}miếng', ['num' => $StoreCombinationInfo['once_num']]);
         }
         if ($StoreCombinationInfo['num'] < ($userBuyCount + $cartNum)) {
-            throw new ApiException('每人总共限购{:num}件', ['num' => $StoreCombinationInfo['num']]);
+            throw new ApiException('Tổng giới hạn mua hàng cho mỗi người{:num}miếng', ['num' => $StoreCombinationInfo['num']]);
         }
 
         if ($cartNum > $attrInfo['quota']) {
-            throw new ApiException('该商品库存不足');
+            throw new ApiException('Sản phẩm này đã hết hàng');
         }
         return [$attrInfo, $unique, $productInfo];
     }
 
     /**
-     * 拼团统计
+     * Thống kê nhóm nhóm
      * @param $id
      * @return array
      */
@@ -683,7 +683,7 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * 拼团订单
+     * Thứ tự nhóm
      * @param $id
      * @param array $where
      * @return array
@@ -699,20 +699,20 @@ class StoreCombinationServices extends BaseServices
         foreach ($list as &$item) {
             if ($item['status'] == 0) {
                 if ($item['paid'] == 0) {
-                    $item['status'] = '未支付';
+                    $item['status'] = 'Chưa thanh toán';
                 } else {
-                    $item['status'] = '未发货';
+                    $item['status'] = 'Không được vận chuyển';
                 }
             } elseif ($item['status'] == 1) {
-                $item['status'] = '待收货';
+                $item['status'] = 'Đang chờ nhận';
             } elseif ($item['status'] == 2) {
-                $item['status'] = '待评价';
+                $item['status'] = 'Đang chờ đánh giá';
             } elseif ($item['status'] == 3) {
-                $item['status'] = '已完成';
+                $item['status'] = 'Hoàn thành';
             } elseif ($item['status'] == -2) {
-                $item['status'] = '已退款';
+                $item['status'] = 'Đã hoàn tiền';
             } else {
-                $item['status'] = '未知';
+                $item['status'] = 'không rõ';
             }
             $item['add_time'] = date('Y-m-d H:i:s', $item['add_time']);
             $item['pay_time'] = $item['pay_time'] ? date('Y-m-d H:i:s', $item['pay_time']) : '';

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\product\product\StoreProductRelationServices;
 
 
 /**
- * 用户收藏
+ * Người dùng yêu thích
  * Class UserCollectController
  * @package app\api\controller\v1\user
  */
@@ -34,7 +34,7 @@ class UserCollectController
 
 
     /**
-     * 获取收藏商品
+     * Nhận mục yêu thích
      * @param Request $request
      * @return mixed
      */
@@ -45,7 +45,7 @@ class UserCollectController
     }
 
     /**
-     * 添加收藏
+     * Thêm vào mục yêu thích
      * @param Request $request
      * @return mixed
      */
@@ -55,17 +55,17 @@ class UserCollectController
             ['id', 0],
             ['category', 'product']
         ], true);
-        if (!$id || !is_numeric($id)) return app('json')->fail('参数错误');
+        if (!$id || !is_numeric($id)) return app('json')->fail('Lỗi tham số');
         $res = $this->services->productRelation((int)$id, $request->uid(), 'collect', $category);
         if (!$res) {
-            return app('json')->fail('收藏失败');
+            return app('json')->fail('Bộ sưu tập không thành công');
         } else {
-            return app('json')->success('收藏成功');
+            return app('json')->success('Bộ sưu tập thành công');
         }
     }
 
     /**
-     * 取消收藏
+     * Hủy yêu thích
      * @param Request $request
      * @return mixed
      * @throws \Exception
@@ -78,12 +78,12 @@ class UserCollectController
         ], true);
         $uid = (int)$request->uid();
         $res = $this->services->unProductRelation($id, $uid, 'collect', $category);
-        if (!$res) return app('json')->fail('取消失败');
-        else return app('json')->success('取消成功');
+        if (!$res) return app('json')->fail('Hủy không thành công');
+        else return app('json')->success('Hủy thành công');
     }
 
     /**
-     * 批量收藏
+     * Bộ sưu tập hàng loạt
      * @param Request $request
      * @return mixed
      */
@@ -95,15 +95,15 @@ class UserCollectController
         ]);
         $collectInfo['id'] = explode(',', $collectInfo['id']);
         if (!count($collectInfo['id'])) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $uid = (int)$request->uid();
         $productIdS = $collectInfo['id'];
         $res = $this->services->productRelationAll($productIdS, $uid, 'collect', $collectInfo['category']);
         if (!$res) {
-            return app('json')->fail('收藏失败');
+            return app('json')->fail('Bộ sưu tập không thành công');
         } else {
-            return app('json')->success('收藏成功');
+            return app('json')->success('Bộ sưu tập thành công');
         }
     }
 }

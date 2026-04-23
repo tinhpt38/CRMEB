@@ -1,70 +1,70 @@
-# crmeb 目录文件说明
+# crmeb Mô tả tập tin danh mục
 
-## 目录结构概览
+## Tổng quan về cấu trúc thư mục
 ```
 crmeb/
-├── app/                 # 应用程序核心代码（控制器、模型、服务等）
-├── backup/              # 数据备份文件
-├── config/              # 配置文件（数据库、缓存、接口等）
-├── crmeb/               # 项目内部公共模块或扩展库
-├── public/              # Web 可访问入口（静态资源、index.php）
-├── route/               # 路由定义
-├── runtime/             # 运行时缓存、日志、Session 等（需忽略版本控制）
+├── app/                 # Mã lõi ứng dụng (bộ điều khiển, mô hình, dịch vụ, v.v.)）
+├── backup/              # tập tin sao lưu dữ liệu
+├── config/              # Các tập tin cấu hình (cơ sở dữ liệu, bộ đệm, giao diện, v.v.)）
+├── crmeb/               # Các mô-đun công cộng hoặc thư viện mở rộng trong dự án
+├── public/              # Web Mục nhập có thể truy cập (tài nguyên tĩnh、index.php）
+├── route/               # định nghĩa tuyến đường
+├── runtime/             # Bộ đệm thời gian chạy, nhật ký, Phiên, v.v. (cần bỏ qua kiểm soát phiên bản）
 │
-├── .constant            # 常量定义文件（需忽略版本控制）
-├── .dockerignore        # Docker 构建忽略规则
-├── .env                 # 环境变量配置（敏感信息）（需忽略版本控制）
-├── .env.example         # 环境变量示例文件
-├── .htaccess            # Apache 重写规则
-├── .phpstorm.meta.php   # PhpStorm 元数据
-├── .travis.yml          # Travis CI 配置
-├── .version             # 版本信息
-├── Dockerfile           # Docker 镜像构建文件
-├── LICENSE.txt          # 开源许可协议
-├── README.md            # 项目说明
-├── build.example.php    # 构建示例脚本
-├── composer.json        # Composer 依赖配置
-├── composer.lock        # Composer 锁定版本
-├── filetree.txt         # 文件树结构快照
-├── index.html           # 默认首页（防访问目录）
-├── my.cnf               # MySQL 自定义配置（需忽略版本控制）
-├── nginx.conf           # Nginx 配置（需忽略版本控制）
-├── php-fpm.conf         # PHP-FPM 配置（需忽略版本控制）
-├── php-ini-overrides.ini# PHP 自定义 ini 覆盖（需忽略版本控制）
-├── redis.conf           # Redis 配置（需忽略版本控制）
-├── start.sh             # 项目启动脚本（需忽略版本控制）
-├── supervisord.conf     # Supervisor 进程管理配置（需忽略版本控制）
-├── think                # ThinkPHP 框架入口文件
-├── vhost.conf           # 虚拟主机配置（需忽略版本控制）
-└── workerman.bat        # Windows 下 Workerman 启动脚本
+├── .constant            # Tệp định nghĩa không đổi (cần bỏ qua kiểm soát phiên bản）
+├── .dockerignore        # Docker Xây dựng quy tắc bỏ qua
+├── .env                 # Cấu hình biến môi trường (thông tin nhạy cảm) (cần bỏ qua kiểm soát phiên bản）
+├── .env.example         # Tệp mẫu biến môi trường
+├── .htaccess            # Apache Viết lại quy tắc
+├── .phpstorm.meta.php   # PhpStorm Siêu dữ liệu
+├── .travis.yml          # Travis CI Cấu hình
+├── .version             # Thông tin phiên bản
+├── Dockerfile           # Docker Tập tin xây dựng hình ảnh
+├── LICENSE.txt          # Thỏa thuận cấp phép nguồn mở
+├── README.md            # Mô tả dự án
+├── build.example.php    # Xây dựng kịch bản ví dụ
+├── composer.json        # Composer Phụ thuộc vào cấu hình
+├── composer.lock        # Composer phiên bản bị khóa
+├── filetree.txt         # Ảnh chụp nhanh cấu trúc cây tệp
+├── index.html           # Trang chủ mặc định (thư mục chống truy cập）
+├── my.cnf               # MySQL Cấu hình tùy chỉnh (cần bỏ qua kiểm soát phiên bản）
+├── nginx.conf           # Nginx Cấu hình (cần bỏ qua kiểm soát phiên bản）
+├── php-fpm.conf         # PHP-FPM Cấu hình (cần bỏ qua kiểm soát phiên bản）
+├── php-ini-overrides.ini# PHP Ghi đè ini tùy chỉnh (cần bỏ qua kiểm soát phiên bản）
+├── redis.conf           # Redis Cấu hình (cần bỏ qua kiểm soát phiên bản）
+├── start.sh             # Tập lệnh khởi động dự án (cần bỏ qua kiểm soát phiên bản）
+├── supervisord.conf     # Supervisor Cấu hình quản lý quy trình (cần bỏ qua kiểm soát phiên bản）
+├── think                # ThinkPHP Tệp nhập khung
+├── vhost.conf           # Cấu hình máy chủ ảo (cần bỏ qua kiểm soát phiên bản）
+└── workerman.bat        # Windows Kịch bản khởi động Workerman tiếp theo
 ```
 
-## 主要目录说明
-- **app/**  
-  存放业务逻辑的核心代码，包括控制器(Controller)、模型(Model)、服务层(Service)等，遵循 MVC 或类似分层架构。
-- **backup/**  
-  用于存放数据库或重要数据的备份文件，建议定期清理旧备份。
-- **config/**  
-  各种环境与应用配置文件，如数据库、缓存、队列、接口认证等。
-- **crmeb/**  
-  项目内部的公共模块或第三方 SDK 集成，可能包含一些工具类或扩展功能。
-- **public/**  
-  Web 服务器根目录，放置可直接通过浏览器访问的资源（如图片、JS、CSS）以及入口文件 `index.php`。
+## Mô tả danh mục chính
+- **ứng dụng/**
+  Lưu trữ mã cốt lõi của logic nghiệp vụ, bao gồm cả bộ điều khiển(Controller)、Người mẫu(Model)、lớp dịch vụ(Service)v.v., theo mô hình MVC hoặc kiến ​​trúc phân lớp tương tự.
+- **sao lưu/**
+  Các tập tin sao lưu dùng để lưu trữ cơ sở dữ liệu hoặc dữ liệu quan trọng. Nên dọn dẹp các bản sao lưu cũ thường xuyên.
+- **cấu hình/**
+  Các tệp cấu hình ứng dụng và môi trường khác nhau, chẳng hạn như cơ sở dữ liệu, bộ đệm, hàng đợi, xác thực giao diện, v.v.
+- **crmeb/**
+  Các mô-đun công khai trong dự án hoặc tích hợp SDK của bên thứ ba có thể bao gồm một số lớp công cụ hoặc chức năng mở rộng.
+- **công khai/**
+  Thư mục gốc của máy chủ web, nơi đặt các tài nguyên (chẳng hạn như hình ảnh, JS, CSS) và các tệp mục nhập có thể được truy cập trực tiếp thông qua trình duyệt. `index.php`。
 - **route/**  
-  路由定义文件，用于映射 URL 请求到具体的控制器方法。
-- **runtime/**  
-  存放运行时生成的缓存、日志、Session 等临时数据；此目录应在 `.gitignore` 中忽略。
+  Tệp định nghĩa định tuyến, được sử dụng để ánh xạ các yêu cầu URL tới các phương thức điều khiển cụ thể.
+- **thời gian chạy/**
+  Lưu trữ dữ liệu tạm thời như bộ đệm, nhật ký và phiên được tạo trong thời gian chạy; thư mục này nên ở trong `.gitignore` bị bỏ qua trong .
 
-## 主要文件说明
-- **.env / .env.example**  
-  环境变量配置与示例，`.env` 含敏感信息，不要提交到代码库。
-- **composer.json / composer.lock**  
-  PHP 项目依赖管理配置与锁定文件。
-- **Dockerfile / docker-compose 相关**  
-  用于容器化部署的配置。
-- **my.cnf / redis.conf / nginx.conf**  
-  各类服务的自定义配置。
-- **start.sh**  
-  项目本地或服务器启动入口脚本。
-- **think**  
-  ThinkPHP 框架的统一入口文件，负责初始化框架并分发请求。
+## Mô tả tệp chính
+- **.env/.env.example**
+  Cấu hình và ví dụ về biến môi trường，`.env` Chứa thông tin nhạy cảm, không gửi nó đến cơ sở mã.
+- **composer.json/composer.lock**
+  Cấu hình quản lý phụ thuộc dự án PHP và các tệp khóa.
+- **Liên quan đến Dockerfile/docker-compose**
+  Cấu hình để triển khai trong container.
+- **my.cnf/redis.conf/nginx.conf**
+  Cấu hình tùy chỉnh của các dịch vụ khác nhau.
+- **start.sh**
+  Tập lệnh khởi động máy chủ hoặc cục bộ của dự án.
+- **nghĩ**
+  Tệp nhập hợp nhất của khung ThinkPHP, chịu trách nhiệm khởi tạo khung và phân phối yêu cầu。

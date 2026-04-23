@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,7 +14,7 @@ use think\facade\App;
 use app\services\user\OutUserServices;
 
 /**
- * 用户控制器
+ * bộ điều khiển người dùng
  * Class User
  * @package app\outapi\controller
  */
@@ -33,7 +33,7 @@ class User extends AuthController
     }
 
     /**
-     * 用户列表
+     * Danh sách người dùng
      * @return mixed
      */
     public function lst()
@@ -47,7 +47,7 @@ class User extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      *
      * @param \think\Request $request
      * @return \think\Response
@@ -66,13 +66,13 @@ class User extends AuthController
         ]);
         $uid = $this->services->saveUser(0, $data);
         if (!$uid) {
-            return app('json')->fail('添加失败');
+            return app('json')->fail('Thêm không thành công');
         }
-        return app('json')->success('添加成功', ['uid' => $uid]);
+        return app('json')->success('Đã thêm thành công', ['uid' => $uid]);
     }
 
     /**
-     * 更新用户
+     * Cập nhật người dùng
      * @param $uid
      * @return mixed
      */
@@ -88,13 +88,13 @@ class User extends AuthController
             ['is_promoter', 0],
             ['status', 1]
         ]);
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         $this->services->saveUser((int)$uid, $data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 赠送相关
+     * Liên quan đến quà tặng
      * @param int $uid
      * @return mixed
      * @throws \think\Exception
@@ -112,30 +112,30 @@ class User extends AuthController
             ['days', 0],
             ['coupon', 0]
         ]);
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         if (!$this->services->otherGive((int)$uid, $data)) {
-            return app('json')->fail('操作失败');
+            return app('json')->fail('Thao tác không thành công');
         }
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 获取用户详情
+     * Nhận thông tin chi tiết người dùng
      * @param $uid
      * @return \think\Response
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/20
      */
     public function info($uid)
     {
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         $data = $this->services->userInfo($uid);
         return app('json')->success(compact('data'));
     }
 
     /**
-     * 赠送余额
+     * Số dư quà tặng
      * @param int $uid
      * @return mixed
      * @throws \think\Exception
@@ -153,15 +153,15 @@ class User extends AuthController
             ['days', 0],
             ['coupon', 0]
         ]);
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         if (!$this->services->otherGive((int)$uid, $data)) {
-            return app('json')->fail('操作失败');
+            return app('json')->fail('Thao tác không thành công');
         }
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 赠送积分
+     * Tặng điểm
      * @param int $uid
      * @return mixed
      * @throws \think\Exception
@@ -179,15 +179,15 @@ class User extends AuthController
             ['days', 0],
             ['coupon', 0]
         ]);
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         if (!$this->services->otherGive((int)$uid, $data)) {
-            return app('json')->fail('操作失败');
+            return app('json')->fail('Thao tác không thành công');
         }
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 修改余额
+     * Sửa đổi số dư
      * @param $uid
      * @return \think\Response
      * @author wuhaotian
@@ -199,13 +199,13 @@ class User extends AuthController
         [$money] = $this->request->postMore([
             ['money', 0],
         ], true);
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         $this->services->changeUserData((int)$uid, $money, 'now_money');
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 修改积分
+     * Sửa đổi điểm
      * @param $uid
      * @return \think\Response
      * @author wuhaotian
@@ -217,8 +217,8 @@ class User extends AuthController
         [$integral] = $this->request->postMore([
             ['integral', 0],
         ], true);
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         $this->services->changeUserData((int)$uid, $integral, 'integral');
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 }

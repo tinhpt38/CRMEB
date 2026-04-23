@@ -10,16 +10,16 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item label="tìm kiếm：">
             <el-input
               clearable
-              placeholder="请输入姓名、UID"
+              placeholder="Vui lòng nhập tên、UID"
               v-model="formValidate.keyword"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -28,7 +28,7 @@
       <el-row class="ivu-mt box-wrapper">
         <el-col :xs="24" :sm="24" ref="rightBox">
           <el-tabs v-model="formValidate.status" @tab-click="userSearchs">
-            <el-tab-pane name="all" label="全部"></el-tab-pane>
+            <el-tab-pane name="all" label="tất cả"></el-tab-pane>
             <el-tab-pane
               v-for="(item, index) in statusList"
               :key="index"
@@ -41,30 +41,30 @@
             ref="table"
             v-loading="loading"
             highlight-current-row
-            no-formValidate-text="暂无数据"
-            no-filtered-formValidate-text="暂无筛选结果"
+            no-formValidate-text="Chưa có dữ liệu"
+            no-filtered-formValidate-text="Chưa có kết quả lọc nào"
           >
-            <el-table-column label="用户UID" width="100">
+            <el-table-column label="người dùngUID" width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="代理商名称" min-width="150">
+            <el-table-column label="Tên đại lý" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.agent_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="代理商电话" min-width="150">
+            <el-table-column label="Số điện thoại đại lý" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.phone }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="事业部名称" min-width="150">
+            <el-table-column label="Tên đơn vị kinh doanh" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.division_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请图片" min-width="150">
+            <el-table-column label="Áp dụng cho hình ảnh" min-width="150">
               <template slot-scope="scope">
                 <div class="pictrue-box" v-if="scope.row.images.length">
                   <div v-viewer v-for="(item, index) in scope.row.images || []" :key="index">
@@ -73,28 +73,28 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="申请时间" min-width="150">
+            <el-table-column label="Thời gian nộp đơn" min-width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="申请状态" min-width="150">
+            <el-table-column label="Trạng thái đơn đăng ký" min-width="150">
               <template slot-scope="scope">
-                <el-tag>{{ scope.row.status == 0 ? '申请中' : scope.row.status == 1 ? '已同意' : '已拒绝' }}</el-tag>
+                <el-tag>{{ scope.row.status == 0 ? 'Áp dụng' : scope.row.status == 1 ? 'Đồng ý' : 'Vật bị loại bỏ' }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="邀请码" min-width="150">
+            <el-table-column label="Mã mời" min-width="150">
               <template slot-scope="scope">
                 <el-tag>{{ scope.row.division_invite }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作" fixed="right" width="170">
+            <el-table-column label="vận hành" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 1)">同意</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 1)">đồng ý</a>
                 <el-divider v-if="scope.row.status == 0" direction="vertical" />
-                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 0)">拒绝</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="groupAdd(scope.row.id, 0)">từ chối</a>
                 <el-divider direction="vertical" v-if="scope.row.status == 0" />
-                <a v-db-click @click="del(scope.row, '删除申请', scope.$index)">删除</a>
+                <a v-db-click @click="del(scope.row, 'Xóa ứng dụng', scope.$index)">xóa bỏ</a>
               </template>
             </el-table-column>
           </el-table>
@@ -138,15 +138,15 @@ export default {
       },
       statusList: [
         {
-          status_name: '申请中',
+          status_name: 'Áp dụng',
           id: '0',
         },
         {
-          status_name: '已同意',
+          status_name: 'Đồng ý',
           id: '1',
         },
         {
-          status_name: '已拒绝',
+          status_name: 'Vật bị loại bỏ',
           id: '2',
         },
       ],
@@ -205,7 +205,7 @@ export default {
         this.staffModal = true;
       });
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       divisionList(this.formValidate)
@@ -228,7 +228,7 @@ export default {
       this.clerkReqData.page = index;
       this.getClerkList();
     },
-    // 添加表单
+    // Thêm biểu mẫu
     groupAdd(id, type) {
       this.$modalForm(divisionFrom(id, type))
         .then((res) => {
@@ -236,7 +236,7 @@ export default {
         })
         .catch((err) => {});
     },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       let data = {
         id: row.uid,
@@ -250,9 +250,9 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 编辑
+    // biên tập
     edit(row) {},
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,

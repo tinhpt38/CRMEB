@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class ShippingTemplatesDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -33,7 +33,7 @@ class ShippingTemplatesDao extends BaseDao
     }
 
     /**
-     * 获取选择模板列表
+     * Nhận danh sách các mẫu đã chọn
      * @return array
      */
     public function getSelectList()
@@ -42,7 +42,7 @@ class ShippingTemplatesDao extends BaseDao
     }
 
     /**
-     * 获取
+     * lấy
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -57,7 +57,7 @@ class ShippingTemplatesDao extends BaseDao
     }
 
     /**
-     * 插入数据返回主键id
+     * Chèn dữ liệu và trả về khóa chínhid
      * @param array $data
      * @return int|string
      */
@@ -67,7 +67,7 @@ class ShippingTemplatesDao extends BaseDao
     }
 
     /**
-     * 获取运费模板指定条件下的数据
+     * Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển hàng hóa
      * @param array $where
      * @param string $field
      * @param string $key

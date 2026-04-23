@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\services\activity\combination\StorePinkServices;
 use think\facade\App;
 
 /**
- * 拼团管理
+ * Quản lý nhóm
  * Class StoreCombination
  * @package app\admin\controller\store
  */
@@ -34,7 +34,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 拼团列表
+     * Danh sách nhóm nhóm
      * @return mixed
      */
     public function index()
@@ -51,7 +51,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 拼团统计
+     * Thống kê nhóm nhóm
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -66,7 +66,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 详情
+     * Chi tiết
      * @param $id
      * @return mixed
      */
@@ -77,7 +77,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @param int $id
      */
     public function save($id = 0)
@@ -104,9 +104,9 @@ class StoreCombination extends AuthController
             ['sort', 0],
             ['copy', 0],
             ['virtual', 100],
-            ['logistics', []],//物流方式
-            ['freight', 1],//运费设置
-            ['postage', 0],//邮费
+            ['logistics', []],//Phương pháp hậu cần
+            ['freight', 1],//Cài đặt phí vận chuyển
+            ['postage', 0],//Bưu phí
             ['custom_form', ''],
             ['virtual_type', 0],
             ['is_commission', 0],
@@ -116,46 +116,46 @@ class StoreCombination extends AuthController
         if ($data['section_time']) {
             [$start_time, $end_time] = $data['section_time'];
             if (strtotime($end_time) < time()) {
-                return app('json')->fail('活动结束时间不能小于当前时间');
+                return app('json')->fail('Thời gian kết thúc hoạt động không được nhỏ hơn thời gian hiện tại');
             }
         }
         $combination = [];
         if ($id) {
             $combination = $this->services->get((int)$id);
             if (!$combination) {
-                return app('json')->fail('数据不存在');
+                return app('json')->fail('Dữ liệu không tồn tại');
             }
         }
-        //限制编辑
+        //Hạn chế chỉnh sửa
         if ($data['copy'] == 0 && $combination) {
             if ($combination['stop_time'] < time()) {
-                return app('json')->fail('活动已结束,请重新添加或复制');
+                return app('json')->fail('Sự kiện đã kết thúc,Vui lòng thêm lại hoặc sao chép');
             }
         }
         if ($data['num'] < $data['once_num']) {
-            return app('json')->fail('限制单次购买数量不能大于总购买数量');
+            return app('json')->fail('Giới hạn số lượng mua một lần không thể lớn hơn tổng số lượng mua');
         }
         if ($data['copy'] == 1) {
             $id = 0;
             unset($data['copy']);
         }
         $this->services->saveData($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 删除拼团
+     * Xóa chuyến tham quan theo nhóm
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
         $this->services->update($id, ['is_del' => 1]);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param $id
      * @param $status
      * @return mixed
@@ -165,15 +165,15 @@ class StoreCombination extends AuthController
         if ($status == 1) {
             $info = $this->services->get($id);
             if ($info['stop_time'] < time()) {
-                return app('json')->fail('活动已结束，无法继续上架');
+                return app('json')->fail('Sự kiện đã kết thúc và không thể thêm vào kệ');
             }
         }
         $this->services->update($id, ['is_show' => $status]);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 拼团列表
+     * Danh sách nhóm nhóm
      * @return mixed
      */
     public function combine_list()
@@ -189,7 +189,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 拼团人列表
+     * Danh sách những người tham gia nhóm
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -205,7 +205,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 拼团统计
+     * Thống kê nhóm nhóm
      * @param $id
      * @return mixed
      */
@@ -216,7 +216,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 活动参与人
+     * Người tham gia sự kiện
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -237,7 +237,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 拼团订单
+     * Thứ tự nhóm
      * @param $id
      * @return mixed
      */
@@ -251,7 +251,7 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * 立即成团
+     * Lập nhóm ngay
      * @param $id
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -266,6 +266,6 @@ class StoreCombination extends AuthController
         /** @var StorePinkServices $storePinkServices */
         $storePinkServices = app()->make(StorePinkServices::class);
         $storePinkServices->virtualCombination($id, 'admin');
-        return app('json')->success('成团成功');
+        return app('json')->success('Thành lập nhóm thành công');
     }
 }

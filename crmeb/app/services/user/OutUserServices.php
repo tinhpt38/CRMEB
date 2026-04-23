@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -38,7 +38,7 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * 用户列表
+     * Danh sách người dùng
      * @param array $where
      * @return array
      */
@@ -57,20 +57,20 @@ class OutUserServices extends BaseServices
             $spreadNames = $this->dao->getColumn([['uid', 'in', array_unique(array_column($list, 'spread_uid'))]], 'nickname', 'uid');
             foreach ($list as &$item) {
                 $item['spread_uid_nickname'] = $item['spread_uid'] ? ($spreadNames[$item['spread_uid']] ?? '') . '/' . $item['spread_uid'] : '';
-                //用户类型
+                //Loại người dùng
                 if ($item['user_type'] == 'routine') {
-                    $item['user_type'] = '小程序';
+                    $item['user_type'] = 'Chương trình nhỏ';
                 } else if ($item['user_type'] == 'wechat') {
-                    $item['user_type'] = '公众号';
+                    $item['user_type'] = 'Tài khoản chính thức';
                 } else if ($item['user_type'] == 'h5') {
                     $item['user_type'] = 'H5';
                 } else if ($item['user_type'] == 'pc') {
                     $item['user_type'] = 'PC';
                 } else if ($item['user_type'] == 'app' || $item['user_type'] == 'apple') {
                     $item['user_type'] = 'APP';
-                } else $item['user_type'] = '其他';
+                } else $item['user_type'] = 'khác';
 
-                //用户等级
+                //Cấp độ người dùng
                 $item['level_name'] = "";
                 $levelInfo = $userLevel[$item['uid']] ?? null;
                 if ($levelInfo) {
@@ -84,32 +84,32 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * 获取用户详情
+     * Nhận thông tin chi tiết người dùng
      * @param $uid
      * @return mixed
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/20
      */
     public function userInfo($uid)
     {
-        $userType = ['h5' => 'H5', 'wechat' => '公众号', 'routine' => '小程序', 'app' => 'APP', 'pc' => 'PC'];
+        $userType = ['h5' => 'H5', 'wechat' => 'Tài khoản chính thức', 'routine' => 'Chương trình nhỏ', 'app' => 'APP', 'pc' => 'PC'];
         $fields = ['uid', 'real_name', 'mark', 'nickname', 'avatar', 'phone', 'now_money', 'brokerage_price', 'integral', 'exp', 'sign_num', 'user_type', 'status', 'level',
             'agent_level', 'spread_open', 'spread_uid', 'spread_time', 'user_type', 'is_promoter', 'pay_count', 'is_ever_level', 'is_money_level', 'overdue_time', 'add_time'];
         $data = app()->make(UserServices::class)->get($uid, $fields);
         $data['user_type'] = $userType[$data['user_type']];
-        $data['status'] = $data['status'] ? '正常' : '禁用';
-        $data['level'] = app()->make(SystemUserLevelServices::class)->value($data['level'], 'name') ?? '无';
-        $data['agent_level'] = app()->make(AgentLevelServices::class)->value($data['agent_level'], 'name') ?? '无';
-        $data['spread_open'] = $data['spread_open'] ? '分销开启' : '分销关闭';
-        $data['spread_name'] = app()->make(UserServices::class)->value($data['spread_uid'], 'nickname') ?? '无';
+        $data['status'] = $data['status'] ? 'Bình thường' : 'Vô hiệu hóa';
+        $data['level'] = app()->make(SystemUserLevelServices::class)->value($data['level'], 'name') ?? 'không có';
+        $data['agent_level'] = app()->make(AgentLevelServices::class)->value($data['agent_level'], 'name') ?? 'không có';
+        $data['spread_open'] = $data['spread_open'] ? 'Bắt đầu phân phối' : 'Đã đóng cửa phân phối';
+        $data['spread_name'] = app()->make(UserServices::class)->value($data['spread_uid'], 'nickname') ?? 'không có';
         $data['spread_time'] = date('Y-m-d H:i:s', $data['spread_time']);
         $data['add_time'] = date('Y-m-d H:i:s', $data['add_time']);
         return $data;
     }
 
     /**
-     * 添加/修改用户
+     * Thêm/sửa đổi người dùng
      * @param int $uid
      * @param array $data
      * @return int
@@ -120,17 +120,17 @@ class OutUserServices extends BaseServices
     public function saveUser(int $uid, array $data): int
     {
         if (empty($data['real_name'])) {
-            throw new ApiException('请输入真实姓名');
+            throw new ApiException('Vui lòng nhập tên thật của bạn');
         }
         if (empty($data['phone'])) {
-            throw new ApiException('请填写手机号');
+            throw new ApiException('Vui lòng điền số điện thoại di động của bạn');
         }
 
         if (!check_phone($data['phone'])) {
-            throw new ApiException('手机号格式错误');
+            throw new ApiException('Lỗi định dạng số điện thoại di động');
         }
         if ($uid < 1 && $this->count(['phone' => $data['phone'], 'is_del' => 0])) {
-            throw new ApiException('手机号已经存在');
+            throw new ApiException('Số điện thoại di động đã tồn tại');
         }
 
         if ($data['pwd']) {
@@ -159,7 +159,7 @@ class OutUserServices extends BaseServices
                 $uid = (int)$userInfo->uid;
             }
             if (!$userInfo) {
-                throw new ApiException('保存失败');
+                throw new ApiException('Lưu không thành công');
             }
 
             /** @var UserServices $userServices */
@@ -168,7 +168,7 @@ class OutUserServices extends BaseServices
             $level = (int)$data['level'];
             if ($level) {
                 if (!$userServices->saveGiveLevel($uid, (int)$data['level'])) {
-                    throw new ApiException('赠送失败');
+                    throw new ApiException('Quà tặng không thành công');
                 }
             }
             return $uid;
@@ -176,7 +176,7 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * 赠送(积分/余额/付费会员)
+     * cho đi(Điểm/Số dư/Thành viên trả phí)
      * @param int $id
      * @param array $data
      * @return bool
@@ -203,7 +203,7 @@ class OutUserServices extends BaseServices
                 $issueService = app()->make(StoreCouponIssueServices::class);
                 $coupon = $issueService->get($data['id']);
                 if (!$coupon) {
-                    throw new ApiException('数据不存在');
+                    throw new ApiException('Dữ liệu không tồn tại');
                 } else {
                     $coupon = $coupon->toArray();
                 }
@@ -219,7 +219,7 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * 修改用户数据
+     * Sửa đổi dữ liệu người dùng
      * @param $uid
      * @param $value
      * @param $type
@@ -233,7 +233,7 @@ class OutUserServices extends BaseServices
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $res = $userServices->update($uid, [$type => $value]);
-        if ($res) throw new ApiException('修改失败');
+        if ($res) throw new ApiException('Sửa đổi không thành công');
         return true;
     }
 }

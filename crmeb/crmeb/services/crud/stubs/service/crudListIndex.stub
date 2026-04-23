@@ -1,5 +1,5 @@
     /**
-     * 主页数据接口
+     * Giao diện dữ liệu trang chủ
      * @param array $where
      * @return array
      * @date {%DATE%}

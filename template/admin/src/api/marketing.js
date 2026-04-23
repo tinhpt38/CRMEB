@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 import request from '@/libs/request';
 
 /**
- * @description 优惠券制作--列表
- * @param {Object} param params {Object} 传值参数
+ * @description Tạo phiếu giảm giá--danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function couponListApi(params) {
   return request({
@@ -23,8 +23,8 @@ export function couponListApi(params) {
 }
 
 /**
- * @description 优惠券制作--新增表单
- * type:添加优惠券类型0：通用，1：品类，2：商品
+ * @description Tạo phiếu giảm giá--thêm biểu mẫu
+ * type:Thêm phiếu giảm giá loại 0: chung, 1: danh mục, 2: hàng hóa
  */
 export function couponCreateApi(type) {
   return request({
@@ -34,7 +34,7 @@ export function couponCreateApi(type) {
 }
 
 /**
- * @description 优惠券制作--编辑表单
+ * @description Tạo phiếu giảm giá--chỉnh sửa biểu mẫu
  */
 export function couponEditeApi(id) {
   return request({
@@ -44,8 +44,8 @@ export function couponEditeApi(id) {
 }
 
 /**
- * @description 优惠券制作--发布优惠券表单
- * @param {Number} param id {Number} 优惠券id
+ * @description Sản xuất phiếu giảm giá - xuất bản mẫu phiếu giảm giá
+ * @param {Number} param id {Number} Phiếu giảm giáid
  */
 export function couponSendApi(id) {
   return request({
@@ -55,8 +55,8 @@ export function couponSendApi(id) {
 }
 
 /**
- * @description 已发布管理--列表
- * @param {Object} param params {Object} 传值参数
+ * @description Quản lý đã xuất bản--danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function releasedListApi(params) {
   return request({
@@ -67,8 +67,8 @@ export function releasedListApi(params) {
 }
 
 /**
- * @description 已发布管理--领取记录
- * @param {Number} param id {Number} 已发布优惠券id
+ * @description Quản lý công bố--Hồ sơ tiếp nhận
+ * @param {Number} param id {Number} Phiếu giảm giá đã đăngid
  */
 export function releasedissueLogApi(id, params) {
   return request({
@@ -79,8 +79,8 @@ export function releasedissueLogApi(id, params) {
 }
 
 /**
- * @description 已发布管理--修改状态表单
- * @param {Number} param id {Number} 已发布优惠券id
+ * @description Quản lý đã xuất bản--Sửa đổi biểu mẫu trạng thái
+ * @param {Number} param id {Number} Phiếu giảm giá đã đăngid
  */
 export function releaseStatusApi(id) {
   return request({
@@ -90,7 +90,7 @@ export function releaseStatusApi(id) {
 }
 
 /**
- * @description 优惠券列表--是否开启
+ * @description Danh sách phiếu giảm giá--có bật nó không
  * @param {*} data
  */
 export function couponStatusApi(data) {
@@ -101,7 +101,7 @@ export function couponStatusApi(data) {
 }
 
 /**
- * @description 优惠券制作--保存
+ * @description Tạo phiếu giảm giá--lưu
  */
 export function couponSaveApi(data) {
   return request({
@@ -112,7 +112,7 @@ export function couponSaveApi(data) {
 }
 
 /**
- * @description 优惠券
+ * @description Phiếu giảm giá
  * @param {*} id
  */
 export function couponDetailApi(id) {
@@ -123,8 +123,8 @@ export function couponDetailApi(id) {
 }
 
 /**
- * @description 会员领取记录 -- 列表
- * @param {Object} param params {Object} 传值参数
+ * @description Hồ sơ thu thập thành viên - danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function userListApi(params) {
   return request({
@@ -135,8 +135,8 @@ export function userListApi(params) {
 }
 
 /**
- * @description 砍价商品 -- 列表
- * @param {Object} param params {Object} 传值参数
+ * @description Mặt hàng giảm giá - danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function bargainListApi(params) {
   return request({
@@ -147,8 +147,8 @@ export function bargainListApi(params) {
 }
 
 /**
- * @description 砍价商品 -- 详情
- * @param {Number} param id {Number} 砍价商品id
+ * @description Hàng khuyến mại -- chi tiết
+ * @param {Number} param id {Number} mặt hàng giá hờiid
  */
 export function bargainInfoApi(id) {
   return request({
@@ -158,8 +158,8 @@ export function bargainInfoApi(id) {
 }
 
 /**
- * @description 砍价商品 -- 保存编辑
- * @param {Object} param data {Object} 传值参数
+ * @description Vật phẩm được mặc cả -- Lưu Chỉnh sửa
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function bargainCreatApi(data) {
   return request({
@@ -170,8 +170,8 @@ export function bargainCreatApi(data) {
 }
 
 /**
- * @description 砍价商品 -- 修改状态
- * @param {Object} param data {Object} 传值参数
+ * @description Mặt hàng được mặc cả - sửa đổi trạng thái
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function bargainSetStatusApi(data) {
   return request({
@@ -180,8 +180,8 @@ export function bargainSetStatusApi(data) {
   });
 }
 /**
- * @description 预售商品 -- 修改状态
- * @param {Object} param data {Object} 传值参数
+ * @description Các mặt hàng bán trước - sửa đổi trạng thái
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function advanceSetStatusApi(data) {
   return request({
@@ -191,8 +191,8 @@ export function advanceSetStatusApi(data) {
 }
 
 /**
- * @description 预售商品 -- 列表
- * @param {Object} param params {Object} 传值参数
+ * @description Các mặt hàng bán trước -- danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function presellListApi(params) {
   return request({
@@ -203,8 +203,8 @@ export function presellListApi(params) {
 }
 
 /**
- * @description 预售商品 -- 保存编辑
- * @param {Object} param data {Object} 传值参数
+ * @description Các mặt hàng bán trước -- lưu chỉnh sửa
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function presellCreatApi(data) {
   return request({
@@ -215,8 +215,8 @@ export function presellCreatApi(data) {
 }
 
 /**
- * @description 预售商品 -- 详情
- * @param {Number} param id {Number} 拼团商品id
+ * @description Các mặt hàng bán trước -- chi tiết
+ * @param {Number} param id {Number} Nhóm sản phẩmid
  */
 export function presellInfoApi(id) {
   return request({
@@ -226,8 +226,8 @@ export function presellInfoApi(id) {
 }
 
 /**
- * @description 拼团商品 -- 列表
- * @param {Object} param data {Object} 传值参数
+ * @description Nhóm sản phẩm - danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function combinationListApi(params) {
   return request({
@@ -238,8 +238,8 @@ export function combinationListApi(params) {
 }
 
 /**
- * @description 拼团商品 -- 修改状态
- * @param {Object} param data {Object} 传值参数
+ * @description Nhóm sản phẩm -- sửa đổi trạng thái
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function combinationSetStatusApi(data) {
   return request({
@@ -249,8 +249,8 @@ export function combinationSetStatusApi(data) {
 }
 
 /**
- * @description 拼团商品 -- 拼团统计
- * @param {Object} param data {Object} 传值参数
+ * @description Sản phẩm mua theo nhóm -- Thống kê mua theo nhóm
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function statisticsApi() {
   return request({
@@ -260,8 +260,8 @@ export function statisticsApi() {
 }
 
 /**
- * @description 拼团商品 -- 详情
- * @param {Number} param id {Number} 拼团商品id
+ * @description Nhóm sản phẩm -- chi tiết
+ * @param {Number} param id {Number} Nhóm sản phẩmid
  */
 export function combinationInfoApi(id) {
   return request({
@@ -271,8 +271,8 @@ export function combinationInfoApi(id) {
 }
 
 /**
- * @description 拼团商品 -- 保存编辑
- * @param {Object} param data {Object} 传值参数
+ * @description Nhóm sản phẩm -- lưu và chỉnh sửa
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function combinationCreatApi(data) {
   return request({
@@ -283,7 +283,7 @@ export function combinationCreatApi(data) {
 }
 
 /**
- * @description 拼团商品 -- 拼团列表
+ * @description Sản phẩm mua theo nhóm -- Danh sách mua theo nhóm
  */
 export function combineListApi(params) {
   return request({
@@ -294,8 +294,8 @@ export function combineListApi(params) {
 }
 
 /**
- * @description 拼团商品 -- 拼团人列表
- * @param {Number} param id {Number} 拼团商品id
+ * @description Sản phẩm mua theo nhóm -- danh sách người mua theo nhóm
+ * @param {Number} param id {Number} Nhóm sản phẩmid
  */
 export function orderPinkListApi(id) {
   return request({
@@ -305,7 +305,7 @@ export function orderPinkListApi(id) {
 }
 
 /**
- * @description 秒杀商品 -- 列表
+ * @description Sản phẩm Flash Sale -- Danh sách
  */
 export function seckillListApi(params) {
   return request({
@@ -316,7 +316,7 @@ export function seckillListApi(params) {
 }
 
 /**
- * @description 秒杀商品 -- 详情
+ * @description Sản phẩm Flash Sale -- Chi tiết
  */
 export function seckillInfoApi(id) {
   return request({
@@ -326,7 +326,7 @@ export function seckillInfoApi(id) {
 }
 
 /**
- * @description 秒杀商品 -- 保存编辑
+ * @description Sản phẩm Flash Sale -- Lưu Chỉnh sửa
  */
 export function seckillAddApi(data) {
   return request({
@@ -337,7 +337,7 @@ export function seckillAddApi(data) {
 }
 
 /**
- * @description 秒杀商品 -- 修改状态
+ * @description Sản phẩm Flash Sale -- Sửa đổi trạng thái
  */
 export function seckillStatusApi(data) {
   return request({
@@ -347,7 +347,7 @@ export function seckillStatusApi(data) {
 }
 
 /**
- * @description 秒杀活动 -- 列表
+ * @description Hoạt động Flash Sale -- Danh sách
  */
 export function seckillActivityListApi(params) {
   return request({
@@ -358,7 +358,7 @@ export function seckillActivityListApi(params) {
 }
 
 /**
- * @description 秒杀商品 -- 批量保存编辑
+ * @description Sản phẩm Flash Sale -- Lưu và chỉnh sửa hàng loạt
  */
 export function seckillActivityAddApi(data) {
   return request({
@@ -368,7 +368,7 @@ export function seckillActivityAddApi(data) {
   });
 }
 /**
- * @description 批量秒杀活动 -- 详情
+ * @description Sự kiện flash sale hàng loạt -- chi tiết
  */
 export function seckillActivityInfoApi(id) {
   return request({
@@ -378,7 +378,7 @@ export function seckillActivityInfoApi(id) {
 }
 
 /**
- * @description 秒杀活动 -- 修改状态
+ * @description Hoạt động flash sale -- sửa đổi trạng thái
  */
 export function seckillActivityStatusApi(data) {
   return request({
@@ -388,7 +388,7 @@ export function seckillActivityStatusApi(data) {
 }
 
 /**
- * @description 积分日志 -- 列表
+ * @description Nhật ký điểm -- Danh sách
  */
 export function integralListApi(params) {
   return request({
@@ -399,7 +399,7 @@ export function integralListApi(params) {
 }
 
 /**
- * @description 积分日志 -- 头部
+ * @description Nhật ký điểm -- Đầu
  */
 export function integralStatisticsApi(params) {
   return request({
@@ -410,7 +410,7 @@ export function integralStatisticsApi(params) {
 }
 
 /**
- * @description 积分日志 -- 头部
+ * @description Nhật ký điểm -- Đầu
  */
 export function seckillTimeListApi() {
   return request({
@@ -420,7 +420,7 @@ export function seckillTimeListApi() {
 }
 
 /**
- * @description 商品列表 -- 头部
+ * @description Danh sách sản phẩm -- Tiêu đề
  */
 export function productAttrsApi(id, type) {
   return request({
@@ -430,8 +430,8 @@ export function productAttrsApi(id, type) {
 }
 
 /**
- * @description 砍价商品 -- 列表
- * @param {Object} param params {Object} 传值参数
+ * @description Mặt hàng giảm giá - danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function bargainUserListApi(params) {
   return request({
@@ -442,8 +442,8 @@ export function bargainUserListApi(params) {
 }
 
 /**
- * @description 砍价商品 -- 列表
- * @param {Object} param params {Object} 传值参数
+ * @description Mặt hàng giảm giá - danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function bargainUserInfoApi(id) {
   return request({
@@ -453,7 +453,7 @@ export function bargainUserInfoApi(id) {
 }
 
 /**
- * @description 已发布管理 -- 删除
+ * @description Quản lý đã xuất bản -- Xóa
  */
 export function delCouponReleased(id) {
   return request({
@@ -463,7 +463,7 @@ export function delCouponReleased(id) {
 }
 
 /**
- * @description 积分日志 -- 导出
+ * @description Nhật ký điểm -- Xuất
  */
 export function userPointApi(data) {
   return request({
@@ -474,7 +474,7 @@ export function userPointApi(data) {
 }
 
 /**
- * @description 商铺砍价活动 -- 导出
+ * @description Hoạt động thương lượng tại cửa hàng -- Xuất khẩu
  */
 export function stroeBargainApi(data) {
   return request({
@@ -485,7 +485,7 @@ export function stroeBargainApi(data) {
 }
 
 /**
- * @description 商铺拼团 -- 导出
+ * @description Nhóm cửa hàng -- Xuất khẩu
  */
 export function storeCombinationApi(data) {
   return request({
@@ -496,7 +496,7 @@ export function storeCombinationApi(data) {
 }
 
 /**
- * @description 商铺秒杀 -- 导出
+ * @description Khuyến mãi chớp nhoáng tại cửa hàng -- Xuất khẩu
  */
 export function storeSeckillApi(data) {
   return request({
@@ -507,7 +507,7 @@ export function storeSeckillApi(data) {
 }
 
 /**
- * @description 积分商品 -- 列表
+ * @description Sản phẩm tích điểm -- Danh sách
  */
 export function integralProductListApi(params) {
   return request({
@@ -518,7 +518,7 @@ export function integralProductListApi(params) {
 }
 
 /**
- * @description 积分商品 -- 保存编辑
+ * @description Sản phẩm tích điểm -- Lưu Chỉnh sửa
  */
 export function integralAddApi(data) {
   return request({
@@ -529,7 +529,7 @@ export function integralAddApi(data) {
 }
 
 /**
- * @description 积分商品 -- (多个) 保存
+ * @description Sản phẩm tích điểm -- (Nhiều) cứu
  */
 export function integralAddBatch(data) {
   return request({
@@ -540,7 +540,7 @@ export function integralAddBatch(data) {
 }
 
 /**
- * @description 积分商品 -- 详情
+ * @description Sản phẩm tích điểm -- Chi tiết
  */
 export function integralInfoApi(id) {
   return request({
@@ -549,7 +549,7 @@ export function integralInfoApi(id) {
   });
 }
 /**
- * @description 积分商品 -- 修改状态
+ * @description Sản phẩm điểm -- Sửa đổi trạng thái
  */
 export function integralIsShowApi(data) {
   return request({
@@ -558,8 +558,8 @@ export function integralIsShowApi(data) {
   });
 }
 /**
- * @description 积分订单管理--列表
- * @param {Object} param data {Object} 传值参数
+ * @description Quản lý đơn hàng điểm--danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function integralOrderList(data) {
   return request({
@@ -570,8 +570,8 @@ export function integralOrderList(data) {
 }
 
 /**
- * @description 积分订单数据--列表
- * @param {Object} param data {Object} 传值参数
+ * @description Dữ liệu thứ tự điểm--danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function integralGetOrdes(data) {
   return request({
@@ -581,8 +581,8 @@ export function integralGetOrdes(data) {
   });
 }
 /**
- * @description 订单物流信息
- * @param {Number} param id {Number} 订单id
+ * @description Thông tin hậu cần đặt hàng
+ * @param {Number} param id {Number} Đặt hàngid
  */
 export function getExpress(id) {
   return request({
@@ -591,7 +591,7 @@ export function getExpress(id) {
   });
 }
 /**
- * @description 获取快递公司
+ * @description Nhận công ty chuyển phát nhanh
  */
 export function getExpressData(status) {
   return request({
@@ -601,8 +601,8 @@ export function getExpressData(status) {
 }
 
 /**
- * @description 订单表单详情数据
- * @param {Number} param id {Number} 订单id
+ * @description Dữ liệu chi tiết mẫu đơn đặt hàng
+ * @param {Number} param id {Number} Đặt hàngid
  */
 export function getIntegralOrderDataInfo(id) {
   return request({
@@ -612,8 +612,8 @@ export function getIntegralOrderDataInfo(id) {
 }
 
 /**
- * @description 配送信息表单
- * @param {Number} param id {Number} 订单id
+ * @description Mẫu thông tin vận chuyển
+ * @param {Number} param id {Number} Đặt hàngid
  */
 export function getIntegralOrderDistribution(id) {
   return request({
@@ -623,9 +623,9 @@ export function getIntegralOrderDistribution(id) {
 }
 
 /**
- * @description 获取订单记录
- * @param {Number} param data.id {Number} 订单id
- * @param {String} param data.datas {String} 分页参数
+ * @description Nhận hồ sơ đặt hàng
+ * @param {Number} param data.id {Number} Đặt hàngid
+ * @param {String} param data.datas {String} Thông số phân trang
  */
 export function getIntegralOrderRecord(data) {
   return request({
@@ -636,9 +636,9 @@ export function getIntegralOrderRecord(data) {
 }
 
 /**
- * @description 发送货提交表单
- * @param {Number} param data.id {Number} 订单id
- * @param {Object} param data.datas {Object} 表单信息
+ * @description Gửi mẫu đơn gửi vận chuyển
+ * @param {Number} param data.id {Number} Đặt hàngid
+ * @param {Object} param data.datas {Object} thông tin biểu mẫu
  */
 export function integralOrderPutDelivery(data) {
   return request({
@@ -649,9 +649,9 @@ export function integralOrderPutDelivery(data) {
 }
 
 /**
- * @description 修改备注信息
- * @param {Number} param data.id {Number} 订单id
- * @param {String} param data.remark {String} 备注信息
+ * @description Sửa đổi thông tin nhận xét
+ * @param {Number} param data.id {Number} Đặt hàngid
+ * @param {String} param data.remark {String} Bình luận
  */
 export function integralOrderPutRemarkData(data) {
   return request({
@@ -661,9 +661,9 @@ export function integralOrderPutRemarkData(data) {
   });
 }
 /**
- * @description 积分备注
- * @param {Number} param data.id {Number} 订单id
- * @param {String} param data.remark {String} 备注信息
+ * @description Điểm nhận xét
+ * @param {Number} param data.id {Number} Đặt hàngid
+ * @param {String} param data.remark {String} Bình luận
  */
 export function setPointRecordMark(id, data) {
   return request({
@@ -674,7 +674,7 @@ export function setPointRecordMark(id, data) {
 }
 
 /**
- * 订单时获取所有配送员列表
+ * Lấy danh sách tất cả người giao hàng khi đặt hàng
  */
 export function orderDeliveryList() {
   return request({
@@ -684,8 +684,8 @@ export function orderDeliveryList() {
 }
 
 /**
- * 电子面单模板
- * @param {com} data 快递公司编号
+ * Mẫu biểu mẫu điện tử
+ * @param {com} data Số công ty chuyển phát nhanh
  */
 export function orderExpressTemp(data) {
   return request({
@@ -695,7 +695,7 @@ export function orderExpressTemp(data) {
   });
 }
 /**
- * 积分统计列表
+ * Danh sách thống kê điểm
  * @param {com} data
  */
 export function pointRecordList(data) {
@@ -706,7 +706,7 @@ export function pointRecordList(data) {
   });
 }
 /**
- * 积分统计列表 备注
+ * Danh sách thống kê điểm
  * @param {com} data
  */
 export function pointRecordRemark(id, data) {
@@ -724,7 +724,7 @@ export function orderSheetInfo() {
   });
 }
 /**
- * 积分统计顶部
+ * Thống kê điểm hàng đầu
  * @param {com} data
  */
 export function getPointBasic(data) {
@@ -736,7 +736,7 @@ export function getPointBasic(data) {
 }
 
 /**
- * 积分统计 折线图
+ * Biểu đồ đường thống kê điểm
  * @param {com} data
  */
 export function getPointTrend(data) {
@@ -748,8 +748,8 @@ export function getPointTrend(data) {
 }
 
 /**
- * @description 积分来源分析
- * @param {Object} param data {Object} 传值参数
+ * @description Phân tích nguồn điểm
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function getChannel(params) {
   return request({
@@ -759,8 +759,8 @@ export function getChannel(params) {
   });
 }
 /**
- * @description 积分消耗分析
- * @param {Object} param data {Object} 传值参数
+ * @description Phân tích mức tiêu thụ điểm
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function getType(params) {
   return request({
@@ -771,7 +771,7 @@ export function getType(params) {
 }
 
 /**
- * 秒杀统计
+ * Thống kê tiêu diệt chớp nhoáng
  * @param {*} id
  * @param {*} params
  * @returns
@@ -785,7 +785,7 @@ export function getseckillStatistics(id, params) {
 }
 
 /**
- * 秒杀参与人
+ * Flash kill người tham gia
  * @param {*} id
  * @param {*} params
  * @returns
@@ -799,7 +799,7 @@ export function getseckillStatisticsPeople(id, params) {
 }
 
 /**
- * 秒杀订单
+ * Đơn hàng flash sale
  * @param {*} id
  * @param {*} params
  * @returns
@@ -813,7 +813,7 @@ export function getseckillStatisticsOrder(id, params) {
 }
 
 /**
- * 拼团统计
+ * Thống kê nhóm nhóm
  * @param {*} id
  * @param {*} params
  * @returns
@@ -827,7 +827,7 @@ export function getcombinationStatistics(id, params) {
 }
 
 /**
- * 拼团列表
+ * Danh sách nhóm nhóm
  * @param {*} id
  * @param {*} params
  * @returns
@@ -841,7 +841,7 @@ export function getcombinationStatisticsPeople(id, params) {
 }
 
 /**
- * 拼团订单
+ * Thứ tự nhóm
  * @param {*} id
  * @param {*} params
  * @returns
@@ -855,7 +855,7 @@ export function getcombinationStatisticsOrder(id, params) {
 }
 
 /**
- * 砍价统计
+ * Thống kê mặc cả
  * @param {*} id
  * @param {*} params
  * @returns
@@ -869,7 +869,7 @@ export function getbargainStatistics(id, params) {
 }
 
 /**
- * 砍价列表
+ * Danh sách mặc cả
  * @param {*} id
  * @param {*} params
  * @returns
@@ -883,7 +883,7 @@ export function getbargainStatisticsPeople(id, params) {
 }
 
 /**
- * 砍价订单
+ * lệnh mặc cả
  * @param {*} id
  * @param {*} params
  * @returns
@@ -896,7 +896,7 @@ export function getbargainStatisticsOrder(id, params) {
   });
 }
 /**
- * 签到奖励列表
+ * Danh sách phần thưởng đăng nhập
  * @param {com} data
  */
 export function signRewards(data) {
@@ -907,7 +907,7 @@ export function signRewards(data) {
   });
 }
 /**
- * 新增签到奖励
+ * Đã thêm phần thưởng đăng nhập
  * @param {com} data
  */
 export function addSignRewards(data) {
@@ -918,7 +918,7 @@ export function addSignRewards(data) {
   });
 }
 /**
- * 编辑签到奖励
+ * Phần thưởng đăng nhập của biên tập viên
  */
 export function editSignRewards(id) {
   return request({
@@ -928,7 +928,7 @@ export function editSignRewards(id) {
 }
 
 /**
- * 编辑新人礼
+ * Chỉnh sửa lễ cưới
  */
 export function editNewbie(data) {
   return request({
@@ -938,7 +938,7 @@ export function editNewbie(data) {
   });
 }
 /**
- * 编辑新人礼
+ * Chỉnh sửa lễ cưới
  */
 export function getNewbie(data) {
   return request({
@@ -948,7 +948,7 @@ export function getNewbie(data) {
 }
 
 /**
- * 拼团立即成团
+ * Tham gia nhóm và thành lập nhóm ngay lập tức
  */
 export function combineJoinApi(id) {
   return request({

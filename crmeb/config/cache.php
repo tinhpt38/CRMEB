@@ -11,51 +11,51 @@
 use think\facade\Env;
 
 // +----------------------------------------------------------------------
-// | 缓存设置
+// | Cài đặt bộ đệm
 // +----------------------------------------------------------------------
 
 return [
-    // 默认缓存驱动
+    // Trình điều khiển bộ đệm mặc định
     'default' => Env::get('cache.driver', 'file'),
 
-    // 缓存连接方式配置
+    // Cấu hình chế độ kết nối bộ đệm
     'stores'  => [
         'file' => [
-            // 驱动方式
+            // Chế độ lái xe
             'type'       => 'File',
-            // 缓存保存目录
+            // Thư mục lưu bộ đệm
             'path'       => app()->getRuntimePath() . 'cache' . DIRECTORY_SEPARATOR,
-            // 缓存前缀
+            // tiền tố bộ đệm
             'prefix'     => '',
-            // 缓存有效期 0表示永久缓存
+            // Thời hạn hiệu lực của bộ đệm 0 có nghĩa là bộ đệm vĩnh viễn
             'expire'     => 0,
-            // 缓存标签前缀
+            // tiền tố thẻ bộ nhớ cache
             'tag_prefix' => 'tag:',
-            // 序列化机制 例如 ['serialize', 'unserialize']
+            // Cơ chế tuần tự hóa, ví dụ: ['serialize', 'unserialize']
             'serialize'  => [],
         ],
-        // 更多的缓存连接
-        // redis缓存
+        // Nhiều kết nối được lưu trong bộ nhớ đệm hơn
+        // làm lại bộ đệm
         'redis'   =>  [
-            // 驱动方式
+            // Chế độ lái xe
             'type'          => 'redis',
-            // 服务器地址
+            // Địa chỉ máy chủ
             'host'          => Env::get('redis.redis_hostname', '127.0.0.1'),
-            // 端口
+            // hải cảng
             'port'          => Env::get('redis.port', '6379'),
-            // 密码
+            // mật khẩu
             'password'      => Env::get('redis.redis_password', ''),
-            // 缓存有效期 0表示永久缓存
+            // Thời hạn hiệu lực của bộ đệm 0 có nghĩa là bộ đệm vĩnh viễn
             'expire'        => 0 ,
-            // 缓存前缀
+            // tiền tố bộ đệm
             'prefix'     => Env::get('cache.cache_prefix', 'c:'),
-            // 缓存标签前缀
+            // tiền tố thẻ bộ nhớ cache
             'tag_prefix'    => Env::get('cache.cache_tag_prefix', 'CRMEB:'),
-            // 数据库 0号数据库
+            // Cơ sở dữ liệu số 0 Cơ sở dữ liệu
             'select'        => intval(Env::get('redis.select', 0)),
-            // 序列化机制 例如 ['serialize', 'unserialize']
+            // Cơ chế tuần tự hóa, ví dụ: ['serialize', 'unserialize']
             'serialize'     => [],
-            // 服务端主动关闭
+            // Máy chủ chủ động tắt
             'timeout'       => 0
         ],
     ],

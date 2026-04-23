@@ -10,31 +10,31 @@
       <div class="signInBg acea-row row-middle row-around" v-if="styleConfig == 0">
         <div class="item">
           <img src="../../assets/images/gift4.png" />
-          <div>今天</div>
+          <div>Hôm nay</div>
         </div>
         <div class="item">
           <img src="../../assets/images/points.png" />
-          <div>周二</div>
+          <div>Thứ ba</div>
         </div>
         <div class="item">
           <img src="../../assets/images/points.png" />
-          <div>周三</div>
+          <div>Thứ Tư</div>
         </div>
         <div class="item">
           <img src="../../assets/images/gift3.png" />
-          <div>周四</div>
+          <div>Thứ năm</div>
         </div>
         <div class="item">
           <img src="../../assets/images/gift2.png" />
-          <div>周五</div>
+          <div>Thứ sáu</div>
         </div>
         <div class="item">
           <img src="../../assets/images/points.png" />
-          <div>周六</div>
+          <div>Thứ bảy</div>
         </div>
         <div class="item gift">
           <img src="../../assets/images/gift.png" />
-          <div>周日</div>
+          <div>Chủ nhật</div>
         </div>
         <div
           class="bnt"
@@ -43,7 +43,7 @@
             background: toneConfig ? `linear-gradient(90deg,${bntBgColorRight} 0%,${bntBgColorLeft} 100%)` : themeColor,
           }"
         >
-          签到
+          Đăng nhập
         </div>
       </div>
       <div class="signInBg on acea-row row-between-wrapper" v-else>
@@ -53,7 +53,7 @@
           </div>
           <div>
             <div class="acea-row row-middle">
-              <span class="name">签到立即获取</span>
+              <span class="name">Đăng nhập và nhận ngay</span>
               <div
                 class="points acea-row row-center-wrapper"
                 :style="{
@@ -72,7 +72,7 @@
                 </div>
               </div>
             </div>
-            <div class="tips">连续签到3天，额外活动15积分</div>
+            <div class="tips">Đăng nhập 3 ngày liên tiếp và nhận 15 điểm cho các hoạt động bổ sung</div>
           </div>
         </div>
         <div
@@ -82,7 +82,7 @@
             background: toneConfig ? `linear-gradient(90deg,${bntBgColorRight} 0%,${bntBgColorLeft} 100%)` : themeColor,
           }"
         >
-          立即签到
+          Đăng nhập ngay bây giờ
         </div>
       </div>
     </div>
@@ -94,11 +94,11 @@ import { mapState, mapMutations } from 'vuex';
 // import theme from "@/mixins/theme";
 export default {
   name: 'sign_in',
-  cname: '签到',
+  cname: 'Đăng nhập',
   configName: 'c_sign_in',
   icon: '#iconzujian-qiandao',
-  type: 1, // 0 基础组件 1 营销组件 2工具组件
-  defaultName: 'signIn', // 外面匹配名称
+  type: 1, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
+  defaultName: 'signIn', // tên trận đấu bên ngoài
   props: {
     index: {
       type: null,
@@ -139,37 +139,37 @@ export default {
   // mixins: [theme],
   data() {
     return {
-      // 默认初始化数据禁止修改
+      // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: '签到',
+        cname: 'Đăng nhập',
         name: 'signIn',
         timestamp: this.num,
         isHide: false,
         setUp: {
           tabVal: 0,
         },
-        titleLeft: '展示设置',
-        titleRight: '签到样式',
-        titleCurrency: '通用样式',
+        titleLeft: 'Cài đặt hiển thị',
+        titleRight: 'Phong cách đăng nhập',
+        titleCurrency: 'Phong cách phổ quát',
         styleConfig: {
-          title: '选择风格',
+          title: 'Chọn phong cách',
           tabVal: 0,
           type: 'signIn',
         },
         toneConfig: {
-          title: '色调',
+          title: 'giai điệu',
           tabVal: 0,
           tabList: [
             {
-              name: '跟随主题风格',
+              name: 'Theo dõi chủ đề',
             },
             {
-              name: '自定义',
+              name: 'Tùy chỉnh',
             },
           ],
         },
         bntBgColor: {
-          title: '按钮背景',
+          title: 'nút nền',
           name: 'bntBgColor',
           default: [
             {
@@ -189,7 +189,7 @@ export default {
           ],
         },
         bntTxtColor: {
-          title: '按钮文字',
+          title: 'văn bản nút',
           name: 'bntTxtColor',
           default: [
             {
@@ -203,7 +203,7 @@ export default {
           ],
         },
         labelBgColor: {
-          title: '标签背景',
+          title: 'nền nhãn',
           name: 'labelBgColor',
           default: [
             {
@@ -217,7 +217,7 @@ export default {
           ],
         },
         labelTxtColor: {
-          title: '标签文字',
+          title: 'văn bản nhãn',
           name: 'labelBgColor',
           default: [
             {
@@ -231,7 +231,7 @@ export default {
           ],
         },
         bottomBgColor: {
-          title: '底部背景',
+          title: 'nền dưới cùng',
           name: 'bgColor',
           default: [
             {
@@ -245,7 +245,7 @@ export default {
           ],
         },
         paddingConfig: {
-          title: '内边距',
+          title: 'phần đệm',
           val: 12,
           min: 0,
           isAll: false,
@@ -253,7 +253,7 @@ export default {
           valList: [{ val: 12 }, { val: 12 }, { val: 12 }, { val: 12 }],
         },
         marginConfig: {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           isAll: false,
@@ -261,103 +261,103 @@ export default {
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         fillet: {
-          title: '背景圆角',
+          title: 'Nền bo tròn các góc',
           type: 0,
           list: [
             {
-              val: '全部',
+              val: 'tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
-              val: '单个',
+              val: 'đơn',
               icon: 'iconcaozuo-bianjiao',
             },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         zIndexConfig: {
-          title: '组件上浮',
+          title: 'Thành phần nổi',
           val: 0,
           min: 0,
         },
         componentBgConfig: {
-          title: '背景设置',
+          title: 'Cài đặt nền',
           tabVal: 0,
-          tabList: [{ name: '颜色' }, { name: '图片' }],
+          tabList: [{ name: 'màu sắc' }, { name: 'hình ảnh' }],
           colorConfig: {
-            title: '背景颜色',
+            title: 'màu nền',
             default: [{ item: '#fff' }, { item: '#fff' }],
             color: [{ item: '#fff' }, { item: '#fff' }],
           },
           colorDirection: {
-            title: '渐变方向',
+            title: 'Hướng dốc',
             tabVal: 0,
-            tabList: [{ name: '横向' }, { name: '纵向' }, { name: '左斜' }, { name: '右斜' }],
+            tabList: [{ name: 'Nằm ngang' }, { name: 'chân dung' }, { name: 'xiên trái' }, { name: 'Nghiêng phải' }],
           },
           imageConfig: {
-            header: '背景图片',
+            header: 'hình nền',
             title: '',
-            name: '上传图片',
+            name: 'Tải ảnh lên',
             type: 'code',
             url: '',
-            info: '建议尺寸：750px * 400px',
+            info: 'Kích thước đề xuất：750px * 400px',
           },
         },
         borderConfig: {
-          title: '边框设置',
+          title: 'Cài đặt đường viền',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Hide, 1: Show
           styleConfig: {
-            title: '边框样式',
+            title: 'phong cách biên giới',
             tabVal: 0,
             tabList: [
-              { name: '实线', style: 'solid' },
-              { name: '虚线', style: 'dashed' },
-              { name: '点状', style: 'dotted' },
+              { name: 'đường liền nét', style: 'solid' },
+              { name: 'đường chấm chấm', style: 'dashed' },
+              { name: 'Say mê', style: 'dotted' },
             ],
           },
           widthConfig: {
-            title: '边框粗细',
+            title: 'Độ dày viền',
             val: 1,
             min: 1,
           },
           colorConfig: {
-            title: '边框颜色',
+            title: 'màu viền',
             default: [{ item: '#e5e5e5' }],
             color: [{ item: '#e5e5e5' }],
           },
         },
         shadowConfig: {
-          title: '阴影设置',
+          title: 'Cài đặt bóng',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Off, 1: On
           colorConfig: {
-            title: '阴影颜色',
+            title: 'màu bóng',
             default: [{ item: 'rgba(0,0,0,0.1)' }],
             color: [{ item: 'rgba(0,0,0,0.1)' }],
           },
           xConfig: {
-            title: 'X轴偏移',
+            title: 'Xđộ lệch trục',
             val: 0,
             min: -50,
           },
           yConfig: {
-            title: 'Y轴偏移',
+            title: 'Yđộ lệch trục',
             val: 0,
             min: -50,
           },
           blurConfig: {
-            title: '模糊半径',
+            title: 'bán kính lờ mờ',
             val: 10,
             min: 0,
           },
           spreadConfig: {
-            title: '扩展半径',
+            title: 'Bán kính mở rộng',
             val: 0,
             min: -50,
           },
@@ -404,7 +404,7 @@ export default {
 
       if (!dataClone.paddingConfig) {
         dataClone.paddingConfig = {
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -421,7 +421,7 @@ export default {
 
       if (!dataClone.marginConfig) {
         dataClone.marginConfig = {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,

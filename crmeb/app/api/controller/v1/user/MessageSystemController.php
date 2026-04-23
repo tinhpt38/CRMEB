@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\message\MessageSystemServices;
 
 
 /**
- * 用户地址类
+ * Lớp địa chỉ người dùng
  * Class UserController
  * @package app\api\controller\store
  */
@@ -33,7 +33,7 @@ class MessageSystemController
     }
 
     /**
-     * 站内信消息列表
+     * Danh sách tin nhắn trang web
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -47,7 +47,7 @@ class MessageSystemController
     }
 
     /**
-     * 站内信消息详情
+     * Chi tiết tin nhắn trang web
      * @param Request $request
      * @param $id
      * @return mixed
@@ -58,7 +58,7 @@ class MessageSystemController
     public function detail(Request $request, $id)
     {
         if (!$id) {
-            app('json')->fail('参数错误');
+            app('json')->fail('Lỗi tham số');
         }
         $uid = (int)$request->uid();
         $where['uid'] = $uid;
@@ -67,7 +67,7 @@ class MessageSystemController
     }
 
     /**
-     * 消息列表字段编辑/修改
+     * Chỉnh sửa/sửa đổi trường danh sách tin nhắn
      * @param Request $request
      * @return mixed
      */
@@ -85,6 +85,6 @@ class MessageSystemController
         } else {
             $this->services->update($data['id'], [$data['key'] => $data['value']]);
         }
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 }

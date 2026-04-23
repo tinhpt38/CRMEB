@@ -1,24 +1,24 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 declare(strict_types=1);
 
 return [
-    'font_file' => '', //自定义字体包路径， 不填使用默认值
-    //文字验证码
+    'font_file' => '', //Tùy chỉnh đường dẫn gói phông chữ, để trống và sử dụng giá trị mặc định
+    //Mã xác minh văn bản
     'click_world' => [
         'backgrounds' => []
     ],
-    //滑动验证码
+    //Mã xác minh trượt
     'block_puzzle' => [
-        /*背景图片路径， 不填使用默认值， 支持string与array两种数据结构。string为默认图片的目录，array索引数组则为具体图片的地址*/
+        /*Đường dẫn ảnh nền, để trống và sử dụng giá trị mặc định. Nó hỗ trợ hai cấu trúc dữ liệu: chuỗi và mảng. chuỗi là thư mục của ảnh mặc định và mảng chỉ mục mảng là địa chỉ của ảnh cụ thể.*/
         'backgrounds' => [
             public_path().'statics/images/check1.jpg',
             public_path().'statics/images/check2.jpg',
@@ -26,39 +26,39 @@ return [
             public_path().'statics/images/check4.jpg',
         ],
 
-        /*模板图,格式同上支持string与array*/
+        /*Sơ đồ mẫu,Định dạng giống như trên và hỗ trợ chuỗi vàarray*/
         'templates' => [],
 
-        'offset' => 10, //容错偏移量
+        'offset' => 10, //Dung sai bù đắp
 
-        'is_cache_pixel' => true, //是否开启缓存图片像素值，开启后能提升服务端响应性能（但要注意更换图片时，需要清除缓存）
+        'is_cache_pixel' => true, //Có bật giá trị pixel hình ảnh được lưu trong bộ nhớ đệm hay không. Việc kích hoạt nó có thể cải thiện hiệu suất phản hồi của máy chủ (nhưng xin lưu ý rằng khi thay đổi hình ảnh, bạn cần xóa bộ nhớ đệm.）
 
-        'is_interfere' => true, //开启干扰图
+        'is_interfere' => true, //Kích hoạt bản đồ nhiễu
     ],
-    //水印
+    //hình mờ
     'watermark' => [
         'fontsize' => 12,
         'color' => '#FFFFFF',
         'text' => 'CRMEB'
     ],
     'cache' => [
-        //若您使用了框架，并且想使用类似于redis这样的缓存驱动，则应换成框架的中的缓存驱动
+        //Nếu bạn dùng framework và muốn sử dụng cache driver như redis thì nên đổi sang driver cache trong framework.
         'constructor' => app()->make(\think\Cache::class),
         'method' => [
-            //遵守PSR-16规范不需要设置此项（tp6, laravel,hyperf）。如tp5就不支持（tp5缓存方法是rm,所以要配置为"delete" => "rm"）
+            //Việc tuân thủ thông số kỹ thuật PSR-16 không yêu cầu cài đặt thông số này（tp6, laravel,hyperf）。Ví dụ: tp5 không hỗ trợ nó (phương thức bộ đệm tp5 làrm,Vì vậy, hãy cấu hình nó như"delete" => "rm"）
             /**
-             * 'get' => 'get', //获取
-             * 'set' => 'set', //设置
-             * 'delete' => 'delete',//删除
-             * 'has' => 'has' //key是否存在
+             * 'get' => 'get', //lấy
+             * 'set' => 'set', //cài đặt
+             * 'delete' => 'delete',//xóa bỏ
+             * 'has' => 'has' //keytồn tại
              */
         ],
         'options' => [
-            //如果您依然使用\Fastknife\Utils\CacheUtils做为您的缓存驱动，那么您可以自定义缓存配置。
-            'expire' => 300,//缓存有效期 （默认为0 表示永久缓存）
-            'prefix' => '', //缓存前缀
-            'path' => '', //缓存目录
-            'serialize' => [], //缓存序列化和反序列化方法
+            //Nếu bạn vẫn sử dụng\Fastknife\Utils\CacheUtilsLà trình điều khiển bộ đệm, bạn có thể tùy chỉnh cấu hình bộ đệm。
+            'expire' => 300,//Khoảng thời gian hiệu lực của bộ đệm (mặc định là 0, có nghĩa là bộ đệm vĩnh viễn)）
+            'prefix' => '', //tiền tố bộ đệm
+            'path' => '', //thư mục bộ đệm
+            'serialize' => [], //Phương pháp tuần tự hóa và giải tuần tự hóa bộ đệm
         ]
     ]
 ];

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -41,7 +41,7 @@ class StoreOrderInvoiceController
     }
 
     /**
-     * 订单开票
+     * Lập hoá đơn đặt hàng
      * @param Request $request
      * @return mixed
      */
@@ -56,7 +56,7 @@ class StoreOrderInvoiceController
     }
 
     /**
-     * 开票记录
+     * Hồ sơ hóa đơn
      * @param Request $request
      * @return mixed
      */
@@ -67,22 +67,22 @@ class StoreOrderInvoiceController
     }
 
     /**
-     * 订单详情
+     * Chi tiết đặt hàng
      * @param \app\Request $request
      * @param $uni
      * @return mixed
      */
     public function detail(StoreOrderServices $services, Request $request, $uni)
     {
-        if (!strlen(trim($uni))) return app('json')->fail('参数错误');
+        if (!strlen(trim($uni))) return app('json')->fail('Lỗi tham số');
         $order = $services->getUserOrderDetail($uni, (int)$request->uid(), []);
-        if (!$order) return app('json')->fail('订单不存在');
+        if (!$order) return app('json')->fail('Đơn hàng không tồn tại');
         $order = $order->toArray();
         $orderInvoice = $this->services->getOne(['order_id' => $order['id']]);
         $order['invoice'] = $orderInvoice;
-        //是否开启门店自提
+        //Có bật tính năng nhận hàng tại cửa hàng hay không
         $store_self_mention = sys_config('store_self_mention');
-        //关闭门店自提后 订单隐藏门店信息
+        //Sau khi đóng cửa hàng tự lấy hàng, thông tin cửa hàng bị ẩn trong đơn hàng
         if ($store_self_mention == 0) $order['shipping_type'] = 1;
         if ($order['verify_code']) {
             $verify_code = $order['verify_code'];
@@ -114,14 +114,14 @@ class StoreOrderInvoiceController
             $order['code'] = $url;
         }
         $order['mapKey'] = sys_config('tengxun_map_key');
-        $order['yue_pay_status'] = (int)sys_config('balance_func_status') && (int)sys_config('yue_pay_status') == 1 ? (int)1 : (int)2;//余额支付 1 开启 2 关闭
-        $order['pay_weixin_open'] = (int)sys_config('pay_weixin_open') ?? 0;//微信支付 1 开启 0 关闭
-        $order['ali_pay_status'] = (bool)sys_config('ali_pay_status');//支付宝支付 1 开启 0 关闭
+        $order['yue_pay_status'] = (int)sys_config('balance_func_status') && (int)sys_config('yue_pay_status') == 1 ? (int)1 : (int)2;//Thanh toán số dư 1 tặng 2
+        $order['pay_weixin_open'] = (int)sys_config('pay_weixin_open') ?? 0;//WeChat Trả 1 Bật 0 Tắt
+        $order['ali_pay_status'] = (bool)sys_config('ali_pay_status');//Thanh toán Alipay 1 đổi 0 giảm giá
         return app('json')->success($services->tidyOrder($order, true, true));
     }
 
     /**
-     * 前端下载电子发票
+     * Tải hóa đơn điện tử xuống phía trước
      * @param $id
      * @return \think\Response
      * @author wuhaotian

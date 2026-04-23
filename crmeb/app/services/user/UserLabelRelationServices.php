@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,8 +20,8 @@ use crmeb\exceptions\AdminException;
  *
  * Class UserLabelRelationServices
  * @package app\services\user
- * @method getColumn(array $where, string $field, string $key = '') 获取某个字段数组
- * @method saveAll(array $data) 批量保存数据
+ * @method getColumn(array $where, string $field, string $key = '') Nhận một mảng trường
+ * @method saveAll(array $data) Lưu dữ liệu theo lô
  */
 class UserLabelRelationServices extends BaseServices
 {
@@ -36,7 +36,7 @@ class UserLabelRelationServices extends BaseServices
     }
 
     /**
-     * 获取某个用户标签ids
+     * Nhận thẻ người dùngids
      * @param int $uid
      * @return array
      */
@@ -46,7 +46,7 @@ class UserLabelRelationServices extends BaseServices
     }
 
     /**
-     * 用户设置标签
+     * Nhãn cài đặt người dùng
      * @param $uids
      * @param array $labels
      * @return bool
@@ -68,7 +68,7 @@ class UserLabelRelationServices extends BaseServices
                 }
             }
             if ($data) {
-                if (!$this->dao->saveAll($data)) throw new AdminException('设置标签失败');
+                if (!$this->dao->saveAll($data)) throw new AdminException('Không đặt được nhãn');
             }
         } else {
             $this->dao->delete([['uid', 'in', $uids], ['label_id', 'in', $labels]]);
@@ -77,7 +77,7 @@ class UserLabelRelationServices extends BaseServices
     }
 
     /**
-     * 取消用户标签
+     * Hủy nhãn người dùng
      * @param int $uid
      * @param array $labels
      * @return mixed
@@ -95,7 +95,7 @@ class UserLabelRelationServices extends BaseServices
     }
 
     /**
-     * 获取用户标签
+     * Nhận thẻ người dùng
      * @param array $uids
      * @return array
      * @throws \think\db\exception\DataNotFoundException

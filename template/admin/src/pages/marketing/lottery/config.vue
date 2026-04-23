@@ -3,17 +3,17 @@
     <pages-header ref="pageHeader" :title="$route.meta.title"></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
       <el-form :model="formData" label-width="100px">
-        <el-form-item label="积分抽奖：">
+        <el-form-item label="Xổ số điểm：">
           <el-select v-model="formData.point" clearable>
             <el-option v-for="(item, j) in list.point" :value="item.id" :key="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="支付抽奖：">
+        <el-form-item label="Trả tiền rút thăm：">
           <el-select v-model="formData.pay" clearable>
             <el-option v-for="(item, j) in list.pay" :value="item.id" :key="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="评价抽奖：">
+        <el-form-item label="Đánh giá xổ số：">
           <el-select v-model="formData.evaluate" clearable>
             <el-option
               v-for="(item, j) in list.evaluate"
@@ -24,7 +24,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="save">保存</el-button>
+          <el-button type="primary" v-db-click @click="save">cứu</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -39,14 +39,14 @@ export default {
   data() {
     return {
       formData: {
-        evaluate: '', // 评价支付
-        pay: '', // 支付
-        point: '', // 积分
+        evaluate: '', // Trả tiền cho các đánh giá
+        pay: '', // chi trả
+        point: '', // tích phân
       },
       list: {
-        evaluate: [], // 评价支付
-        pay: [], // 支付
-        point: [], // 积分
+        evaluate: [], // Trả tiền cho các đánh giá
+        pay: [], // chi trả
+        point: [], // tích phân
       },
     };
   },

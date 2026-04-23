@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -22,32 +22,32 @@ use crmeb\services\FormBuilder;
 use think\facade\Log;
 
 /**
- * 系统配置
+ * Cấu hình hệ thống
  * Class SystemConfigServices
  * @package app\services\system\config
- * @method count(array $where = []) 获取指定条件下的count
- * @method save(array $data) 保存数据
- * @method get(int $id, ?array $field = []) 获取一条数据
- * @method update($id, array $data, ?string $key = null) 修改数据
- * @method delete(int $id, ?string $key = null) 删除数据
- * @method getUploadTypeList(string $configName) 获取上传配置中的上传类型
+ * @method count(array $where = []) Nhận kết quả theo điều kiện quy địnhcount
+ * @method save(array $data) lưu dữ liệu
+ * @method get(int $id, ?array $field = []) Lấy một phần dữ liệu
+ * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
+ * @method delete(int $id, ?string $key = null) Xóa dữ liệu
+ * @method getUploadTypeList(string $configName) Nhận loại tải lên trong cấu hình tải lên
  */
 class SystemConfigServices extends BaseServices
 {
     /**
-     * form表单句柄
+     * formxử lý hình thức
      * @var FormBuilder
      */
     protected $builder;
 
     /**
-     * 表单数据切割符号
+     * Biểu tượng cắt dữ liệu biểu mẫu
      * @var string
      */
     protected $cuttingStr = '=>';
 
     /**
-     * 表单提交url
+     * gửi biểu mẫuurl
      * @var string[]
      */
     protected $postUrl = [
@@ -74,7 +74,7 @@ class SystemConfigServices extends BaseServices
     ];
 
     /**
-     * 子集控制规则
+     * quy tắc kiểm soát tập hợp con
      * @var array[]
      */
     protected $relatedRule = [
@@ -234,7 +234,7 @@ class SystemConfigServices extends BaseServices
 
     /**
      * @return array|int[]|string[]
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/12
      */
@@ -256,7 +256,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取单个系统配置
+     * Nhận một cấu hình hệ thống duy nhất
      * @param string $configName
      * @param null $default
      * @return mixed|null
@@ -269,7 +269,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取全部配置
+     * Nhận tất cả các cấu hình
      * @param array $configName
      * @return array
      * @throws \ReflectionException
@@ -282,7 +282,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取配置并分页
+     * Nhận cấu hình và phân trang
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -322,7 +322,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取关联的值
+     * Nhận giá trị liên quan
      * @param $id
      * @param $value
      * @return string
@@ -347,7 +347,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取单选按钮或者多选按钮的显示值
+     * Nhận giá trị được hiển thị của nút radio hoặc nút chọn nhiều
      * @param $menu_name
      * @param $value
      * @return string
@@ -381,7 +381,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取系统配置信息
+     * Nhận thông tin cấu hình hệ thống
      * @param int $tabId
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -402,7 +402,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建单行表单
+     * Tạo biểu mẫu một dòng
      * @param string $type
      * @param array $data
      * @return array
@@ -471,7 +471,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建多行文本框
+     * Tạo hộp văn bản nhiều dòng
      * @param array $data
      * @return mixed
      */
@@ -488,7 +488,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建当选表单
+     * Tạo biểu mẫu lựa chọn
      * @param array $data
      * @param array $control
      * @param array $control_two
@@ -528,7 +528,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建上传组件表单
+     * Tạo biểu mẫu thành phần tải lên
      * @param int $type
      * @param array $data
      * @return array
@@ -541,7 +541,7 @@ class SystemConfigServices extends BaseServices
                 $data['value'] = json_decode($data['value'], true) ?: '';
                 if ($data['value'] != '') $data['value'] = set_file_url($data['value']);
                 $formbuider[] = $this->builder->frameImage($data['menu_name'], $data['info'], $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => $data['menu_name']], true), $data['value'])
-                    ->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => '预览'])->appendRule('suffix', [
+                    ->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => 'Xem trước'])->appendRule('suffix', [
                         'type' => 'div',
                         'class' => 'tips-info',
                         'domProps' => ['innerHTML' => $data['desc']]
@@ -552,7 +552,7 @@ class SystemConfigServices extends BaseServices
                 if ($data['value'])
                     $data['value'] = set_file_url($data['value']);
                 $formbuider[] = $this->builder->frameImages($data['menu_name'], $data['info'], $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => $data['menu_name'], 'type' => 'many', 'maxLength' => 5], true), $data['value'])
-                    ->maxLength(5)->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => '预览'])
+                    ->maxLength(5)->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false, 'modalTitle' => 'Xem trước'])
                     ->appendRule('suffix', [
                         'type' => 'div',
                         'class' => 'tips-info',
@@ -576,7 +576,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建单选框
+     * Tạo nút radio
      * @param array $data
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -604,7 +604,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建选择框表单
+     * Tạo biểu mẫu hộp chọn
      * @param array $data
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -632,10 +632,10 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 开关选择
+     * lựa chọn công tắc
      * @param $data
      * @return array
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/6
      */
@@ -651,7 +651,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建颜色选择器
+     * Tạo bộ chọn màu
      * @param array $data
      * @return mixed
      */
@@ -691,7 +691,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取系统配置表单
+     * Nhận mẫu cấu hình hệ thống
      * @param $data
      * @param bool $control
      * @param array $controle_two
@@ -702,21 +702,21 @@ class SystemConfigServices extends BaseServices
     {
 
         switch ($data['type']) {
-            case 'text'://文本框
+            case 'text'://hộp văn bản
                 return $this->createTextForm($data['input_type'], $data);
-            case 'radio'://单选框
+            case 'radio'://nút radio
                 return $this->createRadioForm($data, $control, $controle_two, $controle_three);
-            case 'textarea'://多行文本框
+            case 'textarea'://hộp văn bản nhiều dòng
                 return $this->createTextareaForm($data);
-            case 'upload'://文件上传
+            case 'upload'://Tải tập tin lên
                 return $this->createUploadForm((int)$data['upload_type'], $data);
-            case 'checkbox'://多选框
+            case 'checkbox'://hộp kiểm
                 return $this->createCheckboxForm($data);
-            case 'select'://多选框
+            case 'select'://hộp kiểm
                 return $this->createSelectForm($data);
             case 'color':
                 return $this->createColorForm($data);
-            case 'switch'://开关
+            case 'switch'://công tắc
                 return $this->createSwitchForm($data);
         }
     }
@@ -742,7 +742,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 创建
+     * tạo nên
      * @param array $list
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -762,10 +762,10 @@ class SystemConfigServices extends BaseServices
                 continue;
             }
             switch ($data['type']) {
-                case 'text'://文本框
+                case 'text'://hộp văn bản
                     $formbuider = array_merge($formbuider, $this->createTextForm($data['input_type'], $data));
                     break;
-                case 'radio'://单选框
+                case 'radio'://nút radio
                     $relateRule = $this->relatedRule;
                     $builder = [];
                     if (!isset($relateRule[$key])) {
@@ -875,19 +875,19 @@ class SystemConfigServices extends BaseServices
                     }
                     $formbuider = array_merge($formbuider, $this->createRadioForm($data, $builder, $builder_two, $builder_three));
                     break;
-                case 'textarea'://多行文本框
+                case 'textarea'://hộp văn bản nhiều dòng
                     $formbuider = array_merge($formbuider, $this->createTextareaForm($data));
                     break;
-                case 'upload'://文件上传
+                case 'upload'://Tải tập tin lên
                     $formbuider = array_merge($formbuider, $this->createUploadForm((int)$data['upload_type'], $data));
                     break;
-                case 'checkbox'://多选框
+                case 'checkbox'://hộp kiểm
                     $formbuider = array_merge($formbuider, $this->createCheckboxForm($data));
                     break;
-                case 'select'://多选框
+                case 'select'://hộp kiểm
                     $formbuider = array_merge($formbuider, $this->createSelectForm($data));
                     break;
-                case 'switch'://开关
+                case 'switch'://công tắc
                     $formbuider = array_merge($formbuider, $this->createSwitchForm($data));
                     break;
             }
@@ -895,7 +895,7 @@ class SystemConfigServices extends BaseServices
         return $formbuider;
     }
 
-    /**无组件绑定规则
+    /**Không có quy tắc ràng buộc thành phần
      * @param array $list
      * @return array|bool
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -910,25 +910,25 @@ class SystemConfigServices extends BaseServices
         foreach ($list as $key => $data) {
 
             switch ($data['type']) {
-                case 'text'://文本框
+                case 'text'://hộp văn bản
                     $formbuider = array_merge($formbuider, $this->createTextForm($data['input_type'], $data));
                     break;
-                case 'radio'://单选框
+                case 'radio'://nút radio
                     $formbuider = array_merge($formbuider, $this->createRadioForm($data));
                     break;
-                case 'textarea'://多行文本框
+                case 'textarea'://hộp văn bản nhiều dòng
                     $formbuider = array_merge($formbuider, $this->createTextareaForm($data));
                     break;
-                case 'upload'://文件上传
+                case 'upload'://Tải tập tin lên
                     $formbuider = array_merge($formbuider, $this->createUploadForm((int)$data['upload_type'], $data));
                     break;
-                case 'checkbox'://多选框
+                case 'checkbox'://hộp kiểm
                     $formbuider = array_merge($formbuider, $this->createCheckboxForm($data));
                     break;
-                case 'select'://多选框
+                case 'select'://hộp kiểm
                     $formbuider = array_merge($formbuider, $this->createSelectForm($data));
                     break;
-                case 'switch'://开关
+                case 'switch'://công tắc
                     $formbuider = array_merge($formbuider, $this->createSwitchForm($data));
                     break;
             }
@@ -937,7 +937,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 有组件绑定规则
+     * Có quy tắc ràng buộc thành phần
      * @param array $list
      * @param array $relatedRule
      * @return array|bool
@@ -958,10 +958,10 @@ class SystemConfigServices extends BaseServices
             if (isset($rv['son_type'])) {
                 $data = $new_data[$rk];
                 switch ($data['type']) {
-                    case 'text'://文本框
+                    case 'text'://hộp văn bản
                         $formbuider = array_merge($formbuider, $this->createTextForm($data['input_type'], $data));
                         break;
-                    case 'radio'://单选框
+                    case 'radio'://nút radio
                         $son_builder = array();
                         foreach ($rv['son_type'] as $sk => $sv) {
                             if (isset($sv['son_type'])) {
@@ -979,19 +979,19 @@ class SystemConfigServices extends BaseServices
                         }
                         $formbuider = array_merge($formbuider, $this->createRadioForm($data, $son_builder));
                         break;
-                    case 'textarea'://多行文本框
+                    case 'textarea'://hộp văn bản nhiều dòng
                         $formbuider = array_merge($formbuider, $this->createTextareaForm($data));
                         break;
-                    case 'upload'://文件上传
+                    case 'upload'://Tải tập tin lên
                         $formbuider = array_merge($formbuider, $this->createUploadForm((int)$data['upload_type'], $data));
                         break;
-                    case 'checkbox'://多选框
+                    case 'checkbox'://hộp kiểm
                         $formbuider = array_merge($formbuider, $this->createCheckboxForm($data));
                         break;
-                    case 'select'://多选框
+                    case 'select'://hộp kiểm
                         $formbuider = array_merge($formbuider, $this->createSelectForm($data));
                         break;
-                    case 'switch'://开关
+                    case 'switch'://công tắc
                         $formbuider = array_merge($formbuider, $this->createSwitchForm($data));
                         break;
                 }
@@ -1001,7 +1001,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 系统配置form表单创建
+     * Tạo biểu mẫu cấu hình hệ thống
      * @param $url
      * @param int $tabId
      * @return array
@@ -1026,7 +1026,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 新增路由增加设置项验证
+     * Thêm tuyến đường mới và thêm xác minh mục cài đặt
      * @param $url
      * @param $post
      * @return bool
@@ -1039,7 +1039,7 @@ class SystemConfigServices extends BaseServices
         }
         $auth = $this->postUrl[$name]['auth'] ?? false;
         if ($auth === false) {
-            throw new AdminException('请求不被允许');
+            throw new AdminException('Yêu cầu không được phép');
         }
         if ($auth) {
             /** @var SystemConfigTabServices $systemConfigTabServices */
@@ -1047,7 +1047,7 @@ class SystemConfigServices extends BaseServices
             foreach ($post as $key => $value) {
                 $tab_ids = $systemConfigTabServices->getColumn([['eng_title', 'IN', $auth]], 'id');
                 if (!$tab_ids || !in_array($key, $this->dao->getColumn([['config_tab_id', 'IN', $tab_ids]], 'menu_name'))) {
-                    throw new AdminException('设置类目不被允许');
+                    throw new AdminException('Không được phép đặt danh mục');
                 }
             }
         }
@@ -1055,7 +1055,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 修改配置获取form表单
+     * Sửa đổi cấu hình để có được biểu mẫu
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -1067,124 +1067,124 @@ class SystemConfigServices extends BaseServices
     {
         $menu = $this->dao->get($id)->getData();
         if (!$menu) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         /** @var SystemConfigTabServices $service */
         $service = app()->make(SystemConfigTabServices::class);
         $formbuider = [];
         $linkData = $this->linkData($menu['config_tab_id']);
-        $formbuider[] = $this->builder->radio('level', '联动显示', $menu['level'])->options([['value' => 0, 'label' => '否'], ['value' => 1, 'label' => '是']])->appendRule('suffix', [
+        $formbuider[] = $this->builder->radio('level', 'Màn hình được liên kết', $menu['level'])->options([['value' => 0, 'label' => 'KHÔNG'], ['value' => 1, 'label' => 'Đúng']])->appendRule('suffix', [
             'type' => 'div',
             'class' => 'tips-info',
-            'domProps' => ['innerHTML' => '否：默认正常展示此配置；是：此配置默认隐藏，当选中下方对应配置的值时，此配置才会显示']
+            'domProps' => ['innerHTML' => 'Không: Cấu hình này được hiển thị bình thường theo mặc định; Có: Cấu hình này được ẩn theo mặc định và sẽ chỉ hiển thị khi chọn giá trị của cấu hình tương ứng bên dưới.']
         ])->appendControl(1, [
-            $this->builder->cascader('link_data', '关联配置/值', [$menu['link_id'], $menu['link_value']])->options($linkData)->props(['props' => ['multiple' => false, 'checkStrictly' => false, 'emitPath' => true]])->style(['width' => '100%']),
+            $this->builder->cascader('link_data', 'Cấu hình/giá trị liên quan', [$menu['link_id'], $menu['link_value']])->options($linkData)->props(['props' => ['multiple' => false, 'checkStrictly' => false, 'emitPath' => true]])->style(['width' => '100%']),
         ]);
-        $formbuider[] = $this->builder->input('menu_name', '字段变量', $menu['menu_name'])->disabled(1);
+        $formbuider[] = $this->builder->input('menu_name', 'biến trường', $menu['menu_name'])->disabled(1);
         $formbuider[] = $this->builder->hidden('type', $menu['type']);
         [$configTabList, $data] = $service->getConfigTabListForm((int)($menu['config_tab_id'] ?? 0));
-        $formbuider[] = $this->builder->cascader('config_tab_id', '分类', $data)->options($configTabList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => true]])->style(['width' => '100%']);
-        $formbuider[] = $this->builder->input('info', '配置名称', $menu['info'])->autofocus(1);
-        $formbuider[] = $this->builder->input('desc', '配置简介', $menu['desc']);
+        $formbuider[] = $this->builder->cascader('config_tab_id', 'Phân loại', $data)->options($configTabList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => true]])->style(['width' => '100%']);
+        $formbuider[] = $this->builder->input('info', 'Tên cấu hình', $menu['info'])->autofocus(1);
+        $formbuider[] = $this->builder->input('desc', 'Giới thiệu cấu hình', $menu['desc']);
         switch ($menu['type']) {
             case 'text':
                 $menu['value'] = json_decode($menu['value'], true);
-                $formbuider[] = $this->builder->select('input_type', '类型', $menu['input_type'])->setOptions([
-                    ['value' => 'input', 'label' => '文本框']
-                    , ['value' => 'dateTime', 'label' => '日期时间']
-                    , ['value' => 'date', 'label' => '日期']
-                    , ['value' => 'time', 'label' => '时间']
-                    , ['value' => 'color', 'label' => '颜色']
-                    , ['value' => 'number', 'label' => '数字']
+                $formbuider[] = $this->builder->select('input_type', 'kiểu', $menu['input_type'])->setOptions([
+                    ['value' => 'input', 'label' => 'hộp văn bản']
+                    , ['value' => 'dateTime', 'label' => 'ngày giờ']
+                    , ['value' => 'date', 'label' => 'ngày']
+                    , ['value' => 'time', 'label' => 'thời gian']
+                    , ['value' => 'color', 'label' => 'màu sắc']
+                    , ['value' => 'number', 'label' => 'con số']
                 ]);
-                //输入框验证规则
-                $formbuider[] = $this->builder->input('value', '默认值', $menu['value']);
+                //Quy tắc xác thực hộp đầu vào
+                $formbuider[] = $this->builder->input('value', 'giá trị mặc định', $menu['value']);
                 if (!empty($menu['required'])) {
-                    $formbuider[] = $this->builder->number('width', '文本框宽', (int)$menu['width']);
-                    $formbuider[] = $this->builder->input('required', '验证规则', $menu['required'])->placeholder('多个请用,隔开例如：required:true,url:true');
+                    $formbuider[] = $this->builder->number('width', 'Chiều rộng hộp văn bản', (int)$menu['width']);
+                    $formbuider[] = $this->builder->input('required', 'Quy tắc xác thực', $menu['required'])->placeholder('Hãy sử dụng nhiều,riêng biệt, ví dụ:：required:true,url:true');
                 }
                 break;
             case 'textarea':
                 $menu['value'] = json_decode($menu['value'], true);
-                //多行文本
+                //văn bản nhiều dòng
                 if (!empty($menu['high'])) {
-                    $formbuider[] = $this->builder->textarea('value', '默认值', $menu['value'])->rows(5);
-                    $formbuider[] = $this->builder->number('width', '文本框宽', (int)$menu['width']);
-                    $formbuider[] = $this->builder->number('high', '多行文本框高', (int)$menu['high']);
+                    $formbuider[] = $this->builder->textarea('value', 'giá trị mặc định', $menu['value'])->rows(5);
+                    $formbuider[] = $this->builder->number('width', 'Chiều rộng hộp văn bản', (int)$menu['width']);
+                    $formbuider[] = $this->builder->number('high', 'Chiều cao của hộp văn bản nhiều dòng', (int)$menu['high']);
                 } else {
-                    $formbuider[] = $this->builder->input('value', '默认值', $menu['value']);
+                    $formbuider[] = $this->builder->input('value', 'giá trị mặc định', $menu['value']);
                 }
                 break;
             case 'radio':
                 $formbuider = array_merge($formbuider, $this->createRadioForm($menu));
-                //单选和多选参数配置
+                //Cấu hình tham số lựa chọn đơn và đa lựa chọn
                 if (!empty($menu['parameter'])) {
-                    $formbuider[] = $this->builder->textarea('parameter', '配置参数', $menu['parameter'])->placeholder("参数方式例如:\n1=>白色\n2=>红色\n3=>黑色");
+                    $formbuider[] = $this->builder->textarea('parameter', 'Thông số cấu hình', $menu['parameter'])->placeholder("Các thông số như:\n1=>Trắng\n2=>màu đỏ\n3=>đen");
                 }
                 break;
             case 'checkbox':
                 $formbuider = array_merge($formbuider, $this->createCheckboxForm($menu));
-                //单选和多选参数配置
+                //Cấu hình tham số lựa chọn đơn và đa lựa chọn
                 if (!empty($menu['parameter'])) {
-                    $formbuider[] = $this->builder->textarea('parameter', '配置参数', $menu['parameter'])->placeholder("参数方式例如:\n1=>白色\n2=>红色\n3=>黑色");
+                    $formbuider[] = $this->builder->textarea('parameter', 'Thông số cấu hình', $menu['parameter'])->placeholder("Các thông số như:\n1=>Trắng\n2=>màu đỏ\n3=>đen");
                 }
                 break;
             case 'upload':
                 $formbuider = array_merge($formbuider, $this->createUploadForm(($menu['upload_type']), $menu));
-                //上传类型选择
+                //Lựa chọn loại tải lên
                 if (!empty($menu['upload_type'])) {
-                    $formbuider[] = $this->builder->radio('upload_type', '上传类型', $menu['upload_type'])->options([['value' => 1, 'label' => '单图'], ['value' => 2, 'label' => '多图'], ['value' => 3, 'label' => '文件']]);
+                    $formbuider[] = $this->builder->radio('upload_type', 'Loại tải lên', $menu['upload_type'])->options([['value' => 1, 'label' => 'Hình ảnh đơn'], ['value' => 2, 'label' => 'Nhiều hình ảnh'], ['value' => 3, 'label' => 'tài liệu']]);
                 }
                 break;
             case 'switch':
                 $formbuider = array_merge($formbuider, $this->createSwitchForm($menu));
                 break;
         }
-        $formbuider[] = $this->builder->number('sort', '排序', (int)$menu['sort']);
-        $formbuider[] = $this->builder->radio('status', '状态', $menu['status'])->options([['value' => 1, 'label' => '显示'], ['value' => 0, 'label' => '隐藏']]);
-        return create_form('编辑字段', $formbuider, $this->url('/setting/config/' . $id), 'PUT');
+        $formbuider[] = $this->builder->number('sort', 'loại', (int)$menu['sort']);
+        $formbuider[] = $this->builder->radio('status', 'tình trạng', $menu['status'])->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        return create_form('Chỉnh sửa trường', $formbuider, $this->url('/setting/config/' . $id), 'PUT');
     }
 
     /**
-     * 字段状态
+     * Trạng thái trường
      * @return array
      */
     public function formStatus(): array
     {
-        return [['value' => 1, 'label' => '显示'], ['value' => 0, 'label' => '隐藏']];
+        return [['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']];
     }
 
     /**
-     * 选择文文件类型
+     * Chọn loại tệp
      * @return array
      */
     public function uploadType(): array
     {
         return [
-            ['value' => 1, 'label' => '单图']
-            , ['value' => 2, 'label' => '多图']
-            , ['value' => 3, 'label' => '文件']
+            ['value' => 1, 'label' => 'Hình ảnh đơn']
+            , ['value' => 2, 'label' => 'Nhiều hình ảnh']
+            , ['value' => 3, 'label' => 'tài liệu']
         ];
     }
 
     /**
-     * 选择文本框类型
+     * Chọn loại hộp văn bản
      * @return array
      */
     public function textType(): array
     {
         return [
-            ['value' => 'input', 'label' => '文本框']
-            , ['value' => 'dateTime', 'label' => '日期时间']
-            , ['value' => 'date', 'label' => '日期']
-            , ['value' => 'time', 'label' => '时间']
-            , ['value' => 'color', 'label' => '颜色']
-            , ['value' => 'number', 'label' => '数字']
+            ['value' => 'input', 'label' => 'hộp văn bản']
+            , ['value' => 'dateTime', 'label' => 'ngày giờ']
+            , ['value' => 'date', 'label' => 'ngày']
+            , ['value' => 'time', 'label' => 'thời gian']
+            , ['value' => 'color', 'label' => 'màu sắc']
+            , ['value' => 'number', 'label' => 'con số']
         ];
     }
 
     /**
-     * 获取创建配置规格表单
+     * Nhận biểu mẫu đặc tả cấu hình
      * @param int $type
      * @param int $tab_id
      * @return array
@@ -1202,69 +1202,69 @@ class SystemConfigServices extends BaseServices
         $info_type = [];
         $parameter = [];
         switch ($type) {
-            case 0://文本框
+            case 0://hộp văn bản
                 $form_type = 'text';
-                $info_type = $this->builder->select('input_type', '类型')->setOptions($this->textType());
-                $parameter[] = $this->builder->input('value', '默认值');
-                $parameter[] = $this->builder->number('width', '文本框宽', 100);
-                $parameter[] = $this->builder->input('required', '验证规则')->placeholder('多个请用,隔开例如：required:true,url:true');
+                $info_type = $this->builder->select('input_type', 'kiểu')->setOptions($this->textType());
+                $parameter[] = $this->builder->input('value', 'giá trị mặc định');
+                $parameter[] = $this->builder->number('width', 'Chiều rộng hộp văn bản', 100);
+                $parameter[] = $this->builder->input('required', 'Quy tắc xác thực')->placeholder('Hãy sử dụng nhiều,riêng biệt, ví dụ:：required:true,url:true');
                 break;
-            case 1://多行文本框
+            case 1://hộp văn bản nhiều dòng
                 $form_type = 'textarea';
-                $parameter[] = $this->builder->textarea('value', '默认值');
-                $parameter[] = $this->builder->number('width', '文本框宽', 100);
-                $parameter[] = $this->builder->number('high', '多行文本框高', 5);
+                $parameter[] = $this->builder->textarea('value', 'giá trị mặc định');
+                $parameter[] = $this->builder->number('width', 'Chiều rộng hộp văn bản', 100);
+                $parameter[] = $this->builder->number('high', 'Chiều cao của hộp văn bản nhiều dòng', 5);
                 break;
-            case 2://单选框
+            case 2://nút radio
                 $form_type = 'radio';
-                $parameter[] = $this->builder->textarea('parameter', '配置参数')->placeholder("参数方式例如:\n1=>男\n2=>女\n3=>保密");
-                $parameter[] = $this->builder->input('value', '默认值');
+                $parameter[] = $this->builder->textarea('parameter', 'Thông số cấu hình')->placeholder("Các thông số như:\n1=>nam giới\n2=>nữ giới\n3=>Bảo mật");
+                $parameter[] = $this->builder->input('value', 'giá trị mặc định');
                 break;
-            case 3://文件上传
+            case 3://Tải tập tin lên
                 $form_type = 'upload';
-                $parameter[] = $this->builder->radio('upload_type', '上传类型', 1)->options($this->uploadType());
+                $parameter[] = $this->builder->radio('upload_type', 'Loại tải lên', 1)->options($this->uploadType());
                 break;
-            case 4://多选框
+            case 4://hộp kiểm
                 $form_type = 'checkbox';
-                $parameter[] = $this->builder->textarea('parameter', '配置参数')->placeholder("参数方式例如:\n1=>白色\n2=>红色\n3=>黑色");
+                $parameter[] = $this->builder->textarea('parameter', 'Thông số cấu hình')->placeholder("Các thông số như:\n1=>Trắng\n2=>màu đỏ\n3=>đen");
                 break;
-            case 5://下拉框
+            case 5://hộp thả xuống
                 $form_type = 'select';
-                $parameter[] = $this->builder->textarea('parameter', '配置参数')->placeholder("参数方式例如:\n1=>白色\n2=>红色\n3=>黑色");
+                $parameter[] = $this->builder->textarea('parameter', 'Thông số cấu hình')->placeholder("Các thông số như:\n1=>Trắng\n2=>màu đỏ\n3=>đen");
                 break;
-            case 6://开关
+            case 6://công tắc
                 $form_type = 'switch';
-                $parameter[] = $this->builder->switches('value', '默认');
+                $parameter[] = $this->builder->switches('value', 'mặc định');
                 break;
         }
         if ($form_type) {
             $formbuider[] = $this->builder->hidden('type', $form_type);
             [$configTabList, $data] = $service->getConfigTabListForm((int)($tab_id ?? 0));
             $linkData = $this->linkData($tab_id);
-            $formbuider[] = $this->builder->radio('level', '联动显示', 0)->options([['value' => 0, 'label' => '否'], ['value' => 1, 'label' => '是']])->appendRule('suffix', [
+            $formbuider[] = $this->builder->radio('level', 'Màn hình được liên kết', 0)->options([['value' => 0, 'label' => 'KHÔNG'], ['value' => 1, 'label' => 'Đúng']])->appendRule('suffix', [
                 'type' => 'div',
                 'class' => 'tips-info',
-                'domProps' => ['innerHTML' => '否：默认正常展示此配置；是：此配置默认隐藏，当选中下方对应配置的值时，此配置才会显示']
+                'domProps' => ['innerHTML' => 'Không: Cấu hình này được hiển thị bình thường theo mặc định; Có: Cấu hình này được ẩn theo mặc định và sẽ chỉ hiển thị khi chọn giá trị của cấu hình tương ứng bên dưới.']
             ])->appendControl(1, [
-                $this->builder->cascader('link_data', '关联配置/值')->options($linkData)->props(['props' => ['multiple' => false, 'checkStrictly' => false, 'emitPath' => true]])->style(['width' => '100%']),
+                $this->builder->cascader('link_data', 'Cấu hình/giá trị liên quan')->options($linkData)->props(['props' => ['multiple' => false, 'checkStrictly' => false, 'emitPath' => true]])->style(['width' => '100%']),
             ]);
-            $formbuider[] = $this->builder->cascader('config_tab_id', '分类', $data)->options($configTabList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width' => '100%']);
+            $formbuider[] = $this->builder->cascader('config_tab_id', 'Phân loại', $data)->options($configTabList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width' => '100%']);
             if ($info_type) {
                 $formbuider[] = $info_type;
             }
-            $formbuider[] = $this->builder->input('info', '配置名称')->autofocus(1);
-            $formbuider[] = $this->builder->input('menu_name', '字段变量')->placeholder('例如：site_url');
-            $formbuider[] = $this->builder->input('desc', '表单说明');
+            $formbuider[] = $this->builder->input('info', 'Tên cấu hình')->autofocus(1);
+            $formbuider[] = $this->builder->input('menu_name', 'biến trường')->placeholder('Ví dụ：site_url');
+            $formbuider[] = $this->builder->input('desc', 'Mô tả biểu mẫu');
             $formbuider = array_merge($formbuider, $parameter);
-            $formbuider[] = $this->builder->number('sort', '排序', 0);
+            $formbuider[] = $this->builder->number('sort', 'loại', 0);
 
-            $formbuider[] = $this->builder->radio('status', '状态', 1)->options($this->formStatus());
+            $formbuider[] = $this->builder->radio('status', 'tình trạng', 1)->options($this->formStatus());
         }
-        return create_form('添加字段', $formbuider, $this->url('/setting/config'), 'POST');
+        return create_form('Thêm trường', $formbuider, $this->url('/setting/config'), 'POST');
     }
 
     /**
-     * 根据指定的标签ID，链接数据并以特定格式返回。
+     * Dựa trên ID thẻ được chỉ định, liên kết dữ liệu và trả về ở định dạng cụ thể。
      * @param $tab_id
      * @return array
      * @author wuhaotian
@@ -1289,7 +1289,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * radio 和 checkbox规则的判断
+     * radio và phán đoán các quy tắc hộp kiểm
      * @param $data
      * @return bool
      */
@@ -1297,10 +1297,10 @@ class SystemConfigServices extends BaseServices
     {
         $option = [];
         $option_new = [];
-        $data['parameter'] = str_replace("\r\n", "\n", $data['parameter']);//防止不兼容
+        $data['parameter'] = str_replace("\r\n", "\n", $data['parameter']);//Ngăn chặn sự không tương thích
         $parameter = explode("\n", $data['parameter']);
         if (count($parameter) < 2) {
-            throw new AdminException('请输入正确格式的配置参数');
+            throw new AdminException('Vui lòng nhập các thông số cấu hình theo đúng định dạng');
         }
         foreach ($parameter as $k => $v) {
             if (isset($v) && !empty($v)) {
@@ -1308,7 +1308,7 @@ class SystemConfigServices extends BaseServices
             }
         }
         if (count($option) < 2) {
-            throw new AdminException('请输入正确格式的配置参数');
+            throw new AdminException('Vui lòng nhập các thông số cấu hình theo đúng định dạng');
         }
         $bool = 1;
         foreach ($option as $k => $v) {
@@ -1321,19 +1321,19 @@ class SystemConfigServices extends BaseServices
             }
         }
         if (!$bool) {
-            throw new AdminException('请输入正确格式的配置参数');
+            throw new AdminException('Vui lòng nhập các thông số cấu hình theo đúng định dạng');
         }
-        $num1 = count($option_new);//提取该数组的数目
-        $arr2 = array_unique($option_new);//合并相同的元素
-        $num2 = count($arr2);//提取合并后数组个数
+        $num1 = count($option_new);//Trích xuất số mảng
+        $arr2 = array_unique($option_new);//Hợp nhất các phần tử giống hệt nhau
+        $num2 = count($arr2);//Trích xuất số mảng sau khi sáp nhập
         if ($num1 > $num2) {
-            throw new AdminException('请输入正确格式的配置参数');
+            throw new AdminException('Vui lòng nhập các thông số cấu hình theo đúng định dạng');
         }
         return true;
     }
 
     /**
-     * 验证参数
+     * Thông số xác thực
      * @param $data
      * @return bool
      */
@@ -1351,12 +1351,12 @@ class SystemConfigServices extends BaseServices
                 switch ($k) {
                     case 'required':
                         if ($v == 'true' && $data['value'] === '') {
-                            throw new AdminException('{:name}请输入默认值', ['name' => $data['info'] ?? '']);
+                            throw new AdminException('{:name}Vui lòng nhập giá trị mặc định', ['name' => $data['info'] ?? '']);
                         }
                         break;
                     case 'url':
                         if ($v == 'true' && !check_link($data['value'])) {
-                            throw new AdminException('{:name}请输入正确url', ['name' => $data['info'] ?? '']);
+                            throw new AdminException('{:name}Vui lòng nhập chính xácurl', ['name' => $data['info'] ?? '']);
                         }
                         break;
                 }
@@ -1365,20 +1365,20 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 保存平台电子面单打印信息
+     * Lưu thông tin in biểu mẫu điện tử nền tảng
      * @param array $data
      * @return bool
      */
     public function saveExpressInfo(array $data)
     {
         if (!is_array($data) || !$data) return false;
-        // config_export_id 快递公司id
-        // config_export_temp_id 快递公司模板id
-        // config_export_com 快递公司编码
-        // config_export_to_name 发货人姓名
-        // config_export_to_tel 发货人电话
-        // config_export_to_address 发货人详细地址
-        // config_export_siid 电子面单打印机编号
+        // config_export_id Mã công ty chuyển phát nhanh
+        // config_export_temp_id id mẫu công ty chuyển phát nhanh
+        // config_export_com mã công ty chuyển phát nhanh
+        // config_export_to_name tên người gửi hàng
+        // config_export_to_tel số điện thoại người gửi hàng
+        // config_export_to_address Địa chỉ chi tiết của người gửi hàng
+        // config_export_siid số máy in hóa đơn điện tử
         foreach ($data as $key => $value) {
             $this->dao->update(['menu_name' => 'config_export_' . $key], ['value' => json_encode($value)]);
         }
@@ -1387,14 +1387,14 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 获取分享海报 兼容方法
+     * Nhận phương pháp tương thích với áp phích chia sẻ
      */
     public function getSpreadBanner()
     {
-        //配置
+        //Cấu hình
         $banner = sys_config('spread_banner', []);
         if (!$banner) {
-            //组合数据
+            //Dữ liệu kết hợp
             $banner = sys_data('routine_spread_banner');
             if ($banner) {
                 $banner = array_column($banner, 'pic');
@@ -1406,7 +1406,7 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * 保存wss配置
+     * Lưu cấu hình wss
      * @param int $wssOpen
      * @param string $wssLocalpk
      * @param string $wssLocalCert
@@ -1422,12 +1422,12 @@ WSS;
         try {
             file_put_contents($wssFile, $content);
         } catch (\Throwable $e) {
-            throw new AdminException('保存wss证书失败');
+            throw new AdminException('Không lưu được chứng chỉ wss');
         }
     }
 
     /**
-     * 获取wss配置
+     * Nhận cấu hình wss
      * @param string $key
      * @return array|false|mixed
      */
@@ -1443,7 +1443,7 @@ WSS;
     }
 
     /**
-     * 检测缩略图水印配置是否更改
+     * Phát hiện xem cấu hình hình mờ hình thu nhỏ có thay đổi hay không
      * @param array $post
      * @return bool
      */
@@ -1452,13 +1452,13 @@ WSS;
         unset($post['upload_type'], $post['image_watermark_status']);
         /** @var SystemConfigTabServices $systemConfigTabServices */
         $systemConfigTabServices = app()->make(SystemConfigTabServices::class);
-        //上传配置->基础配置
+        //Tải lên cấu hình->Cấu hình cơ bản
         $tab_id = $systemConfigTabServices->getColumn(['eng_title' => 'base_config'], 'id');
         if ($tab_id) {
             $all = $this->dao->getColumn(['config_tab_id' => $tab_id], 'value', 'menu_name');
             if (array_intersect(array_keys($all), array_keys($post))) {
                 foreach ($post as $key => $item) {
-                    //配置更改删除原来生成的缩略图
+                    //Thay đổi cấu hình sẽ xóa hình thu nhỏ được tạo ban đầu
                     if (isset($all[$key]) && $item != json_decode($all[$key], true)) {
                         try {
                             FileService::delDir(public_path('uploads/thumb_water'));
@@ -1474,7 +1474,7 @@ WSS;
     }
 
     /**
-     * 变更分销绑定关系模式
+     * Thay đổi mô hình mối quan hệ ràng buộc phân phối
      * @param array $post
      * @return bool
      */
@@ -1485,14 +1485,14 @@ WSS;
             $config_one = $this->dao->getOne(['menu_name' => 'store_brokerage_binding_status']);
             $config_old = json_decode($config_one['value'], true);
             if ($config_old != 2 && $config_data == 2) {
-                //自动解绑上级绑定
+                //Tự động hủy liên kết ràng buộc cấp trên
 
                 /** @var AgentManageServices $agentManage */
                 $agentManage = app()->make(AgentManageServices::class);
                 $agentManage->resetSpreadTime();
             }
         } catch (\Throwable $e) {
-            Log::error('变更分销绑定模式重置绑定时间失败,失败原因:' . $e->getMessage());
+            Log::error('Thay đổi chế độ liên kết phân phối và đặt lại thời gian liên kết không thành công.,Lý do thất bại:' . $e->getMessage());
             return false;
         }
         return true;

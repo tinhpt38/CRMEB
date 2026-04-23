@@ -1,47 +1,47 @@
 import config from '../../package.json';
 
-// 1、window.localStorage 浏览器永久缓存
+// 1、window.localStorage Bộ đệm vĩnh viễn của trình duyệt
 export const Local = {
-  // 查看 v2.4.3版本更新日志
+  // Xem nhật ký cập nhật phiên bản v2.4.3
   setKey(key) {
     // @ts-ignore
     return `${config.name}:${key}`;
   },
-  // 设置永久缓存
+  // Thiết lập bộ đệm vĩnh viễn
   set(key, val) {
     window.localStorage.setItem(Local.setKey(key), JSON.stringify(val));
   },
-  // 获取永久缓存
+  // Nhận bộ đệm vĩnh viễn
   get(key) {
     let json = window.localStorage.getItem(Local.setKey(key));
     return JSON.parse(json);
   },
-  // 移除永久缓存
+  // Xóa bộ nhớ đệm liên tục
   remove(key) {
     window.localStorage.removeItem(Local.setKey(key));
   },
-  // 移除全部永久缓存
+  // Xóa tất cả bộ đệm vĩnh viễn
   clear() {
     window.localStorage.clear();
   },
 };
 
-// 2、window.sessionStorage 浏览器临时缓存
+// 2、window.sessionStorage Bộ đệm tạm thời của trình duyệt
 export const Session = {
-  // 设置临时缓存
+  // Thiết lập bộ đệm tạm thời
   set(key, val) {
     window.sessionStorage.setItem(Local.setKey(key), JSON.stringify(val));
   },
-  // 获取临时缓存
+  // Nhận bộ đệm tạm thời
   get(key) {
     let json = window.sessionStorage.getItem(Local.setKey(key));
     return JSON.parse(json);
   },
-  // 移除临时缓存
+  // Xóa bộ đệm tạm thời
   remove(key) {
     window.sessionStorage.removeItem(Local.setKey(key));
   },
-  // 移除全部临时缓存
+  // Xóa tất cả bộ đệm tạm thời
   clear() {
     window.sessionStorage.clear();
   },

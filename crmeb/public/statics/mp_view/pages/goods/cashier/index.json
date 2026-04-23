@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "收银台",
+  "navigationBarTitleText": "quầy thanh toán",
   "usingComponents": {
     "count-down": "/components/countDown/index",
     "number-scroll": "/components/numberScroll"

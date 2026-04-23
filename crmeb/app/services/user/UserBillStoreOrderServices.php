@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -32,12 +32,12 @@ class UserBillStoreOrderServices extends BaseServices
     }
 
     /**
-     * TODO 获取用户记录 按月查找
-     * @param $uid $uid  用户编号
-     * @param int $page $page 分页起始值
-     * @param int $limit $limit 查询条数
-     * @param string $category $category 记录类型
-     * @param string $type $type 记录分类
+     * TODO Nhận hồ sơ người dùng và tìm kiếm theo tháng
+     * @param $uid $uid  ID người dùng
+     * @param int $page $page giá trị bắt đầu phân trang
+     * @param int $limit $limit Truy vấn số lượng mục
+     * @param string $category $category loại bản ghi
+     * @param string $type $type Phân loại hồ sơ
      * @return mixed
      */
     public function getRecordList($uid, $uids, $category = 'now_money', $type = 'brokerage')
@@ -61,7 +61,7 @@ class UserBillStoreOrderServices extends BaseServices
     }
 
     /**
-     * 获取订单返佣记录总数
+     * Lấy tổng số hồ sơ giảm giá đơn hàng
      * @param $uid
      * @param $uids
      * @param string $category
@@ -87,7 +87,7 @@ class UserBillStoreOrderServices extends BaseServices
     }
 
     /**
-     * TODO 获取订单返佣记录
+     * TODO Nhận hồ sơ giảm giá đơn hàng
      * @param $uid
      * @param int $addTime
      * @param string $category

@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id && !$route.params.copy ? '编辑拼团商品' : '添加拼团商品'"
+      :title="$route.params.id && !$route.params.copy ? 'Chỉnh sửa sản phẩm nhóm' : 'Thêm sản phẩm nhóm'"
       :backUrl="$routeProStr + '/marketing/store_combination/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -21,7 +21,7 @@
             :label-position="labelPosition"
             @submit.native.prevent
           >
-            <el-form-item label="选择商品：" prop="image_input" v-if="current === 0">
+            <el-form-item label="Chọn sản phẩm：" prop="image_input" v-if="current === 0">
               <div class="picBox" v-db-click @click="changeGoods">
                 <div class="pictrue" v-if="formValidate.image">
                   <img v-lazy="formValidate.image" />
@@ -33,7 +33,7 @@
             </el-form-item>
             <el-row v-show="current === 1">
               <el-col :span="24">
-                <el-form-item label="商品主图：" prop="image">
+                <el-form-item label="Hình ảnh chính của sản phẩm：" prop="image">
                   <div class="picBox" v-db-click @click="modalPicTap('dan', 'danFrom')">
                     <div class="pictrue" v-if="formValidate.image">
                       <img v-lazy="formValidate.image" />
@@ -45,7 +45,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="商品轮播图：" prop="images">
+                <el-form-item label="Băng chuyền sản phẩm：" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -73,10 +73,10 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="拼团名称：" prop="title" label-for="title">
+                  <el-form-item label="Tên nhóm：" prop="title" label-for="title">
                     <el-input
                       elearable
-                      placeholder="请输入拼团名称"
+                      placeholder="Vui lòng nhập tên nhóm"
                       v-model="formValidate.title"
                       class="content_width"
                       maxlength="80"
@@ -87,9 +87,9 @@
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="拼团简介：" prop="info" label-for="info">
+                  <el-form-item label="Giới thiệu về chia sẻ nhóm：" prop="info" label-for="info">
                     <el-input
-                      placeholder="请输入拼团简介"
+                      placeholder="Vui lòng nhập thông tin nhóm"
                       type="textarea"
                       :rows="4"
                       v-model="formValidate.info"
@@ -101,7 +101,7 @@
                 </el-col>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="拼团时间：" prop="section_time">
+                <el-form-item label="Giờ nhóm：" prop="section_time">
                   <div>
                     <el-date-picker
                       clearable
@@ -110,29 +110,29 @@
                       format="yyyy-MM-dd HH:mm"
                       value-format="yyyy-MM-dd HH:mm"
                       range-separator="-"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
+                      start-placeholder="ngày bắt đầu"
+                      end-placeholder="ngày kết thúc"
                       @change="onchangeTime"
                       class="content_width"
                       v-model="formValidate.section_time"
                     ></el-date-picker>
-                    <div class="grey">设置活动开启结束时间，用户可以在设置时间内发起参与拼团</div>
+                    <div class="grey">Đặt thời gian bắt đầu và kết thúc của sự kiện. Người dùng có thể bắt đầu tham gia nhóm trong thời gian đã đặt.</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
-                <el-form-item label="物流方式：" prop="logistics">
+                <el-form-item label="Phương pháp hậu cần：" prop="logistics">
                   <el-checkbox-group v-model="formValidate.logistics">
-                    <el-checkbox label="1">快递</el-checkbox>
-                    <el-checkbox label="2">到店</el-checkbox>
+                    <el-checkbox label="1">chuyển phát nhanh</el-checkbox>
+                    <el-checkbox label="2">Đến cửa hàng</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.virtual_type == 0 && formValidate.logistics.includes('1')">
-                <el-form-item label="运费设置：" :prop="formValidate.freight != 1 ? 'freight' : ''">
+                <el-form-item label="Cài đặt phí vận chuyển：" :prop="formValidate.freight != 1 ? 'freight' : ''">
                   <el-radio-group v-model="formValidate.freight">
-                    <el-radio :label="2">固定邮费</el-radio>
-                    <el-radio :label="3">运费模板</el-radio>
+                    <el-radio :label="2">Bưu phí cố định</el-radio>
+                    <el-radio :label="3">Mẫu vận chuyển hàng hóa</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -152,9 +152,9 @@
                       :min="0"
                       :max="9999999999"
                       v-model="formValidate.postage"
-                      placeholder="请输入金额"
+                      placeholder="Vui lòng nhập số tiền"
                       class="content_width input-number-unit-class"
-                      class-unit="元"
+                      class-unit="Nhân dân tệ"
                     />
                   </div>
                 </el-form-item>
@@ -165,7 +165,7 @@
                     <el-select
                       v-model="formValidate.temp_id"
                       clearable
-                      placeholder="请选择运费模板"
+                      placeholder="Vui lòng chọn mẫu vận chuyển hàng hóa"
                       class="content_width"
                     >
                       <el-option
@@ -175,127 +175,127 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <span class="addfont" v-db-click @click="freight">新增运费模板</span>
+                    <span class="addfont" v-db-click @click="freight">Đã thêm mẫu vận chuyển hàng hóa</span>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="拼团时效：" prop="effective_time">
+                <el-form-item label="Giới hạn thời gian nhóm nhóm：" prop="effective_time">
                   <div>
                     <el-input-number
                       :controls="false"
-                      placeholder="请输入拼团时效"
+                      placeholder="Vui lòng nhập giới hạn thời gian đặt vé theo nhóm"
                       class="content_width input-number-unit-class"
-                      class-unit="小时"
+                      class-unit="Giờ"
                       v-model="formValidate.effective_time"
                     />
                     <div class="grey">
-                      用户发起拼团后开始计时，需在设置时间内邀请到规定好友人数参团，超过时效时间，则系统判定拼团失败，自动发起退款
+                      Bộ đếm thời gian bắt đầu sau khi người dùng bắt đầu mua hàng theo nhóm. Số lượng bạn bè được chỉ định phải được mời tham gia nhóm trong thời gian đã định. Nếu vượt quá thời hạn, hệ thống sẽ xác định rằng giao dịch mua theo nhóm không thành công và tự động bắt đầu hoàn tiền.
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="拼团人数：" prop="people">
+                <el-form-item label="Số người trong nhóm：" prop="people">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="2"
                       :max="10000"
-                      placeholder="请输入拼团人数"
+                      placeholder="Vui lòng nhập số lượng người trong nhóm"
                       :precision="0"
                       v-model="formValidate.people"
                       class="content_width input-number-unit-class"
-                      class-unit="人"
+                      class-unit="mọi người"
                     />
-                    <div class="grey">单次拼团需要参与的用户数</div>
+                    <div class="grey">Số lượng người dùng cần thiết để tham gia vào một cuộc chiến nhóm</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="虚拟成团补齐人数：" prop="virtualPeople">
+                <el-form-item label="Điền số lượng người trong một nhóm ảo：" prop="virtualPeople">
                   <div>
                     <el-input-number
                       :controls="false"
-                      placeholder="设置虚拟成团的补齐人数"
+                      placeholder="Đặt số lượng người để hoàn thành nhóm ảo"
                       :precision="0"
                       :max="10000"
                       :min="0"
                       v-model="formValidate.virtualPeople"
                       class="content_width input-number-unit-class"
-                      class-unit="人"
+                      class-unit="mọi người"
                     />
                     <div class="grey">
-                      设置虚拟成团的补齐人数，如：5人团设置补齐2人，当团队成员大于等于3人时，拼团结束时自动补齐剩余最多2个位置，不开启虚拟成团请设置为0
+                      Đặt số lượng người để hoàn thành nhóm ảo. Ví dụ: nếu một nhóm 5 người được đặt thành 2 người, khi số thành viên trong nhóm nhiều hơn hoặc bằng 3 người thì tối đa 2 vị trí còn lại sẽ tự động được điền vào cuối nhóm. Nếu bạn không bật tính năng nhóm ảo, vui lòng đặt nó thành0
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单位：" prop="unit_name" label-for="unit_name">
-                  <el-input clearable placeholder="请输入单位" v-model="formValidate.unit_name" class="content_width" />
+                <el-form-item label="đơn vị：" prop="unit_name" label-for="unit_name">
+                  <el-input clearable placeholder="Vui lòng nhập đơn vị" v-model="formValidate.unit_name" class="content_width" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="总购买数量限制：" prop="num">
+                <el-form-item label="Tổng số lượng mua giới hạn：" prop="num">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="1"
-                      placeholder="请输入总数量限制"
+                      placeholder="Vui lòng nhập tổng số lượng giới hạn"
                       :precision="0"
                       :max="10000"
                       v-model="formValidate.num"
                       class="content_width input-number-unit-class"
-                      :class-unit="formValidate.unit_name || '件'"
+                      :class-unit="formValidate.unit_name || 'miếng'"
                     />
                     <div class="grey">
-                      该商品活动期间内，用户可购买的最大数量。例如设置为4，表示本次活动有效期内，每个用户最多可购买4件
+                      Số lượng tối đa mà người dùng có thể mua trong thời gian hoạt động của sản phẩm này. Ví dụ: đặt thành 4, nghĩa là mỗi người dùng có thể mua tối đa 4 mặt hàng trong thời gian hiệu lực của sự kiện này.
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="单次购买数量限制：" prop="once_num">
+                <el-form-item label="Giới hạn số lượng mua một lần：" prop="once_num">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="1"
-                      placeholder="请输入单次购买数量限制"
+                      placeholder="Vui lòng nhập giới hạn số lượng mua một lần"
                       :precision="0"
                       :max="10000"
                       v-model="formValidate.once_num"
                       class="content_width input-number-unit-class"
-                      :class-unit="formValidate.unit_name || '件'"
+                      :class-unit="formValidate.unit_name || 'miếng'"
                     />
                     <div class="grey">
-                      用户参与拼团时，一次购买最大数量限制。例如设置为2，表示每次参与拼团时，用户一次购买数量最大可选择2个
+                      Khi người dùng tham gia mua nhóm, sẽ có giới hạn về số lượng mua tối đa cùng một lúc. Ví dụ: đặt thành 2, nghĩa là mỗi lần người dùng tham gia mua hàng theo nhóm, người dùng có thể chọn tối đa 2 mặt hàng cho một lần mua.
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
 
               <el-col :span="24">
-                <el-form-item label="团长返佣比例：" prop="head_commission">
+                <el-form-item label="Tỷ lệ hoàn trả hoa hồng trưởng nhóm：" prop="head_commission">
                   <div>
                     <el-input-number
                       :controls="false"
                       :min="0"
                       :max="100"
-                      placeholder="团长返佣比例"
+                      placeholder="Tỷ lệ hoàn trả hoa hồng trưởng nhóm"
                       :precision="0"
                       v-model="formValidate.head_commission"
                       class="content_width input-number-unit-class"
                       class-unit="%"
                     />
                     <div class="grey">
-                      拼团成功后，如果团长是分销员，则在订单确认收货时会给团长返一定的佣金，佣金比例是实际支付金额的0-100%
+                      Sau khi nhóm được tập hợp thành công, nếu trưởng nhóm là nhà phân phối thì một khoản hoa hồng nhất định sẽ được trả lại cho trưởng nhóm khi đơn hàng được xác nhận và nhận. Tỷ lệ hoa hồng dựa trên số tiền thanh toán thực tế.0-100%
                     </div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="拼团是否参与分销：" props="is_commission" label-for="is_commission">
+                <el-form-item label="Việc chia sẻ nhóm có liên quan đến việc phân phối hay không：" props="is_commission" label-for="is_commission">
                   <div>
                     <el-switch
                       class="defineSwitch"
@@ -303,19 +303,19 @@
                       :inactive-value="0"
                       v-model="formValidate.is_commission"
                       size="large"
-                      active-text="开启"
-                      inactive-text="关闭"
+                      active-text="bật lên"
+                      inactive-text="đóng cửa"
                     >
                     </el-switch>
-                    <div class="grey">拼团商品是否参与商城分销返佣</div>
+                    <div class="grey">Liệu các sản phẩm mua theo nhóm có tham gia giảm giá phân phối tại trung tâm thương mại hay không</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="排序：">
+                <el-form-item label="loại：">
                   <el-input-number
                     :controls="false"
-                    placeholder="请输入排序"
+                    placeholder="Vui lòng nhập sắp xếp"
                     :precision="0"
                     :max="10000"
                     :min="0"
@@ -325,35 +325,35 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="热门推荐：" props="is_hot" label-for="is_hot">
+                <el-form-item label="Khuyến nghị phổ biến：" props="is_hot" label-for="is_hot">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.is_host"
                     size="large"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    active-text="bật lên"
+                    inactive-text="đóng cửa"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动状态：" props="is_show" label-for="is_show">
+                <el-form-item label="trạng thái hoạt động：" props="is_show" label-for="is_show">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.is_show"
                     size="large"
-                    active-text="开启"
-                    inactive-text="关闭"
+                    active-text="bật lên"
+                    inactive-text="đóng cửa"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="规格选择：">
+                <el-form-item label="Lựa chọn thông số kỹ thuật：">
                   <el-table
                     ref="multipleTable"
                     :data="specsData"
@@ -415,7 +415,7 @@
             </el-row>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="内容：">
+                <el-form-item label="nội dung：">
                   <WangEditor
                     style="width: 90%"
                     :content="formValidate.description"
@@ -430,7 +430,7 @@
                 v-db-click
                 @click="step"
                 :disabled="($route.params.id && current === 1) || current === 0"
-                >上一步</el-button
+                >Bước trước</el-button
               >
               <el-button
                 type="primary"
@@ -438,19 +438,19 @@
                 class="submission"
                 v-db-click
                 @click="next('formValidate')"
-                >{{ current === 2 ? '提交' : '下一步' }}</el-button
+                >{{ current === 2 ? 'nộp' : 'Bước tiếp theo' }}</el-button
               >
             </el-form-item>
           </el-form>
         </el-col>
       </el-row>
     </el-card>
-    <!-- 选择商品-->
-    <el-dialog :visible.sync="modals" title="商品列表" class="paymentFooter" width="1000px">
+    <!-- Chọn sản phẩm-->
+    <el-dialog :visible.sync="modals" title="Danh sách sản phẩm" class="paymentFooter" width="1000px">
       <goods-list ref="goodslist" @getProductId="getProductId"></goods-list>
     </el-dialog>
-    <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <!-- Tải ảnh lên-->
+    <el-dialog :visible.sync="modalPic" width="950px" title="Tải lên hình ảnh sản phẩm" :close-on-click-modal="false">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -460,7 +460,7 @@
         v-if="modalPic"
       ></uploadPictures>
     </el-dialog>
-    <!-- 运费模板-->
+    <!-- Mẫu vận chuyển hàng hóa-->
     <freight-template ref="template" @addSuccess="productGetTemplate"></freight-template>
   </div>
 </template>
@@ -519,11 +519,11 @@ export default {
         sm: 8,
         xs: 8,
       },
-      stepList: ['选择拼团商品', '填写基础信息', '修改商品详情'],
+      stepList: ['Chọn sản phẩm nhóm', 'Điền thông tin cơ bản', 'Sửa đổi chi tiết sản phẩm'],
       myConfig: {
-        autoHeightEnabled: false, // 编辑器不自动被内容撑高
-        initialFrameHeight: 500, // 初始容器高度
-        initialFrameWidth: '100%', // 初始容器宽度
+        autoHeightEnabled: false, // Trình chỉnh sửa không được tự động nâng lên bởi nội dung
+        initialFrameHeight: 500, // chiều cao container ban đầu
+        initialFrameWidth: '100%', // chiều rộng container ban đầu
         UEDITOR_HOME_URL: '/UEditor/',
         serverUrl: '',
       },
@@ -563,17 +563,17 @@ export default {
         virtual: 100,
         virtualPeople: 0,
         head_commission: 0,
-        logistics: ['1'], //选择物流方式
-        freight: 2, //运费设置
-        postage: 1, //设置运费金额
+        logistics: ['1'], //Chọn phương thức hậu cần
+        freight: 2, //Cài đặt phí vận chuyển
+        postage: 1, //Đặt số tiền vận chuyển
       },
       ruleValidate: {
-        image: [{ required: true, message: '请选择主图', trigger: 'change' }],
+        image: [{ required: true, message: 'Vui lòng chọn hình ảnh chính', trigger: 'change' }],
         images: [
           {
             required: true,
             type: 'array',
-            message: '请选择主图',
+            message: 'Vui lòng chọn hình ảnh chính',
             trigger: 'change',
           },
           {
@@ -583,22 +583,22 @@ export default {
             trigger: 'change',
           },
         ],
-        title: [{ required: true, message: '请输入拼团名称', trigger: 'blur' }],
-        info: [{ required: true, message: '请输入拼团简介', trigger: 'blur' }],
+        title: [{ required: true, message: 'Vui lòng nhập tên nhóm', trigger: 'blur' }],
+        info: [{ required: true, message: 'Vui lòng nhập thông tin nhóm', trigger: 'blur' }],
         section_time: [
           {
             required: true,
             type: 'array',
-            message: '请选择活动时间',
+            message: 'Vui lòng chọn thời gian diễn ra sự kiện',
             trigger: 'change',
           },
         ],
-        unit_name: [{ required: true, message: '请输入单位', trigger: 'blur' }],
+        unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
         price: [
           {
             required: true,
             type: 'number',
-            message: '请输入拼团价',
+            message: 'Vui lòng nhập giá nhóm',
             trigger: 'blur',
           },
         ],
@@ -606,7 +606,7 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入成本价',
+            message: 'Vui lòng nhập giá thành',
             trigger: 'blur',
           },
         ],
@@ -614,7 +614,7 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入库存',
+            message: 'Vui lòng nhập hàng tồn kho',
             trigger: 'blur',
           },
         ],
@@ -622,7 +622,7 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入赠送积分',
+            message: 'Vui lòng nhập điểm thưởng',
             trigger: 'blur',
           },
         ],
@@ -630,7 +630,7 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入拼团时效(单位 小时)',
+            message: 'Vui lòng nhập giới hạn thời gian đặt vé theo nhóm(Đơn vị giờ)',
             trigger: 'blur',
           },
         ],
@@ -638,7 +638,7 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入拼团人数',
+            message: 'Vui lòng nhập số lượng người trong nhóm',
             trigger: 'blur',
           },
         ],
@@ -646,7 +646,7 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入购买数量限制',
+            message: 'Vui lòng nhập giới hạn số lượng mua hàng',
             trigger: 'blur',
           },
         ],
@@ -654,7 +654,7 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入单次购买数量限制',
+            message: 'Vui lòng nhập giới hạn số lượng mua một lần',
             trigger: 'blur',
           },
         ],
@@ -662,14 +662,14 @@ export default {
           {
             required: true,
             type: 'number',
-            message: '请输入虚拟成团补齐人数',
+            message: 'Vui lòng nhập số lượng người để hoàn thành nhóm ảo',
             trigger: 'blur',
           },
         ],
         temp_id: [
           {
             required: true,
-            message: '请选择运费模板',
+            message: 'Vui lòng chọn mẫu vận chuyển hàng hóa',
             trigger: 'change',
             type: 'number',
           },
@@ -703,12 +703,12 @@ export default {
     getEditorContent(data) {
       this.description = data;
     },
-    // 添加运费模板
+    // Thêm mẫu vận chuyển hàng hóa
     freight() {
       this.$refs.template.id = 0;
       this.$refs.template.isTemplate = true;
     },
-    // 拼团规格；
+    // Thông số nhóm nhóm；
     productAttrs(row) {
       let that = this;
       productAttrsApi(row.id, 3)
@@ -731,23 +731,23 @@ export default {
           that.$message.error(res.msg);
         });
     },
-    // 多选
+    // Nhiều lựa chọn
     changeCheckbox(selection) {
       this.formValidate.attrs = selection;
     },
-    // 获取运费模板；
+    // Nhận mẫu vận chuyển；
     productGetTemplate() {
       productGetTemplateApi().then((res) => {
         this.templateList = res.data;
       });
     },
-    // 表单验证
+    // xác nhận mẫu
     validate(prop, status, error) {
       if (status === false) {
         this.$message.error(error);
       }
     },
-    // 商品id
+    // hàng hóaid
     getProductId(row) {
       this.modal_loading = false;
       this.modals = false;
@@ -758,7 +758,7 @@ export default {
           title: row.store_name,
           image: row.image,
           unit_name: row.unit_name,
-          price: 0, // 不取商品中的原价
+          price: 0, // Không lấy giá gốc của sản phẩm
           effective_time: 24,
           stock: row.stock,
           sales: row.sales,
@@ -768,7 +768,7 @@ export default {
           is_host: row.is_hot,
           is_show: 0,
           section_time: [],
-          description: '', // 不取商品中的
+          description: '', // Không lấy từ sản phẩm
           id: 0,
           people: 2,
           num: 1,
@@ -777,11 +777,11 @@ export default {
           temp_id: row.temp_id,
           virtual: 100,
           virtualPeople: 0,
-          logistics: row.logistics, //选择物流方式
-          freight: row.freight, //运费设置
-          postage: row.postage, //设置运费金额
-          custom_form: row.custom_form, //自定义表单数据
-          virtual_type: row.virtual_type, //虚拟商品类型
+          logistics: row.logistics, //Chọn phương thức hậu cần
+          freight: row.freight, //Cài đặt phí vận chuyển
+          postage: row.postage, //Đặt số tiền vận chuyển
+          custom_form: row.custom_form, //Dữ liệu biểu mẫu tùy chỉnh
+          virtual_type: row.virtual_type, //Loại hàng hóa ảo
           head_commission: 0,
           description: row.description,
         };
@@ -791,11 +791,11 @@ export default {
     cancel() {
       this.modals = false;
     },
-    // 具体日期
+    // ngày cụ thể
     onchangeTime(e) {
       this.formValidate.section_time = e;
     },
-    // 详情
+    // Chi tiết
     getInfo() {
       this.spinShow = true;
       combinationInfoApi(this.$route.params.id)
@@ -839,7 +839,7 @@ export default {
     getRowKeys(row) {
       return row.id;
     },
-    // 下一步
+    // Bước tiếp theo
     next(name) {
       let that = this;
       if (this.current === 2) {
@@ -874,55 +874,55 @@ export default {
         this.$refs[name].validate((valid) => {
           if (valid) {
             if (that.formValidate.people < 2) {
-              return that.$message.error('拼团人数必须大于2');
+              return that.$message.error('Số lượng người tham gia nhóm phải lớn hơn2');
             }
             if (that.formValidate.num < 0) {
-              return that.$message.error('购买数量限制必须大于0');
+              return that.$message.error('Giới hạn số lượng mua phải lớn hơn0');
             }
             if (that.formValidate.once_num < 0) {
-              return that.$message.error('单次购买数量限制必须大于0');
+              return that.$message.error('Giới hạn số lượng mua một lần phải lớn hơn0');
             }
             if (!that.formValidate.attrs) {
-              return that.$message.error('请选择属性规格');
+              return that.$message.error('Vui lòng chọn thông số thuộc tính');
             } else {
               for (let index in that.formValidate.attrs) {
                 if (that.formValidate.attrs[index].quota <= 0) {
-                  return that.$message.error('拼团限量必须大于0');
+                  return that.$message.error('Giới hạn nhóm phải lớn hơn0');
                 }
                 if (this.formValidate.attrs[index].quota > this.formValidate.attrs[index]['stock']) {
-                  return this.$message.error('拼团限量不能超过规格库存');
+                  return this.$message.error('Giới hạn nhóm không thể vượt quá khoảng không quảng cáo được chỉ định');
                 }
               }
             }
             this.current += 1;
           } else {
-            return this.$message.warning('请完善您的信息');
+            return this.$message.warning('Vui lòng điền đầy đủ thông tin của bạn');
           }
         });
       } else {
         if (this.formValidate.image) {
           this.current += 1;
         } else {
-          this.$message.warning('请选择商品');
+          this.$message.warning('Vui lòng chọn sản phẩm');
         }
       }
     },
-    // 上一步
+    // Bước trước
     step() {
       this.current--;
     },
-    // 内容
+    // nội dung
     getContent(val) {
       this.formValidate.description = val;
     },
-    // 点击商品图
+    // Bấm vào hình ảnh sản phẩm
     modalPicTap(tit, picTit, index) {
       this.modalPic = true;
-      this.isChoice = tit === 'dan' ? '单选' : '多选';
+      this.isChoice = tit === 'dan' ? 'Lựa chọn duy nhất' : 'Nhiều lựa chọn';
       this.picTit = picTit;
       this.tableIndex = index;
     },
-    // 获取单张图片信息
+    // Nhận thông tin về một hình ảnh
     getPic(pc) {
       switch (this.picTit) {
         case 'danFrom':
@@ -936,7 +936,7 @@ export default {
       }
       this.modalPic = false;
     },
-    // 获取多张图信息
+    // Nhận nhiều thông tin hình ảnh
     getPicD(pc) {
       this.images = pc;
       this.images.map((item) => {
@@ -949,7 +949,7 @@ export default {
       this.images.splice(i, 1);
       this.formValidate.images.splice(i, 1);
     },
-    // 选择商品
+    // Chọn sản phẩm
     changeGoods() {
       this.modals = true;
       this.$nextTick((e) => {
@@ -959,14 +959,14 @@ export default {
         this.$refs.goodslist.goodsCategory();
       });
     },
-    // 移动
+    // di chuyển
     handleDragStart(e, item) {
       this.dragging = item;
     },
     handleDragEnd(e, item) {
       this.dragging = null;
     },
-    // 首先把div变成可以放置的元素，即重写dragenter/dragover
+    // Đầu tiên, biến div thành một phần tử có thể đặt được, tức là viết lại nódragenter/dragover
     handleDragOver(e) {
       e.dataTransfer.dropEffect = 'move';
     },

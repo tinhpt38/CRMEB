@@ -1,21 +1,21 @@
 // +---------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +---------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +---------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +---------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +---------------------------------------------------------------------
 
 import './jigsaw.css';
 
-let w = 310; // canvas宽度
-let h = 155; // canvas高度
-const l = 42; // 滑块边长
-const r = 9; // 滑块半径
+let w = 310; // canvaschiều rộng
+let h = 155; // canvascao
+const l = 42; // Chiều dài cạnh trượt
+const r = 9; // Bán kính trượt
 const PI = Math.PI;
-const L = l + r * 2 + 3; // 滑块实际边长
+const L = l + r * 2 + 3; // Chiều dài cạnh thực tế của thanh trượt
 
 function getRandomNumberByRange(start, end) {
   return Math.round(Math.random() * (end - start) + start);
@@ -39,10 +39,10 @@ function createImg(onload) {
   img.setSrc = function (src) {
     const isIE = window.navigator.userAgent.indexOf('Trident') > -1;
     if (isIE) {
-      // IE浏览器无法通过img.crossOrigin跨域，使用ajax获取图片blob然后转为dataURL显示
+      // IETrình duyệt không thể vượt miền thông qua img.crossOrigin. Sử dụng ajax để lấy blob hình ảnh và sau đó chuyển đổi nó thành dataURL để hiển thị.
       const xhr = new XMLHttpRequest();
       xhr.onloadend = function (e) {
-        const file = new FileReader(); // FileReader仅支持IE10+
+        const file = new FileReader(); // FileReaderChỉ hỗ trợIE10+
         file.readAsDataURL(e.target.response);
         file.onloadend = function (e) {
           img.src = e.target.result;
@@ -126,8 +126,8 @@ class jigsaw {
   }
 
   initDOM() {
-    const canvas = createCanvas(w, h); // 画布
-    const block = canvas.cloneNode(true); // 滑块
+    const canvas = createCanvas(w, h); // vải vẽ
+    const block = canvas.cloneNode(true); // thanh trượt
     const sliderContainer = createElement('div', 'sliderContainer');
     sliderContainer.style.width = w + 'px';
     const refreshIcon = createElement('div', 'refreshIcon');
@@ -137,7 +137,7 @@ class jigsaw {
     const text = createElement('span', 'sliderText');
 
     block.className = 'block';
-    text.innerHTML = '向右滑动填充拼图';
+    text.innerHTML = 'Vuốt sang phải để điền vào câu đố';
 
     const el = this.el;
     el.appendChild(canvas);
@@ -177,7 +177,7 @@ class jigsaw {
   }
 
   draw() {
-    // 随机创建滑块的位置
+    // Tạo ngẫu nhiên các vị trí thanh trượt
     this.x = getRandomNumberByRange(L + 10, w - (L + 10));
     this.y = getRandomNumberByRange(10 + r * 2, h - (L + 10));
     draw(this.canvasCtx, this.x, this.y, 'fill');
@@ -238,7 +238,7 @@ class jigsaw {
           typeof this.onSuccess === 'function' && this.onSuccess();
         } else {
           addClass(this.sliderContainer, 'sliderContainer_fail');
-          this.text.innerHTML = '请再试一次';
+          this.text.innerHTML = 'vui lòng thử lại';
           this.reset();
         }
       } else {
@@ -260,14 +260,14 @@ class jigsaw {
   }
 
   verify() {
-    const arr = this.trail; // 拖动时y轴的移动距离
+    const arr = this.trail; // Khoảng cách di chuyển của trục y khi kéo
     const average = arr.reduce(sum) / arr.length;
     const deviations = arr.map((x) => x - average);
     const stddev = Math.sqrt(deviations.map(square).reduce(sum) / arr.length);
     const left = parseInt(this.block.style.left);
     return {
       spliced: Math.abs(left - this.x) < 10,
-      verified: stddev !== 0, // 简单验证拖动轨迹，为零时表示Y轴上下没有波动，可能非人为操作
+      verified: stddev !== 0, // Đơn giản chỉ cần xác minh quỹ đạo kéo. Khi nó bằng 0 nghĩa là không có sự dao động lên xuống theo trục Y, có thể không phải là thao tác của con người.
     };
   }
 

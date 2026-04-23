@@ -316,11 +316,11 @@
 import { mapState } from 'vuex';
 export default {
   name: 'picture_cube',
-  cname: '图片魔方',
+  cname: 'Hình ảnh khối Rubik',
   configName: 'c_picture_cube',
   icon: '#iconzujian-tupianmofang',
-  type: 0, // 0 基础组件 1 营销组件 2工具组件
-  defaultName: 'pictureCube', // 外面匹配名称
+  type: 0, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
+  defaultName: 'pictureCube', // tên trận đấu bên ngoài
   props: {
     index: {
       type: null,
@@ -356,22 +356,22 @@ export default {
   },
   data() {
     return {
-      // 默认初始化数据禁止修改
+      // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: '图片魔方',
+        cname: 'Hình ảnh khối Rubik',
         name: 'pictureCube',
         timestamp: this.num,
         isHide: false,
         setUp: {
           tabVal: 0,
         },
-        titleLeft: '展示设置',
-        titleShow: '展示设置',
-        titleContent: '内容设置',
-        titleRight: '图片魔方',
-        titleCurrency: '通用样式',
+        titleLeft: 'Cài đặt hiển thị',
+        titleShow: 'Cài đặt hiển thị',
+        titleContent: 'Cài đặt nội dung',
+        titleRight: 'Hình ảnh khối Rubik',
+        titleCurrency: 'Phong cách phổ quát',
         styleConfig: {
-          title: '选择风格',
+          title: 'Chọn phong cách',
           tabVal: 0,
           count: 2,
           type: 'pictureCube',
@@ -392,8 +392,8 @@ export default {
               img: '',
               info: [
                 {
-                  title: '链接',
-                  tips: '请输入链接',
+                  title: 'liên kết',
+                  tips: 'Vui lòng nhập liên kết',
                   value: '',
                   max: 100,
                 },
@@ -402,102 +402,102 @@ export default {
           ],
         },
         zIndexConfig: {
-          title: '组件上浮',
+          title: 'Thành phần nổi',
           val: 0,
           min: 0,
         },
         borderConfig: {
-          title: '边框设置',
+          title: 'Cài đặt đường viền',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Hide, 1: Show
           styleConfig: {
-            title: '边框样式',
+            title: 'phong cách biên giới',
             tabVal: 0,
             tabList: [
-              { name: '实线', style: 'solid' },
-              { name: '虚线', style: 'dashed' },
-              { name: '点状', style: 'dotted' },
+              { name: 'đường liền nét', style: 'solid' },
+              { name: 'đường chấm chấm', style: 'dashed' },
+              { name: 'Say mê', style: 'dotted' },
             ],
           },
           widthConfig: {
-            title: '边框粗细',
+            title: 'Độ dày viền',
             val: 1,
             min: 1,
           },
           colorConfig: {
-            title: '边框颜色',
+            title: 'màu viền',
             default: [{ item: '#e5e5e5' }],
             color: [{ item: '#e5e5e5' }],
           },
         },
         shadowConfig: {
-          title: '阴影设置',
+          title: 'Cài đặt bóng',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Hide, 1: Show
           colorConfig: {
-            title: '阴影颜色',
+            title: 'màu bóng',
             default: [{ item: 'rgba(0,0,0,0.1)' }],
             color: [{ item: 'rgba(0,0,0,0.1)' }],
           },
           xConfig: {
-            title: 'X轴偏移',
+            title: 'Xđộ lệch trục',
             val: 0,
             min: -50,
           },
           yConfig: {
-            title: 'Y轴偏移',
+            title: 'Yđộ lệch trục',
             val: 0,
             min: -50,
           },
           blurConfig: {
-            title: '模糊半径',
+            title: 'bán kính lờ mờ',
             val: 10,
             min: 0,
           },
           spreadConfig: {
-            title: '扩展半径',
+            title: 'Bán kính mở rộng',
             val: 0,
             min: -50,
           },
         },
         componentBgConfig: {
-          title: '组件背景',
+          title: 'Nền thành phần',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Hide, 1: Show
           colorConfig: {
-            title: '背景颜色',
+            title: 'màu nền',
             default: [{ item: '#fff' }],
             color: [{ item: '#fff' }],
           },
         },
         imgConfig: {
-          title: '图片间距',
+          title: 'Khoảng cách hình ảnh',
           val: 0,
           min: 0,
         },
         filletImg: {
-          title: '图片圆角',
+          title: 'Hình ảnh được bo tròn các góc',
           type: 0,
           list: [
             {
-              val: '全部',
+              val: 'tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
-              val: '单个',
+              val: 'đơn',
               icon: 'iconcaozuo-bianjiao',
             },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         bottomBgColor: {
-          title: '底部背景',
+          title: 'nền dưới cùng',
           default: [
             {
               item: '#f5f5f5',
@@ -510,19 +510,19 @@ export default {
           ],
         },
         fillet: {
-          title: '背景圆角',
+          title: 'Nền bo tròn các góc',
           type: 0,
           list: [
             {
-              val: '全部',
+              val: 'tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
-              val: '单个',
+              val: 'đơn',
               icon: 'iconcaozuo-bianjiao',
             },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
@@ -535,7 +535,7 @@ export default {
       configObj: null,
       bottomBgColor: '',
       paddingConfig: {
-        title: '内边距',
+        title: 'phần đệm',
         val: 0,
         min: 0,
         max: 100,
@@ -567,7 +567,7 @@ export default {
 
       if (isLegacyPadding) {
         dataClone.paddingConfig = {
-          title: '边距设置',
+          title: 'Cài đặt lề',
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
@@ -581,7 +581,7 @@ export default {
       }
       if (isLegacyMargin) {
         dataClone.marginConfig = {
-          title: '间距设置',
+          title: 'Cài đặt khoảng cách',
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],

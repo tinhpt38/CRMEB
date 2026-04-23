@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\services\other\QrcodeServices;
 use crmeb\services\GroupDataService;
 
 /**
- * 秒杀商品类
+ * Sản phẩm giảm giá chớp nhoáng
  * Class StoreSeckillController
  * @package app\api\controller\activity
  */
@@ -31,16 +31,16 @@ class StoreSeckillController
     }
 
     /**
-     * 秒杀商品时间区间
+     * Khoảng thời gian của sản phẩm flash sale
      * @return mixed
      */
     public function index()
     {
-        //秒杀时间段
+        //khoảng thời gian flash sale
         $seckillTime = GroupDataService::getData('routine_seckill_time') ?? [];
         $seckillTimeIndex = -1;
-        $timeCount = count($seckillTime);//总数
-        $unTimeCunt = 0;//即将开始
+        $timeCount = count($seckillTime);//tổng cộng
+        $unTimeCunt = 0;//Sắp bắt đầu
         if ($timeCount) {
             $today = strtotime(date('Y-m-d'));
             $currentHour = date('H');
@@ -48,35 +48,35 @@ class StoreSeckillController
                 $activityEndHour = bcadd((int)$value['time'], (int)$value['continued'], 0);
                 if ($activityEndHour > 24) {
                     $value['time'] = strlen((int)$value['time']) == 2 ? (int)$value['time'] . ':00' : '0' . (int)$value['time'] . ':00';
-                    $value['state'] = '即将开始';
+                    $value['state'] = 'Sắp bắt đầu';
                     $value['status'] = 2;
                     $value['stop'] = (int)bcadd($today, bcmul($activityEndHour, 3600, 0));
                 } else {
                     if ($currentHour >= (int)$value['time'] && $currentHour < $activityEndHour) {
                         $value['time'] = strlen((int)$value['time']) == 2 ? (int)$value['time'] . ':00' : '0' . (int)$value['time'] . ':00';
-                        $value['state'] = '抢购中';
+                        $value['state'] = 'Đang giảm giá';
                         $value['stop'] = (int)bcadd($today, bcmul($activityEndHour, 3600, 0));
                         $value['status'] = 1;
                         if ($seckillTimeIndex == -1) $seckillTimeIndex = $key;
                     } else if ($currentHour < (int)$value['time']) {
                         $value['time'] = strlen((int)$value['time']) == 2 ? (int)$value['time'] . ':00' : '0' . (int)$value['time'] . ':00';
-                        $value['state'] = '即将开始';
+                        $value['state'] = 'Sắp bắt đầu';
                         $value['status'] = 2;
                         $value['stop'] = (int)bcadd($today, bcmul($activityEndHour, 3600, 0));
                         $unTimeCunt += 1;
                     } else if ($currentHour >= $activityEndHour) {
                         $value['time'] = strlen((int)$value['time']) == 2 ? (int)$value['time'] . ':00' : '0' . (int)$value['time'] . ':00';
-                        $value['state'] = '已结束';
+                        $value['state'] = 'đã kết thúc';
                         $value['status'] = 0;
                         $value['stop'] = (int)bcadd($today, bcmul($activityEndHour, 3600, 0));
                     }
                 }
             }
-            //有时间段但是都不在抢购中
+            //Có những khoảng thời gian nhưng chúng không được bán.
             if ($seckillTimeIndex == -1 && $currentHour <= (int)$seckillTime[$timeCount - 1]['time'] ?? 0) {
-                if ($currentHour < (int)$seckillTime[0]['time'] ?? 0) {//当前时间
+                if ($currentHour < (int)$seckillTime[0]['time'] ?? 0) {//thời điểm hiện tại
                     $seckillTimeIndex = 0;
-                } elseif ($unTimeCunt) {//存在未开始的
+                } elseif ($unTimeCunt) {//Có một người không quen biết
                     foreach ($seckillTime as $key => $item) {
                         if ($item['status'] == 2) {
                             $seckillTimeIndex = $key;
@@ -97,7 +97,7 @@ class StoreSeckillController
     }
 
     /**
-     * 秒杀商品列表
+     * Danh sách sản phẩm Flashsale
      * @param $time
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -106,13 +106,13 @@ class StoreSeckillController
      */
     public function lst($time)
     {
-        if (!$time) return app('json')->fail('参数错误');
+        if (!$time) return app('json')->fail('Lỗi tham số');
         $seckillInfo = $this->services->getListByTime($time);
         return app('json')->success(get_thumb_water($seckillInfo));
     }
 
     /**
-     * 秒杀商品详情
+     * Chi tiết sản phẩm Flashsale
      * @param Request $request
      * @param $id
      * @return mixed
@@ -130,7 +130,7 @@ class StoreSeckillController
     }
 
     /**
-     * 获取秒杀小程序二维码
+     * Lấy mã QR của chương trình mini flash sale
      * @param Request $request
      * @param $id
      * @return mixed

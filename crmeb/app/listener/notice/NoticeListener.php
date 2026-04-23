@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,8 +26,8 @@ use crmeb\interfaces\ListenerInterface;
 use crmeb\utils\Str;
 
 /**
- * 消息类
- * @author: 吴汐
+ * Lớp tin nhắn
+ * @author: thủy triều
  * @email: 442384644@qq.com
  * @date: 2023/8/29
  */
@@ -39,7 +39,7 @@ class NoticeListener implements ListenerInterface
     protected $services = [];
 
     /**
-     * 方法
+     * phương pháp
      * @var string[]
      */
     protected $eventMethods = [
@@ -74,7 +74,7 @@ class NoticeListener implements ListenerInterface
     ];
 
     /**
-     * 启动加载
+     * Bắt đầu tải
      */
     public function __construct()
     {
@@ -88,10 +88,10 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * 获取对象
+     * Nhận đối tượng
      * @param $mark
      * @return NoticeService
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -101,9 +101,9 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * 执行方法
+     * Phương pháp thực hiện
      * @param $event
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -112,11 +112,11 @@ class NoticeListener implements ListenerInterface
         try {
             [$data, $mark] = $event;
             if ($mark) {
-                $this->getNoticeService('SysMsg')->setEvent($mark);     //站内信
-                $this->getNoticeService('Sms')->setEvent($mark);        //短信
-                $this->getNoticeService('Wechat')->setEvent($mark);     //模版消息
-                $this->getNoticeService('Routine')->setEvent($mark);    //订阅消息
-                $this->getNoticeService('WeWork')->setEvent($mark);     //企业微信消息
+                $this->getNoticeService('SysMsg')->setEvent($mark);     //Thông báo trang web
+                $this->getNoticeService('Sms')->setEvent($mark);        //Tin nhắn ngắn
+                $this->getNoticeService('Wechat')->setEvent($mark);     //tin nhắn mẫu
+                $this->getNoticeService('Routine')->setEvent($mark);    //Đăng ký nhận tin tức
+                $this->getNoticeService('WeWork')->setEvent($mark);     //Tin nhắn WeChat doanh nghiệp
                 if (isset($this->eventMethods[$mark])) {
                     $method = $this->eventMethods[$mark];
                     call_user_func([$this, $method], $data);
@@ -127,10 +127,10 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * 推广新用户给上级发送消息
+     * Quảng bá người dùng mới và gửi tin nhắn cho cấp trên
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -138,17 +138,17 @@ class NoticeListener implements ListenerInterface
     {
         if (isset($data['spreadUid']) && $data['spreadUid']) {
             $name = $data['nickname'] ?? '';
-            //站内信
+            //Thông báo trang web
             $this->getNoticeService('SysMsg')->sendMsg($data['spreadUid'], ['nickname' => $name]);
         }
         return true;
     }
 
     /**
-     * 支付成功给用户发送消息
+     * Gửi tin nhắn cho người dùng khi thanh toán thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -160,22 +160,22 @@ class NoticeListener implements ListenerInterface
         $data['total_num'] = $data['total_num'] ?? 1;
         $data['storeName'] = Str::substrUTf8($data['storeName'], 20, 'UTF-8', '');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($data['uid'], ['order_id' => $data['order_id'], 'total_num' => $data['total_num'], 'pay_price' => $data['pay_price']]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendSms($data['user_phone'], compact('order_id', 'pay_price'));
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendOrderPaySuccess($data['uid'], $data);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendOrderSuccess($data['uid'], $data['pay_price'], $data['order_id']);
         return true;
     }
 
     /**
-     * 送货给用户发送消息
+     * Gửi tin nhắn tới người dùng
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -188,22 +188,22 @@ class NoticeListener implements ListenerInterface
         $storeTitle = Str::substrUTf8($storeTitle, 20, 'UTF-8', '');
         $nickname = app()->make(UserServices::class)->value(['uid' => $orderInfo->uid], 'nickname');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($orderInfo['uid'], ['nickname' => $nickname, 'store_name' => $storeTitle, 'order_id' => $orderInfo['order_id'], 'delivery_name' => $orderInfo['delivery_name'], 'delivery_id' => $orderInfo['delivery_id'], 'user_address' => $orderInfo['user_address']]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendSms($orderInfo->user_phone, compact('order_id', 'store_name', 'nickname'));
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendOrderDeliver($orderInfo['uid'], $storeTitle, $orderInfo->toArray());
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendOrderPostage($orderInfo['uid'], $orderInfo->toArray(), $storeTitle, 0);
         return true;
     }
 
     /**
-     * 发快递给用户发送消息
+     * Gửi tin nhắn nhanh cho người dùng
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -216,22 +216,22 @@ class NoticeListener implements ListenerInterface
         $storeTitle = Str::substrUTf8($storeTitle, 20, 'UTF-8', '');
         $nickname = app()->make(UserServices::class)->value(['uid' => $orderInfo->uid], 'nickname');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($orderInfo['uid'], ['nickname' => $nickname, 'store_name' => $storeTitle, 'order_id' => $orderInfo['order_id'], 'delivery_name' => $orderInfo['delivery_name'], 'delivery_id' => $orderInfo['delivery_id'], 'user_address' => $orderInfo['user_address']]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendSms($orderInfo->user_phone, compact('order_id', 'store_name', 'nickname'));
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendOrderPostage($orderInfo['uid'], $orderInfo->toArray(), $storeTitle);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendOrderPostage($orderInfo['uid'], $orderInfo->toArray(), $storeTitle, 1);
         return true;
     }
 
     /**
-     * 确认收货给用户发送消息
+     * Gửi tin nhắn cho người dùng để xác nhận đã nhận
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -241,25 +241,25 @@ class NoticeListener implements ListenerInterface
         $store_name = Str::substrUTf8($data['storeTitle'], 20, 'UTF-8', '');
         $order_id = $order['order_id'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($order['uid'], ['order_id' => $order['order_id'], 'store_name' => $store_name]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendSms($order['user_phone'], compact('store_name', 'order_id'));
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendOrderTakeSuccess($order['uid'], $order, $store_name);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendOrderTakeOver($order['uid'], $order, $store_name);
         return true;
     }
 
     /**
-     * 改价给用户发送消息
+     * Gửi tin nhắn cho người dùng về việc thay đổi giá
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -269,21 +269,21 @@ class NoticeListener implements ListenerInterface
         $pay_price = $data['pay_price'];
         $order['storeName'] = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($order['uid'], ['order_id' => $order['order_id'], 'pay_price' => $pay_price]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendSms($order['user_phone'], ['order_id' => $order['order_id'], 'pay_price' => $pay_price]);
         return true;
     }
 
     /**
-     * 退款成功给用户发送消息
+     * Gửi tin nhắn cho người dùng nếu hoàn tiền thành công
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -296,22 +296,22 @@ class NoticeListener implements ListenerInterface
         $storeName = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
         $storeTitle = Str::substrUTf8($storeName, 20, 'UTF-8', '');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($order['uid'], ['order_id' => $order['order_id'], 'pay_price' => $order['pay_price'], 'refund_price' => $datas['refund_price']]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendSms($order['user_phone'], ['order_id' => $order['order_id'], 'refund_price' => $order['refund_price']]);
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendOrderRefund($order['uid'], $order, $storeTitle);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendOrderRefundSuccess($order['uid'], $order, $storeTitle, $datas);
         return true;
     }
 
     /**
-     * 退款未通过给用户发送消息
+     * Gửi tin nhắn cho người dùng nếu hoàn tiền không thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -322,20 +322,20 @@ class NoticeListener implements ListenerInterface
         $order['refund_no'] = $order['order_id'];
         $storeTitle = Str::substrUTf8($order['cart_info'][0]['productInfo']['store_name'], 20, 'UTF-8', '');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($order['uid'], ['order_id' => $order['order_id'], 'pay_price' => $order['refund_price'], 'store_name' => $storeTitle]);
-        //模板消息
+        //tin nhắn mẫu
         $this->getNoticeService('Wechat')->sendOrderNoRefund($order['uid'], $order, $storeTitle);
-        //小程序订阅消息
+        //Tin tức đăng ký chương trình nhỏ
         $this->getNoticeService('Routine')->sendOrderRefundFail($order['uid'], $order, $storeTitle);
         return true;
     }
 
     /**
-     * 充值成功给用户发消息
+     * Gửi tin nhắn cho người dùng nếu nạp tiền thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -344,20 +344,20 @@ class NoticeListener implements ListenerInterface
         $order = $data['order'];
         $order['now_money'] = $data['now_money'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($order['uid'], ['order_id' => $order['order_id'], 'price' => $order['price'], 'now_money' => $order['now_money']]);
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendRechargeSuccess($order['uid'], $order);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendRechargeSuccess($order['uid'], $order, $order['now_money']);
         return true;
     }
 
     /**
-     * 充值退款给用户发消息
+     * Gửi tin nhắn cho người dùng để nạp tiền và hoàn tiền
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -367,38 +367,38 @@ class NoticeListener implements ListenerInterface
         $UserRecharge = $data['UserRecharge'];
         $now_money = $data['now_money'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($UserRecharge['uid'], ['refund_price' => $datas['refund_price'], 'order_id' => $UserRecharge['order_id'], 'price' => $UserRecharge['price']]);
-        //模板消息公众号模版消息
-        $this->getNoticeService('Wechat')->sendOrderRefund($UserRecharge['uid'], ['refund_no' => $UserRecharge['order_id'], 'refund_price' => $UserRecharge['price']], '充值退款');
-        //模板消息小程序订阅消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
+        $this->getNoticeService('Wechat')->sendOrderRefund($UserRecharge['uid'], ['refund_no' => $UserRecharge['order_id'], 'refund_price' => $UserRecharge['price']], 'Nạp tiền và hoàn tiền');
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendRechargeSuccess($UserRecharge['uid'], $UserRecharge, $now_money);
         return true;
     }
 
     /**
-     * 积分到账给用户发信息
+     * Gửi tin nhắn cho người dùng khi nhận được điểm
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
     protected function handleIntegralAccout($data)
     {
         $order = $data['order'];
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($order['uid'], ['order_id' => $order['order_id'], 'store_name' => $data['storeTitle'], 'pay_price' => $order['pay_price'], 'gain_integral' => $data['give_integral'], 'integral' => $data['integral']]);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendUserIntegral($order['uid'], $data['order'], $data['storeTitle'], $data['give_integral'], $data['integral']);
         return true;
     }
 
     /**
-     * 佣金到账给用户发消息
+     * Gửi tin nhắn cho người dùng khi nhận được hoa hồng
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -409,16 +409,16 @@ class NoticeListener implements ListenerInterface
         $goodsPrice = $data['goodsPrice'];
         $spread_uid = $data['spread_uid'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($spread_uid, ['goods_name' => $goodsName, 'goods_price' => $goodsPrice, 'brokerage_price' => $brokeragePrice]);
         return true;
     }
 
     /**
-     * 砍价成功给用户发消息
+     * Gửi tin nhắn cho người dùng sau khi thương lượng thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -429,18 +429,18 @@ class NoticeListener implements ListenerInterface
         $bargainUserInfo = $data['bargainUserInfo'];
         $bargainInfo['title'] = Str::substrUTf8($bargainInfo['title'], 20, 'UTF-8', '');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($uid, ['title' => $bargainInfo['title'], 'min_price' => $bargainInfo['min_price']]);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendBargainSuccess($uid, $bargainInfo, $bargainUserInfo, $uid);
         return true;
     }
 
     /**
-     * 开团成功,参团成功给用户发消息
+     * Nhóm bắt đầu thành công,Gửi tin nhắn cho người dùng sau khi tham gia nhóm thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -451,16 +451,16 @@ class NoticeListener implements ListenerInterface
         $pink = $data['pink'];
         $nickname = app()->make(UserServices::class)->value(['uid' => $orderInfo['uid']], 'nickname');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($orderInfo['uid'], ['title' => $title, 'nickname' => $nickname, 'count' => $pink['people'], 'pink_time' => date('Y-m-d H:i:s', $pink['add_time'])]);
         return true;
     }
 
     /**
-     * 拼团成功给用户发消息
+     * Gửi tin nhắn cho người dùng nếu cuộc chiến nhóm thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -471,18 +471,18 @@ class NoticeListener implements ListenerInterface
         $url = '/pages/goods/order_details/index?order_id=' . $list['order_id'];
         $title = Str::substrUTf8($title, 20, 'UTF-8', '');
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($list['uid'], ['title' => $title, 'nickname' => $list['nickname'], 'count' => $list['people'], 'pink_time' => date('Y-m-d H:i:s', $list['add_time'])]);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendPinkSuccess($list['uid'], $title, $list['nickname'], $list['add_time'], $list['people'], $url);
         return true;
     }
 
     /**
-     * 拼团失败，拼团取消给用户发消息
+     * Nếu mua nhóm không thành công, việc mua nhóm sẽ bị hủy và một tin nhắn sẽ được gửi đến người dùng.
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -491,16 +491,16 @@ class NoticeListener implements ListenerInterface
         $uid = $data['uid'];
         $pink = $data['pink'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($uid, ['title' => $pink->title, 'count' => $pink->people]);
         return true;
     }
 
     /**
-     * 提现成功给用户发消息
+     * Gửi tin nhắn cho người dùng nếu rút tiền thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -510,20 +510,20 @@ class NoticeListener implements ListenerInterface
         $nickname = $data['nickname'];
         $uid = $data['uid'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($uid, ['extract_number' => $extractNumber, 'nickname' => $nickname, 'date' => date('Y-m-d H:i:s', time())]);
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendUserExtract($uid, $extractNumber);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendExtractSuccess($uid, $extractNumber, $nickname);
         return true;
     }
 
     /**
-     * 提现失败给用户发消息
+     * Gửi tin nhắn cho người dùng nếu rút tiền không thành công
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -534,21 +534,21 @@ class NoticeListener implements ListenerInterface
         $uid = $data['uid'];
         $nickname = $data['nickname'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($uid, ['extract_number' => $extract_number, 'nickname' => $nickname, 'date' => date('Y-m-d H:i:s', time()), 'message' => $message]);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendExtractFail($uid, $message, $extract_number, $nickname);
         return true;
     }
 
     /**
-     * 提醒付款给用户发消息
+     * Gửi tin nhắn tới người dùng để nhắc nhở thanh toán
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -558,21 +558,21 @@ class NoticeListener implements ListenerInterface
         $order_id = $order['order_id'];
         $order['storeName'] = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($order['uid'], ['order_id' => $order_id]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendSms($order['user_phone'], compact('order_id'));
         return true;
     }
 
     /**
-     * 新订单给客服发消息
+     * Gửi tin nhắn đến bộ phận chăm sóc khách hàng để nhận đơn hàng mới
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -580,29 +580,29 @@ class NoticeListener implements ListenerInterface
     {
         $order = $data;
         $storeName = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
-        $title = '亲，来新订单啦！';
-        $status = '新订单';
+        $title = 'Bạn ơi, đây là đơn hàng mới！';
+        $status = 'trật tự mới';
         $link = '/pages/admin/orderDetail/index?id=' . $order['order_id'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->kefuSystemSend(['order_id' => $order['order_id']]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendAdminPaySuccess($order);
-        //模版消息
+        //tin nhắn mẫu
         $this->getNoticeService('Wechat')->sendAdminOrder($order['order_id'], $storeName, $title, $status, $link);
-        //企业微信通知
+        //Thông báo WeChat doanh nghiệp
         $this->getNoticeService('WeWork')->weComSend(['order_id' => $order['order_id']]);
         return true;
     }
 
     /**
-     * 确认收货给客服发消息
+     * Xác nhận đã nhận và gửi tin nhắn đến bộ phận chăm sóc khách hàng
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -611,29 +611,29 @@ class NoticeListener implements ListenerInterface
         $order = $data['order'];
         $storeTitle = $data['storeTitle'];
         $storeName = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
-        $title = '亲，用户已经收到货物啦！';
-        $status = '订单收货';
+        $title = 'Kính gửi, người dùng đã nhận được hàng.！';
+        $status = 'Biên nhận đơn hàng';
         $link = '/pages/admin/orderDetail/index?id=' . $order['order_id'];
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->kefuSystemSend(['storeTitle' => $storeTitle, 'order_id' => $order['order_id']]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendAdminConfirmTakeOver($order);
-        //公众号
+        //Tài khoản chính thức
         $this->getNoticeService('Wechat')->sendAdminOrder($order['order_id'], $storeName, $title, $status, $link);
-        //企业微信通知
+        //Thông báo WeChat doanh nghiệp
         $this->getNoticeService('WeWork')->weComSend(['storeTitle' => $storeTitle, 'order_id' => $order['order_id']]);
         return true;
     }
 
     /**
-     * 申请退款给客服发消息
+     * Gửi tin nhắn đến bộ phận chăm sóc khách hàng để yêu cầu hoàn tiền
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
@@ -641,40 +641,40 @@ class NoticeListener implements ListenerInterface
     {
         $order = $data['order'];
         $storeName = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
-        $title = '亲，您有个退款订单待处理！';
-        $status = '订单退款';
+        $title = 'Bạn thân mến, bạn có một yêu cầu hoàn tiền đang chờ xử lý.！';
+        $status = 'Hoàn tiền đơn hàng';
         $link = '/pages/admin/orderDetail/index?id=' . $order['refund_no'] . '&types=-3';
 
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->kefuSystemSend(['order_id' => $order['order_id']]);
-        //短信
+        //Tin nhắn ngắn
         $this->getNoticeService('Sms')->sendAdminRefund($order);
-        //公众号
+        //Tài khoản chính thức
         $this->getNoticeService('Wechat')->sendAdminOrder($order['refund_no'], $storeName, $title, $status, $link);
-        //企业微信通知
+        //Thông báo WeChat doanh nghiệp
         $this->getNoticeService('WeWork')->weComSend(['order_id' => $order['order_id']]);
         return true;
     }
 
     /**
-     * 提现申请给客服发消息
+     * Gửi tin nhắn đến bộ phận chăm sóc khách hàng để đăng ký rút tiền mặt
      * @param $data
      * @return bool
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
      */
     protected function handleKefuSendExtractApplication($data)
     {
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->kefuSystemSend($data);
-        //企业微信通知
+        //Thông báo WeChat doanh nghiệp
         $this->getNoticeService('WeWork')->weComSend($data);
         return true;
     }
 
     /**
-     * 签到提醒
+     * Lời nhắc đăng ký
      * @param $data
      * @return bool
      * @author wuhaotian
@@ -683,9 +683,9 @@ class NoticeListener implements ListenerInterface
      */
     public function handleSignRemind($data)
     {
-        //站内信
+        //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($data['uid'], ['site_name' => sys_config('site_name')]);
-        //短信
+        //Tin nhắn ngắn
         if ($data['phone']) {
             $this->getNoticeService('Sms')->sendSms($data['phone'], ['site_name' => sys_config('site_name')]);
         }
@@ -699,9 +699,9 @@ class NoticeListener implements ListenerInterface
         $order_id = $data['order_id'];
         $type = $data['type'];
 
-        //模板消息公众号模版消息
+        //Tin nhắn mẫu Tin nhắn mẫu tài khoản chính thức
         $this->getNoticeService('Wechat')->sendRevenueReceived($uid, $extractNumber, $order_id, $type);
-        //模板消息小程序订阅消息
+        //Applet tin nhắn mẫu đăng ký tin nhắn
         $this->getNoticeService('Routine')->sendRevenueReceived($uid, $extractNumber, $order_id, $type);
         return true;
     }

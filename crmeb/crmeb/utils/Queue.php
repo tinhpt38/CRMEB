@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,35 +18,35 @@ use think\facade\Log;
 /**
  * Class Queue
  * @package crmeb\utils
- * @method $this do(string $do) 设置任务执行方法
- * @method $this job(string $job) 设置任务执行类名
- * @method $this errorCount(int $errorCount) 执行失败次数
- * @method $this data(...$data) 执行数据
- * @method $this secs(int $secs) 延迟执行秒数
- * @method $this log($log) 记录日志
+ * @method $this do(string $do) Đặt phương thức thực hiện nhiệm vụ
+ * @method $this job(string $job) Đặt tên lớp thực thi nhiệm vụ
+ * @method $this errorCount(int $errorCount) Số lần thực thi thất bại
+ * @method $this data(...$data) dữ liệu thực thi
+ * @method $this secs(int $secs) Trì hoãn giây thực hiện
+ * @method $this log($log) khai thác gỗ
  */
 class Queue
 {
 
     /**
-     * 错误信息
+     * thông báo lỗi
      * @var string
      */
     protected $error;
 
     /**
-     * 设置错误信息
+     * Đặt thông báo lỗi
      * @param string|null $error
      * @return bool
      */
     protected function setError(?string $error = null)
     {
-        $this->error = $error ?: '未知错误';
+        $this->error = $error ?: 'lỗi không xác định';
         return false;
     }
 
     /**
-     * 获取错误信息
+     * Nhận thông báo lỗi
      * @return string
      */
     public function getError()
@@ -57,49 +57,49 @@ class Queue
     }
 
     /**
-     * 任务执行
+     * Thực hiện nhiệm vụ
      * @var string
      */
     protected $do = 'doJob';
 
     /**
-     * 默认任务执行方法名
+     * Tên phương thức thực thi tác vụ mặc định
      * @var string
      */
     protected $defaultDo;
 
     /**
-     * 任务类名
+     * Tên lớp nhiệm vụ
      * @var string
      */
     protected $job;
 
     /**
-     * 错误次数
+     * số lỗi
      * @var int
      */
     protected $errorCount = 3;
 
     /**
-     * 数据
+     * dữ liệu
      * @var array|string
      */
     protected $data;
 
     /**
-     * 队列名
+     * Tên hàng đợi
      * @var null
      */
     protected $queueName = null;
 
     /**
-     * 延迟执行秒数
+     * Trì hoãn giây thực hiện
      * @var int
      */
     protected $secs = 0;
 
     /**
-     * 记录日志
+     * khai thác gỗ
      * @var string|callable|array
      */
     protected $log;
@@ -134,7 +134,7 @@ class Queue
     }
 
     /**
-     * 设置列名
+     * Đặt tên cột
      * @param string $queueName
      * @return $this
      */
@@ -145,21 +145,21 @@ class Queue
     }
 
     /**
-     * 放入消息队列
+     * đưa vào hàng đợi tin nhắn
      * @param array|null $data
      * @return mixed
      */
     public function push(?array $data = null)
     {
         if (!$this->job) {
-            return $this->setError('需要执行的队列类必须存在');
+            return $this->setError('Lớp hàng đợi cần được thực thi phải tồn tại');
         }
         $jodValue = $this->getValues($data);
         $res = QueueThink::{$this->action()}(...$jodValue);
         if (!$res) {
             $res = QueueThink::{$this->action()}(...$jodValue);
             if (!$res) {
-                Log::error('加入队列失败，参数：' . json_encode($this->getValues($data)));
+                Log::error('Không thể tham gia hàng đợi, thông số：' . json_encode($this->getValues($data)));
             }
         }
         $this->clean();
@@ -167,7 +167,7 @@ class Queue
     }
 
     /**
-     * 清除数据
+     * xóa dữ liệu
      */
     public function clean()
     {
@@ -180,7 +180,7 @@ class Queue
     }
 
     /**
-     * 获取任务方式
+     * Nhận phương thức nhiệm vụ
      * @return string
      */
     protected function action()
@@ -189,7 +189,7 @@ class Queue
     }
 
     /**
-     * 获取参数
+     * Nhận thông số
      * @param $data
      * @return array
      */

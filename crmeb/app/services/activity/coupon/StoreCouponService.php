@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -33,7 +33,7 @@ class StoreCouponService extends BaseServices
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @param array $where
      * @return array
      */
@@ -47,16 +47,16 @@ class StoreCouponService extends BaseServices
     }
 
     /**
-     * 添加优惠券表单
+     * Thêm mẫu phiếu giảm giá
      * @param int $type
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function createForm(int $type)
     {
-        $f[] = Form::input('title', '优惠券名称');
+        $f[] = Form::input('title', 'Tên phiếu giảm giá');
         switch ($type) {
-            case 1://品类券
+            case 1://Phiếu giảm giá danh mục
                 $options = function () {
                     /** @var StoreCategoryServices $storeCategoryService */
                     $storeCategoryService = app()->make(StoreCategoryServices::class);
@@ -68,24 +68,24 @@ class StoreCouponService extends BaseServices
 
                     return $menus;
                 };
-                $f[] = Form::select('category_id', '选择品类')->setOptions(Form::setOptions($options))->filterable(1)->col(12);
+                $f[] = Form::select('category_id', 'Chọn danh mục')->setOptions(Form::setOptions($options))->filterable(1)->col(12);
                 break;
-            case 2://商品券
-                $f[] = Form::frameImages('image', '商品', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image', 'type' => 'many')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['srcKey' => 'image', 'footer' => false]);
+            case 2://phiếu giảm giá hàng hóa
+                $f[] = Form::frameImages('image', 'hàng hóa', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image', 'type' => 'many')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['srcKey' => 'image', 'footer' => false]);
                 $f[] = Form::hidden('product_id', '');
                 break;
         }
-        $f[] = Form::number('coupon_price', '优惠券面值', 0)->min(0);
-        $f[] = Form::number('use_min_price', '优惠券最低消费', 0)->min(0);
-        $f[] = Form::number('coupon_time', '优惠券有效期限', 0)->min(0);
-        $f[] = Form::number('sort', '排序')->value(0)->precision(0);
-        $f[] = Form::radio('status', '状态', 1)->options([['label' => '开启', 'value' => 1], ['label' => '关闭', 'value' => 0]]);
+        $f[] = Form::number('coupon_price', 'Mệnh giá phiếu giảm giá', 0)->min(0);
+        $f[] = Form::number('use_min_price', 'Phiếu chi tiêu tối thiểu', 0)->min(0);
+        $f[] = Form::number('coupon_time', 'Thời hạn hiệu lực của phiếu giảm giá', 0)->min(0);
+        $f[] = Form::number('sort', 'loại')->value(0)->precision(0);
+        $f[] = Form::radio('status', 'tình trạng', 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
         $f[] = Form::hidden('type', $type);
-        return create_form('添加优惠券', $f, Url::buildUrl('/marketing/coupon/save'), 'POST');
+        return create_form('thêm phiếu giảm giá', $f, Url::buildUrl('/marketing/coupon/save'), 'POST');
     }
 
     /**
-     * 优惠卷模板修改表单
+     * Mẫu sửa đổi mẫu phiếu giảm giá
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -96,21 +96,21 @@ class StoreCouponService extends BaseServices
     public function createIssue(int $id)
     {
         $res = $this->dao->getOne(['id' => $id, 'status' => 1, 'is_del' => 0]);
-        if (!$res) throw new AdminException('发布的优惠劵已失效或不存在!');
+        if (!$res) throw new AdminException('Phiếu giảm giá được công bố đã hết hạn hoặc không tồn tại!');
         $f = [];
-        $f[] = Form::input('id', '优惠劵ID', $id)->disabled(1);
-        $f[] = Form::input('coupon_title', '优惠劵名称', $res['title'])->disabled(1);
-        $f[] = Form::dateTimeRange('range_date', '领取时间')->placeholder('不填为永久有效');
-        $f[] = Form::radio('is_permanent', '是否限量', 1)->options([['label' => '不限量', 'value' => 1], ['label' => '限量', 'value' => 0]]);
-        $f[] = Form::number('count', '发布数量', 0)->min(0)->placeholder('不填或填0,为不限量');
-        $f[] = Form::radio('is_type', '优惠券类型', 0)->options([['label' => '普通券', 'value' => 0], ['label' => '赠送券', 'value' => 1], ['label' => '新人券', 'value' => 2]]);
-        $f[] = Form::number('full_reduction', '满赠金额', 0)->min(0)->placeholder('赠送优惠券的最低消费金额');
-        $f[] = Form::radio('status', '状态', 1)->options([['label' => '开启', 'value' => 1], ['label' => '关闭', 'value' => 0]]);
-        return create_form('发布优惠券', $f, $this->url('/marketing/coupon/issue/' . $id), 'POST');
+        $f[] = Form::input('id', 'phiếu giảm giáID', $id)->disabled(1);
+        $f[] = Form::input('coupon_title', 'Tên phiếu giảm giá', $res['title'])->disabled(1);
+        $f[] = Form::dateTimeRange('range_date', 'Thời gian thu thập')->placeholder('Để trống để có giá trị vĩnh viễn');
+        $f[] = Form::radio('is_permanent', 'Nó có bị giới hạn không?', 1)->options([['label' => 'Không giới hạn', 'value' => 1], ['label' => 'phiên bản giới hạn', 'value' => 0]]);
+        $f[] = Form::number('count', 'Số lượng phát hành', 0)->min(0)->placeholder('Để trống hoặc điền vào0,không giới hạn');
+        $f[] = Form::radio('is_type', 'Loại phiếu giảm giá', 0)->options([['label' => 'Phiếu giảm giá thông thường', 'value' => 0], ['label' => 'phiếu quà tặng', 'value' => 1], ['label' => 'Phiếu quà tặng người mới', 'value' => 2]]);
+        $f[] = Form::number('full_reduction', 'Toàn bộ số tiền quà tặng', 0)->min(0)->placeholder('Số tiền chi tiêu tối thiểu để nhận phiếu giảm giá');
+        $f[] = Form::radio('status', 'tình trạng', 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        return create_form('Đăng phiếu giảm giá', $f, $this->url('/marketing/coupon/issue/' . $id), 'POST');
     }
 
     /**
-     * 发布优惠券
+     * Đăng phiếu giảm giá
      * @param int $id
      * @param int $_id
      * @param string $coupon_title
@@ -133,16 +133,16 @@ class StoreCouponService extends BaseServices
         } elseif ($is_type == 2) {
             $is_give_subscribe = 1;
         }
-        if ($_id != $id) throw new AdminException('操作失败,信息不对称');
+        if ($_id != $id) throw new AdminException('Thao tác không thành công,thông tin bất cân xứng');
         if (!$count) $count = 0;
         $couponInfo = $this->dao->getOne(['id' => $id, 'status' => 1, 'is_del' => 0]);
-        if (!$couponInfo) throw new AdminException('发布的优惠劵已失效或不存在!');
-        if (count($rangeTime) != 2) throw new AdminException('请选择正确的时间区间');
+        if (!$couponInfo) throw new AdminException('Phiếu giảm giá được công bố đã hết hạn hoặc không tồn tại!');
+        if (count($rangeTime) != 2) throw new AdminException('Vui lòng chọn khoảng thời gian chính xác');
         list($startTime, $endTime) = $rangeTime;
         if (!$startTime) $startTime = 0;
         if (!$endTime) $endTime = 0;
-        if (!$startTime && $endTime) throw new AdminException('请选择正确的开始时间');
-        if ($startTime && !$endTime) throw new AdminException('请选择正确的结束时间');
+        if (!$startTime && $endTime) throw new AdminException('Vui lòng chọn đúng thời gian bắt đầu');
+        if ($startTime && !$endTime) throw new AdminException('Vui lòng chọn thời gian kết thúc chính xác');
         $data['cid'] = $id;
         $data['coupon_title'] = $coupon_title;
         $data['start_time'] = strtotime($startTime);
@@ -177,24 +177,24 @@ class StoreCouponService extends BaseServices
             $storeCouponProductService = app()->make(StoreCouponProductServices::class);
             $storeCouponProductService->saveAll($couponData);
         }
-        if (!$res) throw new AdminException('发布优惠劵失败!');
+        if (!$res) throw new AdminException('Không thể đăng phiếu giảm giá!');
     }
 
     /**
-     * 优惠券失效
+     * Phiếu giảm giá đã hết hạn
      * @param int $id
      */
     public function invalid(int $id)
     {
         $res = $this->dao->update($id, ['status' => 0]);
-        if (!$res) throw new AdminException('操作失败');
+        if (!$res) throw new AdminException('Thao tác không thành công');
         /** @var StoreCouponIssueServices $storeCouponIssueService */
         $storeCouponIssueService = app()->make(StoreCouponIssueServices::class);
         $storeCouponIssueService->update($id, ['status' => -1], 'cid');
     }
 
     /**
-     * 获取下单可使用的优惠券列表
+     * Nhận danh sách các phiếu giảm giá có thể được sử dụng khi đặt hàng
      * @param int $uid
      * @param $cartId
      * @param string $price

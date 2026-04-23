@@ -4,13 +4,13 @@ const routesListModule = {
     routesList: [],
   },
   mutations: {
-    // 设置路由，菜单中使用到
+    // Đặt định tuyến, được sử dụng trong menu
     getRoutesList(state, data) {
       state.routesList = data;
     },
   },
   actions: {
-    // 设置路由，菜单中使用到
+    // Đặt định tuyến, được sử dụng trong menu
     async setRoutesList({ commit }, data) {
       commit('getRoutesList', data);
     },

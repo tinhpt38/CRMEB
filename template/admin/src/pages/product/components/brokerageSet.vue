@@ -1,30 +1,30 @@
 <template>
   <div>
-    <el-dialog :visible.sync="visible" title="自定义佣金" width="700">
+    <el-dialog :visible.sync="visible" title="Hoa hồng tùy chỉnh" width="700">
       <el-form :model="formData" label-width="80px">
-        <el-form-item label="返佣设置：">
+        <el-form-item label="Cài đặt giảm giá：">
           <el-radio-group v-model="formData.is_sub" @input="changeSubType">
-            <el-radio :label="0">默认比例</el-radio>
-            <el-radio :label="1">自定义佣金</el-radio>
+            <el-radio :label="0">Tỷ lệ mặc định</el-radio>
+            <el-radio :label="1">Hoa hồng tùy chỉnh</el-radio>
           </el-radio-group>
           <div class="fs-12 tips-info" v-show="formData.is_sub">
-            切换到默认比例时，表格中编辑的返佣金额会被清空，请谨慎操作
+            Khi chuyển sang tỷ lệ mặc định, số tiền hoàn lại được chỉnh sửa trong bảng sẽ bị xóa, vui lòng vận hành thận trọng
           </div>
         </el-form-item>
         <el-form-item label-width="0">
           <el-table size="small" border max-height="460" :data="attrData" style="width: 100%">
-            <el-table-column prop="pic" label="规格图" min-width="90" align="center">
+            <el-table-column prop="pic" label="Bản vẽ đặc điểm kỹ thuật" min-width="90" align="center">
               <template slot-scope="scope">
                 <div class="tabBox_img m-auto" v-viewer>
                   <img v-lazy="scope.row.pic" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="suk" label="产品规格" min-width="120" align="center"></el-table-column>
-            <el-table-column prop="price" label="售价" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="suk" label="thông số kỹ thuật sản phẩm" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="price" label="giá bán" min-width="120" align="center"></el-table-column>
             <el-table-column min-width="120" align="center">
               <template slot="header" slot-scope="scope">
-                <span>一级返佣</span>
+                <span>Giảm giá cấp độ đầu tiên</span>
                 <el-popover
                   ref="popoverRef_one"
                   placement="top"
@@ -32,22 +32,22 @@
                   trigger="click"
                   v-if="formData.is_sub == 1"
                 >
-                  <div class="pop-title">批量设置一级返佣</div>
+                  <div class="pop-title">Thiết lập giảm giá cấp đầu tiên theo đợt</div>
                   <div class="mt-14">
                     <el-radio-group v-model="brokerageSetType">
-                      <el-radio :label="0">指定价格</el-radio>
-                      <el-radio :label="1">比例</el-radio>
+                      <el-radio :label="0">Chỉ định giá</el-radio>
+                      <el-radio :label="1">Tỷ lệ</el-radio>
                     </el-radio-group>
                   </div>
                   <div class="mt10 mb10 acea-row">
                     <el-input type="number" class="popover-input" v-model="brokerage" @input="brokerageReplace">
                       <template slot="suffix">
-                        <span>{{ brokerageSetType ? '%' : '元' }}</span>
+                        <span>{{ brokerageSetType ? '%' : 'Nhân dân tệ' }}</span>
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
-                      <el-button size="small" @click="closePop">取消</el-button>
-                      <el-button size="small" type="primary" @click="brokerageOneSetUp">确认</el-button>
+                      <el-button size="small" @click="closePop">Hủy bỏ</el-button>
+                      <el-button size="small" type="primary" @click="brokerageOneSetUp">xác nhận</el-button>
                     </div>
                   </div>
                   <span class="iconfont iconbianji1" slot="reference"></span>
@@ -60,24 +60,24 @@
                   :disabled="formData.is_sub == 0"
                 >
                   <template slot="suffix">
-                    <span>{{ formData.is_sub ? '元' : '%' }}</span>
+                    <span>{{ formData.is_sub ? 'Nhân dân tệ' : '%' }}</span>
                   </template>
                 </el-input>
-                <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">一级返佣：{{ (scope.row.price * store_brokerage_ratio).toFixed(2) }}</div> -->
+                <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">Giảm giá cấp độ đầu tiên：{{ (scope.row.price * store_brokerage_ratio).toFixed(2) }}</div> -->
                 <!-- <div class="flex-x-center red" v-show="formData.is_sub == 1 && scope.row.brokerage == 0">
-                  佣金不可为0
+                  Hoa hồng không được phép0
                 </div> -->
                 <div
                   class="flex-x-center red"
                   v-show="formData.is_sub == 1 && Number(scope.row.brokerage) > Number(scope.row.price)"
                 >
-                  佣金不可大于售价
+                  Hoa hồng không thể lớn hơn giá bán
                 </div>
               </template>
             </el-table-column>
             <el-table-column min-width="120" align="center">
               <template slot="header" slot-scope="scope">
-                <span>二级返佣</span>
+                <span>Giảm giá cấp hai</span>
                 <el-popover
                   ref="popoverRef_two"
                   placement="top"
@@ -85,22 +85,22 @@
                   trigger="click"
                   v-if="formData.is_sub == 1"
                 >
-                  <div class="pop-title">批量设置二级返佣</div>
+                  <div class="pop-title">Thiết lập giảm giá phụ theo đợt</div>
                   <div class="mt-14">
                     <el-radio-group v-model="brokerageSetType">
-                      <el-radio :label="0">指定价格</el-radio>
-                      <el-radio :label="1">比例</el-radio>
+                      <el-radio :label="0">Chỉ định giá</el-radio>
+                      <el-radio :label="1">Tỷ lệ</el-radio>
                     </el-radio-group>
                   </div>
                   <div class="mt10 mb10 acea-row">
                     <el-input type="number" class="popover-input" v-model="brokerage_two">
                       <template slot="suffix">
-                        <span>{{ brokerageSetType ? '%' : '元' }}</span>
+                        <span>{{ brokerageSetType ? '%' : 'Nhân dân tệ' }}</span>
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
-                      <el-button size="small" @click="closePop">取消</el-button>
-                      <el-button size="small" type="primary" @click="brokerageTwoSetUp">确认</el-button>
+                      <el-button size="small" @click="closePop">Hủy bỏ</el-button>
+                      <el-button size="small" type="primary" @click="brokerageTwoSetUp">xác nhận</el-button>
                     </div>
                   </div>
 
@@ -115,18 +115,18 @@
                   :disabled="formData.is_sub == 0"
                 >
                   <template slot="suffix">
-                    <span>{{ formData.is_sub ? '元' : '%' }}</span>
+                    <span>{{ formData.is_sub ? 'Nhân dân tệ' : '%' }}</span>
                   </template>
                 </el-input>
-                <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">二级返佣：{{ (scope.row.price * store_brokerage_two).toFixed(2) }}</div> -->
+                <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">Giảm giá cấp hai：{{ (scope.row.price * store_brokerage_two).toFixed(2) }}</div> -->
                 <!-- <div class="flex-x-center red" v-show="formData.is_sub == 1 && scope.row.brokerage_two == 0">
-                  佣金不可为0
+                  Hoa hồng không được phép0
                 </div> -->
                 <div
                   class="flex-x-center red"
                   v-show="formData.is_sub == 1 && Number(scope.row.brokerage_two) > Number(scope.row.price)"
                 >
-                  佣金不可大于售价
+                  Hoa hồng không thể lớn hơn giá bán
                 </div>
               </template>
             </el-table-column>
@@ -134,8 +134,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="onCancel">取消</el-button>
-        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">确认</el-button>
+        <el-button @click="onCancel">Hủy bỏ</el-button>
+        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">xác nhận</el-button>
       </div>
     </el-dialog>
   </div>
@@ -193,8 +193,8 @@ export default {
           }
         });
       }
-      if (!isSuccess) return this.$message.error('佣金不可为0');
-      if (!step) return this.$message.error('佣金不可为大于售价');
+      if (!isSuccess) return this.$message.error('Hoa hồng không được phép0');
+      if (!step) return this.$message.error('Hoa hồng không thể lớn hơn giá bán');
       this.disabled = true;
       let data = {
         ...this.formData,
@@ -212,8 +212,8 @@ export default {
         });
     },
     brokerageOneSetUp() {
-      if (this.brokerage == 0) return this.$message.error('价格和折扣不可为0');
-      if (this.brokerageSetType == 1 && this.brokerage > 100) return this.$message.error('折扣不可超过100');
+      if (this.brokerage == 0) return this.$message.error('Giá cả và giảm giá không có sẵn cho0');
+      if (this.brokerageSetType == 1 && this.brokerage > 100) return this.$message.error('Giảm giá không thể vượt quá100');
       this.attrData.map((item) => {
         if (this.brokerageSetType == 0) {
           item.brokerage = this.brokerage;
@@ -224,8 +224,8 @@ export default {
       this.closePop();
     },
     brokerageTwoSetUp() {
-      if (this.brokerage_two == 0) return this.$message.error('价格和折扣不可为0');
-      if (this.brokerageSetType == 1 && this.brokerage_two > 100) return this.$message.error('折扣不可超过100');
+      if (this.brokerage_two == 0) return this.$message.error('Giá cả và giảm giá không có sẵn cho0');
+      if (this.brokerageSetType == 1 && this.brokerage_two > 100) return this.$message.error('Giảm giá không thể vượt quá100');
       this.attrData.map((item) => {
         if (this.brokerageSetType == 0) {
           item.brokerage_two = this.brokerage_two;
@@ -257,7 +257,7 @@ export default {
       this.visible = false;
     },
     getData() {
-      //获取产品属性
+      //Nhận thuộc tính sản phẩm
       productBrokerage(this.productId, 1).then((res) => {
         let arr = JSON.parse(JSON.stringify(res.data.attrValue));
         this.defaultAttrData = Object.values(arr);

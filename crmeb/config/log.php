@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,39 +20,39 @@
 use think\facade\Env;
 
 // +----------------------------------------------------------------------
-// | 日志设置
+// | Cài đặt nhật ký
 // +----------------------------------------------------------------------
 return [
-    // 默认日志记录通道
+    // Kênh ghi nhật ký mặc định
     'default'      => Env::get('log.channel', 'file'),
-    // 日志记录级别
+    // mức độ ghi nhật ký
     'level'        => ['error', 'warning', 'fail', 'success', 'info', 'notice', 'crontab', 'crmeb', 'listener'],
-    // 日志类型记录的通道 ['error'=>'email',...]
+    // Kênh được ghi theo loại nhật ký ['error'=>'email',...]
     'type_channel' => [],
-    //是否开启业务成功日志
+    //Có bật nhật ký thành công của doanh nghiệp hay không
     'success_log'  => false,
-    //是否开启业务失败日志
+    //Có bật nhật ký lỗi kinh doanh hay không
     'fail_log'     => false,
-    //是否开启定时任务日志
+    //Có bật nhật ký tác vụ theo lịch trình hay không
     'timer_log'    => false,
-    //是否开启自定事件日志
+    //Có bật nhật ký sự kiện tùy chỉnh hay không
     'listener_log'    => false,
-    // 日志通道列表
+    // Đăng nhập danh sách kênh
     'channels'     => [
         'file' => [
-            // 日志记录方式
+            // Phương pháp ghi nhật ký
             'type'        => 'File',
-            // 日志保存目录
+            // Thư mục lưu nhật ký
             'path'        => app()->getRuntimePath() . 'log' . DIRECTORY_SEPARATOR,
-            // 单文件日志写入
+            // Ghi nhật ký tập tin duy nhất
             'single'      => false,
-            // 独立日志级别
+            // cấp độ nhật ký độc lập
             'apart_level' => ['error', 'fail', 'success', 'crontab', 'crmeb', 'listener'],
-            // 最大日志文件数量
+            // Số lượng tệp nhật ký tối đa
             'max_files'   => 60,
             'time_format' => 'Y-m-d H:i:s',
             'format'      => '%s|%s|%s'
         ],
-        // 其它日志通道配置
+        // Các cấu hình kênh nhật ký khác
     ],
 ];

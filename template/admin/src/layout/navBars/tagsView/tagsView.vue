@@ -78,11 +78,11 @@ export default {
     };
   },
   computed: {
-    // 获取布局配置信息
+    // Nhận thông tin cấu hình bố cục
     getThemeConfig() {
       return this.$store.state.themeConfig.themeConfig;
     },
-    // 动态设置 tagsView 风格样式
+    // Tự động đặt thẻChế độ xem kiểu
     setTagsStyle() {
       return this.$store.state.themeConfig.themeConfig.tagsStyle;
     },
@@ -94,7 +94,7 @@ export default {
     },
   },
   created() {
-    // 监听非本页面调用 0 刷新当前，1 关闭当前，2 关闭其它，3 关闭全部
+    // Giám sát các lệnh gọi không phải trang này 0 làm mới hiện tại, 1 đóng hiện tại, 2 đóng khác, 3 đóng tất cả
     this.bus.$on('onCurrentContextmenuClick', (data) => {
       this.onCurrentContextmenuClick(data);
     });
@@ -120,23 +120,23 @@ export default {
       let data = { id: e, path: this.$route.path };
       this.onCurrentContextmenuClick(data);
     },
-    // 获取路由信息
+    // Nhận thông tin định tuyến
     getRoutesList() {
       return this.$store.state.routesList.routesList;
     },
-    // 当前的 tagsView 项点击时
+    // Khi mục tagsView hiện tại được nhấp vào
     onTagsClick(v, k) {
       this.tagsRoutePath = v.path;
       this.tagsRefsIndex = k;
       this.$router.push(v);
     },
-    // 获取 tagsView 的下标：用于处理 tagsView 点击时的横向滚动
+    // Lấy chỉ số dưới của tagsView: dùng để xử lý cuộn ngang khi nhấp vào tagsView
     getTagsRefsIndex(path) {
       if (this.tagsViewList.length > 0) {
         this.tagsRefsIndex = this.tagsViewList.findIndex((item) => item.path === path);
       }
     },
-    // 鼠标滚轮滚动
+    // Cuộn con lăn chuột
     onHandleScroll(e) {
       this.$refs.scrollbarRef.$refs.wrap.scrollLeft += e.wheelDelta / 4;
     },
@@ -149,46 +149,46 @@ export default {
         this.$refs.scrollbarRef.$refs.wrap.scrollLeft = scrollLeft + 300 >= scrollRefs ? scrollRefs : scrollLeft + 300;
       }
     },
-    // tagsView 横向滚动
+    // tagsView Cuộn ngang
     tagsViewmoveToCurrentTag() {
       this.$nextTick(() => {
         const tagsRefs = this.$refs.tagsRefs;
         if (!tagsRefs) return;
         if (tagsRefs.length <= 0) return false;
-        // 当前 li 元素
+        // phần tử li hiện tại
         let liDom = tagsRefs[this.tagsRefsIndex];
-        // 当前 li 元素下标
+        // Chỉ số phần tử li hiện tại
         let liIndex = this.tagsRefsIndex;
-        // 当前 ul 下 li 元素总长度
+        // Tổng chiều dài của phần tử li dưới ul hiện tại
         let liLength = tagsRefs.length;
-        // 最前 li
+        // Đầu tiên li
         let liFirst = tagsRefs[0];
-        // 最后 li
+        // cuối cùng li
         let liLast = tagsRefs[tagsRefs.length - 1];
-        // 当前滚动条的值
+        // Giá trị hiện tại của thanh cuộn
         let scrollRefs = this.$refs.scrollbarRef.$refs.wrap;
-        // 当前滚动条滚动宽度
+        // Chiều rộng cuộn thanh cuộn hiện tại
         let scrollS = scrollRefs.scrollWidth;
-        // 当前滚动条偏移宽度
+        // Chiều rộng bù trừ thanh cuộn hiện tại
         let offsetW = scrollRefs.offsetWidth;
-        // 当前滚动条偏移距离
+        // Khoảng cách bù trừ thanh cuộn hiện tại
         let scrollL = scrollRefs.scrollLeft;
-        // 上一个 tags li dom
+        // Trước tags li dom
         let liPrevTag = tagsRefs[this.tagsRefsIndex - 1];
-        // 下一个 tags li dom
+        // Kế tiếp tags li dom
         let liNextTag = tagsRefs[this.tagsRefsIndex + 1];
-        // 上一个 tags li dom 的偏移距离
+        // Khoảng cách offset của các thẻ trước li dom
         let beforePrevL = '';
-        // 下一个 tags li dom 的偏移距离
+        // Khoảng cách bù đắp của các thẻ tiếp theo li dom
         let afterNextL = '';
         if (liDom === liFirst) {
-          // 头部
+          // cái đầu
           scrollRefs.scrollLeft = 0;
         } else if (liDom === liLast) {
-          // 尾部
+          // đuôi
           scrollRefs.scrollLeft = scrollS - offsetW;
         } else {
-          // 非头/尾部
+          // không đầu/đuôi
           if (liIndex === 0) beforePrevL = liFirst?.offsetLeft - 5;
           else beforePrevL = liPrevTag?.offsetLeft - 5;
           if (liIndex === liLength) afterNextL = liLast?.offsetLeft + liLast.offsetWidth + 5;
@@ -199,15 +199,15 @@ export default {
             scrollRefs.scrollLeft = beforePrevL;
           }
         }
-        // 更新滚动条，防止不出现
+        // Cập nhật thanh cuộn để ngăn nó xuất hiện
         this.updateScrollbar();
       });
     },
-    // 更新滚动条显示
+    // Cập nhật hiển thị thanh cuộn
     updateScrollbar() {
       this.$refs.scrollbarRef.update();
     },
-    // 递归查找当前路径下的组件信息
+    // Tìm kiếm đệ quy thông tin thành phần theo đường dẫn hiện tại
     filterCurrentMenu(arr, currentPath, callback) {
       arr.map((item) => {
         if (item.path === currentPath) {
@@ -220,7 +220,7 @@ export default {
         }
       });
     },
-    // 数组对象去重
+    // Sao chép đối tượng mảng
     duplicate(arr) {
       let newobj = {};
       arr = arr.reduce((preVal, curVal) => {
@@ -229,18 +229,18 @@ export default {
       }, []);
       return arr;
     },
-    // 获取 vuex 中的 tagsViewRoutes 列表
+    // Lấy danh sách tagsViewRoutes trong vuex
     getTagsViewRoutes() {
       this.tagsRoutePath = this.$route.path;
       this.setTagNavList(this.$store.state.menus.oneLvMenus);
 
       this.initTagsViewList();
     },
-    // 存储 tagsViewList 到浏览器临时缓存中，页面刷新时，保留记录
+    // Lưu trữ tagsViewList trong bộ đệm tạm thời của trình duyệt và giữ bản ghi khi trang được làm mới.
     addBrowserSetSession(tagNavList) {
       this.setTagNavList(tagNavList);
     },
-    // 初始化设置了 tagsView 数据
+    // Dữ liệu TagsView được khởi tạo và thiết lập
     initTagsViewList() {
       // if (Session.get('tagsViewList') && this.$store.state.themeConfig.themeConfig.isCacheTagsView) {
       //   this.tagsViewList = Session.get('tagsViewList');
@@ -251,12 +251,12 @@ export default {
       });
       // }
       this.setTagNavList(arr);
-      // 初始化当前元素(li)的下标
+      // Khởi tạo phần tử hiện tại(li)chỉ số dưới
       this.getTagsRefsIndex(this.$route.path);
-      // 添加初始化横向滚动条移动到对应位置
+      // Thêm thanh cuộn ngang khởi tạo và di chuyển đến vị trí tương ứng
       this.tagsViewmoveToCurrentTag();
     },
-    // 添加 tagsView：未设置隐藏（isHide）也添加到在 tagsView 中
+    // Đã thêm tagsView: chưa được đặt thành ẩn (isHide) cũng được thêm vào tagsView
     addTagsView(path, to) {
       if (this.tagsViewList.some((v) => v.path === path)) return false;
       const item = this.tagsViewRoutesList.find((v) => v.path === path);
@@ -265,7 +265,7 @@ export default {
       this.tagsViewList.push({ ...item });
       this.addBrowserSetSession(this.tagsViewList);
     },
-    // 右键菜单点击时显示菜单列表
+    // Menu chuột phải để hiển thị danh sách menu khi nhấn vào
     onContextmenu(v, e) {
       let { clientX, clientY } = e;
       this.tagsDropdown.x = clientX;
@@ -273,7 +273,7 @@ export default {
       this.$refs.tagsContextmenu.openContextmenu(v);
     },
     onContextmenuIcon(e) {},
-    // 当前项右键菜单点击
+    // Mục hiện tại nhấp chuột phải vào menu nhấp chuột
     onCurrentContextmenuClick(data) {
       let { id, path } = data;
       let currentTag = this.tagsViewList.find((v) => v.path === path);
@@ -302,21 +302,21 @@ export default {
         }
       });
     },
-    // 1、刷新当前 tagsView：
+    // 1、làm mới hiện tại tagsView：
     refreshCurrentTagsView(path) {
       this.bus.$emit('onTagsViewRefreshRouterView', path);
     },
-    // 2、关闭当前 tagsView：当前项 `tags-view` icon 关闭时点击，如果是设置了固定的（isAffix），不可以关闭
+    // 2、Đóng thẻ hiện tạiXem: mục hiện tại `tags-view` icon Bấm vào khi đóng. Nếu cố định (isAffix) được đặt thì không thể đóng được.
     closeCurrentTagsView(path) {
       this.tagsViewList.map((v, k, arr) => {
         if (!v.meta.isAffix) {
           if (v.path === path) {
             this.tagsViewList.splice(k, 1);
             setTimeout(() => {
-              // 最后一个
+              // cái cuối cùng
               if (this.tagsViewList.length === k)
                 this.$router.push({ path: arr[arr.length - 1].path, query: arr[arr.length - 1].query });
-              // 否则，跳转到下一个
+              // Nếu không thì chuyển sang phần tiếp theo
               else this.$router.push({ path: arr[k].path, query: arr[k].query });
             }, 0);
           }
@@ -325,7 +325,7 @@ export default {
       this.setTagNavList(this.tagsViewList);
       //   this.addBrowserSetSession(this.tagNavList);
     },
-    // 3、关闭其它 tagsView：如果是设置了固定的（isAffix），不进行关闭
+    // 3、Đóng các thẻ khácXem: Nếu cố định (isAffix) được đặt, nó sẽ không bị đóng.
     closeOtherTagsView(path, query) {
       let tagsViewList = [];
       this.tagsViewRoutesList.map((v) => {
@@ -338,7 +338,7 @@ export default {
 
       // this.addTagsView(path);
     },
-    // 4、关闭全部 tagsView：如果是设置了固定的（isAffix），不进行关闭
+    // 4、Đóng tất cả các thẻXem: Nếu cố định (isAffix) được đặt, nó sẽ không bị đóng.
     closeAllTagsView(path) {
       let tagsViewList = [];
       this.tagsViewRoutesList.map((v) => {
@@ -352,7 +352,7 @@ export default {
     },
   },
   watch: {
-    // 监听路由变化
+    // Giám sát các thay đổi định tuyến
     $route: {
       handler(to) {
         this.tagsRoutePath = to.path;
@@ -365,7 +365,7 @@ export default {
     },
   },
   destroyed() {
-    // 取消非本页面调用监听（fun/tagsView）
+    // Hủy giám sát cuộc gọi đối với những trang không thuộc trang này（fun/tagsView）
     this.bus.$off('onCurrentContextmenuClick');
   },
 };
@@ -491,21 +491,21 @@ export default {
   & ::-webkit-scrollbar {
     display: none !important;
   }
-  // // 风格2
+  // // phong cách2
   // .tags-style-two {
   // }
-  // // 风格3
+  // // phong cách3
   // .tags-style-three {
   // }
-  // // 风格4
-  // 风格1
+  // // phong cách 4
+  // phong cách1
   .tags-style-one {
     .is-active {
       background: none !important;
       color: #fff !important;
     }
   }
-  // 风格4
+  // phong cách4
   .tags-style-four {
     .layout-navbars-tagsview-ul-li {
       margin-right: 0 !important;
@@ -528,7 +528,7 @@ export default {
       color: #fff !important;
     }
   }
-  // 风格5
+  // phong cách5
   .tags-style-five {
     align-items: flex-end;
     .tags-style-five-svg {

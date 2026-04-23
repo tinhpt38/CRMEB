@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,14 +19,14 @@ use app\services\user\UserSpreadServices;
 use crmeb\interfaces\ListenerInterface;
 
 /**
- * 注册完成后置事件
+ * Sự kiện sau đăng ký
  * Class RegisterListener
  * @package app\listener\user
  */
 class RegisterListener implements ListenerInterface
 {
     /**
-     * 注册完成后置事件
+     * Sự kiện sau đăng ký
      * @param $event
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -38,24 +38,24 @@ class RegisterListener implements ListenerInterface
 
         if ($spreadUid) {
             if ($isNew) {
-                //邀请新用户增加经验
+                //Mời người dùng mới để tăng trải nghiệm của họ
                 /** @var UserBillServices $userBill */
                 $userBill = app()->make(UserBillServices::class);
                 $userBill->inviteUserIncExp((int)$spreadUid);
-                //增加推广佣金
+                //Tăng hoa hồng khuyến mãi
                 /** @var UserServices $userServices */
                 $userServices = app()->make(UserServices::class);
                 $userServices->addBrokeragePrice($uid, $spreadUid);
 
-                //推广新人 处理自己、上级分销等级升级
+                //Quảng bá người mới, tự xử lý và nâng cấp cấp độ phân phối vượt trội
                 AgentJob::dispatch([$uid]);
             }
-            //记录推广绑定关系
+            //Ghi lại mối quan hệ ràng buộc khuyến mãi
             /** @var UserSpreadServices $userSpreadServices */
             $userSpreadServices = app()->make(UserSpreadServices::class);
             $res = $userSpreadServices->setSpread($uid, $spreadUid);
 
-            //自定义消息-下级用户绑定成功
+            //Liên kết người dùng cấp dưới thông báo tùy chỉnh thành công
             if ($res) {
                 $phone = app()->make(UserServices::class)->value($spreadUid, 'phone');
                 event('CustomNoticeListener', [$spreadUid, ['nickname' => $name, 'time' => date('Y-m-d H:i:s'), 'phone' => $phone], 'spread_success']);
@@ -63,12 +63,12 @@ class RegisterListener implements ListenerInterface
         }
 
         if ($isNew) {
-            //新人优惠券发送
+            //Gửi phiếu giảm giá cho người mới
             /**@var StoreCouponIssueServices $storeCoupon */
             $storeCoupon = app()->make(StoreCouponIssueServices::class);
             $storeCoupon->userFirstSubGiveCoupon((int)$uid);
 
-            //人人分销开启推广权限
+            //Renren Distribution mở quyền khuyến mãi
             if (sys_config('brokerage_func_status') && sys_config('store_brokerage_statu') == 2) {
                 /** @var UserServices $userServices */
                 $userServices = app()->make(UserServices::class);

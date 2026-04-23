@@ -1,9 +1,9 @@
 // +---------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +---------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +---------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +---------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +---------------------------------------------------------------------
@@ -15,12 +15,12 @@ import Setting from '@/setting';
 import router from '@/router';
 const service = axios.create({
   baseURL: Setting.apiBaseURL,
-  timeout: 100000, // 请求超时时间
+  timeout: 100000, // Yêu cầu hết thời gian
 });
 
-axios.defaults.withCredentials = true; // 携带cookie
+axios.defaults.withCredentials = true; // mang theo bánh quy
 
-// 请求拦截器
+//Yêu cầu chặn
 service.interceptors.request.use(
   (config) => {
     if (config.kefu) {
@@ -68,19 +68,19 @@ service.interceptors.response.use(
         removeCookies('expires_time');
         removeCookies('uuid');
         router.replace({ name: 'login' }).catch(() => {});
-        return Promise.reject({ msg: '未登录' });
+        return Promise.reject({ msg: 'Chưa đăng nhập' });
       case 402:
         removeCookies('kefuInfo');
         removeCookies('kefu_token');
         removeCookies('kefu_expires_time');
         removeCookies('kefu_uuid');
         router.replace({ path: '/kefu' }).catch(() => {});
-        return Promise.reject({ msg: '未登录' });
+        return Promise.reject({ msg: 'Chưa đăng nhập' });
       case 403:
         router.replace({ name: 'system_opendir_login' }).catch(() => {});
-        return Promise.reject({ msg: '没有权限' });
+        return Promise.reject({ msg: 'sự cho phép bị từ chối' });
       default:
-        return Promise.reject(obj || { msg: '未知错误' });
+        return Promise.reject(obj || { msg: 'lỗi không xác định' });
     }
   },
   (error) => {

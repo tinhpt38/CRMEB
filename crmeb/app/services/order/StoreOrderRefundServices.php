@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -39,7 +39,7 @@ use think\facade\Db;
 
 
 /**
- * 订单退款
+ * Hoàn tiền đơn hàng
  * Class StoreOrderRefundServices
  * @method getOrderRefundMoneyByWhere
  * @package app\services\order
@@ -47,13 +47,13 @@ use think\facade\Db;
 class StoreOrderRefundServices extends BaseServices
 {
     /**
-     * 订单services
+     * Đặt hàngservices
      * @var StoreOrderServices
      */
     protected $storeOrderServices;
 
     /**
-     * 构造方法
+     * Người xây dựng
      * StoreOrderRefundServices constructor.
      * @param StoreOrderRefundDao $dao
      */
@@ -64,54 +64,54 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 订单退款表单
+     * Mẫu hoàn tiền đơn hàng
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function refundOrderForm(int $id, $type = 'refund')
     {
-        if ($type == 'refund') {//售后订单
+        if ($type == 'refund') {//Đơn hàng sau bán hàng
             $orderRefund = $this->dao->get($id);
             if (!$orderRefund) {
-                throw new AdminException('数据不存在');
+                throw new AdminException('Dữ liệu không tồn tại');
             }
             $order = $this->storeOrderServices->get((int)$orderRefund['store_order_id']);
             if (!$order) {
-                throw new AdminException('数据不存在');
+                throw new AdminException('Dữ liệu không tồn tại');
             }
             if (!$order['paid']) {
-                throw new AdminException('未支付无法退款');
+                throw new AdminException('Không hoàn lại tiền nếu không thanh toán');
             }
             if ($orderRefund['refund_price'] > 0 && in_array($orderRefund['refund_type'], [1, 5])) {
                 if ($orderRefund['refund_price'] <= $orderRefund['refunded_price']) {
-                    throw new AdminException('订单已退款');
+                    throw new AdminException('Đơn hàng đã được hoàn lại');
                 }
             }
-            $f[] = Form::input('order_id', '退款单号', $orderRefund->getData('order_id'))->disabled(true);
-            $f[] = Form::number('refund_price', '退款金额', (float)bcsub((string)$orderRefund->getData('refund_price'), (string)$orderRefund->getData('refunded_price'), 2))->min(0)->required('请输入退款金额');
-            return create_form('退款处理', $f, $this->url('/refund/refund/' . $id), 'PUT');
-        } else {//订单主动退款
+            $f[] = Form::input('order_id', 'Số đơn hàng hoàn tiền', $orderRefund->getData('order_id'))->disabled(true);
+            $f[] = Form::number('refund_price', 'Số tiền hoàn lại', (float)bcsub((string)$orderRefund->getData('refund_price'), (string)$orderRefund->getData('refunded_price'), 2))->min(0)->required('Vui lòng nhập số tiền hoàn lại');
+            return create_form('Xử lý hoàn tiền', $f, $this->url('/refund/refund/' . $id), 'PUT');
+        } else {//Đặt hàng chủ động hoàn tiền
             $order = $this->storeOrderServices->get((int)$id);
             if (!$order) {
-                throw new AdminException('数据不存在');
+                throw new AdminException('Dữ liệu không tồn tại');
             }
             if (!$order['paid']) {
-                throw new AdminException('未支付无法退款');
+                throw new AdminException('Không hoàn lại tiền nếu không thanh toán');
             }
             if ($order['pay_price'] > 0 && in_array($order['refund_status'], [0, 1])) {
                 if ($order['pay_price'] <= $order['refund_price']) {
-                    throw new AdminException('订单已退款');
+                    throw new AdminException('Đơn hàng đã được hoàn lại');
                 }
             }
-            $f[] = Form::input('order_id', '退款单号', $order->getData('order_id'))->disabled(true);
-            $f[] = Form::number('refund_price', '退款金额', (float)bcsub((string)$order->getData('pay_price'), (string)$order->getData('refund_price'), 2))->precision(2)->required('请输入退款金额');
-            return create_form('退款处理', $f, $this->url('/order/refund/' . $id), 'PUT');
+            $f[] = Form::input('order_id', 'Số đơn hàng hoàn tiền', $order->getData('order_id'))->disabled(true);
+            $f[] = Form::number('refund_price', 'Số tiền hoàn lại', (float)bcsub((string)$order->getData('pay_price'), (string)$order->getData('refund_price'), 2))->precision(2)->required('Vui lòng nhập số tiền hoàn lại');
+            return create_form('Xử lý hoàn tiền', $f, $this->url('/order/refund/' . $id), 'PUT');
         }
     }
 
     /**
-     * 同意退款：拆分退款单、退积分、佣金等
+     * Đồng ý hoàn tiền: chia lệnh hoàn tiền, điểm hoàn tiền, hoa hồng, v.v.
      * @param int $id
      * @param array $refundData
      * @return bool
@@ -122,9 +122,9 @@ class StoreOrderRefundServices extends BaseServices
     public function agreeRefund(int $id, array $refundData)
     {
         $order = $this->transaction(function () use ($id, $refundData) {
-            //退款拆分
+            //Chia tiền hoàn lại
             $orderRefundInfo = $this->dao->get($id);
-            if (!$orderRefundInfo) throw new AdminException('数据不存在');
+            if (!$orderRefundInfo) throw new AdminException('Dữ liệu không tồn tại');
             $cart_ids = [];
             if ($orderRefundInfo['cart_info']) {
                 foreach ($orderRefundInfo['cart_info'] as $cart) {
@@ -141,27 +141,27 @@ class StoreOrderRefundServices extends BaseServices
             [$splitOrderInfo, $otherOrder] = $storeOrderSplitServices->equalSplit($orderRefundInfo['store_order_id'], $cart_ids, $orderInfo);
 
 
-            //回退积分和优惠卷
+            //Trả lại điểm và phiếu giảm giá
             if (!$this->integralAndCouponBack($splitOrderInfo)) {
-                throw new AdminException('回退积分和优惠券失败');
+                throw new AdminException('Không thể trả lại điểm và phiếu giảm giá');
             }
-            //退拼团
+            //Rời khỏi nhóm
             if ($splitOrderInfo['pid'] == 0 && $splitOrderInfo['pink_id'] > 0) {
                 /** @var StorePinkServices $pinkServices */
                 $pinkServices = app()->make(StorePinkServices::class);
                 if (!$pinkServices->setRefundPink($splitOrderInfo)) {
-                    throw new AdminException('拼团修改失败');
+                    throw new AdminException('Sửa đổi nhóm nhóm không thành công');
                 }
             }
 
-            //退佣金
+            //Hoàn tiền hoa hồng
             /** @var UserBrokerageServices $userBrokerageServices */
             $userBrokerageServices = app()->make(UserBrokerageServices::class);
             if (!$userBrokerageServices->orderRefundBrokerageBack($splitOrderInfo)) {
-                throw new AdminException('回退佣金失败');
+                throw new AdminException('Không thể hoàn trả hoa hồng');
             }
 
-            //回退库存
+            //Trả lại hàng tồn kho
             if ($splitOrderInfo['status'] == 0) {
                 /** @var StoreOrderStatusServices $services */
                 $services = app()->make(StoreOrderStatusServices::class);
@@ -172,13 +172,13 @@ class StoreOrderRefundServices extends BaseServices
                 }
             }
 
-            //退金额
+            //Số tiền hoàn lại
             if ($refundData['refund_price'] > 0) {
                 if (!isset($refundData['refund_id']) || !$refundData['refund_id']) {
                     mt_srand();
                     $refundData['refund_id'] = $splitOrderInfo['order_id'] . rand(100, 999);
                 }
-                if ($splitOrderInfo['pid'] > 0) {//子订单
+                if ($splitOrderInfo['pid'] > 0) {//Đơn hàng phụ
                     $refundOrder = $this->storeOrderServices->get((int)$splitOrderInfo['pid']);
                     $refundData['pay_price'] = $refundOrder['pay_price'];
                 } else {
@@ -201,24 +201,24 @@ class StoreOrderRefundServices extends BaseServices
                         if ($refundOrder['is_channel'] == 1) {
                             $refundData['trade_no'] = $refundOrder['trade_no'];
                             $refundData['pay_new_weixin_open'] = sys_config('pay_new_weixin_open');
-                            //小程序退款
-                            $pay->refund($no, $refundData);//小程序
+                            //Hoàn tiền chương trình nhỏ
+                            $pay->refund($no, $refundData);//Chương trình nhỏ
                         } else {
-                            //微信公众号退款
+                            //Hoàn tiền tài khoản chính thức của WeChat
                             $refundData['wechat'] = true;
-                            $pay->refund($no, $refundData);//公众号
+                            $pay->refund($no, $refundData);//Tài khoản chính thức
                         }
                         break;
                     case PayServices::YUE_PAY:
-                        //余额退款
+                        //Hoàn trả số dư
                         if (!$this->yueRefund($refundOrder, $refundData)) {
-                            throw new AdminException('余额退款失败');
+                            throw new AdminException('Hoàn trả số dư không thành công');
                         }
                         break;
                     case PayServices::ALIAPY_PAY:
                         mt_srand();
                         $refund_id = $refundData['refund_id'] ?? $refundOrder['order_id'] . rand(100, 999);
-                        //支付宝退款
+                        //Hoàn tiền Alipay
                         AliPayService::instance()->refund(strpos($refundOrder['trade_no'], '_') !== false ? $refundOrder['trade_no'] : $refundOrder['order_id'], floatval($refundData['refund_price']), $refund_id);
                         break;
                     case PayServices::ALLIN_PAY:
@@ -234,13 +234,13 @@ class StoreOrderRefundServices extends BaseServices
                         break;
                 }
             }
-            //订单记录
+            //Hồ sơ đặt hàng
             /** @var StoreOrderStatusServices $statusService */
             $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $splitOrderInfo['id'],
                 'change_type' => 'refund_price',
-                'change_message' => '退款给用户：' . $refundData['refund_price'] . '元',
+                'change_message' => 'Hoàn tiền cho người dùng：' . $refundData['refund_price'] . 'Nhân dân tệ',
                 'change_time' => time()
             ]);
             $this->storeOrderServices->update($splitOrderInfo['id'], [
@@ -257,8 +257,8 @@ class StoreOrderRefundServices extends BaseServices
             ], 'id');
             $splitOrderInfo = $this->storeOrderServices->get($splitOrderInfo['id']);
             $this->dao->update($id, ['store_order_id' => $splitOrderInfo['id']]);
-            if ($otherOrder['id'] != 0 && $orderInfo['id'] != $otherOrder['id']) {//拆分生成新订单了
-                //修改原订单还在申请的退款单
+            if ($otherOrder['id'] != 0 && $orderInfo['id'] != $otherOrder['id']) {//Tách để tạo đơn hàng mới
+                //Sửa đổi lệnh hoàn tiền mà lệnh ban đầu vẫn đang áp dụng
                 $this->dao->update(['store_order_id' => $orderInfo['id']], ['store_order_id' => $otherOrder['id']]);
             }
 
@@ -275,17 +275,17 @@ class StoreOrderRefundServices extends BaseServices
 
             return $splitOrderInfo;
         });
-        //处理开票
+        //Xử lý hóa đơn
         app()->make(StoreOrderInvoiceServices::class)->update(['order_id' => $order['id']], ['is_refund' => 1]);
-        //订单退款记录
+        //Hồ sơ hoàn tiền đơn hàng
         ProductLogJob::dispatch(['refund', ['uid' => $order['uid'], 'order_id' => $order['id']]]);
         event('NoticeListener', [['data' => $refundData, 'order' => $order], 'order_refund']);
 
-        //自定义消息-退款成功
+        //Tin nhắn tùy chỉnh-Hoàn tiền thành công
         $order['phone'] = $order['user_phone'];
         event('CustomNoticeListener', [$order['uid'], $order, 'order_refund_success']);
 
-        //自定义事件-后台订单退款
+        //Sự kiện tùy chỉnh-Hoàn tiền đơn hàng phụ trợ
         event('CustomEventListener', ['admin_order_refund_success', [
             'uid' => $order['uid'],
             'order_id' => $order['order_id'],
@@ -304,20 +304,20 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 商家同意用户退货
+     * Người bán đồng ý trả lại hàng cho người dùng
      * @param $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/16
      */
     public function agreeExpress($id)
     {
         $order = $this->dao->get($id, ['refund_type']);
-        if (!$order) throw new AdminException('数据不存在');
+        if (!$order) throw new AdminException('Dữ liệu không tồn tại');
         if ($order['refund_type'] == 4) {
             return true;
         }
@@ -326,7 +326,7 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 订单退款处理
+     * Xử lý hoàn tiền đơn hàng
      * @param int $type
      * @param $order
      * @param array $refundData
@@ -336,39 +336,39 @@ class StoreOrderRefundServices extends BaseServices
     {
         return $this->transaction(function () use ($type, $order, $refundData) {
 
-            //回退积分和优惠卷
+            //Trả lại điểm và phiếu giảm giá
             if (!$this->integralAndCouponBack($order)) {
-                throw new AdminException('回退积分和优惠券失败');
+                throw new AdminException('Không thể trả lại điểm và phiếu giảm giá');
             }
-            //虚拟商品优惠券退款处理
+            //Xử lý hoàn tiền phiếu giảm giá sản phẩm ảo
             if ($order['virtual_type'] == 2) {
                 /** @var StoreCouponUserServices $couponUser */
                 $couponUser = app()->make(StoreCouponUserServices::class);
                 $res = $couponUser->delUserCoupon(['cid' => $order['virtual_info'], 'uid' => $order['uid'], 'status' => 0]);
-                if (!$res) throw new AdminException('购买的优惠券已使用或者已过期');
+                if (!$res) throw new AdminException('Phiếu mua hàng đã được sử dụng hoặc hết hạn');
                 /** @var StoreCouponIssueUserServices $couponIssueUser */
                 $couponIssueUser = app()->make(StoreCouponIssueUserServices::class);
                 $couponIssueUser->delIssueUserCoupon(['issue_coupon_id' => $order['virtual_info'], 'uid' => $order['uid']]);
             }
 
-            //退拼团
+            //Rời khỏi nhóm
             if ($type == 1) {
                 /** @var StorePinkServices $pinkServices */
                 $pinkServices = app()->make(StorePinkServices::class);
                 if (!$pinkServices->setRefundPink($order)) {
-                    throw new AdminException('拼团修改失败');
+                    throw new AdminException('Sửa đổi nhóm nhóm không thành công');
                 }
             }
 
-            //退佣金
+            //Hoàn tiền hoa hồng
             /** @var UserBrokerageServices $userBrokerageServices */
             $userBrokerageServices = app()->make(UserBrokerageServices::class);
             if (!$userBrokerageServices->orderRefundBrokerageBack($order)) {
-                throw new AdminException('回退佣金失败');
+                throw new AdminException('Không thể hoàn trả hoa hồng');
             }
 
 
-            //回退库存
+            //Trả lại hàng tồn kho
             if ($order['status'] == 0) {
                 /** @var StoreOrderStatusServices $services */
                 $services = app()->make(StoreOrderStatusServices::class);
@@ -377,13 +377,13 @@ class StoreOrderRefundServices extends BaseServices
                 }
             }
 
-            //退金额
+            //Số tiền hoàn lại
             if ($refundData['refund_price'] > 0) {
                 if (!isset($refundData['refund_id']) || !$refundData['refund_id']) {
                     mt_srand();
                     $refundData['refund_id'] = $order['order_id'] . rand(100, 999);
                 }
-                if ($order['pid'] > 0) {//子订单
+                if ($order['pid'] > 0) {//Đơn hàng phụ
                     $refundOrder = $this->storeOrderServices->get((int)$order['pid']);
                     $refundData['pay_price'] = $refundOrder['pay_price'];
                 } else {
@@ -399,36 +399,36 @@ class StoreOrderRefundServices extends BaseServices
                         /** @var Pay $pay */
                         $pay = app()->make(Pay::class);
                         if ($refundOrder['is_channel'] == 1) {
-                            //小程序退款
-                            $pay->refund($no, $refundData);//小程序
+                            //Hoàn tiền chương trình nhỏ
+                            $pay->refund($no, $refundData);//Chương trình nhỏ
                         } else {
-                            //微信公众号退款
+                            //Hoàn tiền tài khoản chính thức của WeChat
                             $refundData['wechat'] = true;
-                            $pay->refund($no, $refundData);//公众号
+                            $pay->refund($no, $refundData);//Tài khoản chính thức
                         }
                         break;
                     case PayServices::YUE_PAY:
-                        //余额退款
+                        //Hoàn trả số dư
                         if (!$this->yueRefund($refundOrder, $refundData)) {
-                            throw new AdminException('余额退款失败');
+                            throw new AdminException('Hoàn trả số dư không thành công');
                         }
                         break;
                     case PayServices::ALIAPY_PAY:
                         mt_srand();
                         $refund_id = $refundData['refund_id'] ?? $refundOrder['order_id'] . rand(100, 999);
-                        //支付宝退款
+                        //Hoàn tiền Alipay
                         AliPayService::instance()->refund(strpos($refundOrder['trade_no'], '_') !== false ? $refundOrder['trade_no'] : $refundOrder['order_id'], floatval($refundData['refund_price']), $refund_id);
                         break;
                 }
             }
-            //修改开票数据退款状态
+            //Sửa đổi trạng thái hoàn tiền của dữ liệu hóa đơn
             $orderInvoiceServices = app()->make(StoreOrderInvoiceServices::class);
             $orderInvoiceServices->update(['order_id' => $order['id']], ['is_refund' => 1]);
         });
     }
 
     /**
-     * 余额退款
+     * Hoàn trả số dư
      * @param $order
      * @param array $refundData
      * @return bool
@@ -445,7 +445,7 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 回退积分和优惠卷
+     * Trả lại điểm và phiếu giảm giá
      * @param $order
      * @param string $type
      * @return bool
@@ -455,35 +455,35 @@ class StoreOrderRefundServices extends BaseServices
         /** @var StoreOrderStatusServices $statusService */
         $statusService = app()->make(StoreOrderStatusServices::class);
         $res = true;
-        //取消或者退款的订单退回优惠券
+        //Phiếu giảm giá được trả lại cho các đơn đặt hàng bị hủy hoặc hoàn tiền
         if ($order['coupon_id'] && $order['coupon_price']) {
             /** @var StoreCouponUserServices $couponUserServices */
             $couponUserServices = app()->make(StoreCouponUserServices::class);
-            //未支付取消订单，或者退优惠券开关打开之后的主订单以及最后一个子订单退还优惠券
+            //Hủy đơn hàng mà không thanh toán hoặc hoàn lại phiếu giảm giá cho đơn hàng chính và đơn hàng phụ cuối cùng sau khi bật công tắc hoàn tiền phiếu giảm giá.
             if ($type == 'cancel' || (sys_config('coupon_return_open', 1) && ($order['pid'] == 0 || $this->storeOrderServices->count(['pid' => $order['pid'], 'refund_status' => 0]) == 1))) {
                 $res = $couponUserServices->recoverCoupon((int)$order['coupon_id']);
                 $statusService->save([
                     'oid' => $order['id'],
                     'change_type' => 'coupon_back',
-                    'change_message' => '商品退优惠券',
+                    'change_message' => 'Phiếu trả lại sản phẩm',
                     'change_time' => time()
                 ]);
             }
         }
 
-        //回退积分
+        //Trả lại điểm
         $order = $this->regressionIntegral($order);
         $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'integral_back',
-            'change_message' => '商品退积分',
+            'change_message' => 'Hoàn lại điểm sản phẩm',
             'change_time' => time()
         ]);
         return $res && $order->save();
     }
 
     /**
-     * 回退使用积分和赠送积分
+     * Điểm trả lại và điểm quà tặng
      * @param $order
      * @return bool
      */
@@ -502,7 +502,7 @@ class StoreOrderRefundServices extends BaseServices
         }
 
         $res1 = $res2 = $res3 = $res4 = true;
-        //订单赠送积分
+        //Điểm thưởng cho đơn hàng
         /** @var UserBillServices $userBillServices */
         $userBillServices = app()->make(UserBillServices::class);
         $order_gain = $userBillServices->sum([
@@ -511,7 +511,7 @@ class StoreOrderRefundServices extends BaseServices
             'link_id' => $order['id'],
             'uid' => $order['uid']
         ], 'number');
-        //商品赠送
+        //Quà tặng sản phẩm
         $product_gain = $userBillServices->sum([
             'category' => 'integral',
             'type' => 'product_gain',
@@ -521,32 +521,32 @@ class StoreOrderRefundServices extends BaseServices
 
         $give_integral = $order_gain + $product_gain;
         if ($give_integral) {
-            //判断订单是否已经回退积分
+            //Xác định đơn hàng đã được hoàn điểm chưa
             $count = $userBillServices->count(['category' => 'integral', 'type' => 'integral_refund', 'link_id' => $order['id']]);
             if (!$count) {
                 if ($integral > $give_integral) {
                     $res1 = $userServices->bcDec($order['uid'], 'integral', $give_integral);
-                    //记录赠送积分收回
+                    //Ghi lại việc phục hồi điểm quà tặng
                     $integral = $integral - $give_integral;
                 } else {
                     $res1 = $userServices->update($order['uid'], ['integral' => 0]);
-                    //记录赠送积分收回
+                    //Ghi lại việc phục hồi điểm quà tặng
                     $integral = 0;
                 }
                 $res2 = $userBillServices->income('integral_refund', $order['uid'], $give_integral, $integral, $order['id']);
-                //清除积分冻结
+                //Xóa điểm đóng băng
                 $userBillServices->update(['link_id' => $order['id']], ['frozen_time' => 0]);
             }
         }
-        //返还下单使用积分
+        //Điểm hoàn tiền được sử dụng để đặt hàng
         $use_integral = $order['use_integral'];
         if ($use_integral > 0) {
             $res3 = $userServices->bcInc($order['uid'], 'integral', $use_integral);
-            //记录下单使用积分还回
+            //Ghi lại đơn hàng và sử dụng điểm để trả lại
             $res4 = $userBillServices->income('pay_product_integral_back', $order['uid'], (int)$use_integral, $integral + $use_integral, $order['id']);
         }
         if (!($res1 && $res2 && $res3 && $res4)) {
-            throw new ApiException('回退积分增加失败');
+            throw new ApiException('Không thể tăng điểm khôi phục');
         }
         if ($use_integral > $give_integral) {
             $order->back_integral = bcsub($use_integral, $give_integral, 2);
@@ -555,11 +555,11 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 回退库存
+     * Trả lại hàng tồn kho
      * @param $order
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -585,7 +585,7 @@ class StoreOrderRefundServices extends BaseServices
         $cartInfo = $cartServices->getCartInfoList(['cart_id' => $order['cart_id']], ['cart_info']);
         foreach ($cartInfo as $cart) {
             $cart['cart_info'] = is_array($cart['cart_info']) ? $cart['cart_info'] : json_decode($cart['cart_info'], true);
-            //增库存减销量
+            //Tăng hàng tồn kho và giảm doanh số bán hàng
             $unique = isset($cart['cart_info']['productInfo']['attrInfo']) ? $cart['cart_info']['productInfo']['attrInfo']['unique'] : '';
             $cart_num = (int)$cart['cart_info']['cart_num'];
             if ($combination_id) {
@@ -603,7 +603,7 @@ class StoreOrderRefundServices extends BaseServices
 
 
     /**
-     * 同意退款成功发送模板消息和记录订单状态
+     * Đồng ý hoàn tiền thành công, gửi tin nhắn mẫu và ghi nhận trạng thái đơn hàng
      * @param $data
      * @param $order
      * @param $refund_price
@@ -616,7 +616,7 @@ class StoreOrderRefundServices extends BaseServices
         $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'refund_price',
-            'change_message' => '退款给用户：' . $refund_price . '元',
+            'change_message' => 'Hoàn tiền cho người dùng：' . $refund_price . 'Nhân dân tệ',
             'change_time' => time()
         ]);
 
@@ -636,7 +636,7 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 同意退款退款失败写入订单记录
+     * Đồng ý hoàn tiền và hoàn tiền không ghi vào hồ sơ đặt hàng
      * @param int $id
      * @param $refund_price
      */
@@ -647,13 +647,13 @@ class StoreOrderRefundServices extends BaseServices
         $statusService->save([
             'oid' => $id,
             'change_type' => 'refund_price',
-            'change_message' => '退款给用户：' . $refund_price . '元失败',
+            'change_message' => 'Hoàn tiền cho người dùng：' . $refund_price . 'siêu thất bại',
             'change_time' => time()
         ]);
     }
 
     /**
-     * 不退款记录订单变更状态
+     * Ghi lại trạng thái thay đổi đơn hàng mà không hoàn lại tiền
      * @param int $id
      * @param string $refundReason
      */
@@ -664,14 +664,14 @@ class StoreOrderRefundServices extends BaseServices
         $statusService->save([
             'oid' => $id,
             'change_type' => 'refund_n',
-            'change_message' => '不退款原因:' . $refundReason,
+            'change_message' => 'Lý do không hoàn tiền:' . $refundReason,
             'change_time' => time()
         ]);
     }
 
 
     /**
-     * 不退款表单
+     * Không có hình thức hoàn tiền
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -680,15 +680,15 @@ class StoreOrderRefundServices extends BaseServices
     {
         $order = $this->dao->get($id);
         if (!$order) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
-        $f[] = Form::input('order_id', '不退款单号', $order->getData('order_id'))->disabled(true);
-        $f[] = Form::input('refund_reason', '不退款原因')->type('textarea')->required('请填写不退款原因');
-        return create_form('不退款原因', $f, $this->url('refund/no_refund/' . $id), 'PUT');
+        $f[] = Form::input('order_id', 'Không có số đơn đặt hàng hoàn lại', $order->getData('order_id'))->disabled(true);
+        $f[] = Form::input('refund_reason', 'Lý do không hoàn tiền')->type('textarea')->required('Vui lòng điền lý do không hoàn tiền');
+        return create_form('Lý do không hoàn tiền', $f, $this->url('refund/no_refund/' . $id), 'PUT');
     }
 
     /**
-     * 拒绝退款
+     * Từ chối hoàn tiền
      * @param int $id
      * @param array $data
      * @param array $orderRefundInfo
@@ -703,36 +703,36 @@ class StoreOrderRefundServices extends BaseServices
             $orderRefundInfo = $this->dao->get(['id' => $id, 'is_cancel' => 0]);
         }
         if (!$orderRefundInfo) {
-            throw new ApiException('售后订单不存在');
+            throw new ApiException('Đơn đặt hàng sau bán hàng không tồn tại');
         }
         /** @var StoreOrderServices $storeOrderServices */
         $storeOrderServices = app()->make(StoreOrderServices::class);
         $this->transaction(function () use ($id, $data, $orderRefundInfo, $storeOrderServices) {
-            //处理售后订单
+            //Xử lý đơn hàng sau bán hàng
             $this->dao->update($id, $data);
-            //处理订单
+            //Xử lý đơn hàng
             $oid = (int)$orderRefundInfo['store_order_id'];
 
             $storeOrderServices->update($oid, ['refund_status' => 0, 'refund_type' => 3]);
-            //处理订单商品cart_info
-            $this->cancelOrderRefundCartInfo($id, $oid, $orderRefundInfo, '不退款原因:' . ($data['refuse_reason'] ?? ''));
-            //记录
+            //Xử lý các mục đơn hàngcart_info
+            $this->cancelOrderRefundCartInfo($id, $oid, $orderRefundInfo, 'Lý do không hoàn tiền:' . ($data['refuse_reason'] ?? ''));
+            //Ghi
             /** @var StoreOrderStatusServices $statusService */
             $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $id,
                 'change_type' => 'refund_n',
-                'change_message' => '不退款原因:' . ($data['refuse_reason'] ?? ''),
+                'change_message' => 'Lý do không hoàn tiền:' . ($data['refuse_reason'] ?? ''),
                 'change_time' => time()
             ]);
         });
         $orderRefundInfo['refuse_reason'] = $data['refuse_reason'] ?? '';
         event('NoticeListener', [['orderInfo' => $orderRefundInfo], 'send_order_refund_no_status']);
 
-        //自定义消息-退款失败
+        //Thông báo tùy chỉnh - Hoàn tiền không thành công
         event('CustomNoticeListener', [$orderRefundInfo['uid'], $orderRefundInfo->toArray(), 'order_refund_fail']);
 
-        //自定义事件-后台订单拒绝退款
+        //Đơn hàng phụ trợ sự kiện tùy chỉnh bị từ chối hoàn tiền
         event('CustomEventListener', ['admin_order_refund_fail', [
             'uid' => $orderRefundInfo['uid'],
             'id' => $orderRefundInfo['id'],
@@ -749,7 +749,7 @@ class StoreOrderRefundServices extends BaseServices
 
 
     /**
-     * 退积分表单创建
+     * Tạo mẫu hoàn tiền điểm
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -757,20 +757,20 @@ class StoreOrderRefundServices extends BaseServices
     public function refundIntegralForm(int $id)
     {
         if (!$orderInfo = $this->dao->get($id))
-            throw new AdminException('订单不存在');
+            throw new AdminException('Đơn hàng không tồn tại');
         if ($orderInfo->use_integral < 0 || $orderInfo->use_integral == $orderInfo->back_integral)
-            throw new AdminException('积分已退或者积分为零无法再退');
+            throw new AdminException('Điểm đã được hoàn trả hoặc điểm bằng 0 và không thể hoàn trả.');
         if (!$orderInfo->paid)
-            throw new AdminException('未支付无法退积分');
-        $f[] = Form::input('order_id', '退款单号', $orderInfo->getData('order_id'))->disabled(1);
-        $f[] = Form::number('use_integral', '使用的积分', (float)$orderInfo->getData('use_integral'))->min(0)->disabled(1);
-        $f[] = Form::number('use_integrals', '已退积分', (float)$orderInfo->getData('back_integral'))->min(0)->disabled(1);
-        $f[] = Form::number('back_integral', '可退积分', (float)bcsub($orderInfo->getData('use_integral'), $orderInfo->getData('back_integral')))->min(0)->precision(0)->required('请输入可退积分');
-        return create_form('退积分', $f, $this->url('/order/refund_integral/' . $id), 'PUT');
+            throw new AdminException('Điểm không thể được hoàn trả nếu không được thanh toán');
+        $f[] = Form::input('order_id', 'Số đơn hàng hoàn tiền', $orderInfo->getData('order_id'))->disabled(1);
+        $f[] = Form::number('use_integral', 'Điểm đã sử dụng', (float)$orderInfo->getData('use_integral'))->min(0)->disabled(1);
+        $f[] = Form::number('use_integrals', 'Điểm được hoàn trả', (float)$orderInfo->getData('back_integral'))->min(0)->disabled(1);
+        $f[] = Form::number('back_integral', 'Điểm có thể hoàn lại', (float)bcsub($orderInfo->getData('use_integral'), $orderInfo->getData('back_integral')))->min(0)->precision(0)->required('Vui lòng nhập số điểm có thể hoàn lại');
+        return create_form('Điểm hoàn tiền', $f, $this->url('/order/refund_integral/' . $id), 'PUT');
     }
 
     /**
-     * 单独退积分处理
+     * Xử lý hoàn trả điểm cá nhân
      * @param $orderInfo
      * @param $back_integral
      */
@@ -789,20 +789,20 @@ class StoreOrderRefundServices extends BaseServices
             $res3 = $statusService->save([
                 'oid' => $orderInfo['id'],
                 'change_type' => 'integral_back',
-                'change_message' => '商品退积分:' . $back_integral,
+                'change_message' => 'Hoàn lại điểm sản phẩm:' . $back_integral,
                 'change_time' => time()
             ]);
             $res4 = $orderInfo->save();
             $res = $res1 && $res2 && $res3 && $res4;
             if (!$res) {
-                throw new AdminException('订单退积分失败');
+                throw new AdminException('Hoàn trả điểm cho đơn hàng không thành công');
             }
             return true;
         });
     }
 
     /**
-     * 订单申请退款
+     * Yêu cầu hoàn lại tiền cho một đơn đặt hàng
      * @param $uni
      * @param $uid
      * @param string $refundReasonWap
@@ -813,16 +813,16 @@ class StoreOrderRefundServices extends BaseServices
     public function orderApplyRefund($order, string $refundReasonWap = '', string $refundReasonWapExplain = '', array $refundReasonWapImg = [], int $refundType = 0, $cart_id = 0, $refund_num = 0)
     {
         if (!$order) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
         if ($order['refund_status'] == 2) {
-            throw new ApiException('订单已退款');
+            throw new ApiException('Đơn hàng đã được hoàn lại');
         }
         if ($order['refund_status'] == 1) {
-            throw new ApiException('正在申请退款中');
+            throw new ApiException('Nộp đơn xin hoàn tiền');
         }
         if ($order['total_num'] < $refund_num) {
-            throw new ApiException('退款件数大于订单件数');
+            throw new ApiException('Số lượng mặt hàng được hoàn lại lớn hơn số lượng mặt hàng được đặt hàng.');
         }
         $this->transaction(function () use ($order, $refundReasonWap, $refundReasonWapExplain, $refundReasonWapImg, $refundType, $refund_num, $cart_id) {
             $status = 0;
@@ -834,7 +834,7 @@ class StoreOrderRefundServices extends BaseServices
                 $cart_ids[0] = ['cart_id' => $cart_id, 'cart_num' => $refund_num];
                 /** @var StoreOrderSplitServices $storeOrderSplitServices */
                 $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
-                //拆单
+                //Chia đơn hàng
                 $status = $order['status'];
                 $order = $storeOrderSplitServices->split($order_id, $cart_ids, $order);
             } elseif (in_array($order['pid'], [0, -1]) && $this->storeOrderServices->count(['pid' => $order_id])) {
@@ -842,7 +842,7 @@ class StoreOrderRefundServices extends BaseServices
                 $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
                 $cart_info = $storeOrderCartInfoServices->getSplitCartList($order_id, 'cart_info');
                 if (!$cart_info) {
-                    throw new ApiException('该订单已全部拆分');
+                    throw new ApiException('Đơn hàng đã được chia tách hoàn toàn');
                 }
                 $cart_ids = [];
                 foreach ($cart_info as $key => $cart) {
@@ -850,7 +850,7 @@ class StoreOrderRefundServices extends BaseServices
                 }
                 /** @var StoreOrderSplitServices $storeOrderSplitServices */
                 $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
-                //拆单
+                //Chia đơn hàng
                 $status = $order['status'];
                 $order = $storeOrderSplitServices->split($order_id, $cart_ids, $order);
             }
@@ -870,14 +870,14 @@ class StoreOrderRefundServices extends BaseServices
             $res1 = false !== $statusService->save([
                     'oid' => $order['id'],
                     'change_type' => 'apply_refund',
-                    'change_message' => '用户申请退款，原因：' . $refundReasonWap,
+                    'change_message' => 'Người dùng đã yêu cầu hoàn tiền, lý do：' . $refundReasonWap,
                     'change_time' => time()
                 ]);
             $res2 = false !== $this->storeOrderServices->update(['id' => $order['id']], $data);
             $res = $res1 && $res2;
             if (!$res)
-                throw new ApiException('申请退款失败');
-            //子订单申请退款
+                throw new ApiException('Yêu cầu hoàn tiền không thành công');
+            //Yêu cầu hoàn tiền cho đơn hàng phụ
             if ($order['pid'] > 0) {
                 $p_order = $this->storeOrderServices->get((int)$order['pid']);
                 $split_order = $this->storeOrderServices->count(['pid' => $order['pid'], 'refund_status' => 0]);
@@ -899,7 +899,7 @@ class StoreOrderRefundServices extends BaseServices
             ChannelService::instance()->send('NEW_REFUND_ORDER', ['order_id' => $order['order_id']]);
         } catch (\Exception $e) {
         }
-        //提醒推送
+        //Đẩy lời nhắc
         event('NoticeListener', [['order' => $order], 'send_order_apply_refund']);
 
         return true;
@@ -908,7 +908,7 @@ class StoreOrderRefundServices extends BaseServices
 
 
     /**
-     * 写入退款快递单号
+     * Nhập số chuyển phát nhanh hoàn tiền
      * @param $order
      * @param $express
      * @return bool
@@ -923,7 +923,7 @@ class StoreOrderRefundServices extends BaseServices
             $res1 = false !== $statusService->save([
                     'oid' => $id,
                     'change_type' => 'refund_express',
-                    'change_message' => '用户已退货，订单号：' . $data['refund_express'],
+                    'change_message' => 'Người dùng đã trả lại sản phẩm, mã đơn hàng：' . $data['refund_express'],
                     'change_time' => time()
                 ]);
             if ($data['refund_img'] != '') unset($data['refund_img']);
@@ -931,13 +931,13 @@ class StoreOrderRefundServices extends BaseServices
             $res2 = false !== $this->dao->update(['id' => $id], $data);
             $res = $res1 && $res2;
             if (!$res)
-                throw new ApiException('提交失败');
+                throw new ApiException('Gửi không thành công');
         });
         return true;
     }
 
     /**
-     * 订单申请退款
+     * Yêu cầu hoàn lại tiền cho một đơn đặt hàng
      * @param int $id
      * @param int $uid
      * @param array $order
@@ -954,14 +954,14 @@ class StoreOrderRefundServices extends BaseServices
      */
     public function applyRefund(int $id, int $uid, $order = [], array $cart_ids = [], int $refundType = 0, float $refundPrice = 0.00, array $refundData = [], $isPink = 0)
     {
-        /** 查询订单是否存在 */
+        /** Kiểm tra xem đơn hàng có tồn tại không */
         /** @var StoreOrderServices $orderServices */
         $orderServices = app()->make(StoreOrderServices::class);
         if (!$order) {
             $order = $orderServices->get($id);
         }
         if (!$order) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
 
         $is_now = $this->dao->getCount([
@@ -971,13 +971,13 @@ class StoreOrderRefundServices extends BaseServices
             ['is_del', '=', 0],
             ['is_pink_cancel', '=', 0]
         ]);
-        if ($is_now) throw new ApiException('存在待处理退款单');
+        if ($is_now) throw new ApiException('Có một yêu cầu hoàn tiền đang chờ xử lý');
 
         $refund_num = $order['total_num'];
         $refund_price = $order['pay_price'];
         /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
         $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
-        //退部分
+        //Phần rút lui
         $cartInfo = [];
         $cartInfos = $storeOrderCartInfoServices->getCartColunm(['oid' => $id], 'id,cart_id,cart_num,refund_num,cart_info');
         if ($cart_ids) {
@@ -985,11 +985,11 @@ class StoreOrderRefundServices extends BaseServices
             $refund_num = 0;
             foreach ($cart_ids as $cart) {
                 if ($cart['cart_num'] + $cartInfo[$cart['cart_id']]['refund_num'] > $cartInfo[$cart['cart_id']]['cart_num']) {
-                    throw new ApiException('退款件数大于订单件数');
+                    throw new ApiException('Số lượng mặt hàng được hoàn lại lớn hơn số lượng mặt hàng được đặt hàng.');
                 }
                 $refund_num = bcadd((string)$refund_num, (string)$cart['cart_num'], 0);
             }
-            //总共申请多少件
+            //Có tổng cộng bao nhiêu ứng dụng?
             $total_num = array_sum(array_column($cart_ids, 'cart_num'));
             if ($total_num < $order['total_num']) {
                 /** @var StoreOrderSplitServices $storeOrderSpliteServices */
@@ -1002,9 +1002,9 @@ class StoreOrderRefundServices extends BaseServices
                     $pay_postage = bcadd((string)$pay_postage, (string)($_info['postage_price'] ?? 0), 2);
                 }
                 $refund_pay_price = bcadd((string)$total_price, (string)$pay_postage, 2);
-                //订单实际支付金额
+                //Số tiền thanh toán thực tế của đơn hàng
                 $order_pay_price = bcsub((string)bcadd((string)$order['total_price'], (string)$order['pay_postage'], 2), (string)bcadd((string)$order['deduction_price'], (string)$order['coupon_price'], 2), 2);
-                if ($order_pay_price != $order['pay_price'] && $refund_pay_price != $order_pay_price) {//有改价
+                if ($order_pay_price != $order['pay_price'] && $refund_pay_price != $order_pay_price) {//Có sự thay đổi giá
                     $refund_price = bcmul((string)bcdiv((string)$refund_pay_price, (string)$order_pay_price, 4), (string)$order['pay_price'], 2);
                 } else {
                     $refund_price = $refund_pay_price;
@@ -1013,7 +1013,7 @@ class StoreOrderRefundServices extends BaseServices
         } else {
             foreach ($cartInfos as $cart) {
                 if ($cart['refund_num'] > 0) {
-                    throw new ApiException('退款件数大于订单件数');
+                    throw new ApiException('Số lượng mặt hàng được hoàn lại lớn hơn số lượng mặt hàng được đặt hàng.');
                 }
             }
         }
@@ -1036,20 +1036,20 @@ class StoreOrderRefundServices extends BaseServices
             $res1 = false !== $statusService->save([
                     'oid' => $order['id'],
                     'change_type' => 'apply_refund',
-                    'change_message' => '用户申请退款，原因：' . $refundData['refund_reason'],
+                    'change_message' => 'Người dùng đã yêu cầu hoàn tiền, lý do：' . $refundData['refund_reason'],
                     'change_time' => time()
                 ]);
             $res2 = true;
-            //添加退款数据
+            //Thêm dữ liệu hoàn tiền
             /** @var StoreOrderRefundServices $storeOrderRefundServices */
             $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
             $res3 = $storeOrderRefundServices->save($refundData);
             if (!$res3) {
-                throw new ApiException('申请失败');
+                throw new ApiException('Ứng dụng không thành công');
             }
             $res4 = true;
             if ($cart_ids) {
-                //修改订单商品退款信息
+                //Sửa đổi thông tin hoàn tiền sản phẩm đặt hàng
                 foreach ($cart_ids as $cart) {
                     $res4 = $res4 && $storeOrderCartInfoServices->update(['oid' => $id, 'cart_id' => $cart['cart_id']], ['refund_num' => (($cartInfo[$cart['cart_id']]['refund_num'] ?? 0) + $cart['cart_num'])]);
                 }
@@ -1061,14 +1061,14 @@ class StoreOrderRefundServices extends BaseServices
             return $res1 && $res2 && $res3 && $res4;
         });
         $storeOrderCartInfoServices->clearOrderCartInfo($order['id']);
-        //申请退款事件
+        //Đăng ký sự kiện hoàn tiền
         event('OrderRefundCreateAfterListener', [$order]);
-        //提醒推送
+        //Đẩy lời nhắc
         event('NoticeListener', [['order' => $order], 'send_order_apply_refund']);
-        //推送订单
+        //Lệnh đẩy
         event('OutPushListener', ['refund_create_push', ['order_id' => (int)$order['id']]]);
 
-        //自定义事件-订单申请退款
+        //Sự kiện tùy chỉnh-Đơn đặt hàng để được hoàn tiền
         event('CustomEventListener', ['order_initiated_refund', [
             'uid' => $uid,
             'refund_order_id' => $refundData['order_id'],
@@ -1089,7 +1089,7 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 获取某个字段总金额
+     * Lấy tổng số tiền của một trường
      * @param $cartInfo
      * @param string $key
      * @param bool $is_unit
@@ -1116,7 +1116,7 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 退款订单列表
+     * Danh sách đơn hàng hoàn tiền
      * @param $where
      * @return array
      */
@@ -1126,7 +1126,7 @@ class StoreOrderRefundServices extends BaseServices
         $list = $this->dao->getList($where, $page, $limit);
         $count = $this->dao->count($where);
         $orderInfoList = $this->storeOrderServices->getColumn([['id', 'in', array_column($list, 'store_order_id')]], 'order_id,status', 'id');
-        $store_order_status = [-2 => '已退款', -1 => '退款中', '未发货', '待收货', '待评价', '已完成'];
+        $store_order_status = [-2 => 'Đã hoàn tiền', -1 => 'Đang hoàn tiền', 'Không được vận chuyển', 'Đang chờ nhận', 'Đang chờ đánh giá', 'Hoàn thành'];
         if ($list) {
             foreach ($list as &$item) {
                 $item['paid'] = 1;
@@ -1148,13 +1148,13 @@ class StoreOrderRefundServices extends BaseServices
 
                 if (in_array($item['refund_type'], [1, 2, 4, 5])) {
                     $_type = -1;
-                    $_title = '申请退款中';
+                    $_title = 'Nộp đơn xin hoàn tiền';
                 } elseif ($item['refund_type'] == 3) {
                     $_type = -3;
-                    $_title = '拒绝退款';
+                    $_title = 'Từ chối hoàn tiền';
                 } else {
                     $_type = -2;
-                    $_title = '已退款';
+                    $_title = 'Đã hoàn tiền';
                 }
                 $item['_status'] = [
                     '_type' => $_type,
@@ -1168,33 +1168,33 @@ class StoreOrderRefundServices extends BaseServices
         $data['count'] = $count;
         $del_where = ['is_cancel' => 0];
         $data['num'] = [
-            0 => ['name' => '全部', 'num' => $this->dao->count($del_where)],
-            1 => ['name' => '仅退款', 'num' => $this->dao->count($del_where + ['refund_type' => 1])],
-            2 => ['name' => '退货退款', 'num' => $this->dao->count($del_where + ['refund_type' => 2])],
-            3 => ['name' => '拒绝退款', 'num' => $this->dao->count($del_where + ['refund_type' => 3])],
-            4 => ['name' => '商品待退货', 'num' => $this->dao->count($del_where + ['refund_type' => 4])],
-            5 => ['name' => '退货待收货', 'num' => $this->dao->count($del_where + ['refund_type' => 5])],
-            6 => ['name' => '已退款', 'num' => $this->dao->count($del_where + ['refund_type' => 6])]
+            0 => ['name' => 'tất cả', 'num' => $this->dao->count($del_where)],
+            1 => ['name' => 'Chỉ hoàn tiền', 'num' => $this->dao->count($del_where + ['refund_type' => 1])],
+            2 => ['name' => 'Trả lại và hoàn tiền', 'num' => $this->dao->count($del_where + ['refund_type' => 2])],
+            3 => ['name' => 'Từ chối hoàn tiền', 'num' => $this->dao->count($del_where + ['refund_type' => 3])],
+            4 => ['name' => 'Hàng chờ trả lại', 'num' => $this->dao->count($del_where + ['refund_type' => 4])],
+            5 => ['name' => 'Trả lại chờ nhận', 'num' => $this->dao->count($del_where + ['refund_type' => 5])],
+            6 => ['name' => 'Đã hoàn tiền', 'num' => $this->dao->count($del_where + ['refund_type' => 6])]
         ];
         return $data;
     }
 
     /**
-     * 退款订单详情
+     * Chi tiết đơn hàng hoàn tiền
      * @param $uni
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/17
      */
     public function refundDetail($uni)
     {
-        if (!strlen(trim($uni))) throw new ApiException('参数错误');
+        if (!strlen(trim($uni))) throw new ApiException('Lỗi tham số');
         $order = $this->dao->get(['order_id' => $uni], ['*']);
-        if (!$order) throw new ApiException('订单不存在');
+        if (!$order) throw new ApiException('Đơn hàng không tồn tại');
         $order = $order->toArray();
 
         /** @var StoreOrderServices $orderServices */
@@ -1206,9 +1206,9 @@ class StoreOrderRefundServices extends BaseServices
         $userInfo = $userServices->get($order['uid']);
 
         $order['mapKey'] = sys_config('tengxun_map_key');
-        $order['yue_pay_status'] = (int)sys_config('balance_func_status') && (int)sys_config('yue_pay_status') == 1 ? (int)1 : (int)2;//余额支付 1 开启 2 关闭
-        $order['pay_weixin_open'] = (int)sys_config('pay_weixin_open') ?? 0;//微信支付 1 开启 0 关闭
-        $order['ali_pay_status'] = sys_config('ali_pay_status') ? true : false;//支付包支付 1 开启 0 关闭
+        $order['yue_pay_status'] = (int)sys_config('balance_func_status') && (int)sys_config('yue_pay_status') == 1 ? (int)1 : (int)2;//Thanh toán số dư 1 tặng 2
+        $order['pay_weixin_open'] = (int)sys_config('pay_weixin_open') ?? 0;//WeChat Trả 1 Bật 0 Tắt
+        $order['ali_pay_status'] = sys_config('ali_pay_status') ? true : false;//Gói thanh toán thanh toán 1 tặng 0 giảm
         $orderData = $order;
         $orderData['store_order_sn'] = $orderInfo['order_id'];
         $orderData['cartInfo'] = $orderData['cart_info'];
@@ -1219,7 +1219,7 @@ class StoreOrderRefundServices extends BaseServices
             if ($orderInfo['bargain_id']) $orderData['type'] = 2;
             if ($orderInfo['combination_id']) $orderData['type'] = 3;
         }
-        //核算优惠金额
+        //Tính số tiền chiết khấu
         $vipTruePrice = 0;
         $total_price = 0;
         $pay_postage = '0';
@@ -1245,28 +1245,28 @@ class StoreOrderRefundServices extends BaseServices
         $orderData['pay_postage'] = $this->getOrderSumPrice($orderData['cart_info'], 'origin_postage_price', false);
         $orderData['member_price'] = 0;
         $orderData['routine_contact_type'] = sys_config('routine_contact_type', 0);
-        $orderData['levelPrice'] = $this->getOrderSumPrice($orderData['cart_info'], 'level');//获取会员等级优惠
-        $orderData['memberPrice'] = $this->getOrderSumPrice($orderData['cart_info'], 'member');//获取付费会员优惠
+        $orderData['levelPrice'] = $this->getOrderSumPrice($orderData['cart_info'], 'level');//Nhận lợi ích cấp thành viên
+        $orderData['memberPrice'] = $this->getOrderSumPrice($orderData['cart_info'], 'member');//Nhận lợi ích thành viên trả phí
         $orderData['pay_type'] = $orderInfo['pay_type'];
 
         switch ($orderInfo['pay_type']) {
             case PayServices::WEIXIN_PAY:
-                $pay_type_name = '微信支付';
+                $pay_type_name = 'WeChat trả tiền';
                 break;
             case PayServices::YUE_PAY:
-                $pay_type_name = '余额支付';
+                $pay_type_name = 'thanh toán số dư';
                 break;
             case PayServices::OFFLINE_PAY:
-                $pay_type_name = '线下支付';
+                $pay_type_name = 'Thanh toán ngoại tuyến';
                 break;
             case PayServices::ALIAPY_PAY:
-                $pay_type_name = '支付宝支付';
+                $pay_type_name = 'thanh toán Alipay';
                 break;
             case PayServices::ALLIN_PAY:
-                $pay_type_name = '通联支付';
+                $pay_type_name = 'thanh toán Tonglian';
                 break;
             default:
-                $pay_type_name = '其他支付';
+                $pay_type_name = 'Các khoản thanh toán khác';
                 break;
         }
         $orderData['_add_time'] = date('Y-m-d H:i:s', $orderData['add_time']);
@@ -1274,16 +1274,16 @@ class StoreOrderRefundServices extends BaseServices
         $orderData['add_time_h'] = date('H:i:s', $orderData['add_time']);
         if (in_array($orderData['refund_type'], [1, 2, 4, 5])) {
             $_type = -1;
-            $_msg = '商家审核中,请耐心等待';
-            $_title = '申请退款中';
+            $_msg = 'Người bán đang được xem xét,Vui lòng chờ';
+            $_title = 'Nộp đơn xin hoàn tiền';
         } elseif ($orderData['refund_type'] == 3) {
             $_type = -3;
-            $_title = '拒绝退款';
-            $_msg = '商家拒绝退款，请联系商家';
+            $_title = 'Từ chối hoàn tiền';
+            $_msg = 'Người bán từ chối hoàn tiền, vui lòng liên hệ với người bán';
         } else {
             $_type = -2;
-            $_title = '已退款';
-            $_msg = '已为您退款,感谢您的支持';
+            $_title = 'Đã hoàn tiền';
+            $_msg = 'Bạn đã được hoàn lại tiền,cảm ơn sự hỗ trợ của bạn';
         }
         $refund_name = sys_config('refund_name', '');
         $refund_phone = sys_config('refund_phone', '');
@@ -1331,7 +1331,7 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * 取消申请、后台拒绝处理cart_info refund_num数据
+     * Hủy đơn đăng ký, nền từ chối xử lý dữ liệu cart_info Refund_num
      * @param int $id
      * @param int $oid
      * @param array $orderRefundInfo
@@ -1346,7 +1346,7 @@ class StoreOrderRefundServices extends BaseServices
             $orderRefundInfo = $this->dao->get(['id' => $id, 'is_cancel' => 0]);
         }
         if (!$orderRefundInfo) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
         $cart_ids = array_column($orderRefundInfo['cart_info'], 'id');
         /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
@@ -1363,25 +1363,25 @@ class StoreOrderRefundServices extends BaseServices
         }
         $storeOrderCartInfoServices->clearOrderCartInfo($oid);
 
-        //写入订单记录表
+        //Viết bảng ghi đơn hàng
         /** @var StoreOrderStatusServices $statusService */
         $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $oid,
             'change_type' => 'cancel_refund_order',
-            'change_message' => $title ?: '取消退款',
+            'change_message' => $title ?: 'Hủy hoàn tiền',
             'change_time' => time()
         ]);
 
-        //售后订单取消后置事件
+        //Hủy đơn hàng sau bán hàng sau sự kiện
         event('OrderRefundCancelAfterListener', [$orderRefundInfo]);
-        // 推送订单
+        // Lệnh đẩy
         event('OutPushListener', ['refund_cancel_push', ['order_id' => (int)$orderRefundInfo['id']]]);
         return true;
     }
 
     /**
-     * 修改备注
+     * Sửa đổi nhận xét
      * @param int $id
      * @param string $remark
      * @return bool
@@ -1392,24 +1392,24 @@ class StoreOrderRefundServices extends BaseServices
     public function updateRemark(int $id, string $remark)
     {
         if (!$id) {
-            throw new AdminException('参数错误');
+            throw new AdminException('Lỗi tham số');
         }
         if (!$remark) {
-            throw new AdminException('请填写备注内容');
+            throw new AdminException('Hãy điền nhận xét');
         }
 
         if (!$order = $this->dao->get($id)) {
-            throw new AdminException('订单不存在');
+            throw new AdminException('Đơn hàng không tồn tại');
         }
         $order->remark = $remark;
         if (!$order->save()) {
-            throw new AdminException('备注失败');
+            throw new AdminException('Nhận xét không thành công');
         }
         return true;
     }
 
     /**
-     * 拒绝退款
+     * Từ chối hoàn tiền
      * @param int $id
      * @param string $refund_reason
      * @return void
@@ -1420,11 +1420,11 @@ class StoreOrderRefundServices extends BaseServices
     public function refuse(int $id, string $refund_reason)
     {
         if (!$refund_reason) {
-            throw new AdminException('请输入拒绝退款理由');
+            throw new AdminException('Vui lòng nhập lý do từ chối hoàn tiền');
         }
 
         if (!$id || !($orderRefundInfo = $this->dao->get($id))) {
-            throw new AdminException('订单不存在');
+            throw new AdminException('Đơn hàng không tồn tại');
         }
 
         $refundData = [
@@ -1432,7 +1432,7 @@ class StoreOrderRefundServices extends BaseServices
             'refund_type' => 3,
             'refunded_time' => time()
         ];
-        //拒绝退款处理
+        //Từ chối xử lý hoàn tiền
         $this->refuseRefund($id, $refundData, $orderRefundInfo);
     }
 }

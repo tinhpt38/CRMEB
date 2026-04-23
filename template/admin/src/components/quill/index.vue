@@ -53,7 +53,7 @@ export default {
             ['link', 'image'],
           ],
         },
-        placeholder: '内容...',
+        placeholder: 'nội dung...',
         readOnly: false,
       },
     };
@@ -93,23 +93,23 @@ export default {
   methods: {
     init() {
       const editor = this.$refs.editor;
-      // 初始化编辑器
+      // Khởi tạo trình soạn thảo
       this.Quill = new Quill(editor, this.options);
-      // 默认值
+      // giá trị mặc định
       this.Quill.pasteHTML(this.currentValue);
-      // 绑定事件
+      // Sự kiện ràng buộc
       this.Quill.on('text-change', (delta, oldDelta, source) => {
         const html = this.$refs.editor.children[0].innerHTML;
         const text = this.Quill.getText();
         const quill = this.Quill;
-        // 更新内部的值
+        // cập nhật giá trị nội bộ
         this.currentValue = html;
-        // 发出事件 v-model
+        // phát ra sự kiện v-model
         this.$emit('input', html);
-        // 发出事件
+        // phát ra sự kiện
         this.$emit('on-change', { html, text, quill });
       });
-      // 将一些 quill 自带的事件传递出去
+      // Vượt qua một số sự kiện đi kèm với bút lông
       this.Quill.on('text-change', (delta, oldDelta, source) => {
         this.$emit('on-text-change', delta, oldDelta, source);
       });
@@ -125,7 +125,7 @@ export default {
     this.init();
   },
   beforeDestroy() {
-    // 在组件销毁后销毁实例
+    // Phá hủy instance sau khi thành phần bị phá hủy
     this.Quill = null;
   },
 };

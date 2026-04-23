@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,220 +19,220 @@ use crmeb\services\FormBuilder as Form;
 use think\facade\Route as Url;
 
 /**
- * 消息管理类
+ * Lớp quản lý tin nhắn
  * Class SystemNotificationServices
  * @package app\services\system
- * @method value($where, $value) 条件获取某个字段的值
+ * @method value($where, $value) Điều kiện để lấy giá trị của một trường
  */
 class SystemNotificationServices extends BaseServices
 {
 
     protected $messageData = [
 
-        //短信验证码
+        //Mã xác minh SMS
         'verify_code' => [
-            ['label' => '验证码', 'value' => 'code'],
-            ['label' => '有效时间', 'value' => 'time'],
+            ['label' => 'Mã xác minh', 'value' => 'code'],
+            ['label' => 'Thời gian hợp lệ', 'value' => 'time'],
         ],
 
-        //用户登录
+        //Đăng nhập người dùng
         'login_success' => [
-            ['label' => '用户昵称', 'value' => 'nickname'],
-            ['label' => '用户电话', 'value' => 'phone'],
-            ['label' => '上次登录时间', 'value' => 'last_time'],
-            ['label' => '用户余额', 'value' => 'now_money'],
-            ['label' => '用户佣金', 'value' => 'brokerage_price'],
-            ['label' => '用户积分', 'value' => 'integral'],
-            ['label' => '用户经验', 'value' => 'exp'],
-            ['label' => '登录时间', 'value' => 'time'],
+            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Lần đăng nhập cuối cùng', 'value' => 'last_time'],
+            ['label' => 'Số dư người dùng', 'value' => 'now_money'],
+            ['label' => 'Hoa hồng người dùng', 'value' => 'brokerage_price'],
+            ['label' => 'Điểm người dùng', 'value' => 'integral'],
+            ['label' => 'trải nghiệm người dùng', 'value' => 'exp'],
+            ['label' => 'Thời gian đăng nhập', 'value' => 'time'],
         ],
 
-        //用户绑定关系
+        //Mối quan hệ ràng buộc người dùng
         'spread_success' => [
-            ['label' => '用户昵称', 'value' => 'nickname'],
-            ['label' => '绑定时间', 'value' => 'time'],
+            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'thời gian ràng buộc', 'value' => 'time'],
         ],
 
-        //未支付订单修改金额
+        //Số tiền sửa đổi đơn hàng chưa thanh toán
         'price_change_price' => [
-            ['label' => '订单order_id', 'value' => 'order_id'],
-            ['label' => '订单原金额', 'value' => 'pay_price'],
-            ['label' => '修改后金额', 'value' => 'change_price'],
+            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Số lượng đặt hàng ban đầu', 'value' => 'pay_price'],
+            ['label' => 'Số tiền được sửa đổi', 'value' => 'change_price'],
         ],
 
-        //订单支付成功
+        //Thanh toán đơn hàng thành công
         'order_pay_success' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '订单order_id', 'value' => 'order_id'],
-            ['label' => '用户名称', 'value' => 'real_name'],
-            ['label' => '用户电话', 'value' => 'user_phone'],
-            ['label' => '用户地址', 'value' => 'user_address'],
-            ['label' => '商品总数', 'value' => 'total_num'],
-            ['label' => '支付金额', 'value' => 'pay_price'],
-            ['label' => '支付邮费', 'value' => 'pay_postage'],
-            ['label' => '积分抵扣金额', 'value' => 'deduction_price'],
-            ['label' => '优惠券抵扣金额', 'value' => 'coupon_price'],
-            ['label' => '支付类型', 'value' => 'pay_type'],
-            ['label' => '商品名称', 'value' => 'storeName'],
-            ['label' => '下单时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên người dùng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
+            ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
+            ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
+            ['label' => 'Số tiền trừ điểm', 'value' => 'deduction_price'],
+            ['label' => 'Số tiền khấu trừ phiếu giảm giá', 'value' => 'coupon_price'],
+            ['label' => 'Hình thức thanh toán', 'value' => 'pay_type'],
+            ['label' => 'Tên sản phẩm', 'value' => 'storeName'],
+            ['label' => 'thời gian đặt hàng', 'value' => 'time'],
         ],
 
-        //订单快递发货
+        //Chuyển phát nhanh các đơn hàng
         'order_express_success' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '订单order_id', 'value' => 'order_id'],
-            ['label' => '用户名称', 'value' => 'real_name'],
-            ['label' => '用户电话', 'value' => 'user_phone'],
-            ['label' => '用户地址', 'value' => 'user_address'],
-            ['label' => '商品总数', 'value' => 'total_num'],
-            ['label' => '支付金额', 'value' => 'pay_price'],
-            ['label' => '支付邮费', 'value' => 'pay_postage'],
-            ['label' => '积分抵扣金额', 'value' => 'deduction_price'],
-            ['label' => '优惠券抵扣金额', 'value' => 'coupon_price'],
-            ['label' => '支付类型', 'value' => 'pay_type'],
-            ['label' => '商品名称', 'value' => 'storeName'],
-            ['label' => '快递公司', 'value' => 'delivery_name'],
-            ['label' => '快递单号', 'value' => 'delivery_id'],
-            ['label' => '发货时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên người dùng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
+            ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
+            ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
+            ['label' => 'Số tiền trừ điểm', 'value' => 'deduction_price'],
+            ['label' => 'Số tiền khấu trừ phiếu giảm giá', 'value' => 'coupon_price'],
+            ['label' => 'Hình thức thanh toán', 'value' => 'pay_type'],
+            ['label' => 'Tên sản phẩm', 'value' => 'storeName'],
+            ['label' => 'công ty chuyển phát nhanh', 'value' => 'delivery_name'],
+            ['label' => 'Số theo dõi nhanh', 'value' => 'delivery_id'],
+            ['label' => 'thời gian vận chuyển', 'value' => 'time'],
         ],
 
-        //订单配送员送货
+        //Giao hàng theo đơn đặt hàng chuyển phát nhanh
         'order_send_success' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '订单order_id', 'value' => 'order_id'],
-            ['label' => '用户名称', 'value' => 'real_name'],
-            ['label' => '用户电话', 'value' => 'user_phone'],
-            ['label' => '用户地址', 'value' => 'user_address'],
-            ['label' => '商品总数', 'value' => 'total_num'],
-            ['label' => '支付金额', 'value' => 'pay_price'],
-            ['label' => '支付邮费', 'value' => 'pay_postage'],
-            ['label' => '积分抵扣金额', 'value' => 'deduction_price'],
-            ['label' => '优惠券抵扣金额', 'value' => 'coupon_price'],
-            ['label' => '支付类型', 'value' => 'pay_type'],
-            ['label' => '商品名称', 'value' => 'storeName'],
-            ['label' => '配送员姓名', 'value' => 'delivery_name'],
-            ['label' => '配送员电话', 'value' => 'delivery_id'],
-            ['label' => '送货时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên người dùng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
+            ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
+            ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
+            ['label' => 'Số tiền trừ điểm', 'value' => 'deduction_price'],
+            ['label' => 'Số tiền khấu trừ phiếu giảm giá', 'value' => 'coupon_price'],
+            ['label' => 'Hình thức thanh toán', 'value' => 'pay_type'],
+            ['label' => 'Tên sản phẩm', 'value' => 'storeName'],
+            ['label' => 'Tên người giao hàng', 'value' => 'delivery_name'],
+            ['label' => 'Số điện thoại người giao hàng', 'value' => 'delivery_id'],
+            ['label' => 'thời gian giao hàng', 'value' => 'time'],
 
         ],
 
-        //订单收货
+        //Biên nhận đơn hàng
         'order_take' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '订单order_id', 'value' => 'order_id'],
-            ['label' => '用户名称', 'value' => 'real_name'],
-            ['label' => '用户电话', 'value' => 'user_phone'],
-            ['label' => '用户地址', 'value' => 'user_address'],
-            ['label' => '商品总数', 'value' => 'total_num'],
-            ['label' => '支付金额', 'value' => 'pay_price'],
-            ['label' => '支付邮费', 'value' => 'pay_postage'],
-            ['label' => '积分抵扣金额', 'value' => 'deduction_price'],
-            ['label' => '优惠券抵扣金额', 'value' => 'coupon_price'],
-            ['label' => '支付类型', 'value' => 'pay_type'],
-            ['label' => '商品名称', 'value' => 'storeTitle'],
-            ['label' => '配送员姓名', 'value' => 'delivery_name'],
-            ['label' => '配送员电话', 'value' => 'delivery_id'],
-            ['label' => '签收时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên người dùng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
+            ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
+            ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
+            ['label' => 'Số tiền trừ điểm', 'value' => 'deduction_price'],
+            ['label' => 'Số tiền khấu trừ phiếu giảm giá', 'value' => 'coupon_price'],
+            ['label' => 'Hình thức thanh toán', 'value' => 'pay_type'],
+            ['label' => 'Tên sản phẩm', 'value' => 'storeTitle'],
+            ['label' => 'Tên người giao hàng', 'value' => 'delivery_name'],
+            ['label' => 'Số điện thoại người giao hàng', 'value' => 'delivery_id'],
+            ['label' => 'Thời gian ký kết', 'value' => 'time'],
         ],
 
-        //订单发起退款
+        //Hoàn tiền đơn hàng
         'order_initiated_refund' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '订单order_id', 'value' => 'order_id'],
-            ['label' => '用户名称', 'value' => 'real_name'],
-            ['label' => '用户电话', 'value' => 'user_phone'],
-            ['label' => '用户地址', 'value' => 'user_address'],
-            ['label' => '商品总数', 'value' => 'total_num'],
-            ['label' => '支付金额', 'value' => 'pay_price'],
-            ['label' => '支付邮费', 'value' => 'pay_postage'],
-            ['label' => '积分抵扣金额', 'value' => 'deduction_price'],
-            ['label' => '优惠券抵扣金额', 'value' => 'coupon_price'],
-            ['label' => '支付类型', 'value' => 'pay_type'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên người dùng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
+            ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
+            ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
+            ['label' => 'Số tiền trừ điểm', 'value' => 'deduction_price'],
+            ['label' => 'Số tiền khấu trừ phiếu giảm giá', 'value' => 'coupon_price'],
+            ['label' => 'Hình thức thanh toán', 'value' => 'pay_type'],
         ],
 
-        //订单成功退款
+        //Đã hoàn tiền đơn hàng thành công
         'order_refund_success' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '订单order_id', 'value' => 'order_id'],
-            ['label' => '用户名称', 'value' => 'real_name'],
-            ['label' => '用户电话', 'value' => 'user_phone'],
-            ['label' => '用户地址', 'value' => 'user_address'],
-            ['label' => '商品总数', 'value' => 'total_num'],
-            ['label' => '支付金额', 'value' => 'pay_price'],
-            ['label' => '支付邮费', 'value' => 'pay_postage'],
-            ['label' => '积分抵扣金额', 'value' => 'deduction_price'],
-            ['label' => '优惠券抵扣金额', 'value' => 'coupon_price'],
-            ['label' => '支付类型', 'value' => 'pay_type'],
-            ['label' => '退款理由类型', 'value' => 'refund_reason_wap'],
-            ['label' => '退款理由', 'value' => 'refund_reason_wap_explain'],
-            ['label' => '实际退款金额', 'value' => 'refund_price'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên người dùng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
+            ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
+            ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
+            ['label' => 'Số tiền trừ điểm', 'value' => 'deduction_price'],
+            ['label' => 'Số tiền khấu trừ phiếu giảm giá', 'value' => 'coupon_price'],
+            ['label' => 'Hình thức thanh toán', 'value' => 'pay_type'],
+            ['label' => 'Loại lý do hoàn tiền', 'value' => 'refund_reason_wap'],
+            ['label' => 'Lý do hoàn tiền', 'value' => 'refund_reason_wap_explain'],
+            ['label' => 'Số tiền hoàn trả thực tế', 'value' => 'refund_price'],
         ],
 
-        //订单拒绝退款
+        //Đơn hàng bị từ chối hoàn tiền
         'order_refund_fail' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '退款金额', 'value' => 'refund_price'],
-            ['label' => '拒绝退款理由', 'value' => 'refuse_reason'],
-            ['label' => '拒绝时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Số tiền hoàn lại', 'value' => 'refund_price'],
+            ['label' => 'Lý do từ chối hoàn tiền', 'value' => 'refuse_reason'],
+            ['label' => 'thời gian từ chối', 'value' => 'time'],
         ],
 
-        //用户充值
+        //Nạp tiền người dùng
         'recharge_success' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '用户昵称', 'value' => 'nickname'],
-            ['label' => '用户电话', 'value' => 'phone'],
-            ['label' => '充值金额', 'value' => 'price'],
-            ['label' => '赠送金额', 'value' => 'give_price'],
-            ['label' => '充值后用户余额', 'value' => 'now_money'],
-            ['label' => '充值时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Số tiền nạp', 'value' => 'price'],
+            ['label' => 'Số tiền quà tặng', 'value' => 'give_price'],
+            ['label' => 'Số dư người dùng sau khi nạp tiền', 'value' => 'now_money'],
+            ['label' => 'thời gian nạp tiền', 'value' => 'time'],
         ],
 
-        //用户充值退款
+        //Người dùng nạp tiền và hoàn tiền
         'recharge_refund' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '用户昵称', 'value' => 'nickname'],
-            ['label' => '用户电话', 'value' => 'phone'],
-            ['label' => '退款金额', 'value' => 'price'],
-            ['label' => '退款后用户余额', 'value' => 'now_money'],
-            ['label' => '退款时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Số tiền hoàn lại', 'value' => 'price'],
+            ['label' => 'Số dư của người dùng sau khi hoàn tiền', 'value' => 'now_money'],
+            ['label' => 'Thời gian hoàn tiền', 'value' => 'time'],
         ],
 
-        //用户提现通过
+        //Thẻ rút tiền của người dùng
         'extract_success' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '用户昵称', 'value' => 'nickname'],
-            ['label' => '用户电话', 'value' => 'phone'],
-            ['label' => '提现金额', 'value' => 'price'],
-            ['label' => '提现时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Số tiền rút', 'value' => 'price'],
+            ['label' => 'Thời gian rút tiền', 'value' => 'time'],
         ],
 
-        //用户提现失败
+        //Rút tiền của người dùng không thành công
         'extract_fail' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '用户昵称', 'value' => 'nickname'],
-            ['label' => '失败理由', 'value' => 'message'],
-            ['label' => '提现金额', 'value' => 'price'],
-            ['label' => '失败时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'Lý do thất bại', 'value' => 'message'],
+            ['label' => 'Số tiền rút', 'value' => 'price'],
+            ['label' => 'thời gian thất bại', 'value' => 'time'],
         ],
 
-        //佣金到账
+        //Hoa hồng nhận được
         'brokerage_received' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '用户电话', 'value' => 'phone'],
-            ['label' => '到账金额', 'value' => 'brokeragePrice'],
-            ['label' => '商品名称', 'value' => 'goodsName'],
-            ['label' => '商品金额', 'value' => 'goodsPrice'],
-            ['label' => '到账时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Số tiền nhận được', 'value' => 'brokeragePrice'],
+            ['label' => 'Tên sản phẩm', 'value' => 'goodsName'],
+            ['label' => 'số lượng sản phẩm', 'value' => 'goodsPrice'],
+            ['label' => 'Thời gian đến', 'value' => 'time'],
         ],
 
-        //积分到账
+        //Điểm đến
         'point_received' => [
-            ['label' => '用户uid', 'value' => 'uid'],
-            ['label' => '用户电话', 'value' => 'phone'],
-            ['label' => '积分数量', 'value' => 'give_integral'],
-            ['label' => '商品名称', 'value' => 'storeTitle'],
-            ['label' => '积分总数', 'value' => 'integral'],
-            ['label' => '到账时间', 'value' => 'time'],
+            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Số điểm', 'value' => 'give_integral'],
+            ['label' => 'Tên sản phẩm', 'value' => 'storeTitle'],
+            ['label' => 'Tổng số điểm', 'value' => 'integral'],
+            ['label' => 'Thời gian đến', 'value' => 'time'],
         ],
 
 
@@ -248,7 +248,7 @@ class SystemNotificationServices extends BaseServices
     }
 
     /**
-     * 单个配置
+     * cấu hình đơn
      * @param int $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -261,7 +261,7 @@ class SystemNotificationServices extends BaseServices
     }
 
     /**
-     * 后台获取列表
+     * Nhận danh sách ở chế độ nền
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -274,7 +274,7 @@ class SystemNotificationServices extends BaseServices
     }
 
     /**
-     * 添加自定义消息表单
+     * Thêm mẫu tin nhắn tùy chỉnh
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      * @author wuhaotian
@@ -290,32 +290,32 @@ class SystemNotificationServices extends BaseServices
             $info = [];
         }
         $data = [
-            ['value' => 'login_success', 'label' => '用户登录成功场景'],
-            ['value' => 'spread_success', 'label' => '绑定推广关系成功场景'],
-            ['value' => 'price_change_price', 'label' => '未支付订单修改价格场景'],
-            ['value' => 'order_pay_success', 'label' => '订单支付成功场景'],
-            ['value' => 'order_express_success', 'label' => '订单快递发货成功场景'],
-            ['value' => 'order_send_success', 'label' => '订单配送员开始送货场景'],
-            ['value' => 'order_take', 'label' => '订单成功收货场景'],
-            ['value' => 'order_initiated_refund', 'label' => '订单发起退款场景'],
-            ['value' => 'order_refund_success', 'label' => '订单退款成功场景'],
-            ['value' => 'order_refund_fail', 'label' => '订单退款失败场景'],
-            ['value' => 'recharge_success', 'label' => '充值成功场景'],
-            ['value' => 'recharge_refund', 'label' => '充值退款场景'],
-            ['value' => 'extract_success', 'label' => '提现成功场景'],
-            ['value' => 'extract_fail', 'label' => '提现失败场景'],
-            ['value' => 'brokerage_received', 'label' => '佣金到账场景'],
-            ['value' => 'point_received', 'label' => '积分到账场景'],
+            ['value' => 'login_success', 'label' => 'Kịch bản đăng nhập người dùng thành công'],
+            ['value' => 'spread_success', 'label' => 'Kịch bản thành công của mối quan hệ thăng tiến ràng buộc'],
+            ['value' => 'price_change_price', 'label' => 'Kịch bản sửa đổi giá đơn hàng chưa thanh toán'],
+            ['value' => 'order_pay_success', 'label' => 'Kịch bản thành công thanh toán đơn hàng'],
+            ['value' => 'order_express_success', 'label' => 'Kịch bản chuyển phát nhanh đơn hàng thành công'],
+            ['value' => 'order_send_success', 'label' => 'Người giao hàng bắt đầu cảnh giao hàng'],
+            ['value' => 'order_take', 'label' => 'Kịch bản nhận đơn hàng thành công'],
+            ['value' => 'order_initiated_refund', 'label' => 'Tình huống hoàn tiền khi bắt đầu đặt hàng'],
+            ['value' => 'order_refund_success', 'label' => 'Kịch bản thành công hoàn tiền đơn hàng'],
+            ['value' => 'order_refund_fail', 'label' => 'Trường hợp không hoàn tiền đơn hàng'],
+            ['value' => 'recharge_success', 'label' => 'Kịch bản nạp tiền thành công'],
+            ['value' => 'recharge_refund', 'label' => 'Kịch bản nạp tiền và hoàn tiền'],
+            ['value' => 'extract_success', 'label' => 'Kịch bản rút tiền thành công'],
+            ['value' => 'extract_fail', 'label' => 'Kịch bản rút tiền thất bại'],
+            ['value' => 'brokerage_received', 'label' => 'Kịch bản đến hoa hồng'],
+            ['value' => 'point_received', 'label' => 'Kịch bản điểm đến'],
         ];
         $field = [];
-        $field[] = Form::select('custom_trigger', '触发位置', $info['custom_trigger'] ?? '')->options($data);
-        $field[] = Form::input('name', '名称', $info['name'] ?? '')->placeholder('请填写消息名称，例：支付成功消息');
-        $field[] = Form::input('mark', '标识', $info['mark'] ?? '')->placeholder('请填写消息标识，使用英文和下划线，例：order_pay_success');
-        return create_form('添加消息', $field, Url::buildUrl('/setting/notification/not_form_save/' . $id), 'POST');
+        $field[] = Form::select('custom_trigger', 'vị trí kích hoạt', $info['custom_trigger'] ?? '')->options($data);
+        $field[] = Form::input('name', 'tên', $info['name'] ?? '')->placeholder('Vui lòng điền tên tin nhắn, ví dụ: tin nhắn thanh toán thành công');
+        $field[] = Form::input('mark', 'biểu tượng', $info['mark'] ?? '')->placeholder('Vui lòng điền ID tin nhắn, sử dụng tiếng Anh và gạch chân chẳng hạn：order_pay_success');
+        return create_form('Thêm tin nhắn', $field, Url::buildUrl('/setting/notification/not_form_save/' . $id), 'POST');
     }
 
     /**
-     * 保存自定义消息
+     * Lưu tin nhắn tùy chỉnh
      * @param $id
      * @param $data
      * @return bool
@@ -336,11 +336,11 @@ class SystemNotificationServices extends BaseServices
             $res = $this->dao->save($data);
         }
         if ($res) return true;
-        throw new AdminException('保存失败');
+        throw new AdminException('Lưu không thành công');
     }
 
     /**
-     * 获取单条数据
+     * Nhận một phần dữ liệu
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -389,7 +389,7 @@ class SystemNotificationServices extends BaseServices
     }
 
     /**
-     * 保存数据
+     * lưu dữ liệu
      * @param array $data
      * @return bool|\crmeb\basic\BaseModel|null
      * @throws \think\db\exception\DataNotFoundException
@@ -402,7 +402,7 @@ class SystemNotificationServices extends BaseServices
         $id = $data['id'];
         $info = $this->dao->get($id);
         if (!$info) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         $res = null;
         switch ($type) {
@@ -457,10 +457,10 @@ class SystemNotificationServices extends BaseServices
     }
 
     /**
-     * 获取tempid
+     * lấytempid
      * @param $type
      * @return array
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
      */
@@ -470,13 +470,13 @@ class SystemNotificationServices extends BaseServices
     }
 
     /**
-     * 获取tempkey
+     * lấytempkey
      * @param $type
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
      */

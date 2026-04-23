@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -40,7 +40,7 @@ class LiveAnchorServices extends BaseServices
     }
 
     /**
-     * 获取某个主播
+     * Lấy một mỏ neo
      * @param int $id
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -62,7 +62,7 @@ class LiveAnchorServices extends BaseServices
     }
 
     /**
-     * 添加修改标签表单
+     * Thêm biểu mẫu chỉnh sửa nhãn
      * @param int $id
      * @return mixed
      */
@@ -71,24 +71,24 @@ class LiveAnchorServices extends BaseServices
         $anchor = $this->getLiveAnchor($id);
         $field = array();
         if (!$anchor) {
-            $title = '添加主播';
-            $field[] = Form::input('name', '主播名称', '')->maxlength(20)->required('请填写名称');
-            $field[] = Form::input('wechat', '主播微信号', '')->maxlength(32)->required('请填写微信号');
-            $field[] = Form::input('phone', '主播手机号', '')->maxlength(20)->required('请填写手机号');
-            $field[] = Form::frameImage('cover_img', '主播图像', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'cover_img')), '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false])->appendValidate(Validate::str()->required('请选择图像'));
+            $title = 'Thêm mỏ neo';
+            $field[] = Form::input('name', 'Tên neo', '')->maxlength(20)->required('Vui lòng điền tên');
+            $field[] = Form::input('wechat', 'ID WeChat cố định', '')->maxlength(32)->required('Vui lòng điền ID WeChat');
+            $field[] = Form::input('phone', 'Neo số điện thoại di động', '')->maxlength(20)->required('Vui lòng điền số điện thoại di động của bạn');
+            $field[] = Form::frameImage('cover_img', 'Hình ảnh neo', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'cover_img')), '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false])->appendValidate(Validate::str()->required('Vui lòng chọn một hình ảnh'));
         } else {
-            $title = '修改主播';
+            $title = 'Sửa đổi mỏ neo';
             $field[] = Form::hidden('id', $anchor->getData('id'));
-            $field[] = Form::input('name', '主播名称', $anchor->getData('name'))->maxlength(20)->required('请填写名称');
-            $field[] = Form::input('wechat', '主播微信号', $anchor->getData('wechat'))->maxlength(32)->required('请填写微信号');
-            $field[] = Form::input('phone', '主播手机号', $anchor->getData('phone'))->maxlength(20)->required('请填写手机号');
-            $field[] = Form::frameImage('cover_img', '主播图像', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'cover_img')), $anchor->getData('cover_img'))->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false])->appendValidate(Validate::str()->required('请选择图像'));
+            $field[] = Form::input('name', 'Tên neo', $anchor->getData('name'))->maxlength(20)->required('Vui lòng điền tên');
+            $field[] = Form::input('wechat', 'ID WeChat cố định', $anchor->getData('wechat'))->maxlength(32)->required('Vui lòng điền ID WeChat');
+            $field[] = Form::input('phone', 'Neo số điện thoại di động', $anchor->getData('phone'))->maxlength(20)->required('Vui lòng điền số điện thoại di động của bạn');
+            $field[] = Form::frameImage('cover_img', 'Hình ảnh neo', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'cover_img')), $anchor->getData('cover_img'))->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false])->appendValidate(Validate::str()->required('Vui lòng chọn một hình ảnh'));
         }
         return create_form($title, $field, $this->url('/live/anchor/save'), 'POST');
     }
 
     /**
-     * 保存标签表单数据
+     * Lưu dữ liệu biểu mẫu nhãn
      * @param int $id
      * @param array $data
      * @return mixed
@@ -100,32 +100,32 @@ class LiveAnchorServices extends BaseServices
     {
         $liveAnchor = $this->dao->get(['wechat' => $data['wechat'], 'is_del' => 0]);
         if (!MiniProgramService::getRoleList(2, 0, 30, $data['wechat'])) {
-            throw new AdminException('请先去小程序认证主播');
+            throw new AdminException('Hãy vào chương trình mini để xác thực mỏ neo trước');
         }
         if ($id) {
             if ($liveAnchor && $id != $liveAnchor['id']) {
-                throw new AdminException('该主播已经存在');
+                throw new AdminException('Mỏ neo đã tồn tại');
             }
             if ($this->dao->update($id, $data)) {
                 return true;
             } else {
-                throw new AdminException('修改失败');
+                throw new AdminException('Sửa đổi không thành công');
             }
         } else {
             unset($data['id']);
             if ($liveAnchor) {
-                throw new AdminException('该主播已经存在');
+                throw new AdminException('Mỏ neo đã tồn tại');
             }
             if ($this->dao->save($data)) {
                 return true;
             } else {
-                throw new AdminException('添加失败');
+                throw new AdminException('Thêm không thành công');
             }
         }
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param $id
      * @throws \Exception
      */
@@ -133,7 +133,7 @@ class LiveAnchorServices extends BaseServices
     {
         if ($anchor = $this->getLiveAnchor($id)) {
             if (!$this->dao->update($id, ['is_del' => 1])) {
-                throw new AdminException('删除失败');
+                throw new AdminException('Xóa không thành công');
             }
             /** @var LiveRoomServices $liveRoom */
             $liveRoom = app()->make(LiveRoomServices::class);
@@ -146,7 +146,7 @@ class LiveAnchorServices extends BaseServices
     }
 
     /**
-     * 设置是否显示
+     * Đặt xem có hiển thị hay không
      * @param int $id
      * @param $is_show
      * @return mixed
@@ -154,11 +154,11 @@ class LiveAnchorServices extends BaseServices
     public function setShow(int $id, $is_show)
     {
         if (!$this->getLiveAnchor($id))
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         if ($this->dao->update($id, ['is_show' => $is_show])) {
             return true;
         } else {
-            throw new AdminException('设置失败');
+            throw new AdminException('Thiết lập không thành công');
         }
     }
 
@@ -189,7 +189,7 @@ class LiveAnchorServices extends BaseServices
             if ($dataAll) {
                 $this->dao->saveAll($dataAll);
             }
-            //支付成功后发送消息
+            //Gửi tin nhắn sau khi thanh toán thành công
             if (!$is_job) LiveJob::dispatchSecs(120);
             CacheService::set($key, 1, 0);
         }

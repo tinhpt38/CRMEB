@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -31,7 +31,7 @@ class AccessToken extends HttpService
     protected $accessToken;
 
     /**
-     * 请求接口
+     * Giao diện yêu cầu
      * @var string
      */
     protected $apiUrl;
@@ -42,25 +42,25 @@ class AccessToken extends HttpService
     protected $clientId;
 
     /**
-     * 终端号码
+     * số thiết bị đầu cuối
      * @var string
      */
     protected $machineCode;
 
     /**
-     * 开发者id
+     * Nhà phát triểnid
      * @var string
      */
     protected $partner;
 
     /**
-     * 驱动类型
+     * Loại ổ đĩa
      * @var string
      */
     protected $name;
 
     /**
-     * 配置文件名
+     * Tên tập tin cấu hình
      * @var string
      */
     protected $configFile;
@@ -72,19 +72,19 @@ class AccessToken extends HttpService
     protected $apiKey;
 
     /**
-     * 飞鹅云SN
+     * Đám mây ngỗng baySN
      * @var string
      */
     protected $feySn;
 
     /**
-     * 飞鹅云UYEK
+     * Đám mây ngỗng bayUYEK
      * @var string
      */
     protected $feyUkey;
 
     /**
-     * 飞鹅云USER
+     * Đám mây ngỗng bayUSER
      * @var string
      */
     protected $feyUser;
@@ -103,7 +103,7 @@ class AccessToken extends HttpService
     }
 
     /**
-     * 获取token
+     * lấytoken
      * @return mixed|null|string
      * @throws \Exception
      */
@@ -122,7 +122,7 @@ class AccessToken extends HttpService
     }
 
     /**
-     * 获取易联云token
+     * Nhận đám mây Yiliantoken
      * @return mixed|null|string
      * @throws \Exception
      */
@@ -147,13 +147,13 @@ class AccessToken extends HttpService
         }, 86400);
         if (!$this->accessToken[$this->name]){
             CacheService::delete('YLY_access_token');
-            throw new AdminException('获取access_token获取失败');
+            throw new AdminException('Không lấy được access_token');
         }
         return $this->accessToken[$this->name];
     }
 
     /**
-     * 生成UUID4
+     * phát raUUID4
      * @return string
      */
     public function createUuid()
@@ -163,7 +163,7 @@ class AccessToken extends HttpService
     }
 
     /**
-     * 获取属性
+     * Nhận thuộc tính
      * @param $name
      * @return mixed
      */

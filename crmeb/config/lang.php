@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,32 +19,32 @@
 // +----------------------------------------------------------------------
 
 // +----------------------------------------------------------------------
-// | 多语言设置
+// | Cài đặt đa ngôn ngữ
 // +----------------------------------------------------------------------
 
 use think\facade\Env;
 
 return [
-    // 默认语言
+    // Ngôn ngữ mặc định
     'default_lang' => Env::get('lang.default_lang', 'zh-cn'),
-    // 允许的语言列表
+    // Danh sách ngôn ngữ được phép
     'allow_lang_list' => ['zh-cn', 'en-us'],
-    // 多语言自动侦测变量名
+    // Tự động phát hiện tên biến đa ngôn ngữ
     'detect_var' => 'lang',
-    // 是否使用Cookie记录
+    // Có nên sử dụng bản ghi cookie hay không
     'use_cookie' => true,
-    // 多语言cookie变量
+    // Biến cookie đa ngôn ngữ
     'cookie_var' => 'cb_lang',
-    // 扩展语言包
+    // Gói ngôn ngữ mở rộng
     'extend_list' => [
         'zh_cn' => app()->getBasePath() . 'lang/zh_cn.php',
         'en_us' => app()->getBasePath() . 'lang/en_us.php',
     ],
-    // Accept-Language转义为对应语言包名称
+    // Accept-LanguageĐã thoát sang tên gói ngôn ngữ tương ứng
     'accept_language' => [
         'zh-hans-cn' => 'zh_cn',
         'en-hans-us' => 'en_us',
     ],
-    // 是否支持语言分组
+    // Có hỗ trợ nhóm ngôn ngữ hay không
     'allow_group' => true,
 ];

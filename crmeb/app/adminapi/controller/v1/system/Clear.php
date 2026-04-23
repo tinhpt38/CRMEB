@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\system\log\ClearServices;
 use app\adminapi\controller\AuthController;
 
 /**
- * 首页控制器
+ * Bộ điều khiển gia đình
  * Class Clear
  * @package app\admin\controller
  *
@@ -29,22 +29,22 @@ class Clear extends AuthController
     }
 
     /**
-     * 刷新数据缓存
+     * Làm mới bộ đệm dữ liệu
      */
     public function refresh_cache()
     {
         $this->services->refresCache();
-        return app('json')->success('数据缓存刷新成功');
+        return app('json')->success('Đã làm mới bộ đệm dữ liệu thành công');
     }
 
 
     /**
-     * 删除日志
+     * Xóa nhật ký
      */
     public function delete_log()
     {
         $this->services->deleteLog();
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 }
 

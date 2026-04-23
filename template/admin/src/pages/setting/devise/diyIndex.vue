@@ -1,9 +1,9 @@
 <template>
   <div class="diy-page">
-    <!-- 旧 Header 已迁移至新编辑模块顶部，移除该块 -->
+    <!-- Tiêu đề cũ đã được chuyển lên đầu mô-đun chỉnh sửa mới, xóa khối này -->
     <el-card :bordered="false" shadow="never">
       <div class="diy-wrapper" :style="'height:' + clientHeight + 'px;'">
-        <!-- 左侧 -->
+        <!-- bên trái -->
         <div class="left">
           <div class="wrapper" :style="'height:' + clientHeight + 'px;'">
             <div class="list" v-for="(item, index) in leftMenu" :key="index">
@@ -12,7 +12,7 @@
                 <div class="iconfont iconyou" v-if="!item.isOpen"></div>
                 <div class="iconfont iconxia" v-else></div>
               </div>
-              <!-- 拖拽组件 -->
+              <!-- Kéo và thả các thành phần -->
               <draggable
                 class="dragArea list-group"
                 :list="item.list"
@@ -24,10 +24,10 @@
                 <div
                   class="list-group-item"
                   :class="{
-                    search: element.cname == '搜索框',
-                    navbar: element.cname == '选项卡',
-                    homeComb: element.cname == '轮播搜索',
-                    service: element.cname == '悬浮按钮',
+                    search: element.cname == 'hộp tìm kiếm',
+                    navbar: element.cname == 'tab',
+                    homeComb: element.cname == 'tìm kiếm băng chuyền',
+                    service: element.cname == 'nút nổi',
                   }"
                   v-for="element in item.list"
                   :key="element.id"
@@ -35,7 +35,7 @@
                   v-show="item.isOpen"
                 >
                   <div>
-                    <div class="position" style="display: none">释放鼠标将组建添加到此处</div>
+                    <div class="position" style="display: none">Nhả chuột để thêm thành phần vào đây</div>
                     <svg class="conter iconfont icon svg-icon" aria-hidden="true">
                       <use :xlink:href="element.icon"></use>
                     </svg>
@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-        <!-- 中间自定义配置移动端页面 -->
+        <!-- Trang di động cấu hình tùy chỉnh trung gian -->
         <div class="wrapper-con">
           <div class="content">
             <div class="contxt">
@@ -177,17 +177,17 @@
                 </div>
               </div>
               <div class="defaultData" v-if="pageId !== 0">
-                <!-- <div class="data" @click="setmoren">设置默认</div>
-                <div class="data" @click="getmoren">恢复默认</div> -->
-                <el-button class="data" @click="showTitle">页面设置</el-button>
-                <el-button class="data" @click="nameModal = true">另存模版</el-button>
-                <el-button class="data" @click="reast">重置</el-button>
-                <el-button v-if="!isMicroPage" class="data" @click="saveCover">保存为封面</el-button>
+                <!-- <div class="data" @click="setmoren">Đặt mặc định</div>
+                <div class="data" @click="getmoren">Khôi phục mặc định</div> -->
+                <el-button class="data" @click="showTitle">Cài đặt trang</el-button>
+                <el-button class="data" @click="nameModal = true">Lưu mẫu dưới dạng</el-button>
+                <el-button class="data" @click="reast">cài lại</el-button>
+                <el-button v-if="!isMicroPage" class="data" @click="saveCover">lưu làm bìa</el-button>
               </div>
             </div>
           </div>
         </div>
-        <!-- 右侧页面设置 -->
+        <!-- Cài đặt trang ở bên phải -->
         <div class="right-box">
           <div class="mConfig-item" style="background-color: #fff" v-for="(item, key) in rConfig" :key="key">
             <!-- <div class="title-bar">{{ item.cname }}</div> -->
@@ -202,27 +202,27 @@
         </div>
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" width="540px" title="预览">
+    <el-dialog :visible.sync="modal" width="540px" title="Xem trước">
       <div>
         <div v-viewer class="acea-row row-around code">
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic" ref="qrCodeUrl"></div>
-            <span class="mt10">公众号二维码</span>
+            <span class="mt10">Mã QR tài khoản chính thức</span>
           </div>
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic">
               <img v-lazy="qrcodeImg" />
             </div>
-            <span class="mt10">小程序二维码</span>
+            <span class="mt10">Mã QR chương trình nhỏ</span>
           </div>
         </div>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="nameModal" width="470px" title="设置模版名称" :show-close="true">
-      <el-input v-model="saveName" placeholder="请输入模版名称"></el-input>
+    <el-dialog :visible.sync="nameModal" width="470px" title="Đặt tên mẫu" :show-close="true">
+      <el-input v-model="saveName" placeholder="Vui lòng nhập tên mẫu"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="nameModal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="saveModal">确 定</el-button>
+        <el-button v-db-click @click="nameModal = false">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="saveModal">Chắc chắn</el-button>
       </span>
     </el-dialog>
   </div>
@@ -272,7 +272,7 @@ export default {
   },
   computed: {
     ...mapState({
-      titleTxt: (state) => state.mobildConfig.pageTitle || '首页',
+      titleTxt: (state) => state.mobildConfig.pageTitle || 'trang đầu',
       showTxt: (state) => state.mobildConfig.pageShow,
       colorTxt: (state) => state.mobildConfig.pageColor,
       bgPic: (state) => state.mobildConfig.pagePic,
@@ -302,15 +302,15 @@ export default {
       BaseURL: Setting.apiBaseURL.replace(/adminapi/, ''),
       qrcodeImg: '',
       modal: false,
-      clientHeight: '', //页面动态高度
+      clientHeight: '', //Chiều cao động của trang
       rollHeight: '',
-      leftMenu: [], // 左侧菜单
-      lConfig: [], // 左侧组件
-      mConfig: [], // 中间组件渲染
-      rConfig: [], // 右侧组件配置
+      leftMenu: [], // menu bên trái
+      lConfig: [], // thành phần bên trái
+      mConfig: [], // Kết xuất thành phần trung gian
+      rConfig: [], // Cấu hình thành phần bên phải
       activeConfigName: '',
-      propsObj: {}, // 组件传递的数据,
-      activeIndex: -100, // 选中的下标
+      propsObj: {}, // Dữ liệu được truyền bởi thành phần,
+      activeIndex: -100, // chỉ số đã chọn
       number: 0,
       pageId: '',
       pageName: '',
@@ -318,11 +318,11 @@ export default {
       category: [],
       tabList: [
         {
-          title: '组件库',
+          title: 'Thư viện thành phần',
           key: 0,
         },
         {
-          title: '页面链接',
+          title: 'Liên kết trang',
           key: 1,
         },
       ],
@@ -351,22 +351,22 @@ export default {
     this.lConfig = this.objToArr(mPage);
     let imgList = {
       imgList: [require('@/assets/images/foot-005.png'), require('@/assets/images/foot-006.png')],
-      name: '购物车',
+      name: 'giỏ hàng',
       link: '/pages/order_addcart/order_addcart',
     };
     this.$nextTick(() => {
-      this.$store.commit('mobildConfig/FOOTER', { title: '是否自定义', name: imgList });
+      this.$store.commit('mobildConfig/FOOTER', { title: 'Có nên tùy chỉnh không', name: imgList });
       this.arraySort();
       if (this.pageId != 0 || this.$route.query.tid) {
         this.getDefaultConfig();
       } else if (this.pageType == 'home') {
         this.showTitle();
       } else {
-        // 清空 vuex 中的 defaultArray
+        // Xóa vuex trong defaultArray
         this.$store.commit('mobildConfig/DEFAULTARRAY', {});
         this.$store.commit('mobildConfig/RESET_BOTTOM_MENU');
       }
-      this.clientHeight = `${document.documentElement.clientHeight}` - 65.81; //获取浏览器可视区域高度
+      this.clientHeight = `${document.documentElement.clientHeight}` - 65.81; //Lấy chiều cao của vùng hiển thị của trình duyệt
       let H = `${document.documentElement.clientHeight}` - 180;
       this.rollHeight = H > 650 ? 650 : H;
       let that = this;
@@ -411,7 +411,7 @@ export default {
       });
     },
     importView() {},
-    // 将远程图片（OSS等）转为 base64，绕过 html2canvas 跨域限制
+    // Chuyển đổi hình ảnh từ xa (OSS, v.v.) sang base64, bỏ qua các hạn chế tên miền chéo html2canvas
     async convertImagesToBase64(container) {
       const imgs = container.querySelectorAll('img');
       const tasks = Array.from(imgs).map((img) => {
@@ -421,7 +421,7 @@ export default {
             resolve();
             return;
           }
-          // 给 URL 追加时间戳，避免浏览器缓存导致丢失 CORS 响应头
+          // Thêm dấu thời gian vào URL để tránh mất tiêu đề phản hồi CORS do bộ nhớ đệm của trình duyệt gây ra
           const separator = src.includes('?') ? '&' : '?';
           const cacheBustUrl = `${src}${separator}_t=${Date.now()}`;
           fetch(cacheBustUrl, { mode: 'cors', cache: 'no-store' })
@@ -432,49 +432,49 @@ export default {
                 img.setAttribute('src', reader.result);
                 resolve();
               };
-              reader.onerror = () => resolve(); // 转换失败则跳过，不阻塞
+              reader.onerror = () => resolve(); // Nếu chuyển đổi không thành công, hãy bỏ qua và không chặn.
               reader.readAsDataURL(blob);
             })
-            .catch(() => resolve()); // 请求失败则跳过
+            .catch(() => resolve()); // Bỏ qua nếu yêu cầu không thành công
         });
       });
       await Promise.all(tasks);
     },
 
-    // 保存为封面 - 截取长图并上传
+    // Lưu làm ảnh bìa - chụp ảnh dài và tải lên
     saveCover() {
-      // 保存当前选中的组件索引
+      // Lưu chỉ mục thành phần hiện được chọn
       const previousActiveIndex = this.activeIndex;
-      this.$message.info('正在生成封面图片，请稍候...');
+      this.$message.info('Đang tạo ảnh bìa, vui lòng đợi....');
 
       setTimeout(async () => {
         try {
-          // 取消选中状态
+          // trạng thái không được kiểm tra
           this.activeIndex = -999;
           this.rConfig = [];
 
-          // 等待 DOM 更新
+          // Đợi cập nhật DOM
           await this.$nextTick();
 
-          // 获取 imgContainer 元素
+          // Nhận phần tử imgContainer
           const container = document.getElementById('imgContainer');
           if (!container) {
-            this.$message.error('未找到页面容器元素');
-            // 恢复选中状态
+            this.$message.error('Không tìm thấy phần tử vùng chứa trang');
+            // Khôi phục trạng thái đã chọn
             this.activeIndex = previousActiveIndex;
             this.restoreActiveComponent(previousActiveIndex);
             return;
           }
 
-          // 将容器内所有远程图片（含OSS）预先转为 base64，解决 html2canvas 跨域白图问题
+          // Chuyển đổi trước tất cả các hình ảnh từ xa (bao gồm cả OSS) trong vùng chứa sang base64 để giải quyết vấn đề hình ảnh trắng trên nhiều miền trong html2canvas
           await this.convertImagesToBase64(container);
 
-          // 使用 html2canvas 截取长图
+          // Sử dụng html2canvas để chụp ảnh dài
           const canvas = await html2canvas(container, {
             useCORS: true,
-            allowTaint: true, // 已手动转为 base64，可放开 allowTaint
+            allowTaint: true, // Nó đã được chuyển đổi thủ công thành base64 và có thể được phát hành allowTaint
             logging: false,
-            scale: 2, // 提高清晰度
+            scale: 2, // Cải thiện sự rõ ràng
             backgroundColor: this.colorTxt ? this.colorPickerTxt : '#ffffff',
             scrollY: -window.scrollY,
             scrollX: -window.scrollX,
@@ -482,18 +482,18 @@ export default {
             windowHeight: container.scrollHeight,
           });
 
-          // 将 canvas 转换为 blob
+          // Chuyển đổi canvas thành blob
           canvas.toBlob(
             async (blob) => {
               if (!blob) {
-                this.$message.error('图片生成失败');
-                // 恢复选中状态
+                this.$message.error('Tạo hình ảnh không thành công');
+                // Khôi phục trạng thái đã chọn
                 this.activeIndex = previousActiveIndex;
                 this.restoreActiveComponent(previousActiveIndex);
                 return;
               }
 
-              // 创建 FormData 上传
+              // Tạo tải lên FormData
               const formData = new FormData();
               const fileName = `cover_${Date.now()}.png`;
               const file = new File([blob], fileName, { type: 'image/png' });
@@ -501,51 +501,51 @@ export default {
               formData.append('type', 1);
 
               try {
-                // 上传到后端
+                // Tải lên phụ trợ
                 const res = await fileUpload(formData);
                 if (res.status === 200) {
-                  this.$message.success('封面保存成功！');
-                  // 这里可以根据需要将图片URL保存到页面配置中
+                  this.$message.success('Đã lưu bìa thành công！');
+                  // Tại đây bạn có thể lưu URL hình ảnh vào cấu hình trang nếu cần
                   this.coverUrl = res.data.src;
-                  if (!this.mConfig.length) return this.$message.warning('请先配置DIY数据');
-                  if (!this.pageId) return this.$message.warning('请先保存DIY数据');
+                  if (!this.mConfig.length) return this.$message.warning('Vui lòng định cấu hình dữ liệu DIY trước');
+                  if (!this.pageId) return this.$message.warning('Vui lòng lưu dữ liệu DIY trước');
                   saveThemeImage(this.pageId, { image: this.coverUrl, type: this.pageType });
                 } else {
-                  this.$message.error(res.msg || '封面保存失败');
+                  this.$message.error(res.msg || 'Lưu bìa không thành công');
                 }
               } catch (err) {
-                this.$message.error(err.msg || '上传失败，请重试');
+                this.$message.error(err.msg || 'Tải lên không thành công, vui lòng thử lại');
               } finally {
-                // 恢复选中状态
+                // Khôi phục trạng thái đã chọn
                 this.activeIndex = previousActiveIndex;
                 this.restoreActiveComponent(previousActiveIndex);
               }
             },
             'image/png',
             0.95,
-          ); // 图片质量 0.95
+          ); // Chất lượng hình ảnh 0.95
         } catch (error) {
-          console.error('截图失败：', error);
-          this.$message.error('生成封面失败，请重试');
-          // 恢复选中状态
+          console.error('Ảnh chụp màn hình không thành công：', error);
+          this.$message.error('Không tạo được bìa, vui lòng thử lại');
+          // Khôi phục trạng thái đã chọn
           this.activeIndex = previousActiveIndex;
           this.restoreActiveComponent(previousActiveIndex);
         }
       }, 300);
     },
-    // 恢复选中的组件
+    // Khôi phục các thành phần đã chọn
     restoreActiveComponent(index) {
       if (index === -100) {
-        // 恢复页面设置
+        // Khôi phục cài đặt trang
         this.showTitle();
       } else if (index === -101) {
-        // 恢复底部菜单
+        // Khôi phục menu dưới cùng
         this.showFoot();
       } else if (index === -102) {
-        // 恢复底部菜单
+        // Khôi phục menu dưới cùng
         this.showBottomMenu();
       } else if (index >= 0 && index < this.mConfig.length) {
-        // 恢复组件选中
+        // Khôi phục lựa chọn thành phần
         const item = this.mConfig[index];
         this.bindconfig(item, index);
       }
@@ -555,7 +555,7 @@ export default {
       this.creatQrCode(this.pageId, this.diyStatus);
       this.routineCode(this.pageId);
     },
-    //小程序二维码
+    //Mã QR chương trình nhỏ
     routineCode(id) {
       getRoutineCode(id)
         .then((res) => {
@@ -565,7 +565,7 @@ export default {
           this.$message.error(err);
         });
     },
-    //生成二维码
+    //Tạo mã QR
     creatQrCode(id, status) {
       this.$refs.qrCodeUrl.innerHTML = '';
       let url = `${this.BaseURL}pages/index/index?theme_id=${this.$route.query.id}`;
@@ -575,7 +575,7 @@ export default {
       //   url = `${this.BaseURL}pages/annex/special/index?id=${id}`;
       // }
       var qrcode = new QRCode(this.$refs.qrCodeUrl, {
-        text: url, // 需要转换为二维码的内容
+        text: url, // Nội dung cần chuyển đổi thành mã QR
         width: 160,
         height: 160,
         colorDark: '#000000',
@@ -591,10 +591,10 @@ export default {
     },
     determine() {
       if (this.nameTxt.trim() == '') {
-        return this.$message.error('请输入模板名称');
+        return this.$message.error('Vui lòng nhập tên mẫu');
       }
       if (this.pageId == 0) {
-        this.$message.success('修改成功');
+        this.$message.success('Sửa đổi thành công');
         return false;
       }
       diyUpdateName(this.pageId, { name: this.nameTxt })
@@ -609,11 +609,11 @@ export default {
     },
     returnTap() {
       this.$msgbox({
-        title: '温馨提示',
-        message: '确定离开此页面？系统可能不会保存您所做的更改。',
+        title: 'Lời khuyên tử tế',
+        message: 'Bạn có chắc chắn muốn rời khỏi trang này? Những thay đổi của bạn có thể không được lưu。',
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Chắc chắn',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -642,12 +642,12 @@ export default {
       return true;
     },
     onCopy() {
-      this.$message.success('复制成功');
+      this.$message.success('Đã sao chép thành công');
     },
     onError() {
-      this.$message.error('复制失败');
+      this.$message.error('Sao chép không thành công');
     },
-    //设置默认数据
+    //Đặt dữ liệu mặc định
     setmoren() {
       setDefault(this.pageId)
         .then((res) => {
@@ -657,7 +657,7 @@ export default {
           this.$message.error(err.msg);
         });
     },
-    //恢复默认
+    //Khôi phục mặc định
     getmoren() {
       recovery(this.pageId)
         .then((res) => {
@@ -668,7 +668,7 @@ export default {
           this.$message.error(err.msg);
         });
     },
-    // 页面标题点击
+    // Nhấp vào tiêu đề trang
     showTitle() {
       this.activeIndex = -100;
       let obj = {};
@@ -677,14 +677,14 @@ export default {
           // this.rConfig = obj
           obj = mConfig[i];
           obj.configName = mConfig[i].name;
-          obj.cname = '页面设置';
+          obj.cname = 'Cài đặt trang';
         }
       }
       let abc = obj;
       this.rConfig = [];
       this.rConfig[0] = JSON.parse(JSON.stringify(obj));
     },
-    // 页面底部点击
+    // Bấm vào cuối trang
     showFoot() {
       this.activeIndex = -101;
       let obj = {};
@@ -693,7 +693,7 @@ export default {
           // this.rConfig = obj
           obj = mConfig[i];
           obj.configName = mConfig[i].name;
-          obj.cname = '底部菜单';
+          obj.cname = 'trình đơn dưới cùng';
         }
       }
       let abc = obj;
@@ -708,26 +708,26 @@ export default {
           // this.rConfig = obj
           obj = mConfig[i];
           obj.configName = mConfig[i].name;
-          obj.cname = '底部菜单';
+          obj.cname = 'trình đơn dưới cùng';
         }
       }
       this.rConfig = [];
       this.rConfig.push(JSON.parse(JSON.stringify(obj)));
     },
-    // 对象转数组
+    // Đối tượng vào mảng
     objToArr(data) {
       let obj = Object.keys(data);
       let m = obj.map((key) => data[key]);
       return m;
     },
     log(evt) {
-      // 中间拖拽排序
+      // Sắp xếp kéo giữa
       if (evt.moved) {
         if (evt.moved.element.name == 'search_box') {
-          return this.$message.warning('该组件禁止拖拽');
+          return this.$message.warning('Kéo bị cấm đối với thành phần này');
         }
         // if (evt.moved.element.name == "nav_bar") {
-        //     return this.$message.warning("该组件禁止拖拽");
+        //     return this.$message.warning("Kéo bị cấm đối với thành phần này");
         // }
         evt.moved.oldNum = this.mConfig[evt.moved.oldIndex].num;
         evt.moved.newNum = this.mConfig[evt.moved.newIndex].num;
@@ -744,7 +744,7 @@ export default {
         this.$store.commit('mobildConfig/SETCONFIGNAME', item.name);
         this.$store.commit('mobildConfig/defaultArraySort', evt.moved);
       }
-      // 从左向右拖拽排序
+      // Kéo và thả để sắp xếp từ trái qua phải
       if (evt.added) {
         let data = evt.added.element;
         let obj = {};
@@ -761,7 +761,7 @@ export default {
         });
         evt.added.list = this.mConfig;
         this.activeIndex = evt.added.newIndex;
-        // 保存组件名称
+        // Lưu tên thành phần
         this.$store.commit('mobildConfig/SETCONFIGNAME', data.name);
         this.$store.commit('mobildConfig/defaultArraySort', evt.added);
       }
@@ -772,12 +772,12 @@ export default {
         ...data,
       };
     },
-    //数组元素互换位置
+    //Hoán đổi các phần tử mảng
     swapArray(arr, index1, index2) {
       arr[index1] = arr.splice(index2, 1, arr[index1])[0];
       return arr;
     },
-    //点击上下移动；
+    //Click để di chuyển lên xuống；
     movePage(item, index, type) {
       if (type) {
         if (index == 0) {
@@ -789,7 +789,7 @@ export default {
         }
       }
       if (item.name == 'search_box' || item.name == 'nav_bar' || item.name == 'home_comb') {
-        return this.$message.warning('该组件禁止移动');
+        return this.$message.warning('Thành phần này bị cấm di chuyển');
       }
       if (type) {
         if (
@@ -797,7 +797,7 @@ export default {
           this.mConfig[index - 1].name == 'nav_bar' ||
           this.mConfig[index - 1].name == 'home_comb'
         ) {
-          return this.$message.warning('搜索框或选项卡或轮播搜索必须为顶部');
+          return this.$message.warning('Hộp hoặc tab tìm kiếm hoặc tìm kiếm băng chuyền phải ở trên cùng');
         }
         this.swapArray(this.mConfig, index - 1, index);
       } else {
@@ -827,25 +827,25 @@ export default {
       this.$store.commit('mobildConfig/SETCONFIGNAME', item.name);
       this.$store.commit('mobildConfig/defaultArraySort', obj);
     },
-    // 组件添加
+    // Bổ sung thành phần
     addDomCon(item, type, index) {
       if (item.name == 'search_box') {
-        if (this.isSearch) return this.$message.error('该组件只能添加一次');
-        if (this.isComb) return this.$message.error('轮播搜索不能和搜索组件与选项卡组件同时存在');
+        if (this.isSearch) return this.$message.error('Thành phần này chỉ có thể được thêm một lần');
+        if (this.isComb) return this.$message.error('Tìm kiếm băng chuyền không thể tồn tại cùng lúc với thành phần tìm kiếm và thành phần tab');
         this.isSearch = true;
       }
       if (item.name == 'nav_bar') {
-        if (this.isTab) return this.$message.error('该组件只能添加一次');
-        if (this.isComb) return this.$message.error('轮播搜索不能和搜索组件与选项卡组件同时存在');
+        if (this.isTab) return this.$message.error('Thành phần này chỉ có thể được thêm một lần');
+        if (this.isComb) return this.$message.error('Tìm kiếm băng chuyền không thể tồn tại cùng lúc với thành phần tìm kiếm và thành phần tab');
         this.isTab = true;
       }
       if (item.name == 'home_comb') {
-        if (this.isComb) return this.$message.error('该组件只能添加一次');
-        if (this.isSearch || this.isTab) return this.$message.error('轮播搜索不能和搜索组件与选项卡组件同时存在');
+        if (this.isComb) return this.$message.error('Thành phần này chỉ có thể được thêm một lần');
+        if (this.isSearch || this.isTab) return this.$message.error('Tìm kiếm băng chuyền không thể tồn tại cùng lúc với thành phần tìm kiếm và thành phần tab');
         this.isComb = true;
       }
       if (item.name == 'home_service') {
-        if (this.isService) return this.$message.error('该组件只能添加一次');
+        if (this.isService) return this.$message.error('Thành phần này chỉ có thể được thêm một lần');
         this.isService = true;
       }
       let obj = {};
@@ -892,20 +892,20 @@ export default {
       this.mConfig.forEach((el, index) => {
         el.num = new Date().getTime() * 1000 + index;
       });
-      // 保存组件名称
+      // Lưu tên thành phần
       obj.element = item;
       obj.list = this.mConfig;
       this.$store.commit('mobildConfig/SETCONFIGNAME', item.name);
       this.$store.commit('mobildConfig/defaultArraySort', obj);
     },
-    //中间页点击添加模块；
+    //Bấm vào trang giữa để thêm một mô-đun；
     bindAddDom(item, type, index) {
-      // 复制
+      // sao chép
       if (type == 0) {
         let defaultArray = this.$store.state.mobildConfig.defaultArray;
         let configData = JSON.parse(JSON.stringify(defaultArray[item.num]));
 
-        // 找到原始配置以获取 cname, icon 等基础信息
+        // Tìm cấu hình ban đầu để có được cname, icon và các thông tin cơ bản khác
         let baseItem = item;
         this.lConfig.forEach((j) => {
           if (item.name == j.name) {
@@ -913,25 +913,25 @@ export default {
           }
         });
 
-        // 先调用 addDomCon 添加一个新组件，然后立即用 configData 覆盖它
+        // Đầu tiên hãy gọi addDomCon để thêm một thành phần mới, sau đó ghi đè ngay lập tức bằng configData
         this.addDomCon(baseItem, type, index);
 
-        // 获取刚添加的组件（在 index+1 位置，因为 addDomCon 是 splice(index+1, 0, ...)）
+        // Lấy thành phần vừa được thêm vào (tại chỉ mục+1 vì addDomCon là splice(index+1, 0, ...)）
         let newIndex = index + 1;
         let newItem = this.mConfig[newIndex];
 
-        // 重新获取最新的 defaultArray (引用)
+        // Truy xuất mới nhất defaultArray (Trích dẫn)
         let currentDefaultArray = this.$store.state.mobildConfig.defaultArray;
 
-        // 保留新生成的 num 和 timestamp 相关字段，覆盖其他配置
+        // Giữ các trường liên quan đến số và dấu thời gian mới được tạo, bao gồm các cấu hình khác
         let newConfig = {
           ...configData,
           num: newItem.num,
-          id: newItem.id, // 确保使用新生成的唯一ID
+          id: newItem.id, // Đảm bảo sử dụng duy nhất mới được tạoID
           timestamp: currentDefaultArray[newItem.num].timestamp,
         };
 
-        // 提交更新
+        // Gửi bản cập nhật
         this.$store.commit('mobildConfig/UPDATEARR', { num: newItem.num, val: newConfig });
       } else {
         let i = item;
@@ -943,11 +943,11 @@ export default {
         this.addDomCon(i, type, index);
       }
     },
-    //左边配置模块点击添加；
+    //Bấm vào Thêm để cấu hình mô-đun ở bên trái；
     addDom(item, type) {
       this.addDomCon(item, type);
     },
-    // 点击显示相应的配置
+    // Bấm vào để hiển thị cấu hình tương ứng
     bindconfig(item, index) {
       this.rConfig = [];
       let tempItem = JSON.parse(JSON.stringify(item));
@@ -961,11 +961,11 @@ export default {
       obj[num].isHide = !obj[num].isHide;
       this.$store.commit('mobildConfig/UPDATEARR', { num: num, val: obj[num] });
     },
-    // 组件删除
+    // Xóa thành phần
     bindDelete(item, key) {
-      this.$confirm('确定要删除此组件吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm('Bạn có chắc chắn muốn xóa thành phần này?？', 'gợi ý', {
+        confirmButtonText: 'Chắc chắn',
+        cancelButtonText: 'Hủy bỏ',
         type: 'warning',
       })
         .then(() => {
@@ -993,12 +993,12 @@ export default {
               this.showTitle();
             }
           }
-          // 删除第几个配置
+          // Xóa cấu hình nào
           this.$store.commit('mobildConfig/DELETEARRAY', item);
         })
         .catch(() => {});
     },
-    // 组件返回
+    // Trả về thành phần
     config(data) {
       let propsObj = this.propsObj;
       propsObj.data = data;
@@ -1008,31 +1008,31 @@ export default {
       arr[index1] = arr.splice(index2, 1, arr[index1])[0];
       return arr;
     },
-    // 数组排序
+    // Sắp xếp mảng
     arraySort() {
       let tempArr = [];
       let basis = {
-        title: '基础组件',
+        title: 'Thành phần cơ bản',
         list: [],
         isOpen: true,
       };
       let marketing = {
-        title: '营销组件',
+        title: 'thành phần tiếp thị',
         list: [],
         isOpen: true,
       };
       let goods = {
-        title: '商品组件',
+        title: 'Thành phần sản phẩm',
         list: [],
         isOpen: true,
       };
       let user = {
-        title: '用户组件',
+        title: 'Thành phần người dùng',
         list: [],
         isOpen: true,
       };
       let tool = {
-        title: '工具组件',
+        title: 'Thành phần công cụ',
         list: [],
         isOpen: true,
       };
@@ -1048,7 +1048,7 @@ export default {
         }
         if (el.type == 3) {
           if (this.pageType !== 'home' && this.pageType !== 'user') {
-            if (el.name === 'home_product_info' || el.cname === '商品信息') {
+            if (el.name === 'home_product_info' || el.cname === 'Thông tin sản phẩm') {
               goods.list.unshift(el);
             } else {
               goods.list.push(el);
@@ -1083,7 +1083,7 @@ export default {
           type: this.pageType,
           value: val,
           title: this.titleTxt,
-          name: this.nameTxt || '模板',
+          name: this.nameTxt || 'bản mẫu',
           is_show: this.showTxt ? 1 : 0,
           is_bg_color: this.colorTxt ? 1 : 0,
           is_bg_pic: this.bgPic ? 1 : 0,
@@ -1111,7 +1111,7 @@ export default {
         .then((res) => {
           if (this.pageId != res.data.id && !title) {
             let query = { ...this.$route.query, id: res.data.id };
-            delete query.tid; // 保存后移除 tid
+            delete query.tid; // Lưu và xóa tid
             this.$router.replace({ query });
             this.pageId = res.data.id;
           }
@@ -1140,16 +1140,16 @@ export default {
         });
     },
     saveModal() {
-      if (!this.saveName) return this.$message.warning('请先输入模板名称');
+      if (!this.saveName) return this.$message.warning('Vui lòng nhập tên mẫu trước');
       this.saveConfig(1, this.saveName);
     },
     closeWindow() {
       this.$msgbox({
-        title: '提示',
-        message: '关闭页面前请先保存数据，未保存的话数据会丢失',
+        title: 'gợi ý',
+        message: 'Vui lòng lưu lại dữ liệu trước khi đóng trang, nếu không dữ liệu sẽ bị mất.',
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Chắc chắn',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -1161,10 +1161,10 @@ export default {
         })
         .catch(() => {});
     },
-    // 保存配置
+    // Lưu cấu hình
     saveConfig(num, type, save) {
       if (this.mConfig.length == 0) {
-        return this.$message.error('暂未添加任何组件，保存失败！');
+        return this.$message.error('Chưa có thành phần nào được thêm vào, lưu không thành công.！');
       }
       if (num == 1) {
         this.loading = true;
@@ -1177,7 +1177,7 @@ export default {
         val[timestamp] = this.$store.state.mobildConfig.pageFooter;
         this.footActive = true;
       } else if (this.pageType == 'detail') {
-        // 获取最后一个对象的值 判断 val 不是一个空对象
+        // Lấy giá trị của đối tượng cuối cùng và xác định xem val có phải là đối tượng trống không
         let lastObj = val && Object.values(val).pop();
         if (lastObj.name != 'bottomMenu') {
           let timestamp = new Date().getTime() * 1000;
@@ -1188,7 +1188,7 @@ export default {
         this.diySaveDate(val, num, type, save);
       });
     },
-    // 获取默认配置
+    // Nhận cấu hình mặc định
     getDefaultConfig() {
       let id = this.pageId;
       if (id == 0 && this.$route.query.tid) {
@@ -1243,7 +1243,7 @@ export default {
               tempARR.push(tempItem);
               obj[el.timestamp] = el;
               this.mConfig.push(tempItem);
-              // 保存默认组件配置
+              // Lưu cấu hình thành phần mặc định
               this.$store.commit('mobildConfig/ADDARRAY', {
                 num: el.timestamp,
                 val: el,
@@ -1267,14 +1267,14 @@ export default {
         this.category = res.data;
       });
     },
-    // 重置
+    // cài lại
     reast() {
       if (this.pageId == 0) {
-        this.$message.error('新增页面，无法重置');
+        this.$message.error('Trang mới, không thể thiết lập lại');
       } else {
-        this.$confirm('此操作将清空模板内容, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('Thao tác này sẽ xóa nội dung mẫu, Bạn có muốn tiếp tục không??', 'gợi ý', {
+          confirmButtonText: 'Chắc chắn',
+          cancelButtonText: 'Hủy bỏ',
           type: 'warning',
         }).then((res) => {
           this.mConfig = [];
@@ -1286,10 +1286,10 @@ export default {
     },
     getBadgeText(val) {
       const map = {
-        user: '用户',
-        article: '文章',
-        coupon: '优惠券',
-        goods: '商品',
+        user: 'người dùng',
+        article: 'bài báo',
+        coupon: 'Phiếu giảm giá',
+        goods: 'hàng hóa',
       };
       return map[val] || '';
     },
@@ -1509,7 +1509,7 @@ export default {
   width: 80px !important;
 }
 
-/* 定义滑块 内阴影+圆角 */
+/* Xác định bóng bên trong thanh trượt + các góc tròn */
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px #fff;
   display: none;
@@ -1525,7 +1525,7 @@ export default {
 }
 
 ::-webkit-scrollbar {
-  width: 4px !important; /* 对垂直流动条有效 */
+  width: 4px !important; /* Hợp lệ cho các thanh dòng chảy dọc */
 }
 
 .scrollCon {
@@ -1815,7 +1815,7 @@ export default {
         &.hide {
           &::before {
             position: absolute;
-            content: '已隐藏';
+            content: 'Ẩn giấu';
             background: rgba(0, 0, 0, 0.5);
             width: 100%;
             height: 100%;

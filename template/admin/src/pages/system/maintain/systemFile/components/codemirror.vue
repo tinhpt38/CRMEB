@@ -1,9 +1,9 @@
 <template>
   <el-dialog :visible.sync="modals_son" :title="title" :close-on-click-modal="false" width="900px">
-    <el-button type="primary" id="savefile" class="mr5 mb15" v-db-click @click="savefile">保存</el-button>
-    <el-button id="undo" class="mr5 mb15" v-db-click @click="undofile">撤销</el-button>
-    <el-button id="redo" class="mr5 mb15" v-db-click @click="redofile">回退</el-button>
-    <el-button id="refresh" class="mb15" v-db-click @click="refreshfile">刷新</el-button>
+    <el-button type="primary" id="savefile" class="mr5 mb15" v-db-click @click="savefile">cứu</el-button>
+    <el-button id="undo" class="mr5 mb15" v-db-click @click="undofile">Hủy bỏ</el-button>
+    <el-button id="redo" class="mr5 mb15" v-db-click @click="redofile">quay lại</el-button>
+    <el-button id="refresh" class="mb15" v-db-click @click="refreshfile">làm cho khỏe lại</el-button>
     <textarea ref="mycode" class="codesql public_text" v-model="code" style="height: 80vh"></textarea>
   </el-dialog>
 </template>
@@ -14,14 +14,14 @@ import CodeMirror from 'codemirror/lib/codemirror';
 import 'codemirror/theme/ambiance.css';
 import { setCookies, getCookies, removeCookies } from '@/libs/util';
 
-// 核心样式
+// Phong cách cốt lõi
 // import 'codemirror/lib/codemirror.css'
-// 引入主题后还需要在 options 中指定主题才会生效
+// Sau khi giới thiệu theme, bạn cần chỉ định theme trong tùy chọn để nó có hiệu lực.
 import 'codemirror/theme/cobalt.css';
 
-// 需要引入具体的语法高亮库才会有对应的语法高亮效果
-// codemirror 官方其实支持通过 /addon/mode/loadmode.js 和 /mode/meta.js 来实现动态加载对应语法高亮库
-// 但 vue 貌似没有无法在实例初始化后再动态加载对应 JS ，所以此处才把对应的 JS 提前引入
+// Cần phải giới thiệu một thư viện tô sáng cú pháp cụ thể để có tác dụng tô sáng cú pháp tương ứng.
+// codemirror chính thức hỗ trợ tải động thư viện tô sáng cú pháp tương ứng thông qua /addon/mode/loadmode.js và /mode/meta.js
+// Nhưng vue dường như không thể tải động JS tương ứng sau khi phiên bản được khởi tạo, vì vậy JS tương ứng được giới thiệu trước ở đây.
 // import 'codemirror/mode/javascript/javascript.js'
 // import 'codemirror/mode/css/css.js'
 // import 'codemirror/mode/xml/xml.js'
@@ -58,8 +58,8 @@ export default {
   data() {
     return {
       editor: '',
-      isShowLogn: false, // 登录
-      isShowList: false, // 登录之后列表
+      isShowLogn: false, // Đăng nhập
+      isShowList: false, // Danh sách sau khi đăng nhập
       spinShow: false,
       loading: false,
 
@@ -78,34 +78,34 @@ export default {
       handler(newValue, oldValue) {
         this.editor.setValue(newValue);
       },
-      deep: true, // 默认值是 false，代表是否深度监听
+      deep: true, // Giá trị mặc định là sai, cho biết có giám sát sâu hay không
     },
     modals: {
       handler(newValue, oldValue) {
         this.modals_son = newValue;
       },
-      deep: true, // 默认值是 false，代表是否深度监听
+      deep: true, // Giá trị mặc định là sai, cho biết có giám sát sâu hay không
     },
   },
   mounted() {
     this.editor = CodeMirror.fromTextArea(this.$refs.mycode, {
-      value: 'http://www.crmeb.com', // 文本域默认显示的文本
+      value: 'http://www.crmeb.com', // Văn bản được hiển thị theo mặc định trong trường văn bản
       mode: 'text/javascript',
-      theme: 'ambiance', // CSS样式选择
-      indentUnit: 8, // 缩进单位，默认2
-      smartIndent: true, // 是否智能缩进
-      tabSize: 4, // Tab缩进，默认4
-      readOnly: false, // 是否只读，默认false
+      theme: 'ambiance', // CSSLựa chọn phong cách
+      indentUnit: 8, // Đơn vị thụt lề, mặc định2
+      smartIndent: true, // Có nên sử dụng thụt lề thông minh hay không
+      tabSize: 4, // Tabthụt lề, mặc định4
+      readOnly: false, // Có chỉ đọc hay không, mặc địnhfalse
       showCursorWhenSelecting: true,
-      lineNumbers: true, // 是否显示行号
+      lineNumbers: true, // Có hiển thị số dòng hay không
 
       indentWithTabs: true,
       matchBrackets: true,
       extraKeys: {
         Ctrl: 'autocomplete',
-      }, //自定义快捷键
+      }, //Phím tắt tùy chỉnh
     });
-    //代码自动提示功能，记住使用cursorActivity事件不要使用change事件，这是一个坑，那样页面直接会卡死
+    //Chức năng nhắc nhở tự động về mã, hãy nhớ sử dụng sự kiện CursorActivity chứ không phải sự kiện thay đổi. Đây là một cạm bẫy và trang sẽ trực tiếp bị đóng băng.
     editor.on('cursorActivity', function () {
       editor.showHint();
     });
@@ -115,7 +115,7 @@ export default {
     this.onIsLogin();
   },
   methods: {
-    // 保存
+    // cứu
     savefile() {
       let data = {
         comment: this.editor.getValue(),
@@ -131,14 +131,14 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 撤销
+    // Hủy bỏ
     undofile() {
       this.editor.undo();
     },
     redofile() {
       this.editor.redo();
     },
-    // 刷新
+    // làm cho khỏe lại
     refreshfile() {
       this.editor.refresh();
     },

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -30,12 +30,12 @@ class SpeechcraftValidate extends Validate
      * @var string[]
      */
     protected $message = [
-        'title.chsAlphaNum' => '请填汉字字母或者数字',
-        'title.length' => '标题长度不能超过50个字',
-        'cate_id.require' => '请选择分类',
-        'cate_id.number' => '分类必须为数字',
-        'message.require' => '请填写话术内容',
-        'message.length' => '话术长度不能超过500个字',
-        'sort.number' => '排序必须为数字',
+        'title.chsAlphaNum' => 'Vui lòng điền chữ hoặc số tiếng Trung',
+        'title.length' => 'Độ dài tiêu đề không thể vượt quá 50 từ',
+        'cate_id.require' => 'Vui lòng chọn một danh mục',
+        'cate_id.number' => 'Danh mục phải là số',
+        'message.require' => 'Hãy điền nội dung bài phát biểu',
+        'message.length' => 'Độ dài bài phát biểu không quá 500 từ',
+        'sort.number' => 'Sắp xếp phải là số',
     ];
 }

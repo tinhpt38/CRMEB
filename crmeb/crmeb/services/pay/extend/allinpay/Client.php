@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use think\facade\Log;
 
 /**
  * Class Client
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2022/12/27
  * @package crmeb\services\pay\extend\allinpay
@@ -24,16 +24,16 @@ use think\facade\Log;
 class Client
 {
 
-    //生产地址
+    //Địa chỉ sản xuất
     const API_URL = 'https://vsp.allinpay.com/apiweb/';
 
-    //测试接口地址
+    //Địa chỉ giao diện thử nghiệm
     const BETA_API_URL = 'https://syb-test.allinpay.com/apiweb/';
 
-    //版本号
+    //số phiên bản
     const VERSION_NUM_11 = '11';
 
-    //版本号
+    //số phiên bản
     const VERSION_NUM_12 = '12';
 
 
@@ -60,19 +60,19 @@ class Client
     protected $publicKey = '';
 
     /**
-     * 回调地址
+     * địa chỉ gọi lại
      * @var string
      */
     protected $notifyUrl = '';
 
     /**
-     * 是否测试
+     * Có nên kiểm tra không
      * @var bool
      */
     protected $isBeta = true;
 
     /**
-     * debug模式
+     * debugngười mẫu
      * @var bool
      */
     protected $isDebug = true;
@@ -92,7 +92,7 @@ class Client
     }
 
     /**
-     * 发送请求
+     * Gửi yêu cầu
      * @param string $url
      * @param array $options
      * @return mixed
@@ -134,7 +134,7 @@ class Client
             return $response;
         }
 
-        throw new ApiException('创建订单成功验签失败');
+        throw new ApiException('Đơn hàng được tạo thành công nhưng xác minh chữ ký không thành công');
     }
 
     /**
@@ -217,7 +217,7 @@ class Client
 
             openssl_sign($bufSignSrc, $signature, $key);
 
-            $sign = base64_encode($signature);//加密后的内容通常含有特殊字符，需要编码转换下，在网络间通过url传输时要注意base64编码是否是url安全的
+            $sign = base64_encode($signature);//Nội dung được mã hóa thường chứa các ký tự đặc biệt và yêu cầu chuyển đổi mã hóa. Khi truyền qua các URL giữa các mạng, hãy chú ý xem liệu mã hóa base64 có an toàn cho URL hay không.
 
             return $sign;
         }
@@ -270,7 +270,7 @@ class Client
     /**
      * @param string $notifyUrl
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/7
      */

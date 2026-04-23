@@ -1,85 +1,85 @@
 <template>
   <div class="my-theme-page">
-    <!-- 顶部标题栏 -->
+    <!-- thanh tiêu đề trên cùng -->
     <div class="i-layout-page-header header-title">
       <div class="fl_header">
-        <span class="ivu-page-header-title">我的主题</span>
+        <span class="ivu-page-header-title">chủ đề của tôi</span>
       </div>
     </div>
 
-    <!-- 顶部操作栏 -->
+    <!-- thanh hành động hàng đầu -->
     <div class="content-area">
-      <!-- 顶部操作栏 -->
+      <!-- thanh hành động hàng đầu -->
       <div class="action-bar">
         <div class="left-actions">
-          <el-button type="primary" @click="handleAdd">新建主题</el-button>
-          <el-button @click="handleImport">导入主题</el-button>
+          <el-button type="primary" @click="handleAdd">Tạo chủ đề mới</el-button>
+          <el-button @click="handleImport">Nhập chủ đề</el-button>
           <img class="theme-in" src="https://www.crmeb.com/static/images/zhutishichang.png" alt="" @click="toTheme" />
         </div>
         <div class="right-actions flex">
-          <el-input v-model="searchKeyword" placeholder="请输入主题名称" class="search-input m-r-10"> </el-input>
-          <el-button type="primary" @click="getList">搜索</el-button>
+          <el-input v-model="searchKeyword" placeholder="Vui lòng nhập tên chủ đề" class="search-input m-r-10"> </el-input>
+          <el-button type="primary" @click="getList">tìm kiếm</el-button>
         </div>
       </div>
 
-      <!-- 主题列表 -->
+      <!-- Danh sách chủ đề -->
       <div class="theme-grid" ref="gridContainer">
         <div class="theme-card" v-for="(item, index) in themeList" :key="index">
-          <!-- 悬浮遮罩层 (移到最外层以覆盖整个卡片) -->
+          <!-- lớp mặt nạ nổi (Di chuyển đến lớp ngoài cùng để phủ toàn bộ thẻ) -->
           <div class="hover-overlay">
             <div class="overlay-content">
-              <!-- 二维码区域 -->
+              <!-- Khu vực mã QR -->
               <div class="qrcode-box">
                 <div :id="'qrcode' + item.id"></div>
-                <div class="scan-text">扫码预览</div>
+                <div class="scan-text">Quét xem trước mã</div>
               </div>
 
-              <!-- 中间操作栏 -->
+              <!-- thanh thao tác giữa -->
               <div class="middle-actions">
                 <div class="tag-row">
                   <span class="theme-tag">{{ item.type }}</span>
                   <span class="action-text" @click="handleExport(item)">
-                    <span class="iconfont iconic_output"></span> 导出
+                    <span class="iconfont iconic_output"></span> Xuất khẩu
                   </span>
                   <div v-if="!item.is_use" class="line"></div>
                   <span v-if="!item.is_use" class="action-text" @click="handleDelete(item)">
-                    <span class="iconfont iconshanchu3"></span> 删除
+                    <span class="iconfont iconshanchu3"></span> xóa bỏ
                   </span>
                 </div>
-                <div class="theme-name-overlay line2">{{ item.title || '未命名主题' }}</div>
-                <div class="update-time">修改时间：{{ item.up_time }}</div>
+                <div class="theme-name-overlay line2">{{ item.title || 'Chủ đề chưa được đặt tên' }}</div>
+                <div class="update-time">thời gian sửa đổi：{{ item.up_time }}</div>
               </div>
 
-              <!-- 底部按钮 -->
+              <!-- nút dưới cùng -->
               <div class="bottom-buttons">
-                <el-button size="small" @click="handleEdit(item)">编辑主题</el-button>
-                <el-button type="primary" size="small" @click="handleUse(item)">使用主题</el-button>
+                <el-button size="small" @click="handleEdit(item)">Chỉnh sửa chủ đề</el-button>
+                <el-button type="primary" size="small" @click="handleUse(item)">Sử dụng chủ đề</el-button>
               </div>
             </div>
           </div>
 
-          <!-- 卡片封面区 -->
+          <!-- Khu vực bìa thẻ -->
           <div class="card-cover">
-            <!-- 模糊背景 -->
+            <!-- nền mờ -->
             <div class="blur-bg" :style="{ backgroundImage: 'url(' + item.home_image + ')' }"></div>
             <div class="phone-preview">
               <img v-if="item.home_image" :src="item.home_image" alt="cover" />
               <div class="no-poster" v-else>
                 <img :src="require('@/assets/images/no-theme-poster.png')" class="preview-image" alt="no poster" />
-                <div>暂无封面</div>
+                <div>Chưa có bìa</div>
               </div>
             </div>
 
-            <!-- 正在使用标记 (仅当不悬浮时可见，或者在蒙层下方) -->
+            <!-- Sử dụng thẻ (Chỉ hiển thị khi không di chuột hoặc bên dưới mặt nạ) -->
           </div>
 
-          <!-- 底部信息区 (默认展示) -->
+          <!-- Vùng thông tin phía dưới (Hiển thị mặc định) -->
           <div class="card-info">
             <div class="info-top">
               <span class="tag">{{ item.type }}</span>
-              <div class="using-tag" v-if="item.is_use">正在使用</div>
+              <div class="using-tag" v-if="item.is_use">đang được sử dụng</div>
             </div>
-            <div class="theme-name line1">{{ item.title || '未命名主题' }}</div>
+            <div class="theme-name line1">{{ item.title || 'Chủ đề chưa được đặt tên' }}</div>
           </div>
         </div>
       </div>
@@ -95,9 +95,9 @@
       </div>
     </div>
 
-    <!-- 导入主题弹窗 -->
+    <!-- Nhập cửa sổ bật lên chủ đề -->
     <el-dialog
-      title="导入主题"
+      title="Nhập chủ đề"
       :visible.sync="importVisible"
       width="1188px"
       top="10vh"
@@ -107,7 +107,7 @@
       <theme-import @close="closeImport" @success="handleImportSuccess"></theme-import>
     </el-dialog>
 
-    <!-- 选择主题弹窗 -->
+    <!-- Chọn cửa sổ bật lên chủ đề -->
     <theme-select-dialog :visible.sync="selectVisible" type="my" @select="handleThemeSelect"></theme-select-dialog>
   </div>
 </template>
@@ -182,11 +182,11 @@ export default {
         });
       });
     },
-    //生成二维码
+    //Tạo mã QR
     creatQrCode(id) {
       let url = `${this.BaseURL}pages/index/index?theme_id=${id}`;
       var qrcode = new QRCode(document.getElementById('qrcode' + id), {
-        text: url, // 需要转换为二维码的内容
+        text: url, // Nội dung cần chuyển đổi thành mã QR
         width: 100,
         height: 100,
         colorDark: '#000000',
@@ -198,13 +198,13 @@ export default {
       exportTheme(item.id)
         .then((res) => {
           const recordId = res.data.record_id;
-          // duration: 0 表示不自动关闭，轮询完成后手动关闭
+          // duration: 0 Cho biết rằng nó sẽ không được đóng tự động và sẽ được đóng theo cách thủ công sau khi quá trình bỏ phiếu hoàn tất.
           const loadingMsg = this.$message({
             type: 'success',
             message: res.msg,
             duration: 0,
           });
-          // 开始轮询，最多查 60 次（每 3s 一次，共 3 分钟）
+          // Bắt đầu bỏ phiếu, tối đa 60 lần (cứ sau 3 giây, tổng cộng 3 phút)）
           let attempts = 0;
           const maxAttempts = 60;
           const timer = setInterval(() => {
@@ -215,12 +215,12 @@ export default {
                 if (url) {
                   clearInterval(timer);
                   loadingMsg.close();
-                  this.$message.success('导出成功，正在下载…');
+                  this.$message.success('Xuất thành công, đang tải xuống…');
                   window.location.href = url;
                 } else if (attempts >= maxAttempts) {
                   clearInterval(timer);
                   loadingMsg.close();
-                  this.$message.warning('打包超时，请稍后到下载记录中查看');
+                  this.$message.warning('Đã hết thời gian đóng gói, vui lòng kiểm tra bản ghi tải xuống sau.');
                 }
               })
               .catch(() => {
@@ -230,17 +230,17 @@ export default {
           }, 3000);
         })
         .catch((err) => {
-          this.$message.error(err.msg || '导出失败');
+          this.$message.error(err.msg || 'Xuất không thành công');
         });
     },
     handleDelete(item) {
-      this.$confirm('确认删除该主题吗？', '提示', {
+      this.$confirm('Bạn có chắc chắn xóa chủ đề này?？', 'gợi ý', {
         type: 'warning',
       })
         .then(() => {
           deleteTheme(item.id)
             .then((res) => {
-              this.$message.success('删除成功');
+              this.$message.success('Xóa thành công');
               let index = this.themeList.findIndex((e) => e.id === item.id);
               if (index !== -1) {
                 this.themeList.splice(index, 1);
@@ -252,31 +252,31 @@ export default {
               this.getList();
             })
             .catch((err) => {
-              this.$message.error(err.msg || '删除失败');
+              this.$message.error(err.msg || 'Xóa không thành công');
             });
         })
         .catch(() => {});
     },
     handleEdit(item) {
-      // 跳转编辑页
+      // Chuyển đến trang chỉnh sửa
       this.$router.push({
         path: this.$routeProStr + '/setting/edit_theme',
         query: { id: item.id, type: 'home' },
       });
     },
     handleUse(item) {
-      this.$confirm('确认使用该主题吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm('Bạn có chắc chắn muốn sử dụng chủ đề này?？', 'gợi ý', {
+        confirmButtonText: 'Chắc chắn',
+        cancelButtonText: 'Hủy bỏ',
         type: 'warning',
       }).then(() => {
         useTheme(item.id)
           .then((res) => {
-            this.$message.success('已切换主题');
+            this.$message.success('Chủ đề đã được chuyển đổi');
             this.getList();
           })
           .catch((err) => {
-            this.$message.error(err.msg || '切换失败');
+            this.$message.error(err.msg || 'Chuyển đổi không thành công');
           });
       });
     },
@@ -287,7 +287,7 @@ export default {
       window.open('https://www.crmeb.com/theme?from=crmebkytheme', '_blank');
     },
     handleThemeSelect(theme) {
-      // 跳转新建页，使用选中主题作为模板
+      // Chuyển sang trang mới và sử dụng chủ đề đã chọn làm mẫu
       this.$router.push({
         path: this.$routeProStr + '/setting/edit_theme',
         query: { type: 'home', id: 0, tid: theme.id },

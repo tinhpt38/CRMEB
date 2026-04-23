@@ -1,28 +1,28 @@
-crmeb/app/api目录是网站前端(非管理后台)的API接口目录。
+crmeb/app/apiThư mục là giao diện người dùng của trang web(Phụ trợ phi hành chính)Thư mục giao diện API.
 
-它与adminapi目录的区别在于:
+Sự khác biệt giữa nó và thư mục adminapi là:
 
-- adminapi目录下的是管理后台系统的API接口
-- api目录下的是网站前端系统(手机端/微信小程序/H5等)的API接口
+- adminapiTrong thư mục là giao diện API để quản lý hệ thống phụ trợ.
+- Thư mục api là hệ thống front-end của website(Phiên bản di động/applet WeChat/H5, v.v.)Giao diện API
 
-具体来说:
+Cụ thể:
 
-- api目录下也是采用控制器(Controller)方式组织接口代码
-- 每个控制器对应一个功能模块,如OrderController负责订单相关接口等
-- 接口用于前端页面的ajax请求,获取数据用于渲染
-- 接口也采用RESTful风格设计
+- apiThư mục cũng sử dụng bộ điều khiển(Controller)Cách tổ chức mã giao diện
+- Mỗi bộ điều khiển tương ứng với một module chức năng,Ví dụ: OrderController chịu trách nhiệm về các giao diện liên quan đến đơn hàng, v.v.
+- Giao diện được sử dụng cho các yêu cầu ajax trên các trang front-end,Lấy dữ liệu để kết xuất
+- Giao diện cũng được thiết kế theo phong cách RESTful
 
-例如:
+Ví dụ:
 
-- 用户注册接口在UserController的register方法
-- 获取订单列表在OrderController的lists方法
-- 支付结果通知在PayController的notify方法
+- Giao diện đăng ký người dùng theo phương thức đăng ký của UserController
+- Lấy danh sách đơn hàng theo phương thức list của OrderController
+- Thông báo kết quả thanh toán theo phương thức notification của PayController
 
-和adminapi目录一样,api目录也通过定义清晰的接口,解耦了前后端,让前端更专注于业务展示。
+Giống như thư mục adminapi,apiThư mục cũng có giao diện được xác định rõ ràng,Front-end và back-end được tách rời,Hãy để giao diện người dùng tập trung nhiều hơn vào việc trình bày kinh doanh.
 
-区别在于目标用户不同:
+Sự khác biệt là người dùng mục tiêu khác nhau:
 
-- adminapi为后台管理员使用
-- api目录下的接口为前台用户(手机端、小程序端等)提供数据服务
+- adminapiĐể sử dụng bởi quản trị viên phụ trợ
+- Giao diện trong thư mục api là giao diện người dùng front-end(Phiên bản di động, chương trình mini, v.v.)Cung cấp dịch vụ dữ liệu
 
-所以二者都起到了前后端分离的关键作用。
+Vì vậy, cả hai đều đóng vai trò quan trọng trong việc tách mặt trước và mặt sau.。

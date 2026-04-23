@@ -10,59 +10,59 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="是否显示：">
+          <el-form-item label="Có hiển thị hay không：">
             <el-select
               v-model="levelFrom.is_show"
-              placeholder="请选择"
+              placeholder="Vui lòng chọn"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="" label="全部"></el-option>
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="" label="tất cả"></el-option>
+              <el-option value="1" label="trình diễn"></el-option>
+              <el-option value="0" label="Không hiển thị"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：" label-for="keyword">
-            <el-input class="form_content_width" v-model="levelFrom.keyword" placeholder="请输入物流公司名称或者编码" />
+          <el-form-item label="tìm kiếm：" label-for="keyword">
+            <el-input class="form_content_width" v-model="levelFrom.keyword" placeholder="Vui lòng nhập tên hoặc mã công ty hậu cần" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="syncExpress">同步物流公司</el-button>
+      <el-button type="primary" v-db-click @click="syncExpress">Công ty Logistics đồng bộ</el-button>
       <el-table
         :data="levelLists"
         ref="table"
         class="mt14"
         v-loading="loading"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="物流公司名称" min-width="100">
+        <el-table-column label="Tên công ty hậu cần" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="编码" min-width="100">
+        <el-table-column label="mã hóa" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="100">
+        <el-table-column label="loại" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="100">
+        <el-table-column label="Có hiển thị hay không" min-width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -75,9 +75,9 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="80">
+        <el-table-column label="vận hành" fixed="right" width="80">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
           </template>
         </el-table-column>
       </el-table>
@@ -121,28 +121,28 @@ export default {
           width: 80,
         },
         {
-          title: '物流公司名称',
+          title: 'Tên công ty hậu cần',
           key: 'name',
           minWidth: 100,
         },
         {
-          title: '编码',
+          title: 'mã hóa',
           key: 'code',
           minWidth: 120,
         },
         {
-          title: '排序',
+          title: 'loại',
           key: 'sort',
           sortable: true,
           minWidth: 100,
         },
         {
-          title: '是否显示',
+          title: 'Có hiển thị hay không',
           slot: 'is_shows',
           minWidth: 120,
         },
         {
-          title: '操作',
+          title: 'vận hành',
           slot: 'action',
           fixed: 'right',
           minWidth: 120,
@@ -172,7 +172,7 @@ export default {
     },
   },
   methods: {
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -190,7 +190,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       let data = {
         id: row.id,
@@ -204,7 +204,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 等级列表
+    // Danh sách bậc
     getList() {
       this.loading = true;
       freightListApi(this.levelFrom)
@@ -219,7 +219,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 添加
+    // Thêm vào
     add() {
       this.$modalForm(freightCreateApi()).then(() => this.getList());
       // freightCreateApi().then(async res => {
@@ -229,7 +229,7 @@ export default {
       //     this.$message.error(res.msg);
       // })
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$modalForm(freightEditApi(row.id)).then(() => this.getList());
       // freightEditApi(row.id).then(async res => {
@@ -239,7 +239,7 @@ export default {
       //     this.$message.error(res.msg);
       // })
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.levelFrom.page = 1;
       this.getList();

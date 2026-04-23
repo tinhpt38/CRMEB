@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,8 +15,8 @@ use think\Validate;
 class StoreCategoryValidate extends Validate
 {
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -30,21 +30,21 @@ class StoreCategoryValidate extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'pid.number' => '父级ID参数类型错误',
-        'pid.egt' => '父级ID参数类型错误',
-        'cate_name.require' => '分类名称不能为空',
-        'cate_name.max' => '分类名称长度不能超过25个字符',
-        'pic.max' => '分类图标长度不能超过128个字符',
-        'big_pic.max' => '分类大图长度不能超过200个字符',
-        'sort.number' => '排序参数类型错误',
-        'sort.egt' => '排序不能小于0',
-        'is_show.in' => '状态必须是0-1之间的整数',
+        'pid.number' => 'Loại tham số ID gốc không đúng',
+        'pid.egt' => 'Loại tham số ID gốc không đúng',
+        'cate_name.require' => 'Tên danh mục không được để trống',
+        'cate_name.max' => 'Tên danh mục không được dài quá 25 ký tự',
+        'pic.max' => 'Độ dài biểu tượng danh mục không được vượt quá 128 ký tự',
+        'big_pic.max' => 'Độ dài của ảnh phân loại không được vượt quá 200 ký tự.',
+        'sort.number' => 'Lỗi loại tham số sắp xếp',
+        'sort.egt' => 'Sắp xếp không thể nhỏ hơn0',
+        'is_show.in' => 'Trạng thái phải là số nguyên trong khoảng 0-1',
     ];
 
     protected $scene = [

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,7 +19,7 @@ use think\facade\App;
 use think\facade\Route;
 
 /**
- * 菜单权限
+ * Quyền thực đơn
  * Class SystemMenus
  * @package app\adminapi\controller\v1\setting
  */
@@ -38,12 +38,12 @@ class SystemMenus extends AuthController
     }
 
     /**
-     * 菜单展示列表
+     * Danh sách hiển thị menu
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/05/06
      */
@@ -62,7 +62,7 @@ class SystemMenus extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/14
      */
@@ -74,7 +74,7 @@ class SystemMenus extends AuthController
     }
 
     /**
-     * 显示创建资源表单页.
+     * Hiển thị trang biểu mẫu tạo tài nguyên.
      *
      * @return \think\Response
      */
@@ -85,7 +85,7 @@ class SystemMenus extends AuthController
     }
 
     /**
-     * 保存菜单权限
+     * Lưu quyền thực đơn
      * @return mixed
      */
     public function save()
@@ -113,19 +113,19 @@ class SystemMenus extends AuthController
         ]);
         $data['is_show_path'] = $data['is_show'];
         if (!$data['menu_name'])
-            return app('json')->fail('请填写按钮名称');
+            return app('json')->fail('Vui lòng điền tên nút');
         $data['path'] = implode('/', $data['path']);
         if ($this->services->save($data)) {
-            return app('json')->success('添加成功');
+            return app('json')->success('Đã thêm thành công');
         } else {
-            return app('json')->fail('添加失败');
+            return app('json')->fail('Thêm không thành công');
         }
     }
 
     /**
-     * 批量保存权限
+     * Quyền lưu hàng loạt
      * @return \think\Response
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
      */
@@ -133,7 +133,7 @@ class SystemMenus extends AuthController
     {
         $menus = $this->request->post('menus', []);
         if (!$menus) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         $data = [];
 
@@ -167,7 +167,7 @@ class SystemMenus extends AuthController
 
         foreach ($menus as $menu) {
             if (empty($menu['menu_name'])) {
-                return app('json')->fail('请填写按钮名称');
+                return app('json')->fail('Vui lòng điền tên nút');
             }
             if (isset($menu['unique_auth']) && $menu['unique_auth']) {
                 $menu['unique_auth'] = explode('/', $menu['api_url']);
@@ -186,11 +186,11 @@ class SystemMenus extends AuthController
 
         $this->services->saveAll($data);
 
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 获取一条菜单权限信息
+     * Nhận thông tin cho phép menu
      * @param int $id
      * @return \think\Response
      */
@@ -198,33 +198,33 @@ class SystemMenus extends AuthController
     {
 
         if (!$id) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         return app('json')->success($this->services->find((int)$id));
     }
 
     /**
-     * 修改菜单权限表单获取
+     * Sửa đổi việc mua lại biểu mẫu cấp phép menu
      * @param int $id
      * @return \think\Response
      */
     public function edit($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         return app('json')->success($this->services->updateMenus((int)$id));
     }
 
     /**
-     * 修改菜单
+     * Sửa đổi trình đơn
      * @param $id
      * @return mixed
      */
     public function update($id)
     {
         if (!$id || !($menu = $this->services->get($id)))
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         $data = $this->request->postMore([
             'menu_name',
             'controller',
@@ -247,16 +247,16 @@ class SystemMenus extends AuthController
             ['is_show_path', 0],
         ]);
         if (!$data['menu_name'])
-            return app('json')->fail('请填写按钮名称');
+            return app('json')->fail('Vui lòng điền tên nút');
         $data['path'] = implode('/', $data['path']);
         if ($this->services->update($id, $data))
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         else
-            return app('json')->fail('修改失败');
+            return app('json')->fail('Sửa đổi không thành công');
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      *
      * @param int $id
      * @return \think\Response
@@ -264,25 +264,25 @@ class SystemMenus extends AuthController
     public function delete($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
 
         if (!$this->services->delete((int)$id)) {
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         } else {
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         }
     }
 
     /**
-     * 权限的开启和关闭，显示和隐藏
+     * Bật và tắt quyền, hiển thị và ẩn chúng
      * @param $id
      * @return mixed
      */
     public function show($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
 
         [$isShow, $isShowPath] = $this->request->postMore([['is_show', 0], ['is_show_path', 0]], true);
@@ -293,14 +293,14 @@ class SystemMenus extends AuthController
         }
 
         if ($res) {
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         } else {
-            return app('json')->fail('修改失败');
+            return app('json')->fail('Sửa đổi không thành công');
         }
     }
 
     /**
-     * 获取菜单数据
+     * Lấy dữ liệu thực đơn
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -313,10 +313,10 @@ class SystemMenus extends AuthController
     }
 
     /**
-     * 获取路由分类
+     * Nhận phân loại tuyến đường
      * @param SystemRouteCateServices $service
      * @return \think\Response
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/25
      */
@@ -326,13 +326,13 @@ class SystemMenus extends AuthController
     }
 
     /**
-     * 获取接口列表
+     * Nhận danh sách giao diện
      * @return array
      */
     public function ruleList(SystemRouteServices $services)
     {
         $cateId = request()->get('cate_id', 0);
-        //获取所有的路由
+        //Nhận tất cả các tuyến đường
         $ruleList = $services->selectList(['cate_id' => $cateId, 'app_name' => 'adminapi'])->toArray();
         return app('json')->success($ruleList);
     }

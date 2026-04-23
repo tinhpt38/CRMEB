@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,14 +20,14 @@ use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 
 /**
- * 商品类
+ * Danh mục hàng hóa
  * Class StoreProductController
  * @package app\api\controller\store
  */
 class StoreProductController
 {
     /**
-     * 商品services
+     * hàng hóaservices
      * @var StoreProductServices
      */
     protected $services;
@@ -38,7 +38,7 @@ class StoreProductController
     }
 
     /**
-     * 商品列表
+     * Danh sách sản phẩm
      * @param Request $request
      * @param StoreCategoryServices $services
      * @return mixed
@@ -103,7 +103,7 @@ class StoreProductController
     }
 
     /**
-     * 商品分享二维码 推广员
+     * Quảng cáo mã QR chia sẻ sản phẩm
      * @param Request $request
      * @param $id
      * @return mixed
@@ -120,7 +120,7 @@ class StoreProductController
     }
 
     /**
-     * 商品详情
+     * Chi tiết sản phẩm
      * @param Request $request
      * @param $id
      * @param int $type
@@ -136,7 +136,7 @@ class StoreProductController
     }
 
     /**
-     * 为你推荐
+     * Được đề xuất cho bạn
      * @param Request $request
      * @return mixed
      * @throws DataNotFoundException
@@ -151,7 +151,7 @@ class StoreProductController
     }
 
     /**
-     * 获取首页推荐不同类型商品的轮播图和商品
+     * Nhận hình ảnh băng chuyền và sản phẩm gợi ý các loại sản phẩm khác nhau trên trang chủ
      * @param Request $request
      * @param $type
      * @return mixed
@@ -163,26 +163,26 @@ class StoreProductController
     {
         $info['banner'] = [];
         $info['list'] = [];
-        if ($type == 1) {//TODO 精品推荐
-            $info['banner'] = sys_data('routine_home_bast_banner') ?: [];//TODO 首页精品推荐图片
-            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_best');//TODO 精品推荐个数
-        } else if ($type == 2) {//TODO  热门榜单
-            $info['banner'] = sys_data('routine_home_hot_banner') ?: [];//TODO 热门榜单 猜你喜欢推荐图片
-            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_hot');//TODO 热门榜单 猜你喜欢
-        } else if ($type == 3) {//TODO 首发新品
-            $info['banner'] = sys_data('routine_home_new_banner') ?: [];//TODO 首发新品推荐图片
-            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_new');//TODO 首发新品
-        } else if ($type == 4) {//TODO 促销单品
-            $info['banner'] = sys_data('routine_home_benefit_banner') ?: [];//TODO 促销单品推荐图片
-            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_benefit');//TODO 促销单品
-        } else if ($type == 5) {//TODO 会员商品
-            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_vip');//TODO 会员商品
+        if ($type == 1) {//TODO Sản phẩm được đề xuất
+            $info['banner'] = sys_data('routine_home_bast_banner') ?: [];//TODO Trang chủ Hình ảnh được đề xuất
+            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_best');//TODO Số lượng sản phẩm được đề xuất
+        } else if ($type == 2) {//TODO  Danh sách phổ biến
+            $info['banner'] = sys_data('routine_home_hot_banner') ?: [];//TODO Danh sách phổ biến Đoán bạn thích Hình ảnh được đề xuất
+            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_hot');//TODO Danh sách phổ biến bạn có thể thích
+        } else if ($type == 3) {//TODO Sản phẩm mới đầu tiên
+            $info['banner'] = sys_data('routine_home_new_banner') ?: [];//TODO Hình ảnh gợi ý sản phẩm mới lần đầu tiên
+            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_new');//TODO Sản phẩm mới đầu tiên
+        } else if ($type == 4) {//TODO Mặt hàng khuyến mại
+            $info['banner'] = sys_data('routine_home_benefit_banner') ?: [];//TODO Hình ảnh khuyến mãi được đề xuất
+            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_benefit');//TODO Mặt hàng khuyến mại
+        } else if ($type == 5) {//TODO Sản phẩm thành viên
+            $info['list'] = $this->services->getRecommendProduct($request->uid(), 'is_vip');//TODO Sản phẩm thành viên
         }
         return app('json')->success($info);
     }
 
     /**
-     * 商品评价数量和好评度
+     * Số lượng đánh giá sản phẩm và xếp hạng tích cực
      * @param $id
      * @return mixed
      */
@@ -195,7 +195,7 @@ class StoreProductController
     }
 
     /**
-     * 获取商品评论
+     * Nhận đánh giá sản phẩm
      * @param Request $request
      * @param $id
      * @return mixed
@@ -215,7 +215,7 @@ class StoreProductController
     }
 
     /**
-     * 获取预售列表
+     * Nhận danh sách bán trước
      * @param Request $request
      * @return mixed
      */
@@ -228,7 +228,7 @@ class StoreProductController
     }
 
     /**
-     * 获取商品实时价格
+     * Nhận giá hàng hóa theo thời gian thực
      * @param Request $request
      * @param $id
      * @param $unique
@@ -240,7 +240,7 @@ class StoreProductController
     public function realPrice(Request $request, $id, $unique)
     {
         $uid = $request->uid() ?? 0;
-        if (!$id || !$unique) return app('json')->fail('缺少参数');
+        if (!$id || !$unique) return app('json')->fail('Thiếu tham số');
         return app('json')->success($this->services->realPrice($uid, $id, $unique));
     }
 }

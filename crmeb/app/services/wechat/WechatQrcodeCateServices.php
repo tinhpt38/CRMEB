@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use think\facade\Route as Url;
 /**
  * Class WechatQrcodeCateServices
  * @package app\services\wechat
- * @method getCateList() 分类列表
+ * @method getCateList() Danh sách danh mục
  */
 class WechatQrcodeCateServices extends BaseServices
 {
@@ -34,7 +34,7 @@ class WechatQrcodeCateServices extends BaseServices
     }
 
     /**
-     * 添加编辑分类表单
+     * Thêm chỉnh sửa biểu mẫu danh mục
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -46,12 +46,12 @@ class WechatQrcodeCateServices extends BaseServices
     {
         $info = $this->dao->get($id);
         $f[] = Form::hidden('id', $id);
-        $f[] = Form::input('cate_name', '分组名称', $info['cate_name'] ?? '')->maxlength(10)->required();
-        return create_form($id ? '修改分组' : '添加分组', $f, Url::buildUrl('/app/wechat_qrcode/cate/save'), 'POST');
+        $f[] = Form::input('cate_name', 'Tên nhóm', $info['cate_name'] ?? '')->maxlength(10)->required();
+        return create_form($id ? 'Sửa đổi nhóm' : 'Thêm nhóm', $f, Url::buildUrl('/app/wechat_qrcode/cate/save'), 'POST');
     }
 
     /**
-     * 保存数据
+     * lưu dữ liệu
      * @param $data
      * @return bool
      */
@@ -65,22 +65,22 @@ class WechatQrcodeCateServices extends BaseServices
         } else {
             $res = $this->dao->save($data);
         }
-        if (!$res) throw new AdminException('保存失败');
+        if (!$res) throw new AdminException('Lưu không thành công');
         return true;
     }
 
     /**
-     * 删除分类
+     * Xóa danh mục
      * @param int $id
      * @return bool
      */
     public function delCate($id = 0)
     {
         $count = app()->make(WechatQrcodeServices::class)->count(['cate_id' => $id]);
-        if ($count) throw new AdminException('该分类有下级分类，无法删除');
-        if (!$id) throw new AdminException('参数错误');
+        if ($count) throw new AdminException('Danh mục này có các danh mục phụ và không thể xóa được.');
+        if (!$id) throw new AdminException('Lỗi tham số');
         $res = $this->dao->update($id, ['is_del' => 1]);
-        if (!$res) throw new AdminException('删除失败');
+        if (!$res) throw new AdminException('Xóa không thành công');
         return true;
     }
 

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,14 +15,14 @@ use app\services\shipping\ExpressServices;
 use think\facade\App;
 
 /**
- * 物流
+ * hậu cần
  * Class Express
  * @package app\adminapi\controller\v1\freight
  */
 class Express extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * Express constructor.
      * @param App $app
      * @param ExpressServices $services
@@ -34,7 +34,7 @@ class Express extends AuthController
     }
 
     /**
-     * 获取物流列表
+     * Nhận danh sách hậu cần
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -50,7 +50,7 @@ class Express extends AuthController
     }
 
     /**
-     * 显示创建资源表单页
+     * Hiển thị trang biểu mẫu tạo tài nguyên
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -60,7 +60,7 @@ class Express extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @return \think\Response
      */
     public function save()
@@ -70,13 +70,13 @@ class Express extends AuthController
             'code',
             ['sort', 0],
             ['is_show', 0]]);
-        if (!$data['name']) return app('json')->fail('请输入公司名称');
+        if (!$data['name']) return app('json')->fail('Vui lòng nhập tên công ty');
         $this->services->save($data);
-        return app('json')->success('添加公司成功');
+        return app('json')->success('Thêm công ty thành công');
     }
 
     /**
-     * 显示编辑资源表单页
+     * Hiển thị trang biểu mẫu tài nguyên chỉnh sửa
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -87,7 +87,7 @@ class Express extends AuthController
     }
 
     /**
-     * 保存更新的资源
+     * Lưu tài nguyên cập nhật
      * @param $id
      * @return mixed
      */
@@ -102,18 +102,18 @@ class Express extends AuthController
             ['code_name', ''],
             ['sort', 0],
             ['is_show', 0]]);
-        if (!$expressInfo = $this->services->get($id)) return app('json')->fail('数据不存在');
+        if (!$expressInfo = $this->services->get($id)) return app('json')->fail('Dữ liệu không tồn tại');
         if ($expressInfo['net'] == 1 && !$data['net_name']) {
-            return app('json')->fail('请输入取件网点');
+            return app('json')->fail('Vui lòng nhập địa điểm đón');
         }
         if ($expressInfo['check_man'] == 1 && !$data['courier_name']) {
-            return app('json')->fail('请输入承载快递员名');
+            return app('json')->fail('Vui lòng nhập tên người chuyển phát nhanh');
         }
         if ($expressInfo['partner_name'] == 1 && !$data['customer_name']) {
-            return app('json')->fail('请输入客户账户名称');
+            return app('json')->fail('Vui lòng nhập tên tài khoản khách hàng');
         }
         if ($expressInfo['is_code'] == 1 && !$data['code_name']) {
-            return app('json')->fail('请输入电子面单承载编号');
+            return app('json')->fail('Vui lòng nhập số mang theo biểu mẫu điện tử');
         }
         $expressInfo->account = $data['account'];
         $expressInfo->key = $data['key'];
@@ -125,44 +125,44 @@ class Express extends AuthController
         $expressInfo->is_show = $data['is_show'];
         $expressInfo->status = 1;
         $expressInfo->save();
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $res = $this->services->delete($id);
         if (!$res)
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         else
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param int $id
      * @param string $status
      * @return mixed
      */
     public function set_status($id = 0, $status = '')
     {
-        if ($status == '' || $id == 0) return app('json')->fail('参数错误');
+        if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['is_show' => $status]);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 同步平台快递公司
+     * Công ty chuyển phát nhanh nền tảng đồng bộ
      * @return mixed
      */
     public function syncExpress()
     {
         $this->services->syncExpress();
-        return app('json')->success('同步成功');
+        return app('json')->success('Đồng bộ hóa thành công');
     }
 }

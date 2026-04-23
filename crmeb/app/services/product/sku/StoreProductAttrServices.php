@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -34,7 +34,7 @@ class StoreProductAttrServices extends BaseServices
     }
 
     /**
-     * 保存商品规格
+     * Lưu thông số kỹ thuật sản phẩm
      * @param array $data
      * @param int $id
      * @param int $type
@@ -60,7 +60,7 @@ class StoreProductAttrServices extends BaseServices
         if (isset($data['valueGroup']) && $data['valueGroup']) {
             $detailTemp = array_column($data['valueGroup'], 'vip_price');
             if ($detailTemp) {
-                if ($is_vip && in_array(0, $detailTemp)) throw new AdminException('会员价格不能为0');
+                if ($is_vip && in_array(0, $detailTemp)) throw new AdminException('Giá thành viên không thể0');
                 $detailTemp = array_diff($detailTemp, [0]);
                 if ($detailTemp) {
                     $productVipPrice = min($detailTemp);
@@ -72,7 +72,7 @@ class StoreProductAttrServices extends BaseServices
         }
         if ($is_virtual == 0 || $is_virtual == 2) {
             if ($is_virtual == 2 && in_array(0, array_column($data['valueGroup'], 'coupon_id'))) {
-                throw new AdminException('虚拟优惠券商品请选择优惠券');
+                throw new AdminException('Đối với sản phẩm voucher ảo vui lòng chọn Coupon');
             }
             return $storeProductAttrValueServices->saveAll($data['valueGroup']);
         } else {
@@ -109,7 +109,7 @@ class StoreProductAttrServices extends BaseServices
     }
 
     /**
-     * 获取商品规格
+     * Nhận thông số kỹ thuật sản phẩm
      * @param array $where
      * @return array
      */
@@ -119,7 +119,7 @@ class StoreProductAttrServices extends BaseServices
     }
 
     /**
-     * 获取商品规格详情
+     * Nhận thông tin chi tiết đặc điểm kỹ thuật sản phẩm
      * @param int $id
      * @param int $uid
      * @param int $type
@@ -182,7 +182,7 @@ class StoreProductAttrServices extends BaseServices
         }
         foreach ($attrDetail as $k => $v) {
             $attr = $v['attr_values'];
-            //活动商品只展示参与活动sku
+            //Sản phẩm sự kiện chỉ được hiển thị cho những người tham gia sự kiệnsku
             if ($typeId && $activityAttr && $a = array_merge(array_intersect($v['attr_values'], $activityAttr[$k]))) {
                 $attrDetail[$k]['attr_values'] = $a;
                 $attr = $a;

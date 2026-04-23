@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -39,7 +39,7 @@ class Serve extends AuthController
     }
 
     /**
-     * 检测登录
+     * Phát hiện đăng nhập
      * @return mixed
      */
     public function is_login()
@@ -53,7 +53,7 @@ class Serve extends AuthController
     }
 
     /**
-     * 获取套餐列表
+     * Nhận danh sách gói
      * @param string $type
      * @return mixed
      */
@@ -63,12 +63,12 @@ class Serve extends AuthController
         if ($res) {
             return app('json')->success($res);
         } else {
-            return app('json')->fail('获取套餐列表失败');
+            return app('json')->fail('Không thể lấy được danh sách gói');
         }
     }
 
     /**
-     * 获取支付码
+     * Nhận mã thanh toán
      * @return mixed
      */
     public function payMeal()
@@ -81,19 +81,19 @@ class Serve extends AuthController
             ['pay_type', ''],
         ]);
         $openInfo = $this->services->user()->getUser();
-        if (!$openInfo) app('json')->fail('获取支付码失败');
+        if (!$openInfo) app('json')->fail('Không lấy được mã thanh toán');
         switch ($data['type']) {
             case "sms" :
-                if (!$openInfo['sms']['open']) return app('json')->fail('请先开通短信服务');
+                if (!$openInfo['sms']['open']) return app('json')->fail('Vui lòng kích hoạt dịch vụ SMS trước');
                 break;
             case "query" :
-                if (!$openInfo['query']['open']) return app('json')->fail('请先开通物流查询服务');
+                if (!$openInfo['query']['open']) return app('json')->fail('Vui lòng kích hoạt dịch vụ yêu cầu hậu cần trước');
                 break;
             case "dump" :
-                if (!$openInfo['dump']['open']) return app('json')->fail('请先开通电子面单打印服务');
+                if (!$openInfo['dump']['open']) return app('json')->fail('Vui lòng kích hoạt dịch vụ in biểu mẫu điện tử trước');
                 break;
             case "copy" :
-                if (!$openInfo['copy']['open']) return app('json')->fail('请先开通商品采集服务');
+                if (!$openInfo['copy']['open']) return app('json')->fail('Vui lòng kích hoạt dịch vụ thu thập sản phẩm trước');
                 break;
         }
         $this->validate($data, MealValidata::class);
@@ -102,12 +102,12 @@ class Serve extends AuthController
         if ($res) {
             return app('json')->success($res);
         } else {
-            return app('json')->fail('获取支付码失败');
+            return app('json')->fail('Không lấy được mã thanh toán');
         }
     }
 
     /**
-     * 开通打印电子面单
+     * Cho phép in các biểu mẫu điện tử
      * @return mixed
      */
     public function openExpress()
@@ -127,12 +127,12 @@ class Serve extends AuthController
         $systemConfigService = app()->make(SystemConfigServices::class);
         $systemConfigService->saveExpressInfo($data);
         $this->services->express()->open();
-        return app('json')->success('开通成功');
+        return app('json')->success('Kích hoạt thành công');
 
     }
 
     /**
-     * 获取用户信息，用户信息内包含是否开通服务字段
+     * Lấy thông tin người dùng. Thông tin người dùng chứa trường có nên kích hoạt dịch vụ hay không.
      * @return mixed
      */
     public function getUserInfo()
@@ -141,7 +141,7 @@ class Serve extends AuthController
     }
 
     /**
-     * 查询记录
+     * Bản ghi truy vấn
      * @return mixed
      */
     public function getRecord()
@@ -156,7 +156,7 @@ class Serve extends AuthController
     }
 
     /**
-     * 开通服务
+     * Kích hoạt dịch vụ
      * @param int $type
      * @return mixed
      */
@@ -168,11 +168,11 @@ class Serve extends AuthController
             $this->services->express()->open();
         }
 
-        return app('json')->success('开通成功');
+        return app('json')->success('Kích hoạt thành công');
     }
 
     /**
-     * 修改密码
+     * Thay đổi mật khẩu
      * @return mixed
      */
     public function modify()
@@ -189,11 +189,11 @@ class Serve extends AuthController
         $data['password'] = md5($data['password']);
         $this->services->user()->modify($data);
         CacheService::delete('sms_account');
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 修改手机号
+     * Sửa đổi số điện thoại di động
      * @return mixed
      */
     public function updatePhone()
@@ -208,6 +208,6 @@ class Serve extends AuthController
 
         $this->services->user()->modifyPhone($data);
         CacheService::delete('sms_account');
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 }

@@ -4,9 +4,9 @@
     <div v-if="configData.title" class="title">{{ configData.title }}</div>
     <div class="list">
       <div class="item">
-        <div class="name">{{ configData.type == 'code' ? configData.name : '图片' }}</div>
+        <div class="name">{{ configData.type == 'code' ? configData.name : 'hình ảnh' }}</div>
         <div class="picTxt">
-          <div class="box" @click="modalPicTap('单选')">
+          <div class="box" @click="modalPicTap('Lựa chọn duy nhất')">
             <div class="pictrue acea-row row-center-wrapper" v-if="configData.url">
               <video v-if="configData.video" :src="configData.url"></video>
               <img :src="configData.url" alt="" v-else />
@@ -21,14 +21,14 @@
         v-if="configData.type != 'code' && defaults.name == 'customerService' && defaults.buttonConfig.tabVal == 0"
         class="item"
       >
-        <div class="name">链接</div>
-        <el-input v-model="configData.link" placeholder="输入链接">
+        <div class="name">liên kết</div>
+        <el-input v-model="configData.link" placeholder="Nhập liên kết">
           <i class="el-icon-link" slot="suffix" @click="getLink" />
         </el-input>
       </div>
     </div>
     <div>
-      <el-dialog :visible.sync="modalPic" width="960px" :title="configData.name ? configData.name : '上传图片'">
+      <el-dialog :visible.sync="modalPic" width="960px" :title="configData.name ? configData.name : 'Tải ảnh lên'">
         <uploadPictures
           :isChoice="isChoice"
           @getPic="getPic"
@@ -81,7 +81,7 @@ export default {
       defaults: {},
       configData: {},
       modalPic: false,
-      isChoice: '单选',
+      isChoice: 'Lựa chọn duy nhất',
       gridBtn: {
         xl: 4,
         lg: 8,
@@ -123,7 +123,7 @@ export default {
     bindDelete() {
       this.configData.url = '';
     },
-    // 点击图文封面
+    // Bấm vào ảnh và bìa văn bản
     modalPicTap(title) {
       if (this.configData.video == 1) {
         this.$videoModal((e) => {
@@ -133,7 +133,7 @@ export default {
         this.modalPic = true;
       }
     },
-    // 添加自定义弹窗
+    // Thêm cửa sổ bật lên tùy chỉnh
     addCustomDialog(editorId) {
       window.UE.registerUI(
         'test-dialog',
@@ -142,17 +142,17 @@ export default {
             iframeUrl: '/admin/widget.images/index.html?fodder=dialog',
             editor: editor,
             name: uiName,
-            title: '上传图片',
+            title: 'Tải ảnh lên',
             cssRules: 'width:1200px;height:500px;padding:20px;',
           });
           this.dialog = dialog;
-          // 参考上面的自定义按钮
+          // Tham khảo nút tùy chỉnh ở trên
           var btn = new window.UE.ui.Button({
             name: 'dialog-button',
-            title: '上传图片',
+            title: 'Tải ảnh lên',
             cssRules: `background-image: url(../../../assets/images/icons.png);background-position: -726px -77px;`,
             onclick: function () {
-              // 渲染dialog
+              // kết xuấtdialog
               dialog.render();
               dialog.open();
             },
@@ -163,7 +163,7 @@ export default {
         37,
       );
     },
-    // 获取图片信息
+    // Lấy thông tin hình ảnh
     getPic(pc) {
       this.$nextTick(() => {
         this.configData.url = pc.att_dir;

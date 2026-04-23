@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,25 +16,25 @@ use crmeb\services\FileService;
 use think\facade\Log;
 
 /**
- * 小程序 CI (Continuous Integration) 核心服务类
- * 
- * 功能概述:
- * 本服务类封装了微信官方 miniprogram-ci 工具的调用逻辑，
- * 实现小程序代码的自动化上传和预览功能。
- * 
- * 主要功能:
- * 1. 上传密钥管理 - 保存/删除小程序代码上传密钥
- * 2. 项目准备 - 复制源码并替换 AppId、URL 等配置
- * 3. 代码上传 - 调用 miniprogram-ci upload 命令上传代码
- * 4. 预览二维码 - 调用 miniprogram-ci preview 命令生成预览码
- * 
- * 依赖工具:
+ * Chương trình nhỏ CI (Continuous Integration) Lớp dịch vụ cốt lõi
+ *
+ * Tổng quan về chức năng:
+ * Lớp dịch vụ này gói gọn logic gọi của công cụ miniprogram-ci chính thức của WeChat.
+ * Triển khai chức năng tải lên và xem trước tự động của mã chương trình mini.
+ *
+ * Chức năng chính:
+ * 1. Quản lý khóa tải lên - lưu/xóa khóa tải lên mã chương trình nhỏ
+ * 2. Chuẩn bị dự án - sao chép mã nguồn và thay thế AppId, URL và các cấu hình khác
+ * 3. Code upload - gọi lệnh miniprogram-ci upload để upload code
+ * 4. Xem trước mã QR - gọi lệnh xem trước miniprogram-ci để tạo mã xem trước
+ *
+ * Phụ thuộc vào công cụ:
  * - Node.js >= 14.0.0
- * - npm (Node.js 包管理器)
- * - miniprogram-ci (全局安装: npm install miniprogram-ci -g)
+ * - npm (Node.js Trình quản lý gói)
+ * - miniprogram-ci (Cài đặt toàn cầu: npm install miniprogram-ci -g)
  * 
- * 密钥获取:
- * 微信公众平台 -> 开发管理 -> 开发设置 -> 小程序代码上传
+ * Mua lại chìa khóa:
+ * Nền tảng công cộng WeChat -> quản lý phát triển -> Cài đặt phát triển -> Tải lên mã chương trình nhỏ
  * 
  * @see https://developers.weixin.qq.com/miniprogram/dev/devtools/ci.html
  * @package app\services\wechat
@@ -42,130 +42,130 @@ use think\facade\Log;
 class RoutineCIServices extends BaseServices
 {
     /**
-     * 小程序项目文件存储路径
-     * 
-     * 上传前会将源码复制到此目录，并进行配置替换后再上传。
-     * 默认路径: public/statics/download
+     * Đường dẫn lưu trữ tệp dự án chương trình nhỏ
+     *
+     * Trước khi tải lên, mã nguồn sẽ được sao chép vào thư mục này và cấu hình sẽ được thay thế trước khi tải lên.
+     * Đường dẫn mặc định: public/statics/download
      * 
      * @var string
      */
     protected $projectPath;
 
     /**
-     * 小程序代码上传密钥文件存储路径
+     * Đường dẫn lưu trữ tệp chính tải lên mã chương trình nhỏ
+     *
+     * Tệp khóa riêng RSA để xác thực bằng miniprogram-ci.
+     * Đường dẫn mặc định: config/routine_private.key
      * 
-     * RSA 私钥文件，用于 miniprogram-ci 的身份验证。
-     * 默认路径: config/routine_private.key
-     * 
-     * 安全注意: 此文件包含敏感信息，应设置适当的文件权限，
-     * 并在 .gitignore 中排除，避免提交到版本控制系统。
+     * Biện pháp phòng ngừa an toàn: Tệp này chứa thông tin nhạy cảm và phải đặt quyền truy cập tệp thích hợp.
+     * và loại trừ nó trong .gitignore để tránh phạm vào hệ thống kiểm soát phiên bản。
      * 
      * @var string
      */
     protected $privateKeyPath;
 
     /**
-     * 小程序 AppId
-     * 
-     * 从系统配置中读取，配置项为 routine_appId。
-     * 用于标识目标小程序，上传时必须与密钥对应的小程序一致。
+     * AppId chương trình nhỏ
+     *
+     * Đọc từ cấu hình hệ thống, mục cấu hình là Routine_appId.
+     * Dùng để xác định applet đích, phải phù hợp với applet tương ứng với key khi upload。
      * 
      * @var string
      */
     protected $appId;
 
     /**
-     * 构造函数 - 初始化配置路径
-     * 
-     * 初始化小程序上传所需的各种路径配置:
-     * - 项目文件存储路径
-     * - 密钥文件存储路径
-     * - 从系统配置读取 AppId
+     * Trình xây dựng - khởi tạo đường dẫn cấu hình
+     *
+     * Khởi tạo các cấu hình đường dẫn khác nhau cần thiết để tải lên các chương trình nhỏ:
+     * - Đường dẫn lưu trữ file dự án
+     * - Đường dẫn lưu trữ file key
+     * - đọc từ cấu hình hệ thống AppId
      */
     public function __construct()
     {
-        // 设置项目文件存储目录 (public/statics/download)
+        // Đặt thư mục lưu trữ tệp dự án (public/statics/download)
         $this->projectPath = public_path() . 'statics' . DIRECTORY_SEPARATOR . 'download';
-        // 设置密钥文件存储路径 (config/routine_private.key)
+        // Đặt đường dẫn lưu trữ tệp chính (config/routine_private.key)
         $this->privateKeyPath = app()->getRootPath() . 'config' . DIRECTORY_SEPARATOR . 'routine_private.key';
-        // 从系统配置读取小程序 AppId
+        // Đọc applet từ cấu hình hệ thống AppId
         $this->appId = sys_config('routine_appId', '');
     }
 
     /**
-     * 获取上传配置状态信息
-     * 
-     * 返回当前小程序上传相关的所有配置状态，
-     * 前端根据这些信息展示配置状态并引导用户完成配置。
-     * 
-     * @return array 配置状态信息，包含:
-     *               - app_id: 小程序 AppId
-     *               - app_id_configured: AppId 是否已配置
-     *               - private_key_exists: 密钥文件是否存在
-     *               - private_key_path: 密钥文件路径
-     *               - project_path: 项目文件路径
-     *               - project_exists: 项目目录是否存在
+     * Nhận thông tin trạng thái cấu hình tải lên
+     *
+     * Trả về tất cả trạng thái cấu hình liên quan đến tải lên chương trình mini hiện tại,
+     * Giao diện người dùng hiển thị trạng thái cấu hình dựa trên thông tin này và hướng dẫn người dùng hoàn tất cấu hình.
+     *
+     * @return thông tin trạng thái cấu hình mảng, bao gồm:
+     *               - app_id: Chương trình nhỏ AppId
+     *               - app_id_configured: AppId Nó đã được cấu hình chưa?
+     *               - private_key_exists: Tệp khóa có tồn tại không?
+     *               - private_key_path: Đường dẫn tệp chính
+     *               - project_path: Đường dẫn tệp dự án
+     *               - project_exists: Thư mục dự án có tồn tại không?
      */
     public function getUploadConfig(): array
     {
         return [
-            'app_id' => $this->appId,                           // 小程序 AppId
-            'app_id_configured' => !empty($this->appId),        // AppId 是否已配置
-            'private_key_exists' => file_exists($this->privateKeyPath), // 密钥文件是否存在
-            'private_key_path' => $this->privateKeyPath,        // 密钥文件完整路径
-            'project_path' => $this->projectPath,               // 项目文件存储路径
-            'project_exists' => is_dir($this->projectPath),     // 项目目录是否存在
+            'app_id' => $this->appId,                           // Chương trình nhỏ AppId
+            'app_id_configured' => !empty($this->appId),        // AppId Nó đã được cấu hình chưa?
+            'private_key_exists' => file_exists($this->privateKeyPath), // Tệp khóa có tồn tại không?
+            'private_key_path' => $this->privateKeyPath,        // Đường dẫn đầy đủ của tệp chính
+            'project_path' => $this->projectPath,               // Đường dẫn lưu trữ file dự án
+            'project_exists' => is_dir($this->projectPath),     // Thư mục dự án có tồn tại không?
         ];
     }
 
     /**
-     * 保存小程序代码上传密钥
+     * Lưu khóa tải lên mã chương trình mini
+     *
+     * Lưu nội dung chính được tải xuống từ nền tảng công cộng WeChat vào máy chủ.
+     * Khóa được sử dụng để xác thực bằng công cụ miniprogram-ci.
+     *
+     *Quy trình xử lý:
+     * 1. Xác minh định dạng khóa (Phải bắt đầu bằng -----BEGIN RSA PRIVATE KEY-----)
+     * 2. Đảm bảo thư mục lưu trữ khóa tồn tại
+     * 3. Ghi nội dung chính vào file
+     * 4. Đặt quyền truy cập tệp thành 0600 (Chỉ chủ sở hữu mới có thể đọc và viết)
      * 
-     * 将从微信公众平台下载的密钥内容保存到服务器。
-     * 密钥用于 miniprogram-ci 工具的身份验证。
-     * 
-     * 处理流程:
-     * 1. 验证密钥格式 (必须以 -----BEGIN RSA PRIVATE KEY----- 开头)
-     * 2. 确保密钥存储目录存在
-     * 3. 将密钥内容写入文件
-     * 4. 设置文件权限为 0600 (仅所有者可读写)
-     * 
-     * @param string $keyContent 密钥内容 (RSA 私钥 PEM 格式)
-     * @return bool 保存成功返回 true
-     * @throws AdminException 密钥格式错误或保存失败时抛出异常
+     * @param string $keyContent Nội dung chính (RSA Định dạng PEM khóa riêng)
+     * @return bool Trả về true nếu lưu thành công
+     * @throws AdminException được ném ra khi định dạng khóa không chính xác hoặc không lưu được
      */
     public function savePrivateKey(string $keyContent): bool
     {
-        // 验证密钥格式: 必须是 RSA 私钥 PEM 格式
+        // Xác minh định dạng khóa: Phải ở định dạng PEM khóa riêng RSA
         if (strpos($keyContent, '-----BEGIN RSA PRIVATE KEY-----') === false) {
-            throw new AdminException('无效的密钥格式，请上传正确的小程序代码上传密钥');
+            throw new AdminException('Định dạng khóa không hợp lệ, vui lòng tải lên mã chương trình mini chính xác để tải khóa lên');
         }
 
-        // 确保密钥存储目录存在
+        // Đảm bảo thư mục lưu trữ khóa tồn tại
         $keyDir = dirname($this->privateKeyPath);
         if (!is_dir($keyDir)) {
             mkdir($keyDir, 0755, true);
         }
 
-        // 将密钥内容写入文件
+        // Viết nội dung chính vào tập tin
         $result = file_put_contents($this->privateKeyPath, $keyContent);
         if ($result === false) {
-            throw new AdminException('密钥保存失败，请检查目录权限');
+            throw new AdminException('Lưu khóa không thành công, vui lòng kiểm tra quyền thư mục');
         }
 
-        // 设置文件权限为 0600 (仅所有者可读写)，提高安全性
+        // Đặt quyền truy cập tệp thành 0600 (Chỉ chủ sở hữu mới có thể đọc và viết)，Cải thiện an ninh
         chmod($this->privateKeyPath, 0600);
 
         return true;
     }
 
     /**
-     * 删除小程序代码上传密钥
-     * 
-     * 从服务器上删除已保存的密钥文件。
-     * 如果密钥文件不存在，则直接返回成功。
-     * 
-     * @return bool 删除成功或文件不存在时返回 true
+     * Xóa khóa tải lên mã chương trình mini
+     *
+     * Xóa tệp khóa đã lưu khỏi máy chủ.
+     * Nếu tệp khóa không tồn tại, thành công sẽ được trả về trực tiếp.
+     *
+     * @return bool Trả về khi xóa thành công hoặc file không tồn tại true
      */
     public function deletePrivateKey(): bool
     {
@@ -176,90 +176,90 @@ class RoutineCIServices extends BaseServices
     }
 
     /**
-     * 准备小程序项目文件
+     * Chuẩn bị hồ sơ dự án chương trình nhỏ
+     *
+     * Chuẩn bị dự án trước khi upload, bao gồm copy mã nguồn và thay thế cấu hình:
+     * 1. Dọn dẹp các tập tin dự án cũ (nếu tồn tại)
+     * 2. Sao chép mã nguồn applet từ thư mục mp_view vào thư mục tải xuống
+     * 3. Thay thế appid và projectname trong project.config.json
+     * 4. Xác định xem có nên xóa cấu hình plug-in phát sóng trực tiếp hay không dựa trên việc tính năng phát sóng trực tiếp có được bật hay không.
+     * 5. Thay thế tên miền API trong mã bằng tên miền máy chủ hiện tại
      * 
-     * 上传前的项目准备工作，包括复制源码和替换配置:
-     * 1. 清理旧的项目文件 (如果存在)
-     * 2. 将小程序源码从 mp_view 目录复制到 download 目录
-     * 3. 替换 project.config.json 中的 appid 和 projectname
-     * 4. 根据是否开启直播决定是否移除直播插件配置
-     * 5. 替换代码中的 API 域名为当前服务器域名
-     * 
-     * @param bool $isLive 是否开启直播功能，默认关闭
-     *                     关闭时会移除 app.json 中的直播插件配置
-     * @return string 准备完成后的项目路径
-     * @throws AdminException AppId 未配置或准备过程出错时抛出异常
+     * @param bool $isLive Có bật chức năng phát sóng trực tiếp hay không, theo mặc định nó sẽ bị đóng
+     * Cấu hình plug-in phát sóng trực tiếp trong app.json sẽ bị xóa khi đóng
+     * @return string Đường dẫn dự án sau khi chuẩn bị xong
+     * @throws AdminException Ném khi AppId không được định cấu hình hoặc xảy ra lỗi trong quá trình chuẩn bị
      */
     public function prepareProject(bool $isLive = false): string
     {
-        // 检查 AppId 是否已配置
+        // Kiểm tra xem AppId đã được định cấu hình chưa
         if (empty($this->appId)) {
-            throw new AdminException('请先配置小程序 AppId');
+            throw new AdminException('Hãy cấu hình chương trình mini trước AppId');
         }
 
         try {
-            // 步骤1: 清理旧的项目文件
+            // bước chân1: Dọn dẹp các tập tin dự án cũ
             if (is_dir($this->projectPath)) {
                 $this->deleteDirectory($this->projectPath);
             }
 
-            // 步骤2: 复制小程序源码到目标目录
-            // 源目录: public/statics/mp_view (小程序编译后的源码)
+            // bước chân2: Sao chép mã nguồn chương trình mini vào thư mục đích
+            // thư mục nguồn: public/statics/mp_view (Tổng hợp mã nguồn của chương trình mini)
             /** @var FileService $fileService */
             $fileService = app(FileService::class);
             $fileService->copyDir(public_path() . 'statics/mp_view', $this->projectPath);
 
-            // 步骤3: 替换 project.config.json 中的 appid 和 项目名称
+            // bước chân3: Thay thế tên appid và dự án trong project.config.json
             $this->updateConfigJson($this->appId, sys_config('routine_name', ''));
 
-            // 步骤4: 如果不开启直播，移除 app.json 中的直播插件配置
+            // bước chân4: Nếu tính năng phát sóng trực tiếp không được bật, hãy xóa cấu hình plugin phát sóng trực tiếp trong app.json
             if (!$isLive) {
                 $this->updateAppJson();
             }
 
-            // 步骤5: 替换代码中的 API 域名为当前服务器域名
+            // bước chân5: Thay thế tên miền API trong mã bằng tên miền máy chủ hiện tại
             $this->updateUrl('https://' . $_SERVER['HTTP_HOST']);
 
             return $this->projectPath;
         } catch (\Throwable $e) {
-            throw new AdminException('准备项目失败: ' . $e->getMessage());
+            throw new AdminException('Dự án chuẩn bị thất bại: ' . $e->getMessage());
         }
     }
 
     /**
-     * 上传小程序代码到微信开发版
+     * Tải mã chương trình mini lên phiên bản phát triển WeChat
+     *
+     * Gọi lệnh tải lên miniprogram-ci để tải mã chương trình mini lên máy chủ WeChat.
+     * Sau khi tải lên thành công, bạn có thể xem phiên bản mới trong phần quản lý phiên bản của nền tảng công cộng WeChat.
+     *
+     *Quy trình thực hiện:
+     * 1. Kiểm tra môi trường hoạt động (Node.js、tập tin quan trọng、miniprogram-ci)
+     * 2. Chuẩn bị tài liệu dự án
+     * 3. Build và thực thi lệnh upload
+     * 4. Ghi lại nhật ký đầu ra lệnh
+     * 5. Trả về kết quả upload
      * 
-     * 调用 miniprogram-ci upload 命令将小程序代码上传到微信服务器。
-     * 上传成功后，可在微信公众平台的版本管理中查看新版本。
-     * 
-     * 执行流程:
-     * 1. 检查运行环境 (Node.js、密钥文件、miniprogram-ci)
-     * 2. 准备项目文件
-     * 3. 构建并执行 upload 命令
-     * 4. 记录命令输出日志
-     * 5. 返回上传结果
-     * 
-     * @param string $version 版本号，格式为 x.x.x (如 1.0.0)
-     * @param string $desc 版本描述，默认为 "版本 {version}"
-     * @param bool $isLive 是否开启直播功能，影响项目准备
-     * @return array 上传结果，包含: success, version, desc, message, output
-     * @throws AdminException 环境检查失败或上传失败时抛出异常
+     * @param string $version Số phiên bản, ở định dạng x.x.x (giống 1.0.0)
+     * @param string $desc Mô tả phiên bản, mặc định là "phiên bản {version}"
+     * @param bool $isLive Việc bật chức năng phát sóng trực tiếp có ảnh hưởng đến việc chuẩn bị dự án hay không
+     * @return kết quả tải lên mảng, bao gồm: success, version, desc, message, output
+     * @throws AdminException Ngoại lệ được đưa ra khi kiểm tra môi trường không thành công hoặc tải lên không thành công
      */
     public function upload(string $version, string $desc = '', bool $isLive = false): array
     {
-        // 检查运行环境是否满足要求
+        // Kiểm tra xem môi trường hoạt động có đáp ứng yêu cầu không
         $this->checkEnvironment();
 
-        // 准备项目文件 (复制、替换配置)
+        // Chuẩn bị tài liệu dự án (Sao chép và thay thế cấu hình)
         $projectPath = $this->prepareProject($isLive);
 
-        // 构建 miniprogram-ci upload 命令
+        // Xây dựng lệnh tải lên miniprogram-ci
         $command = $this->buildUploadCommand($version, $desc);
 
-        // 记录命令日志
+        // Ghi nhật ký lệnh
         Log::info('miniprogram-ci upload command: ' . $command);
 
-        // 执行命令
+        // thực hiện lệnh
         $output = [];
         $returnCode = 0;
         exec($command . ' 2>&1', $output, $returnCode);
@@ -267,56 +267,56 @@ class RoutineCIServices extends BaseServices
         $outputStr = implode("\n", $output);
         Log::info('miniprogram-ci upload output: ' . $outputStr);
 
-        // 检查执行结果，非零返回码表示失败
+        // Kiểm tra kết quả thực hiện. Mã trả về khác 0 cho biết lỗi.
         if ($returnCode !== 0) {
-            throw new AdminException('上传失败: ' . $outputStr);
+            throw new AdminException('Tải lên không thành công: ' . $outputStr);
         }
 
         return [
             'success' => true,
             'version' => $version,
             'desc' => $desc,
-            'message' => '上传成功',
+            'message' => 'Tải lên thành công',
             'output' => $outputStr,
         ];
     }
 
     /**
-     * 生成小程序预览二维码
+     * Tạo mã QR xem trước chương trình nhỏ
+     *
+     * Gọi lệnh xem trước miniprogram-ci để tạo mã QR xem trước.
+     *Quét mã QR để xem trước tác dụng của chương trình mini trên điện thoại di động của bạn.
+     *
+     *Quy trình thực hiện:
+     * 1. Kiểm tra môi trường hoạt động
+     * 2. Chuẩn bị hồ sơ dự án
+     * 3. Build và thực thi lệnh xem trước
+     * 4. Tạo hình ảnh mã QR và lưu nó
+     * 5. Trả lại hình ảnh mã QR URL
      * 
-     * 调用 miniprogram-ci preview 命令生成预览二维码。
-     * 扫描二维码可在手机上预览小程序效果。
-     * 
-     * 执行流程:
-     * 1. 检查运行环境
-     * 2. 准备项目文件
-     * 3. 构建并执行 preview 命令
-     * 4. 生成二维码图片并保存
-     * 5. 返回二维码图片 URL
-     * 
-     * @param string $pagePath 预览的页面路径 (如 pages/index/index)
-     *                         为空时默认预览小程序首页
-     * @return array 预览结果，包含: success, qrcode_url, message, output
-     * @throws AdminException 环境检查失败或预览失败时抛出异常
+     * @param string $pagePath Đường dẫn trang xem trước (giống pages/index/index)
+     *                         Khi trống, trang chủ của chương trình mini sẽ được xem trước theo mặc định.
+     * @return kết quả xem trước mảng, bao gồm: success, qrcode_url, message, output
+     * @throws AdminException Ngoại lệ được đưa ra khi kiểm tra môi trường không thành công hoặc xem trước không thành công
      */
     public function preview(string $pagePath = ''): array
     {
-        // 检查运行环境是否满足要求
+        // Kiểm tra xem môi trường hoạt động có đáp ứng yêu cầu không
         $this->checkEnvironment();
 
-        // 准备项目文件
+        // Chuẩn bị tài liệu dự án
         $projectPath = $this->prepareProject();
 
-        // 设置二维码图片保存路径
+        // Đặt đường dẫn lưu cho hình ảnh mã QR
         $qrcodePath = public_path() . 'statics' . DIRECTORY_SEPARATOR . 'routine_preview.jpg';
 
-        // 构建 miniprogram-ci preview 命令
+        // Xây dựng lệnh xem trước miniprogram-ci
         $command = $this->buildPreviewCommand($qrcodePath, $pagePath);
 
-        // 记录命令日志
+        // Ghi nhật ký lệnh
         Log::info('miniprogram-ci preview command: ' . $command);
 
-        // 执行命令
+        // thực hiện lệnh
         $output = [];
         $returnCode = 0;
         exec($command . ' 2>&1', $output, $returnCode);
@@ -324,86 +324,86 @@ class RoutineCIServices extends BaseServices
         $outputStr = implode("\n", $output);
         Log::info('miniprogram-ci preview output: ' . $outputStr);
 
-        // 检查执行结果
+        // Kiểm tra kết quả thực hiện
         if ($returnCode !== 0) {
-            throw new AdminException('预览失败: ' . $outputStr);
+            throw new AdminException('Xem trước không thành công: ' . $outputStr);
         }
 
-        // 拼接二维码图片的访问 URL，添加时间戳防止缓存
+        // Ghép URL truy cập của hình ảnh mã QR và thêm dấu thời gian để ngăn bộ nhớ đệm
         $qrcodeUrl = sys_config('site_url') . '/statics/routine_preview.jpg?t=' . time();
 
         return [
             'success' => true,
             'qrcode_url' => $qrcodeUrl,
-            'message' => '预览二维码生成成功',
+            'message' => 'Xem trước mã QR được tạo thành công',
             'output' => $outputStr,
         ];
     }
 
     /**
-     * 构建 miniprogram-ci upload 命令
+     * Xây dựng lệnh tải lên miniprogram-ci
+     *
+     * Xây dựng chuỗi dòng lệnh để tải lên mã applet.
+     *
+     *Mô tả tham số lệnh:
+     * - --pp: Đường dẫn dự án (project path)
+     * - --pkp: Đường dẫn tệp chính (private key path)
+     * - --appid: Chương trình nhỏ AppId
+     * - --uv: Tải lên số phiên bản (upload version)
+     * - -r: Số robot đã tải lên, mặc định 1
+     * - --desc: Mô tả phiên bản
      * 
-     * 构建用于上传小程序代码的命令行字符串。
-     * 
-     * 命令参数说明:
-     * - --pp: 项目路径 (project path)
-     * - --pkp: 密钥文件路径 (private key path)
-     * - --appid: 小程序 AppId
-     * - --uv: 上传版本号 (upload version)
-     * - -r: 上传的机器人编号，默认 1
-     * - --desc: 版本描述
-     * 
-     * @param string $version 版本号
-     * @param string $desc 版本描述，默认为 "版本 {version}"
-     * @return string 完整的命令行字符串
+     * @param string $version số phiên bản
+     * @param string $desc Mô tả phiên bản, mặc định là "phiên bản {version}"
+     * @return string Hoàn thành chuỗi dòng lệnh
      */
     protected function buildUploadCommand(string $version, string $desc = ''): string
     {
-        // 默认版本描述
-        $desc = $desc ?: '版本 ' . $version;
+        // Mô tả phiên bản mặc định
+        $desc = $desc ?: 'Phiên bản ' . $version;
 
-        // 构建 miniprogram-ci upload 命令
+        // Xây dựng lệnh tải lên miniprogram-ci
         $command = sprintf(
             'miniprogram-ci upload --pp "%s" --pkp "%s" --appid "%s" --uv "%s" -r 1 --desc "%s"',
-            $this->projectPath,    // 项目路径
-            $this->privateKeyPath, // 密钥文件路径
-            $this->appId,          // 小程序 AppId
-            $version,              // 版本号
-            addslashes($desc)      // 版本描述 (转义特殊字符)
+            $this->projectPath,    // Đường dẫn dự án
+            $this->privateKeyPath, // Đường dẫn tệp chính
+            $this->appId,          // Chương trình nhỏ AppId
+            $version,              // số phiên bản
+            addslashes($desc)      // Mô tả phiên bản (Thoát khỏi ký tự đặc biệt)
         );
 
         return $command;
     }
 
     /**
-     * 构建 miniprogram-ci preview 命令
+     * Xây dựng lệnh xem trước miniprogram-ci
+     *
+     * Xây dựng chuỗi dòng lệnh để tạo mã QR xem trước.
+     *
+     *Mô tả tham số lệnh:
+     * - --pp: Đường dẫn dự án
+     * - --pkp: Đường dẫn tệp chính
+     * - --appid: Chương trình nhỏ AppId
+     * - --qrcode-format: Định dạng đầu ra mã QR (image)
+     * - --qrcode-output-dest: Đường dẫn đầu ra mã QR
+     * - --compile-condition: Điều kiện biên dịch, được sử dụng để chỉ định trang xem trước
      * 
-     * 构建用于生成预览二维码的命令行字符串。
-     * 
-     * 命令参数说明:
-     * - --pp: 项目路径
-     * - --pkp: 密钥文件路径
-     * - --appid: 小程序 AppId
-     * - --qrcode-format: 二维码输出格式 (image)
-     * - --qrcode-output-dest: 二维码输出路径
-     * - --compile-condition: 编译条件，用于指定预览页面
-     * 
-     * @param string $qrcodePath 二维码图片保存路径
-     * @param string $pagePath 预览的页面路径 (可选)
-     * @return string 完整的命令行字符串
+     * @param string $qrcodePath Đường dẫn lưu ảnh mã QR
+     * @param string $pagePath Đường dẫn trang xem trước (Không bắt buộc)
+     * @return string Hoàn thành chuỗi dòng lệnh
      */
     protected function buildPreviewCommand(string $qrcodePath, string $pagePath = ''): string
     {
-        // 构建基本的 preview 命令
+        // Xây dựng các lệnh xem trước cơ bản
         $command = sprintf(
             'miniprogram-ci preview --pp "%s" --pkp "%s" --appid "%s" --qrcode-format image --qrcode-output-dest "%s"',
-            $this->projectPath,    // 项目路径
-            $this->privateKeyPath, // 密钥文件路径
-            $this->appId,          // 小程序 AppId
-            $qrcodePath            // 二维码输出路径
+            $this->projectPath,    // Đường dẫn dự án
+            $this->privateKeyPath, // Đường dẫn tệp chính
+            $this->appId,          // Chương trình nhỏ AppId
+            $qrcodePath            // Đường dẫn đầu ra mã QR
         );
 
-        // 如果指定了预览页面，添加编译条件参数
+        // Nếu trang xem trước được chỉ định, hãy thêm tham số điều kiện biên dịch
         if ($pagePath) {
             $command .= sprintf(' --compile-condition \'{"pathName":"%s"}\'', addslashes($pagePath));
         }
@@ -412,93 +412,93 @@ class RoutineCIServices extends BaseServices
     }
 
     /**
-     * 检查运行环境是否满足要求
-     * 
-     * 在执行上传或预览前检查必要的环境条件:
-     * 1. 小程序 AppId 已配置
-     * 2. 上传密钥文件已存在
-     * 3. miniprogram-ci 工具已全局安装
-     * 
-     * @throws AdminException 任一条件不满足时抛出异常
+     * Kiểm tra xem môi trường hoạt động có đáp ứng yêu cầu không
+     *
+     * Kiểm tra các điều kiện môi trường cần thiết trước khi thực hiện tải lên hoặc xem trước:
+     * 1. Chương trình nhỏ AppId được định cấu hình
+     * 2. Tệp khóa được tải lên đã tồn tại
+     * 3. Công cụ miniprogram-ci đã được cài đặt trên toàn cầu
+     *
+     * @throws AdminException ném ngoại lệ khi không đáp ứng bất kỳ điều kiện nào
      */
     protected function checkEnvironment(): void
     {
-        // 检查1: AppId 是否已配置
+        // nghiên cứu1: AppId Nó đã được cấu hình chưa?
         if (empty($this->appId)) {
-            throw new AdminException('请先配置小程序 AppId');
+            throw new AdminException('Hãy cấu hình chương trình mini trước AppId');
         }
 
-        // 检查2: 密钥文件是否存在
+        // nghiên cứu2: Tệp khóa có tồn tại không?
         if (!file_exists($this->privateKeyPath)) {
-            throw new AdminException('请先上传小程序代码上传密钥');
+            throw new AdminException('Vui lòng tải lên mã chương trình mini để tải khóa trước');
         }
 
-        // 检查3: miniprogram-ci 是否已全局安装
+        // nghiên cứu3: miniprogram-ci Nó đã được cài đặt trên toàn cầu chưa?
         $output = [];
         exec('which miniprogram-ci 2>&1', $output, $returnCode);
         if ($returnCode !== 0) {
-            throw new AdminException('miniprogram-ci 未安装，请先安装运行环境');
+            throw new AdminException('miniprogram-ci Chưa cài đặt, vui lòng cài đặt môi trường hoạt động trước');
         }
     }
 
     /**
-     * 替换项目代码中的 API 域名
+     * Thay thế tên miền API trong mã dự án
+     *
+     * Thay đổi tên miền API mặc định trong mã chương trình mini (https://demo.crmeb.com)
+     * Thay thế nó bằng tên miền của máy chủ hiện tại để đảm bảo rằng chương trình mini có thể gọi chính xác giao diện phụ trợ.。
      * 
-     * 将小程序代码中的默认 API 域名 (https://demo.crmeb.com)
-     * 替换为当前服务器的域名，确保小程序能正确调用后端接口。
-     * 
-     * @param string $url 要替换成的新域名 (如 https://your-domain.com)
+     * @param string $url Tên miền mới sẽ được thay thế bằng (giống https://your-domain.com)
      */
     protected function updateUrl(string $url): void
     {
-        // 构建 vendor.js 文件路径 (包含 API 域名配置)
+        // Xây dựng đường dẫn tệp của nhà cung cấp.js (Chứa cấu hình tên miền API)
         $fileUrl = $this->projectPath . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'vendor.js';
         if (!file_exists($fileUrl)) {
             return;
         }
 
-        // 读取文件内容
+        // Đọc nội dung tập tin
         $string = file_get_contents($fileUrl);
-        // 替换默认域名为当前服务器域名
+        // Thay thế tên miền mặc định bằng tên miền máy chủ hiện tại
         $string = str_replace('https://demo.crmeb.com', $url, $string);
-        // 写回文件
+        // viết lại tập tin
         file_put_contents($fileUrl, $string);
     }
 
     /**
-     * 更新 app.json 配置 - 移除直播插件
-     * 
-     * 当不需要直播功能时，移除 app.json 中的 live-player-plugin 插件配置。
-     * 这样可以避免在不使用直播的情况下引入不必要的依赖。
+     * Cập nhật cấu hình app.json - xóa plugin phát sóng trực tiếp
+     *
+     * Khi không cần chức năng phát sóng trực tiếp, hãy xóa cấu hình plugin trình phát trực tiếp trong app.json.
+     * Điều này có thể tránh tạo ra các phần phụ thuộc không cần thiết khi không sử dụng tính năng phát trực tiếp。
      */
     protected function updateAppJson(): void
     {
-        // app.json 文件路径
+        // app.json đường dẫn tập tin
         $fileUrl = $this->projectPath . DIRECTORY_SEPARATOR . 'app.json';
         if (!file_exists($fileUrl)) {
             return;
         }
 
         $string = file_get_contents($fileUrl);
-        // 使用正则表达式移除 live-player-plugin 插件配置
-        // 匹配格式: , "plugins": { "live-player-plugin": { ... } }
+        // Xóa cấu hình trình cắm plugin trình phát trực tiếp bằng cách sử dụng biểu thức thông thường
+        // Định dạng khớp: , "plugins": { "live-player-plugin": { ... } }
         $pattern = '/,\s*"plugins"\s*:\s*\{\s*"live-player-plugin"\s*:\s*\{[^}]*\}\s*\}/s';
         $string = preg_replace($pattern, '', $string);
         file_put_contents($fileUrl, $string);
     }
 
     /**
-     * 更新 project.config.json 配置
+     * Cập nhật cấu hình project.config.json
+     *
+     * Thay thế appid và projectname trong tệp cấu hình dự án,
+     * Đảm bảo chương trình mini đã tải lên sử dụng đúng danh tính。
      * 
-     * 替换项目配置文件中的 appid 和 projectname，
-     * 确保上传的小程序使用正确的身份标识。
-     * 
-     * @param string $appId 小程序 AppId
-     * @param string $projectName 项目名称 (可选)
+     * @param string $appId Chương trình nhỏ AppId
+     * @param string $projectName Tên dự án (Không bắt buộc)
      */
     protected function updateConfigJson(string $appId, string $projectName = ''): void
     {
-        // project.config.json 文件路径
+        // project.config.json đường dẫn tập tin
         $fileUrl = $this->projectPath . DIRECTORY_SEPARATOR . 'project.config.json';
         if (!file_exists($fileUrl)) {
             return;
@@ -506,11 +506,11 @@ class RoutineCIServices extends BaseServices
 
         $string = file_get_contents($fileUrl);
 
-        // 替换 appid
+        // thay thế appid
         $appIdPattern = '/"appid"\s*:\s*"[^"]*"/';
         $string = preg_replace($appIdPattern, '"appid": "' . $appId . '"', $string);
 
-        // 替换项目名称 (如果提供了)
+        // Thay thế tên dự án (nếu được cung cấp)
         if ($projectName) {
             $namePattern = '/"projectname"\s*:\s*"[^"]*"/';
             $string = preg_replace($namePattern, '"projectname": "' . $projectName . '"', $string);
@@ -520,49 +520,49 @@ class RoutineCIServices extends BaseServices
     }
 
     /**
-     * 递归删除目录及其所有内容
+     * Đệ quy xóa một thư mục và tất cả nội dung của nó
+     *
+     * Dùng để dọn dẹp các tập tin dự án cũ trước khi chuẩn bị một dự án mới.
+     * Sẽ xóa đệ quy tất cả các tệp và thư mục con trong thư mục đã chỉ định。
      * 
-     * 用于在准备新项目前清理旧的项目文件。
-     * 会递归删除指定目录下的所有文件和子目录。
-     * 
-     * @param string $dir 要删除的目录路径
-     * @return bool 删除成功返回 true
+     * @param string $dir Đường dẫn thư mục cần xóa
+     * @return bool Xóa trả lại thành công true
      */
     protected function deleteDirectory(string $dir): bool
     {
-        // 目录不存在则直接返回成功
+        // Nếu thư mục không tồn tại, thành công sẽ được trả về trực tiếp.
         if (!is_dir($dir)) {
             return true;
         }
 
-        // 遍历目录下的所有文件和子目录 (排除 . 和 ..)
+        // Duyệt qua tất cả các tập tin và thư mục con trong một thư mục (loại trừ . Và ..)
         $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             $path = $dir . DIRECTORY_SEPARATOR . $file;
-            // 递归删除子目录，直接删除文件
+            // Đệ quy xóa các thư mục con và xóa các tập tin trực tiếp
             is_dir($path) ? $this->deleteDirectory($path) : unlink($path);
         }
 
-        // 删除空目录
+        // Xóa các thư mục trống
         return rmdir($dir);
     }
 
     /**
-     * 获取上传历史记录 (待实现)
+     * Nhận lịch sử tải lên (Để được hiện thực hóa)
      * 
-     * 该方法用于返回小程序代码的历史上传记录，
-     * 包括版本号、上传时间、上传人等信息。
-     * 
-     * @return array 上传历史记录数组
+     * Phương pháp này được sử dụng để trả về bản ghi tải lên lịch sử của mã chương trình mini.
+     *Bao gồm số phiên bản, thời gian tải lên, người tải lên và các thông tin khác.
+     *
+     * Mảng @return Mảng lịch sử tải lên
      */
     public function getUploadHistory(): array
     {
-        // TODO: 实现上传历史记录功能
-        // 可以将上传记录保存到数据库，包括:
-        // - 版本号、版本描述
-        // - 上传时间、上传人
-        // - 上传结果 (成功/失败)
-        // - 命令输出日志
+        // TODO: Triển khai chức năng lịch sử tải lên
+        // Bạn có thể lưu các bản ghi tải lên cơ sở dữ liệu, bao gồm:
+        // - Số phiên bản, mô tả phiên bản
+        // - Thời gian tải lên, người tải lên
+        // - Tải kết quả lên (thành công/thất bại)
+        // - Nhật ký đầu ra lệnh
         return [];
     }
 }

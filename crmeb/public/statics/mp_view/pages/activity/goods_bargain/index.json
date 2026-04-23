@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "砍价列表",
+  "navigationBarTitleText": "Danh sách mặc cả",
   "usingComponents": {
     "home": "/components/home/index",
     "authorize": "/components/Authorize"

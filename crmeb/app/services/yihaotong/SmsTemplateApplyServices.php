@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\services\BaseServices;
 use crmeb\services\FormBuilder;
 
 /**
- * 短信模板
+ * mẫu tin nhắn
  * Class SmsTemplateApplyServices
  * @package app\services\message\sms
  */
@@ -37,28 +37,28 @@ class SmsTemplateApplyServices extends BaseServices
     }
 
     /**
-     * 创建短信模板表单
+     * Tạo mẫu tin nhắn SMS
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function createSmsTemplateForm()
     {
         $field = [
-            $this->builder->input('title', '模板名称')->placeholder('模板名称,如：订单支付成功'),
-            $this->builder->input('content', '模板内容')->type('textarea')->placeholder('模板内容，如：您购买的商品已支付成功，支付金额{$pay_price}元，订单号{$order_id},感谢您的光临！（注：模板内容不要添加短信签名）'),
-            $this->builder->radio('type', '模板类型', 1)->options([['label' => '验证码', 'value' => 1], ['label' => '通知', 'value' => 2], ['label' => '推广', 'value' => 3]])
+            $this->builder->input('title', 'Tên mẫu')->placeholder('Tên mẫu,Ví dụ: thanh toán đơn hàng thành công'),
+            $this->builder->input('content', 'Nội dung mẫu')->type('textarea')->placeholder('Nội dung mẫu như: hàng bạn mua đã được thanh toán thành công, số tiền thanh toán{$pay_price}nhân dân tệ, số đơn hàng{$order_id},Cảm ơn bạn đã ghé thăm! (Lưu ý: Không thêm chữ ký SMS vào nội dung mẫu.）'),
+            $this->builder->radio('type', 'loại mẫu', 1)->options([['label' => 'Mã xác minh', 'value' => 1], ['label' => 'thông báo', 'value' => 2], ['label' => 'khuyến mãi', 'value' => 3]])
         ];
         return $field;
     }
 
     /**
-     * 获取短信申请模板
+     * Nhận mẫu ứng dụng SMS
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function getSmsTemplateForm()
     {
-        return create_form('申请短信模板', $this->createSmsTemplateForm(), $this->url('/notify/sms/temp'), 'POST');
+        return create_form('Đăng ký mẫu SMS', $this->createSmsTemplateForm(), $this->url('/notify/sms/temp'), 'POST');
     }
 
 }

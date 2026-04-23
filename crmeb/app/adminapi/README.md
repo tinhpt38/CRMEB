@@ -1,53 +1,53 @@
-crmeb/app/adminapi这个目录主要是后台管理系统的API接口文件。
+crmeb/app/adminapiThư mục này chủ yếu là tệp giao diện API của hệ thống quản lý phụ trợ.
 
-具体来说:
+Cụ thể:
 
-- adminapi目录下的文件都是后台管理系统的控制器(Controller)文件,这些控制器被用来处理后台系统的各种请求。
+- adminapiCác file trong thư mục là bộ điều khiển của hệ thống quản lý nền(Controller)tài liệu,Các bộ điều khiển này được sử dụng để xử lý các yêu cầu khác nhau từ hệ thống nền.
 
-- 每一个控制器文件对应后台管理系统某个功能模块,比如AuthController处理认证模块请求,StoreProduct处理商品模块请求等。
+- Mỗi file điều khiển tương ứng với một phân hệ chức năng nhất định của hệ thống quản lý backend,Ví dụ: AuthController xử lý các yêu cầu mô-đun xác thực,StoreProductXử lý các yêu cầu mô-đun sản phẩm, v.v.
 
-- 控制器内有各种方法,这些方法就相当于API接口,可以处理GET、POST请求,返回JSON数据。
+- Có nhiều phương pháp khác nhau trong bộ điều khiển,Các phương thức này tương đương với giao diện API,Có thể xử lý các yêu cầu GET và POST,Trả về dữ liệu JSON.
 
-- 浏览器或APP在调用这些API接口时,会发送请求到相应的控制器方法,例如登录接口请求到Login文件的login方法。
+- Khi trình duyệt hoặc APP gọi các giao diện API này,Sẽ gửi yêu cầu đến phương thức điều khiển tương ứng,Ví dụ: giao diện đăng nhập yêu cầu phương thức đăng nhập của file Đăng nhập.
 
-- 控制器处理完请求后,通过返回Response对象返回处理结果给浏览器或APP。
+- Sau khi bộ điều khiển đã xử lý yêu cầu,Trả về kết quả xử lý cho trình duyệt hoặc APP bằng cách trả về đối tượng Phản hồi.
 
-所以简单来说,adminapi目录负责后台管理系统的所有API接口,这些接口被APP或前端调用来完成各种管理操作,如查询数据、添加修改删除等。开发者在新增后台功能时,也需要在此目录增加对应的控制器和接口。
+Vì vậy, trong điều kiện đơn giản,adminapiThư mục chịu trách nhiệm về tất cả các giao diện API của hệ thống quản lý phụ trợ,Các giao diện này được APP hoặc front-end gọi để hoàn thành các hoạt động quản lý khác nhau.,Chẳng hạn như truy vấn dữ liệu, thêm, sửa và xóa, v.v. Khi nhà phát triển thêm các chức năng nền,Cũng cần thêm các bộ điều khiển và giao diện tương ứng vào thư mục này.
 
-它实际上负责后台系统的通信交互层,解耦了后端逻辑和前端展示,采用 RESTful规范设计。
+Nó thực sự chịu trách nhiệm về lớp tương tác giao tiếp của hệ thống phụ trợ,Tách rời logic back-end và hiển thị front-end,Được thiết kế bằng cách sử dụng thông số kỹ thuật RESTful.
 
-# adminapi 目录结构说明
+#adminapi mô tả cấu trúc thư mục
 
-## 目录结构
+## Cấu trúc thư mục
 
 ```
 .
-├── config/                  # 配置目录
-├── controller/              # 控制器目录
-├── lang/                    # 语言包目录
-├── middleware/              # 中间件目录
-├── route/                   # 路由配置目录
-├── validate/                # 验证器目录
-├── AdminApiExceptionHandle.php # 异常处理器
-├── common.php               # 公共方法
-├── event.php                # 事件配置
-└── provider.php             # 服务提供者
+├── config/                  # Thư mục cấu hình
+├── controller/              # Thư mục điều khiển
+├── lang/                    # Thư mục gói ngôn ngữ
+├── middleware/              # Thư mục phần mềm trung gian
+├── route/                   # Thư mục cấu hình định tuyến
+├── validate/                # thư mục xác thực
+├── AdminApiExceptionHandle.php # xử lý ngoại lệ
+├── common.php               # phương pháp công khai
+├── event.php                # cấu hình sự kiện
+└── provider.php             # nhà cung cấp dịch vụ
 ```
 
-## 目录说明
+## Mô tả danh mục
 
-- **config/** - 后台管理端专用配置
-- **controller/** - 后台管理控制器，处理管理端业务逻辑
-- **lang/** - 后台管理端多语言文件
-- **middleware/** - 后台管理中间件，如权限验证、日志记录等
-- **route/** - 后台管理路由配置
-- **validate/** - 后台管理数据验证器
+- **config/** - Cấu hình dành riêng cho quản lý phụ trợ
+- **controller/** - bộ điều khiển quản lý nền, xử lý logic nghiệp vụ phía quản lý
+- **lang/** - Quản lý backend file đa ngôn ngữ
+- **middleware/** - phần mềm trung gian quản lý nền, chẳng hạn như xác minh quyền, ghi nhật ký, v.v.
+- **route/** - cấu hình định tuyến quản lý nền
+- **validate/** - Trình xác thực dữ liệu quản lý phụ trợ
 
-## 功能说明
+## Mô tả chức năng
 
-adminapi模块专门用于处理后台管理系统的API接口，包括：
-- 用户权限管理
-- 商品管理
-- 订单处理
-- 数据统计
-- 系统设置等后台管理功能
+Mô-đun adminapi được sử dụng đặc biệt để xử lý giao diện API của hệ thống quản lý nền, bao gồm:
+- Quản lý quyền người dùng
+- Quản lý sản phẩm
+- Xử lý đơn hàng
+- Thống kê
+- Cài đặt hệ thống và các chức năng quản lý nền khác

@@ -12,14 +12,14 @@
                 item.label_name
               }}</el-tag>
             </div>
-            <span class="span" v-else>选择商品标签</span>
+            <span class="span" v-else>Chọn thẻ sản phẩm</span>
           </div>
           <div class="iconfont iconxiayi"></div>
         </div>
       </el-col>
     </div>
-    <!-- 商品标签 -->
-    <el-dialog :visible.sync="storeLabelShow" title="选择商品标签" width="540">
+    <!-- Thẻ sản phẩm -->
+    <el-dialog :visible.sync="storeLabelShow" title="Chọn thẻ sản phẩm" width="540">
       <storeLabelList
         v-if="storeLabelShow"
         ref="storeLabel"
@@ -78,9 +78,9 @@ export default {
     openStoreLabel(row) {
       this.storeLabelShow = true;
       this.$nextTick(() => {
-        // 深拷贝配置数据列表，避免直接修改原数据
+        // Sao chép sâu danh sách dữ liệu cấu hình để tránh sửa đổi trực tiếp dữ liệu gốc
         const listData = this.configData.list?.length ? JSON.parse(JSON.stringify(this.configData.list)) : undefined;
-        // 调用storeLabel方法，传入处理后的数据
+        // Gọi phương thức storeLabel và truyền dữ liệu đã xử lý vào
         this.$refs.storeLabel.storeLabel(listData);
       });
     },
@@ -104,7 +104,7 @@ export default {
       this.configData.activeValue = storeActiveIds;
       this.$emit('getConfig', { name: 'goodsLabel' });
     },
-    // 标签弹窗关闭
+    // Cửa sổ bật lên nhãn đóng lại
     storeLabelClose() {
       this.storeLabelShow = false;
     },

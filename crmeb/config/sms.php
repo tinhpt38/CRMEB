@@ -1,38 +1,38 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 return [
-    //默认扩展
+    //Tiện ích mở rộng mặc định
     'default' => 'yihaotong',
-    //单个手机每日发送上限
+    //Giới hạn gửi hàng ngày cho một điện thoại di động
     'maxPhoneCount' => 20,
-    //验证码每分钟发送上线
+    //Mã xác minh được gửi trực tuyến mỗi phút
     'maxMinuteCount' => 5,
-    //单个IP每日发送上限
+    //Giới hạn gửi hàng ngày cho một IP
     'maxIpCount' => 50,
-    //驱动模式
+    //Chế độ lái xe
     'stores' => [
-        //一号通
+        //Thẻ một số
         'yihaotong' => [
             'sms_account' => '',
             'sms_token' => ''
         ],
-        //阿里云
+        //Đám mây của Alibaba
         'aliyun' => [
             'aliyun_SignName' => '',
             'aliyun_AccessKeyId' => '',
             'aliyun_AccessKeySecret' => '',
             'aliyun_RegionId' => '',
         ],
-        //腾讯云
+        //Đám mây Tencent
         'tencent' => [
             'tencent_sms_app_id' => '',
             'tencent_sms_secret_id' => '',

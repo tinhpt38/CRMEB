@@ -10,30 +10,30 @@
       >
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item label="预售活动状态：">
-              <el-select placeholder="请选择活动状态" v-model="tableFrom.time_type" clearable @change="userSearchs">
-                <el-option value="0" label="全部"></el-option>
-                <el-option value="1" label="未开始"></el-option>
-                <el-option value="2" label="正在进行"></el-option>
-                <el-option value="3" label="已结束"></el-option>
+            <el-form-item label="Trạng thái hoạt động trước khi bán：">
+              <el-select placeholder="Vui lòng chọn trạng thái hoạt động" v-model="tableFrom.time_type" clearable @change="userSearchs">
+                <el-option value="0" label="tất cả"></el-option>
+                <el-option value="1" label="Chưa bắt đầu"></el-option>
+                <el-option value="2" label="đang diễn ra"></el-option>
+                <el-option value="3" label="đã kết thúc"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="预售商品状态：">
-              <el-select placeholder="请选择商品状态" v-model="tableFrom.status" clearable @change="userSearchs">
-                <el-option value="" label="全部"></el-option>
-                <el-option value="1" label="上架"></el-option>
-                <el-option value="0" label="下架"></el-option>
+            <el-form-item label="Trạng thái sản phẩm trước khi bán：">
+              <el-select placeholder="Vui lòng chọn trạng thái sản phẩm" v-model="tableFrom.status" clearable @change="userSearchs">
+                <el-option value="" label="tất cả"></el-option>
+                <el-option value="1" label="Trên kệ"></el-option>
+                <el-option value="0" label="Đã xóa khỏi kệ"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="商品搜索：" label-for="title">
+            <el-form-item label="Tìm kiếm sản phẩm：" label-for="title">
               <el-input
                 search
                 enter-button
-                placeholder="请输入商品名称/ID"
+                placeholder="Vui lòng nhập tên sản phẩm/ID"
                 v-model="tableFrom.title"
                 @on-search="userSearchs"
               />
@@ -49,14 +49,14 @@
               v-db-click
               @click="add"
               class="mr10"
-              >添加预售商品</el-button
+              >Thêm các mặt hàng bán trước</el-button
             >
             <!-- <el-button
               v-auth="['export-storeBargain']"
               class="export"
               icon="ios-share-outline"
               v-db-click @click="exports"
-              >导出</el-button
+              >Xuất khẩu</el-button
             > -->
           </el-col>
         </el-row>
@@ -65,53 +65,53 @@
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="预售图片" min-width="90">
+        <el-table-column label="Hình ảnh trước khi bán" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="预售名称" min-width="130">
+        <el-table-column label="Tên bán trước" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="预售价格" min-width="130">
+        <el-table-column label="giá bán trước" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="已售商品数" min-width="130">
+        <el-table-column label="Số lượng mặt hàng đã bán" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sales }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="限量" min-width="130">
+        <el-table-column label="phiên bản giới hạn" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.quota_show }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="限量剩余" min-width="130">
+        <el-table-column label="Số lượng còn lại có hạn" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.quota }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="活动时间" min-width="130">
+        <el-table-column label="Thời gian hoạt động" min-width="130">
           <template slot-scope="scope">
-            <div>起: {{ scope.row.start_time | formatDate }}</div>
-            <div>止: {{ scope.row.stop_time | formatDate }}</div>
+            <div>tăng lên: {{ scope.row.start_time | formatDate }}</div>
+            <div>kết thúc: {{ scope.row.stop_time | formatDate }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="预售状态" min-width="130">
+        <el-table-column label="Trạng thái trước khi bán" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -121,18 +121,18 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="上架"
-              inactive-text="下架"
+              active-text="Trên kệ"
+              inactive-text="Đã xóa khỏi kệ"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column label="vận hành" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider v-if="scope.row.stop_status === 0" direction="vertical" />
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除预售商品', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa các mặt hàng bán trước', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -202,11 +202,11 @@ export default {
     this.getList();
   },
   methods: {
-    // 添加
+    // Thêm vào
     add() {
       this.$router.push({ path: this.$routeProStr + '/marketing/presell/create/0' });
     },
-    // 导出
+    // Xuất khẩu
     exports() {
       let formValidate = this.tableFrom;
       let data = {
@@ -221,19 +221,19 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$router.push({
         path: this.$routeProStr + '/marketing/presell/create/' + row.id + '/0',
       });
     },
-    // 一键复制
+    // Sao chép bằng một cú nhấp chuột
     copy(row) {
       this.$router.push({
         path: this.$routeProStr + '/marketing/presell/create/' + row.id + '/1',
       });
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -251,7 +251,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       this.tableFrom.status = this.tableFrom.status || '';
@@ -267,12 +267,12 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.tableFrom.page = 1;
       this.getList();
     },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       let data = {
         id: row.id,

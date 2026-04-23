@@ -1,7 +1,7 @@
 <template>
   <div class="layout-breadcrumb-seting">
     <el-drawer
-      title="主题编辑"
+      title="Trình chỉnh sửa chủ đề"
       :visible.sync="getThemeConfig.isDrawer"
       direction="rtl"
       destroy-on-close
@@ -9,10 +9,10 @@
       @close="onDrawerClose"
     >
       <el-scrollbar class="layout-breadcrumb-seting-bar el-main">
-        <!-- 布局切换 -->
+        <!-- Chuyển đổi bố cục -->
         <el-divider :content-position="contentPosotion">{{ $t('message.layout.sixTitle') }}</el-divider>
         <div class="layout-drawer-content-flex">
-          <!-- defaults 布局 -->
+          <!-- defaults cách trình bày -->
           <div
             class="layout-drawer-content-item"
             :class="{ 'drawer-layout-active': getThemeConfig.layout === 'defaults' }"
@@ -27,7 +27,7 @@
             </section>
           </div>
 
-          <!-- columns 布局 -->
+          <!-- columns cách trình bày -->
           <div
             class="layout-drawer-content-item"
             :class="{ 'drawer-layout-active': getThemeConfig.layout === 'columns' }"
@@ -42,7 +42,7 @@
               </section>
             </section>
           </div>
-          <!-- classic 布局 -->
+          <!-- classic cách trình bày -->
           <div
             class="layout-drawer-content-item"
             :class="{ 'drawer-layout-active': getThemeConfig.layout === 'classic' }"
@@ -59,7 +59,7 @@
             </section>
           </div>
 
-          <!-- transverse 布局 -->
+          <!-- transverse cách trình bày -->
           <div
             class="layout-drawer-content-item"
             :class="{ 'drawer-layout-active': getThemeConfig.layout === 'transverse' }"
@@ -75,27 +75,27 @@
             </section>
           </div>
         </div>
-        <!-- 界面设置 -->
+        <!-- Cài đặt giao diện -->
         <el-divider :content-position="contentPosotion">{{ $t('message.layout.threeTitle') }}</el-divider>
         <div class="layout-breadcrumb-seting-bar-flex mb10">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.themeStyle') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-select
               v-model="getThemeConfig.themeStyle"
-              placeholder="请选择"
+              placeholder="Vui lòng chọn"
               size="mini"
               style="width: 90px"
               @change="setLocalTheme"
             >
-              <el-option label="蓝黑" value="theme-1"></el-option>
-              <el-option label="蓝白" value="theme-2"></el-option>
-              <el-option label="绿黑" value="theme-3"></el-option>
-              <el-option label="绿白" value="theme-4"></el-option>
-              <el-option label="紫黑" value="theme-5"></el-option>
-              <el-option label="紫白" value="theme-6"></el-option>
-              <el-option label="红黑" value="theme-7"></el-option>
-              <el-option label="红白" value="theme-8"></el-option>
-              <el-option label="渐变" value="theme-9" v-if="getThemeConfig.layout === 'columns'"></el-option>
+              <el-option label="xanh đen" value="theme-1"></el-option>
+              <el-option label="xanh và trắng" value="theme-2"></el-option>
+              <el-option label="xanh đen" value="theme-3"></el-option>
+              <el-option label="Xanh và trắng" value="theme-4"></el-option>
+              <el-option label="tím đen" value="theme-5"></el-option>
+              <el-option label="Tím và trắng" value="theme-6"></el-option>
+              <el-option label="đỏ đen" value="theme-7"></el-option>
+              <el-option label="đỏ và trắng" value="theme-8"></el-option>
+              <el-option label="Độ dốc" value="theme-9" v-if="getThemeConfig.layout === 'columns'"></el-option>
             </el-select>
           </div>
         </div>
@@ -122,7 +122,7 @@
           </div>
         </div>
 
-        <!-- 界面显示 -->
+        <!-- Giao diện hiển thị -->
         <el-divider :content-position="contentPosotion">{{ $t('message.layout.fourTitle') }}</el-divider>
         <div class="layout-breadcrumb-seting-bar-flex">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsShowLogo') }}</div>
@@ -176,14 +176,14 @@
             <el-switch v-model="getThemeConfig.isInvert" :width="35" @change="onAddFilterChange('invert')"> </el-switch>
           </div>
         </div>
-        <!-- 暗黑模式 -->
+        <!-- chế độ tối -->
         <!-- <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsDark') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-switch v-model="getThemeConfig.isIsDark" :width="35" @change="onAddDarkChange"> </el-switch>
           </div>
         </div> -->
-        <!-- 其它设置 -->
+        <!-- Các cài đặt khác -->
         <el-divider :content-position="contentPosotion">{{ $t('message.layout.fiveTitle') }}</el-divider>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveTagsStyle') }}</div>
@@ -194,9 +194,9 @@
               size="mini"
               @change="setLocalThemeConfig"
             >
-              <el-radio-button label="tags-style-one">卡片</el-radio-button>
-              <el-radio-button label="tags-style-four">灵动</el-radio-button>
-              <el-radio-button label="tags-style-five">圆滑</el-radio-button>
+              <el-radio-button label="tags-style-one">thẻ</el-radio-button>
+              <el-radio-button label="tags-style-four">Thông minh</el-radio-button>
+              <el-radio-button label="tags-style-five">trơn</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -204,10 +204,10 @@
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveAnimation') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-radio-group v-model="getThemeConfig.animation" size="mini" @input="setLocalThemeConfig">
-              <el-radio-button label="slide-left">左滑</el-radio-button>
-              <el-radio-button label="opacitys">透明</el-radio-button>
-              <el-radio-button label="slide-right">右滑</el-radio-button>
-              <el-radio-button label="no-transition">无</el-radio-button>
+              <el-radio-button label="slide-left">Vuốt sang trái</el-radio-button>
+              <el-radio-button label="opacitys">trong suốt</el-radio-button>
+              <el-radio-button label="slide-right">Vuốt sang phải</el-radio-button>
+              <el-radio-button label="no-transition">không có</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -218,8 +218,8 @@
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveColumnsAsideStyle') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-radio-group v-model="getThemeConfig.columnsAsideStyle" size="mini" @input="setLocalThemeConfig">
-              <el-radio-button label="columns-round">圆角</el-radio-button>
-              <el-radio-button label="columns-card">卡片</el-radio-button>
+              <el-radio-button label="columns-round">góc tròn</el-radio-button>
+              <el-radio-button label="columns-card">thẻ</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -230,8 +230,8 @@
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveColumnsAsideLayout') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-radio-group v-model="getThemeConfig.columnsAsideLayout" size="mini" @input="setLocalThemeConfig">
-              <el-radio-button label="columns-horizontal">水平</el-radio-button>
-              <el-radio-button label="columns-vertical">垂直</el-radio-button>
+              <el-radio-button label="columns-horizontal">mức độ</el-radio-button>
+              <el-radio-button label="columns-vertical">thẳng đứng</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -249,7 +249,7 @@ import { themeList } from './theme';
 export default {
   name: 'layoutBreadcrumbSeting',
   computed: {
-    // 获取布局配置信息
+    // Nhận thông tin cấu hình bố cục
     getThemeConfig() {
       return this.$store.state.themeConfig.themeConfig;
     },
@@ -260,9 +260,9 @@ export default {
     };
   },
   created() {
-    // 判断当前布局是否不相同，不相同则初始化当前布局的样式，防止监听窗口大小改变时，布局配置logo、菜单背景等部分布局失效问题
+    // Xác định xem bố cục hiện tại có khác không. Nếu không, hãy khởi tạo kiểu bố cục hiện tại để ngăn chặn logo cấu hình bố cục, nền menu và các lỗi bố cục một phần khác khi kích thước của cửa sổ giám sát thay đổi.
     Local.set('frequency', 1);
-    // 监听窗口大小改变，非默认布局，设置成默认布局（适配移动端）
+    // Giám sát các thay đổi kích thước cửa sổ, bố cục không mặc định, đặt thành bố cục mặc định (thích ứng với thiết bị đầu cuối di động)）
     this.bus.$on('layoutMobileResize', (res) => {
       if (this.$store.state.themeConfig.themeConfig.layout === res.layout) return false;
       this.$store.state.themeConfig.themeConfig.layout = res.layout;
@@ -275,12 +275,12 @@ export default {
     this.initLayoutConfig();
   },
   methods: {
-    // 全局主题
+    // chủ đề toàn cầu
     onColorPickerChange() {
       // if (!this.getThemeConfig.primary) return;
-      // 颜色加深
+      // Màu sắc đậm hơn
       // document.documentElement.style.setProperty('--prev-color-primary', this.getThemeConfig.primary);
-      // 颜色变浅
+      // làm sáng màu
       for (let i = 1; i <= 9; i++) {
         document.documentElement.style.setProperty(
           `--prev-color-primary-light-${i}`,
@@ -293,11 +293,11 @@ export default {
       let themeSelect = themeList[val];
       themeSelect['--prev-border-color-lighter'] = '#ebeef5';
       /**
-       * 根据主题配置设置样式
-       * @param {string} val - 主题值
+       * Đặt kiểu dựa trên cấu hình chủ đề
+       * @param {string} val - giá trị chủ đề
        */
       if (['classic'].includes(this.getThemeConfig.layout)) {
-        // 第三种布局
+        // Bố cục thứ ba
         themeSelect['--prev-bg-topBar'] = '#282c34';
         themeSelect['--prev-bg-topBarColor'] = '#fff';
         // themeSelect['--prev-MenuActiveColor'] = '#fff';
@@ -332,7 +332,7 @@ export default {
           // themeSelect['--prev-bg-menuBarColor'] = '#515a6e';
         }
       } else if (['transverse'].includes(this.getThemeConfig.layout)) {
-        // 第四种布局
+        // Bố cục thứ tư
         themeSelect['--prev-bg-topBar'] = '#282c34';
         themeSelect['--prev-bg-topBarColor'] = '#fff';
         themeSelect['--prev-bg-menuBarColor'] = '#fff';
@@ -362,7 +362,7 @@ export default {
           themeSelect['--prev-MenuActiveColor'] = '#515a6e';
         }
       } else if (this.getThemeConfig.layout === 'columns') {
-        //第二种布局
+        //Bố cục thứ hai
         themeSelect['--prev-bg-topBar'] = '#fff';
         themeSelect['--prev-bg-topBarColor'] = '#515a6e';
         themeSelect['--prev-bg-menuBar'] = '#fff';
@@ -386,7 +386,7 @@ export default {
           themeSelect['--prev-MenuActiveColor'] = '#f34d37';
         }
       } else {
-        //默认布局
+        //bố cục mặc định
         if (val == 'theme-1') {
           themeSelect['--prev-bg-menuBar'] = '#282c34';
           themeSelect['--prev-color-primary'] = '#0256FF';
@@ -423,77 +423,77 @@ export default {
       }
 
       if (['theme-1', 'theme-2'].includes(val)) {
-        this.$store.state.themeConfig.themeConfig.primary = '#0256FF'; //蓝黑蓝白
+        this.$store.state.themeConfig.themeConfig.primary = '#0256FF'; //xanh đen xanh trắng
       } else if (['theme-3', 'theme-4'].includes(val)) {
-        this.$store.state.themeConfig.themeConfig.primary = '#41a584'; //绿黑绿白
+        this.$store.state.themeConfig.themeConfig.primary = '#41a584'; //xanh đen xanh trắng
       } else if (['theme-5', 'theme-6'].includes(val)) {
-        this.$store.state.themeConfig.themeConfig.primary = '#6954f0'; //紫黑紫白
+        this.$store.state.themeConfig.themeConfig.primary = '#6954f0'; //tím đen tím trắng
       } else if (['theme-7', 'theme-8'].includes(val)) {
-        this.$store.state.themeConfig.themeConfig.primary = '#f34d37'; //红黑红白
+        this.$store.state.themeConfig.themeConfig.primary = '#f34d37'; //đỏ đen đỏ trắng
       } else {
-        this.$store.state.themeConfig.themeConfig.primary = '#0256FF'; //默认蓝
+        this.$store.state.themeConfig.themeConfig.primary = '#0256FF'; //Màu xanh mặc định
       }
       /**
-       * 遍历主题选择对象，将其属性值设置为文档根元素的样式属性
+       * Duyệt qua đối tượng chọn chủ đề và đặt giá trị thuộc tính của nó thành thuộc tính style của phần tử gốc tài liệu
        */
       for (let key in themeSelect) {
-        // 将主题选择对象的属性作为样式属性名，属性值作为样式属性值，设置到文档根元素上
+        // Sử dụng các thuộc tính của đối tượng chọn chủ đề làm tên thuộc tính kiểu và giá trị thuộc tính làm giá trị thuộc tính kiểu và đặt chúng thành phần tử gốc của tài liệu.
         document.documentElement.style.setProperty(key, themeSelect[key]);
       }
-      // 在下一次 DOM 更新循环结束后执行回调函数
+      // Thực thi chức năng gọi lại sau chu kỳ cập nhật DOM tiếp theo
       this.$nextTick((e) => {
-        // 调用 onColorPickerChange 方法
+        // Gọi phương thức onColorPickerChange
         this.onColorPickerChange();
       });
     },
     onMenuBgColorChange() {
       if (!this.getThemeConfig.menuBgColor) return;
-      // 颜色加深
+      // Màu sắc đậm hơn
       document.documentElement.style.setProperty('--prev-bg-menuBar', this.getThemeConfig.menuBgColor);
       this.setLocalThemeConfig();
     },
-    // 深色模式
+    // chế độ tối
     onAddDarkChange() {
       const body = document.documentElement;
       if (this.getThemeConfig.isIsDark) body.setAttribute('data-theme', 'dark');
       else body.setAttribute('data-theme', '');
       this.setLocalThemeConfig();
     },
-    // 初始化：刷新页面时，设置了值，直接取缓存中的值进行初始化
+    // Khởi tạo: Khi làm mới trang, giá trị được đặt và giá trị trong bộ đệm được lấy trực tiếp để khởi tạo.
     initLayoutConfig() {
       window.addEventListener('load', () => {
-        // 默认样式
+        // Kiểu mặc định
         this.onColorPickerChange();
-        // 灰色模式
+        // chế độ màu xám
         if (this.$store.state.themeConfig.themeConfig.isGrayscale) this.onAddFilterChange('grayscale');
-        // 色弱模式
+        // Chế độ yếu màu
         if (this.$store.state.themeConfig.themeConfig.isInvert) this.onAddFilterChange('invert');
-        // 深色模式
+        // chế độ tối
         if (this.$store.state.themeConfig.themeConfig.isIsDark) this.onAddDarkChange();
-        // 语言国际化
+        // quốc tế hóa ngôn ngữ
         if (Local.get('themeConfigPrev')) this.$i18n.locale = Local.get('themeConfigPrev').globalI18n;
       });
     },
-    // 存储布局配置
+    // Cấu hình bố trí cửa hàng
     setLocalThemeConfig() {
       Local.remove('themeConfigPrev');
       Local.set('themeConfigPrev', this.$store.state.themeConfig.themeConfig);
       this.setLocalThemeConfigStyle();
     },
-    // 存储布局配置全局主题样式（html根标签）
+    // Cấu hình bố cục cửa hàng kiểu chủ đề toàn cầu (thẻ gốc html）
     setLocalThemeConfigStyle() {
       Local.set('themeConfigStyle', document.documentElement.style.cssText);
     },
-    // 布局配置弹窗打开
+    // Cửa sổ bật lên cấu hình bố cục sẽ mở ra.
     openDrawer() {
       this.$store.state.themeConfig.themeConfig.isDrawer = true;
     },
-    // 关闭弹窗时，初始化变量
+    // Khi đóng cửa sổ bật lên, hãy khởi tạo các biến
     onDrawerClose() {
       this.$store.state.themeConfig.themeConfig.isDrawer = false;
       this.setLocalThemeConfig();
     },
-    // 灰色模式/色弱模式
+    // Chế độ màu xám/chế độ màu yếu
     onAddFilterChange(attr) {
       if (attr === 'grayscale') {
         if (this.$store.state.themeConfig.themeConfig.isGrayscale)
@@ -510,7 +510,7 @@ export default {
       appEle.setAttribute('style', `filter: ${cssAttr};`);
       this.setLocalThemeConfig();
     },
-    // 布局切换
+    // Chuyển đổi bố cục
     onSetLayout(layout) {
       Local.set('oldLayout', layout);
       if (this.$store.state.themeConfig.themeConfig.layout === layout) return false;
@@ -524,27 +524,27 @@ export default {
       this.$store.state.themeConfig.themeConfig.columnsAsideStyle = 'columns-card';
       this.setLocalTheme(this.$store.state.themeConfig.themeConfig.themeStyle);
     },
-    // 菜单 / 顶栏背景等
+    // Nền menu/thanh trên cùng, v.v.
     onBgColorPickerChange(bg, rgb) {
       document.documentElement.style.setProperty(`--prev-bg-${bg}`, rgb);
       this.setLocalThemeConfigStyle();
     },
-    // 一键复制配置
+    // Cấu hình sao chép bằng một cú nhấp chuột
     onCopyConfigClick() {
       this.$store.state.themeConfig.themeConfig.isDrawer = false;
       let clipboardJS = new ClipboardJS('.copy-config-btn', {
         text: () => JSON.stringify(this.$store.state.themeConfig.themeConfig),
       });
       clipboardJS.on('success', () => {
-        this.$message.success('配置复制成功');
+        this.$message.success('Sao chép cấu hình thành công');
         this.isDrawer = false;
         clipboardJS.destroy();
       });
       clipboardJS.on('error', () => {
-        this.$message.error('配置复制失败');
+        this.$message.error('Sao chép cấu hình không thành công');
       });
     },
-    // 一键恢复默认
+    // Khôi phục mặc định bằng một cú nhấp chuột
     onResetConfigClick() {
       Local.clear();
       window.location.reload();

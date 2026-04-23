@@ -1,23 +1,23 @@
-crmeb/backup目录在CRMEB项目中的主要作用是用于保存项目的数据备份文件。
+crmeb/backupVai trò chính của thư mục trong dự án CRMEB là lưu các tệp sao lưu dữ liệu của dự án.
 
-该目录用于存储系统运行过程中生成的各类备份数据，保障数据安全和灾难恢复能力。
+Thư mục này được sử dụng để lưu trữ các dữ liệu sao lưu khác nhau được tạo trong quá trình vận hành hệ thống nhằm đảm bảo an ninh dữ liệu và khả năng khắc phục thảm họa.
 
-具体来说:
+Cụ thể:
 
-- 数据库备份文件，用于数据恢复和迁移
-- 系统配置文件备份，防止配置丢失
-- 重要业务数据的历史归档
-- 升级前的数据快照，便于回滚操作
-- 定时任务自动生成的备份文件
+- Tệp sao lưu cơ sở dữ liệu để phục hồi và di chuyển dữ liệu
+- Sao lưu tập tin cấu hình hệ thống để tránh mất cấu hình
+- Lưu trữ lịch sử dữ liệu kinh doanh quan trọng
+- Ảnh chụp dữ liệu trước khi nâng cấp để tạo điều kiện thuận lợi cho hoạt động khôi phục
+- Các tập tin sao lưu được tạo tự động bởi các tác vụ đã lên lịch
 
-使用这个目录有以下优点:
+Sử dụng thư mục này có những ưu điểm sau:
 
-- 实现数据的定期备份与版本管理
-- 与运行数据隔离，确保备份数据安全
-- 便于快速恢复系统到指定时间点
-- 支持手动和自动化的备份策略
-- 方便进行数据迁移和系统升级
+- Thực hiện sao lưu thường xuyên và quản lý phiên bản dữ liệu
+- Cách ly dữ liệu đang chạy để đảm bảo an toàn dữ liệu backup
+- Tạo điều kiện phục hồi nhanh chóng hệ thống tại một thời điểm nhất định
+- Hỗ trợ các chiến lược sao lưu thủ công và tự động
+- Tạo điều kiện di chuyển dữ liệu và nâng cấp hệ thống
 
-总体来说，它承担了项目数据安全保护和灾难恢复的核心职责。
+Nhìn chung, nó đảm nhận các trách nhiệm cốt lõi là bảo vệ an ninh dữ liệu của dự án và khắc phục thảm họa.
 
-通过合理利用这个目录，可以有效降低数据丢失风险，提升系统的可靠性和可维护性。
+Bằng cách sử dụng hợp lý thư mục này, nguy cơ mất dữ liệu có thể được giảm thiểu một cách hiệu quả và độ tin cậy cũng như khả năng bảo trì của hệ thống có thể được cải thiện.。

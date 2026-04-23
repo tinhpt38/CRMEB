@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,10 +16,10 @@ use app\dao\other\CacheDao;
 use app\services\BaseServices;
 
 /**
- * 数据库表缓存
+ * Bộ đệm bảng cơ sở dữ liệu
  * Class CacheServices
  * @package app\services\other
- * @method delectDeOverdueDbCache() 删除过期缓存
+ * @method delectDeOverdueDbCache() Xóa bộ nhớ đệm đã hết hạn
  */
 class CacheServices extends BaseServices
 {
@@ -30,9 +30,9 @@ class CacheServices extends BaseServices
     }
 
     /**
-     * 获取数据缓存
+     * Nhận bộ đệm dữ liệu
      * @param string $key
-     * @param $default 默认值不存在则写入
+     * @param $default Nếu giá trị mặc định không tồn tại, hãy viết nó
      * @param int $expire
      * @return mixed|null
      */
@@ -44,7 +44,7 @@ class CacheServices extends BaseServices
             return json_decode($result, true);
         } else {
             if ($default instanceof \Closure) {
-                // 获取缓存数据
+                // Nhận dữ liệu được lưu trong bộ nhớ đệm
                 $value = $default();
                 if ($value) {
                     $this->setDbCache($key, $value, $expire);
@@ -59,7 +59,7 @@ class CacheServices extends BaseServices
     }
 
     /**
-     * 设置数据缓存存在则更新，没有则写入
+     * Đặt bộ đệm dữ liệu để cập nhật nếu nó tồn tại và ghi nếu không.
      * @param string $key
      * @param string | array $result
      * @param int $expire
@@ -87,7 +87,7 @@ class CacheServices extends BaseServices
 
 
     /**
-     * 删除某个缓存
+     * Xóa bộ đệm
      * @param string $key
      * @return false|mixed
      */
@@ -100,7 +100,7 @@ class CacheServices extends BaseServices
     }
 
     /**
-     * 检查缓存是否存在
+     * Kiểm tra xem bộ đệm có tồn tại không
      * @param string $key
      * @param $result
      * @return bool
@@ -108,7 +108,7 @@ class CacheServices extends BaseServices
      */
     public function checkDbCache(string $key = '', $result = ''): bool
     {
-        // 检查缓存是否存在，如果$value存在则检查缓存值是否一致
+        // Kiểm tra xem bộ đệm có tồn tại không, nếu$valueNếu nó tồn tại, hãy kiểm tra xem giá trị được lưu trong bộ nhớ cache có nhất quán hay không.
         if ($key) {
             if ($result) {
                 return $this->dao->count(['key' => $key, 'result' => json_encode($result)]) > 0;

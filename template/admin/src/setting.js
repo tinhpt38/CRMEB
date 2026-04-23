@@ -1,14 +1,14 @@
-// 请求接口地址 如果没有配置自动获取当前网址路径
+// Yêu cầu địa chỉ giao diện Nếu không được định cấu hình, tự động lấy đường dẫn URL hiện tại
 const VUE_APP_API_URL = process.env.VUE_APP_API_URL || `${location.origin}/adminapi`;
 
 const Setting = {
-  // 路由前缀
+  // tiền tố định tuyến
   routePre: '/admin',
-  // 接口请求地址
+  // Địa chỉ yêu cầu giao diện
   apiBaseURL: VUE_APP_API_URL,
-  // 路由模式，可选值为 history 或 hash
+  // Chế độ định tuyến, giá trị tùy chọn là lịch sử hoặc hash
   routerMode: 'history',
-  // 页面切换时，是否显示模拟的进度条
+  // Có hiển thị thanh tiến trình mô phỏng khi chuyển trang hay không
   showProgressBar: true,
 };
 

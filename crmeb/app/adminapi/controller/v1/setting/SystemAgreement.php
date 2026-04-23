@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use think\facade\App;
 class SystemAgreement extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemCity constructor.
      * @param App $app
      * @param AgreementServices $services
@@ -29,7 +29,7 @@ class SystemAgreement extends AuthController
     }
 
     /**
-     * 获取协议内容
+     * Nhận nội dung thỏa thuận
      * @param $type
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -38,13 +38,13 @@ class SystemAgreement extends AuthController
      */
     public function getAgreement($type)
     {
-        if (!$type) return app('json')->fail('协议类型不存在');
+        if (!$type) return app('json')->fail('Loại giao thức không tồn tại');
         $info = $this->services->getAgreementBytype($type);
         return app('json')->success($info);
     }
 
     /**
-     * 保存协议内容
+     * Lưu nội dung thỏa thuận
      * @return mixed
      */
     public function saveAgreement()
@@ -57,6 +57,6 @@ class SystemAgreement extends AuthController
         ]);
         $data['status'] = 1;
         $this->services->saveAgreement($data, $data['id']);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 }

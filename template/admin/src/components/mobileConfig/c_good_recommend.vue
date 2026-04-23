@@ -25,7 +25,7 @@ import rightBtn from '@/components/rightBtn/index.vue';
 export default {
   name: 'c_good_recommend',
   componentsName: 'home_good_recommend',
-  cname: '优品推荐',
+  cname: 'Sản phẩm được đề xuất',
   props: {
     activeIndex: {
       type: null,
@@ -121,7 +121,7 @@ export default {
       if (!data) return data;
       if (!data.paddingConfig) {
         this.$set(data, 'paddingConfig', {
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -137,7 +137,7 @@ export default {
       }
       if (!data.marginConfig) {
         this.$set(data, 'marginConfig', {
-          title: '外边距',
+          title: 'lề',
           isAll: false,
           val: 0,
           min: 0,
@@ -149,17 +149,17 @@ export default {
       if (!data.c_common_style) {
         this.$set(data, 'c_common_style', {
           color: {
-            title: '背景颜色',
+            title: 'màu nền',
             val: '',
             name: 'bgColor',
           },
           color2: {
-            title: '线条颜色',
+            title: 'màu đường',
             val: '',
             name: 'lineColor',
           },
           lr: {
-            title: '左右边距',
+            title: 'lề trái và lề phải',
             val: 0,
             min: 0,
             max: 100,

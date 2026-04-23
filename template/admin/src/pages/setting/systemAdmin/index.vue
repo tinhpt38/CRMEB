@@ -10,65 +10,65 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="状态：" label-for="status1">
-            <el-select v-model="status" placeholder="请选择" @change="userSearchs" clearable class="form_content_width">
-              <el-option value="all" label="全部"></el-option>
-              <el-option value="1" label="开启"></el-option>
-              <el-option value="0" label="关闭"></el-option>
+          <el-form-item label="tình trạng：" label-for="status1">
+            <el-select v-model="status" placeholder="Vui lòng chọn" @change="userSearchs" clearable class="form_content_width">
+              <el-option value="all" label="tất cả"></el-option>
+              <el-option value="1" label="bật lên"></el-option>
+              <el-option value="0" label="đóng cửa"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：" label-for="status2">
+          <el-form-item label="tìm kiếm：" label-for="status2">
             <el-input
               clearable
-              placeholder="请输入姓名或者账号"
+              placeholder="Vui lòng nhập tên hoặc số tài khoản của bạn"
               v-model="formValidate.name"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">添加管理员</el-button>
+      <el-button v-auth="['setting-system_admin-add']" type="primary" v-db-click @click="add">Thêm quản trị viên</el-button>
       <el-table
         :data="list"
         class="mt14"
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
         v-loading="loading"
         highlight-current-row
       >
-        <el-table-column label="姓名" width="120">
+        <el-table-column label="Tên" width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.real_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="账号" min-width="130">
+        <el-table-column label="tài khoản" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.account }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="身份" min-width="130">
+        <el-table-column label="danh tính" min-width="130">
           <template slot-scope="scope">
             <div v-if="scope.row.roles.length !== 0">
               <el-tag v-for="(item, index) in scope.row.roles.split(',')" :key="index">{{ item }}</el-tag>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="最后一次登录时间" min-width="130">
+        <el-table-column label="Lần đăng nhập cuối cùng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row._last_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最后一次登录ip" min-width="130">
+        <el-table-column label="lần đăng nhập cuối cùngip" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.last_ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="开启" min-width="70">
+        <el-table-column label="bật lên" min-width="70">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -78,17 +78,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              active-text="bật lên"
+              inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column label="vận hành" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除管理员', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa quản trị viên', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -102,7 +102,7 @@
         />
       </div>
     </el-card>
-    <!-- 添加 编辑 -->
+    <!-- Thêm Chỉnh sửa -->
     <admin-from :FromData="FromData" ref="adminfrom" @submitFail="submitFail"></admin-from>
   </div>
 </template>
@@ -132,8 +132,8 @@ export default {
         roles: '',
         status: '',
         name: '',
-        page: 1, // 当前页
-        limit: 20, // 每页显示条数
+        page: 1, // Trang hiện tại
+        limit: 20, // Số mục được hiển thị trên mỗi trang
       },
       status: '',
       list: [],
@@ -155,7 +155,7 @@ export default {
     this.getList();
   },
   methods: {
-    // 修改是否开启
+    // Sửa đổi xem có bật hay không
     onchangeIsShow(row) {
       let data = {
         id: row.id,
@@ -169,11 +169,11 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 请求列表
+    // Danh sách yêu cầu
     submitFail() {
       this.getList();
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       this.formValidate.roles = this.formValidate.roles || '';
@@ -188,7 +188,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 添加表单
+    // Thêm biểu mẫu
     add() {
       adminFromApi()
         .then(async (res) => {
@@ -199,7 +199,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 编辑
+    // biên tập
     edit(row) {
       adminEditFromApi(row.id)
         .then(async (res) => {
@@ -213,7 +213,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -231,7 +231,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.formValidate.status = this.status === 'all' ? '' : this.status;
       this.formValidate.page = 1;

@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="modals"
-      :title="listTitle === 'man' ? '统计推广人列表' : '推广订单'"
+      :title="listTitle === 'man' ? 'Thống kê danh sách các nhà quảng bá' : 'Đơn hàng khuyến mại'"
       :close-on-click-modal="false"
       width="1000px"
       @closed="onCancel"
@@ -16,7 +16,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="时间选择：">
+          <el-form-item label="Lựa chọn thời gian：">
             <el-date-picker
               clearable
               :editable="false"
@@ -24,12 +24,12 @@
               v-model="timeVal"
               value-format="yyyy/MM/dd"
               type="daterange"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              start-placeholder="ngày bắt đầu"
+              end-placeholder="ngày kết thúc"
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="用户类型：">
+          <el-form-item label="Loại người dùng：">
             <el-select v-model="formValidate.type" clearable class="form_content_width">
               <el-option
                 v-for="(item, i) in listTitle === 'man' ? fromList.fromTxt2 : fromList.fromTxt3"
@@ -39,24 +39,24 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：" v-if="listTitle === 'man'">
+          <el-form-item label="tìm kiếm：" v-if="listTitle === 'man'">
             <el-input
               clearable
-              placeholder="请输入请姓名、电话、UID"
+              placeholder="Vui lòng nhập tên và số điện thoại của bạn、UID"
               v-model="formValidate.nickname"
               class="form_content_width"
             ></el-input>
           </el-form-item>
-          <el-form-item label="订单号：" v-if="listTitle === 'order'">
+          <el-form-item label="Số đơn hàng：" v-if="listTitle === 'order'">
             <el-input
               clearable
-              placeholder="请输入请订单号"
+              placeholder="Vui lòng nhập mã đơn hàng"
               v-model="formValidate.order_id"
               class="form_content_width"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -64,7 +64,7 @@
         ref="selection"
         :data="tabList"
         v-loading="loading"
-        empty-text="暂无数据"
+        empty-text="Chưa có dữ liệu"
         highlight-current-row
         max-height="400"
       >
@@ -74,71 +74,71 @@
               <span>{{ scope.row.uid }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="头像" min-width="90">
+          <el-table-column label="hình đại diện" min-width="90">
             <template slot-scope="scope">
               <div class="tabBox_img" v-viewer>
                 <img v-lazy="scope.row.avatar ? scope.row.avatar : require('../../../assets/images/moren.jpg')" />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="用户信息" min-width="130">
+          <el-table-column label="Thông tin người dùng" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.nickname }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="是否推广员" min-width="130">
+          <el-table-column label="Nhà quảng bá hay không?" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.promoter_name }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="推广人数" min-width="130">
+          <el-table-column label="Số khuyến mãi" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.spread_count }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="订单数" min-width="130">
+          <el-table-column label="Số lượng đơn đặt hàng" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.order_count }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="绑定时间" min-width="130">
+          <el-table-column label="thời gian ràng buộc" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.spread_time | formatDate }}</span>
             </template>
           </el-table-column>
         </template>
         <template v-else>
-          <el-table-column label="订单ID" min-width="130">
+          <el-table-column label="Đặt hàngID" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.order_id }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="用户信息" min-width="130">
+          <el-table-column label="Thông tin người dùng" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.user_info }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="时间" min-width="130">
+          <el-table-column label="thời gian" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row._add_time }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="返佣金额" min-width="130">
+          <el-table-column label="Số tiền hoàn lại" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.brokerage_price || 0 }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="事业部返佣金额" min-width="130" v-if="rowsList.division_type == 1">
+          <el-table-column label="Số tiền giảm giá của đơn vị kinh doanh" min-width="130" v-if="rowsList.division_type == 1">
             <template slot-scope="scope">
               <span>{{ scope.row.division_brokerage || 0 }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="代理商返佣金额" min-width="130" v-if="rowsList.division_type == 2">
+          <el-table-column label="Số tiền chiết khấu đại lý" min-width="130" v-if="rowsList.division_type == 2">
             <template slot-scope="scope">
               <span>{{ scope.row.agent_brokerage || 0 }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="员工返佣金额" min-width="130" v-if="rowsList.division_type == 3">
+          <el-table-column label="Số tiền giảm giá cho nhân viên" min-width="130" v-if="rowsList.division_type == 3">
             <template slot-scope="scope">
               <span>{{ scope.row.staff_brokerage || 0 }}</span>
             </template>
@@ -182,28 +182,28 @@ export default {
     return {
       modals: false,
       fromList: {
-        title: '选择时间',
+        title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: '全部', val: '' },
-          { text: '今天', val: 'today' },
-          { text: '昨天', val: 'yesterday' },
-          { text: '最近7天', val: 'lately7' },
-          { text: '最近30天', val: 'lately30' },
-          { text: '本月', val: 'month' },
-          { text: '本年', val: 'year' },
+          { text: 'tất cả', val: '' },
+          { text: 'Hôm nay', val: 'today' },
+          { text: 'Hôm qua', val: 'yesterday' },
+          { text: '7 ngày qua', val: 'lately7' },
+          { text: '30 ngày qua', val: 'lately30' },
+          { text: 'tháng này', val: 'month' },
+          { text: 'năm nay', val: 'year' },
         ],
         fromTxt2: [
-          { text: '全部', val: '' },
-          { text: '一级推广人', val: 1 },
-          { text: '二级推广人', val: 2 },
+          { text: 'tất cả', val: '' },
+          { text: 'Người quảng bá cấp độ đầu tiên', val: 1 },
+          { text: 'Nhà quảng bá cấp hai', val: 2 },
         ],
         fromTxt3: [
-          { text: '全部', val: '' },
-          { text: '一级推广人订单', val: 1 },
-          { text: '二级推广人订单', val: 2 },
-          { text: '事业部推广订单', val: 3 },
-          { text: '代理商推广订单', val: 4 },
+          { text: 'tất cả', val: '' },
+          { text: 'Thứ tự quảng bá cấp độ đầu tiên', val: 1 },
+          { text: 'Thứ tự quảng cáo thứ cấp', val: 2 },
+          { text: 'Lệnh khuyến mãi của bộ phận kinh doanh', val: 3 },
+          { text: 'Lệnh khuyến mãi đại lý', val: 4 },
         ],
       },
       formValidate: {
@@ -250,19 +250,19 @@ export default {
       rowsList: {
       }
     },
-    // 具体日期
+    // ngày cụ thể
     onchangeTime(e) {
       this.timeVal = e;
       this.formValidate.data = this.timeVal ? this.timeVal.join('-') : '';
       this.getList(this.rowsList, this.listTitle);
     },
-    // 选择时间
+    // Chọn thời gian
     selectChange(tab) {
       this.formValidate.data = tab;
       this.timeVal = [];
       this.getList(this.rowsList, this.listTitle);
     },
-    // 列表
+    // danh sách
     getList(row, tit) {
       this.listTitle = tit;
       this.rowsList = row;
@@ -290,7 +290,7 @@ export default {
     pageChange() {
       this.getList(this.rowsList, this.listTitle);
     },
-    // 搜索
+    // tìm kiếm
     userSearchs() {
       this.formValidate.page = 1;
       this.getList(this.rowsList, this.listTitle);

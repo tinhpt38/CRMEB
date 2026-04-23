@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -34,22 +34,22 @@ use crmeb\services\CacheService;
 class LuckLotteryServices extends BaseServices
 {
     /**
-     * 抽奖形式，奖品数量
+     * Hình thức xổ số, số lượng giải thưởng
      * @var int[]
      */
     protected $lottery_type = [
-        '1' => 8 //九宫格
+        '1' => 8 //Cửu Công Ca
     ];
     /**
-     * 抽奖类型
+     * Loại xổ số
      * @var string[]
      */
     protected $lottery_factor = [
-        '1' => '积分抽取',
-//        '2' => '余额抽奖',
-        '3' => '订单支付',
-        '4' => '订单评价',
-//        '5' => '关注公众号抽奖'
+        '1' => 'Trích xuất điểm',
+//        '2' => 'Rút số dư',
+        '3' => 'Thanh toán đơn hàng',
+        '4' => 'Đánh giá đơn hàng',
+//        '5' => 'Theo dõi xổ số tài khoản chính thức'
     ];
 
     /**
@@ -73,15 +73,15 @@ class LuckLotteryServices extends BaseServices
         }
         $data = $this->dao->getList($where, '*', 'id desc', $page, $limit);
         foreach ($data['list'] as &$item) {
-            $item['lottery_type'] = $this->lottery_factor[$item['factor']] ?? '未知';
+            $item['lottery_type'] = $this->lottery_factor[$item['factor']] ?? 'không rõ';
             if ($item['start_time'] > time()) {
-                $item['status_name'] = '未开始';
+                $item['status_name'] = 'Chưa bắt đầu';
                 $item['lottery_status'] = 0;
             } else if (bcadd((string)$item['end_time'], '86400') < time()) {
-                $item['status_name'] = '已结束';
+                $item['status_name'] = 'đã kết thúc';
                 $item['lottery_status'] = 2;
             } else {
-                $item['status_name'] = '进行中';
+                $item['status_name'] = 'đang tiến hành';
                 $item['lottery_status'] = 1;
             }
             $item['start_time'] = $item['start_time'] ? date('Y-m-d H:i:s', $item['start_time']) : '';
@@ -102,7 +102,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 获取抽奖详情
+     * Nhận chi tiết xổ số
      * @param int $id
      * @return array|\think\Model
      * @throws \think\db\exception\DataNotFoundException
@@ -113,7 +113,7 @@ class LuckLotteryServices extends BaseServices
     {
         $lottery = $this->dao->getLottery($id, '*', ['prize']);
         if (!$lottery) {
-            throw new ApiException('活动不存在或已删除');
+            throw new ApiException('Sự kiện không tồn tại hoặc đã bị xóa');
         }
         $lottery = $lottery->toArray();
         if (isset($lottery['prize']) && $lottery['prize']) {
@@ -139,7 +139,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 根据类型获取数据
+     * Nhận dữ liệu dựa trên loại
      * @param int $factor
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -182,7 +182,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 添加抽奖活动以及奖品
+     * Thêm rút thăm trúng thưởng và giải thưởng
      * @param array $data
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -194,18 +194,18 @@ class LuckLotteryServices extends BaseServices
         $prizes = $data['prize'];
         $total = array_sum(array_column($prizes, 'percent'));
         if ($total != 100) {
-            throw new AdminException('奖品概率之和不是100%，请检查！');
+            throw new AdminException('Tổng xác suất trúng thưởng không phải là 100%, vui lòng kiểm tra！');
         }
         $prize_num = $this->lottery_type[1];
         if (count($prizes) != $prize_num) {
-            throw new AdminException('请添加商品');
+            throw new AdminException('Vui lòng thêm sản phẩm');
         }
         unset($data['prize']);
         return $this->transaction(function () use ($data, $prizes) {
             $time = time();
             $data['add_time'] = $time;
             if (!$lottery = $this->dao->save($data)) {
-                throw new AdminException('添加抽奖活动失败');
+                throw new AdminException('Không thể thêm rút thăm trúng thưởng');
             }
             if ($data['status']) {
                 $this->setStatus((int)$lottery->id, $data['status']);
@@ -226,17 +226,17 @@ class LuckLotteryServices extends BaseServices
                 $sort++;
             }
             if (!$prizeStatus) {
-                throw new AdminException('必须设置至少一个未中奖');
+                throw new AdminException('Phải đặt ít nhất một người chiến thắng');
             }
             if (!$luckPrizeServices->saveAll($data)) {
-                throw new AdminException('添加抽奖活动失败');
+                throw new AdminException('Không thể thêm rút thăm trúng thưởng');
             }
             return true;
         });
     }
 
     /**
-     * 修改抽奖活动以及奖品
+     * Sửa đổi rút thăm trúng thưởng và giải thưởng
      * @param int $id
      * @param array $data
      * @return mixed
@@ -248,7 +248,7 @@ class LuckLotteryServices extends BaseServices
     {
         $lottery = $this->dao->getLottery($id);
         if (!$lottery) {
-            throw new AdminException('抽奖活动不存在');
+            throw new AdminException('Xổ số không tồn tại');
         }
         $newPrizes = $data['prize'];
         $percentArr = array_column($newPrizes, 'percent');
@@ -257,12 +257,12 @@ class LuckLotteryServices extends BaseServices
             $allPercent = bcadd((string)$allPercent, (string)$v, 2);
         }
         if ($allPercent != 100) {
-            throw new AdminException('奖品概率之和不是100%，请检查！');
+            throw new AdminException('Tổng xác suất trúng thưởng không phải là 100%, vui lòng kiểm tra！');
         }
         unset($data['prize'], $data['id']);
         $prize_num = $this->lottery_type[1];
         if (count($newPrizes) != $prize_num) {
-            throw new AdminException('请添加商品');
+            throw new AdminException('Vui lòng thêm sản phẩm');
         }
         if ($data['attends_user'] == 1) {
             $data['user_label'] = $data['user_level'] = [];
@@ -285,10 +285,10 @@ class LuckLotteryServices extends BaseServices
                 $prize['sort'] = $sort;
                 if (isset($prize['id']) && $prize['id']) {
                     if (!$prize['lottery_id']) {
-                        throw new AdminException('参数错误');
+                        throw new AdminException('Lỗi tham số');
                     }
                     if (!$luckPrizeServices->update($prize['id'], $prize, 'id')) {
-                        throw new AdminException('修改失败');
+                        throw new AdminException('Sửa đổi không thành công');
                     }
                 } else {
                     unset($prize['id']);
@@ -300,22 +300,22 @@ class LuckLotteryServices extends BaseServices
                 $sort++;
             }
             if (!$prizeStatus) {
-                throw new AdminException('必须设置至少一个未中奖');
+                throw new AdminException('Phải đặt ít nhất một người chiến thắng');
             }
             if ($insert) {
                 if (!$luckPrizeServices->saveAll($insert)) {
-                    throw new AdminException('添加失败');
+                    throw new AdminException('Thêm không thành công');
                 }
             }
             if ($delIds) {
                 if (!$luckPrizeServices->update([['id', 'in', $delIds]], ['is_del' => 1])) {
-                    throw new AdminException('删除失败');
+                    throw new AdminException('Xóa không thành công');
                 }
             }
             if (!$this->dao->update($id, $data)) {
-                throw new AdminException('修改失败');
+                throw new AdminException('Sửa đổi không thành công');
             }
-            //上架
+            //Trên kệ
             if (!$lottery['status'] && $data['status']) {
                 $this->setStatus($id, $data['status']);
             }
@@ -324,7 +324,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 获取用户某个抽奖活动剩余抽奖次数
+     * Lấy số lần rút còn lại cho lần rút của người dùng
      * @param int $uid
      * @param int $lottery_id
      * @param array $userInfo
@@ -343,15 +343,15 @@ class LuckLotteryServices extends BaseServices
             $userInfo = $userServices->getUserInfo($uid);
         }
         if (!$userInfo) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         if (!$lottery) {
             $lottery = $this->dao->getLottery($lottery_id, '*', [], true);
         }
         if (!$lottery) {
-            throw new ApiException('活动不存在或已删除');
+            throw new ApiException('Sự kiện không tồn tại hoặc đã bị xóa');
         }
-        //抽奖类型：1:积分2：余额3：下单支付成功4：订单评价5：拉新人
+        //Loại xổ số：1:Điểm 2: Số dư 3: Thanh toán đơn hàng thành công 4: Đánh giá đơn hàng 5: Thu hút người mới
         switch ($lottery['factor']) {
             case 1:
                 /** @var UserBillServices $userBillServices */
@@ -367,12 +367,12 @@ class LuckLotteryServices extends BaseServices
             case 5:
                 return $userInfo['spread_lottery'] ?? 0;
             default:
-                throw new ApiException('暂未有该类型活动');
+                throw new ApiException('Chưa có hoạt động nào thuộc loại này');
         }
     }
 
     /**
-     * 验证用户抽奖资格（用户等级、付费会员、用户标签）
+     * Xác minh trình độ xổ số của người dùng (cấp độ người dùng, tư cách thành viên trả phí, thẻ người dùng）
      * @param int $uid
      * @param int $lottery_id
      * @param array $userInfo
@@ -390,33 +390,33 @@ class LuckLotteryServices extends BaseServices
             $userInfo = $userServices->getUserInfo($uid);
         }
         if (!$userInfo) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         if (!$lottery) {
             $lottery = $this->dao->getLottery($lottery_id, '*', [], true);
         }
         if (!$lottery) {
-            throw new ApiException('活动不存在或已删除');
+            throw new ApiException('Sự kiện không tồn tại hoặc đã bị xóa');
         }
-        //部分用户参与
+        //Một số người dùng tham gia
         if ($lottery['attends_user'] == 2) {
-            //用户等级
+            //Cấp độ người dùng
             if ($lottery['user_level'] && !in_array($userInfo['level'], $lottery['user_level'])) {
-                throw new ApiException('您暂时无法参与该活动');
+                throw new ApiException('Bạn tạm thời không thể tham gia sự kiện này');
             }
-            //用户标签
+            //Thẻ người dùng
             if ($lottery['user_label']) {
                 /** @var UserLabelRelationServices $userlableRelation */
                 $userlableRelation = app()->make(UserLabelRelationServices::class);
                 $user_labels = $userlableRelation->getUserLabels($uid);
                 if (!array_intersect($lottery['user_label'], $user_labels)) {
-                    throw new ApiException('您暂时无法参与该活动');
+                    throw new ApiException('Bạn tạm thời không thể tham gia sự kiện này');
                 }
             }
-            //是否是付费会员
+            //Đây có phải là thành viên trả phí không?
             if ($lottery['is_svip'] != -1) {
                 if (($lottery['is_svip'] == 1 && $userInfo['is_money_level'] <= 0) || ($lottery['is_svip'] == 0 && $userInfo['is_money_level'] > 0)) {
-                    throw new ApiException('您暂时无法参与该活动');
+                    throw new ApiException('Bạn tạm thời không thể tham gia sự kiện này');
                 }
             }
         }
@@ -424,7 +424,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 抽奖
+     * xổ số
      * @param int $uid
      * @param int $lottery_id
      * @return mixed
@@ -439,63 +439,63 @@ class LuckLotteryServices extends BaseServices
         $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         $lottery = $this->dao->getLottery($lottery_id, '*', [], true);
         if (!$lottery) {
-            throw new ApiException('活动不存在或已删除');
+            throw new ApiException('Sự kiện không tồn tại hoặc đã bị xóa');
         }
         $userInfo = $userInfo->toArray();
         $lottery = $lottery->toArray();
-        //验证用户身份
+        //Xác minh danh tính người dùng
         $this->checkoutUserAuth($uid, $lottery_id, $userInfo, $lottery);
 
         /** @var LuckPrizeServices $lotteryPrizeServices */
         $lotteryPrizeServices = app()->make(LuckPrizeServices::class);
         $lotteryPrize = $lotteryPrizeServices->getPrizeList($lottery_id);
         if (!$lotteryPrize) {
-            throw new ApiException('活动状态有误，请联系管理员');
+            throw new ApiException('Trạng thái hoạt động không đúng, vui lòng liên hệ với quản trị viên');
         }
         if ($this->getLotteryNum($uid, $lottery_id, $userInfo, $lottery) < 1) {
-            //抽奖类型：1:积分2：余额3：下单支付成功4：订单评价5：拉新人
+            //Loại xổ số：1:Điểm 2: Số dư 3: Thanh toán đơn hàng thành công 4: Đánh giá đơn hàng 5: Thu hút người mới
             switch ($lottery['factor']) {
                 case 1:
-                    throw new ApiException('可用积分不足，没有更多抽奖次数');
+                    throw new ApiException('Không đủ điểm, không rút thêm');
                 case 2:
-                    throw new ApiException('余额不足，没有更多抽奖次数');
+                    throw new ApiException('Số dư không đủ, không rút thêm được nữa');
                 case 3:
-                    throw new ApiException('购买商品之后获得更多抽奖次数');
+                    throw new ApiException('Nhận thêm rút thăm sau khi mua sản phẩm');
                 case 4:
-                    throw new ApiException('订单完成评价之后获得更多抽奖次数');
+                    throw new ApiException('Sau khi hoàn thành việc đánh giá đơn hàng, bạn sẽ nhận được nhiều lượt rút thăm trúng thưởng hơn.');
                 case 5:
-                    throw new ApiException('邀请更多好友获取抽奖次数');
+                    throw new ApiException('Mời thêm bạn bè để nhận số xổ số');
                 default:
-                    throw new ApiException('暂未有该类型活动');
+                    throw new ApiException('Chưa có hoạt động nào thuộc loại này');
             }
         }
         return $this->transaction(function () use ($uid, $lotteryPrize, $userInfo, $lottery, $channel_type) {
             /** @var LuckPrizeServices $luckPrizeServices */
             $luckPrizeServices = app()->make(LuckPrizeServices::class);
-            //随机抽奖
+            //rút thăm ngẫu nhiên
             $prize = $luckPrizeServices->getLuckPrize($lotteryPrize);
             if (!$prize) {
-                throw new ApiException('活动状态有误，请联系管理员');
+                throw new ApiException('Trạng thái hoạt động không đúng, vui lòng liên hệ với quản trị viên');
             }
-            //中奖扣除积分、余额
+            //Điểm và số dư sẽ được khấu trừ từ tiền thắng
             $this->lotteryFactor($uid, $userInfo, $lottery);
-            //中奖减少奖品数量
+            //Chiến thắng làm giảm số lượng giải thưởng
             $luckPrizeServices->decPrizeNum($prize['id'], $prize);
             /** @var LuckLotteryRecordServices $lotteryRecordServices */
             $lotteryRecordServices = app()->make(LuckLotteryRecordServices::class);
-            //中奖写入记录
+            //Kỷ lục tiền thắng
             $record = $lotteryRecordServices->insertPrizeRecord($uid, $prize, $userInfo, $channel_type);
-            //不是站内商品直接领奖
+            //Bạn có thể nhận giải thưởng trực tiếp nếu bạn không sử dụng sản phẩm trên trang web.
             if ($prize['type'] != 6) {
                 $lotteryRecordServices->receivePrize($uid, (int)$record->id);
             }
             $prize['lottery_record_id'] = $record->id;
 
-            //自定义事件-用户抽奖
+            //Xổ số người dùng sự kiện tùy chỉnh
             event('CustomEventListener', ['user_lottery', [
                 'uid' => $uid,
                 'lottery_id' => $prize['lottery_id'],
@@ -509,7 +509,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 抽奖消耗扣除用户积分、余额等
+     * Tiêu thụ xổ số sẽ bị trừ vào điểm người dùng, số dư, v.v.
      * @param int $uid
      * @param array $userInfo
      * @param array $lottery
@@ -521,7 +521,7 @@ class LuckLotteryServices extends BaseServices
         if (!$userInfo || !$lottery) {
             return true;
         }
-        //抽奖类型：1:积分2：余额3：下单支付成功4：订单评价5：拉新人
+        //Loại xổ số：1:Điểm 2: Số dư 3: Thanh toán đơn hàng thành công 4: Đánh giá đơn hàng 5: Thu hút người mới
         switch ($lottery['factor']) {
             case 1:
                 if ($userInfo['integral'] > $lottery['factor_num']) {
@@ -535,14 +535,14 @@ class LuckLotteryServices extends BaseServices
                 $userBillServices = app()->make(UserBillServices::class);
                 $userBillServices->income('lottery_use_integral', $uid, $lottery['factor_num'], $integral, $lottery['id']);
                 if (!$userServices->update($uid, ['integral' => $integral], 'uid')) {
-                    throw new ApiException('抽奖扣除用户积分失败');
+                    throw new ApiException('Không thể trừ điểm của người dùng khi rút thăm xổ số');
                 }
                 break;
             case 2:
                 if ($userInfo['now_money'] >= $lottery['factor_num']) {
                     $now_money = bcsub((string)$userInfo['now_money'], (string)$lottery['factor_num'], 2);
                 } else {
-                    throw new ApiException('抽奖失败，余额不足');
+                    throw new ApiException('Xổ số không thành công và số dư không đủ.');
                 }
                 /** @var UserServices $userServices */
                 $userServices = app()->make(UserServices::class);
@@ -550,12 +550,12 @@ class LuckLotteryServices extends BaseServices
                 $userMoneyServices = app()->make(UserMoneyServices::class);
                 $userMoneyServices->income('lottery_use_money', $uid, $lottery['factor_num'], $now_money, $lottery['id']);
                 if (!$userServices->update($uid, ['now_money' => $now_money], 'uid')) {
-                    throw new ApiException('抽奖扣除用户余额失败');
+                    throw new ApiException('Xổ số không thể khấu trừ số dư của người dùng');
                 }
                 break;
             case 3:
             case 4:
-                //销毁抽奖次数缓存
+                //Phá hủy bộ đệm số xổ số
                 $this->delCacheLotteryNum($uid, $lottery['factor'] == 3 ? 'order' : 'comment');
                 break;
             case 5:
@@ -566,17 +566,17 @@ class LuckLotteryServices extends BaseServices
                     $spread_lottery = $userInfo['spread_lottery'] - 1;
                 }
                 if (!$userServices->update($uid, ['spread_lottery' => $spread_lottery], 'uid')) {
-                    throw new ApiException('抽奖扣除用户推广获取抽奖次数失败');
+                    throw new ApiException('Khuyến mãi người dùng khấu trừ xổ số để có được số lần rút xổ số không thành công');
                 }
                 break;
             default:
-                throw new ApiException('暂未有该类型活动');
+                throw new ApiException('Chưa có hoạt động nào thuộc loại này');
         }
         return true;
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param int $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -589,14 +589,14 @@ class LuckLotteryServices extends BaseServices
         if ($lottery) {
             $res = $this->dao->update(['id' => $id], ['is_del' => 1]);
             if (!$res) {
-                throw new AdminException('删除失败');
+                throw new AdminException('Xóa không thành công');
             }
         }
         return true;
     }
 
     /**
-     * 设置抽奖活动状态
+     * Đặt trạng thái rút thăm trúng thưởng
      * @param int $id
      * @param $status
      * @return false|mixed
@@ -613,7 +613,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     *  下单支付、评论缓存抽奖次数
+     *  Thanh toán đơn hàng, bộ đệm nhận xét và thời gian rút thăm
      * @param int $uid
      * @param string $type
      * @return bool
@@ -631,7 +631,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 取出下单支付、评论得到的抽奖次数
+     * Đưa ra số lần rút tiền thu được từ việc thanh toán đơn hàng và nhận xét
      * @param int $uid
      * @param string $type
      * @return int|mixed
@@ -645,7 +645,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * 抽奖之后销毁缓存
+     * Phá hủy bộ đệm sau khi rút thăm
      * @param int $uid
      * @param string $type
      * @return bool

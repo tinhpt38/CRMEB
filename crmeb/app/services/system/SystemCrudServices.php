@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ use think\migration\db\Table;
 
 /**
  * Class SystemCrudServices
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\services\system
@@ -44,7 +44,7 @@ use think\migration\db\Table;
 class SystemCrudServices extends BaseServices
 {
 
-    //不能生成的系统自带表
+    //Không thể tạo bảng riêng của hệ thống
     const NOT_CRUD_TABANAME = [
         'system_config', 'system_attachment', 'system_attachment_category', 'system_config_tab',
         'system_admin', 'eb_system_city', 'system_log', 'system_menus', 'system_notice',
@@ -85,7 +85,7 @@ class SystemCrudServices extends BaseServices
         'wechat_qrcode_record', 'wechat_reply', 'wechat_user', 'system_crud_data', 'admins',
     ];
 
-    //表字符集
+    //bộ ký tự bảng
     const TABLR_COLLATION = 'utf8mb4_general_ci';
 
     /**
@@ -99,7 +99,7 @@ class SystemCrudServices extends BaseServices
 
     /**
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
      */
@@ -113,9 +113,9 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 数据库字段类型
+     * Loại trường cơ sở dữ liệu
      * @return \string[][]
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
      */
@@ -157,67 +157,67 @@ class SystemCrudServices extends BaseServices
             'form' => [
                 [
                     'value' => FormTypeEnum::INPUT,
-                    'label' => '输入框',
+                    'label' => 'Hộp nhập liệu',
                     'field_type' => 'varchar',
                     'limit' => 255
                 ],
                 [
                     'value' => FormTypeEnum::NUMBER,
-                    'label' => '数字输入框',
+                    'label' => 'Hộp nhập số',
                     'field_type' => 'int',
                     'limit' => 11
                 ],
                 [
                     'value' => FormTypeEnum::TEXTAREA,
-                    'label' => '多行文本框',
+                    'label' => 'hộp văn bản nhiều dòng',
                     'field_type' => 'text',
                     'limit' => null
                 ],
                 [
                     'value' => FormTypeEnum::DATE_TIME,
-                    'label' => '单选日期时间',
+                    'label' => 'Ngày và giờ duy nhất',
                     'field_type' => 'varchar',
                     'limit' => 200
                 ],
                 [
                     'value' => FormTypeEnum::DATE_TIME_RANGE,
-                    'label' => '日期时间区间选择',
+                    'label' => 'Lựa chọn phạm vi ngày và giờ',
                     'field_type' => 'varchar',
                     'limit' => 200
                 ],
                 [
                     'value' => FormTypeEnum::CHECKBOX,
-                    'label' => '多选框',
+                    'label' => 'hộp kiểm',
                     'field_type' => 'varchar',
                     'limit' => 200
                 ],
                 [
                     'value' => FormTypeEnum::RADIO,
-                    'label' => '单选框',
+                    'label' => 'nút radio',
                     'field_type' => 'int',
                     'limit' => 11
                 ],
                 [
                     'value' => FormTypeEnum::SWITCH,
-                    'label' => '开关',
+                    'label' => 'công tắc',
                     'field_type' => 'int',
                     'limit' => 11
                 ],
                 [
                     'value' => FormTypeEnum::SELECT,
-                    'label' => '下拉框',
+                    'label' => 'hộp thả xuống',
                     'field_type' => 'int',
                     'limit' => 11
                 ],
                 [
                     'value' => FormTypeEnum::FRAME_IMAGE_ONE,
-                    'label' => '单图选择',
+                    'label' => 'Lựa chọn hình ảnh duy nhất',
                     'field_type' => 'varchar',
                     'limit' => 200
                 ],
                 [
                     'value' => FormTypeEnum::FRAME_IMAGES,
-                    'label' => '多图选择',
+                    'label' => 'Lựa chọn nhiều hình ảnh',
                     'field_type' => 'varchar',
                     'limit' => 200
                 ],
@@ -225,38 +225,38 @@ class SystemCrudServices extends BaseServices
             'search_type' => [
                 [
                     'value' => SearchEnum::SEARCH_TYPE_EQ,
-                    'label' => '等于搜索',
+                    'label' => 'tương đương với tìm kiếm',
                 ],
                 [
                     'value' => SearchEnum::SEARCH_TYPE_LTEQ,
-                    'label' => '小于等于搜索',
+                    'label' => 'Nhỏ hơn hoặc bằng tìm kiếm',
                 ],
                 [
                     'value' => SearchEnum::SEARCH_TYPE_GTEQ,
-                    'label' => '大于等于搜索',
+                    'label' => 'Lớn hơn hoặc bằng tìm kiếm',
                 ],
                 [
                     'value' => SearchEnum::SEARCH_TYPE_NEQ,
-                    'label' => '不等于搜索',
+                    'label' => 'Không bằng tìm kiếm',
                 ],
                 [
                     'value' => SearchEnum::SEARCH_TYPE_LIKE,
-                    'label' => '模糊搜索',
+                    'label' => 'tìm kiếm mờ',
                 ],
                 [
                     'value' => SearchEnum::SEARCH_TYPE_BETWEEN,
-                    'label' => '用来时间区间搜索',
+                    'label' => 'Được sử dụng để tìm kiếm khoảng thời gian',
                 ],
             ],
             'default_type' => [
                 [
                     'value' => '-1',
-                    'label' => '无',
+                    'label' => 'không có',
                     'disabled' => false,
                 ],
                 [
                     'value' => '1',
-                    'label' => '自定义',
+                    'label' => 'Tùy chỉnh',
                     'disabled' => true,
                 ],
                 [
@@ -275,10 +275,10 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 改变数据库类型
+     * Thay đổi loại cơ sở dữ liệu
      * @param string $type
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/13
      */
@@ -286,7 +286,7 @@ class SystemCrudServices extends BaseServices
     {
 
         if (!in_array($type, $this->getTabelRule()['types'])) {
-            throw new AdminException('字段类型不存在');
+            throw new AdminException('Loại trường không tồn tại');
         }
 
         return $this->getTabelRule()['rule'][$type] ?? $type;
@@ -295,7 +295,7 @@ class SystemCrudServices extends BaseServices
     /**
      * @param string $tableName
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/14
      */
@@ -309,10 +309,10 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 获取表字段
+     * Nhận các trường bảng
      * @param string $tableName
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
      */
@@ -343,9 +343,9 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 获取当前数据库所有表名
-     * @return mixed
-     * @author 等风来
+     * Nhận tất cả tên bảng trong cơ sở dữ liệu hiện tại
+     * @return hỗn hợp
+     * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2023/8/2
      */
@@ -372,7 +372,7 @@ class SystemCrudServices extends BaseServices
     /**
      * @param array $data
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/12
      */
@@ -392,7 +392,7 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 更新表字段
+     * Cập nhật các trường của bảng
      * @param string $tableName
      * @param string $field
      * @param string $changeFiled
@@ -402,7 +402,7 @@ class SystemCrudServices extends BaseServices
      * @param string $comment
      * @param array $options
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
      */
@@ -425,13 +425,13 @@ class SystemCrudServices extends BaseServices
                 case '-1':
                     $default = 'NULL';
                     break;
-                case '1'://自定义
+                case '1'://Tùy chỉnh
                     $default = "NOT NULL DEFAULT '$default'";
                     break;
-                case '2'://为null
+                case '2'://vìnull
                     $default = 'NULL DEFAULT NULL';
                     break;
-                case '3'://时间
+                case '3'://thời gian
                     $default = 'NULL DEFAULT CURRENT_TIMESTAMP';
                     break;
             }
@@ -452,7 +452,7 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 添加字段
+     * Thêm trường
      * @param string $tableName
      * @param string $field
      * @param string $prevFiled
@@ -462,7 +462,7 @@ class SystemCrudServices extends BaseServices
      * @param string $comment
      * @param array $options
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
      */
@@ -484,13 +484,13 @@ class SystemCrudServices extends BaseServices
                 case '-1':
                     $default = 'NULL';
                     break;
-                case '1'://自定义
+                case '1'://Tùy chỉnh
                     $default = "NOT NULL DEFAULT '$default'";
                     break;
-                case '2'://为null
+                case '2'://vìnull
                     $default = 'NULL DEFAULT NULL';
                     break;
-                case '3'://时间
+                case '3'://thời gian
                     $default = 'NULL DEFAULT CURRENT_TIMESTAMP';
                     break;
             }
@@ -499,7 +499,7 @@ class SystemCrudServices extends BaseServices
             $sql = "ALTER TABLE `$tableName` ADD `$field` $type NULL COMMENT '$comment' $after;";
         } else {
             $defaultSql = $default;
-            //处理时间字段默认值
+            //Giá trị mặc định của trường thời gian xử lý
             if (in_array(strtolower($type), ['datetime', 'timestamp', 'time', 'date', 'year'])) {
                 switch ($field) {
                     case 'delete_time':
@@ -512,7 +512,7 @@ class SystemCrudServices extends BaseServices
                 }
             }
 
-            //兼容枚举字段
+            //Tương thích với các trường enum
             if (strtolower($type) == 'enum') {
                 $enum = [];
                 foreach ($options['options'] as $option) {
@@ -531,11 +531,11 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 删除表字段
+     * Xóa trường bảng
      * @param string $tableName
      * @param string $field
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
      */
@@ -548,11 +548,11 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 修改表备注
+     * Sửa đổi nhận xét bảng
      * @param string $tableName
      * @param string $common
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
      */
@@ -565,11 +565,11 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 对比字段变动了更改
+     * Trường so sánh đã thay đổi
      * @param string $tableName
      * @param array $deleteField
      * @param array $tableField
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
      */
@@ -581,14 +581,14 @@ class SystemCrudServices extends BaseServices
         $columns = $this->getColumnNamesList($tableName);
         $fieldAll = array_column($columns, 'name');
 
-        //对比数据库字段
+        //So sánh các trường cơ sở dữ liệu
         foreach ($tableField as $i => $item) {
             if ($item['primaryKey'] || $item['field'] == 'delete_time') {
                 continue;
             }
 
             $prevFiled = $i ? ($tableField[$i - 1]['field'] ?? 'id') : 'id';
-            //前台新增的字段进行添加
+            //Thêm trường mới ở quầy lễ tân
             if (!(isset($item['default_field']) &&
                 isset($item['default_field_type']) &&
                 isset($item['default_limit']) &&
@@ -610,8 +610,8 @@ class SystemCrudServices extends BaseServices
                 }
                 continue;
             } else {
-                //从数据库中新增的字段，并没有记录在表中做兼容处理；
-                //默认字段没有在数据库中,需要添加字段；
+                //Các trường được thêm từ cơ sở dữ liệu không được ghi vào bảng để xử lý tính tương thích;
+                // Trường mặc định không có trong cơ sở dữ liệu,Cần thêm trường；
                 if (!in_array($item['default_field'], $fieldAll)) {
                     $addAlter[] = [
                         'prev_filed' => $prevFiled,
@@ -628,10 +628,10 @@ class SystemCrudServices extends BaseServices
             }
 
             if ($item['default_field'] != $item['field'] && in_array($item['field_type'], ['addTimestamps', 'addSoftDelete'])) {
-                throw new AdminException($item['field'] . '字段不允许被更改');
+                throw new AdminException($item['field'] . 'Các trường không được phép thay đổi');
             }
 
-            //数据库表存在的,字段,并且被修改
+            //Bảng cơ sở dữ liệu tồn tại,Cánh đồng,và được sửa đổi
             if (!in_array($item['field'], ['id', 'create_time', 'update_time'])) {
                 $updateAlter[] = [
                     'default_field' => $item['default_field'],
@@ -646,18 +646,18 @@ class SystemCrudServices extends BaseServices
                 ];
             }
         }
-        //添加字段
+        //Thêm trường
         foreach ($addAlter as $item) {
             $this->addAlter($tableName, $item['field'], $item['prev_filed'], $item['type'], $item['limit'], $item['default'], $item['comment'], [
                 'options' => $item['values'],
                 'default_type' => $item['default_type'],
             ]);
         }
-        //删除多余字段
+        //Loại bỏ các trường dư thừa
         foreach ($deleteField as $item) {
             $this->deleteAlter($tableName, $item);
         }
-        //更新数据库字段
+        //Cập nhật các trường cơ sở dữ liệu
         foreach ($updateAlter as $item) {
             $this->updateAlter($tableName, $item['default_field'], $item['field'], $item['prev_filed'], $item['type'], $item['limit'], $item['default'], $item['comment'], [
                 'options' => $item['values'],
@@ -667,10 +667,10 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 创建
+     * tạo nên
      * @param array $data
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
      */
@@ -682,30 +682,30 @@ class SystemCrudServices extends BaseServices
         $modelName = !empty($data['modelName']) ? $data['modelName'] : $tableName;
         $tableComment = !empty($data['tableComment']) ? $data['tableComment'] : $modelName;
 
-        //检测是否为系统表
+        //Kiểm tra xem đó có phải là bảng hệ thống không
         if (in_array($tableName, self::NOT_CRUD_TABANAME)) {
-            throw new AdminException('系统数据表，无法生成');
+            throw new AdminException('Không thể tạo bảng dữ liệu hệ thống');
         }
 
         $data['softDelete'] = false;
 
         $tableInfo = null;
-        //先检查表存在则
+        //Đầu tiên hãy kiểm tra xem bảng có tồn tại không
         if ($id) {
             $this->updateFromCommon($tableName, $tableComment);
-            //读取数据库表
+            //Đọc bảng cơ sở dữ liệu
             $tableInfo = $this->getTableInfo($tableName);
             if ($tableInfo) {
-                //对比字段进行更新/删除字段
+                //So sánh các trường để cập nhật/xóa các trường
                 $this->diffAlter($tableName, $data['deleteField'], $tableField);
             }
         } else {
             if ($this->dao->count(['table_name' => $tableName])) {
-                throw new AdminException('表已经被生成过，请在列表中进行修改');
+                throw new AdminException('Bảng đã được tạo, vui lòng sửa đổi nó trong danh sách');
             }
         }
 
-        //创建数据库
+        //Tạo cơ sở dữ liệu
         $tableCreateInfo = null;
         if ($tableField && (!$data['isTable'] || !$tableInfo)) {
             $tableCreateInfo = $this->makeDatebase($tableName, $tableComment, $tableField);
@@ -714,7 +714,7 @@ class SystemCrudServices extends BaseServices
             }
         }
 
-        //获取主键
+        //Nhận khóa chính
         foreach ($tableField as $value) {
             if ($value['primaryKey']) {
                 $data['key'] = $value['field'];
@@ -724,7 +724,7 @@ class SystemCrudServices extends BaseServices
 
         $routeName = 'crud/' . Str::snake($tableName);
         $uniqueAuth = Str::snake($tableName) . '-crud-list-index';
-        //增加保存的绝对路径
+        //Thêm đường dẫn tuyệt đối để lưu
         foreach ($filePath as $k => $i) {
             if (in_array($k, ['pages', 'router', 'api'])) {
                 $filePath[$k] = Make::adminTemplatePath() . $i;
@@ -733,7 +733,7 @@ class SystemCrudServices extends BaseServices
             }
         }
 
-        //创建菜单
+        //Tạo thực đơn
         if (!$data['menuName']) {
             $data['menuName'] = $tableName;
         }
@@ -757,33 +757,33 @@ class SystemCrudServices extends BaseServices
         $res = $this->transaction(function () use ($tableComment, $tableCreateInfo, $crudInfo, $modelName, $filePath, $tableName, $routeName, $data, $dataMenu) {
             $routeService = app()->make(SystemRouteServices::class);
             $meunService = app()->make(SystemMenusServices::class);
-            //修改菜单名称
+            //Sửa đổi tên thực đơn
             if ($crudInfo) {
-                //菜单存在的时候进行修改
+                //Sửa đổi menu khi nó tồn tại
                 if ($crudInfo->menu_id && $meunService->value(['id' => [$crudInfo->menu_id]], 'id')) {
                     $meunService->update($crudInfo->menu_id, $dataMenu);
                     $menuInfo = (object)['id' => $crudInfo->menu_id];
                 } else {
                     $menuInfo = $meunService->save($dataMenu);
                 }
-                //删除掉添加的路由权限
+                //Xóa các quyền định tuyến đã thêm
                 if ($crudInfo->route_ids) {
                     $routeService->deleteRoutes($crudInfo->route_ids);
                 }
-                //删除掉权限路由
+                //Xóa định tuyến quyền
                 if ($crudInfo->menu_ids) {
                     app()->make(SystemMenusServices::class)->deleteMenus($crudInfo->menu_ids);
                 }
             } else {
                 $menuInfo = $meunService->save($dataMenu);
             }
-            //写入路由权限
+            //Viết quyền tuyến đường
             $cateId = app()->make(SystemRouteServices::class)->topCateId('adminapi', 'CRUD');
             $ruleData = [
                 [
                     'path' => $routeName,
                     'method' => 'GET',
-                    'name' => $modelName . '列表接口',
+                    'name' => $modelName . 'Giao diện danh sách',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => '',
@@ -792,7 +792,7 @@ class SystemCrudServices extends BaseServices
                 [
                     'path' => $routeName . '/create',
                     'method' => 'GET',
-                    'name' => $modelName . '获取创建表单接口',
+                    'name' => $modelName . 'Nhận giao diện tạo biểu mẫu',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => Str::snake($tableName) . '-add',
@@ -801,7 +801,7 @@ class SystemCrudServices extends BaseServices
                 [
                     'path' => $routeName,
                     'method' => 'POST',
-                    'name' => $modelName . '保存接口',
+                    'name' => $modelName . 'giao diện lưu',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => '',
@@ -810,7 +810,7 @@ class SystemCrudServices extends BaseServices
                 [
                     'path' => $routeName . '/<id>/edit',
                     'method' => 'GET',
-                    'name' => $modelName . '获取修改表单接口',
+                    'name' => $modelName . 'Nhận giao diện biểu mẫu sửa đổi',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => '',
@@ -819,7 +819,7 @@ class SystemCrudServices extends BaseServices
                 [
                     'path' => $routeName . '/<id>',
                     'method' => 'GET',
-                    'name' => $modelName . '查看数据接口',
+                    'name' => $modelName . 'Xem giao diện dữ liệu',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => '',
@@ -828,7 +828,7 @@ class SystemCrudServices extends BaseServices
                 [
                     'path' => $routeName . '/<id>',
                     'method' => 'PUT',
-                    'name' => $modelName . '修改接口',
+                    'name' => $modelName . 'Sửa đổi giao diện',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => '',
@@ -837,7 +837,7 @@ class SystemCrudServices extends BaseServices
                 [
                     'path' => $routeName . '/status/<id>',
                     'method' => 'PUT',
-                    'name' => $modelName . '修改状态接口',
+                    'name' => $modelName . 'Sửa đổi giao diện trạng thái',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => '',
@@ -846,7 +846,7 @@ class SystemCrudServices extends BaseServices
                 [
                     'path' => $routeName . '/<id>',
                     'method' => 'DELETE',
-                    'name' => $modelName . '删除接口',
+                    'name' => $modelName . 'Xóa giao diện',
                     'app_name' => 'adminapi',
                     'cate_id' => $cateId,
                     'unique_auth' => '',
@@ -858,7 +858,7 @@ class SystemCrudServices extends BaseServices
             $routeList = $routeService->saveAll($ruleData);
             $routeIds = array_column($routeList->toArray(), 'id');
 
-            //记录权限加入菜单表
+            //Quyền ghi được thêm vào bảng menu
             $menuData = [];
             foreach ($ruleData as $item) {
                 $menuData[] = [
@@ -874,7 +874,7 @@ class SystemCrudServices extends BaseServices
 
             $menus = app()->make(SystemMenusServices::class)->saveAll($menuData);
             $menuIds = array_column($menus->toArray(), 'id');
-            //生成文件
+            //Tạo tập tin
             $make = $this->makeFile($tableName, $routeName, true, $data, $filePath);
             $makePath = [];
             foreach ($make as $key => $item) {
@@ -882,7 +882,7 @@ class SystemCrudServices extends BaseServices
             }
 
             if ($tableCreateInfo && isset($tableCreateInfo['table']) && $tableCreateInfo['table'] instanceof Table) {
-                //创建数据库
+                //Tạo cơ sở dữ liệu
                 $tableCreateInfo['table']->create();
             }
 
@@ -893,9 +893,9 @@ class SystemCrudServices extends BaseServices
                 'table_name' => $tableName,
                 'table_comment' => $tableComment,
                 'table_collation' => self::TABLR_COLLATION,
-                'field' => json_encode($data),//提交的数据
-                'menu_ids' => json_encode($menuIds),//生成的菜单id
-                'menu_id' => $menuInfo->id,//生成的菜单id
+                'field' => json_encode($data),//Dữ liệu đã gửi
+                'menu_ids' => json_encode($menuIds),//thực đơn đã tạoid
+                'menu_id' => $menuInfo->id,//thực đơn đã tạoid
                 'make_path' => json_encode($makePath),
                 'route_ids' => json_encode($routeIds),
             ];
@@ -904,7 +904,7 @@ class SystemCrudServices extends BaseServices
                 $res = $this->dao->update($crudInfo->id, $crudDate);
             } else {
                 $crudDate['add_time'] = time();
-                //记录crud生成
+                //Kỷ lục thế hệ thô
                 $res = $this->dao->save($crudDate);
             }
 
@@ -915,7 +915,7 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 获取数据库配置
+     * Nhận cấu hình cơ sở dữ liệu
      * @return array
      */
     protected function getDbConfig(): array
@@ -969,12 +969,12 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 创建数据库
+     * Tạo cơ sở dữ liệu
      * @param string $tableName
      * @param string $tableComment
      * @param array $tableField
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
      */
@@ -984,9 +984,9 @@ class SystemCrudServices extends BaseServices
         $softDelete = false;
         $timestamps = false;
         $indexField = [];
-        //创建表
+        //Tạo bảng
         $table = new Table($tableName, ['comment' => $tableComment, 'collation' => $collation], $this->getAdapter());
-        //创建字段
+        //Tạo trường
         foreach ($tableField as $item) {
             if (isset($item['primaryKey']) && $item['primaryKey']) {
                 continue;
@@ -997,18 +997,18 @@ class SystemCrudServices extends BaseServices
             }
             if (isset($item['default']) && isset($item['default_type'])) {
                 switch ($item['default_type']) {
-                    case '1'://自定义
+                    case '1'://Tùy chỉnh
                         $option['default'] = $item['default'];
                         break;
-                    case '2'://为null
+                    case '2'://vìnull
                         $option['null'] = true;
                         break;
-                    case '3'://时间
+                    case '3'://thời gian
                         $option['default'] = Db::raw('CURRENT_TIMESTAMP');
                         break;
                 }
             }
-            //创建伪删除
+            //Tạo giả xóa
             if ($item['field_type'] === 'addSoftDelete') {
                 $table->addSoftDelete();
                 $softDelete = true;
@@ -1021,11 +1021,11 @@ class SystemCrudServices extends BaseServices
                 if (in_array($fieldType, ['text', 'longtext', 'tinytext'])) {
                     unset($option['limit']);
                 }
-                //判断字段类型
+                //Xác định loại trường
                 if ($fieldType == 'boolean' && isset($option['default']) && $option['default'] === '') {
                     unset($option['default']);
                 }
-                //兼容枚举字段
+                //Tương thích với các trường enum
                 if ($fieldType == 'enum') {
                     unset($option['limit']);
                     $option['values'] = $item['limit'];
@@ -1033,7 +1033,7 @@ class SystemCrudServices extends BaseServices
                 $table->addColumn($item['field'], $this->changeTabelRule($item['field_type']), $option);
             }
         }
-        //创建索引
+        //Tạo chỉ mục
         if (!empty($data['tableIndex'])) {
             $indexField = $data['tableIndex'];
             foreach ($data['tableIndex'] as $item) {
@@ -1041,13 +1041,13 @@ class SystemCrudServices extends BaseServices
             }
         }
 
-        //如果是成对出现的create_time和update_time就直接增加修改和添加时间
+        //Nếu create_time và update_time xuất hiện theo cặp, hãy trực tiếp tăng thời gian sửa đổi và bổ sung.
         if (count($timestampsField) == 2) {
-            //创建修改和增加时间
+            //Tạo sửa đổi và thêm thời gian
             $table->addTimestamps();
             $timestamps = true;
         } else {
-            //如果是一个数组，增加一列
+            //Nếu là mảng thì thêm cột
             foreach ($timestampsField as $item) {
                 $option['comment'] = $item['comment'];
                 $table->addColumn($item['field'], $this->changeTabelRule($item['field_type']), $option);
@@ -1058,7 +1058,7 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * 创建文件返回文件路径和内容
+     * Tạo file trả về đường dẫn và nội dung file
      * @param string $tableName
      * @param string $routeName
      * @param bool $isMake
@@ -1066,7 +1066,7 @@ class SystemCrudServices extends BaseServices
      * @param array $filePath
      * @param string $basePath
      * @return array[]
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
      */
@@ -1074,17 +1074,17 @@ class SystemCrudServices extends BaseServices
     {
         $options['fromField'] = is_array($options['fromField']) ? $options['fromField'] : [];
         $options['columnField'] = is_array($options['columnField']) ? $options['columnField'] : [];
-        //生成模型
+        //Tạo mô hình
         $model = app()->make(Model::class);
         $model->setFilePathName($filePath['model'] ?? '')->setbasePath($basePath)->handle($tableName, $options);
-        //生成dao
+        //phát radao
         $dao = app()->make(Dao::class);
         $dao->setFilePathName($filePath['dao'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'usePath' => $model->getUsePath(),
             'modelName' => $options['modelName'] ?? '',
             'searchField' => $options['searchField'] ?? [],
         ]);
-        //生成service
+        //phát raservice
         $service = app()->make(Service::class);
         $service->setFilePathName($filePath['service'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'field' => $options['fromField'],
@@ -1094,13 +1094,13 @@ class SystemCrudServices extends BaseServices
             'modelName' => $options['modelName'] ?? '',
             'hasOneField' => $options['hasOneField'] ?? [],
         ]);
-        //生成验证器
+        //Tạo trình xác thực
         $validate = app()->make(Validate::class);
         $validate->setFilePathName($filePath['validate'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'field' => $options['fromField'],
             'modelName' => $options['modelName'] ?? '',
         ]);
-        //生成控制器
+        //Tạo bộ điều khiển
         $controller = app()->make(Controller::class);
         $controller->setFilePathName($filePath['controller'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'usePath' => $service->getUsePath(),
@@ -1110,26 +1110,26 @@ class SystemCrudServices extends BaseServices
             'validateName' => '\\' . str_replace('/', '\\', $validate->getUsePath()) . 'Validate::class',
             'field' => array_column($options['fromField'], 'field'),
         ]);
-        //生成路由
+        //Tạo tuyến đường
         $route = app()->make(Route::class);
         $route->setFilePathName($filePath['route'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'menus' => $options['modelName'] ?? $options['menuName'],
             'route' => $routeName
         ]);
-        //生成前台路由
+        //Tạo tuyến đường giao diện người dùng
         $viewRouter = app()->make(ViewRouter::class);
         $viewRouter->setFilePathName($filePath['router'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'route' => $routeName,
             'menuName' => $options['menuName'],
             'modelName' => $options['modelName'] ?? $options['menuName'],
         ]);
-        //生成前台接口
+        //Tạo giao diện front-end
         $viewApi = app()->make(ViewApi::class);
         $viewApi->setFilePathName($filePath['api'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'route' => $routeName,
         ]);
 
-        //生成前台页面
+        //Tạo trang đầu
         $viewPages = app()->make(ViewPages::class);
         $viewPages->setFilePathName($filePath['pages'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'field' => $options['columnField'],
@@ -1140,7 +1140,7 @@ class SystemCrudServices extends BaseServices
             'pathApiJs' => '@/' . str_replace('\\', '/', str_replace([Make::adminTemplatePath(), '.js'], '', $viewApi->getPath())),
         ]);
 
-        //创建文件
+        //Tạo tập tin
         if ($isMake) {
             FileService::batchMakeFiles([$model, $validate, $dao, $service, $controller, $route, $viewApi, $viewPages, $viewRouter]);
         }
@@ -1194,7 +1194,7 @@ class SystemCrudServices extends BaseServices
      * @param string $tableName
      * @param bool $fullName
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
      */

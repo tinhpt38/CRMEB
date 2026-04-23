@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use think\helper\Str;
 
 /**
  * Class ViewApi
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2023/4/1
  * @package crmeb\services\crud
@@ -48,7 +48,7 @@ class ViewApi extends Make
 
     /**
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/4
      */
@@ -61,7 +61,7 @@ class ViewApi extends Make
      * @param string $name
      * @param array $options
      * @return ViewApi
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/4
      */
@@ -70,7 +70,7 @@ class ViewApi extends Make
         $path = $options['path'] ?? '';
         $route = $options['route'] ?? '';
         if (!$route) {
-            throw new CrudException('不存在的资源路由类型');
+            throw new CrudException('Loại tuyến đường tài nguyên không tồn tại');
         }
 
         return $this->setJsContent($name, $route)
@@ -78,11 +78,11 @@ class ViewApi extends Make
     }
 
     /**
-     * 设置页面JS内容
+     * Đặt nội dung JS trang
      * @param string $name
      * @param string $route
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
@@ -115,17 +115,17 @@ class ViewApi extends Make
     }
 
     /**
-     * 设置页面api内容
+     * Đặt nội dung api trang
      * @param string $name
      * @param string $path
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
     protected function setApi(string $name, string $path)
     {
-        //生成api
+        //phát raapi
         [, $content] = $this->getStubContent($name, $this->name);
 
         $contentStr = str_replace($this->var, $this->value, $content);
@@ -141,7 +141,7 @@ class ViewApi extends Make
      * @param string $path
      * @param string $name
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/4
      */
@@ -153,7 +153,7 @@ class ViewApi extends Make
     }
 
     /**
-     * 模板文件配置
+     * Cấu hình tệp mẫu
      * @param string $type
      * @return mixed
      */

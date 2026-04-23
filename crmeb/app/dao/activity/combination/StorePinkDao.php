@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class StorePinkDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -33,7 +33,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取拼团数量集合
+     * Lấy số lượng nhóm đã đặt
      * @param array $where
      * @return array
      */
@@ -43,7 +43,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -64,7 +64,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取正在拼团中的人,取最早写入的一条
+     * Thu hút những người đang tham gia nhóm,Nhận bài viết sớm nhất
      * @param array $where
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -77,7 +77,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取拼团列表
+     * Lấy danh sách nhóm
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -93,7 +93,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取正在拼团的人数
+     * Lấy số lượng người đang tham gia nhóm
      * @param int $kid
      * @return int
      */
@@ -103,7 +103,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取正在拼团的人数
+     * Lấy số lượng người đang tham gia nhóm
      * @param array $kids
      * @return int
      */
@@ -122,7 +122,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取拼团成功的列表
+     * Nhận danh sách các trận đánh nhóm thành công
      * @param int $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -139,7 +139,7 @@ class StorePinkDao extends BaseDao
 
 
     /**
-     * 获取拼团完成的个数
+     * Lấy số lượng câu đố nhóm đã hoàn thành
      * @return float
      * @throws \ReflectionException
      */
@@ -149,7 +149,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 是否能继续拼团
+     * Chúng ta có thể tiếp tục tham gia nhóm không?
      * @param int $id
      * @param int $uid
      * @return int
@@ -160,7 +160,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取一条拼团信息
+     * Nhận thông tin đặt phòng theo nhóm
      * @param int $id
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -173,7 +173,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取拼团信息
+     * Nhận thông tin chia sẻ nhóm
      * @param array $where
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -186,7 +186,7 @@ class StorePinkDao extends BaseDao
     }
 
     /**
-     * 获取拼团结束的列表
+     * Lấy danh sách kết thúc nhóm
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException

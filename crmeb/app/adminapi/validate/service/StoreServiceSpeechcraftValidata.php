@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,8 +17,8 @@ use think\Validate;
 class StoreServiceSpeechcraftValidata extends Validate
 {
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -28,14 +28,14 @@ class StoreServiceSpeechcraftValidata extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'message.require' => '请填写话术内容',
-        'sort.require' => '请填写排序数字',
-        'sort.number' => '请填写排序数字',
+        'message.require' => 'Hãy điền nội dung bài phát biểu',
+        'sort.require' => 'Vui lòng điền số sắp xếp',
+        'sort.number' => 'Vui lòng điền số sắp xếp',
     ];
 }

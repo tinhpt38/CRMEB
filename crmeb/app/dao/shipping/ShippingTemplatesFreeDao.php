@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,14 +16,14 @@ use app\dao\BaseDao;
 use app\model\shipping\ShippingTemplatesFree;
 
 /**
- * 包邮
+ * miễn phí vận chuyển
  * Class ShippingTemplatesFreeDao
  * @package app\dao\shipping
  */
 class ShippingTemplatesFreeDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -32,7 +32,7 @@ class ShippingTemplatesFreeDao extends BaseDao
     }
 
     /**
-     * 获取运费模板列表并按照指定字段进行分组
+     * Nhận danh sách các mẫu vận chuyển hàng hóa và nhóm chúng theo các trường được chỉ định
      * @param array $where
      * @param string $group
      * @param string $field
@@ -45,7 +45,7 @@ class ShippingTemplatesFreeDao extends BaseDao
     }
 
     /**
-     * 获取运费模板列表
+     * Nhận danh sách các mẫu vận chuyển hàng hóa
      * @param array $where
      * @param string $field
      * @param string $key
@@ -57,7 +57,7 @@ class ShippingTemplatesFreeDao extends BaseDao
     }
 
     /**
-     * 是否可以满足包邮
+     * Có thể đáp ứng yêu cầu miễn phí vận chuyển?
      * @param $tempId
      * @param $cityid
      * @param $number
@@ -73,7 +73,7 @@ class ShippingTemplatesFreeDao extends BaseDao
     }
 
     /**
-     * 是否包邮模版数据列表
+     * Danh sách dữ liệu mẫu có miễn phí không?
      * @param $tempId
      * @param $cityid
      * @param int $price

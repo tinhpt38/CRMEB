@@ -14,119 +14,119 @@
 <!--  --><?php //require './templates/header.php';?>
   <div class="title">
       <img class="logo" src="./images/install/logo-step1.png" alt="">
-      <h1>欢迎使用 CRMEB标准版</h1>
+      <h1>Chào mừng đến với Phiên bản tiêu chuẩn CRMEB</h1>
       <div class="df agreement cp">
           <div class="radio-box" :class="{'is-shock': isShock}" @click="radio = !radio">
               <img v-if="radio" src="./images/install/success.png" alt="">
           </div>
-          <span @click="radio = !radio">详细阅读并勾选同意</span>
-          <span class="agreements" @click.stop="isShow = 1">《软件使用协议》</span>
+          <span @click="radio = !radio">Đọc chi tiết và đánh dấu vào ô đồng ý</span>
+          <span class="agreements" @click.stop="isShow = 1">《Thỏa thuận sử dụng phần mềm》</span>
       </div>
       <div class="bottom tac"> <span class="btn" :class="{'more-text': radio}" @click="jump">
-              开始安装</span> </div>
+              Bắt đầu cài đặt</span> </div>
       <img class="solgen" src="./images/install/solgen.png" alt="">
   </div>
   <div class="section" v-if="isShow">
       <div class="main cc">
           <pre class="pact" readonly="readonly">
-          <h1 class="title">软件许可协议</h1>
-提示条款：
-    <strong>本协议是您与西安众邦网络科技有限公司共同签署。</strong>
-    CRMEB客户管理+电商系统（以下称“CRMEB”），由西安众邦网络科技有限公司（以下称“众邦科技”）独创开发，版权所有Copyright (c)2014-2026，众邦科技保留所有权利。CRMEB是国内最稳定、最强大、最先进的互联网电商平台解决方案之一，CRMEB基于 PHP + MySQL 的技术，采用ThinkPHP框架开发。CRMEB官方对此拥有最终修改权和解释权。
-    在使用CRMEB客户管理+电商系统（以下称“许可软件”或“本软件”）之前，请您仔细阅读本协议，特别是法律适用和争议解决条款，此等条款将以粗体标识，您需要重点阅读。如您对协议有任何疑问，可向客服咨询。如果您已下载、复制、安装或以其他任何方式使用该软件，则视为已经接受本协议。如果您不接受本协议的全部或部分条款，您将无权使用本软件。请立即终止安装、或以其他方式使用该软件，删除您已经安装或保留的该软件的任何组件。
-由于互联网高速发展，您与我们签署的本协议列明的条款并不能完整罗列并覆盖您与我们所有权利与义务，现有的约定也不能保证完全符合未来发展的需求。
-    因此，《版权声明》及其他规则均为本协议的补充协议，与本协议不可分割且具有同等法律效力。如您使用许可软件，视为您同意上述补充协议。我们如修改本协议或其补充协议，协议条款修改后，请您仔细阅读并接受修改后的协议后再继续使用许可软件。
+          <h1 class="title">Thỏa thuận cấp phép phần mềm</h1>
+Điều khoản nhắc nhở：
+    <strong>Thỏa thuận này được ký kết giữa bạn và Công ty TNHH Công nghệ Mạng Xi'an Zhongbang.。</strong>
+    CRMEBHệ thống quản lý khách hàng + thương mại điện tử (sau đây gọi tắt là“CRMEB”），Bởi Công ty TNHH Công nghệ Mạng Xi'an Zhongbang (sau đây gọi là“Công nghệ Trung Bang”）Phát triển ban đầu, mọi quyền được bảo lưuCopyright (c)2014-2026，Mọi quyền được bảo lưu bởi Zhongbang Technology. CRMEB là một trong những giải pháp nền tảng thương mại điện tử Internet ổn định, mạnh mẽ và tiên tiến nhất tại Trung Quốc. CRMEB dựa trên công nghệ PHP + MySQL và được phát triển bằng khung ThinkPHP. CRMEB chính thức có quyền sửa đổi và giải thích cuối cùng.
+    Khi sử dụng hệ thống quản lý khách hàng + thương mại điện tử CRMEB (sau đây gọi tắt là“Phần mềm được cấp phép”hoặc“Phần mềm này”）Trước khi tiếp tục, vui lòng đọc kỹ Thỏa thuận này, đặc biệt là các điều khoản pháp lý và giải quyết tranh chấp hiện hành. Những điều khoản này sẽ được đánh dấu in đậm và bạn cần đọc kỹ. Nếu bạn có bất kỳ câu hỏi nào về thỏa thuận, bạn có thể tham khảo dịch vụ khách hàng. Nếu bạn đã tải xuống, sao chép, cài đặt hoặc sử dụng phần mềm theo cách khác, bạn được coi là đã chấp nhận Thỏa thuận này. Nếu bạn không chấp nhận tất cả hoặc một phần các điều khoản của Thỏa thuận này, bạn không được phép sử dụng Phần mềm. Vui lòng chấm dứt ngay việc cài đặt hoặc sử dụng phần mềm khác và xóa mọi thành phần của phần mềm mà bạn đã cài đặt hoặc giữ lại.
+Do sự phát triển nhanh chóng của Internet, các điều khoản được liệt kê trong thỏa thuận này do bạn và chúng tôi ký kết không thể liệt kê và bao hàm đầy đủ tất cả các quyền và nghĩa vụ của bạn và chúng tôi, đồng thời thỏa thuận hiện tại không thể đảm bảo rằng nó sẽ đáp ứng đầy đủ nhu cầu phát triển trong tương lai.
+    Do đó, Tuyên bố về Bản quyền và các quy định khác là các thỏa thuận bổ sung cho Thỏa thuận này, không thể tách rời khỏi Thỏa thuận này và có hiệu lực pháp lý như nhau. Nếu bạn sử dụng phần mềm được cấp phép, bạn được coi là đã đồng ý với thỏa thuận bổ sung ở trên. Nếu chúng tôi sửa đổi thỏa thuận này hoặc thỏa thuận bổ sung của nó, sau khi các điều khoản của thỏa thuận được sửa đổi, vui lòng đọc và chấp nhận thỏa thuận đã sửa đổi một cách cẩn thận trước khi tiếp tục sử dụng phần mềm được cấp phép.。
 <br/>
-一、定义
-    软件（许可软件或本软件）：本协议中的“软件”是指CRMEB客户管理+电商系统，由若干模块或功能组成的已经植入或即将植入众邦科技指定产品内的信息处理程序或支持文件，其中支持文件具体包括软件的源代码、目标码以及相关软件中所包含的图片、照片、图标、动画、录音、录像、音乐、文字、代码的全部或部分，还包括与许可软件或众邦产品相关的所有描述其功能、特点、内容、质量、测试、用户手册、用户许可协议等纸质或电子版的资料、技术文档等。
-    您：本协议中的“您”是指取得众邦科技合法许可使用本软件权利的个人或单个法人实体，法人实体包括公司、企业、机构、组织或单位。
-    我们：本协议中的“我们”即是CRMEB官方，是指众邦科技，即西安众邦网络科技有限公司及其关联公司。
-    二次开发：本协议中的“二次开发”在现有的软件上进行定制修改，如对功能扩展，达到您想要的功能，原则不得改变本软件原有系统内核及系统设定的框架，我们允许的二次开发仅指对部分软件界面、功能删改或扩展，并非对内核及框架进行实质性修改。
+1. Định nghĩa
+    PHẦN MỀM (PHẦN MỀM ĐƯỢC CẤP PHÉP HOẶC PHẦN MỀM): TRONG THỎA THUẬN NÀY“phần mềm”Nó đề cập đến hệ thống thương mại điện tử + quản lý khách hàng CRMEB, bao gồm một số mô-đun hoặc chức năng và là một chương trình xử lý thông tin hoặc tệp hỗ trợ đã được cấy ghép hoặc sẽ được cấy vào các sản phẩm được chỉ định của Công nghệ Zhongbang. Các tệp hỗ trợ cụ thể bao gồm mã nguồn và mã đối tượng của phần mềm cũng như các hình ảnh và hình ảnh có trong phần mềm liên quan. Tất cả hoặc một phần ảnh, biểu tượng, hoạt ảnh, bản ghi âm, video, nhạc, văn bản, mã và tất cả tài liệu giấy hoặc điện tử, tài liệu kỹ thuật, v.v. liên quan đến phần mềm được cấp phép hoặc các sản phẩm của Zhongbang mô tả chức năng, tính năng, nội dung, chất lượng, thử nghiệm, hướng dẫn sử dụng, thỏa thuận cấp phép người dùng, v.v.
+    Bạn: trong Thỏa thuận này“Bạn”Đề cập đến một cá nhân hoặc một pháp nhân duy nhất đã được Zhongbang Technology cho phép hợp pháp để sử dụng phần mềm này. Pháp nhân bao gồm công ty, doanh nghiệp, cơ quan, tổ chức, đơn vị.
+    Chúng tôi: Trong Thỏa thuận này“chúng ta”Đó là CRMEB chính thức, dùng để chỉ Công nghệ Zhongbang, tức là Công ty TNHH Công nghệ Mạng Xi'an Zhongbang và các công ty liên kết của nó.
+    Phát triển thứ cấp: trong thỏa thuận này“Phát triển thứ cấp”Về nguyên tắc, việc tùy chỉnh và sửa đổi phần mềm hiện có, chẳng hạn như mở rộng các chức năng để đạt được các chức năng bạn muốn, không được thay đổi lõi hệ thống ban đầu và cài đặt hệ thống của phần mềm. Sự phát triển thứ cấp mà chúng tôi cho phép chỉ đề cập đến việc xóa, sửa đổi hoặc mở rộng một số giao diện và chức năng phần mềm và không thực hiện các sửa đổi đáng kể đối với lõi và khung.。
 <br/>
-二、软件许可使用内容
-在您遵守本协议内容的前提下，您通过我们指定合法渠道购买软件商用许可后，众邦科技授予您的商用许可权利包括：
-1、安装和使用权利：您可以为商用目的安装和使用本软件，使用本软件提供的全部功能。
-2、绑定唯一域名的权利：在安装本软件前，您应当自备一个域名并告知我们，以便我们将域名与本软件进行绑定。该绑定域名是商用许可软件的唯一指向。您应确保域名的唯一性、有效性，域名一经绑定，不得随意更换。您自备的域名可以是顶级、二级、或三级域名，您应对域名合法性、有效性承担责任。在使用本软件过程中，如需更换域名，应提前三个工作日以书面方式告知我们并如实告知被更换域名存在的问题，否则，我们有权利不予更换。
-3、申请商用授权码的权利：您在我们指定合法渠道购买软件商用许可后，凭借订单号可以在我们官网申请商用授权码，并通过我们官方网站下载授权证书。
-4、获取商用授权证书的权利：通过我们官方网站下载的商用授权证书是许可您将软件商用的合法凭证。该授权证书是授予您以本协议约定方式合法使用软件的永久授权，但我们不对授权作无限制使用的永久承诺。
-5、授权内容使用权：在取得我们许可后，您拥有使用本软件构建的网站全部内容使用权，并独立承担与之相关法律义务。您可以在协议规定的约束条件下和限制范围内修改 CRMEB 源代码或界面风格以适应您的网站要求，但应保留我们的版权信息。不管你的网站是否整体使用 CRMEB ，还是部份栏目使用 CRMEB，在你使用了 CRMEB 的网站主页上必须加上 CRMEB 官方网址(www.CRMEB.com)的链接。
-6、在获得商业授权之后，您才可以将本软件应用于商业用途，同时依据所购买的授权类型确定技术支持内容。商业授权用户享有反馈意见和提出建议的权力，相关意见和建议将在我们下一次软件升级中被优先考虑，但我们对此不作承诺或保证。
-7、CRMEB著作权已在中华人民共和国国家版权局注册(中国国家版权局著作权登记号 2018SR024463)，著作权受到法律和国际公约保护。未经我们书面许可，不得删除网站底部及相应的官方链接。购买商业授权请联系众邦科技了解最新说明。
-8、本软件适用运营环境，在软件相关文档中已经明确提示，如因软件安装不符运营环境造成的故障，我们不承担任何责任。
+2. Nội dung giấy phép phần mềm
+Với cơ sở là bạn tuân thủ nội dung của thỏa thuận này, sau khi bạn mua giấy phép thương mại phần mềm thông qua các kênh hợp pháp được chỉ định của chúng tôi, các quyền trong giấy phép thương mại do Zhongbang Technology cấp cho bạn bao gồm:
+1. Quyền cài đặt và sử dụng: Bạn có thể cài đặt và sử dụng phần mềm này cho mục đích thương mại và sử dụng tất cả các chức năng do phần mềm này cung cấp.
+2. Quyền ràng buộc một tên miền duy nhất: Trước khi cài đặt phần mềm này, bạn nên chuẩn bị một tên miền và thông báo cho chúng tôi để chúng tôi có thể ràng buộc tên miền với phần mềm này. Tên miền bị ràng buộc là liên kết duy nhất tới phần mềm được cấp phép thương mại. Bạn nên đảm bảo tính duy nhất và hợp lệ của tên miền. Tên miền đã bị ràng buộc thì không thể tùy ý thay đổi được. Tên miền bạn chuẩn bị có thể là tên miền cấp cao nhất, cấp hai hoặc cấp ba. Bạn phải chịu trách nhiệm về tính hợp pháp và hiệu lực của tên miền. Trong quá trình sử dụng phần mềm này, nếu bạn cần thay đổi tên miền, bạn nên thông báo bằng văn bản cho chúng tôi trước ba ngày làm việc và thông báo trung thực cho chúng tôi về các vấn đề xảy ra với tên miền đã thay đổi. Nếu không, chúng tôi có quyền không thay đổi nó.
+3. Quyền đăng ký mã ủy quyền thương mại: Sau khi mua giấy phép thương mại phần mềm thông qua các kênh hợp pháp được chỉ định của chúng tôi, bạn có thể đăng ký mã ủy quyền thương mại trên trang web chính thức của chúng tôi cùng với số đơn đặt hàng của bạn và tải xuống chứng chỉ ủy quyền thông qua trang web chính thức của chúng tôi.
+4. Quyền nhận được chứng chỉ ủy quyền thương mại: Chứng chỉ ủy quyền thương mại được tải xuống thông qua trang web chính thức của chúng tôi là chứng chỉ hợp pháp cho phép bạn sử dụng phần mềm vì mục đích thương mại. Chứng chỉ ủy quyền này cấp cho bạn ủy quyền vĩnh viễn để sử dụng hợp pháp phần mềm theo cách thức được quy định trong thỏa thuận này, nhưng chúng tôi không đưa ra cam kết lâu dài về việc sử dụng ủy quyền không giới hạn.
+5. Quyền sử dụng nội dung được ủy quyền: Sau khi được chúng tôi cho phép, bạn có quyền sử dụng tất cả nội dung của trang web được xây dựng bằng phần mềm này và bạn phải độc lập chịu các nghĩa vụ pháp lý liên quan. Bạn có thể sửa đổi mã nguồn hoặc kiểu giao diện CRMEB cho phù hợp với yêu cầu trang web của mình trong các ràng buộc và giới hạn được quy định trong thỏa thuận, nhưng thông tin bản quyền của chúng tôi phải được giữ lại. Bất kể trang web của bạn sử dụng CRMEB nói chung hay một số cột sử dụng CRMEB, trang web chính thức của CRMEB phải được thêm vào trang chủ của trang web nơi bạn sử dụng CRMEB.(www.CRMEB.com)liên kết.
+6. Chỉ sau khi có được ủy quyền thương mại, bạn mới có thể sử dụng phần mềm này cho mục đích thương mại và nội dung hỗ trợ kỹ thuật sẽ được xác định dựa trên loại ủy quyền đã mua. Người dùng được ủy quyền thương mại có quyền đưa ra phản hồi và đưa ra đề xuất. Những nhận xét và đề xuất có liên quan sẽ được ưu tiên trong lần nâng cấp phần mềm tiếp theo của chúng tôi, nhưng chúng tôi không đưa ra cam kết hay đảm bảo nào về vấn đề này.
+7. Bản quyền CRMEB đã được đăng ký với Cục Bản quyền Quốc gia Cộng hòa Nhân dân Trung Hoa(Số đăng ký bản quyền của Cục Bản quyền Quốc gia Trung Quốc 2018SR024463)，Bản quyền được bảo vệ bởi pháp luật và các điều ước quốc tế. Phần dưới cùng của trang web và các liên kết chính thức tương ứng không được xóa nếu không có sự cho phép bằng văn bản của chúng tôi. Để mua giấy phép thương mại, vui lòng liên hệ Zhongbang Technology để được hướng dẫn mới nhất.
+8. Phần mềm này phù hợp với môi trường hoạt động. Nó đã được nêu rõ trong các tài liệu liên quan đến phần mềm. Chúng tôi không chịu bất kỳ trách nhiệm nào đối với các trục trặc do cài đặt phần mềm không phù hợp với môi trường hoạt động.。
 <br/>
-三、权利限制
-1、单一使用限制：同一个域名，只允许绑定一次。您购买的许可，只允许您自己使用，不得再许可任何第三人使用。
-2、共享软件限制：您不得通过共享软件的全部或部分，允许多人使用软件的部分或全部功能。
-3、软件分解限制：您不得通过分解软件，把不同功能或把软件的不同部分嵌入到其他软件系统。
-4、软件完整性限制：您不得删除软件中的任何版权申明、提示，亦不得对软件中出现的任何商标或标识进行涂抹、修改或删除，除非已经获得我们的书面同意，您应将需要修改的标识等详细情况书面告知我们，以便我们评估您的需要。
-5、反向工程、反编译、反汇编限制：您不得对软件进行反向工程、反编译、反汇编，除非法律明确规定允许这些行为除外。
-6、转让限制：未经众邦科技的书面同意，您不得公开、转让、出租、出借、再许可、分发该软件的全部或任何部分或软件单一备份副本给第三方。
-7、保密限制：未经众邦科技书面同意，您不得将本软件的性能或其他任何评估、测试结果、技术秘密透露给任何第三方。
+3. Hạn chế quyền
+1. Hạn chế sử dụng một lần: Tên miền giống nhau chỉ được phép ràng buộc một lần. Giấy phép bạn mua chỉ dành cho mục đích sử dụng của riêng bạn và có thể không được cấp phép cho bất kỳ bên thứ ba nào.
+2. Hạn chế chia sẻ phần mềm: Bạn không được phép cho phép nhiều người sử dụng một số hoặc tất cả chức năng của phần mềm bằng cách chia sẻ toàn bộ hoặc một phần phần mềm.
+3. Hạn chế phân rã phần mềm: Bạn không được phân tách phần mềm để nhúng các chức năng khác nhau hoặc các phần khác nhau của phần mềm vào các hệ thống phần mềm khác.
+4. Hạn chế về tính toàn vẹn của phần mềm: Bạn không được phép xóa bất kỳ tuyên bố hoặc lời nhắc về bản quyền nào trong phần mềm, bạn cũng không được phép xóa, sửa đổi hoặc xóa bất kỳ nhãn hiệu hoặc biểu tượng nào xuất hiện trong phần mềm, trừ khi bạn có được sự đồng ý bằng văn bản của chúng tôi. Bạn nên thông báo cho chúng tôi bằng văn bản về các logo cần được sửa đổi và các chi tiết khác để chúng tôi có thể đánh giá nhu cầu của bạn.
+5. Hạn chế về kỹ thuật đảo ngược, dịch ngược và tháo gỡ: Bạn không được phép thiết kế đảo ngược, dịch ngược hoặc tháo rời phần mềm trừ khi những hành động này được pháp luật cho phép rõ ràng.
+6. Hạn chế chuyển nhượng: Bạn không được tiết lộ, chuyển giao, thuê, cho mượn, cấp phép lại hoặc phân phối tất cả hoặc bất kỳ phần nào của phần mềm hoặc một bản sao lưu duy nhất của phần mềm cho bên thứ ba mà không có sự đồng ý bằng văn bản của Zhongbang Technology.
+7. Hạn chế về bảo mật: Bạn không được tiết lộ hiệu suất của phần mềm này hoặc bất kỳ đánh giá, kết quả kiểm tra hoặc bí mật kỹ thuật nào khác cho bất kỳ bên thứ ba nào mà không có sự đồng ý bằng văn bản của Zhongbang Technology。
 <br/>
-四、权利保留
-1、众邦科技依法保留未在本协议中明确授予给您的其他一切在法律上属于众邦科技的权利。
-2、本软件受著作权法、国际著作权条约和其他的知识产权法律或国际条约保护。根据本协议，在此仅许可您非独占性的、非排他性的一般许可使用该软件的权利，而不是出售或转让。
-3、商标权：本协议不授予您众邦科技或其供应商的任何商标或服务标志相关的任何权利。
-4、本软件所涉及到的一切知识产权，包括但不限于专利权、著作权、商标权、商业秘密、技术秘密，均属于各自内容拥有者的财产，众邦科技保留从其所拥有的知识产权获取利益的权利。
-5、未经我们书面许可，不得对本软件或与之关联的商业授权进行出租、出售、抵押或发放子许可证。
-6、未经我们书面许可，禁止在 CRMEB 的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。
-7、您一旦开始确认本协议并安装 CRMEB，即被视为完全理解并接受本协议的各项条款，在享有上述条款授予的权力的同时，受到相关的约束和限制。协议许可范围以外的行为，将直接违反本授权协议并构成侵权，我们有权立即终止授权，责令停止损害，并保留追究相关责任的权力。
+4. Quyền được bảo lưu
+1. Zhongbang Technology bảo lưu theo quy định của pháp luật tất cả các quyền khác không được cấp rõ ràng cho bạn trong thỏa thuận này và về mặt pháp lý thuộc về Zhongbang Technology.
+2. Phần mềm này được bảo vệ bởi luật bản quyền, hiệp ước bản quyền quốc tế và các luật sở hữu trí tuệ hoặc hiệp ước quốc tế khác. Theo Thỏa thuận này, theo đây, bạn chỉ được cấp quyền cấp phép chung, không độc quyền, không độc quyền để sử dụng Phần mềm, không được bán hoặc chuyển nhượng.
+3. Quyền nhãn hiệu: Thỏa thuận này không cấp cho bạn bất kỳ quyền nào liên quan đến bất kỳ nhãn hiệu hoặc nhãn hiệu dịch vụ nào của Zhongbang Technology hoặc nhà cung cấp của nó.
+4. Tất cả các quyền sở hữu trí tuệ liên quan đến phần mềm này, bao gồm nhưng không giới hạn ở quyền sáng chế, bản quyền, quyền thương hiệu, bí mật thương mại và bí mật kỹ thuật, đều là tài sản của chủ sở hữu nội dung tương ứng. Zhongbang Technology có quyền thu được lợi ích từ quyền sở hữu trí tuệ mà mình sở hữu.
+5. Không được phép thuê, bán, thế chấp hoặc cấp phép lại phần mềm này hoặc giấy phép thương mại đi kèm với nó nếu không có sự cho phép bằng văn bản của chúng tôi.
+6. Nghiêm cấm phát triển bất kỳ phiên bản phái sinh, sửa đổi hoặc bên thứ ba nào để phân phối lại dựa trên toàn bộ hoặc bất kỳ phần nào của CRMEB mà không có sự cho phép bằng văn bản của chúng tôi.
+7. Sau khi bạn xác nhận thỏa thuận này và cài đặt CRMEB, bạn được coi là đã hiểu đầy đủ và chấp nhận các điều khoản của thỏa thuận này. Trong khi tận hưởng các quyền hạn được cấp bởi các điều khoản trên, bạn phải tuân theo các hạn chế và hạn chế có liên quan. Hành vi vượt quá phạm vi của thỏa thuận sẽ trực tiếp vi phạm thỏa thuận cấp phép này và cấu thành hành vi vi phạm. Chúng tôi có quyền chấm dứt ngay việc ủy ​​quyền, ra lệnh dừng thiệt hại và có quyền theo đuổi các trách nhiệm liên quan.。
 <br/>
-五、知识产权
-1、我们拥有许可软件的著作权、商业秘密以及其他相关的知识产权，包括与许可软件有关的各种文档资料。许可软件的相关标识属于我们及我们的关联公司的知识产权，并受到相关法律法规的保护。
-2、在未获得我们明确同意前，您不得复制、模仿、使用或发布上述图标，也不得修改或删除应用产品中体现我们及其关联公司的任何标识、图标或身份信息。
-3、未经我们及我们的关联公司事先书面同意，您不得为任何营利性或非营利性的目的自行实施、利用、转让或许可任何第三方实施、利用、转让上述知识产权。
-4、除非在此明确地许可或授予，本协议并不涉及任何技术转让，软件里所包含和涉及所有权利，产权和利益属于我们独自所有。除非在此明确地许可，本合同并不将任何技术转让给您。
+5. Quyền sở hữu trí tuệ
+1. Chúng tôi sở hữu bản quyền, bí mật thương mại và các quyền sở hữu trí tuệ liên quan khác của phần mềm được cấp phép, bao gồm nhiều tài liệu khác nhau liên quan đến phần mềm được cấp phép. Các logo có liên quan của phần mềm được cấp phép thuộc quyền sở hữu trí tuệ của chúng tôi và các công ty liên kết của chúng tôi và được bảo vệ bởi các luật và quy định có liên quan.
+2. Nếu không có sự đồng ý rõ ràng của chúng tôi, bạn không được sao chép, bắt chước, sử dụng hoặc xuất bản các biểu tượng trên, bạn cũng không được sửa đổi hoặc xóa bất kỳ logo, biểu tượng hoặc thông tin nhận dạng nào phản ánh chúng tôi và các chi nhánh của chúng tôi trong các sản phẩm ứng dụng.
+3. Nếu không có sự đồng ý trước bằng văn bản của chúng tôi và các chi nhánh của chúng tôi, bạn không được thực hiện, sử dụng, chuyển giao hoặc cho phép bất kỳ bên thứ ba nào thực hiện, sử dụng hoặc chuyển giao các quyền sở hữu trí tuệ nêu trên cho bất kỳ mục đích kiếm lợi nhuận hoặc phi lợi nhuận nào.
+4. Trừ khi được cho phép hoặc cấp phép rõ ràng ở đây, thỏa thuận này không liên quan đến bất kỳ hoạt động chuyển giao công nghệ nào. Tất cả các quyền, quyền tài sản và lợi ích có trong và liên quan đến phần mềm chỉ thuộc về chúng tôi. Trừ khi được cho phép rõ ràng ở đây, hợp đồng này không chuyển giao bất kỳ công nghệ nào cho bạn。
 <br/>
-六、升级版本
-1、我们会根据需要在后续进行一系列免费升级操作，您只有在获得商业使用授权许可后，才享有软件免费升级权益。我们有权决定将升级包何时以何种方式发送给您。
-2、升级版本的许可：如果该软件经众邦科技同意升级，除非升级版本有替代的软件许可协议，否则升级版本仍应遵循本协议条款。
-3、不论软件是否升级，您必须遵守本协议。
+6. Phiên bản nâng cấp
+1. Chúng tôi sẽ thực hiện một loạt nâng cấp miễn phí khi cần thiết. Bạn chỉ có thể tận hưởng các bản nâng cấp phần mềm miễn phí sau khi có được giấy phép sử dụng thương mại. Chúng tôi có quyền quyết định thời điểm và cách thức gửi gói nâng cấp cho bạn.
+2. Giấy phép cho phiên bản nâng cấp: Nếu phần mềm được nâng cấp với sự đồng ý của Zhongbang Technology, trừ khi phiên bản nâng cấp có thỏa thuận cấp phép phần mềm thay thế, phiên bản nâng cấp vẫn phải tuân thủ các điều khoản của thỏa thuận này.
+3. Bất kể phần mềm có được nâng cấp hay không, bạn đều phải tuân thủ thỏa thuận này。
 <br/>
-七、无担保和责任限制
-1、除众邦科技明确明示保证的事项以外，对其他任何默示、特定用途、适销性不做任何默示或明示的保证，由此引起的风险由您自己承担。
-2、有关本软件在使用过程中存在不适用性情况，您应当立即以书面方式反馈给我们，在我们现有技术可以解决的情况下，将依照众邦科技的软件产品标准保修政策规定。
-    1)众邦科技不对试用期及免费试用软件因使用而产生的损失承担任何明示或暗示的责任。
-    2)众邦科技承担的所有责任以您购买该软件所支付的价款为限。
-3、对因意外事故、滥用、错误使用、擅自修改所引起的软件使用问题，我们不承担任何责任，也不做任何保证。对因软件产品存在被攻击，或者自然灾害等不可抗力因素或非众邦科技原因导致软件不能使用，或造成损失的，我们不承担任何责任，也不做任何保证。
-4、对因使用软件引起的其他任何附带的、间接的或惩罚性的损失，包括但不限于商业利润的损失、信息或数据的丢失，众邦科技不承担任何责任，即使众邦科技已被告知存在此种损害的可能性也不例外。
-5、除法律法规有明确规定外，我们将尽最大努力确保许可软件及其所涉及的技术及信息安全、有效、准确、可靠，但受限于我们现有技术，您充分理解我们不能对此进行担保。您理解，对于因您自身、不可抗力及第三方原因导致的您的直接或间接损失，我们无法承担责任。
-6、由于您因下述任一情况所引起或与此有关的人身伤害或附带的、间接的损害赔偿，包括但不限于利润损失、资料损失、业务中断的损害赔偿或其他商业损害赔偿或损失，需由您自行承担：使用或未能使用许可软件；第三方未经批准的使用许可软件或更改您的数据；使用许可软件进行的行为产生的费用及损失；您对许可软件的误解；非因我们的原因而引起的与许可软件有关的其他损失。
-7、非经我们或我们授权开发并正式发布的其他任何由许可软件衍生的软件均属非法，下载、安装、使用此类软件，或未经绑定唯一指向域名，可能导致不可预知的风险，由此产生的法律责任与纠纷与我们无关，我们有权中止、终止使用许可和（或）其他一切服务。
-8、您与其他使用许可软件的用户之间通过许可软件进行时，因您受误导或欺骗而导致或可能导致的任何心理、生理上的伤害以及经济上的损失，均应由侵权方依法承担所有责任。
+7. Không đảm bảo và giới hạn trách nhiệm pháp lý
+1. Ngoại trừ các vấn đề được Zhongbang Technology bảo đảm rõ ràng, nó không đưa ra bất kỳ bảo đảm ngụ ý hoặc rõ ràng nào khác cho bất kỳ mục đích ngầm, cụ thể hoặc khả năng bán được nào khác và những rủi ro phát sinh từ đó sẽ do bạn chịu.
+2. Về việc phần mềm này không thể áp dụng trong quá trình sử dụng, bạn nên phản hồi ngay bằng văn bản cho chúng tôi. Nếu công nghệ hiện tại của chúng tôi có thể giải quyết được vấn đề, chính sách bảo hành tiêu chuẩn sản phẩm phần mềm của Zhongbang Technology sẽ được tuân thủ.。
+    1)Zhongbang Technology không chịu bất kỳ trách nhiệm pháp lý rõ ràng hay ngụ ý nào đối với những tổn thất phát sinh từ việc sử dụng thời gian dùng thử và phần mềm dùng thử miễn phí.。
+    2)Mọi trách nhiệm pháp lý của Zhongbang Technology được giới hạn ở mức giá bạn đã trả để mua phần mềm.
+3. Chúng tôi không chịu bất kỳ trách nhiệm nào đối với các vấn đề sử dụng phần mềm do tai nạn, lạm dụng, sử dụng sai hoặc sửa đổi trái phép và chúng tôi không đưa ra bất kỳ đảm bảo nào. Chúng tôi không chịu bất kỳ trách nhiệm nào và không đưa ra bất kỳ đảm bảo nào nếu phần mềm không thể sử dụng được hoặc xảy ra tổn thất do sản phẩm phần mềm bị tấn công, các yếu tố bất khả kháng như thiên tai hoặc các lý do khác ngoài Công nghệ Zhongbang.
+4. Zhongbang Technology không chịu bất kỳ trách nhiệm nào đối với bất kỳ tổn thất ngẫu nhiên, gián tiếp hoặc mang tính trừng phạt nào khác do việc sử dụng phần mềm gây ra, bao gồm nhưng không giới hạn ở việc mất lợi nhuận kinh doanh, mất thông tin hoặc dữ liệu, ngay cả khi Zhongbang Technology đã được thông báo về khả năng xảy ra thiệt hại đó.
+5. Trừ khi luật pháp và quy định có quy định khác, chúng tôi sẽ cố gắng hết sức để đảm bảo rằng phần mềm được cấp phép cũng như công nghệ và thông tin liên quan là an toàn, hiệu quả, chính xác và đáng tin cậy. Tuy nhiên, do những hạn chế về công nghệ hiện tại của chúng tôi, bạn hoàn toàn hiểu rằng chúng tôi không thể đảm bảo điều này. Bạn hiểu rằng chúng tôi không thể chịu trách nhiệm về những tổn thất trực tiếp hoặc gián tiếp do chính bạn gây ra, bất khả kháng và lý do của bên thứ ba.
+6. Bạn phải tự chịu trách nhiệm về mọi thương tích cá nhân hoặc thiệt hại ngẫu nhiên hoặc gián tiếp gây ra bởi hoặc liên quan đến bất kỳ trường hợp nào sau đây, bao gồm nhưng không giới hạn ở việc mất lợi nhuận, mất dữ liệu, thiệt hại do gián đoạn kinh doanh hoặc các thiệt hại hoặc mất mát thương mại khác: sử dụng hoặc không sử dụng phần mềm được cấp phép; việc sử dụng phần mềm được cấp phép không được chấp thuận hoặc bên thứ ba thay đổi dữ liệu của bạn; chi phí và tổn thất phát sinh từ việc sử dụng phần mềm được cấp phép; sự hiểu lầm của bạn về phần mềm được cấp phép; những tổn thất khác liên quan đến phần mềm được cấp phép mà không phải do chúng tôi gây ra.
+7. Bất kỳ phần mềm nào khác có nguồn gốc từ phần mềm được cấp phép không do chúng tôi phát triển và phát hành chính thức hoặc sự ủy quyền của chúng tôi là bất hợp pháp. Việc tải xuống, cài đặt và sử dụng phần mềm đó hoặc không ràng buộc một tên miền duy nhất có thể dẫn đến những rủi ro khó lường. Các trách nhiệm pháp lý và tranh chấp phát sinh không liên quan gì đến chúng tôi. Chúng tôi có quyền đình chỉ hoặc chấm dứt giấy phép và/hoặc tất cả các dịch vụ khác.
+8. Khi bạn và những người dùng khác của phần mềm được cấp phép giao tiếp thông qua phần mềm được cấp phép, mọi tổn hại về tâm lý, sinh lý và kinh tế có thể xảy ra do bạn bị lừa dối hoặc lừa dối sẽ do bên vi phạm chịu theo quy định của pháp luật.。
 <br/>
-八、保密条款
-双方都应为可能获知另一方的商业计划、客户方资料、技术、产品、代码、文档和其他作为该方商业秘密的秘密信息予以保密。秘密信息包括所有有形的或无形的、标明为秘密的信息。秘密信息归披露方所有，除非经披露方声明许可否则不得披露或使用。
+8. Điều khoản bảo mật
+Cả hai bên phải giữ bí mật về kế hoạch kinh doanh, thông tin khách hàng, công nghệ, sản phẩm, mã số, tài liệu và các thông tin bí mật khác của bên kia mà có thể được biết là bí mật thương mại của bên đó. Thông tin bí mật bao gồm tất cả thông tin, hữu hình hoặc vô hình, được đánh dấu là bí mật. Thông tin bí mật vẫn là tài sản của bên tiết lộ và không được tiết lộ hoặc sử dụng trừ khi có sự cho phép rõ ràng của bên tiết lộ.。
 <br/>
-九、协议终止和违约责任
-1、如果您没有遵守本协议的部分或全部条款，众邦科技可以随时单方终止本协议。协议终止后，我们将取消对您的商用许可授权，同时您必须立即停止使用该软件，对已经安装的软件进行卸载，如果由于您违反了本协议的规定给众邦科技造成损失，应承担损失赔偿责任。
-2、您应理解按授权范围使用许可软件、尊重软件及软件包含内容的知识产权、按规范使用软件、按本协议约定履行义务是您获取我们授权使用软件的前提，如您违反本协议，我们有权终止使用许可。
-3、您对软件的使用有赖于我们及关联公司为您提供的配套服务，您违反与我们或我们关联公司的条款、协议、规则、通告等相关规定，我们有权终止使用许可。您违反了本协议的规定给众邦科技造成损失，应承担给我们造成损失的赔偿责任。
-4、您理解出于维护软件系统及软件平台秩序的目的，如果您向我们及（或）我们的关联公司作出任何形式的承诺，且相关公司已确认您违反了该承诺并通知我们依据您与其相关约定进行处理的，则我们可按您的承诺或协议约定的方式对您的使用许可及其他我们可控制的权益采取限制措施，包括中止或终止对您的使用许可，并追究您相关法律责任的权利。
-5、您如从获得我们授权认可的第三方取得许可软件，您需要遵守本协议及第三方对您使用许可软件方式与限制的约定，如果您违反本协议及与第三方约定，我们有权终止对您的使用许可，并追究您相关法律责任。
-6、您应对从本软件获得的代码、文档等技术信息保密，不得对源代码、文档及框架进行删改，不得破译加密部分，不得非法进行倒卖本软件，我们不对非法软件使用后果承担任何责任，并有权追究您的法律责任，您应当赔偿因您的侵权行为给我们造成的直接和间接损失。
-7、如您违反本协议规定的条款，则构成违约，应当承担软件销售价格十倍至五十倍不等的违约金，如给我们或其他用户造成损失的，您必须承担全部的赔偿责任（包括直接损失和间接损失），包括但不限于咨询费、诉讼费、执行费、保全费、保险费、律师费等费用。
+9. Chấm dứt thỏa thuận và trách nhiệm pháp lý khi vi phạm hợp đồng
+1. Nếu bạn không tuân thủ một số hoặc tất cả các điều khoản của thỏa thuận này, Zhongbang Technology có thể đơn phương chấm dứt thỏa thuận này bất cứ lúc nào. Sau khi chấm dứt thỏa thuận, chúng tôi sẽ hủy ủy quyền giấy phép thương mại của bạn và bạn phải ngừng sử dụng phần mềm ngay lập tức và gỡ cài đặt phần mềm đã cài đặt. Nếu bạn gây thiệt hại cho Zhongbang Technology do vi phạm các quy định của thỏa thuận này, bạn sẽ phải chịu trách nhiệm bồi thường thiệt hại.
+2. Bạn nên hiểu rằng việc sử dụng phần mềm được cấp phép trong phạm vi được ủy quyền, tôn trọng quyền sở hữu trí tuệ của phần mềm và nội dung có trong phần mềm, sử dụng phần mềm theo đúng thông số kỹ thuật và thực hiện các nghĩa vụ theo thỏa thuận này là những điều kiện tiên quyết để bạn nhận được sự cho phép của chúng tôi để sử dụng phần mềm. Nếu bạn vi phạm thỏa thuận này, chúng tôi có quyền chấm dứt giấy phép.
+3. Việc bạn sử dụng phần mềm phụ thuộc vào các dịch vụ hỗ trợ do chúng tôi và các chi nhánh của chúng tôi cung cấp. Nếu bạn vi phạm các điều khoản, thỏa thuận, quy tắc, thông báo và các quy định liên quan khác với chúng tôi hoặc các chi nhánh của chúng tôi, chúng tôi có quyền chấm dứt giấy phép. Nếu bạn vi phạm các quy định của thỏa thuận này và gây thiệt hại cho Zhongbang Technology, bạn sẽ phải chịu trách nhiệm bồi thường những tổn thất gây ra cho chúng tôi.
+4. Bạn hiểu rằng vì mục đích duy trì trật tự của hệ thống phần mềm và nền tảng phần mềm, nếu bạn đưa ra bất kỳ hình thức cam kết nào với chúng tôi và/hoặc các công ty liên kết của chúng tôi và công ty liên quan đã xác nhận rằng bạn đã vi phạm cam kết đó và thông báo cho chúng tôi xử lý theo thỏa thuận liên quan của bạn, chúng tôi có thể thực hiện các biện pháp hạn chế đối với giấy phép sử dụng của bạn cũng như các quyền và lợi ích khác mà chúng tôi có thể kiểm soát theo cách được chỉ định trong cam kết hoặc thỏa thuận của bạn, bao gồm đình chỉ hoặc chấm dứt giấy phép sử dụng và truy đuổi trách nhiệm pháp lý của bạn.
+5. Nếu bạn nhận được phần mềm được cấp phép từ bên thứ ba được chúng tôi ủy quyền, bạn cần tuân thủ thỏa thuận này và thỏa thuận của bên thứ ba về các phương pháp cũng như hạn chế đối với việc bạn sử dụng phần mềm được cấp phép. Nếu bạn vi phạm thỏa thuận này và thỏa thuận với bên thứ ba, chúng tôi có quyền chấm dứt giấy phép của bạn và buộc bạn phải chịu trách nhiệm trước pháp luật có liên quan.
+6. Bạn nên giữ bí mật mã, tài liệu và thông tin kỹ thuật khác thu được từ phần mềm này. Bạn không được xóa hoặc sửa đổi mã nguồn, tài liệu và khung, giải mã các phần được mã hóa hoặc bán lại phần mềm một cách bất hợp pháp. Chúng tôi không chịu bất kỳ trách nhiệm nào về hậu quả của việc sử dụng phần mềm bất hợp pháp và có quyền truy cứu trách nhiệm pháp lý của bạn. Bạn phải bồi thường cho chúng tôi những tổn thất trực tiếp và gián tiếp do hành vi vi phạm của bạn gây ra.
+7. Nếu bạn vi phạm các điều khoản của thỏa thuận này, điều đó sẽ cấu thành hành vi vi phạm hợp đồng và bạn sẽ phải chịu thiệt hại từ mười lần đến năm mươi lần giá bán phần mềm. Nếu bạn gây tổn thất cho chúng tôi hoặc những người dùng khác, bạn phải chịu mọi trách nhiệm bồi thường (bao gồm tổn thất trực tiếp và tổn thất gián tiếp), bao gồm nhưng không giới hạn ở phí tư vấn, phí kiện tụng, phí thực hiện, phí bảo quản, phí bảo hiểm, phí luật sư, v.v.。
 <br/>
-十、管辖法律及可分割性
-1、<strong>本协议之效力、解释、变更、执行与争议解决均适用中华人民共和国法律，如无相关法律规定的，则应参照通用国际商业惯例和（或）行业惯例。本协议由您与我们于我们服务器所在地陕西省西安市莲湖区签署。因本协议产生或与本协议有关的争议，您可与我们以友好协商，协商不成时，提交西安仲裁委员会予以裁决。仲裁裁决是终局的，对双方均有拘束力。</strong>
-2、本协议任何条款被认定为无效的，不应影响其他条款或其任何部分的效力，您与我们仍应善意履行。
+10. Luật điều chỉnh và khả năng tách biệt
+1、<strong>Hiệu lực, giải thích, sửa đổi, thực thi và giải quyết tranh chấp của Thỏa thuận này sẽ được điều chỉnh bởi luật pháp của Cộng hòa Nhân dân Trung Hoa. Trường hợp chưa có quy định pháp luật liên quan thì tham khảo thông lệ kinh doanh quốc tế chung và/hoặc thông lệ ngành. Thỏa thuận này được ký giữa bạn và chúng tôi tại Quận Liên Hồ, Thành phố Tây An, Tỉnh Thiểm Tây, nơi đặt máy chủ của chúng tôi. Đối với các tranh chấp phát sinh từ hoặc liên quan đến Thỏa thuận này, bạn có thể thương lượng một cách thân thiện với chúng tôi. Nếu đàm phán không thành công, tranh chấp sẽ được đưa ra Ủy ban Trọng tài Tây An để phân xử. Phán quyết trọng tài là cuối cùng và ràng buộc đối với cả hai bên.。</strong>
+2、Nếu bất kỳ điều khoản nào của Thỏa thuận này bị coi là không hợp lệ thì điều khoản đó sẽ không ảnh hưởng đến hiệu lực của các điều khoản khác hoặc bất kỳ phần nào trong đó. Bạn và chúng tôi vẫn sẽ thực hiện chúng một cách thiện chí.。
 <br/>
-十一、其它说明
-1.<strong>CRMEB产品没有收集任何最终用户的个人隐私信息。</strong>
-2.为了保障您使用CRMEB的产品与/或服务稳定性和版权合法性我们需要收集您的设备信息（操作系统及软件版本、安装站点域名、IP地址、浏览器信息）。
+11. Hướng dẫn khác
+1.<strong>CRMEBSản phẩm không thu thập bất kỳ thông tin riêng tư cá nhân nào của người dùng cuối。</strong>
+2.Để đảm bảo tính ổn định và hợp pháp về bản quyền khi bạn sử dụng các sản phẩm và/hoặc dịch vụ của CRMEB, chúng tôi cần thu thập thông tin thiết bị của bạn (phiên bản hệ điều hành và phần mềm, tên miền trang cài đặt, địa chỉ IP, thông tin trình duyệt）。
 <br/>
-十二、其它条款
-1、本协议未约定的，由双方另行商定。
-2、本协议的所有标题仅是为了醒目及阅读方便，本身并没有实际涵义，不能作为解释本协议涵义的依据。
+12. Các điều khoản khác
+1. Nếu không có thỏa thuận nào trong thỏa thuận này thì hai bên sẽ tự thương lượng.
+2. Tất cả các tiêu đề trong thỏa thuận này chỉ nhằm mục đích bắt mắt và dễ đọc. Chúng không có ý nghĩa thực tế và không thể được sử dụng làm cơ sở để giải thích ý nghĩa của thỏa thuận này.
 
 
-                                                                   西安众邦网络科技有限公司
-                                                                协议发布时间： 2017年08月01日
-                                                            CRMEB官方网站：https://www.crmeb.com
+                                                                   Công ty TNHH Công nghệ Mạng Tây An Zhongbang
+                                                                Thời gian ban hành thỏa thuận: 01/08/2017
+                                                            Trang web chính thức của CRMEB：https://www.crmeb.com
 
 </pre>
         </div>
-        <div class="bottom" @click="agree">我知道了</div>
+        <div class="bottom" @click="agree">tôi hiểu rồi</div>
     </div>
 </div>
 <?php require './templates/footer.php';?>
@@ -144,7 +144,7 @@
                     window.location.href = "./index.php?step=2";
                 } else {
                     // this.$message({
-                    //     message: '请先阅读并同意《软件使用协议》再进行下一步操作',
+                    //     message: 'Vui lòng đọc và đồng ý với "Thỏa thuận sử dụng phần mềm" trước khi chuyển sang bước tiếp theo.',
                     //     type: 'error'
                     // });
                     this.isShock = true
@@ -176,7 +176,7 @@
        CCC::::::::::::C  R::::::R     R:::::R  M::::::M               M::::::M  E::::::::::::::::::::E  B::::::::::::::::B
           CCCCCCCCCCCCC  RRRRRRRR     RRRRRRR  MMMMMMMM               MMMMMMMM  EEEEEEEEEEEEEEEEEEEEEE  BBBBBBBBBBBBBBBBB
 
-  众邦科技 https://www.crmeb.com/
+  Công nghệ Trung Bang https://www.crmeb.com/
         `)
 </script>
 </html>

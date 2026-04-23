@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\user\UserLevelServices;
 use think\facade\App;
 
 /**
- * 会员设置
+ * Cài đặt thành viên
  * Class UserLevel
  * @package app\adminapi\controller\v1\user
  */
@@ -34,7 +34,7 @@ class UserLevel extends AuthController
     }
 
     /*
-     * 获取添加资源表单
+     * Nhận biểu mẫu thêm tài nguyên
      * */
     public function create()
     {
@@ -45,8 +45,8 @@ class UserLevel extends AuthController
     }
 
     /*
-     * 会员等级添加或者修改
-     * @param $id 修改的等级id
+     * Thêm hoặc sửa đổi cấp độ thành viên
+     * @param $id mức độ sửa đổiid
      * @return json
      * */
     public function save()
@@ -65,18 +65,18 @@ class UserLevel extends AuthController
             ['is_show', ''],
             ['exp_num', 0]
         ]);
-        if ($data['valid_date'] == 0) $data['is_forever'] = 1;//有效时间为0的时候就是永久
-        if (!$data['name']) return app('json')->fail('请输入等级名称');
-        if (!$data['grade']) return app('json')->fail('请输入等级');
-        if (!$data['icon']) return app('json')->fail('请上传等级图标');
-        if (!$data['image']) return app('json')->fail('请上传等级背景图标');
-        if (!$data['exp_num']) return app('json')->fail('请输入升级经验值');
+        if ($data['valid_date'] == 0) $data['is_forever'] = 1;//Khi thời gian hiệu lực là 0, nó là vĩnh viễn.
+        if (!$data['name']) return app('json')->fail('Vui lòng nhập tên cấp độ');
+        if (!$data['grade']) return app('json')->fail('Vui lòng nhập cấp độ');
+        if (!$data['icon']) return app('json')->fail('Vui lòng tải lên biểu tượng cấp độ');
+        if (!$data['image']) return app('json')->fail('Vui lòng tải lên biểu tượng nền cấp độ');
+        if (!$data['exp_num']) return app('json')->fail('Vui lòng nhập giá trị trải nghiệm nâng cấp');
         $this->services->save((int)$data['id'], $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /*
-     * 获取系统设置的vip列表
+     * Lấy danh sách VIP do hệ thống thiết lập
      * @param int page
      * @param int limit
      * */
@@ -92,7 +92,7 @@ class UserLevel extends AuthController
     }
 
     /*
-     * 删除会员等级
+     * Xóa cấp độ thành viên
      * @param int $id
      * */
     public function delete($id)
@@ -101,19 +101,19 @@ class UserLevel extends AuthController
     }
 
     /**
-     * 设置会员等级显示|隐藏
+     * Đặt hiển thị cấp độ thành viên|trốn
      *
      * @return json
      */
     public function set_show($is_show = '', $id = '')
     {
-        if ($is_show == '' || $id == '') return app('json')->fail('参数错误');
+        if ($is_show == '' || $id == '') return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->setShow((int)$id, (int)$is_show));
     }
 
     /**
-     * 等级列表快速编辑
-     * field:value name:钻石会员/grade:8/discount:92.00
+     * Chỉnh sửa nhanh danh sách cấp độ
+     * field:value name:Thành viên kim cương/grade:8/discount:92.00
      * @return json
      */
     public function set_value($id)
@@ -122,9 +122,9 @@ class UserLevel extends AuthController
             ['field', ''],
             ['value', '']
         ]);
-        if ($data['field'] == '' || $data['value'] == '') return app('json')->fail('参数错误');
+        if ($data['field'] == '' || $data['value'] == '') return app('json')->fail('Lỗi tham số');
         $this->services->setValue((int)$id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
 

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- *  商品Model
+ *  hàng hóaModel
  * Class StoreProduct
  * @package app\model\product\product
  */
@@ -26,20 +26,20 @@ class StoreProduct extends BaseModel
     use  ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_product';
 
     /**
-     * 一对一关联
-     * 商品关联商品商品详情
+     * hiệp hội một-một
+     *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
      */
     public function description()
@@ -48,8 +48,8 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 一对多关联
-     * 商品关联优惠卷模板id
+     * liên kết một-nhiều
+     * Mẫu phiếu giảm giá liên quan đến sản phẩmid
      * @return \think\model\relation\HasMany
      */
     public function couponId()
@@ -58,7 +58,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 优惠券名称一对多
+     * Tên phiếu giảm giá từ một đến nhiều
      * @return \think\model\relation\HasMany
      */
     public function coupons()
@@ -67,7 +67,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 评论一对多
+     * Bình luận một đến nhiều
      * @return \think\model\relation\HasMany
      */
     public function star()
@@ -76,7 +76,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 分类一对多
+     * Phân loại một đến nhiều
      * @return \think\model\relation\HasMany
      */
     public function cateName()
@@ -91,7 +91,7 @@ class StoreProduct extends BaseModel
 
 
     /**
-     * 轮播图获取器
+     * Trình lấy hình ảnh băng chuyền
      * @param $value
      * @return array|mixed
      */
@@ -101,7 +101,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 是否显示搜索器
+     * Có hiển thị cho người tìm kiếm hay không
      * @param $query
      * @param $value
      */
@@ -124,7 +124,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 是否删除搜索器
+     * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
      */
@@ -134,7 +134,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 商户ID搜索器
+     * Trình tìm ID người bán
      * @param Model $query
      * @param $value
      */
@@ -144,7 +144,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * keyword搜索器
+     * keywordNgười tìm kiếm
      * @param Model $query
      * @param $value
      * @param $data
@@ -168,7 +168,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 新品商品搜索器
+     * Công cụ tìm sản phẩm mới
      * @param Model $query
      * @param int $value
      */
@@ -178,7 +178,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 优惠商品搜索器
+     * Công cụ tìm kiếm sản phẩm giảm giá
      * @param Model $query
      * @param int $value
      */
@@ -188,7 +188,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 热卖商品搜索器
+     * Công cụ tìm vật phẩm nóng
      * @param Model $query
      * @param int $value
      */
@@ -198,7 +198,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 精品商品搜索器
+     * Công cụ tìm sản phẩm cao cấp
      * @param Model $query
      * @param int $value
      */
@@ -208,7 +208,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 精品商品搜索器
+     * Công cụ tìm sản phẩm cao cấp
      * @param Model $query
      * @param int $value
      */
@@ -218,7 +218,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 标签商品搜索器
+     * Gắn thẻ công cụ tìm sản phẩm
      * @param Model $query
      * @param int $value
      */
@@ -228,7 +228,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * SPU搜索器
+     * SPUNgười tìm kiếm
      * @param Model $query
      * @param int $value
      */
@@ -238,7 +238,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 库存搜索器
+     * Công cụ tìm hàng tồn kho
      * @param Model $query
      * @param int $value
      */
@@ -248,7 +248,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 会员专属商品搜索器
+     * Công cụ tìm sản phẩm chỉ dành cho thành viên
      * @param Model $query
      * @param int $value
      */
@@ -262,7 +262,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 是否虚拟商品搜索器
+     * Nó có phải là một công cụ tìm hàng ảo?
      * @param $query
      * @param $value
      */
@@ -274,7 +274,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 是否预售商品
+     * Có nên bán trước sản phẩm hay không
      * @param $query
      * @param $value
      */
@@ -286,7 +286,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 分类搜索器
+     * Trình tìm kiếm danh mục
      * @param Model $query
      * @param int $value
      */
@@ -304,7 +304,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 商品数量条件搜索器
+     * Trình tìm kiếm điều kiện số lượng sản phẩm
      * @param Model $query
      * @param $value
      * @param $data
@@ -348,7 +348,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 在当前id中查询
+     * Truy vấn trong id hiện tại
      * @param $query
      * @param $value
      */
@@ -365,7 +365,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 不在当前id中查询
+     * Không truy vấn trong id hiện tại
      * @param $query
      * @param $value
      */
@@ -375,7 +375,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 自定义表单搜索器
+     * Trình tìm kiếm biểu mẫu tùy chỉnh
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -388,7 +388,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 虚拟类型搜索器
+     * công cụ tìm kiếm kiểu ảo
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -401,7 +401,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 规格类型搜索器
+     * Trình tìm kiếm loại thông số kỹ thuật
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -414,7 +414,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 是否礼品搜索器
+     * Dù là người tìm quà
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -427,7 +427,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 会员专属商品搜索器
+     * Công cụ tìm sản phẩm chỉ dành cho thành viên
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -440,7 +440,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 价格区间搜索器
+     * công cụ tìm phạm vi giá
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -461,7 +461,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 库存区间搜索器
+     * Công cụ tìm kiếm phạm vi chứng khoán
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -482,7 +482,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 销量区间搜索器
+     * Công cụ tìm kiếm phạm vi bán hàng
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -503,7 +503,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 标签搜索器
+     * người tìm kiếm thẻ
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -522,7 +522,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 配送方式搜索器
+     * Công cụ tìm phương thức vận chuyển
      * @param $query
      * @param $value
      * @author wuhaotian
@@ -535,7 +535,7 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * 商品类型搜索器
+     * Trình tìm kiếm loại sản phẩm
      * @param $query
      * @param $value
      * @author wuhaotian

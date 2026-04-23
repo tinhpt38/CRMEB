@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\basic\BaseModel;
 use think\Model;
 
 /**
- * 佣金冻结
+ * Hoa hồng đóng băng
  * Class UserBrokerageFrozen
  * @package app\model\user
  */
@@ -24,20 +24,20 @@ class UserBrokerageFrozen extends BaseModel
 {
 
     /**
-     * 设置主键
+     * Đặt khóa chính
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 设置表名
+     * Đặt tên bảng
      * @var string
      */
     protected $name = 'user_brokerage_frozen';
 
 
     /**
-     * 用户id搜索器
+     * người tìm kiếm id người dùng
      * @param Model $query
      * @param $value
      */
@@ -47,7 +47,7 @@ class UserBrokerageFrozen extends BaseModel
     }
 
     /**
-     * 状态搜索器
+     * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
      */

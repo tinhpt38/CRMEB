@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "购物车",
+  "navigationBarTitleText": "giỏ hàng",
   "usingComponents": {
     "page-footer": "/components/pageFooter/index",
     "recommend": "/components/recommend/index",

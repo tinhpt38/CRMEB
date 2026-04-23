@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,19 +23,19 @@ use app\model\shipping\SystemCity;
 class ShippingTemplatesFreeCityDao extends BaseDao
 {
     /**
-     * 主表别名
+     * Bí danh bảng chính
      * @var string
      */
     protected $alias = 'a';
 
     /**
-     * 附表别名
+     * Lên lịch bí danh
      * @var string
      */
     protected $joinAlis = 'c';
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -44,7 +44,7 @@ class ShippingTemplatesFreeCityDao extends BaseDao
     }
 
     /**
-     * 设置join连表模型
+     * Đặt mô hình bảng tham gia
      * @return string
      */
     protected function setJoinModel(): string
@@ -53,7 +53,7 @@ class ShippingTemplatesFreeCityDao extends BaseDao
     }
 
     /**
-     * 关联模型
+     * mô hình liên kết
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
@@ -67,7 +67,7 @@ class ShippingTemplatesFreeCityDao extends BaseDao
     }
 
     /**
-     * 获取指定条件下的包邮列表
+     * Nhận danh sách vận chuyển miễn phí theo các điều kiện được chỉ định
      * @param array $where
      * @return mixed
      */

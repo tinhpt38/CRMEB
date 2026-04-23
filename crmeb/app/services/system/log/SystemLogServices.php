@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,16 +19,16 @@ use app\services\system\SystemMenusServices;
 use app\services\system\SystemRouteServices;
 
 /**
- * 系统日志
+ * Nhật ký hệ thống
  * Class SystemLogServices
  * @package app\services\system\log
- * @method deleteLog() 定期删除日志
+ * @method deleteLog() Xóa nhật ký thường xuyên
  */
 class SystemLogServices extends BaseServices
 {
 
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemLogServices constructor.
      * @param SystemLogDao $dao
      */
@@ -38,7 +38,7 @@ class SystemLogServices extends BaseServices
     }
 
     /**
-     * 记录访问日志
+     * Ghi lại nhật ký truy cập
      * @param int $adminId
      * @param string $adminName
      * @param string $type
@@ -58,7 +58,7 @@ class SystemLogServices extends BaseServices
             'add_time' => time(),
             'admin_name' => $adminName,
             'path' => $rule,
-            'page' => $service->getVisitName($rule) ?: '未知',
+            'page' => $service->getVisitName($rule) ?: 'không rõ',
             'ip' => $request->ip(),
             'type' => $type
         ];
@@ -70,7 +70,7 @@ class SystemLogServices extends BaseServices
     }
 
     /**
-     * 获取系统日志列表
+     * Nhận danh sách nhật ký hệ thống
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -89,7 +89,7 @@ class SystemLogServices extends BaseServices
         $list = $this->dao->getLogList($where, $page, $limit);
         $count = $this->dao->count($where);
         foreach($list as &$item){
-            $item['path_name'] = $routeArr[$item['path']] ?? '未知';
+            $item['path_name'] = $routeArr[$item['path']] ?? 'không rõ';
         }
         return compact('list', 'count');
     }

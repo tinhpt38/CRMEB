@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,8 +23,8 @@ class SystemConfigValidata extends Validate
 
     protected $regex = ['float_two' => '/^[0-9]+(.[0-9]{1,2})?$/'];
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -71,79 +71,79 @@ class SystemConfigValidata extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'site_url.url' => '请输入有效的网址',
-        'store_brokerage_ratio.float' => '一级返佣比例必须为数字',
-        'store_brokerage_ratio.regex' => '一级返佣比例最多两位小数',
-        'store_brokerage_ratio.egt' => '一级返佣比例填写范围在0-100之间',
-        'store_brokerage_ratio.elt' => '一级返佣比例填写范围在0-100之间',
-        'store_brokerage_two.float' => '二级返佣比例必须为数字',
-        'store_brokerage_two.regex' => '二级返佣比例最多两位小数',
-        'store_brokerage_two.egt' => '二级返佣比例填写范围在0-100之间',
-        'store_brokerage_two.elt' => '二级返佣比例填写范围在0-100之间',
-        'replenishment_num.number' => '待补货数量必须为数字',
-        'store_stock.number' => '警戒库存必须为数字',
-        'store_brokerage_two.between' => '二级返佣比例填写范围在0-100之间',
-        'user_extract_min_price.float' => '提现最小金额只能为数字',
-        'user_extract_min_price.gt' => '提现最小金额必须大于0',
-        'extract_time.number' => '佣金冻结时间范围在0-180之间',
-        'extract_time.between' => '佣金冻结时间范围在0-180之间',
-        'store_brokerage_price.float' => '满额分销金额金额必须为数字',
-        'integral_ratio.float' => '积分抵用比例必须为数字',
-        'integral_ratio.regex' => '积分抵用比例最多两位小数',
-        'integral_ratio.egt' => '积分抵用比例必须在0-1000之间',
-        'integral_ratio.elt' => '积分抵用比例必须在0-1000之间',
-        'order_give_integral.float' => '下单赠送积分必须为数字',
-        'order_give_integral.egt' => '下单赠送积分必须在0-1000之间',
-        'order_give_integral.elt' => '下单赠送积分必须在0-1000之间',
-        'order_cancel_time.float' => '普通商品未支付取消订单时间必须为数字',
-        'order_activity_time.float' => '活动商品未支付取消订单时间必须为数字',
-        'order_bargain_time.float' => '砍价商品未支付取消订单时间必须为数字',
-        'order_pink_time.float' => '拼团商品未支付取消订单时间必须为数字',
-        'system_delivery_time.float' => '订单发货后自动收货时间必须为数字',
-        'store_free_postage.float' => '满额包邮金额必须为数字',
-        'integral_rule_number.number' => '积分倍数必须大于0',
-        'express_rule_number.number' => '折扣数必须大于0',
-        'sign_rule_number.number' => '积分倍数必须大于0',
-        'offline_rule_number.number' => '折扣数必须大于0',
-        'order_give_exp.number' => '下单赠送经验比率必须为数字',
-        'order_give_exp.egt' => '下单赠送经验比率必须大于0',
-        'invite_user_exp.number' => '邀请新用户赠送经验必须为数字',
-        'invite_user_exp.egt' => '邀请新用户赠送经验必须大于0',
-        'config_export_to_name.chs' => '发货人姓名必须为汉字',
-        'config_export_to_name.length' => '发货人姓名长度在2-10位',
-        'config_export_to_tel.number' => '发货人电话必须为数字',
-        'config_export_to_tel.mobile' => '发货人电话请填写有效的手机号',
-        'config_export_to_address.chsAlphaNum' => '发货人地址只能是汉字、字母、数字',
-        'config_export_to_address.length' => '发货人地址长度为10-100位',
-        'config_export_siid.alphaNum' => '电子面单打印机编号必须为数字、字母',
-        'config_export_siid.length' => '电子面单打印机编号长度为10-50位',
-        'service_feedback.length' => '客服反馈长度位10-90位',
-        'thumb_big_height.number' => '缩略图大图尺寸（高）必须为数字',
-        'thumb_big_height.egt' => '缩略图大图尺寸（高）必须大于等于0',
-        'thumb_big_width.number' => '缩略图大图尺寸（宽）必须为数字',
-        'thumb_big_width.egt' => '缩略图大图尺寸（宽）必须大于等于0',
-        'thumb_mid_height.number' => '缩略图中图尺寸（高）必须为数字',
-        'thumb_mid_height.egt' => '缩略图中图尺寸（高）必须大于等于0',
-        'thumb_mid_width.number' => '缩略图中图尺寸（宽）必须为数字',
-        'thumb_mid_width.egt' => '缩略图中图尺寸（宽）必须大于等于0',
-        'thumb_small_height.number' => '缩略图小图尺寸（高）必须为数字',
-        'thumb_small_height.egt' => '缩略图小图尺寸（高）必须大于等于0',
-        'thumb_small_width.number' => '缩略图小图尺寸（宽）必须为数字',
-        'thumb_small_width.egt' => '缩略图小图尺寸（宽）必须大于等于0',
-        'watermark_text.chsAlphaNum' => '水印文字只能是汉字、字母、数字',
-        'watermark_text.length' => '水印文字长度为1-10位',
-        'watermark_text_size.number' => '水印文字大小必须为数字',
-        'watermark_text_size.egt' => '水印文字大小必须大于等于0',
-        'watermark_x.number' => '水印横坐标偏移量必须为数字',
-        'watermark_x.egt' => '水印横坐标偏移量必须大于等于0',
-        'watermark_y.number' => '水印纵坐标偏移量必须为数字',
-        'watermark_y.egt' => '水印纵坐标偏移量必须大于等于0',
+        'site_url.url' => 'Vui lòng nhập một URL hợp lệ',
+        'store_brokerage_ratio.float' => 'Tỷ lệ giảm giá cấp đầu tiên phải là một con số',
+        'store_brokerage_ratio.regex' => 'Tỷ lệ giảm giá cấp đầu tiên có thể được đặt tối đa là hai chữ số thập phân.',
+        'store_brokerage_ratio.egt' => 'Phạm vi tỷ lệ giảm giá cấp đầu tiên là từ 0-100',
+        'store_brokerage_ratio.elt' => 'Phạm vi tỷ lệ giảm giá cấp đầu tiên là từ 0-100',
+        'store_brokerage_two.float' => 'Tỷ lệ giảm giá thứ cấp phải là một con số',
+        'store_brokerage_two.regex' => 'Tỷ lệ giảm giá cấp thứ hai có thể lên tới hai chữ số thập phân.',
+        'store_brokerage_two.egt' => 'Phạm vi điền vào tỷ lệ giảm giá cấp thứ hai là từ 0-100',
+        'store_brokerage_two.elt' => 'Phạm vi điền vào tỷ lệ giảm giá cấp thứ hai là từ 0-100',
+        'replenishment_num.number' => 'Số lượng cần bổ sung phải là một con số',
+        'store_stock.number' => 'Cổ phiếu cảnh báo phải là số',
+        'store_brokerage_two.between' => 'Phạm vi điền vào tỷ lệ giảm giá cấp thứ hai là từ 0-100',
+        'user_extract_min_price.float' => 'Số tiền rút tối thiểu chỉ có thể là số',
+        'user_extract_min_price.gt' => 'Số tiền rút tối thiểu phải lớn hơn0',
+        'extract_time.number' => 'Phạm vi thời gian đóng băng hoa hồng là từ 0-180',
+        'extract_time.between' => 'Phạm vi thời gian đóng băng hoa hồng là từ 0-180',
+        'store_brokerage_price.float' => 'Số tiền phân phối đầy đủ phải là một con số',
+        'integral_ratio.float' => 'Tỷ lệ đổi điểm phải là số',
+        'integral_ratio.regex' => 'Tỷ lệ quy đổi điểm có thể lên tới hai chữ số thập phân.',
+        'integral_ratio.egt' => 'Tỷ lệ quy đổi điểm phải nằm trong khoảng từ 0-1000',
+        'integral_ratio.elt' => 'Tỷ lệ quy đổi điểm phải nằm trong khoảng từ 0-1000',
+        'order_give_integral.float' => 'Điểm thưởng khi đặt hàng phải là số',
+        'order_give_integral.egt' => 'Điểm thưởng khi đặt hàng phải nằm trong khoảng từ 0-1000',
+        'order_give_integral.elt' => 'Điểm thưởng khi đặt hàng phải nằm trong khoảng từ 0-1000',
+        'order_cancel_time.float' => 'Thời gian hủy đơn hàng do hàng hóa thông thường không thanh toán phải là một con số',
+        'order_activity_time.float' => 'Thời gian hủy đơn hàng đối với các mặt hàng đang hoạt động chưa được thanh toán phải là một con số.',
+        'order_bargain_time.float' => 'Thời gian hủy đơn hàng phải là một con số nếu món hàng mặc cả chưa được thanh toán.',
+        'order_pink_time.float' => 'Thời gian hủy đơn hàng đối với nhóm sản phẩm chưa thanh toán phải là một con số.',
+        'system_delivery_time.float' => 'Thời gian nhận hàng tự động sau khi đơn hàng được vận chuyển phải là số',
+        'store_free_postage.float' => 'Số tiền vận chuyển miễn phí phải là một con số',
+        'integral_rule_number.number' => 'Hệ số điểm phải lớn hơn0',
+        'express_rule_number.number' => 'Số giảm giá phải lớn hơn0',
+        'sign_rule_number.number' => 'Hệ số điểm phải lớn hơn0',
+        'offline_rule_number.number' => 'Số giảm giá phải lớn hơn0',
+        'order_give_exp.number' => 'Tỷ lệ trải nghiệm miễn phí khi đặt hàng phải là một con số',
+        'order_give_exp.egt' => 'Tỷ lệ trải nghiệm miễn phí khi đặt hàng phải lớn hơn0',
+        'invite_user_exp.number' => 'Mời người dùng mới trải nghiệm quà tặng phải là một con số',
+        'invite_user_exp.egt' => 'Việc mời người dùng mới trải nghiệm quà tặng phải lớn hơn0',
+        'config_export_to_name.chs' => 'Tên người gửi hàng phải bằng tiếng Trung',
+        'config_export_to_name.length' => 'Độ dài của tên người gửi hàng phải từ 2 đến 10 ký tự.',
+        'config_export_to_tel.number' => 'Số điện thoại của người gửi hàng phải là số',
+        'config_export_to_tel.mobile' => 'Vui lòng điền số điện thoại di động hợp lệ cho số điện thoại của người gửi hàng',
+        'config_export_to_address.chsAlphaNum' => 'Địa chỉ người gửi hàng chỉ có thể là ký tự, chữ cái và số tiếng Trung.',
+        'config_export_to_address.length' => 'Độ dài địa chỉ người gửi hàng là 10-100 chữ số',
+        'config_export_siid.alphaNum' => 'Số máy in biểu mẫu điện tử phải là số hoặc chữ cái',
+        'config_export_siid.length' => 'Độ dài số máy in biểu mẫu điện tử là 10-50 chữ số',
+        'service_feedback.length' => 'Độ dài phản hồi của dịch vụ khách hàng dao động từ 10 đến 90 ký tự',
+        'thumb_big_height.number' => 'Kích thước hình thu nhỏ (chiều cao) phải là số',
+        'thumb_big_height.egt' => 'Kích thước ảnh thu nhỏ (chiều cao) phải lớn hơn hoặc bằng0',
+        'thumb_big_width.number' => 'Kích thước hình thu nhỏ (chiều rộng) phải là số',
+        'thumb_big_width.egt' => 'Kích thước hình ảnh thu nhỏ (chiều rộng) phải lớn hơn hoặc bằng0',
+        'thumb_mid_height.number' => 'Kích thước hình ảnh (chiều cao) trong hình thu nhỏ phải là số',
+        'thumb_mid_height.egt' => 'Kích thước hình ảnh (chiều cao) trong hình thu nhỏ phải lớn hơn hoặc bằng0',
+        'thumb_mid_width.number' => 'Kích thước (chiều rộng) hình ảnh trong hình thu nhỏ phải là số',
+        'thumb_mid_width.egt' => 'Kích thước (chiều rộng) hình ảnh trong hình thu nhỏ phải lớn hơn hoặc bằng0',
+        'thumb_small_height.number' => 'Kích thước hình thu nhỏ (chiều cao) phải là số',
+        'thumb_small_height.egt' => 'Kích thước hình thu nhỏ (chiều cao) phải lớn hơn hoặc bằng0',
+        'thumb_small_width.number' => 'Kích thước hình thu nhỏ (chiều rộng) phải là số',
+        'thumb_small_width.egt' => 'Kích thước hình ảnh thu nhỏ (chiều rộng) phải lớn hơn hoặc bằng0',
+        'watermark_text.chsAlphaNum' => 'Văn bản hình mờ chỉ có thể là ký tự, chữ cái và số tiếng Trung',
+        'watermark_text.length' => 'Độ dài văn bản hình mờ là 1-10 ký tự',
+        'watermark_text_size.number' => 'Kích thước văn bản hình mờ phải là số',
+        'watermark_text_size.egt' => 'Kích thước văn bản hình mờ phải lớn hơn hoặc bằng0',
+        'watermark_x.number' => 'Phần bù trục hoành của hình mờ phải là một số',
+        'watermark_x.egt' => 'Độ lệch trục hoành của hình mờ phải lớn hơn hoặc bằng0',
+        'watermark_y.number' => 'Độ lệch tọa độ dọc của hình mờ phải là một số',
+        'watermark_y.egt' => 'Độ lệch tọa độ dọc của hình mờ phải lớn hơn hoặc bằng0',
     ];
 
     protected $scene = [

@@ -21,14 +21,14 @@ import pagesHomeZhtw from '@/i18n/pages/home/zh-tw.js';
 import pagesLoginZhcn from '@/i18n/pages/login/zh-cn.js';
 import pagesLoginEn from '@/i18n/pages/login/en.js';
 import pagesLoginZhtw from '@/i18n/pages/login/zh-tw.js';
-// 使用插件
+// Sử dụng plugin
 Vue.use(VueI18n);
 
-// 定义语言国际化内容
+// Xác định nội dung quốc tế hóa ngôn ngữ
 /**
- * 说明：
- * /src/i18n/lang 下的 js 为框架的国际化内容
- * /src/i18n/pages 下的 js 为各界面的国际化内容
+ * Mô tả:
+ * JS trong /src/i18n/lang là nội dung quốc tế của framework
+ * JS trong /src/i18n/pages là nội dung quốc tế của từng giao diện
  */
 const messages = {
   'zh-cn': {
@@ -57,10 +57,10 @@ const messages = {
   },
 };
 
-// 导出语言国际化
+// Xuất khẩu quốc tế hóa ngôn ngữ
 export const i18n = new VueI18n({
   locale: store.state.themeConfig.themeConfig.globalI18n,
   fallbackLocale: 'zh-cn',
   messages,
-  silentTranslationWarn: true, // 去除国际化警告
+  silentTranslationWarn: true, // Xóa cảnh báo quốc tế hóa
 });

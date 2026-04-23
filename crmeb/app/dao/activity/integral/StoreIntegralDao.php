@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class StoreIntegralDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -33,7 +33,7 @@ class StoreIntegralDao extends BaseDao
     }
 
     /**
-     * 获取指定条件下的条数
+     * Lấy số lượng vật phẩm theo điều kiện quy định
      * @param array $where
      * @param bool $search
      * @return int
@@ -45,7 +45,7 @@ class StoreIntegralDao extends BaseDao
     }
 
     /**
-     * 积分商品列表
+     * Danh sách sản phẩm điểm
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -79,7 +79,7 @@ class StoreIntegralDao extends BaseDao
     }
 
     /**
-     * 获取一条积分商品数据
+     * Nhận dữ liệu sản phẩm điểm
      * @param int $id
      * @param string $field
      * @return array|\think\Model|null

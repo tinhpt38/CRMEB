@@ -1,37 +1,37 @@
 <template>
   <div>
     <el-tabs v-model="currentTab" @tab-click="onClickTab" v-if="tablists">
-      <el-tab-pane name="null" label="全部"></el-tab-pane>
+      <el-tab-pane name="null" label="tất cả"></el-tab-pane>
       <el-tab-pane
         name="0"
-        :label="orderChartType.un_paid > 0 ? `待支付(${orderChartType.un_paid})` : `待支付`"
+        :label="orderChartType.un_paid > 0 ? `Được trả tiền(${orderChartType.un_paid})` : `Được trả tiền`"
       ></el-tab-pane>
       <el-tab-pane
         name="1"
-        :label="orderChartType.un_send > 0 ? `待发货(${orderChartType.un_send})` : `待发货`"
+        :label="orderChartType.un_send > 0 ? `Đang chờ vận chuyển(${orderChartType.un_send})` : `Đang chờ vận chuyển`"
       ></el-tab-pane>
-      <el-tab-pane name="5" label="待核销"></el-tab-pane>
-      <el-tab-pane name="2" label="待收货"></el-tab-pane>
-      <el-tab-pane name="3" label="待评价"></el-tab-pane>
-      <el-tab-pane name="4" label="已完成"></el-tab-pane>
-      <el-tab-pane name="-2" label="已退款"></el-tab-pane>
-      <el-tab-pane name="-4" label="已删除"></el-tab-pane>
+      <el-tab-pane name="5" label="Đang chờ xóa sổ"></el-tab-pane>
+      <el-tab-pane name="2" label="Đang chờ nhận"></el-tab-pane>
+      <el-tab-pane name="3" label="Đang chờ đánh giá"></el-tab-pane>
+      <el-tab-pane name="4" label="Hoàn thành"></el-tab-pane>
+      <el-tab-pane name="-2" label="Đã hoàn tiền"></el-tab-pane>
+      <el-tab-pane name="-4" label="Đã xóa"></el-tab-pane>
     </el-tabs>
     <div class="acea-row">
-      <el-button v-auth="['order-write']" type="primary" v-db-click @click="writeOff">订单核销</el-button>
-      <el-button v-db-click @click="batchShipmentModal = true">批量发货</el-button>
+      <el-button v-auth="['order-write']" type="primary" v-db-click @click="writeOff">Xóa đơn hàng</el-button>
+      <el-button v-db-click @click="batchShipmentModal = true">Lô hàng số lượng lớn</el-button>
       <!-- <el-upload class="mr14" :action="expressUrl" :headers="header" :on-success="upExpress">
-        <el-button class="export" type="primary">批量发货</el-button>
+        <el-button class="export" type="primary">Lô hàng số lượng lớn</el-button>
       </el-upload> -->
-      <el-button v-auth="['order-dels']" v-db-click @click="delAll">批量删除</el-button>
-      <el-button v-auth="['export-storeOrder']" class="export" v-db-click @click="exportList">订单导出</el-button>
-      <!-- <el-button class="export" v-db-click @click="exportDeliveryList">发货单导出</el-button> -->
+      <el-button v-auth="['order-dels']" v-db-click @click="delAll">Xóa hàng loạt</el-button>
+      <el-button v-auth="['export-storeOrder']" class="export" v-db-click @click="exportList">Xuất đơn hàng</el-button>
+      <!-- <el-button class="export" v-db-click @click="exportDeliveryList">Xuất hóa đơn</el-button> -->
     </div>
     <el-table
       :data="orderList"
       ref="table"
       v-loading="loading"
-      empty-text="暂无数据"
+      empty-text="Chưa có dữ liệu"
       @select="handleSelectRow"
       @select-all="handleSelectRow"
       class="orderData mt14"
@@ -42,18 +42,18 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column label="订单号 | 类型" width="200">
+      <el-table-column label="Số đơn hàng | kiểu" width="200">
         <template slot-scope="scope">
           <div>{{ scope.row.order_id }}</div>
           <div class="pink_name" :style="{ color: scope.row.color }">{{ scope.row.pink_name }}</div>
-          <span v-if="scope.row.is_del === 1" style="color: #ed4014; display: block">用户已删除</span>
+          <span v-if="scope.row.is_del === 1" style="color: #ed4014; display: block">Người dùng đã bị xóa</span>
           <span v-if="scope.row.is_cancel === 1 && scope.row.is_del === 0" style="color: #ed4014; display: block"
-            >用户已取消</span
+            >Người dùng đã hủy</span
           >
-          <span v-if="scope.row.refund_type === 6" style="color: #ed4014; display: block">订单已退款</span>
+          <span v-if="scope.row.refund_type === 6" style="color: #ed4014; display: block">Đơn hàng đã được hoàn lại</span>
         </template>
       </el-table-column>
-      <el-table-column label="商品信息" min-width="250">
+      <el-table-column label="Thông tin sản phẩm" min-width="250">
         <template slot-scope="scope">
           <div class="tab" v-for="(item, i) in scope.row._info" :key="i">
             <img
@@ -66,21 +66,21 @@
             <el-tooltip placement="top" :open-delay="300">
               <div slot="content">
                 <div>
-                  <span>商品名称：</span>
+                  <span>Tên sản phẩm：</span>
                   <span>{{ item.cart_info.productInfo.store_name || '--' }}</span>
                 </div>
                 <div>
-                  <span>规格名称：</span>
+                  <span>Tên đặc điểm kỹ thuật：</span>
                   <span>{{
                     item.cart_info.productInfo.attrInfo ? item.cart_info.productInfo.attrInfo.suk : '---'
                   }}</span>
                 </div>
                 <div>
-                  <span>支付价格：</span>
+                  <span>trả giá：</span>
                   <span>¥{{ item.cart_info.truePrice || '--' }}</span>
                 </div>
                 <div>
-                  <span>购买数量：</span>
+                  <span>Số lượng mua：</span>
                   <span>{{ item.cart_info.cart_num || '--' }}</span>
                 </div>
               </div>
@@ -89,30 +89,30 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="用户信息" min-width="150">
+      <el-table-column label="Thông tin người dùng" min-width="150">
         <template slot-scope="scope">
           <span class="nickname">{{ scope.row.nickname }} | {{ scope.row.uid }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="实际支付" min-width="100">
+      <el-table-column label="thanh toán thực tế" min-width="100">
         <template slot-scope="scope">
-          <span>{{ scope.row.paid ? scope.row.pay_price : '未支付' }}</span>
+          <span>{{ scope.row.paid ? scope.row.pay_price : 'Chưa thanh toán' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="支付方式" min-width="100">
+      <el-table-column label="Phương thức thanh toán" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.pay_type_name || '--' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="支付时间" min-width="150">
+      <el-table-column label="thời gian thanh toán" min-width="150">
         <template slot-scope="scope">
           <span>{{ scope.row._pay_time || '--' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="订单状态" min-width="100">
+      <el-table-column label="Trạng thái đơn hàng" min-width="100">
         <template slot-scope="scope">
           <div v-html="scope.row.status_name.status_name" class="pt5"></div>
-          <div v-if="!scope.row.is_all_refund && scope.row.refund.length" class="trip">部分退款中</div>
+          <div v-if="!scope.row.is_all_refund && scope.row.refund.length" class="trip">Đang hoàn lại một phần</div>
           <div
             v-if="
               scope.row.refund_status == 0 &&
@@ -122,7 +122,7 @@
             "
             class="trip"
           >
-            退款中
+            Đang hoàn tiền
           </div>
           <div class="img">
             <template v-if="scope.row.status_name.pics">
@@ -133,9 +133,9 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width="170">
+      <el-table-column label="vận hành" fixed="right" width="170">
         <template slot-scope="scope">
-          <a v-db-click @click="changeMenu(scope.row, '2')">详情</a>
+          <a v-db-click @click="changeMenu(scope.row, '2')">Chi tiết</a>
           <el-divider direction="vertical" />
           <a
             v-db-click
@@ -148,7 +148,7 @@
               scope.row.is_cancel !== 1 &&
               !scope.row.refund.length
             "
-            >发送货</a
+            >Gửi hàng</a
           >
           <el-divider
             direction="vertical"
@@ -162,7 +162,7 @@
             "
           />
           <a v-db-click @click="delivery(scope.row)" v-if="scope.row._status === 4 && !scope.row.split.length"
-            >配送信息</a
+            >Thông tin vận chuyển</a
           >
           <el-divider direction="vertical" v-if="scope.row._status === 4 && !scope.row.split.length" />
           <a
@@ -174,7 +174,7 @@
               scope.row.paid == 1 &&
               scope.row.refund_status === 0
             "
-            >立即核销</a
+            >Viết tắt ngay lập tức</a
           >
           <el-divider
             direction="vertical"
@@ -187,7 +187,7 @@
           />
           <template>
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)" :transfer="true">
-              <span class="el-dropdown-link"> 更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link"> Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   command="1"
@@ -198,14 +198,14 @@
                     scope.row.is_del !== 1 &&
                     scope.row.is_cancel !== 1
                   "
-                  >确认付款</el-dropdown-item
+                  >Xác nhận thanh toán</el-dropdown-item
                 >
-                <el-dropdown-item v-show="scope.row._status === 1 && scope.row.is_del !== 1 && scope.row.is_cancel !== 1" command="15">订单编辑</el-dropdown-item>
+                <el-dropdown-item v-show="scope.row._status === 1 && scope.row.is_del !== 1 && scope.row.is_cancel !== 1" command="15">Chỉnh sửa đơn hàng</el-dropdown-item>
                 <el-dropdown-item command="11" v-show="scope.row._status >= 3 && scope.row.express_dump"
-                  >电子面单打印</el-dropdown-item
+                  >In biểu mẫu điện tử</el-dropdown-item
                 >
-                <el-dropdown-item command="10" v-show="scope.row._status >= 2">小票打印</el-dropdown-item>
-                <el-dropdown-item command="14" v-show="scope.row.status === 0">修改地址</el-dropdown-item>
+                <el-dropdown-item command="10" v-show="scope.row._status >= 2">In biên lai</el-dropdown-item>
+                <el-dropdown-item command="14" v-show="scope.row.status === 0">Sửa đổi địa chỉ</el-dropdown-item>
                 <el-dropdown-item
                   command="4"
                   v-show="
@@ -214,19 +214,19 @@
                       scope.row.use_integral > 0 &&
                       scope.row.use_integral >= scope.row.back_integral)
                   "
-                  >订单备注</el-dropdown-item
+                  >Ghi chú đặt hàng</el-dropdown-item
                 >
                 <el-dropdown-item
                   command="5"
                   v-show="scope.row.paid == 1 && scope.row.refund_status == 0 && !scope.row.refund.length"
-                  >立即退款</el-dropdown-item
+                  >Hoàn tiền ngay lập tức</el-dropdown-item
                 >
-                <!--                            <el-dropdown-item command="6"  v-show='scope.row._status !==1 && (scope.row.use_integral > 0 && scope.row.use_integral >= scope.row.back_integral) '>退积分</el-dropdown-item>-->
-                <!--                            <el-dropdown-item command="7"  v-show='scope.row._status === 3'>不退款</el-dropdown-item>-->
-                <el-dropdown-item command="8" v-show="scope.row._status === 4">已收货</el-dropdown-item>
-                <el-dropdown-item command="9">删除订单</el-dropdown-item>
-                <el-dropdown-item command="12" v-show="scope.row.kuaidi_label">快递面单打印</el-dropdown-item>
-                <el-dropdown-item command="13" v-show="scope.row.paid">配货单打印</el-dropdown-item>
+                <!--                            <el-dropdown-item command="6"  v-show='scope.row._status !==1 && (scope.row.use_integral > 0 && scope.row.use_integral >= scope.row.back_integral) '>Điểm hoàn tiền</el-dropdown-item>-->
+                <!--                            <el-dropdown-item command="7"  v-show='scope.row._status === 3'>Không hoàn lại tiền</el-dropdown-item>-->
+                <el-dropdown-item command="8" v-show="scope.row._status === 4">Hàng đã nhận</el-dropdown-item>
+                <el-dropdown-item command="9">Xóa đơn hàng</el-dropdown-item>
+                <el-dropdown-item command="12" v-show="scope.row.kuaidi_label">In biên lai chuyển phát nhanh</el-dropdown-item>
+                <el-dropdown-item command="13" v-show="scope.row.paid">In phiếu giao hàng</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -236,15 +236,15 @@
     <div class="acea-row row-right page">
       <pagination v-if="total" :total="total" :page.sync="page.page" :limit.sync="page.limit" @pagination="getList" />
     </div>
-    <!-- 编辑 退款 退积分 不退款-->
+    <!-- Chỉnh sửa Hoàn tiền Điểm hoàn tiền Không hoàn tiền-->
     <edit-from ref="edits" :FromData="FromData" @submitFail="submitFail"></edit-from>
-    <!-- 详情 -->
+    <!-- Chi tiết -->
     <details-from ref="details" :orderDatalist="orderDatalist" :orderId="orderId"></details-from>
-    <!-- 备注 -->
+    <!-- Nhận xét -->
     <order-remark ref="remarks" :orderId="orderId" @submitFail="submitFail"></order-remark>
-    <!-- 取消寄件 -->
+    <!-- Hủy lô hàng -->
     <order-shipment ref="shipment" :orderId="orderId" @submitFail="submitFail"></order-shipment>
-    <!-- 发送货 -->
+    <!-- Gửi hàng -->
     <order-send
       ref="send"
       :orderId="orderId"
@@ -276,7 +276,7 @@
     <!--    -->
     <el-dialog
       :visible.sync="modals2"
-      title="订单核销"
+      title="Xóa đơn hàng"
       class="paymentFooter"
       :show-close="true"
       width="540px"
@@ -291,38 +291,38 @@
         class="tabform"
         @submit.native.prevent
       >
-        <el-form-item prop="code" label="核销码：">
+        <el-form-item prop="code" label="Mã xóa sổ：">
           <el-input
             style="width: 414px"
             type="text"
-            placeholder="请输入12位核销码"
+            placeholder="Vui lòng nhập mã xác minh gồm 12 chữ số"
             v-model.number="writeOffFrom.code"
           />
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button type="primary" v-db-click @click="ok('writeOffFrom')">立即核销</el-button>
-        <el-button v-db-click @click="del('writeOffFrom')">取消</el-button>
+        <el-button type="primary" v-db-click @click="ok('writeOffFrom')">Viết tắt ngay lập tức</el-button>
+        <el-button v-db-click @click="del('writeOffFrom')">Hủy bỏ</el-button>
       </div>
     </el-dialog>
     <el-dialog
       :visible.sync="batchShipmentModal"
-      title="批量发货"
+      title="Lô hàng số lượng lớn"
       class="paymentFooter"
       :show-close="true"
       width="540px"
       @closed="changeModal"
     >
       <!-- <el-upload :action="expressUrl" :headers="header" :on-success="upExpress">
-        <el-button class="export" type="primary">批量发货</el-button>
+        <el-button class="export" type="primary">Lô hàng số lượng lớn</el-button>
       </el-upload> -->
       <el-alert type="warning" :closable="false">
-        <p>步骤一 导出发货单</p>
-        <p>步骤二 发货单中填写物流单号</p>
-        <p>步骤三 将发货单上传</p>
+        <p>Bước 1: Xuất hóa đơn</p>
+        <p>Bước 2: Điền mã đơn hàng logistics vào phiếu giao hàng</p>
+        <p>Bước 3 Tải lên phiếu giao hàng</p>
       </el-alert>
       <div class="acea-row row-middle mb10 mt10">
-        <el-button v-db-click @click="exportDeliveryList">导出发货单</el-button>
+        <el-button v-db-click @click="exportDeliveryList">Xuất hoá đơn</el-button>
         <div class="pl20 tips"></div>
       </div>
       <el-upload
@@ -335,7 +335,7 @@
         :before-upload="beforeUpload"
       >
         <i class="el-icon-upload"></i>
-        <div class="el-upload__text">批量发货单,拖入上传或<em>点击上传</em></div>
+        <div class="el-upload__text">đơn hàng vận chuyển số lượng lớn,Kéo và thả để tải lên hoặc<em>Bấm để tải lên</em></div>
       </el-upload>
     </el-dialog>
     <orderAddress ref="address" :addressData="addressData" @submitSuccess="submitSuccess"></orderAddress>
@@ -387,15 +387,15 @@ export default {
   data() {
     const codeNum = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请填写核销码'));
+        return callback(new Error('Vui lòng điền mã xác minh'));
       }
-      // 模拟异步验证效果
+      // Mô phỏng hiệu ứng xác minh không đồng bộ
       if (!Number.isInteger(value)) {
-        callback(new Error('请填写12位数字'));
+        callback(new Error('Vui lòng điền 12 chữ số'));
       } else {
         const reg = /\b\d{12}\b/;
         if (!reg.test(value)) {
-          callback(new Error('请填写12位数字'));
+          callback(new Error('Vui lòng điền 12 chữ số'));
         } else {
           callback();
         }
@@ -416,16 +416,16 @@ export default {
       status: 0,
       pay_type: '',
 
-      total: 0, // 总条数
+      total: 0, // Tổng số mặt hàng
       page: {
-        page: 1, // 当前页
-        limit: 15, // 每页显示条数
+        page: 1, // Trang hiện tại
+        limit: 15, // Số mục được hiển thị trên mỗi trang
       },
       data: [],
       FromData: null,
       orderDatalist: null,
       // modalTitleSs: '',
-      selectedIds: [], //选中合并项的id
+      selectedIds: [], //Các mục đã hợp nhất đã chọnid
       currentTab: 'null',
       spinShow: false,
       tablists: {
@@ -479,13 +479,13 @@ export default {
     beforeUpload(file) {
       return isFileUpload(file);
     },
-    // 操作
+    // vận hành
     changeMenu(row, name) {
       this.orderId = row.id;
       switch (name) {
         case '1':
           this.delfromData = {
-            title: '修改订单为已支付',
+            title: 'Sửa đổi đơn hàng như đã thanh toán',
             url: `/order/pay_offline/${row.id}`,
             method: 'post',
             ids: '',
@@ -499,7 +499,7 @@ export default {
             .catch((res) => {
               this.$message.error(res.msg);
             });
-          // this.modalTitleSs = '修改立即支付';
+          // this.modalTitleSs = 'Sửa đổi và thanh toán ngay';
           break;
         case '2':
           this.getData(row.id);
@@ -527,7 +527,7 @@ export default {
         //   break;
         case '8':
           this.delfromData = {
-            title: '修改确认收货',
+            title: 'Sửa đổi xác nhận đã nhận',
             url: `/order/take/${row.id}`,
             method: 'put',
             ids: '',
@@ -540,11 +540,11 @@ export default {
             .catch((res) => {
               this.$message.error(res.msg);
             });
-          // this.modalTitleSs = '修改确认收货';
+          // this.modalTitleSs = 'Sửa đổi xác nhận đã nhận';
           break;
         case '10':
           this.delfromData = {
-            title: '立即打印订单',
+            title: 'In đơn đặt hàng của bạn bây giờ',
             url: `/order/print/${row.id}`,
             method: 'get',
             ids: '',
@@ -561,8 +561,8 @@ export default {
           break;
         case '11':
           this.delfromData = {
-            title: '立即打印电子面单',
-            info: '您确认打印此电子面单吗?',
+            title: 'In biểu mẫu điện tử ngay bây giờ',
+            info: 'Bạn có chắc chắn in mẫu đơn điện tử này không??',
             url: `/order/order_dump/${row.id}`,
             method: 'get',
             ids: '',
@@ -602,12 +602,12 @@ export default {
           break;  
         default:
           this.delfromData = {
-            title: '删除订单',
+            title: 'Xóa đơn hàng',
             url: `/order/del/${row.id}`,
             method: 'DELETE',
             ids: '',
           };
-          // this.modalTitleSs = '删除订单';
+          // this.modalTitleSs = 'Xóa đơn hàng';
           this.delOrder(row, this.delfromData);
       }
     },
@@ -619,18 +619,18 @@ export default {
       printJS({
         printable: url,
         type: 'image',
-        documentTitle: '快递信息',
+        documentTitle: 'Thể hiện thông tin',
         style: `img{
           width: 100%;
           height: 476px;
         }`,
       });
     },
-    // 立即支付 /确认收货//删除单条订单
+    // Thanh toán ngay/Xác nhận đã nhận//Xóa đơn hàng
     submitModel() {
       this.getList();
     },
-    // 订单列表
+    // danh sách đặt hàng
     getList(res) {
       this.page.page = res === 1 ? 1 : this.page.page;
       this.loading = true;
@@ -650,7 +650,7 @@ export default {
           this.orderCards = data.stat;
           this.total = data.count;
           this.$nextTick(() => {
-            //确保dom加载完毕
+            //Hãy chắc chắn rằng dom đã được tải
             this.setChecked();
           });
           this.$emit('on-changeCards', data.stat);
@@ -668,15 +668,15 @@ export default {
       });
       this.selectedIds = ids;
       this.$nextTick(() => {
-        //确保dom加载完毕
+        //Hãy chắc chắn rằng dom đã được tải
         this.setChecked();
       });
     },
     setChecked() {
-      //将new Set()转化为数组
+      //Sẽnew Set()Chuyển đổi thành mảng
       let ids = [...this.selectedIds];
       this.getisDelIdListl(ids);
-      // 找到绑定的table的ref对应的dom，找到table的objData对象，objData保存的是当前页的数据
+      // Tìm DOM tương ứng với tham chiếu của bảng bị ràng buộc và tìm đối tượng objData của bảng. ObjData lưu dữ liệu của trang hiện tại.
       let objData = this.$refs.table.objData;
       for (let index in objData) {
         if (this.selectedIds.has(objData[index].id)) {
@@ -691,11 +691,11 @@ export default {
         this.getIsDel(0);
       }
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.getOrderData(row.id);
     },
-    // 删除单条订单
+    // Xóa một đơn hàng
     delOrder(row, data) {
       if (row.is_del === 1) {
         this.$modalSure(data)
@@ -707,10 +707,10 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$message.error('您选择的的订单存在用户未删除的订单，无法删除用户未删除的订单！');
+        this.$message.error('Đơn hàng bạn chọn có đơn hàng chưa được người dùng xóa và đơn hàng chưa được người dùng xóa không thể xóa được.！');
       }
     },
-    // 获取编辑表单数据
+    // Nhận dữ liệu biểu mẫu chỉnh sửa
     getOrderData(id) {
       getOrdeDatas(id)
         .then(async (res) => {
@@ -721,7 +721,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 获取详情表单数据
+    // Nhận dữ liệu biểu mẫu chi tiết
     getData(id) {
       getDataInfo(id)
         .then(async (res) => {
@@ -743,24 +743,24 @@ export default {
     },
     submitSuccess() {
       editAddress(this.addressData).then(() => {
-        this.$message.success('修改成功');
+        this.$message.success('Sửa đổi thành công');
         this.addressData = {};
         this.$refs.address.modals = false;
       });
     },
-    // 修改成功
+    // Sửa đổi thành công
     submitFail() {
       this.getList();
       this.$emit('changeGetTabs');
     },
-    // 获取退款表单数据
+    // Nhận dữ liệu biểu mẫu hoàn tiền
     getRefundData(id) {
       this.$modalForm(getRefundFrom(id)).then(() => {
         this.getList();
         this.$emit('changeGetTabs');
       });
     },
-    // 获取退积分表单数据
+    // Nhận dữ liệu biểu mẫu hoàn trả điểm
     getRefundIntegral(id) {
       refundIntegral(id)
         .then(async (res) => {
@@ -771,14 +771,14 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 不退款表单数据
+    // Không có dữ liệu biểu mẫu hoàn tiền
     getNoRefundData(id) {
       this.$modalForm(getnoRefund(id)).then(() => {
         this.getList();
         this.$emit('changeGetTabs');
       });
     },
-    // 发送货
+    // Gửi hàng
     sendOrder(row) {
       if (row.user_address) {
         this.$refs.send.userSendmsg = {
@@ -799,7 +799,7 @@ export default {
         this.$refs.send.getCartInfo(row._status, row.id);
       });
     },
-    // 配送信息表单数据
+    // Dữ liệu biểu mẫu thông tin vận chuyển
     delivery(row) {
       getDistribution(row.id)
         .then(async (res) => {
@@ -810,15 +810,15 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 核销订单
+    // Viết đơn đặt hàng
     bindWrite(row) {
       let self = this;
       this.$msgbox({
-        title: '提示',
-        message: '确定要核销该订单吗？',
+        title: 'gợi ý',
+        message: 'Bạn có chắc chắn muốn xóa đơn đặt hàng này không?？',
         showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
+        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Chắc chắn',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -834,7 +834,7 @@ export default {
         })
         .catch(() => {});
     },
-    // 订单类型  @on-changeTabs="getChangeTabs"
+    // Loại lệnh  @on-changeTabs="getChangeTabs"
     getTabs() {
       this.spinShow = true;
       this.$store
@@ -855,17 +855,17 @@ export default {
       this.getOrderStatus(this.currentTab == 'null' ? '' : this.currentTab);
       this.getList();
     },
-    // 批量删除
+    // Xóa hàng loạt
     delAll() {
       if (this.delIdList.length === 0) {
-        this.$message.error('请先选择删除的订单！');
+        this.$message.error('Hãy chọn thứ tự xóa trước！');
       } else {
         if (this.isDels) {
           let idss = {
             ids: this.delIdList,
           };
           let delfromData = {
-            title: '删除订单',
+            title: 'Xóa đơn hàng',
             url: `/order/dels`,
             method: 'post',
             ids: idss,
@@ -879,11 +879,11 @@ export default {
               this.$message.error(res.msg);
             });
         } else {
-          this.$message.error('您选择的的订单存在用户未删除的订单，无法删除用户未删除的订单！');
+          this.$message.error('Đơn hàng bạn chọn có đơn hàng chưa được người dùng xóa và đơn hàng chưa được người dùng xóa không thể xóa được.！');
         }
       }
     },
-    // 下载批量发货模版
+    // Tải xuống mẫu vận chuyển số lượng lớn
     async exportDeliveryList() {
       let [th, filekey, data, fileName] = [[], [], [], ''];
       let deliveryData = { page: 1, limit: 200 };
@@ -910,7 +910,7 @@ export default {
         });
       });
     },
-    // 上传头部token
+    // Tải tiêu đề lêntoken
     getToken() {
       this.header['Authori-zation'] = 'Bearer ' + getCookies('token');
     },
@@ -924,7 +924,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 导出
+    // Xuất khẩu
     async exportList() {
       let excelData = {
           page: 1,
@@ -955,14 +955,14 @@ export default {
         });
       });
     },
-    // 订单核销
+    // Xóa đơn hàng
     writeOff() {
       this.modals2 = true;
     },
-    // 订单核销
+    // Xóa đơn hàng
     ok(name) {
       if (!this.writeOffFrom.code) {
-        this.$message.warning('请先验证订单！');
+        this.$message.warning('Vui lòng xác minh đơn hàng trước！');
       } else {
         this.writeOffFrom.confirm = 1;
         putWrite(this.writeOffFrom)

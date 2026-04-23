@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\kefu\service\StoreServiceFeedbackServices;
 use think\facade\App;
 
 /**
- * 客服用户留言反馈
+ * Phản hồi tin nhắn của người dùng dịch vụ khách hàng
  * Class StoreServiceFeedback
  * @package app\adminapi\controller\v1\application\wechat
  */
@@ -36,7 +36,7 @@ class StoreServiceFeedback extends AuthController
     }
 
     /**
-     * 获取留言列表
+     * Nhận danh sách tin nhắn
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -53,7 +53,7 @@ class StoreServiceFeedback extends AuthController
     }
 
     /**
-     * 获取修改表单
+     * Nhận mẫu sửa đổi
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -64,13 +64,13 @@ class StoreServiceFeedback extends AuthController
     public function edit($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         return app('json')->success($this->services->editForm((int)$id));
     }
 
     /**
-     * 修改
+     * Ôn lại
      * @param $id
      * @return mixed
      */
@@ -81,18 +81,18 @@ class StoreServiceFeedback extends AuthController
             ['status', 0],
         ]);
         if (!$id || !($feedInfo = $this->services->get($id))) {
-            return app('json')->fail('反馈内容不存在');
+            return app('json')->fail('Nội dung phản hồi không tồn tại');
         }
         $feedInfo->make = $data['make'];
         if ($data['status']) {
             $feedInfo->status = $data['status'];
         }
         $feedInfo->save();
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除反馈
+     * Xóa phản hồi
      * @param $id
      * @return mixed
      * @throws \Exception
@@ -100,12 +100,12 @@ class StoreServiceFeedback extends AuthController
     public function delete($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         if ($this->services->delete($id)) {
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         } else {
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         }
     }
 }

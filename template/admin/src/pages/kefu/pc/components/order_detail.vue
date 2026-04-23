@@ -1,59 +1,59 @@
 <template>
   <div class="order_detail" v-if="orderDetail.userInfo">
     <div class="msg-box">
-      <div class="box-title">收货信息</div>
+      <div class="box-title">Tiếp nhận thông tin</div>
       <div class="msg-wrapper">
         <div class="msg-item">
-          <div class="item"><span>用户昵称：</span>{{ orderDetail.userInfo.nickname }}</div>
-          <div class="item"><span>收货人：</span>{{ orderDetail.orderInfo.real_name }}</div>
+          <div class="item"><span>Biệt hiệu của người dùng：</span>{{ orderDetail.userInfo.nickname }}</div>
+          <div class="item"><span>người nhận hàng：</span>{{ orderDetail.orderInfo.real_name }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>联系电话：</span>{{ orderDetail.orderInfo.user_phone }}</div>
-          <div class="item"><span>收货地址：</span>{{ orderDetail.orderInfo.user_address }}</div>
+          <div class="item"><span>Số liên lạc：</span>{{ orderDetail.orderInfo.user_phone }}</div>
+          <div class="item"><span>Địa chỉ giao hàng：</span>{{ orderDetail.orderInfo.user_address }}</div>
         </div>
       </div>
     </div>
     <div class="msg-box" style="border: none">
-      <div class="box-title">订单信息</div>
+      <div class="box-title">Thông tin đặt hàng</div>
       <div class="msg-wrapper">
         <div class="msg-item">
-          <div class="item"><span>订单ID：</span>{{ orderDetail.orderInfo.order_id }}</div>
+          <div class="item"><span>Đặt hàngID：</span>{{ orderDetail.orderInfo.order_id }}</div>
           <div class="item" style="color: red">
-            <span style="color: red">订单状态：</span>{{ orderDetail.orderInfo._status._title }}
+            <span style="color: red">Trạng thái đơn hàng：</span>{{ orderDetail.orderInfo._status._title }}
           </div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>商品总数：</span>{{ orderDetail.orderInfo.total_num }}</div>
+          <div class="item"><span>Tổng số mặt hàng：</span>{{ orderDetail.orderInfo.total_num }}</div>
           <div class="item">
-            <span>商品总价：</span
+            <span>Tổng giá sản phẩm：</span
             >{{ parseFloat(orderDetail.orderInfo.total_price) + parseFloat(orderDetail.orderInfo.vip_true_price || 0) }}
           </div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>交付邮费：</span>{{ orderDetail.orderInfo.pay_postage }}</div>
-          <div class="item"><span>优惠券金额：</span>{{ orderDetail.orderInfo.coupon_price }}</div>
+          <div class="item"><span>Bưu phí giao hàng：</span>{{ orderDetail.orderInfo.pay_postage }}</div>
+          <div class="item"><span>Số tiền phiếu giảm giá：</span>{{ orderDetail.orderInfo.coupon_price }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>实际支付：</span>{{ orderDetail.orderInfo.pay_price }}</div>
-          <div class="item"><span>创建时间：</span>{{ orderDetail.orderInfo.add_time }}</div>
+          <div class="item"><span>thanh toán thực tế：</span>{{ orderDetail.orderInfo.pay_price }}</div>
+          <div class="item"><span>thời gian sáng tạo：</span>{{ orderDetail.orderInfo.add_time }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>支付方式：</span>{{ orderDetail.orderInfo._status._payType }}</div>
-          <div class="item"><span>推广人：</span>{{ orderDetail.userInfo.spread_name }}</div>
+          <div class="item"><span>Phương thức thanh toán：</span>{{ orderDetail.orderInfo._status._payType }}</div>
+          <div class="item"><span>người quảng bá：</span>{{ orderDetail.userInfo.spread_name }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>商家备注：</span>{{ orderDetail.orderInfo.remark }}</div>
+          <div class="item"><span>Nhận xét của người bán：</span>{{ orderDetail.orderInfo.remark }}</div>
         </div>
       </div>
     </div>
     <div class="goods-box">
       <el-table :data="orderList">
-        <el-table-column label="商品ID" width="80">
+        <el-table-column label="hàng hóaID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.productInfo.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品名称" min-width="130">
+        <el-table-column label="Tên sản phẩm" min-width="130">
           <template slot-scope="scope">
             <div class="product_info">
               <img :src="scope.row.productInfo.image" alt="" />
@@ -61,17 +61,17 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="商品分类" min-width="130">
+        <el-table-column label="Phân loại sản phẩm" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.class_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品售价" min-width="130">
+        <el-table-column label="Giá bán sản phẩm" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.productInfo.attrInfo.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品数量" min-width="130">
+        <el-table-column label="số lượng sản phẩm" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.cart_num }}</span>
           </template>

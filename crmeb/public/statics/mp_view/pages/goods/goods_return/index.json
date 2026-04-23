@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "申请退货",
+  "navigationBarTitleText": "Nộp đơn xin trả lại",
   "usingComponents": {
     "authorize": "/components/Authorize"
   }

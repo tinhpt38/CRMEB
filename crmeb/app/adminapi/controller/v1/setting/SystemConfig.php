@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use crmeb\services\easywechat\orderShipping\MiniOrderService;
 use think\facade\App;
 
 /**
- * 系统配置
+ * Cấu hình hệ thống
  * Class SystemConfig
  * @package app\adminapi\controller\v1\setting
  */
@@ -39,7 +39,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -53,7 +53,7 @@ class SystemConfig extends AuthController
             ['status', -1]
         ]);
         if (!$where['tab_id'] && $where['config_name'] == '') {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         if ($where['status'] == -1) {
             unset($where['status']);
@@ -62,7 +62,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 显示创建资源表单页.
+     * Hiển thị trang biểu mẫu tạo tài nguyên.
      * @return \think\Response
      * @throws \FormBuilder\Exception\FormBuilderException
      * @throws \think\db\exception\DataNotFoundException
@@ -79,7 +79,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @return \think\Response
      */
     public function save()
@@ -103,28 +103,28 @@ class SystemConfig extends AuthController
             ['status', 0]
         ]);
         if (is_array($data['config_tab_id'])) $data['config_tab_id'] = end($data['config_tab_id']);
-        if (!$data['info']) return app('json')->fail('请输入配置名称');
-        if (!$data['menu_name']) return app('json')->fail('请输入字段名称');
-        if (!$data['desc']) return app('json')->fail('请输入配置简介');
+        if (!$data['info']) return app('json')->fail('Vui lòng nhập tên cấu hình');
+        if (!$data['menu_name']) return app('json')->fail('Vui lòng nhập tên trường');
+        if (!$data['desc']) return app('json')->fail('Vui lòng nhập giới thiệu cấu hình');
         if ($data['sort'] < 0) {
             $data['sort'] = 0;
         }
         if ($data['type'] == 'text') {
-            if (!$data['width']) return app('json')->fail('请输入文本框的宽度');
-            if ($data['width'] <= 0) return app('json')->fail('请输入正确的文本框的宽度');
+            if (!$data['width']) return app('json')->fail('Vui lòng nhập chiều rộng của hộp văn bản');
+            if ($data['width'] <= 0) return app('json')->fail('Vui lòng nhập đúng chiều rộng của hộp văn bản');
         }
         if ($data['type'] == 'textarea') {
-            if (!$data['width']) return app('json')->fail('请输入多行文本框的宽度');
-            if (!$data['high']) return app('json')->fail('请输入多行文本框的高度');
-            if ($data['width'] < 0) return app('json')->fail('请输入正确的多行文本框的宽度');
-            if ($data['high'] < 0) return app('json')->fail('请输入正确的多行文本框的宽度');
+            if (!$data['width']) return app('json')->fail('Vui lòng nhập chiều rộng của hộp văn bản nhiều dòng');
+            if (!$data['high']) return app('json')->fail('Vui lòng nhập chiều cao của hộp văn bản nhiều dòng');
+            if ($data['width'] < 0) return app('json')->fail('Vui lòng nhập đúng chiều rộng của hộp văn bản nhiều dòng');
+            if ($data['high'] < 0) return app('json')->fail('Vui lòng nhập đúng chiều rộng của hộp văn bản nhiều dòng');
         }
         if ($data['type'] == 'radio' || $data['type'] == 'checkbox') {
-            if (!$data['parameter']) return app('json')->fail('请输入配置参数');
+            if (!$data['parameter']) return app('json')->fail('Vui lòng nhập thông số cấu hình');
             $this->services->valiDateRadioAndCheckbox($data);
         }
         if ($data['level'] == 1) {
-            if (!$data['link_data']) return app('json')->fail('请选择关联顶级选项');
+            if (!$data['link_data']) return app('json')->fail('Vui lòng chọn tùy chọn hàng đầu được liên kết');
             $data['link_id'] = $data['link_data'][0];
             $data['link_value'] = $data['link_data'][1];
         }
@@ -136,11 +136,11 @@ class SystemConfig extends AuthController
             $this->services->save($data);
         }
         CacheService::clear();
-        return app('json')->success('添加配置成功');
+        return app('json')->success('Đã thêm cấu hình thành công');
     }
 
     /**
-     * 显示指定的资源
+     * Hiển thị tài nguyên được chỉ định
      *
      * @param int $id
      * @return \think\Response
@@ -148,14 +148,14 @@ class SystemConfig extends AuthController
     public function read($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $info = $this->services->getReadList((int)$id);
         return app('json')->success(compact('info'));
     }
 
     /**
-     * 显示编辑资源表单页.
+     * Hiển thị trang biểu mẫu tài nguyên chỉnh sửa.
      *
      * @param int $id
      * @return \think\Response
@@ -166,7 +166,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 保存更新的资源
+     * Lưu tài nguyên cập nhật
      *
      * @param int $id
      * @return \think\Response
@@ -200,36 +200,36 @@ class SystemConfig extends AuthController
         ]);
         if (is_array($data['config_tab_id'])) $data['config_tab_id'] = end($data['config_tab_id']);
         if (!$this->services->get($id)) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         if ($data['level'] == 1) {
-            if (!$data['link_data']) return app('json')->fail('请选择关联顶级选项');
+            if (!$data['link_data']) return app('json')->fail('Vui lòng chọn tùy chọn hàng đầu được liên kết');
             $data['link_id'] = $data['link_data'][0];
             $data['link_value'] = $data['link_data'][1];
         }
         $data['value'] = json_encode($data['value']);
         $this->services->update($id, $data);
         CacheService::clear();
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
      */
     public function delete($id)
     {
         if (!$this->services->delete($id))
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         else {
             CacheService::clear();
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         }
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param $id
      * @param $status
      * @return mixed
@@ -237,28 +237,28 @@ class SystemConfig extends AuthController
     public function set_status($id, $status)
     {
         if ($status == '' || $id == 0) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $this->services->update($id, ['status' => $status]);
         CacheService::clear();
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 基础配置
+     * Cấu hình cơ bản
      * */
     public function edit_basics(Request $request)
     {
         $tabId = $this->request->param('tab_id', 1);
         if (!$tabId) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $url = $request->baseUrl();
         return app('json')->success($this->services->getConfigForm($url, $tabId));
     }
 
     /**
-     * 保存数据    true
+     * lưu dữ liệu    true
      * */
     public function save_basics(Request $request)
     {
@@ -280,7 +280,7 @@ class SystemConfig extends AuthController
             $this->services->checkThumbParam($post);
         }
         if (isset($post['extract_type']) && !count($post['extract_type'])) {
-            return app('json')->fail('提现方式最少选一种');
+            return app('json')->fail('Chọn ít nhất một phương thức rút tiền');
         }
         if (isset($post['store_brokerage_binding_status'])) {
             $this->services->checkBrokerageBinding($post);
@@ -288,18 +288,18 @@ class SystemConfig extends AuthController
         if (isset($post['store_brokerage_ratio']) && isset($post['store_brokerage_two'])) {
             $num = $post['store_brokerage_ratio'] + $post['store_brokerage_two'];
             if ($num > 100) {
-                return app('json')->fail('一二级返佣比例不能大于100%');
+                return app('json')->fail('Tỷ lệ giảm giá cấp một và cấp hai không thể lớn hơn100%');
             }
         }
         if (isset($post['spread_banner'])) {
             $num = count($post['spread_banner']);
             if ($num > 5) {
-                return app('json')->fail('分销海报不能多于5张');
+                return app('json')->fail('Áp phích phân phối không được vượt quá 5 miếng');
             }
         }
         if (isset($post['user_extract_min_price'])) {
             if (!preg_match('/[0-9]$/', $post['user_extract_min_price'])) {
-                return app('json')->fail('提现最低金额只能为数字');
+                return app('json')->fail('Số tiền rút tối thiểu chỉ có thể là một con số');
             }
         }
         if (isset($post['wss_open'])) {
@@ -307,30 +307,30 @@ class SystemConfig extends AuthController
         }
         if (isset($post['store_brokerage_price']) && $post['store_brokerage_statu'] == 3) {
             if ($post['store_brokerage_price'] === '') {
-                return app('json')->fail('满额分销最低金额不能为空');
+                return app('json')->fail('Số tiền tối thiểu để phân phối đầy đủ không được để trống');
             }
             if ($post['store_brokerage_price'] < 0) {
-                return app('json')->fail('满额分销最低金额不能小于0');
+                return app('json')->fail('Số tiền tối thiểu để phân phối đầy đủ không thể ít hơn0');
             }
         }
         if (isset($post['store_brokerage_binding_time']) && $post['store_brokerage_binding_status'] == 2) {
             if (!preg_match("/^[0-9][0-9]*$/", $post['store_brokerage_binding_time'])) {
-                return app('json')->fail('绑定有效期请填写正整数');
+                return app('json')->fail('Vui lòng điền một số nguyên dương cho thời hạn hiệu lực ràng buộc');
             }
         }
         if (isset($post['uni_brokerage_price']) && $post['uni_brokerage_price'] < 0) {
-            return app('json')->fail('推广佣金单价不能小于0');
+            return app('json')->fail('Đơn giá hoa hồng khuyến mại không thể nhỏ hơn0');
         }
         if (isset($post['day_brokerage_price_upper']) && $post['day_brokerage_price_upper'] < -1) {
-            return app('json')->fail('每日推广佣金上限不能小于-1');
+            return app('json')->fail('Giới hạn hoa hồng khuyến mãi hàng ngày không thể nhỏ hơn-1');
         }
         if (isset($post['pay_new_weixin_open']) && (bool)$post['pay_new_weixin_open']) {
             if (empty($post['pay_new_weixin_mchid'])) {
-                return app('json')->fail('商户号不能为空');
+                return app('json')->fail('Số người bán không được để trống');
             }
         }
         if (isset($post['uni_brokerage_price']) && preg_match('/\.[0-9]{2,}[1-9][0-9]*$/', (string)$post['uni_brokerage_price']) > 0) {
-            return app('json')->fail('金额最多两位小数');
+            return app('json')->fail('Số tiền lên tới hai chữ số thập phân');
         }
 
         if (isset($post['weixin_ckeck_file'])) {
@@ -348,62 +348,62 @@ class SystemConfig extends AuthController
             @copy($from, $toPublic);
         }
         if (isset($post['reward_integral']) || isset($post['reward_money'])) {
-            if ($post['reward_money'] < 0) return app('json')->fail('赠送余额不能小于0元');
-            if ($post['reward_integral'] < 0) return app('json')->fail('赠送积分不能小于0');
+            if ($post['reward_money'] < 0) return app('json')->fail('Số dư quà tặng không thể nhỏ hơn 0 nhân dân tệ');
+            if ($post['reward_integral'] < 0) return app('json')->fail('Điểm quà tặng không thể nhỏ hơn0');
         }
 
         if (isset($post['sign_give_point'])) {
             if (!is_int($post['sign_give_point']) || $post['sign_give_point'] < 0) {
-                return app('json')->fail('签到赠送积分请填写大于等于0的整数');
+                return app('json')->fail('Để nhận điểm thưởng khi đăng nhập, vui lòng điền số nguyên lớn hơn hoặc bằng 0.');
             }
         }
         if (isset($post['sign_give_exp'])) {
             if ((int)$post['sign_give_exp'] < 0) {
-                return app('json')->fail('签到赠送经验请填写大于等于0的整数');
+                return app('json')->fail('Vui lòng điền số nguyên lớn hơn hoặc bằng 0 để đăng nhập nhận trải nghiệm miễn phí.');
             }
         }
         if (isset($post['integral_frozen'])) {
             if (!ctype_digit($post['integral_frozen']) || $post['integral_frozen'] < 0) {
-                return app('json')->fail('积分冻结天数请填写大于等于0的整数');
+                return app('json')->fail('Vui lòng điền một số nguyên lớn hơn hoặc bằng 0 cho số ngày điểm của bạn sẽ bị đóng băng.');
             }
         }
         if (isset($post['store_free_postage'])) {
             if (!is_int($post['store_free_postage']) || $post['store_free_postage'] < 0) {
-                return app('json')->fail('满额包邮请填写大于等于0的整数');
+                return app('json')->fail('Để được miễn phí vận chuyển khi vượt quá số lượng vui lòng điền số nguyên lớn hơn hoặc bằng 0');
             }
         }
         if (isset($post['withdrawal_fee'])) {
             if ($post['withdrawal_fee'] < 0 || $post['withdrawal_fee'] > 100) {
-                return app('json')->fail('提现手续费范围在0-100之间');
+                return app('json')->fail('Phí rút tiền dao động từ 0-100');
             }
         }
         if (isset($post['routine_auth_type']) && count($post['routine_auth_type']) == 0) {
-            return app('json')->fail('微信和手机号登录开关至少开启一个');
+            return app('json')->fail('Ít nhất một trong các công tắc đăng nhập WeChat và số điện thoại di động phải được bật.');
         }
         if (isset($post['integral_max_num'])) {
             if (!ctype_digit($post['integral_max_num']) || $post['integral_max_num'] < 0) {
-                return app('json')->fail('积分抵扣上限请填写大于等于0的整数');
+                return app('json')->fail('Vui lòng điền một số nguyên lớn hơn hoặc bằng 0 cho giới hạn trên của việc trừ điểm.');
             }
         }
         if (isset($post['customer_phone'])) {
             if (!ctype_digit($post['customer_phone']) || strlen($post['customer_phone']) > 11) {
-                return app('json')->fail('客服手机号为11位数字');
+                return app('json')->fail('Số điện thoại dịch vụ khách hàng là 11 chữ số');
             }
         }
         if (isset($post['refund_time_available'])) {
             if (!ctype_digit($post['refund_time_available'])) {
-                return app('json')->fail('售后期限必须为大于0的整数');
+                return app('json')->fail('Khoảng thời gian hậu mãi phải là số nguyên lớn hơn 0');
             }
         }
         if (isset($post['sms_save_type']) && sys_config('sms_account', '') != '') {
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         }
         if (isset($post['param_filter_data'])) {
             $post['param_filter_data'] = base64_encode($post['param_filter_data']);
         }
         if (isset($post['product_type_config'])) {
             if (count($post['product_type_config']) == 0) {
-                return app('json')->fail('商品类型至少选择一项');
+                return app('json')->fail('Chọn ít nhất một loại sản phẩm');
             }
         }
         if (isset($post['yue_pay_status']) && $post['yue_pay_status'] == 1) {
@@ -462,11 +462,11 @@ class SystemConfig extends AuthController
             }
         }
         CacheService::clear();
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 获取证书文件路径
+     * Nhận đường dẫn tệp chứng chỉ
      * @param string $path
      * @return string
      * @author wuhaotian
@@ -486,7 +486,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 获取系统设置头部分类
+     * Lấy danh mục tiêu đề cài đặt hệ thống
      * @param SystemConfigTabServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -499,7 +499,7 @@ class SystemConfig extends AuthController
             [['type', 'd'], 0],
             [['pid', 'd'], 0]
         ], true);
-        if ($type == 3) {//其它分类
+        if ($type == 3) {//Các danh mục khác
             $config_tab = [];
         } else {
             $config_tab = $services->getConfigTab($pid);
@@ -509,7 +509,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 获取单个配置的值
+     * Nhận giá trị của một cấu hình
      * @param $name
      * @return mixed
      */
@@ -520,7 +520,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 获取某个分类下的所有配置
+     * Nhận tất cả các cấu hình theo một danh mục nhất định
      * @param $tabId
      * @return mixed
      */
@@ -535,7 +535,7 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * 获取版本号信息
+     * Nhận thông tin số phiên bản
      * @return mixed
      */
     public function getVersion()

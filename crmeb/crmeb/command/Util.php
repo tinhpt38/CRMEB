@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,12 +27,12 @@ class Util extends Command
     protected function configure()
     {
         $this->setName('util')
-            ->addArgument('type', Argument::REQUIRED, '类型replace/route/file/apifox')
-            ->addOption('h', null, Option::VALUE_REQUIRED, '替换成当前域名')
-            ->addOption('u', null, Option::VALUE_REQUIRED, '替换的域名')
-            ->addOption('a', null, Option::VALUE_REQUIRED, '应用名')
-            ->addOption('f', null, Option::VALUE_REQUIRED, '导入文件路径，文件只能在项目根目录下或者根目录下的其他文件夹内')
-            ->setDescription('工具类');
+            ->addArgument('type', Argument::REQUIRED, 'kiểureplace/route/file/apifox')
+            ->addOption('h', null, Option::VALUE_REQUIRED, 'Thay thế bằng tên miền hiện tại')
+            ->addOption('u', null, Option::VALUE_REQUIRED, 'Tên miền được thay thế')
+            ->addOption('a', null, Option::VALUE_REQUIRED, 'Tên ứng dụng')
+            ->addOption('f', null, Option::VALUE_REQUIRED, 'Đường dẫn nhập tệp, tệp chỉ có thể nằm trong thư mục gốc của dự án hoặc các thư mục khác trong thư mục gốc')
+            ->setDescription('Công cụ');
     }
 
     protected function execute(Input $input, Output $output)
@@ -44,17 +44,17 @@ class Util extends Command
                 $host = $input->getOption('h');
                 $url = $input->getOption('u');
                 if (!$host) {
-                    return $output->error('缺少替换域名');
+                    return $output->error('Thiếu tên miền thay thế');
                 }
                 if (!$url) {
-                    return $output->error('缺少替换的域名');
+                    return $output->error('Thiếu tên miền thay thế');
                 }
                 $this->replaceSiteUrl($url, $host);
                 break;
             case 'route':
                 $appName = $input->getOption('a');
                 if (!$appName) {
-                    return $output->error('缺少应用名称');
+                    return $output->error('Thiếu tên ứng dụng');
                 }
                 app()->make(SystemRouteServices::class)->syncRoute($appName);
                 break;
@@ -64,30 +64,30 @@ class Util extends Command
             case 'apifox':
                 $filePath = $input->getOption('f');
                 if (!$filePath) {
-                    return $output->error('缺少导入文件地址');
+                    return $output->error('Thiếu địa chỉ tệp nhập');
                 }
                 app()->make(SystemRouteServices::class)->import($filePath);
                 break;
         }
 
-        $output->info('执行成功');
+        $output->info('Đã thực hiện thành công');
     }
 
     protected function replaceSiteUrl(string $url, string $siteUrl)
     {
-        // 解析站点 URL 的协议
+        // Giao thức phân tích URL trang web
         $siteUrlScheme = parse_url($siteUrl)['scheme'];
-        // 将站点 URL 中的协议替换为 JSON 格式
+        // Thay thế giao thức trong URL trang web bằng định dạng JSON
         $siteUrlJson = str_replace($siteUrlScheme . '://', $siteUrlScheme . ':\\\/\\\/', $siteUrl);
 
-        // 获取当前 URL 的协议
+        // Nhận giao thức của URL hiện tại
         $urlScheme = parse_url($url)['scheme'];
-        // 将当前 URL 中的协议替换为 JSON 格式
+        // Thay thế giao thức trong URL hiện tại bằng định dạng JSON
         $urlJson = str_replace($urlScheme . '://', $urlScheme . ':\\\/\\\/', $url);
-        // 获取数据库表前缀
+        // Nhận tiền tố bảng cơ sở dữ liệu
         $prefix = Config::get('database.connections.' . Config::get('database.default') . '.prefix');
 
-        // 构建 SQL 语句数组
+        // Xây dựng một mảng câu lệnh SQL
         $sql = [
             "UPDATE `{$prefix}agent_level` SET `image` = replace(`image` ,'{$siteUrl}','{$url}')",
             "UPDATE `{$prefix}agreement` SET `content` = replace(content ,'{$siteUrl}','{$url}')",
@@ -144,14 +144,14 @@ class Util extends Command
             "UPDATE `{$prefix}theme` SET `home_image` = replace(home_image ,'{$siteUrl}','{$url}'),`category_image` = replace(category_image ,'{$siteUrl}','{$url}'),`detail_image` = replace(detail_image ,'{$siteUrl}','{$url}'),`user_image` = replace(user_image ,'{$siteUrl}','{$url}'),`home_default_image` = replace(home_default_image ,'{$siteUrl}','{$url}'),`category_default_image` = replace(category_default_image ,'{$siteUrl}','{$url}'),`detail_default_image` = replace(detail_default_image ,'{$siteUrl}','{$url}'),`user_default_image` = replace(user_default_image ,'{$siteUrl}','{$url}')",
         ];
 
-        // 执行 SQL 语句
+        // Thực thi câu lệnh SQL
         return Db::transaction(function () use ($sql) {
             try {
                 foreach ($sql as $item) {
                     Db::execute($item);
                 }
             } catch (\Throwable $e) {
-                throw new AdminException('替换失败,失败原因:{:msg}', ['msg' => $e->getMessage()]);
+                throw new AdminException('Thay thế không thành công,Lý do thất bại:{:msg}', ['msg' => $e->getMessage()]);
             }
         });
     }

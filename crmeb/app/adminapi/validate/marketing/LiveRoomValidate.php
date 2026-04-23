@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,8 +16,8 @@ class LiveRoomValidate extends Validate
 {
 
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -31,20 +31,20 @@ class LiveRoomValidate extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'name.require' => '请输入直播间名称',
-        'cover_img.require' => '请选择背景图',
-        'share_img.require' => '请选择分享图',
-        'anchor_wechat.require' => '请选择主播',
-        'start_time.require' => '请选择直播开始、结束时间',
-        'start_time.checkStartTime' => '请选择直播开始、结束时间',
-        'phone.require' => '请填写手机号码',
-        'phone.checkPhone' => '手机号格式错误',
+        'name.require' => 'Vui lòng nhập tên phòng phát sóng trực tiếp',
+        'cover_img.require' => 'Vui lòng chọn hình nền',
+        'share_img.require' => 'Hãy chọn chia sẻ hình ảnh',
+        'anchor_wechat.require' => 'Vui lòng chọn mỏ neo',
+        'start_time.require' => 'Vui lòng chọn thời gian bắt đầu và kết thúc của buổi phát sóng trực tiếp',
+        'start_time.checkStartTime' => 'Vui lòng chọn thời gian bắt đầu và kết thúc của buổi phát sóng trực tiếp',
+        'phone.require' => 'Vui lòng điền số điện thoại di động của bạn',
+        'phone.checkPhone' => 'Lỗi định dạng số điện thoại di động',
     ];
 
     protected function checkPhone($value): bool

@@ -1,7 +1,7 @@
 <template>
   <div class="goodList">
     <el-form ref="formValidate" :model="formValidate" label-width="80px" label-position="right" inline class="tabform">
-      <el-form-item label="商品分类：" v-if="!liveStatus">
+      <el-form-item label="Phân loại sản phẩm：" v-if="!liveStatus">
         <el-cascader
           v-model="formValidate.cate_id"
           size="small"
@@ -11,25 +11,25 @@
           class="form_content_width"
         ></el-cascader>
       </el-form-item>
-      <el-form-item label="商品类型：" v-if="!type && diy">
+      <el-form-item label="Loại sản phẩm：" v-if="!type && diy">
         <el-select v-model="goodType" clearable @change="userSearchs" class="form_content_width">
           <el-option v-for="item in goodList" :value="item.activeValue" :key="item.activeValue" :label="item.title">
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="商品搜索：">
+      <el-form-item label="Tìm kiếm sản phẩm：">
         <el-input
           clearable
-          placeholder="请输入商品名称/关键字/ID"
+          placeholder="Vui lòng nhập tên sản phẩm/từ khóa/ID"
           v-model="formValidate.store_name"
           class="form_content_width"
         />
-        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">查询</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">Truy vấn</el-button>
       </el-form-item>
     </el-form>
     <el-table
       ref="table"
-      empty-text="暂无数据"
+      empty-text="Chưa có dữ liệu"
       max-height="400"
       :highlight-current-row="many !== 'many'"
       :data="tableList"
@@ -46,24 +46,24 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="商品ID" width="80">
+      <el-table-column label="hàng hóaID" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="图片" width="80">
+      <el-table-column label="hình ảnh" width="80">
         <template slot-scope="scope">
           <div class="tabBox_img" v-viewer>
             <img v-lazy="scope.row.image" />
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="商品名称" min-width="250">
+      <el-table-column label="Tên sản phẩm" min-width="250">
         <template slot-scope="scope">
           <span>{{ scope.row.store_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="商品分类" min-width="150" v-if="liveStatus">
+      <el-table-column label="Phân loại sản phẩm" min-width="150" v-if="liveStatus">
         <template slot-scope="scope">
           <span>{{ scope.row.cate_name }}</span>
         </template>
@@ -77,7 +77,7 @@
         :limit.sync="formValidate.limit"
         @pagination="pageChange"
       />
-      <el-button type="primary" v-db-click @click="ok" v-if="many === 'many' && !diy" class="ml15">提交</el-button>
+      <el-button type="primary" v-db-click @click="ok" v-if="many === 'many' && !diy" class="ml15">nộp</el-button>
     </div>
   </div>
 </template>
@@ -162,23 +162,23 @@ export default {
       goodList: [
         {
           activeValue: 0,
-          title: '商品列表',
+          title: 'Danh sách sản phẩm',
         },
         // {
         //   activeValue: '4',
-        //   title: '热门榜单',
+        //   title: 'Danh sách phổ biến',
         // },
         // {
         //   activeValue: '5',
-        //   title: '首发新品',
+        //   title: 'Sản phẩm mới đầu tiên',
         // },
         // {
         //   activeValue: '6',
-        //   title: '促销单品',
+        //   title: 'Mặt hàng khuyến mại',
         // },
         {
           activeValue: '7',
-          title: '优品推荐',
+          title: 'Sản phẩm được đề xuất',
         },
       ],
     };
@@ -262,7 +262,7 @@ export default {
       this.diyVal = selection;
       this.$emit('getProductDiy', selection);
     },
-    // 商品分类；
+    // Phân loại sản phẩm；
     goodsCategory() {
       cascaderListApi(1)
         .then((res) => {
@@ -279,7 +279,7 @@ export default {
         this.getList();
       }
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       if (!this.liveStatus) {
@@ -361,10 +361,10 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请先选择商品');
+        this.$message.warning('Vui lòng chọn sản phẩm trước');
       }
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.currentid = 0;
       this.productRow = {};

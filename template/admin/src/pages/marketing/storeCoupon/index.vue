@@ -10,26 +10,26 @@
       >
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item label="是否有效：" label-for="status">
+            <el-form-item label="Nó có hợp lệ không?：" label-for="status">
               <el-select
                 v-model="tableFrom.status"
-                placeholder="请选择"
+                placeholder="Vui lòng chọn"
                 clearable
                 element-id="status"
                 @change="userSearchs"
               >
-                <el-option value="1" label="有效"></el-option>
-                <el-option value="0" label="无效"></el-option>
+                <el-option value="1" label="có hiệu quả"></el-option>
+                <el-option value="0" label="không hợp lệ"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="优惠券名称：" label-for="title">
+            <el-form-item label="Tên phiếu giảm giá：" label-for="title">
               <el-input
                 search
                 enter-button
                 v-model="tableFrom.title"
-                placeholder="请输入优惠券名称"
+                placeholder="Vui lòng nhập tên phiếu giảm giá"
                 @on-search="userSearchs"
               />
             </el-form-item>
@@ -43,7 +43,7 @@
               icon="md-add"
               v-db-click
               @click="add"
-              >添加优惠券</el-button
+              >thêm phiếu giảm giá</el-button
             >
           </el-col>
         </el-row>
@@ -54,68 +54,68 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券名称" min-width="130">
+        <el-table-column label="Tên phiếu giảm giá" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="优惠券类型" min-width="130">
+        <el-table-column label="Loại phiếu giảm giá" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="面值" min-width="130">
+        <el-table-column label="mệnh giá" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="最低消费额" min-width="130">
+        <el-table-column label="Chi tiêu tối thiểu" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.use_min_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="有效期限(天)" min-width="130">
+        <el-table-column label="Thời hạn hiệu lực(bầu trời)" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="130">
+        <el-table-column label="loại" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否有效" min-width="130">
+        <el-table-column label="Nó có hợp lệ không?" min-width="130">
           <template slot-scope="scope">
             <i class="el-icon-check" v-if="scope.row.status === 1" style="color: #0092dc; font-size: 14px" />
             <i class="el-icon-close" v-else style="color: #ed5565; font-size: 14px" />
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column label="Thêm thời gian" min-width="130">
           <template slot-scope="scope">
             <span> {{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column label="vận hành" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="couponInvalid(scope.row, '修改优惠券', index)" v-if="scope.row.status">立即失效</a>
+            <a v-db-click @click="couponInvalid(scope.row, 'Sửa đổi phiếu giảm giá', index)" v-if="scope.row.status">Không hợp lệ ngay lập tức</a>
             <el-divider direction="vertical" v-if="scope.row.status" />
             <a
               v-db-click
               @click="couponSend(scope.row)"
               v-if="scope.row.status"
               v-auth="['admin-marketing-store_coupon-push']"
-              >发布</a
+              >giải phóng</a
             >
             <el-divider direction="vertical" v-if="scope.row.status" />
-            <a v-db-click @click="couponDel(scope.row, '删除优惠券', scope.$index)">删除</a>
+            <a v-db-click @click="couponDel(scope.row, 'Xóa phiếu giảm giá', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -129,7 +129,7 @@
         />
       </div>
     </el-card>
-    <!--表单编辑-->
+    <!--Chỉnh sửa biểu mẫu-->
     <edit-from :FromData="FromData" @changeType="changeType" ref="edits"></edit-from>
   </div>
 </template>
@@ -167,47 +167,47 @@ export default {
           width: 80,
         },
         {
-          title: '优惠券名称',
+          title: 'Tên phiếu giảm giá',
           key: 'title',
           minWidth: 150,
         },
         {
-          title: '优惠券类型',
+          title: 'Loại phiếu giảm giá',
           key: 'type',
           minWidth: 80,
         },
         {
-          title: '面值',
+          title: 'mệnh giá',
           key: 'coupon_price',
           minWidth: 100,
         },
         {
-          title: '最低消费额',
+          title: 'Chi tiêu tối thiểu',
           key: 'use_min_price',
           minWidth: 100,
         },
         {
-          title: '有效期限(天)',
+          title: 'Thời hạn hiệu lực(bầu trời)',
           key: 'coupon_time',
           minWidth: 120,
         },
         {
-          title: '排序',
+          title: 'loại',
           key: 'sort',
           minWidth: 80,
         },
         {
-          title: '是否有效',
+          title: 'Nó có hợp lệ không?',
           slot: 'status',
           minWidth: 90,
         },
         {
-          title: '添加时间',
+          title: 'Thêm thời gian',
           slot: 'add_time',
           minWidth: 150,
         },
         {
-          title: '操作',
+          title: 'vận hành',
           slot: 'action',
           fixed: 'right',
           minWidth: 170,
@@ -237,7 +237,7 @@ export default {
     },
   },
   methods: {
-    // 失效
+    // Không hợp lệ
     couponInvalid(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -255,11 +255,11 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 发布
+    // giải phóng
     couponSend(row) {
       this.$modalForm(couponSendApi(row.id)).then(() => this.getList());
     },
-    // 删除
+    // xóa bỏ
     couponDel(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -277,7 +277,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       this.tableFrom.status = this.tableFrom.status || '';
@@ -300,7 +300,7 @@ export default {
     changeType(data) {
       this.type = data;
     },
-    // 添加
+    // Thêm vào
     add() {
       // this.$modalForm(couponCreateApi()).then(() => this.getList());
       this.addType(0);
@@ -318,16 +318,16 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$modalForm(couponEditeApi(row.id)).then(() => this.getList());
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.tableFrom.page = 1;
       this.getList();
     },
-    // 修改成功
+    // Sửa đổi thành công
     submitFail() {
       this.getList();
     },

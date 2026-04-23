@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ class SystemCrudListServices extends BaseServices
     }
 
     /**
-     * 数据字典列表
+     * Danh sách từ điển dữ liệu
      * @param $where
      * @return array
      * @throws \ReflectionException
@@ -50,7 +50,7 @@ class SystemCrudListServices extends BaseServices
     }
 
     /**
-     * 数据字典新增/编辑
+     * Thêm/chỉnh sửa từ điển dữ liệu
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -65,15 +65,15 @@ class SystemCrudListServices extends BaseServices
     {
         $info = $this->dao->get($id);
         $field = [];
-        $field[] = Form::input('name', '字典名称', $info['name'] ?? '')->required();
-        $field[] = Form::input('mark', '字典标识', $info['mark'] ?? '')->required();
-        $field[] = Form::radio('level', '层级', $info['level'] ?? 0)->options([['value' => 1, 'label' => '多级'], ['value' => 0, 'label' => '一级']]);
-        $field[] = Form::radio('status', '状态', $info['status'] ?? 1)->options([['value' => 1, 'label' => '显示'], ['value' => 0, 'label' => '隐藏']]);
-        return create_form($id ? '编辑' : '新增', $field, Url::buildUrl('/system/crud/data_dictionary_list/save/' . $id), 'POST');
+        $field[] = Form::input('name', 'Tên từ điển', $info['name'] ?? '')->required();
+        $field[] = Form::input('mark', 'ID từ điển', $info['mark'] ?? '')->required();
+        $field[] = Form::radio('level', 'Hệ thống phân cấp', $info['level'] ?? 0)->options([['value' => 1, 'label' => 'đa cấp'], ['value' => 0, 'label' => 'Cấp 1']]);
+        $field[] = Form::radio('status', 'tình trạng', $info['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        return create_form($id ? 'biên tập' : 'Mới', $field, Url::buildUrl('/system/crud/data_dictionary_list/save/' . $id), 'POST');
     }
 
     /**
-     * 数据字典保存
+     * Lưu từ điển dữ liệu
      * @param int $id
      * @param array $data
      * @return bool
@@ -93,7 +93,7 @@ class SystemCrudListServices extends BaseServices
     }
 
     /**
-     * 数据字典删除
+     * Xóa từ điển dữ liệu
      * @param $id
      * @return bool
      * @author wuhaotian

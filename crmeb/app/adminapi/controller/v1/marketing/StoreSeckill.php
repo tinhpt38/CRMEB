@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use crmeb\services\CacheService;
 use think\facade\App;
 
 /**
- * 限时秒杀  控制器
+ * Bộ điều khiển flash sale trong thời gian có hạn
  * Class StoreSeckill
  * @package app\admin\controller\store
  */
@@ -31,7 +31,7 @@ class StoreSeckill extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -52,7 +52,7 @@ class StoreSeckill extends AuthController
     }
 
     /**
-     * 详情
+     * Chi tiết
      * @param $id
      * @return mixed
      */
@@ -63,7 +63,7 @@ class StoreSeckill extends AuthController
     }
 
     /**
-     * 保存秒杀商品
+     * Lưu các mặt hàng flash sale
      * @param int $id
      */
     public function save($id)
@@ -87,26 +87,26 @@ class StoreSeckill extends AuthController
             ['attrs', []],
             ['items', []],
             ['copy', 0],
-            ['logistics', []],//物流方式
-            ['freight', 1],//运费设置
-            ['postage', 0],//邮费
+            ['logistics', []],//Phương pháp hậu cần
+            ['freight', 1],//Cài đặt phí vận chuyển
+            ['postage', 0],//Bưu phí
             ['custom_form', ''],
             ['virtual_type', 0],
             ['is_commission', 0],
         ]);
         $this->validate($data, \app\adminapi\validate\marketing\StoreSeckillValidate::class, 'save');
         $this->services->saveData($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 删除秒杀
+     * Xóa giảm giá chớp nhoáng
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['is_del' => 1]);
         /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
         $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
@@ -114,11 +114,11 @@ class StoreSeckill extends AuthController
         if ($unique) {
             CacheService::delete('seckill_' . $unique . '_1');
         }
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param $id
      * @param $status
      * @return mixed
@@ -128,15 +128,15 @@ class StoreSeckill extends AuthController
         if ($status == 1) {
             $info = $this->services->get($id);
             if ($info['stop_time'] < time()) {
-                return app('json')->fail('活动已结束，无法继续上架');
+                return app('json')->fail('Sự kiện đã kết thúc và không thể thêm vào kệ');
             }
         }
         $this->services->update($id, ['status' => $status]);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 秒杀时间段列表
+     * Danh sách khoảng thời gian flash sale
      * @return mixed
      */
     public function time_list()
@@ -151,7 +151,7 @@ class StoreSeckill extends AuthController
     }
 
     /**
-     * 秒杀统计
+     * Thống kê tiêu diệt chớp nhoáng
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -165,7 +165,7 @@ class StoreSeckill extends AuthController
     }
 
     /**
-     * 秒杀参与人统计
+     * Thống kê người tham gia flash kill
      * @param $id
      * @return mixed
      */
@@ -178,7 +178,7 @@ class StoreSeckill extends AuthController
     }
 
     /**
-     * 秒杀订单统计
+     * Thống kê đơn hàng flash sale
      * @param $id
      * @return mixed
      */
@@ -222,18 +222,18 @@ class StoreSeckill extends AuthController
             ['product_infos', []]
         ]);
         $this->services->seckillActivitySave($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     public function seckillActivityDel($id)
     {
         app()->make(StoreActivityServices::class)->activityDel($id, 1);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     public function seckillActivityStatus($id, $status)
     {
         app()->make(StoreActivityServices::class)->activityStatus($id, $status, 1);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 }

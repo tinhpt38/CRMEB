@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\product\product\StoreProductServices;
 use think\facade\App;
 
 /**
- * 已发布优惠券管理
+ * Quản lý phiếu giảm giá đã xuất bản
  * Class StoreCouponIssue
  * @package app\adminapi\controller\v1\marketing
  */
@@ -30,7 +30,7 @@ class StoreCouponIssue extends AuthController
     }
 
     /**
-     * 获取优惠券列表
+     * Nhận danh sách phiếu giảm giá
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -50,7 +50,7 @@ class StoreCouponIssue extends AuthController
     }
 
     /**
-     * 添加优惠券
+     * thêm phiếu giảm giá
      * @return mixed
      */
     public function saveCoupon()
@@ -77,11 +77,11 @@ class StoreCouponIssue extends AuthController
             ['user_type', 1],
         ]);
         $res = $this->services->saveCoupon($data);
-        if ($res) return app('json')->success('保存成功');
+        if ($res) return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 修改优惠券状态
+     * Sửa đổi trạng thái phiếu giảm giá
      * @param $id
      * @param $status
      * @return mixed
@@ -89,17 +89,17 @@ class StoreCouponIssue extends AuthController
     public function status($id, $status)
     {
         $this->services->update($id, ['status' => $status]);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 复制优惠券获取优惠券详情
+     * Sao chép phiếu giảm giá để nhận chi tiết phiếu giảm giá
      * @param int $id
      * @return mixed
      */
     public function copy($id = 0)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->services->get($id);
         if ($info) $info = $info->toArray();
         if ($info['receive_type'] == 1 || $info['receive_type'] == 3) {
@@ -131,7 +131,7 @@ class StoreCouponIssue extends AuthController
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param string $id
      * @return mixed
      */
@@ -140,13 +140,13 @@ class StoreCouponIssue extends AuthController
         $this->services->update($id, ['is_del' => 1]);
         /** @var StoreProductCouponServices $storeProductService */
         $storeProductService = app()->make(StoreProductCouponServices::class);
-        //删除商品关联这个优惠券
+        //Xóa phiếu giảm giá này được liên kết với sản phẩm
         $storeProductService->delete(['issue_coupon_id' => $id]);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -157,7 +157,7 @@ class StoreCouponIssue extends AuthController
     }
 
     /**
-     * 领取记录
+     * Nhận hồ sơ
      * @param string $id
      * @return mixed|string
      */

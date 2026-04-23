@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ use app\services\statistic\CapitalFlowServices;
 use crmeb\exceptions\ApiException;
 
 /**
- * 线下支付
+ * Thanh toán ngoại tuyến
  * Class OrderOfflineServices
  * @package app\services\pay
  */
@@ -32,7 +32,7 @@ class OrderOfflineServices extends BaseServices
 {
 
     /**
-     * 线下支付
+     * Thanh toán ngoại tuyến
      * @param int $id
      * @return mixed
      */
@@ -42,11 +42,11 @@ class OrderOfflineServices extends BaseServices
         $orderSerives = app()->make(StoreOrderServices::class);
         $orderInfo = $orderSerives->get($id);
         if (!$orderInfo) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
 
         if ($orderInfo->paid) {
-            throw new ApiException('订单已支付');
+            throw new ApiException('Đơn hàng đã thanh toán');
         }
         $orderInfo->paid = 1;
         $orderInfo->pay_time = time();
@@ -55,10 +55,10 @@ class OrderOfflineServices extends BaseServices
         $res = $statusService->save([
             'oid' => $id,
             'change_type' => 'offline',
-            'change_message' => '线下付款',
+            'change_message' => 'Thanh toán ngoại tuyến',
             'change_time' => time()
         ]);
-        //修改开票数据支付状态
+        //Sửa đổi trạng thái thanh toán dữ liệu thanh toán
         $orderInvoiceServices = app()->make(StoreOrderInvoiceServices::class);
         $orderInvoiceServices->update(['order_id' => $orderInfo['id']], ['is_pay' => 1]);
 
@@ -71,20 +71,20 @@ class OrderOfflineServices extends BaseServices
         $orderInfo['phone'] = $userInfo['phone'];
         $capitalFlowServices->setFlow($orderInfo, 'order');
 
-        // 拼团订单创建拼团
+        // Thứ tự nhóm nhómTạo nhóm nhóm
         if ($orderInfo['combination_id']) {
             $tidyOrder = app()->make(StoreOrderServices::class)->tidyOrder($orderInfo->toArray(), true);
             app()->make(StorePinkServices::class)->createPink($tidyOrder);
         }
 
-        //虚拟商品自动发货
+        //Tự động phân phối hàng hóa ảo
         if (in_array($orderInfo['virtual_type'], [1, 2])) {
             /** @var StoreOrderDeliveryServices $orderDeliveryServices */
             $orderDeliveryServices = app()->make(StoreOrderDeliveryServices::class);
             $orderDeliveryServices->virtualSend($orderInfo);
         }
 
-        //支付记录
+        //Lịch sử thanh toán
         ProductLogJob::dispatch(['pay', ['uid' => $orderInfo['uid'], 'order_id' => $orderInfo['id']]]);
         return $res && $orderInfo->save();
     }

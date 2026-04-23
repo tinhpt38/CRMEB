@@ -4,7 +4,7 @@
       <div class="left-content">
         <img :src="imgUrl" class="vip-icon" v-if="imgUrl" />
         <div class="text-content" :style="{ color: tipsTextColor }">
-          开通SVIP会员预计省 <span :style="{ color: moneyTextColor }">2.90</span> 元
+          Khoản tiết kiệm ước tính khi trở thành thành viên SVIP <span :style="{ color: moneyTextColor }">2.90</span> Nhân dân tệ
         </div>
       </div>
       <div class="right-content">
@@ -22,11 +22,11 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'home_paid_vip',
-  cname: '付费会员',
+  cname: 'Thành viên trả phí',
   configName: 'c_paid_vip',
   icon: '#iconzujian-fufeihuiyuan',
-  type: 3, // 0 基础组件 1 营销组件 2工具组件
-  defaultName: 'home_paid_vip', // 外面匹配名称
+  type: 3, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
+  defaultName: 'home_paid_vip', // tên trận đấu bên ngoài
   props: {
     index: {
       type: null,
@@ -153,67 +153,67 @@ export default {
       borderConfig: null,
       shadowConfig: null,
       componentBgConfig: null,
-      // 默认初始化数据禁止修改
+      // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: '付费会员',
+        cname: 'Thành viên trả phí',
         name: 'home_paid_vip',
         timestamp: this.num,
         setUp: {
           tabVal: 0,
         },
         // Content Settings
-        titleContent: '内容设置',
+        titleContent: 'Cài đặt nội dung',
         imgConfig: {
-          info: '建议：36px * 36px',
+          info: 'gợi ý：36px * 36px',
           url: require('@/assets/images/goods_vip.png'),
           type: 'code',
           delType: 0,
-          name: '会员图片',
+          name: 'Hình ảnh thành viên',
         },
         rightBntConfig: {
-          title: '右侧按钮',
-          value: '立即开通',
-          place: '请输入按钮文字',
+          title: 'nút bên phải',
+          value: 'Kích hoạt ngay bây giờ',
+          place: 'Vui lòng nhập văn bản nút',
           max: 6,
         },
 
         // Style Settings - Text
-        titleStyle: '文字设置',
+        titleStyle: 'Cài đặt văn bản',
         toneConfig: {
-          title: '色调',
+          title: 'giai điệu',
           tabVal: 0,
-          tabList: [{ name: '默认' }, { name: '自定义' }],
+          tabList: [{ name: 'mặc định' }, { name: 'Tùy chỉnh' }],
         },
         tipsColor: {
-          title: '提示文字',
+          title: 'Văn bản nhắc nhở',
           default: [{ item: '#333333' }],
           color: [{ item: '#333333' }],
         },
         moneyColor: {
-          title: '金额文字',
+          title: 'Văn bản số lượng',
           default: [{ item: '#F62C2C' }],
           color: [{ item: '#F62C2C' }],
         },
         btnColor: {
-          title: '按钮颜色',
+          title: 'màu nút',
           default: [{ item: '#FF6B00' }],
           color: [{ item: '#FF6B00' }],
         },
         btnConfig: {
-          title: '按钮字号',
+          title: 'Kích thước phông chữ của nút',
           val: 13,
           min: 12,
         },
 
         // Style Settings - Common
-        titleCurrency: '通用样式',
+        titleCurrency: 'Phong cách phổ quát',
         componentBgColor: {
-          title: '组件背景',
+          title: 'Nền thành phần',
           default: [{ item: '#FFF0D1' }],
           color: [{ item: '#FFF0D1' }],
         },
         paddingConfig: {
-          title: '内边距',
+          title: 'phần đệm',
           val: 15,
           min: 0,
           max: 100,
@@ -221,7 +221,7 @@ export default {
           valList: [{ val: 15 }, { val: 15 }, { val: 15 }, { val: 15 }],
         },
         marginConfig: {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,
@@ -229,68 +229,68 @@ export default {
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         zIndexConfig: {
-          title: '组件上浮',
+          title: 'Thành phần nổi',
           val: 0,
           min: 0,
         },
         borderConfig: {
-          title: '边框设置',
+          title: 'Cài đặt đường viền',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Hide, 1: Show
           styleConfig: {
-            title: '边框样式',
+            title: 'phong cách biên giới',
             tabVal: 0,
             tabList: [
-              { name: '实线', style: 'solid' },
-              { name: '虚线', style: 'dashed' },
-              { name: '点状', style: 'dotted' },
+              { name: 'đường liền nét', style: 'solid' },
+              { name: 'đường chấm chấm', style: 'dashed' },
+              { name: 'Say mê', style: 'dotted' },
             ],
           },
           widthConfig: {
-            title: '边框粗细',
+            title: 'Độ dày viền',
             val: 1,
             min: 1,
           },
           colorConfig: {
-            title: '边框颜色',
+            title: 'màu viền',
             default: [{ item: '#e5e5e5' }],
             color: [{ item: '#e5e5e5' }],
           },
         },
         shadowConfig: {
-          title: '阴影设置',
+          title: 'Cài đặt bóng',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0,
           colorConfig: {
-            title: '阴影颜色',
+            title: 'màu bóng',
             default: [{ item: 'rgba(0,0,0,0.1)' }],
             color: [{ item: 'rgba(0,0,0,0.1)' }],
           },
           xConfig: {
-            title: 'X轴偏移',
+            title: 'Xđộ lệch trục',
             val: 0,
             min: -50,
           },
           yConfig: {
-            title: 'Y轴偏移',
+            title: 'Yđộ lệch trục',
             val: 0,
             min: -50,
           },
           blurConfig: {
-            title: '模糊半径',
+            title: 'bán kính lờ mờ',
             val: 10,
             min: 0,
           },
           spreadConfig: {
-            title: '扩展半径',
+            title: 'Bán kính mở rộng',
             val: 0,
             min: -50,
           },
         },
         bottomBgColor: {
-          title: '底部背景',
+          title: 'nền dưới cùng',
           default: [
             {
               item: '#fff',
@@ -303,36 +303,36 @@ export default {
           ],
         },
         componentBgConfig: {
-          title: '背景设置',
+          title: 'Cài đặt nền',
           tabVal: 0,
-          tabList: [{ name: '颜色' }, { name: '图片' }],
+          tabList: [{ name: 'màu sắc' }, { name: 'hình ảnh' }],
           colorConfig: {
-            title: '背景颜色',
+            title: 'màu nền',
             default: [{ item: '#FFF0D1' }, { item: '#FFF0D1' }],
             color: [{ item: '#FFF0D1' }, { item: '#FFF0D1' }],
           },
           colorDirection: {
-            title: '渐变方向',
+            title: 'Hướng dốc',
             tabVal: 0,
-            tabList: [{ name: '横向' }, { name: '纵向' }, { name: '左斜' }, { name: '右斜' }],
+            tabList: [{ name: 'Nằm ngang' }, { name: 'chân dung' }, { name: 'xiên trái' }, { name: 'Nghiêng phải' }],
           },
           imageConfig: {
-            header: '背景图片',
+            header: 'hình nền',
             title: '',
-            name: '上传图片',
+            name: 'Tải ảnh lên',
             type: 'code',
             url: '',
-            info: '建议尺寸：750px * 400px',
+            info: 'Kích thước đề xuất：750px * 400px',
           },
         },
         fillet: {
-          title: '背景圆角',
+          title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: '全部', icon: 'iconcaozuo-zhengti' },
-            { val: '单个', icon: 'iconcaozuo-bianjiao' },
+            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 8,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
@@ -356,7 +356,7 @@ export default {
       // Backward compatibility for legacy configs
       if (!dataClone.paddingConfig) {
         dataClone.paddingConfig = {
-          title: '内边距',
+          title: 'phần đệm',
           val: 15,
           min: 0,
           max: 100,
@@ -371,7 +371,7 @@ export default {
       }
       if (!dataClone.marginConfig) {
         dataClone.marginConfig = {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,

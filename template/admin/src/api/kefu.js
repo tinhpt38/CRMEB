@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 import request from '@/libs/request';
 
 /*
- * 登录
+ * Đăng nhập
  * */
 export function AccountLogin(data) {
   return request({
@@ -23,7 +23,7 @@ export function AccountLogin(data) {
 }
 
 /**
- * 获取左侧客服聊天用户列表
+ * Lấy danh sách người dùng trò chuyện dịch vụ khách hàng ở bên trái
  * @constructor
  */
 export function record(params) {
@@ -36,7 +36,7 @@ export function record(params) {
 }
 
 /**
- * 获取左侧用户详情
+ * Nhận thông tin chi tiết người dùng ở bên trái
  * @constructor
  */
 export function userInfo(id) {
@@ -48,7 +48,7 @@ export function userInfo(id) {
 }
 
 /**
- * 获取左侧用户订单列表
+ * Lấy danh sách đơn hàng của người dùng ở bên trái
  * @constructor
  */
 export function getorderList(id, params) {
@@ -61,7 +61,7 @@ export function getorderList(id, params) {
 }
 
 /**
- * 客服订单发货
+ * Dịch vụ khách hàng giao hàng theo đơn đặt hàng
  * @constructor
  */
 export function orderDelivery(id, data) {
@@ -74,7 +74,7 @@ export function orderDelivery(id, data) {
 }
 
 /**
- * 一键改价
+ * Thay đổi giá chỉ bằng một cú nhấp chuột
  */
 export function editPriceApi(id, data) {
   return request({
@@ -86,7 +86,7 @@ export function editPriceApi(id, data) {
 }
 
 /**
- * 客服订单改价
+ * Dịch vụ khách hàng thay đổi giá đặt hàng
  * @constructor
  */
 export function orderEdit(id) {
@@ -98,7 +98,7 @@ export function orderEdit(id) {
 }
 
 /**
- * 客服订单退款表单
+ * Mẫu hoàn trả đơn hàng dịch vụ khách hàng
  * @constructor
  */
 export function orderRecord(id) {
@@ -110,7 +110,7 @@ export function orderRecord(id) {
 }
 
 /**
- * 客服订单退款
+ * Dịch vụ khách hàng Hoàn tiền đơn hàng
  * @constructor
  */
 export function orderRefundApi(data) {
@@ -123,7 +123,7 @@ export function orderRefundApi(data) {
 }
 
 /**
- * 商品购买记录
+ * Hồ sơ mua sản phẩm
  * @constructor
  */
 export function productCart(uid, params) {
@@ -136,7 +136,7 @@ export function productCart(uid, params) {
 }
 
 /**
- * 商品足记
+ * Chi tiết sản phẩm
  * @constructor
  */
 export function productVisit(uid, params) {
@@ -149,7 +149,7 @@ export function productVisit(uid, params) {
 }
 
 /**
- * 热销商品
+ * Đồ nóng
  * @constructor
  */
 export function productHot(uid, params) {
@@ -162,7 +162,7 @@ export function productHot(uid, params) {
 }
 
 /**
- * 客服话术
+ * Kỹ năng phục vụ khách hàng
  * @constructor
  */
 export function speeChcraft(params) {
@@ -175,7 +175,7 @@ export function speeChcraft(params) {
 }
 
 /**
- * 客服转接列表
+ * Danh sách chuyển dịch vụ khách hàng
  * @constructor
  */
 export function transferList(params) {
@@ -188,7 +188,7 @@ export function transferList(params) {
 }
 
 /**
- * 客服转接列表
+ * Danh sách chuyển dịch vụ khách hàng
  * @constructor
  */
 export function serviceTransfer(params) {
@@ -201,7 +201,7 @@ export function serviceTransfer(params) {
 }
 
 /**
- * 客服用户标签
+ * Thẻ người dùng dịch vụ khách hàng
  * @constructor
  */
 export function userLabel(id) {
@@ -213,7 +213,7 @@ export function userLabel(id) {
 }
 
 /**
- * 客服用户标签更新
+ * Cập nhật nhãn người dùng dịch vụ khách hàng
  * @constructor
  */
 export function userLabelPut(id, data) {
@@ -226,7 +226,7 @@ export function userLabelPut(id, data) {
 }
 
 /**
- * 客服用户聊天列表
+ * Danh sách trò chuyện của người dùng dịch vụ khách hàng
  * @constructor
  */
 export function serviceList(params) {
@@ -239,7 +239,7 @@ export function serviceList(params) {
 }
 
 /**
- * 退出登录
+ * Đăng xuất
  * @constructor
  */
 export function AccountLogoutKefu() {
@@ -251,7 +251,7 @@ export function AccountLogoutKefu() {
 }
 
 /**
- * 获取扫码登录凭证
+ * Nhận thông tin đăng nhập bằng cách quét mã QR
  * @constructor
  */
 export function getSanCodeKey() {
@@ -263,7 +263,7 @@ export function getSanCodeKey() {
 }
 
 /**
- * 商品详情
+ * Chi tiết sản phẩm
  * @constructor
  */
 export function productInfo(id) {
@@ -275,7 +275,7 @@ export function productInfo(id) {
 }
 
 /**
- * 获取轮播图和logo
+ * Lấy hình ảnh băng chuyền vàlogo
  */
 export function loginInfoApi() {
   return request({
@@ -286,7 +286,7 @@ export function loginInfoApi() {
 }
 
 /**
- * 订单备注
+ * Ghi chú đặt hàng
  */
 export function orderRemark(data) {
   return request({
@@ -298,7 +298,7 @@ export function orderRemark(data) {
 }
 
 /**
- * 订单详情
+ * Chi tiết đặt hàng
  */
 export function orderInfo(id) {
   return request({
@@ -309,7 +309,7 @@ export function orderInfo(id) {
 }
 
 /**
- * 物流公司
+ * Công ty hậu cần
  */
 export function orderExport() {
   return request({
@@ -320,7 +320,7 @@ export function orderExport() {
 }
 
 /**
- * 快递公司模板
+ * Mẫu công ty chuyển phát nhanh
  */
 export function orderTemp(params) {
   return request({
@@ -332,7 +332,7 @@ export function orderTemp(params) {
 }
 
 /**
- * 获取配送员列表
+ * Lấy danh sách người giao hàng
  */
 export function orderDeliveryAll() {
   return request({
@@ -343,7 +343,7 @@ export function orderDeliveryAll() {
 }
 
 /**
- * 获取发货人员
+ * Nhận nhân viên vận chuyển
  */
 export function getSender() {
   return request({
@@ -354,7 +354,7 @@ export function getSender() {
 }
 
 /**
- * 获取话术分类
+ * Nhận phân loại giọng nói
  */
 export function serviceCate(params) {
   return request({
@@ -366,7 +366,7 @@ export function serviceCate(params) {
 }
 
 /**
- * 修改话术
+ * Sửa đổi lời nói của bạn
  */
 export function serviceCateUpdate(id, params) {
   return request({
@@ -378,7 +378,7 @@ export function serviceCateUpdate(id, params) {
 }
 
 /**
- * 添加话术
+ * Thêm từ
  */
 export function addSpeeChcraft(data) {
   return request({
@@ -390,7 +390,7 @@ export function addSpeeChcraft(data) {
 }
 
 /**
- * 添加分类
+ * Thêm danh mục
  */
 export function addServiceCate(data) {
   return request({
@@ -402,7 +402,7 @@ export function addServiceCate(data) {
 }
 
 /**
- * 修改分类
+ * Sửa đổi phân loại
  */
 export function editServiceCate(id, params) {
   return request({
@@ -414,7 +414,7 @@ export function editServiceCate(id, params) {
 }
 
 /**
- * 扫码登录情况
+ * Quét mã để đăng nhập
  */
 export function scanStatus(key, params) {
   return request({
@@ -426,7 +426,7 @@ export function scanStatus(key, params) {
 }
 
 /**
- * 扫码核销
+ * Quét mã để xóa
  */
 export function orderVerificApi(id) {
   return request({
@@ -437,7 +437,7 @@ export function orderVerificApi(id) {
 }
 
 /**
- * 客服用户分组
+ * Nhóm người dùng dịch vụ khách hàng
  * @constructor
  */
 export function userGroupApi() {
@@ -449,7 +449,7 @@ export function userGroupApi() {
 }
 
 /**
- * 客服设置用户分组
+ * Nhóm người dùng cài đặt dịch vụ khách hàng
  * @constructor
  */
 export function putGroupApi(uid, id) {
@@ -461,7 +461,7 @@ export function putGroupApi(uid, id) {
 }
 
 /**
- * 客服配置
+ * Cấu hình dịch vụ khách hàng
  * @constructor
  */
 export function kefuConfig() {
@@ -473,7 +473,7 @@ export function kefuConfig() {
 }
 
 /**
- * 客户端 随机客服
+ * Dịch vụ khách hàng ngẫu nhiên của khách hàng
  * @constructor
  */
 export function serviceListApi(params) {
@@ -486,7 +486,7 @@ export function serviceListApi(params) {
 }
 
 /**
- * 客户端 广告位
+ * Không gian quảng cáo của khách hàng
  * @constructor
  */
 export function getAdvApi() {
@@ -498,7 +498,7 @@ export function getAdvApi() {
 }
 
 /**
- * 客户端 聊天记录
+ * Lịch sử trò chuyện của khách hàng
  * @constructor
  */
 export function chatListApi(params) {
@@ -511,7 +511,7 @@ export function chatListApi(params) {
 }
 
 /**
- * 客户端 客服反馈
+ * Khách hàng phản hồi dịch vụ khách hàng
  * @constructor
  */
 export function feedbackDataApi() {
@@ -523,7 +523,7 @@ export function feedbackDataApi() {
 }
 
 /**
- * 客户端 反馈提示语
+ * Lời nhắc phản hồi của khách hàng
  * @constructor
  */
 export function feedbackFromApi(data) {
@@ -536,7 +536,7 @@ export function feedbackFromApi(data) {
 }
 
 /**
- * 客户端 游客获取用户订单号
+ * Khách truy cập của khách hàng có được số đơn đặt hàng của người dùng
  * @constructor
  */
 export function getOrderApi(order_id, params) {
@@ -549,7 +549,7 @@ export function getOrderApi(order_id, params) {
 }
 
 /**
- * 客户端 商品详情
+ * Chi tiết sản phẩm của khách hàng
  * @constructor
  */
 export function productApi(id) {
@@ -561,7 +561,7 @@ export function productApi(id) {
 }
 
 /**
- * 客服链接获取
+ * Nhận liên kết dịch vụ khách hàng
  * @constructor
  */
 export function getWorkermanUrl() {
@@ -572,7 +572,7 @@ export function getWorkermanUrl() {
 }
 
 /**
- * 复制粘贴上传图片
+ * Sao chép và dán hình ảnh tải lên
  */
 export function uploadImg(data) {
   return request({

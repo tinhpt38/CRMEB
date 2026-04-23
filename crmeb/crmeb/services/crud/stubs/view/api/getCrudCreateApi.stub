@@ -1,5 +1,5 @@
 /**
- * 获取添加表单数据
+ * Nhận thêm dữ liệu biểu mẫu
  * @return {*}
  */
 export function get{%NAME_STUDLY%}CreateApi() {

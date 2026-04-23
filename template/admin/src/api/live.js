@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 import request from '@/libs/request';
 
 /**
- * @description 直播列表
+ * @description Danh sách phát sóng trực tiếp
  */
 export function liveList(params) {
   return request({
@@ -22,7 +22,7 @@ export function liveList(params) {
 }
 
 /**
- * @description 直播列表
+ * @description Danh sách phát sóng trực tiếp
  */
 export function liveAdd(data) {
   return request({
@@ -33,7 +33,7 @@ export function liveAdd(data) {
 }
 
 /**
- * @description 直播列表详情
+ * @description Chi tiết danh sách phát sóng trực tiếp
  */
 export function liveDetail(id) {
   return request({
@@ -43,7 +43,7 @@ export function liveDetail(id) {
 }
 
 /**
- * @description 直播间设置是否显示
+ * @description Cài đặt phòng phát sóng trực tiếp có được hiển thị hay không
  */
 export function liveShow(id, type) {
   return request({
@@ -53,7 +53,7 @@ export function liveShow(id, type) {
 }
 
 /**
- * @description 直播商品列表
+ * @description Danh sách sản phẩm trực tiếp
  */
 export function liveGoods(params) {
   return request({
@@ -64,7 +64,7 @@ export function liveGoods(params) {
 }
 
 /**
- * @description 直播商品列表生成直播商品
+ * @description Tạo sản phẩm trực tiếp từ danh sách sản phẩm trực tiếp
  */
 export function liveGoodsCreat(data) {
   return request({
@@ -75,7 +75,7 @@ export function liveGoodsCreat(data) {
 }
 
 /**
- * @description 直播商品列表添加
+ * @description Thêm danh sách sản phẩm trực tiếp
  */
 export function liveGoodsAdd(data) {
   return request({
@@ -86,7 +86,7 @@ export function liveGoodsAdd(data) {
 }
 
 /**
- * @description 直播间添加商品
+ * @description Thêm sản phẩm vào phòng phát sóng trực tiếp
  */
 export function liveRoomGoodsAdd(data) {
   return request({
@@ -97,7 +97,7 @@ export function liveRoomGoodsAdd(data) {
 }
 
 /**
- * @description 同步直播间
+ * @description Phòng phát sóng trực tiếp đồng bộ
  */
 export function liveSyncRoom() {
   return request({
@@ -107,7 +107,7 @@ export function liveSyncRoom() {
 }
 
 /**
- * @description 同步商品
+ * @description Đồng bộ hóa sản phẩm
  */
 export function liveSyncGoods() {
   return request({
@@ -117,7 +117,7 @@ export function liveSyncGoods() {
 }
 
 /**
- * @description 主播列表
+ * @description Danh sách neo
  */
 export function liveAuchorList(params) {
   return request({
@@ -128,7 +128,7 @@ export function liveAuchorList(params) {
 }
 
 /**
- * @description 主播添加/修改获取表单
+ * @description Anchor thêm/sửa đổi biểu mẫu chuyển đổi
  */
 export function liveAuchorAdd(id) {
   return request({
@@ -138,7 +138,7 @@ export function liveAuchorAdd(id) {
 }
 
 /**
- * @description 直播商品详情
+ * @description Chi tiết sản phẩm trực tiếp
  */
 export function liveGoodsDetail(id) {
   return request({
@@ -148,7 +148,7 @@ export function liveGoodsDetail(id) {
 }
 
 /**
- * @description 直播商品显示
+ * @description Hiển thị sản phẩm trực tiếp
  */
 export function liveGoodsShow(id, type) {
   return request({

@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ import { includeArray } from '@/libs/auth';
 import { PrevLoading } from '@/utils/loading.js';
 
 Vue.use(Router);
-// 解决 `element ui` 导航栏重复点菜单报错问题
+// gỡ rối `element ui` Xảy ra lỗi khi bấm liên tục vào menu trên thanh điều hướng
 const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch((err) => err);
@@ -34,13 +34,13 @@ const router = new Router({
   mode: Setting.routerMode,
 });
 
-// 判断路由 meta.roles 中是否包含当前登录用户权限字段
+// Xác định xem meta.roles định tuyến có chứa trường quyền của người dùng đã đăng nhập hiện tại hay không
 export function hasAuth(roles, route) {
   if (route.meta && route.meta.auth) return roles.some((role) => route.meta.auth.includes(role));
   else return true;
 }
 
-// 递归过滤有权限的路由
+// Lọc đệ quy các tuyến đường được ủy quyền
 export function setFilterMenuFun(routes, role) {
   const menu = [];
   routes.forEach((route) => {
@@ -53,9 +53,9 @@ export function setFilterMenuFun(routes, role) {
   return menu;
 }
 
-// 递归处理多余的 layout : <router-view>，让需要访问的组件保持在第一层 layout 层。
-// 因为 `keep-alive` 只能缓存二级路由
-// 默认初始化时就执行
+// Xử lý dự phòng đệ quy layout : <router-view>，Giữ các thành phần cần được truy cập trong lớp bố cục đầu tiên.
+// bởi vì `keep-alive` Chỉ các tuyến phụ mới có thể được lưu vào bộ nhớ đệm
+// Được thực thi trong quá trình khởi tạo theo mặc định
 export function keepAliveSplice(to) {
   if (to.matched && to.matched.length > 2) {
     to.matched.map((v, k) => {
@@ -77,7 +77,7 @@ export function keepAliveSplice(to) {
   }
 }
 
-// 编辑模块
+// Chỉnh sửa mô-đun
 export function editRouterFun(to, from) {
   const onRoutes = to.meta.activeMenu ? to.meta.activeMenu : to.meta.path;
   store.commit('menu/setActivePath', onRoutes);
@@ -100,13 +100,13 @@ export function editRouterFun(to, from) {
     let route = to.matched[1].path.split(':')[0];
     store.state.menus.oneLvRoutes.map((e) => {
       if (route.indexOf(e.path) != -1) {
-        to.meta.title = `${to.params.id ? e.title + 'ID: ' + to.params.id : '添加' + e.title}`;
+        to.meta.title = `${to.params.id ? e.title + 'ID: ' + to.params.id : 'Thêm vào' + e.title}`;
       }
     });
   }
 }
 
-// 延迟关闭进度条
+// Trì hoãn thanh tiến trình đóng
 export function delayNProgressDone(time = 300) {
   setTimeout(() => {
     NProgress.done();
@@ -114,8 +114,8 @@ export function delayNProgressDone(time = 300) {
 }
 
 /**
- * 路由拦截
- * 权限验证
+ * Chặn tuyến đường
+ * Xác minh quyền
  */
 
 router.beforeEach(async (to, from, next) => {
@@ -125,13 +125,13 @@ router.beforeEach(async (to, from, next) => {
   if (to.fullPath.indexOf('kefu') != -1 || to.name == 'mobile_upload') {
     return next();
   }
-  // 判断是否需要登录才可以进入
+  // Xác định xem bạn có cần đăng nhập trước khi vào không
   if (to.matched.some((_) => _.meta.auth)) {
-    // 这里依据 token 判断是否登录，可视情况修改
+    // Tại đây, người ta đánh giá xem có nên đăng nhập hay không dựa trên mã thông báo, mã thông báo này có thể được sửa đổi tùy theo tình huống.
     const token = getCookies('token');
     if (token && token !== 'undefined') {
       const access = store.state.userInfo.uniqueAuth;
-      const isPermission = includeArray(to.meta.auth, access); //  判断是否有权限  TODO
+      const isPermission = includeArray(to.meta.auth, access); //  Xác định xem có sự cho phép hay không  TODO
       if (access.length) {
         next();
       } else {
@@ -154,8 +154,8 @@ router.beforeEach(async (to, from, next) => {
       }
       // next();
     } else {
-      // 没有登录的时候跳转到登录界面
-      // 携带上登录成功之后需要跳转的页面完整路径
+      // Chuyển sang giao diện đăng nhập khi chưa đăng nhập
+      // Mang đường dẫn đầy đủ đến trang cần chuyển hướng sau khi đăng nhập thành công.
       next({
         name: 'login',
         query: {
@@ -168,14 +168,14 @@ router.beforeEach(async (to, from, next) => {
       removeCookies('uuid');
     }
   } else {
-    // 不需要身份校验 直接通过
+    // Không cần xác minh danh tính, chuyển trực tiếp
     next();
   }
 });
 router.afterEach((to) => {
-  // 更改标题
+  // Thay đổi tiêu đề
   setTitle(to, router.app);
-  // 返回页面顶端
+  // Quay lại đầu trang
   window.scrollTo(0, 0);
   PrevLoading.done();
 });

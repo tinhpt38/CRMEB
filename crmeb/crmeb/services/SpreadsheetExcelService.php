@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,38 +18,38 @@ class SpreadsheetExcelService
 {
     //
     private static $instance = null;
-    //PHPSpreadsheet实例化对象
+    //PHPSpreadsheetkhởi tạo đối tượng
     private static $spreadsheet = null;
-    //sheet实例化对象
+    //sheetkhởi tạo đối tượng
     private static $sheet = null;
-    //表头计数
+    //Số lượng tiêu đề
     protected static $count;
-    //表头占行数
+    //Số hàng được chiếm bởi tiêu đề bảng
     protected static $topNumber = 3;
-    //表能占据表行的字母对应self::$cellkey
+    //Bảng có thể chiếm các chữ cái tương ứng của hàng trong bảngself::$cellkey
     protected static $cells;
-    //表头数据
+    //dữ liệu tiêu đề
     protected static $data = [];
-    //文件名
-    protected static $title = '订单导出';
-    //行宽
+    //tên tập tin
+    protected static $title = 'Xuất đơn hàng';
+    //chiều rộng đường
     protected static $width = 20;
-    //行高
+    //chiều cao hàng
     protected static $height = 50;
-    //保存文件目录
+    //Lưu thư mục tập tin
     protected static $path = './phpExcel/';
-    //设置style
+    //cài đặtstyle
     private static $styleArray = [
 //         'borders' => [
 //             'allBorders' => [
-// //                PHPExcel_Style_Border里面有很多属性，想要其他的自己去看
-//                // 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,//边框是粗的
-// //                'style' => \PHPExcel_Style_Border::BORDER_DOUBLE,//双重的
-// //                'style' => \PHPExcel_Style_Border::BORDER_HAIR,//虚线
-// //                'style' => \PHPExcel_Style_Border::BORDER_MEDIUM,//实粗线
-// //                'style' => \PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT,//虚粗线
-// //                'style' => \PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT,//点虚粗线
-//                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,//细边框
+// //                PHPExcel_Style_BorderCó rất nhiều thuộc tính trong đó, nếu bạn muốn xem người khác, bạn có thể tự mình xem
+//                // 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,//Đường viền dày
+// //                'style' => \PHPExcel_Style_Border::BORDER_DOUBLE,//gấp đôi
+// //                'style' => \PHPExcel_Style_Border::BORDER_HAIR,//đường chấm chấm
+// //                'style' => \PHPExcel_Style_Border::BORDER_MEDIUM,//đường dày đặc
+// //                'style' => \PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT,//đường đậm nét đứt
+// //                'style' => \PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT,//đường chấm dày
+//                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,//Viền mỏng
 //                 // 'color' => ['argb' => 'FFFF0000'],
 //             ],
 //         ],
@@ -81,8 +81,8 @@ class SpreadsheetExcelService
     }
 
     /**
-     *设置字体格式
-     * @param $title string 必选
+     *Định dạng phông chữ
+     * @param $title string Yêu cầu
      * return string
      */
     public static function setUtf8(string $title)
@@ -91,7 +91,7 @@ class SpreadsheetExcelService
     }
 
     /**
-     *  创建保存excel目录
+     *  Tạo và lưu thư mục excel
      *  return string
      */
     public static function savePath()
@@ -101,14 +101,14 @@ class SpreadsheetExcelService
                 return false;
             }
         }
-        //年月一级目录
+        //Thư mục cấp một năm tháng
         $mont_path = self::$path . date('Ym');
         if (!is_dir($mont_path)) {
             if (mkdir($mont_path, 0700) == false) {
                 return false;
             }
         }
-        //日二级目录
+        //Thư mục phụ tiếng Nhật
         $day_path = $mont_path . '/' . date('d');
         if (!is_dir($day_path)) {
             if (mkdir($day_path, 0700) == false) {
@@ -119,7 +119,7 @@ class SpreadsheetExcelService
     }
 
     /**
-     * 设置标题
+     * Đặt tiêu đề
      * @param $title string || array ['title'=>'','name'=>'','info'=>[]]
      * @param $Name string
      * @param $info string || array;
@@ -127,7 +127,7 @@ class SpreadsheetExcelService
      */
     public function setExcelTile(string $title = '', string $Name = '', $info = [])
     {
-        //设置参数
+        //Đặt thông số
         if (is_array($title)) {
             if (isset($title['title'])) $title = $title['title'];
             if (isset($title['name'])) $Name = $title['name'];
@@ -139,7 +139,7 @@ class SpreadsheetExcelService
             self::$title = $title;
 
         if (empty($Name)) $Name = time();
-        //设置Excel属性
+        //Đặt thuộc tính Excel
         self::$spreadsheet->getProperties()
             ->setCreator("Neo")
             ->setLastModifiedBy("Neo")
@@ -151,22 +151,22 @@ class SpreadsheetExcelService
         self::$sheet->setTitle($Name);
         self::$sheet->setCellValue('A1', $title);
         self::$sheet->setCellValue('A2', self::setCellInfo($info));
-        //文字居中
+        //văn bản trung tâm
         self::$sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         self::$sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        //合并表头单元格
+        //Hợp nhất các ô tiêu đề
         self::$sheet->mergeCells('A1:' . self::$cells . '1');
         self::$sheet->mergeCells('A2:' . self::$cells . '2');
 
         self::$sheet->getRowDimension(1)->setRowHeight(40);
         self::$sheet->getRowDimension(2)->setRowHeight(20);
 
-        //设置表头字体
-        self::$sheet->getStyle('A1')->getFont()->setName('黑体');
+        //Đặt phông chữ tiêu đề
+        self::$sheet->getStyle('A1')->getFont()->setName('cơ thể màu đen');
         self::$sheet->getStyle('A1')->getFont()->setSize(20);
         self::$sheet->getStyle('A1')->getFont()->setBold(true);
-        self::$sheet->getStyle('A2')->getFont()->setName('宋体');
+        self::$sheet->getStyle('A2')->getFont()->setName('Nhà Tống');
         self::$sheet->getStyle('A2')->getFont()->setSize(14);
         self::$sheet->getStyle('A2')->getFont()->setBold(true);
 
@@ -175,16 +175,16 @@ class SpreadsheetExcelService
     }
 
     /**
-     * 设置第二行标题内容
+     * Đặt nội dung tiêu đề dòng thứ hai
      * @param $info
      * @return string|void
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/7
      */
     private static function setCellInfo($info)
     {
-        $content = ['操作者：', '导出日期：' . date('Y-m-d', time()), '地址：', '电话：'];
+        $content = ['toán tử：', 'Ngày xuất：' . date('Y-m-d', time()), 'Địa chỉ：', 'Điện thoại：'];
         if (is_array($info) && !empty($info)) {
             if (isset($info['name'])) {
                 $content[0] .= $info['name'];
@@ -208,7 +208,7 @@ class SpreadsheetExcelService
     }
 
     /**
-     * 设置头部信息
+     * Đặt thông tin tiêu đề
      * @param $data array
      * @return $this
      */
@@ -227,20 +227,20 @@ class SpreadsheetExcelService
 
     /**
      *
-     * excl数据导出
-     * @param  $data 需要导出的数据 格式和以前的可是一样
+     * exclXuất dữ liệu
+     * @param  $data Định dạng của dữ liệu cần xuất vẫn giống như trước.
      *
-     * 特殊处理：合并单元格需要先对数据进行处理
+     * Xử lý đặc biệt: việc hợp nhất các ô yêu cầu xử lý dữ liệu trước
      */
     public function setExcelContent($data = [])
     {
         if (!empty($data) && is_array($data)) {
             $span = '';
             $column = self::$topNumber + 1;
-            // 行写入
+            // viết hàng
             foreach ($data as $rows) {
                 $span = 'A';
-                // 列写入
+                // viết cột
                 foreach ($rows as $value) {
                     self::$sheet->setCellValue($span . $column, $value);
                     $span++;
@@ -248,21 +248,21 @@ class SpreadsheetExcelService
                 $column++;
             }
             self::$sheet->getDefaultRowDimension()->setRowHeight(self::$height);
-            //设置内容字体样式
+            //Đặt kiểu phông chữ nội dung
             self::$sheet->getStyle('A1:' . $span . $column)->applyFromArray(self::$styleArray);
-            //设置边框
+            //Đặt đường viền
             self::$sheet->getStyle('A1:' . $span . $column)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            //设置自动换行
+            //Đặt ngắt dòng tự động
             self::$sheet->getStyle('A4:' . $span . $column)->getAlignment()->setWrapText(true);
         }
         return new self;
     }
 
     /**
-     * 保存表格数据，直接下载
+     * Lưu dữ liệu biểu mẫu và tải xuống trực tiếp
      * @param string $fileName
-     * @param string $suffix 文件后缀名
-     * @param bool $is_save 是否保存文件
+     * @param string $suffix Phần mở rộng tập tin
+     * @param bool $is_save Có lưu tập tin hay không
      * @return string string
      * @throws Exception
      */
@@ -274,7 +274,7 @@ class SpreadsheetExcelService
         if (empty($suffix)) {
             $suffix = 'xlsx';
         }
-        // 重命名表（UTF8编码不需要这一步）
+        // Đổi tên bảng (bước này không bắt buộc đối với mã hóa UTF8）
         if (mb_detect_encoding($fileName) != "UTF-8") {
             $fileName = iconv("utf-8", "gbk//IGNORE", $fileName);
         }
@@ -285,25 +285,25 @@ class SpreadsheetExcelService
             header('Content-Type:application/vnd.ms-excel');
             $class = "\PhpOffice\PhpSpreadsheet\Writer\Xls";
         }
-        // 清理缓存
+        // xóa bộ nhớ đệm
 //        ob_end_clean();
         $spreadsheet = self::$spreadsheet;
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        if (!$is_save) {//直接下载
+        if (!$is_save) {//Tải xuống trực tiếp
 
             header('Content-Disposition: attachment;filename="' . $fileName . '.' . $suffix . '"');
             header('Cache-Control: max-age=0');
             $writer->save('php://output');
-            // 删除清空 释放内存
+            // Xóa, xóa, giải phóng bộ nhớ
             $spreadsheet->disconnectWorksheets();
             unset($spreadsheet);
             exit;
-        } else {//保存文件
+        } else {//lưu tập tin
             $path = self::savePath() . '/' . $fileName . '.' . $suffix;
             //$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
             //$writer->save($path);
             $writer->save(public_path() . $path);
-            // 删除清空 释放内存
+            // Xóa, xóa, giải phóng bộ nhớ
             $spreadsheet->disconnectWorksheets();
             unset($spreadsheet);
             return $path;

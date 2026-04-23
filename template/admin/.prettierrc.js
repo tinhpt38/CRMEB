@@ -1,35 +1,35 @@
 module.exports = {
-  // 一行最多 120 字符
+  // Tối đa 120 ký tự trên mỗi dòng
   printWidth: 120,
-  // 使用 2 个空格缩进
+  // Sử dụng 2 dấu cách để thụt lề
   tabWidth: 2,
-  // 不使用 tab 缩进，而使用空格
+  // Không sử dụng thụt lề tab, thay vào đó hãy sử dụng dấu cách
   useTabs: false,
-  // 行尾需要有分号
+  // Cần có dấu chấm phẩy ở cuối dòng
   semi: true,
-  // 使用单引号代替双引号
+  // Sử dụng dấu ngoặc đơn thay vì dấu ngoặc kép
   singleQuote: true,
-  // 对象的 key 仅在必要时用引号
+  // Khóa đối tượng chỉ được trích dẫn nếu cần thiết
   quoteProps: 'as-needed',
-  // jsx 不使用单引号，而使用双引号
+  // jsx Thay vì sử dụng dấu ngoặc đơn, hãy sử dụng dấu ngoặc kép
   jsxSingleQuote: false,
-  // 末尾使用逗号
+  // Sử dụng dấu phẩy ở cuối
   trailingComma: 'all',
-  // 大括号内的首尾需要空格 { foo: bar }
+  // Cần có khoảng trống ở đầu và cuối dấu ngoặc nhọn { foo: bar }
   bracketSpacing: true,
-  // 箭头函数，只有一个参数的时候，也需要括号
+  // Các hàm mũi tên cũng yêu cầu dấu ngoặc đơn khi chúng chỉ có một tham số.
   arrowParens: 'always',
-  // 每个文件格式化的范围是文件的全部内容
+  // Phạm vi định dạng của mỗi file là toàn bộ nội dung của file
   rangeStart: 0,
   rangeEnd: Infinity,
-  // 不需要写文件开头的 @prettier
+  // Không cần phải viết phần đầu của tập tin @prettier
   requirePragma: false,
-  // 不需要自动在文件开头插入 @prettier
+  // Không cần tự động chèn vào đầu file @prettier
   insertPragma: false,
-  // 使用默认的折行标准
+  // Sử dụng tiêu chí gói mặc định
   proseWrap: 'preserve',
-  // 根据显示样式决定 html 要不要折行
+  // Xác định xem html có nên được gói dựa trên kiểu hiển thị hay không
   htmlWhitespaceSensitivity: 'css',
-  // 换行符使用 lf
+  // Cách sử dụng ngắt dòng lf
   endOfLine: 'lf',
 };

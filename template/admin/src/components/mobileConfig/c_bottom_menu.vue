@@ -23,7 +23,7 @@ import rightBtn from '@/components/rightBtn/index.vue';
 export default {
   name: 'c_bottom_menu',
   componentsName: 'home_bottom_menu',
-  cname: '底部菜单',
+  cname: 'trình đơn dưới cùng',
   props: {
     activeIndex: {
       type: null,
@@ -112,7 +112,7 @@ export default {
       if (!config.paddingConfig) {
         config.paddingConfig = {
           isAll: false,
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -127,7 +127,7 @@ export default {
       if (!config.marginConfig) {
         config.marginConfig = {
           isAll: false,
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,

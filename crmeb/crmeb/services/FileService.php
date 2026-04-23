@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,7 +14,7 @@ use crmeb\exceptions\AdminException;
 use crmeb\services\crud\Make;
 
 /**
- * 文件操作类
+ * Lớp thao tác tập tin
  * Class FileService
  * @package crmeb\services
  */
@@ -22,7 +22,7 @@ class FileService
 {
 
     /**
-     * 创建目录
+     * Tạo thư mục
      * @param string $dir
      * @return bool
      */
@@ -39,9 +39,9 @@ class FileService
     }
 
     /**
-     * @param string $filename 写入文件名
-     * @param string $writetext 保存内容
-     * @param string $openmod 打开方式
+     * @param string $filename Viết tên tập tin
+     * @param string $writetext Lưu nội dung
+     * @param string $openmod Phương thức mở
      * @return bool
      */
     public static function writeFile(string $filename, string $writetext, string $openmod = 'w')
@@ -57,10 +57,10 @@ class FileService
     }
 
     /**
-     *  删除目录下所有满足条件文件
-     * @param $path 文件目录
-     * @param $start 开始时间
-     * @param $end 结束时间
+     *  Xóa tất cả các file trong thư mục thỏa mãn điều kiện
+     * @param $path Thư mục tập tin
+     * @param $start thời gian bắt đầu
+     * @param $end thời gian kết thúc
      *  return bool
      */
     public static function del_where_dir($path, $start = '', $end = '')
@@ -71,11 +71,11 @@ class FileService
         $dh = @opendir($path);
         if ($dh) {
             while (($d = readdir($dh)) !== false) {
-                if ($d == '.' || $d == '..') {//如果为.或..
+                if ($d == '.' || $d == '..') {//nếu .hoặc..
                     continue;
                 }
                 $tmp = $path . '/' . $d;
-                if (!is_dir($tmp)) {//如果为文件
+                if (!is_dir($tmp)) {//Nếu đó là một tập tin
                     $file_time = filemtime($tmp);
                     if ($file_time) {
                         if ($start != '' && $end != '') {
@@ -94,11 +94,11 @@ class FileService
                             @unlink($tmp);
                         }
                     }
-                } else {//如果为目录
+                } else {//Nếu đó là một thư mục
                     self::delDir($tmp, $start, $end);
                 }
             }
-            //判断文件夹下是否 还有文件
+            //Xác định xem có còn tập tin nào trong thư mục không
             $count = count(scandir($path));
             closedir($dh);
             if ($count <= 2) @rmdir($path);
@@ -107,7 +107,7 @@ class FileService
     }
 
     /**
-     * 删除目录
+     * xóa thư mục
      * @param $dirName
      * @return bool
      */
@@ -134,7 +134,7 @@ class FileService
 
 
     /**
-     * 拷贝目录
+     * sao chép thư mục
      * @param string $surDir
      * @param string $toDir
      * @return bool
@@ -168,9 +168,9 @@ class FileService
 
 
     /**
-     * 列出目录
-     * @param $dir 目录名
-     * @return array 列出文件夹下内容，返回数组 $dirArray['dir']:存文件夹；$dirArray['file']：存文件
+     * danh sách thư mục
+     * @param $dir tên thư mục
+     * @return array Liệt kê nội dung của thư mục và trả về một mảng $dirArray['dir']:lưu thư mục；$dirArray['file']：lưu tập tin
      */
     static function getDirs($dir)
     {
@@ -180,11 +180,11 @@ class FileService
             $i = 0;
             $j = 0;
             while (false !== ($file = readdir($handle))) {
-                // 跳过 . 和 .. 目录，避免 open_basedir 限制问题
+                // Nhảy . và .. các thư mục để tránh các vấn đề giới hạn open_basedir
                 if ($file == '.' || $file == '..') {
                     continue;
                 }
-                if (is_dir($dir . $file)) { //判断是否文件夹
+                if (is_dir($dir . $file)) { //Xác định xem đó có phải là một thư mục không
                     $dirArray ['dir'] [$i] = $file;
                     $i++;
                 } else {
@@ -198,9 +198,9 @@ class FileService
     }
 
     /**
-     * 统计文件夹大小
+     * Thống kê kích thước thư mục
      * @param $dir
-     * @return int 文件夹大小(单位 B)
+     * @return int Kích thước thư mục(đơn vị B)
      */
     public static function getSize($dir)
     {
@@ -220,7 +220,7 @@ class FileService
     }
 
     /**
-     * 检测是否为空文件夹
+     * Kiểm tra xem thư mục có trống không
      * @param $dir
      * @return bool
      */
@@ -230,7 +230,7 @@ class FileService
     }
 
     /**
-     * 创建多级目录
+     * Tạo thư mục đa cấp
      * @param string $dir
      * @param int $mode
      * @return boolean
@@ -241,11 +241,11 @@ class FileService
     }
 
     /**
-     * 创建指定路径下的指定文件
-     * @param string $path (需要包含文件名和后缀)
-     * @param boolean $over_write 是否覆盖文件
-     * @param int $time 设置时间。默认是当前系统时间
-     * @param int $atime 设置访问时间。默认是当前系统时间
+     * Tạo tệp được chỉ định theo đường dẫn đã chỉ định
+     * @param string $path (Cần bao gồm tên tệp và hậu tố)
+     * @param boolean $over_write Có ghi đè lên tập tin hay không
+     * @param int $time Đặt thời gian. Mặc định là thời gian hiện tại của hệ thống
+     * @param int $atime Đặt thời gian truy cập. Mặc định là thời gian hiện tại của hệ thống
      * @return boolean
      */
     public function createFile(string $path, bool $over_write = FALSE, int $time = NULL, int $atime = NULL)
@@ -262,7 +262,7 @@ class FileService
     }
 
     /**
-     * 关闭文件操作
+     * Đóng thao tác tập tin
      * @param string $path
      * @return boolean
      */
@@ -272,7 +272,7 @@ class FileService
     }
 
     /**
-     * 读取文件操作
+     * Thao tác đọc tập tin
      * @param string $file
      * @return boolean
      */
@@ -282,8 +282,8 @@ class FileService
     }
 
     /**
-     * 确定服务器的最大上传限制（字节数）
-     * @return int 服务器允许的最大上传字节数
+     * Xác định giới hạn tải lên tối đa của máy chủ (số byte)
+     * @return int Số byte tải lên tối đa được máy chủ cho phép
      */
     public function allowUploadSize()
     {
@@ -292,9 +292,9 @@ class FileService
     }
 
     /**
-     * 字节格式化 把字节数格式为 B K M G T P E Z Y 描述的大小
-     * @param int $size 大小
-     * @param int $dec 显示类型
+     * Định dạng byte Định dạng số byte theo kích thước được mô tả bởi B K M G T P E Z Y
+     * @param int $size kích cỡ
+     * @param int $dec kiểu hiển thị
      * @return int
      */
     public static function byteFormat($size, $dec = 2)
@@ -309,11 +309,11 @@ class FileService
     }
 
     /**
-     * 删除非空目录
-     * 说明:只能删除非系统和特定权限的文件,否则会出现错误
-     * @param string $dirName 目录路径
-     * @param boolean $is_all 是否删除所有
-     * @param boolean $delDir 是否删除目录
+     * Xóa các thư mục không trống
+     * Mô tả:Chỉ có thể xóa các tệp có quyền không thuộc hệ thống và cụ thể,Nếu không sẽ xảy ra lỗi
+     * @param string $dirName đường dẫn thư mục
+     * @param boolean $is_all Có nên xóa tất cả
+     * @param boolean $delDir Có nên xóa thư mục
      * @return boolean
      */
     public function removeDir(str $dir_path, bool $is_all = FALSE)
@@ -337,8 +337,8 @@ class FileService
     }
 
     /**
-     * 获取完整文件名
-     * @param string $fn 路径
+     * Nhận tên tập tin đầy đủ
+     * @param string $fn con đường
      * @return string
      */
     public function getBasename(string $file_path)
@@ -349,8 +349,8 @@ class FileService
     }
 
     /**
-     * 获取文件后缀名
-     * @param string $file_name 文件路径
+     * Nhận phần mở rộng tập tin
+     * @param string $file_name đường dẫn tập tin
      * @return string
      */
     public static function getExt(string $file)
@@ -360,9 +360,9 @@ class FileService
     }
 
     /**
-     * 取得指定目录名称
-     * @param string $path 文件路径
-     * @param int $num 需要返回以上级目录的数
+     * Lấy tên thư mục được chỉ định
+     * @param string $path đường dẫn tập tin
+     * @param int $num Số lượng thư mục cấp trên cần được trả về
      * @return string
      */
     public function fatherDir(string $path, $num = 1)
@@ -374,7 +374,7 @@ class FileService
     }
 
     /**
-     * 删除文件
+     * Xóa tập tin
      * @param string $path
      * @return boolean
      */
@@ -387,12 +387,12 @@ class FileService
     }
 
     /**
-     * 文件操作(复制/移动)
-     * @param string $old_path 指定要操作文件路径(需要含有文件名和后缀名)
-     * @param string $new_path 指定新文件路径（需要新的文件名和后缀名）
-     * @param string $type 文件操作类型
-     * @param boolean $overWrite 是否覆盖已存在文件
-     * @param array $ignore 按后缀名过滤
+     * Thao tác với tệp(sao chép/di chuyển)
+     * @param string $old_path Chỉ định đường dẫn tệp sẽ được vận hành(Yêu cầu tên tệp và hậu tố)
+     * @param string $new_path Chỉ định đường dẫn tệp mới (yêu cầu tên và hậu tố tệp mới)）
+     * @param string $type Kiểu thao tác tập tin
+     * @param boolean $overWrite Có ghi đè lên các tập tin hiện có hay không
+     * @param array $ignore Lọc theo hậu tố
      * @return boolean
      */
     public function handleFile(string $old_path, string $new_path, string $type = 'copy', bool $overWrite = FALSE, array $ignore = [])
@@ -421,12 +421,12 @@ class FileService
     }
 
     /**
-     * 文件夹操作(复制/移动)
-     * @param string $old_path 指定要操作文件夹路径
-     * @param string $aimDir 指定新文件夹路径
-     * @param string $type 操作类型
-     * @param boolean $overWrite 是否覆盖文件和文件夹
-     * @param array $ignore 按目录名过滤
+     * Thao tác thư mục(sao chép/di chuyển)
+     * @param string $old_path Chỉ định đường dẫn của thư mục sẽ được thao tác
+     * @param string $aimDir Chỉ định đường dẫn thư mục mới
+     * @param string $type Loại hoạt động
+     * @param boolean $overWrite Có ghi đè lên tập tin và thư mục hay không
+     * @param array $ignore Lọc theo tên thư mục
      * @return boolean
      */
     public function handleDir(string $old_path, string $new_path, string $type = 'copy', bool $overWrite = FALSE, array $ignore = [])
@@ -466,8 +466,8 @@ class FileService
     }
 
     /**
-     * 替换相应的字符
-     * @param string $path 路径
+     * Thay thế các ký tự tương ứng
+     * @param string $path con đường
      * @return string
      */
     public static function dirReplace(string $path)
@@ -476,8 +476,8 @@ class FileService
     }
 
     /**
-     * 读取指定路径下模板文件
-     * @param string $path 指定路径下的文件
+     * Đọc tệp mẫu theo đường dẫn đã chỉ định
+     * @param string $path Tệp theo đường dẫn đã chỉ định
      * @return string $rstr
      */
     public static function getTempltes(string $path)
@@ -494,8 +494,8 @@ class FileService
     }
 
     /**
-     * @param string $oldname 原始名称
-     * @param string $newname 新名称
+     * @param string $oldname tên gốc
+     * @param string $newname tên mới
      * @return bool
      */
     public function rename(string $oldname, string $newname)
@@ -506,13 +506,13 @@ class FileService
     }
 
     /**
-     * 获取指定路径下的信息
-     * @param string $dir 路径
+     * Nhận thông tin theo đường dẫn được chỉ định
+     * @param string $dir con đường
      * @return ArrayObject
      */
     public function getDirInfo(string $dir)
     {
-        $handle = @opendir($dir);//打开指定目录
+        $handle = @opendir($dir);//Mở thư mục được chỉ định
         $directory_count = 0;
         $total_size = 5;
         $file_cout = 0;
@@ -533,7 +533,7 @@ class FileService
                 }
             }
         }
-        closedir($handle);//关闭指定目录
+        closedir($handle);//Đóng thư mục được chỉ định
         $result_value['size'] = $total_size;
         $result_value['filecount'] = $file_cout;
         $result_value['dircount'] = $directory_count;
@@ -541,15 +541,15 @@ class FileService
     }
 
     /**
-     * 指定文件编码转换
-     * @param string $path 文件路径
-     * @param string $input_code 原始编码
-     * @param string $out_code 输出编码
+     * Chỉ định chuyển đổi mã hóa tập tin
+     * @param string $path đường dẫn tập tin
+     * @param string $input_code mã hóa gốc
+     * @param string $out_code Mã hóa đầu ra
      * @return boolean
      */
     public function changeFileCode(string $path, string $input_code, string $out_code)
     {
-        if (is_file($path))//检查文件是否存在,如果存在就执行转码,返回真
+        if (is_file($path))//Kiểm tra xem tập tin có tồn tại không,Nếu có, hãy thực hiện chuyển mã,Trả về đúng
         {
             $content = file_get_contents($path);
             $content = string::chang_code($content, $input_code, $out_code);
@@ -560,12 +560,12 @@ class FileService
     }
 
     /**
-     * 指定目录下指定条件文件编码转换
-     * @param string $dirname 目录路径
-     * @param string $input_code 原始编码
-     * @param string $out_code 输出编码
-     * @param boolean $is_all 是否转换所有子目录下文件编码
-     * @param string $exts 文件类型
+     * Chỉ định chuyển đổi mã hóa tệp có điều kiện trong thư mục được chỉ định
+     * @param string $dirname đường dẫn thư mục
+     * @param string $input_code mã hóa gốc
+     * @param string $out_code Mã hóa đầu ra
+     * @param boolean $is_all Có chuyển đổi mã hóa tập tin trong tất cả các thư mục con hay không
+     * @param string $exts Loại tệp
      * @return boolean
      */
     public function changeDirFilesCode(string $dirname, string $input_code, string $out_code, bool $is_all = TRUE, string $exts = '')
@@ -595,23 +595,23 @@ class FileService
     }
 
     /**
-     * 列出指定目录下符合条件的文件和文件夹
-     * @param string $dirname 路径
-     * @param boolean $is_all 是否列出子目录中的文件
-     * @param string $exts 需要列出的后缀名文件
-     * @param string $sort 数组排序
+     * Liệt kê các tập tin và thư mục đáp ứng các điều kiện trong thư mục được chỉ định
+     * @param string $dirname con đường
+     * @param boolean $is_all Có liệt kê các tập tin trong thư mục con hay không
+     * @param string $exts Phần mở rộng tập tin sẽ được liệt kê
+     * @param string $sort Sắp xếp mảng
      * @return ArrayObject
      */
     public function listDirInfo(string $dirname, bool $is_all = FALSE, string $exts = '', string $sort = 'ASC')
     {
-        //处理多于的/号
+        //Xử lý nhiều hơn một/ký hiệu
         $new = strrev($dirname);
         if (strpos($new, '/') == 0) {
             $new = substr($new, 1);
         }
         $dirname = strrev($new);
 
-        $sort = strtolower($sort);//将字符转换成小写
+        $sort = strtolower($sort);//Chuyển ký tự thành chữ thường
 
         $files = [];
         $subfiles = [];
@@ -674,7 +674,7 @@ class FileService
     }
 
     /**
-     * 返回指定路径的文件夹信息，其中包含指定路径中的文件和目录
+     * Trả về thông tin thư mục của đường dẫn đã chỉ định, chứa các tệp và thư mục trong đường dẫn đã chỉ định
      * @param string $dir
      * @return ArrayObject
      */
@@ -684,7 +684,7 @@ class FileService
     }
 
     /**
-     * 判断目录是否为空
+     * Xác định xem thư mục có trống không
      * @param string $dir
      * @return boolean
      */
@@ -702,54 +702,54 @@ class FileService
     }
 
     /**
-     * 返回指定文件和目录的信息
+     * Trả về thông tin về tập tin và thư mục được chỉ định
      * @param string $file
      * @return ArrayObject
      */
     public static function listInfo(string $file)
     {
         $dir = [];
-        $dir['filename'] = basename($file);//返回路径中的文件名部分。
-        $dir['pathname'] = strstr(php_uname('s'), 'Windows') ? str_replace('\\', '\\\\', realpath($file)) : realpath($file);//返回绝对路径名。
-        $dir['owner'] = fileowner($file);//文件的 user ID （所有者）。
-        $dir['perms'] = fileperms($file);//返回文件的 inode 编号。
-        $dir['inode'] = fileinode($file);//返回文件的 inode 编号。
-        $dir['group'] = filegroup($file);//返回文件的组 ID。
-        $dir['path'] = dirname($file);//返回路径中的目录名称部分。
-        $dir['atime'] = fileatime($file);//返回文件的上次访问时间。
-        $dir['ctime'] = filectime($file);//返回文件的上次改变时间。
-        $dir['perms'] = fileperms($file);//返回文件的权限。
-        $dir['size'] = self::byteFormat(filesize($file), 2);//返回文件大小。
-        $dir['type'] = filetype($file);//返回文件类型。
-        $dir['ext'] = is_file($file) ? pathinfo($file, PATHINFO_EXTENSION) : '';//返回文件后缀名
-        $dir['mtime'] = filemtime($file);//返回文件的上次修改时间。
-        $dir['isDir'] = is_dir($file);//判断指定的文件名是否是一个目录。
-        $dir['isFile'] = is_file($file);//判断指定文件是否为常规的文件。
-        $dir['isLink'] = is_link($file);//判断指定的文件是否是连接。
-        $dir['isReadable'] = is_readable($file);//判断文件是否可读。
-        $dir['isWritable'] = is_writable($file);//判断文件是否可写。
-        $dir['isUpload'] = is_uploaded_file($file);//判断文件是否是通过 HTTP POST 上传的。
+        $dir['filename'] = basename($file);//Trả về phần tên file của đường dẫn。
+        $dir['pathname'] = strstr(php_uname('s'), 'Windows') ? str_replace('\\', '\\\\', realpath($file)) : realpath($file);//Trả về tên đường dẫn tuyệt đối。
+        $dir['owner'] = fileowner($file);//ID người dùng của tệp (chủ sở hữu）。
+        $dir['perms'] = fileperms($file);//Trả về số inode của tập tin。
+        $dir['inode'] = fileinode($file);//Trả về số inode của tập tin。
+        $dir['group'] = filegroup($file);//Trả về nhóm của tập tin ID。
+        $dir['path'] = dirname($file);//Trả về phần tên thư mục của đường dẫn。
+        $dir['atime'] = fileatime($file);//Trả về thời gian truy cập cuối cùng của tệp。
+        $dir['ctime'] = filectime($file);//Trả về lần cuối cùng một tập tin được thay đổi。
+        $dir['perms'] = fileperms($file);//Trả về quyền của tập tin。
+        $dir['size'] = self::byteFormat(filesize($file), 2);//Trả về kích thước tập tin。
+        $dir['type'] = filetype($file);//Trả về loại tệp。
+        $dir['ext'] = is_file($file) ? pathinfo($file, PATHINFO_EXTENSION) : '';//Trả về tên phần mở rộng của tập tin
+        $dir['mtime'] = filemtime($file);//Trả về thời gian sửa đổi cuối cùng của tệp。
+        $dir['isDir'] = is_dir($file);//Xác định xem tên tệp được chỉ định có phải là một thư mục không。
+        $dir['isFile'] = is_file($file);//Xác định xem tệp được chỉ định có phải là tệp thông thường không。
+        $dir['isLink'] = is_link($file);//Xác định xem tệp được chỉ định có phải là kết nối không。
+        $dir['isReadable'] = is_readable($file);//Xác định xem tập tin có thể đọc được hay không。
+        $dir['isWritable'] = is_writable($file);//Xác định xem tập tin có thể ghi được không。
+        $dir['isUpload'] = is_uploaded_file($file);//Xác định xem tệp có được tải lên qua HTTP POST hay không。
         return $dir;
     }
 
     /**
-     * 返回关于打开文件的信息
+     * Trả về thông tin về file đang mở
      * @param $file
      * @return ArrayObject
-     * 数字下标     关联键名（自 PHP 4.0.6）     说明
-     * 0     dev     设备名
-     * 1     ino     号码
-     * 2     mode     inode 保护模式
-     * 3     nlink     被连接数目
-     * 4     uid     所有者的用户 id
-     * 5     gid     所有者的组 id
-     * 6     rdev     设备类型，如果是 inode 设备的话
-     * 7     size     文件大小的字节数
-     * 8     atime     上次访问时间（Unix 时间戳）
-     * 9     mtime     上次修改时间（Unix 时间戳）
-     * 10     ctime     上次改变时间（Unix 时间戳）
-     * 11     blksize     文件系统 IO 的块大小
-     * 12     blocks     所占据块的数目
+     * Chỉ số dưới dạng số Tên khóa liên kết (kể từ PHP 4.0.6) Mô tả
+     * 0 tên thiết bị phát triển
+     * 1 số
+     * 2 chế độ bảo vệ inode
+     * 3 số nlink kết nối được kết nối
+     * 4 uid Id người dùng của chủ sở hữu
+     * 5 id nhóm chủ sở hữu gid
+     * 6 loại thiết bị rdev, nếu là thiết bị inode
+     * Kích thước tệp 7 kích thước tính bằng byte
+     * 8 lần Thời gian truy cập lần cuối (dấu thời gian Unix)
+     * 9 mtime lần sửa đổi cuối cùng (dấu thời gian Unix)
+     * 10 ctime thời gian thay đổi lần cuối (dấu thời gian Unix)
+     * Kích thước khối IO của hệ thống tệp 11 blksize
+     * 12 khối Số khối chiếm giữ
      */
     public function openInfo(string $file)
     {
@@ -760,82 +760,82 @@ class FileService
     }
 
     /**
-     * 改变文件和目录的相关属性
-     * @param string $file 文件路径
-     * @param string $type 操作类型
-     * @param string $ch_info 操作信息
+     * Thay đổi các thuộc tính liên quan của tập tin và thư mục
+     * @param string $file đường dẫn tập tin
+     * @param string $type Loại hoạt động
+     * @param string $ch_info Thông tin hoạt động
      * @return boolean
      */
     public function change_file($file, $type, $ch_info)
     {
         switch ($type) {
             case 'group' :
-                $is_ok = chgrp($file, $ch_info);//改变文件组。
+                $is_ok = chgrp($file, $ch_info);//Thay đổi nhóm tập tin。
                 break;
             case 'mode' :
-                $is_ok = chmod($file, $ch_info);//改变文件模式。
+                $is_ok = chmod($file, $ch_info);//Thay đổi chế độ tập tin。
                 break;
             case 'ower' :
-                $is_ok = chown($file, $ch_info);//改变文件所有者。
+                $is_ok = chown($file, $ch_info);//Thay đổi chủ sở hữu tập tin。
                 break;
         }
     }
 
     /**
-     * 取得文件路径信息
-     * @param $full_path 完整路径
+     * Nhận thông tin đường dẫn tập tin
+     * @param $full_path đường dẫn đầy đủ
      * @return ArrayObject
      */
     public function getFileType(string $path)
     {
-        //pathinfo() 函数以数组的形式返回文件路径的信息。
+        //pathinfo() Hàm trả về thông tin đường dẫn file dưới dạng mảng。
         //---------$file_info = pathinfo($path); echo file_info['extension'];----------//
-        //extension取得文件后缀名【pathinfo($path,PATHINFO_EXTENSION)】-----dirname取得文件路径【pathinfo($path,PATHINFO_DIRNAME)】-----basename取得文件完整文件名【pathinfo($path,PATHINFO_BASENAME)】-----filename取得文件名【pathinfo($path,PATHINFO_FILENAME)】
+        //extensionNhận phần mở rộng tập tin【pathinfo($path,PATHINFO_EXTENSION)】-----dirnameNhận đường dẫn tập tin【pathinfo($path,PATHINFO_DIRNAME)】-----basenameLấy tên file đầy đủ của file【pathinfo($path,PATHINFO_BASENAME)】-----filenameLấy tên tập tin【pathinfo($path,PATHINFO_FILENAME)】
         return pathinfo($path);
     }
 
     /**
-     * 取得上传文件信息
-     * @param $file file属性信息
+     * Nhận thông tin tập tin tải lên
+     * @param $file fileThông tin thuộc tính
      * @return array
      */
     public function getUploadFileInfo($file)
     {
-        $file_info = request()->file($file);//取得上传文件基本信息
+        $file_info = request()->file($file);//Nhận thông tin cơ bản về các tập tin được tải lên
         $info = [];
-        $info['type'] = strtolower(trim(stripslashes(preg_replace("/^(.+?);.*$/", "\\1", $file_info['type'])), '"'));//取得文件类型
-        $info['temp'] = $file_info['tmp_name'];//取得上传文件在服务器中临时保存目录
-        $info['size'] = $file_info['size'];//取得上传文件大小
-        $info['error'] = $file_info['error'];//取得文件上传错误
-        $info['name'] = $file_info['name'];//取得上传文件名
-        $info['ext'] = $this->getExt($file_info['name']);//取得上传文件后缀
+        $info['type'] = strtolower(trim(stripslashes(preg_replace("/^(.+?);.*$/", "\\1", $file_info['type'])), '"'));//Nhận loại tập tin
+        $info['temp'] = $file_info['tmp_name'];//Lấy thư mục lưu tạm thời các file upload trên server
+        $info['size'] = $file_info['size'];//Nhận kích thước tập tin tải lên
+        $info['error'] = $file_info['error'];//Gặp lỗi tải tập tin lên
+        $info['name'] = $file_info['name'];//Nhận tên tệp đã tải lên
+        $info['ext'] = $this->getExt($file_info['name']);//Nhận hậu tố tập tin được tải lên
         return $info;
     }
 
     /**
-     * 设置文件命名规则
-     * @param string $type 命名规则
-     * @param string $filename 文件名
+     * Đặt quy tắc đặt tên file
+     * @param string $type Quy tắc đặt tên
+     * @param string $filename tên tập tin
      * @return string
      */
     public function setFileName(string $type)
     {
         switch ($type) {
             case 'hash' :
-                $new_file = md5(uniqid(mt_rand()));//mt_srand()以随机数md5加密来命名
+                $new_file = md5(uniqid(mt_rand()));//mt_srand()Được đặt tên theo mã hóa md5 số ngẫu nhiên
                 break;
             case 'time' :
                 $new_file = time();
                 break;
             default :
-                $new_file = date($type, time());//以时间格式来命名
+                $new_file = date($type, time());//Đặt tên theo định dạng thời gian
                 break;
         }
         return $new_file;
     }
 
     /**
-     * 文件保存路径处理
+     * Xử lý đường dẫn lưu file
      * @return string
      */
     public function checkPath($path)
@@ -844,9 +844,9 @@ class FileService
     }
 
     /**
-     * 文件下载
-     * $save_dir 保存路径
-     * $filename 文件名
+     * Tải tập tin xuống
+     * $save_dir lưu đường dẫn
+     * $filename tên tập tin
      * @return array
      */
     public static function downRemoteFile(string $url, string $save_dir = '', string $filename = '', int $type = 0)
@@ -858,7 +858,7 @@ class FileService
         if (trim($save_dir) == '') {
             $save_dir = './';
         }
-        if (trim($filename) == '') {//保存文件名
+        if (trim($filename) == '') {//Lưu tên tập tin
             $ext = strrchr($url, '.');
             //    if($ext!='.gif'&&$ext!='.jpg'){
             //        return ['file_name'=>'','save_path'=>'','error'=>3];
@@ -868,11 +868,11 @@ class FileService
         if (0 !== strrpos($save_dir, '/')) {
             $save_dir .= '/';
         }
-        //创建保存目录
+        //Tạo thư mục lưu
         if (!file_exists($save_dir) && !mkdir($save_dir, 0777, true)) {
             return ['file_name' => '', 'save_path' => '', 'error' => 5];
         }
-        //获取远程文件所采用的方法
+        //Phương pháp được sử dụng để lấy tập tin từ xa
         if ($type) {
             $ch = curl_init();
             $timeout = 5;
@@ -888,7 +888,7 @@ class FileService
             ob_end_clean();
         }
         //$size=strlen($img);
-        //文件大小
+        //kích thước tập tin
         $fp2 = fopen($save_dir . $filename, 'a');
 
         fwrite($fp2, $img);
@@ -898,7 +898,7 @@ class FileService
     }
 
     /**
-     * 解压zip文件
+     * Giải nén tập tin zip
      * @param string $filename
      * @param string $savename
      * @return bool
@@ -914,10 +914,10 @@ class FileService
         for ($i = 0; $i < $docnum; $i++) {
             $statInfo = $zip->statIndex($i);
             if ($statInfo['crc'] == 0 && $statInfo['comp_size'] != 2) {
-                //新建目录
+                //Tạo thư mục mới
                 mkdir($toDir . '/' . substr($statInfo['name'], 0, -1), 0777);
             } else {
-                //拷贝文件
+                //Sao chép tập tin
                 copy('zip://' . $zipfile . '#' . $statInfo['name'], $toDir . '/' . $statInfo['name']);
             }
         }
@@ -926,8 +926,8 @@ class FileService
     }
 
     /**
-     *设置字体格式
-     * @param $title string 必选
+     *Định dạng phông chữ
+     * @param $title string Yêu cầu
      * return string
      */
     public static function setUtf8($title)
@@ -936,8 +936,8 @@ class FileService
     }
 
     /**
-     *检查指定文件是否能写入
-     * @param $file string 必选
+     *Kiểm tra xem tập tin được chỉ định có thể được ghi hay không
+     * @param $file string Yêu cầu
      * return boole
      */
     public static function isWritable($file)
@@ -948,7 +948,7 @@ class FileService
     }
 
     /**
-     * 读取excel文件内容
+     * Đọc nội dung file excel
      * @param $filePath
      * @param $type
      * @param int $row_num
@@ -960,11 +960,11 @@ class FileService
     {
         if (!$filePath) return false;
         $pathInfo = pathinfo($filePath, PATHINFO_EXTENSION);
-        if (!$pathInfo || ($pathInfo != "xlsx" && $pathInfo != "xls")) throw new AdminException('必须上传xlsx格式文件');
-        //加载读取模型
+        if (!$pathInfo || ($pathInfo != "xlsx" && $pathInfo != "xls")) throw new AdminException('Các tệp ở định dạng xlsx phải được tải lên');
+        //Tải mô hình đọc
         $readModel = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($suffix);
-        // 创建读操作
-        // 打开文件 载入excel表格
+        // Tạo thao tác đọc
+        //Mở file và nạp bảng excel
 
         try {
             $spreadsheet = $readModel->load($filePath);
@@ -973,9 +973,9 @@ class FileService
             $highestRow = $sheet->getHighestRow();
             $lines = $highestRow - 1;
             if ($lines <= 0) {
-                throw new AdminException('数据不能为空');
+                throw new AdminException('Dữ liệu không thể trống');
             }
-            // 用于存储表格数据
+            // Dùng để lưu trữ dữ liệu dạng bảng
             $data = [];
             for ($i = $row_num; $i <= $highestRow; $i++) {
                 if ($type == 'card') {
@@ -1042,16 +1042,16 @@ class FileService
                             $t28
                         ];
                         $verify = [
-                            '商品编号',
-                            '商品名称', '商品类型', '商品分类(一级)', '商品分类(二级)', '商品单位',
-                            '商品图片', '商品视频', '商品详情',
-                            '已售数量', '起购数量',
-                            '规格类型', '规格类型值', '规格名称', '规格值组合', '规格图片', '售价', '划线价', '成本价', '库存', '重量', '体积', '商品编码', '条形码',
-                            '商品简介', '商品关键字', '商品口令',
-                            '购买送积分'
+                            'Số mặt hàng',
+                            'Tên sản phẩm', 'Loại sản phẩm', 'Phân loại sản phẩm(Cấp 1)', 'Phân loại sản phẩm(Cấp 2)', 'đơn vị hàng hóa',
+                            'Hình ảnh sản phẩm', 'Video sản phẩm', 'Chi tiết sản phẩm',
+                            'Số lượng bán', 'Số lượng mua tối thiểu',
+                            'Loại đặc điểm kỹ thuật', 'Giá trị loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'Sự kết hợp giá trị đặc điểm kỹ thuật', 'hình ảnh đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'trong kho', 'cân nặng', 'âm lượng', 'Mã sản phẩm', 'mã vạch',
+                            'Giới thiệu sản phẩm', 'Từ khóa sản phẩm', 'Mật khẩu sản phẩm',
+                            'Mua và nhận điểm'
                         ];
                         if ($header !== $verify) {
-                            throw new AdminException('数据结构不正确');
+                            throw new AdminException('Cấu trúc dữ liệu không đúng');
                         }
                     } else {
                         $data[] = [
@@ -1094,7 +1094,7 @@ class FileService
         }
     }
 
-    /**对象转字符
+    /**Đối tượng với nhân vật
      * @param $value
      * @return mixed
      */
@@ -1104,10 +1104,10 @@ class FileService
     }
 
     /**
-     * 压缩文件夹及文件
-     * @param string $source 需要压缩的文件夹/文件路径
-     * @param string $destination 压缩后的保存地址
-     * @param string $folder 文件夹前缀，保存时需要去掉的父级文件夹
+     * Nén thư mục và tập tin
+     * @param string $source Đường dẫn thư mục/file cần nén
+     * @param string $destination Địa chỉ lưu nén
+     * @param string $folder Tiền tố thư mục, thư mục mẹ cần loại bỏ khi lưu
      * @return boolean
      */
     function addZip($source, $destination, $folder = '')
@@ -1142,9 +1142,9 @@ class FileService
     }
 
     /**
-     * 解压缩文件夹及文件
-     * @param string $source 需要解压缩的文件路径
-     * @param string $folder 文件夹前缀，保存时需要去掉的父级文件夹
+     * Giải nén các thư mục và tập tin
+     * @param string $source Đường dẫn file cần giải nén
+     * @param string $folder Tiền tố thư mục, thư mục mẹ cần loại bỏ khi lưu
      * @return boolean
      */
     public function extractFile(string $source, string $folder): bool
@@ -1159,10 +1159,10 @@ class FileService
     }
 
     /**
-     * 批量写入文件
+     * Viết tập tin theo lô
      * @param array $make
      * @return bool
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/18
      */

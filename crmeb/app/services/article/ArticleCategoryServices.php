@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ class ArticleCategoryServices extends BaseServices
     }
 
     /**
-     * 获取文章分类列表
+     * Nhận danh sách các danh mục bài viết
      * @param array $where
      * @return array
      * @throws \ReflectionException
@@ -52,7 +52,7 @@ class ArticleCategoryServices extends BaseServices
     }
 
     /**
-     * 生成创建修改表单
+     * Tạo biểu mẫu sửa đổi
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -71,17 +71,17 @@ class ArticleCategoryServices extends BaseServices
         }
         $f = array();
         $f[] = Form::hidden('id', $info['id'] ?? 0);
-        $f[] = Form::select('pid', '上级分类', (int)($info['pid'] ?? ''))->setOptions($this->menus($pid))->filterable(1);
-        $f[] = Form::input('title', '分类名称', $info['title'] ?? '')->maxlength(20)->required();
-        $f[] = Form::input('intr', '分类简介', $info['intr'] ?? '')->type('textarea')->required();
-        $f[] = Form::frameImage('image', '分类图片', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')), $info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $f[] = Form::number('sort', '排序', (int)($info['sort'] ?? 0))->precision(0);
-        $f[] = Form::radio('status', '状态', $info['status'] ?? 1)->options([['value' => 1, 'label' => '显示'], ['value' => 0, 'label' => '隐藏']]);
-        return create_form($id ? '编辑分类' :'添加分类', $f, Url::buildUrl($url), $method);
+        $f[] = Form::select('pid', 'Phân loại cao cấp', (int)($info['pid'] ?? ''))->setOptions($this->menus($pid))->filterable(1);
+        $f[] = Form::input('title', 'Tên danh mục', $info['title'] ?? '')->maxlength(20)->required();
+        $f[] = Form::input('intr', 'Giới thiệu phân loại', $info['intr'] ?? '')->type('textarea')->required();
+        $f[] = Form::frameImage('image', 'Hình ảnh rao vặt', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')), $info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->precision(0);
+        $f[] = Form::radio('status', 'tình trạng', $info['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        return create_form($id ? 'Chỉnh sửa danh mục' :'Thêm danh mục', $f, Url::buildUrl($url), $method);
     }
 
     /**
-     * 保存
+     * cứu
      * @param array $data
      * @return mixed
      */
@@ -91,7 +91,7 @@ class ArticleCategoryServices extends BaseServices
     }
 
     /**
-     * 修改
+     * Ôn lại
      * @param array $data
      * @return mixed
      */
@@ -101,7 +101,7 @@ class ArticleCategoryServices extends BaseServices
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param int $id
      * @return mixed
      */
@@ -110,17 +110,17 @@ class ArticleCategoryServices extends BaseServices
         /** @var ArticleServices $articleService */
         $articleService = app()->make(ArticleServices::class);
         $pidCount = $this->dao->count(['pid' => $id]);
-        if ($pidCount > 0) throw new AdminException('该分类有下级分类，无法删除');
+        if ($pidCount > 0) throw new AdminException('Danh mục này có các danh mục phụ và không thể xóa được.');
         $count = $articleService->count(['cid' => $id]);
         if ($count > 0) {
-            throw new AdminException('该分类下有文章，无法删除');
+            throw new AdminException('Có những bài viết thuộc thể loại này và không thể xóa được');
         } else {
             return $this->dao->delete($id);
         }
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param int $id
      * @param int $status
      * @return mixed
@@ -131,14 +131,14 @@ class ArticleCategoryServices extends BaseServices
     }
 
     /**
-     * 获取一级分类组合数据
+     * Nhận dữ liệu kết hợp phân loại cấp đầu tiên
      * @param string $pid
      * @return array[]
      */
     public function menus($pid = '')
     {
         $list = $this->dao->getMenus(['pid' => 0]);
-        $menus = [['value' => 0, 'label' => '顶级分类']];
+        $menus = [['value' => 0, 'label' => 'danh mục hàng đầu']];
         if ($pid === 0) return $menus;
         if ($pid != '') $menus = [];
         foreach ($list as $menu) {
@@ -148,13 +148,13 @@ class ArticleCategoryServices extends BaseServices
     }
 
     /**
-     * 树形列表
+     * danh sách cây
      * @return array
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/7
      */

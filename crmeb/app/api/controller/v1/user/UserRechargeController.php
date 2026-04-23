@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\pay\PayServices;
 use app\services\user\UserRechargeServices;
 
 /**
- * 充值类
+ * Loại nạp tiền
  * Class UserRechargeController
  * @package app\api\controller\user
  */
@@ -33,7 +33,7 @@ class UserRechargeController
     }
 
     /**
-     * 用户充值
+     * Nạp tiền người dùng
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -48,64 +48,64 @@ class UserRechargeController
             ['type', 0],
             ['from', 'weixin']
         ], true);
-        if (!$price || $price <= 0) return app('json')->fail('充值金额不能为0元');
-        if (!in_array($type, [0, 1])) return app('json')->fail('充值方式不支持');
-        if (!in_array($from, [PayServices::WEIXIN_PAY, 'weixinh5', 'routine', PayServices::ALIAPY_PAY])) return app('json')->fail('充值方式不支持');
+        if (!$price || $price <= 0) return app('json')->fail('Số tiền nạp không thể là 0 nhân dân tệ');
+        if (!in_array($type, [0, 1])) return app('json')->fail('Phương thức nạp tiền không được hỗ trợ');
+        if (!in_array($from, [PayServices::WEIXIN_PAY, 'weixinh5', 'routine', PayServices::ALIAPY_PAY])) return app('json')->fail('Phương thức nạp tiền không được hỗ trợ');
         $storeMinRecharge = sys_config('store_user_min_recharge');
-        if (!$recharId && $price < $storeMinRecharge) return app('json')->fail('充值金额不能低于{:money}', null, ['money' => $storeMinRecharge]);
+        if (!$recharId && $price < $storeMinRecharge) return app('json')->fail('Số tiền nạp không được ít hơn{:money}', null, ['money' => $storeMinRecharge]);
         $uid = (int)$request->uid();
         $re = $this->services->recharge($uid, $price, $recharId, $type, $from, true);
         if ($re) {
             $payType = $re['pay_type'] ?? '';
             unset($re['pay_type']);
-            return app('json')->status($payType, '充值成功', $re);
+            return app('json')->status($payType, 'Nạp tiền thành công', $re);
         }
-        return app('json')->fail('充值失败');
+        return app('json')->fail('Nạp tiền không thành công');
     }
 
     /**
-     * TODO 小程序充值 弃用
+     * TODO Nạp tiền chương trình nhỏ không được dùng nữa
      * @param Request $request
      * @return mixed
      */
     public function routine(Request $request)
     {
         list($price, $recharId, $type) = $request->postMore([['price', 0], ['rechar_id', 0], ['type', 0]], true);
-        if (!$price || $price <= 0) return app('json')->fail('充值金额不能为0元');
+        if (!$price || $price <= 0) return app('json')->fail('Số tiền nạp không thể là 0 nhân dân tệ');
         $storeMinRecharge = sys_config('store_user_min_recharge');
-        if ($price < $storeMinRecharge) return app('json')->fail('充值金额不能低于{:money}', null, ['money' => $storeMinRecharge]);
+        if ($price < $storeMinRecharge) return app('json')->fail('Số tiền nạp không được ít hơn{:money}', null, ['money' => $storeMinRecharge]);
         $from = 'routine';
         $uid = (int)$request->uid();
         $re = $this->services->recharge($uid, $price, $recharId, $type, $from);
         if ($re) {
             unset($re['msg']);
-            return app('json')->success('充值成功', $re['data']);
+            return app('json')->success('Nạp tiền thành công', $re['data']);
         }
-        return app('json')->fail('充值失败');
+        return app('json')->fail('Nạp tiền không thành công');
     }
 
     /**
-     * TODO 公众号充值 弃用
+     * TODO Việc nạp tiền vào tài khoản chính thức không được chấp nhận
      * @param Request $request
      * @return mixed
      */
     public function wechat(Request $request)
     {
         list($price, $recharId, $from, $type) = $request->postMore([['price', 0], ['rechar_id', 0], ['from', 'weixin'], ['type', 0]], true);
-        if (!$price || $price <= 0) return app('json')->fail('充值金额不能为0元');
+        if (!$price || $price <= 0) return app('json')->fail('Số tiền nạp không thể là 0 nhân dân tệ');
         $storeMinRecharge = sys_config('store_user_min_recharge');
-        if ($price < $storeMinRecharge) return app('json')->fail('充值金额不能低于{:money}', null, ['money' => $storeMinRecharge]);
+        if ($price < $storeMinRecharge) return app('json')->fail('Số tiền nạp không được ít hơn{:money}', null, ['money' => $storeMinRecharge]);
         $uid = (int)$request->uid();
         $re = $this->services->recharge($uid, $price, $recharId, $type, $from);
         if ($re) {
             unset($re['msg']);
-            return app('json')->success('充值成功', $re);
+            return app('json')->success('Nạp tiền thành công', $re);
         }
-        return app('json')->fail('充值失败');
+        return app('json')->fail('Nạp tiền không thành công');
     }
 
     /**
-     * 充值额度选择
+     * Lựa chọn số tiền nạp
      * @return mixed
      */
     public function index()

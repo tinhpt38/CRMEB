@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,8 +16,8 @@ class LiveGoodsValidate extends Validate
 {
 
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -29,17 +29,17 @@ class LiveGoodsValidate extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'id.require' => '请选择商品',
-        'store_name.require' => '请输入商品名称',
-        'image.require' => '请选择背景图',
-        'price.require' => '请输入直播价格',
-        'price.gt' => '直播价格必须大于0',
+        'id.require' => 'Vui lòng chọn sản phẩm',
+        'store_name.require' => 'Vui lòng nhập tên sản phẩm',
+        'image.require' => 'Vui lòng chọn hình nền',
+        'price.require' => 'Vui lòng nhập giá phát sóng trực tiếp',
+        'price.gt' => 'Giá phát sóng trực tiếp phải lớn hơn0',
     ];
 
     protected $scene = [

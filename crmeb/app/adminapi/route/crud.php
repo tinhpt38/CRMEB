@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -12,8 +12,8 @@
 use think\facade\Route;
 
 /**
- * crud 自动加载路由
- * 自动加载crud目录下的所有路由文件
+ * crud Tự động tải tuyến đường
+ * Tự động tải tất cả các file định tuyến trong thư mục crud
  */
 Route::group(function () {
     $path = $this->app->getRootPath() . 'app' . DS . 'adminapi' . DS . 'route' . DS . 'crud';
@@ -30,4 +30,4 @@ Route::group(function () {
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'crud', 'mark_name' => '生成代码路由']);
+])->option(['mark' => 'crud', 'mark_name' => 'Tạo định tuyến mã']);

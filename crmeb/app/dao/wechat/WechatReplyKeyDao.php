@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -25,19 +25,19 @@ use app\model\wechat\WechatKey;
 class WechatReplyKeyDao extends BaseDao
 {
     /**
-     * 主表别名
+     * Bí danh bảng chính
      * @var string
      */
     protected $alias = 'r';
 
     /**
-     * 附表别名
+     * Lên lịch bí danh
      * @var string
      */
     protected $joinAlis = 'k';
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -46,7 +46,7 @@ class WechatReplyKeyDao extends BaseDao
     }
 
     /**
-     * 设置join连表模型
+     * Đặt mô hình bảng tham gia
      * @return string
      */
     protected function setJoinModel(): string
@@ -55,7 +55,7 @@ class WechatReplyKeyDao extends BaseDao
     }
 
     /**
-     * 关联模型
+     * mô hình liên kết
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
@@ -69,7 +69,7 @@ class WechatReplyKeyDao extends BaseDao
     }
 
     /**
-     * 获取所有关键字
+     * Nhận tất cả từ khóa
      * @param array $where
      * @param bool $group
      * @return \crmeb\basic\BaseModel|mixed|Model
@@ -87,7 +87,7 @@ class WechatReplyKeyDao extends BaseDao
     }
 
     /**
-     * 获取关键字回复列表
+     * Nhận danh sách trả lời từ khóa
      * @param array $where
      * @param bool $group
      * @param int $page
@@ -103,7 +103,7 @@ class WechatReplyKeyDao extends BaseDao
     }
 
     /**
-     * 获取条件下的条数
+     * Lấy số lượng mặt hàng có điều kiện
      * @param array $where
      * @param bool $search
      * @return int

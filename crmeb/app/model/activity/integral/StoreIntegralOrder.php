@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO 订单Model
+ * TODO Đặt hàngModel
  * Class StoreOrder
  * @package app\model\order
  */
@@ -26,13 +26,13 @@ class StoreIntegralOrder extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_integral_order';
@@ -40,13 +40,13 @@ class StoreIntegralOrder extends BaseModel
     protected $insert = ['add_time'];
 
     /**
-     * 更新时间
+     * Thời gian cập nhật
      * @var bool | string | int
      */
     protected $updateTime = false;
 
     /**
-     * 创建时间修改器
+     * Tạo công cụ sửa đổi thời gian
      * @return int
      */
     protected function setAddTimeAttr()
@@ -55,7 +55,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 一对一关联用户表
+     * Liên kết một-một của các bảng người dùng
      * @return \think\model\relation\HasOne
      */
     public function user()
@@ -68,7 +68,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 订单ID搜索器
+     * Trình tìm kiếm ID đơn hàng
      * @param Model $query
      * @param $value
      */
@@ -78,7 +78,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 订单状态搜索器
+     * Trình tìm trạng thái đơn hàng
      * @param Model $query
      * @param $value
      */
@@ -90,7 +90,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 商品id搜索器
+     * Trình tìm kiếm ID sản phẩm
      * @param Model $query
      * @param $value
      */
@@ -106,7 +106,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 核销码搜索器
+     * Trình tìm kiếm mã xác minh
      * @param Model $query
      * @param $value
      */
@@ -129,7 +129,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 订单id或者用户名搜索器
+     * ID đơn hàng hoặc người tìm kiếm tên người dùng
      * @param $query
      * @param $value
      */
@@ -139,7 +139,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 用户ID搜索器
+     * Trình tìm kiếm ID người dùng
      * @param Model $query
      * @param $value
      */
@@ -152,7 +152,7 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * 用户来源
+     * Nguồn người dùng
      * @param Model $query
      * @param $value
      */

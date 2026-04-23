@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,19 +21,19 @@ class PageCategory extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'page_categroy';
 
     /**
-     * 父类搜索器
+     * Người tìm kiếm cha mẹ
      * @param Model $query
      * @param $value
      */
@@ -50,7 +50,7 @@ class PageCategory extends BaseModel
 
 
     /**
-     * 是否使用搜索器
+     * Có nên sử dụng công cụ tìm kiếm hay không
      * @param Model $query
      * @param $value
      */
@@ -60,18 +60,18 @@ class PageCategory extends BaseModel
     }
 
     /**
-     * 模块检测
+     * Phát hiện mô-đun
      * @param Model $query
      * @param $value
      */
     public function searchNoModelAttr($query, $value)
     {
         $query->when(!in_array('seckill', $value), function ($q1) {
-            $q1->whereNotLike('name', '%秒杀%');
+            $q1->whereNotLike('name', '%bán chớp nhoáng%');
         })->when(!in_array('bargain', $value), function ($q2) {
-            $q2->whereNotLike('name', '%砍价%');
+            $q2->whereNotLike('name', '%Mặc cả%');
         })->when(!in_array('combination', $value), function ($q3) {
-            $q3->whereNotLike('name', '%拼团%');
+            $q3->whereNotLike('name', '%Chia sẻ nhóm%');
         });
     }
 }

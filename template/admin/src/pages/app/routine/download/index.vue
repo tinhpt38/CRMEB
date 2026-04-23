@@ -16,32 +16,32 @@
           <div class="content">
             <div class="content-box title">
               <div class="line"></div>
-              <div class="right title">小程序设置</div>
+              <div class="right title">Cài đặt chương trình nhỏ</div>
             </div>
             <el-alert v-if="!pageData.appId && !pageData.code">
               <template slot="title">
-                您尚未配置小程序信息，请<router-link :to="{ path: $routeProStr + '/setting/routine_config/2/7' }"
-                  >立即设置</router-link
+                Bạn chưa cấu hình thông tin chương trình mini, vui lòng<router-link :to="{ path: $routeProStr + '/setting/routine_config/2/7' }"
+                  >Thiết lập ngay bây giờ</router-link
                 ></template
               >
             </el-alert>
             <div class="content-box">
-              <div class="left">小程序名称：</div>
-              <div class="right">{{ pageData.routine_name || '未命名' }}</div>
+              <div class="left">Tên chương trình nhỏ：</div>
+              <div class="right">{{ pageData.routine_name || 'Vô danh' }}</div>
             </div>
             <div class="content-box">
-              <div class="left">小程序码：</div>
+              <div class="left">Mã chương trình nhỏ：</div>
               <div class="right">
-                <el-button type="primary" v-db-click @click="downLoadCode(pageData.code)">下载小程序码</el-button>
+                <el-button type="primary" v-db-click @click="downLoadCode(pageData.code)">Tải xuống mã applet</el-button>
               </div>
             </div>
             <div class="content-box">
-              <div class="left">小程序包：</div>
+              <div class="left">Gói chương trình nhỏ：</div>
               <div class="right">
-                <span>是否已开通小程序直播</span>
+                <span>Chương trình phát sóng trực tiếp mini đã được kích hoạt chưa</span>
                 <el-radio-group class="rad" size="large" v-model="is_live">
-                  <el-radio :label="0">未开通</el-radio>
-                  <el-radio :label="1">已开通</el-radio>
+                  <el-radio :label="0">Chưa kích hoạt</el-radio>
+                  <el-radio :label="1">Đã kích hoạt</el-radio>
                 </el-radio-group>
               </div>
             </div>
@@ -49,12 +49,12 @@
               <div class="left"></div>
               <div class="right">
                 <div>
-                  请谨慎选择是否有开通小程序直播功能，否则将影响小程序的发布 可前往
-                  <a :href="pageData.help" target="_blank">帮助文档</a>
-                  查看如何开通直播功能
+                  Vui lòng cẩn thận chọn xem có kích hoạt chức năng phát sóng trực tiếp chương trình mini hay không, nếu không sẽ ảnh hưởng đến việc phát hành chương trình mini. đi đến
+                  <a :href="pageData.help" target="_blank">Tài liệu trợ giúp</a>
+                  Xem cách kích hoạt chức năng phát sóng trực tiếp
                 </div>
 
-                <el-button class="mt10" type="primary" v-db-click @click="downLoad()">下载小程序包</el-button>
+                <el-button class="mt10" type="primary" v-db-click @click="downLoad()">Tải gói chương trình nhỏ</el-button>
               </div>
             </div>
           </div>
@@ -127,10 +127,10 @@ export default {
         });
     },
     downLoadCode(url) {
-      if (!url) return this.$message.warning('暂无小程序码');
+      if (!url) return this.$message.warning('Chưa có mã applet');
       var image = new Image();
       image.src = url;
-      // 解决跨域 Canvas 污染问题
+      // Giải quyết vấn đề ô nhiễm Canvas giữa các miền
       image.setAttribute('crossOrigin', 'anonymous');
       image.onload = function () {
         var canvas = document.createElement('canvas');
@@ -138,12 +138,12 @@ export default {
         canvas.height = image.height;
         var context = canvas.getContext('2d');
         context.drawImage(image, 0, 0, image.width, image.height);
-        var url = canvas.toDataURL(); //得到图片的base64编码数据
-        var a = document.createElement('a'); // 生成一个a元素
-        var event = new MouseEvent('click'); // 创建一个单击事件
-        a.download = name || 'photo'; // 设置图片名称
-        a.href = url; // 将生成的URL设置为a.href属性
-        a.dispatchEvent(event); // 触发a的单击事件
+        var url = canvas.toDataURL(); //Lấy dữ liệu được mã hóa base64 của hình ảnh
+        var a = document.createElement('a'); // Tạo phần tử a
+        var event = new MouseEvent('click'); // Tạo sự kiện nhấp chuột
+        a.download = name || 'photo'; // Đặt tên ảnh
+        a.href = url; // Đặt URL được tạo thành thuộc tính a.href
+        a.dispatchEvent(event); // Kích hoạt sự kiện nhấp chuột
       };
     },
   },

@@ -1,46 +1,46 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 const path = require('path');
-// 引入js打包工具
+// Giới thiệu công cụ đóng gói js
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const resolve = (dir) => {
   return path.join(__dirname, dir);
 };
-// 项目部署基础
+// Thông tin cơ bản về triển khai dự án
 module.exports = {
-  // 打包路径
+  // Đường dẫn đóng gói
   outputDir: 'dist',
-  // 打包路径--线上部署文件地址
+  // Đường dẫn đóng gói--địa chỉ tệp triển khai trực tuyến
   // outputDir: '../../crmeb/public/admin',
   runtimeCompiler: true,
-  productionSourceMap: false, //关闭生产环境下的SourceMap映射文件
-  // 如果你不需要使用eslint，把lintOnSave设为false即可
+  productionSourceMap: false, //Đóng tệp ánh xạ SourceMap trong môi trường sản xuất
+  // Nếu bạn không cần sử dụng eslint, chỉ cần đặt lintOnSave thành false
   lintOnSave: false,
-  // 打包优化
+  // Tối ưu hóa bao bì
   configureWebpack: (config) => {
     const pluginsPro = [];
     pluginsPro.push(
-      // js文件压缩
+      // jsNén tập tin
       new UglifyJsPlugin({
         uglifyOptions: {
           compress: {
             drop_debugger: true,
-            drop_console: true, //生产环境自动删除console
-            pure_funcs: ['console.log'], //移除console
+            drop_console: true, //Môi trường sản xuất sẽ tự động bị xóaconsole
+            pure_funcs: ['console.log'], //Di dờiconsole
           },
         },
         sourceMap: false,
-        parallel: true, //使用多进程并行运行来提高构建速度。默认并发运行数：os.cpus().length - 1。
+        parallel: true, //Sử dụng nhiều quy trình để chạy song song nhằm tăng tốc độ xây dựng. Số lần chạy đồng thời mặc định：os.cpus().length - 1。
       }),
     );
     if (process.env.NODE_ENV === 'production') {
@@ -59,24 +59,24 @@ module.exports = {
   chainWebpack: (config) => {
     config.plugins.delete('prefetch');
     config.resolve.alias
-      .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
+      .set('@', resolve('src')) // key,valueHãy tự xác định nó, chẳng hạn như.set('@@', resolve('src/components'))
       .set('_c', resolve('src/components'));
     config.module
       .rule('vue')
       .test(/\.vue$/)
       .end();
-    // 重新设置 alias
+    // cài lại alias
     config.resolve.alias.set('@api', resolve('src/api'));
     // node
     config.node.set('__dirname', true).set('__filename', true);
     config.plugin('monaco').use(new MonacoWebpackPlugin());
   },
 
-  // 设为false打包时不生成.map文件
+  // Đặt thành false để không tạo tệp .map khi đóng gói
   productionSourceMap: false,
-  // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
+  // Viết ở đây đường dẫn cơ bản để gọi giao diện nhằm giải quyết các vấn đề giữa các miền. Nếu một proxy được đặt thì baseUrl của axios trong môi trường phát triển cục bộ của bạn sẽ được viết là '' ，tức là chuỗi trống
   devServer: {
-    port: 1617, // 端口
+    port: 1617, // hải cảng
   },
   publicPath: '/admin',
   assetsDir: 'system_static',

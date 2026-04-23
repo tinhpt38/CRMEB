@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,14 +20,14 @@ use crmeb\services\crud\enum\SearchEnum;
 class Dao extends Make
 {
     /**
-     * 当前命令名称
+     * Tên lệnh hiện tại
      * @var string
      */
     protected $name = "dao";
 
     /**
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/4
      */
@@ -37,11 +37,11 @@ class Dao extends Make
     }
 
     /**
-     * 执行替换
+     * Thực hiện thay thế
      * @param string $name
      * @param array $options
      * @return Dao
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/3
      */
@@ -52,10 +52,10 @@ class Dao extends Make
     }
 
     /**
-     * 获取搜索dao的php代码
+     * Lấy code php search dao
      * @param array $fields
      * @return Dao
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/3
      */
@@ -109,10 +109,10 @@ CONTENT;
     }
 
     /**
-     * 模板文件
+     * tập tin mẫu
      * @param string $type
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/3/13
      */

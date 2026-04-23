@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class StoreProductAttrResult extends BaseModel
     use ModelTrait;
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_product_attr_result';
@@ -32,7 +32,7 @@ class StoreProductAttrResult extends BaseModel
     protected $insert = ['change_time'];
 
     /**
-     * 自动增加改变时间
+     * Tự động tăng thời gian thay đổi
      * @param $value
      * @return int
      */
@@ -42,7 +42,7 @@ class StoreProductAttrResult extends BaseModel
     }
 
     /**
-     * 数据json化
+     * JSON hóa dữ liệu
      * @param $value
      * @return false|string
      */
@@ -52,7 +52,7 @@ class StoreProductAttrResult extends BaseModel
     }
 
     /**
-     * 商品搜索器
+     * Công cụ tìm sản phẩm
      * @param Model $query
      * @param $value
      * @param $data
@@ -63,7 +63,7 @@ class StoreProductAttrResult extends BaseModel
     }
 
     /**
-     * 商品类型搜索器
+     * Trình tìm kiếm loại sản phẩm
      * @param Model $query
      * @param $value
      * @param $data

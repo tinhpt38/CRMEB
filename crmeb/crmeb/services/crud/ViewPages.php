@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use think\helper\Str;
 
 /**
  * Class ViewPages
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2023/4/1
  * @package crmeb\services\crud
@@ -48,7 +48,7 @@ class ViewPages extends Make
 
     /**
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/4
      */
@@ -62,7 +62,7 @@ class ViewPages extends Make
      * @param string $path
      * @param array $options
      * @return ViewPages
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/3
      */
@@ -91,10 +91,10 @@ class ViewPages extends Make
     }
 
     /**
-     * 设置页面table内容
+     * Đặt nội dung bảng trang
      * @param array $field
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
@@ -110,7 +110,7 @@ class ViewPages extends Make
                 if (in_array($item['type'], [FormTypeEnum::RADIO, FormTypeEnum::SELECT, FormTypeEnum::CHECKBOX, FormTypeEnum::FRAME_IMAGES])) {
                     $fieldValue = $fieldValue . $this->attrPrefix;
                 }
-                //组合表单展示数据
+                //Dữ liệu hiển thị biểu mẫu kết hợp
                 switch ($item['type']) {
                     case FormTypeEnum::FRAME_IMAGE_ONE:
                         $templateContent = file_get_contents($this->getStub('image'));
@@ -172,17 +172,17 @@ CONTENT;
     }
 
     /**
-     * 设置搜索页面
+     * Thiết lập trang tìm kiếm
      * @param array $searchFields
      * @return ViewPages
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
     protected function setSearchVueContent(array $searchFields)
     {
         $contentSearchVue = [];
-        //页面顶部搜索
+        //Tìm kiếm đầu trang
         $fieldDatas = [];
         foreach ($searchFields as $item) {
             $fieldValue = $item['field'];
@@ -271,10 +271,10 @@ CONTENT;
     }
 
     /**
-     * 获取查看详情字段展示内容
+     * Lấy nội dung hiển thị của trường chi tiết xem
      * @param array $tableFields
      * @return ViewPages
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
@@ -313,7 +313,7 @@ CONTENT;
      * @param string $path
      * @param string $name
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/4
      */
@@ -324,10 +324,10 @@ CONTENT;
     }
 
     /**
-     * 获取模板内容
+     * Lấy nội dung mẫu
      * @param string $type
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/1
      */

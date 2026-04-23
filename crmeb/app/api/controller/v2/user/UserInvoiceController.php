@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ class UserInvoiceController
     }
 
     /**
-     * 获取单个发票信息
+     * Nhận thông tin hóa đơn riêng lẻ
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -46,13 +46,13 @@ class UserInvoiceController
     public function invoice($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         return app('json')->success($this->services->getInvoice((int)$id));
     }
 
     /**
-     * 发票列表
+     * Danh sách hóa đơn
      * @param Request $request
      * @return mixed
      */
@@ -67,21 +67,21 @@ class UserInvoiceController
     }
 
     /**
-     * 设置默认发票
+     * Đặt hóa đơn mặc định
      * @param Request $request
      * @return mixed
      */
     public function setDefaultInvoice(Request $request)
     {
         list($id) = $request->getMore([['id', 0]], true);
-        if (!$id || !is_numeric($id)) return app('json')->fail('参数错误');
+        if (!$id || !is_numeric($id)) return app('json')->fail('Lỗi tham số');
         $uid = (int)$request->uid();
         $this->services->setDefaultInvoice($uid, (int)$id);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 获取默认发票
+     * Nhận hóa đơn mặc định
      * @param Request $request
      * @return mixed
      */
@@ -98,7 +98,7 @@ class UserInvoiceController
     }
 
     /**
-     * 修改 添加发票
+     * Sửa đổi Thêm hóa đơn
      * @param Request $request
      * @return mixed
      */
@@ -118,55 +118,55 @@ class UserInvoiceController
             ['card_number', ''],
             ['is_default', 0]
         ]);
-        if (!$data['drawer_phone']) return app('json')->fail('请填写开票手机号');
-        if (!check_phone($data['drawer_phone'])) return app('json')->fail('手机号格式不正确');
-        if (!$data['name']) return app('json')->fail('请填写发票抬头（开具发票企业名称）');
+        if (!$data['drawer_phone']) return app('json')->fail('Vui lòng điền số điện thoại di động lập hóa đơn');
+        if (!check_phone($data['drawer_phone'])) return app('json')->fail('Định dạng số điện thoại di động không chính xác');
+        if (!$data['name']) return app('json')->fail('Vui lòng điền tiêu đề hóa đơn (tên công ty phát hành hóa đơn)）');
         if (!in_array($data['header_type'], [1, 2])) {
             $data['header_type'] = empty($data['duty_number']) ? 1 : 2;
         }
         if ($data['header_type'] == 1 && !preg_match('/^[\x80-\xff]{2,60}$/', $data['name'])) {
-            return app('json')->fail('请填写正确的发票抬头（开具发票企业名称）');
+            return app('json')->fail('Vui lòng điền đúng tiêu đề hóa đơn (tên công ty phát hành hóa đơn)）');
         }
         if ($data['header_type'] == 2 && !preg_match('/^[0-9a-zA-Z&\(\)\（\）\x80-\xff]{2,150}$/', $data['name'])) {
-            return app('json')->fail('请填写正确的发票抬头（开具发票企业名称）');
+            return app('json')->fail('Vui lòng điền đúng tiêu đề hóa đơn (tên công ty phát hành hóa đơn)）');
         }
         if ($data['header_type'] == 2 && !$data['duty_number']) {
-            return app('json')->fail('请填写发票税号');
+            return app('json')->fail('Vui lòng điền mã số thuế trên hóa đơn');
         }
         if ($data['header_type'] == 2 && !preg_match('/^[A-Z0-9]{15}$|^[A-Z0-9]{17}$|^[A-Z0-9]{18}$|^[A-Z0-9]{20}$/', $data['duty_number'])) {
-            return app('json')->fail('请填写正确的发票税号');
+            return app('json')->fail('Vui lòng điền đúng mã số thuế trên hóa đơn');
         }
         if ($data['card_number'] && !preg_match('/^[1-9]\d{11,19}$/', $data['card_number'])) {
-            return app('json')->fail('请填写正确的银行卡号');
+            return app('json')->fail('Vui lòng điền đúng số thẻ ngân hàng');
         }
         $uid = (int)$request->uid();
         $re = $this->services->saveInvoice($uid, $data);
         if ($re) {
             if ($re['type'] == 'edit') {
-                return app('json')->success('修改成功');
+                return app('json')->success('Sửa đổi thành công');
             } else {
-                return app('json')->success('添加成功', $re['data']);
+                return app('json')->success('Đã thêm thành công', $re['data']);
             }
         } else {
-            return app('json')->fail('操作失败');
+            return app('json')->fail('Thao tác không thành công');
         }
 
     }
 
     /**
-     * 删除发票
+     * Xóa hóa đơn
      * @param Request $request
      * @return mixed
      */
     public function delInvoice(Request $request)
     {
         [$id] = $request->postMore([['id', 0]], true);
-        if (!$id || !is_numeric($id)) return app('json')->fail('参数错误');
+        if (!$id || !is_numeric($id)) return app('json')->fail('Lỗi tham số');
         $uid = (int)$request->uid();
         $re = $this->services->delInvoice($uid, (int)$id);
         if ($re)
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         else
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
     }
 }

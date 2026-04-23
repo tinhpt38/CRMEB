@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,10 +21,10 @@ use app\dao\service\StoreServiceDao;
 use app\services\wechat\WechatUserServices;
 
 /**
- * 客服登录
+ * Đăng nhập dịch vụ khách hàng
  * Class LoginServices
  * @package app\services\kefu
- * @method get($id, ?array $field = [], ?array $with = []) 获取一条数据
+ * @method get($id, ?array $field = [], ?array $with = []) Lấy một phần dữ liệu
  */
 class LoginServices extends BaseServices
 {
@@ -38,7 +38,7 @@ class LoginServices extends BaseServices
     }
 
     /**
-     * 客服账号密码登录
+     * Đăng nhập mật khẩu tài khoản dịch vụ khách hàng
      * @param string $account
      * @param string $password
      * @return array
@@ -50,13 +50,13 @@ class LoginServices extends BaseServices
     {
         $kefuInfo = $this->dao->get(['account' => $account]);
         if (!$kefuInfo) {
-            throw new AuthException('没有此用户');
+            throw new AuthException('Không có người dùng như vậy');
         }
         if ($password && !password_verify($password, $kefuInfo->password)) {
-            throw new AuthException('账号或密码错误');
+            throw new AuthException('Tài khoản hoặc mật khẩu không chính xác');
         }
         if (!$kefuInfo->status) {
-            throw new AuthException('您已被禁止登录，请联系管理员');
+            throw new AuthException('Bạn đã bị cấm đăng nhập, vui lòng liên hệ với quản trị viên');
         }
         $token = $this->createToken($kefuInfo->id, 'kefu');
         $kefuInfo->update_time = time();
@@ -71,7 +71,7 @@ class LoginServices extends BaseServices
     }
 
     /**
-     * 解析token
+     * phân tích cú pháptoken
      * @param string $token
      * @return array
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -82,33 +82,33 @@ class LoginServices extends BaseServices
     public function parseToken(string $token)
     {
         $noCli = !request()->isCli();
-        //检测token是否过期
+        //Kiểm tra xem mã thông báo đã hết hạn chưa
         $md5Token = md5($token);
         if (!$token || !CacheService::has($md5Token) || !(CacheService::get($md5Token, '', NULL, 'kefu'))) {
-            throw new AuthException('请登录', [], 402);
+            throw new AuthException('Vui lòng đăng nhập', [], 402);
         }
         if ($token === 'undefined') {
-            throw new AuthException('请登录', [], 402);
+            throw new AuthException('Vui lòng đăng nhập', [], 402);
         }
 
         /** @var JwtAuth $jwtAuth */
         $jwtAuth = app()->make(JwtAuth::class);
-        //设置解析token
+        //Thiết lập phân tích cú pháptoken
         [$id, $type] = $jwtAuth->parseToken($token);
 
-        //验证token
+        //xác minhtoken
         try {
             $jwtAuth->verifyToken();
         } catch (\Throwable $e) {
             $noCli && CacheService::delete($md5Token);
-            throw new AuthException('登录已过期,请重新登录', [], 402);
+            throw new AuthException('Đăng nhập đã hết hạn,Vui lòng đăng nhập lại', [], 402);
         }
 
-        //获取管理员信息
+        //Nhận thông tin quản trị viên
         $adminInfo = $this->dao->get($id);
         if (!$adminInfo || !$adminInfo->id) {
             $noCli && CacheService::delete($md5Token);
-            throw new AuthException('登录状态有误,请重新登录', [], 402);
+            throw new AuthException('Trạng thái đăng nhập sai,Vui lòng đăng nhập lại', [], 402);
         }
 
         $adminInfo->type = $type;
@@ -127,20 +127,20 @@ class LoginServices extends BaseServices
         $oauth = app()->make(OAuth::class);
         $original = $oauth->oauth(null, ['open' => true]);
         if (!isset($original['unionid'])) {
-            throw new AuthException('unionid不存在');
+            throw new AuthException('unionidkhông tồn tại');
         }
         /** @var WechatUserServices $userService */
         $userService = app()->make(WechatUserServices::class);
         $uid = $userService->value(['unionid' => $original['unionid']], 'uid');
         if (!$uid) {
-            throw new AuthException('获取用户UID失败');
+            throw new AuthException('Không lấy được UID người dùng');
         }
         $kefuInfo = $this->dao->get(['uid' => $uid]);
         if (!$kefuInfo) {
-            throw new AuthException('客服不存在');
+            throw new AuthException('Dịch vụ khách hàng không tồn tại');
         }
         if (!$kefuInfo->status) {
-            throw new AuthException('您已被禁止登录，请联系管理员');
+            throw new AuthException('Bạn đã bị cấm đăng nhập, vui lòng liên hệ với quản trị viên');
         }
         $token = $this->createToken($kefuInfo->id, 'kefu');
         $kefuInfo->update_time = time();
@@ -154,7 +154,7 @@ class LoginServices extends BaseServices
     }
 
     /**
-     * 检测有没有人扫描登录
+     * Kiểm tra xem có ai quét và đăng nhập không
      * @param string $key
      * @return array|int[]
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -166,11 +166,11 @@ class LoginServices extends BaseServices
     {
         $hasKey = CacheService::has($key);
         if ($hasKey === false) {
-            $status = 0;//不存在需要刷新二维码
+            $status = 0;//Không cần phải làm mới mã QR
         } else {
             $keyValue = CacheService::get($key);
             if ($keyValue === '0') {
-                $status = 1;//正在扫描中
+                $status = 1;//Đang quét
                 $kefuInfo = $this->dao->get(['uniqid' => $key], ['account', 'uniqid']);
                 if ($kefuInfo) {
                     $tokenInfo = $this->authLogin($kefuInfo->account);
@@ -181,7 +181,7 @@ class LoginServices extends BaseServices
                     return $tokenInfo;
                 }
             } else {
-                $status = 2;//没有扫描
+                $status = 2;//Không quét
             }
         }
         return ['status' => $status];

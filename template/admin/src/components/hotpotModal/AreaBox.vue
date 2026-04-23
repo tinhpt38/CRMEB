@@ -12,32 +12,32 @@
     @mouseup.left.stop="mouseUp($event)"
   >
     <div class="prompt-text">
-      <div class="prompt-item num">热区 {{ areaInit.number }}</div>
+      <div class="prompt-item num">vùng nóng {{ areaInit.number }}</div>
       <div class="prompt-item" :style="{ color: isSet ? '#2d8cf0' : '#f00' }">
-        {{ isSet ? '(已设置)' : '(未设置)' }}
+        {{ isSet ? '(Đã thiết lập)' : '(chưa được đặt)' }}
       </div>
     </div>
-    <!--删除-->
+    <!--xóa bỏ-->
     <div class="del" @click.stop="del()">
       <i class="el-icon-close" size="16" />
     </div>
-    <!--形变点-->
+    <!--điểm biến dạng-->
     <div class="shape" @mousedown.left.stop="shapeDown($event)" @mouseup.left.stop="mouseUp($event)" />
-    <!--编辑框-->
+    <!--hộp chỉnh sửa-->
 
     <div>
-      <el-dialog :visible.sync="editBoxShow" title="设置热区" width="560px" append-to-body>
+      <el-dialog :visible.sync="editBoxShow" title="Đặt vùng nóng" width="560px" append-to-body>
         <div class="area-set">
-          <div class="area-label">热区跳转链接：</div>
+          <div class="area-label">Liên kết nhảy vùng nóng：</div>
           <div class="area-content">
-            <el-input v-model="url" style="width: 100%" placeholder="选择跳转链接">
+            <el-input v-model="url" style="width: 100%" placeholder="Chọn liên kết nhảy">
               <i class="el-icon-link" slot="suffix" @click="getLink()" />
             </el-input>
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button @click.stop="editBoxShow = false">取 消</el-button>
-          <el-button type="primary" @click.stop="addURL">确 定</el-button>
+          <el-button @click.stop="editBoxShow = false">Hủy bỏ</el-button>
+          <el-button type="primary" @click.stop="addURL">Chắc chắn</el-button>
         </span>
       </el-dialog>
       <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
@@ -85,13 +85,13 @@ export default {
       areaTitle: '',
       url: '',
       editBoxShow: false,
-      promptText: '双击设置热区',
-      // box操作初始点
+      promptText: 'Nhấp đúp chuột để thiết lập vùng nóng',
+      // boxđiểm ban đầu vận hành
       move: {
-        // 拖动
+        // lôi kéo
         startX: 0,
         starY: 0,
-        // 形变
+        // sự biến dạng
         start1X: 0,
         start1Y: 0,
       },
@@ -114,26 +114,26 @@ export default {
     this.url = this.link;
   },
   methods: {
-    // 删除
+    // xóa bỏ
     del() {
       this.$emit('delAreaBox', this.areaDataIndex);
     },
-    // 添加网址
+    // Thêm URL
     addURL() {
       if (!this.url) {
-        this.$message.error('请输入链接');
+        this.$message.error('Vui lòng nhập liên kết');
       } else {
         this.$emit('addURL', this.areaDataIndex, this.url);
         this.editBoxShow = false;
       }
     },
-    // 开始拖动限制范围
+    // Bắt đầu kéo phạm vi giới hạn
     mouseDownLint(e) {
       e.preventDefault();
       this.starX = e.clientX;
       this.starY = e.clientY;
       const childrenDiv = e.target || e;
-      //获取子元素的宽高
+      //Lấy chiều rộng và chiều cao của các phần tử con
       let childrenWidth = childrenDiv.getBoundingClientRect().width;
       let childrenHight = childrenDiv.getBoundingClientRect().height;
       // console.log(childrenWidth, childrenHight)
@@ -141,18 +141,18 @@ export default {
         const initX = this.areaInit.starX;
         const initY = this.areaInit.starY;
         document.onmousemove = (ev) => {
-          // 移动位置
+          // Di chuyển vị trí
           let nLeft = initX + ev.clientX - this.starX;
           let nTop = initY + ev.clientY - this.starY;
-          nLeft = nLeft <= 0 ? 0 : nLeft; //判断左边是否越界
-          nTop = nTop <= 0 ? 0 : nTop; //判断上边是否越界
+          nLeft = nLeft <= 0 ? 0 : nLeft; //Xác định xem phía bên trái có vượt qua ranh giới không
+          nTop = nTop <= 0 ? 0 : nTop; //Xác định xem ranh giới trên có bị vượt qua hay không
           let nRight = nLeft + childrenWidth;
           let nBottom = nTop + childrenHight;
-          // 判断右边是否越界
+          // Xác định xem phía bên phải có nằm ngoài giới hạn không
           if (nRight >= this.parentWidth) {
             nLeft = this.parentWidth - childrenWidth;
           }
-          // 判断下边是否越界
+          // Xác định xem những điều sau đây có nằm ngoài giới hạn không
           if (nBottom >= this.parentHeight) {
             nTop = this.parentHeight - childrenHight;
           }
@@ -161,7 +161,7 @@ export default {
         };
       }
     },
-    // 开始拖动不限制范围
+    // Bắt đầu kéo mà không giới hạn phạm vi
     mouseDown(e) {
       e.preventDefault();
       this.starX = e.clientX;
@@ -175,17 +175,17 @@ export default {
         };
       }
     },
-    // 结束拖动/变形
+    // Kết thúc kéo/chuyển đổi
     mouseUp() {
       document.onmousemove = null;
     },
-    // 形变开始
+    // Biến dạng bắt đầu
     shapeDown(e) {
       e.preventDefault();
 
       this.star1X = e.clientX;
       this.star1Y = e.clientY;
-      // 获取左部和底部的偏移量
+      // Lấy phần bù của phần bên trái và phần dưới
 
       if (!document.onmousemove) {
         const initX = this.areaInit.areaWidth;

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,12 +19,12 @@ use crmeb\exceptions\AdminException;
 use crmeb\services\FormBuilder as Form;
 
 /**
- * 系统配置分类
+ * Phân loại cấu hình hệ thống
  * Class SystemConfigTabServices
  * @package app\services\system\config
- * @method save(array $data) 写入数据
- * @method update($id, array $data, ?string $key = null) 修改数据
- * @method delete($id, ?string $key = null) 删除数据
+ * @method save(array $data) Ghi dữ liệu
+ * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
+ * @method delete($id, ?string $key = null) Xóa dữ liệu
  */
 class SystemConfigTabServices extends BaseServices
 {
@@ -38,7 +38,7 @@ class SystemConfigTabServices extends BaseServices
     }
 
     /**
-     * 系统设置头部分类读取
+     * Đọc phân loại tiêu đề cài đặt hệ thống
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -51,7 +51,7 @@ class SystemConfigTabServices extends BaseServices
     }
 
     /**
-     * 获取配置分类列表
+     * Nhận danh sách phân loại cấu hình
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -73,7 +73,7 @@ class SystemConfigTabServices extends BaseServices
     }
 
     /**
-     * 获取配置分类选择下拉树
+     * Nhận cây thả xuống lựa chọn danh mục cấu hình
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -83,7 +83,7 @@ class SystemConfigTabServices extends BaseServices
     {
         $menuList = $this->dao->getConfigTabAll([], ['id', 'pid', 'title']);
         $list = sort_list_tier($menuList, 0, 'pid', 'id');
-        $menus = [['value' => 0, 'label' => '顶级按钮']];
+        $menus = [['value' => 0, 'label' => 'nút trên cùng']];
         foreach ($list as $menu) {
             $menus[] = ['value' => $menu['id'], 'label' => $menu['html'] . $menu['title']];
         }
@@ -91,13 +91,13 @@ class SystemConfigTabServices extends BaseServices
     }
 
     /**
-     * 配置分类树形数据
+     * Định cấu hình dữ liệu cây phân loại
      * @param $value
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/12
      */
@@ -110,12 +110,12 @@ class SystemConfigTabServices extends BaseServices
             $data = [0];
         }
         $configTabList = get_tree_children($configTabList, 'children', 'value');
-        array_unshift($configTabList, ['value' => 0, 'pid' => 0, 'label' => '顶级分类']);
+        array_unshift($configTabList, ['value' => 0, 'pid' => 0, 'label' => 'danh mục hàng đầu']);
         return [$configTabList, array_reverse($data)];
     }
 
     /**
-     * 创建form表单
+     * Tạo biểu mẫu
      * @param array $formData
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -126,33 +126,33 @@ class SystemConfigTabServices extends BaseServices
     public function createConfigTabForm(array $formData = [])
     {
         [$configTabList, $data1] = $this->getConfigTabListForm((int)($formData['pid'] ?? 0), 3);
-        $form[] = Form::cascader('pid', '父级分类', $data1)->options($configTabList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width'=>'100%']);
-        $form[] = Form::input('title', '分类名称', $formData['title'] ?? '');
-        $form[] = Form::input('eng_title', '分类字段英文', $formData['eng_title'] ?? '');
-        $form[] = Form::frameInput('icon', '图标', $this->url(config('app.admin_prefix', 'admin') . '/widget.widgets/icon', ['fodder' => 'icon'], true), $formData['icon'] ?? '')->icon('el-icon-picture-outline')->height('560px')->props(['footer' => false]);
-        $form[] = Form::radio('type', '类型', $formData['type'] ?? 0)->options([
-            ['value' => 0, 'label' => '系统'],
-            ['value' => 3, 'label' => '其它']
+        $form[] = Form::cascader('pid', 'Danh mục gốc', $data1)->options($configTabList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width'=>'100%']);
+        $form[] = Form::input('title', 'Tên danh mục', $formData['title'] ?? '');
+        $form[] = Form::input('eng_title', 'Trường phân loại tiếng Anh', $formData['eng_title'] ?? '');
+        $form[] = Form::frameInput('icon', 'biểu tượng', $this->url(config('app.admin_prefix', 'admin') . '/widget.widgets/icon', ['fodder' => 'icon'], true), $formData['icon'] ?? '')->icon('el-icon-picture-outline')->height('560px')->props(['footer' => false]);
+        $form[] = Form::radio('type', 'kiểu', $formData['type'] ?? 0)->options([
+            ['value' => 0, 'label' => 'hệ thống'],
+            ['value' => 3, 'label' => 'khác']
         ]);
         [$menusList, $data2] = app()->make(SystemMenusServices::class)->getFormCascaderMenus((int)($formData['menus_id'] ?? 0));
-        $form[] = Form::cascader('menus_id', '关联菜单', $data2)->options($menusList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width'=>'100%']);
-        $form[] = Form::radio('status', '状态', $formData['status'] ?? 1)->options([['value' => 1, 'label' => '显示'], ['value' => 2, 'label' => '隐藏']]);
-        $form[] = Form::number('sort', '排序', (int)($formData['sort'] ?? 0))->precision(0)->controls(false);
+        $form[] = Form::cascader('menus_id', 'trình đơn ngữ cảnh', $data2)->options($menusList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width'=>'100%']);
+        $form[] = Form::radio('status', 'tình trạng', $formData['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 2, 'label' => 'trốn']]);
+        $form[] = Form::number('sort', 'loại', (int)($formData['sort'] ?? 0))->precision(0)->controls(false);
         return $form;
     }
 
     /**
-     * 添加配置分类表单
+     * Thêm biểu mẫu phân loại cấu hình
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function createForm()
     {
-        return create_form('添加配置分类', $this->createConfigTabForm(), $this->url('/setting/config_class'));
+        return create_form('Thêm danh mục cấu hình', $this->createConfigTabForm(), $this->url('/setting/config_class'));
     }
 
     /**
-     * 修改配置分类表单
+     * Sửa đổi biểu mẫu phân loại cấu hình
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -161,8 +161,8 @@ class SystemConfigTabServices extends BaseServices
     {
         $configTabInfo = $this->dao->get($id);
         if (!$configTabInfo) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
-        return create_form('编辑配置分类', $this->createConfigTabForm($configTabInfo->toArray()), $this->url('/setting/config_class/' . $id), 'PUT');
+        return create_form('Chỉnh sửa danh mục cấu hình', $this->createConfigTabForm($configTabInfo->toArray()), $this->url('/setting/config_class/' . $id), 'PUT');
     }
 }

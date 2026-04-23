@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 import request from '@/libs/request';
 
 /**
- * @description 小程序模板消息 -- 列表
- * @param {Object} param data {Object} 传值参数
+ * @description Thông báo mẫu chương trình nhỏ - danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function routineListApi(data) {
   return request({
@@ -23,7 +23,7 @@ export function routineListApi(data) {
 }
 
 /**
- * @description  同步订阅消息
+ * @description  Đồng bộ hóa tin nhắn đăng ký
  */
 export function routineSyncTemplate() {
   return request({
@@ -33,7 +33,7 @@ export function routineSyncTemplate() {
 }
 
 /**
- * @description  同步微信模版消息
+ * @description  Đồng bộ hóa tin nhắn mẫu WeChat
  */
 export function wechatSyncTemplate() {
   return request({
@@ -43,8 +43,8 @@ export function wechatSyncTemplate() {
 }
 
 /**
- * @description 小程序模板消息 -- 新增表单
- * @param {Object} param data {Object} 传值参数
+ * @description Tin nhắn mẫu chương trình nhỏ -- Thêm biểu mẫu mới
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function routineCreateApi() {
   return request({
@@ -54,8 +54,8 @@ export function routineCreateApi() {
 }
 
 /**
- * @description 小程序模板消息 -- 编辑表单
- * @param {Object} param data {Object} 传值参数
+ * @description Thông báo mẫu chương trình nhỏ - chỉnh sửa biểu mẫu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function routineEditApi(id) {
   return request({
@@ -65,8 +65,8 @@ export function routineEditApi(id) {
 }
 
 /**
- * @description 小程序模板消息 -- 修改状态
- * @param {Object} param data {Object} 传值参数
+ * @description Thông báo mẫu chương trình nhỏ - sửa đổi trạng thái
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function routineSetStatusApi(data) {
   return request({
@@ -76,8 +76,8 @@ export function routineSetStatusApi(data) {
 }
 
 /**
- * @description 公众号 --公众号配置-- 微信菜单
- * @param {Object} param data {Object} 传值参数
+ * @description Tài khoản chính thức -- Cấu hình tài khoản chính thức -- Menu WeChat
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatMenuApi(data) {
   return request({
@@ -87,8 +87,8 @@ export function wechatMenuApi(data) {
 }
 
 /**
- * @description 公众号 --公众号配置-- 微信菜单提交
- * @param {Object} param data {Object} 传值参数
+ * @description Tài khoản chính thức -- Cấu hình tài khoản chính thức -- Gửi menu WeChat
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function MenuApi(data) {
   return request({
@@ -99,8 +99,8 @@ export function MenuApi(data) {
 }
 
 /**
- * @description 微信模板消息 -- 列表
- * @param {Object} param data {Object} 传值参数
+ * @description Tin nhắn mẫu WeChat - danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatListApi(data) {
   return request({
@@ -110,8 +110,8 @@ export function wechatListApi(data) {
   });
 }
 /**
- * @description 微信模板消息 -- 新增表单
- * @param {Object} param data {Object} 传值参数
+ * @description Tin nhắn mẫu WeChat - thêm biểu mẫu mới
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatCreateApi() {
   return request({
@@ -121,8 +121,8 @@ export function wechatCreateApi() {
 }
 
 /**
- * @description 微信模板消息 -- 编辑表单
- * @param {Object} param data {Object} 传值参数
+ * @description Tin nhắn mẫu WeChat - chỉnh sửa biểu mẫu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatEditApi(id) {
   return request({
@@ -132,8 +132,8 @@ export function wechatEditApi(id) {
 }
 
 /**
- * @description 微信模板消息 -- 修改状态
- * @param {Object} param data {Object} 传值参数
+ * @description Tin nhắn mẫu WeChat -- sửa đổi trạng thái
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatSetStatusApi(data) {
   return request({
@@ -143,8 +143,8 @@ export function wechatSetStatusApi(data) {
 }
 
 /**
- * @description  自动回复 -- 关注回复 关键字回复 保存
- * @param {Object} param data {Object} 传值参数
+ * @description  Tự động trả lời -- Theo dõi Trả lời Từ khóa Trả lời Lưu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function replyApi(data) {
   return request({
@@ -154,8 +154,8 @@ export function replyApi(data) {
   });
 }
 /**
- * @description  小程序包下载
- * @param {Object} param data {Object} 传值参数
+ * @description  Tải xuống gói chương trình nhỏ
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function routineDownload(data) {
   return request({
@@ -165,7 +165,7 @@ export function routineDownload(data) {
   });
 }
 /**
- * @description  小程序下载页面数据
+ * @description  Dữ liệu trang tải xuống chương trình nhỏ
  */
 export function routineInfo() {
   return request({
@@ -174,10 +174,10 @@ export function routineInfo() {
   });
 }
 
-// ==================== 小程序 CI 自动化上传 ====================
+// ==================== Tải lên tự động CI chương trình nhỏ ====================
 
 /**
- * @description 获取小程序CI运行环境状态
+ * @description Nhận trạng thái môi trường chạy CI của chương trình mini
  */
 export function routineCIEnvironment() {
   return request({
@@ -187,7 +187,7 @@ export function routineCIEnvironment() {
 }
 
 /**
- * @description 获取环境安装指南
+ * @description Nhận hướng dẫn cài đặt môi trường
  */
 export function routineCIGuide() {
   return request({
@@ -197,7 +197,7 @@ export function routineCIGuide() {
 }
 
 /**
- * @description 获取小程序上传配置
+ * @description Nhận cấu hình tải lên chương trình nhỏ
  */
 export function routineCIConfig() {
   return request({
@@ -207,8 +207,8 @@ export function routineCIConfig() {
 }
 
 /**
- * @description 保存小程序上传密钥
- * @param {Object} data { key_content: 密钥内容 }
+ * @description Lưu khóa tải lên chương trình mini
+ * @param {Object} data { key_content: Nội dung chính }
  */
 export function routineCISaveKey(data) {
   return request({
@@ -219,8 +219,8 @@ export function routineCISaveKey(data) {
 }
 
 /**
- * @description 上传小程序代码
- * @param {Object} data { version: 版本号, desc: 描述, is_live: 是否开启直播 }
+ * @description Tải lên mã chương trình nhỏ
+ * @param {Object} data { version: số phiên bản, desc: mô tả, is_live: Có bật phát sóng trực tiếp hay không }
  */
 export function routineCIUpload(data) {
   return request({
@@ -231,8 +231,8 @@ export function routineCIUpload(data) {
 }
 
 /**
- * @description 获取小程序预览二维码
- * @param {Object} data { page_path: 预览页面路径 }
+ * @description Nhận mã QR xem trước chương trình mini
+ * @param {Object} data { page_path: Đường dẫn trang xem trước }
  */
 export function routineCIPreview(data) {
   return request({
@@ -243,8 +243,8 @@ export function routineCIPreview(data) {
 }
 
 /**
- * @description  自动回复 -- 关键字 列表
- * @param {Object} param data {Object} 传值参数
+ * @description  Trả lời tự động -- danh sách từ khóa
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function keywordListApi(params) {
   return request({
@@ -255,8 +255,8 @@ export function keywordListApi(params) {
 }
 
 /**
- * @description  自动回复 -- 关键字 修改状态
- * @param {Object} param data {Object} 传值参数
+ * @description  Trả lời tự động - trạng thái sửa đổi từ khóa
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function keywordsetStatusApi(data) {
   return request({
@@ -266,8 +266,8 @@ export function keywordsetStatusApi(data) {
 }
 
 /**
- * @description  自动回复 -- 详情
- * @param {Object} param data {Object} 传值参数
+ * @description  Trả lời tự động -- chi tiết
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function keywordsinfoApi(url, data) {
   return request({
@@ -278,8 +278,8 @@ export function keywordsinfoApi(url, data) {
 }
 
 /**
- * @description  图文管理 -- 新增
- * @param {Object} param data {Object} 传值参数
+ * @description  Quản lý đồ họa và văn bản -- mới
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatNewsAddApi(data) {
   return request({
@@ -290,8 +290,8 @@ export function wechatNewsAddApi(data) {
 }
 
 /**
- * @description  图文管理 -- 列表
- * @param {Object} param data {Object} 传值参数
+ * @description  Quản lý đồ họa và văn bản -- danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatNewsListApi(params) {
   return request({
@@ -302,8 +302,8 @@ export function wechatNewsListApi(params) {
 }
 
 /**
- * @description  图文管理 -- 详情
- * @param {Object} param data {Object} 传值参数
+ * @description  Quản lý đồ họa và văn bản -- chi tiết
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatNewsInfotApi(id) {
   return request({
@@ -313,8 +313,8 @@ export function wechatNewsInfotApi(id) {
 }
 
 /**
- * @description  图文管理 -- 发送图文
- * @param {Object} param data {Object} 传值参数
+ * @description  Quản lý hình ảnh và văn bản - gửi hình ảnh và văn bản
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function wechatPushApi(data) {
   return request({
@@ -325,8 +325,8 @@ export function wechatPushApi(data) {
 }
 
 /**
- * @description  微信用户 -- 列表
- * @param {Object} param params {Object} 传值参数
+ * @description  Người dùng WeChat -- danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function wechatUserListtApi(params) {
   return request({
@@ -337,7 +337,7 @@ export function wechatUserListtApi(params) {
 }
 
 /**
- * @description  微信用户 -- 用户分组和标签
+ * @description  Người dùng WeChat -- nhóm người dùng và thẻ
  */
 export function tagListtApi() {
   return request({
@@ -347,8 +347,8 @@ export function tagListtApi() {
 }
 
 /**
- * @description  微信用户 -- 用户分组和标签编辑
- * @param {String} param url {String} 请求地址
+ * @description  Người dùng WeChat -- nhóm người dùng và chỉnh sửa nhãn
+ * @param {String} param url {String} Địa chỉ yêu cầu
  */
 export function groupsEditApi(url) {
   return request({
@@ -358,7 +358,7 @@ export function groupsEditApi(url) {
 }
 
 /**
- * @description  用户标签 -- 列表
+ * @description  Thẻ người dùng -- danh sách
  */
 export function wechatTagListApi() {
   return request({
@@ -368,7 +368,7 @@ export function wechatTagListApi() {
 }
 
 /**
- * @description  用户标签 -- 添加表单
+ * @description  Thẻ người dùng -- thêm biểu mẫu
  */
 export function wechatTagCreateApi() {
   return request({
@@ -378,8 +378,8 @@ export function wechatTagCreateApi() {
 }
 
 /**
- * @description  用户标签 -- 编辑表单
- *  @param {Number} param id {Number} 标签id
+ * @description  Thẻ người dùng - chỉnh sửa biểu mẫu
+ *  @param {Number} param id {Number} Nhãnid
  */
 export function wechatTagEditApi(id) {
   return request({
@@ -389,7 +389,7 @@ export function wechatTagEditApi(id) {
 }
 
 /**
- * @description  用户分组 -- 列表
+ * @description  Nhóm người dùng - danh sách
  */
 export function wechatGroupListApi() {
   return request({
@@ -399,7 +399,7 @@ export function wechatGroupListApi() {
 }
 
 /**
- * @description  用户分组 -- 添加表单
+ * @description  Nhóm người dùng - thêm biểu mẫu
  */
 export function wechatGroupCreateApi() {
   return request({
@@ -409,8 +409,8 @@ export function wechatGroupCreateApi() {
 }
 
 /**
- * @description  用户分组 -- 编辑表单
- *  @param {Number} param id {Number} 标签id
+ * @description  Nhóm người dùng - chỉnh sửa biểu mẫu
+ *  @param {Number} param id {Number} Nhãnid
  */
 export function wechatGroupEditApi(id) {
   return request({
@@ -420,7 +420,7 @@ export function wechatGroupEditApi(id) {
 }
 
 /**
- * @description  用户行为 -- 列表
+ * @description  Hành vi người dùng -- danh sách
  */
 export function wechatActionListApi(params) {
   return request({
@@ -431,7 +431,7 @@ export function wechatActionListApi(params) {
 }
 
 /**
- * 下载二维码
+ * Tải xuống mã QR
  * @param id
  */
 export function downloadReplyCode(id) {
@@ -442,7 +442,7 @@ export function downloadReplyCode(id) {
 }
 
 /**
- * 城市列表
+ * Danh sách thành phố
  */
 export function cityList() {
   return request({
@@ -452,8 +452,8 @@ export function cityList() {
 }
 
 /**
- * @description  客服自动回复 -- 关键字 列表
- * @param {Object} param data {Object} 传值参数
+ * @description  Dịch vụ khách hàng trả lời tự động -- danh sách từ khóa
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function kefuAutoReplyListApi(params) {
   return request({
@@ -464,8 +464,8 @@ export function kefuAutoReplyListApi(params) {
 }
 
 /**
- * @description  客服自动回复添加编辑表单
- * @param {Object} param data {Object} 传值参数
+ * @description  Dịch vụ khách hàng trả lời tự động để thêm biểu mẫu chỉnh sửa
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function kefuAutoReplyForm(id) {
   return request({
@@ -475,8 +475,8 @@ export function kefuAutoReplyForm(id) {
 }
 
 /**
- * @description 小程序链接 -- 列表
- * @param {Object} param data {Object} 传值参数
+ * @description Liên kết chương trình nhỏ - danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function routineSchemeList(data) {
   return request({
@@ -487,8 +487,8 @@ export function routineSchemeList(data) {
 }
 
 /**
- * @description 小程序链接 -- 创建修改表单
- * @param {Number} param id {Number} 标签id
+ * @description Liên kết chương trình nhỏ -- Tạo và sửa đổi biểu mẫu
+ * @param {Number} param id {Number} Nhãnid
  */
 export function routineSchemeForm(id) {
   return request({
@@ -498,8 +498,8 @@ export function routineSchemeForm(id) {
 }
 
 /**
- * @description 小程序链接 -- 删除
- * @param {Number} param id {Number} 标签id
+ * @description Liên kết chương trình nhỏ - xóa
+ * @param {Number} param id {Number} Nhãnid
  */
 export function routineSchemeDel(id) {
   return request({

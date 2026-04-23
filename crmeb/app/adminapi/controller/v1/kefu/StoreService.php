@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,7 +21,7 @@ use crmeb\services\CacheService;
 use think\facade\App;
 
 /**
- * 客服管理
+ * Quản lý dịch vụ khách hàng
  * Class StoreService
  * @package app\admin\controller\store
  */
@@ -39,7 +39,7 @@ class StoreService extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -51,7 +51,7 @@ class StoreService extends AuthController
     }
 
     /**
-     * 显示创建资源表单页
+     * Hiển thị trang biểu mẫu tạo tài nguyên
      * @param UserWechatuserServices $services
      * @return mixed
      */
@@ -71,7 +71,7 @@ class StoreService extends AuthController
     }
 
     /**
-     * 添加客服表单
+     * Thêm biểu mẫu dịch vụ khách hàng
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -81,7 +81,7 @@ class StoreService extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @return mixed
      */
     public function save()
@@ -100,58 +100,58 @@ class StoreService extends AuthController
             ['nickname', ''],
             ['status', 1],
         ]);
-        if ($data['image'] == '') return app('json')->fail('请选择用户');
+        if ($data['image'] == '') return app('json')->fail('Vui lòng chọn người dùng');
         $data['uid'] = $data['image']['uid'];
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         $userInfo = $userService->get($data['uid']);
         if ($data['phone'] == '') {
             if (!$userInfo['phone']) {
-                throw new AdminException('该用户没有绑定手机号，请手动填写');
+                throw new AdminException('Người dùng này không có số điện thoại di động bị ràng buộc, vui lòng điền thủ công');
             } else {
                 $data['phone'] = $userInfo['phone'];
             }
         } else {
             if (!check_phone($data['phone'])) {
-                throw new AdminException('手机号格式错误');
+                throw new AdminException('Lỗi định dạng số điện thoại di động');
             }
         }
         if ($data['nickname'] == '') $data['nickname'] = $userInfo['nickname'];
         $data['avatar'] = $data['image']['image'];
         if ($this->services->count(['uid' => $data['uid']])) {
-            return app('json')->fail('客服已存在');
+            return app('json')->fail('Dịch vụ khách hàng đã tồn tại');
         }
         unset($data['image']);
         $data['add_time'] = time();
         if (!$data['account']) {
-            return app('json')->fail('请输入账号');
+            return app('json')->fail('Vui lòng nhập số tài khoản');
         }
         if (!preg_match('/^[a-zA-Z0-9]{4,30}$/', $data['account'])) {
-            return app('json')->fail('账号必须为数字或者字母的组合4-30位');
+            return app('json')->fail('Số tài khoản phải là sự kết hợp của các số hoặc chữ cái từ 4-30 chữ số');
         }
         if (!$data['password']) {
-            return app('json')->fail('请输入密码');
+            return app('json')->fail('Vui lòng nhập mật khẩu');
         }
         if (!preg_match('/^[0-9a-z_$]{6,20}$/i', $data['password'])) {
-            return app('json')->fail('密码必须为数字或者字母的组合6-20位');
+            return app('json')->fail('Mật khẩu phải là sự kết hợp của số hoặc chữ cái từ 6-20 ký tự');
         }
         if ($this->services->count(['phone' => $data['phone']])) {
-            return app('json')->fail('该手机号的客服已存在');
+            return app('json')->fail('Dịch vụ khách hàng cho số điện thoại di động này đã tồn tại');
         }
         if ($this->services->count(['account' => $data['account']])) {
-            return app('json')->fail('该客服账号已存在');
+            return app('json')->fail('Tài khoản dịch vụ khách hàng này đã tồn tại');
         }
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $res = $this->services->save($data);
         if ($res) {
-            return app('json')->success('客服添加成功');
+            return app('json')->success('Đã thêm dịch vụ khách hàng thành công');
         } else {
-            return app('json')->fail('客服添加失败');
+            return app('json')->fail('Bổ sung dịch vụ khách hàng không thành công');
         }
     }
 
     /**
-     * 显示编辑资源表单页
+     * Hiển thị trang biểu mẫu tài nguyên chỉnh sửa
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -162,7 +162,7 @@ class StoreService extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @param $id
      * @return mixed
      */
@@ -181,50 +181,50 @@ class StoreService extends AuthController
         ]);
         $customer = $this->services->get((int)$id);
         if (!$customer) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         if ($data["nickname"] == '') {
-            return app('json')->fail('客服名称不能为空');
+            return app('json')->fail('Tên dịch vụ khách hàng không được để trống');
         }
         if (!check_phone($data['phone'])) {
-            return app('json')->fail('手机号格式错误');
+            return app('json')->fail('Lỗi định dạng số điện thoại di động');
         }
         if ($customer['phone'] != $data['phone'] && $this->services->count(['phone' => $data['phone']])) {
-            return app('json')->fail('该手机号的客服已存在');
+            return app('json')->fail('Dịch vụ khách hàng cho số điện thoại di động này đã tồn tại');
         }
         if ($data['password']) {
             if (!preg_match('/^[0-9a-z_$]{6,16}$/i', $data['password'])) {
-                return app('json')->fail('密码必须为数字或者字母的组合6-20位');
+                return app('json')->fail('Mật khẩu phải là sự kết hợp của số hoặc chữ cái từ 6-20 ký tự');
             }
             if (!$data['true_password']) {
-                return app('json')->fail('请输入确认密码');
+                return app('json')->fail('Vui lòng nhập mật khẩu xác nhận');
             }
             if ($data['password'] != $data['true_password']) {
-                return app('json')->fail('两次输入的密码不一致');
+                return app('json')->fail('Mật khẩu nhập hai lần không nhất quán');
             }
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         } else {
             unset($data['password']);
         }
         $this->services->update($id, $data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
      */
     public function delete($id)
     {
         if (!$this->services->delete($id))
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         else
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param UserServices $services
      * @param $id
      * @param $status
@@ -232,20 +232,20 @@ class StoreService extends AuthController
      */
     public function set_status(UserServices $services, $id, $status)
     {
-        if ($status == '' || $id == 0) return app('json')->fail('参数错误');
+        if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $info = $this->services->get($id, ['status', 'uid']);
         if (!$services->count(['uid' => $info['uid']])) {
             $info->status = 1;
             $info->save();
-            return app('json')->fail('用户不存在，客服将强制禁止登录');
+            return app('json')->fail('Nếu người dùng không tồn tại, dịch vụ khách hàng sẽ buộc phải vô hiệu hóa đăng nhập.');
         }
         $info->status = $status;
         $info->save();
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 聊天记录
+     * Lịch sử trò chuyện
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -256,14 +256,14 @@ class StoreService extends AuthController
     {
         $uid = $this->services->value(['id' => $id], 'uid');
         if (!$uid) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         return app('json')->success($this->services->getChatUser((int)$uid));
     }
 
 
     /**
-     * 聊天记录
+     * Lịch sử trò chuyện
      * @param StoreServiceLogServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -293,7 +293,7 @@ class StoreService extends AuthController
     }
 
     /**
-     * 客服登录
+     * Đăng nhập dịch vụ khách hàng
      * @param LoginServices $services
      * @param $id
      * @return mixed
@@ -305,10 +305,10 @@ class StoreService extends AuthController
     {
         $serviceInfo = $services->get($id);
         if (!$serviceInfo) {
-            return app('json')->fail('登录的客服不存在');
+            return app('json')->fail('Đăng nhập dịch vụ khách hàng không tồn tại');
         }
         if (!$serviceInfo->account || !$serviceInfo->password) {
-            return app('json')->fail('请先填写客服账号和密码再尝试进入客服平台');
+            return app('json')->fail('Vui lòng điền tài khoản và mật khẩu dịch vụ khách hàng trước khi thử vào nền tảng dịch vụ khách hàng');
         }
         return app('json')->success($services->authLogin($serviceInfo->account));
     }

@@ -8,21 +8,21 @@
       @submit.native.prevent
       inline
     >
-      <el-form-item label="订单状态：">
+      <el-form-item label="Trạng thái đơn hàng：">
         <el-select
-          placeholder="请选择"
+          placeholder="Vui lòng chọn"
           clearable
           v-model="orderData.is_show"
           @change="selectChange2"
           class="form_content_width"
         >
-          <el-option value="" label="全部"></el-option>
-          <el-option value="1" label="未发货"></el-option>
-          <el-option value="2" label="待收货"></el-option>
-          <el-option value="3" label="交易完成"></el-option>
+          <el-option value="" label="tất cả"></el-option>
+          <el-option value="1" label="Không được vận chuyển"></el-option>
+          <el-option value="2" label="Đang chờ nhận"></el-option>
+          <el-option value="3" label="giao dịch đã hoàn tất"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="创建时间：">
+      <el-form-item label="thời gian sáng tạo：">
         <el-date-picker
           clearable
           v-model="timeVal"
@@ -31,26 +31,26 @@
           @change="onchangeTime"
           format="yyyy/MM/dd"
           value-format="yyyy/MM/dd"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          start-placeholder="ngày bắt đầu"
+          end-placeholder="ngày kết thúc"
           :picker-options="pickerOptions"
           style="width: 250px"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item label="订单搜索：" prop="real_name" label-for="real_name">
-        <el-input clearable v-model="orderData.real_name" placeholder="请输入" class="form_content_width">
+      <el-form-item label="Tìm kiếm đơn hàng：" prop="real_name" label-for="real_name">
+        <el-input clearable v-model="orderData.real_name" placeholder="Vui lòng nhập" class="form_content_width">
           <el-select v-model="orderData.field_key" slot="prepend" style="width: 100px">
-            <el-option value="all" label="全部"></el-option>
-            <el-option value="order_id" label="订单号"></el-option>
+            <el-option value="all" label="tất cả"></el-option>
+            <el-option value="order_id" label="Số đơn hàng"></el-option>
             <el-option value="uid" label="UID"></el-option>
-            <el-option value="real_name" label="用户姓名"></el-option>
-            <el-option value="user_phone" label="用户电话"></el-option>
-            <el-option value="store_name" label="商品名称(模糊)"></el-option>
+            <el-option value="real_name" label="Tên người dùng"></el-option>
+            <el-option value="user_phone" label="Số điện thoại của người dùng"></el-option>
+            <el-option value="store_name" label="Tên sản phẩm(mơ hồ)"></el-option>
           </el-select>
         </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="orderSearch">查询</el-button>
+        <el-button type="primary" v-db-click @click="orderSearch">Truy vấn</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       currentTab: '',
-      // 搜索条件
+      // Tiêu chí tìm kiếm
       orderData: {
         status: '',
         data: '',
@@ -98,11 +98,11 @@ export default {
       modals2: false,
       timeVal: [],
       payList: [
-        { label: '全部', val: '' },
-        { label: '微信支付', val: '1' },
-        { label: '支付宝支付', val: '4' },
-        { label: '余额支付', val: '2' },
-        { label: '线下支付', val: '3' },
+        { label: 'tất cả', val: '' },
+        { label: 'WeChat trả tiền', val: '1' },
+        { label: 'thanh toán Alipay', val: '4' },
+        { label: 'thanh toán số dư', val: '2' },
+        { label: 'Thanh toán ngoại tuyến', val: '3' },
       ],
       manualModal: false,
       uploadAction: `${Setting.apiBaseURL}/file/upload/1`,
@@ -115,11 +115,11 @@ export default {
       exportList: [
         {
           name: '1',
-          label: '导出发货单',
+          label: 'Xuất hoá đơn',
         },
         {
           name: '0',
-          label: '导出订单',
+          label: 'Lệnh xuất khẩu',
         },
       ],
       exportListOn: 0,
@@ -181,7 +181,7 @@ export default {
       this.$emit('getList', 1);
       this.$emit('order-data', this.orderData);
     },
-    // 导出
+    // Xuất khẩu
     // exports(value) {
     //   this.exportListOn = this.exportList.findIndex(
     //     (item) => item.name === value
@@ -201,7 +201,7 @@ export default {
     //       this.$message.error(res.msg);
     //     });
     // },
-    // 数据导出；
+    // Xuất dữ liệu；
     async exports() {
       let [th, filekey, data, fileName] = [[], [], [], ''];
       let excelData = JSON.parse(JSON.stringify(this.orderData));
@@ -228,7 +228,7 @@ export default {
         });
       });
     },
-    // 具体日期
+    // ngày cụ thể
     onchangeTime(e) {
       this.timeVal = e || [];
       this.orderData.data = this.timeVal[0] ? (this.timeVal ? this.timeVal.join('-') : '') : '';
@@ -239,7 +239,7 @@ export default {
       this.$emit('getList', 1);
       this.$emit('order-data', this.orderData);
     },
-    // 选择时间
+    // Chọn thời gian
     selectChange(tab) {
       this.$store.dispatch('integralOrder/getOrderTabs', { data: tab });
       this.orderData.data = tab;
@@ -248,7 +248,7 @@ export default {
       this.$emit('getList');
       this.$emit('order-data', this.orderData);
     },
-    // 订单选择状态
+    // Trạng thái lựa chọn đơn hàng
     selectChange2(tab) {
       this.getOrderStatus(tab);
       this.$emit('getList', 1);
@@ -257,25 +257,25 @@ export default {
       this.getOrderType(type);
       this.$emit('getList', 1);
     },
-    // 时间状态
+    // trạng thái thời gian
     timeChange(time) {
       this.getOrderTime(time);
       this.$emit('getList');
     },
-    // 订单号搜索
+    // Tìm kiếm số thứ tự
     orderSearch() {
       this.getOrderNum(this.orderData.real_name);
       this.getfieldKey(this.orderData.field_key);
       this.$emit('getList', 1);
     },
-    // 点击订单类型
+    // Bấm vào loại lệnh
     onClickTab() {
       this.$emit('onChangeType', this.currentTab);
     },
-    // 批量删除
+    // Xóa hàng loạt
     delAll() {
       if (this.delIdList.length === 0) {
-        this.$message.error('请先选择删除的订单！');
+        this.$message.error('Hãy chọn thứ tự xóa trước！');
       } else {
         if (this.isDels) {
           this.delIdList.filter((item) => {
@@ -287,7 +287,7 @@ export default {
             where: this.orderData,
           };
           let delfromData = {
-            title: '删除订单',
+            title: 'Xóa đơn hàng',
             url: `/order/dels`,
             method: 'post',
             ids: idss,
@@ -301,7 +301,7 @@ export default {
               this.$message.error(res.msg);
             });
         } else {
-          this.$message.error('您选择的的订单存在用户未删除的订单，无法删除用户未删除的订单！');
+          this.$message.error('Đơn hàng bạn chọn có đơn hàng chưa được người dùng xóa và đơn hàng chưa được người dùng xóa không thể xóa được.！');
         }
       }
     },
@@ -314,7 +314,7 @@ export default {
     handleSubmit() {
       this.$emit('on-submit', this.data);
     },
-    // 刷新
+    // làm cho khỏe lại
     Refresh() {
       this.$emit('getList');
     },
@@ -323,7 +323,7 @@ export default {
       this.$refs.form.resetFields();
       this.$emit('on-reset');
     },
-    // 上传头部token
+    // Tải tiêu đề lêntoken
     // getToken() {
     //   this.uploadHeaders["Authori-zation"] =
     //     "Bearer " + util.cookies.get("token");
@@ -347,7 +347,7 @@ export default {
     // 	};
     // 	reader.readAsBinaryString(file);
     // },
-    // 上传成功
+    // Tải lên thành công
     uploadSuccess(res, file, fileList) {
       if (res.status === 200) {
         this.$message.success(res.msg);
@@ -357,12 +357,12 @@ export default {
         this.$message.error(res.msg);
       }
     },
-    //移除文件
+    //Xóa tập tin
     removeFile(file, fileList) {
       this.file = '';
       this.fileList = fileList;
     },
-    // 手动批量发货-确定
+    // Vận chuyển số lượng lớn thủ công - OK
     manualModalOk() {
       this.$refs.upload.clearFiles();
       handBatchDelivery({
@@ -377,22 +377,22 @@ export default {
           this.fileList = [];
         });
     },
-    // 手动批量发货-取消
+    // Hủy lô hàng số lượng lớn thủ công
     manualModalCancel() {
       this.fileList = [];
       this.$refs.upload.clearFiles();
     },
-    // 自动批量发货-取消
+    // Tự động hủy vận chuyển số lượng lớn
     autoModalOk() {
-      if (this.isAll == '全部' || this.formSelection.length) {
+      if (this.isAll == 'tất cả' || this.formSelection.length) {
         this.$refs.send.modals = true;
         this.$refs.send.getList();
         this.$refs.send.getDeliveryList();
       } else {
-        this.$message.error('请选择本页订单');
+        this.$message.error('Vui lòng chọn thứ tự trên trang này');
       }
     },
-    // 自动批量发货-取消
+    // Tự động hủy vận chuyển số lượng lớn
     autolModalCancel() {},
     submitFail() {
       otherBatchDelivery();
@@ -406,7 +406,7 @@ export default {
       this.$refs.sends.getList();
       this.$refs.sends.getDeliveryList();
     },
-    // 下载物流公司对照表
+    // Tải xuống Bảng so sánh các công ty Logistics
     getExpressList() {
       exportExpressList()
         .then((res) => {

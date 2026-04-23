@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,7 +26,7 @@ class OrderController
     }
 
     /**
-     * 轮询订单状态
+     * Trạng thái thứ tự thăm dò ý kiến
      * @param Request $request
      * @return mixed
      */
@@ -43,7 +43,7 @@ class OrderController
     }
 
     /**
-     * 获取订单列表
+     * Nhận danh sách đặt hàng
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -64,7 +64,7 @@ class OrderController
     }
 
     /**
-     * 退款单列表
+     * Danh sách đơn hàng hoàn tiền
      * @param Request $request
      * @param StoreOrderRefundServices $refundServices
      * @return mixed

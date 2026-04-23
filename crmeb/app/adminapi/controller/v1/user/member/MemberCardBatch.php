@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -41,7 +41,7 @@ class MemberCardBatch extends AuthController
     }
 
     /**
-     * 会员卡批次资源列表
+     * Danh sách tài nguyên lô thẻ thành viên
      * @return mixed
      */
     public function index()
@@ -54,7 +54,7 @@ class MemberCardBatch extends AuthController
     }
 
     /**
-     * 保存卡片资源
+     * Tiết kiệm tài nguyên thẻ
      * @param $id
      * @return mixed
      */
@@ -68,11 +68,11 @@ class MemberCardBatch extends AuthController
             ['remark', '']
         ]);
         $this->services->save((int)$id, $data);
-        return app('json')->success('卡片生成成功');
+        return app('json')->success('Thẻ được tạo thành công');
     }
 
     /**
-     * 列表操作
+     * Liệt kê các thao tác
      * @param $id
      * @return mixed
      */
@@ -84,26 +84,26 @@ class MemberCardBatch extends AuthController
             ['field', ''],
         ]);
         $this->services->setValue($id, $data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
-    /**会员二维码，兑换卡
+    /**Mã QR thành viên, thẻ đổi quà
      * @return mixed
      */
     public function member_scan()
     {
-        //生成h5地址
+        //Tạo địa chỉ h5
         $weixinPage = "/pages/annex/vip_active/index";
         $weixinFileName = "wechat_member_card.png";
         /** @var QrcodeServices $QrcodeService */
         $QrcodeService = app()->make(QrcodeServices::class);
         $wechatQrcode = $QrcodeService->getWechatQrcodePath($weixinFileName,$weixinPage, false, false);
-        //生成小程序地址
+        //Tạo địa chỉ chương trình nhỏ
         $routineQrcode = $QrcodeService->getRoutineQrcodePath(4,6,4, [], false);
         return app('json')->success(['wechat_img' => $wechatQrcode, 'routine' => $routineQrcode ?: ""]);
     }
 
-    /** 添加会员协议
+    /** Thêm thỏa thuận thành viên
      * @param int $id
      * @param AgreementServices $agreementServices
      * @return mixed
@@ -120,7 +120,7 @@ class MemberCardBatch extends AuthController
         return app('json')->success($agreementServices->saveAgreement($data, $id));
     }
 
-    /**获取会员协议
+    /**Nhận thỏa thuận thành viên
      * @param AgreementServices $agreementServices
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException

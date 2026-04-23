@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use think\facade\Config;
 abstract class BaseMessage extends BaseStorage
 {
     /**
-     * 模板id
+     * bản mẫuid
      * @var array
      */
     protected $templateIds = [];
@@ -29,19 +29,19 @@ abstract class BaseMessage extends BaseStorage
     protected $openId;
 
     /**
-     * 跳转链接
+     * Nhảy liên kết
      * @var string
      */
     protected $toUrl;
 
     /**
-     * 颜色
+     * màu sắc
      * @var string
      */
     protected $color;
 
     /**
-     * 初始化
+     * khởi tạo
      * @param array $config
      * @return mixed|void
      */
@@ -51,7 +51,7 @@ abstract class BaseMessage extends BaseStorage
     }
 
     /**
-     * 是否记录日志
+     * Có ghi nhật ký hay không
      * @return mixed
      */
     public function isLog()
@@ -61,7 +61,7 @@ abstract class BaseMessage extends BaseStorage
     }
 
     /**
-     * 获取模板id
+     * Nhận mẫuid
      * @return array
      */
     public function getTemplateId()
@@ -81,7 +81,7 @@ abstract class BaseMessage extends BaseStorage
     }
 
     /**
-     * 跳转路径
+     * Đường nhảy
      * @param string $url
      * @return $this
      */
@@ -92,7 +92,7 @@ abstract class BaseMessage extends BaseStorage
     }
 
     /**
-     * 设置背景颜色
+     * Đặt màu nền
      * @param string $color
      * @return $this
      */
@@ -103,7 +103,7 @@ abstract class BaseMessage extends BaseStorage
     }
 
     /**
-     * 提取模板code
+     * Trích xuất mẫucode
      * @param string $templateId
      * @return null
      */
@@ -113,7 +113,7 @@ abstract class BaseMessage extends BaseStorage
     }
 
     /**
-     * 恢复默认值
+     * Khôi phục mặc định
      */
     protected function clear()
     {
@@ -123,7 +123,7 @@ abstract class BaseMessage extends BaseStorage
     }
 
     /**
-     * 发送消息
+     * Gửi tin nhắn
      * @param string $templateId
      * @param array $data
      * @return mixed
@@ -131,21 +131,21 @@ abstract class BaseMessage extends BaseStorage
     abstract public function send(string $templateId, array $data = []);
 
     /**
-     * 添加模板
+     * Thêm mẫu
      * @param string $shortId
      * @return mixed
      */
     abstract public function add(string $shortId);
 
     /**
-     * 删除模板
+     * Xóa mẫu
      * @param string $templateId
      * @return mixed
      */
     abstract public function delete(string $templateId);
 
     /**
-     * 获取所有模板
+     * Nhận tất cả các mẫu
      * @return mixed
      */
     abstract public function list();

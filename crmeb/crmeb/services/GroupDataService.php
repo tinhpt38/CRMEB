@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,17 +14,17 @@ namespace crmeb\services;
 use app\services\system\config\SystemGroupDataServices;
 
 /**
- * 获取组合数据配置
+ * Nhận cấu hình dữ liệu kết hợp
  * Class GroupDataService
  * @package crmeb\services
  */
 class GroupDataService
 {
     /**
-     * 获取单个值
-     * @param string $config_name 配置名称
-     * @param int $limit 截取多少条
-     * @param bool $isCaChe 是否读取缓存
+     * Nhận một giá trị duy nhất
+     * @param string $config_name Tên cấu hình
+     * @param int $limit Bao nhiêu lần đánh chặn
+     * @param bool $isCaChe Có đọc bộ đệm hay không
      * @return array
      */
     public static function getData(string $config_name, int $limit = 0, bool $isCaChe = false): array
@@ -52,9 +52,9 @@ class GroupDataService
     }
 
     /**
-     * 根据id 获取单个值
+     * Nhận một giá trị duy nhất dựa trên id
      * @param int $id
-     * @param bool $isCaChe 是否读取缓存
+     * @param bool $isCaChe Có đọc bộ đệm hay không
      * @return array
      */
     public static function getDataNumber(int $id, bool $isCaChe = false): array

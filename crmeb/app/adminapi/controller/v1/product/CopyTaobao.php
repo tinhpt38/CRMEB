@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -34,7 +34,7 @@ class CopyTaobao extends AuthController
     }
 
     /**
-     * 获取复制商品配置信息
+     * Nhận thông tin cấu hình sản phẩm được sao chép
      * @return mixed
      */
     public function getConfig()
@@ -43,7 +43,7 @@ class CopyTaobao extends AuthController
         $copy = sys_config('system_product_copy_type', 1);
         $data['copy_type'] = $copy;
         $data['copy_num'] = 0;
-        if ($copy == 1) {//一号通
+        if ($copy == 1) {//Thẻ một số
             /** @var ServeServices $serverServices */
             $serverServices = app()->make(ServeServices::class);
             try {
@@ -59,7 +59,7 @@ class CopyTaobao extends AuthController
     }
 
     /**
-     * 复制商品
+     * Sao chép sản phẩm
      * @return mixed
      */
     public function copyProduct()
@@ -75,7 +75,7 @@ class CopyTaobao extends AuthController
     }
 
     /**
-     * 保存图片保存商品信息
+     * Lưu hình ảnhLưu thông tin sản phẩm
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -109,6 +109,6 @@ class CopyTaobao extends AuthController
             ['attrs', []]
         ]);
         $this->services->save($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,12 +17,12 @@ use app\services\BaseServices;
 use crmeb\exceptions\ApiException;
 
 /**
- * 站内信services类
+ * Danh mục dịch vụ tin nhắn trang web
  * Class MessageSystemServices
  * @package app\services\system
- * @method save(array $data) 保存数据
- * @method mixed saveAll(array $data) 批量保存数据
- * @method update($id, array $data, ?string $key = null) 修改数据
+ * @method save(array $data) lưu dữ liệu
+ * @method mixed saveAll(array $data) Lưu dữ liệu theo lô
+ * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  *
  */
 class MessageSystemServices extends BaseServices
@@ -38,7 +38,7 @@ class MessageSystemServices extends BaseServices
     }
 
     /**
-     * 站内信列表
+     * Danh sách tin nhắn trang web
      * @param $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -63,7 +63,7 @@ class MessageSystemServices extends BaseServices
     }
 
     /**
-     * 站内信详情
+     * Chi tiết tin nhắn trang web
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -74,7 +74,7 @@ class MessageSystemServices extends BaseServices
     {
         $info = $this->dao->getOne($where);
         if (!$info || $info['is_del'] == 1) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         $info = $info->toArray();
         if ($info['look'] == 0) {
@@ -91,75 +91,75 @@ class MessageSystemServices extends BaseServices
     {
         switch ($mark) {
             case 'admin_pay_success_code':
-                $code = '您有一笔支付成功的订单待处理，订单号{:order_id}！';
+                $code = 'Bạn có một đơn hàng đã thanh toán thành công cần được xử lý, mã số đơn hàng{:order_id}！';
                 break;
             case 'bind_spread_uid':
-                $code = '恭喜，又一员猛将将永久绑定到您的团队，用户{:nickname}加入您的队伍！';
+                $code = 'Xin chúc mừng, một thành viên mạnh mẽ khác sẽ gắn bó vĩnh viễn với nhóm của bạn, người dùng{:nickname}Tham gia nhóm của bạn！';
                 break;
             case 'order_pay_success':
-                $code = '您购买的商品已支付成功，支付金额{:pay_price}元，订单号{:order_id},感谢您的光临！';
+                $code = 'Hàng bạn mua đã được thanh toán thành công, số tiền thanh toán{:pay_price}nhân dân tệ, số đơn hàng{:order_id},cảm ơn bạn đã ghé thăm！';
                 break;
             case 'order_take':
-                $code = '亲，您的订单{:order_id},商品{:store_name}已确认收货,感谢您的光临！';
+                $code = 'Kính gửi, đơn đặt hàng của bạn{:order_id},hàng hóa{:store_name}Biên nhận đã được xác nhận,cảm ơn bạn đã ghé thăm！';
                 break;
             case 'price_revision':
-                $code = '您的订单{:order_id}，实际支付金额已被修改为{:pay_price}';
+                $code = 'đơn đặt hàng của bạn{:order_id}，Số tiền thanh toán thực tế đã được sửa đổi thành{:pay_price}';
                 break;
             case 'order_refund':
-                $code = '您的订单{:order_id}已同意退款,退款金额{:refund_price}元。';
+                $code = 'đơn đặt hàng của bạn{:order_id}Đã đồng ý hoàn tiền,Số tiền hoàn lại{:refund_price}Nhân dân tệ。';
                 break;
             case 'recharge_success':
-                $code = '您成功充值￥{:price}，现剩余余额￥{:now_money}元';
+                $code = 'Bạn đã nạp tiền thành công￥{:price}，Số dư hiện tại còn lại￥{:now_money}Nhân dân tệ';
                 break;
             case 'integral_accout':
-                $code = '亲，您成功获得积分{:gain_integral}，现有积分{:integral}';
+                $code = 'Bạn thân mến, bạn đã lấy được điểm thành công.{:gain_integral}，Điểm hiện có{:integral}';
                 break;
             case 'order_brokerage':
-                $code = '亲，恭喜您成功获得佣金{:brokerage_price}元';
+                $code = 'Thân mến, xin chúc mừng hoa hồng thành công của bạn.{:brokerage_price}Nhân dân tệ';
                 break;
             case 'bargain_success':
-                $code = '亲，好腻害！你的朋友们已经帮你砍到底价了，商品名称{:title}，底价{:min_price}';
+                $code = 'Em yêu, anh mệt quá! Bạn bè đã giúp bạn thương lượng giá thấp nhất, tên sản phẩm{:title}，Giá dự trữ{:min_price}';
                 break;
             case 'order_user_groups_success':
-                $code = '亲，您的拼团已经完成了，拼团名称{:title}，团长{:nickname}';
+                $code = 'Kính gửi, đặt phòng theo nhóm của bạn đã hoàn tất, tên đặt phòng theo nhóm{:title}，lãnh đạo{:nickname}';
                 break;
             case 'send_order_pink_fial':
-                $code = '亲，您的拼团失败，活动名称{:title}';
+                $code = 'Bạn thân mến, việc mua nhóm của bạn không thành công, tên hoạt động là{:title}';
                 break;
             case 'can_pink_success':
             case 'open_pink_success':
-                $code = '亲，您已成功参与拼团，活动名称{:title}';
+                $code = 'Bạn thân mến, bạn đã tham gia đặt phòng theo nhóm thành công. Tên của sự kiện là{:title}';
                 break;
             case 'user_extract':
-                $code = '亲，您成功提现佣金{:extract_number}元';
+                $code = 'Kính gửi, bạn đã rút tiền hoa hồng thành công.{:extract_number}Nhân dân tệ';
                 break;
             case 'user_balance_change':
-                $code = '亲，您发起的提现被驳回，返回佣金{:extract_number}元';
+                $code = 'Bạn thân mến, việc rút tiền mà bạn thực hiện đã bị từ chối và hoa hồng sẽ được trả lại.{:extract_number}Nhân dân tệ';
                 break;
             case 'recharge_order_refund_status':
-                $code = '亲，您充值的金额已退款,本次退款{:refund_price}元';
+                $code = 'Bạn thân mến, số tiền bạn nạp đã được hoàn trả,Khoản hoàn trả này{:refund_price}Nhân dân tệ';
                 break;
             case 'send_order_refund_no_status':
-                $code = '您好！您的订单{:order_id}已拒绝退款。';
+                $code = 'Xin chào! đơn đặt hàng của bạn{:order_id}Hoàn tiền bị từ chối。';
                 break;
             case 'send_order_apply_refund':
-                $code = '您有一笔退款订单待处理，订单号{:order_id}!';
+                $code = 'Bạn có một lệnh hoàn tiền đang chờ xử lý, số đơn hàng{:order_id}!';
                 break;
             case 'order_deliver_success':
             case 'order_postage_success':
-                $code = '亲爱的用户{:nickname}您的商品{:store_name}，订单号{:order_id}已发货，请注意查收';
+                $code = 'Kính gửi người dùng{:nickname}sản phẩm của bạn{:store_name}，Số đơn hàng{:order_id}Đã gửi hàng rồi, bạn kiểm tra nhé';
                 break;
             case 'send_order_pink_clone':
-                $code = '亲，您的拼团取消，活动名称{:title}';
+                $code = 'Bạn thân mến, chuyến tham quan theo nhóm của bạn đã bị hủy, tên sự kiện là{:title}';
                 break;
             case 'kefu_send_extract_application':
-                $code = '您有一笔提现申请待处理，提现金额{:money}!';
+                $code = 'Bạn có yêu cầu rút tiền đang chờ xử lý, số tiền rút{:money}!';
                 break;
             case 'send_admin_confirm_take_over':
-                $code = '您有一笔订单已经确认收货，订单号{:order_id}!';
+                $code = 'Bạn có một đơn đặt hàng đã được xác nhận để giao hàng. Số thứ tự là{:order_id}!';
                 break;
             case 'order_pay_false':
-                $code = '您有未付款订单,订单号为:{:order_id}，商品数量有限，请及时付款。';
+                $code = 'Bạn có một đơn hàng chưa thanh toán,Số thứ tự là:{:order_id}，Số lượng hàng có hạn, vui lòng thanh toán kịp thời。';
                 break;
             default:
                 $code = 000000;

@@ -1,64 +1,64 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
 /**
- * 财务模块 相关路由
+ * Định tuyến liên quan đến mô-đun tài chính
  */
 Route::group('finance', function () {
 
-    /** 提现 */
+    /** Rút tiền mặt */
     Route::group(function () {
-        //申请列表
-        Route::get('extract', 'v1.finance.UserExtract/index')->option(['real_name' => '提现申请列表']);
-        //编辑表单
-        Route::get('extract/:id/edit', 'v1.finance.UserExtract/edit')->option(['real_name' => '提现记录修改表单']);
-        //保存修改
-        Route::put('extract/:id', 'v1.finance.UserExtract/update')->option(['real_name' => '提现记录修改']);
-        //拒绝申请
-        Route::put('extract/refuse/:id', 'v1.finance.UserExtract/refuse')->option(['real_name' => '拒绝提现申请']);
-        //通过申请
-        Route::put('extract/adopt/:id', 'v1.finance.UserExtract/adopt')->option(['real_name' => '通过提现申请']);
-    })->option(['parent' => 'finance', 'cate_name' => '提现']);
+        //Danh sách ứng dụng
+        Route::get('extract', 'v1.finance.UserExtract/index')->option(['real_name' => 'Danh sách đơn xin rút tiền']);
+        //chỉnh sửa biểu mẫu
+        Route::get('extract/:id/edit', 'v1.finance.UserExtract/edit')->option(['real_name' => 'Mẫu sửa đổi hồ sơ rút tiền']);
+        //Lưu thay đổi
+        Route::put('extract/:id', 'v1.finance.UserExtract/update')->option(['real_name' => 'Sửa đổi hồ sơ rút tiền']);
+        //từ chối đơn đăng ký
+        Route::put('extract/refuse/:id', 'v1.finance.UserExtract/refuse')->option(['real_name' => 'Từ chối yêu cầu rút tiền']);
+        //bằng cách áp dụng
+        Route::put('extract/adopt/:id', 'v1.finance.UserExtract/adopt')->option(['real_name' => 'Áp dụng thông qua rút tiền']);
+    })->option(['parent' => 'finance', 'cate_name' => 'Rút tiền mặt']);
 
-    /** 资金记录 */
+    /** Hồ sơ tài trợ */
     Route::group(function () {
-        //筛选类型
-        Route::get('finance/bill_type', 'v1.finance.Finance/bill_type')->option(['real_name' => '资金记录类型']);
-        //资金记录
-        Route::get('finance/list', 'v1.finance.Finance/list')->option(['real_name' => '资金记录列表']);
-        //佣金记录
-        Route::get('finance/commission_list', 'v1.finance.Finance/get_commission_list')->option(['real_name' => '佣金记录列表']);
-        //佣金详情用户信息
-        Route::get('finance/user_info/:id', 'v1.finance.Finance/user_info')->option(['real_name' => '佣金详情用户信息']);
-        //佣金提现记录个人列表
-        Route::get('finance/extract_list/:id', 'v1.finance.Finance/get_extract_list')->option(['real_name' => '佣金提现记录个人列表']);
-        /** 余额记录 */
-        Route::get('balance/list', 'v1.finance.UserBalance/balanceList')->option(['real_name' => '余额记录列表']);
-        Route::post('balance/set_mark/:id', 'v1.finance.UserBalance/balanceRecordRemark')->option(['real_name' => '余额记录备注']);
-    })->option(['parent' => 'finance', 'cate_name' => '资金记录']);
+        //Loại bộ lọc
+        Route::get('finance/bill_type', 'v1.finance.Finance/bill_type')->option(['real_name' => 'Loại hồ sơ quỹ']);
+        //Hồ sơ tài trợ
+        Route::get('finance/list', 'v1.finance.Finance/list')->option(['real_name' => 'Danh sách ghi quỹ']);
+        //hồ sơ ủy ban
+        Route::get('finance/commission_list', 'v1.finance.Finance/get_commission_list')->option(['real_name' => 'Danh sách hồ sơ hoa hồng']);
+        //Hoa hồng chi tiết thông tin người dùng
+        Route::get('finance/user_info/:id', 'v1.finance.Finance/user_info')->option(['real_name' => 'Hoa hồng chi tiết thông tin người dùng']);
+        //Danh sách cá nhân hồ sơ rút tiền hoa hồng
+        Route::get('finance/extract_list/:id', 'v1.finance.Finance/get_extract_list')->option(['real_name' => 'Danh sách cá nhân hồ sơ rút tiền hoa hồng']);
+        /** Hồ sơ số dư */
+        Route::get('balance/list', 'v1.finance.UserBalance/balanceList')->option(['real_name' => 'Danh sách ghi số dư']);
+        Route::post('balance/set_mark/:id', 'v1.finance.UserBalance/balanceRecordRemark')->option(['real_name' => 'Ghi chú về số dư']);
+    })->option(['parent' => 'finance', 'cate_name' => 'Hồ sơ tài trợ']);
 
-    /** 充值 */
+    /** nạp tiền */
     Route::group(function () {
-        //充值记录列表
-        Route::get('recharge', 'v1.finance.UserRecharge/index')->option(['real_name' => '充值记录列表']);
-        //删除记录
-        Route::delete('recharge/:id', 'v1.finance.UserRecharge/delete')->option(['real_name' => '删除充值记录']);
-        //获取用户充值数据
-        Route::get('recharge/user_recharge', 'v1.finance.UserRecharge/user_recharge')->option(['real_name' => '获取用户充值数据']);
-        //退款表单
-        Route::get('recharge/:id/refund_edit', 'v1.finance.UserRecharge/refund_edit')->option(['real_name' => '充值退款表单']);
-        //退款
-        Route::put('recharge/:id', 'v1.finance.UserRecharge/refund_update')->option(['real_name' => '充值退款']);
-    })->option(['parent' => 'finance', 'cate_name' => '充值']);
+        //Danh sách hồ sơ nạp tiền
+        Route::get('recharge', 'v1.finance.UserRecharge/index')->option(['real_name' => 'Danh sách hồ sơ nạp tiền']);
+        //xóa bản ghi
+        Route::delete('recharge/:id', 'v1.finance.UserRecharge/delete')->option(['real_name' => 'Xóa hồ sơ nạp tiền']);
+        //Nhận dữ liệu nạp tiền của người dùng
+        Route::get('recharge/user_recharge', 'v1.finance.UserRecharge/user_recharge')->option(['real_name' => 'Nhận dữ liệu nạp tiền của người dùng']);
+        //Hình thức hoàn tiền
+        Route::get('recharge/:id/refund_edit', 'v1.finance.UserRecharge/refund_edit')->option(['real_name' => 'Hình thức nạp tiền và hoàn tiền']);
+        //Đền bù
+        Route::put('recharge/:id', 'v1.finance.UserRecharge/refund_update')->option(['real_name' => 'Nạp tiền và hoàn tiền']);
+    })->option(['parent' => 'finance', 'cate_name' => 'nạp tiền']);
 
 
 })->middleware([
@@ -66,4 +66,4 @@ Route::group('finance', function () {
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'finance', 'mark_name' => '财务管理']);
+])->option(['mark' => 'finance', 'mark_name' => 'quản lý tài chính']);

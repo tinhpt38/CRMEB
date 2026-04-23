@@ -1,96 +1,96 @@
-### 系统目录介绍优化方案
+### Kế hoạch tối ưu hóa giới thiệu danh mục hệ thống
 
-#### 1. 引言
-在优化系统目录介绍时，我们的目标是使目录结构更加清晰、易于理解，并突出每个目录的核心功能和作用。
+#### 1. Giới thiệu
+Khi tối ưu hóa phần giới thiệu thư mục hệ thống, mục tiêu của chúng tôi là làm cho cấu trúc thư mục rõ ràng, dễ hiểu hơn, đồng thời nêu bật các chức năng và vai trò cốt lõi của từng thư mục.
 
-#### 2. 目录结构优化概述
-我们将通过以下几个步骤来优化目录介绍：
-- **明确目录层级**：清晰展示主目录与子目录的关系。
-- **突出核心功能**：简要概括每个目录的主要作用和包含的文件类型。
-- **增加示例或用途说明**：对于关键目录，提供简短的示例或用途描述，帮助开发者快速理解。
+#### 2. Tổng quan về tối ưu hóa cấu trúc thư mục
+Chúng ta sẽ tối ưu hóa việc giới thiệu catalog qua các bước sau:
+- **Xóa hệ thống phân cấp thư mục**: Hiển thị rõ ràng mối quan hệ giữa thư mục chính và thư mục con.
+- **Nêu bật các chức năng cốt lõi**: Tóm tắt ngắn gọn vai trò chính của từng thư mục và loại tệp chứa trong đó.
+- **Thêm ví dụ hoặc mô tả cách sử dụng**: Đối với các thư mục chính, hãy cung cấp ví dụ ngắn gọn hoặc mô tả cách sử dụng để giúp nhà phát triển hiểu nhanh.
 
-#### 3. 优化后的目录介绍
+#### 3. Tối ưu hóa giới thiệu thư mục
 
-## 目录结构
+## Cấu trúc thư mục
 
 ```
 .
-├── adminapi/                 # 后台管理端API接口
-├── api/                      # 移动端API接口
-├── dao/                      # DAO层（数据访问对象）
-├── http/                     # HTTP中间件
-├── jobs/                     # 队列任务
-├── kefuapi/                  # 客服端API接口
-├── lang/                     # 语言包
-├── listener/                 # 事件监听器目录
-├── model/                    # Model层
-├── services/                 # Services层
-├── subscribes/               # 事件订阅
-├── AppService.php           # 应用服务类
-├── ExceptionHandle.php      # 异常处理器
-├── Request.php              # 封装Request类
-├── build.php                # 构建配置
-├── common.php               # 公共方法
-├── event.php                # 事件配置
-├── middleware.php           # 中间件配置
-├── provider.php             # 容器Provider定义文件
-└── service.php              # 服务配置
+├── adminapi/                 # Giao diện API quản lý phụ trợ
+├── api/                      # Giao diện API di động
+├── dao/                      # DAOlớp (đối tượng truy cập dữ liệu）
+├── http/                     # HTTPphần mềm trung gian
+├── jobs/                     # Nhiệm vụ xếp hàng
+├── kefuapi/                  # Giao diện API dịch vụ khách hàng
+├── lang/                     # Gói ngôn ngữ
+├── listener/                 # Thư mục người nghe sự kiện
+├── model/                    # Modellớp
+├── services/                 # Serviceslớp
+├── subscribes/               # đăng ký sự kiện
+├── AppService.php           # Lớp dịch vụ ứng dụng
+├── ExceptionHandle.php      # xử lý ngoại lệ
+├── Request.php              # Đóng gói lớp Yêu cầu
+├── build.php                # Xây dựng cấu hình
+├── common.php               # phương pháp công khai
+├── event.php                # cấu hình sự kiện
+├── middleware.php           # Cấu hình phần mềm trung gian
+├── provider.php             # Tệp định nghĩa Nhà cung cấp vùng chứa
+└── service.php              # Cấu hình dịch vụ
 ```
 
 ##### app/
-- **核心目录**：存放应用程序的核心代码和资源。
-- **包含内容**：业务逻辑、控制器、模型、视图等。
+- **Thư mục lõi**: lưu trữ mã lõi và tài nguyên của ứng dụng.
+- **Bao gồm nội dung**: logic nghiệp vụ, bộ điều khiển, mô hình, dạng xem, v.v.
 
-###### app/adminapi/
-- **功能**：管理端应用控制器。
-- **用途**：处理管理端用户请求、业务逻辑和数据交互。
-- **示例**：管理员登录、权限管理等。
+###### ứng dụng/adminapi/
+- **Chức năng**: Bộ điều khiển ứng dụng phía quản lý.
+- **Mục đích**: Xử lý các yêu cầu quản lý của người dùng, logic nghiệp vụ và tương tác dữ liệu.
+- **Ví dụ**: Đăng nhập quản trị viên, quản lý quyền, v.v.
 
-###### app/api/
-- **功能**：用户端应用控制器。
-- **用途**：处理用户端请求、业务逻辑和数据交互。
-- **示例**：用户注册、商品浏览等。
+###### ứng dụng/api/
+- **Chức năng**: Bộ điều khiển ứng dụng khách.
+- **Mục đích**: Xử lý các yêu cầu của khách hàng, logic nghiệp vụ và tương tác dữ liệu.
+- **Ví dụ**: Đăng ký người dùng, duyệt sản phẩm, v.v.
 
-###### app/dao/
-- **功能**：数据访问对象（DAO）。
-- **用途**：封装数据访问操作，提供统一接口。
-- **文件类型**：类文件。
+###### ứng dụng/dao/
+- **Chức năng**: Đối tượng truy cập dữ liệu (DAO).
+- **Mục đích**: Đóng gói các hoạt động truy cập dữ liệu và cung cấp giao diện hợp nhất.
+- **Loại tệp**: Tệp lớp.
 
-###### app/http/
-- **功能**：HTTP请求和响应跨域中间键。
-- **用途**：处理跨域请求，确保前后端通信顺畅。
+###### ứng dụng/http/
+- **TÍNH NĂNG**: Khóa trung gian giữa các miền chéo và yêu cầu HTTP.
+- **Mục đích**: Xử lý các yêu cầu trên nhiều miền để đảm bảo giao tiếp thông suốt giữa giao diện người dùng và mặt sau.
 
-###### app/jobs/
-- **功能**：消息队列任务。
-- **用途**：处理异步任务，如邮件发送、数据同步等。
+###### ứng dụng/việc làm/
+- **Tính năng**: Nhiệm vụ xếp hàng tin nhắn.
+- **Mục đích**: Xử lý các tác vụ không đồng bộ, chẳng hạn như gửi email, đồng bộ hóa dữ liệu, v.v.
 
-###### app/kefuapi/
-- **功能**：客服端应用控制器。
-- **用途**：处理客服端请求、业务逻辑和数据交互。
-- **示例**：客服聊天、工单处理等。
+###### ứng dụng/kefuapi/
+- **Chức năng**: Bộ điều khiển ứng dụng khách.
+- **Mục đích**: Xử lý các yêu cầu của khách hàng, logic nghiệp vụ và tương tác dữ liệu.
+- **Ví dụ**: Trò chuyện dịch vụ khách hàng, xử lý đơn đặt hàng công việc, v.v.
 
-###### app/lang/
-- **功能**：语言包。
-- **用途**：支持多语言功能，提供不同语言的文本资源。
+###### ứng dụng/lang/
+- **TÍNH NĂNG**: Gói ngôn ngữ.
+- **Mục đích**: Hỗ trợ chức năng đa ngôn ngữ và cung cấp tài nguyên văn bản bằng các ngôn ngữ khác nhau.
 
-###### app/listener/
-- **功能**：事件监听器。
-- **用途**：监听和处理系统事件，如用户登录、订单生成等。
+###### ứng dụng/người nghe/
+- **Chức năng**: Trình nghe sự kiện.
+- **Mục đích**: Giám sát và xử lý các sự kiện hệ thống, chẳng hạn như đăng nhập của người dùng, tạo đơn hàng, v.v.
 
-###### app/model/
-- **功能**：模型类。
-- **用途**：封装数据访问操作，提供统一接口。
-- **与dao区别**：模型类更侧重于业务逻辑层面的数据操作。
+###### ứng dụng/mô hình/
+- **Chức năng**: Lớp mô hình.
+- **Mục đích**: Đóng gói các hoạt động truy cập dữ liệu và cung cấp giao diện hợp nhất.
+- **Sự khác biệt so với dao**: Các lớp mô hình tập trung nhiều hơn vào các hoạt động dữ liệu ở cấp độ logic nghiệp vụ.
 
-###### app/outapi/
-- **功能**：对外接口应用控制器。
-- **用途**：处理外部系统请求、业务逻辑和数据交互。
-- **示例**：第三方支付回调、API对接等。
+###### ứng dụng/outapi/
+- **Chức năng**: Bộ điều khiển ứng dụng giao diện bên ngoài.
+- **Mục đích**: Xử lý các yêu cầu hệ thống bên ngoài, logic nghiệp vụ và tương tác dữ liệu.
+- **Ví dụ**: Lệnh gọi lại thanh toán của bên thứ ba, kết nối API, v.v.
 
-###### app/service/
-- **功能**：服务类。
-- **用途**：封装业务逻辑和数据交互操作，提供统一服务接口。
-- **示例**：用户服务、订单服务等。
+###### ứng dụng/dịch vụ/
+- **Chức năng**: Lớp dịch vụ.
+- **Mục đích**: Đóng gói các hoạt động tương tác dữ liệu và logic nghiệp vụ, đồng thời cung cấp giao diện dịch vụ hợp nhất.
+- **Ví dụ**: Dịch vụ người dùng, dịch vụ đặt hàng, v.v.
 
-#### 4. 结语
-通过上述优化，我们使`app`目录及其子目录的介绍更加清晰、条理分明。每个目录的核心功能和用途都得到了突出展示，有助于开发者快速理解和定位代码。同时，增加的示例和用途说明也进一步降低了理解门槛，提升了开发效率。
+#### 4. Kết luận
+Thông qua việc tối ưu hóa ở trên, chúng tôi thực hiện`app`Việc giới thiệu thư mục và các thư mục con của nó rõ ràng và có tổ chức hơn. Các chức năng cốt lõi và cách sử dụng của từng thư mục được nêu bật, giúp các nhà phát triển nhanh chóng hiểu và định vị mã. Đồng thời, các ví dụ và hướng dẫn sử dụng được bổ sung càng hạ thấp ngưỡng hiểu biết và nâng cao hiệu quả phát triển.。

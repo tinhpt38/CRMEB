@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\dao\BaseDao;
 use app\model\order\StoreOrder;
 
 /**
- * 订单
+ * Đặt hàng
  * Class StoreOrderDao
  * @package app\dao\order
  */
@@ -24,7 +24,7 @@ class StoreOrderDao extends BaseDao
 {
 
     /**
-     * 限制精确查询字段
+     * Giới hạn các trường truy vấn chính xác
      * @var string[]
      */
     protected $withField = ['uid', 'order_id', 'real_name', 'user_phone', 'title'];
@@ -38,7 +38,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 订单搜索
+     * Tìm kiếm đơn hàng
      * @param array $where
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
@@ -58,45 +58,45 @@ class StoreOrderDao extends BaseDao
             $query->where('is_system_del', 0);
         })->when($status !== '', function ($query) use ($where, $status) {
             switch ((int)$status) {
-                case 0://未支付
+                case 0://Chưa thanh toán
                     $query->where('paid', 0)->where('status', 0)->where('refund_status', 0)->where('is_del', 0)->where('is_cancel', 0);
                     break;
-                case 1://已支付 未发货
+                case 1://Đã thanh toán nhưng chưa giao hàng
                     $query->where('paid', 1)->where('status', 0)->whereIn('refund_status', [0, 3])->when(isset($where['shipping_type']), function ($query) {
                         $query->where('shipping_type', 1);
                     })->where('is_del', 0);
                     break;
-                case 7://已支付 部分发货
+                case 7://Đã thanh toán Đã vận chuyển một phần
                     $query->where('paid', 1)->where('status', 4)->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
-                case 2://已支付  待收货
+                case 2://Đã thanh toán chờ nhận
                     $query->where('paid', 1)->where('status', 1)->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
-                case 3:// 已支付  已收货  待评价
+                case 3:// Đã trả Đã nhận Đang chờ đánh giá
                     $query->where('paid', 1)->where('status', 2)->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
-                case 4:// 交易完成
+                case 4:// giao dịch đã hoàn tất
                     $query->where('paid', 1)->where('status', 3)->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
-                case 5://已支付  待核销
+                case 5://Đã trả tiền nhưng vẫn chưa được xóa sổ
                     $query->where('paid', 1)->where('status', 0)->where('refund_status', 0)->where('shipping_type', 2)->where('is_del', 0);
                     break;
-                case 6://已支付 已核销 没有退款
+                case 6://Đã thanh toán, xóa sổ, không hoàn lại tiền
                     $query->where('paid', 1)->whereIn('status', [2, 3])->where('refund_status', 0)->where('shipping_type', 2)->where('is_del', 0);
                     break;
-                case -1://退款中
+                case -1://Đang hoàn tiền
                     $query->where('paid', 1)->whereIn('refund_status', [1, 4])->where('is_del', 0);
                     break;
-                case -2://已退款
+                case -2://Đã hoàn tiền
                     $query->where('paid', 1)->where('refund_status', 2)->where('is_del', 0);
                     break;
-                case -3://退款
+                case -3://Đền bù
                     $query->where('paid', 1)->whereIn('refund_status', [1, 2, 4])->where('is_del', 0);
                     break;
-                case -4://已删除
+                case -4://Đã xóa
                     $query->where('is_del', 1);
                     break;
-                case 9://全部用户未删除的订单
+                case 9://Đơn đặt hàng không bị xóa bởi tất cả người dùng
                     $query->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
             }
@@ -106,21 +106,21 @@ class StoreOrderDao extends BaseDao
             }
         })->when(isset($where['order_status']) && $where['order_status'] !== '', function ($query) use ($where) {
             switch ((int)$where['order_status']) {
-                case 0://未发货
+                case 0://Không được vận chuyển
                     $query->where('status', 0)->where('refund_status', 0)->where('is_del', 0);
                     break;
-                case 1://已发货
+                case 1://Đã vận chuyển
                     $query->where('paid', 1)->where('status', 1)->whereIn('refund_status', [0, 3])->when(isset($where['shipping_type']), function ($query) {
                         $query->where('shipping_type', 1);
                     })->where('is_del', 0);
                     break;
-                case 2://已收货
+                case 2://Hàng đã nhận
                     $query->where('paid', 1)->where('status', 2)->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
-                case 3://已完成
+                case 3://Hoàn thành
                     $query->where('paid', 1)->where('status', 3)->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
-                case -2://已退款
+                case -2://Đã hoàn tiền
                     $query->where('paid', 1)->where('status', -2)->where('is_del', 0);
                     break;
             }
@@ -225,7 +225,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取某一个月订单数量
+     * Nhận số lượng đặt hàng trong một tháng nhất định
      * @param array $where
      * @param string $month
      * @return int
@@ -236,7 +236,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 订单搜索列表
+     * Danh sách tìm kiếm đơn hàng
      * @param array $where
      * @param array $field
      * @param int $page
@@ -255,7 +255,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 订单搜索列表
+     * Danh sách tìm kiếm đơn hàng
      * @param array $where
      * @param array $field
      * @param int $page
@@ -275,7 +275,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取订单总数
+     * Lấy tổng số đơn hàng
      * @param array $where
      * @param bool $search
      * @return int
@@ -287,7 +287,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 聚合查询
+     * Truy vấn tổng hợp
      * @param array $where
      * @param string $field
      * @param string $together
@@ -302,7 +302,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 查找指定条件下的订单数据以数组形式返回
+     * Tìm dữ liệu đơn hàng trong các điều kiện được chỉ định và trả về dưới dạng mảng
      * @param array $where
      * @param string $field
      * @param string $key
@@ -317,7 +317,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取订单id下没有删除的订单数量
+     * Lấy số lượng đơn hàng chưa bị xóa theo id đơn hàng
      * @param array $ids
      * @return int
      */
@@ -327,7 +327,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取一段时间内订单列表
+     * Nhận danh sách đơn hàng trong một khoảng thời gian
      * @param $datebefor
      * @param $dateafter
      * @return mixed
@@ -359,7 +359,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 统计总数上期
+     * Thống kê tổng số số cuối cùng
      * @param $pre_datebefor
      * @param $pre_dateafter
      * @return array|\think\Model|null
@@ -375,7 +375,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取一段时间内订单列表
+     * Nhận danh sách đơn hàng trong một khoảng thời gian
      * @param $now_datebefor
      * @param $now_dateafter
      * @return mixed
@@ -404,7 +404,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取订单数量
+     * Nhận số lượng đặt hàng
      * @return int
      */
     public function storeOrderCount()
@@ -413,7 +413,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取特定时间内订单总价
+     * Nhận tổng giá đơn hàng trong thời gian cụ thể
      * @param $time
      * @return float
      */
@@ -423,7 +423,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取特定时间内订单总价
+     * Nhận tổng giá đơn hàng trong thời gian cụ thể
      * @param $time
      * @return float
      */
@@ -433,7 +433,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 总销售额
+     * tổng doanh thu
      * @return float
      */
     public function totalSales($time)
@@ -447,7 +447,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取特定时间内订单量
+     * Nhận khối lượng đơn hàng trong thời gian cụ thể
      * @param $time
      * @return float
      */
@@ -462,7 +462,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取订单详情
+     * Nhận chi tiết đơn hàng
      * @param string $key
      * @param int $uid
      * @param array $with
@@ -479,7 +479,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取用户推广订单
+     * Nhận đơn đặt hàng khuyến mãi của người dùng
      * @param array $where
      * @param string $field
      * @param int $page
@@ -496,7 +496,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 订单每月统计数据
+     * Thống kê đặt hàng hàng tháng
      * @param int $page
      * @param int $limit
      * @return array
@@ -509,9 +509,9 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取当前时间到指定时间的支付金额 管理员
-     * @param $start 开始时间
-     * @param $stop  结束时间
+     * Nhận số tiền thanh toán từ thời điểm hiện tại đến thời điểm quy định
+     * @param $start thời gian bắt đầu
+     * @param $stop  thời gian kết thúc
      * @return mixed
      */
     public function chartTimePrice($start, $stop)
@@ -525,9 +525,9 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取当前时间到指定时间的支付订单数 管理员
-     * @param $start 开始时间
-     * @param $stop  结束时间
+     * Lấy số lượng lệnh thanh toán từ thời điểm hiện tại đến thời điểm quy định
+     * @param $start thời gian bắt đầu
+     * @param $stop  thời gian kết thúc
      * @return mixed
      */
     public function chartTimeNumber($start, $stop)
@@ -541,7 +541,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取用户已购买此活动商品的个数
+     * Lấy số lượng vật phẩm người dùng đã mua cho sự kiện này
      * @param $uid
      * @param $type
      * @param $typeId
@@ -560,7 +560,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 获取没有支付的订单列表
+     * Lấy danh sách các đơn hàng chưa thanh toán
      * @param array|string[] $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -573,7 +573,7 @@ class StoreOrderDao extends BaseDao
             ->where('pay_type', '<>', 'offline')->field($field)->select();
     }
 
-    /** 根据时间获取营业额
+    /** Nhận doanh thu theo thời gian
      * @param array $where
      * @return float|int
      */
@@ -587,7 +587,7 @@ class StoreOrderDao extends BaseDao
 
 
     /**
-     * 用户趋势数据
+     * Dữ liệu xu hướng người dùng
      * @param $time
      * @param $type
      * @param $timeType
@@ -609,7 +609,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 用户地域数据
+     * Dữ liệu địa lý của người dùng
      * @param $time
      * @param $userType
      * @return mixed
@@ -630,7 +630,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 商品趋势
+     * Xu hướng hàng hóa
      * @param $time
      * @param $timeType
      * @param $field
@@ -661,7 +661,7 @@ class StoreOrderDao extends BaseDao
     }
 
 
-    /** 按照支付时间统计支付金额
+    /** Tính số tiền thanh toán theo thời gian thanh toán
      * @param array $where
      * @param string $sumField
      * @return mixed
@@ -675,7 +675,7 @@ class StoreOrderDao extends BaseDao
             ->sum($sumField);
     }
 
-    /**时间段订单数统计
+    /**Thống kê số lượng đơn hàng trong khoảng thời gian
      * @param array $where
      * @param string $countField
      * @return int
@@ -689,7 +689,7 @@ class StoreOrderDao extends BaseDao
             ->count($countField);
     }
 
-    /** 时间分组订单付款金额统计
+    /** Thống kê số tiền thanh toán đơn hàng theo nhóm thời gian
      * @param array $where
      * @param string $sumField
      * @return mixed
@@ -717,7 +717,7 @@ class StoreOrderDao extends BaseDao
             ->order('pay_time ASC,id DESC')->select()->toArray();
     }
 
-    /**时间分组订单数统计
+    /**Thống kê số thứ tự nhóm thời gian
      * @param array $where
      * @param string $sumField
      * @return mixed
@@ -745,7 +745,7 @@ class StoreOrderDao extends BaseDao
             ->order('pay_time ASC,id DESC')->select()->toArray();
     }
 
-    /**时间段支付订单人数
+    /**Số người thanh toán đơn hàng trong khoảng thời gian
      * @param $where
      * @return mixed
      */
@@ -760,7 +760,7 @@ class StoreOrderDao extends BaseDao
             ->select()->toArray();
     }
 
-    /**时间段分组统计支付订单人数
+    /**Thống kê nhóm khoảng thời gian về số người thanh toán đơn hàng
      * @param $where
      * @return mixed
      */
@@ -789,7 +789,7 @@ class StoreOrderDao extends BaseDao
     }
 
 
-    /**获取批量打印电子面单数据
+    /**Nhận dữ liệu biểu mẫu điện tử in hàng loạt
      * @param array $where
      * @param string $filed
      * @return array
@@ -821,7 +821,7 @@ class StoreOrderDao extends BaseDao
         return $this->search($where)->field($field)->select()->toArray();
     }
 
-    /**批量修改订单
+    /**Sửa đổi đơn hàng theo đợt
      * @param array $ids
      * @param array $data
      * @param string|null $key
@@ -832,7 +832,7 @@ class StoreOrderDao extends BaseDao
         return $this->getModel()::whereIn(is_null($key) ? $this->getPk() : $key, $ids)->update($data);
     }
 
-    /**根据orderid校验符合状态的发货数据
+    /**Xác minh dữ liệu vận chuyển đáp ứng trạng thái dựa trên orderid
      * @param $order_ids
      * @return array|\crmeb\basic\BaseModel
      * @throws \think\db\exception\DataNotFoundException
@@ -852,7 +852,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 查询退款订单
+     * Truy vấn lệnh hoàn tiền
      * @param $where
      * @param $page
      * @param $limit
@@ -886,7 +886,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 订单搜索列表
+     * Danh sách tìm kiếm đơn hàng
      * @param array $where
      * @param array $field
      * @param int $page
@@ -906,7 +906,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 秒杀参与人统计
+     * Thống kê người tham gia flash kill
      * @param $id
      * @param $keyword
      * @param int $page
@@ -934,7 +934,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 秒杀订单统计
+     * Thống kê đơn hàng flash sale
      * @param $id
      * @param $where
      * @param int $page
@@ -953,12 +953,12 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 秒杀订单统计总数
+     * Tổng số đơn hàng flash sale
      * @param $id
      * @param $where
      * @return int
      * @throws \ReflectionException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
      */
@@ -968,7 +968,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 砍价订单统计
+     * Thống kê đơn hàng mặc cả
      * @param $id
      * @param $where
      * @param int $page
@@ -987,12 +987,12 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 砍价订单统计数量
+     * Thống kê đơn hàng mặc cả
      * @param $id
      * @param $where
      * @return int
      * @throws \ReflectionException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
      */
@@ -1002,7 +1002,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 拼团订单统计
+     * Thống kê đơn hàng nhóm
      * @param $id
      * @param $where
      * @param int $page
@@ -1021,14 +1021,14 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 拼团订单统计数量
+     * Thống kê đơn hàng nhóm
      * @param $id
      * @param $where
      * @param int $page
      * @param int $limit
      * @return int
      * @throws \ReflectionException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
      */
@@ -1038,13 +1038,13 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 查找待收货的子订单
+     * Tìm đơn hàng phụ cần nhận
      * @param int $pid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
      */
@@ -1054,11 +1054,11 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 判断订单是否全部发货
+     * Xác định xem tất cả các đơn đặt hàng đã được chuyển đi chưa
      * @param int $pid
      * @param int $order_id
      * @return int
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
      */
@@ -1068,11 +1068,11 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 判断是否存在子未收货子订单
+     * Xác định có đơn hàng phụ nào chưa nhận được hàng không
      * @param int $pid
      * @param int $order_id
      * @return int
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
      */
@@ -1082,7 +1082,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * 分销订单统计
+     * Thống kê thứ tự phân phối
      * @param $field
      * @param $time
      * @param $page

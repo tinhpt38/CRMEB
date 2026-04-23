@@ -4,13 +4,13 @@ const keepAliveNamesModule = {
     keepAliveNames: [],
   },
   mutations: {
-    // 设置路由缓存（name字段）
+    // Đặt bộ đệm tuyến đường (trường tên）
     getCacheKeepAlive(state, data) {
       state.keepAliveNames = data;
     },
   },
   actions: {
-    // 设置路由缓存（name字段）
+    // Đặt bộ đệm tuyến đường (trường tên）
     async setCacheKeepAlive({ commit }, data) {
       commit('getCacheKeepAlive', data);
     },

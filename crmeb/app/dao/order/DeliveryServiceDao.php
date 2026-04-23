@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,14 +14,14 @@ namespace app\dao\order;
 use app\dao\BaseDao;
 use app\model\order\DeliveryService;
 
-/**配送dao
+/**Vận chuyểndao
  * Class DeliveryServiceDao
  * @package app\dao\service
  */
 class DeliveryServiceDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -30,7 +30,7 @@ class DeliveryServiceDao extends BaseDao
     }
 
     /**
-     * 获取配送员列表
+     * Lấy danh sách người giao hàng
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -48,7 +48,7 @@ class DeliveryServiceDao extends BaseDao
         })->order('id DESC')->select()->toArray();
     }
 
-    /**获取所有配送员列表
+    /**Nhận danh sách tất cả các nhà chuyển phát nhanh
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException

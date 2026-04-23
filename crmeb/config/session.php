@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,18 +19,18 @@
 // +----------------------------------------------------------------------
 
 // +----------------------------------------------------------------------
-// | 会话设置
+// | Cài đặt phiên
 // +----------------------------------------------------------------------
 
 return [
     // session name
     'name'           => '',
-    // SESSION_ID的提交变量,解决flash上传跨域
+    // SESSION_IDbiến cam kết,Giải quyết vấn đề tải lên flash giữa nhiều miền
     'var_session_id' => '',
-    // 驱动方式 支持file redis memcache memcached
+    // Hỗ trợ chế độ lái xefile redis memcache memcached
     'type'           => 'file',
-    // 过期时间
+    // Thời gian hết hạn
     'expire'         => 10800,
-    // 前缀
+    // tiền tố
     'prefix'         => '',
 ];

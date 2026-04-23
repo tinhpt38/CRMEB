@@ -1,30 +1,30 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 /**
- * 布局配置
+ * cấu hình bố trí
  * */
 
 export default {
   namespaced: true,
   state: {
-    isMobile: false, // 是否为手机
-    isTablet: false, // 是否为平板
-    isDesktop: true, // 是否为桌面
-    isFullscreen: false, // 是否切换到了全屏
+    isMobile: false, // Có phải là điện thoại di động không?
+    isTablet: false, // Nó có phải là một máy tính bảng?
+    isDesktop: true, // Đây có phải là máy tính để bàn không?
+    isFullscreen: false, // Có nên chuyển sang toàn màn hình không
   },
   mutations: {
     /**
-     * @description 设置设备类型
+     * @description Đặt loại thiết bị
      * @param {Object} state vuex state
-     * @param {String} type 设备类型，可选值为 Mobile、Tablet、Desktop
+     * @param {String} type Loại thiết bị, giá trị tùy chọn là Mobile、Tablet、Desktop
      */
     setDevice(state, type) {
       state.isMobile = false;

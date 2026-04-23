@@ -1,4 +1,4 @@
-// 定义内容
+// Xác định nội dung
 export default {
   login: {
     placeholder1: '',

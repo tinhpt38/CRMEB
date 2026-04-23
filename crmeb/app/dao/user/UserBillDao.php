@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\dao\BaseDao;
 use app\model\user\UserBill;
 
 /**
- * 用户资金&积分&经验
+ * Tiền & điểm & kinh nghiệm của người dùng
  * Class UserBilldao
  * @package app\dao\user
  */
@@ -24,7 +24,7 @@ class UserBillDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -33,7 +33,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @param array $where
      * @param string $field
      * @param int $page
@@ -55,7 +55,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @param array $where
      * @param string $field
      * @param int $page
@@ -73,7 +73,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取某个条件总数
+     * Lấy tổng số của một điều kiện nhất định
      * @param array $where
      */
     public function getBillSum(array $where)
@@ -82,7 +82,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取退款金额按照时间分组
+     * Nhận số tiền hoàn lại được nhóm theo thời gian
      * @param array $time
      * @param string $timeType
      * @param string $field
@@ -102,7 +102,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取某个条件总条数
+     * Lấy tổng số mục cho một điều kiện nhất định
      * @param array $where
      */
     public function getBillCount(array $where)
@@ -111,7 +111,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取某些条件的bill总数
+     * Lấy tổng số hóa đơn theo những điều kiện nhất định
      * @param array $where
      * @return mixed
      */
@@ -135,7 +135,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取签到用户数量
+     * Lấy số lượng người dùng đã đăng nhập
      * @param array $where
      * @return mixed
      */
@@ -145,7 +145,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 修改收货状态
+     * Sửa đổi trạng thái biên nhận
      * @param int $uid
      * @param int $id
      * @return \crmeb\basic\BaseModel
@@ -168,7 +168,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取佣金排行
+     * Nhận xếp hạng hoa hồng
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -185,7 +185,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 时间分组
+     * nhóm thời gian
      * @param array $where
      * @param string $filed
      * @param string $group
@@ -213,7 +213,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 计算某个条件下订单内商品总数
+     * Tính tổng số mặt hàng trong một đơn hàng trong các điều kiện nhất định
      * @param $where
      * @return float|int
      * @throws \think\db\exception\DataNotFoundException
@@ -235,7 +235,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取某个字段总和
+     * Lấy tổng của một trường
      * @param array $where
      * @param string $field
      * @return float
@@ -249,7 +249,7 @@ class UserBillDao extends BaseDao
             ->sum($field);
     }
 
-    /**根据某字段分组查询
+    /**Truy vấn nhóm dựa trên một trường nhất định
      * @param array $where
      * @param string $field
      * @param string $group
@@ -279,7 +279,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 获取退款佣金
+     * Nhận hoa hồng hoàn trả
      * @return mixed
      */
     public function getRefundBrokerage()
@@ -292,7 +292,7 @@ class UserBillDao extends BaseDao
     }
 
     /**
-     * 积分趋势
+     * Xu hướng điểm
      * @param $time
      * @param $timeType
      * @param $field

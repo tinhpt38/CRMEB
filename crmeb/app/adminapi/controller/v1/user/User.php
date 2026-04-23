@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -37,7 +37,7 @@ class User extends AuthController
     }
 
     /**
-     * 用户列表
+     * Danh sách người dùng
      * @return mixed
      */
     public function index()
@@ -77,7 +77,7 @@ class User extends AuthController
     }
 
     /**
-     * 添加用户表单
+     * Thêm biểu mẫu người dùng
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -87,7 +87,7 @@ class User extends AuthController
     }
 
     /**
-     * 添加编辑用户信息时候的信息
+     * Thêm thông tin khi chỉnh sửa thông tin người dùng
      * @param $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -101,7 +101,7 @@ class User extends AuthController
     }
 
     /**
-     * 保存新建用户
+     * Lưu người dùng mới
      * @return mixed
      * @throws \think\Exception
      */
@@ -124,32 +124,32 @@ class User extends AuthController
             ['status', 0]
         ]);
         if (!$data['real_name']) {
-            return app('json')->fail('请填写姓名和电话');
+            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
         }
         if (!$data['phone']) {
-            return app('json')->fail('请填写姓名和电话');
+            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
         }
         if (!check_phone($data['phone'])) {
-            return app('json')->fail('手机号格式错误');
+            return app('json')->fail('Lỗi định dạng số điện thoại di động');
         }
         if ($this->services->count(['phone' => $data['phone'], 'is_del' => 0])) {
-            return app('json')->fail('手机号已经存在');
+            return app('json')->fail('Số điện thoại di động đã tồn tại');
         }
         $data['nickname'] = $data['real_name'];
         if ($data['card_id']) {
-            if (!check_card($data['card_id'])) return app('json')->fail('请输入正确的身份证');
+            if (!check_card($data['card_id'])) return app('json')->fail('Vui lòng nhập đúng CMND');
         }
         if (!$data['pwd']) {
-            return app('json')->fail('请输入密码');
+            return app('json')->fail('Vui lòng nhập mật khẩu');
         }
         if (!$data['true_pwd']) {
-            return app('json')->fail('请输入确认密码');
+            return app('json')->fail('Vui lòng nhập mật khẩu xác nhận');
         }
         if ($data['pwd'] != $data['true_pwd']) {
-            return app('json')->fail('两次输入的密码不一致');
+            return app('json')->fail('Mật khẩu nhập hai lần không nhất quán');
         }
         if (strlen($data['pwd']) < 6 || strlen($data['pwd']) > 32) {
-            return app('json')->fail('账号密码必须是在6到32位之间');
+            return app('json')->fail('Mật khẩu tài khoản phải từ 6 đến 32 ký tự');
         }
         $data['pwd'] = md5($data['pwd']);
         unset($data['true_pwd']);
@@ -177,14 +177,14 @@ class User extends AuthController
                 $res = $this->services->saveGiveLevel((int)$userInfo->uid, (int)$data['level']);
             }
             if (!$res) {
-                return app('json')->fail('保存失败');
+                return app('json')->fail('Lưu không thành công');
             }
         });
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 获取用户账户详情
+     * Nhận chi tiết tài khoản người dùng
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -200,18 +200,18 @@ class User extends AuthController
     }
 
     /**
-     * 赠送会员等级表单
+     * Mẫu cấp độ thành viên miễn phí
      * @param $id
      * @return mixed
      */
     public function give_level($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->giveLevel((int)$id));
     }
 
     /**
-     * 执行赠送会员等级
+     * Triển khai cấp độ thành viên miễn phí
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -220,27 +220,27 @@ class User extends AuthController
      */
     public function save_give_level($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         list($level_id) = $this->request->postMore([
             ['level_id', 0],
         ], true);
-        return app('json')->success($this->services->saveGiveLevel((int)$id, (int)$level_id) ? '赠送成功' : '赠送失败');
+        return app('json')->success($this->services->saveGiveLevel((int)$id, (int)$level_id) ? 'Quà tặng thành công' : 'Quà tặng không thành công');
     }
 
     /**
-     * 赠送付费会员时长表单
+     * Mẫu thời hạn thành viên trả phí miễn phí
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function give_level_time($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->giveLevelTime((int)$id));
     }
 
     /**
-     * 执行赠送付费会员时长
+     * Thực hiện thời hạn thành viên trả phí miễn phí
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -249,26 +249,26 @@ class User extends AuthController
      */
     public function save_give_level_time($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         list($days) = $this->request->postMore([
             ['days', 0],
         ], true);
-        return app('json')->success($this->services->saveGiveLevelTime((int)$id, (int)$days) ? '赠送成功' : '赠送失败');
+        return app('json')->success($this->services->saveGiveLevelTime((int)$id, (int)$days) ? 'Quà tặng thành công' : 'Quà tặng không thành công');
     }
 
     /**
-     * 清除会员等级
+     * Xóa cấp độ thành viên
      * @param $id
      * @return mixed
      */
     public function del_level($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
-        return app('json')->success($this->services->cleanUpLevel((int)$id) ? '清除成功' : '清除失败');
+        if (!$id) return app('json')->fail('Lỗi tham số');
+        return app('json')->success($this->services->cleanUpLevel((int)$id) ? 'Xóa thành công' : 'Xóa không thành công');
     }
 
     /**
-     * 设置会员分组
+     * Thiết lập các nhóm thành viên
      * @return mixed
      */
     public function set_group()
@@ -276,12 +276,12 @@ class User extends AuthController
         list($uids) = $this->request->postMore([
             ['uids', []],
         ], true);
-        if (!$uids) return app('json')->fail('参数错误');
+        if (!$uids) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->setGroup($uids));
     }
 
     /**
-     * 保存会员分组
+     * Lưu nhóm thành viên
      * @return mixed
      */
     public function save_set_group()
@@ -290,14 +290,14 @@ class User extends AuthController
             ['group_id', 0],
             ['uids', ''],
         ], true);
-        if (!$uids) return app('json')->fail('参数错误');
-        if (!$group_id) return app('json')->fail('请选择分组');
+        if (!$uids) return app('json')->fail('Lỗi tham số');
+        if (!$group_id) return app('json')->fail('Vui lòng chọn một nhóm');
         $uids = explode(',', $uids);
-        return app('json')->success($this->services->saveSetGroup($uids, (int)$group_id) ? '设置成功' : '设置失败');
+        return app('json')->success($this->services->saveSetGroup($uids, (int)$group_id) ? 'Thiết lập thành công' : 'Thiết lập không thành công');
     }
 
     /**
-     * 设置用户标签
+     * Đặt nhãn người dùng
      * @return mixed
      */
     public function set_label()
@@ -306,12 +306,12 @@ class User extends AuthController
             ['uids', []],
         ], true);
         $uid = implode(',', $uids);
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->setLabel($uids));
     }
 
     /**
-     * 保存用户标签
+     * Lưu nhãn người dùng
      * @return mixed
      */
     public function save_set_label()
@@ -321,26 +321,26 @@ class User extends AuthController
             ['uids', ''],
             ['label_type', 0],
         ], true);
-        if (!$uids) return app('json')->fail('参数错误');
-        if (!$labels) return app('json')->fail('请选择标签');
+        if (!$uids) return app('json')->fail('Lỗi tham số');
+        if (!$labels) return app('json')->fail('Vui lòng chọn một nhãn');
         $uids = explode(',', $uids);
-        return app('json')->success($this->services->saveSetLabel($uids, $labels, $label_type) ? '设置成功' : '设置失败');
+        return app('json')->success($this->services->saveSetLabel($uids, $labels, $label_type) ? 'Thiết lập thành công' : 'Thiết lập không thành công');
     }
 
     /**
-     * 编辑其他
+     * Chỉnh sửa khác
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function edit_other($id, $type)
     {
-        if (!$id) return app('json')->fail('数据不存在');
+        if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
         return app('json')->success($this->services->editOther((int)$id, $type));
     }
 
     /**
-     * 执行编辑其他
+     * Biên tập viên điều hành Khác
      * @param $id
      * @return mixed
      * @throws \think\Exception
@@ -356,28 +356,28 @@ class User extends AuthController
             ['integration', 0],
             ['mark', ''],
         ]);
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $data['adminId'] = $this->adminId;
         $data['money'] = (string)$data['money'];
         $data['integration'] = (string)$data['integration'];
         $data['is_other'] = true;
-        return app('json')->success($this->services->updateInfo($id, $data) ? '修改成功' : '修改失败');
+        return app('json')->success($this->services->updateInfo($id, $data) ? 'Sửa đổi thành công' : 'Sửa đổi không thành công');
     }
 
     /**
-     * 编辑会员信息
+     * Chỉnh sửa thông tin thành viên
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function edit($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->edit($id));
     }
 
     /**
-     * 修改用户
+     * Sửa đổi người dùng
      * @param $id
      * @return mixed
      * @throws \think\Exception
@@ -406,31 +406,31 @@ class User extends AuthController
             ['true_pwd'],
             ['spread_open', 1]
         ]);
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         if (!$data['real_name']) {
-            return app('json')->fail('请填写姓名和电话');
+            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
         }
         if (!$data['phone']) {
-            return app('json')->fail('请填写姓名和电话');
+            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
         }
         if ($data['phone']) {
-            if (!preg_match("/^1[3456789]\d{9}$/", $data['phone'])) return app('json')->fail('手机号格式错误');
+            if (!preg_match("/^1[3456789]\d{9}$/", $data['phone'])) return app('json')->fail('Lỗi định dạng số điện thoại di động');
         }
         if ($this->services->count(['phone' => $data['phone'], 'is_del' => 0, 'not_uid' => $id])) {
-            return app('json')->fail('手机号已经存在');
+            return app('json')->fail('Số điện thoại di động đã tồn tại');
         }
         if ($data['card_id']) {
-            if (!check_card($data['card_id'])) return app('json')->fail('请输入正确的身份证');
+            if (!check_card($data['card_id'])) return app('json')->fail('Vui lòng nhập đúng CMND');
         }
         if ($data['pwd']) {
             if (!$data['true_pwd']) {
-                return app('json')->fail('请输入确认密码');
+                return app('json')->fail('Vui lòng nhập mật khẩu xác nhận');
             }
             if ($data['pwd'] != $data['true_pwd']) {
-                return app('json')->fail('两次输入的密码不一致');
+                return app('json')->fail('Mật khẩu nhập hai lần không nhất quán');
             }
             if (strlen($data['pwd']) < 6 || strlen($data['pwd']) > 32) {
-                return app('json')->fail('账号密码必须是在6到32位之间');
+                return app('json')->fail('Mật khẩu tài khoản phải từ 6 đến 32 ký tự');
             }
             $data['pwd'] = md5($data['pwd']);
         } else {
@@ -440,11 +440,11 @@ class User extends AuthController
         $data['adminId'] = $this->adminId;
         $data['money'] = (string)$data['money'];
         $data['integration'] = (string)$data['integration'];
-        return app('json')->success($this->services->updateInfo($id, $data) ? '修改成功' : '修改失败');
+        return app('json')->success($this->services->updateInfo($id, $data) ? 'Sửa đổi thành công' : 'Sửa đổi không thành công');
     }
 
     /**
-     * 获取单个用户信息
+     * Nhận thông tin người dùng cá nhân
      * @param $id
      * @return mixed
      */
@@ -454,22 +454,22 @@ class User extends AuthController
             ['type', ''],
         ]);
         $id = (int)$id;
-        if ($data['type'] == '') return app('json')->fail('参数错误');
+        if ($data['type'] == '') return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->oneUserInfo($id, $data['type']));
     }
 
     /**
-     * 同步微信粉丝用户
+     * Đồng bộ hóa người dùng người hâm mộ WeChat
      * @return mixed
      */
     public function syncWechatUsers()
     {
         $this->services->syncWechatUsers();
-        return app('json')->success('加入消息队列成功');
+        return app('json')->success('Đã tham gia hàng đợi tin nhắn thành công');
     }
 
     /**
-     * 新人礼
+     * lễ cưới
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -486,7 +486,7 @@ class User extends AuthController
     }
 
     /**
-     * 保存新人礼
+     * Tiết kiệm quà cưới
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -504,6 +504,6 @@ class User extends AuthController
             $configServices->update($k, ['value' => json_encode($v)], 'menu_name');
         }
         CacheService::clear();
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 }

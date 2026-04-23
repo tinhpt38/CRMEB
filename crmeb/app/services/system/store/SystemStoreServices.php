@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,16 +17,16 @@ use app\services\BaseServices;
 use crmeb\exceptions\AdminException;
 
 /**
- * 门店
+ * cửa hàng
  * Class SystemStoreServices
  * @package app\services\system\store
- * @method update($id, array $data, ?string $key = null) 修改数据
- * @method get(int $id, ?array $field = []) 获取数据
+ * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
+ * @method get(int $id, ?array $field = []) Nhận dữ liệu
  */
 class SystemStoreServices extends BaseServices
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemStoreServices constructor.
      * @param SystemStoreDao $dao
      */
@@ -36,7 +36,7 @@ class SystemStoreServices extends BaseServices
     }
 
     /**
-     * 获取提货点列表
+     * Nhận danh sách điểm đón
      * @param array $where
      * @param string $latitude
      * @param string $longitude
@@ -59,28 +59,28 @@ class SystemStoreServices extends BaseServices
     }
 
     /**
-     * 获取提货点头部统计信息
+     * Lấy thống kê đầu của điểm đón
      * @return mixed
      */
     public function getStoreData()
     {
         $data['show'] = [
-            'name' => '显示中的提货点',
+            'name' => 'Hiển thị điểm đón',
             'num' => $this->dao->count(['type' => 0]),
         ];
         $data['hide'] = [
-            'name' => '隐藏中的提货点',
+            'name' => 'Điểm đón ẩn',
             'num' => $this->dao->count(['type' => 1]),
         ];
         $data['recycle'] = [
-            'name' => '回收站的提货点',
+            'name' => 'Điểm thu gom thùng rác tái chế',
             'num' => $this->dao->count(['type' => 2])
         ];
         return $data;
     }
 
     /**
-     * 保存或修改门店
+     * Lưu hoặc sửa đổi cửa hàng
      * @param int $id
      * @param array $data
      * @return mixed
@@ -92,7 +92,7 @@ class SystemStoreServices extends BaseServices
                 if ($this->dao->update($id, $data)) {
                     return true;
                 } else {
-                    throw new AdminException('修改失败');
+                    throw new AdminException('Sửa đổi không thành công');
                 }
             } else {
                 $data['add_time'] = time();
@@ -100,14 +100,14 @@ class SystemStoreServices extends BaseServices
                 if ($this->dao->save($data)) {
                     return true;
                 } else {
-                    throw new AdminException('保存失败');
+                    throw new AdminException('Lưu không thành công');
                 }
             }
         });
     }
 
     /**
-     * 后台获取提货点详情
+     * Nhận thông tin chi tiết về điểm đón ở chế độ nền
      * @param int $id
      * @param string $felid
      * @return array|false|mixed|string|string[]|\think\Model|null
@@ -133,7 +133,7 @@ class SystemStoreServices extends BaseServices
     }
 
     /**
-     * 获取门店不分页
+     * Nhận cửa hàng mà không cần phân trang
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -145,7 +145,7 @@ class SystemStoreServices extends BaseServices
     }
 
     /**
-     * 获得导出店员列表
+     * Nhận danh sách nhân viên cửa hàng xuất khẩu
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException

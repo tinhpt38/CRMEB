@@ -1,34 +1,34 @@
-crmeb/route目录在CRMEB项目中的主要作用是用于定义项目的路由规则。
+crmeb/routeVai trò chính của thư mục trong dự án CRMEB là xác định các quy tắc định tuyến của dự án.
 
-1. 定义一个 Route::miss 方法处理路由未匹配的情况
+1. Xác định một Route::miss Phương pháp xử lý trường hợp tuyến đường không khớp
 
-2. 根据请求路径获取应用名称(如 admin、app 等)
+2. Lấy tên ứng dụng dựa trên đường dẫn yêu cầu(Chẳng hạn như quản trị viên, ứng dụng, v.v.)
 
-3. 根据应用名称返回不同的视图文件
+3. Trả về các tệp xem khác nhau dựa trên tên ứng dụng
 
-   - admin前台后台分别返回不同入口
+   - Quầy lễ tân và quầy lễ tân lần lượt quay về các lối vào khác nhau
 
-   - app/kefu定义了对应的视图
+   - app/kefu xác định chế độ xem tương ứng
 
-   - home覆盖移动端和PC入口
+   - Trang chủ bao gồm cổng thông tin di động và PC
 
-   - 其它情况判断是否移动端返回不同视图
+   - Trong các trường hợp khác, hãy xác định xem thiết bị đầu cuối di động có trả về chế độ xem khác hay không
 
-4. 完整定义了项目所有可能的路由入口
+4. Xác định đầy đủ tất cả các mục định tuyến có thể có cho dự án
 
-5. 根据请求信息智能匹配视图资源文件
+5. Kết hợp thông minh các tệp tài nguyên xem dựa trên thông tin được yêu cầu
 
-主要作用:
+Chức năng chính:
 
-- 统一处理所有路由匹配
-- 隐藏实际控制器入口
-- 根据应用名分发页面
-- 实现PC端和移动端自动切换
+- Xử lý tất cả các tuyến đường phù hợp một cách thống nhất
+- Ẩn mục điều khiển thực tế
+- Phân phối các trang dựa trên tên ứng dụng
+- Thực hiện chuyển đổi tự động giữa PC và thiết bị đầu cuối di động
 
-这种设计可以:
+Thiết kế này có thể:
 
-- 完整覆盖所有路由情况
-- 隐藏实际路由层次结构
-- 实现智能的页面分发
+- Bảo hiểm đầy đủ tất cả các tình huống định tuyến
+-Ẩn hệ thống phân cấp định tuyến thực tế
+- Thực hiện phân phối trang thông minh
 
-是动态路由设计的一个很好范例。
+là một ví dụ điển hình về thiết kế định tuyến động。

@@ -14,14 +14,14 @@
         >
       </div>
       <div class="search-box">
-        <el-input placeholder="搜索快捷回复" style="width: 100%" v-model="searchTxt" />
+        <el-input placeholder="Tìm kiếm câu trả lời nhanh" style="width: 100%" v-model="searchTxt" />
       </div>
     </div>
     <div class="main">
       <div class="left-box">
         <vue-scroll :ops="ops">
           <div class="left-item" v-if="tabCur">
-            <p>分组</p>
+            <p>Nhóm</p>
             <span class="iconfont iconaddto" v-db-click @click="openAddSort"></span>
           </div>
           <div
@@ -37,8 +37,8 @@
               <span class="iconfont iconDot" v-db-click @click.top="bindEdit(item, scope.$index)"></span>
 
               <div class="edit-wrapper" v-show="item.isEdit">
-                <div class="edit-item" v-db-click @click="editSort(item)">编辑</div>
-                <div class="edit-item" v-db-click @click="delSort(item, '删除分类', scope.$index)">删除</div>
+                <div class="edit-item" v-db-click @click="editSort(item)">biên tập</div>
+                <div class="edit-item" v-db-click @click="delSort(item, 'Xóa danh mục', scope.$index)">xóa bỏ</div>
               </div>
               <div class="edit-bg" v-show="item.isEdit" v-db-click @click.stop="item.isEdit = false"></div>
             </template>
@@ -58,13 +58,13 @@
               <el-input
                 class="input-box"
                 v-model="addMsg.title"
-                placeholder="输入标题（选填）"
+                placeholder="Nhập tiêu đề (tùy chọn)）"
                 style="width: 100%"
                 @on-focus="bindFocus"
               />
               <div class="conBox" :class="{ active: addMsg.isEdit }">
                 <div class="content">
-                  <el-input v-model="addMsg.message" type="textarea" :rows="4" placeholder="请输入内容" />
+                  <el-input v-model="addMsg.message" type="textarea" :rows="4" placeholder="Vui lòng nhập nội dung" />
                 </div>
                 <div class="bom">
                   <div class="select">
@@ -73,8 +73,8 @@
                     </el-select>
                   </div>
                   <div class="btns-box">
-                    <el-button v-db-click @click.stop="addMsg.isEdit = false">取消</el-button>
-                    <el-button type="primary" v-db-click @click.stop="bindAdd">保存</el-button>
+                    <el-button v-db-click @click.stop="addMsg.isEdit = false">Hủy bỏ</el-button>
+                    <el-button type="primary" v-db-click @click.stop="bindAdd">cứu</el-button>
                   </div>
                 </div>
               </div>
@@ -88,13 +88,13 @@
               </div>
               <div class="edit-box" v-if="tabCur">
                 <span class="iconfont iconbianji" v-db-click @click.stop="editMsg(item)"></span>
-                <span class="iconfont iconshanchu" v-db-click @click.stop="delMsg(item, '删除话术', index)"></span>
+                <span class="iconfont iconshanchu" v-db-click @click.stop="delMsg(item, 'Xóa từ', index)"></span>
               </div>
             </div>
             <div class="box2" v-else>
-              <el-input class="input-box" v-model="item.title" placeholder="输入标题（选填）" style="width: 100%" />
+              <el-input class="input-box" v-model="item.title" placeholder="Nhập tiêu đề (tùy chọn)）" style="width: 100%" />
               <div class="content">
-                <el-input v-model="item.message" type="textarea" :rows="4" placeholder="请输入内容" />
+                <el-input v-model="item.message" type="textarea" :rows="4" placeholder="Vui lòng nhập nội dung" />
               </div>
               <div class="bom">
                 <div class="select">
@@ -103,8 +103,8 @@
                   </el-select>
                 </div>
                 <div class="btns-box">
-                  <el-button v-db-click @click.stop="item.isEdit = false">取消</el-button>
-                  <el-button type="primary" v-db-click @click.stop="updataMsg(item)">保存</el-button>
+                  <el-button v-db-click @click.stop="item.isEdit = false">Hủy bỏ</el-button>
+                  <el-button type="primary" v-db-click @click.stop="updataMsg(item)">cứu</el-button>
                 </div>
               </div>
             </div>
@@ -114,16 +114,16 @@
     </div>
     <el-dialog :visible.sync="isAddSort" append-to-body :title="maskTitle" width="304px" class="class-box">
       <div class="item">
-        <span>分组名称：</span>
-        <el-input v-model="classTitle" placeholder="分组名称" />
+        <span>Tên nhóm：</span>
+        <el-input v-model="classTitle" placeholder="Tên nhóm" />
       </div>
       <div class="item">
-        <span>分组排序：</span>
-        <el-input v-model="classSort" placeholder="输入排序" />
+        <span>Sắp xếp nhóm：</span>
+        <el-input v-model="classSort" placeholder="sắp xếp đầu vào" />
       </div>
       <div class="btn"></div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" v-db-click @click="addServiceCate">确定</el-button>
+        <el-button type="primary" v-db-click @click="addServiceCate">Chắc chắn</el-button>
       </span>
     </el-dialog>
   </div>
@@ -175,35 +175,35 @@ export default {
       tabCur: 1,
       tabList: [
         {
-          title: '个人库',
+          title: 'thư viện cá nhân',
           key: 1,
         },
         {
-          title: '公共库',
+          title: 'thư viện công cộng',
           key: 0,
         },
       ],
-      searchTxt: '', // 搜索
+      searchTxt: '', // tìm kiếm
       list: [
         {
           isEdit: false,
         },
-      ], // 列表
+      ], // danh sách
       model1: '',
-      msgTitle: '', // 填写的标题
-      sortList: [], // 分类
-      cateId: '', // 选中的id
+      msgTitle: '', // Điền tiêu đề
+      sortList: [], // Phân loại
+      cateId: '', // đã chọnid
       addMsg: {
         title: '',
         message: '',
         cateId: '',
         isEdit: false,
       },
-      isAddSort: false, // 添加分类
-      classTitle: '', // 分类名称
-      classSort: '', // 分类排序
-      maskTitle: '', // 弹窗标题
-      editObj: {}, // 编辑分类对象
+      isAddSort: false, // Thêm danh mục
+      classTitle: '', // Tên danh mục
+      classSort: '', // Sắp xếp theo danh mục
+      maskTitle: '', // Tiêu đề cửa sổ bật lên
+      editObj: {}, // Chỉnh sửa đối tượng phân loại
     };
   },
   filters: {
@@ -243,12 +243,12 @@ export default {
     });
   },
   methods: {
-    // 打开编辑
+    // Mở để chỉnh sửa
     editMsg(item) {
       item.isEdit = true;
       this.cateId = item.cate_id;
     },
-    // 编辑框
+    // hộp chỉnh sửa
     bindEdit(item, index) {
       //   if (index == 0) {
       //     return;
@@ -256,7 +256,7 @@ export default {
       item.isEdit = !item.isEdit;
       //   }
     },
-    // 头部选择
+    // Lựa chọn đầu
     bindTab(item) {
       debugger;
       this.tabCur = item.key;
@@ -267,14 +267,14 @@ export default {
       this.list = [];
       this.serviceCate();
     },
-    // 搜索
+    // tìm kiếm
     bindSearch() {
       this.isScroll = true;
       this.page = 1;
       this.list = [];
       this.getList();
     },
-    // 选择分类
+    // Chọn danh mục
     selectSort(item) {
       if (this.cateId == item.id) {
         return;
@@ -290,7 +290,7 @@ export default {
       this.list = [];
       this.getList();
     },
-    // 删除分类
+    // Xóa danh mục
     delSort(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -313,14 +313,14 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 获取分类
+    // Nhận danh mục
     serviceCate() {
       serviceCate({
         type: this.tabCur,
       }).then((res) => {
         let obj = {
           id: '',
-          name: '全部',
+          name: 'tất cả',
         };
         res.data.data.forEach((el, index) => {
           el.isEdit = false;
@@ -333,7 +333,7 @@ export default {
         this.getList();
       });
     },
-    // 获取列表
+    // Nhận danh sách
     getList() {
       if (!this.isScroll) return;
       speeChcraft({
@@ -351,7 +351,7 @@ export default {
         this.list = this.list.concat(res.data);
       });
     },
-    // 修改话术
+    // Sửa đổi lời nói của bạn
     updataMsg(item) {
       serviceCateUpdate(item.id, {
         title: item.title,
@@ -359,7 +359,7 @@ export default {
         message: item.message,
       })
         .then((res) => {
-          this.$message.success('修改成功');
+          this.$message.success('Sửa đổi thành công');
           item.isEdit = false;
         })
         .catch((error) => {
@@ -367,20 +367,20 @@ export default {
           item.isEdit = true;
         });
     },
-    // 添加框显示
+    // Thêm hộp hiển thị
     bindFocus() {
       this.list.forEach((el, item) => {
         el.isEdit = false;
       });
       this.addMsg.isEdit = true;
     },
-    // 打开添加窗口
+    // Mở cửa sổ thêm
     openAddSort() {
       this.isAddSort = true;
-      this.maskTitle = '添加分组';
+      this.maskTitle = 'Thêm nhóm';
       this.editObj.id = 0;
     },
-    // 添加话术
+    // Thêm từ
     bindAdd() {
       addSpeeChcraft({
         title: this.addMsg.title,
@@ -403,7 +403,7 @@ export default {
           this.$message.error(error.msg);
         });
     },
-    // 删除
+    // xóa bỏ
     delMsg(row, tit, num, type) {
       let delfromData = {
         title: tit,
@@ -422,7 +422,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 添加分类
+    // Thêm danh mục
     addServiceCate() {
       if (this.editObj.id) {
         editServiceCate(this.editObj.id, {
@@ -466,12 +466,12 @@ export default {
           });
       }
     },
-    // 编辑分类
+    // Chỉnh sửa danh mục
     editSort(item) {
       this.classSort = item.sort;
       this.classTitle = item.name;
       this.isAddSort = true;
-      this.maskTitle = '编辑分组';
+      this.maskTitle = 'Chỉnh sửa nhóm';
       this.editObj = item;
     },
     handleReachBottom() {

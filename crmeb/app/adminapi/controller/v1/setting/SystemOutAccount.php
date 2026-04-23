@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,14 +17,14 @@ use app\services\out\OutInterfaceServices;
 use think\facade\App;
 
 /**
- * 对外接口账户
+ * Tài khoản giao diện bên ngoài
  * Class SystemOutAccount
  * @package app\adminapi\controller\v1\setting
  */
 class SystemOutAccount extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemOut constructor.
      * @param App $app
      * @param OutAccountServices $services
@@ -36,7 +36,7 @@ class SystemOutAccount extends AuthController
     }
 
     /**
-     * 账号信息
+     * Thông tin tài khoản
      * @return string
      * @throws \Exception
      */
@@ -50,32 +50,32 @@ class SystemOutAccount extends AuthController
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param string $status
      * @param string $id
      * @return mixed
      */
     public function set_status($id = '', $status = '')
     {
-        if ($status == '' || $id == '') return app('json')->fail('参数错误');
+        if ($status == '' || $id == '') return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['status' => $status]);
-        return app('json')->success($status == 1 ? '更新成功' : '更新失败');
+        return app('json')->success($status == 1 ? 'Cập nhật thành công' : 'Cập nhật không thành công');
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
-        if ($id == '') return app('json')->fail('参数错误');
+        if ($id == '') return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['is_del' => 1]);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 保存
+     * cứu
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -90,20 +90,20 @@ class SystemOutAccount extends AuthController
             ['rules', []],
         ]);
         $this->validate($data, StoreOutAccountValidate::class, 'save');
-        if ($this->services->getOne(['appid' => $data['appid']])) return app('json')->fail('账号重复');
+        if ($this->services->getOne(['appid' => $data['appid']])) return app('json')->fail('Tài khoản trùng lặp');
         $data['apppwd'] = $data['appsecret'];
         $data['appsecret'] = password_hash($data['appsecret'], PASSWORD_DEFAULT);
         $data['add_time'] = time();
         $data['rules'] = implode(',', $data['rules']);
         if (!$this->services->save($data)) {
-            return app('json')->fail('保存失败');
+            return app('json')->fail('Lưu không thành công');
         } else {
-            return app('json')->success('保存成功');
+            return app('json')->success('Đã lưu thành công');
         }
     }
 
     /**
-     * 修改
+     * Ôn lại
      * @param string $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -119,20 +119,20 @@ class SystemOutAccount extends AuthController
         ]);
 
         $this->validate($data, StoreOutAccountValidate::class, 'update');
-        if (!$this->services->getOne(['id' => $id])) return app('json')->fail('没有此账号');
+        if (!$this->services->getOne(['id' => $id])) return app('json')->fail('Không có tài khoản như vậy');
         $data['apppwd'] = $data['appsecret'];
         $data['appsecret'] = password_hash($data['appsecret'], PASSWORD_DEFAULT);
         $data['rules'] = implode(',', $data['rules']);
         $res = $this->services->update($id, $data);
         if (!$res) {
-            return app('json')->fail('保存失败');
+            return app('json')->fail('Lưu không thành công');
         } else {
-            return app('json')->success('保存成功');
+            return app('json')->success('Đã lưu thành công');
         }
     }
 
     /**
-     * 设置账号推送接口
+     * Thiết lập giao diện đẩy tài khoản
      * @param $id
      * @return mixed
      */
@@ -150,11 +150,11 @@ class SystemOutAccount extends AuthController
             ['refund_cancel_push', ''],
         ]);
         $this->services->outSetUpSave($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 对外接口列表
+     * Danh sách giao diện bên ngoài
      * @param OutInterfaceServices $service
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -167,7 +167,7 @@ class SystemOutAccount extends AuthController
     }
 
     /**
-     * 保存接口文档
+     * Lưu tài liệu giao diện
      * @param $id
      * @param OutInterfaceServices $service
      * @return mixed
@@ -175,24 +175,24 @@ class SystemOutAccount extends AuthController
     public function saveInterface($id, OutInterfaceServices $service)
     {
         $data = $this->request->postMore([
-            ['pid', 0], //上级id
-            ['type', 0], //类型 0菜单 1接口
-            ['name', ''], //名称
-            ['describe', ''], //说明
-            ['method', ''], //方法
-            ['url', ''], //链接地址
-            ['request_params', []], //请求参数
-            ['return_params', []], //返回参数
-            ['request_example', ''], //请求示例
-            ['return_example', ''], //返回示例
-            ['error_code', []] //错误码
+            ['pid', 0], //Thượng đẳngid
+            ['type', 0], //Loại 0 Menu 1 Giao diện
+            ['name', ''], //tên
+            ['describe', ''], //minh họa
+            ['method', ''], //phương pháp
+            ['url', ''], //Địa chỉ liên kết
+            ['request_params', []], //Thông số yêu cầu
+            ['return_params', []], //Trả về tham số
+            ['request_example', ''], //Yêu cầu ví dụ
+            ['return_example', ''], //Trả về ví dụ
+            ['error_code', []] //mã lỗi
         ]);
         $service->saveInterface((int)$id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 对外接口文档
+     * Tài liệu giao diện bên ngoài
      * @param $id
      * @param OutInterfaceServices $service
      * @return mixed
@@ -206,38 +206,38 @@ class SystemOutAccount extends AuthController
     }
 
     /**
-     * 修改接口名称
+     * Sửa đổi tên giao diện
      * @param OutInterfaceServices $service
      * @return mixed
      */
     public function editInterfaceName(OutInterfaceServices $service)
     {
         $data = $this->request->postMore([
-            ['id', 0], //上级id
-            ['name', ''], //名称
+            ['id', 0], //Thượng đẳngid
+            ['name', ''], //tên
         ]);
         if (!$data['id'] || !$data['name']) {
-            return app('json')->success('参数错误');
+            return app('json')->success('Lỗi tham số');
         }
         $service->editInterfaceName($data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除接口
+     * Xóa giao diện
      * @param $id
      * @param OutInterfaceServices $service
      * @return mixed
      */
     public function delInterface($id, OutInterfaceServices $service)
     {
-        if (!$id) return app('json')->success('参数错误');
+        if (!$id) return app('json')->success('Lỗi tham số');
         $service->delInterface($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 测试获取token接口
+     * Kiểm tra giao diện mã thông báo
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -250,6 +250,6 @@ class SystemOutAccount extends AuthController
             ['push_password', 0],
             ['push_token_url', '']
         ]);
-        return app('json')->success('设置成功', $this->services->textOutUrl($data));
+        return app('json')->success('Thiết lập thành công', $this->services->textOutUrl($data));
     }
 }

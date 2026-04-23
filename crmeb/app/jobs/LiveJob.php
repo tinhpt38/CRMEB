@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -22,27 +22,27 @@ class LiveJob extends BaseJobs
     use QueueTrait;
 
     /**
-     * 执行同步数据后
+     * Sau khi đồng bộ dữ liệu
      * @param $order
      * @return bool
      */
     public function doJob()
     {
-        //更新直播商品状态
+        //Cập nhật trạng thái sản phẩm trực tiếp
         try {
             /** @var LiveGoodsServices $liveGoods */
             $liveGoods = app()->make(LiveGoodsServices::class);
             $liveGoods->syncGoodStatus(true);
         } catch (\Throwable $e) {
-            Log::error('更新直播商品状态失败,失败原因:' . $e->getMessage());
+            Log::error('Không thể cập nhật trạng thái sản phẩm trực tiếp,Lý do thất bại:' . $e->getMessage());
         }
-        //更新直播间状态
+        //Cập nhật trạng thái phòng trực tiếp
         try {
             /** @var LiveRoomServices $liveRoom */
             $liveRoom = app()->make(LiveRoomServices::class);
             $liveRoom->syncRoomStatus(true);
         } catch (\Throwable $e) {
-            Log::error('更新直播间状态失败,失败原因:' . $e->getMessage());
+            Log::error('Không cập nhật được trạng thái phòng trực tiếp,Lý do thất bại:' . $e->getMessage());
         }
         return true;
     }

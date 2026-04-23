@@ -1,37 +1,37 @@
 /**
- * @压缩公共方法
- * @params file
- * @return 压缩后的文件，支持两种，file和 blob
+ * @Nén các phương thức công khai
+ * Tệp @params
+ * @return file nén, hỗ trợ 2 loại file và blob
  */
 export default function compressImg(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    // readAsDataURL 方法会读取指定的 Blob 或 File 对象。读取操作完成的时候，readyState 会变成已完成DONE，并触发 loadend (en-US) 事件，
-    // 同时 result 属性将包含一个data:URL格式的字符串（base64编码）以表示所读取文件的内容。
+    // readAsDataURL Phương thức này đọc đối tượng Blob hoặc File được chỉ định. Khi thao tác đọc hoàn tất, trạng thái sẵn sàng sẽ thay đổi thành DONE đã hoàn thành và kích hoạt loadend (en-US) sự kiện,
+    // Đồng thời, thuộc tính kết quả sẽ chứa mộtdata:URLChuỗi định dạng (được mã hóa base64) để thể hiện nội dung của tệp đang được đọc。
     reader.readAsDataURL(file);
     reader.onload = () => {
       const img = new Image();
       img.src = reader.result;
       img.onload = () => {
-        // 图片的宽高
+        // Chiều rộng và chiều cao của hình ảnh
         const w = img.width;
         const h = img.height;
         const canvas = document.createElement('canvas');
-        // canvas对图片进行裁剪，这里设置为图片的原始尺寸
+        // canvasCắt ảnh, đặt ở đây về kích thước ban đầu của ảnh
         canvas.width = w;
         canvas.height = h;
         const ctx = canvas.getContext('2d');
-        // canvas中，png转jpg会变黑底，所以先给canvas铺一张白底
+        // canvasKhi chuyển đổi png sang jpg, nền sẽ chuyển sang màu đen, vì vậy trước tiên hãy đặt nền trắng trên khung vẽ.
         ctx.fillStyle = '#fff';
-        // fillRect()方法绘制一个填充了内容的矩形，这个矩形的开始点（左上点）在
-        // (x, y) ，它的宽度和高度分别由width 和 height 确定，填充样式由当前的fillStyle 决定。
+        // fillRect()Phương thức vẽ một hình chữ nhật có điểm bắt đầu (điểm trên bên trái) của hình chữ nhật tại
+        // (x, y) ，Chiều rộng và chiều cao của nó được xác định bởi chiều rộng và chiều cao tương ứng và kiểu điền được xác định bởi fillStyle hiện tại。
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        // 绘制图像
+        // vẽ hình ảnh
         ctx.drawImage(img, 0, 0, w, h);
 
-        // canvas转图片达到图片压缩效果
-        // 返回一个包含图片展示的 data URI base64 在指定图片格式为 image/jpeg 或 image/webp的情况下，
-        // 可以从 0 到 1 的区间内选择图片的质量。如果超出取值范围，将会使用默认值 0.92。其他参数会被忽略。
+        // canvasChuyển đổi hình ảnh để đạt được hiệu ứng nén hình ảnh
+        // Trả về một URI dữ liệu base64 chứa hình ảnh hiển thị. Khi định dạng hình ảnh được chỉ định là image/jpeg hoặc image/webp,
+        // Bạn có thể chọn chất lượng hình ảnh từ 0 đến 1. Nếu giá trị nằm ngoài phạm vi, giá trị mặc định là 0,92 sẽ được sử dụng. Các thông số khác sẽ bị bỏ qua。
         const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
         let newFile = dataURLtoFile(dataUrl, file.name);
         resolve(newFile);

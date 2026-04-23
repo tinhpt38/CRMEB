@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,7 +19,7 @@ class OrderClient extends BaseOrder
 {
     const cache_prefix = 'mini_order';
 
-    const express_company = 'ZTO';   // 默认发货快递公司为（中通快递）
+    const express_company = 'ZTO';   // Công ty chuyển phát nhanh vận chuyển mặc định là (ZTO Express）
 
     /**
      * @var
@@ -27,7 +27,7 @@ class OrderClient extends BaseOrder
     protected $cache;
 
     /**
-     * 处理联系人
+     * Xử lý danh bạ
      * @param array $contact
      * @return array
      *
@@ -48,7 +48,7 @@ class OrderClient extends BaseOrder
     }
 
     /**
-     * 发货
+     * vận chuyển
      * @param string $out_trade_no
      * @param int $logistics_type
      * @param array $shipping_list
@@ -64,7 +64,7 @@ class OrderClient extends BaseOrder
     public function shippingByTradeNo(string $out_trade_no, int $logistics_type, array $shipping_list, string $payer_openid, $path, int $delivery_mode = 1, bool $is_all_delivered = true)
     {
         if (!$this->checkManaged()) {
-            throw new AdminException('开通小程序订单管理服务后重试');
+            throw new AdminException('Hãy thử lại sau khi kích hoạt dịch vụ quản lý đơn hàng chương trình mini');
         }
         $params = [
             'order_key' => [
@@ -97,13 +97,13 @@ class OrderClient extends BaseOrder
             $params['shipping_list'] = $shipping_list;
         }
 
-        // 跳转路径
+        // Đường nhảy
         $this->setMesJumpPath($path);
         return $this->shipping($params);
     }
 
     /**
-     * 订单列表查询
+     * Truy vấn danh sách đơn hàng
      * @param $params
      * @return array
      * @throws HttpException
@@ -114,14 +114,14 @@ class OrderClient extends BaseOrder
     public function shippingOrderList($params)
     {
         if (!$this->checkManaged()) {
-            throw new AdminException('开通小程序订单管理服务后重试');
+            throw new AdminException('Hãy thử lại sau khi kích hoạt dịch vụ quản lý đơn hàng chương trình mini');
         }
         return $this->orderList($params);
     }
 
 
     /**
-     * 合单
+     * thứ tự kết hợp
      * @param string $out_trade_no
      * @param int $logistics_type
      * @param array $sub_orders
@@ -137,7 +137,7 @@ class OrderClient extends BaseOrder
     public function combinedShippingByTradeNo(string $out_trade_no, int $logistics_type, array $sub_orders, string $payer_openid, int $delivery_mode = 2, bool $is_all_delivered = false)
     {
         if (!$this->checkManaged()) {
-            throw new AdminException('开通小程序订单管理服务后重试');
+            throw new AdminException('Hãy thử lại sau khi kích hoạt dịch vụ quản lý đơn hàng chương trình mini');
         }
         $params = [
             'order_key' => [
@@ -179,7 +179,7 @@ class OrderClient extends BaseOrder
 
 
     /**
-     * 签收通知
+     * Ký nhận thông báo
      * @param string $merchant_trade_no
      * @param string $received_time
      * @return array
@@ -199,7 +199,7 @@ class OrderClient extends BaseOrder
     }
 
     /**
-     * 设置跳转连接
+     * Thiết lập kết nối nhảy
      * @param $path
      * @return array
      * @throws \EasyWeChat\Core\Exceptions\HttpException
@@ -210,13 +210,13 @@ class OrderClient extends BaseOrder
     public function setMesJumpPathAndCheck($path)
     {
         if (!$this->checkManaged()) {
-            throw new AdminException('开通小程序订单管理服务后重试');
+            throw new AdminException('Hãy thử lại sau khi kích hoạt dịch vụ quản lý đơn hàng chương trình mini');
         }
         return $this->setMesJumpPath($path);
     }
 
     /**
-     * 设置小程序管理服务开通状态
+     * Đặt trạng thái kích hoạt dịch vụ quản lý chương trình mini
      * @return bool
      * @throws HttpException
      *
@@ -254,7 +254,7 @@ class OrderClient extends BaseOrder
     }
 
     /**
-     * 同步去微信物流列表
+     * Đồng bộ hóa với danh sách hậu cần WeChat
      * @return array
      * @throws HttpException
      *
@@ -267,17 +267,17 @@ class OrderClient extends BaseOrder
         if ($list) {
             $key = self::cache_prefix . '_delivery_list';
             $data = array_column($list['delivery_list'], 'delivery_id', 'delivery_name');
-            // 创建缓存
+            // Tạo bộ đệm
             CacheService::set($key, json_encode($data));
 
             return $data;
         } else {
-            throw new AdminException('物流公司列表异常');
+            throw new AdminException('Danh sách công ty hậu cần ngoại lệ');
         }
     }
 
     /**
-     * 获取物流公司编码
+     * Lấy mã công ty logistic
      * @param $company_name
      * @return array|mixed
      * @throws HttpException

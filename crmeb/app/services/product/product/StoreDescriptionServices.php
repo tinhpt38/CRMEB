@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,7 +19,7 @@ use crmeb\exceptions\AdminException;
 /**
  * Class StoreDescriptionService
  * @package app\services\product\product
- * @method value($where, ?string $field = null) 获取字段
+ * @method value($where, ?string $field = null) Nhận các trường
  */
 class StoreDescriptionServices extends BaseServices
 {
@@ -33,7 +33,7 @@ class StoreDescriptionServices extends BaseServices
     }
 
     /**
-     * 获取商品详情
+     * Nhận chi tiết sản phẩm
      * @param array $where
      * @return string
      */
@@ -45,7 +45,7 @@ class StoreDescriptionServices extends BaseServices
     }
 
     /**
-     * 保存商品详情
+     * Lưu chi tiết sản phẩm
      * @param int $id
      * @param string $description
      * @param int $type
@@ -60,7 +60,7 @@ class StoreDescriptionServices extends BaseServices
         } else {
             $res = $this->dao->save(['product_id' => $id, 'description' => $description, 'type' => $type]);
         }
-        if (!$res) throw new AdminException('商品详情保存失败');
+        if (!$res) throw new AdminException('Không lưu được chi tiết sản phẩm');
     }
 
 }

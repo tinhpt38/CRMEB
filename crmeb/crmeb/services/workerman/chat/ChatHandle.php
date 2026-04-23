@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -50,7 +50,7 @@ class ChatHandle
     }
 
     /**
-     * 客服登录
+     * Đăng nhập dịch vụ khách hàng
      * @param TcpConnection $connection
      * @param array $res
      * @param Response $response
@@ -64,7 +64,7 @@ class ChatHandle
     {
         if (!isset($res['data']) || !$token = $res['data']) {
             return $response->close([
-                'msg' => '授权失败!'
+                'msg' => 'Ủy quyền không thành công!'
             ]);
         }
         try {
@@ -83,7 +83,7 @@ class ChatHandle
         $connection->user = $userService->get($kefuInfo['uid'], ['uid', 'nickname']);
         if (!isset($connection->user->uid)) {
             return $response->close([
-                'msg' => '您登录的客服用户不存在'
+                'msg' => 'Người dùng dịch vụ khách hàng bạn đăng nhập không tồn tại'
             ]);
         }
         /** @var StoreServiceRecordServices $service */
@@ -98,7 +98,7 @@ class ChatHandle
     }
 
     /**
-     * 用户登录
+     * Đăng nhập người dùng
      * @param TcpConnection $connection
      * @param array $res
      * @param Response $response
@@ -108,7 +108,7 @@ class ChatHandle
     {
         if (!isset($res['data']) || !$token = $res['data']) {
             return $response->close([
-                'msg' => '授权失败!'
+                'msg' => 'Ủy quyền không thành công!'
             ]);
         }
 
@@ -177,7 +177,7 @@ class ChatHandle
     }
 
     /**
-     * 用户向客服发送消息
+     * Người dùng gửi tin nhắn đến bộ phận chăm sóc khách hàng
      * @param TcpConnection $connection
      * @param array $res
      * @param Response $response
@@ -192,22 +192,22 @@ class ChatHandle
         $msn_type = $res['data']['type'] ?? 0;
         $msn = $res['data']['msn'] ?? '';
         $formType = $res['form_type'] ?? 0;
-        //是否为游客
+        //Bạn có phải là khách du lịch?
         $isTourist = $res['data']['is_tourist'] ?? 0;
         $tourist_uid = $res['data']['tourist_uid'] ?? 0;
         $isTourist = $isTourist && $tourist_uid;
         $tourist_avatar = $res['data']['tourist_avatar'] ?? '';
         $uid = $isTourist ? $tourist_uid : $connection->user->uid;
         if (!$to_uid) {
-            return $response->send('err_tip', ['msg' => '用户不存在']);
+            return $response->send('err_tip', ['msg' => 'Người dùng không tồn tại']);
         }
         if ($to_uid == $uid) {
-            return $response->send('err_tip', ['msg' => '不能和自己聊天']);
+            return $response->send('err_tip', ['msg' => 'Không thể trò chuyện với chính mình']);
         }
         /** @var StoreServiceLogServices $logServices */
         $logServices = app()->make(StoreServiceLogServices::class);
         if (!in_array($msn_type, $logServices::MSN_TYPE)) {
-            return $response->send('err_tip', ['msg' => '格式错误']);
+            return $response->send('err_tip', ['msg' => 'Lỗi định dạng']);
         }
         $msn = trim(strip_tags(str_replace(["\n", "\t", "\r", "&nbsp;"], '', htmlspecialchars_decode($msn))));
         $data = compact('to_uid', 'msn_type', 'msn', 'uid');
@@ -235,12 +235,12 @@ class ChatHandle
         } else {
             $avatar = sys_config('tourist_avatar');
             $_userInfo['avatar'] = $tourist_avatar ?: Arr::getArrayRandKey(is_array($avatar) ? $avatar : []);
-            $_userInfo['nickname'] = '游客' . $uid;
+            $_userInfo['nickname'] = 'khách du lịch' . $uid;
             $data['nickname'] = $_userInfo['nickname'];
             $data['avatar'] = set_file_url($_userInfo['avatar']);
         }
 
-        //商品消息类型
+        //Loại thông báo sản phẩm
         $data['productInfo'] = [];
         if ($msn_type == StoreServiceLogServices::MSN_TYPE_GOODS && $msn) {
             /** @var StoreProductServices $productServices */
@@ -248,7 +248,7 @@ class ChatHandle
             $productInfo = $productServices->getProductInfo((int)$msn, 'store_name,IFNULL(sales,0) + IFNULL(ficti,0) as sales,image,slider_image,price,vip_price,ot_price,stock,id');
             $data['productInfo'] = $productInfo ? $productInfo->toArray() : [];
         }
-        //订单消息类型
+        //Loại tin nhắn đặt hàng
         $data['orderInfo'] = [];
         if ($msn_type == StoreServiceLogServices::MSN_TYPE_ORDER && $msn) {
             /** @var StoreOrderServices $orderServices */
@@ -261,20 +261,20 @@ class ChatHandle
                 $data['orderInfo'] = $order;
             }
         }
-        //给自己回复消息
+        //Trả lời tin nhắn cho chính mình
         $response->send('chat', $data);
 
-        //用户向客服发送消息，判断当前客服是否在登录中
+        //Người dùng gửi tin nhắn đến bộ phận dịch vụ khách hàng để xác định xem dịch vụ khách hàng hiện tại có đang đăng nhập hay không.
         /** @var StoreServiceRecordServices $serviceRecored */
         $serviceRecored = app()->make(StoreServiceRecordServices::class);
         $unMessagesCount = $logServices->getMessageNum(['uid' => $uid, 'to_uid' => $to_uid, 'type' => 0, 'is_tourist' => $isTourist ? 1 : 0]);
-        //记录当前用户和他人聊天记录
+        //Ghi lại lịch sử trò chuyện của người dùng hiện tại và những người khác
         $data['recored'] = $serviceRecored->saveRecord($uid, $to_uid, $msn, $formType ?? 0, $msn_type, $unMessagesCount, $isTourist, $data['nickname'], $data['avatar']);
-        //是否在线
+        //Đang trực tuyến
         if ($online) {
             $response->connection($this->service->user()[$to_uid])->send('reply', $data);
         } else {
-            //用户在线，可是没有和当前用户进行聊天，给当前用户发送未读条数
+            //Người dùng đang trực tuyến nhưng chưa trò chuyện với người dùng hiện tại và số lượng tin nhắn chưa đọc sẽ được gửi đến người dùng hiện tại.
             if (isset($connections[$to_uid])) {
                 $data['recored']['nickname'] = $_userInfo['nickname'];
                 $data['recored']['avatar'] = set_file_url($_userInfo['avatar']);
@@ -287,17 +287,17 @@ class ChatHandle
             if ($isTourist) {
                 return true;
             }
-            //用户不在线
+            //Người dùng không trực tuyến
             /** @var WechatUserServices $wechatUserServices */
             $wechatUserServices = app()->make(WechatUserServices::class);
             $userInfo = $wechatUserServices->getOne(['uid' => $to_uid, 'user_type' => 'wechat'], 'nickname,subscribe,openid,headimgurl');
             if ($userInfo && $userInfo['subscribe'] && $userInfo['openid']) {
-                $description = '您有新的消息，请注意查收！';
+                $description = 'Có tin mới, mời bạn xem nhé！';
                 if ($formType) {
-                    $head = '客服接待消息提醒';
+                    $head = 'Nhắc nhở tin nhắn tiếp nhận dịch vụ khách hàng';
                     $url = sys_config('site_url') . '/kefu/mobile_chat?toUid=' . $uid . '&nickname=' . $_userInfo['nickname'];
                 } else {
-                    $head = '客服回复消息提醒';
+                    $head = 'Nhắc nhở tin nhắn trả lời dịch vụ khách hàng';
                     $url = sys_config('site_url') . '/pages/extension/customer_list/chat?uid=' . $uid;
                 }
                 $message = WechatService::newsMessage($head, $description, $url, $_userInfo['avatar']);
@@ -306,17 +306,17 @@ class ChatHandle
                     WechatService::staffService()->message($message)->to($userInfo['openid'])->send();
                 } catch (\Exception $e) {
 
-                    Log::error($userInfo['nickname'] . '发送失败' . $e->getMessage());
+                    Log::error($userInfo['nickname'] . 'Gửi không thành công' . $e->getMessage());
                 }
             }
         }
         if (!isset($this->service->kefuUser()[$uid])) {
-            //判断是否有自动回复
+            //Xác định xem có trả lời tự động hay không
             $wechatKeyServices = app()->make(WechatKeyServices::class);
             $replyId = $wechatKeyServices->value(['keys' => $msn, 'key_type' => 1], 'reply_id');
             if(!$replyId) $replyId = $wechatKeyServices->value(['keys_like' => $msn, 'key_type' => 1], 'reply_id');
             if ($replyId) {
-                //查询回复内容
+                //Nội dung trả lời truy vấn
                 $autoReplyData = app()->make(WechatReplyServices::class)->get($replyId)->toArray();
                 $msgData = json_decode($autoReplyData['data'], true);
                 $autoReplyMsn = $autoReplyData['type'] == 'text' ? $msgData['content'] : $msgData['src'];
@@ -340,7 +340,7 @@ class ChatHandle
     }
 
     /**
-     * 上下线
+     * Trực tuyến và ngoại tuyến
      * @param TcpConnection $connection
      * @param array $res
      * @param Response $response
@@ -354,7 +354,7 @@ class ChatHandle
             /** @var StoreServiceServices $service */
             $service = app()->make(StoreServiceServices::class);
             $service->update(['uid' => $uids], ['online' => $online]);
-            //广播给正在和自己聊天的用户
+            //Phát sóng tới người dùng bạn đang trò chuyện
             foreach ($connections as $uid => $conn) {
                 if ($uid !== $uids && $uids == ($conn->chatToUid ?? 0)) {
                     $response->connection($conn)->send('online', ['online' => $online, 'uid' => $uids]);
@@ -364,7 +364,7 @@ class ChatHandle
     }
 
     /**
-     * 客服转接
+     * Chuyển dịch vụ khách hàng
      * @param TcpConnection $connection
      * @param array $res
      * @param Response $response

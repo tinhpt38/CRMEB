@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -38,9 +38,9 @@ class StoreBargainUserHelpServices extends BaseServices
     }
 
 //    /**
-//     * TODO 获取用户还剩余的砍价金额
-//     * @param int $bargainId $bargainId 砍价商品编号
-//     * @param int $bargainUserUid $bargainUserUid 开启砍价用户编号
+//     * TODO Nhận số tiền thương lượng còn lại của người dùng
+//     * @param int $bargainId $bargainId Số mặt hàng mặc cả
+//     * @param int $bargainUserUid $bargainUserUid Kích hoạt ID người dùng thương lượng
 //     * @return float
 //     * @throws \think\db\exception\DataNotFoundException
 //     * @throws \think\db\exception\ModelNotFoundException
@@ -50,15 +50,15 @@ class StoreBargainUserHelpServices extends BaseServices
 //    {
 //        /** @var StoreBargainServices $bargainUserService */
 //        $bargainUserService = app()->make(StoreBargainServices::class);
-//        $bargainUserTableId = $bargainUserService->getBargainUserTableId($bargainId, $bargainUserUid);// TODO 获取用户参与砍价表编号
-//        $coverPrice = $bargainUserService->getBargainUserDiffPriceFloat($bargainUserTableId);//TODO 获取用户可以砍掉的金额  好友砍价之后获取砍价金额
-//        $alreadyPrice = $bargainUserService->getBargainUserPrice($bargainUserTableId);//TODO 用户已经砍掉的价格 好友砍价之后获取用户已经砍掉的价格
-//        $surplusPrice = (float)bcsub((string)$coverPrice, (string)$alreadyPrice, 2);//TODO 用户剩余要砍掉的价格
+//        $bargainUserTableId = $bargainUserService->getBargainUserTableId($bargainId, $bargainUserUid);// TODO Lấy số bảng thương lượng tham gia của người dùng
+//        $coverPrice = $bargainUserService->getBargainUserDiffPriceFloat($bargainUserTableId);//TODO Nhận số tiền mà người dùng có thể cắt giảm. Nhận số tiền thương lượng sau khi người bạn mặc cả.
+//        $alreadyPrice = $bargainUserService->getBargainUserPrice($bargainUserTableId);//TODO Giá mà người dùng đã cắt giảm. Nhận mức giá mà người dùng đã cắt sau khi người bạn đã mặc cả.
+//        $surplusPrice = (float)bcsub((string)$coverPrice, (string)$alreadyPrice, 2);//TODO Mức giá mà thặng dư người dùng cần phải được cắt giảm
 //        return $surplusPrice;
 //    }
 
     /**
-     * 获取砍价帮列表
+     * Nhận danh sách trợ giúp thương lượng
      * @param int $bid
      * @param int $page
      * @param int $limit
@@ -78,7 +78,7 @@ class StoreBargainUserHelpServices extends BaseServices
                     $value['nickname'] = $userInfo['nickname'];
                     $value['avatar'] = $userInfo['avatar'];
                 } else {
-                    $value['nickname'] = '此用户已失效';
+                    $value['nickname'] = 'Người dùng này đã hết hạn';
                     $value['avatar'] = '';
                 }
                 unset($value['id']);
@@ -88,7 +88,7 @@ class StoreBargainUserHelpServices extends BaseServices
     }
 
     /**
-     * 判断是否能砍价
+     * Xác định xem bạn có thể mặc cả hay không
      * @param $bargainId
      * @param $bargainUserTableId
      * @param $uid
@@ -102,7 +102,7 @@ class StoreBargainUserHelpServices extends BaseServices
     }
 
     /**
-     * 用户砍价，写入砍价记录
+     * Người dùng mặc cả và viết biên bản mặc cả
      * @param $uid
      * @param $bargainUserInfo
      * @param $bargainInfo
@@ -110,12 +110,12 @@ class StoreBargainUserHelpServices extends BaseServices
      */
     public function setBargainRecord($uid, $bargainUserInfo, $bargainInfo)
     {
-        //已经参与砍价的人数
+        //Số người tham gia thương lượng
         $people = $this->dao->count(['bargain_user_id' => $bargainUserInfo['id']]);
-        //剩余砍价金额
+        //Số tiền ưu đãi còn lại
         $coverPrice = bcsub((string)$bargainUserInfo['bargain_price'], (string)$bargainUserInfo['bargain_price_min'], 2);
-        $surplusPrice = bcsub((string)$coverPrice, (string)$bargainUserInfo['price'], 2);//TODO 用户剩余要砍掉的价格
-        if (0.00 === (float)$surplusPrice) throw new ApiException('砍价已结束');
+        $surplusPrice = bcsub((string)$coverPrice, (string)$bargainUserInfo['price'], 2);//TODO Mức giá mà thặng dư người dùng cần phải được cắt giảm
+        if (0.00 === (float)$surplusPrice) throw new ApiException('Cuộc thương lượng đã kết thúc');
         if (($bargainInfo['people_num'] - $people) == 1) {
             $price = $surplusPrice;
         } else {
@@ -128,9 +128,9 @@ class StoreBargainUserHelpServices extends BaseServices
         if ($bargainUserInfo['uid'] == $uid) {
             $type = 1;
         } else {
-            //帮砍次数限制
+            //Giới hạn số lần hack
             $count = $this->dao->count(['uid' => $uid, 'bargain_id' => $bargainInfo['id'], 'type' => 0]);
-            if ($count >= $bargainInfo['bargain_num']) throw new ApiException('您不能再帮砍此件商品');
+            if ($count >= $bargainInfo['bargain_num']) throw new ApiException('Bạn không còn có thể giúp bán mặt hàng này');
             $type = 0;
         }
         /** @var StoreBargainUserServices $bargainUserService */
@@ -145,13 +145,13 @@ class StoreBargainUserHelpServices extends BaseServices
             'type' => $type,
         ]);
         $res = $res1 && $res2;
-        if (!$res) throw new AdminException('砍价失败');
+        if (!$res) throw new AdminException('Thương lượng thất bại');
         return $price;
     }
 
 
     /**
-     * 随机金额
+     * số tiền ngẫu nhiên
      * @param $price
      * @param $people
      * @param $type
@@ -159,24 +159,24 @@ class StoreBargainUserHelpServices extends BaseServices
      */
     public function randomFloat($price, $people, $type = false)
     {
-        //按照人数计算保留金额
+        //Tính toán số tiền giữ lại dựa trên số lượng người
         $retainPrice = bcmul((string)$people, '0.01', 2);
-        //实际剩余金额
+        //số tiền thực tế còn lại
         $price = bcsub((string)$price, $retainPrice, 2);
-        //计算比例
+        //Tính tỷ lệ
         if ($type) {
             $percent = '0.5';
         } else {
             $percent = bcdiv((string)mt_rand(20, 50), '100', 2);
         }
-        //实际砍掉金额
+        //Số tiền thực tế cắt giảm
         $cutPrice = bcmul($price, $percent, 2);
-        //如果计算出来为0，默认砍掉0.01
+        //Nếu giá trị được tính toán là 0, nó sẽ bị cắt theo mặc định.0.01
         return $cutPrice != '0.00' ? $cutPrice : '0.01';
     }
 
     /**
-     * 获取砍价商品已砍人数
+     * Lấy số lượng người đã giảm giá sản phẩm ở mức giá ưu đãi
      * @return array
      */
     public function getNums()

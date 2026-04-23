@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use crmeb\basic\BaseModel;
 use crmeb\traits\ModelTrait;
 
 /**
- * 关键词
+ * từ khóa
  * Class WechatReply
  * @package app\model\wechat
  */
@@ -24,27 +24,27 @@ class WechatReply extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'wechat_reply';
 
     /**
-     * 消息类型
+     * Loại tin nhắn
      * @var string[]
      */
     public static $replyType = ['text', 'image', 'news', 'voice'];
 
     /**
-     * 公众号自动回复关联
+     * Hiệp hội trả lời tự động tài khoản chính thức
      * @return \think\model\relation\HasMany
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
      */
@@ -54,9 +54,9 @@ class WechatReply extends BaseModel
     }
 
     /**
-     * 客服自动回复关联
+     * Hiệp hội trả lời tự động dịch vụ khách hàng
      * @return \think\model\relation\HasOne
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
      */

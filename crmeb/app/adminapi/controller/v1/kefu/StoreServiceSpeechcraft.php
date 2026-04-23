@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use app\services\kefu\service\StoreServiceSpeechcraftServices;
 use app\adminapi\validate\service\StoreServiceSpeechcraftValidata;
 
 /**
- * 话术空控制器
+ * Bộ điều khiển trống từ vựng
  * Class StoreServiceSpeechcraft
  * @package app\adminapi\controller\v1\application\wechat
  */
@@ -36,7 +36,7 @@ class StoreServiceSpeechcraft extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -55,7 +55,7 @@ class StoreServiceSpeechcraft extends AuthController
     }
 
     /**
-     * 显示创建资源表单页
+     * Hiển thị trang biểu mẫu tạo tài nguyên
      * @return mixed
      */
     public function create()
@@ -64,7 +64,7 @@ class StoreServiceSpeechcraft extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @param Request $request
      * @return \think\Response
      */
@@ -81,17 +81,17 @@ class StoreServiceSpeechcraft extends AuthController
         $data['add_time'] = time();
         $data['kefu_id'] = 0;
         if ($this->services->count(['message' => $data['message']])) {
-            return app('json')->fail('话术不能重复添加');
+            return app('json')->fail('Từ không thể được thêm nhiều lần');
         }
         if ($this->services->save($data)) {
-            return app('json')->success('创建话术成功');
+            return app('json')->success('Tạo từ thành công');
         } else {
-            return app('json')->fail('创建话术失败');
+            return app('json')->fail('Không tạo được cụm từ');
         }
     }
 
     /**
-     * 显示指定的资源
+     * Hiển thị tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
      */
@@ -99,13 +99,13 @@ class StoreServiceSpeechcraft extends AuthController
     {
         $info = $this->services->get($id);
         if (!$info) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         return app('json')->success($info);
     }
 
     /**
-     * 显示编辑资源表单页
+     * Hiển thị trang biểu mẫu tài nguyên chỉnh sửa
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -119,7 +119,7 @@ class StoreServiceSpeechcraft extends AuthController
     }
 
     /**
-     * 保存更新的资源
+     * Lưu tài nguyên cập nhật
      * @param Request $request
      * @param int $id
      * @return \think\Response
@@ -136,30 +136,30 @@ class StoreServiceSpeechcraft extends AuthController
         $this->validate($data, StoreServiceSpeechcraftValidata::class);
         $message = $this->services->get(['message' => $data['message']]);
         if ($message && $message['id'] != $id) {
-            return app('json')->fail('话术不能重复添加');
+            return app('json')->fail('Từ không thể được thêm nhiều lần');
         }
         if ($this->services->update($id, $data)) {
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         } else {
-            return app('json')->fail('修改失败');
+            return app('json')->fail('Sửa đổi không thành công');
         }
 
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
      */
     public function delete($id)
     {
         if (!$id || !($info = $this->services->get($id))) {
-            return app('json')->fail('删除的话术不存在');
+            return app('json')->fail('Các từ đã xóa không tồn tại');
         }
         if ($info->delete()) {
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         } else {
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -29,22 +29,22 @@ use Symfony\Component\HttpFoundation\Request;
 class WechatOauth extends AbstractAPI
 {
     /**
-     * 通过code获取网页授权access_token
+     * Nhận ủy quyền trang web thông qua mãaccess_token
      */
     const API_OAUTH_ACCESS_TOKEN = 'https://api.weixin.qq.com/sns/oauth2/access_token';
 
     /**
-     * 检验授权凭证（access_token）是否有效
+     * Xác minh xem chứng chỉ ủy quyền (access_token) có hợp lệ không
      */
     const API_OAUTH_CHECK_TOKEN = 'https://api.weixin.qq.com/sns/auth';
 
     /**
-     * 刷新access_token
+     * làm cho khỏe lạiaccess_token
      */
     const API_OAUTH_REFRESH_TOKEN = 'https://api.weixin.qq.com/sns/oauth2/refresh_token';
 
     /**
-     * 获取用户信息
+     * Lấy thông tin người dùng
      */
     const API_OAUTH_GET_USER_INFO = 'https://api.weixin.qq.com/sns/userinfo';
 
@@ -131,7 +131,7 @@ class WechatOauth extends AbstractAPI
     }
 
     /**
-     * 获取code
+     * lấycode
      * @return mixed
      */
     public function getCode()
@@ -140,7 +140,7 @@ class WechatOauth extends AbstractAPI
     }
 
     /**
-     * 授权获取token
+     * Mua lại ủy quyềntoken
      * @param string $code
      * @return false|mixed
      * @throws HttpException
@@ -167,7 +167,7 @@ class WechatOauth extends AbstractAPI
     }
 
     /**
-     * 刷新token
+     * làm cho khỏe lạitoken
      * @param string $refresh_token
      * @return false|mixed
      * @throws HttpException
@@ -193,7 +193,7 @@ class WechatOauth extends AbstractAPI
     }
 
     /**
-     * 获取用户信息
+     * Lấy thông tin người dùng
      * @param $openId
      * @param string $lang
      * @return Collection|null
@@ -210,7 +210,7 @@ class WechatOauth extends AbstractAPI
     }
 
     /**
-     * 获取token
+     * lấytoken
      * @param false $forceRefresh
      * @return bool|mixed|string
      * @throws HttpException
@@ -234,7 +234,7 @@ class WechatOauth extends AbstractAPI
     }
 
     /**
-     * 保存token信息
+     * Lưu thông tin mã thông báo
      * @param $token
      * @return bool
      */

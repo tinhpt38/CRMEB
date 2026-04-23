@@ -1,11 +1,11 @@
 <template>
   <div class="scroll-box">
-    <div class="title-box">商品详情</div>
+    <div class="title-box">Chi tiết sản phẩm</div>
     <swiper :options="swiperOption" class="swiper-box">
       <swiper-slide class="swiper-slide" v-for="(item, index) in goodsInfo.slider_image" :key="index">
         <img :src="item" />
       </swiper-slide>
-      <!-- 分页器 -->
+      <!-- Trình phân trang -->
     </swiper>
     <div class="goods_info">
       <div class="number-wrapper">
@@ -16,13 +16,13 @@
       </div>
       <div class="name">{{ goodsInfo.store_name }}</div>
       <div class="msg">
-        <div class="item">原价:￥{{ goodsInfo.ot_price }}</div>
-        <div class="item">销量:{{ goodsInfo.sales }}</div>
-        <div class="item">库存:{{ goodsInfo.stock }}</div>
+        <div class="item">giá gốc:￥{{ goodsInfo.ot_price }}</div>
+        <div class="item">Doanh số bán hàng:{{ goodsInfo.sales }}</div>
+        <div class="item">trong kho:{{ goodsInfo.stock }}</div>
       </div>
     </div>
     <div class="con-box">
-      <div class="title-box">商品介绍</div>
+      <div class="title-box">Giới thiệu sản phẩm</div>
       <div class="content" v-html="goodsInfo.description"></div>
     </div>
   </div>
@@ -44,22 +44,22 @@ export default {
       goodsInfo: {},
       goodsId: '',
       swiperOption: {
-        //显示分页
+        //hiển thị phân trang
         pagination: {
           el: '.swiper-pagination',
         },
-        //设置点击箭头
+        //Đặt mũi tên nhấp chuột
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
-        //自动轮播
+        //băng chuyền tự động
         autoplay: {
           delay: 2000,
-          //当用户滑动图片后继续自动轮播
+          //Băng chuyền tự động tiếp tục khi người dùng trượt hình ảnh
           disableOnInteraction: false,
         },
-        //开启循环模式
+        //Bật chế độ vòng lặp
         loop: true,
       },
     };

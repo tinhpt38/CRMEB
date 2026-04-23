@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,7 +21,7 @@ use app\model\product\sku\StoreProductAttrValue;
 class StoreProductAttrValueDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -30,7 +30,7 @@ class StoreProductAttrValueDao extends BaseDao
     }
 
     /**
-     * 根据条件获取规格value
+     * Nhận thông số kỹ thuật dựa trên điều kiệnvalue
      * @param array $where
      * @param string $field
      * @param string $key
@@ -42,7 +42,7 @@ class StoreProductAttrValueDao extends BaseDao
     }
 
     /**
-     * 根据条件删除规格value
+     * Xóa thông số kỹ thuật dựa trên điều kiệnvalue
      * @param int $id
      * @param int $type
      * @return bool
@@ -54,7 +54,7 @@ class StoreProductAttrValueDao extends BaseDao
     }
 
     /**
-     * 保存数据
+     * lưu dữ liệu
      * @param array $data
      * @return mixed|\think\Collection
      * @throws \Exception
@@ -65,7 +65,7 @@ class StoreProductAttrValueDao extends BaseDao
     }
 
     /**
-     * 根据条件获取规格数据列表
+     * Nhận danh sách dữ liệu đặc tả dựa trên các điều kiện
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -77,7 +77,7 @@ class StoreProductAttrValueDao extends BaseDao
         return $this->search($where)->order('id asc')->select()->toArray();
     }
 
-    /**获取属性列表
+    /**Nhận danh sách tài sản
      * @return mixed
      */
     public function attrValue()
@@ -85,7 +85,7 @@ class StoreProductAttrValueDao extends BaseDao
         return $this->search()->field('product_id,sum(sales * price) as val')->with(['product'])->group('product_id')->limit(20)->select()->toArray();
     }
 
-    /**获取属性库存
+    /**Nhận kiểm kê tài sản
      * @param string $unique
      * @return int
      */
@@ -95,7 +95,7 @@ class StoreProductAttrValueDao extends BaseDao
     }
 
     /**
-     * 减库存加销量减限购
+     * Giảm hàng tồn kho, tăng doanh số bán hàng, giảm hạn chế mua hàng
      * @param array $where
      * @param int $num
      * @return mixed
@@ -106,7 +106,7 @@ class StoreProductAttrValueDao extends BaseDao
     }
 
     /**
-     * 根据unique获取一条规格数据(积分商城)
+     * Nhận một phần dữ liệu đặc tả dựa trên(Trung tâm mua sắm điểm)
      * @param string $unique
      * @param string $field
      * @return array|\think\Model|null

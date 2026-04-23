@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,7 +26,7 @@ class UserUserBillDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -40,7 +40,7 @@ class UserUserBillDao extends BaseDao
     }
 
     /**
-     * 关联模型
+     * mô hình liên kết
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
@@ -56,7 +56,7 @@ class UserUserBillDao extends BaseDao
     }
 
     /**
-     * 组合条件模型查询列表
+     * Danh sách truy vấn mô hình điều kiện kết hợp
      * @param Model $model
      * @return array
      */
@@ -69,7 +69,7 @@ class UserUserBillDao extends BaseDao
     }
 
     /**
-     * 获取条数
+     * Lấy số lượng mặt hàng
      * @param array $where
      * @return mixed
      */

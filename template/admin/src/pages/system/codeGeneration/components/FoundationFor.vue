@@ -1,11 +1,11 @@
 <template>
   <div class="main">
     <el-alert class="mb20" closable>
-      <template v-slot:title>crud生成说明</template>
-      <template> 不能生成系统自带的表；已经生成过的表还能继续生成 </template>
+      <template v-slot:title>crudHướng dẫn xây dựng</template>
+      <template> Không thể tạo các bảng đi kèm với hệ thống; các bảng đã được tạo có thể tiếp tục được tạo. </template>
     </el-alert>
     <el-form ref="foundation" :model="foundation" :rules="foundationRules" label-width="100px">
-      <el-form-item label="菜单：">
+      <el-form-item label="thực đơn：">
         <el-cascader
           class="form-width"
           v-model="foundation.pid"
@@ -14,22 +14,22 @@
           :props="{ checkStrictly: true, multiple: false, emitPath: false }"
           clearable
         ></el-cascader>
-        <div class="tip">选项，选择的菜单成功后会自动写入到此菜单下</div>
+        <div class="tip">tùy chọn, menu đã chọn sẽ tự động được ghi vào menu này sau khi được chọn thành công.</div>
       </el-form-item>
-      <el-form-item label="菜单名称：">
-        <el-input class="form-width" v-model="foundation.menuName" placeholder="请输入菜单名称"></el-input>
+      <el-form-item label="Tên thực đơn：">
+        <el-input class="form-width" v-model="foundation.menuName" placeholder="Vui lòng nhập tên thực đơn"></el-input>
         <div class="tip">
-          生成菜单为可选项，不填写默认生成的菜单名称将为表名；生成后会把自动生成的权限默认加入该菜单下
+          Menu được tạo là tùy chọn. Nếu không điền, tên menu được tạo sẽ mặc định là tên bảng. Sau khi tạo, các quyền được tạo tự động sẽ được thêm vào menu theo mặc định.
         </div>
       </el-form-item>
-      <el-form-item label="模块名：" prop="modelName">
-        <el-input class="form-width" v-model="foundation.modelName" placeholder="请输入模块名"></el-input>
-        <div class="tip">模块名称为中文或者英文，用在接口名称前缀、表单头部标题</div>
+      <el-form-item label="tên mô-đun：" prop="modelName">
+        <el-input class="form-width" v-model="foundation.modelName" placeholder="Vui lòng nhập tên mô-đun"></el-input>
+        <div class="tip">Tên mô-đun bằng tiếng Trung hoặc tiếng Anh và được sử dụng trong tiền tố tên giao diện và tiêu đề tiêu đề biểu mẫu.</div>
       </el-form-item>
-      <el-form-item label="表名：" prop="tableName">
-        <el-input class="form-width" v-model="foundation.tableName" placeholder="请输入表名"></el-input>
+      <el-form-item label="tên bảng：" prop="tableName">
+        <el-input class="form-width" v-model="foundation.tableName" placeholder="Vui lòng nhập tên bảng"></el-input>
         <div class="tip">
-          用于生成CRUD指定的表名，不需要携带表前缀；对于生成过的表将不能在进行生成；或者可以删除对应的文件重新生成！对应系统中重要的数据表将不允许生成！
+          Nó được sử dụng để tạo tên bảng do CRUD chỉ định và không cần mang tiền tố bảng; bảng đã tạo sẽ không được tạo lại; hoặc tập tin tương ứng có thể bị xóa và tạo lại! Các bảng dữ liệu quan trọng trong hệ thống tương ứng sẽ không được phép tạo.！
         </div>
       </el-form-item>
     </el-form>
@@ -52,16 +52,16 @@ export default {
   data() {
     return {
       foundationRules: {
-        // pid: [{ required: true, message: '请输入菜单', trigger: 'blur' }],
-        tableName: [{ required: true, message: '请输入表名', trigger: 'blur' }],
-        modelName: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
+        // pid: [{ required: true, message: 'Vui lòng nhập thực đơn', trigger: 'blur' }],
+        tableName: [{ required: true, message: 'Vui lòng nhập tên bảng', trigger: 'blur' }],
+        modelName: [{ required: true, message: 'Vui lòng nhập tên mô-đun', trigger: 'blur' }],
       },
       menusList: [],
       columnTypeList: [],
       fromTypeList: [
         {
           value: '0',
-          label: '不生成',
+          label: 'Không được tạo',
         },
         {
           value: 'input',
@@ -117,10 +117,10 @@ export default {
     },
     changeItemField(e, i) {
       if (e === 'addSoftDelete') {
-        this.$set(this.tableField[i], 'comment', '伪删除');
+        this.$set(this.tableField[i], 'comment', 'Xóa giả');
       }
       if (e === 'addTimestamps') {
-        this.$set(this.tableField[i], 'comment', '添加和修改时间');
+        this.$set(this.tableField[i], 'comment', 'Thêm và sửa đổi thời gian');
       }
     },
     getCrudMenus() {

@@ -2,11 +2,11 @@
 
 
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use crmeb\exceptions\AdminException;
 use think\facade\App;
 
 /**
- * 主题组件管理
+ * Quản lý thành phần chủ đề
  */
 class ThemeModule extends AuthController
 {
@@ -28,7 +28,7 @@ class ThemeModule extends AuthController
     protected $services;
 
     /**
-     * 构造方法
+     * Người xây dựng
      * @param App $app
      * @param ThemeModuleServices $services
      */
@@ -39,7 +39,7 @@ class ThemeModule extends AuthController
     }
 
     /**
-     * 组件列表
+     * Danh sách thành phần
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -55,7 +55,7 @@ class ThemeModule extends AuthController
     }
 
     /**
-     * 组件详情
+     * Chi tiết thành phần
      * @param int $id
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -65,14 +65,14 @@ class ThemeModule extends AuthController
     public function read(int $id)
     {
         if (!$id) {
-            throw new AdminException('参数错误');
+            throw new AdminException('Lỗi tham số');
         }
         $info = $this->services->getModuleInfo($id);
         return app('json')->success($info);
     }
 
     /**
-     * 新增组件
+     * Thêm thành phần mới
      * @return \think\Response
      */
     public function save()
@@ -82,39 +82,39 @@ class ThemeModule extends AuthController
             ['data', ''],
         ]);
         $id = $this->services->saveModule(0, $data);
-        return app('json')->success('保存成功', ['id' => $id]);
+        return app('json')->success('Đã lưu thành công', ['id' => $id]);
     }
 
     /**
-     * 编辑组件
+     * Chỉnh sửa thành phần
      * @param int $id
      * @return \think\Response
      */
     public function update(int $id)
     {
         if (!$id) {
-            throw new AdminException('参数错误');
+            throw new AdminException('Lỗi tham số');
         }
         $data = $this->request->postMore([
             ['type', ''],
             ['data', ''],
         ]);
         $this->services->saveModule($id, $data);
-        return app('json')->success('保存成功', ['id' => $id]);
+        return app('json')->success('Đã lưu thành công', ['id' => $id]);
     }
 
     /**
-     * 删除组件
+     * Xóa thành phần
      * @param int $id
      * @return \think\Response
      */
     public function delete(int $id)
     {
         if (!$id) {
-            throw new AdminException('参数错误');
+            throw new AdminException('Lỗi tham số');
         }
         $this->services->deleteModule($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 }
 

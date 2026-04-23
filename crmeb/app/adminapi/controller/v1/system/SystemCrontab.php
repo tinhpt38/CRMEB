@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class SystemCrontab extends AuthController
     }
 
     /**
-     * 获取定时任务列表
+     * Nhận danh sách nhiệm vụ theo lịch trình
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -40,7 +40,7 @@ class SystemCrontab extends AuthController
     }
 
     /**
-     * 获取定时任务详情
+     * Nhận chi tiết nhiệm vụ theo lịch trình
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -53,7 +53,7 @@ class SystemCrontab extends AuthController
     }
 
     /**
-     * 获取定时任务类型
+     * Nhận loại nhiệm vụ theo lịch trình
      * @return mixed
      */
     public function getMarkList()
@@ -62,7 +62,7 @@ class SystemCrontab extends AuthController
     }
 
     /**
-     * 保存定时任务
+     * Lưu các nhiệm vụ theo lịch trình
      * @return mixed
      */
     public function saveTimer()
@@ -84,31 +84,31 @@ class SystemCrontab extends AuthController
             ['password', ''],
         ]);
         if ($data['mark'] == 'customTimer') {
-            if (!Env::get('app_debug', false)) return app('json')->fail('生产环境下无法新增和修改自定义内容，如需修改请修改.env文件中app_debug项为true');
-            if ($data['password'] === '') return app('json')->fail('密码不能为空');
-            if (config('filesystem.password') !== $data['password']) return app('json')->fail('密码错误');
+            if (!Env::get('app_debug', false)) return app('json')->fail('Nội dung tùy chỉnh không thể được thêm hoặc sửa đổi trong môi trường sản xuất. Nếu bạn cần sửa đổi nó, vui lòng sửa đổi mục app_debug trong tệp .env thànhtrue');
+            if ($data['password'] === '') return app('json')->fail('Mật khẩu không thể trống');
+            if (config('filesystem.password') !== $data['password']) return app('json')->fail('Mật khẩu sai');
             $adminInfo = $this->request->adminInfo();
-            if (!$adminInfo) return app('json')->fail('非法操作');
-            if ($adminInfo['level'] != 0) return app('json')->fail('仅超级管理员可以操作定时任务');
-            if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('自定义内容存在危险代码，请检查代码');
+            if (!$adminInfo) return app('json')->fail('Hoạt động trái phép');
+            if ($adminInfo['level'] != 0) return app('json')->fail('Chỉ quản trị viên cấp cao mới có thể vận hành các tác vụ theo lịch trình');
+            if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('Có mã nguy hiểm trong nội dung tùy chỉnh, vui lòng kiểm tra mã');
         }
         $this->services->saveTimer($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 删除定时任务
+     * Xóa nhiệm vụ đã lên lịch
      * @param $id
      * @return mixed
      */
     public function delTimer($id)
     {
         $this->services->delTimer($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 设置定时任务状态
+     * Đặt trạng thái tác vụ theo lịch trình
      * @param $id
      * @param $is_open
      * @return mixed
@@ -116,11 +116,11 @@ class SystemCrontab extends AuthController
     public function setTimerStatus($id, $is_open)
     {
         $this->services->setTimerStatus($id, $is_open);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 检查是否包含删除表，删除表数据，删除文件，修改文件内容以及后缀，执行命令等操作的关键词
+     * Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
      * @param $code
      * @return bool
      * @author wuhaotian
@@ -129,7 +129,7 @@ class SystemCrontab extends AuthController
      */
     function isSafePhpCode($code)
     {
-        // 检查是否包含删除表，删除表数据，删除文件，修改文件内容以及后缀，执行命令等操作的关键词
+        // Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
         $dangerous_keywords = array(
             'delete',
             'destroy',
@@ -147,7 +147,7 @@ class SystemCrontab extends AuthController
                 return false;
             }
         }
-        return true; // 如果通过所有安全检查，返回 true
+        return true; // Nếu tất cả các bước kiểm tra bảo mật đều vượt qua, hãy quay lại true
     }
 
 }

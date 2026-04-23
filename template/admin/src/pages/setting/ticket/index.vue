@@ -1,9 +1,9 @@
 <template>
-  <!-- 商品-商品参数 -->
+  <!-- Thông số sản phẩm-Sản phẩm -->
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <!-- 筛选条件 -->
+        <!-- Tiêu chí lọc -->
         <el-form
           ref="specsFrom"
           inline
@@ -12,17 +12,17 @@
           :label-position="labelPosition"
           @submit.native.prevent
         >
-          <el-form-item label="打印机名称：">
+          <el-form-item label="Tên máy in：">
             <el-input
               v-model="specsFrom.keyword"
-              placeholder="请输入打印机名称"
+              placeholder="Vui lòng nhập tên máy in"
               class="form_content_width"
               clearable
               @clear="specsSearchs"
               @change="specsSearchs"
             ></el-input>
           </el-form-item>
-          <el-form-item label="平台选择：">
+          <el-form-item label="Lựa chọn nền tảng：">
             <el-select
               class="form_content_width mr10"
               v-model="specsFrom.type"
@@ -32,56 +32,56 @@
             >
               <el-option v-for="(item, i) in optionsList" :value="item.value" :label="item.label" :key="i"></el-option>
             </el-select>
-            <el-button type="primary" @click="specsSearchs">查询</el-button>
+            <el-button type="primary" @click="specsSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button type="primary" v-db-click @click="add">添加打印机</el-button>
-      <!-- 商品参数表格 -->
+      <el-button type="primary" v-db-click @click="add">Thêm máy in</el-button>
+      <!-- Bảng thông số sản phẩm -->
       <el-table
         :data="list"
         ref="table"
         class="mt25"
         :loading="loading"
         highlight-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column label="ID" min-width="50">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="打印机名称" min-width="120">
+        <el-table-column label="Tên máy in" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.print_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="平台" min-width="100">
+        <el-table-column label="nền tảng" min-width="100">
           <template slot-scope="scope">
-            <span v-if="scope.row.type == 1">易联云</span>
-            <span v-if="scope.row.type == 2">飞鹅云</span>
+            <span v-if="scope.row.type == 1">Yilianyun</span>
+            <span v-if="scope.row.type == 2">Đám mây ngỗng bay</span>
           </template>
         </el-table-column>
-        <el-table-column label="应用账号" min-width="100">
+        <el-table-column label="Tài khoản ứng dụng" min-width="100">
           <template slot-scope="scope">
             <span v-if="scope.row.type == 1">{{ scope.row.yly_app_id }}</span>
             <span v-if="scope.row.type == 2">{{ scope.row.fey_user }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="打印联数" min-width="80">
+        <el-table-column label="In số lượng câu đối" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.times }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" min-width="130">
+        <el-table-column label="thời gian sáng tạo" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="打印开关" min-width="100">
+        <el-table-column label="Công tắc in" min-width="100">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -91,19 +91,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              active-text="bật lên"
+              inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column label="vận hành" fixed="right" width="170">
           <template slot-scope="scope">
-            <a @click="setting(scope.row.id)">设计</a>
+            <a @click="setting(scope.row.id)">thiết kế</a>
             <el-divider direction="vertical" />
-            <a @click="edit(scope.row.id)">编辑</a>
+            <a @click="edit(scope.row.id)">biên tập</a>
             <el-divider direction="vertical" />
-            <a @click="del(scope.row, '删除打印机', scope.$index)">删除</a>
+            <a @click="del(scope.row, 'Xóa máy in', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -139,15 +139,15 @@ export default {
       optionsList: [
         {
           value: '0',
-          label: '全部',
+          label: 'tất cả',
         },
         {
           value: '1',
-          label: '易联云',
+          label: 'Yilianyun',
         },
         {
           value: '2',
-          label: '飞鹅云',
+          label: 'Đám mây ngỗng bay',
         },
       ],
       columns: [
@@ -157,37 +157,37 @@ export default {
           width: 80,
         },
         {
-          title: '打印机名称',
+          title: 'Tên máy in',
           key: 'print_name',
           minWidth: 100,
         },
         {
-          title: '平台',
+          title: 'nền tảng',
           slot: 'type',
           minWidth: 100,
         },
         {
-          title: '应用账号',
+          title: 'Tài khoản ứng dụng',
           slot: 'account',
           minWidth: 100,
         },
         {
-          title: '打印联数',
+          title: 'In số lượng câu đối',
           key: 'times',
           width: 200,
         },
         {
-          title: '创建时间',
+          title: 'thời gian sáng tạo',
           key: 'add_time',
           width: 200,
         },
         {
-          title: '打印开关',
+          title: 'Công tắc in',
           slot: 'status',
           width: 200,
         },
         {
-          title: '操作',
+          title: 'vận hành',
           slot: 'action',
           fixed: 'right',
           width: 140,
@@ -222,7 +222,7 @@ export default {
       this.getList();
     },
 
-    // 单位列表
+    // Danh sách đơn vị
     getList() {
       this.loading = true;
       printList(this.specsFrom)
@@ -241,7 +241,7 @@ export default {
       this.specsFrom.page = index;
       this.getList();
     },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       let data = {
         id: row.id,
@@ -255,13 +255,13 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 添加
+    // Thêm vào
     add() {
       this.$modalForm(printForm(0)).then(() => {
         this.getList();
       });
     },
-    //修改
+    //Ôn lại
     edit(id) {
       this.$modalForm(printForm(id)).then(() => {
         this.getList();
@@ -273,7 +273,7 @@ export default {
         query: { id: id },
       });
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,

@@ -14,19 +14,19 @@
         configNme != 'assetConfig'
       "
     >
-      <div class="type-title">{{ configData.listStyleName || '图文内容' }}</div>
+      <div class="type-title">{{ configData.listStyleName || 'Nội dung đồ họa' }}</div>
       <el-radio-group v-if="configData.listStyle != -1" v-model="configData.listStyle" size="small">
-        <el-radio :label="0">图片</el-radio>
-        <el-radio :label="1">图标</el-radio>
+        <el-radio :label="0">hình ảnh</el-radio>
+        <el-radio :label="1">biểu tượng</el-radio>
       </el-radio-group>
     </div>
     <div class="type-switch" style="margin-bottom: 15px" v-if="configNme == 'assetConfig'">
-      <!-- <span class="type-title">展示样式</span> -->
+      <!-- <span class="type-title">phong cách hiển thị</span> -->
       <el-radio-group v-model="configData.listStyle" size="small">
-        <el-radio v-if="configData.assetMode == 0" :label="2">数字(上)</el-radio>
-        <el-radio v-if="configData.assetMode == 0" :label="3">数字(左)</el-radio>
-        <el-radio :label="0">图片</el-radio>
-        <el-radio :label="1">图标</el-radio>
+        <el-radio v-if="configData.assetMode == 0" :label="2">con số(thượng đẳng)</el-radio>
+        <el-radio v-if="configData.assetMode == 0" :label="3">con số(Bên trái)</el-radio>
+        <el-radio :label="0">hình ảnh</el-radio>
+        <el-radio :label="1">biểu tượng</el-radio>
       </el-radio-group>
     </div>
     <div class="list-box">
@@ -40,7 +40,7 @@
           </div>
           <div
             class="img-box"
-            @click="modalPicTap('单选', index)"
+            @click="modalPicTap('Lựa chọn duy nhất', index)"
             v-if="configData.listStyle == 0 || configData.listStyle == -1"
           >
             <img :src="item.img" alt="" v-if="item.img" />
@@ -74,7 +74,7 @@
               <div class="input-box">
                 <el-input v-model="infos.value" :placeholder="infos.tips" :maxlength="infos.max">
                   <i
-                    v-if="infos.title == '链接'"
+                    v-if="infos.title == 'liên kết'"
                     class="el-icon-link"
                     slot="suffix"
                     @blur="onBlur"
@@ -84,14 +84,14 @@
               </div>
             </div>
             <div class="info-item" v-if="configData.type">
-              <span class="span">状态</span>
+              <span class="span">tình trạng</span>
               <el-switch v-model="item.show" />
             </div>
           </div>
         </div>
       </draggable>
       <div>
-        <el-dialog :visible.sync="modalPic" width="960px" title="上传图片">
+        <el-dialog :visible.sync="modalPic" width="960px" title="Tải ảnh lên">
           <uploadPictures
             :isChoice="isChoice"
             @getPic="getPic"
@@ -149,7 +149,7 @@ export default {
         },
       ],
       modalPic: false,
-      isChoice: '单选',
+      isChoice: 'Lựa chọn duy nhất',
       gridBtn: {
         xl: 4,
         lg: 8,
@@ -223,7 +223,7 @@ export default {
         this.configData.list.push(obj);
       }
     },
-    // 点击图文封面
+    // Bấm vào ảnh và bìa văn bản
     modalPicTap(title, index) {
       this.activeIndex = index;
       this.modalPic = true;
@@ -235,7 +235,7 @@ export default {
     handleIconSelect(icon) {
       this.$set(this.configData.list[this.activeIndex], 'icon', icon);
     },
-    // 添加自定义弹窗
+    // Thêm cửa sổ bật lên tùy chỉnh
     addCustomDialog(editorId) {
       window.UE.registerUI(
         'test-dialog',
@@ -244,17 +244,17 @@ export default {
             iframeUrl: '/admin/widget.images/index.html?fodder=dialog',
             editor: editor,
             name: uiName,
-            title: '上传图片',
+            title: 'Tải ảnh lên',
             cssRules: 'width:1200px;height:500px;padding:20px;',
           });
           this.dialog = dialog;
-          // 参考上面的自定义按钮
+          // Tham khảo nút tùy chỉnh ở trên
           var btn = new window.UE.ui.Button({
             name: 'dialog-button',
-            title: '上传图片',
+            title: 'Tải ảnh lên',
             cssRules: `background-image: url(../../../assets/images/icons.png);background-position: -726px -77px;`,
             onclick: function () {
-              // 渲染dialog
+              // kết xuấtdialog
               dialog.render();
               dialog.open();
             },
@@ -265,7 +265,7 @@ export default {
         37,
       );
     },
-    // 获取图片信息
+    // Lấy thông tin hình ảnh
     getPic(pc) {
       this.$nextTick(() => {
         this.configData.list[this.activeIndex].img = pc.att_dir;
@@ -283,7 +283,7 @@ export default {
       let data = this.defaults.menuConfig;
       this.defaults.picStyle.picList[this.defaults.picStyle.tabVal].link = data.list[0].info[0].value;
     },
-    // 删除
+    // xóa bỏ
     bindDelete(item, index) {
       if (this.configData.list.length == 1) {
         this.lastObj = this.configData.list[0];

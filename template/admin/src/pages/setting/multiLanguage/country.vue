@@ -10,18 +10,18 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="搜索：">
+          <el-form-item label="tìm kiếm：">
             <div class="acea-row row-middle">
               <el-input
                 clearable
-                placeholder="请输入语言Code"
+                placeholder="Vui lòng nhập ngôn ngữCode"
                 v-model="formValidate.keyword"
                 class="form_content_width"
               />
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">搜索</el-button>
+            <el-button type="primary" v-db-click @click="selChange">tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -29,35 +29,35 @@
     <el-card :bordered="false" shadow="never">
       <el-row>
         <el-col v-bind="grid">
-          <el-button type="primary" v-db-click @click="add">添加语言地区</el-button>
+          <el-button type="primary" v-db-click @click="add">Thêm ngôn ngữ</el-button>
         </el-col>
       </el-row>
-      <el-table ref="table" :data="tabList" class="ivu-mt mt14" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="编号" min-width="100">
+      <el-table ref="table" :data="tabList" class="ivu-mt mt14" v-loading="loading" empty-text="Chưa có dữ liệu">
+        <el-table-column label="số seri" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="浏览器语言识别码" min-width="100">
+        <el-table-column label="Mã định danh ngôn ngữ trình duyệt" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="语言说明" min-width="100">
+        <el-table-column label="Mô tả ngôn ngữ" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="关联语言" min-width="100">
+        <el-table-column label="ngôn ngữ liên quan" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.link_lang }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column label="vận hành" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除地区语言', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ khu vực', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -110,14 +110,14 @@ export default {
     this.getList();
   },
   methods: {
-    // 添加
+    // Thêm vào
     add() {
       this.$modalForm(langCountryForm(0)).then(() => this.getList());
     },
     edit(row) {
       this.$modalForm(langCountryForm(row.id)).then(() => this.getList());
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -140,7 +140,7 @@ export default {
       this.formValidate.page = 1;
       this.getList();
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       langCountryList(this.formValidate)

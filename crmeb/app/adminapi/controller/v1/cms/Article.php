@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\article\ArticleServices;
 use think\facade\App;
 
 /**
- * 文章管理
+ * Quản lý bài viết
  * Class Article
  * @package app\adminapi\controller\v1\cms
  */
@@ -38,7 +38,7 @@ class Article extends AuthController
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @return mixed
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
@@ -56,7 +56,7 @@ class Article extends AuthController
     }
 
     /**
-     * 保存文章数据
+     * Lưu dữ liệu bài viết
      * @return mixed
      */
     public function save()
@@ -78,11 +78,11 @@ class Article extends AuthController
             ['status', 1]
         ]);
         $this->service->save($data);
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 获取单个文章数据
+     * Nhận dữ liệu bài viết duy nhất
      * @param int $id
      * @return mixed
      * @throws \ReflectionException
@@ -92,55 +92,55 @@ class Article extends AuthController
      */
     public function read($id = 0)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->service->read($id);
         return app('json')->success($info);
     }
 
     /**
-     * 删除文章
+     * Xóa bài viết
      * @param int $id
      * @return mixed
      */
     public function delete($id = 0)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->service->del($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 文章关联商品
+     * Sản phẩm liên quan đến bài viết
      * @param int $id
      * @return mixed
      */
     public function relation($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         list($product_id) = $this->request->postMore([
             ['product_id', 0]
         ], true);
         $res = $this->service->bindProduct($id, $product_id);
         if ($res) {
-            return app('json')->success('关联成功');
+            return app('json')->success('Hiệp hội thành công');
         } else {
-            return app('json')->fail('关联失败');
+            return app('json')->fail('Liên kết thất bại');
         }
     }
 
     /**
-     * 取消商品关联
+     * Hủy liên kết sản phẩm
      * @param int $id
      * @return mixed
      */
     public function unrelation($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $res = $this->service->bindProduct($id);
         if ($res) {
-            return app('json')->success('取消成功');
+            return app('json')->success('Hủy thành công');
         } else {
-            return app('json')->fail('取消失败');
+            return app('json')->fail('Hủy không thành công');
         }
     }
 }

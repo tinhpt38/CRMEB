@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -25,13 +25,13 @@ class UserBill extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'user_bill';
@@ -41,7 +41,7 @@ class UserBill extends BaseModel
     protected $createTime = 'add_time';
 
     /**
-     * 添加时间修改器
+     * Thêm công cụ sửa đổi thời gian
      * @return int
      */
     public function setAddTimeAttr()
@@ -50,7 +50,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 添加时间获取器
+     * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
      */
@@ -67,7 +67,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 关联订单表
+     * Bảng thứ tự liên kết
      * @return UserBill|model\relation\HasOne
      */
     public function order()
@@ -76,7 +76,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 关联用户
+     * Người dùng được liên kết
      * @return model\relation\HasOne
      */
     public function user()
@@ -85,7 +85,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 用户uid
+     * người dùnguid
      * @param Model $query
      * @param $value
      */
@@ -100,7 +100,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 关联id
+     * sự kết hợpid
      * @param Model $query
      * @param $value
      */
@@ -113,7 +113,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 支出|获得
+     * chi tiêu|lấy
      * @param Model $query
      * @param $value
      */
@@ -123,7 +123,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 种类 now_money:余额 integral:积分 exp:经验
+     * kiểu now_money:Sự cân bằng integral:tích phân exp:kinh nghiệm
      * @param Model $query
      * @param $value
      */
@@ -148,7 +148,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 类型
+     * kiểu
      * @param Model $query
      * @param $value
      */
@@ -173,7 +173,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 状态 0：带确定 1：有效 -1：无效
+     * Trạng thái 0: Đã xác nhận 1: Hợp lệ -1: Không hợp lệ
      * @param Model $query
      * @param $value
      */
@@ -183,7 +183,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 是否收货 0：未收货 1：已收货
+     * Có nhận hàng hay không 0: Chưa nhận 1: Đã nhận
      * @param Model $query
      * @param $value
      */
@@ -205,7 +205,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 模糊搜索
+     * tìm kiếm mờ
      * @param Model $query
      * @param $value
      */
@@ -219,7 +219,7 @@ class UserBill extends BaseModel
     }
 
     /**
-     * 时间
+     * thời gian
      * @param Model $query
      * @param $value
      */

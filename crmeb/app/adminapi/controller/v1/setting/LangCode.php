@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ class LangCode extends AuthController
     }
 
     /**
-     * 获取语言列表
+     * Nhận danh sách ngôn ngữ
      * @return mixed
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
@@ -46,7 +46,7 @@ class LangCode extends AuthController
     }
 
     /**
-     * 获取语言详情
+     * Nhận chi tiết ngôn ngữ
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -61,7 +61,7 @@ class LangCode extends AuthController
     }
 
     /**
-     * 新增编辑语言
+     * Thêm ngôn ngữ chỉnh sửa mới
      * @return mixed
      * @throws \Exception
      */
@@ -75,22 +75,22 @@ class LangCode extends AuthController
             ['list', []]
         ]);
         $this->services->langCodeSave($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 删除语言
+     * Xóa ngôn ngữ
      * @param $id
      * @return mixed
      */
     public function langCodeDel($id)
     {
         $this->services->langCodeDel($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 机器翻译
+     * dịch máy
      * @return mixed
      * @throws \Throwable
      */
@@ -99,7 +99,7 @@ class LangCode extends AuthController
         [$text] = $this->request->postMore([
             ['text', '']
         ], true);
-        if ($text == '') return app('json')->fail('参数错误');
+        if ($text == '') return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->langCodeTranslate($text));
     }
 }

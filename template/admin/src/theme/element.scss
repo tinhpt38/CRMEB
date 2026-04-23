@@ -1,4 +1,4 @@
-/* 防止页面切换时，滚动条高度不变的问题（滚动条高度非滚动条滚动高度）
+/* Ngăn chặn vấn đề chiều cao thanh cuộn không thay đổi khi chuyển trang (chiều cao thanh cuộn không phải là chiều cao cuộn thanh cuộn)）
 ------------------------------- */
 .el-scrollbar {
   overflow: hidden;
@@ -10,7 +10,7 @@
   overflow: auto !important;
   overflow-x: hidden !important;
   max-height: 100%;
-  /*防止页面切换时，滚动条高度不变的问题（滚动条高度非滚动条滚动高度）*/
+  /*Ngăn chặn vấn đề chiều cao thanh cuộn không thay đổi khi chuyển trang (chiều cao thanh cuộn không phải là chiều cao cuộn thanh cuộn)）*/
 }
 
 .el-select-dropdown .el-scrollbar__wrap {
@@ -19,14 +19,14 @@
 
 .el-select-dropdown__wrap {
   max-height: 274px !important;
-  /*修复Select 选择器高度问题*/
+  /*Sửa chữa Chọn vấn đề về chiều cao của bộ chọn*/
 }
 
 .el-autocomplete-suggestion__wrap {
   max-height: 280px !important;
 }
 
-/* Button 按钮
+/* Button cái nút
 ------------------------------- */
 .el-button {
   font-weight: 400 !important;
@@ -41,7 +41,7 @@
   margin-left: 14px !important;
 }
 
-// 第三方字体图标大小
+// Kích thước biểu tượng phông chữ của bên thứ ba
 .el-button i.iconfont,
 .el-button i.fa {
   font-size: 14px !important;
@@ -66,7 +66,7 @@
   margin-right: 5px;
 }
 
-/* Dialog 对话框
+/* Dialog hộp thoại
 ------------------------------- */
 .el-dialog__body {
   overflow-y: auto;
@@ -108,7 +108,7 @@
   max-height: 600px;
 }
 
-/* Alert 警告
+/* Alert cảnh báo
 ------------------------------- */
 .el-alert--warning.is-light {
   // border: 1px solid rgba(230, 162, 60, 0.3) !important;
@@ -127,7 +127,7 @@
   // border: 1px solid rgba(245, 108, 108, 0.3) !important;
 }
 
-/* Table 表格
+/* Table tờ giấy
 ------------------------------- */
 
 .el-table-column--selection {
@@ -142,7 +142,7 @@
   z-index: 1 !important;
 }
 
-/* 下拉选择器/时间选择器滚动条
+/* Thanh cuộn bộ chọn thả xuống/bộ chọn thời gian
 ------------------------------- */
 .el-table__body tr.current-row > td.el-table__cell,
 .vxe-table--render-default .vxe-body--row.row--current {
@@ -164,9 +164,9 @@
   min-height: 24px;
 }
 
-/* NavMenu 导航菜单
+/* NavMenu Trình đơn điều hướng
 ------------------------------- */
-// 默认样式修改
+// Sửa đổi kiểu mặc định
 .el-menu {
   border-right: none !important;
 }
@@ -179,7 +179,7 @@
   transition: none !important;
 }
 
-// horizontal 水平方向时
+// horizontal Khi ở hướng ngang
 .el-menu--horizontal > .el-menu-item.is-active,
 .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
   border-bottom: 3px solid !important;
@@ -206,7 +206,7 @@
   color: var(--prev-bg-topBarColor) !important;
 }
 
-// 外部链接时
+// Khi liên kết ra bên ngoài
 .el-menu-item a,
 .el-menu-item a:hover,
 .el-menu-item i,
@@ -222,7 +222,7 @@
   display: inline-block;
 }
 
-// 默认 hover 时
+// Di chuột mặc định
 .el-menu-item:hover,
 .el-submenu__title:hover {
   color: var(--prev-MenuActiveColor) !important;
@@ -233,12 +233,12 @@
   }
 }
 
-// 鼠标 hover 时颜色
+// Màu sắc khi di chuột
 .el-menu-hover-bg-color {
   background-color: var(--prev-bg-menu-hover-ba-color) !important;
 }
 
-// 高亮时
+// Khi được đánh dấu
 .el-menu-item.is-active {
   color: var(--prev-MenuActiveColor) !important;
 
@@ -313,13 +313,13 @@
   //   }
 }
 
-// 菜单收起时且是a链接
+// Khi menu được đóng lại và nó là một liên kết
 .is-dark a {
   color: #ffffff !important;
   text-decoration: none;
 }
 
-// 菜单收起时鼠标经过背景颜色/字体颜色
+// Màu nền/màu chữ khi chuột đi qua khi đóng menu
 .el-menu--vertical {
   background: var(--prev-bg-menuBar) !important;
 }
@@ -335,7 +335,7 @@
   }
 }
 
-// 第三方图标字体间距/大小设置
+// Cài đặt khoảng cách/kích thước phông chữ biểu tượng của bên thứ ba
 .el-menu-item .iconfont,
 .el-submenu .iconfont,
 .el-menu-item .fa,
@@ -348,18 +348,18 @@
   text-align: center;
 }
 
-// element plus 本身字体图标
+// element plus biểu tượng phông chữ của chính nó
 .el-submenu [class^='el-icon-'],
 .el-menu-item [class^='el-icon-'] {
   font-size: 14px !important;
 }
 
-// 去掉离开浏览器时，菜单的默认高亮
+// Xóa phần tô sáng mặc định của menu khi rời khỏi trình duyệt
 .el-menu-item:focus {
   //   background-color: transparent !important;
 }
 
-/* Alert 警告
+/* Alert cảnh báo
 ------------------------------- */
 .el-alert__title {
   word-break: break-all;
@@ -379,7 +379,7 @@
   border-bottom-color: #f2f2f2 !important;
 }
 
-// 下拉菜单
+// trình đơn thả xuống
 .el-dropdown {
   font-size: 12px !important;
 }
@@ -420,7 +420,7 @@
 
 // input
 
-// 取消input的上下箭头
+// Hủy bỏ mũi tên lên xuống của đầu vào
 input::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
 }

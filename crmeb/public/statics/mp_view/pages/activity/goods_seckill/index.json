@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "限时秒杀",
+  "navigationBarTitleText": "Khuyến mại chớp nhoáng trong thời gian có hạn",
   "usingComponents": {
     "home": "/components/home/index"
   }

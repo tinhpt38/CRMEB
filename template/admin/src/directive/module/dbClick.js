@@ -1,7 +1,7 @@
 /**
- * @description 一个Vue指令，用于控制组件的显示和隐藏
- * @param {Object} el - 指令绑定的DOM元素
- * @param {Object} binding - 指令绑定的对象
+ * @description Lệnh Vue dùng để điều khiển hiển thị và ẩn các thành phần
+ * @param {Object} el - Phần tử DOM mà lệnh được ràng buộc
+ * @param {Object} binding - Đối tượng mà lệnh bị ràng buộc
  */
 const dbClick = {
   inserted(el, binding) {

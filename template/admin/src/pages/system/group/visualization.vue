@@ -4,7 +4,7 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="save">保存</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="save">cứu</el-button>
         </div>
       </div>
     </div>
@@ -21,39 +21,39 @@
           >
             {{ item.name }}
           </div>
-          <div class="tab-item" :class="{ active: pageId == 1617 }" v-db-click @click="edits(2)">开屏广告</div>
+          <div class="tab-item" :class="{ active: pageId == 1617 }" v-db-click @click="edits(2)">Quảng cáo màn hình mở</div>
         </div>
       </div>
       <div v-if="name == 'user_recharge_quota'" class="iframe">
         <div class="iframe-boxs">
           <div class="moneyBox">
             <div class="box1">
-              <div class="font1">我的余额</div>
+              <div class="font1">số dư của tôi</div>
               <div>￥ <i class="font2">0.00</i></div>
             </div>
             <div class="moneyBox_content">
               <div class="box2">
-                <div>账户充值</div>
-                <div>佣金导入</div>
+                <div>Nạp tiền tài khoản</div>
+                <div>nhập khẩu hoa hồng</div>
               </div>
               <div class="box3">
                 <div v-show="item.status != 0" class="box3_box" v-for="(item, index) in sginList.list" :key="index">
-                  <div>{{ item.price }}<i class="font">元</i></div>
-                  <div class="font">赠送:{{ item.give_money }}元</div>
+                  <div>{{ item.price }}<i class="font">Nhân dân tệ</i></div>
+                  <div class="font">cho đi:{{ item.give_money }}Nhân dân tệ</div>
                 </div>
                 <div class="box3_box">
-                  <div class="other">其他</div>
+                  <div class="other">khác</div>
                 </div>
               </div>
               <div class="box4">
-                <div class="tips">注意事项：</div>
+                <div class="tips">Những điều cần lưu ý：</div>
                 <div class="tips-samll">
-                  <p>充值后帐户的金额不能提现，可用于商城消费使用。</p>
-                  <p>佣金导入账户之后不能再次导出、不可提现。</p>
-                  <p>账户充值出现问题可联系商城客服，也可拨打商城客服热线：40088888889。</p>
+                  <p>Sau khi nạp tiền, số tiền trong tài khoản không thể rút được nhưng có thể dùng để mua sắm trong trung tâm thương mại.。</p>
+                  <p>Sau khi hoa hồng được nhập vào tài khoản, nó không thể được xuất lại hoặc rút.。</p>
+                  <p>Nếu bạn gặp bất kỳ vấn đề gì khi nạp tiền vào tài khoản, bạn có thể liên hệ với bộ phận dịch vụ khách hàng của trung tâm mua sắm hoặc gọi đến đường dây nóng dịch vụ khách hàng của trung tâm mua sắm.：40088888889。</p>
                 </div>
               </div>
-              <div class="box5">立即充值</div>
+              <div class="box5">Nạp tiền ngay bây giờ</div>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
       <div v-if="name == 'admin_login_slide'" class="pciframe" :bordered="false" shadow="never">
         <img src="../../../assets/images/pclogin.png" class="pciframe-box" />
         <div class="pcmoddile_goods">
-          <div class="nofont" v-if="tabList.list == ''">暂无照片，请添加~</div>
+          <div class="nofont" v-if="tabList.list == ''">Chưa có ảnh, vui lòng thêm chúng~</div>
           <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
             <swiper-slide class="spcwiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
               <img :src="item.slide" />
@@ -74,7 +74,7 @@
           <img src="../../../assets/images/integral.png" style="width: 100%" />
           <div class="moddile_goods">
             <div class="nofonts" v-if="tabList.list == '' || !tabList.list.length || !tabList.list[0].img">
-              暂无照片，请添加~
+              Chưa có ảnh, vui lòng thêm chúng~
             </div>
             <swiper v-else :options="swiperOption" class="pcswiperimg_goods">
               <swiper-slide class="swiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
@@ -109,7 +109,7 @@
           class="moddile_box"
         >
           <div class="nofonts" v-if="!tabList.list || !tabList.list.length || !tabList.list[0].img">
-            暂无照片，请添加~
+            Chưa có ảnh, vui lòng thêm chúng~
           </div>
           <swiper v-else :options="swiperOption" class="swiperimg">
             <swiper-slide class="swiperimg" v-for="(item, index) in tabList.list" :key="index">
@@ -118,7 +118,7 @@
           </swiper>
         </div>
         <div v-if="name == 'combination_banner'" class="moddile_goods">
-          <div class="nofonts" v-if="tabList.list == ''">暂无照片，请添加~</div>
+          <div class="nofonts" v-if="tabList.list == ''">Chưa có ảnh, vui lòng thêm chúng~</div>
           <swiper v-else :options="swiperOption" class="swiperimg_goods">
             <swiper-slide class="swiperimg_goods" v-for="(item, index) in tabList.list" :key="index">
               <img :src="item.img" />
@@ -139,10 +139,10 @@
         <div class="agreement-box">
           <div class="template"></div>
           <div class="htmls_box">
-            <div class="htmls_top">服务协议与隐私政策</div>
+            <div class="htmls_top">Thỏa thuận dịch vụ và Chính sách quyền riêng tư</div>
             <div class="htmls_font">
-              <div class="ok">我同意</div>
-              <div>不同意</div>
+              <div class="ok">tôi đồng ý</div>
+              <div>không đồng ý</div>
             </div>
             <div class="htmls" v-html="formValidate.content"></div>
           </div>
@@ -152,7 +152,7 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">隐私权限页面展示：</div>
+              <div class="title">Hiển thị trang riêng tư：</div>
             </div>
           </div>
           <div>
@@ -179,7 +179,7 @@
       </div>
       <div v-if="guide == 2" class="iframe" :bordered="false">
         <div class="nofonts" v-if="tabList.list == '' || !tabList.list.length || !tabList.list[0].img">
-          暂无照片，请添加~
+          Chưa có ảnh, vui lòng thêm chúng~
         </div>
         <swiper :options="swiperOption" class="swiperimgs" v-else>
           <swiper-slide class="swiperimgs" v-for="(item, index) in tabList.list" :key="index">
@@ -191,13 +191,13 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">签到天数设置</div>
+              <div class="title">Cài đặt ngày nhận phòng</div>
               <el-button
                 type="primary"
                 v-db-click
-                @click="groupAdd('添加数据')"
+                @click="groupAdd('Thêm dữ liệu')"
                 style="margin-left: 14px; margin-top: 30px"
-                >添加数据</el-button
+                >Thêm dữ liệu</el-button
               >
             </div>
           </div>
@@ -208,26 +208,26 @@
               class="mt14"
               v-loading="loading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+              no-userFrom-text="Chưa có dữ liệu"
+              no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
-              <el-table-column label="编号" width="80">
+              <el-table-column label="số seri" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="第几天" min-width="80">
+              <el-table-column label="Ngày" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.day }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="获取积分" min-width="80">
+              <el-table-column label="Nhận điểm" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sign_num }}</span>
                 </template>
               </el-table-column>
 
-              <el-table-column label="是否可用" min-width="80">
+              <el-table-column label="Nó có sẵn không" min-width="80">
                 <template slot-scope="scope">
                   <el-switch
                     :active-value="1"
@@ -240,16 +240,16 @@
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="排序" min-width="80">
+              <el-table-column label="loại" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" fixed="right" width="150">
+              <el-table-column label="vận hành" fixed="right" width="150">
                 <template slot-scope="scope">
-                  <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+                  <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+                  <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
                 </template>
               </el-table-column>
             </el-table>
@@ -260,13 +260,13 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">充值金额设置</div>
+              <div class="title">Cài đặt số tiền nạp lại</div>
               <el-button
                 type="primary"
                 v-db-click
-                @click="groupAdd('添加数据')"
+                @click="groupAdd('Thêm dữ liệu')"
                 style="margin-left: 14px; margin-top: 30px"
-                >添加数据</el-button
+                >Thêm dữ liệu</el-button
               >
             </div>
           </div>
@@ -277,8 +277,8 @@
               class="mt14"
               v-loading="loading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+              no-userFrom-text="Chưa có dữ liệu"
+              no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
               <el-table-column
                 :label="item.title"
@@ -304,9 +304,9 @@
                     </el-switch>
                   </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+                    <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+                    <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
                   </template>
                 </template>
               </el-table-column>
@@ -321,9 +321,9 @@
         >
           <div class="right-box">
             <div class="hot_imgs">
-              <div class="title" v-if="name == 'admin_login_slide'">幻灯片设置</div>
-              <div class="title" v-else>轮播图设置</div>
-              <div class="title-text">建议尺寸：690 * 240px，拖拽图片可调整图片顺序哦，最多添加五张</div>
+              <div class="title" v-if="name == 'admin_login_slide'">Cài đặt trình chiếu</div>
+              <div class="title" v-else>Cài đặt băng chuyền</div>
+              <div class="title-text">Kích thước đề xuất: 690 * 240px. Kéo và thả ảnh để điều chỉnh thứ tự ảnh. Có thể thêm tối đa năm hình ảnh.</div>
               <div class="list-box">
                 <draggable
                   v-if="name == 'admin_login_slide'"
@@ -336,7 +336,7 @@
                     <div class="move-icon">
                       <span class="iconfont icondrag2"></span>
                     </div>
-                    <div class="img-box" v-db-click @click="modalPicTap('单选', index)">
+                    <div class="img-box" v-db-click @click="modalPicTap('Lựa chọn duy nhất', index)">
                       <img :src="item.slide" alt="" v-if="item.slide" />
                       <div class="upload-box" v-else>
                         <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -353,7 +353,7 @@
                     <div class="move-icon">
                       <span class="iconfont icondrag2"></span>
                     </div>
-                    <div class="img-box" v-db-click @click="modalPicTap('单选', index)">
+                    <div class="img-box" v-db-click @click="modalPicTap('Lựa chọn duy nhất', index)">
                       <img :src="item.img" alt="" v-if="item.img" />
                       <div class="upload-box" v-else>
                         <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -364,15 +364,15 @@
                     </div>
                     <div class="info">
                       <div class="info-item">
-                        <span>图片名称：</span>
+                        <span>Tên ảnh：</span>
                         <div class="input-box">
-                          <el-input v-model="item.comment" placeholder="请填写名称" />
+                          <el-input v-model="item.comment" placeholder="Vui lòng điền tên" />
                         </div>
                       </div>
                       <div class="info-item">
-                        <span>链接地址：</span>
+                        <span>Địa chỉ liên kết：</span>
                         <div class="input-box" v-db-click>
-                          <el-input v-model="item.link" placeholder="选择链接">
+                          <el-input v-model="item.link" placeholder="Chọn liên kết">
                             <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                           </el-input>
                         </div>
@@ -384,7 +384,7 @@
                   <el-dialog
                     :visible.sync="modalPic"
                     width="950px"
-                    title="上传商品图"
+                    title="Tải lên hình ảnh sản phẩm"
                     :close-on-click-modal="false"
                     :show-close="true"
                   >
@@ -406,7 +406,7 @@
                     style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                     v-db-click
                     @click="addBox"
-                    >添加图片
+                    >thêm hình ảnh
                   </el-button>
                 </div>
               </template>
@@ -417,22 +417,22 @@
       <div v-if="guide === 2" :class="name != 'admin_login_slide' ? 'content' : 'contents'">
         <div class="right-box">
           <div class="hot_imgs">
-            <div class="title">引导页设置</div>
-            <div class="title-text">建议尺寸：750 * 1334px，拖拽图片可调整图片顺序哦，最多添加五张</div>
+            <div class="title">Cài đặt trang khởi động</div>
+            <div class="title-text">Kích thước đề xuất: 750 * 1334px, kéo và thả ảnh để điều chỉnh thứ tự ảnh, thêm tối đa năm ảnh</div>
             <div class="list-box">
               <div>
                 <el-form :model="formItem" label-width="85px">
-                  <el-form-item label="开屏广告:">
+                  <el-form-item label="Quảng cáo màn hình mở:">
                     <el-switch active-value="1" inactive-value="0" v-model="formItem.status" size="large"> </el-switch>
                   </el-form-item>
-                  <el-form-item label="广告时间:">
+                  <el-form-item label="thời gian quảng cáo:">
                     <el-input
                       v-model.number="formItem.time"
                       type="number"
-                      placeholder="请输入开屏广告时间"
+                      placeholder="Vui lòng nhập thời gian mở quảng cáo"
                       style="width: 150px"
                     ></el-input>
-                    单位(秒)
+                    đơn vị(Thứ hai)
                   </el-form-item>
                 </el-form>
               </div>
@@ -441,7 +441,7 @@
                   <div class="move-icon">
                     <span class="iconfont icondrag2"></span>
                   </div>
-                  <div class="img-box" v-db-click @click="modalPicTap('单选', index)">
+                  <div class="img-box" v-db-click @click="modalPicTap('Lựa chọn duy nhất', index)">
                     <img :src="item.img" alt="" v-if="item.img" />
                     <div class="upload-box" v-else>
                       <i class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -452,15 +452,15 @@
                   </div>
                   <div class="info">
                     <div class="info-item">
-                      <span>图片名称：</span>
+                      <span>Tên ảnh：</span>
                       <div class="input-box">
-                        <el-input v-model="item.comment" placeholder="请填写名称" />
+                        <el-input v-model="item.comment" placeholder="Vui lòng điền tên" />
                       </div>
                     </div>
                     <div class="info-item">
-                      <span>链接地址：</span>
+                      <span>Địa chỉ liên kết：</span>
                       <div class="input-box" v-db-click>
-                        <el-input v-model="item.link" placeholder="选择链接">
+                        <el-input v-model="item.link" placeholder="Chọn liên kết">
                           <i class="el-icon-link" slot="suffix" @click="getLink(index)" />
                         </el-input>
                       </div>
@@ -469,7 +469,7 @@
                 </div>
               </draggable>
               <div>
-                <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+                <el-dialog :visible.sync="modalPic" width="950px" title="Tải lên hình ảnh sản phẩm" :close-on-click-modal="false">
                   <uploadPictures
                     :isChoice="isChoice"
                     @getPic="getPic"
@@ -488,7 +488,7 @@
                   style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                   v-db-click
                   @click="addBox"
-                  >添加图片
+                  >thêm hình ảnh
                 </el-button>
               </div>
             </template>
@@ -555,13 +555,13 @@ export default {
       },
       ruleValidate: {},
       myConfig: {
-        autoHeightEnabled: false, // 编辑器不自动被内容撑高
-        initialFrameHeight: 500, // 初始容器高度
-        initialFrameWidth: '100%', // 初始容器宽度
+        autoHeightEnabled: false, // Trình chỉnh sửa không được tự động nâng lên bởi nội dung
+        initialFrameHeight: 500, // chiều cao container ban đầu
+        initialFrameWidth: '100%', // chiều rộng container ban đầu
         UEDITOR_HOME_URL: '/UEditor/',
         serverUrl: '',
       },
-      a: 0, //判断的隐私协议
+      a: 0, //Thỏa thuận về quyền riêng tư của phán quyết
       guide: 0,
       bgimg: 0,
       columns1: [],
@@ -576,20 +576,20 @@ export default {
       },
       loading: false,
       sginList: [],
-      progress: 0, // 进度条默认0
+      progress: 0, // Mặc định thanh tiến trình0
       swiperOption: {
-        //显示分页
+        //hiển thị phân trang
         pagination: {
           el: '.swiper-pagination',
         },
-        //设置点击箭头
+        //Đặt mũi tên nhấp chuột
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
-        //自动轮播
+        //băng chuyền tự động
         autoplay: false,
-        //开启循环模式
+        //Bật chế độ vòng lặp
         loop: false,
       },
       url: '',
@@ -597,8 +597,8 @@ export default {
       pageId: 0,
       theme3: 'light',
       tabList: [],
-      upload_type: '', //视频上传类型 1 本地上传 2 3 4 OSS上传
-      uploadData: {}, // 上传参数
+      upload_type: '', //Loại tải lên video 1 tải lên cục bộ 2 3 4 Tải lên OSS
+      uploadData: {}, // Tải lên các thông số
       lastObj: {
         add_time: '',
         comment: '',
@@ -609,7 +609,7 @@ export default {
         sort: '',
         status: 1,
       },
-      isChoice: '单选',
+      isChoice: 'Lựa chọn duy nhất',
       modalPic: false,
       gridPic: {
         xl: 6,
@@ -643,7 +643,7 @@ export default {
       header: {},
       type: 0,
       upload: {
-        videoIng: false, // 是否显示进度条；
+        videoIng: false, // Có hiển thị thanh tiến trình hay không；
       },
     };
   },
@@ -661,18 +661,18 @@ export default {
     getEditorContent(data) {
       this.formValidate.content = data;
     },
-    // 删除视频；
+    // Xóa video；
     delVideo() {
       let that = this;
       that.$set(that.formItem, 'video_link', '');
     },
-    //获取视频上传类型
+    //Nhận loại tải lên video
     uploadType() {
       uploadType().then((res) => {
         this.upload_type = res.data.upload_type;
       });
     },
-    // 上传成功
+    // Tải lên thành công
     handleSuccess(res, file, fileList) {
       if (res.status === 200) {
         this.$set(this.formItem, 'video_link', res.data.src);
@@ -692,7 +692,7 @@ export default {
       let that = this;
       let suffix = evfile.target.files[0].name.substr(evfile.target.files[0].name.indexOf('.'));
       if (suffix.indexOf('.mp4') === -1) {
-        return that.$message.error('只能上传MP4文件');
+        return that.$message.error('Chỉ có thể tải lên các tệp MP4');
       }
       let types = {
         key: evfile.target.files[0].name,
@@ -711,7 +711,7 @@ export default {
             })
             .then((res) => {
               that.formValidate.video_link = res.url;
-              that.$message.success('视频上传成功');
+              that.$message.success('Video đã được tải lên thành công');
             })
             .catch((res) => {
               that.$message.error(res);
@@ -721,7 +721,7 @@ export default {
           that.$message.error(res.msg);
         });
     },
-    // 上传头部token
+    // Tải tiêu đề lêntoken
     getToken() {
       this.header['Authori-zation'] = 'Bearer ' + getCookies('token');
     },
@@ -763,7 +763,7 @@ export default {
         }
       });
     },
-    // 添加表单
+    // Thêm biểu mẫu
     groupAdd() {
       this.$modalForm(groupDataAddApi({ gid: this.pageId, config_name: this.name }, 'setting/group_data/create')).then(
         () => {
@@ -831,7 +831,7 @@ export default {
         this.a = 0;
         switch (row.config_name) {
           case 'routine_home_bast_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=1&name=精品推荐';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=1&name=Sản phẩm được đề xuất';
             break;
           case 'sign_day_num':
             this.url = '';
@@ -841,13 +841,13 @@ export default {
             this.url = this.BaseURL + 'pages/activity/goods_combination/index';
             break;
           case 'routine_home_hot_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=2&name=热门榜单';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=2&name=Danh sách phổ biến';
             break;
           case 'routine_home_new_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=3&name=首发新品';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=3&name=Sản phẩm mới đầu tiên';
             break;
           case 'routine_home_benefit_banner':
-            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=4&name=促销单品';
+            this.url = this.BaseURL + 'pages/columnGoods/HotNewGoods/index?type=4&name=Mặt hàng khuyến mại';
             break;
           case 'user_recharge_quota':
             this.url = '';
@@ -877,23 +877,23 @@ export default {
         };
       } else {
         if (this.tabList.list.length == 5) {
-          this.$message.warning('最多添加五张呦');
+          this.$message.warning('Bạn có thể thêm tối đa năm hình ảnh');
         } else {
           let obj = JSON.parse(JSON.stringify(this.lastObj));
           this.tabList.list.push(obj);
         }
       }
     },
-    // 删除
+    // xóa bỏ
     bindDelete(item, index) {
       this.tabList.list.splice(index, 1);
     },
-    // 点击图文封面
+    // Bấm vào ảnh và bìa văn bản
     modalPicTap(title, index) {
       this.activeIndex = index;
       this.modalPic = true;
     },
-    // 获取图片信息
+    // Lấy thông tin hình ảnh
     getPic(pc) {
       this.$nextTick(() => {
         if (this.name == 'admin_login_slide') {
@@ -948,7 +948,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$modalForm(
         groupDataEditApi({ gid: this.pageId, config_name: this.name }, 'setting/group_data/' + row.id + '/edit'),
@@ -957,7 +957,7 @@ export default {
         this.url = this.BaseURL + 'pages/users/user_sgin/index';
       });
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -975,7 +975,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       groupDataSetApi('setting/group_data/set_status/' + row.id + '/' + row.status)
         .then(async (res) => {
@@ -1002,7 +1002,7 @@ export default {
     getContent(val) {
       this.formValidate.content = val;
     },
-    // 提交数据
+    // Gửi dữ liệu
     onsubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
@@ -1018,7 +1018,7 @@ export default {
         }
       });
     },
-    //详情
+    //Chi tiết
     getAgreement() {
       getAgreement()
         .then(async (res) => {
@@ -1360,7 +1360,7 @@ export default {
   cursor: text;
   transition: border 0.2s ease-in-out, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   font-size: 13px;
-  font-family: PingFangSC-Regular;
+  font-family: "Google Sans", "Product Sans", sans-serif;
   line-height: 22px;
   color: rgba(0, 0, 0, 0.25);
   opacity: 1;

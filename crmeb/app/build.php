@@ -1,32 +1,32 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 /**
- * 创建模块配置
+ * Tạo cấu hình mô-đun
  * php think build model_name
  */
 return [
-    // 需要自动创建的文件
+    // Các tập tin cần được tạo tự động
     '__file__'   => ['.htaccess','ExecptionHandle.php'],
-    // 需要自动创建的目录
+    // Các thư mục cần được tạo tự động
     '__dir__'    => ['controller/v1','config','lang','validates/login/','route'],
-    // 需要自动控制器类
+    // Cần lớp điều khiển tự động
     'controller' => ['Index'],
-    // 需要自动创建的表单验证
+    // Yêu cầu xác thực biểu mẫu được tạo tự động
     'validates' => ['Index'],
-    // 需要自动创建的路由
+    // Các tuyến đường cần được tạo tự động
     'route' => ['route'],
-    // 需要自动创建配置文件
+    // Cần tự động tạo file cấu hình
     'config'      => ['route'],
-    // 需要自动创建的多语言配置文件
+    // Các tập tin cấu hình đa ngôn ngữ cần được tạo tự động
     'lang'      => ['zh-CN','en-US'],
-    // 需要自动创建的模板
+    // Các mẫu cần được tạo tự động
 //    'view'       => ['index/index'],
 ];

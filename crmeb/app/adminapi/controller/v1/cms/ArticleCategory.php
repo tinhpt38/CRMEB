@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\services\CacheService;
 use think\facade\App;
 
 /**
- * 文章分类管理
+ * Quản lý phân loại bài viết
  * Class ArticleCategory
  * @package app\adminapi\controller\v1\cms
  */
@@ -39,7 +39,7 @@ class ArticleCategory extends AuthController
     }
 
     /**
-     * 获取分类列表
+     * Nhận danh sách danh mục
      * @return mixed
      */
     public function index()
@@ -57,7 +57,7 @@ class ArticleCategory extends AuthController
     }
 
     /**
-     * 创建新增表单
+     * Tạo biểu mẫu mới
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -67,7 +67,7 @@ class ArticleCategory extends AuthController
     }
 
     /**
-     * 保存新建分类
+     * Lưu danh mục mới
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
@@ -82,29 +82,29 @@ class ArticleCategory extends AuthController
             ['status', 0]
         ]);
         if (!$data['title']) {
-            return app('json')->fail('请填写分类名称');
+            return app('json')->fail('Vui lòng điền tên danh mục');
         }
         $data['add_time'] = time();
         $this->service->save($data);
         CacheService::delete('ARTICLE_CATEGORY');
         CacheService::delete('ARTICLE_CATEGORY_PC');
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 创建修改表单
+     * Tạo biểu mẫu sửa đổi
      * @param int $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function edit($id = 0)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->service->createForm($id));
     }
 
     /**
-     * 保存修改分类
+     * Lưu danh mục đã sửa đổi
      * @param $id
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -123,26 +123,26 @@ class ArticleCategory extends AuthController
         $this->service->update($data);
         CacheService::delete('ARTICLE_CATEGORY');
         CacheService::delete('ARTICLE_CATEGORY_PC');
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除文章分类
+     * Xóa danh mục bài viết
      * @param $id
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function delete($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->service->del($id);
         CacheService::delete('ARTICLE_CATEGORY');
         CacheService::delete('ARTICLE_CATEGORY_PC');
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改文章分类状态
+     * Sửa đổi trạng thái phân loại bài viết
      * @param int $id
      * @param int $status
      * @return mixed
@@ -150,15 +150,15 @@ class ArticleCategory extends AuthController
      */
     public function set_status($id, $status)
     {
-        if ($status == '' || $id == 0) return app('json')->fail('参数错误');
+        if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->service->setStatus($id, $status);
         CacheService::delete('ARTICLE_CATEGORY');
         CacheService::delete('ARTICLE_CATEGORY_PC');
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 获取文章分类
+     * Nhận phân loại bài viết
      * @return mixed
      */
     public function categoryList()
@@ -167,7 +167,7 @@ class ArticleCategory extends AuthController
     }
 
     /**
-     * 树形列表
+     * danh sách cây
      * @return mixed
      * @throws \ReflectionException
      */

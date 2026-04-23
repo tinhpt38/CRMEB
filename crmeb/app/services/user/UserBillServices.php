@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -25,195 +25,195 @@ use think\facade\Log;
  *
  * Class UserBillServices
  * @package app\services\user
- * @method takeUpdate(int $uid, int $id) 修改收货状态
- * @method sum(array $where, string $field) 求和
- * @method count(array $where) 求条数
- * @method getTotalSum(array $where) 计算某个条件下订单内商品总数
- * @method getBillSum(array $where) 获取某个条件总数
- * @method getList(array $where, string $field, int $page, int $limit, $typeWhere = [], $order = 'id desc') 获取某个条件总数
- * @method getUserRefundPriceList(array $time, string $timeType, string $str, string $field = 'add_time', array $with = []) 获取退款金额按照时间分组
+ * @method takeUpdate(int $uid, int $id) Sửa đổi trạng thái biên nhận
+ * @method sum(array $where, string $field) Tổng
+ * @method count(array $where) Tìm số lượng đồ vật
+ * @method getTotalSum(array $where) Tính tổng số mặt hàng trong một đơn hàng trong các điều kiện nhất định
+ * @method getBillSum(array $where) Lấy tổng số của một điều kiện nhất định
+ * @method getList(array $where, string $field, int $page, int $limit, $typeWhere = [], $order = 'id desc') Lấy tổng số của một điều kiện nhất định
+ * @method getUserRefundPriceList(array $time, string $timeType, string $str, string $field = 'add_time', array $with = []) Nhận số tiền hoàn lại được nhóm theo thời gian
  */
 class UserBillServices extends BaseServices
 {
 
     /**
-     * 用户记录模板
+     * Mẫu hồ sơ người dùng
      * @var array[]
      */
     protected $incomeData = [
         'pay_give_integral' => [
-            'title' => '购买商品赠送积分',
+            'title' => 'Tích điểm khi mua sản phẩm',
             'category' => 'integral',
             'type' => 'product_gain',
-            'mark' => '购买商品赠送{%num%}积分',
+            'mark' => 'Quà tặng miễn phí khi mua hàng{%num%}tích phân',
             'status' => 1,
             'pm' => 1
         ],
         'order_give_integral' => [
-            'title' => '下单赠送积分',
+            'title' => 'Nhận điểm thưởng khi đặt hàng',
             'category' => 'integral',
             'type' => 'gain',
-            'mark' => '下单赠送{%num%}积分',
+            'mark' => 'Miễn phí khi đặt hàng{%num%}tích phân',
             'status' => 1,
             'pm' => 1
         ],
         'order_give_exp' => [
-            'title' => '下单赠送经验',
+            'title' => 'Trải nghiệm miễn phí khi đặt hàng',
             'category' => 'exp',
             'type' => 'gain',
-            'mark' => '下单赠送{%num%}经验',
+            'mark' => 'Miễn phí khi đặt hàng{%num%}kinh nghiệm',
             'status' => 1,
             'pm' => 1
         ],
         'get_brokerage' => [
-            'title' => '获得推广佣金',
+            'title' => 'Nhận hoa hồng khuyến mãi',
             'category' => 'now_money',
             'type' => 'brokerage',
-            'mark' => '{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => '{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_two_brokerage' => [
-            'title' => '获得推广佣金',
+            'title' => 'Nhận hoa hồng khuyến mãi',
             'category' => 'now_money',
             'type' => 'brokerage',
-            'mark' => '二级推广人{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => 'Nhà quảng bá cấp hai{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_user_brokerage' => [
-            'title' => '获得推广用户佣金',
+            'title' => 'Nhận hoa hồng khi quảng bá người dùng',
             'category' => 'now_money',
             'type' => 'brokerage_user',
-            'mark' => '成功推广用户：{%nickname%},奖励推广佣金{%number%}',
+            'mark' => 'Quảng bá người dùng thành công：{%nickname%},Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'pay_product_refund' => [
-            'title' => '商品退款',
+            'title' => 'Hoàn tiền sản phẩm',
             'category' => 'now_money',
             'type' => 'pay_product_refund',
-            'mark' => '订单退款{%payType%}{%number%}元',
+            'mark' => 'Hoàn tiền đơn hàng{%payType%}{%number%}Nhân dân tệ',
             'status' => 1,
             'pm' => 1
         ],
         'integral_refund' => [
-            'title' => '扣除订单下单赠送积分',
+            'title' => 'Trừ điểm khi đặt hàng',
             'category' => 'integral',
             'type' => 'order_deduction',
-            'mark' => '购买商品失败,回退赠送积分{%num%}',
+            'mark' => 'Mua hàng không thành công,Trả lại điểm thưởng{%num%}',
             'status' => 1,
             'pm' => 0
         ],
         'order_integral_refund' => [
-            'title' => '返还下单使用积分',
+            'title' => 'Điểm hoàn tiền được sử dụng để đặt hàng',
             'category' => 'integral',
             'type' => 'integral_refund',
-            'mark' => '购买商品失败,回退积分{%num%}',
+            'mark' => 'Mua hàng không thành công,Trả lại điểm{%num%}',
             'status' => 1,
             'pm' => 1
         ],
         'pay_product_integral_back' => [
-            'title' => '商品退积分',
+            'title' => 'Hoàn lại điểm sản phẩm',
             'category' => 'integral',
             'type' => 'pay_product_integral_back',
-            'mark' => '订单退积分{%num%}积分到用户积分',
+            'mark' => 'Hoàn trả điểm đặt hàng{%num%}Điểm tới điểm của người dùng',
             'status' => 1,
             'pm' => 1
         ],
         'deduction' => [
-            'title' => '积分抵扣',
+            'title' => 'Trừ điểm',
             'category' => 'integral',
             'type' => 'deduction',
-            'mark' => '购买商品使用{%number%}积分抵扣{%deductionPrice%}元',
+            'mark' => 'Mua hàng để sử dụng{%number%}Trừ điểm{%deductionPrice%}Nhân dân tệ',
             'status' => 1,
             'pm' => 0
         ],
         'pay_product' => [
-            'title' => '余额支付购买商品',
+            'title' => 'Thanh toán số dư để mua hàng',
             'category' => 'now_money',
             'type' => 'pay_product',
-            'mark' => '余额支付{%num%}元购买商品',
+            'mark' => 'thanh toán số dư{%num%}nhân dân tệ để mua hàng',
             'status' => 1,
             'pm' => 0
         ],
         'pay_money' => [
-            'title' => '购买商品',
+            'title' => 'mua hàng',
             'category' => 'now_money',
             'type' => 'pay_money',
-            'mark' => '支付{%num%}元购买商品',
+            'mark' => 'chi trả{%num%}nhân dân tệ để mua hàng',
             'status' => 1,
             'pm' => 0
         ],
         'system_add' => [
-            'title' => '系统增加余额',
+            'title' => 'Hệ thống tăng cân bằng',
             'category' => 'now_money',
             'type' => 'system_add',
-            'mark' => '系统增加{%num%}元',
+            'mark' => 'Hệ thống tăng{%num%}Nhân dân tệ',
             'status' => 1,
             'pm' => 1
         ],
         'brokerage_to_nowMoney' => [
-            'title' => '佣金提现到余额',
+            'title' => 'Hoa hồng được rút về số dư',
             'category' => 'now_money',
             'type' => 'extract',
-            'mark' => '佣金提现到余额{%num%}元',
+            'mark' => 'Hoa hồng được rút về số dư{%num%}Nhân dân tệ',
             'status' => 1,
             'pm' => 0
         ],
         'pay_member' => [
-            'title' => '购买会员',
+            'title' => 'Mua thành viên',
             'category' => 'now_money',
             'type' => 'pay_member',
-            'mark' => '支付{%num%}元购买会员',
+            'mark' => 'chi trả{%num%}Nhân dân tệ mua thành viên',
             'status' => 1,
             'pm' => 0
         ],
         'offline_scan' => [
-            'title' => '线下收银',
+            'title' => 'Thu ngân ngoại tuyến',
             'category' => 'now_money',
             'type' => 'offline_scan',
-            'mark' => '线下收银支付{%num%}元',
+            'mark' => 'Thanh toán thu ngân ngoại tuyến{%num%}Nhân dân tệ',
             'status' => 1,
             'pm' => 0
         ],
         'lottery_use_integral' => [
-            'title' => '参与抽奖使用积分',
+            'title' => 'Tham gia rút thăm và sử dụng điểm',
             'category' => 'integral',
             'type' => 'lottery_use',
-            'mark' => '参与抽奖使用{%num%}积分',
+            'mark' => 'Tham gia xổ số{%num%}tích phân',
             'status' => 1,
             'pm' => 0
         ],
         'lottery_give_integral' => [
-            'title' => '抽奖中奖赠送积分',
+            'title' => 'Điểm thưởng khi trúng giải xổ số',
             'category' => 'integral',
             'type' => 'lottery_add',
-            'mark' => '抽奖中奖赠送{%num%}积分',
+            'mark' => 'trúng thưởng xổ số{%num%}tích phân',
             'status' => 1,
             'pm' => 1
         ],
         'lottery_use_money' => [
-            'title' => '参与抽奖使用余额',
+            'title' => 'Tham gia xổ số để sử dụng số dư của bạn',
             'category' => 'now_money',
             'type' => 'lottery_use',
-            'mark' => '参与抽奖使用{%num%}余额',
+            'mark' => 'Tham gia xổ số{%num%}Sự cân bằng',
             'status' => 1,
             'pm' => 0
         ],
         'lottery_give_money' => [
-            'title' => '抽奖中奖赠送余额',
+            'title' => 'Tiền trúng xổ số và số dư tiền thưởng',
             'category' => 'now_money',
             'type' => 'lottery_add',
-            'mark' => '抽奖中奖赠送{%num%}余额',
+            'mark' => 'trúng thưởng xổ số{%num%}Sự cân bằng',
             'status' => 1,
             'pm' => 1
         ],
         'storeIntegral_use_integral' => [
-            'title' => '积分兑换商品',
+            'title' => 'Đổi điểm lấy hàng hóa',
             'category' => 'integral',
             'type' => 'storeIntegral_use',
-            'mark' => '积分商城兑换商品使用{%num%}积分',
+            'mark' => 'Sử dụng điểm để đổi sản phẩm trong trung tâm mua sắm{%num%}tích phân',
             'status' => 1,
             'pm' => 0
         ],
@@ -229,7 +229,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * TODO 获取用户记录总和
+     * TODO Lấy tổng số hồ sơ người dùng
      * @param $uid
      * @param string $category
      * @param array $type
@@ -270,7 +270,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 某个用户佣金总和
+     * Tổng hoa hồng của một người dùng nhất định
      * @param int $uid
      * @return float
      */
@@ -283,7 +283,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取用户|所有佣金总数
+     * Nhận người dùng|Tổng số tiền hoa hồng
      * @param int $uid
      * @param array $where_time
      * @return float
@@ -304,7 +304,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取用户|所有佣金总数
+     * Nhận người dùng|Tổng số tiền hoa hồng
      * @param int $uid
      * @param array $where_time
      * @return float
@@ -318,7 +318,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 用户|所有资金变动列表
+     * người dùng|Danh sách tất cả các thay đổi quỹ
      * @param int $uid
      * @param string $field
      * @return array
@@ -337,20 +337,20 @@ class UserBillServices extends BaseServices
                     return $item['title'];
                 }
             });
-            $item['type_title'] = $value[$item['type']]['title'] ?? '未知类型';
+            $item['type_title'] = $value[$item['type']]['title'] ?? 'loại không xác định';
         }
         return compact('list', 'count');
     }
 
     /**
-     * 获取用户的充值总数
+     * Nhận tổng số tiền nạp của người dùng
      * @param int $uid
      * @return float
      */
     public function getRechargeSum(int $uid = 0, $where_time = [])
     {
-        $where = ['category' => 'now_money', 'type' => 'recharge', 'pm' => 1, 'status' => 1];//用户充值余额
-        $where_system = ['category' => 'now_money', 'type' => 'system_add', 'pm' => 1, 'status' => 1];//系统赠送余额
+        $where = ['category' => 'now_money', 'type' => 'recharge', 'pm' => 1, 'status' => 1];//Số dư nạp lại của người dùng
+        $where_system = ['category' => 'now_money', 'type' => 'system_add', 'pm' => 1, 'status' => 1];//Số dư quà tặng hệ thống
         if ($uid) $where['uid'] = $where_system['uid'] = $uid;
         if ($where_time) $where['add_time'] = $where_system['add_time'] = $where_time;
         $sum1 = $this->dao->getBillSum($where);
@@ -359,7 +359,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 用户|所有充值列表
+     * người dùng|Tất cả danh sách nạp tiền
      * @param int $uid
      * @param string $field
      * @return array
@@ -376,7 +376,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取用户的积分总数
+     * Lấy tổng số điểm của người dùng
      * @param int $uid
      * @return float
      */
@@ -389,7 +389,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取用户的获取积分总次数
+     * Lấy tổng số điểm mà người dùng kiếm được
      * @param int $uid
      * @return float
      */
@@ -402,7 +402,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取积分列表
+     * Nhận danh sách điểm
      * @param int $uid
      * @param array $where_time
      * @param string $field
@@ -427,7 +427,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取用户签到总数
+     * Lấy tổng số lượt đăng ký của người dùng
      * @param int $uid
      * @return float
      */
@@ -440,7 +440,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取用户的签到总次数
+     * Lấy tổng số lượt check-in của người dùng
      * @param int $uid
      * @return float
      */
@@ -453,7 +453,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取签到列表
+     * Nhận danh sách đăng ký
      * @param int $uid
      * @param array $where_time
      * @param string $field
@@ -471,7 +471,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 经验总数
+     * Tổng kinh nghiệm
      * @param int $uid
      * @param array $where_time
      * @return float
@@ -485,7 +485,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取所有经验列表
+     * Nhận danh sách tất cả các trải nghiệm
      * @param int $uid
      * @param array $where_time
      * @param string $field
@@ -505,7 +505,7 @@ class UserBillServices extends BaseServices
 
 
     /**
-     * 增加佣金
+     * tăng hoa hồng
      * @param int $uid
      * @param string $type
      * @param array $data
@@ -521,12 +521,12 @@ class UserBillServices extends BaseServices
         $data['status'] = 1;
         $data['add_time'] = time();
         if (!$this->dao->save($data))
-            throw new AdminException('增加记录失败');
+            throw new AdminException('Không thể thêm bản ghi');
         return true;
     }
 
     /**
-     * 扣除佣金
+     * trừ hoa hồng
      * @param int $uid
      * @param string $type
      * @param array $data
@@ -542,12 +542,12 @@ class UserBillServices extends BaseServices
         $data['status'] = 1;
         $data['add_time'] = time();
         if (!$this->dao->save($data))
-            throw new AdminException('增加记录失败');
+            throw new AdminException('Không thể thêm bản ghi');
         return true;
     }
 
     /**
-     * 增加积分
+     * tăng điểm
      * @param int $uid
      * @param string $type
      * @param array $data
@@ -563,12 +563,12 @@ class UserBillServices extends BaseServices
         $data['status'] = 1;
         $data['add_time'] = time();
         if (!$this->dao->save($data))
-            throw new AdminException('增加记录失败');
+            throw new AdminException('Không thể thêm bản ghi');
         return true;
     }
 
     /**
-     * 扣除积分
+     * Điểm bị trừ
      * @param int $uid
      * @param string $type
      * @param array $data
@@ -584,14 +584,14 @@ class UserBillServices extends BaseServices
         $data['status'] = 1;
         $data['add_time'] = time();
         if (!$this->dao->save($data))
-            throw new AdminException('增加记录失败');
+            throw new AdminException('Không thể thêm bản ghi');
         return true;
     }
 
 
     /**
-     * 写入用户记录
-     * @param string $type 写入类型
+     * Viết hồ sơ người dùng
+     * @param string $type viết kiểu
      * @param int $uid
      * @param int|string|array $number
      * @param int|string $balance
@@ -631,7 +631,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 邀请新用户增加经验
+     * Mời người dùng mới để tăng trải nghiệm của họ
      * @param int $spreadUid
      */
     public function inviteUserIncExp(int $spreadUid)
@@ -639,7 +639,7 @@ class UserBillServices extends BaseServices
         if (!$spreadUid) {
             return false;
         }
-        //用户等级是否开启
+        //Cấp độ người dùng có được bật không?
         if (!sys_config('member_func_status', 1)) {
             return false;
         }
@@ -657,24 +657,24 @@ class UserBillServices extends BaseServices
             $data['number'] = $exp_num;
             $data['category'] = 'exp';
             $data['type'] = 'invite_user';
-            $data['title'] = $data['mark'] = '邀新奖励';
+            $data['title'] = $data['mark'] = 'Mời phần thưởng mới';
             $data['balance'] = (int)$spread_user['exp'] + (int)$exp_num;
             $data['pm'] = 1;
             $data['status'] = 1;
             $this->dao->save($data);
         }
-        //检测会员等级
+        //Kiểm tra cấp độ thành viên
         try {
-            //用户升级事件
+            //Sự kiện nâng cấp người dùng
             event('UserLevelListener', [$spreadUid]);
         } catch (\Throwable $e) {
-            Log::error('会员等级升级失败,失败原因:' . $e->getMessage());
+            Log::error('Nâng cấp cấp thành viên không thành công,Lý do thất bại:' . $e->getMessage());
         }
         return true;
     }
 
     /**
-     * 获取type
+     * lấytype
      * @param array $where
      * @param string $filed
      */
@@ -684,7 +684,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 资金类型
+     * Loại quỹ
      */
     public function bill_type()
     {
@@ -697,7 +697,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取资金列表
+     * Nhận danh sách quỹ
      * @param array $where
      * @param string $field
      * @return array
@@ -739,7 +739,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取佣金列表
+     * Nhận danh sách hoa hồng
      * @param array $where
      * @param int $limit
      * @return array
@@ -793,7 +793,7 @@ class UserBillServices extends BaseServices
         $user = app()->make(UserServices::class);
         $user_info = $user->getUserInfo($uid, 'nickname,spread_uid,now_money,add_time,brokerage_price');
         if (!$user_info) {
-            throw new AdminException('用户信息不存在');
+            throw new AdminException('Thông tin người dùng không tồn tại');
         }
         $user_info = $user_info->toArray();
         $user_info['number'] = $user_info['brokerage_price'];
@@ -803,9 +803,9 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 记录分享次数
-     * @param int $uid 用户uid
-     * @param int $cd 冷却时间
+     * Ghi lại thời gian chia sẻ
+     * @param int $uid người dùnguid
+     * @param int $cd Thời gian làm mát
      * @return Boolean
      * */
     public function setUserShare(int $uid, $cd = 300)
@@ -814,22 +814,22 @@ class UserBillServices extends BaseServices
         $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new AdminException('用户信息不存在');
+            throw new AdminException('Thông tin người dùng không tồn tại');
         }
         $cachename = 'Share_' . $uid;
         if (CacheService::get($cachename)) {
             return false;
         }
-        $data = ['title' => '用户分享记录', 'uid' => $uid, 'category' => 'share', 'type' => 'share', 'number' => 0, 'link_id' => 0, 'balance' => 0, 'mark' => date('Y-m-d H:i:s', time()) . ':用户分享'];
+        $data = ['title' => 'Bản ghi chia sẻ của người dùng', 'uid' => $uid, 'category' => 'share', 'type' => 'share', 'number' => 0, 'link_id' => 0, 'balance' => 0, 'mark' => date('Y-m-d H:i:s', time()) . ':Chia sẻ của người dùng'];
         if (!$this->dao->save($data)) {
-            throw new AdminException('记录分享记录失败');
+            throw new AdminException('Bản ghi chia sẻ bản ghi không thành công');
         }
         CacheService::set($cachename, 1, $cd);
         return true;
     }
 
     /**
-     * 获取佣金提现列表
+     * Nhận danh sách rút tiền hoa hồng
      * @param int $uid
      * @param array $where
      * @return array
@@ -848,7 +848,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取积分列表
+     * Nhận danh sách điểm
      * @param array $where
      * @param string $field
      * @return array
@@ -887,7 +887,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 积分头部信息
+     * Thông tin tiêu đề điểm
      * @param array $where
      * @return array[]
      */
@@ -912,28 +912,28 @@ class UserBillServices extends BaseServices
             [
                 'col' => 6,
                 'count' => $data['SumIntegral'],
-                'name' => '总积分(个)',
+                'name' => 'tổng điểm(cá nhân)',
             ],
             [
                 'col' => 6,
                 'count' => $data['CountSign'],
-                'name' => '客户签到次数(次)',
+                'name' => 'Số lượng khách hàng đăng ký(hạng hai)',
             ],
             [
                 'col' => 6,
                 'count' => $data['SumSign'],
-                'name' => '签到送出积分(个)',
+                'name' => 'Đăng nhập và nhận điểm(cá nhân)',
             ],
             [
                 'col' => 6,
                 'count' => $data['SumDeductionIntegral'],
-                'name' => '使用积分(个)',
+                'name' => 'Sử dụng điểm(cá nhân)',
             ],
         ];
     }
 
     /**
-     * 退佣金
+     * Hoàn tiền hoa hồng
      * @param int $id
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -959,7 +959,7 @@ class UserBillServices extends BaseServices
             }
             $res = $res && $userServices->bcDec($item['uid'], 'brokerage_price', (string)$item['number'], 'uid');
             $userBillData[] = [
-                'title' => '退款退佣金',
+                'title' => 'Hoa hồng hoàn tiền',
                 'uid' => $item['uid'],
                 'pm' => 0,
                 'add_time' => time(),
@@ -968,7 +968,7 @@ class UserBillServices extends BaseServices
                 'number' => $item['number'],
                 'link_id' => $id,
                 'balance' => bcsub((string)$usermoney, (string)$item['number'], 2),
-                'mark' => '订单退款扣除佣金' . floatval($item['number']) . '元'
+                'mark' => 'Hoàn tiền đơn hàng trừ hoa hồng' . floatval($item['number']) . 'Nhân dân tệ'
             ];
         }
         if ($userBillData) {
@@ -981,7 +981,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 佣金排行
+     * Xếp hạng hoa hồng
      * @param string $time
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -1014,7 +1014,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 获取用户排名
+     * Nhận xếp hạng người dùng
      * @param int $uid
      * @param string $time
      */
@@ -1043,7 +1043,7 @@ class UserBillServices extends BaseServices
 
 
     /**
-     * 推广数据    昨天的佣金   累计提现金额  当前佣金
+     * Dữ liệu khuyến mãi Hoa hồng của ngày hôm qua Số tiền rút tích lũy Hoa hồng hiện tại
      * @param int $uid
      * @return mixed
      */
@@ -1052,7 +1052,7 @@ class UserBillServices extends BaseServices
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         if (!$userServices->getUserInfo($uid)) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         /** @var UserExtractServices $userExtract */
         $userExtract = app()->make(UserExtractServices::class);
@@ -1063,14 +1063,14 @@ class UserBillServices extends BaseServices
         $data['pm'] = 0;
         $data['commissionRefund'] = $this->getUsersBokerageSum($data);
         $data['commissionCount'] = $data['commissionSum'] > $data['commissionRefund'] ? bcsub((string)$data['commissionSum'], (string)$data['commissionRefund'], 2) : 0.00;
-        $data['lastDayCount'] = $this->getUsersBokerageSum($data, 'yesterday');//昨天的佣金
-        $data['extractCount'] = $userExtract->getUserExtract($uid);//累计提现金额
+        $data['lastDayCount'] = $this->getUsersBokerageSum($data, 'yesterday');//hoa hồng của ngày hôm qua
+        $data['extractCount'] = $userExtract->getUserExtract($uid);//Số tiền rút tích lũy
 
         return $data;
     }
 
     /**
-     * 前端佣金排行页面数据
+     * Dữ liệu trang xếp hạng hoa hồng giao diện người dùng
      * @param int $uid
      * @param $type
      * @return array
@@ -1083,7 +1083,7 @@ class UserBillServices extends BaseServices
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid)) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         return [
             'rank' => $this->brokerageRankList($type),
@@ -1150,9 +1150,9 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 推广 佣金/提现 总和
+     * Tổng số tiền hoa hồng/rút tiền khuyến mãi
      * @param int $uid
-     * @param $type 3 佣金  4 提现
+     * @param $type 3 Hoa hồng 4 Rút tiền
      * @return mixed
      */
     public function spread_count(int $uid, $type)
@@ -1160,7 +1160,7 @@ class UserBillServices extends BaseServices
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid)) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         $count = 0;
         if ($type == 3) {
@@ -1170,13 +1170,13 @@ class UserBillServices extends BaseServices
         } else if ($type == 4) {
             /** @var UserExtractServices $userExtract */
             $userExtract = app()->make(UserExtractServices::class);
-            $count = $userExtract->getUserExtract($uid);//累计提现
+            $count = $userExtract->getUserExtract($uid);//Rút tiền tích lũy
         }
         return $count ?: 0;
     }
 
     /**
-     * 推广订单
+     * Đơn hàng khuyến mãi
      * @param Request $request
      * @return mixed
      */
@@ -1185,7 +1185,7 @@ class UserBillServices extends BaseServices
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid, 'uid')) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         $result = ['list' => [], 'time' => [], 'count' => 0];
         /** @var StoreOrderServices $storeOrderServices */
@@ -1238,7 +1238,7 @@ class UserBillServices extends BaseServices
     }
 
 
-    /**根据查询用户充值金额
+    /**Theo số tiền nạp lại của người dùng truy vấn
      * @param array $where
      * @return float|int
      */
@@ -1253,7 +1253,7 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * 事业部/代理商订单
+     * Đơn đặt hàng Phòng Kinh doanh/Đại lý
      * @param $uid
      * @return array
      */
@@ -1265,7 +1265,7 @@ class UserBillServices extends BaseServices
         $storeOrderServices = app()->make(StoreOrderServices::class);
         $userInfo = $userService->getUserInfo($uid);
         if (!$userInfo) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         $division_type = $userInfo['division_type'];
         [$page, $limit] = $this->getPageValue();

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class StoreCouponsController
     }
 
     /**
-     * 可领取优惠券列表
+     * Danh sách phiếu giảm giá có sẵn
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -41,7 +41,7 @@ class StoreCouponsController
     }
 
     /**
-     * 获取新人券
+     * Nhận vé người mới
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -65,7 +65,7 @@ class StoreCouponsController
     }
 
     /**
-     * 赠送下单之后订单中 关联优惠劵
+     * Phiếu giảm giá miễn phí liên quan đến đơn hàng sau khi đặt hàng
      * @param Request $request
      * @param $orderId
      * @return mixed
@@ -75,7 +75,7 @@ class StoreCouponsController
 
         $uid = (int)$request->uid() ?? 0;
         if (!$orderId) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         /** @var StoreProductCouponServices $storeProductCoupon */
         $storeProductCoupon = app()->make(StoreProductCouponServices::class);
@@ -84,7 +84,7 @@ class StoreCouponsController
     }
 
     /**
-     * 获取每日新增的优惠券
+     * Nhận phiếu giảm giá mới được thêm vào hàng ngày
      * @return mixed
      */
     public function getTodayCoupon(Request $request)

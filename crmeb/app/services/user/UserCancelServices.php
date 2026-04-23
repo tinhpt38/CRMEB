@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use crmeb\services\CacheService;
 
 class UserCancelServices extends BaseServices
 {
-    protected $status = ['待审核', '已通过', '已拒绝'];
+    protected $status = ['Đang chờ xem xét', 'Đi qua', 'Vật bị loại bỏ'];
 
     /**
      * UserExtractServices constructor.
@@ -30,7 +30,7 @@ class UserCancelServices extends BaseServices
     }
 
     /**
-     * 提交用户注销
+     * Gửi đăng xuất người dùng
      * @param $userInfo
      * @return mixed
      */
@@ -49,7 +49,7 @@ class UserCancelServices extends BaseServices
 
         $user = $userServices->getUserInfo($uid);
 
-        //自定义事件-用户注销
+        //Đăng xuất người dùng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_cancel', [
             'uid' => $uid,
             'nickname' => $user['nickname'],
@@ -63,7 +63,7 @@ class UserCancelServices extends BaseServices
     }
 
     /**
-     * 获取注销列表
+     * Nhận danh sách đăng xuất
      * @param $where
      * @return array
      */
@@ -81,7 +81,7 @@ class UserCancelServices extends BaseServices
     }
 
     /**
-     * 备注
+     * Nhận xét
      * @param $id
      * @param $mark
      * @return mixed

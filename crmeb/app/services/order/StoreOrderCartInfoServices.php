@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,10 +19,10 @@ use app\dao\order\StoreOrderCartInfoDao;
 /**
  * Class StoreOrderCartInfoServices
  * @package app\services\order
- * @method array getCartColunm(array $where, string $field, ?string $key) 获取购物车信息以数组返回
- * @method array getCartInfoList(array $where, array $field) 获取购物车详情列表
+ * @method array getCartColunm(array $where, string $field, ?string $key) Nhận thông tin giỏ hàng và trả về dưới dạng mảng
+ * @method array getCartInfoList(array $where, array $field) Lấy danh sách chi tiết giỏ hàng
  * @method getSplitCartNum(array $cart_id)
- * @method getOne(array $where, ?string $field = '*', array $with = []) 根据条件获取一条数据
+ * @method getOne(array $where, ?string $field = '*', array $with = []) Nhận một phần dữ liệu dựa trên các điều kiện
  */
 class StoreOrderCartInfoServices extends BaseServices
 {
@@ -36,7 +36,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 清空订单商品缓存
+     * Xóa bộ nhớ đệm mục đơn hàng
      * @param int $oid
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -47,7 +47,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 获取指定订单下的商品详情
+     * Nhận chi tiết sản phẩm theo một đơn đặt hàng cụ thể
      * @param int $oid
      * @return array|bool|mixed
      * @throws \ReflectionException
@@ -61,7 +61,7 @@ class StoreOrderCartInfoServices extends BaseServices
         foreach ($cart_info as $k => $v) {
             $_info = is_string($v) ? json_decode($v, true) : $v;
             if (!isset($_info['productInfo'])) $_info['productInfo'] = [];
-            //缩略图处理
+            //Xử lý hình thu nhỏ
             if (isset($_info['productInfo']['attrInfo'])) {
                 $_info['productInfo']['attrInfo'] = get_thumb_water($_info['productInfo']['attrInfo']);
             }
@@ -75,7 +75,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 查找购物车里的所有商品标题
+     * Tìm tất cả tiêu đề sản phẩm trong giỏ hàng của bạn
      * @param int $oid
      * @param false $goodsNum
      * @return bool|mixed|string
@@ -111,7 +111,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 获取打印订单的商品信息
+     * Nhận thông tin sản phẩm cho đơn hàng in
      * @param $oid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -132,7 +132,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 保存购物车info
+     * Lưu giỏ hànginfo
      * @param $oid
      * @param $uid
      * @param array $cartInfo
@@ -158,7 +158,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 订单创建成功之后计算订单（实际优惠、积分、佣金、上级、上上级）
+     * Sau khi đơn hàng được tạo thành công, đơn hàng sẽ được tính toán (chiết khấu thực tế, điểm, hoa hồng, cấp trên, cấp trên）
      * @param $oid
      * @param array $cartInfo
      * @return bool
@@ -175,7 +175,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 商品编号
+     * Số mặt hàng
      * @param $oid
      * @return array
      */
@@ -185,7 +185,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 获取某个订单还可以拆分商品 split_status 0：未拆分1：部分拆分2：拆分完成
+     * Bạn cũng có thể chia nhỏ sản phẩm khi nhận đơn hàng chia_status 0: Không chia nhỏ 1: Chia một phần 2: Hoàn thành chia tách
      * @param int $oid
      * @param string $field
      * @param string $key
@@ -199,7 +199,7 @@ class StoreOrderCartInfoServices extends BaseServices
                 $item = is_string($item) ? json_decode($item, true) : $item;
             } else {
                 if (isset($item['cart_info'])) $item['cart_info'] = is_string($item['cart_info']) ? json_decode($item['cart_info'], true) : $item['cart_info'];
-                if (isset($item['cart_num']) && !$item['cart_num']) {//兼容之前老数据
+                if (isset($item['cart_num']) && !$item['cart_num']) {//Tương thích với dữ liệu cũ
                     $item['cart_num'] = $item['cart_info']['cart_num'] ?? 0;
                 }
             }
@@ -209,7 +209,7 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * 获取可退款商品
+     * Nhận các mặt hàng có thể hoàn lại
      * @param int $oid
      * @param string $field
      * @param string $key
@@ -223,7 +223,7 @@ class StoreOrderCartInfoServices extends BaseServices
                 $item = is_string($item) ? json_decode($item, true) : $item;
             } else {
                 if (isset($item['cart_info'])) $item['cart_info'] = is_string($item['cart_info']) ? json_decode($item['cart_info'], true) : $item['cart_info'];
-                if (isset($item['cart_num']) && !$item['cart_num']) {//兼容之前老数据
+                if (isset($item['cart_num']) && !$item['cart_num']) {//Tương thích với dữ liệu cũ
                     $item['cart_num'] = $item['cart_info']['cart_num'] ?? 0;
                 }
             }

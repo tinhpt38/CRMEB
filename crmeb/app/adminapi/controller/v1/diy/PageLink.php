@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -39,7 +39,7 @@ class PageLink extends AuthController
     }
 
     /**
-     * 获取页面链接分类
+     * Nhận danh mục liên kết trang
      * @return mixed
      */
     public function getCategory(PageCategoryServices $services)
@@ -48,16 +48,16 @@ class PageLink extends AuthController
     }
 
     /**
-     * 获取页面链接
+     * Nhận liên kết trang
      * @param $cate_id
      * @return mixed
      */
     public function getLinks($cate_id, PageCategoryServices $pageCategoryServices)
     {
-        if (!$cate_id) return app('json')->fail('参数错误');
+        if (!$cate_id) return app('json')->fail('Lỗi tham số');
         $category = $pageCategoryServices->get((int)$cate_id);
         if (!$category) {
-            return app('json')->fail('分类不存在');
+            return app('json')->fail('Danh mục không tồn tại');
         }
         switch ($category['type']) {
             case 'special':
@@ -78,7 +78,7 @@ class PageLink extends AuthController
     }
 
     /**
-     * 保存链接
+     * lưu liên kết
      * @param $cate_id
      * @param PageCategoryServices $pageCategoryServices
      * @return mixed
@@ -89,29 +89,29 @@ class PageLink extends AuthController
             ['name', ''],
             ['url', '']
         ]);
-        if (!$cate_id || !$data['name'] || !$data['url']) return app('json')->fail('参数错误');
+        if (!$cate_id || !$data['name'] || !$data['url']) return app('json')->fail('Lỗi tham số');
         $category = $pageCategoryServices->get((int)$cate_id);
         if (!$category) {
-            return app('json')->fail('分类不存在');
+            return app('json')->fail('Danh mục không tồn tại');
         }
         $data['cate_id'] = $cate_id;
         $data['add_time'] = time();
         if (!$this->services->save($data)) {
-            return app('json')->fail('添加失败');
+            return app('json')->fail('Thêm không thành công');
         }
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 删除链接
+     * Xóa liên kết
      * @param $id
      * @return mixed
      */
     public function del($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->del($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     public function getLinkCategory()
@@ -134,21 +134,21 @@ class PageLink extends AuthController
             ['status', ''],
         ]);
         $res = app()->make(PageCategoryServices::class)->getLinkCategorySave($cate_id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     public function getLinkCategoryDel($cate_id)
     {
         $res = app()->make(PageCategoryServices::class)->getLinkCategoryDel($cate_id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     public function getLinkList($cate_id, PageCategoryServices $pageCategoryServices)
     {
-        if (!$cate_id) return app('json')->fail('参数错误');
+        if (!$cate_id) return app('json')->fail('Lỗi tham số');
         $category = $pageCategoryServices->get((int)$cate_id);
         if (!$category) {
-            return app('json')->fail('分类不存在');
+            return app('json')->fail('Danh mục không tồn tại');
         }
         switch ($category['type']) {
             case 'special':
@@ -178,13 +178,13 @@ class PageLink extends AuthController
             ['status', 1],
         ]);
         $this->services->getLinkSave($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     public function getLinkDel($id)
     {
         $this->services->del($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
 }

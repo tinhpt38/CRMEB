@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -34,7 +34,7 @@ class StoreOrderRefundController
     }
 
     /**
-     * 退款订单列表
+     * Danh sách đơn hàng hoàn tiền
      * @param Request $request
      * @return mixed
      */
@@ -51,7 +51,7 @@ class StoreOrderRefundController
     }
 
     /**
-     * 退款单详情
+     * Chi tiết đơn hàng hoàn tiền
      * @param Request $request
      * @param $uni
      * @return mixed
@@ -63,7 +63,7 @@ class StoreOrderRefundController
     }
 
     /**
-     * 取消申请
+     * Hủy đơn đăng ký
      * @param Request $request
      * @param $uni
      * @return mixed
@@ -73,18 +73,18 @@ class StoreOrderRefundController
      */
     public function cancelApply(Request $request, $uni)
     {
-        if (!strlen(trim($uni))) return app('json')->fail('参数错误');
+        if (!strlen(trim($uni))) return app('json')->fail('Lỗi tham số');
         $orderRefund = $this->services->get(['order_id' => $uni, 'is_cancel' => 0]);
         if (!$orderRefund || $orderRefund['uid'] != $request->uid()) {
-            return app('json')->fail('订单不存在');
+            return app('json')->fail('Đơn hàng không tồn tại');
         }
         if (!in_array($orderRefund['refund_type'], [1, 2, 4, 5])) {
-            return app('json')->fail('当前状态不能取消申请');
+            return app('json')->fail('Không thể hủy đơn đăng ký do tình trạng hiện tại');
         }
         $this->services->update($orderRefund['id'], ['is_cancel' => 1]);
         $this->services->cancelOrderRefundCartInfo((int)$orderRefund['id'], (int)$orderRefund['store_order_id'], $orderRefund);
 
-        //自定义事件-用户取消退款
+        //Sự kiện tùy chỉnh - người dùng hủy hoàn tiền
         event('CustomEventListener', ['order_refund_cancel', [
             'uid' => $orderRefund['uid'],
             'id' => $orderRefund['id'],
@@ -95,11 +95,11 @@ class StoreOrderRefundController
             'cancel_time' => date('Y-m-d H:i:s'),
         ]]);
 
-        return app('json')->success('取消成功');
+        return app('json')->success('Hủy thành công');
     }
 
     /**
-     * 用户退货提交快递单号
+     * Người dùng trả lại hàng và gửi số theo dõi chuyển phát nhanh
      * @param Request $request
      * @return mixed
      */
@@ -113,16 +113,16 @@ class StoreOrderRefundController
             ['refund_img', ''],
             ['refund_explain', ''],
         ]);
-        if ($data['id'] == '') return app('json')->fail('参数错误');
+        if ($data['id'] == '') return app('json')->fail('Lỗi tham số');
         $res = $this->services->editRefundExpress($data);
         if ($res)
-            return app('json')->success('提交成功');
+            return app('json')->success('Gửi thành công');
         else
-            return app('json')->fail('提交失败');
+            return app('json')->fail('Gửi không thành công');
     }
 
     /**
-     * 删除退款单
+     * Xóa yêu cầu hoàn tiền
      * @param Request $request
      * @param $uni
      * @return mixed
@@ -135,8 +135,8 @@ class StoreOrderRefundController
         $orderServices = app()->make(StoreOrderServices::class);
         $orderServices->update($oid, ['is_del' => 1], 'id');
         if ($res)
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         else
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
     }
 }

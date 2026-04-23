@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use think\helper\Str;
 
 /**
  * Class Model
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2023/3/13
  * @package crmeb\command\crud
@@ -25,14 +25,14 @@ use think\helper\Str;
 class Model extends Make
 {
     /**
-     * 当前命令名称
+     * Tên lệnh hiện tại
      * @var string
      */
     protected $name = "model";
 
     /**
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/4
      */
@@ -45,7 +45,7 @@ class Model extends Make
      * @param string $name
      * @param array $options
      * @return Model
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/12
      */
@@ -67,9 +67,9 @@ class Model extends Make
     }
 
     /**
-     * 设置命令空间
+     * Đặt không gian lệnh
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
@@ -84,10 +84,10 @@ class Model extends Make
     }
 
     /**
-     * 设置获取字段方法内容
+     * Đặt nội dung của phương thức trường get
      * @param array $field
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
@@ -110,10 +110,10 @@ class Model extends Make
     }
 
     /**
-     * 设置hasone方法内容
+     * Đặt nội dung phương thức hasone
      * @param array $hasOneFields
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/12
      */
@@ -128,11 +128,11 @@ class Model extends Make
     }
 
     /**
-     * 转JSON数据获取器
+     * Chuyển đổi trình thu thập dữ liệu JSON
      * @param string $key
      * @param string $name
      * @return array|false|string|string[]
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/9/5
      */
@@ -164,12 +164,12 @@ CONTENT;
     }
 
     /**
-     * Checkbox代码获取
+     * Checkboxmua lại mã
      * @param string $key
      * @param string $comment
      * @param array $options
      * @return array|false|string|string[]
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/9
      */
@@ -228,12 +228,12 @@ CONTENT;
     }
 
     /**
-     * 获取获取器的方法内容
+     * Lấy nội dung phương thức của getter
      * @param string $key
      * @param string $comment
      * @param array $options
      * @return array|false|string|string[]
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/5/11
      */
@@ -259,10 +259,10 @@ CONTENT;
     }
 
     /**
-     * 获取开关和下拉框获取器内容
+     * Nhận nội dung getter hộp chuyển đổi và thả xuống
      * @param array $options
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/5/11
      */
@@ -288,10 +288,10 @@ CONTENT;
     }
 
     /**
-     * 获取关联数据模板
+     * Lấy mẫu dữ liệu liên quan
      * @param array $fields
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/4
      */
@@ -337,7 +337,7 @@ CONTENT;
      * @param string $path
      * @param string $name
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/12
      */
@@ -349,10 +349,10 @@ CONTENT;
     }
 
     /**
-     * 模板文件
+     * tập tin mẫu
      * @param string $type
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/3/13
      */
@@ -371,10 +371,10 @@ CONTENT;
     }
 
     /**
-     * 获取模型命令空间
+     * Nhận không gian lệnh mô hình
      * @param string $modelName
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/8
      */
@@ -391,11 +391,11 @@ CONTENT;
     }
 
     /**
-     * 搜索文件内容包含某个字符串，返回包含的文件路径
+     * Tìm kiếm nội dung tệp cho một chuỗi nhất định và trả về đường dẫn tệp được bao gồm
      * @param string $dir
      * @param string $searchString
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/8
      */
@@ -426,10 +426,10 @@ CONTENT;
     }
 
     /**
-     * 获取文件的命名空间
+     * Lấy không gian tên của một tập tin
      * @param string $filePath
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/8
      */

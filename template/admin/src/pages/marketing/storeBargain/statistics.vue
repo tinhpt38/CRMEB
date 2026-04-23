@@ -15,30 +15,30 @@
         @submit.native.prevent
         inline
       >
-        <el-form-item v-if="type == 1" label="订单状态：" label-for="status">
+        <el-form-item v-if="type == 1" label="Trạng thái đơn hàng：" label-for="status">
           <el-select
             v-model="pagination.status"
-            placeholder="请选择订单状态"
+            placeholder="Vui lòng chọn trạng thái đơn hàng"
             clearable
             @change="searchList"
             class="form_content_width"
           >
-            <el-option value="1" label="待发货"></el-option>
-            <el-option value="2" label="待收货"></el-option>
-            <el-option value="3" label="待评价"></el-option>
-            <el-option value="4" label="交易完成"></el-option>
+            <el-option value="1" label="Đang chờ vận chuyển"></el-option>
+            <el-option value="2" label="Đang chờ nhận"></el-option>
+            <el-option value="3" label="Đang chờ đánh giá"></el-option>
+            <el-option value="4" label="giao dịch đã hoàn tất"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="搜索：" label-for="title">
+        <el-form-item label="tìm kiếm：" label-for="title">
           <el-input
             v-model="pagination.real_name"
-            :placeholder="type == 1 ? '请输入用户姓名|订单号|UID' : '请输入用户UID'"
+            :placeholder="type == 1 ? 'Vui lòng nhập tên người dùng|Số đơn hàng|UID' : 'Vui lòng nhập người dùngUID'"
             class="form_content_width"
             clearable
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="searchList">查询</el-button>
+          <el-button type="primary" v-db-click @click="searchList">Truy vấn</el-button>
         </el-form-item>
       </el-form>
       <el-tabs v-model="type" @tab-click="onClickTab">
@@ -49,8 +49,8 @@
         ref="table"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column
           :label="item.title"
@@ -70,12 +70,12 @@
               </div>
             </template>
             <template v-else-if="item.slot === 'status'">
-              <el-tag size="medium" type="info" v-show="scope.row.status === 1">进行中</el-tag>
-              <el-tag size="medium" type="danger" v-show="scope.row.status === 2">已失败</el-tag>
-              <el-tag size="medium" v-show="scope.row.status === 3">已成功</el-tag>
+              <el-tag size="medium" type="info" v-show="scope.row.status === 1">đang tiến hành</el-tag>
+              <el-tag size="medium" type="danger" v-show="scope.row.status === 2">thất bại</el-tag>
+              <el-tag size="medium" v-show="scope.row.status === 3">thành công</el-tag>
             </template>
             <template v-else-if="item.slot === 'action'">
-              <a v-db-click @click="Info(scope.row)">查看详情</a>
+              <a v-db-click @click="Info(scope.row)">kiểm tra chi tiết</a>
             </template>
           </template>
         </el-table-column>
@@ -90,35 +90,35 @@
         />
       </div>
     </el-card>
-    <!-- 详情模态框-->
-    <el-dialog :visible.sync="modals" class="tableBox" title="查看详情" :close-on-click-modal="false" width="720px">
+    <!-- Hộp phương thức chi tiết-->
+    <el-dialog :visible.sync="modals" class="tableBox" title="kiểm tra chi tiết" :close-on-click-modal="false" width="720px">
       <el-table
         ref="selection"
         :data="tabList3"
         v-loading="loading2"
-        empty-text="暂无数据"
+        empty-text="Chưa có dữ liệu"
         highlight-current-row
         max-height="600"
         size="small"
       >
-        <el-table-column label="用户ID" width="80">
+        <el-table-column label="người dùngID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户头像" min-width="90">
+        <el-table-column label="Hình đại diện của người dùng" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="砍价金额" min-width="130">
+        <el-table-column label="Số tiền mặc cả" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="砍价时间" min-width="130">
+        <el-table-column label="Thời gian thương lượng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -159,72 +159,72 @@ export default {
       tabs: [
         {
           type: '0',
-          label: '发起砍价',
+          label: 'Bắt đầu thương lượng',
         },
         {
           type: '1',
-          label: '活动订单',
+          label: 'Thứ tự hoạt động',
         },
       ],
       currentTab: 0,
       loading: false,
       thead: [
         {
-          title: '头像',
+          title: 'hình đại diện',
           slot: 'avatar',
         },
         {
-          title: '发起用户',
+          title: 'Bắt đầu người dùng',
           key: 'nickname',
         },
         {
-          title: '发起时间',
+          title: 'Thời gian ra mắt',
           key: 'add_time',
         },
         {
-          title: '帮砍人数',
+          title: 'Giúp giảm số lượng người',
           key: 'already_num',
         },
         {
-          title: '结束时间',
+          title: 'thời gian kết thúc',
           key: 'datatime',
         },
         {
-          title: '砍价状态',
+          title: 'Tình trạng thương lượng',
           slot: 'status',
         },
         {
-          title: '操作',
+          title: 'vận hành',
           slot: 'action',
         },
       ],
       thead2: [
         {
-          title: '订单号',
+          title: 'Số đơn hàng',
           key: 'order_id',
         },
         {
-          title: '用户',
+          title: 'người dùng',
           key: 'real_name',
         },
         {
-          title: '订单状态',
+          title: 'Trạng thái đơn hàng',
           key: 'status',
         },
         {
-          title: '订单支付金额',
+          title: 'Số tiền thanh toán đơn hàng',
           key: 'pay_price',
         },
         {
-          title: '订单商品数',
+          title: 'Số lượng mặt hàng đã đặt hàng',
           key: 'total_num',
         },
         {
-          title: '下单时间',
+          title: 'thời gian đặt hàng',
           key: 'add_time',
         },
         {
-          title: '支付时间',
+          title: 'thời gian thanh toán',
           key: 'pay_time',
         },
       ],
@@ -232,37 +232,37 @@ export default {
         {
           col: 4,
           count: 0,
-          name: '活动参与人数（人）',
+          name: 'Số người tham gia sự kiện (người）',
           className: 'iconcanyurenshu',
         },
         {
           col: 4,
           count: 0,
-          name: '砍价人数（人）',
+          name: 'Số người thương lượng (người）',
           className: 'iconxiadanrenshu',
         },
         {
           col: 4,
           count: 0,
-          name: '发起砍价数',
+          name: 'Bắt đầu thương lượng',
           className: 'icontuiguangrenshu',
         },
         {
           col: 4,
           count: 0,
-          name: '砍价成功数',
+          name: 'Số lần giao dịch thành công',
           className: 'iconkanjiachenggong',
         },
         {
           col: 4,
           count: 0,
-          name: '支付订单额（元）',
+          name: 'Số tiền đặt hàng thanh toán (nhân dân tệ)）',
           className: 'iconzhifudingdan',
         },
         {
           col: 4,
           count: 0,
-          name: '支付人数（人）',
+          name: 'Số người trả tiền (người）',
           className: 'iconzhifurenshu',
         },
       ],
@@ -281,7 +281,7 @@ export default {
     this.getList(this.id);
   },
   methods: {
-    // 统计
+    // thống kê
     getStatistics(id) {
       getbargainStatistics(id).then((res) => {
         let arr = [
@@ -298,7 +298,7 @@ export default {
         });
       });
     },
-    // 列表
+    // danh sách
     getList(id) {
       this.loading = true;
       if (this.type == 0) {
@@ -317,21 +317,21 @@ export default {
         });
       }
     },
-    // 标签切换
+    // Chuyển đổi nhãn
     onClickTab(e) {
-      // 切换标签时，重置搜索条件，页码重置为1
+      // Khi chuyển tab, điều kiện tìm kiếm được đặt lại và số trang được đặt lại thành1
       this.pagination.page = 1;
       this.pagination.real_name = '';
       this.pagination.status = '';
       this.type = e.index;
       this.getList(this.id);
     },
-    // 搜索
+    // tìm kiếm
     searchList() {
       this.pagination.page = 1;
       this.getList(this.id);
     },
-    // 查看详情
+    // kiểm tra chi tiết
     Info(row) {
       this.modals = true;
       this.rows = row;

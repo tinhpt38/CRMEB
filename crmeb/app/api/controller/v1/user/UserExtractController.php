@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\user\UserExtractServices;
 use think\facade\Config;
 
 /**
- * 提现类
+ * Rút tiền
  * Class UserExtractController
  * @package app\api\controller\user
  */
@@ -33,7 +33,7 @@ class UserExtractController
     }
 
     /**
-     * 提现银行
+     * Ngân hàng rút tiền
      * @param Request $request
      * @return mixed
      */
@@ -44,7 +44,7 @@ class UserExtractController
     }
 
     /**
-     * 提现申请
+     * Đơn xin rút tiền
      * @param Request $request
      * @return mixed
      */
@@ -64,24 +64,24 @@ class UserExtractController
         $extractInfo['channel_type'] = $request->getFromType();
         $extractType = Config::get('pay.extractType', []);
         if (!in_array($extractInfo['extract_type'], $extractType))
-            return app('json')->fail('提现方式不存在');
-        if (!preg_match('/^[0-9]+(.[0-9]{1,2})?$/', (float)$extractInfo['money'])) return app('json')->fail('提现金额输入有误');
+            return app('json')->fail('Không có phương thức rút tiền');
+        if (!preg_match('/^[0-9]+(.[0-9]{1,2})?$/', (float)$extractInfo['money'])) return app('json')->fail('Số tiền rút được nhập không chính xác');
         if (!$extractInfo['cardnum'] == '')
             if (!preg_match('/^([1-9]{1})(\d{15}|\d{16}|\d{18})$/', $extractInfo['cardnum']))
-                return app('json')->fail('银行卡号输入有误');
+                return app('json')->fail('Số thẻ ngân hàng nhập sai');
         if ($extractInfo['extract_type'] == 'weixin') {
-            if (trim($extractInfo['user_name']) == '') return app('json')->fail('请填写真实姓名');
+            if (trim($extractInfo['user_name']) == '') return app('json')->fail('Vui lòng điền tên thật của bạn');
         } elseif ($extractInfo['extract_type'] == 'alipay') {
-            if (trim($extractInfo['alipay_code']) == '') return app('json')->fail('请输入支付宝账号');
-            if (trim($extractInfo['user_name']) == '') return app('json')->fail('请填写真实姓名');
+            if (trim($extractInfo['alipay_code']) == '') return app('json')->fail('Vui lòng nhập số tài khoản Alipay của bạn');
+            if (trim($extractInfo['user_name']) == '') return app('json')->fail('Vui lòng điền tên thật của bạn');
         } elseif ($extractInfo['extract_type'] == 'bank') {
-            if (!$extractInfo['cardnum']) return app('json')->fail('请输入银行卡账号');
-            if (!$extractInfo['bankname']) return app('json')->fail('请输入开户行信息');
+            if (!$extractInfo['cardnum']) return app('json')->fail('Vui lòng nhập số tài khoản thẻ ngân hàng của bạn');
+            if (!$extractInfo['bankname']) return app('json')->fail('Vui lòng nhập thông tin ngân hàng mở tài khoản');
         }
         $uid = (int)$request->uid();
         if ($this->services->cash($uid, $extractInfo))
-            return app('json')->success('申请提现成功');
+            return app('json')->success('Ứng dụng rút tiền đã thành công');
         else
-            return app('json')->fail('申请提现失败');
+            return app('json')->fail('Không thể đăng ký rút tiền');
     }
 }

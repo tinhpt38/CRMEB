@@ -1,9 +1,9 @@
 // +---------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +---------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +---------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +---------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +---------------------------------------------------------------------
@@ -33,7 +33,7 @@ export default {
       name: `${pre}list`,
       meta: {
         auth: ['admin-user-user-index'],
-        title: '用户管理',
+        title: 'Quản lý người dùng',
       },
       component: () => import('@/pages/user/list/index'),
     },
@@ -43,7 +43,7 @@ export default {
       meta: {
         auth: ['user-user-level'],
         footer: true,
-        title: '用户等级',
+        title: 'Cấp độ người dùng',
       },
       component: () => import('@/pages/user/level/index'),
     },
@@ -53,7 +53,7 @@ export default {
       meta: {
         auth: ['user-user-group'],
         footer: true,
-        title: '用户分组',
+        title: 'Nhóm người dùng',
       },
       component: () => import('@/pages/user/group/index'),
     },
@@ -63,7 +63,7 @@ export default {
       meta: {
         auth: ['user-user-label'],
         footer: true,
-        title: '用户标签',
+        title: 'Thẻ người dùng',
       },
       component: () => import('@/pages/user/label/index'),
     },
@@ -73,7 +73,7 @@ export default {
       meta: {
         auth: ['user-user-cancel'],
         footer: true,
-        title: '用户标签',
+        title: 'Thẻ người dùng',
       },
       component: () => import('@/pages/user/cancel/index'),
     },
@@ -83,7 +83,7 @@ export default {
       meta: {
         auth: ['user-user-recharge'],
         footer: true,
-        title: '充值配置',
+        title: 'Cấu hình nạp tiền',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -93,7 +93,7 @@ export default {
       meta: {
         auth: ['admin-user-member-type'],
         footer: true,
-        title: '会员类型',
+        title: 'Loại thành viên',
       },
       component: () => import('@/pages/user/grade/type/index'),
     },
@@ -103,7 +103,7 @@ export default {
       meta: {
         auth: ['admin-user-grade-card'],
         footer: true,
-        title: '卡密会员',
+        title: 'Thành viên thẻ',
       },
       component: () => import('@/pages/user/grade/card/index'),
     },
@@ -113,7 +113,7 @@ export default {
       meta: {
         auth: ['admin-user-grade-record'],
         footer: true,
-        title: '会员记录',
+        title: 'Hồ sơ thành viên',
       },
       component: () => import('@/pages/user/grade/record/index'),
     },
@@ -123,7 +123,7 @@ export default {
       meta: {
         auth: ['admin-user-grade-right'],
         footer: true,
-        title: '会员权益',
+        title: 'Quyền thành viên',
       },
       component: () => import('@/pages/user/grade/right/index'),
     },
@@ -133,7 +133,7 @@ export default {
       meta: {
         auth: ['user-member_card-index'],
         footer: true,
-        title: '会员卡列表',
+        title: 'Danh sách thẻ thành viên',
       },
       component: () => import('@/pages/user/grade/card/list'),
     },
@@ -143,7 +143,7 @@ export default {
       meta: {
         auth: ['admin-user-grade-agreement'],
         footer: true,
-        title: '会员协议',
+        title: 'Thỏa thuận thành viên',
       },
       component: () => import('@/pages/user/grade/agreement/index'),
     },

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\wechat\WechatServices as WechatAuthServices;
 use crmeb\services\CacheService;
 
 /**
- * 微信公众号
+ * Tài khoản công khai WeChat
  * Class WechatController
  * @package app\api\controller\wechat
  */
@@ -35,7 +35,7 @@ class WechatController
     }
 
     /**
-     * 微信公众号服务
+     * Dịch vụ tài khoản công cộng WeChat
      * @return \think\Response
      */
     public function serve()
@@ -44,7 +44,7 @@ class WechatController
     }
 
     /**
-     * 微信小程序公众号服务
+     * Dịch vụ tài khoản công cộng chương trình mini WeChat
      * @return \think\Response
      */
     public function miniServe()
@@ -53,7 +53,7 @@ class WechatController
     }
 
     /**
-     * 支付异步回调
+     * Trả tiền gọi lại không đồng bộ
      */
     public function notify()
     {
@@ -66,7 +66,7 @@ class WechatController
     }
 
     /**
-     * 公众号权限配置信息获取
+     * Lấy thông tin cấu hình quyền tài khoản công cộng
      * @param Request $request
      * @return mixed
      */
@@ -76,7 +76,7 @@ class WechatController
     }
 
     /**
-     * App微信登陆
+     * Appđăng nhập WeChat
      * @param Request $request
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -92,30 +92,30 @@ class WechatController
         ], true);
         if ($phone) {
             if (!$captcha) {
-                return app('json')->fail('请输入验证码');
+                return app('json')->fail('Vui lòng nhập mã xác minh');
             }
-            //验证验证码
+            //Xác minh mã xác minh
             $verifyCode = CacheService::get('code_' . $phone);
             if (!$verifyCode)
-                return app('json')->fail('请先获取验证码');
+                return app('json')->fail('Vui lòng lấy mã xác minh trước');
             $verifyCode = substr($verifyCode, 0, 6);
             if ($verifyCode != $captcha) {
                 CacheService::delete('code_' . $phone);
-                return app('json')->fail('验证码错误');
+                return app('json')->fail('Lỗi mã xác minh');
             }
         }
         $token = $this->services->appAuth($userInfo, $phone);
         if ($token) {
-            return app('json')->success('登录成功', $token);
+            return app('json')->success('Đăng nhập thành công', $token);
         } else if ($token === false) {
-            return app('json')->success('登录成功', ['isbind' => true]);
+            return app('json')->success('Đăng nhập thành công', ['isbind' => true]);
         } else {
-            return app('json')->fail('登录失败');
+            return app('json')->fail('Đăng nhập không thành công');
         }
     }
 
     /**
-     * 关注二维码
+     * Theo dõi mã QR
      * @return mixed
      * @throws \Exception
      */
@@ -125,7 +125,7 @@ class WechatController
         if ($data) {
             return app('json')->success($data);
         } else {
-            return app('json')->fail('获取失败');
+            return app('json')->fail('Không thể lấy được');
         }
 
     }

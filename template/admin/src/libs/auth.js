@@ -1,16 +1,16 @@
 // +---------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +---------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +---------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +---------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +---------------------------------------------------------------------
 
 /**
- * @description 判断列表1中是否包含了列表2中的某一项
- * 因为用户权限 access 为数组，includes 方法无法直接得出结论
+ * @description Xác định xem danh sách 1 có chứa một mục trong danh sách 2 không
+ * Vì quyền truy cập của người dùng là một mảng nên phương thức include không thể trực tiếp đưa ra kết luận.
  * */
 function includeArray(list1, list2) {
   let status = false;

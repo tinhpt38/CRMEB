@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\outapi\validate\StoreCategoryValidate;
 use app\services\product\product\StoreCategoryServices;
 
 /**
- * 商品分类控制器
+ * Bộ điều khiển danh mục sản phẩm
  * Class StoreCategory
  * @package app\outapi\controller
  */
@@ -38,7 +38,7 @@ class StoreCategory extends AuthController
     }
 
     /**
-     * 分类列表
+     * Danh sách danh mục
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -57,7 +57,7 @@ class StoreCategory extends AuthController
     }
 
     /**
-     * 新增分类
+     * Thêm danh mục mới
      * @return mixed
      */
     public function save()
@@ -72,11 +72,11 @@ class StoreCategory extends AuthController
         ]);
         $this->validate($data, StoreCategoryValidate::class, 'save');
         $cateId = $this->services->createData($data);
-        return app('json')->success('保存成功', ['id' => $cateId]);
+        return app('json')->success('Đã lưu thành công', ['id' => $cateId]);
     }
 
     /**
-     * 更新分类
+     * Cập nhật danh mục
      * @param $id
      * @return mixed
      */
@@ -92,22 +92,22 @@ class StoreCategory extends AuthController
         ]);
         $this->validate($data, StoreCategoryValidate::class, 'save');
         $this->services->editData($id, $data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除分类
+     * Xóa danh mục
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
         $this->services->del((int)$id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 详情
+     * Chi tiết
      * @param $id
      * @return mixed
      */
@@ -118,14 +118,14 @@ class StoreCategory extends AuthController
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param string $id
      * @param string $is_show
      */
     public function set_show($id = '', $is_show = '')
     {
-        if ( $id == '' || $is_show == '') return app('json')->fail('参数错误');
+        if ( $id == '' || $is_show == '') return app('json')->fail('Lỗi tham số');
         $this->services->setShow((int)$id, (int)$is_show);
-        return app('json')->success($is_show == 1 ? '显示成功' : '隐藏成功');
+        return app('json')->success($is_show == 1 ? 'Hiển thị thành công' : 'Ẩn thành công');
     }
 }

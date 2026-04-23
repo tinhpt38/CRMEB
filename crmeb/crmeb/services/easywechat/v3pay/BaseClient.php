@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -97,12 +97,12 @@ class BaseClient extends AbstractAPI
     private function _doRequestCurl($method, $location, $options = [])
     {
         $curl = curl_init();
-        // POST数据设置
+        // POSTCài đặt dữ liệu
         if (strtolower($method) === 'post') {
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $options['data'] ?? $options['body'] ?? '');
         }
-        // CURL头信息设置
+        // CURLCài đặt thông tin tiêu đề
         if (!empty($options['headers'])) {
             $headers = [];
             foreach ($options['headers'] as $k => $v) {
@@ -137,7 +137,7 @@ class BaseClient extends AbstractAPI
         }
         $encrypted = '';
         if (openssl_public_encrypt($string, $encrypted, $certificates, OPENSSL_PKCS1_OAEP_PADDING)) {
-            //base64编码
+            //base64mã hóa
             $sign = base64_encode($encrypted);
         } else {
             throw new EncryptionException('Encryption of sensitive information failed');
@@ -170,7 +170,7 @@ class BaseClient extends AbstractAPI
     }
 
     /**
-     * 获取商户私钥
+     * Nhận khóa riêng của người bán
      * @return bool|resource
      */
     protected function getPrivateKey()
@@ -185,7 +185,7 @@ class BaseClient extends AbstractAPI
     }
 
     /**
-     * 获取商户公钥
+     * Nhận khóa công khai của người bán
      * @return bool|resource
      */
     protected function getPublicKey()
@@ -204,7 +204,7 @@ class BaseClient extends AbstractAPI
     }
 
     /**
-     * 替换url
+     * thay thếurl
      * @param string $url
      * @param $search
      * @param $replace
@@ -230,7 +230,7 @@ class BaseClient extends AbstractAPI
     }
 
     /**
-     * 加密数据
+     * Mã hóa dữ liệu
      * @param string $plaintext
      * @param int $padding
      * @return string
@@ -280,7 +280,7 @@ class BaseClient extends AbstractAPI
         } catch (\SodiumException $exception) {
             throw new InvalidArgumentException($exception->getMessage(), $exception->getCode());
         }
-        throw new InvalidArgumentException('AEAD_AES_256_GCM 需要 PHP 7.1 以上或者安装 libsodium-php');
+        throw new InvalidArgumentException('AEAD_AES_256_GCM Yêu cầu PHP 7.1 trở lên hoặc cài đặt libsodium-php');
     }
 }
 

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use think\facade\Log;
 
 
 /**
- * 微信模版消息列表
+ * Danh sách tin nhắn mẫu WeChat
  * Created by PhpStorm.
  * User: xurongyao <763569752@qq.com>
  * Date: 2021/9/22 1:23 PM
@@ -28,7 +28,7 @@ use think\facade\Log;
 class WechatTemplateListService extends NoticeService
 {
     /**
-     * 根据UID获取openid
+     * Nhận dựa trên UIDopenid
      * @param int $uid
      * @return mixed
      */
@@ -44,7 +44,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 发送模板消息
+     * Gửi tin nhắn mẫu
      * @param int $uid
      * @param array $data
      * @param string|null $link
@@ -57,7 +57,7 @@ class WechatTemplateListService extends NoticeService
             if ($this->noticeInfo['is_wechat'] === 1) {
                 $openid = $this->getOpenidByUid($uid);
                 if ($openid != '') {
-                    //放入队列执行
+                    //Đưa vào hàng đợi và thực thi
                     TemplateJob::dispatch('doJob', ['wechat', $openid, $this->noticeInfo['wechat_tempid'], $data, $link, $color]);
                 }
             }
@@ -68,7 +68,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 支付成功发送模板消息
+     * Gửi tin nhắn mẫu khi thanh toán thành công
      * @param $uid
      * @param $order
      * @return bool|void
@@ -84,7 +84,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 订单配送通知
+     * Thông báo giao hàng
      * @param $uid
      * @param string $goodsName
      * @param $order
@@ -103,7 +103,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 订单发货
+     * Đơn hàng đã được vận chuyển
      * @param $uid
      * @param $order
      * @param $storeTitle
@@ -121,7 +121,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 确认收货发送模板消息
+     * Xác nhận đã nhận và gửi tin nhắn mẫu
      * @param $uid
      * @param $order
      * @param $title
@@ -138,7 +138,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 发送退款模板消息
+     * Gửi tin nhắn mẫu hoàn tiền
      * @param $uid
      * @param $order
      * @param $title
@@ -155,7 +155,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 发送退款模板消息
+     * Gửi tin nhắn mẫu hoàn tiền
      * @param $uid
      * @param $order
      * @param $title
@@ -172,7 +172,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 充值成功
+     * Nạp tiền thành công
      * @param $uid
      * @param $order
      * @return bool|void
@@ -188,7 +188,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 提现成功
+     * Rút tiền thành công
      * @param $uid
      * @param $extractNumber
      * @return bool|void
@@ -202,7 +202,7 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * 提现成功
+     * Rút tiền thành công
      * @param $uid
      * @param $extractNumber
      * @param $order_id
@@ -213,14 +213,14 @@ class WechatTemplateListService extends NoticeService
     {
         return $this->sendTemplate((int)$uid, [
             'character_string9' => $order_id,
-            'thing3' => '平台发放佣金',
+            'thing3' => 'Hoa hồng phát hành nền tảng',
             'amount4' => $extractNumber,
             'time2' => date('Y-m-d H:i:s', time()),
         ], '/pages/users/user_spread_money/receiving?id=' . $order_id . '&type=' . $type);
     }
 
     /**
-     * 订单给客服提醒
+     * Nhắc nhở đặt hàng cho bộ phận chăm sóc khách hàng
      * @param $orderId
      * @param $storeName
      * @param $title

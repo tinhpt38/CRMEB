@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "砍价活动",
+  "navigationBarTitleText": "Hoạt động mặc cả",
   "usingComponents": {
     "jyf-parser": "/components/jyf-parser/jyf-parser",
     "count-down": "/components/countDown/index",

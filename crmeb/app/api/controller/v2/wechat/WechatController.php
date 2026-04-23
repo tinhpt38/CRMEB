@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -32,14 +32,14 @@ class WechatController
     }
 
     /**
-     * 公众号授权登录，返回token
+     * Tài khoản chính thức được ủy quyền đăng nhập, quay lạitoken
      * @param $spread
      * @return \think\Response
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
      */
@@ -50,7 +50,7 @@ class WechatController
     }
 
     /**
-     * 公众号授权绑定手机号
+     * Tài khoản chính thức được ủy quyền để ràng buộc số điện thoại di động
      * @param string $key
      * @param string $phone
      * @param string $captcha
@@ -59,20 +59,20 @@ class WechatController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
      */
     public function authBindingPhone($key = '', $phone = '', $captcha = '')
     {
-        //验证验证码
+        //Xác minh mã xác minh
         $verifyCode = CacheService::get('code_' . $phone);
         if (!$verifyCode)
-            return app('json')->fail('请先获取验证码');
+            return app('json')->fail('Vui lòng lấy mã xác minh trước');
         $verifyCode = substr($verifyCode, 0, 6);
         if ($verifyCode != $captcha) {
             CacheService::delete('code_' . $phone);
-            return app('json')->fail('验证码错误');
+            return app('json')->fail('Lỗi mã xác minh');
         }
         CacheService::delete('code_' . $phone);
         $data = $this->services->authBindingPhone($key, $phone);

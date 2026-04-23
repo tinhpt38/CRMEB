@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -42,7 +42,7 @@ abstract class BaseSms extends BaseStorage
     }
 
     /**
-     * 初始化
+     * khởi tạo
      * @param array $config
      * @return mixed|void
      */
@@ -53,28 +53,28 @@ abstract class BaseSms extends BaseStorage
 
 
     /**
-     * 开通服务
+     * Kích hoạt dịch vụ
      * @return mixed
      */
     abstract public function open();
 
-    /**修改签名
+    /**Sửa đổi chữ ký
      * @return mixed
      */
     abstract public function modify(string $sign = null, string $phone, string $code);
 
-    /**用户信息
+    /**Thông tin người dùng
      * @return mixed
      */
     abstract public function info();
 
-    /**发送短信
+    /**gửi tin nhắn văn bản
      * @return mixed
      */
     abstract public function send(string $phone, string $templateId, array $data);
 
     /**
-     * 短信模板
+     * mẫu tin nhắn
      * @param int $page
      * @param int $limit
      * @param int $type
@@ -84,7 +84,7 @@ abstract class BaseSms extends BaseStorage
 
 
     /**
-     * 申请模板
+     * Mẫu đơn đăng ký
      * @param string $title
      * @param string $content
      * @param int $type
@@ -93,7 +93,7 @@ abstract class BaseSms extends BaseStorage
     abstract public function apply(string $title, string $content, int $type);
 
     /**
-     * 模板记录
+     * Bản ghi mẫu
      * @param int $tempType
      * @param int $page
      * @param int $limit
@@ -101,7 +101,7 @@ abstract class BaseSms extends BaseStorage
      */
     abstract public function applys(int $tempType, int $page, int $limit);
 
-    /**发送记录
+    /**Gửi bản ghi
      * @return mixed
      */
     abstract public function record($record_id);

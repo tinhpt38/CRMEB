@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 import request from '@/libs/request';
 
 /**
- * @description 用户管理--列表
- * @param {Object} param data {Object} 传值参数
+ * @description Quản lý người dùng--danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function userList(data) {
   return request({
@@ -23,8 +23,8 @@ export function userList(data) {
 }
 
 /**
- * @description 编辑表单数据
- * @param {Number} param id {Number} 会员id
+ * @description Chỉnh sửa dữ liệu biểu mẫu
+ * @param {Number} param id {Number} thành viênid
  */
 export function getUserData(id) {
   return request({
@@ -34,7 +34,7 @@ export function getUserData(id) {
 }
 
 /**
- * @description 开关
+ * @description công tắc
  * @param {Number} param id {Number}
  */
 export function memberCard(data) {
@@ -46,7 +46,7 @@ export function memberCard(data) {
 }
 
 /**
- * @description 会员列表开关
+ * @description Chuyển đổi danh sách thành viên
  * @param {Number} param id {Number}
  */
 export function memberCardStatus(data) {
@@ -58,8 +58,8 @@ export function memberCardStatus(data) {
 }
 
 /**
- * @description 会员管理修改显示
- * @param {Object} param data {Object} 传入的状态值，用户id
+ * @description Màn hình sửa đổi quản lý thành viên
+ * @param {Object} param data {Object} Giá trị trạng thái đến, người dùngid
  */
 export function isShowApi(data) {
   return request({
@@ -69,8 +69,8 @@ export function isShowApi(data) {
 }
 
 /**
- * @description 优惠券列表
- * @param {Object} param params {Object} 传值
+ * @description Danh sách phiếu giảm giá
+ * @param {Object} param params {Object} Giá trị vượt qua
  */
 export function couponApi(params) {
   return request({
@@ -81,8 +81,8 @@ export function couponApi(params) {
 }
 
 /**
- * @description 发送优惠券
- * @param {Object} param data {Object} 传值
+ * @description Gửi phiếu giảm giá
+ * @param {Object} param data {Object} Giá trị vượt qua
  */
 export function sendCouponApi(data) {
   return request({
@@ -93,8 +93,8 @@ export function sendCouponApi(data) {
 }
 
 /**
- * @description 修改积分余额表单
- * @param {Number} param id {Number} 用户id
+ * @description Sửa đổi biểu mẫu cân bằng điểm
+ * @param {Number} param id {Number} người dùngid
  */
 export function editOtherApi(id, type) {
   return request({
@@ -104,8 +104,8 @@ export function editOtherApi(id, type) {
 }
 
 /**
- * @description 会员管理-详情
- * @param {Number} param id {Number} 用户id
+ * @description Quản lý thành viên-Chi tiết
+ * @param {Number} param id {Number} người dùngid
  */
 export function detailsApi(id) {
   return request({
@@ -115,8 +115,8 @@ export function detailsApi(id) {
 }
 
 /**
- * @description 会员管理详情中tab选项
- * @param {Number} param id {Number} 用户id
+ * @description Tùy chọn tab trong chi tiết quản lý thành viên
+ * @param {Number} param id {Number} người dùngid
  */
 export function infoApi(data) {
   return request({
@@ -127,8 +127,8 @@ export function infoApi(data) {
 }
 
 /**
- * @description 会员等级-列表
- * @param {Object} param data {Object} 传值参数
+ * @description Cấp độ thành viên - danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function levelListApi(data) {
   return request({
@@ -139,8 +139,8 @@ export function levelListApi(data) {
 }
 
 /**
- * @description 会员等级-编辑表单
- * @param {Number} param id {Number} 会员等级id
+ * @description Cấp độ thành viên-Biểu mẫu chỉnh sửa
+ * @param {Number} param id {Number} Cấp độ thành viênid
  */
 export function levelEditApi(id) {
   return request({
@@ -150,8 +150,8 @@ export function levelEditApi(id) {
 }
 
 /**
- * @description 会员等级-修改显示隐藏
- * @param {Number} param id {Number} 会员等级id
+ * @description Cấp độ thành viên-Sửa đổi Hiển thị Ẩn
+ * @param {Number} param id {Number} Cấp độ thành viênid
  */
 export function setShowApi(data) {
   return request({
@@ -161,8 +161,8 @@ export function setShowApi(data) {
 }
 
 /**
- * @description 会员等级-编辑表单
- * @param {Number} param id {Number} 会员等级id
+ * @description Cấp độ thành viên-Biểu mẫu chỉnh sửa
+ * @param {Number} param id {Number} Cấp độ thành viênid
  */
 // export function addApi (data) {
 //     return request({
@@ -173,8 +173,8 @@ export function setShowApi(data) {
 // }
 
 /**
- * @description 会员等级任务-列表
- * @param {Object} param data {Object} 传值参数
+ * @description Danh sách nhiệm vụ cấp thành viên
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function taskListApi(id, data) {
   return request({
@@ -185,9 +185,9 @@ export function taskListApi(id, data) {
 }
 
 /**
- * @description 会员等级任务-修改显示隐藏
- * @param {Number} param data.id {Number} 会员等级任务id
- * @param {Number} param data.is_show {Number} 会员等级任务显示隐藏
+ * @description Nhiệm vụ cấp thành viên-sửa đổi hiển thị và ẩn
+ * @param {Number} param data.id {Number} Nhiệm vụ cấp thành viênid
+ * @param {Number} param data.is_show {Number} Nhiệm vụ cấp thành viên hiển thị và ẩn
  */
 export function setTaskShowApi(data) {
   return request({
@@ -197,9 +197,9 @@ export function setTaskShowApi(data) {
 }
 
 /**
- * @description 会员等级任务-任务是否达成
- * @param {Number} param data.id {Number} 会员等级任务id
- * @param {Number} param data.is_must {Number} 会员等级任务是否务必达成
+ * @description Nhiệm vụ cấp thành viên - liệu nhiệm vụ có được hoàn thành hay không
+ * @param {Number} param data.id {Number} Nhiệm vụ cấp thành viênid
+ * @param {Number} param data.is_must {Number} Có cần thiết phải hoàn thành nhiệm vụ cấp thành viên không?
  */
 export function setTaskMustApi(data) {
   return request({
@@ -209,8 +209,8 @@ export function setTaskMustApi(data) {
 }
 
 /**
- * @description 会员等级任务-新建表单 编辑表单
- * @param {Object} param data {Object} 会员等级任务对象传值
+ * @description Nhiệm vụ cấp thành viên-Biểu mẫu chỉnh sửa biểu mẫu mới
+ * @param {Object} param data {Object} Giá trị truyền đối tượng nhiệm vụ cấp thành viên
  */
 export function createTaskApi(data) {
   return request({
@@ -221,8 +221,8 @@ export function createTaskApi(data) {
 }
 
 /**
- * @description 会员等级-创建表单
- * @param {Object} param data {Object} 会员等级任务对象传值
+ * @description Cấp độ thành viên-Tạo biểu mẫu
+ * @param {Object} param data {Object} Giá trị truyền đối tượng nhiệm vụ cấp thành viên
  */
 export function createApi(id) {
   return request({
@@ -233,8 +233,8 @@ export function createApi(id) {
 }
 
 /**
- * @description 会员管理 --- 赠送会员等级
- * @param {Number} param id {Number} 会员id
+ * @description Quản lý thành viên --- Cấp độ thành viên miễn phí
+ * @param {Number} param id {Number} thành viênid
  */
 export function giveLevelApi(id) {
   return request({
@@ -244,8 +244,8 @@ export function giveLevelApi(id) {
 }
 
 /**
- * @description 会员管理 --- 赠送会员时长
- * @param {Number} param id {Number} 会员id
+ * @description Quản lý thành viên --- Thời gian thành viên miễn phí
+ * @param {Number} param id {Number} thành viênid
  */
 export function giveLevelTimeApi(id) {
   return request({
@@ -255,8 +255,8 @@ export function giveLevelTimeApi(id) {
 }
 
 /**
- * @description 会员等级-删除
- * @param {Number} param id {Number} 会员等级id
+ * @description Cấp độ thành viên-Xóa
+ * @param {Number} param id {Number} Cấp độ thành viênid
  */
 export function delLevelApi(id) {
   return request({
@@ -266,8 +266,8 @@ export function delLevelApi(id) {
 }
 
 /**
- * @description 会员分组-列表
- * @param {Object} param data {Object} 传值参数
+ * @description Danh sách nhóm thành viên
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function userGroupApi(data) {
   return request({
@@ -278,8 +278,8 @@ export function userGroupApi(data) {
 }
 
 /**
- * @description 会员删除 --- 删除分组
- * @param {Number} param id {Number} 会员id
+ * @description Xóa thành viên --- Xóa nhóm
+ * @param {Number} param id {Number} thành viênid
  */
 export function groupDelApi(id) {
   return request({
@@ -289,8 +289,8 @@ export function groupDelApi(id) {
 }
 
 /**
- * @description 会员添加表单/删除表单 --- 表单
- * @param {Number} param id {Number} 会员id
+ * @description Thành viên Thêm biểu mẫu/Xóa biểu mẫu --- Biểu mẫu
+ * @param {Number} param id {Number} thành viênid
  */
 export function groupAddApi(id) {
   return request({
@@ -300,8 +300,8 @@ export function groupAddApi(id) {
 }
 
 /**
- * @description 个人中心 --- 修改密码
- * data 请求参数
+ * @description Trung tâm cá nhân --- Thay đổi mật khẩu
+ * tham số yêu cầu dữ liệu
  */
 export function updtaeAdmin(data) {
   return request({
@@ -311,8 +311,8 @@ export function updtaeAdmin(data) {
   });
 }
 /**
- * @description 文件管理 --- 设置密码
- * data 请求参数
+ * @description Quản lý tập tin --- Đặt mật khẩu
+ * tham số yêu cầu dữ liệu
  */
 export function setFilePassword(data) {
   return request({
@@ -323,8 +323,8 @@ export function setFilePassword(data) {
 }
 
 /**
- * @description 个人中心 --- 设置会员等级
- * data 请求参数
+ * @description Trung tâm cá nhân --- Đặt cấp độ thành viên
+ * tham số yêu cầu dữ liệu
  */
 export function userSetGroup(data) {
   return request({
@@ -335,8 +335,8 @@ export function userSetGroup(data) {
 }
 
 /**
- * @description 个人中心 --- 会员标签列表
- * data 请求参数
+ * @description Trung tâm cá nhân --- Danh sách thẻ thành viên
+ * tham số yêu cầu dữ liệu
  */
 export function userLabelApi(data) {
   return request({
@@ -347,8 +347,8 @@ export function userLabelApi(data) {
 }
 
 /**
- * @description 获取标签分类（全部）
- * data 请求参数
+ * @description Nhận phân loại thẻ (tất cả)
+ * tham số yêu cầu dữ liệu
  */
 export function userLabelAll(data) {
   return request({
@@ -359,7 +359,7 @@ export function userLabelAll(data) {
 }
 
 /**
- * 添加用户
+ * Thêm người dùng
  */
 export function getUserSaveForm() {
   return request({
@@ -369,7 +369,7 @@ export function getUserSaveForm() {
 }
 
 /**
- * 同步用户
+ * Đồng bộ hóa người dùng
  */
 export function userSynchro() {
   return request({
@@ -379,8 +379,8 @@ export function userSynchro() {
 }
 
 /**
- * @description 获取用户标签分类编辑表单
- * data 请求参数
+ * @description Nhận biểu mẫu chỉnh sửa phân loại nhãn người dùng
+ * tham số yêu cầu dữ liệu
  */
 export function userLabelEdit(id) {
   return request({
@@ -390,8 +390,8 @@ export function userLabelEdit(id) {
 }
 
 /**
- * @description 获取用户标签分类创建表单
- * data 请求参数
+ * @description Nhận biểu mẫu tạo phân loại thẻ người dùng
+ * tham số yêu cầu dữ liệu
  */
 export function userLabelCreate(id) {
   return request({
@@ -401,8 +401,8 @@ export function userLabelCreate(id) {
 }
 
 /**
- * @description 个人中心 --- 会员标签表单生成
- * data 请求参数
+ * @description Trung tâm cá nhân --- Tạo biểu mẫu thẻ thành viên
+ * tham số yêu cầu dữ liệu
  */
 export function userLabelAddApi(id, cate_id) {
   return request({
@@ -412,8 +412,8 @@ export function userLabelAddApi(id, cate_id) {
 }
 
 /**
- * @description 个人中心 --- 获取设置会员标签表单
- * data 请求参数
+ * @description Trung tâm cá nhân --- Lấy biểu mẫu để đặt thẻ thành viên
+ * tham số yêu cầu dữ liệu
  */
 export function userSetLabelApi(data) {
   return request({
@@ -424,7 +424,7 @@ export function userSetLabelApi(data) {
 }
 
 /**
- * 批次卡列表
+ * Danh sách thẻ hàng loạt
  */
 export function userMemberBatch(data) {
   return request({
@@ -435,7 +435,7 @@ export function userMemberBatch(data) {
 }
 
 /**
- * 生成批次卡
+ * Tạo thẻ hàng loạt
  * @param {*} id id
  */
 export function memberBatchSave(id, data) {
@@ -447,7 +447,7 @@ export function memberBatchSave(id, data) {
 }
 
 /**
- * 列表操作（启用，名称修改）
+ * Danh sách các thao tác (cho phép, sửa đổi tên）
  * @param {*} id id
  */
 export function memberBatchSetValue(id, data) {
@@ -459,7 +459,7 @@ export function memberBatchSetValue(id, data) {
 }
 
 /**
- * 会员卡列表
+ * Danh sách thẻ thành viên
  * @param {*} id id
  */
 export function userMemberCard(id, data) {
@@ -471,7 +471,7 @@ export function userMemberCard(id, data) {
 }
 
 /**
- * 会员卡导出
+ * Xuất thẻ thành viên
  * @param {*} id id
  */
 export function exportMemberCard(id) {
@@ -482,7 +482,7 @@ export function exportMemberCard(id) {
 }
 
 /**
- * 会员类型
+ * Loại thành viên
  */
 export function userMemberShip() {
   return request({
@@ -492,7 +492,7 @@ export function userMemberShip() {
 }
 
 /**
- * 编辑会员类型
+ * Chỉnh sửa loại thành viên
  * @param {*} id id
  * @param {*} data data
  */
@@ -505,7 +505,7 @@ export function memberShipSave(id, data) {
 }
 
 /**
- * 兑换会员卡二维码
+ * Đổi mã QR thẻ thành viên
  */
 export function userMemberScan() {
   return request({
@@ -515,7 +515,7 @@ export function userMemberScan() {
 }
 
 /**
- * 会员卡记录
+ * Hồ sơ thẻ thành viên
  */
 export function memberRecord(data) {
   return request({
@@ -526,7 +526,7 @@ export function memberRecord(data) {
 }
 
 /**
- * 会员权益
+ * Quyền thành viên
  */
 export function memberRight() {
   return request({
@@ -536,7 +536,7 @@ export function memberRight() {
 }
 
 /**
- * 会员权益编辑
+ * Biên tập quyền thành viên
  * @param {*} data
  */
 export function memberRightSave(data) {
@@ -548,7 +548,7 @@ export function memberRightSave(data) {
 }
 
 /**
- * 编辑会员协议
+ * Chỉnh sửa Thỏa thuận thành viên
  * @param {*} id
  */
 export function memberAgreementSave(id, data) {
@@ -560,7 +560,7 @@ export function memberAgreementSave(id, data) {
 }
 
 /**
- * 会员协议
+ * Thỏa thuận thành viên
  */
 export function memberAgreement() {
   return request({
@@ -569,7 +569,7 @@ export function memberAgreement() {
   });
 }
 /**
- * 代理商申请协议
+ * Thỏa thuận ứng dụng đại lý
  */
 export function agentAgreement() {
   return request({
@@ -579,7 +579,7 @@ export function agentAgreement() {
 }
 
 /**
- * 代理商保存协议
+ * Thỏa thuận bảo quản cơ quan
  * @param {*} id
  */
 export function agentAgreementSave(data) {
@@ -591,7 +591,7 @@ export function agentAgreementSave(data) {
 }
 
 /**
- * 获取用户标签
+ * Nhận thẻ người dùng
  */
 export function getUserLabel(uid) {
   return request({
@@ -601,7 +601,7 @@ export function getUserLabel(uid) {
 }
 
 /**
- * 设置用户标签
+ * Đặt nhãn người dùng
  */
 export function putUserLabel(uid, data) {
   return request({
@@ -612,8 +612,8 @@ export function putUserLabel(uid, data) {
 }
 
 /**
- * @description 创建用户
- * @param {Object} param data {Object} 传值参数
+ * @description Tạo người dùng
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function setUser(data) {
   return request({
@@ -624,8 +624,8 @@ export function setUser(data) {
 }
 
 /**
- * @description 编辑用户
- * @param {Object} param data {Object} 传值参数
+ * @description Chỉnh sửa người dùng
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function editUser(data) {
   return request({
@@ -635,8 +635,8 @@ export function editUser(data) {
   });
 }
 /**
- * @description 编辑用户
- * @param {Object} param data {Object} 传值参数
+ * @description Chỉnh sửa người dùng
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function saveSetLabel(data) {
   return request({
@@ -647,7 +647,7 @@ export function saveSetLabel(data) {
 }
 
 /**
- * 获取用户信息
+ * Lấy thông tin người dùng
  */
 export function getUserInfo(uid) {
   return request({
@@ -657,7 +657,7 @@ export function getUserInfo(uid) {
 }
 
 /**
- * 用户注销列表
+ * Danh sách đăng xuất của người dùng
  */
 export function userCancelList(data) {
   return request({
@@ -667,7 +667,7 @@ export function userCancelList(data) {
   });
 }
 /**
- * 用户注销列表
+ * Danh sách đăng xuất của người dùng
  */
 export function userCancelSetMark(data) {
   return request({

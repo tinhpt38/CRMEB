@@ -18,14 +18,14 @@
         <div class="table_box">
           <div>
             <div v-bind="grid">
-              <div class="title">签到天数设置</div>
+              <div class="title">Cài đặt ngày nhận phòng</div>
               <el-button
                 type="primary"
                 icon="md-add"
                 v-db-click
-                @click="groupAdd('添加数据')"
+                @click="groupAdd('Thêm dữ liệu')"
                 style="margin-left: 14px; margin-top: 30px"
-                >添加数据</el-button
+                >Thêm dữ liệu</el-button
               >
             </div>
           </div>
@@ -36,26 +36,26 @@
               class="mt14"
               v-loading="loading"
               highlight-current-row
-              no-userFrom-text="暂无数据"
-              no-filtered-userFrom-text="暂无筛选结果"
+              no-userFrom-text="Chưa có dữ liệu"
+              no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
-              <el-table-column label="编号" width="80">
+              <el-table-column label="số seri" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="第几天" min-width="80">
+              <el-table-column label="Ngày" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.day }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="获取积分" min-width="80">
+              <el-table-column label="Nhận điểm" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sign_num }}</span>
                 </template>
               </el-table-column>
 
-              <el-table-column label="是否可用" min-width="80">
+              <el-table-column label="Nó có sẵn không" min-width="80">
                 <template slot-scope="scope">
                   <el-switch
                     :active-value="1"
@@ -68,16 +68,16 @@
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="排序" min-width="80">
+              <el-table-column label="loại" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" fixed="right" width="150">
+              <el-table-column label="vận hành" fixed="right" width="150">
                 <template slot-scope="scope">
-                  <a v-db-click @click="edit(scope.row, '编辑')">编辑</a>
+                  <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="del(scope.row, '删除这条信息', scope.$index)">删除</a>
+                  <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
                 </template>
               </el-table-column>
             </el-table>
@@ -136,13 +136,13 @@ export default {
       },
       ruleValidate: {},
       myConfig: {
-        autoHeightEnabled: false, // 编辑器不自动被内容撑高
-        initialFrameHeight: 500, // 初始容器高度
-        initialFrameWidth: '100%', // 初始容器宽度
+        autoHeightEnabled: false, // Trình chỉnh sửa không được tự động nâng lên bởi nội dung
+        initialFrameHeight: 500, // chiều cao container ban đầu
+        initialFrameWidth: '100%', // chiều rộng container ban đầu
         UEDITOR_HOME_URL: '/UEditor/',
         serverUrl: '',
       },
-      a: 0, //判断的隐私协议
+      a: 0, //Thỏa thuận về quyền riêng tư của phán quyết
       guide: 0,
       bgimg: 0,
       bgCol: '',
@@ -156,24 +156,24 @@ export default {
       },
       loading: false,
       sginList: [],
-      progress: 0, // 进度条默认0
+      progress: 0, // Mặc định thanh tiến trình0
       swiperOption: {
-        //显示分页
+        //hiển thị phân trang
         pagination: {
           el: '.swiper-pagination',
         },
-        //设置点击箭头
+        //Đặt mũi tên nhấp chuột
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
-        //自动轮播
+        //băng chuyền tự động
         autoplay: {
           delay: 2000,
-          //当用户滑动图片后继续自动轮播
+          //Băng chuyền tự động tiếp tục khi người dùng trượt hình ảnh
           disableOnInteraction: false,
         },
-        //开启循环模式
+        //Bật chế độ vòng lặp
         loop: false,
       },
       url: '',
@@ -181,8 +181,8 @@ export default {
       pageId: 55,
       theme3: 'light',
       tabList: [],
-      upload_type: '', //视频上传类型 1 本地上传 2 3 4 OSS上传
-      uploadData: {}, // 上传参数
+      upload_type: '', //Loại tải lên video 1 tải lên cục bộ 2 3 4 Tải lên OSS
+      uploadData: {}, // Tải lên các thông số
       lastObj: {
         add_time: '',
         comment: '',
@@ -193,7 +193,7 @@ export default {
         sort: '',
         status: 1,
       },
-      isChoice: '单选',
+      isChoice: 'Lựa chọn duy nhất',
       modalPic: false,
       gridPic: {
         xl: 6,
@@ -227,7 +227,7 @@ export default {
       header: {},
       type: 0,
       upload: {
-        videoIng: false, // 是否显示进度条；
+        videoIng: false, // Có hiển thị thanh tiến trình hay không；
       },
     };
   },
@@ -267,7 +267,7 @@ export default {
         }
       });
     },
-    // 添加表单
+    // Thêm biểu mẫu
     groupAdd() {
       this.$modalForm(groupDataAddApi({ gid: this.pageId, config_name: this.name }, 'setting/group_data/create')).then(
         () => {
@@ -302,7 +302,7 @@ export default {
         };
       } else {
         if (this.tabList.list.length == 5) {
-          this.$message.warning('最多添加五张呦');
+          this.$message.warning('Bạn có thể thêm tối đa năm hình ảnh');
         } else {
           let obj = JSON.parse(JSON.stringify(this.lastObj));
           this.tabList.list.push(obj);
@@ -348,7 +348,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$modalForm(
         groupDataEditApi({ gid: this.pageId, config_name: this.name }, 'setting/group_data/' + row.id + '/edit'),
@@ -357,7 +357,7 @@ export default {
         this.url = this.BaseURL + 'pages/users/user_sgin/index';
       });
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -375,7 +375,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       groupDataSetApi('setting/group_data/set_status/' + row.id + '/' + row.status)
         .then(async (res) => {
@@ -399,7 +399,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 提交数据
+    // Gửi dữ liệu
     onsubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
@@ -743,7 +743,7 @@ export default {
   cursor: text;
   transition: border 0.2s ease-in-out, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   font-size: 13px;
-  font-family: PingFangSC-Regular;
+  font-family: "Google Sans", "Product Sans", sans-serif;
   line-height: 22px;
   color: rgba(0, 0, 0, 0.25);
   opacity: 1;

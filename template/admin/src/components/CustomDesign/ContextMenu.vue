@@ -3,19 +3,19 @@
     <ul>
       <template v-if="curComponent">
         <template v-if="!curComponent.isLock">
-          <li @click="handleAction('copy')">复制</li>
-          <li @click="handleAction('delete')">删除</li>
-          <li @click="handleAction('lock')">锁定</li>
+          <li @click="handleAction('copy')">sao chép</li>
+          <li @click="handleAction('delete')">xóa bỏ</li>
+          <li @click="handleAction('lock')">khóa</li>
           <li class="divider"></li>
-          <li @click="handleAction('top')">置顶</li>
-          <li @click="handleAction('bottom')">置底</li>
-          <li @click="handleAction('up')">上移一层</li>
-          <li @click="handleAction('down')">下移一层</li>
+          <li @click="handleAction('top')">ghim lên trên</li>
+          <li @click="handleAction('bottom')">đáy</li>
+          <li @click="handleAction('up')">Tăng một cấp</li>
+          <li @click="handleAction('down')">Di chuyển xuống một cấp</li>
         </template>
-        <li v-else @click="handleAction('unlock')">解锁</li>
+        <li v-else @click="handleAction('unlock')">Mở khóa</li>
       </template>
       <template v-else>
-        <li class="disabled">暂无操作</li>
+        <li class="disabled">Chưa có hoạt động nào</li>
       </template>
     </ul>
   </div>

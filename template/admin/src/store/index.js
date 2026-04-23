@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ import userInfos from './module/userInfos';
 import keepAliveNames from './module/keepAliveNames';
 
 Vue.use(Vuex);
-// 持久化储存
+// lưu trữ liên tục
 // const vuexLocal = new VuexPersistence({
 //     storage: window.localStorage,
 //
@@ -55,7 +55,7 @@ export default new Vuex.Store({
   plugins: [
     new VuexPersistence({
       reducer: (state) => ({
-        user: state.user, //这个就是存入localStorage的值
+        user: state.user, //Đây là giá trị được lưu trữ trong localStorage
         app: state.app,
         menus: state.menus,
         menu: state.menu,

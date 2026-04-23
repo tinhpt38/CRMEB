@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -12,7 +12,7 @@
 namespace crmeb\services\pay;
 
 /**
- * 支付接口类
+ * Lớp giao diện thanh toán
  * Interface PayInterface
  * @package crmeb\services\pay
  */
@@ -20,56 +20,56 @@ interface PayInterface
 {
 
     /**
-     * 设置支付类型
-     * @param string $type 支付类型
+     * Đặt loại thanh toán
+     * @param string $type Hình thức thanh toán
      * @return $this
      */
     public function setPayType(string $type);
 
     /**
-     * 创建支付
-     * @param string $orderId 订单号
-     * @param string $totalFee 支付金额
-     * @param string $attach 回调内容
-     * @param string $body 支付body
-     * @param string $detail 详情
-     * @param string $tradeType 支付类型
-     * @param array $options 其他参数
+     * Tạo thanh toán
+     * @param string $orderId Số đơn hàng
+     * @param string $totalFee Số tiền thanh toán
+     * @param string $attach Nội dung gọi lại
+     * @param string $body chi trảbody
+     * @param string $detail Chi tiết
+     * @param string $tradeType Hình thức thanh toán
+     * @param array $options Các thông số khác
      * @return mixed
      */
     public function create(string $orderId, string $totalFee, string $attach, string $body, string $detail, array $options = []);
 
     /**
-     * 企业支付到零钱
+     * Doanh nghiệp trả tiền thay đổi
      * @param string $openid openid
-     * @param string $orderId 订单id
-     * @param string $amount 支付金额
-     * @param array $options 其他参数
+     * @param string $orderId Đặt hàngid
+     * @param string $amount Số tiền thanh toán
+     * @param array $options Các thông số khác
      * @return mixed
      */
     public function merchantPay(string $openid, string $orderId, string $amount, array $options = []);
 
     /**
-     * 退款
-     * @param string $outTradeNo 退款单号
-     * @param string $totalAmount 退款金额
-     * @param string $refund_id 退款
-     * @param array $options 其他参数
+     * Đền bù
+     * @param string $outTradeNo Số đơn hàng hoàn tiền
+     * @param string $totalAmount Số tiền hoàn lại
+     * @param string $refund_id Đền bù
+     * @param array $options Các thông số khác
      * @return mixed
      */
     public function refund(string $outTradeNo, array $options = []);
 
     /**
-     * 查询订单
-     * @param string $outTradeNo 退款单号
-     * @param string $outRequestNo 支付商户单号
-     * @param array $other 其他参数
+     * Thứ tự truy vấn
+     * @param string $outTradeNo Số đơn hàng hoàn tiền
+     * @param string $outRequestNo Số đơn đặt hàng thanh toán của người bán
+     * @param array $other Các thông số khác
      * @return mixed
      */
     public function queryRefund(string $outTradeNo, string $outRequestNo, array $other = []);
 
     /**
-     * 支付回调
+     * Hoàn vốn
      * @return mixed
      */
     public function handleNotify();

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\activity\lottery\LuckLotteryRecordServices;
 use think\facade\App;
 
 /**
- * 抽奖中奖记录
+ * Kỷ lục trúng xổ số
  * Class LuckLotteryRecord
  * @package app\controller\admin\v1\marketing\lottery
  */
@@ -36,7 +36,7 @@ class LuckLotteryRecord extends AuthController
     }
 
     /**
-     * 抽奖记录列表
+     * Danh sách kỷ lục xổ số
      * @return mixed
      */
     public function index()
@@ -51,7 +51,7 @@ class LuckLotteryRecord extends AuthController
     }
 
     /**
-     * 中奖发货
+     * Giao hàng thắng lợi
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -66,9 +66,9 @@ class LuckLotteryRecord extends AuthController
             ['mark', ''],
         ]);
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $this->services->setDeliver((int)$id, $data);
-        return app('json')->success($this->services->setDeliver((int)$id, $data) ? '设置成功' : '设置失败');
+        return app('json')->success($this->services->setDeliver((int)$id, $data) ? 'Thiết lập thành công' : 'Thiết lập không thành công');
     }
 }

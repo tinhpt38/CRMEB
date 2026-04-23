@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -35,7 +35,7 @@ class AppVersion extends AuthController
     }
 
     /**
-     * 版本列表
+     * Danh sách phiên bản
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -50,7 +50,7 @@ class AppVersion extends AuthController
     }
 
     /**
-     * 新增版本表单
+     * Thêm mẫu phiên bản
      * @param $id
      * @return \think\Response
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -64,7 +64,7 @@ class AppVersion extends AuthController
     }
 
     /**
-     * 保存数据
+     * lưu dữ liệu
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -84,11 +84,11 @@ class AppVersion extends AuthController
         $id = $data['id'];
         unset($data['id']);
         $this->services->versionSave($id, $data);
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 删除App版本
+     * Xóa phiên bản ứng dụng
      * @param $id
      * @return \think\Response
      * @author wuhaotian
@@ -98,6 +98,6 @@ class AppVersion extends AuthController
     public function del($id)
     {
         $this->services->delete($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 }

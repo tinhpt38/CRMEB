@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use crmeb\services\FormBuilder;
 
 /**
  * Class SystemRouteCateServices
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\services\system
@@ -51,7 +51,7 @@ class SystemRouteCateServices extends BaseServices
      * @param array $path
      * @param int $id
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
      */
@@ -63,7 +63,7 @@ class SystemRouteCateServices extends BaseServices
     /**
      * @param string $appName
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
      */
@@ -77,7 +77,7 @@ class SystemRouteCateServices extends BaseServices
      * @param int $id
      * @param string $appName
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
      */
@@ -101,12 +101,12 @@ class SystemRouteCateServices extends BaseServices
         }
         $options = $this->dao->selectList(['app_name' => $appName], 'name as label,id as value,id,pid')->toArray();
         $rule = [
-//            FormBuilder::cascader('path', '上级分类', $path)->data(get_tree_children($options)),
-            FormBuilder::input('name', '分类名称', $cateInfo['name'] ?? '')->required(),
-            FormBuilder::number('sort', '排序', (int)($cateInfo['sort'] ?? 0)),
+//            FormBuilder::cascader('path', 'Phân loại cao cấp', $path)->data(get_tree_children($options)),
+            FormBuilder::input('name', 'Tên danh mục', $cateInfo['name'] ?? '')->required(),
+            FormBuilder::number('sort', 'loại', (int)($cateInfo['sort'] ?? 0)),
             FormBuilder::hidden('app_name', $appName)
         ];
 
-        return create_form($id ? '修改分类' : '添加分类', $rule, $url, $id ? 'PUT' : 'POST');
+        return create_form($id ? 'Sửa đổi phân loại' : 'Thêm danh mục', $rule, $url, $id ? 'PUT' : 'POST');
     }
 }

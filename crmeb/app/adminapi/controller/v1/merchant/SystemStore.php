@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\adminapi\controller\AuthController;
 use app\services\system\store\SystemStoreServices;
 
 /**
- * 门店管理控制器
+ * Bộ điều khiển quản lý cửa hàng
  * Class SystemAttachment
  * @package app\admin\controller\system
  *
@@ -23,7 +23,7 @@ use app\services\system\store\SystemStoreServices;
 class SystemStore extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemStore constructor.
      * @param App $app
      * @param SystemStoreServices $services
@@ -35,7 +35,7 @@ class SystemStore extends AuthController
     }
 
     /**
-     * 门店列表
+     * Danh sách cửa hàng
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -51,7 +51,7 @@ class SystemStore extends AuthController
     }
 
     /**
-     * 获取门店头部
+     * Nhận tiêu đề cửa hàng
      * @return mixed
      */
     public function get_header()
@@ -61,7 +61,7 @@ class SystemStore extends AuthController
     }
 
     /**
-     * 门店设置
+     * Cài đặt cửa hàng
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -77,35 +77,35 @@ class SystemStore extends AuthController
     }
 
     /**
-     * 位置选择
+     * Lựa chọn vị trí
      * @return mixed
      */
     public function select_address()
     {
         $key = sys_config('tengxun_map_key');
-        if (!$key) return app('json')->fail('请配置腾讯地图KEY');
+        if (!$key) return app('json')->fail('Vui lòng định cấu hình bản đồ TencentKEY');
         return app('json')->success(compact('key'));
     }
 
     /**
-     * 设置单个门店是否显示
+     * Đặt xem một cửa hàng có được hiển thị hay không
      * @param string $is_show
      * @param string $id
      * @return mixed
      */
     public function set_show($is_show = '', $id = '')
     {
-        ($is_show == '' || $id == '') && app('json')->fail('参数错误');
+        ($is_show == '' || $id == '') && app('json')->fail('Lỗi tham số');
         $res = $this->services->update((int)$id, ['is_show' => (int)$is_show]);
         if ($res) {
-            return app('json')->success('设置成功');
+            return app('json')->success('Thiết lập thành công');
         } else {
-            return app('json')->fail('设置失败');
+            return app('json')->fail('Thiết lập không thành công');
         }
     }
 
     /**
-     * 保存修改门店信息
+     * Lưu và sửa đổi thông tin cửa hàng
      * @param int $id
      * @return mixed
      */
@@ -127,7 +127,7 @@ class SystemStore extends AuthController
         $data['address'] = implode(',', $data['address']);
         $data['latlng'] = explode(',', $data['latlng']);
         if (!isset($data['latlng'][0]) || !isset($data['latlng'][1])) {
-            return app('json')->fail('请选择门店位置');
+            return app('json')->fail('Vui lòng chọn vị trí cửa hàng');
         }
         $data['latitude'] = $data['latlng'][0];
         $data['longitude'] = $data['latlng'][1];
@@ -138,33 +138,33 @@ class SystemStore extends AuthController
             $data['image'] = $site_url . $data['image'];
         }
         $this->services->saveStore((int)$id, $data);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 删除恢复门店
+     * Xóa cửa hàng khôi phục
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $storeInfo = $this->services->get($id);
         if (!$storeInfo) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         if ($storeInfo->is_del == 1) {
             $storeInfo->is_del = 0;
             if (!$storeInfo->save())
-                return app('json')->fail('恢复失败');
+                return app('json')->fail('Khôi phục không thành công');
             else
-                return app('json')->success('恢复成功');
+                return app('json')->success('Khôi phục thành công');
         } else {
             $storeInfo->is_del = 1;
             if (!$storeInfo->save())
-                return app('json')->fail('删除失败');
+                return app('json')->fail('Xóa không thành công');
             else
-                return app('json')->success('删除成功');
+                return app('json')->success('Xóa thành công');
         }
     }
 }

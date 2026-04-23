@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\dao\BaseDao;
 use app\model\system\SystemMenus;
 
 /**
- * 菜单dao层
+ * Cấp độ thực đơn
  * Class SystemMenusDao
  * @package app\dao\system
  */
@@ -23,7 +23,7 @@ class SystemMenusDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -34,7 +34,7 @@ class SystemMenusDao extends BaseDao
     /**
      * @param array $menusIds
      * @return bool
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/13
      */
@@ -44,7 +44,7 @@ class SystemMenusDao extends BaseDao
     }
 
     /**
-     * 获取权限菜单列表
+     * Nhận danh sách menu quyền
      * @param array $where
      * @param array $field
      * @return \think\Collection
@@ -62,7 +62,7 @@ class SystemMenusDao extends BaseDao
     }
 
     /**
-     * 获取菜单中的唯一权限
+     * Nhận quyền duy nhất trong menu
      * @param array $where
      * @return array
      */
@@ -73,7 +73,7 @@ class SystemMenusDao extends BaseDao
     }
 
     /**
-     * 根据访问地址获得菜单名
+     * Lấy tên menu dựa trên địa chỉ truy cập
      * @param string $rule
      * @return mixed
      */
@@ -83,7 +83,7 @@ class SystemMenusDao extends BaseDao
     }
 
     /**
-     * 获取后台菜单列表并分页
+     * Lấy danh sách menu nền và phân trang nó
      * @param array $where
      * @return \think\Collection
      * @throws \think\db\exception\DataNotFoundException
@@ -98,7 +98,7 @@ class SystemMenusDao extends BaseDao
     }
 
     /**
-     * 菜单总数
+     * Tổng số thực đơn
      * @param array $where
      * @return int
      */
@@ -109,7 +109,7 @@ class SystemMenusDao extends BaseDao
     }
 
     /**
-     * 指定条件获取某些菜单的名称以数组形式返回
+     * Chỉ định các điều kiện để lấy tên của các menu nhất định và trả về chúng ở dạng mảng
      * @param array $where
      * @param string $field
      * @param string $key
@@ -121,7 +121,7 @@ class SystemMenusDao extends BaseDao
         return $this->search($where)->column($field, $key);
     }
 
-    /**菜单列表
+    /**Danh sách thực đơn
      * @param array $where
      * @param int $type
      * @return \think\Collection
@@ -140,7 +140,7 @@ class SystemMenusDao extends BaseDao
     }
 
     /**
-     * 搜索列表
+     * danh sách tìm kiếm
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
@@ -156,7 +156,7 @@ class SystemMenusDao extends BaseDao
      * @param string $path
      * @param string $method
      * @return bool
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/20
      */

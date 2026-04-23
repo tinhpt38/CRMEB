@@ -1,15 +1,15 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 /**
- * @author: 吴汐
+ * @author: thủy triều
  * @email: 442384644@qq.com
  * @date: 2023/7/31
  */
@@ -33,13 +33,13 @@ class SignRewards extends AuthController
     }
 
     /**
-     * 签到奖励列表
+     * Danh sách phần thưởng đăng nhập
      * @return \think\Response
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
      */
@@ -53,13 +53,13 @@ class SignRewards extends AuthController
     }
 
     /**
-     * 新增签到奖励
+     * Đã thêm phần thưởng đăng nhập
      * @return \think\Response
      * @throws \FormBuilder\Exception\FormBuilderException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
      */
@@ -73,14 +73,14 @@ class SignRewards extends AuthController
     }
 
     /**
-     * 修改签到奖励
+     * Sửa đổi phần thưởng đăng nhập
      * @param $id
      * @return \think\Response
      * @throws \FormBuilder\Exception\FormBuilderException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
      */
@@ -91,10 +91,10 @@ class SignRewards extends AuthController
     }
 
     /**
-     * 保存签到奖励
+     * Lưu phần thưởng đăng nhập
      * @param $id
      * @return \think\Response
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
      */
@@ -107,20 +107,20 @@ class SignRewards extends AuthController
             ['exp', 0]
         ]);
         $this->services->saveRewards($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 删除签到奖励
+     * Xóa phần thưởng đăng nhập
      * @param $id
      * @return \think\Response
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
      */
     public function delRewards($id)
     {
         $this->services->delete($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 }

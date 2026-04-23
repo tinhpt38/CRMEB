@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,7 +19,7 @@
 // +----------------------------------------------------------------------
 
 // +----------------------------------------------------------------------
-// | 应用设置
+// | Áp dụng cài đặt
 // +----------------------------------------------------------------------
 
 use think\facade\Env;
@@ -27,40 +27,40 @@ use think\facade\Env;
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
 
 return [
-    // 应用地址
+    // Địa chỉ ứng dụng
     'app_host'         => Env::get('app.host', ''),
-    // 应用的命名空间
+    // không gian tên ứng dụng
     'app_namespace'    => '',
-    // 是否启用路由
+    // Có bật định tuyến hay không
     'with_route'       => true,
-    // 是否启用事件
+    // Có bật sự kiện hay không
     'with_event'       => true,
-    // 自动多应用模式
+    // Chế độ đa ứng dụng tự động
     'auto_multi_app'   => true,
-    // 应用映射（自动多应用模式有效）
+    // Ánh xạ ứng dụng (hợp lệ ở chế độ đa ứng dụng tự động）
     'app_map'          => [],
-    // 域名绑定（自动多应用模式有效）
+    // Liên kết tên miền (hợp lệ ở chế độ đa ứng dụng tự động)）
     'domain_bind'      => [],
-    // 禁止URL访问的应用列表（自动多应用模式有效）
+    // Danh sách các ứng dụng bị cấm truy cập URL (hợp lệ ở chế độ đa ứng dụng tự động)）
     'deny_app_list'    => [],
-    // 默认应用
+    // Ứng dụng mặc định
     'default_app'      => '',
 
     'app_express'      => true,
-    // 默认时区
+    // Múi giờ mặc định
     'default_timezone' => 'Asia/Shanghai',
-    // 异常页面的模板文件
+    // Tệp mẫu cho trang ngoại lệ
     'exception_tmpl'   => app()->getRootPath() . 'public/statics/exception.tpl',
-    // 错误显示信息,非调试模式有效
-    'error_message'    => '页面错误！请稍后再试～',
-    // 显示错误信息
+    // thông báo lỗi,Hợp lệ ở chế độ không gỡ lỗi
+    'error_message'    => 'Lỗi trang! Vui lòng thử lại sau～',
+    // Hiển thị thông báo lỗi
     'show_error_msg'   => false,
-    // 没有开启消息队列命令或者定时任务命令的提醒开关
+    // Công tắc nhắc nhở cho lệnh xếp hàng tin nhắn hoặc lệnh tác vụ đã lên lịch không được bật.
     'console_remind'   => true,
-    // admin路由前缀
+    // admintiền tố định tuyến
     'admin_prefix'     => 'admin',
-    //代码生成功能生成前端文件的路径
+    //Hàm tạo mã tạo đường dẫn đến tệp giao diện người dùng
     'admin_template_path' => dirname(root_path()) . DS . 'template' . DS . 'admin' . DS . 'src' . DS,
-    //在保存crud的是否是否直接生成文件
+    //Có tạo tệp trực tiếp khi lưu dữ liệu không
     'crud_make'        => true
 ];

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,16 +21,16 @@ use app\services\system\attachment\SystemAttachmentServices;
 use app\services\system\crontab\SystemCrontabServices;
 
 /**
- * 定时任务控制器
- * @author 吴汐
+ * Bộ điều khiển tác vụ theo lịch trình
+ * @tác giả Ngô triều
  * @email 442384644@qq.com
  * @date 2023/02/21
  */
 class CrontabController
 {
     /**
-     * 定时任务调用接口
-     * @author 吴汐
+     * Giao diện gọi nhiệm vụ theo lịch trình
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/02/17
      */
@@ -40,7 +40,7 @@ class CrontabController
     }
 
     /**
-     * 检测定时任务是否正常，必须6秒执行一次
+     * Kiểm tra xem tác vụ đã lên lịch có bình thường hay không và phải được thực thi 6 giây một lần.
      */
     public function crontabCheck()
     {
@@ -48,7 +48,7 @@ class CrontabController
     }
 
     /**
-     * 未支付自动取消订单
+     * Tự động hủy đơn hàng nếu chưa thanh toán
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
@@ -61,7 +61,7 @@ class CrontabController
     }
 
     /**
-     * 拼团到期订单处理
+     * Xử lý đơn hàng nhóm nhóm đã hết hạn
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      */
@@ -73,7 +73,7 @@ class CrontabController
     }
 
     /**
-     * 自动解绑上级绑定
+     * Tự động hủy liên kết ràng buộc cấp trên
      */
     public function agentUnbind()
     {
@@ -83,7 +83,7 @@ class CrontabController
     }
 
     /**
-     * 更新直播商品状态
+     * Cập nhật trạng thái sản phẩm trực tiếp
      */
     public function syncGoodStatus()
     {
@@ -93,7 +93,7 @@ class CrontabController
     }
 
     /**
-     * 更新直播间状态
+     * Cập nhật trạng thái phòng trực tiếp
      */
     public function syncRoomStatus()
     {
@@ -103,7 +103,7 @@ class CrontabController
     }
 
     /**
-     * 自动收货
+     * Tự động nhận
      */
     public function autoTakeOrder()
     {
@@ -113,7 +113,7 @@ class CrontabController
     }
 
     /**
-     * 查询预售到期商品自动下架
+     * Kiểm tra xem các sản phẩm đã hết hạn bán trước có tự động bị loại khỏi kệ hay không
      */
     public function downAdvance()
     {
@@ -123,7 +123,7 @@ class CrontabController
     }
 
     /**
-     * 自动好评
+     * Khen ngợi tự động
      */
     public function autoComment()
     {
@@ -133,7 +133,7 @@ class CrontabController
     }
 
     /**
-     * 清除昨日海报
+     * Xóa áp phích ngày hôm qua
      * @throws \Exception
      */
     public function emptyYesterdayAttachment()

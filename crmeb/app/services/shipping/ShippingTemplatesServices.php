@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,18 +17,18 @@ use app\dao\shipping\ShippingTemplatesDao;
 use crmeb\exceptions\AdminException;
 
 /**
- * 运费模板
+ * Mẫu vận chuyển hàng hóa
  * Class ShippingTemplatesServices
  * @package app\services\shipping
- * @method getSelectList() 获取下拉选择列表
- * @method get($id) 获取一条数据
- * @method getShippingColumn(array $where, string $field, string $key) 获取运费模板指定条件下的数据
+ * @method getSelectList() Nhận danh sách lựa chọn thả xuống
+ * @method get($id) Lấy một phần dữ liệu
+ * @method getShippingColumn(array $where, string $field, string $key) Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển hàng hóa
  */
 class ShippingTemplatesServices extends BaseServices
 {
 
     /**
-     * 构造方法
+     * Người xây dựng
      * ShippingTemplatesServices constructor.
      * @param ShippingTemplatesDao $dao
      */
@@ -38,7 +38,7 @@ class ShippingTemplatesServices extends BaseServices
     }
 
     /**
-     * 获取运费模板列表
+     * Nhận danh sách các mẫu vận chuyển hàng hóa
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -54,7 +54,7 @@ class ShippingTemplatesServices extends BaseServices
     }
 
     /**
-     * 获取需要修改的运费模板
+     * Lấy mẫu vận chuyển hàng hóa cần sửa đổi
      * @param int $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -65,7 +65,7 @@ class ShippingTemplatesServices extends BaseServices
     {
         $templates = $this->dao->get($id);
         if (!$templates) {
-            throw new AdminException('修改的模板不存在');
+            throw new AdminException('Mẫu đã sửa đổi không tồn tại');
         }
         /** @var ShippingTemplatesFreeServices $freeServices */
         $freeServices = app()->make(ShippingTemplatesFreeServices::class);
@@ -77,7 +77,7 @@ class ShippingTemplatesServices extends BaseServices
         $data['templateList'] = $regionServices->getRegionList($id);
         $data['noDeliveryList'] = $noDeliveryServices->getNoDeliveryList($id);
         if (!isset($data['templateList'][0]['region'])) {
-            $data['templateList'][0]['region'] = ['city_id' => 0, 'name' => '默认全国'];
+            $data['templateList'][0]['region'] = ['city_id' => 0, 'name' => 'Mặc định trên toàn quốc'];
         }
         $data['formData'] = [
             'name' => $templates->name,
@@ -90,7 +90,7 @@ class ShippingTemplatesServices extends BaseServices
     }
 
     /**
-     * 保存或者修改运费模板
+     * Lưu hoặc sửa đổi mẫu vận chuyển hàng hóa
      * @param int $id
      * @param array $temp
      * @param array $data
@@ -110,19 +110,19 @@ class ShippingTemplatesServices extends BaseServices
 
 
         return $this->transaction(function () use ($regionServices, $data, $id, $res) {
-            //设置区域配送
+            //Thiết lập giao hàng khu vực
             $res = $res && $regionServices->saveRegion($data['region_info'], (int)$data['type'], (int)$id);
             if (!$res) {
-                throw new AdminException('指定区域邮费添加失败');
+                throw new AdminException('Không thể thêm bưu phí cho khu vực được chỉ định');
             }
-            //设置指定包邮
+            //Đặt giao hàng miễn phí được chỉ định
             if ($data['appoint']) {
                 /** @var ShippingTemplatesFreeServices $freeServices */
                 $freeServices = app()->make(ShippingTemplatesFreeServices::class);
                 $res = $res && $freeServices->saveFree($data['appoint_info'], (int)$data['type'], (int)$id);
             }
 
-            //设置不送达
+            //Thiết lập không giao hàng
             if ($data['no_delivery']) {
                 /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */
                 $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
@@ -132,13 +132,13 @@ class ShippingTemplatesServices extends BaseServices
             if ($res) {
                 return true;
             } else {
-                throw new AdminException('保存失败');
+                throw new AdminException('Lưu không thành công');
             }
         });
     }
 
     /**
-     * 删除运费模板
+     * Xóa mẫu vận chuyển
      * @param int $id
      */
     public function detete(int $id)

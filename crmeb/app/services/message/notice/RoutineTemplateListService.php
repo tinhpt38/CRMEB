@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,14 +19,14 @@ use think\facade\Log;
 
 
 /**
- * 小程序模板消息消息队列
+ * Hàng đợi tin nhắn mẫu chương trình nhỏ
  * Class RoutineTemplateJob
  * @package crmeb\jobs
  */
 class RoutineTemplateListService extends NoticeService
 {
     /**
-     * 根据UID获取openid
+     * Nhận dựa trên UIDopenid
      * @param int $uid
      * @return mixed
      */
@@ -42,7 +42,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 发送模板消息
+     * Gửi tin nhắn mẫu
      * @param int $uid
      * @param array $data
      * @param string|null $link
@@ -54,7 +54,7 @@ class RoutineTemplateListService extends NoticeService
         try {
             if ($this->noticeInfo['is_routine'] == 1) {
                 $openid = $this->getOpenidByUid($uid);
-                //放入队列执行
+                //Đưa vào hàng đợi và thực thi
                 TemplateJob::dispatch('doJob', ['subscribe', $openid, $this->noticeInfo['routine_tempid'], $data, $link, $color]);
             }
         } catch (\Exception $e) {
@@ -64,7 +64,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 确认收货
+     * xác nhận đã nhận hàng
      * @param $uid
      * @param $order
      * @param $title
@@ -80,7 +80,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 发货订阅消息
+     * Tin nhắn đăng ký vận chuyển
      * @param $uid
      * @param $order
      * @param $storeTitle
@@ -89,14 +89,14 @@ class RoutineTemplateListService extends NoticeService
      */
     public function sendOrderPostage($uid, $order, $storeTitle, int $isGive = 0)
     {
-        if ($isGive) {//快递发货
+        if ($isGive) {//chuyển phát nhanh
             return $this->sendTemplate((int)$uid, [
                 'character_string2' => $order['delivery_id'],
                 'thing1' => $order['delivery_name'],
                 'time3' => date('Y-m-d H:i:s', time()),
                 'thing5' => $storeTitle,
             ], '/pages/goods/order_details/index?order_id=' . $order['order_id']);
-        } else {//同城配送
+        } else {//Giao hàng trong thành phố
             return $this->sendTemplate((int)$uid, [
                 'thing8' => $storeTitle,
                 'character_string1' => $order['order_id'],
@@ -107,7 +107,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 充值金额退款
+     * Số tiền nạp
      * @param $uid
      * @param $UserRecharge
      * @param $now_money
@@ -124,7 +124,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 订单退款成功发送消息
+     * Thông báo hoàn tiền đơn hàng thành công
      * @param $uid
      * @param $order
      * @param $storeTitle
@@ -134,7 +134,7 @@ class RoutineTemplateListService extends NoticeService
     public function sendOrderRefundSuccess($uid, $order, $storeTitle, $data)
     {
         return $this->sendTemplate((int)$uid, [
-            'thing1' => '已成功退款',
+            'thing1' => 'Đã hoàn tiền thành công',
             'thing2' => $storeTitle,
             'amount3' => $order['pay_price'],
             'character_string6' => $data['order_id']
@@ -142,7 +142,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 订单退款失败
+     * Hoàn tiền đơn hàng không thành công
      * @param $uid
      * @param $order
      * @param $storeTitle
@@ -151,7 +151,7 @@ class RoutineTemplateListService extends NoticeService
     public function sendOrderRefundFail($uid, $order, $storeTitle)
     {
         return $this->sendTemplate((int)$uid, [
-            'thing1' => '退款失败',
+            'thing1' => 'Hoàn tiền không thành công',
             'thing2' => $storeTitle,
             'amount3' => $order['pay_price'],
             'character_string6' => $order['order_id']
@@ -159,7 +159,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 用户申请退款给管理员发送消息
+     * Người dùng yêu cầu hoàn lại tiền và gửi tin nhắn cho quản trị viên
      * @param $uid
      * @param $order
      * @return bool|void
@@ -169,13 +169,13 @@ class RoutineTemplateListService extends NoticeService
         $data['character_string4'] = $order['order_id'];
         $data['date5'] = date('Y-m-d H:i:s', time());
         $data['amount2'] = $order['pay_price'];
-        $data['phrase7'] = '申请退款中';
-        $data['thing8'] = '请及时处理';
+        $data['phrase7'] = 'Nộp đơn xin hoàn tiền';
+        $data['thing8'] = 'Hãy xử lý kịp thời';
         return $this->sendTemplate((int)$uid, $data);
     }
 
     /**
-     * 砍价成功通知
+     * Thông báo thương lượng thành công
      * @param $uid
      * @param array $bargain
      * @param array $bargainUser
@@ -186,12 +186,12 @@ class RoutineTemplateListService extends NoticeService
     {
         $data['thing1'] = $bargain['title'];
         $data['amount2'] = $bargain['min_price'];
-        $data['thing3'] = '恭喜您，已经砍到最低价了';
+        $data['thing3'] = 'Xin chúc mừng, bạn đã đạt được mức giá thấp nhất';
         return $this->sendTemplate((int)$uid, $data, '/pages/activity/goods_bargain_details/index?id=' . $bargain['id'] . '&bargain=' . $bargainUserId);
     }
 
     /**
-     * 订单支付成功发送模板消息
+     * Tin nhắn mẫu được gửi khi thanh toán đơn hàng thành công
      * @param $uid
      * @param $pay_price
      * @param $orderId
@@ -201,13 +201,13 @@ class RoutineTemplateListService extends NoticeService
     {
         if ($orderId == '') return true;
         $data['character_string1'] = $orderId;
-        $data['amount2'] = $pay_price . '元';
+        $data['amount2'] = $pay_price . 'Nhân dân tệ';
         $data['date3'] = date('Y-m-d H:i:s', time());
         return $this->sendTemplate((int)$uid, $data, '/pages/goods/order_details/index?order_id=' . $orderId);
     }
 
     /**
-     * 会员订单支付成功发送消息
+     * Thông báo thanh toán đơn hàng thành công
      * @param $uid
      * @param $pay_price
      * @param $orderId
@@ -217,13 +217,13 @@ class RoutineTemplateListService extends NoticeService
     {
         if ($orderId == '') return true;
         $data['character_string1'] = $orderId;
-        $data['amount2'] = $pay_price . '元';
+        $data['amount2'] = $pay_price . 'Nhân dân tệ';
         $data['date3'] = date('Y-m-d H:i:s', time());
         return $this->sendTemplate((int)$uid, $data, '/pages/annex/vip_paid/index');
     }
 
     /**
-     * 提现失败
+     * Rút tiền không thành công
      * @param $uid
      * @param $msg
      * @param $extract_number
@@ -233,15 +233,15 @@ class RoutineTemplateListService extends NoticeService
     public function sendExtractFail($uid, $msg, $extract_number, $nickname)
     {
         return $this->sendTemplate((int)$uid, [
-            'thing1' => '提现失败：' . $msg,
-            'amount2' => $extract_number . '元',
+            'thing1' => 'Rút tiền không thành công：' . $msg,
+            'amount2' => $extract_number . 'Nhân dân tệ',
             'thing3' => $nickname,
             'date4' => date('Y-m-d H:i:s', time())
         ], '/pages/users/user_spread_money/index?type=1');
     }
 
     /**
-     * 提现成功
+     * Rút tiền thành công
      * @param $uid
      * @param $extract_number
      * @param $nickname
@@ -250,7 +250,7 @@ class RoutineTemplateListService extends NoticeService
     public function sendExtractSuccess($uid, $extract_number, $nickname)
     {
         return $this->sendTemplate((int)$uid, [
-            'thing1' => '提现成功',
+            'thing1' => 'Rút tiền thành công',
             'amount2' => $extract_number,
             'thing3' => $nickname,
             'date4' => date('Y-m-d H:i:s', time())
@@ -258,7 +258,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 用户发起提现，后台同意之后给用户发送
+     * Người dùng bắt đầu rút tiền và phần phụ trợ sẽ gửi nó cho người dùng sau khi đồng ý.
      * @param $uid
      * @param $extract_number
      * @param $order_id
@@ -269,14 +269,14 @@ class RoutineTemplateListService extends NoticeService
     {
         return $this->sendTemplate((int)$uid, [
             'character_string1' => $order_id,
-            'thing7' => '平台发放佣金',
+            'thing7' => 'Hoa hồng phát hành nền tảng',
             'amount3' => $extract_number,
             'time10' => date('Y-m-d H:i:s', time())
         ], '/pages/users/user_spread_money/receiving?id=' . $order_id . '&type=' . $type);
     }
 
     /**
-     * 拼团成功通知
+     * Thông báo đặt đoàn thành công
      * @param $uid
      * @param $pinkTitle
      * @param $nickname
@@ -296,7 +296,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 拼团状态通知
+     * Thông báo trạng thái nhóm nhóm
      * @param $uid
      * @param $pinkTitle
      * @param $count
@@ -314,7 +314,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 赠送积分消息提醒
+     * Nhắc nhở tin nhắn điểm quà tặng
      * @param $uid
      * @param $order
      * @param $storeTitle
@@ -337,7 +337,7 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * 获得推广佣金发送提醒
+     * Nhận hoa hồng khuyến mại và gửi lời nhắc
      * @param $uid
      * @param string $brokeragePrice
      * @param string $goods_name
@@ -347,13 +347,13 @@ class RoutineTemplateListService extends NoticeService
     {
         return $this->sendTemplate((int)$uid, [
             'thing2' => $goods_name,
-            'amount4' => $brokeragePrice . '元',
+            'amount4' => $brokeragePrice . 'Nhân dân tệ',
             'time1' => date('Y-m-d H:i:s', time())
         ], '/pages/users/user_spread_user/index');
     }
 
     /**
-     * 绑定推广关系发送消息提醒
+     * Ràng buộc mối quan hệ khuyến mãi để gửi tin nhắn nhắc nhở
      * @param $uid
      * @param string $userName
      * @return bool|void
@@ -361,7 +361,7 @@ class RoutineTemplateListService extends NoticeService
     public function sendBindSpreadUidSuccess($uid, string $userName)
     {
         return $this->sendTemplate((int)$uid, [
-            'name3' => $userName . "加入您的团队",
+            'name3' => $userName . "Tham gia nhóm của bạn",
             'date4' => date('Y-m-d H:i:s', time())
         ], '/pages/users/user_spread_user/index');
     }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\system\attachment\SystemAttachmentCategoryServices;
 use think\facade\App;
 
 /**
- * 图片分类管理类
+ * Lớp quản lý phân loại ảnh
  * Class SystemAttachmentCategory
  * @package app\adminapi\controller\v1\file
  */
@@ -37,7 +37,7 @@ class SystemAttachmentCategory extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @return \think\Response
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
@@ -57,7 +57,7 @@ class SystemAttachmentCategory extends AuthController
     }
 
     /**
-     * 新增表单
+     * Thêm biểu mẫu
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -71,7 +71,7 @@ class SystemAttachmentCategory extends AuthController
     }
 
     /**
-     * 保存新增
+     * Lưu mới
      * @return mixed
      */
     public function save()
@@ -83,14 +83,14 @@ class SystemAttachmentCategory extends AuthController
         ]);
         if (is_array($data['pid'])) $data['pid'] = end($data['pid']);
         if (!$data['name']) {
-            return app('json')->fail('请填写分类名称');
+            return app('json')->fail('Vui lòng điền tên danh mục');
         }
         $this->service->save($data);
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 编辑表单
+     * chỉnh sửa biểu mẫu
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -101,7 +101,7 @@ class SystemAttachmentCategory extends AuthController
     }
 
     /**
-     * 保存更新的资源
+     * Lưu tài nguyên cập nhật
      * @param $id
      * @return mixed
      */
@@ -113,26 +113,26 @@ class SystemAttachmentCategory extends AuthController
         ]);
         if (is_array($data['pid'])) $data['pid'] = end($data['pid']);
         if (!$data['name']) {
-            return app('json')->fail('请填写分类名称');
+            return app('json')->fail('Vui lòng điền tên danh mục');
         }
         if ($data['pid'] == $id) {
-            return app('json')->fail('上级分类不能是自己');
+            return app('json')->fail('Đẳng cấp vượt trội không thể là chính bạn');
         }
         $info = $this->service->get($id);
         $count = $this->service->count(['pid' => $id]);
-        if ($count && $info['pid'] != $data['pid']) return app('json')->fail('该分类有下级分类，无法修改上级');
+        if ($count && $info['pid'] != $data['pid']) return app('json')->fail('Danh mục này có các danh mục phụ và cấp trên không thể sửa đổi.');
         $this->service->update($id, $data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
      */
     public function delete($id)
     {
         $this->service->del($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 }

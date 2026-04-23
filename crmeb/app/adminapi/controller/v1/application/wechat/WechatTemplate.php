@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,14 +18,14 @@ use crmeb\services\app\WechatService;
 use think\facade\App;
 
 /**
- * 微信模板消息
+ * Tin nhắn mẫu WeChat
  * Class WechatTemplate
  * @package app\adminapi\controller\v1\application\wechat
  */
 class WechatTemplate extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * WechatTemplate constructor.
      * @param App $app
      * @param SystemNotificationServices $services
@@ -37,7 +37,7 @@ class WechatTemplate extends AuthController
     }
 
     /**
-     * 同步微信模版消息
+     * Đồng bộ hóa tin nhắn mẫu WeChat
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -46,7 +46,7 @@ class WechatTemplate extends AuthController
     public function syncSubscribe()
     {
         if (!sys_config('wechat_appid') || !sys_config('wechat_appsecret')) {
-            throw new AdminException('请先配置微信公众号appid、appSecret等参数');
+            throw new AdminException('Trước tiên hãy định cấu hình ứng dụng tài khoản công khai WeChat, appSecret và các thông số khác');
         }
 
         $tempIds = $this->services->getTempId('wechat');
@@ -59,6 +59,6 @@ class WechatTemplate extends AuthController
         foreach ($tempKeys as $key => $content) {
             SyncMessageJob::dispatch('SyncWechat', [$key, $content['wechat_content']]);
         }
-        return app('json')->success('同步成功');
+        return app('json')->success('Đồng bộ hóa thành công');
     }
 }

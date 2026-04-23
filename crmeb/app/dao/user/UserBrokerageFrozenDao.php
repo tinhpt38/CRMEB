@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,14 +16,14 @@ use app\dao\BaseDao;
 use app\model\user\UserBrokerageFrozen;
 
 /**
- * 佣金冻结
+ * Hoa hồng đóng băng
  * Class UserBrokerageFrozenDao
  * @package app\dao\user
  */
 class UserBrokerageFrozenDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -32,7 +32,7 @@ class UserBrokerageFrozenDao extends BaseDao
     }
 
     /**
-     * 搜索
+     * tìm kiếm
      * @param array $where
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
@@ -50,9 +50,9 @@ class UserBrokerageFrozenDao extends BaseDao
     }
 
     /**
-     * 获取某个账户下的冻结佣金
+     * Nhận hoa hồng cố định trong một tài khoản
      * @param int $uid
-     * @param bool $isFrozen 获取冻结之前或者冻结之后的总金额
+     * @param bool $isFrozen Lấy tổng số tiền trước hoặc sau khi đóng băng
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -64,7 +64,7 @@ class UserBrokerageFrozenDao extends BaseDao
     }
 
     /**
-     * 修改佣金冻结状态
+     * Sửa đổi trạng thái đóng băng hoa hồng
      * @param string $orderId
      * @return \crmeb\basic\BaseModel
      */
@@ -74,7 +74,7 @@ class UserBrokerageFrozenDao extends BaseDao
     }
 
     /**
-     * 获取用户的冻结佣金数组
+     * Lấy mảng hoa hồng cố định của người dùng
      * @return mixed
      */
     public function getFrozenBrokerage()

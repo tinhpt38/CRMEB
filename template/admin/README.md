@@ -1,294 +1,294 @@
 # CRMEB Admin
 
-## 开发规范
+## thông số kỹ thuật phát triển
 
-统一使用ES6 语法
-方法注释
+Sử dụng thống nhất cú pháp ES6
+Chú thích phương pháp
 /*
-* th => 表头
-* data => 数据
-* fileName => 文件名
-* fileType => 文件类型
-* sheetName => sheet页名
+* th => tiêu đề
+* data => dữ liệu
+* fileName => tên tập tin
+* fileType => Loại tệp
+* sheetName => sheetTên trang
   */
   export default function toExcel ({ th, data, fileName, fileType, sheetName })
-  行注释 //
+  Dòng chú thích //
 
-### 命名
+### Đặt tên
 
-页面目录 文件夹命名格式骆驼式命名法,例如：用户列表 userList
-例如：商品模块
-product 商品
-├─ product 商品管理
-├─ productList 商品管理目录
-├─ index.vue  首页
-├─ components  组建
+Định dạng đặt tên thư mục trang theo danh pháp lạc đà,Ví dụ: danh sách người dùng userList
+Ví dụ: mô-đun sản phẩm
+sản phẩm sản phẩm
+├─ product Quản lý sản phẩm
+├─ productList Danh mục quản lý sản phẩm
+├─ index.vue  trang đầu
+├─ components  Thành lập
 ├─ tableFrom.vue
 ├─ tableList.vue
-├─ handle 操作功能页面目录
+├─ handle Thư mục trang chức năng hoạt động
 ├─ delete.vue
-├─ productCategory 商品分类目录
-├─ index.vue 商品分类首页
+├─ productCategory Danh mục sản phẩm
+├─ index.vue Trang chủ phân loại sản phẩm
 
-页面命名、组建、文件夹 命名格式小驼峰命名法,例如：用户列表 userList
+Định dạng đặt tên trang, tổ chức, thư mục theo danh pháp chữ lạc đà nhỏ,Ví dụ: danh sách người dùng userList
 
-类名函数命名 大驼峰式 例如：addUser
-变量命名 小驼峰式 例如：user 或者 userInfo _userinfo user-info
-常量 采用全大些下划线命名 例如：VUE_APP_API_URl
+Việc đặt tên hàm tên lớp được viết theo kiểu lạc đà. Ví dụ: addUser
+Đặt tên biến CamelCase Ví dụ: user hoặc userInfo _userinfo user-info
+Các hằng số được đặt tên bằng tất cả các dấu gạch dưới, ví dụ: VUE_APP_API_URl
 
-### 文件管理规范
-pages 页面模块必须件文件夹区分
-api 接口一个模块一个文件
-组建 一个组建一个文件夹
-plugins 插件一个插件一个文件夹
-vuex 路由状态管理，一个模块在modules 中建一个文件夹
-router 一个模块一个模块在modules 中建一个文件夹
-style 样式尽量采用iView自带组建，common.less 系统通用样式不要轻易动
-自定义通用样式 style.less,每次添加必须加注释，页面独立样式在在页面内写，后缀less 格式
-组建样式 styles 中添加文件夹 composents 对应components 目录新建样式文件
-utils 自定义工具js 独立命名，一般不用新建文件夹
+### Thông số quản lý tập tin
+Mô-đun trang trang phải được tách thành các thư mục
+Giao diện API là một mô-đun và một tệp
+Tạo một tệp cho mỗi tệp
+plugin plugin, một plugin và một thư mục
+Quản lý trạng thái định tuyến Vuex, một mô-đun tạo một thư mục trong các mô-đun
+Bộ định tuyến tạo một thư mục cho mỗi mô-đun trong các mô-đun.
+Phong cách nên được xây dựng bằng iView càng nhiều càng tốt. Đừng dễ dàng thay đổi phong cách chung của hệ thống common.less.
+Tùy chỉnh phong cách phổ quát style.less,Mỗi lần bạn thêm một bình luận, bạn phải thêm một bình luận. Kiểu độc lập của trang được viết trong trang, với định dạng ít hậu tố hơn.
+Thêm thư mục soạn thảo vào các kiểu kiểu và tạo một tệp kiểu mới trong thư mục thành phần tương ứng.
+Công cụ tùy chỉnh utils js được đặt tên độc lập, nói chung không cần tạo thư mục mới
 
-## 模块命名
+## Đặt tên mô-đun
 ~~~
-├─ product 商品管理
-├─ user 用户管理
-├─ order 系统订单管理
-├─ setting 系统设置维护 系统权限管理、系统菜单管理 客服管理
-├─ chat 客服管理（列表，添加，删除，编辑）
-├─ application 各个应用模块功能管理公众号、小程序、支付宝、百度小程序、今日头条小程序
-├─ system 系统更新日志 数据库管理
-├─ finance  财务管理
-├─ agent 分销管理
-├─ marketing 优惠券、积分、拼团、砍价、秒杀
-├─ echarts 数据统计分析
-├─ notification  消息通知管理、模版消息（列表，通知，添加，编辑）、短信
-├─ file 附件文件管理
-├─ freight 运费模版管理 物流公司
-├─ merchant 商户管理
-├─ widget 组件 小插件
-└─ cms 文章管理
+├─ product Quản lý sản phẩm
+├─ user Quản lý người dùng
+├─ order Quản lý đơn hàng hệ thống
+├─ setting Bảo trì cài đặt hệ thống, quản lý quyền hệ thống, quản lý menu hệ thống, quản lý dịch vụ khách hàng
+├─ chat Quản lý dịch vụ khách hàng (liệt kê, thêm, xóa, chỉnh sửa）
+├─ application Mỗi mô-đun ứng dụng có chức năng quản lý tài khoản công cộng, chương trình nhỏ, Alipay, chương trình nhỏ Baidu và chương trình nhỏ Toutiao.
+├─ system Quản lý cơ sở dữ liệu nhật ký cập nhật hệ thống
+├─ finance  quản lý tài chính
+├─ agent Quản lý phân phối
+├─ marketing Phiếu giảm giá, điểm, mua theo nhóm, mặc cả, bán hàng chớp nhoáng
+├─ echarts Phân tích thống kê dữ liệu
+├─ notification  Quản lý thông báo tin nhắn, tin nhắn mẫu (danh sách, thông báo, thêm, chỉnh sửa), SMS
+├─ file Quản lý tập tin đính kèm
+├─ freight Công ty Logistics quản lý mẫu hàng hóa
+├─ merchant Quản lý thương gia
+├─ widget Tiện ích thành phần
+└─ cms Quản lý bài viết
 ~~~
-## 目录结构
-主要目录结构及说明：
+## Cấu trúc thư mục
+Cấu trúc và mô tả thư mục chính：
 ~~~
-├── public                      # 静态资源
-│   ├── favicon.ico            # favicon图标
-│   └── index.html             # html 模板
-├── src                         # 源代码
-│   ├── api                    # 所有请求
-│   │    └──account.js        # 有关登录的接口
-│   │    └──agent.js          # 有关分销的接口
-│   │    └──app.js            # 有关应用（小程序、公众号）的接口
-│   │    └──cms.js            # 有关内容（文章管理、分类）的接口
-│   │    └──common.js         # 表格删除、获取消息提醒的接口
-│   │    └──finance.js        # 有关财务的接口
-│   │    └──index.js          # 有关首页的接口
-│   │    └──marketing.js      # 有关营销的接口
-│   │    └──order.js          # 有关订单的接口
-│   │    └──product.js        # 有关商品的接口
-│   │    └──setting.js        # 有关设置的接口
-│   │    └──system.js         # 有关维护（开发配置、安全维护）的接口
-│   │    └──systemAdmin.js    # 有关管理员的接口（设置--管理权限--管理员列表）
-│   │    └──systemMenus.js    # 有关权限规则的接口（设置--管理权限--权限规则）
-│   │    └──uploadPictures.js # 有关上传图片附件的接口
-│   │    └──user.js           # 有关会员的接口
-│   ├── assets                 # 图片、svg 等静态资源
-│   ├── components             # 公共组件
-│   │    └──cards             # 统计
-│   │    └──copyright         # 页面footer的底部声明
-│   │    └──customerInfo      # 选择用户
-│   │    └──echarts           # 统计图
-│   │    └──freightTemplate   # 运费模板
-│   │    └──from              # 生成表单
-│   │    └──goodsList         # 商品列表
-│   │    └──iconFrom          # 导航添加图标
-│   │    └──link              # a连接
-│   │    └──mde               # 多文本框
-│   │    └──modelSure         # 确认模态框
-│   │    └──newsCategory      # 图文管理页
-│   │    └──publicSearchFrom  # 头部搜索（没用到）
-│   │    └──quill             # 编辑器（没用到）
-│   │    └──referrerInfo      # 推荐人信息
-│   │    └──searchFrom        # 订单页的搜索
-│   │    └──sendCoupons       # 发送优惠券
-│   │    └──systemStore       # 添加提货点
-│   │    └──uploadPictures    # 上传图片
-│   │    └──uploadVideo       # 上传视频（用于商品编辑器里面）
-│   ├── i18n                   # 多语言
-│   ├── layouts                # 布局
-│   │    └──header-breadcrumb # 头部面包屑样式
-│   │    └──header-collapse   # 头部控制折叠面板的图标
-│   │    └──header-fullscreen # 头部控制是否全屏的图标
-│   │    └──header-i18n       # 头部控制多语言
-│   │    └──header-log        # 头部控制日志异常图标
-│   │    └──header-logo       # 头部logo
-│   │    └──header-notice     # 头部提示消息
-│   │    └──header-reload     # 头部控制刷新的图标
-│   │    └──header-search     # 头部搜索
-│   │    └──header-setting    # 设置页面风格
-│   │    └──header-user       # 我的（个人中心、退出登录）
+├── public                      # Tài nguyên tĩnh
+│   ├── favicon.ico            # faviconbiểu tượng
+│   └── index.html             # html bản mẫu
+├── src                         # mã nguồn
+│   ├── api                    # Tất cả các yêu cầu
+│   │    └──account.js        # Giao diện đăng nhập
+│   │    └──agent.js          # Giao diện phân phối
+│   │    └──app.js            # Giao diện liên quan đến ứng dụng (chương trình mini, tài khoản chính thức)
+│   │    └──cms.js            # Các giao diện liên quan đến nội dung (quản lý bài viết, phân loại)
+│   │    └──common.js         # Giao diện xóa bảng và nhận tin nhắn nhắc nhở
+│   │    └──finance.js        # Giao diện tài chính
+│   │    └──index.js          # Giao diện về trang chủ
+│   │    └──marketing.js      # Giao diện tiếp thị
+│   │    └──order.js          # Giao diện đặt hàng
+│   │    └──product.js        # Giao diện liên quan đến sản phẩm
+│   │    └──setting.js        # Giao diện cài đặt
+│   │    └──system.js         # Các giao diện liên quan đến bảo trì (cấu hình phát triển, bảo trì bảo mật)
+│   │    └──systemAdmin.js    # Giao diện dành cho quản trị viên (Cài đặt--Quyền quản lý--Danh sách quản trị viên)）
+│   │    └──systemMenus.js    # Giao diện liên quan đến quy tắc cấp phép (Cài đặt--Quản lý quyền--Quy tắc cấp phép）
+│   │    └──uploadPictures.js # Giao diện upload file đính kèm hình ảnh
+│   │    └──user.js           # Giao diện thành viên
+│   ├── assets                 # Tài nguyên tĩnh như hình ảnh và svg
+│   ├── components             # thành phần công cộng
+│   │    └──cards             # thống kê
+│   │    └──copyright         # Câu lệnh dưới cùng của chân trang
+│   │    └──customerInfo      # Chọn người dùng
+│   │    └──echarts           # Biểu đồ thống kê
+│   │    └──freightTemplate   # Mẫu vận chuyển hàng hóa
+│   │    └──from              # Tạo biểu mẫu
+│   │    └──goodsList         # Danh sách sản phẩm
+│   │    └──iconFrom          # Biểu tượng thêm điều hướng
+│   │    └──link              # akết nối
+│   │    └──mde               # Nhiều hộp văn bản
+│   │    └──modelSure         # Xác nhận hộp phương thức
+│   │    └──newsCategory      # Trang quản lý đồ họa và văn bản
+│   │    └──publicSearchFrom  # Tìm kiếm theo đầu (không được sử dụng）
+│   │    └──quill             # Trình chỉnh sửa (không được sử dụng）
+│   │    └──referrerInfo      # Thông tin người giới thiệu
+│   │    └──searchFrom        # Tìm kiếm trang đặt hàng
+│   │    └──sendCoupons       # Gửi phiếu giảm giá
+│   │    └──systemStore       # Thêm điểm đón
+│   │    └──uploadPictures    # Tải ảnh lên
+│   │    └──uploadVideo       # Tải video lên (được sử dụng trong trình chỉnh sửa sản phẩm）
+│   ├── i18n                   # đa ngôn ngữ
+│   ├── layouts                # cách trình bày
+│   │    └──header-breadcrumb # Kiểu đường dẫn tiêu đề
+│   │    └──header-collapse   # Biểu tượng đàn accordion điều khiển đầu
+│   │    └──header-fullscreen # Biểu tượng điều khiển bằng đầu cho toàn màn hình
+│   │    └──header-i18n       # Điều khiển đầu đa ngôn ngữ
+│   │    └──header-log        # Biểu tượng ngoại lệ của nhật ký điều khiển đầu
+│   │    └──header-logo       # cái đầulogo
+│   │    └──header-notice     # Tin nhắn tiêu đề
+│   │    └──header-reload     # Biểu tượng làm mới điều khiển đầu
+│   │    └──header-search     # tìm kiếm đầu
+│   │    └──header-setting    # Đặt kiểu trang
+│   │    └──header-user       # Của tôi (trung tâm cá nhân, đăng xuất）
 │   │    └──menu-head         # 
-│   │    └──menu-side         # 侧边导航栏
-│   │    └──tabs              # 头部的横向导航标签
-│   │    └──mixins            # 用于横向滚动获取title的一个js
-│   ├── libs                   # 公共方法
-│   ├── menu                   # 菜单配置
-│   ├── mixins                 # 通用混合
-│   ├── mock                   # 数据模拟
-│   ├── pages                  # 所有页面
-│   │    └──account           # 有关登录页
-│   │         └──login        # 登录
-│   │         └──register     # 注册
-│   │    └──agent             # 分销
-│   │         └──agentManage  # 分销员管理
-│   │    └──app               # 应用
-│   │         └──routine      # 小程序模板消息
-│   │         └──wechat       # 公众号
-│   │              └──menus   # 微信菜单
-│   │              └──newsCategory   # 图文管理
-│   │                   └──save      # 图文添加
-│   │              └──reply          # 自动回复
-│   │                   └──follow    # 微信关注回复/无效关键词回复
-│   │                   └──keyword   # 关键字回复
-│   │              └──user           # 用户
-│   │                   └──tag       # 用户标签
-│   │                   └──user      # 微信用户
-│   │                   └──message   # 用户行为记录
-│   │    └──cms                      # 内容
-│   │         └──addArticle          # 添加文章/编辑文章
-│   │         └──article             # 文章管理
-│   │         └──articleCategory     # 文章分类
-│   │    └──finance                  # 财务
-│   │         └──commission          # 佣金记录
-│   │         └──financialRecords    # 财务记录
-│   │              └──bill           # 资金记录
-│   │              └──recharge       # 充值记录
-│   │         └──userExtract         # 提现申请
-│   │    └──index                    # 主页
-│   │    └──marketing                # 营销
-│   │         └──storeBargain        # 砍价商品
-│   │         └──storeCombination    # 拼团管理
-│   │              └──combinaList    # 拼团列表
-│   │              └──create         # 添加拼团商品
-│   │              └──index          # 拼团商品
-│   │         └──storeCoupon         # 优惠券制作
-│   │         └──storeCouponIssue    # 优惠券列表
-│   │         └──storeCouponUser     # 会员领取记录
-│   │         └──storeSeckill        # 秒杀管理
-│   │              └──index          # 秒杀商品
-│   │              └──create         # 添加秒杀商品
-│   │         └──userPoint           # 积分日志
-│   │    └──notify                   # 短信设置
-│   │         └──smsConfig           # 短信账户
-│   │         └──smsPay              # 短信购买
-│   │         └──smsTemplateApply    # 短信模板
-│   │    └──order                    # 订单管理
-│   │    └──product                  # 商品
-│   │         └──productAdd          # 添加商品
-│   │         └──productAttr         # 商品规格
-│   │         └──productClassify     # 商品分类
-│   │         └──productList         # 商品管理
-│   │         └──productReply        # 商品评论管理
-│   │    └──setting                  # 设置
-│   │         └──cityDada            # 城市数据
-│   │         └──clerkList           # 核销员管理
-│   │         └──freight             # 物流公司
-│   │         └──setSystem           # 系统设置
-│   │         └──shippingTemplates   # 运费模板
-│   │         └──storeList           # 提货点列表
-│   │         └──storeService        # 客服管理
-│   │         └──systemAdmin         # 管理员列表
-│   │         └──systemMenus         # 权限规则
-│   │         └──systemRole          # 身份管理
-│   │         └──systemStore         # 门店设置
-│   │         └──user                # 个人中心
-│   │         └──verifyOrder         # 核销订单
-│   │    └──system                   # 维护
-│   │         └──auth                # 商业授权
-│   │         └──clear               # 刷新缓存
-│   │         └──configTab           # 配置
-│   │              └──index          # 配置分类
-│   │              └──list           # 配置列表
-│   │         └──error               # 错误页
+│   │    └──menu-side         # Thanh điều hướng bên
+│   │    └──tabs              # Nhãn điều hướng ngang tiêu đề
+│   │    └──mixins            # Một để cuộn ngang để lấy tiêu đềjs
+│   ├── libs                   # phương pháp công khai
+│   ├── menu                   # Cấu hình thực đơn
+│   ├── mixins                 # hỗn hợp phổ quát
+│   ├── mock                   # Mô phỏng dữ liệu
+│   ├── pages                  # Tất cả các trang
+│   │    └──account           # Về trang đăng nhập
+│   │         └──login        # Đăng nhập
+│   │         └──register     # đăng ký
+│   │    └──agent             # Phân bổ
+│   │         └──agentManage  # Quản lý nhà phân phối
+│   │    └──app               # ứng dụng
+│   │         └──routine      # Thông báo mẫu chương trình nhỏ
+│   │         └──wechat       # Tài khoản chính thức
+│   │              └──menus   # Trình đơn WeChat
+│   │              └──newsCategory   # Quản lý đồ họa và văn bản
+│   │                   └──save      # Thêm đồ họa và văn bản
+│   │              └──reply          # trả lời tự động
+│   │                   └──follow    # WeChat theo dõi trả lời/trả lời từ khóa không hợp lệ
+│   │                   └──keyword   # Trả lời từ khóa
+│   │              └──user           # người dùng
+│   │                   └──tag       # Thẻ người dùng
+│   │                   └──user      # Người dùng WeChat
+│   │                   └──message   # Hồ sơ hành vi người dùng
+│   │    └──cms                      # nội dung
+│   │         └──addArticle          # Thêm bài viết/sửa bài viết
+│   │         └──article             # Quản lý bài viết
+│   │         └──articleCategory     # Phân loại bài viết
+│   │    └──finance                  # tài chính
+│   │         └──commission          # hồ sơ ủy ban
+│   │         └──financialRecords    # hồ sơ tài chính
+│   │              └──bill           # Hồ sơ tài trợ
+│   │              └──recharge       # Kỷ lục nạp tiền
+│   │         └──userExtract         # Đơn xin rút tiền
+│   │    └──index                    # Trang chủ
+│   │    └──marketing                # tiếp thị
+│   │         └──storeBargain        # mặt hàng giá hời
+│   │         └──storeCombination    # Quản lý nhóm
+│   │              └──combinaList    # Danh sách nhóm nhóm
+│   │              └──create         # Thêm sản phẩm nhóm
+│   │              └──index          # Nhóm sản phẩm
+│   │         └──storeCoupon         # Sản xuất phiếu giảm giá
+│   │         └──storeCouponIssue    # Danh sách phiếu giảm giá
+│   │         └──storeCouponUser     # Hồ sơ thu thập thành viên
+│   │         └──storeSeckill        # Quản lý bán hàng chớp nhoáng
+│   │              └──index          # mặt hàng flash sale
+│   │              └──create         # Thêm vật phẩm flash sale
+│   │         └──userPoint           # Nhật ký điểm
+│   │    └──notify                   # cài đặt tin nhắn SMS
+│   │         └──smsConfig           # tài khoản SMS
+│   │         └──smsPay              # mua hàng qua tin nhắn SMS
+│   │         └──smsTemplateApply    # mẫu tin nhắn
+│   │    └──order                    # Quản lý đơn hàng
+│   │    └──product                  # hàng hóa
+│   │         └──productAdd          # Thêm sản phẩm
+│   │         └──productAttr         # Thông số sản phẩm
+│   │         └──productClassify     # Phân loại sản phẩm
+│   │         └──productList         # Quản lý sản phẩm
+│   │         └──productReply        # Quản lý đánh giá sản phẩm
+│   │    └──setting                  # cài đặt
+│   │         └──cityDada            # dữ liệu thành phố
+│   │         └──clerkList           # Quản lý bảo lãnh
+│   │         └──freight             # Công ty hậu cần
+│   │         └──setSystem           # Cài đặt hệ thống
+│   │         └──shippingTemplates   # Mẫu vận chuyển hàng hóa
+│   │         └──storeList           # Danh sách điểm đón
+│   │         └──storeService        # Quản lý dịch vụ khách hàng
+│   │         └──systemAdmin         # Danh sách quản trị viên
+│   │         └──systemMenus         # Quy tắc cấp phép
+│   │         └──systemRole          # Quản lý danh tính
+│   │         └──systemStore         # Cài đặt cửa hàng
+│   │         └──user                # Trung tâm cá nhân
+│   │         └──verifyOrder         # Viết đơn đặt hàng
+│   │    └──system                   # duy trì
+│   │         └──auth                # ủy quyền thương mại
+│   │         └──clear               # làm mới bộ đệm
+│   │         └──configTab           # Cấu hình
+│   │              └──index          # Phân loại cấu hình
+│   │              └──list           # Danh sách cấu hình
+│   │         └──error               # trang lỗi
 │   │              └──403            # 403
 │   │              └──404            # 404
 │   │              └──500            # 500
-│   │         └──group               # 组合数据
+│   │         └──group               # Dữ liệu kết hợp
 │   │         └──maintain              
-│   │              └──systemCleardata    # 清除数据
-│   │              └──systemDatabackup   # 数据备份
-│   │              └──systemFile         # 文件校验
-│   │                   └──opendir       # 文件管理
-│   │              └──systemLog          # 系统日志
-│   │    └──user                         # 会员
-│   │         └──group                   # 会员分组
-│   │         └──label                   # 会员标签
-│   │         └──level                   # 会员等级
-│   │         └──list                    # 会员管理
-│   ├── plugins                           # 插件
-│   ├── router                            # 路由配置
-│   │    └──modules                      # 页面路由模块
-│   │         └──agent.js                     # 有关分销
-│   │         └──app.js                       # 有关应用（小程序、公众号）
-│   │         └──cms.js                       # 有关内容（文章管理、文章分类）
-│   │         └──echarts.js                   # 有关统计
-│   │         └──finance.js                   # 有关财务
-│   │         └──index.js                     # 有关主页
-│   │         └──marketing.js                 # 有关营销
-│   │         └──order.js                     # 有关订单
-│   │         └──product.js                   # 有关商品
-│   │         └──setting.js                   # 有关设置
-│   │         └──system.js                    # 有关维护
-│   │         └──user.js                      # 有关会员
-│   │    └──index.js                          # 路由的导出以及拦截处理
-│   │    └──routes.js                         # 路由的汇总
-│   ├── store                                  # Vuex 状态管理
-│   ├── utils                                  # js工具
-│   │    └──authLapse.js                      # 授权提示框
-│   │    └──modalForm.js                      # 表单模态框
-│   │    └──videoCloud.js                     # 上传云储存视频（七牛、腾讯、阿里）
-│   │    └──validate.js                       # 将时间戳转化成时间；
-│   │    └──public.js                         # 询问模态框；
-│   ├── styles            # 样式管理
-│   ├── setting.env.js    # 开发配置文件
-│   ├── setting.js        # 业务配置文件
-│   ├── main.js           # 入口文件 加载组件 初始化等
-│   └── App.vue           # 入口页面
-├── tests                  # 测试管理
-├── alias.config.js        # 别名，仅用于配置 WebStorm 识别别名，无实际用处
-├── babel.config.js        # babel 配置
-├── jest.config.js         # jest 配置
+│   │              └──systemCleardata    # xóa dữ liệu
+│   │              └──systemDatabackup   # Sao lưu dữ liệu
+│   │              └──systemFile         # Xác minh tập tin
+│   │                   └──opendir       # Quản lý tập tin
+│   │              └──systemLog          # Nhật ký hệ thống
+│   │    └──user                         # thành viên
+│   │         └──group                   # Nhóm thành viên
+│   │         └──label                   # thẻ thành viên
+│   │         └──level                   # Cấp độ thành viên
+│   │         └──list                    # Quản lý thành viên
+│   ├── plugins                           # trình cắm thêm
+│   ├── router                            # Cấu hình định tuyến
+│   │    └──modules                      # Mô-đun định tuyến trang
+│   │         └──agent.js                     # Về phân phối
+│   │         └──app.js                       # Các ứng dụng liên quan (chương trình nhỏ, tài khoản chính thức）
+│   │         └──cms.js                       # Nội dung liên quan (quản lý bài viết, phân loại bài viết）
+│   │         └──echarts.js                   # Thống kê liên quan
+│   │         └──finance.js                   # Về tài chính
+│   │         └──index.js                     # Về trang chủ
+│   │         └──marketing.js                 # Về tiếp thị
+│   │         └──order.js                     # Về đơn hàng
+│   │         └──product.js                   # Sản phẩm liên quan
+│   │         └──setting.js                   # Giới thiệu về cài đặt
+│   │         └──system.js                    # Về bảo trì
+│   │         └──user.js                      # Thành viên liên quan
+│   │    └──index.js                          # Xử lý xuất tuyến và chặn
+│   │    └──routes.js                         # Tổng hợp các tuyến đường
+│   ├── store                                  # Vuex Quản lý trạng thái
+│   ├── utils                                  # jsdụng cụ
+│   │    └──authLapse.js                      # Hộp nhắc ủy quyền
+│   │    └──modalForm.js                      # hộp phương thức
+│   │    └──videoCloud.js                     # Tải lên video lưu trữ đám mây (Qiniu, Tencent, Alibaba）
+│   │    └──validate.js                       # Chuyển đổi dấu thời gian thành thời gian；
+│   │    └──public.js                         # Hỏi hộp phương thức；
+│   ├── styles            # Quản lý phong cách
+│   ├── setting.env.js    # Tệp cấu hình phát triển
+│   ├── setting.js        # hồ sơ doanh nghiệp
+│   ├── main.js           # Tệp nhập, tải thành phần, khởi tạo, v.v.
+│   └── App.vue           # Trang nhập
+├── tests                  # quản lý kiểm tra
+├── alias.config.js        # Bí danh, chỉ được sử dụng để định cấu hình WebStorm nhằm xác định bí danh, không có tác dụng thực tế
+├── babel.config.js        # babel Cấu hình
+├── jest.config.js         # jest Cấu hình
 ├── package.json           # package.json
-└── vue.config.js          # Vue CLI 3 配置
+└── vue.config.js          # Vue CLI 3 Cấu hình
 ~~~
-## 开发打包项目
+## Phát triển các dự án trọn gói
 ~~~
-# 进入项目目录
+# Nhập thư mục dự án
 $ cd admin
 
-# 安装依赖
+# Cài đặt phụ thuộc
 $ npm install
 
-# 启动项目(本地开发环境)
+# Bắt đầu một dự án(Môi trường phát triển địa phương)
 $ npm run dev
 
-# 打包项目
+# Dự án trọn gói
 $ npm run build
 ~~~
 
-## 配置请求域名
+## Cấu hình tên miền yêu cầu
 
 
-### 开发环境配置
-配置文件地址：/.env.dev
+### Cấu hình môi trường phát triển
+Địa chỉ file cấu hình:/.env.dev
 
-*请求域名配置*
+*Yêu cầu cấu hình tên miền*
 
-`$ VUE_APP_API_URL='http://自己的域名/adminapi'`
+`$ VUE_APP_API_URL='http://tên miền riêng/adminapi'`
 
-### 生产环境
+### môi trường sản xuất
 
-*接口请求地址 (http)或 (https)://www.crmeb.com(换成你的域名)/adminapi 非独立部署默认为空*
+*Địa chỉ yêu cầu giao diện (http)hoặc (https)://www.crmeb.com(Thay thế nó bằng tên miền của bạn)/adminapi Theo mặc định, triển khai không độc lập trống*
 
 `$ VUE_APP_API_URL=''`
 

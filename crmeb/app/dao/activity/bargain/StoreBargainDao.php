@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class StoreBargainDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -33,7 +33,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 获取砍价列表
+     * Nhận danh sách mặc cả
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -66,8 +66,8 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 获取活动开启中的砍价id以数组形式返回
-     * @param array $ids 为空返回所有
+     * Nhận ID thương lượng khi hoạt động được bắt đầu và trả lại dưới dạng mảng
+     * @param array $ids Trả lại tất cả nếu trống
      * @param array $field
      * @return array
      */
@@ -81,7 +81,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 根据id获取砍价数据
+     * Nhận dữ liệu thương lượng dựa trên id
      * @param array $ids
      * @param string $field
      * @return array
@@ -95,7 +95,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 正在开启的砍价活动
+     * Hoạt động thương lượng đang bắt đầu ngay bây giờ
      * @param int $status
      * @return StoreBargain
      */
@@ -106,7 +106,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 砍价列表
+     * Danh sách mặc cả
      * @param int $page
      * @param int $limit
      * @param string $field
@@ -126,7 +126,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 后台页面设计获取砍价列表
+     * Thiết kế trang phụ trợ để có được danh sách thương lượng
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -156,7 +156,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 首页砍价
+     * Trang chủ thương lượng
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -211,7 +211,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 条件获取数量
+     * Số lượng mua lại có điều kiện
      * @param array $where
      * @return int
      */
@@ -236,7 +236,7 @@ class StoreBargainDao extends BaseDao
     }
 
     /**
-     * 修改砍价状态
+     * Sửa đổi trạng thái thương lượng
      * @param int $id
      * @param string $field
      * @return mixed

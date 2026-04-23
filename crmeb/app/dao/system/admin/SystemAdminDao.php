@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,7 +26,7 @@ class SystemAdminDao extends BaseDao
     }
 
     /**
-     * 获取管理员列表
+     * Lấy danh sách quản trị viên
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -38,7 +38,7 @@ class SystemAdminDao extends BaseDao
     }
 
     /**
-     * 用管理员名查找管理员信息
+     * Tìm thông tin quản trị viên bằng tên quản trị viên
      * @param string $account
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -51,7 +51,7 @@ class SystemAdminDao extends BaseDao
     }
 
     /**
-     * 当前账号是否可用
+     * Tài khoản hiện tại có sẵn không?
      * @param string $account
      * @param int $id
      * @return int
@@ -62,7 +62,7 @@ class SystemAdminDao extends BaseDao
     }
 
     /**
-     * 获取adminid
+     * lấyadminid
      * @param int $level
      * @return array
      */
@@ -72,7 +72,7 @@ class SystemAdminDao extends BaseDao
     }
 
     /**
-     * 获取低于等级的管理员名称和id
+     * Lấy tên của quản trị viên dưới cấp độ vàid
      * @param string $field
      * @param int $level
      * @return array
@@ -86,7 +86,7 @@ class SystemAdminDao extends BaseDao
     }
 
     /**
-     * 条件获取管理员数据
+     * Thu thập dữ liệu quản trị viên có điều kiện
      * @param $where
      * @return mixed
      */
@@ -96,7 +96,7 @@ class SystemAdminDao extends BaseDao
     }
 
     /**
-     * 检测是否有管理员使用该角色
+     * Kiểm tra xem có quản trị viên nào sử dụng vai trò này không
      * @param int $id
      * @return bool
      */

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,21 +36,21 @@ class Sms extends AuthController
 
 
     /**
-     * 开通服务
+     * Kích hoạt dịch vụ
      * @param string $sign
      * @return mixed
      */
     public function openServe(string $sign)
     {
         if (!$sign) {
-            return app('json')->fail('请设置短信签名');
+            return app('json')->fail('Vui lòng thiết lập chữ ký SMS');
         }
         $this->services->sms()->setSign($sign)->open();
-        return app('json')->success('开通成功');
+        return app('json')->success('Kích hoạt thành công');
     }
 
     /**
-     * 修改短信签名
+     * Sửa đổi chữ ký SMS
      * @param string $sign
      * @return mixed
      */
@@ -65,14 +65,14 @@ class Sms extends AuthController
         $this->validate(['phone' => $phone], ServeValidata::class, 'phone');
 
         if (!$sign) {
-            return app('json')->fail('请设置短信签名');
+            return app('json')->fail('Vui lòng thiết lập chữ ký SMS');
         }
         $this->services->sms()->modify($sign, $phone, $code);
-        return app('json')->success('修改短信签名成功');
+        return app('json')->success('Sửa chữ ký SMS thành công');
     }
 
     /**
-     * 获取短信模板
+     * Nhận mẫu SMS
      * @return mixed
      */
     public function temps()
@@ -87,7 +87,7 @@ class Sms extends AuthController
     }
 
     /**
-     * 申请模板
+     * Mẫu đơn đăng ký
      * @return mixed
      */
     public function apply()
@@ -99,13 +99,13 @@ class Sms extends AuthController
         ], true);
 
         if (!$title || !$content || !$type) {
-            return app('json')->success('请输入模板内容');
+            return app('json')->success('Vui lòng nhập nội dung mẫu');
         }
         return app('json')->success($this->services->sms()->apply($title, $content, (int)$type));
     }
 
     /**
-     * 获取申请记录
+     * Nhận hồ sơ ứng dụng
      * @return mixed
      */
     public function applyRecord()

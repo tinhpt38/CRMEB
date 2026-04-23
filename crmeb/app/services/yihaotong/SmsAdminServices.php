@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,14 +20,14 @@ use crmeb\services\HttpService;
 use crmeb\services\sms\Sms;
 
 /**
- * 短信平台注册登陆
+ * Đăng ký và đăng nhập nền tảng SMS
  * Class SmsAdminServices
  * @package app\services\message\sms
  */
 class SmsAdminServices extends BaseServices
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SmsAdminServices constructor.
      * @param SystemConfigDao $dao
      */
@@ -37,7 +37,7 @@ class SmsAdminServices extends BaseServices
     }
 
     /**
-     * 更新短信配置
+     * Cập nhật cấu hình SMS
      * @param string $account
      * @param string $password
      * @return mixed
@@ -52,7 +52,7 @@ class SmsAdminServices extends BaseServices
     }
 
     /**
-     * 注册短信平台
+     * Đăng ký nền tảng SMS
      * @param string $account
      * @param string $password
      * @param string $url
@@ -67,14 +67,14 @@ class SmsAdminServices extends BaseServices
         $sms = app()->make(Sms::class, ['yihaotong']);
         $status = $sms->register($account, md5(trim($password)), $url, $phone, $code, $sign);
         if ($status['status'] == 400) {
-            throw new AdminException('短信平台：{:msg}', ['msg' => $status['msg']]);
+            throw new AdminException('nền tảng tin nhắn SMS：{:msg}', ['msg' => $status['msg']]);
         }
         $this->updateSmsConfig($account, $password);
         return $status;
     }
 
     /**
-     * 发送验证码
+     * Gửi mã xác minh
      * @param string $phone
      * @return mixed
      */
@@ -85,13 +85,13 @@ class SmsAdminServices extends BaseServices
         //TODO
         $res = json_decode(HttpService::getRequest($sms->getSmsUrl(), compact('phone')), true);
         if (!isset($res['status']) && $res['status'] !== 200) {
-            throw new AdminException('短信平台：{:msg}', ['msg' => $res['data']['message'] ?? $res['msg']]);
+            throw new AdminException('nền tảng tin nhắn SMS：{:msg}', ['msg' => $res['data']['message'] ?? $res['msg']]);
         }
         return $res['data']['message'] ?? $res['msg'];
     }
 
     /**
-     * 短信登陆
+     * đăng nhập qua tin nhắn SMS
      * @param string $account
      * @param string $token
      * @return bool
@@ -110,7 +110,7 @@ class SmsAdminServices extends BaseServices
 
         $this->updateSmsConfig($account, $token);
 
-        //添加公共短信模板
+        //Thêm mẫu SMS công khai
         $templateList = $sms->publictemp([]);
         if ($templateList['status'] != 400) {
             if ($templateList['data']['data']) {
@@ -127,7 +127,7 @@ class SmsAdminServices extends BaseServices
     }
 
     /**
-     * 获取当前登陆的短信账号信息
+     * Nhận thông tin tài khoản SMS hiện đang đăng nhập
      * @return mixed
      */
     public function getSmsData()

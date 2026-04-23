@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -34,7 +34,7 @@ class TradeStatistic extends AuthController
     }
 
     /**
-     * 顶部数据
+     * dữ liệu hàng đầu
      * @return mixed
      */
     public function topTrade()
@@ -47,7 +47,7 @@ class TradeStatistic extends AuthController
         $totalleft = [$leftToday, $leftyestoday];
         $left = [];
         foreach ($totalleft as $k => $v) {
-            $left['name'] = "当日订单金额";
+            $left['name'] = "Số lượng đặt hàng trong ngày";
             $left['x'] = $v['curve']['x'];
             $left['series'][$k]['money'] = round($v['total_money'], 2);
             $left['series'][$k]['value'] = array_values($v['curve']['y']);
@@ -59,7 +59,7 @@ class TradeStatistic extends AuthController
     }
 
     /**
-     * 底部数据
+     * dữ liệu dưới cùng
      * @return mixed
      */
     public function bottomTrade()

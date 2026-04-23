@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\services\upload\XML;
 
 /**
  * Class Client
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2022/9/29
  * @package crmeb\services\upload\extend\cos
@@ -89,9 +89,9 @@ class Client
     }
 
     /**
-     * 获取实际请求
-     * @return array
-     * @author 等风来
+     * Nhận yêu cầu thực tế
+     * @return mảng
+     * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -106,7 +106,7 @@ class Client
 
     /**
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -120,9 +120,9 @@ class Client
     }
 
     /**
-     * 拼接请求地址
-     * @return string
-     * @author 等风来
+     * Địa chỉ yêu cầu nối
+     * @return chuỗi
+     * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2022/9/29
      */
@@ -133,7 +133,7 @@ class Client
 
     /**
      * @return bool
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/9/29
      */
@@ -143,33 +143,33 @@ class Client
     }
 
     /**
-     * 检查参数
-     * @author 等风来
+     * Kiểm tra thông số
+     * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2022/9/29
      */
     protected function checkOptions()
     {
         if (!$this->bucket) {
-            throw new UploadException('请传入桶名');
+            throw new UploadException('Vui lòng chuyển tên nhóm');
         }
         if (!$this->region) {
-            throw new UploadException('请传入所属地域');
+            throw new UploadException('Vui lòng nhập khu vực của bạn');
         }
         if (!$this->accessKey) {
-            throw new UploadException('请传入SecretId');
+            throw new UploadException('Xin vui lòng chuyển vàoSecretId');
         }
         if (!$this->secretKey) {
-            throw new UploadException('请传入SecretKey');
+            throw new UploadException('Xin vui lòng chuyển vàoSecretKey');
         }
     }
 
     /**
-     * 上传文件
+     * Tải tập tin lên
      * @param string $key
      * @param $body
      * @return string[]
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/9/29
      */
@@ -202,11 +202,11 @@ class Client
     }
 
     /**
-     * 删除文件
+     * Xóa tập tin
      * @param string $bucket
      * @param string $key
      * @return array|false
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/19
      */
@@ -228,9 +228,9 @@ class Client
     }
 
     /**
-     * 获取桶列表
+     * Nhận danh sách nhóm
      * @return array|false|\SimpleXMLElement|string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/19
      */
@@ -252,11 +252,11 @@ class Client
     }
 
     /**
-     * 检测桶，不存在返回true
+     * Phát hiện nhóm, trả lại nếu nó không tồn tạitrue
      * @param string $bucket
      * @param string $region
      * @return bool
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -276,12 +276,12 @@ class Client
     }
 
     /**
-     * 创建桶
+     * Tạo nhóm
      * @param string $bucket
      * @param string $region
      * @param string $acl
      * @return array|false|\SimpleXMLElement|string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -291,12 +291,12 @@ class Client
     }
 
     /**
-     * 组合成xml
+     * kết hợp thànhxml
      * @param array $data
      * @param string $root
      * @param string $itemKey
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -321,12 +321,12 @@ class Client
     }
 
     /**
-     * 设置跨域
+     * Thiết lập tên miền chéo
      * @param string $bucket
      * @param string $region
      * @param array $data
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -353,11 +353,11 @@ class Client
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param string $name
      * @param string $region
      * @return array|false|\SimpleXMLElement|string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -367,11 +367,11 @@ class Client
     }
 
     /**
-     * 获取桶下的
+     * Lấy cái xô
      * @param string $name
      * @param string $region
      * @return array|false|\SimpleXMLElement|string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -382,12 +382,12 @@ class Client
     }
 
     /**
-     * 绑定域名
+     * Ràng buộc tên miền
      * @param string $bucket
      * @param string $region
      * @param array $data
      * @return array|false|\SimpleXMLElement|string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/19
      */
@@ -417,17 +417,17 @@ class Client
      * @param string $bucket
      * @param string $region
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
     protected function getRequestHost(string $bucket, string $region = '')
     {
         if (!$this->accessKey) {
-            throw new UploadException('请传入SecretId');
+            throw new UploadException('Xin vui lòng chuyển vàoSecretId');
         }
         if (!$this->secretKey) {
-            throw new UploadException('请传入SecretKey');
+            throw new UploadException('Xin vui lòng chuyển vàoSecretKey');
         }
 
         if (strstr($bucket, '-') === false) {
@@ -443,7 +443,7 @@ class Client
      * @param string $region
      * @param string|null $acl
      * @return array|false|\SimpleXMLElement|string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/10/17
      */
@@ -477,14 +477,14 @@ class Client
     }
 
     /**
-     * 发起请求
+     * Đưa ra yêu cầu
      * @param string $url
      * @param string $method
      * @param array $data
      * @param array $header
      * @param int $timeout
      * @return array|false|\SimpleXMLElement|string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/9/29
      */
@@ -498,12 +498,12 @@ class Client
         $urlAttr = parse_url($url);
         $curl = curl_init($url);
         $method = strtoupper($method);
-        //请求方式
+        //Phương thức yêu cầu
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
 
-        //超时时间
+        //hết thời gian
         curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
-        //设置header头
+        //Đặt tiêu đề
 
         $header = array_merge($header, $this->getSign($url, $method, $urlAttr['path'] ?? '', [], $header));
 
@@ -518,22 +518,22 @@ class Client
 
 
         curl_setopt($curl, CURLOPT_FAILONERROR, false);
-        //返回抓取数据
+        //Trả về dữ liệu thu thập thông tin
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        //输出header头信息
+        //Thông tin tiêu đề đầu ra
         curl_setopt($curl, CURLOPT_HEADER, true);
-        //TRUE 时追踪句柄的请求字符串，从 PHP 5.1.3 开始可用。这个很关键，就是允许你查看请求header
+        //TRUE Chuỗi yêu cầu khi xử lý theo dõi, có sẵn bắt đầu từ PHP 5.1.3. Điều này rất quan trọng, nó cho phép bạn xem yêu cầuheader
         curl_setopt($curl, CURLINFO_HEADER_OUT, true);
-        //https请求
+        //httpshỏi
         if (1 == strpos("$" . $url, "https://")) {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         }
 
-        //post请求
+        //posthỏi
         if ($method == 'PUT' && !empty($data['body'])) {
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-            // 注意这里的'file'是上传地址指定的key名
+            // Hãy chú ý ở đây'file'Tên khóa có được chỉ định trong địa chỉ tải lên không
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data['body']);
         }
 
@@ -557,13 +557,13 @@ class Client
     }
 
     /**
-     * 获取签名
+     * Nhận chữ ký
      * @param string $method
      * @param string $urlPath
      * @param array $query
      * @param array $headers
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/9/27
      */

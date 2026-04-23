@@ -192,12 +192,12 @@
 import { mapState } from 'vuex';
 // import theme from "@/mixins/theme";
 export default {
-  name: 'banner', // 组件名称
-  cname: '轮播图', // 标题名称
+  name: 'banner', // Tên thành phần
+  cname: 'băng chuyền', // tên chức danh
   icon: '#iconzujian-lunbotu',
-  defaultName: 'swiperBg', // 外面匹配名称
-  configName: 'c_banner', // 右侧配置名称
-  type: 0, // 0 基础组件 1 营销组件 2工具组件
+  defaultName: 'swiperBg', // tên trận đấu bên ngoài
+  configName: 'c_banner', // Tên cấu hình bên phải
+  type: 0, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
   props: {
     index: {
       type: null,
@@ -237,107 +237,107 @@ export default {
   // mixins: [theme],
   data() {
     return {
-      // 默认初始化数据禁止修改
+      // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: '轮播图',
+        cname: 'băng chuyền',
         name: 'swiperBg',
-        // 简介
-        desc: '轮播图以动态播放的形式为用户呈现多张图片素材，通过轮播图组件可以让每张图片素材都得到较好的曝光，提高商品、内容转化。',
+        // Giới thiệu
+        desc: 'Hình ảnh băng chuyền hiển thị nhiều chất liệu hình ảnh cho người dùng dưới dạng phát lại động. Thông qua thành phần hình ảnh băng chuyền, mỗi chất liệu hình ảnh có thể được hiển thị tốt hơn và cải thiện khả năng chuyển đổi sản phẩm và nội dung.。',
         timestamp: this.num,
         isHide: false,
         setUp: {
           tabVal: 0,
         },
-        titleLeft: '展示设置',
-        titleContent: '内容设置',
-        titleRight: '指示器设置',
-        titleImg: '图片设置',
-        titleCurrency: '通用样式',
+        titleLeft: 'Cài đặt hiển thị',
+        titleContent: 'Cài đặt nội dung',
+        titleRight: 'Cài đặt chỉ báo',
+        titleImg: 'Cài đặt hình ảnh',
+        titleCurrency: 'Phong cách phổ quát',
         zIndexConfig: {
-          title: '组件上浮',
+          title: 'Thành phần nổi',
           val: 0,
           min: 0,
         },
         borderConfig: {
-          title: '边框设置',
+          title: 'Cài đặt đường viền',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Hide, 1: Show
           styleConfig: {
-            title: '边框样式',
+            title: 'phong cách biên giới',
             tabVal: 0,
             tabList: [
-              { name: '实线', style: 'solid' },
-              { name: '虚线', style: 'dashed' },
-              { name: '点状', style: 'dotted' },
+              { name: 'đường liền nét', style: 'solid' },
+              { name: 'đường chấm chấm', style: 'dashed' },
+              { name: 'Say mê', style: 'dotted' },
             ],
           },
           widthConfig: {
-            title: '边框粗细',
+            title: 'Độ dày viền',
             val: 1,
             min: 1,
           },
           colorConfig: {
-            title: '边框颜色',
+            title: 'màu viền',
             default: [{ item: '#e5e5e5' }],
             color: [{ item: '#e5e5e5' }],
           },
         },
         shadowConfig: {
-          title: '阴影设置',
+          title: 'Cài đặt bóng',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0,
           colorConfig: {
-            title: '阴影颜色',
+            title: 'màu bóng',
             default: [{ item: '#e5e5e5' }],
             color: [{ item: '#e5e5e5' }],
           },
           xConfig: {
-            title: 'X轴偏移',
+            title: 'Xđộ lệch trục',
             val: 0,
             min: -50,
           },
           yConfig: {
-            title: 'Y轴偏移',
+            title: 'Yđộ lệch trục',
             val: 0,
             min: -50,
           },
           blurConfig: {
-            title: '模糊半径',
+            title: 'bán kính lờ mờ',
             val: 10,
             min: 0,
           },
           spreadConfig: {
-            title: '扩展半径',
+            title: 'Bán kính mở rộng',
             val: 0,
             min: -50,
           },
         },
         styleConfig: {
-          title: '选择风格',
+          title: 'Chọn phong cách',
           tabVal: 1,
           tabList: [
             {
-              name: '样式一',
+              name: 'phong cách một',
             },
             {
-              name: '样式二',
+              name: 'Phong cách 2',
             },
           ],
         },
-        // 图片列表
+        // Danh sách hình ảnh
         swiperConfig: {
           maxList: 10,
           list: [
             {
               img: '',
-              imgTitle: '图片',
+              imgTitle: 'hình ảnh',
               info: [
                 {
-                  title: '链接',
+                  title: 'liên kết',
                   value: '',
-                  tips: '请输入链接',
+                  tips: 'Vui lòng nhập liên kết',
                   max: 100,
                 },
               ],
@@ -345,52 +345,52 @@ export default {
           ],
         },
         docConfig: {
-          title: '指示器样式',
+          title: 'phong cách chỉ báo',
           tabVal: 0,
           tabList: [
             {
-              name: '样式一',
+              name: 'phong cách một',
             },
             {
-              name: '样式二',
+              name: 'Phong cách 2',
             },
             {
-              name: '样式三',
+              name: 'phong cách ba',
             },
             {
-              name: '样式四',
+              name: 'phong cách bốn',
             },
           ],
         },
         docPosition: {
-          title: '指示器位置',
+          title: 'vị trí chỉ báo',
           tabVal: 1,
           tabList: [
             {
-              name: '左对齐',
+              name: 'căn trái',
             },
             {
-              name: '居中对齐',
+              name: 'căn giữa',
             },
             {
-              name: '右对齐',
+              name: 'Căn phải',
             },
           ],
         },
         toneConfig: {
-          title: '色调',
+          title: 'giai điệu',
           tabVal: 0,
           tabList: [
             {
-              name: '跟随主题风格',
+              name: 'Theo dõi chủ đề',
             },
             {
-              name: '自定义',
+              name: 'Tùy chỉnh',
             },
           ],
         },
         dotColor: {
-          title: '选中样式',
+          title: 'phong cách đã chọn',
           default: [
             {
               item: '#E93323',
@@ -403,7 +403,7 @@ export default {
           ],
         },
         dotBgColor: {
-          title: '常规样式',
+          title: 'phong cách thông thường',
           default: [
             {
               item: '#DDDDDD',
@@ -416,53 +416,53 @@ export default {
           ],
         },
         filletImg: {
-          title: '图片圆角',
+          title: 'Hình ảnh được bo tròn các góc',
           type: 0,
           list: [
             {
-              val: '全部',
+              val: 'tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
-              val: '单个',
+              val: 'đơn',
               icon: 'iconcaozuo-bianjiao',
             },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 10,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         imgConfig: {
-          title: '图片间距',
+          title: 'Khoảng cách hình ảnh',
           val: 1,
           min: 0,
         },
         componentBgConfig: {
-          title: '组件背景',
+          title: 'Nền thành phần',
           tabVal: 0,
-          tabList: [{ name: '颜色' }, { name: '图片' }],
+          tabList: [{ name: 'màu sắc' }, { name: 'hình ảnh' }],
           colorConfig: {
-            title: '背景颜色',
+            title: 'màu nền',
             default: [{ item: '#F5F5F5' }, { item: '#F5F5F5' }],
             color: [{ item: '#F5F5F5' }, { item: '#F5F5F5' }],
           },
           colorDirection: {
-            title: '渐变方向',
+            title: 'Hướng dốc',
             tabVal: 0,
-            tabList: [{ name: '横向' }, { name: '纵向' }, { name: '左斜' }, { name: '右斜' }],
+            tabList: [{ name: 'Nằm ngang' }, { name: 'chân dung' }, { name: 'xiên trái' }, { name: 'Nghiêng phải' }],
           },
           imageConfig: {
-            header: '背景图片',
+            header: 'hình nền',
             title: '',
-            name: '上传图片',
+            name: 'Tải ảnh lên',
             type: 'code',
             url: '',
-            info: '建议尺寸：750px * 400px',
+            info: 'Kích thước đề xuất：750px * 400px',
           },
         },
         bottomBgColor: {
-          title: '底部背景',
+          title: 'nền dưới cùng',
           default: [
             {
               item: '#f5f5f5',
@@ -475,7 +475,7 @@ export default {
           ],
         },
         paddingConfig: {
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -483,7 +483,7 @@ export default {
           valList: [{ val: 10 }, { val: 10 }, { val: 10 }, { val: 10 }],
         },
         marginConfig: {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,
@@ -491,31 +491,31 @@ export default {
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         fillet: {
-          title: '背景圆角',
+          title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: '全部', icon: 'iconcaozuo-zhengti' },
-            { val: '单个', icon: 'iconcaozuo-bianjiao' },
+            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 8,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         txtStyle: {
-          title: '指示器位置',
+          title: 'vị trí chỉ báo',
           type: 0,
           list: [
             {
-              val: '居左',
+              val: 'Ở bên trái',
               icon: 'icondoc_left',
             },
             {
-              val: '居中',
+              val: 'trung tâm',
               icon: 'icondoc_center',
             },
             {
-              val: '居右',
+              val: 'Ở bên phải',
               icon: 'icondoc_right',
             },
           ],
@@ -563,12 +563,12 @@ export default {
         }
       }
 
-      // 兼容旧数据：底部背景
+      // Tương thích với dữ liệu cũ: nền dưới
       if (data.bgColor && !dataClone.bottomBgColor) {
         dataClone.bottomBgColor.color[0].item = data.bgColor.color[0].item;
       }
 
-      // 兼容旧数据：内边距
+      // Tương thích với dữ liệu cũ: đệm
       if (!data.paddingConfig) {
         if (dataClone.topConfig) dataClone.paddingConfig.valList[0].val = dataClone.topConfig.val;
         if (dataClone.bottomConfig) dataClone.paddingConfig.valList[2].val = dataClone.bottomConfig.val;
@@ -577,7 +577,7 @@ export default {
           dataClone.paddingConfig.valList[3].val = dataClone.prConfig.val;
         }
       }
-      // 兼容旧数据：外边距
+      // Tương thích với dữ liệu cũ: lề
       if (!data.marginConfig) {
         if (dataClone.mbConfig) dataClone.marginConfig.valList[0].val = dataClone.mbConfig.val;
       }

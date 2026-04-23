@@ -9,10 +9,10 @@
           type="text"
           v-db-click
           @click="$router.go(-1)"
-          >返回</el-button
+          >trở lại</el-button
         >
         <el-divider direction="vertical"></el-divider>
-        <span class="ivu-page-header-title">{{ $route.query.lottery_id ? '编辑' : '新增' }}抽奖活动</span>
+        <span class="ivu-page-header-title">{{ $route.query.lottery_id ? 'biên tập' : 'Mới' }}rút thăm trúng thưởng</span>
       </div>
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: '0 20px 20px' }">
@@ -30,7 +30,7 @@
           >
             <el-row>
               <el-col :span="24">
-                <el-form-item label="活动类型：" prop="name" label-for="name">
+                <el-form-item label="Loại hoạt động：" prop="name" label-for="name">
                   <el-radio-group v-model="formValidate.factor" @input="onClickTab">
                     <el-radio v-for="(item, index) in tabs" :label="item.type" :disabled="!!lottery_id" :key="index">{{
                       item.name
@@ -39,9 +39,9 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动名称：" prop="name" label-for="name">
+                <el-form-item label="Tên hoạt động：" prop="name" label-for="name">
                   <el-input
-                    placeholder="请输入活动名称"
+                    placeholder="Vui lòng nhập tên sự kiện"
                     v-model="formValidate.name"
                     class="content_width"
                     maxlength="80"
@@ -50,7 +50,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动时间：">
+                <el-form-item label="Thời gian hoạt động：">
                   <div class="acea-row row-middle">
                     <el-date-picker
                       v-model="formValidate.period"
@@ -59,8 +59,8 @@
                       format="yyyy-MM-dd"
                       value-format="yyyy-MM-dd"
                       range-separator="-"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
+                      start-placeholder="ngày bắt đầu"
+                      end-placeholder="ngày kết thúc"
                       @change="onchangeTime"
                       style="width: 460px"
                     ></el-date-picker>
@@ -68,10 +68,10 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="参与用户：" prop="attends_user" label-for="attends_user">
+                <el-form-item label="Người dùng tham gia：" prop="attends_user" label-for="attends_user">
                   <el-radio-group element-id="attends_user" v-model="formValidate.attends_user" @input="changeUsers">
-                    <el-radio :label="1" class="radio">全部用户</el-radio>
-                    <el-radio :label="2">部分用户</el-radio>
+                    <el-radio :label="1" class="radio">Tất cả người dùng</el-radio>
+                    <el-radio :label="2">Một số người dùng</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -82,7 +82,7 @@
                       multiple
                       v-model="formValidate.user_level"
                       class="content_width"
-                      placeholder="请选择用户等级"
+                      placeholder="Vui lòng chọn cấp độ người dùng"
                     >
                       <el-option
                         v-for="item in userLevelListApi"
@@ -100,7 +100,7 @@
                     <el-select
                       v-model="formValidate.is_svip"
                       clearable
-                      placeholder="请选择是否是付费会员"
+                      placeholder="Vui lòng chọn xem bạn có phải là thành viên trả phí hay không"
                       class="content_width"
                     >
                       <el-option
@@ -128,29 +128,29 @@
                             >{{ item.label_name }}</el-tag
                           >
                         </div>
-                        <span class="span" v-else>选择用户标签</span>
+                        <span class="span" v-else>Chọn nhãn người dùng</span>
                       </div>
                       <div class="ivu-icon ivu-icon-ios-arrow-down"></div>
                     </div>
                   </div>
-                  <div class="tips-info ml100 grey">三个条件都设置后,必须这些条件都满足的用户才能参加抽奖</div>
+                  <div class="tips-info ml100 grey">Sau khi đặt đủ ba điều kiện,Chỉ những người dùng đáp ứng các điều kiện này mới có thể tham gia xổ số</div>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.factor == 5">
                 <el-form-item
-                  label="抽奖次数："
+                  label="Số lần rút thăm："
                   :prop="formValidate.factor == 5 ? 'lottery_num_term' : ''"
                   label-for="status"
                 >
                   <el-radio-group element-id="lottery_num_term" v-model="formValidate.lottery_num_term">
-                    <el-radio :label="1" class="radio">每天N次</el-radio>
-                    <el-radio :label="2">每人N次</el-radio>
+                    <el-radio :label="1" class="radio">N lần một ngày</el-radio>
+                    <el-radio :label="2">N lần mỗi người</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.factor == 5">
                 <el-form-item
-                  label="邀请新用户最多可获得抽奖"
+                  label="Mời người dùng mới nhận được tối đa 10 lần rút thăm may mắn"
                   :prop="formValidate.factor == 5 ? 'lottery_num' : ''"
                   label-for="lottery_num"
                 >
@@ -165,13 +165,13 @@
                       v-model="formValidate.lottery_num"
                       class="content_width"
                     />
-                    <div class="ml10 grey">次</div>
+                    <div class="ml10 grey">hạng hai</div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24" v-if="formValidate.factor == 5">
                 <el-form-item
-                  label="邀请一位新用户关注公众号可获得抽奖"
+                  label="Mời người dùng mới theo dõi tài khoản chính thức để nhận rút thăm may mắn"
                   :prop="formValidate.factor == 5 ? 'spread_num' : ''"
                   label-for="spread_num"
                 >
@@ -186,7 +186,7 @@
                       v-model="formValidate.spread_num"
                       class="content_width"
                     />
-                    <div class="ml10 grey">次</div>
+                    <div class="ml10 grey">hạng hai</div>
                   </div>
                 </el-form-item>
               </el-col>
@@ -195,7 +195,7 @@
                 v-if="formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4"
               >
                 <el-form-item
-                  :label="formValidate.factor == 1 ? '抽奖消耗积分：' : '抽奖次数：'"
+                  :label="formValidate.factor == 1 ? 'Xổ số tiêu tốn điểm：' : 'Số lần rút thăm：'"
                   :prop="
                     formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4 ? 'factor_num' : ''
                   "
@@ -213,14 +213,14 @@
                       class="content_width"
                     >
                     </el-input-number>
-                    <!-- <div class="ml10 grey" v-if="formValidate.factor !== 1">次</div> -->
+                    <!-- <div class="ml10 grey" v-if="formValidate.factor !== 1">hạng hai</div> -->
                   </div>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item label="规格选择：" prop="prize">
+                <el-form-item label="Lựa chọn thông số kỹ thuật：" prop="prize">
                   <el-table ref="selection" :data="specsData">
                     <el-table-column min-width="30">
                       <template slot-scope="scope">
@@ -229,8 +229,8 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="序号" type="index" width="50"> </el-table-column>
-                    <el-table-column label="图片" min-width="80">
+                    <el-table-column label="số seri" type="index" width="50"> </el-table-column>
+                    <el-table-column label="hình ảnh" min-width="80">
                       <template slot-scope="scope">
                         <div
                           class="acea-row scope.row-middle scope.row-center-wrapper"
@@ -246,22 +246,22 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="名称" min-width="80">
+                    <el-table-column label="tên" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.name }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="奖品" min-width="80">
+                    <el-table-column label="phần thưởng" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.type | typeName }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="提示语" min-width="80">
+                    <el-table-column label="nhắc nhở" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.prompt }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="数量" min-width="80">
+                    <el-table-column label="Số lượng" min-width="80">
                       <template slot-scope="scope">
                         <el-input-number
                           :controls="false"
@@ -273,7 +273,7 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column label="奖品概率(%)" min-width="80">
+                    <el-table-column label="Xác suất trúng thưởng(%)" min-width="80">
                       <template slot-scope="scope">
                         <el-input-number
                           :controls="false"
@@ -285,9 +285,9 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right" width="80">
+                    <el-table-column label="vận hành" fixed="right" width="80">
                       <template slot-scope="scope">
-                        <a class="submission mr15" v-db-click @click="editGoods(scope.$index)">编辑</a>
+                        <a class="submission mr15" v-db-click @click="editGoods(scope.$index)">biên tập</a>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -297,14 +297,14 @@
                     class="submission mr15 mt20"
                     v-db-click
                     @click="addGoods"
-                    >添加商品</el-button
+                    >Thêm sản phẩm</el-button
                   >
                 </el-form-item>
                 <el-form-item>
                   <div class="pl60 grey">
-                    奖品必须设置为8个，列表中拖拽可调整奖品在九宫中的位置
+                    Số lượng giải thưởng phải đặt là 8. Kéo thả trong danh sách để điều chỉnh vị trí các giải thưởng trong Cửu Cung.
                     <el-tooltip effect="light" placement="bottom" width="380">
-                      <a>查看位置示例图</a>
+                      <a>Xem bản đồ ví dụ về vị trí</a>
                       <div class="api" slot="content">
                         <img src="../../../assets/images/lotteryTest.png" alt="" />
                       </div>
@@ -320,7 +320,7 @@
               >
                 <div class="custom-label" slot="label">
                   <div>
-                    <div>活动背景图</div>
+                    <div>Hình nền sự kiện</div>
                     <div>(750*750)</div>
                   </div>
                   <div>：</div>
@@ -342,7 +342,7 @@
               </el-form-item>
               <el-form-item
                 v-if="formValidate.factor != 3 && formValidate.factor != 4"
-                label="中奖名单："
+                label="Danh sách người chiến thắng："
                 :prop="formValidate.factor != 3 && formValidate.factor != 4 ? 'is_all_record' : ''"
                 label-for="is_all_record"
               >
@@ -352,14 +352,14 @@
                   :inactive-value="0"
                   v-model="formValidate.is_all_record"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  active-text="bật lên"
+                  inactive-text="đóng cửa"
                 >
                 </el-switch>
               </el-form-item>
               <el-form-item
                 v-if="formValidate.factor != 3 && formValidate.factor != 4"
-                label="个人中奖记录："
+                label="Kỷ lục chiến thắng cá nhân："
                 :prop="formValidate.factor != 3 && formValidate.factor != 4 ? 'is_personal_record' : ''"
                 label-for="is_personal_record"
               >
@@ -369,14 +369,14 @@
                   :inactive-value="0"
                   v-model="formValidate.is_personal_record"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  active-text="bật lên"
+                  inactive-text="đóng cửa"
                 >
                 </el-switch>
               </el-form-item>
               <el-form-item
                 v-if="formValidate.factor != 3 && formValidate.factor != 4"
-                label="活动规则："
+                label="Quy tắc hoạt động："
                 prop="is_content"
                 label-for="is_content"
               >
@@ -386,8 +386,8 @@
                   :inactive-value="0"
                   v-model="formValidate.is_content"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  active-text="bật lên"
+                  inactive-text="đóng cửa"
                 >
                 </el-switch>
               </el-form-item>
@@ -404,44 +404,44 @@
                   @editorContent="getEditorContent"
                 ></WangEditor>
               </el-form-item>
-              <el-form-item label="活动状态：" prop="status" label-for="status">
+              <el-form-item label="trạng thái hoạt động：" prop="status" label-for="status">
                 <el-switch
                   class="defineSwitch"
                   :active-value="1"
                   :inactive-value="0"
                   v-model="formValidate.status"
                   size="large"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  active-text="bật lên"
+                  inactive-text="đóng cửa"
                 >
                 </el-switch>
               </el-form-item>
             </div>
             <el-form-item>
-              <el-button type="primary" :loading="submitOpen" v-db-click @click="next('formValidate')">提交</el-button>
+              <el-button type="primary" :loading="submitOpen" v-db-click @click="next('formValidate')">nộp</el-button>
             </el-form-item>
           </el-form>
         </el-col>
       </el-row>
     </el-card>
 
-    <!-- 上传图片-->
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传商品图" :close-on-click-modal="false">
+    <!-- Tải ảnh lên-->
+    <el-dialog :visible.sync="modalPic" width="950px" title="Tải lên hình ảnh sản phẩm" :close-on-click-modal="false">
       <uploadPictures :isChoice="isChoice" @getPic="getPic" v-if="modalPic"></uploadPictures>
     </el-dialog>
-    <!-- 上传图片-->
+    <!-- Tải ảnh lên-->
     <el-dialog :visible.sync="addGoodsModel" width="720px" :title="title" :close-on-click-modal="false">
       <addGoods ref="addGoodsForm" v-if="addGoodsModel" @addGoodsData="addGoodsData" :editData="editData"></addGoods>
       <div class="acea-row row-right mt20">
-        <el-button v-db-click @click="addGoodsModel = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="submitAddGoods">提交</el-button>
+        <el-button v-db-click @click="addGoodsModel = false">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="submitAddGoods">nộp</el-button>
       </div>
     </el-dialog>
-    <!-- 用户标签 -->
+    <!-- Thẻ người dùng -->
     <el-dialog
       :visible.sync="selectLabelShow"
       scrollable
-      title="请选择用户标签"
+      title="Vui lòng chọn nhãn người dùng"
       :closable="false"
       width="540px"
       :footer-hide="true"
@@ -466,7 +466,7 @@ import goodsList from '@/components/goodsList/index';
 import uploadPictures from '@/components/uploadPictures';
 import userLabel from '@/components/userLabel';
 import addGoods from './addGoods';
-import { lotteryNewDetailApi, lotteryDetailApi, lotteryCreateApi, lotteryEditApi } from '@/api/lottery'; //详情 创建 编辑
+import { lotteryNewDetailApi, lotteryDetailApi, lotteryCreateApi, lotteryEditApi } from '@/api/lottery'; //Chi tiết Tạo Chỉnh sửa
 import { lotteryFrom } from './formRule/lotteryFrom';
 import { labelListApi } from '@/api/product';
 import { levelListApi } from '@/api/user';
@@ -492,155 +492,155 @@ export default {
       content: '',
       tabs: [
         {
-          name: '积分抽取',
+          name: 'Trích xuất điểm',
           type: '1',
         },
         {
-          name: '订单支付',
+          name: 'Thanh toán đơn hàng',
           type: '3',
         },
         {
-          name: '订单评价',
+          name: 'Đánh giá đơn hàng',
           type: '4',
         },
       ],
-      title: '添加商品',
+      title: 'Thêm sản phẩm',
       loading: false,
-      userLabelList: [], //用户标签列表
-      userLevelListApi: [], //用户等级列表
+      userLabelList: [], //Danh sách thẻ người dùng
+      userLevelListApi: [], //Danh sách cấp độ người dùng
       submitOpen: false,
       spinShow: false,
       addGoodsModel: false,
       editData: {},
       myConfig: {
-        autoHeightEnabled: false, // 编辑器不自动被内容撑高
-        initialFrameHeight: 500, // 初始容器高度
-        initialFrameWidth: '100%', // 初始容器宽度
+        autoHeightEnabled: false, // Trình chỉnh sửa không được tự động nâng lên bởi nội dung
+        initialFrameHeight: 500, // chiều cao container ban đầu
+        initialFrameWidth: '100%', // chiều rộng container ban đầu
         UEDITOR_HOME_URL: '/UEditor/',
         serverUrl: '',
       },
-      isChoice: '单选',
+      isChoice: 'Lựa chọn duy nhất',
       current: 0,
       modalPic: false,
       modal_loading: false,
       images: [],
       templateList: [
-        { id: -1, name: '不限制会员类型' },
-        { id: 0, name: '非付费会员' },
-        { id: 1, name: '付费会员' },
+        { id: -1, name: 'Không hạn chế về loại thành viên' },
+        { id: 0, name: 'Thành viên không trả tiền' },
+        { id: 1, name: 'Thành viên trả phí' },
       ],
       specsData: [
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
         {
-          type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-          name: '', //活动名称
-          num: 10, //奖品数量
-          image: '', //奖品图片
-          chance: 1, //中奖权重
-          total: 0, //奖品数量
-          percent: 0, //中奖概率
-          min_try_num: 0, //抽奖次数尝试
-          prompt: '', //提示语
+          type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+          name: '', //Tên hoạt động
+          num: 10, //Số lượng giải thưởng
+          image: '', //Hình ảnh giải thưởng
+          chance: 1, //Thắng cân
+          total: 0, //Số lượng giải thưởng
+          percent: 0, //Xác suất chiến thắng
+          min_try_num: 0, //Số lần rút thăm đã thử
+          prompt: '', //nhắc nhở
         },
       ],
       formValidate: {
         images: [],
-        name: '', //活动名称
-        desc: '', //活动描述
-        image: '', //活动背景图
-        factor: '1', //抽奖类型：1:积分 2:余额 3：下单支付成功 4:订单评价',5:关注
-        factor_num: 1, //获取一次抽奖的条件数量
-        attends_user: 1, //参与用户1：所有  2：部分
-        user_level: [], //参与用户等级
-        user_label: [], //参与用户标签
-        is_svip: '', //参与用户是否付费会员
-        prize_num: 0, //奖品数量
-        period: [], //活动时间
-        prize: [], //奖品数组
-        lottery_num_term: 1, //抽奖次数限制：1：每天2：每人
-        lottery_num: 1, //抽奖次数
-        spread_num: 1, //关注推广获取抽奖次数
-        is_all_record: 0, //中奖纪录展示
-        is_personal_record: 0, //个人中奖纪录展示
-        is_content: 0, //活动规格是否展示
-        content: '', //富文本内容
-        status: 0, //状态
+        name: '', //Tên hoạt động
+        desc: '', //Mô tả hoạt động
+        image: '', //Hình nền sự kiện
+        factor: '1', //Loại xổ số：1:tích phân 2:Số dư 3: Thanh toán đơn hàng thành công 4:Đánh giá đơn hàng',5:tập trung vào
+        factor_num: 1, //Lấy số điều kiện để quay số
+        attends_user: 1, //Người dùng tham gia 1: Tất cả 2: Một số
+        user_level: [], //Cấp độ người dùng tham gia
+        user_label: [], //Thẻ người dùng tham gia
+        is_svip: '', //Liệu người dùng tham gia có phải là thành viên trả phí hay không
+        prize_num: 0, //Số lượng giải thưởng
+        period: [], //Thời gian hoạt động
+        prize: [], //Mảng giải thưởng
+        lottery_num_term: 1, //Giới hạn số lần rút thăm: 1: mỗi ngày 2: mỗi người
+        lottery_num: 1, //Số lần rút thăm
+        spread_num: 1, //Theo dõi khuyến mãi để nhận số lần rút thăm
+        is_all_record: 0, //Hiển thị kỷ lục chiến thắng
+        is_personal_record: 0, //Hiển thị hồ sơ chiến thắng cá nhân
+        is_content: 0, //Liệu thông số sự kiện có được hiển thị hay không
+        content: '', //Nội dung văn bản phong phú
+        status: 0, //tình trạng
       },
       ruleValidate: lotteryFrom,
       currentid: '',
@@ -656,17 +656,17 @@ export default {
   filters: {
     typeName(type) {
       if (type == 1) {
-        return '未中奖';
+        return 'Không thắng';
       } else if (type == 2) {
-        return '积分';
+        return 'tích phân';
       } else if (type == 3) {
-        return '余额';
+        return 'Sự cân bằng';
       } else if (type == 4) {
-        return '红包';
+        return 'phong bì màu đỏ';
       } else if (type == 5) {
-        return '优惠券';
+        return 'Phiếu giảm giá';
       } else if (type == 6) {
-        return '商品';
+        return 'hàng hóa';
       }
     },
   },
@@ -699,13 +699,13 @@ export default {
     },
     changeUsers(e) {
       if (e == 1) {
-        this.formValidate.user_level = []; //参与用户等级
-        this.formValidate.user_label = []; //参与用户标签
-        this.formValidate.is_svip = '-1'; //参与用户是否付费会员
-        this.selectDataLabel = []; //参与用户是否付费会员
+        this.formValidate.user_level = []; //Cấp độ người dùng tham gia
+        this.formValidate.user_label = []; //Thẻ người dùng tham gia
+        this.formValidate.is_svip = '-1'; //Liệu người dùng tham gia có phải là thành viên trả phí hay không
+        this.selectDataLabel = []; //Liệu người dùng tham gia có phải là thành viên trả phí hay không
       }
     },
-    // 标签弹窗关闭
+    // Cửa sổ bật lên nhãn đóng lại
     labelClose() {
       this.selectLabelShow = false;
     },
@@ -719,23 +719,23 @@ export default {
     getEditorContent(data) {
       this.content = data;
     },
-    //用户标签列表
+    //Danh sách thẻ người dùng
     labelListApi() {
       labelListApi().then((res) => {
         this.userLabelList = res.data.list;
       });
     },
-    //用户等级列表
+    //Danh sách cấp độ người dùng
     levelListApi() {
       levelListApi().then((res) => {
         this.userLevelListApi = res.data.list;
       });
     },
-    // 具体日期
+    // ngày cụ thể
     onchangeTime(e) {
       this.$set(this.formValidate, 'period', e);
     },
-    // 详情
+    // Chi tiết
     getInfo(e) {
       this.spinShow = true;
       lotteryDetailApi(this.lottery_id)
@@ -756,115 +756,115 @@ export default {
           } else {
             this.formValidate = {
               images: [],
-              name: '', //活动名称
-              desc: '', //活动描述
-              image: '', //活动背景图
-              factor: e.toString(), //抽奖类型：1:积分 2:余额 3：下单支付成功 4:订单评价',5:关注
-              factor_num: 1, //获取一次抽奖的条件数量
-              attends_user: 1, //参与用户1：所有  2：部分
-              user_level: [], //参与用户等级
-              user_label: [], //参与用户标签
-              is_svip: '-1', //参与用户是否付费会员
-              prize_num: 0, //奖品数量
-              period: [], //活动时间
-              prize: [], //奖品数组
-              lottery_num_term: 1, //抽奖次数限制：1：每天2：每人
-              lottery_num: 1, //抽奖次数
-              spread_num: 1, //关注推广获取抽奖次数
-              is_all_record: 0, //中奖纪录展示
-              is_personal_record: 0, //个人中奖纪录展示
-              is_content: 0, //活动规格是否展示
-              content: '', //富文本内容
-              status: 0, //状态
+              name: '', //Tên hoạt động
+              desc: '', //Mô tả hoạt động
+              image: '', //Hình nền sự kiện
+              factor: e.toString(), //Loại xổ số：1:tích phân 2:Số dư 3: Thanh toán đơn hàng thành công 4:Đánh giá đơn hàng',5:tập trung vào
+              factor_num: 1, //Lấy số điều kiện để quay số
+              attends_user: 1, //Người dùng tham gia 1: Tất cả 2: Một số
+              user_level: [], //Cấp độ người dùng tham gia
+              user_label: [], //Thẻ người dùng tham gia
+              is_svip: '-1', //Liệu người dùng tham gia có phải là thành viên trả phí hay không
+              prize_num: 0, //Số lượng giải thưởng
+              period: [], //Thời gian hoạt động
+              prize: [], //Mảng giải thưởng
+              lottery_num_term: 1, //Giới hạn số lần rút thăm: 1: mỗi ngày 2: mỗi người
+              lottery_num: 1, //Số lần rút thăm
+              spread_num: 1, //Theo dõi khuyến mãi để nhận số lần rút thăm
+              is_all_record: 0, //Hiển thị kỷ lục chiến thắng
+              is_personal_record: 0, //Hiển thị hồ sơ chiến thắng cá nhân
+              is_content: 0, //Liệu thông số sự kiện có được hiển thị hay không
+              content: '', //Nội dung văn bản phong phú
+              status: 0, //tình trạng
             };
             this.specsData = [
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
               {
-                type: 1, //类型 1：未中奖 2：积分  3:余额  4：红包 5:优惠券 6：站内商品
-                name: '', //活动名称
-                num: 10, //奖品数量
-                image: '', //奖品图片
-                chance: 1, //中奖权重
-                total: 0, //奖品数量
-                percent: 0, //中奖概率
-                min_try_num: 0, //抽奖次数尝试
-                prompt: '', //提示语
+                type: 1, //Loại 1: Không thắng Loại 2: Điểm  3:Số dư 4: Phong bì đỏ 5:Phiếu giảm giá 6: Sản phẩm của trang web
+                name: '', //Tên hoạt động
+                num: 10, //Số lượng giải thưởng
+                image: '', //Hình ảnh giải thưởng
+                chance: 1, //Thắng cân
+                total: 0, //Số lượng giải thưởng
+                percent: 0, //Xác suất chiến thắng
+                min_try_num: 0, //Số lần rút thăm đã thử
+                prompt: '', //nhắc nhở
               },
             ];
           }
@@ -874,7 +874,7 @@ export default {
         })
         .catch((err) => {});
     },
-    // 下一步
+    // Bước tiếp theo
     next(name) {
       this.formValidate.prize = this.specsData;
       if (this.formValidate.is_content) {
@@ -929,18 +929,18 @@ export default {
         }
       });
     },
-    // 上一步
+    // Bước trước
     step() {
       this.current--;
     },
-    // 点击商品图
+    // Bấm vào hình ảnh sản phẩm
     modalPicTap(tit, picTit, index) {
       this.modalPic = true;
-      this.isChoice = tit === 'dan' ? '单选' : '多选';
+      this.isChoice = tit === 'dan' ? 'Lựa chọn duy nhất' : 'Nhiều lựa chọn';
       this.picTit = picTit || '';
       this.tableIndex = index;
     },
-    // 获取单张图片信息
+    // Nhận thông tin về một hình ảnh
     getPic(pc) {
       switch (this.picTit) {
         case 'danFrom':
@@ -954,7 +954,7 @@ export default {
     handleRemove() {
       this.formValidate.image = '';
     },
-    // 表单验证
+    // xác nhận mẫu
     validate(prop, status, error) {
       if (status === false) {
         this.$message.error(error);
@@ -963,24 +963,24 @@ export default {
         return true;
       }
     },
-    //新增商品
+    //Thêm sản phẩm mới
     addGoods() {
       this.addGoodsModel = true;
-      this.title = '添加商品';
+      this.title = 'Thêm sản phẩm';
       this.editData = {};
     },
-    //编辑商品
+    //Chỉnh sửa sản phẩm
     editGoods(index) {
       this.addGoodsModel = true;
-      this.title = '添加奖品';
+      this.title = 'Thêm giải thưởng';
       this.editData = this.specsData[index];
       this.editIndex = index;
     },
-    //删除商品
+    //Xóa sản phẩm
     deleteGoods(index) {
       this.specsData.splice(index, 1);
     },
-    //获取数组中某个字段之和
+    //Lấy tổng của một trường trong một mảng
     sumArr(arr, name) {
       let arrData = [];
       for (let i = 0; i < arr.length; i++) {
@@ -993,7 +993,7 @@ export default {
         ? this.$set(this.specsData, [this.editIndex], data)
         : this.specsData.length < 8
         ? this.specsData.push(data)
-        : this.$message.warning('最多添加8个奖品');
+        : this.$message.warning('Thêm tối đa 8 giải thưởng');
       this.getProbability();
       this.addGoodsModel = false;
       this.editIndex = null;
@@ -1005,7 +1005,7 @@ export default {
     changeTotal(data, index) {
       this.$set(this.specsData[index], 'total', data);
     },
-    //获取商品中奖概率
+    //Nhận xác suất trúng được một sản phẩm
     getProbability() {
       let sum = 0;
       sum = this.sumArr(this.specsData, 'chance');
@@ -1017,12 +1017,12 @@ export default {
         }
       }
     },
-    //修改排序
+    //Sửa đổi sắp xếp
     onDragDrop(a, b) {
       this.specsData.splice(b, 1, ...this.specsData.splice(a, 1, this.specsData[b]));
     },
     setSort() {
-      // ref一定跟table上面的ref一致
+      // refNó phải phù hợp với giới thiệu trên bảng
       const el = this.$refs.selection.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0];
       this.sortable = Sortable.create(el, {
         ghostClass: 'sortable-ghost',
@@ -1030,7 +1030,7 @@ export default {
         setData: function (dataTransfer) {
           dataTransfer.setData('Text', '');
         },
-        // 监听拖拽事件结束时触发
+        // Được kích hoạt khi sự kiện kéo theo dõi kết thúc
         onEnd: (evt) => {
           this.elChangeExForArray(evt.oldIndex, evt.newIndex, this.specsData);
         },
@@ -1052,7 +1052,7 @@ export default {
         this.specsData = arr;
       });
     },
-    //时间格式转换
+    //chuyển đổi định dạng thời gian
     formatDate(time) {
       if (time) {
         let date = new Date(time * 1000);

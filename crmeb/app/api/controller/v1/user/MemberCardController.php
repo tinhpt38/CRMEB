@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 
-/** 会员卡
+/** thẻ thành viên
  * Class MemberCardController
  * @package app\api\controller\v1\user
  */
@@ -30,7 +30,7 @@ class MemberCardController
 
     protected $channelType = ['weixin' => 'wechat', 'weixinh5' => 'weixinh5', 'routine' => 'routine', 'h5' => 'h5'];
 
-    /** 初始化service层句柄
+    /** Khởi tạo xử lý lớp dịch vụ
      * MemberCardController constructor.
      * @param MemberCardServices $memberCardServices
      */
@@ -40,7 +40,7 @@ class MemberCardController
     }
 
     /**
-     * 会员卡主页数据接口
+     * Giao diện dữ liệu trang chủ thẻ thành viên
      * @param Request $request
      * @return mixed
      * @throws DataNotFoundException
@@ -71,7 +71,7 @@ class MemberCardController
     }
 
     /**
-     * 卡密领取会员卡
+     * Bí mật thẻ nhận thẻ thành viên
      * @param Request $request
      * @return mixed
      */
@@ -83,15 +83,15 @@ class MemberCardController
             ['from', 'weixin'],
         ]);
         $data['from'] = strtolower(trim($data['from']));
-        if (!array_key_exists($data['from'], $this->channelType)) return app('json')->fail('非法操作');
+        if (!array_key_exists($data['from'], $this->channelType)) return app('json')->fail('Hoạt động trái phép');
         $data['from'] = $this->channelType[$data['from']];
         $uid = (int)$request->uid();
         $this->services->drawMemberCard($data, $uid);
-        return app('json')->success('激活成功');
+        return app('json')->success('Kích hoạt thành công');
     }
 
     /**
-     * 会员券接口
+     * Giao diện phiếu giảm giá thành viên
      * @param Request $request
      * @return mixed
      * @throws DataNotFoundException
@@ -107,7 +107,7 @@ class MemberCardController
     }
 
     /**
-     * 计算会员天数
+     * Tính ngày thành viên
      * @param Request $request
      * @return mixed
      */
@@ -135,7 +135,7 @@ class MemberCardController
             $is_ever_level = 0;
         }
         if ($is_ever_level == 1 || $user_info['is_ever_level']) {
-            $res = "永久会员";
+            $res = "thành viên thường trực";
         } else {
             $res = date('Y-m-d', $overdue_time);
         }

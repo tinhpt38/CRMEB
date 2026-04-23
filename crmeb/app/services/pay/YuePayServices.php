@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,7 +19,7 @@ use app\services\user\UserServices;
 use crmeb\exceptions\ApiException;
 
 /**
- * 余额支付
+ * thanh toán số dư
  * Class YuePayServices
  * @package app\services\pay
  */
@@ -27,7 +27,7 @@ class YuePayServices extends BaseServices
 {
 
     /**
-     * 订单余额支付
+     * Thanh toán số dư đơn hàng
      * @param $order_id
      * @param $uid
      * @return bool
@@ -35,10 +35,10 @@ class YuePayServices extends BaseServices
     public function yueOrderPay(array $orderInfo, $uid)
     {
         if (!$orderInfo) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
         if ($orderInfo['paid']) {
-            throw new ApiException('订单已支付');
+            throw new ApiException('Đơn hàng đã thanh toán');
         }
         $type = 'pay_product';
         if (isset($orderInfo['member_type'])) {
@@ -48,31 +48,31 @@ class YuePayServices extends BaseServices
         $services = app()->make(UserServices::class);
         $userInfo = $services->getUserInfo($uid);
         if ($userInfo['now_money'] < $orderInfo['pay_price']) {
-            return ['status' => 'pay_deficiency', 'msg' => '余额不足' . floatval($orderInfo['pay_price'])];
+            return ['status' => 'pay_deficiency', 'msg' => 'Số dư không đủ' . floatval($orderInfo['pay_price'])];
         }
         $this->transaction(function () use ($services, $orderInfo, $userInfo, $type) {
             $res = false !== $services->bcDec($userInfo['uid'], 'now_money', $orderInfo['pay_price'], 'uid');
             /** @var UserMoneyServices $userMoneyServices */
             $userMoneyServices = app()->make(UserMoneyServices::class);
-            //写入余额记录
+            //Ghi sổ số dư
             $now_money = bcsub((string)$userInfo['now_money'], (string)$orderInfo['pay_price'], 2);
             $number = $orderInfo['pay_price'];
             switch ($type) {
-                case 'pay_product'://商品余额
+                case 'pay_product'://Cân bằng sản phẩm
                     $res = $res && $userMoneyServices->income('pay_product', $userInfo['uid'], $number, $now_money, $orderInfo['id']);
                     /** @var StoreOrderSuccessServices $orderServices */
                     $orderServices = app()->make(StoreOrderSuccessServices::class);
-                    $res = $res && $orderServices->paySuccess($orderInfo, PayServices::YUE_PAY);//余额支付成功
+                    $res = $res && $orderServices->paySuccess($orderInfo, PayServices::YUE_PAY);//Thanh toán số dư thành công
                     break;
-                case 'pay_member'://会员卡支付
+                case 'pay_member'://Thanh toán thẻ thành viên
                     $res = $res && $userMoneyServices->income('pay_member', $userInfo['uid'], $number, $now_money, $orderInfo['id']);
                     /** @var OtherOrderServices $OtherOrderServices */
                     $OtherOrderServices = app()->make(OtherOrderServices::class);
-                    $res = $res && $OtherOrderServices->paySuccess($orderInfo, PayServices::YUE_PAY);//余额支付成功
+                    $res = $res && $OtherOrderServices->paySuccess($orderInfo, PayServices::YUE_PAY);//Thanh toán số dư thành công
                     break;
             }
             if (!$res) {
-                throw new ApiException('余额支付失败');
+                throw new ApiException('Thanh toán số dư không thành công');
             }
         });
         return ['status' => true];

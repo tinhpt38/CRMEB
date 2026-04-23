@@ -5,24 +5,24 @@
         <el-form ref="artFrom" :model="artFrom" label-width="80px" label-position="right" inline @submit.native.prevent>
           <div class="acea-row search-form">
             <div class="search-form-box">
-              <el-form-item label="商品搜索：" label-for="store_name">
+              <el-form-item label="Tìm kiếm sản phẩm：" label-for="store_name">
                 <el-input
                   clearable
-                  placeholder="请输入商品名称/关键字/ID"
+                  placeholder="Vui lòng nhập tên sản phẩm/từ khóa/ID"
                   v-model="artFrom.store_name"
                   class="form_content_width"
                 />
               </el-form-item>
-              <el-form-item label="商品类型：">
-                <el-select v-model="artFrom.virtual_type" clearable placeholder="全部" class="form_content_width">
-                  <el-option label="全部" value="" />
-                  <el-option label="普通商品" value="0" />
-                  <el-option label="卡密商品" value="1" />
-                  <el-option label="优惠券商品" value="2" />
-                  <el-option label="虚拟商品" value="3" />
+              <el-form-item label="Loại sản phẩm：">
+                <el-select v-model="artFrom.virtual_type" clearable placeholder="tất cả" class="form_content_width">
+                  <el-option label="tất cả" value="" />
+                  <el-option label="Hàng thông thường" value="0" />
+                  <el-option label="Sản phẩm thẻ" value="1" />
+                  <el-option label="Sản phẩm phiếu giảm giá" value="2" />
+                  <el-option label="hàng ảo" value="3" />
                 </el-select>
               </el-form-item>
-              <el-form-item label="商品分类：" label-for="pid">
+              <el-form-item label="Phân loại sản phẩm：" label-for="pid">
                 <el-cascader
                   v-model="artFrom.cate_id"
                   size="small"
@@ -32,15 +32,15 @@
                   class="form_content_width"
                 ></el-cascader>
               </el-form-item>
-              <el-form-item label="配送方式：">
-                <el-select v-model="artFrom.logistics" clearable placeholder="全部" class="form_content_width">
-                  <el-option label="全部" value="" />
-                  <el-option label="快递配送" value="1" />
-                  <el-option label="到店自提" value="2" />
+              <el-form-item label="Phương thức giao hàng：">
+                <el-select v-model="artFrom.logistics" clearable placeholder="tất cả" class="form_content_width">
+                  <el-option label="tất cả" value="" />
+                  <el-option label="chuyển phát nhanh" value="1" />
+                  <el-option label="Nhận tại cửa hàng" value="2" />
                 </el-select>
               </el-form-item>
               <template v-if="collapse">
-                <el-form-item label="商品标签：" label-for="store_name">
+                <el-form-item label="Thẻ sản phẩm：" label-for="store_name">
                   <div class="labelInput acea-row row-between-wrapper form_content_width" @click="openStoreLabel">
                     <div style="width: 90%">
                       <div v-if="storeLabelList.length">
@@ -53,34 +53,34 @@
                           >{{ item.label_name }}</el-tag
                         >
                       </div>
-                      <span class="span" v-else>选择商品标签</span>
+                      <span class="span" v-else>Chọn thẻ sản phẩm</span>
                     </div>
                     <div class="iconfont iconxiayi"></div>
                   </div>
                 </el-form-item>
-                <el-form-item label="商品规格：">
-                  <el-select v-model="artFrom.spec_type" clearable placeholder="全部" class="form_content_width">
-                    <el-option label="全部" value="" />
-                    <el-option label="单规格" value="0" />
-                    <el-option label="多规格" value="1" />
+                <el-form-item label="Thông số sản phẩm：">
+                  <el-select v-model="artFrom.spec_type" clearable placeholder="tất cả" class="form_content_width">
+                    <el-option label="tất cả" value="" />
+                    <el-option label="Đặc điểm kỹ thuật đơn" value="0" />
+                    <el-option label="Nhiều thông số kỹ thuật" value="1" />
                   </el-select>
                 </el-form-item>
-                <el-form-item label="会员专属：">
-                  <el-select v-model="artFrom.vip_product" clearable placeholder="全部" class="form_content_width">
-                    <el-option label="全部" value="" />
-                    <el-option label="否" value="0" />
-                    <el-option label="是" value="1" />
+                <el-form-item label="Chỉ thành viên：">
+                  <el-select v-model="artFrom.vip_product" clearable placeholder="tất cả" class="form_content_width">
+                    <el-option label="tất cả" value="" />
+                    <el-option label="KHÔNG" value="0" />
+                    <el-option label="Đúng" value="1" />
                   </el-select>
                 </el-form-item>
-                <el-form-item label="是否礼物：">
-                  <el-select v-model="artFrom.is_gift" clearable placeholder="全部" class="form_content_width">
-                    <el-option label="全部" value="" />
-                    <el-option label="否" value="0" />
-                    <el-option label="是" value="1" />
+                <el-form-item label="Nó có phải là một món quà?：">
+                  <el-select v-model="artFrom.is_gift" clearable placeholder="tất cả" class="form_content_width">
+                    <el-option label="tất cả" value="" />
+                    <el-option label="KHÔNG" value="0" />
+                    <el-option label="Đúng" value="1" />
                   </el-select>
                 </el-form-item>
 
-                <el-form-item label="添加时间：">
+                <el-form-item label="Thêm thời gian：">
                   <el-date-picker
                     class="form_range_content_width"
                     clearable
@@ -90,53 +90,53 @@
                     @change="onchangeTime"
                     format="yyyy/MM/dd"
                     value-format="yyyy/MM/dd"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
+                    start-placeholder="ngày bắt đầu"
+                    end-placeholder="ngày kết thúc"
                     :picker-options="pickerOptions"
                     style="width: 250px"
                   ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="库存：" label-for="store_name">
+                <el-form-item label="trong kho：" label-for="store_name">
                   <el-input
                     clearable
-                    placeholder="最小值"
+                    placeholder="giá trị tối thiểu"
                     v-model="artFrom.stock_s[0]"
                     class="form_range_content_width"
                   />
                   ~
                   <el-input
                     clearable
-                    placeholder="最大值"
+                    placeholder="giá trị tối đa"
                     v-model="artFrom.stock_s[1]"
                     class="form_range_content_width"
                   />
                 </el-form-item>
-                <el-form-item label="价格：" label-for="store_name">
+                <el-form-item label="giá：" label-for="store_name">
                   <el-input
                     clearable
-                    placeholder="最小值"
+                    placeholder="giá trị tối thiểu"
                     v-model="artFrom.price_s[0]"
                     class="form_range_content_width"
                   />
                   ~
                   <el-input
                     clearable
-                    placeholder="最大值"
+                    placeholder="giá trị tối đa"
                     v-model="artFrom.price_s[1]"
                     class="form_range_content_width"
                   />
                 </el-form-item>
-                <el-form-item label="销量：" label-for="store_name">
+                <el-form-item label="Doanh số bán hàng：" label-for="store_name">
                   <el-input
                     clearable
-                    placeholder="最小值"
+                    placeholder="giá trị tối thiểu"
                     v-model="artFrom.sales_s[0]"
                     class="form_range_content_width"
                   />
                   ~
                   <el-input
                     clearable
-                    placeholder="最大值"
+                    placeholder="giá trị tối đa"
                     v-model="artFrom.sales_s[1]"
                     class="form_range_content_width"
                   />
@@ -144,11 +144,11 @@
               </template>
             </div>
             <div class="search-form-sub">
-              <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
-              <el-button class="ResetSearch" v-db-click @click="reset">重置</el-button>
+              <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+              <el-button class="ResetSearch" v-db-click @click="reset">cài lại</el-button>
               <a class="ivu-ml-8 font12 ml10" v-db-click @click="collapse = !collapse">
-                <template v-if="!collapse"> 展开 <i class="el-icon-arrow-down" /> </template>
-                <template v-else> 收起 <i class="el-icon-arrow-up" /> </template>
+                <template v-if="!collapse"> Mở rộng <i class="el-icon-arrow-down" /> </template>
+                <template v-else> đóng <i class="el-icon-arrow-up" /> </template>
               </a>
             </div>
           </div>
@@ -166,43 +166,43 @@
       </el-tabs>
       <div class="Button">
         <router-link v-auth="['product-product-save']" :to="$routeProStr + '/product/add_product'"
-          ><el-button type="primary" class="mr14">添加商品</el-button></router-link
+          ><el-button type="primary" class="mr14">Thêm sản phẩm</el-button></router-link
         >
         <el-button v-auth="['product-crawl-save']" type="success" class="mr14" v-db-click @click="onCopy"
-          >商品采集</el-button
+          >Bộ sưu tập sản phẩm</el-button
         >
         <el-dropdown class="bnt mr14" @command="batchSelect">
-          <el-button>批量修改<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <el-button>Chỉnh sửa hàng loạt<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :command="1">商品分类</el-dropdown-item>
-            <el-dropdown-item :command="2">物流设置</el-dropdown-item>
-            <el-dropdown-item :command="3">购买送积分</el-dropdown-item>
-            <el-dropdown-item :command="4">购买送优惠券</el-dropdown-item>
-            <el-dropdown-item :command="5">关联用户标签</el-dropdown-item>
-            <el-dropdown-item :command="6">活动推荐</el-dropdown-item>
+            <el-dropdown-item :command="1">Phân loại sản phẩm</el-dropdown-item>
+            <el-dropdown-item :command="2">Cài đặt hậu cần</el-dropdown-item>
+            <el-dropdown-item :command="3">Mua và nhận điểm</el-dropdown-item>
+            <el-dropdown-item :command="4">Mua và nhận phiếu giảm giá</el-dropdown-item>
+            <el-dropdown-item :command="5">Thẻ người dùng được liên kết</el-dropdown-item>
+            <el-dropdown-item :command="6">Hoạt động được đề xuất</el-dropdown-item>
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type === '1'" :command="7"
-              >批量下架</el-dropdown-item
+              >Xóa hàng loạt</el-dropdown-item
             >
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type === '2'" :command="8"
-              >批量上架</el-dropdown-item
+              >Danh sách hàng loạt</el-dropdown-item
             >
-            <el-dropdown-item v-auth="['product-product-product_show']" :command="9">设置商品标签</el-dropdown-item>
+            <el-dropdown-item v-auth="['product-product-product_show']" :command="9">Đặt nhãn sản phẩm</el-dropdown-item>
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type !== '6'" :command="11"
-              >移到回收站</el-dropdown-item
+              >Di chuyển vào thùng rác</el-dropdown-item
             >
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type == '6'" :command="12"
-              >恢复商品</el-dropdown-item
+              >Khôi phục hàng hóa</el-dropdown-item
             >
           </el-dropdown-menu>
         </el-dropdown>
         <el-dropdown class="bnt mr14" @command="goodsMove">
-          <el-button>商品迁移<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <el-button>Di chuyển sản phẩm<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :command="1">商品导入</el-dropdown-item>
-            <el-dropdown-item :command="2">商品导出</el-dropdown-item>
+            <el-dropdown-item :command="1">Nhập khẩu sản phẩm</el-dropdown-item>
+            <el-dropdown-item :command="2">Xuất khẩu sản phẩm</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-button v-auth="['export-storeProduct']" class="export" v-db-click @click="onExports(0)">数据导出</el-button>
+        <el-button v-auth="['export-storeProduct']" class="export" v-db-click @click="onExports(0)">Xuất dữ liệu</el-button>
       </div>
       <el-table
         ref="table"
@@ -212,7 +212,7 @@
         highlight-current-row
         :row-key="getRowKey"
         @selection-change="handleSelectRow"
-        empty-text="暂无数据"
+        empty-text="Chưa có dữ liệu"
       >
         <el-table-column type="expand" width="50" v-if="['1', '2'].includes(artFrom.type)">
           <template slot-scope="scope">
@@ -220,24 +220,24 @@
           </template>
         </el-table-column>
         <el-table-column type="selection" width="60" :reserve-selection="true"> </el-table-column>
-        <el-table-column label="商品ID" width="80">
+        <el-table-column label="hàng hóaID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品图" min-width="90">
+        <el-table-column label="Hình ảnh sản phẩm" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="商品名称" min-width="250">
+        <el-table-column label="Tên sản phẩm" min-width="250">
           <template slot-scope="scope">
             <span>{{ scope.row.store_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="参与活动" width="90">
+        <el-table-column label="Tham gia các hoạt động" width="90">
           <template slot-scope="scope">
             <el-tag
               class="mb5 cup"
@@ -246,7 +246,7 @@
               @click="activityDetail(scope.row, 0)"
               effect="dark"
             >
-              砍价
+              Mặc cả
             </el-tag>
             <el-tag
               class="mb5 cup"
@@ -255,7 +255,7 @@
               @click="activityDetail(scope.row, 1)"
               effect="dark"
             >
-              拼团
+              Chia sẻ nhóm
             </el-tag>
             <el-tag
               class="mb5 cup"
@@ -264,36 +264,36 @@
               @click="activityDetail(scope.row, 2)"
               effect="dark"
             >
-              秒杀
+              bán chớp nhoáng
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="商品类型" min-width="100">
+        <el-table-column label="Loại sản phẩm" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.product_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品售价" min-width="100">
+        <el-table-column label="Giá bán sản phẩm" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="销量" min-width="100">
+        <el-table-column label="Doanh số bán hàng" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sales }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="库存" min-width="100">
+        <el-table-column label="trong kho" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.stock }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" min-width="100">
+        <el-table-column label="loại" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="100">
+        <el-table-column label="tình trạng" min-width="100">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -304,46 +304,46 @@
               :disabled="scope.row.stop_status ? true : false"
               @change="changeSwitch(scope.row)"
               size="large"
-              active-text="上架"
-              inactive-text="下架"
+              active-text="Trên kệ"
+              inactive-text="Đã xóa khỏi kệ"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" minWidth="100">
+        <el-table-column label="vận hành" fixed="right" minWidth="100">
           <template slot-scope="scope">
-            <!-- <a v-db-click @click="look(scope.row)">查看</a>
+            <!-- <a v-db-click @click="look(scope.row)">Kiểm tra</a>
             <el-divider direction="vertical"></el-divider> -->
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
             <el-dropdown size="small">
-              <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   <router-link :to="{ path: $routeProStr + '/product/product_reply/' + scope.row.id }"
-                    ><a>查看评论</a></router-link
+                    ><a>Xem bình luận</a></router-link
                   >
                 </el-dropdown-item>
                 <el-dropdown-item v-db-click @click.native="openModal(scope.row, 'vipPriceSet')"
-                  >会员价管理</el-dropdown-item
+                  >Quản lý giá thành viên</el-dropdown-item
                 >
                 <el-dropdown-item v-db-click @click.native="openModal(scope.row, 'brokerageSet')"
-                  >佣金管理</el-dropdown-item
+                  >Quản lý hoa hồng</el-dropdown-item
                 >
                 <el-dropdown-item
                   v-if="artFrom.type === '6'"
                   v-db-click
-                  @click.native="del(scope.row, '恢复商品', scope.$index)"
-                  >恢复商品</el-dropdown-item
+                  @click.native="del(scope.row, 'Khôi phục hàng hóa', scope.$index)"
+                  >Khôi phục hàng hóa</el-dropdown-item
                 >
                 <el-dropdown-item
                   v-if="artFrom.type === '6'"
                   v-db-click
-                  @click.native="fullDel(scope.row, '彻底删除', scope.$index)"
-                  >彻底删除</el-dropdown-item
+                  @click.native="fullDel(scope.row, 'Xóa hoàn toàn', scope.$index)"
+                  >Xóa hoàn toàn</el-dropdown-item
                 >
-                <el-dropdown-item v-else v-db-click @click.native="del(scope.row, '移入回收站', scope.$index)"
-                  >移到回收站</el-dropdown-item
+                <el-dropdown-item v-else v-db-click @click.native="del(scope.row, 'Di chuyển vào thùng rác', scope.$index)"
+                  >Di chuyển vào thùng rác</el-dropdown-item
                 >
               </el-dropdown-menu>
             </el-dropdown>
@@ -361,11 +361,11 @@
       </div>
       <attribute :attrTemplate="attrTemplate" v-on:changeTemplate="changeTemplate"></attribute>
     </el-card>
-    <!-- 生成淘宝京东表单-->
+    <!-- Tạo biểu mẫu JD của taobao-->
     <el-dialog
       :visible.sync="modals"
       class="Box"
-      title="复制淘宝、天猫、京东、苏宁、1688"
+      title="Sao chép Taobao, Tmall, JD.com và Suning、1688"
       :close-on-click-modal="false"
       width="720px"
     >
@@ -374,7 +374,7 @@
     <el-dialog
       :visible.sync="batchModal"
       class="batch-box"
-      title="批量设置"
+      title="Cài đặt hàng loạt"
       :show-close="true"
       :close-on-click-modal="false"
       width="540px"
@@ -390,9 +390,9 @@
       >
         <el-row :gutter="24">
           <el-col :span="24" v-if="batchType == 1">
-            <!--            <el-divider content-position="left">基础设置</el-divider>-->
-            <el-form-item label="商品分类：" prop="cate_id">
-              <!-- <el-select v-model="batchFormData.cate_id" placeholder="请选择商品分类" multiple class="perW20">
+            <!--            <el-divider content-position="left">Cài đặt cơ bản</el-divider>-->
+            <el-form-item label="Phân loại sản phẩm：" prop="cate_id">
+              <!-- <el-select v-model="batchFormData.cate_id" placeholder="Vui lòng chọn danh mục sản phẩm" multiple class="perW20">
                 <el-option v-for="item in treeSelect" :disabled="item.pid === 0" :value="item.id" :key="item.id">{{
                   item.html + item.cate_name
                 }}</el-option>
@@ -408,17 +408,17 @@
             </el-form-item>
           </el-col>
           <el-col :span="24" v-if="batchType == 2">
-            <el-form-item label="物流方式：" prop="logistics">
+            <el-form-item label="Phương pháp hậu cần：" prop="logistics">
               <el-checkbox-group v-model="batchFormData.logistics" @change="logisticsBtn">
-                <el-checkbox label="1">快递</el-checkbox>
-                <el-checkbox label="2">到店</el-checkbox>
+                <el-checkbox label="1">chuyển phát nhanh</el-checkbox>
+                <el-checkbox label="2">Đến cửa hàng</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
-            <el-form-item label="运费设置：">
+            <el-form-item label="Cài đặt phí vận chuyển：">
               <el-radio-group v-model="batchFormData.freight">
-                <!-- <el-radio :label="1">包邮</el-radio> -->
-                <el-radio :label="2">固定邮费</el-radio>
-                <el-radio :label="3">运费模板</el-radio>
+                <!-- <el-radio :label="1">miễn phí vận chuyển</el-radio> -->
+                <el-radio :label="2">Bưu phí cố định</el-radio>
+                <el-radio :label="3">Mẫu vận chuyển hàng hóa</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="" v-if="batchFormData.freight == 2">
@@ -427,14 +427,14 @@
                   :controls="false"
                   :min="0"
                   v-model="batchFormData.postage"
-                  placeholder="请输入金额"
+                  placeholder="Vui lòng nhập số tiền"
                   class="perW20 maxW"
                 />
               </div>
             </el-form-item>
             <el-form-item label="" v-if="batchFormData.freight == 3" prop="temp_id">
               <div class="acea-row">
-                <el-select v-model="batchFormData.temp_id" clearable placeholder="请选择运费模板" style="width: 414px">
+                <el-select v-model="batchFormData.temp_id" clearable placeholder="Vui lòng chọn mẫu vận chuyển hàng hóa" style="width: 414px">
                   <el-option
                     v-for="(item, index) in templateList"
                     :value="item.id"
@@ -446,26 +446,26 @@
             </el-form-item>
           </el-col>
           <el-col :span="24" v-if="[3, 4, 5, 6].includes(batchType)">
-            <!--            <el-divider content-position="left" v-if="[3, 4, 5, 6].includes(batchType)">营销设置</el-divider>-->
-            <el-form-item label="赠送积分：" prop="give_integral" v-if="batchType == 3">
+            <!--            <el-divider content-position="left" v-if="[3, 4, 5, 6].includes(batchType)">Cài đặt tiếp thị</el-divider>-->
+            <el-form-item label="Tặng điểm：" prop="give_integral" v-if="batchType == 3">
               <el-input-number
                 :controls="false"
                 v-model="batchFormData.give_integral"
                 :min="0"
                 :max="9999999999"
-                placeholder="请输入积分"
+                placeholder="Vui lòng nhập điểm"
                 style="width: 100%"
               />
             </el-form-item>
-            <el-form-item label="赠送优惠券：" v-if="batchType == 4">
+            <el-form-item label="Tặng phiếu giảm giá：" v-if="batchType == 4">
               <div v-if="couponName.length" class="mb20">
                 <el-tag closable v-for="(item, index) in couponName" :key="index" @close="handleClose(item)">{{
                   item.title
                 }}</el-tag>
               </div>
-              <el-button type="primary" v-db-click @click="addCoupon">添加优惠券</el-button>
+              <el-button type="primary" v-db-click @click="addCoupon">thêm phiếu giảm giá</el-button>
             </el-form-item>
-            <el-form-item label="关联标签：" prop="label_id" v-if="batchType == 5">
+            <el-form-item label="thẻ liên quan：" prop="label_id" v-if="batchType == 5">
               <div class="acea-row label_width">
                 <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
                   <div style="width: auto">
@@ -479,60 +479,60 @@
                         >{{ item.label_name }}</el-tag
                       >
                     </div>
-                    <span class="span" v-else>选择用户关联标签</span>
+                    <span class="span" v-else>Chọn nhãn liên kết người dùng</span>
                   </div>
                   <div class="iconfont iconxiayi"></div>
                 </div>
               </div>
             </el-form-item>
-            <el-form-item label="商品推荐：" v-if="batchType == 6">
+            <el-form-item label="Khuyến nghị sản phẩm：" v-if="batchType == 6">
               <el-checkbox-group v-model="batchFormData.recommend">
-                <el-checkbox label="is_hot">热卖单品</el-checkbox>
-                <!-- <el-checkbox label="is_benefit">促销单品</el-checkbox> -->
-                <el-checkbox label="is_best">精品推荐</el-checkbox>
-                <el-checkbox label="is_new">首发新品</el-checkbox>
-                <el-checkbox label="is_good">优品推荐</el-checkbox>
+                <el-checkbox label="is_hot">Mặt hàng bán chạy</el-checkbox>
+                <!-- <el-checkbox label="is_benefit">Mặt hàng khuyến mại</el-checkbox> -->
+                <el-checkbox label="is_best">Sản phẩm được đề xuất</el-checkbox>
+                <el-checkbox label="is_new">Sản phẩm mới đầu tiên</el-checkbox>
+                <el-checkbox label="is_good">Sản phẩm được đề xuất</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </el-col>
           <el-col :span="24" v-if="batchType == 10">
-            <el-form-item label="开启送礼：">
+            <el-form-item label="Bắt đầu tặng quà：">
               <el-switch
                 v-model="batchFormData.is_gift"
                 class="defineSwitch"
-                active-text="开启"
-                inactive-text="关闭"
+                active-text="bật lên"
+                inactive-text="đóng cửa"
                 :active-value="1"
                 :inactive-value="0"
                 size="large"
               >
               </el-switch>
-              <div class="tips-info">开启送礼后，移动端商品详情的底部菜单显示送礼按钮</div>
+              <div class="tips-info">Sau khi bật tính năng tặng quà, menu dưới cùng của chi tiết sản phẩm trên thiết bị đầu cuối di động sẽ hiển thị nút tặng quà.</div>
             </el-form-item>
-            <el-form-item v-if="batchFormData.is_gift" label="礼品附加费：">
+            <el-form-item v-if="batchFormData.is_gift" label="phụ phí quà tặng：">
               <el-input-number
                 :controls="false"
                 :min="0"
                 :max="100000"
                 v-model="batchFormData.gift_price"
-                placeholder="礼品附加费"
+                placeholder="phụ phí quà tặng"
                 class="input-number-unit-class"
-                class-unit="元"
+                class-unit="Nhân dân tệ"
               />
-              <div class="tips-info">送礼下单时，订单默认无运费，此费用可用于负担商品运费、产品包装等附加费用</div>
+              <div class="tips-info">Khi đặt hàng quà tặng, mặc định sẽ không có phí vận chuyển cho đơn hàng. Khoản phí này có thể được sử dụng để trang trải các chi phí bổ sung như vận chuyển sản phẩm và đóng gói sản phẩm.</div>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="clearBatchData">取 消</el-button>
-        <el-button type="primary" v-db-click @click="batchSub">确 定</el-button>
+        <el-button v-db-click @click="clearBatchData">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="batchSub">Chắc chắn</el-button>
       </span>
     </el-dialog>
-    <!-- 商品标签 -->
+    <!-- Thẻ sản phẩm -->
     <el-dialog
       :visible.sync="tagShow"
-      title="请选择商品标签"
+      title="Vui lòng chọn thẻ sản phẩm"
       :show-close="true"
       width="540px"
       :close-on-click-modal="false"
@@ -544,26 +544,26 @@
         @close="labelClose"
       ></goodsLabel>
     </el-dialog>
-    <!-- 用户标签 -->
+    <!-- Thẻ người dùng -->
     <el-dialog
       :visible.sync="labelShow"
-      title="请选择用户标签"
+      title="Vui lòng chọn nhãn người dùng"
       width="540px"
       :show-close="true"
       :close-on-click-modal="false"
     >
       <userLabel ref="userLabel" @activeData="activeData" @close="labelClose"></userLabel>
     </el-dialog>
-    <!-- 商品弹窗 -->
+    <!-- Cửa sổ bật lên sản phẩm -->
     <div v-if="isProductBox">
       <div class="bg" v-db-click @click="isProductBox = false"></div>
       <goodsDetail :goodsId="goodsId"></goodsDetail>
     </div>
     <coupon-list ref="couponTemplates" @nameId="nameId" :couponids="batchFormData.coupon_ids"></coupon-list>
-    <!-- 商品导入 -->
+    <!-- Nhập khẩu sản phẩm -->
     <el-dialog
       :visible.sync="importShow"
-      title="商品导入"
+      title="Nhập khẩu sản phẩm"
       width="900px"
       :show-close="true"
       :close-on-click-modal="false"
@@ -572,8 +572,8 @@
     </el-dialog>
     <brokerageSet ref="brokerageSet" :productId="productId"></brokerageSet>
     <vipPriceSet ref="vipPriceSet" :productId="productId"></vipPriceSet>
-    <!-- 商品标签 -->
-    <el-dialog :visible.sync="storeLabelShow" title="选择商品标签" width="540">
+    <!-- Thẻ sản phẩm -->
+    <el-dialog :visible.sync="storeLabelShow" title="Chọn thẻ sản phẩm" width="540">
       <storeLabelList
         v-if="storeLabelShow"
         ref="storeLabel"
@@ -601,7 +601,7 @@ import {
   getGoodHeade,
   getGoods,
   PostgoodsIsShow,
-  cascaderListApi, // 分类列表
+  cascaderListApi, // Danh sách danh mục
   productShowApi,
   productUnshowApi,
   storeProductApi,
@@ -641,7 +641,7 @@ export default {
       importShow: false,
       batchModal: false,
       labelShow: false,
-      batchType: 1, // 批量设置类型
+      batchType: 1, // Kiểu thiết lập hàng loạt
       batchFormData: {
         cate_id: [],
         logistics: [],
@@ -654,9 +654,9 @@ export default {
         recommend: [],
       },
       ruleBatch: {},
-      couponName: [], // 优惠券
-      dataLabel: [], // 标签
-      templateList: [], // 运费模版
+      couponName: [], // Phiếu giảm giá
+      dataLabel: [], // Nhãn
+      templateList: [], // Mẫu vận chuyển hàng hóa
       grid: {
         xl: 6,
         lg: 8,
@@ -723,14 +723,14 @@ export default {
     }
   },
   methods: {
-    // 具体日期
+    // ngày cụ thể
     onchangeTime(e) {
       this.timeVal = e;
       this.artFrom.time = this.timeVal ? this.timeVal.join('-') : '';
       this.artFrom.page = 1;
       this.getDataList();
     },
-    // 标签弹窗关闭
+    // Cửa sổ bật lên nhãn đóng lại
     storeLabelClose() {
       this.storeLabelShow = false;
     },
@@ -805,7 +805,7 @@ export default {
       });
       data.label_id = activeIds;
       if (this.batchType == 2 && !this.batchFormData.logistics.length) {
-        return this.$message.warning('请选择物流方式');
+        return this.$message.warning('Vui lòng chọn phương thức hậu cần');
       }
       batchSetting(data)
         .then((res) => {
@@ -838,10 +838,10 @@ export default {
       this.batchModal = false;
       this.$refs.table.clearSelection();
     },
-    // 批量设置商品
+    // Thiết lập sản phẩm theo lô
     batchSelect(type) {
       if (!this.ids.length) {
-        this.$message.warning('请选择要修改的商品');
+        this.$message.warning('Vui lòng chọn sản phẩm bạn muốn sửa đổi');
       } else if (type === 7) {
         this.onDismount();
       } else if (type === 8) {
@@ -850,9 +850,9 @@ export default {
         this.batchType = type;
         this.tagShow = true;
       } else if (type === 11) {
-        this.batchGoodsSetting('全部移到回收站', 1);
+        this.batchGoodsSetting('Di chuyển tất cả vào thùng rác', 1);
       } else if (type === 12) {
-        this.batchGoodsSetting('恢复选中商品', 2);
+        this.batchGoodsSetting('Khôi phục các mục đã chọn', 2);
       } else {
         this.batchType = type;
         this.batchModal = true;
@@ -900,23 +900,23 @@ export default {
       this.couponName.splice(index, 1);
       this.formValidate.coupon_ids.splice(index, 1);
     },
-    //对象数组去重；
+    //Sao chép mảng đối tượng；
     unique(arr) {
       const res = new Map();
       return arr.filter((arr) => !res.has(arr.id) && res.set(arr.id, 1));
     },
-    // 获取运费模板；
+    // Nhận mẫu vận chuyển；
     productGetTemplate() {
       productGetTemplateApi().then((res) => {
         this.templateList = res.data;
       });
     },
-    // 标签弹窗关闭
+    // Cửa sổ bật lên nhãn đóng lại
     labelClose() {
       this.labelShow = false;
       this.tagShow = false;
     },
-    // 选择商品标签
+    // Chọn thẻ sản phẩm
     activeGoodsLabel(data) {
       this.tagShow = false;
       this.batchFormData.label_list = Array.from(new Set(data));
@@ -926,11 +926,11 @@ export default {
       this.goodsId = row.id;
       this.isProductBox = true;
     },
-    // 物流方式
+    // Phương pháp hậu cần
     logisticsBtn(e) {
       this.batchFormData.logistics = e;
     },
-    // 关联用户标签
+    // Thẻ người dùng được liên kết
     openLabel() {
       this.labelShow = true;
       // this.$refs.userLabel.setLabel(JSON.parse(JSON.stringify(this.dataLabel)));
@@ -939,7 +939,7 @@ export default {
       let index = this.dataLabel.indexOf(this.dataLabel.filter((d) => d.id == label.id)[0]);
       this.dataLabel.splice(index, 1);
     },
-    // 添加优惠券
+    // thêm phiếu giảm giá
     addCoupon() {
       this.$refs.couponTemplates.isTemplate = true;
       this.$refs.couponTemplates.tableList();
@@ -952,7 +952,7 @@ export default {
     onImport() {
       this.importShow = true;
     },
-    // 导出
+    // Xuất khẩu
     async onExports(type) {
       let [th, filekey, data, fileName] = [[], [], [], ''];
       let excelData = JSON.parse(JSON.stringify(this.artFrom));
@@ -986,10 +986,10 @@ export default {
     freight() {
       this.$refs.template.isTemplate = true;
     },
-    // 批量上架
+    // Danh sách hàng loạt
     onShelves() {
       if (this.ids.length === 0) {
-        this.$message.warning('请选择要上架的商品');
+        this.$message.warning('Hãy lựa chọn những sản phẩm bạn muốn đặt lên kệ');
       } else {
         let data = {
           ids: this.ids,
@@ -1005,10 +1005,10 @@ export default {
           });
       }
     },
-    // 批量下架
+    // Xóa hàng loạt
     onDismount() {
       if (this.ids.length === 0) {
-        this.$message.warning('请选择要下架的商品');
+        this.$message.warning('Vui lòng chọn sản phẩm cần lấy ra khỏi kệ');
       } else {
         let data = {
           ids: this.ids,
@@ -1026,7 +1026,7 @@ export default {
       }
     },
 
-    // 全选
+    // Chọn tất cả
     // onSelectTab (selection) {
     //     let data = []
     //     selection.map((item) => {
@@ -1037,7 +1037,7 @@ export default {
     getRowKey(row) {
       return row.id;
     },
-    //  选中某一行
+    //  Chọn một hàng
     handleSelectRow(selection) {
       const uniqueArr = [];
       const ids = [];
@@ -1051,11 +1051,11 @@ export default {
       this.ids = ids;
       this.multipleSelection = uniqueArr;
     },
-    // 添加淘宝商品成功
+    // Sản phẩm taobao đã được thêm thành công
     onClose() {
       this.modals = false;
     },
-    // 复制淘宝
+    // Sao chép taobao
     onCopy() {
       this.$router.push({
         path: this.$routeProStr + '/product/add_product',
@@ -1063,14 +1063,14 @@ export default {
       });
       // this.modals = true
     },
-    // tab选择
+    // tabchọn
     onClickTab() {
       this.artFrom.page = 1;
       this.multipleSelection = [];
       this.$refs.table.clearSelection();
       this.getDataList();
     },
-    // 下拉树
+    // Cây đổ xuống
     handleCheckChange(data) {
       let value = '';
       let title = '';
@@ -1089,7 +1089,7 @@ export default {
       this.artFrom.cate_id = value;
       this.getDataList();
     },
-    // 获取商品表单头数量
+    // Lấy số lượng tiêu đề sản phẩm
     goodHeade() {
       getGoodHeade(this.artFrom)
         .then((res) => {
@@ -1099,7 +1099,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 商品分类；
+    // Phân loại sản phẩm；
     goodsCategory() {
       cascaderListApi(1)
         .then((res) => {
@@ -1109,7 +1109,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 商品列表；
+    // Danh sách sản phẩm；
     getDataList() {
       this.loading = true;
       this.artFrom.cate_id = this.artFrom.cate_id || '';
@@ -1119,7 +1119,7 @@ export default {
           this.tableList = data.list;
           this.total = res.data.count;
           this.$nextTick(() => {
-            //确保dom加载完毕
+            //Hãy chắc chắn rằng dom đã được tải
             // this.setChecked();
             this.showSelectData();
           });
@@ -1132,25 +1132,25 @@ export default {
     },
     showSelectData() {
       if (this.multipleSelection.length > 0) {
-        // 判断是否存在勾选过的数据
+        // Xác định xem dữ liệu đã kiểm tra có tồn tại hay không
         this.tableList.forEach((row) => {
-          // 获取数据列表接口请求到的数据
+          // Lấy dữ liệu theo yêu cầu của giao diện danh sách dữ liệu
           this.multipleSelection.forEach((item) => {
-            // 勾选到的数据
+            // Dữ liệu đã kiểm tra
             if (row.id === item.id) {
-              this.$refs.table.toggleRowSelection(item, true); // 若有重合，则回显该条数据
+              this.$refs.table.toggleRowSelection(item, true); // Nếu có sự chồng chéo, dữ liệu sẽ bị lặp lại.
             }
           });
         });
       }
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.artFrom.page = 1;
       this.goodHeade();
       this.getDataList();
     },
-    // 上下架
+    // Trên và ngoài kệ
     changeSwitch(row) {
       PostgoodsIsShow(row.id, row.is_show)
         .then((res) => {
@@ -1163,30 +1163,30 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 数据导出；
+    // Xuất dữ liệu；
     exportData: function () {
-      let th = ['商品名称', '商品简介', '商品分类', '价格', '库存', '销量', '收藏人数'];
+      let th = ['Tên sản phẩm', 'Giới thiệu sản phẩm', 'Phân loại sản phẩm', 'giá', 'trong kho', 'Doanh số bán hàng', 'Số lượng người thu gom'];
       let filterVal = ['store_name', 'store_info', 'cate_name', 'price', 'stock', 'sales', 'collect'];
       this.where.page = 'nopage';
       getGoods(this.where).then((res) => {
         let data = res.data.map((v) => filterVal.map((k) => v[k]));
         let fileTime = Date.parse(new Date());
-        let [fileName, fileType, sheetName] = ['商户数据_' + fileTime, 'xlsx', '商户数据'];
+        let [fileName, fileType, sheetName] = ['Dữ liệu người bán_' + fileTime, 'xlsx', 'Dữ liệu người bán'];
         toExcel({ th, data, fileName, fileType, sheetName });
       });
     },
-    // 属性弹出；
+    // Cửa sổ bật lên thuộc tính；
     attrTap() {
       this.attrTemplate = true;
     },
     changeTemplate(msg) {
       this.attrTemplate = msg;
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$router.push({ path: this.$routeProStr + '/product/add_product/' + row.id });
     },
-    // 确认
+    // xác nhận
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -1225,7 +1225,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 重置
+    // cài lại
     reset(name) {
       this.artFrom = {
         page: 1,

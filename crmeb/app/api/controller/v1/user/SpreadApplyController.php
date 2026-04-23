@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -41,10 +41,10 @@ class SpreadApplyController
         $data['uid'] = $request->uid();
         $userInfo = $request->user();
         $verifyCode = CacheService::get('code_' . $data['phone']);
-        if (!$verifyCode) return app('json')->fail('请先获取验证码');
-        if ($verifyCode != $data['code']) return app('json')->fail('验证码错误');
+        if (!$verifyCode) return app('json')->fail('Vui lòng lấy mã xác minh trước');
+        if ($verifyCode != $data['code']) return app('json')->fail('Lỗi mã xác minh');
         unset($data['code']);
         $id = $this->services->applyPromoter($data, $id, $userInfo);
-        return app('json')->success('申请成功', ['id' => $id]);
+        return app('json')->success('Ứng dụng thành công', ['id' => $id]);
     }
 }

@@ -1,9 +1,9 @@
 // +---------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +---------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +---------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +---------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +---------------------------------------------------------------------
@@ -11,37 +11,37 @@
 export default {
   s: `1`,
   /**
-   * @description 配置显示在浏览器标签的title
+   * @description Cấu hình các tab hiển thị trên trình duyệttitle
    */
   title: '',
   /**
-   * @description token在Cookie中存储的天数，默认1天
+   * @description tokenSố ngày lưu trữ trong cookie, mặc định là 1 ngày
    */
   cookieExpires: 1,
   /**
-   * @description 是否使用国际化，默认为false
-   *              如果不使用，则需要在路由中给需要在菜单中展示的路由设置meta: {title: 'xxx'}
-   *              用来在菜单中显示文字
+   * @description Có sử dụng quốc tế hóa hay không, mặc định là sai
+   * Nếu không sử dụng, bạn cần đặt cài đặt định tuyến cần hiển thị trong menu.meta: {title: 'xxx'}
+   *              Dùng để hiển thị văn bản trong menu
    */
   useI18n: false,
   /**
-   * @description api请求基础路径
+   * @description apiYêu cầu đường dẫn cơ sở
    */
   baseUrl: {
     dev: '',
     pro: '',
   },
   /**
-   * @description 默认打开的首页的路由name值，默认为home
+   * @description Giá trị tên tuyến đường của trang chủ được mở theo mặc định. Mặc định làhome
    */
   homeName: 'home_index',
   /**
-   * @description 需要加载的插件
+   * @description Các plug-in cần được tải
    */
   plugin: {
     'error-store': {
-      showInHeader: true, // 设为false后不会在顶部显示错误日志徽标
-      developmentOff: false, // 设为true后在开发环境不会收集错误信息，方便开发中排查错误
+      showInHeader: true, // Đặt thành false để không hiển thị logo nhật ký lỗi ở trên cùng
+      developmentOff: false, // Sau khi thiết lập thành true, thông tin lỗi sẽ không được thu thập trong môi trường phát triển, giúp việc khắc phục lỗi trong quá trình phát triển trở nên dễ dàng hơn.
     },
   },
 };

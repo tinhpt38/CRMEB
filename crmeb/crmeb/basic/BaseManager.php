@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -22,39 +22,39 @@ use think\Container;
 abstract class BaseManager
 {
     /**
-     * 驱动的命名空间
+     * không gian tên trình điều khiển
      * @var null
      */
     protected $namespace = null;
 
     /**
-     * 配置
+     * Cấu hình
      * @var null
      */
     protected $configFile = null;
 
     /**
-     * 配置
+     * Cấu hình
      * @var array
      */
     protected $config = [];
 
     /**
-     * 驱动
+     * lái xe
      * @var array
      */
     protected $drivers = [];
 
     /**
-     * 驱动类型
+     * Loại ổ đĩa
      * @var null
      */
     protected $name = null;
 
     /**
      * BaseManager constructor.
-     * @param string|array|int $name驱动名称
-     * @param array $config 配置
+     * @param string|array|int $nameTên tài xế
+     * @param array $config Cấu hình
      */
     public function __construct($name = null, array $config = [])
     {
@@ -78,7 +78,7 @@ abstract class BaseManager
     }
 
     /**
-     * 提取配置文件名
+     * Trích xuất tên tập tin cấu hình
      * @return $this
      */
     protected function getConfigFile()
@@ -90,7 +90,7 @@ abstract class BaseManager
     }
 
     /**
-     * 设置文件句柄
+     * Đặt xử lý tập tin
      * @param int $type
      */
     protected function setHandleType(int $type)
@@ -105,13 +105,13 @@ abstract class BaseManager
     }
 
     /**
-     * 设置默认句柄
+     * Đặt tay cầm mặc định
      * @return mixed
      */
     abstract protected function getDefaultDriver();
 
     /**
-     * 动态调用
+     * Cuộc gọi động
      * @param $method
      * @param $arguments
      * @return mixed
@@ -122,7 +122,7 @@ abstract class BaseManager
     }
 
     /**
-     * 获取驱动实例
+     * Nhận phiên bản trình điều khiển
      * @param null|string $name
      * @return mixed
      */
@@ -141,7 +141,7 @@ abstract class BaseManager
     }
 
     /**
-     * 获取驱动实例
+     * Nhận phiên bản trình điều khiển
      * @param string $name
      * @return mixed
      */
@@ -151,7 +151,7 @@ abstract class BaseManager
     }
 
     /**
-     * 获取驱动类型
+     * Nhận loại trình điều khiển
      * @param string $name
      * @return mixed
      */
@@ -161,7 +161,7 @@ abstract class BaseManager
     }
 
     /**
-     * 创建驱动
+     * Tạo trình điều khiển
      *
      * @param string $name
      * @return mixed
@@ -184,7 +184,7 @@ abstract class BaseManager
 
 
     /**
-     * 获取驱动类
+     * Nhận lớp lái xe
      * @param string $type
      * @return string
      */
@@ -201,7 +201,7 @@ abstract class BaseManager
     }
 
     /**
-     * 实例化类
+     * khởi tạo lớp
      * @param $class
      * @return mixed
      */

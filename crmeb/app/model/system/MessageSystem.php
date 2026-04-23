@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * 系统等级设置模型
+ * Mô hình cài đặt cấp hệ thống
  * Class SystemUserLevel
  * @package app\model\system
  */
@@ -25,14 +25,14 @@ class MessageSystem extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'message_system';
@@ -41,7 +41,7 @@ class MessageSystem extends BaseModel
     protected $insert = ['add_time'];
 
     /**
-     * ID搜索器
+     * IDNgười tìm kiếm
      * @param Model $query
      * @param $value
      * @param $data
@@ -51,7 +51,7 @@ class MessageSystem extends BaseModel
         $query->where('id', $value);
     }
     /**
-     * UID搜索器
+     * UIDNgười tìm kiếm
      * @param Model $query
      * @param $value
      * @param $data
@@ -61,7 +61,7 @@ class MessageSystem extends BaseModel
         $query->where('uid', $value);
     }
     /**
-     * Look搜索器
+     * LookNgười tìm kiếm
      * @param Model $query
      * @param $value
      * @param $data
@@ -71,7 +71,7 @@ class MessageSystem extends BaseModel
         $query->where('look', $value);
     }
     /**
-     * del搜索器
+     * delNgười tìm kiếm
      * @param Model $query
      * @param $value
      * @param $data

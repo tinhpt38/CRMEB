@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -38,7 +38,7 @@ class DivisionAgentApplyServices extends BaseServices
     }
 
     /**
-     * 申请详情
+     * Chi tiết ứng dụng
      * @param $uid
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -56,7 +56,7 @@ class DivisionAgentApplyServices extends BaseServices
     }
 
     /**
-     * 代理商申请
+     * Ứng dụng đại lý
      * @param $data
      * @param int $id
      * @return bool
@@ -68,7 +68,7 @@ class DivisionAgentApplyServices extends BaseServices
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $divisionId = $userServices->value(['division_invite' => $data['division_invite']], 'division_id');
-        if (!$divisionId) throw new ApiException('邀请码无效');
+        if (!$divisionId) throw new ApiException('Mã mời không hợp lệ');
         $data['division_id'] = $divisionId;
         if ($id) {
             $data['status'] = 0;
@@ -77,13 +77,13 @@ class DivisionAgentApplyServices extends BaseServices
             $this->dao->update(['uid' => $data['uid']], ['is_del' => 1]);
             $res = $this->dao->save($data);
         }
-        if (!$res) throw new ApiException('提交失败');
+        if (!$res) throw new ApiException('Gửi không thành công');
         return true;
     }
 
 
     /**
-     * 管理端代理商申请列表
+     * Danh sách ứng dụng đại lý quản lý
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -107,19 +107,19 @@ class DivisionAgentApplyServices extends BaseServices
     }
 
     /**
-     * 删除代理商审核
+     * Xóa đánh giá đại lý
      * @param $id
      * @return bool
      */
     public function delApply($id)
     {
         $res = $this->dao->update($id, ['is_del' => 1]);
-        if (!$res) throw new AdminException('删除失败');
+        if (!$res) throw new AdminException('Xóa không thành công');
         return true;
     }
 
     /**
-     * 审核表单
+     * Biểu mẫu đánh giá
      * @param $id
      * @param $type
      * @return array
@@ -127,24 +127,24 @@ class DivisionAgentApplyServices extends BaseServices
      */
     public function examineApply($id, $type)
     {
-        if (!$id) throw new AdminException('参数错误');
+        if (!$id) throw new AdminException('Lỗi tham số');
         $field = [];
         $field[] = Form::hidden('type', $type);
         $field[] = Form::hidden('id', $id);
         if ($type) {
-            $field[] = Form::number('division_percent', '佣金比例', '')->placeholder('代理商佣金比例1-100')->info('填写1-100，如填写50代表返佣50%,但是不能高于上级事业部的比例')->style(['width' => '173px'])->min(0)->max(100)->required();
-            $field[] = Form::date('division_end_time', '到期时间', '')->placeholder('代理商代理到期时间');
-            $field[] = Form::radio('division_status', '代理状态', 1)->options([['label' => '开通', 'value' => 1], ['label' => '关闭', 'value' => 0]]);
-            $title = '同意申请';
+            $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
+            $field[] = Form::date('division_end_time', 'Thời gian hết hạn', '')->placeholder('Thời gian hết hạn đại lý');
+            $field[] = Form::radio('division_status', 'trạng thái đại lý', 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+            $title = 'Đồng ý với ứng dụng';
         } else {
-            $field[] = Form::textarea('refusal_reason', '拒绝原因', '')->rows(5);
-            $title = '拒绝申请';
+            $field[] = Form::textarea('refusal_reason', 'Lý do từ chối', '')->rows(5);
+            $title = 'từ chối đơn đăng ký';
         }
         return create_form($title, $field, Route::buildUrl('/agent/division/apply_agent/save'), 'POST');
     }
 
     /**
-     * 审核代理商
+     * Đánh giá đại lý
      * @param $data
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -174,8 +174,8 @@ class DivisionAgentApplyServices extends BaseServices
                 $userServices = app()->make(UserServices::class);
                 $division_info = $userServices->getUserInfo($applyInfo['division_id'], 'division_end_time,division_percent');
                 if ($applyInfo['division_id'] != 0) {
-                    if ($agentData['division_percent'] > $division_info['division_percent']) throw new AdminException('代理商佣金比例不能大于事业部佣金比例');
-                    if ($agentData['division_end_time'] > $division_info['division_end_time']) throw new AdminException('代理商到期时间不能大于事业部到期时间');
+                    if ($agentData['division_percent'] > $division_info['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng đơn vị kinh doanh');
+                    if ($agentData['division_end_time'] > $division_info['division_end_time']) throw new AdminException('Thời gian hết hạn của đại lý không được lớn hơn thời gian hết hạn của đơn vị kinh doanh');
                 }
                 $applyInfo->status = 1;
                 $res = $applyInfo->save();
@@ -185,13 +185,13 @@ class DivisionAgentApplyServices extends BaseServices
                 $applyInfo->refusal_reason = $data['refusal_reason'];
                 $res = $applyInfo->save();
             }
-            if (!$res) throw new AdminException('操作失败');
+            if (!$res) throw new AdminException('Thao tác không thành công');
             return true;
         });
     }
 
     /**
-     * 获取员工列表
+     * Lấy danh sách nhân viên
      * @param $userInfo
      * @param $where
      * @param string $field
@@ -222,7 +222,7 @@ class DivisionAgentApplyServices extends BaseServices
             $systemAttachment = app()->make(SystemAttachmentServices::class);
             $name = 'routine_agent_' . $where['agent_id'] . '.jpg';
             $imageInfo = $systemAttachment->getInfo(['name' => $name]);
-            //检测远程文件是否存在
+            //Kiểm tra xem tập tin từ xa có tồn tại không
             if (isset($imageInfo['att_dir']) && strstr($imageInfo['att_dir'], 'http') !== false && curl_file_exist($imageInfo['att_dir']) === false) {
                 $imageInfo = null;
                 $systemAttachment->delete(['name' => $name]);
@@ -253,7 +253,7 @@ class DivisionAgentApplyServices extends BaseServices
         }
         return compact('list', 'count', 'codeUrl');
 
-        //代理商邀请员工二维码为公众号渠道码，需要配置公众号并开启关注自动生成用户使用
+        //Mã QR để đại lý mời nhân viên là mã kênh tài khoản chính thức. Cần phải định cấu hình tài khoản chính thức và kích hoạt tính năng sau để tự động tạo người dùng để sử dụng.
 //        try {
 //            /** @var SystemAttachmentServices $systemAttachment */
 //            $systemAttachment = app()->make(SystemAttachmentServices::class);
@@ -263,25 +263,25 @@ class DivisionAgentApplyServices extends BaseServices
 //            if (!$imageInfo) {
 //                /** @var QrcodeServices $qrCode */
 //                $qrCode = app()->make(QrcodeServices::class);
-//                //公众号
+//                //Tài khoản chính thức
 //                $resCode = $qrCode->getForeverQrcode('agent', $where['agent_id']);
 //                if ($resCode) {
 //                    $res = ['res' => $resCode, 'id' => $resCode['id']];
 //                } else {
 //                    $res = false;
 //                }
-//                if (!$res) throw new ApiException('二维码生成失败');
+//                if (!$res) throw new ApiException('Tạo mã QR không thành công');
 //                $imageInfo = $this->downloadImage($resCode['url'], $name);
 //                $systemAttachment->attachmentAdd($name, $imageInfo['size'], $imageInfo['type'], $imageInfo['att_dir'], $imageInfo['att_dir'], 1, $imageInfo['image_type'], time(), 2);
 //            }
 //            $codeUrl = strpos($imageInfo['att_dir'], 'http') === false ? $siteUrl . $imageInfo['att_dir'] : $imageInfo['att_dir'];
 //        } catch (\Exception $e) {
-//            Log::error('邀请员工二维码生成失败，失败原因' . $e->getMessage());
+//            Log::error('Tạo mã QR mời nhân viên không thành công, lý do không thành công' . $e->getMessage());
 //        }
     }
 
     /**
-     * 下载图片
+     * Tải hình ảnh
      * @param string $url
      * @param string $name
      * @param int $type
@@ -294,7 +294,7 @@ class DivisionAgentApplyServices extends BaseServices
     {
         if (!strlen(trim($url))) return '';
         if (!strlen(trim($name))) {
-            //TODO 获取要下载的文件名称
+            //TODO Lấy tên file cần tải
             $downloadImageInfo = $this->getImageExtname($url);
             $ext = $downloadImageInfo['ext_name'];
             $name = $downloadImageInfo['file_name'];
@@ -303,18 +303,18 @@ class DivisionAgentApplyServices extends BaseServices
             $ext = $this->getImageExtname($name)['ext_name'];
         }
         if (!in_array($ext, Config::get('upload.fileExt'))) {
-            throw new AdminException('格式错误');
+            throw new AdminException('Lỗi định dạng');
         }
-        //TODO 获取远程文件所采用的方法
+        //TODO Phương pháp được sử dụng để lấy tập tin từ xa
         if ($type) {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //TODO 跳过证书检查
-            if (stripos($url, "https://") !== FALSE) curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);  //TODO 从证书中检查SSL加密算法是否存在
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //TODO Bỏ qua kiểm tra chứng chỉ
+            if (stripos($url, "https://") !== FALSE) curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);  //TODO Kiểm tra xem thuật toán mã hóa SSL có tồn tại từ chứng chỉ không
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('user-agent:' . $_SERVER['HTTP_USER_AGENT']));
-            if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')) curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);//TODO 是否采集301、302之后的页面
+            if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')) curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);//TODO Có thu thập các trang sau 301 và 302 hay không
             $content = curl_exec($ch);
             curl_close($ch);
         } else {
@@ -328,7 +328,7 @@ class DivisionAgentApplyServices extends BaseServices
             }
         }
         $size = strlen(trim($content));
-        if (!$content || $size <= 2) return '图片流获取失败';
+        if (!$content || $size <= 2) return 'Việc thu thập luồng hình ảnh không thành công';
         $upload_type = sys_config('upload_type', 1);
         $upload = UploadService::init();
         if ($upload->to('attach/spread/agent')->setAuthThumb(false)->stream($content, $name) === false) {
@@ -345,7 +345,7 @@ class DivisionAgentApplyServices extends BaseServices
     }
 
     /**
-     * 获取即将要下载的图片扩展名
+     * Tải xuống phần mở rộng hình ảnh
      * @param string $url
      * @param string $ex
      * @return array|string[]

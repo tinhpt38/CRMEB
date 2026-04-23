@@ -1,47 +1,47 @@
 // +---------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +---------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +---------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +---------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +---------------------------------------------------------------------
 
 // import parseTime, formatTime and set to filter
 /**
- * 直播状态
+ * Trạng thái trực tiếp
  * @param {String} value
  */
 export function liveReviewStatusFilter(value) {
   const statusMap = {
-    101: '直播中',
-    102: '未开始',
-    103: '已结束',
-    104: '已结束',
-    105: '直播中',
-    106: '直播中',
-    107: '已结束',
+    101: 'Phát sóng trực tiếp',
+    102: 'Chưa bắt đầu',
+    103: 'đã kết thúc',
+    104: 'đã kết thúc',
+    105: 'Phát sóng trực tiếp',
+    106: 'Phát sóng trực tiếp',
+    107: 'đã kết thúc',
   };
   return statusMap[value];
 }
 
 /**
- * 审核状态
+ * Xem lại trạng thái
  * @param {String} value
  */
 export function liveStatusFilter(value) {
   const statusMap = {
-    0: '未审核 ',
-    1: '审核中',
-    2: '审核通过',
-    3: '审核失败',
+    0: 'Chưa được xem xét ',
+    1: 'Đang xem xét',
+    2: 'Tán thành',
+    3: 'Đánh giá không thành công',
   };
   return statusMap[value];
 }
 
 /**
- * 时间戳转时间
+ * Dấu thời gian theo thời gian
  * @param {String} data
  */
 export function formatDate(data) {
@@ -56,35 +56,35 @@ export function formatDate(data) {
 }
 
 /**
- * @description 直播间类型
+ * @description Loại phòng phát sóng trực tiếp
  */
 export function broadcastType(type) {
   const typeMap = {
-    0: '手机直播',
-    1: '推流',
+    0: 'Truyền hình trực tiếp trên thiết bị di động',
+    1: 'Đẩy phát trực tuyến',
   };
   return typeMap[type];
 }
 
 /**
- * @description 是否关闭点赞、评论
+ * @description Có nên tắt lượt thích và bình luận không
  */
 export function filterClose(value) {
   return value ? '✔' : '✖';
 }
 
 /**
- * @description 直播显示类型
+ * @description Kiểu hiển thị trực tiếp
  */
 export function broadcastDisplayType(type) {
   const typeMap = {
-    0: '竖屏',
-    1: '横屏',
+    0: 'Màn hình dọc',
+    1: 'Màn hình ngang',
   };
   return typeMap[type];
 }
 
-// 公共过滤器
+// bộ lọc công khai
 export function filterEmpty(val) {
   let _result = '-';
   if (!val) {
@@ -95,25 +95,25 @@ export function filterEmpty(val) {
 }
 
 /**
- * @description 用户类型
+ * @description Loại người dùng
  */
 export function userType(type) {
   const typeMap = {
-    routine: '小程序',
-    'wechat ': '微信',
+    routine: 'Chương trình nhỏ',
+    'wechat ': 'WeChat',
     h5: 'H5',
   };
   return typeMap[type];
 }
 
 /**
- * @description 访问来源类型
+ * @description Loại nguồn truy cập
  */
 export function sourceType(type) {
   const typeMap = {
-    0: 'PC端',
-    1: '公众号',
-    2: '小程序',
+    0: 'PCkết thúc',
+    1: 'Tài khoản chính thức',
+    2: 'Chương trình nhỏ',
     3: 'H5',
   };
   return typeMap[type];

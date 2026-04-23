@@ -1,64 +1,64 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
 /**
- * 文章管理 相关路由
+ * Các tuyến đường liên quan đến quản lý bài viết
  */
 Route::group('cms', function () {
 
-    /** 文章 */
+    /** bài báo */
     Route::group(function () {
-        //文章资源路由
+        //Định tuyến tài nguyên bài viết
         Route::resource('cms', 'v1.cms.Article')->option([
             'real_name' => [
-                'index' => '获取文章列表',
-                'create' => '获取文章表单',
-                'read' => '获取文章详细信息',
-                'save' => '保存文章',
-                'edit' => '获取修改文章表单',
-                'update' => '修改文章',
-                'delete' => '删除文章'
+                'index' => 'Nhận danh sách bài viết',
+                'create' => 'Nhận mẫu bài viết',
+                'read' => 'Nhận chi tiết bài viết',
+                'save' => 'Lưu bài viết',
+                'edit' => 'Nhận mẫu bài viết chỉnh sửa',
+                'update' => 'Sửa đổi bài viết',
+                'delete' => 'Xóa bài viết'
             ]
         ]);
-        //关联商品
-        Route::put('cms/relation/:id', 'v1.cms.Article/relation')->name('Relation')->option(['real_name' => '文章关联商品']);
-        //取消关联
-        Route::put('cms/unrelation/:id', 'v1.cms.Article/unrelation')->name('UnRelation')->option(['real_name' => '取消文章关联商品']);
-    })->option(['parent' => 'cms', 'cate_name' => '文章管理']);
+        //Sản phẩm liên quan
+        Route::put('cms/relation/:id', 'v1.cms.Article/relation')->name('Relation')->option(['real_name' => 'Sản phẩm liên quan đến bài viết']);
+        //Tách rời
+        Route::put('cms/unrelation/:id', 'v1.cms.Article/unrelation')->name('UnRelation')->option(['real_name' => 'Hủy bài viết liên quan đến sản phẩm']);
+    })->option(['parent' => 'cms', 'cate_name' => 'Quản lý bài viết']);
 
-    /** 文章分类 */
+    /** Phân loại bài viết */
     Route::group(function () {
-        //文章分类资源路由
+        //Định tuyến tài nguyên phân loại bài viết
         Route::resource('category', 'v1.cms.ArticleCategory')->except(['read'])->option([
             'real_name' => [
-                'index' => '获取文章分类列表',
-                'create' => '获取文章分类表单',
-                'save' => '保存文章分类',
-                'edit' => '获取修改文章分类表单',
-                'update' => '修改文章分类',
-                'delete' => '删除文章分类'
+                'index' => 'Nhận danh sách các danh mục bài viết',
+                'create' => 'Nhận mẫu phân loại bài viết',
+                'save' => 'Lưu danh mục bài viết',
+                'edit' => 'Nhận mẫu phân loại bài viết sửa đổi',
+                'update' => 'Sửa đổi danh mục bài viết',
+                'delete' => 'Xóa danh mục bài viết'
             ]
         ]);
-        //修改状态
-        Route::put('category/set_status/:id/:status', 'v1.cms.ArticleCategory/set_status')->name('CategoryStatus')->option(['real_name' => '修改文章分类状态']);
-        //分类列表
-        Route::get('category_list', 'v1.cms.ArticleCategory/categoryList')->name('categoryList')->option(['real_name' => '分类列表']);
-        //分类树形列表
-        Route::get('category_tree_list', 'v1.cms.ArticleCategory/getTreeList')->name('getTreeList')->option(['real_name' => '分类树形列表']);
-    })->option(['parent' => 'cms', 'cate_name' => '文章分类']);
+        //Sửa đổi trạng thái
+        Route::put('category/set_status/:id/:status', 'v1.cms.ArticleCategory/set_status')->name('CategoryStatus')->option(['real_name' => 'Sửa đổi trạng thái phân loại bài viết']);
+        //Danh sách danh mục
+        Route::get('category_list', 'v1.cms.ArticleCategory/categoryList')->name('categoryList')->option(['real_name' => 'Danh sách danh mục']);
+        //Danh sách cây danh mục
+        Route::get('category_tree_list', 'v1.cms.ArticleCategory/getTreeList')->name('getTreeList')->option(['real_name' => 'Danh sách cây danh mục']);
+    })->option(['parent' => 'cms', 'cate_name' => 'Phân loại bài viết']);
 
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'cms', 'mark_name' => '文章模块']);
+])->option(['mark' => 'cms', 'mark_name' => 'Mô-đun bài viết']);

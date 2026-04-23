@@ -10,9 +10,9 @@
                   <img src="../../../assets/images/f.png" />
                 </div>
                 <div class="txt">
-                  <div class="name">用户名称用户名称</div>
+                  <div class="name">tên người dùngtên người dùng</div>
                   <div class="phone acea-row row-center-wrapper">
-                    绑定手机号<span class="iconfont iconjinru"></span>
+                    Ràng buộc số điện thoại di động<span class="iconfont iconjinru"></span>
                   </div>
                 </div>
               </div>
@@ -27,32 +27,32 @@
             <div class="center acea-row row-around">
               <div class="item">
                 <div class="num">0.00</div>
-                <div class="font">我的余额</div>
+                <div class="font">số dư của tôi</div>
               </div>
               <div class="item">
                 <div class="num">65749</div>
-                <div class="font">当前积分</div>
+                <div class="font">Điểm hiện tại</div>
               </div>
               <div class="item">
                 <div class="num">25</div>
-                <div class="font">优惠券</div>
+                <div class="font">Phiếu giảm giá</div>
               </div>
             </div>
             <div class="bottom acea-row row-between-wrapper" v-if="userData.status == 1">
-              <div>会员到期 2022-12-31</div>
-              <div class="renew">立即续费<span class="iconfont iconjinru"></span></div>
+              <div>Tư cách thành viên hết hạn 2022-12-31</div>
+              <div class="renew">Gia hạn ngay bây giờ<span class="iconfont iconjinru"></span></div>
             </div>
             <div class="bottomB acea-row row-between" v-if="userData.status == 3">
-              <div class="vip"><img src="../../../assets/images/member01.png" />开通会员VIP</div>
-              <div>会员可享多项权益<span class="iconfont iconjinru"></span></div>
+              <div class="vip"><img src="../../../assets/images/member01.png" />Mở tư cách thành viênVIP</div>
+              <div>Thành viên có thể được hưởng nhiều lợi ích<span class="iconfont iconjinru"></span></div>
             </div>
           </div>
           <div class="member acea-row row-between-wrapper" v-if="userData.status == 2">
             <div class="text">
-              <div class="title">会员可享多项权益</div>
-              <div>会员剩余360天</div>
+              <div class="title">Thành viên có thể được hưởng nhiều lợi ích</div>
+              <div>Tư cách thành viên còn lại 360 ngày</div>
             </div>
-            <div class="bnt">立即续费</div>
+            <div class="bnt">Gia hạn ngay bây giờ</div>
           </div>
           <div
             class="orderCenter on dotted p-y-15"
@@ -61,29 +61,29 @@
             @click="currentShow(4)"
           >
             <div class="title acea-row row-between-wrapper">
-              <div>订单中心</div>
-              <div class="all">查看全部<span class="iconfont iconjinru"></span></div>
+              <div>Trung tâm đặt hàng</div>
+              <div class="all">Xem tất cả<span class="iconfont iconjinru"></span></div>
             </div>
             <div class="list acea-row row-around">
               <div class="item">
                 <div class="iconfont" :class="order.dfk"></div>
-                <div>待付款</div>
+                <div>Đang chờ thanh toán</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.dfh"></div>
-                <div>待发货</div>
+                <div>Đang chờ vận chuyển</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.dsh"></div>
-                <div>待收货</div>
+                <div>Đang chờ nhận</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.dpj"></div>
-                <div>待评价</div>
+                <div>Đang chờ đánh giá</div>
               </div>
               <div class="item">
                 <div class="iconfont" :class="order.sh"></div>
-                <div>售后/退款</div>
+                <div>Sau bán hàng/Hoàn tiền</div>
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@
               </swiper-slide>
               <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
-            <div v-else class="default">暂无广告数据</div>
+            <div v-else class="default">Chưa có dữ liệu quảng cáo</div>
           </div>
           <div
             class="orderCenter service dotted"
@@ -103,7 +103,7 @@
             @click="currentShow(2)"
           >
             <div class="title acea-row row-between-wrapper" v-if="userData.my_menus_status == 1">
-              <div>我的服务</div>
+              <div>dịch vụ của tôi</div>
             </div>
             <div class="list acea-row" v-if="userData.my_menus_status == 1">
               <div class="item" v-for="(item, index) in MyMenus" :key="index" v-if="item.pic">
@@ -111,14 +111,14 @@
                   <img :src="item.pic" v-if="item.pic && item.pic != ''" />
                   <span class="iconfont icontupian1" v-else></span>
                 </div>
-                <div>{{ item.name ? item.name : '服务名称' }}</div>
+                <div>{{ item.name ? item.name : 'Tên dịch vụ' }}</div>
               </div>
             </div>
             <div class="list-2" v-else-if="userData.my_menus_status == 2">
               <div class="acea-row row-middle item" v-for="(item, index) in MyMenus" :key="index" v-if="item.pic">
                 <img class="pictrue" :src="item.pic" v-if="item.pic && item.pic != ''" />
                 <span class="iconfont icontupian1" v-else></span>
-                <div class="name">{{ item.name ? item.name : '服务名称' }}</div>
+                <div class="name">{{ item.name ? item.name : 'Tên dịch vụ' }}</div>
                 <i class="el-icon-arrow-right"></i>
               </div>
             </div>
@@ -130,7 +130,7 @@
             @click="currentShow(3)"
           >
             <div class="title acea-row row-between-wrapper" v-if="userData.business_status == 1">
-              <div>商家管理</div>
+              <div>Quản lý thương gia</div>
             </div>
             <div class="list acea-row" v-if="userData.business_status == 1">
               <div class="item" v-for="(item, index) in storeMenu" :key="index" v-if="item.pic">
@@ -144,80 +144,80 @@
               <div class="acea-row row-middle item" v-for="(item, index) in storeMenu" :key="index" v-if="item.pic">
                 <img class="pictrue" :src="item.pic" v-if="item.pic && item.pic != ''" />
                 <span class="iconfont icontupian1" v-else></span>
-                <div class="name">{{ item.name ? item.name : '服务名称' }}</div>
+                <div class="name">{{ item.name ? item.name : 'Tên dịch vụ' }}</div>
                 <i class="el-icon-arrow-right"></i>
               </div>
             </div>
           </div>
         </div>
         <div class="right">
-          <div class="title">页面设置</div>
+          <div class="title">Cài đặt trang</div>
           <div class="c_row-item" v-if="current == 1">
-            <el-col class="label" :span="4"> 页面风格： </el-col>
+            <el-col class="label" :span="4"> Kiểu trang： </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.status">
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>phong cách2</span>
                 </el-radio>
                 <el-radio :label="3">
-                  <span>样式3</span>
+                  <span>phong cách3</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item" v-if="current == 4">
-            <el-col class="label" :span="4"> 订单中心： </el-col>
+            <el-col class="label" :span="4"> Trung tâm đặt hàng： </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.order_status" @input="orderStyle">
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>phong cách2</span>
                 </el-radio>
                 <el-radio :label="3">
-                  <span>样式3</span>
+                  <span>phong cách3</span>
                 </el-radio>
                 <el-radio :label="4">
-                  <span>样式4</span>
+                  <span>phong cách4</span>
                 </el-radio>
                 <el-radio :label="5">
-                  <span>样式5</span>
+                  <span>phong cách5</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item" v-if="current == 2">
-            <el-col class="label" :span="4"> 我的服务： </el-col>
+            <el-col class="label" :span="4"> dịch vụ của tôi： </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.my_menus_status">
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>phong cách2</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item" v-if="current == 3">
-            <el-col class="label" :span="4"> 商家服务： </el-col>
+            <el-col class="label" :span="4"> Dịch vụ thương gia： </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.business_status">
                 <el-radio :label="1">
-                  <span>样式1</span>
+                  <span>phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>样式2</span>
+                  <span>phong cách2</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item acea-row row-top" v-if="current == 5">
-            <el-col class="label" :span="4"> 广告位： </el-col>
+            <el-col class="label" :span="4"> Không gian quảng cáo： </el-col>
             <el-col :span="20" class="slider-box">
               <el-switch
                 :active-value="true"
@@ -225,21 +225,21 @@
                 v-model="userData.my_banner_status"
                 style="margin-bottom: 12px"
               />
-              <div class="info">建议尺寸：375 * 65px，拖拽图片可调整图片显示顺序哦，最多添加五张</div>
+              <div class="info">Kích thước đề xuất: 375 * 65px. Kéo và thả hình ảnh để điều chỉnh thứ tự hiển thị hình ảnh. Có thể thêm tối đa năm hình ảnh.</div>
               <uploadPic :listData="userData.routine_my_banner" :type="5"></uploadPic>
             </el-col>
           </div>
           <div class="c_row-item acea-row row-top" v-if="current == 2">
-            <el-col class="label" :span="4"> 我的服务： </el-col>
+            <el-col class="label" :span="4"> dịch vụ của tôi： </el-col>
             <el-col :span="20" class="slider-box">
-              <div class="info">建议尺寸：86 * 86px，拖拽图片可调整图片显示顺序哦</div>
+              <div class="info">Kích thước khuyên dùng: 86 * 86px, kéo ảnh để điều chỉnh thứ tự hiển thị ảnh.</div>
               <uploadPic :listData="MyMenus" :type="2"></uploadPic>
             </el-col>
           </div>
           <div class="c_row-item acea-row row-top" v-if="current == 3">
-            <el-col class="label" :span="4"> 商家管理： </el-col>
+            <el-col class="label" :span="4"> Quản lý thương gia： </el-col>
             <el-col :span="20" class="slider-box">
-              <div class="info">建议尺寸：86 * 86px，拖拽图片可调整图片显示顺序哦，最多添加五张</div>
+              <div class="info">Kích thước đề xuất: 86 * 86px. Kéo và thả hình ảnh để điều chỉnh thứ tự hiển thị hình ảnh. Có thể thêm tối đa năm hình ảnh.</div>
               <uploadPic :listData="storeMenu" :type="1"></uploadPic>
             </el-col>
           </div>
@@ -261,17 +261,17 @@ export default {
   data() {
     return {
       swiperOption: {
-        //显示分页
+        //hiển thị phân trang
         pagination: {
           el: '.swiper-pagination',
         },
-        //自动轮播
+        //băng chuyền tự động
         autoplay: {
           delay: 2000,
-          //当用户滑动图片后继续自动轮播
+          //Băng chuyền tự động tiếp tục khi người dùng trượt hình ảnh
           disableOnInteraction: false,
         },
-        //开启循环模式
+        //Bật chế độ vòng lặp
         loop: false,
       },
       userData: {
@@ -415,7 +415,7 @@ export default {
             el.url == '/pages/admin/order/index' ||
             el.url == '/pages/admin/order_cancellation/index' ||
             el.url == '/pages/admin/manage/index' ||
-            el.name == '客服接待'
+            el.name == 'Lễ tân phục vụ khách hàng'
           ) {
             storeMenu.push(el);
           } else {
@@ -447,12 +447,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/* 定义滑块 内阴影+圆角 */
+/* Xác định bóng bên trong thanh trượt + các góc tròn */
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 0px #ddd;
 }
 ::-webkit-scrollbar {
-  width: 4px !important; /* 对垂直流动条有效 */
+  width: 4px !important; /* Hợp lệ cho các thanh dòng chảy dọc */
 }
 .default {
   background-color: #fff;
@@ -595,7 +595,7 @@ export default {
   background: #fff;
 }
 .users {
-  // 隐藏滚动条
+  // Ẩn thanh cuộn
   .left::-webkit-scrollbar {
     display: none;
   }

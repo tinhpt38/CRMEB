@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ class Service extends AuthController
     }
 
     /**
-     * 转接客服列表
+     * Chuyển danh sách dịch vụ khách hàng
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -52,7 +52,7 @@ class Service extends AuthController
     }
 
     /**
-     * 话术列表
+     * Danh sách các câu nói
      * @param Request $request
      * @param StoreServiceSpeechcraftServices $services
      * @return mixed
@@ -77,7 +77,7 @@ class Service extends AuthController
     }
 
     /**
-     * 添加分类
+     * Thêm danh mục
      * @param Request $request
      * @param CategoryServices $services
      * @return mixed
@@ -90,18 +90,18 @@ class Service extends AuthController
         ]);
 
         if (!$data['name']) {
-            return app('json')->fail('分类名称不能为空');
+            return app('json')->fail('Tên danh mục không được để trống');
         }
         $data['add_time'] = time();
         $data['owner_id'] = $this->kefuId;
         $data['type'] = 1;
 
         $services->save($data);
-        return app('json')->success('添加成功');
+        return app('json')->success('Đã thêm thành công');
     }
 
     /**
-     * 修改分类
+     * Sửa đổi phân loại
      * @param Request $request
      * @param CategoryServices $services
      * @param $id
@@ -115,25 +115,25 @@ class Service extends AuthController
         ]);
 
         if (!$data['name']) {
-            return app('json')->fail('分类名称不能为空');
+            return app('json')->fail('Tên danh mục không được để trống');
         }
 
         $cateInfo = $services->get($id);
         if (!$cateInfo) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         $cateInfo->name = $data['name'];
         $cateInfo->sort = $data['sort'];
 
         if ($cateInfo->save()) {
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         } else {
-            return app('json')->fail('修改失败');
+            return app('json')->fail('Sửa đổi không thành công');
         }
     }
 
     /**
-     * 删除分类
+     * Xóa danh mục
      * @param CategoryServices $services
      * @param $id
      * @return mixed
@@ -142,18 +142,18 @@ class Service extends AuthController
     {
         $cateInfo = $services->get($id);
         if (!$cateInfo) {
-            return app('json')->fail('分类不存在');
+            return app('json')->fail('Danh mục không tồn tại');
         }
 
         if ($cateInfo->delete()) {
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         } else {
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         }
     }
 
     /**
-     * 获取当前客服分类
+     * Nhận danh mục dịch vụ khách hàng hiện tại
      * @param CategoryServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -166,7 +166,7 @@ class Service extends AuthController
     }
 
     /**
-     * 添加话术
+     * Thêm từ
      * @param Request $request
      * @param StoreServiceSpeechcraftServices $services
      * @return mixed
@@ -183,24 +183,24 @@ class Service extends AuthController
         validate(SpeechcraftValidate::class)->check($data);
 
         if (!$categoryServices->count(['owner_id' => $this->kefuId, 'type' => 1, 'id' => $data['cate_id']])) {
-            return app('json')->fail('分类不存在');
+            return app('json')->fail('Danh mục không tồn tại');
         }
         if ($services->count(['message' => $data['message']])) {
-            return app('json')->fail('添加的内容重复');
+            return app('json')->fail('Đã thêm nội dung trùng lặp');
         }
         $data['add_time'] = time();
         $data['kefu_id'] = $this->kefuId;
 
         $res = $services->save($data);
         if ($res) {
-            return app('json')->success('添加成功', null, $res->toArray());
+            return app('json')->success('Đã thêm thành công', null, $res->toArray());
         } else {
-            return app('json')->fail('添加失败');
+            return app('json')->fail('Thêm không thành công');
         }
     }
 
     /**
-     * 修改话术
+     * Sửa đổi lời nói của bạn
      * @param Request $request
      * @param StoreServiceSpeechcraftServices $services
      * @param $id
@@ -215,17 +215,17 @@ class Service extends AuthController
         ]);
 
         if (!$data['message']) {
-            return app('json')->fail('话术标题内容不能为空');
+            return app('json')->fail('Nội dung tiêu đề Hoa Thục không được để trống.');
         }
         if (!$categoryServices->count(['owner_id' => $this->kefuId, 'type' => 1, 'id' => $data['cate_id']])) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         $speechcraft = $services->get($id);
         if (!$speechcraft) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         if (!$speechcraft->kefu_id) {
-            return app('json')->fail('公共话术不能修改');
+            return app('json')->fail('Diễn ngôn công khai không thể sửa đổi');
         }
         $speechcraft->title = $data['title'];
         if ($data['cate_id']) {
@@ -234,14 +234,14 @@ class Service extends AuthController
         $speechcraft->message = $data['message'];
 
         if ($speechcraft->save()) {
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         } else {
-            return app('json')->fail('修改失败');
+            return app('json')->fail('Sửa đổi không thành công');
         }
     }
 
     /**
-     * 删除话术
+     * Xóa từ
      * @param StoreServiceSpeechcraftServices $services
      * @param $id
      * @return mixed
@@ -250,17 +250,17 @@ class Service extends AuthController
     {
         $speechcraft = $services->get($id);
         if (!$speechcraft) {
-            return app('json')->fail('话术没有被查到');
+            return app('json')->fail('Kỹ năng từ không được phát hiện');
         }
         if ($speechcraft->delete()) {
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         } else {
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         }
     }
 
     /**
-     * 聊天记录
+     * Lịch sử trò chuyện
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -275,13 +275,13 @@ class Service extends AuthController
             ['is_tourist', 0],
         ], true);
         if (!$uid) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         return app('json')->success($this->services->getChatList($this->kefuInfo['uid'], $uid, (int)$upperId, $is_tourist));
     }
 
     /**
-     * 当前客服详细信息
+     * Chi tiết dịch vụ khách hàng hiện tại
      * @return mixed
      */
     public function getServiceInfo()
@@ -291,7 +291,7 @@ class Service extends AuthController
     }
 
     /**
-     * 客服转接
+     * Chuyển dịch vụ khách hàng
      * @return mixed
      */
     public function transfer()
@@ -301,9 +301,9 @@ class Service extends AuthController
             ['uid', 0]
         ], true);
         if (!$kefuToUid || !$uid) {
-            return app('json')->fail('缺少转接人id');
+            return app('json')->fail('Người chuyển nhượng mất tíchid');
         }
         $this->services->setTransfer($this->kefuInfo['uid'], (int)$uid, (int)$kefuToUid);
-        return app('json')->success('转接成功');
+        return app('json')->success('Chuyển thành công');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -28,64 +28,64 @@ use crmeb\utils\Hook;
 use think\Response;
 
 /**
- * 微信小程序接口
+ * Giao diện ứng dụng WeChat
  * Class WechatMinService
  * @package service
  */
 class MiniProgramService
 {
     const MSG_CODE = [
-        '1' => '未创建直播间',
-        '1003' => '商品id不存在',
-        '47001' => '入参格式不符合规范',
-        '200002' => '入参错误',
-        '300001' => '禁止创建/更新商品 或 禁止编辑&更新房间',
-        '300002' => '名称长度不符合规则',
-        '300006' => '图片上传失败',
-        '300022' => '此房间号不存在',
-        '300023' => '房间状态 拦截',
-        '300024' => '商品不存在',
-        '300025' => '商品审核未通过',
-        '300026' => '房间商品数量已经满额',
-        '300027' => '导入商品失败',
-        '300028' => '房间名称违规',
-        '300029' => '主播昵称违规',
-        '300030' => '主播微信号不合法',
-        '300031' => '直播间封面图不合规',
-        '300032' => '直播间分享图违规',
-        '300033' => '添加商品超过直播间上限',
-        '300034' => '主播微信昵称长度不符合要求',
-        '300035' => '主播微信号不存在',
-        '300036' => '主播微信号未实名认证',
-        '300037' => '购物直播频道封面图不合规',
-        '300038' => '未在小程序管理后台配置客服',
-        '9410000' => '直播间列表为空',
-        '9410001' => '获取房间失败',
-        '9410002' => '获取商品失败',
-        '9410003' => '获取回放失败',
-        '300003' => '价格输入不合规',
-        '300004' => '商品名称存在违规违法内容',
-        '300005' => '商品图片存在违规违法内容',
-        '300007' => '线上小程序版本不存在该链接',
-        '300008' => '添加商品失败',
-        '300009' => '商品审核撤回失败',
-        '300010' => '商品审核状态不对',
-        '300011' => '操作非法',
-        '300012' => '没有提审额度',
-        '300013' => '提审失败',
-        '300014' => '审核中，无法删除',
-        '300017' => '商品未提审',
-        '300018' => '图片尺寸不符合要求',
-        '300021' => '商品添加成功，审核失败',
-        '40001' => 'AppSecret错误或者AppSecret不属于这个小程序，请确认AppSecret 的正确性',
-        '40002' => '请确保grant_type字段值为client_credential',
-        '40013' => '不合法的AppID，请检查AppID的正确性，避免异常字符，注意大小写',
-        '40125' => '小程序配置无效，请检查配置',
-        '41002' => '缺少appid参数',
-        '41004' => '缺少secret参数',
-        '43104' => 'appid与openid不匹配',
-        '48001' => '微信接口暂无权限，请先去获取',
-        '-1' => '系统错误',
+        '1' => 'Không có phòng phát sóng trực tiếp nào được tạo',
+        '1003' => 'Id sản phẩm không tồn tại',
+        '47001' => 'Định dạng tham số đầu vào không tuân theo thông số kỹ thuật',
+        '200002' => 'Lỗi tham số',
+        '300001' => 'Nghiêm cấm tạo/cập nhật sản phẩm hoặc cấm chỉnh sửa, cập nhật phòng.',
+        '300002' => 'Độ dài tên không tuân theo quy tắc',
+        '300006' => 'Tải hình ảnh lên không thành công',
+        '300022' => 'Số phòng này không tồn tại',
+        '300023' => 'Chặn trạng thái phòng',
+        '300024' => 'Sản phẩm không tồn tại',
+        '300025' => 'Đánh giá sản phẩm không thành công',
+        '300026' => 'Số lượng sản phẩm phòng đã được đặt kín',
+        '300027' => 'Không thể nhập sản phẩm',
+        '300028' => 'Vi phạm tên phòng',
+        '300029' => 'Vi phạm biệt hiệu máy chủ',
+        '300030' => 'ID WeChat của người dẫn chương trình là bất hợp pháp',
+        '300031' => 'Ảnh bìa phòng phát sóng trực tiếp là vi phạm pháp luật',
+        '300032' => 'Chia sẻ hình ảnh trong phòng phát sóng trực tiếp vi phạm nội quy',
+        '300033' => 'Thêm sản phẩm vượt quá giới hạn phòng phát sóng trực tiếp',
+        '300034' => 'Độ dài biệt danh WeChat của người dẫn chương trình không đáp ứng yêu cầu',
+        '300035' => 'ID WeChat của người dẫn chương trình không tồn tại',
+        '300036' => 'ID WeChat của người dẫn chương trình không được xác thực',
+        '300037' => 'Ảnh bìa kênh live streaming mua sắm vi phạm pháp luật',
+        '300038' => 'Dịch vụ khách hàng không được cấu hình trong nền quản lý chương trình mini',
+        '9410000' => 'Danh sách phòng phát sóng trực tiếp trống',
+        '9410001' => 'Không nhận được phòng',
+        '9410002' => 'Không thể lấy được sản phẩm',
+        '9410003' => 'Không thể phát lại',
+        '300003' => 'Giá đầu vào là bất hợp pháp',
+        '300004' => 'Tên sản phẩm chứa nội dung vi phạm pháp luật',
+        '300005' => 'Hình ảnh sản phẩm chứa nội dung bất hợp pháp',
+        '300007' => 'Liên kết này không tồn tại trong phiên bản chương trình mini trực tuyến',
+        '300008' => 'Không thể thêm sản phẩm',
+        '300009' => 'Xem xét và thu hồi sản phẩm không thành công',
+        '300010' => 'Trạng thái đánh giá sản phẩm không chính xác',
+        '300011' => 'Hoạt động trái phép',
+        '300012' => 'Không có hạn ngạch buộc tội',
+        '300013' => 'Việc buộc tội không thành công',
+        '300014' => 'Đang xem xét và không thể xóa được',
+        '300017' => 'Sản phẩm chưa được đánh giá',
+        '300018' => 'Kích thước hình ảnh không đáp ứng yêu cầu',
+        '300021' => 'Đã thêm sản phẩm thành công, đánh giá không thành công',
+        '40001' => 'AppSecretLỗi hoặc AppSecret không thuộc về applet này. Vui lòng xác nhận tính chính xác của AppSecret.',
+        '40002' => 'Vui lòng đảm bảo giá trị trường Grant_type làclient_credential',
+        '40013' => 'AppID bất hợp pháp, vui lòng kiểm tra tính chính xác của AppID, tránh các ký tự bất thường và chú ý viết hoa',
+        '40125' => 'Cấu hình applet không hợp lệ, vui lòng kiểm tra cấu hình',
+        '41002' => 'Thiếu tham số appid',
+        '41004' => 'tham số bí mật bị thiếu',
+        '43104' => 'appidkhông khớp với openid',
+        '48001' => 'Giao diện WeChat hiện không có quyền, vui lòng lấy quyền trước.',
+        '-1' => 'Lỗi hệ thống',
     ];
     /**
      * @var Application
@@ -150,7 +150,7 @@ class MiniProgramService
     }
 
     /**
-     * 初始化
+     * khởi tạo
      * @param bool $cache
      * @return Application
      */
@@ -161,7 +161,7 @@ class MiniProgramService
     }
 
     /**
-     * 小程序接口
+     * Giao diện chương trình nhỏ
      * @return \EasyWeChat\MiniProgram\MiniProgram
      */
     public static function miniprogram()
@@ -170,7 +170,7 @@ class MiniProgramService
     }
 
     /**
-     * 获得用户信息 根据code 获取session_key
+     * Lấy thông tin người dùng theo mãsession_key
      * @param array|string $openid
      * @return $userInfo
      */
@@ -184,7 +184,7 @@ class MiniProgramService
     }
 
     /**
-     * 加密数据解密
+     * Giải mã dữ liệu được mã hóa
      * @param $sessionKey
      * @param $iv
      * @param $encryptData
@@ -196,7 +196,7 @@ class MiniProgramService
     }
 
     /**
-     * 上传临时素材接口
+     * Tải lên giao diện vật liệu tạm thời
      * @return \EasyWeChat\Material\Temporary
      */
     public static function materialTemporaryService()
@@ -205,7 +205,7 @@ class MiniProgramService
     }
 
     /**
-     * 客服消息接口
+     * Giao diện tin nhắn chăm sóc khách hàng
      * @param null $to
      * @param null $message
      */
@@ -215,7 +215,7 @@ class MiniProgramService
     }
 
     /**
-     * 微信小程序二维码生成接口
+     * Giao diện tạo mã QR của applet WeChat
      * @return \EasyWeChat\QRCode\QRCode
      */
     public static function qrcodeService()
@@ -223,7 +223,7 @@ class MiniProgramService
         return self::miniprogram()->qrcode;
     }
 
-    /**微信小程序二维码生成接口不限量永久
+    /**Giao diện tạo mã QR của chương trình mini WeChat không giới hạn và vĩnh viễn
      * @param $scene
      * @param null $page
      * @param null $width
@@ -238,7 +238,7 @@ class MiniProgramService
 
 
     /**
-     * 模板消息接口
+     * Giao diện tin nhắn mẫu
      * @return \EasyWeChat\Notice\Notice
      */
     public static function noticeService()
@@ -247,7 +247,7 @@ class MiniProgramService
     }
 
     /**
-     * 订阅模板消息接口
+     * Giao diện tin nhắn mẫu đăng ký
      * @return \crmeb\services\subscribe\ProgramSubscribe
      */
     public static function SubscribenoticeService()
@@ -256,11 +256,11 @@ class MiniProgramService
     }
 
     /**
-     * 发送订阅消息
-     * @param string $touser 接收者（用户）的 openid
-     * @param string $templateId 所需下发的订阅模板id
-     * @param array $data 模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }
-     * @param string $link 击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
+     * Gửi tin nhắn đăng ký
+     * @param string $touser của người nhận (người dùng) openid
+     * @param string $templateId Mẫu đăng ký sẽ được phân phốiid
+     * @param array $data Nội dung mẫu, định dạng như sau { "key1": { "value": any }, "key2": { "value": any } }
+     * @param string $link Trang nhảy sau khi nhấp vào thẻ mẫu được giới hạn ở các trang trong chương trình nhỏ này. Hỗ trợ các thông số,（Ví dụindex?foo=bar）。Nếu trường này không được điền, mẫu sẽ không nhảy.。
      * @return \EasyWeChat\Support\Collection|null
      * @throws \EasyWeChat\Core\Exceptions\HttpException
      * @throws \EasyWeChat\Core\Exceptions\InvalidArgumentException
@@ -271,7 +271,7 @@ class MiniProgramService
     }
 
     /**
-     * 添加订阅消息模版
+     * Thêm mẫu tin nhắn đăng ký
      * @param string $tid
      * @param array $kidList
      * @param string $sceneDesc
@@ -284,16 +284,16 @@ class MiniProgramService
             if (isset($res['errcode']) && $res['errcode'] == 0 && isset($res['priTmplId'])) {
                 return $res['priTmplId'];
             } else {
-                Log::error('添加订阅消息模版失败：' . $res['errmsg']);
+                Log::error('Không thể thêm mẫu tin nhắn đăng ký：' . $res['errmsg']);
             }
         } catch (\Throwable $e) {
-            Log::error('添加订阅消息模版失败：' . $e->getMessage());
+            Log::error('Không thể thêm mẫu tin nhắn đăng ký：' . $e->getMessage());
         }
         return true;
     }
 
     /**
-     * 删除订阅消息模版
+     * Xóa mẫu tin nhắn đăng ký
      * @param string $tid
      * @param array $kidList
      * @param string $sceneDesc
@@ -306,17 +306,17 @@ class MiniProgramService
             if (isset($res['errcode']) && $res['errcode'] == 0) {
                 return true;
             } else {
-                Log::error('删除订阅消息模版失败：' . $res['errmsg']);
+                Log::error('Không xóa được mẫu tin nhắn đăng ký：' . $res['errmsg']);
             }
         } catch (\Throwable $e) {
-            Log::error('删除订阅消息模版失败：' . $e->getMessage());
+            Log::error('Không xóa được mẫu tin nhắn đăng ký：' . $e->getMessage());
         }
         return true;
     }
 
 
     /**
-     * 获取模版标题的关键词列表
+     * Lấy danh sách từ khóa của tiêu đề mẫu
      * @param string $tid
      * @return mixed
      */
@@ -335,7 +335,7 @@ class MiniProgramService
     }
 
     /**
-     * 获取订阅消息列表
+     * Nhận danh sách tin nhắn đăng ký
      * @return mixed
      */
     public static function getSubscribeTemplateList()
@@ -348,7 +348,7 @@ class MiniProgramService
     }
 
     /**
-     * 支付
+     * chi trả
      * @return \EasyWeChat\Payment\Payment
      */
     public static function paymentService()
@@ -357,7 +357,7 @@ class MiniProgramService
     }
 
     /**
-     * 生成支付订单对象
+     * Tạo đối tượng lệnh thanh toán
      * @param $openid
      * @param $out_trade_no
      * @param $total_fee
@@ -377,7 +377,7 @@ class MiniProgramService
     }
 
     /**
-     * 获得下单ID
+     * Nhận đơn đặt hàngID
      * @param $openid
      * @param $out_trade_no
      * @param $total_fee
@@ -402,11 +402,11 @@ class MiniProgramService
                 return $result->prepay_id;
             } else {
                 if ($result->return_code == 'FAIL') {
-                    exception('微信支付错误返回：' . $result->return_msg);
+                    exception('Trả lại lỗi thanh toán WeChat：' . $result->return_msg);
                 } else if (isset($result->err_code)) {
-                    exception('微信支付错误返回：' . $result->err_code_des);
+                    exception('Trả lại lỗi thanh toán WeChat：' . $result->err_code_des);
                 } else {
-                    exception('没有获取微信支付的预支付ID，请重新发起支付!');
+                    exception('Không nhận được ID thanh toán trước cho WeChat Pay, vui lòng bắt đầu lại thanh toán.!');
                 }
                 exit;
             }
@@ -414,7 +414,7 @@ class MiniProgramService
     }
 
     /**
-     * 获得下单ID
+     * Nhận đơn đặt hàngID
      * @param $openid
      * @param $out_trade_no
      * @param $total_fee
@@ -438,7 +438,7 @@ class MiniProgramService
                 CacheService::set($key, $result->payment_params, 7000);
                 return $result->payment_params;
             } else {
-                exception('微信支付错误返回：' . '[' . $result->errcode . ']' . $result->errmsg);
+                exception('Trả lại lỗi thanh toán WeChat：' . '[' . $result->errcode . ']' . $result->errmsg);
                 exit;
             }
         }
@@ -446,7 +446,7 @@ class MiniProgramService
 
 
     /**
-     * 获得jsSdk支付参数
+     * Nhận thông số thanh toán jsSdk
      * @param $openid
      * @param $out_trade_no
      * @param $total_fee
@@ -463,7 +463,7 @@ class MiniProgramService
     }
 
     /**
-     * 获得jsSdk支付参数
+     * Nhận thông số thanh toán jsSdk
      * @param $openid
      * @param $out_trade_no
      * @param $total_fee
@@ -484,7 +484,7 @@ class MiniProgramService
     }
 
     /**
-     * 获得App支付参数
+     * Nhận thông số thanh toán ứng dụng
      * @param $openid
      * @param $out_trade_no
      * @param $total_fee
@@ -501,7 +501,7 @@ class MiniProgramService
     }
 
     /**
-     * 使用商户订单号退款
+     * Hoàn tiền bằng số đơn đặt hàng của người bán
      * @param $orderNo
      * @param $refundNo
      * @param $totalFee
@@ -523,7 +523,7 @@ class MiniProgramService
     }
 
     /**
-     * 使用商户订单号退款
+     * Hoàn tiền bằng số đơn đặt hàng của người bán
      * @param $orderNo
      * @param $refundNo
      * @param $totalFee
@@ -549,29 +549,29 @@ class MiniProgramService
         return self::application()->minipay->refundorder($order);
     }
 
-    /** 根据订单号退款
+    /** Hoàn tiền dựa trên số đơn hàng
      * @param $orderNo
      * @param array $opt
      * @return bool
      */
     public static function payOrderRefund($orderNo, array $opt)
     {
-        if (!isset($opt['pay_price'])) throw new AdminException('缺少pay_price');
-        if (sys_config('pay_weixin_client_key') == '' || sys_config('pay_weixin_client_cert') == '') throw new AdminException('请配置支付证书');
+        if (!isset($opt['pay_price'])) throw new AdminException('Thiếupay_price');
+        if (sys_config('pay_weixin_client_key') == '' || sys_config('pay_weixin_client_cert') == '') throw new AdminException('Vui lòng định cấu hình chứng chỉ thanh toán');
         $totalFee = floatval(bcmul($opt['pay_price'], 100, 0));
         $refundFee = isset($opt['refund_price']) ? floatval(bcmul($opt['refund_price'], 100, 0)) : null;
         $refundReason = $opt['desc'] ?? '';
         $refundNo = $opt['refund_id'] ?? $orderNo;
         $opUserId = $opt['op_user_id'] ?? null;
         $type = $opt['type'] ?? 'out_trade_no';
-        /*仅针对老资金流商户使用
-        REFUND_SOURCE_UNSETTLED_FUNDS---未结算资金退款（默认使用未结算资金退款）
-        REFUND_SOURCE_RECHARGE_FUNDS---可用余额退款*/
+        /*Chỉ dành cho người bán dòng tiền cũ
+        REFUND_SOURCE_UNSETTLED_FUNDS---Hoàn tiền cho các khoản tiền chưa thanh toán (hoàn trả các khoản tiền chưa thanh toán được sử dụng theo mặc định)
+        REFUND_SOURCE_RECHARGE_FUNDS---Hoàn lại số dư khả dụng*/
         $refundAccount = $opt['refund_account'] ?? 'REFUND_SOURCE_UNSETTLED_FUNDS';
         try {
             $res = (self::refund($orderNo, $refundNo, $totalFee, $refundFee, $opUserId, $refundReason, $type, $refundAccount));
-            if ($res->return_code == 'FAIL') throw new AdminException('退款失败:{:msg}', ['msg' => $res->return_msg]);
-            if (isset($res->err_code)) throw new AdminException('退款失败:{:msg}', ['msg' => $res->err_code_des]);
+            if ($res->return_code == 'FAIL') throw new AdminException('Hoàn tiền không thành công:{:msg}', ['msg' => $res->return_msg]);
+            if (isset($res->err_code)) throw new AdminException('Hoàn tiền không thành công:{:msg}', ['msg' => $res->err_code_des]);
         } catch (\Exception $e) {
             throw new AdminException($e->getMessage());
         }
@@ -579,7 +579,7 @@ class MiniProgramService
     }
 
     /**
-     * 微信支付成功回调接口
+     * Giao diện gọi lại thanh toán thành công của WeChat
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \EasyWeChat\Core\Exceptions\FaultException
      */
@@ -599,7 +599,7 @@ class MiniProgramService
     }
 
     /**
-     * 作为客服消息发送
+     * Gửi dưới dạng tin nhắn dịch vụ khách hàng
      * @param $to
      * @param $message
      * @return bool
@@ -614,7 +614,7 @@ class MiniProgramService
 
 
     /**
-     * 获取直播列表
+     * Nhận danh sách phát sóng trực tiếp
      * @param int $page
      * @param int $limit
      * @return array
@@ -634,7 +634,7 @@ class MiniProgramService
     }
 
     /**
-     * 获取直播回放
+     * Nhận phát lại trực tiếp
      * @param int $room_id
      * @param int $page
      * @param int $limit
@@ -655,7 +655,7 @@ class MiniProgramService
     }
 
     /**
-     * 创建直播间
+     * Tạo phòng phát sóng trực tiếp
      * @param array $data
      * @return mixed
      */
@@ -675,7 +675,7 @@ class MiniProgramService
     }
 
     /**
-     * 直播间添加商品
+     * Thêm sản phẩm vào phòng phát sóng trực tiếp
      * @param int $roomId
      * @param $ids
      * @return bool
@@ -695,7 +695,7 @@ class MiniProgramService
     }
 
     /**
-     * 获取商品列表
+     * Nhận danh sách sản phẩm
      * @param int $status
      * @param int $page
      * @param int $limit
@@ -716,7 +716,7 @@ class MiniProgramService
     }
 
     /**
-     * 获取商品详情
+     * Nhận chi tiết sản phẩm
      * @param $goods_ids
      * @return mixed
      */
@@ -735,7 +735,7 @@ class MiniProgramService
     }
 
     /**
-     * 添加商品
+     * Thêm sản phẩm
      * @param string $coverImgUrl
      * @param string $name
      * @param int $priceType
@@ -760,7 +760,7 @@ class MiniProgramService
     }
 
     /**
-     * 商品撤回审核
+     * Đánh giá rút sản phẩm
      * @param int $goodsId
      * @param $auditId
      * @return bool
@@ -780,7 +780,7 @@ class MiniProgramService
     }
 
     /**
-     * 商品重新提交审核
+     * Sản phẩm được gửi lại để xem xét
      * @param int $goodsId
      * @return mixed
      */
@@ -799,7 +799,7 @@ class MiniProgramService
     }
 
     /**
-     * 删除商品
+     * Xóa sản phẩm
      * @param int $goodsId
      * @return bool
      */
@@ -818,7 +818,7 @@ class MiniProgramService
     }
 
     /**
-     * 更新商品
+     * Cập nhật sản phẩm
      * @param int $goodsId
      * @param string $coverImgUrl
      * @param string $name
@@ -843,7 +843,7 @@ class MiniProgramService
     }
 
     /**
-     * 更新商品
+     * Cập nhật sản phẩm
      * @param int $goodsId
      * @param string $coverImgUrl
      * @param string $name
@@ -901,14 +901,14 @@ class MiniProgramService
             switch ($message->MsgType) {
                 case 'event':
                     switch (strtolower($message->Event)) {
-                        case 'funds_order_pay':  // 小程序支付管理的
+                        case 'funds_order_pay':  // Quản lý thanh toán chương trình nhỏ
                             if (($count = strpos($message['order_info']['trade_no'], '_')) !== false) {
                                 $trade_no = substr($message['order_info']['trade_no'], $count + 1);
                             } else {
                                 $trade_no = $message['order_info']['trade_no'];
                             }
                             $prefix = substr($trade_no, 0, 2);
-                            //处理一下参数
+                            //Xử lý các thông số
                             switch ($prefix) {
                                 case 'cp':
                                     $data['attach'] = 'Product';
@@ -930,12 +930,12 @@ class MiniProgramService
                             }
                             Log::error(['data' => $data, 'res' => $response, 'message' => $message]);
                             break;
-                        case 'trade_manage_remind_access_api':  // 小程序完成账期授权时  小程序产生第一笔交易时 已产生交易但从未发货的小程序，每天一次
+                        case 'trade_manage_remind_access_api':  // Khi Chương trình nhỏ hoàn thành việc ủy ​​quyền thời hạn tài khoản. Khi Chương trình nhỏ tạo ra giao dịch đầu tiên. Đối với các Chương trình nhỏ đã tạo giao dịch nhưng chưa bao giờ vận chuyển hàng hóa, mỗi ngày một lần.
                             break;
-                        case 'trade_manage_remind_shipping':   // 曾经发过货的小程序，订单超过48小时未发货时
+                        case 'trade_manage_remind_shipping':   // Khi đơn hàng quá 48h chưa được chuyển đi từ chương trình mini đã vận chuyển hàng trước đó
                             break;
-                        case 'trade_manage_order_settlement':     // 订单完成发货时  订单结算时
-                            if (isset($message['confirm_receive_method'])) {  // 订单结算时
+                        case 'trade_manage_order_settlement':     // Khi đơn hàng được vận chuyển Khi đơn hàng được giải quyết
+                            if (isset($message['confirm_receive_method'])) {  // Khi đơn hàng được giải quyết
                                 /** @var StoreOrderTakeServices $StoreOrderTakeServices */
                                 $storeOrderTakeServices = app()->make(StoreOrderTakeServices::class);
                                 $storeOrderTakeServices->miniOrderTakeOrder($message['merchant_trade_no']);

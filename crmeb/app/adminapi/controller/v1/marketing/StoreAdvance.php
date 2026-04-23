@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use crmeb\exceptions\AdminException;
 use think\facade\App;
 
 /**
- * 预售控制器
+ * Bộ điều khiển trước khi bán
  * Class StoreAdvance
  * @package app\adminapi\controller\v1\marketing
  */
@@ -38,7 +38,7 @@ class StoreAdvance extends AuthController
     }
 
     /**
-     * 管理端预售列表
+     * Quản lý kết thúc danh sách bán trước
      * @return mixed
      */
     public function index()
@@ -53,7 +53,7 @@ class StoreAdvance extends AuthController
     }
 
     /**
-     * 添加/修改预售商品
+     * Thêm/sửa đổi các mặt hàng bán trước
      * @param $id
      * @return mixed
      */
@@ -86,27 +86,27 @@ class StoreAdvance extends AuthController
             $storeSeckillService = app()->make(StoreSeckillServices::class);
             $res1 = $storeSeckillService->count(['product_id' => $data['product_id'], 'is_del' => 0, 'status' => 1, 'seckill_time' => 1]);
             if ($res1) {
-                throw new AdminException('商品参与其他活动开启，无法开启预售');
+                throw new AdminException('Sản phẩm được mở để tham gia vào các hoạt động khác, nhưng không thể bắt đầu bán trước.');
             }
             /** @var StoreBargainServices $storeBargainService */
             $storeBargainService = app()->make(StoreBargainServices::class);
             $res2 = $storeBargainService->count(['product_id' => $data['product_id'], 'is_del' => 0, 'status' => 1, 'bargain_time' => 1]);
             if ($res2) {
-                throw new AdminException('商品参与其他活动开启，无法开启预售');
+                throw new AdminException('Sản phẩm được mở để tham gia vào các hoạt động khác, nhưng không thể bắt đầu bán trước.');
             }
             /** @var StoreCombinationServices $storeCombinationService */
             $storeCombinationService = app()->make(StoreCombinationServices::class);
             $res3 = $storeCombinationService->count(['product_id' => $data['product_id'], 'is_del' => 0, 'is_show' => 1, 'pinkIngTime' => 1]);
             if ($res3) {
-                throw new AdminException('商品参与其他活动开启，无法开启预售');
+                throw new AdminException('Sản phẩm được mở để tham gia vào các hoạt động khác, nhưng không thể bắt đầu bán trước.');
             }
         }
         $this->services->saveData($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 详情
+     * Chi tiết
      * @param $id
      * @return mixed
      */
@@ -117,7 +117,7 @@ class StoreAdvance extends AuthController
     }
 
     /**
-     * 删除预售
+     * Xóa bán trước
      * @param $id
      * @return mixed
      */
@@ -125,14 +125,14 @@ class StoreAdvance extends AuthController
     {
         $res = $this->services->update($id, ['is_del' => 1]);
         if ($res) {
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         } else {
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         }
     }
 
     /**
-     * 预售商品上下架
+     * Bán trước các sản phẩm trên và ngoài kệ
      * @param $id
      * @param $status
      * @return mixed
@@ -141,9 +141,9 @@ class StoreAdvance extends AuthController
     {
         $res = $this->services->update($id, ['status' => $status]);
         if ($res) {
-            return app('json')->success('设置成功');
+            return app('json')->success('Thiết lập thành công');
         } else {
-            return app('json')->fail('设置失败');
+            return app('json')->fail('Thiết lập không thành công');
         }
     }
 }

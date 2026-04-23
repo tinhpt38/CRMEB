@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ class MemberShipServices extends BaseServices
         $this->dao = $memberShipDao;
     }
 
-    /**后台获取会员类型
+    /**Nhận loại thành viên trong nền
      * @param array $where
      * @return array
      */
@@ -40,7 +40,7 @@ class MemberShipServices extends BaseServices
 
     }
 
-    /**获取会员卡api接口
+    /**Nhận giao diện api thẻ thành viên
      * @return mixed
      */
     public function getApiList(array $where)
@@ -48,27 +48,27 @@ class MemberShipServices extends BaseServices
         return $this->dao->getApiList($where);
     }
 
-    /** 卡类型编辑保存
+    /** Lưu chỉnh sửa loại thẻ
      * @param int $id
      * @param array $data
      */
     public function save(int $id, array $data)
     {
-        if (!$data['title']) throw new AdminException('请填写会员卡名称');
-        if (!$data['type']) throw new AdminException('会员卡类型缺失');
+        if (!$data['title']) throw new AdminException('Vui lòng điền tên thẻ thành viên');
+        if (!$data['type']) throw new AdminException('Thiếu loại thẻ thành viên');
         if ($data['type'] == "ever") {
             $data['vip_day'] = -1;
         } else {
-            if (!$data['vip_day']) throw new AdminException('请填写有效期（天）');
-            if ($data['vip_day'] < 0) throw new AdminException('有效期（天）不能为负数');
+            if (!$data['vip_day']) throw new AdminException('Vui lòng điền thời hạn hiệu lực (ngày）');
+            if ($data['vip_day'] < 0) throw new AdminException('Thời hạn hiệu lực (ngày) không thể âm');
         }
         if ($data['type'] == "free") {
             $data['pre_price'] = 0.00;
         } else {
-            if ($data['pre_price'] == 0 || $data['price'] == 0) throw new AdminException('请填写价格');
+            if ($data['pre_price'] == 0 || $data['price'] == 0) throw new AdminException('Vui lòng điền giá');
         }
-        if ($data['pre_price'] < 0 || $data['price'] < 0) throw new AdminException('价格不能为负数');
-        if ($data['pre_price'] > $data['price']) throw new AdminException('优惠价不能大于原价');
+        if ($data['pre_price'] < 0 || $data['price'] < 0) throw new AdminException('Giá không thể âm');
+        if ($data['pre_price'] > $data['price']) throw new AdminException('Giá chiết khấu không thể lớn hơn giá gốc');
         if ($id){
             return $this->dao->update($id, $data);
         }else{
@@ -77,7 +77,7 @@ class MemberShipServices extends BaseServices
 
     }
 
-    /**获取卡会员天数
+    /**Nhận ngày làm thẻ thành viên
      * @param array $where
      * @return mixed
      */
@@ -87,7 +87,7 @@ class MemberShipServices extends BaseServices
     }
 
     /**
-     * 修改会员类型状态
+     * Sửa đổi trạng thái loại thành viên
      * @param $id
      * @param $is_del
      * @return bool

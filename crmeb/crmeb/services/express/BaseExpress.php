@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use crmeb\basic\BaseStorage;
 use crmeb\services\AccessTokenServeService;
 
 /**
- * 物流查询
+ * Điều tra hậu cần
  * Class BaseExpress
  * @package crmeb\basic
  */
@@ -36,7 +36,7 @@ abstract class BaseExpress extends BaseStorage
     }
 
     /**
-     * 初始化
+     * khởi tạo
      * @param array $config
      * @return mixed|void
      */
@@ -47,27 +47,27 @@ abstract class BaseExpress extends BaseStorage
 
 
     /**
-     * 开通服务
+     * Kích hoạt dịch vụ
      * @return mixed
      */
     abstract public function open();
 
-    /**物流追踪
+    /**Theo dõi hậu cần
      * @return mixed
      */
     abstract public function query(string $num, string $com = '');
 
-    /**电子面单
+    /**Mẫu điện tử
      * @return mixed
      */
     abstract public function dump($data);
 
-    /**快递公司
+    /**công ty chuyển phát nhanh
      * @return mixed
      */
     //abstract public function express($type, $page, $limit);
 
-    /**面单模板
+    /**Mẫu khuôn mặt
      * @return mixed
      */
     abstract public function temp(string $com);

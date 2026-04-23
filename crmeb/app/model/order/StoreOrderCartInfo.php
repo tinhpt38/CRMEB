@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO 订单记录Model
+ * TODO Hồ sơ đặt hàngModel
  * Class StoreOrderCartInfo
  * @package app\model\order
  */
@@ -25,19 +25,19 @@ class StoreOrderCartInfo extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_order_cart_info';
 
     /**
-     * 购物车信息获取器
+     * Công cụ lấy thông tin giỏ hàng
      * @param $value
      * @return array|mixed
      */
@@ -47,7 +47,7 @@ class StoreOrderCartInfo extends BaseModel
     }
 
     /**
-     * 订单ID搜索器
+     * Trình tìm kiếm ID đơn hàng
      * @param Model $query
      * @param $value
      * @param $data
@@ -58,7 +58,7 @@ class StoreOrderCartInfo extends BaseModel
     }
 
     /**
-     * 购物车ID搜索器
+     * Trình tìm ID giỏ hàng
      * @param Model $query
      * @param $value
      * @param $data
@@ -73,7 +73,7 @@ class StoreOrderCartInfo extends BaseModel
     }
 
     /**
-     * 原购物车ID搜索器
+     * Trình tìm kiếm ID giỏ hàng ban đầu
      * @param Model $query
      * @param $value
      * @param $data
@@ -88,7 +88,7 @@ class StoreOrderCartInfo extends BaseModel
     }
 
     /**
-     *  拆分状态搜索器
+     *  Chia tách trạng thái tìm kiếm
      * @param Model $query
      * @param $value
      * @param $data

@@ -11,24 +11,24 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="规格搜索：">
+          <el-form-item label="Tìm kiếm thông số kỹ thuật：">
             <el-input
               clearable
               v-model="artFrom.rule_name"
-              placeholder="请输入规格名称"
+              placeholder="Vui lòng nhập tên thông số kỹ thuật"
               class="form_content_width"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">添加商品规格</el-button>
-      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, '批量删除规格')"
-        >批量删除</el-button
+      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">Thêm thông số kỹ thuật sản phẩm</el-button>
+      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, 'Xóa thông số kỹ thuật theo lô')"
+        >Xóa hàng loạt</el-button
       >
       <el-table
         ref="table"
@@ -37,7 +37,7 @@
         highlight-current-row
         :row-key="getRowKey"
         @selection-change="handleSelectRow"
-        empty-text="暂无数据"
+        empty-text="Chưa có dữ liệu"
         class="mt14"
       >
         <el-table-column type="selection" width="60" :reserve-selection="true"> </el-table-column>
@@ -46,17 +46,17 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="模版名称" min-width="130">
+        <el-table-column label="Tên mẫu" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.rule_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="规格名称" min-width="130">
+        <el-table-column label="Tên đặc điểm kỹ thuật" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.attr_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品属性" min-width="130">
+        <el-table-column label="Thuộc tính sản phẩm" min-width="130">
           <template slot-scope="scope">
             <span
               v-for="(item, index) in scope.row.attr_value"
@@ -66,11 +66,11 @@
             ></span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column label="vận hành" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除规格', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa thông số kỹ thuật', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -105,7 +105,7 @@ export default {
       },
       tableList: [],
       total: 0,
-      selectedIds: new Set(), //选中合并项的id
+      selectedIds: new Set(), //Các mục đã hợp nhất đã chọnid
       ids: [],
       multipleSelection: [],
     };
@@ -120,10 +120,10 @@ export default {
     getRowKey(row) {
       return row.id;
     },
-    //全选和取消全选时触发
+    //Được kích hoạt khi chọn tất cả và bỏ chọn tất cả
     handleSelectAll(selection) {
       if (selection.length === 0) {
-        //获取table的数据；
+        //Lấy dữ liệu bảng；
         let data = this.$refs.table.data;
         data.forEach((item) => {
           if (this.selectedIds.has(item.id)) {
@@ -136,11 +136,11 @@ export default {
         });
       }
       this.$nextTick(() => {
-        //确保dom加载完毕
+        //Hãy chắc chắn rằng dom đã được tải
         this.setChecked();
       });
     },
-    //  选中某一行
+    //  Chọn một hàng
     handleSelectRow(selection) {
       const uniqueArr = [];
       const ids = [];
@@ -158,14 +158,14 @@ export default {
       });
     },
     setChecked() {
-      //将new Set()转化为数组
+      //Sẽnew Set()Chuyển đổi thành mảng
       this.ids = [...this.selectedIds].join(',');
     },
-    // 删除
+    // xóa bỏ
     del(row, tit) {
       let data = {};
-      if (tit === '批量删除规格') {
-        if (this.selectedIds.size === 0) return this.$message.warning('请选择要删除的规格！');
+      if (tit === 'Xóa thông số kỹ thuật theo lô') {
+        if (this.selectedIds.size === 0) return this.$message.warning('Vui lòng chọn thông số kỹ thuật cần xóa！');
         data = {
           ids: this.ids,
         };
@@ -193,12 +193,12 @@ export default {
     addAttr() {
       this.$refs.addattr.modal = true;
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$refs.addattr.modal = true;
       this.$refs.addattr.getIofo(row);
     },
-    // 列表；
+    // danh sách；
     getDataList() {
       this.loading = true;
       ruleListApi(this.artFrom)
@@ -206,7 +206,7 @@ export default {
           let data = res.data;
           this.tableList = data.list;
           this.$nextTick(() => {
-            //确保dom加载完毕
+            //Hãy chắc chắn rằng dom đã được tải
             this.setChecked();
           });
           this.total = res.data.count;
@@ -217,7 +217,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.artFrom.page = 1;
       this.getDataList();

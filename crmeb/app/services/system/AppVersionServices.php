@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -33,7 +33,7 @@ class AppVersionServices extends BaseServices
     }
 
     /**
-     * 版本列表
+     * Danh sách phiên bản
      * @param $platform
      * @return array
      */
@@ -49,7 +49,7 @@ class AppVersionServices extends BaseServices
     }
 
     /**
-     * 添加版本表单
+     * Thêm mẫu phiên bản
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -59,22 +59,22 @@ class AppVersionServices extends BaseServices
             $info = $this->dao->get($id);
         }
         $field[] = Form::hidden('id', $info['id'] ?? 0);
-        $field[] = Form::input('version', '版本号', $info['version'] ?? '')->col(24);
-        $field[] = Form::radio('platform', '平台类型', $info['platform'] ?? 1)->options([['label' => 'Android', 'value' => 1], ['label' => 'IOS', 'value' => 2]]);
-        $field[] = Form::input('info', '版本介绍', $info['info'] ?? '')->type('textarea');
-        $field[] = Form::input('url', '下载链接', $info['url'] ?? '')->appendRule('suffix', [
+        $field[] = Form::input('version', 'số phiên bản', $info['version'] ?? '')->col(24);
+        $field[] = Form::radio('platform', 'loại nền tảng', $info['platform'] ?? 1)->options([['label' => 'Android', 'value' => 1], ['label' => 'IOS', 'value' => 2]]);
+        $field[] = Form::input('info', 'Giới thiệu phiên bản', $info['info'] ?? '')->type('textarea');
+        $field[] = Form::input('url', 'Liên kết tải xuống', $info['url'] ?? '')->appendRule('suffix', [
             'type' => 'div',
             'class' => 'tips-info',
-            'domProps' => ['innerHTML' => '填写下载链接，Android的为压缩包的url地址，点击升级会自动下载压缩包替换安装，例如：域名/xxx.zip；IOS的为应用商店链接地址，直接跳转AppStore，例如：itms-apps://itunes.apple.com/cn/app/id1234567890']
+            'domProps' => ['innerHTML' => 'Điền vào liên kết tải xuống. Đối với Android, đó là địa chỉ url của gói nén. Bấm để nâng cấp, gói nén sẽ tự động được tải xuống và thay thế để cài đặt, ví dụ: tên miền/xxx.zip; đối với iOS, đó là địa chỉ liên kết của cửa hàng ứng dụng, chẳng hạn sẽ chuyển thẳng đến AppStore.：itms-apps://itunes.apple.com/cn/app/id1234567890']
         ]);
-        $field[] = Form::radio('is_force', '强制', $info['is_force'] ?? 1)->options([['label' => '开启', 'value' => 1], ['label' => '关闭', 'value' => 0]]);
-        $field[] = Form::radio('is_new', '是否最新', $info['is_new'] ?? 1)->options([['label' => '是', 'value' => 1], ['label' => '否', 'value' => 0]]);
-        return create_form('版本信息', $field, Url::buildUrl('/system/version_save'), 'POST');
+        $field[] = Form::radio('is_force', 'lực lượng', $info['is_force'] ?? 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $field[] = Form::radio('is_new', 'Đây có phải là cái mới nhất không', $info['is_new'] ?? 1)->options([['label' => 'Đúng', 'value' => 1], ['label' => 'KHÔNG', 'value' => 0]]);
+        return create_form('Thông tin phiên bản', $field, Url::buildUrl('/system/version_save'), 'POST');
 
     }
 
     /**
-     * 保存数据
+     * lưu dữ liệu
      * @param $id
      * @param $data
      * @return mixed
@@ -99,7 +99,7 @@ class AppVersionServices extends BaseServices
     }
 
     /**
-     * 获取系统下最新的版本信息
+     * Nhận thông tin phiên bản mới nhất theo hệ thống
      * @param $platform
      * @return array
      * @throws \think\db\exception\DataNotFoundException

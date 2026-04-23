@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\services\activity\combination\StorePinkServices;
 use app\services\other\QrcodeServices;
 
 /**
- * 拼团类
+ * Loại nhóm nhóm
  * Class StoreCombinationController
  * @package app\api\controller\activity
  */
@@ -30,7 +30,7 @@ class StoreCombinationController
     }
 
     /**
-     * 拼团列表
+     * Danh sách nhóm nhóm
      * @return mixed
      */
     public function lst()
@@ -41,7 +41,7 @@ class StoreCombinationController
 
 
     /**
-     * 拼团商品详情
+     * Chi tiết sản phẩm nhóm
      * @param Request $request
      * @param $id
      * @return mixed
@@ -53,7 +53,7 @@ class StoreCombinationController
     }
 
     /**
-     * 拼团 开团
+     * Tham gia một nhóm, bắt đầu một nhóm
      * @param Request $request
      * @param $id
      * @return mixed
@@ -65,7 +65,7 @@ class StoreCombinationController
     }
 
     /**
-     * 拼团 取消开团
+     * Tham gia nhóm Hủy nhóm
      * @param Request $request
      * @return mixed
      */
@@ -75,16 +75,16 @@ class StoreCombinationController
             ['id', 0],
             ['cid', 0],
         ], true);
-        if (!$id || !$cid) return app('json')->fail('参数错误');
+        if (!$id || !$cid) return app('json')->fail('Lỗi tham số');
         /** @var StorePinkServices $pinkService */
         $pinkService = app()->make(StorePinkServices::class);
         $pinkService->removePink($request->uid(), $cid, $id);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
 
     /**
-     * 拼团海报
+     * Áp phích chia sẻ nhóm
      * @param Request $request
      * @return mixed
      */
@@ -94,7 +94,7 @@ class StoreCombinationController
             ['id', 0],
             ['from', 'wechat']
         ], true);
-        if (!$pinkId) return app('json')->fail('参数错误');
+        if (!$pinkId) return app('json')->fail('Lỗi tham số');
         $user = $request->user();
         /** @var StorePinkServices $pinkService */
         $pinkService = app()->make(StorePinkServices::class);
@@ -103,7 +103,7 @@ class StoreCombinationController
     }
 
     /**
-     * 获取拼团海报详情
+     * Nhận thông tin chi tiết về áp phích chia sẻ nhóm
      * @param Request $request
      * @param StorePinkServices $services
      * @param $id
@@ -115,7 +115,7 @@ class StoreCombinationController
     }
 
     /**
-     * 获取秒杀小程序二维码
+     * Lấy mã QR của chương trình mini flash sale
      * @param Request $request
      * @param $id
      * @return mixed
@@ -133,7 +133,7 @@ class StoreCombinationController
     }
 
     /**
-     * 获取拼团列表轮播图
+     * Lấy băng chuyền danh sách nhóm
      */
     public function banner_list()
     {

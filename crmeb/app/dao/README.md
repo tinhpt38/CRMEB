@@ -1,28 +1,28 @@
-crmeb/app/dao目录是项目数据访问对象(DAO)层的代码目录。
+crmeb/app/daoThư mục là đối tượng truy cập dữ liệu dự án(DAO)thư mục mã của lớp.
 
-DAO层主要职责和作用如下:
+Các trách nhiệm và chức năng chính của lớp DAO như sau::
 
-1. 实现数据持久层访问,对数据库进行CURD操作。
+1. Triển khai quyền truy cập lớp lưu giữ dữ liệu,Thực hiện các thao tác CURD trên cơ sở dữ liệu.
 
-2. 依赖数据库连接,实现对表的基本增删改查功能。
+2. Dựa vào kết nối cơ sở dữ liệu,Nhận biết các chức năng cơ bản của việc thêm, xóa, sửa và truy vấn bảng.
 
-3. 封装数据库操作原语(查询,插入,更新等),简化开发难度。
+3. Đóng gói các thao tác cơ sở dữ liệu nguyên thủy(Truy vấn,chèn,Cập nhật, v.v.),Đơn giản hóa khó khăn phát triển.
 
-4. 与数据库解藕,提供统一接口,便于扩展和维护。
+4. Tách khỏi cơ sở dữ liệu,Cung cấp một giao diện thống nhất,Dễ dàng mở rộng và bảo trì.
 
-具体来说:
+Cụ thể:
 
-- dao目录下每个文件对应一个数据表或业务模块
-- 文件内封装了对表基本操作的方法,如查找,插入,更新等
-- 方法的参数和返回值类型为模型对象(Model),实现数据和业务的解耦
-- 提供丰富的查询条件以方便调用
-- 底层利用ThinkPHP的ActiveRecord实现数据操作
+- daoMỗi file trong thư mục tương ứng với một bảng dữ liệu hoặc module nghiệp vụ
+- File gói gọn các thao tác cơ bản trên bảng,Chẳng hạn như tìm kiếm,chèn,Cập nhật, v.v.
+- Các kiểu tham số và giá trị trả về của phương thức là đối tượng mô hình(Model),Đạt được sự tách rời dữ liệu và kinh doanh
+- Cung cấp các điều kiện truy vấn phong phú để gọi điện dễ dàng
+- Lớp dưới cùng sử dụng ActiveRecord của ThinkPHP để thực hiện các thao tác dữ liệu
 
-使用DAO层的好处:
+Lợi ích của việc sử dụng lớp DAO:
 
-- 提供对象化的数据操作接口
-- 屏蔽数据库差异,提高移植性
-- 方便测试和扩展
-- 实现业务和数据层的分离
+- Cung cấp giao diện vận hành dữ liệu hướng đối tượng
+- Sự khác biệt về cơ sở dữ liệu mặt nạ,Cải thiện tính di động
+- Thuận tiện cho việc thử nghiệm và mở rộng
+- Đạt được sự tách biệt giữa lớp kinh doanh và lớp dữ liệu
 
-所以该目录负责项目的底层数据操作,其他业务需要调用它来操作数据库。
+Do đó, thư mục này chịu trách nhiệm về các hoạt động dữ liệu cơ bản của dự án.,Các doanh nghiệp khác cần gọi nó để vận hành cơ sở dữ liệu。

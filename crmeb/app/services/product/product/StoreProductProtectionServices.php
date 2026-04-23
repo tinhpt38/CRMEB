@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -37,19 +37,19 @@ class StoreProductProtectionServices extends BaseServices
     public function protectionInfo($id)
     {
         $info = $this->dao->get(['id' => $id]);
-        if (!$info) throw new AdminException('数据不存在');
+        if (!$info) throw new AdminException('Dữ liệu không tồn tại');
         return $info->toArray();
     }
 
     public function protectionForm($id)
     {
         $info = $id ? $this->dao->get($id) : [];
-        $f[] = Form::input('title', '保障名称', $info['title'] ?? '')->maxlength(8)->required();
-        $f[] = Form::textarea('content', '保障内容', $info['content'] ?? '')->required();
-        $f[] = Form::frameImage('image', '图标', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')),$info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $f[] = Form::number('sort', '排序', (int)($info['sort'] ?? 0))->min(0)->precision(0);
-        $f[] = Form::radio('status', '是否显示', (int)($info['status'] ?? 1))->options([['value' => 1, 'label' => '显示'], ['value' => 0, 'label' => '隐藏']]);
-        return create_form($id ? '编辑保障' : '添加保障', $f, Url::buildUrl('/product/protection/save/' . $id), 'POST');
+        $f[] = Form::input('title', 'Tên bìa', $info['title'] ?? '')->maxlength(8)->required();
+        $f[] = Form::textarea('content', 'Nội dung bảo vệ', $info['content'] ?? '')->required();
+        $f[] = Form::frameImage('image', 'biểu tượng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')),$info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->min(0)->precision(0);
+        $f[] = Form::radio('status', 'Có hiển thị hay không', (int)($info['status'] ?? 1))->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        return create_form($id ? 'An ninh biên tập' : 'Thêm sự đảm bảo', $f, Url::buildUrl('/product/protection/save/' . $id), 'POST');
     }
 
     public function protectionSave($id, $data)

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\activity\live\LiveRoomServices;
 use app\services\wechat\RoutineServices;
 
 /**
- * 小程序相关
+ * Chương trình nhỏ liên quan
  * Class AuthController
  * @package app\api\controller\wechat
  */
@@ -35,12 +35,12 @@ class AuthController
     }
 
     /**
-     * 小程序授权登录
+     * Đăng nhập được ủy quyền chương trình nhỏ
      * @param Request $request
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
      */
@@ -58,18 +58,18 @@ class AuthController
         $token = $this->services->mp_auth($code, $cache_key, $login_type, $spread_spid, $spread_code, $iv, $encryptedData);
         if ($token) {
             if (isset($token['key']) && $token['key']) {
-                return app('json')->success('授权成功，请绑定手机号', $token);
+                return app('json')->success('Ủy quyền thành công, vui lòng liên kết số điện thoại di động của bạn', $token);
             } else {
-                return app('json')->success('登录成功', [
+                return app('json')->success('Đăng nhập thành công', [
                     'userInfo' => $token['userInfo']
                 ]);
             }
         } else
-            return app('json')->fail('登录失败');
+            return app('json')->fail('Đăng nhập không thành công');
     }
 
     /**
-     * 获取授权logo
+     * Nhận ủy quyềnlogo
      * @return mixed
      */
     public function get_logo()
@@ -80,7 +80,7 @@ class AuthController
     }
 
     /**
-     * 小程序支付回调
+     * Gọi lại thanh toán chương trình nhỏ
      */
     public function notify()
     {
@@ -88,7 +88,7 @@ class AuthController
     }
 
     /**
-     * 获取小程序订阅消息id
+     * Nhận tin nhắn đăng ký chương trình nhỏid
      * @return mixed
      */
     public function temp_ids()
@@ -97,7 +97,7 @@ class AuthController
     }
 
     /**
-     * 获取小程序直播列表
+     * Nhận danh sách phát sóng trực tiếp chương trình mini
      * @param Request $request
      * @param LiveRoomServices $liveRoom
      * @return mixed
@@ -108,7 +108,7 @@ class AuthController
     }
 
     /**
-     * 获取直播回放
+     * Nhận phát lại trực tiếp
      * @param $id
      * @param LiveRoomServices $lvieRoom
      * @return mixed

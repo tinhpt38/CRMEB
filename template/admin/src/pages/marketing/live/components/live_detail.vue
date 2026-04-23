@@ -3,69 +3,69 @@
     <div>
       <div class="box-container">
         <div class="list sp">
-          <label class="name">直播间名称：</label>
+          <label class="name">Tên phòng phát sóng trực tiếp：</label>
           <span class="info">{{ FormData.name }}</span>
         </div>
         <div class="list sp">
-          <label class="name">主播微信号：</label>
+          <label class="name">Neo tài khoản WeChat：</label>
           <span class="info">{{ FormData.anchor_wechat }}</span>
         </div>
         <div class="list sp">
-          <label class="name">直播间ID：</label>
+          <label class="name">Phòng phát sóng trực tiếpID：</label>
           <span class="info">{{ FormData.id }}</span>
-          <span class="info">（微信直播间ID：{{ FormData.room_id }}）</span>
+          <span class="info">（Phòng trực tiếp WeChatID：{{ FormData.room_id }}）</span>
         </div>
         <div class="list sp">
-          <label class="name">主播昵称：</label>
+          <label class="name">Biệt hiệu neo：</label>
           <span class="info">{{ FormData.anchor_name }}</span>
         </div>
         <div class="list sp">
-          <label class="name">手机号：</label>
+          <label class="name">Số điện thoại：</label>
           <span class="info">{{ FormData.phone }}</span>
         </div>
         <div class="list sp">
-          <label class="name">直播状态：</label>
+          <label class="name">Trạng thái trực tiếp：</label>
           <span class="info">{{ FormData.live_status | liveReviewStatusFilter }}</span>
         </div>
         <div class="list sp">
-          <label class="name">直播开始时间：</label>
+          <label class="name">Thời gian bắt đầu phát sóng trực tiếp：</label>
           <span class="info">{{ FormData.start_time }}</span>
         </div>
         <div class="list sp">
-          <label class="name">直播结束时间：</label>
+          <label class="name">Thời gian kết thúc trực tiếp：</label>
           <span class="info">{{ FormData.end_time }}</span>
         </div>
         <div class="list sp">
-          <label class="name">直播间类型：</label>
+          <label class="name">Loại phòng phát sóng trực tiếp：</label>
           <span class="info">{{ FormData.type | broadcastType }}</span>
         </div>
         <div class="list sp">
-          <label class="name">显示类型：</label>
+          <label class="name">kiểu hiển thị：</label>
           <span class="info">{{ FormData.screen_type | broadcastDisplayType }}</span>
         </div>
         <div class="list sp image">
-          <label class="name">背景图：</label>
+          <label class="name">Hình nền：</label>
           <img style="max-width: 150px; height: 80px" :src="FormData.cover_img" />
         </div>
         <div class="list sp image">
-          <label class="name">分享图：</label>
+          <label class="name">Chia sẻ hình ảnh：</label>
           <img style="max-width: 150px; height: 80px" :src="FormData.share_img" />
         </div>
         <div class="list sp">
-          <label class="name">是否开启点赞：</label>
+          <label class="name">Có bật lượt thích hay không：</label>
           <span class="info blue">{{ FormData.close_like | filterClose }}</span>
         </div>
         <div class="list sp">
-          <label class="name">是否开启货架：</label>
+          <label class="name">Có nên mở kệ không：</label>
           <span class="info blue">{{ FormData.close_goods | filterClose }}</span>
         </div>
         <div class="list sp">
-          <label class="name">是否开启评论：</label>
+          <label class="name">Có bật bình luận hay không：</label>
           <span class="info blue">{{ FormData.close_comment | filterClose }}</span>
         </div>
 
         <div class="list">
-          <label class="name">是否显示直播回放：</label>
+          <label class="name">Có hiển thị phát lại trực tiếp hay không：</label>
           <span class="info blue">{{ FormData.replay_status | filterClose }}</span>
         </div>
       </div>

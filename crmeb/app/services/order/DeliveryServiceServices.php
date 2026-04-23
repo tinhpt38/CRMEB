@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,20 +21,20 @@ use crmeb\services\FormBuilder;
 
 
 /**
- * 配送
+ * Vận chuyển
  * Class DeliveryServiceServices
  * @package app\services\order
- * @method getStoreServiceOrderNotice() 获取接受通知的客服
+ * @method getStoreServiceOrderNotice() Nhận dịch vụ khách hàng chấp nhận thông báo
  */
 class DeliveryServiceServices extends BaseServices
 {
     /**
-     * 创建form表单
+     * Tạo biểu mẫu
      * @var Form
      */
     protected $builder;
 
-    /**构造方法
+    /**Người xây dựng
      * DeliveryServiceServices constructor.
      * @param DeliveryServiceDao $dao
      * @param FormBuilder $builder
@@ -46,7 +46,7 @@ class DeliveryServiceServices extends BaseServices
     }
 
     /**
-     * 获取配送员列表
+     * Lấy danh sách người giao hàng
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -62,7 +62,7 @@ class DeliveryServiceServices extends BaseServices
     }
 
     /**
-     *获取配送员列表
+     *Lấy danh sách người giao hàng
      */
     public function getDeliveryList()
     {
@@ -72,7 +72,7 @@ class DeliveryServiceServices extends BaseServices
     }
 
     /**
-     * 创建配送员表单
+     * Tạo biểu mẫu người giao hàng
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -80,30 +80,30 @@ class DeliveryServiceServices extends BaseServices
     public function createServiceForm(array $formData = [])
     {
         if ($formData) {
-            $field[] = $this->builder->frameImage('avatar', '配送员头像', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'avatar'], true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
+            $field[] = $this->builder->frameImage('avatar', 'Hình đại diện người giao hàng', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'avatar'], true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
         } else {
-            $field[] = $this->builder->frameImage('image', '商城用户', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
+            $field[] = $this->builder->frameImage('image', 'Người dùng trung tâm mua sắm', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
             $field[] = $this->builder->hidden('uid', 0);
             $field[] = $this->builder->hidden('avatar', '');
         }
-        $field[] = $this->builder->input('nickname', '配送员名称', $formData['nickname'] ?? '')->required('请填写名称')->col(24);
-        $field[] = $this->builder->input('phone', '手机号码', $formData['phone'] ?? '')->required('请填写电话')->col(24)->maxlength(11);
-        $field[] = $this->builder->radio('status', '配送员状态', $formData['status'] ?? 1)->options([['value' => 1, 'label' => '显示'], ['value' => 0, 'label' => '隐藏']]);
+        $field[] = $this->builder->input('nickname', 'Tên người giao hàng', $formData['nickname'] ?? '')->required('Vui lòng điền tên')->col(24);
+        $field[] = $this->builder->input('phone', 'số điện thoại', $formData['phone'] ?? '')->required('Vui lòng điền số điện thoại')->col(24)->maxlength(11);
+        $field[] = $this->builder->radio('status', 'Trạng thái người giao hàng', $formData['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
         return $field;
     }
 
     /**
-     * 创建配送员获取表单
+     * Tạo biểu mẫu mua lại đại lý giao hàng
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function create()
     {
-        return create_form('添加配送员', $this->createServiceForm(), $this->url('/order/delivery/save'), 'POST');
+        return create_form('Thêm người giao hàng', $this->createServiceForm(), $this->url('/order/delivery/save'), 'POST');
     }
 
     /**
-     * 编辑获取表单
+     * Chỉnh sửa Nhận biểu mẫu
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -112,13 +112,13 @@ class DeliveryServiceServices extends BaseServices
     {
         $serviceInfo = $this->dao->get($id);
         if (!$serviceInfo) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
-        return create_form('编辑配送员', $this->createServiceForm($serviceInfo->toArray()), $this->url('/order/delivery/update/' . $id), 'PUT');
+        return create_form('Chỉnh sửa người giao hàng', $this->createServiceForm($serviceInfo->toArray()), $this->url('/order/delivery/update/' . $id), 'PUT');
     }
 
     /**
-     * 获取某人的聊天记录用户列表
+     * Lấy danh sách người dùng lịch sử trò chuyện của ai đó
      * @param int $uid
      * @return array|array[]
      * @throws \think\db\exception\DataNotFoundException
@@ -139,7 +139,7 @@ class DeliveryServiceServices extends BaseServices
     }
 
     /**
-     * 检查用户是否是配送员
+     * Kiểm tra xem người dùng có phải là người giao hàng không
      * @param int $uid
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -152,45 +152,45 @@ class DeliveryServiceServices extends BaseServices
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @param array $data
      * @return void
      */
     public function saveDeliveryService(array $data)
     {
-        if ($data['image'] == '') throw new AdminException('请选择用户');
+        if ($data['image'] == '') throw new AdminException('Vui lòng chọn người dùng');
         $data['uid'] = $data['image']['uid'];
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         $userInfo = $userService->get($data['uid']);
         if ($data['phone'] == '') {
             if (!$userInfo['phone']) {
-                throw new AdminException('请填写手机号');
+                throw new AdminException('Vui lòng điền số điện thoại di động của bạn');
             } else {
                 $data['phone'] = $userInfo['phone'];
             }
         } else {
             if (!check_phone($data['phone'])) {
-                throw new AdminException('手机号格式错误');
+                throw new AdminException('Lỗi định dạng số điện thoại di động');
             }
         }
         if ($data['nickname'] == '') $data['nickname'] = $userInfo['nickname'];
         $data['avatar'] = $data['image']['image'];
         if ($this->dao->count(['uid' => $data['uid']])) {
-            throw new AdminException('配送员已存在');
+            throw new AdminException('Người giao hàng đã tồn tại');
         }
         if ($this->dao->count(['phone' => $data['phone']])) {
-            throw new AdminException('同一个手机号的配送员只能添加一个');
+            throw new AdminException('Chỉ có thể thêm một người giao hàng có cùng số điện thoại di động');
         }
         unset($data['image']);
         $data['add_time'] = time();
         $res = $this->dao->save($data);
-        if (!$res) throw new AdminException('保存失败');
+        if (!$res) throw new AdminException('Lưu không thành công');
         return true;
     }
 
     /**
-     * 更新资源
+     * Cập nhật tài nguyên
      * @param int $id
      * @param array $data
      * @return void
@@ -199,22 +199,22 @@ class DeliveryServiceServices extends BaseServices
     {
         $delivery = $this->dao->get($id);
         if (!$delivery) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         if ($data["nickname"] == '') {
-            throw new AdminException('配送员名称不能为空');
+            throw new AdminException('Tên người giao hàng không được để trống');
         }
         if (!$data['phone']) {
-            throw new AdminException('请填写手机号');
+            throw new AdminException('Vui lòng điền số điện thoại di động của bạn');
         }
         if (!check_phone($data['phone'])) {
-            throw new AdminException('手机号格式错误');
+            throw new AdminException('Lỗi định dạng số điện thoại di động');
         }
         if ($delivery['phone'] != $data['phone'] && $this->dao->count(['phone' => $data['phone']])) {
-            throw new AdminException('同一个手机号的配送员只能添加一个');
+            throw new AdminException('Chỉ có thể thêm một người giao hàng có cùng số điện thoại di động');
         }
         $res = $this->dao->update($id, $data);
-        if (!$res) throw new AdminException('修改失败');
+        if (!$res) throw new AdminException('Sửa đổi không thành công');
         return true;
     }
 }

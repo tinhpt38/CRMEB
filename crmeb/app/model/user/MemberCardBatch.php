@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,13 +20,13 @@ class MemberCardBatch extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'member_card_batch';
@@ -38,7 +38,7 @@ class MemberCardBatch extends BaseModel
     protected $updateTime = false;
 
     /**
-     * 卡批次名称搜索器
+     * Trình tìm kiếm tên lô thẻ
      * @param Model $query
      * @param $value
      */
@@ -50,7 +50,7 @@ class MemberCardBatch extends BaseModel
     }
 
     /**
-     * 格式化数据
+     * Định dạng dữ liệu
      * @param $value
      * @return array|mixed
      */

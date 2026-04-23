@@ -10,23 +10,23 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="保障名称：">
+          <el-form-item label="Tên bìa：">
             <el-input
               clearable
-              placeholder="请输入保障名称"
+              placeholder="Vui lòng nhập tên bảo vệ"
               v-model="formValidate.title"
               class="form_content_width"
               @change="userSearchs"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">添加保障</el-button>
+      <el-button v-auth="['cms-category-create']" type="primary" v-db-click @click="add">Thêm sự đảm bảo</el-button>
 
       <el-table
         :data="categoryList"
@@ -42,19 +42,19 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="保障名称" prop="title" min-width="130">
+        <el-table-column label="Tên bìa" prop="title" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="保障图片" prop="image" min-width="130">
+        <el-table-column label="Hình ảnh đảm bảo" prop="image" min-width="130">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer v-if="scope.row.image">
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="状态" prop="status" min-width="120">
+        <el-table-column label="tình trạng" prop="status" min-width="120">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -64,22 +64,22 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="开启"
-              inactive-text="关闭"
+              active-text="bật lên"
+              inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="排序" prop="sort" min-width="130">
+        <el-table-column label="loại" prop="sort" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="120" fixed="right">
+        <el-table-column label="vận hành" width="120" fixed="right">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除保障')">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa bảo vệ')">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -129,32 +129,32 @@ export default {
           width: 80,
         },
         {
-          title: '保障名称',
+          title: 'Tên bìa',
           key: 'title',
           minWidth: 130,
         },
         {
-          title: '保障内容',
+          title: 'Nội dung bảo vệ',
           key: 'content',
           minWidth: 130,
         },
         {
-          title: '图标',
+          title: 'biểu tượng',
           slot: 'images',
           minWidth: 130,
         },
         {
-          title: '状态',
+          title: 'tình trạng',
           slot: 'statuss',
           minWidth: 130,
         },
         {
-          title: '排序',
+          title: 'loại',
           key: 'sort',
           minWidth: 130,
         },
         {
-          title: '操作',
+          title: 'vận hành',
           slot: 'action',
           fixed: 'right',
           minWidth: 120,
@@ -180,15 +180,15 @@ export default {
   },
   methods: {
     ...mapMutations('userLevel', ['getCategoryId']),
-    // 添加
+    // Thêm vào
     add() {
       this.$modalForm(productProtectionFormApi(0)).then(() => this.getList());
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$modalForm(productProtectionFormApi(row.id)).then(() => this.getList());
     },
-    // 删除
+    // xóa bỏ
     del(row, tit) {
       let delfromData = {
         title: tit,
@@ -206,7 +206,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       this.formValidate.status = this.status === 'all' ? '' : this.status;
@@ -222,12 +222,12 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.formValidate.page = 1;
       this.getList();
     },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       let data = {
         id: row.id,
@@ -241,7 +241,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 查看保障
+    // Xem phạm vi bảo hiểm
     lookUp(row) {
       this.$router.push({
         path: this.$routeProStr + '/cms/article/index',

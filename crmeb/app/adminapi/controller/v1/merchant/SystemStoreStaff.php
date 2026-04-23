@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,14 +16,14 @@ use think\facade\App;
 use app\adminapi\controller\AuthController;
 
 /**
- * 店员
+ * nhân viên văn phòng
  * Class SystemStoreStaff
  * @package app\adminapi\controller\v1\merchant
  */
 class SystemStoreStaff extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemStoreStaff constructor.
      * @param App $app
      * @param SystemStoreStaffServices $services
@@ -35,7 +35,7 @@ class SystemStoreStaff extends AuthController
     }
 
     /**
-     * 获取店员列表
+     * Lấy danh sách nhân viên
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -50,7 +50,7 @@ class SystemStoreStaff extends AuthController
     }
 
     /**
-     * 门店列表
+     * Danh sách cửa hàng
      * @param SystemStoreServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -63,7 +63,7 @@ class SystemStoreStaff extends AuthController
     }
 
     /**
-     * 店员新增表单
+     * Nhân viên cửa hàng bổ sung mẫu đơn
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      * @throws \think\db\exception\DataNotFoundException
@@ -76,7 +76,7 @@ class SystemStoreStaff extends AuthController
     }
 
     /**
-     * 店员修改表单
+     * Thư ký sửa đổi mẫu đơn
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      * @throws \think\db\exception\DataNotFoundException
@@ -92,7 +92,7 @@ class SystemStoreStaff extends AuthController
     }
 
     /**
-     * 保存店员信息
+     * Lưu thông tin nhân viên cửa hàng
      * @param int $id
      * @return mixed
      */
@@ -110,10 +110,10 @@ class SystemStoreStaff extends AuthController
         ]);
         if (!$id) {
             if ($data['image'] == '') {
-                return app('json')->fail('请选择用户');
+                return app('json')->fail('Vui lòng chọn người dùng');
             }
             if ($this->services->count(['uid' => $data['image']['uid']])) {
-                return app('json')->fail('添加的核销员用户已存在');
+                return app('json')->fail('Người dùng bảo lãnh được thêm vào đã tồn tại');
             }
             $data['uid'] = $data['image']['uid'];
             $data['avatar'] = $data['image']['image'];
@@ -121,38 +121,38 @@ class SystemStoreStaff extends AuthController
             $data['avatar'] = $data['image'];
         }
         if ($data['uid'] == 0) {
-            return app('json')->fail('请选择用户');
+            return app('json')->fail('Vui lòng chọn người dùng');
         }
         if ($data['store_id'] == '') {
-            return app('json')->fail('请选择所属提货点');
+            return app('json')->fail('Vui lòng chọn điểm đón của bạn');
         }
         if ($data['staff_name'] == ''){
-            return app('json')->fail('请填写核销员名称');
+            return app('json')->fail('Vui lòng điền tên người bảo lãnh');
         }
         if ($data['phone'] == ''){
-            return app('json')->fail('请填写核销员电话');
+            return app('json')->fail('Vui lòng điền số điện thoại của người bảo lãnh');
         }
         unset($data['image']);
         if ($id) {
             $res = $this->services->update($id, $data);
             if ($res) {
-                return app('json')->success('修改成功');
+                return app('json')->success('Sửa đổi thành công');
             } else {
-                return app('json')->fail('修改失败');
+                return app('json')->fail('Sửa đổi không thành công');
             }
         } else {
             $data['add_time'] = time();
             $res = $this->services->save($data);
             if ($res) {
-                return app('json')->success('核销员添加成功');
+                return app('json')->success('Người bảo lãnh được thêm thành công');
             } else {
-                return app('json')->fail('核销员添加失败');
+                return app('json')->fail('Không thể thêm người bảo lãnh');
             }
         }
     }
 
     /**
-     * 设置单个店员是否开启
+     * Đặt xem có bật một nhân viên bán hàng hay không
      * @param string $is_show
      * @param string $id
      * @return mixed
@@ -160,27 +160,27 @@ class SystemStoreStaff extends AuthController
     public function set_show($is_show = '', $id = '')
     {
         if ($is_show == '' || $id == '') {
-            app('json')->fail('参数错误');
+            app('json')->fail('Lỗi tham số');
         }
         $res = $this->services->update($id, ['status' => (int)$is_show]);
         if ($res) {
-            return app('json')->success('设置成功');
+            return app('json')->success('Thiết lập thành công');
         } else {
-            return app('json')->fail('设置失败');
+            return app('json')->fail('Thiết lập không thành công');
         }
     }
 
     /**
-     * 删除店员
+     * Xóa thư ký
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         if (!$this->services->delete($id))
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         else
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
     }
 }

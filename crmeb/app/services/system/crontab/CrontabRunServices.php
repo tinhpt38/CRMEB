@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,48 +23,48 @@ use app\services\user\UserSignServices;
 use think\facade\Log;
 
 /**
- * 执行定时任务
- * @author 吴汐
+ * Thực hiện các nhiệm vụ theo lịch trình
+ * @tác giả Ngô triều
  * @email 442384644@qq.com
  * @date 2023/03/01
  */
 class CrontabRunServices
 {
     /**
-     * 定时任务类型 每一个定义的类型会对应CrontabRunServices类中的一个方法
+     * Các loại nhiệm vụ theo lịch trình. Mỗi kiểu được xác định tương ứng với một phương thức trong lớp CrontabRunServices.
      * @var string[]
      */
     public $markList = [
-        'orderCancel' => '未支付自动取消订单',
-        'pinkExpiration' => '拼团到期订单处理',
-        'agentUnbind' => '到期自动解绑上级',
-        'liveProductStatus' => '自动更新直播商品状态',
-        'liveRoomStatus' => '自动更新直播间状态',
-        'takeDelivery' => '订单自动收货',
-        'advanceOff' => '预售商品到期自动下架',
-        'productReplay' => '订单商品自动好评',
-        'clearPoster' => '清除昨日海报',
-        'autoInvoice' => '自动开具发票以及退款自动冲红',
-        'signRemind' => '未签到提醒',
-        'customTimer' => '自定义定时任务',
+        'orderCancel' => 'Tự động hủy đơn hàng nếu chưa thanh toán',
+        'pinkExpiration' => 'Xử lý đơn hàng nhóm nhóm đã hết hạn',
+        'agentUnbind' => 'Tự động hủy ràng buộc cấp trên khi hết hạn',
+        'liveProductStatus' => 'Tự động cập nhật trạng thái sản phẩm trực tiếp',
+        'liveRoomStatus' => 'Tự động cập nhật trạng thái phòng trực tiếp',
+        'takeDelivery' => 'Tự động nhận đơn hàng',
+        'advanceOff' => 'Các mặt hàng bán trước sẽ tự động bị xóa khỏi kệ khi hết hạn',
+        'productReplay' => 'Các mặt hàng được đặt hàng tự động nhận được đánh giá tích cực',
+        'clearPoster' => 'Xóa áp phích ngày hôm qua',
+        'autoInvoice' => 'Tự động xuất hóa đơn và hoàn tiền tự động',
+        'signRemind' => 'Không có lời nhắc đăng nhập',
+        'customTimer' => 'Nhiệm vụ theo lịch trình tùy chỉnh',
     ];
 
     /**
-     * 调用不存在的方法
+     * Gọi một phương thức không tồn tại
      * @param $name
      * @param $arguments
      * @return mixed|void
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
     public function __call($name, $arguments)
     {
-        $this->crontabLog($name . '方法不存在');
+        $this->crontabLog($name . 'phương pháp không tồn tại');
     }
 
     /**
-     * 定时任务日志
+     * Nhật ký nhiệm vụ theo lịch trình
      * @param $msg
      */
     protected function crontabLog($msg)
@@ -77,8 +77,8 @@ class CrontabRunServices
     }
 
     /**
-     * 未支付自动取消订单
-     * @author 吴汐
+     * Tự động hủy đơn hàng nếu không thanh toán
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -86,15 +86,15 @@ class CrontabRunServices
     {
         try {
             app()->make(StoreOrderServices::class)->orderUnpaidCancel();
-            $this->crontabLog(' 执行未支付自动取消订单');
+            $this->crontabLog(' Thực hiện tự động hủy đơn hàng mà không cần thanh toán');
         } catch (\Throwable $e) {
-            $this->crontabLog('自动取消订单失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Tự động hủy đơn hàng không thành công,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 拼团到期订单处理
-     * @author 吴汐
+     * Xử lý đơn hàng nhóm nhóm đã hết hạn
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -102,15 +102,15 @@ class CrontabRunServices
     {
         try {
             app()->make(StorePinkServices::class)->statusPink();
-            $this->crontabLog(' 执行拼团到期订单处理');
+            $this->crontabLog(' Thực hiện xử lý lệnh hết hạn nhóm nhóm');
         } catch (\Throwable $e) {
-            $this->crontabLog('拼团到期订单处理失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Xử lý các đơn đặt hàng nhóm nhóm đã hết hạn không thành công,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 自动解除上级绑定
-     * @author 吴汐
+     * Tự động hủy liên kết với cấp trên
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -118,15 +118,15 @@ class CrontabRunServices
     {
         try {
             app()->make(AgentManageServices::class)->removeSpread();
-            $this->crontabLog(' 执行自动解绑上级绑定');
+            $this->crontabLog(' Thực hiện tự động hủy liên kết của liên kết cấp trên');
         } catch (\Throwable $e) {
-            $this->crontabLog('自动解除上级绑定失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Không thể tự động hủy liên kết cấp trên,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 更新直播商品状态
-     * @author 吴汐
+     * Cập nhật trạng thái sản phẩm trực tiếp
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -134,15 +134,15 @@ class CrontabRunServices
     {
         try {
             app()->make(LiveGoodsServices::class)->syncGoodStatus();
-            $this->crontabLog(' 执行更新直播商品状态');
+            $this->crontabLog(' Thực hiện cập nhật trạng thái sản phẩm trực tiếp');
         } catch (\Throwable $e) {
-            $this->crontabLog('更新直播商品状态失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Không thể cập nhật trạng thái sản phẩm trực tiếp,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 更新直播间状态
-     * @author 吴汐
+     * Cập nhật trạng thái phòng trực tiếp
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -150,15 +150,15 @@ class CrontabRunServices
     {
         try {
             app()->make(LiveRoomServices::class)->syncRoomStatus();
-            $this->crontabLog(' 执行更新直播间状态');
+            $this->crontabLog(' Thực hiện cập nhật trạng thái phòng phát sóng trực tiếp');
         } catch (\Throwable $e) {
-            $this->crontabLog('更新直播间状态失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Không cập nhật được trạng thái phòng trực tiếp,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 自动收货
-     * @author 吴汐
+     * Tự động nhận
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -166,15 +166,15 @@ class CrontabRunServices
     {
         try {
             app()->make(StoreOrderTakeServices::class)->autoTakeOrder();
-            $this->crontabLog(' 执行自动收货');
+            $this->crontabLog(' Thực hiện nhận tự động');
         } catch (\Throwable $e) {
-            $this->crontabLog('自动收货失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Tự động nhận không thành công,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 预售到期商品自动下架
-     * @author 吴汐
+     * Sản phẩm hết hạn bán trước sẽ tự động bị loại khỏi kệ
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -182,15 +182,15 @@ class CrontabRunServices
     {
         try {
             app()->make(StoreProductServices::class)->downAdvance();
-            $this->crontabLog(' 执行预售到期商品自动下架');
+            $this->crontabLog(' Thực hiện các sản phẩm đã hết hạn bán trước để tự động bị loại khỏi kệ');
         } catch (\Throwable $e) {
-            $this->crontabLog('预售到期商品自动下架失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Các sản phẩm đã hết hạn bán trước không thể tự động bị xóa khỏi kệ,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 自动好评
-     * @author 吴汐
+     * Khen ngợi tự động
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -198,15 +198,15 @@ class CrontabRunServices
     {
         try {
             app()->make(StoreOrderServices::class)->autoComment();
-            $this->crontabLog(' 执行自动好评');
+            $this->crontabLog(' Thực hiện đánh giá tích cực tự động');
         } catch (\Throwable $e) {
-            $this->crontabLog('自动好评失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Lời khen ngợi tự động không thành công,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 清除昨日海报
-     * @author 吴汐
+     * Xóa áp phích ngày hôm qua
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -214,15 +214,15 @@ class CrontabRunServices
     {
         try {
             app()->make(SystemAttachmentServices::class)->emptyYesterdayAttachment();
-            $this->crontabLog(' 执行清除昨日海报');
+            $this->crontabLog(' Thực hiện Xóa Poster Ngày Hôm Qua');
         } catch (\Throwable $e) {
-            $this->crontabLog('清除昨日海报失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Không thể xóa áp phích của ngày hôm qua,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 执行自动开具/冲红电子发票
-     * @author 吴汐
+     * Thực hiện tự động phát hành/mua lại hóa đơn điện tử
+     * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -232,14 +232,14 @@ class CrontabRunServices
             $invoiceServices = app()->make(StoreOrderInvoiceServices::class);
             $invoiceServices->autoInvoice();
             $invoiceServices->autoInvoiceRed();
-            $this->crontabLog(' 执行自动开具/冲红电子发票');
+            $this->crontabLog(' Thực hiện tự động phát hành/mua lại hóa đơn điện tử');
         } catch (\Throwable $e) {
-            $this->crontabLog('自动开具/冲红电子发票失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Tự động phát hành/mua lại hóa đơn điện tử không thành công,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 未签到提醒
+     * Không có lời nhắc đăng nhập
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2023/9/30
@@ -248,14 +248,14 @@ class CrontabRunServices
     {
         try {
             app()->make(UserSignServices::class)->sendSignRemind();
-            $this->crontabLog(' 执行未签到提醒');
+            $this->crontabLog(' Triển khai lời nhắc không đăng ký');
         } catch (\Throwable $e) {
-            $this->crontabLog('未签到提醒失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Không thể nhắc nhở đăng ký,Lý do thất bại:' . $e->getMessage());
         }
     }
 
     /**
-     * 自定义定时器
+     * Hẹn giờ tùy chỉnh
      * @param string $customCode
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -265,9 +265,9 @@ class CrontabRunServices
     {
         try {
             eval($customCode);
-            $this->crontabLog(' 自定义定时器执行成功');
+            $this->crontabLog(' Hẹn giờ tùy chỉnh được thực hiện thành công');
         } catch (\Throwable $e) {
-            $this->crontabLog('自定义定时器执行失败,失败原因:' . $e->getMessage());
+            $this->crontabLog('Thực hiện hẹn giờ tùy chỉnh không thành công,Lý do thất bại:' . $e->getMessage());
         }
     }
 }

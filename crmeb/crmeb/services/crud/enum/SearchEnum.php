@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -12,29 +12,29 @@
 namespace crmeb\services\crud\enum;
 
 /**
- * 搜索方式枚举
- * Class SearchEnum
- * @author 等风来
+ * Bảng liệt kê phương pháp tìm kiếm
+ * Lớp SearchEnum
+ * @author Chờ gió về
  * @email 136327134@qq.com
  * @date 2023/8/14
  * @package crmeb\services\crud\enum
  */
 class SearchEnum
 {
-    //等于
+    //bình đẳng
     const SEARCH_TYPE_EQ = '=';
-    //小于等于
+    //nhỏ hơn hoặc bằng
     const SEARCH_TYPE_LTEQ = '<=';
-    //大于等于
+    //Lớn hơn hoặc bằng
     const SEARCH_TYPE_GTEQ = '>=';
-    //不等于
+    //không bằng
     const SEARCH_TYPE_NEQ = '<>';
-    //模糊搜索
+    //tìm kiếm mờ
     const SEARCH_TYPE_LIKE = 'LIKE';
-    //区间-用来时间区间搜索
+    //Khoảng thời gian - được sử dụng để tìm kiếm khoảng thời gian
     const SEARCH_TYPE_BETWEEN = 'BETWEEN';
 
-    //搜索类型
+    //Kiểu tìm kiếm
     const SEARCH_TYPE = [
         self::SEARCH_TYPE_EQ,
         self::SEARCH_TYPE_LTEQ,

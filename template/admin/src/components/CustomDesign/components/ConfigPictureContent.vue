@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form-item label="图片">
+    <el-form-item label="hình ảnh">
       <div class="upload-box" @click="modalPicTap">
         <img :src="curComponent.propValue.url" v-if="curComponent.propValue.url" class="img" />
         <div v-else class="upload-icon"><i class="el-icon-plus"></i></div>
@@ -17,7 +17,7 @@
       @change="onChange"
       @get-link="getLink"
     />
-    <el-dialog :visible.sync="modalPic" width="950px" title="上传图片" append-to-body>
+    <el-dialog :visible.sync="modalPic" width="950px" title="Tải ảnh lên" append-to-body>
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       modalPic: false,
-      isChoice: '单选',
+      isChoice: 'Lựa chọn duy nhất',
       gridBtn: {
         xl: 4,
         lg: 8,

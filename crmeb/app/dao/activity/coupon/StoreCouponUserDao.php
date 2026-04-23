@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class StoreCouponUserDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -33,7 +33,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -48,7 +48,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 使用优惠券修改优惠券状态
+     * Sử dụng phiếu giảm giá để sửa đổi trạng thái phiếu giảm giá
      * @param $id
      * @return \think\Model|null
      */
@@ -58,7 +58,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 获取指定商品id下的优惠卷
+     * Nhận phiếu giảm giá theo ID sản phẩm được chỉ định
      * @param array $productIds
      * @param int $uid
      * @param string $price
@@ -79,7 +79,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 根据商品id获取
+     * Nhận dựa trên id sản phẩm
      * @param array $cateIds
      * @param int $uid
      * @param string $price
@@ -98,7 +98,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 获取当前用户可用的优惠卷
+     * Nhận phiếu giảm giá có sẵn cho người dùng hiện tại
      * @param array $ids
      * @param int $uid
      * @param string $price
@@ -119,7 +119,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 获取当前用户所有可用的优惠卷
+     * Nhận tất cả các phiếu giảm giá có sẵn cho người dùng hiện tại
      * @param int $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -134,7 +134,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 获取列表带排序
+     * Nhận danh sách có sắp xếp
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -163,7 +163,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 根据月份查询用户获得的优惠券
+     * Truy vấn các phiếu giảm giá mà người dùng nhận được theo tháng
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -181,7 +181,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 根据时间查询
+     * Truy vấn dựa trên thời gian
      * @param array $where
      * @param string $field
      * @return array
@@ -195,7 +195,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 获取本月领取的优惠券
+     * Nhận phiếu giảm giá bạn nhận được trong tháng này
      * @param $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -208,7 +208,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 删除用户获得的优惠券
+     * Xóa phiếu giảm giá mà người dùng nhận được
      * @param $where
      * @return bool
      */
@@ -218,7 +218,7 @@ class StoreCouponUserDao extends BaseDao
     }
 
     /**
-     * 判断用户是否还能领取或者已经领取未使用
+     * Xác định xem người dùng vẫn có thể nhận được hay đã nhận được nhưng chưa sử dụng.
      * @param $uid
      * @param $coupon_id
      * @param $receive_limit
@@ -239,7 +239,7 @@ class StoreCouponUserDao extends BaseDao
         }
         $noUserCount = 0;
         foreach ($list as $item) {
-            if ($item['status'] == '未使用') {
+            if ($item['status'] == 'Không được sử dụng') {
                 $noUserCount++;
             }
         }

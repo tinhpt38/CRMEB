@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\model\system\statistics\CapitalFlow;
 class CapitalFlowDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -26,7 +26,7 @@ class CapitalFlowDao extends BaseDao
     }
 
     /**
-     * 资金流水
+     * Dòng vốn
      * @param $where
      * @param int $page
      * @param int $limit
@@ -43,7 +43,7 @@ class CapitalFlowDao extends BaseDao
     }
 
     /**
-     * 账单记录
+     * hồ sơ thanh toán
      * @param $where
      * @param int $page
      * @param int $limit
@@ -89,7 +89,7 @@ class CapitalFlowDao extends BaseDao
     }
 
     /**
-     * 获取某年第几周的开始日期
+     * Lấy ngày bắt đầu của tuần trong năm
      * @param int $year
      * @param int $week
      * @return array|false|string
@@ -97,13 +97,13 @@ class CapitalFlowDao extends BaseDao
     public function weekDayTime(int $year, int $week = 1)
     {
         $year_start = mktime(0, 0, 0, 1, 1, $year);
-        // 判断第一天是否为第一周的开始
+        // Xác định xem ngày đầu tiên có phải là ngày đầu tiên của tuần đầu tiên không
         if (intval(date('W', $year_start)) === 1) {
-            $start = $year_start;//把第一天做为第一周的开始
+            $start = $year_start;//Biến ngày đầu tiên thành ngày đầu tiên của tuần đầu tiên
         } else {
-            $start = strtotime('+1 monday', $year_start);//把第一个周一作为开始
+            $start = strtotime('+1 monday', $year_start);//Bắt đầu với thứ Hai đầu tiên
         }
-        // 第几周的开始时间
+        // Thời gian bắt đầu trong tuần
         if ($week === 1) {
             $weekday = $start;
         } else {

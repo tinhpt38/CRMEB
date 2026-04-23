@@ -5,10 +5,10 @@
     </div> -->
     <pages-header ref="pageHeader" :title="$route.meta.title"></pages-header>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <!-- 公众号设置 -->
+      <!-- Cài đặt tài khoản chính thức -->
       <el-row :gutter="24">
         <el-col :span="24" class="ml40">
-          <!-- 预览功能 -->
+          <!-- Chức năng xem trước -->
           <el-col :span="24">
             <el-col :xl="7" :lg="7" :md="22" :sm="22" :xs="22" class="left mb15">
               <img class="top" src="../../../../assets/images/mobilehead.png" />
@@ -30,11 +30,11 @@
                         v-db-click
                         @click="gettem(j, index, indx)"
                       >
-                        {{ j.name || '二级菜单' }}
+                        {{ j.name || 'Menu phụ' }}
                       </div>
                     </div>
                   </div>
-                  <div class="text" v-db-click @click="gettem(item, indx, null)">{{ item.name || '一级菜单' }}</div>
+                  <div class="text" v-db-click @click="gettem(item, indx, null)">{{ item.name || 'Thực đơn cấp độ đầu tiên' }}</div>
                 </div>
                 <div class="li" v-show="list.length < 3">
                   <div class="text" v-db-click @click="addtext"><i class="el-icon-plus"></i></div>
@@ -43,10 +43,10 @@
             </el-col>
             <el-col :xl="11" :lg="12" :md="22" :sm="22" :xs="22">
               <el-tabs value="name1" v-if="checkedMenuId !== null">
-                <el-tab-pane label="菜单信息" name="name1">
+                <el-tab-pane label="Thông tin thực đơn" name="name1">
                   <el-col :span="24" class="userAlert">
                     <div class="box-card right">
-                      <el-alert type="info" show-icon closable title="已添加子菜单，仅可设置菜单名称"></el-alert>
+                      <el-alert type="info" show-icon closable title="Menu con đã được thêm vào, chỉ có thể đặt tên menu"></el-alert>
                       <el-form
                         ref="formValidate"
                         :model="formValidate"
@@ -54,45 +54,45 @@
                         label-width="100px"
                         class="mt20"
                       >
-                        <el-form-item label="菜单名称" prop="name">
-                          <el-input v-model="formValidate.name" placeholder="请填写菜单名称" class="spwidth"></el-input>
+                        <el-form-item label="Tên thực đơn" prop="name">
+                          <el-input v-model="formValidate.name" placeholder="Vui lòng điền tên thực đơn" class="spwidth"></el-input>
                         </el-form-item>
-                        <el-form-item label="规则状态" prop="type">
-                          <el-select v-model="formValidate.type" placeholder="请选择规则状态" class="spwidth">
-                            <el-option value="click" label="关键字"></el-option>
-                            <el-option value="view" label="跳转网页"></el-option>
-                            <el-option value="miniprogram" label="小程序"></el-option>
+                        <el-form-item label="Trạng thái quy tắc" prop="type">
+                          <el-select v-model="formValidate.type" placeholder="Vui lòng chọn trạng thái quy tắc" class="spwidth">
+                            <el-option value="click" label="Từ khóa"></el-option>
+                            <el-option value="view" label="Chuyển đến trang web"></el-option>
+                            <el-option value="miniprogram" label="Chương trình nhỏ"></el-option>
                           </el-select>
                         </el-form-item>
                         <div v-if="formValidate.type === 'click'">
-                          <el-form-item label="关键字" prop="key">
-                            <el-input v-model="formValidate.key" placeholder="请填写关键字" class="spwidth"></el-input>
+                          <el-form-item label="Từ khóa" prop="key">
+                            <el-input v-model="formValidate.key" placeholder="Hãy điền từ khóa" class="spwidth"></el-input>
                           </el-form-item>
                         </div>
                         <div v-if="formValidate.type === 'miniprogram'">
                           <el-form-item label="appid" prop="appid">
-                            <el-input v-model="formValidate.appid" placeholder="请填写appid" class="spwidth"></el-input>
+                            <el-input v-model="formValidate.appid" placeholder="Vui lòng điền vàoappid" class="spwidth"></el-input>
                           </el-form-item>
-                          <el-form-item label="小程序路径" prop="pagepath">
+                          <el-form-item label="Đường dẫn chương trình nhỏ" prop="pagepath">
                             <el-input
                               v-model="formValidate.pagepath"
-                              placeholder="请填写小程序路径"
+                              placeholder="Hãy điền vào đường dẫn chương trình mini"
                               class="spwidth"
                             ></el-input>
                           </el-form-item>
-                          <el-form-item label="备用网页" prop="url">
+                          <el-form-item label="Trang web thay thế" prop="url">
                             <el-input
                               v-model="formValidate.url"
-                              placeholder="请填写备用网页"
+                              placeholder="Vui lòng điền vào trang dự phòng"
                               class="spwidth"
                             ></el-input>
                           </el-form-item>
                         </div>
                         <div v-if="formValidate.type === 'view'">
-                          <el-form-item label="跳转地址" prop="url">
+                          <el-form-item label="Chuyển địa chỉ" prop="url">
                             <el-input
                               v-model="formValidate.url"
-                              placeholder="请填写跳转地址"
+                              placeholder="Vui lòng điền địa chỉ nhảy"
                               class="spwidth"
                             ></el-input>
                           </el-form-item>
@@ -103,8 +103,8 @@
                 </el-tab-pane>
               </el-tabs>
               <el-col :span="24" v-if="isTrue">
-                <el-button size="small" type="danger" v-db-click @click="deltMenus">删除</el-button>
-                <el-button type="primary" v-db-click @click="submenus('formValidate')">保存并发布</el-button>
+                <el-button size="small" type="danger" v-db-click @click="deltMenus">xóa bỏ</el-button>
+                <el-button type="primary" v-db-click @click="submenus('formValidate')">Lưu và xuất bản</el-button>
               </el-col>
             </el-col>
           </el-col>
@@ -132,14 +132,14 @@ export default {
       },
       ruleValidate: {
         name: [
-          { required: true, message: '请填写菜单名称', trigger: 'blur' },
-          { min: 1, max: 14, message: '长度在 1 到 14 个字符', trigger: 'blur' },
+          { required: true, message: 'Vui lòng điền tên thực đơn', trigger: 'blur' },
+          { min: 1, max: 14, message: 'Độ dài từ 1 đến 14 ký tự', trigger: 'blur' },
         ],
-        key: [{ required: true, message: '请填写关键字', trigger: 'blur' }],
-        appid: [{ required: true, message: '请填写appid', trigger: 'blur' }],
-        pagepath: [{ required: true, message: '请填写备用网页', trigger: 'blur' }],
-        url: [{ required: true, message: '请填写跳转地址', trigger: 'blur' }],
-        type: [{ required: true, message: '请选择规则状态', trigger: 'change' }],
+        key: [{ required: true, message: 'Hãy điền từ khóa', trigger: 'blur' }],
+        appid: [{ required: true, message: 'Vui lòng điền vàoappid', trigger: 'blur' }],
+        pagepath: [{ required: true, message: 'Vui lòng điền vào trang dự phòng', trigger: 'blur' }],
+        url: [{ required: true, message: 'Vui lòng điền địa chỉ nhảy', trigger: 'blur' }],
+        type: [{ required: true, message: 'Vui lòng chọn trạng thái quy tắc', trigger: 'change' }],
       },
       parentMenuId: null,
       list: [],
@@ -156,7 +156,7 @@ export default {
     }
   },
   methods: {
-    // 添加一级字段函数
+    // Thêm chức năng trường cấp một
     defaultMenusData() {
       return {
         type: 'click',
@@ -164,14 +164,14 @@ export default {
         sub_button: [],
       };
     },
-    // 添加二级字段函数
+    // Thêm chức năng trường phụ
     defaultChildData() {
       return {
         type: 'click',
         name: '',
       };
     },
-    // 获取 菜单
+    // Nhận thực đơn
     getMenus() {
       wechatMenuApi()
         .then(async (res) => {
@@ -182,7 +182,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 点击保存提交
+    // Nhấn Lưu để gửi
     submenus(name) {
       if (this.isTrue && !this.checkedMenuId && this.checkedMenuId !== 0) {
         this.putData();
@@ -196,7 +196,7 @@ export default {
         });
       }
     },
-    // 新增data
+    // Mớidata
     putData() {
       let data = {
         button: this.list,
@@ -212,14 +212,14 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 点击元素
+    // phần tử nhấp chuột
     gettem(item, index, pid) {
       this.checkedMenuId = index;
       this.formValidate = item;
       this.parentMenuId = pid;
       this.isTrue = true;
     },
-    // 增加二级
+    // Thêm cấp độ thứ hai
     add(item, index) {
       if (!this.check()) return false;
       if (item.sub_button.length < 5) {
@@ -231,11 +231,11 @@ export default {
         this.parentMenuId = index;
         this.isTrue = true;
       } else {
-        this.$message.warning('二级菜单最多只能添加5个!');
+        this.$message.warning('Chỉ có thể thêm tối đa 5 menu phụ!');
         return false;
       }
     },
-    // 增加一级
+    // Thêm một cấp độ
     addtext() {
       if (!this.check()) return false;
       let data = this.defaultMenusData();
@@ -246,38 +246,38 @@ export default {
       this.parentMenuId = null;
       this.isTrue = true;
     },
-    // 判断函数
+    // Chức năng phán đoán
     check: function () {
       let reg = /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;
       if (this.checkedMenuId === null) return true;
       if (!this.isTrue) return true;
       if (!this.formValidate.name) {
-        this.$message.warning('请输入按钮名称!');
+        this.$message.warning('Vui lòng nhập tên nút!');
         return false;
       }
       if (this.formValidate.type === 'click' && !this.formValidate.key) {
-        this.$message.warning('请输入关键字!');
+        this.$message.warning('Vui lòng nhập từ khóa!');
         return false;
       }
       if (this.formValidate.type === 'view' && !reg.test(this.formValidate.url)) {
-        this.$message.warning('请输入正确的跳转地址!');
+        this.$message.warning('Vui lòng nhập đúng địa chỉ nhảy!');
         return false;
       }
       if (
         this.formValidate.type === 'miniprogram' &&
         (!this.formValidate.appid || !this.formValidate.pagepath || !this.formValidate.url)
       ) {
-        this.$message.warning('请填写完整小程序配置!');
+        this.$message.warning('Vui lòng điền cấu hình chương trình mini hoàn chỉnh!');
         return false;
       }
       return true;
     },
-    // 删除
+    // xóa bỏ
     deltMenus() {
       if (this.isTrue) {
-        this.$confirm('确认删除此菜单吗?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('Bạn có chắc chắn xóa menu này không??', 'gợi ý', {
+          confirmButtonText: 'Chắc chắn',
+          cancelButtonText: 'Hủy bỏ',
           type: 'warning',
           beforeClose(action, instance, done) {
             if (action == 'confirm') {
@@ -314,10 +314,10 @@ export default {
           })
           .catch(() => {});
       } else {
-        this.$message.warning('请选择菜单!');
+        this.$message.warning('Vui lòng chọn một thực đơn!');
       }
     },
-    // 确认删除
+    // Xác nhận xóa
     del() {
       this.parentMenuId === null
         ? this.list.splice(this.checkedMenuId, 1)
@@ -342,10 +342,10 @@ export default {
 </script>
 <style scoped lang="scss">
 * {
-  -moz-user-select: none; /*火狐*/
-  -webkit-user-select: none; /*webkit浏览器*/
+  -moz-user-select: none; /*Firefox*/
+  -webkit-user-select: none; /*webkitTrình duyệt*/
   -ms-user-select: none; /*IE10*/
-  -khtml-user-select: none; /*早期浏览器*/
+  -khtml-user-select: none; /*trình duyệt sớm*/
   user-select: none;
 }
 
@@ -412,7 +412,7 @@ export default {
   position: absolute;
   bottom: -16px;
   left: 36px;
-  /* 圆角的位置需要细心调试哦 */
+  /* Vị trí của các góc tròn cần được sửa lỗi cẩn thận. */
   width: 0;
   height: 0;
   font-size: 0;

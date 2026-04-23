@@ -5,11 +5,11 @@ import { Message } from 'element-ui';
 
 const service = axios.create({
   baseURL: location.protocol + '//' + location.hostname,
-  timeout: 10000, // 请求超时时间
+  timeout: 10000, // Yêu cầu hết thời gian
 });
-axios.defaults.withCredentials = true; // 携带cookie
+axios.defaults.withCredentials = true; // mang theo bánh quy
 
-// 请求拦截器
+//Yêu cầu chặn
 service.interceptors.request.use(
   (config) => {
     if (config.file) {
@@ -56,11 +56,11 @@ service.interceptors.response.use(
       case 200:
         return obj;
       default:
-        return Promise.reject(obj || { msg: '未知错误' });
+        return Promise.reject(obj || { msg: 'lỗi không xác định' });
     }
   },
   (error) => {
-    Message.error('接口异常');
+    Message.error('Ngoại lệ giao diện');
 
     // return Promise.reject(error);
   },

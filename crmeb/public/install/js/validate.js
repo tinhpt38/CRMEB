@@ -11,7 +11,7 @@
  *   http://www.gnu.org/licenses/gpl.html
  *
  * @Modify		: linhao87@gmail.com
- * @Descript	: remote ajax验证，判断response的state标头，提示内容在response.message[0]；remote验证时的startRequest方法下移；验证码错误&刷新；param.ignoreRepeat 登录安全问题答案
+ * @Descript	: remote ajaxXác minh, đánh giá tiêu đề trạng thái của phản hồi và nội dung nhắc nhở nằm trongresponse.message[0]；remotePhương thức startRequest trong quá trình xác minh được di chuyển xuống dưới; lỗi mã xác minh & làm mới; param.ignoreLặp lại câu trả lời cho câu hỏi bảo mật đăng nhập
  * $Id: validate.js 15186 2012-08-01 08:57:18Z hao.lin $
  */
 
@@ -426,7 +426,7 @@ $.extend($.validator, {
 					// manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
 					.trigger("focusin");
 
-					//验证码错误&刷新
+					//Lỗi mã xác minh và làm mới
 					$.each(this.invalidElements(), function(i, o){
 						if($(this).data('id') === 'code') {
 							$('#J_code_img').click();
@@ -963,7 +963,7 @@ $.extend($.validator, {
 			$.ajax($.extend(true, {
 				url: param,
 				beforeSend : function() {
-					validator.startRequest(element); //“请求统计”下移到此处，防止自定义ajax验证无法调用stopRequest;
+					validator.startRequest(element); //“Yêu cầu thống kê”Di chuyển xuống đây để ngăn việc xác minh ajax tùy chỉnh được gọistopRequest;
 				},
 				mode: "abort",
 				port: "validate" + element.name,
@@ -971,7 +971,7 @@ $.extend($.validator, {
 				data: data,
 				success: function(response) {
 					validator.settings.messages[element.name].remote = previous.originalMessage;
-					var valid = (response.state === 'success' ? true : false); //修改ajax成功标识 by linhao origin: var valid = response === true 
+					var valid = (response.state === 'success' ? true : false); //Sửa đổi logo thành công của ajax by linhao origin: var valid = response === true 
 					if ( valid ) {
 						var submitted = validator.formSubmitted;
 						validator.prepareElement(element);
@@ -980,7 +980,7 @@ $.extend($.validator, {
 						validator.showErrors();
 					} else {
 						var errors = {};
-						var message = response.message[0] || validator.defaultMessage( element, "remote" ); //修改ajax提示内容 by linhao 'response.message' origin: 'response'
+						var message = response.message[0] || validator.defaultMessage( element, "remote" ); //Sửa đổi nội dung lời nhắc ajax by linhao 'response.message' origin: 'response'
 						errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message;
 						validator.showErrors(errors);
 					}
@@ -1189,25 +1189,25 @@ $.format = $.validator.format;
 
 
 
-//自定义validate扩展
+//Tiện ích mở rộng xác thực tùy chỉnh
 jQuery.extend(jQuery.validator.messages, {
-        required: "必选字段",
-  remote: "请修正该字段",
-  email: "请输入正确格式的电子邮件",
-  url: "请输入合法的网址",
-  date: "请输入合法的日期",
-  dateISO: "请输入合法的日期 (ISO).",
-  number: "请输入合法的数字",
-  digits: "只能输入整数",
-  creditcard: "请输入合法的信用卡号",
-  equalTo: "请再次输入相同的值",
-  accept: "请输入拥有合法后缀名的字符串",
-  maxlength: jQuery.validator.format("请输入一个长度最多是 {0} 的字符串"),
-  minlength: jQuery.validator.format("请输入一个长度最少是 {0} 的字符串"),
-  rangelength: jQuery.validator.format("请输入一个长度介于 {0} 和 {1} 之间的字符串"),
-  range: jQuery.validator.format("请输入一个介于 {0} 和 {1} 之间的值"),
-  max: jQuery.validator.format("请输入一个最大为 {0} 的值"),
-  min: jQuery.validator.format("请输入一个最小为 {0} 的值")
+        required: "Các trường bắt buộc",
+  remote: "Vui lòng sửa trường này",
+  email: "Vui lòng nhập email được định dạng chính xác",
+  url: "Vui lòng nhập URL hợp pháp",
+  date: "Vui lòng nhập ngày hợp lệ",
+  dateISO: "Vui lòng nhập ngày hợp lệ (ISO).",
+  number: "Vui lòng nhập số hợp pháp",
+  digits: "Chỉ có thể nhập số nguyên",
+  creditcard: "Vui lòng nhập số thẻ tín dụng hợp lệ",
+  equalTo: "Vui lòng nhập lại cùng một giá trị",
+  accept: "Vui lòng nhập một chuỗi có hậu tố hợp pháp",
+  maxlength: jQuery.validator.format("Vui lòng nhập độ dài tối đa {0} sợi dây"),
+  minlength: jQuery.validator.format("Vui lòng nhập độ dài tối thiểu là {0} sợi dây"),
+  rangelength: jQuery.validator.format("Vui lòng nhập độ dài giữa {0} Và {1} chuỗi giữa"),
+  range: jQuery.validator.format("Vui lòng nhập một giá trị giữa {0} Và {1} giá trị giữa"),
+  max: jQuery.validator.format("Vui lòng nhập số tiền tối đa {0} giá trị"),
+  min: jQuery.validator.format("Vui lòng nhập số tiền tối thiểu {0} giá trị")
 });
 
 jQuery.validator.addMethod("regularExpression", function(value, element, param) {
@@ -1228,19 +1228,19 @@ var length = value.length;
         }
     }
     return this.optional(element) || (length >= param[0] && length <= param[1]);
-}, "请确保输入的值在个字节之间(一个中文字算2个字节)");
+}, "Hãy đảm bảo rằng giá trị đã nhập nằm giữa các byte(Một ký tự tiếng Trung được tính là 2 byte)");
 
 jQuery.validator.addMethod("isMobile", function(value, element) {
     var length = value.length;
     return this.optional(element) || (length == 11 && /^(13[0-9]|15[0-9]|18[0-9])\d{8}$/.test(value));
-}, "请正确填写您的手机号码");     
+}, "Vui lòng điền chính xác số điện thoại di động của bạn");     
 
 jQuery.validator.addMethod("telphone", function(value, element) {
     var length = value.length;
     return this.optional(element) || ( /^[\d|-]+$/.test(value));
-}, '格式错误，仅支持数字和符号“-”');
+}, 'Lỗi định dạng, chỉ hỗ trợ số và ký hiệu“-”');
 
 jQuery.validator.addMethod("zipcode", function(value, element) {
     var length = value.length;
     return this.optional(element) || ( /^[0-9]{6}$/.test(value));
-}, '格式错误，仅支持6位数字');
+}, 'Lỗi định dạng, chỉ hỗ trợ 6 chữ số');

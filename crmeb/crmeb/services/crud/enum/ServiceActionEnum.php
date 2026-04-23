@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -12,22 +12,22 @@
 namespace crmeb\services\crud\enum;
 
 /**
- * 逻辑层方法枚举
- * Class ServiceActionEnum
- * @author 等风来
+ * Bảng liệt kê phương thức lớp logic
+ * Lớp ServiceActionEnum
+ * @author Chờ gió về
  * @email 136327134@qq.com
  * @date 2023/8/14
  * @package crmeb\services\crud\enum
  */
 class ServiceActionEnum
 {
-    //搜索
+    //tìm kiếm
     const INDEX = 'index';
-    //获取表单
+    //Nhận biểu mẫu
     const FORM = 'form';
-    //保存
+    //cứu
     const SAVE = 'save';
-    //更新
+    //gia hạn
     const UPDATE = 'update';
 
     const SERVICE_ACTION_ALL = [

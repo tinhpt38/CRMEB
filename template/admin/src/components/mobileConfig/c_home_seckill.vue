@@ -23,7 +23,7 @@ import rightBtn from '@/components/rightBtn/index.vue';
 export default {
   name: 'c_home_seckill',
   componentsName: 'home_seckill',
-  cname: '秒杀',
+  cname: 'bán chớp nhoáng',
   props: {
     activeIndex: {
       type: null,
@@ -416,7 +416,7 @@ export default {
       if (!config.paddingConfig) {
         config.paddingConfig = {
           isAll: false,
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -431,7 +431,7 @@ export default {
       if (!config.marginConfig) {
         config.marginConfig = {
           isAll: false,
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,
@@ -940,7 +940,7 @@ export default {
         }
       }
     },
-    // 获取组件参数
+    // Lấy tham số thành phần
     getConfig(data) {},
   },
 };

@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 /**
- * @word 要加密的内容
- * @keyWord String  服务器随机返回的关键字
+ * @word Những gì cần mã hóa
+ * @keyWord Chuỗi từ khóa được máy chủ trả về ngẫu nhiên
  *  */
 export function aesEncrypt(word, keyWord = 'XwKsGlMcdPMEhR1B') {
   var key = CryptoJS.enc.Utf8.parse(keyWord);
@@ -11,8 +11,8 @@ export function aesEncrypt(word, keyWord = 'XwKsGlMcdPMEhR1B') {
 }
 
 /**
- * @word hash256要加密的内容
- * @keyWord String  服务器随机返回的关键字
+ * @word hash256Những gì cần mã hóa
+ * @keyWord Chuỗi từ khóa được máy chủ trả về ngẫu nhiên
  *  */
 export function aesEncryptHash(word, keyWord = 'XwKsGlMcdPMEhR1B') {
   var key = CryptoJS.enc.Utf8.parse(keyWord);

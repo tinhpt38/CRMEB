@@ -19,7 +19,7 @@ export default {
     };
   },
   computed: {
-    // 设置主界面切换动画
+    // Đặt hình động chuyển đổi giao diện chính
     setTransitionName() {
       return this.$store.state.themeConfig.themeConfig.animation;
     },
@@ -29,22 +29,22 @@ export default {
   },
   created() {
     /**
-     * 获取需要保持活动状态的组件名称列表
+     * Nhận danh sách tên thành phần cần được giữ nguyên
      */
     this.keepAliveNameList = this.getKeepAliveNames();
-    // 监听标签页视图刷新路由视图事件
+    // Nghe sự kiện xem lộ trình làm mới chế độ xem tab
     this.bus.$on('onTagsViewRefreshRouterView', (path) => {
-      // 如果当前路由路径不等于传入的路径，则直接返回false
+      // Nếu đường dẫn định tuyến hiện tại không bằng đường dẫn đến, hãy quay lại trực tiếpfalse
       if (this.$route.path !== path) return false;
-      // 过滤掉当前路由对应的组件名称，并重新设置keepAliveNameList
+      // Lọc tên thành phần tương ứng với tuyến đường hiện tại và đặt lại nókeepAliveNameList
       this.keepAliveNameList = this.getKeepAliveNames().filter((name) => this.$route.name !== name);
-      // 刷新路由视图key
+      // Làm mới chế độ xem định tuyếnkey
       this.refreshRouterViewKey = this.$route.path;
-      // 在下一个tick中重新设置keepAliveNameList
+      // đặt lại ở tích tắc tiếp theokeepAliveNameList
       this.$nextTick(() => {
         this.refreshRouterViewKey = null;
         /**
-         * 获取需要保持活动状态的组件名称列表
+         * Nhận danh sách tên thành phần cần được giữ nguyên
          */
         this.keepAliveNameList = this.getKeepAliveNames();
       });
@@ -52,7 +52,7 @@ export default {
   },
 
   methods: {
-    // 获取路由缓存列表（name），默认路由全部缓存
+    // Lấy danh sách bộ đệm tuyến đường (tên), tất cả các tuyến mặc định đều được lưu trữ
     getKeepAliveNames() {
       return this.$store.state.keepAliveNames.keepAliveNames;
     },

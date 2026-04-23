@@ -1,16 +1,16 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 import request from '@/libs/request';
 
 /**
- * @description 九宫格抽奖 -- 列表
+ * @description Xổ số lưới chín ô vuông -- danh sách
  */
 export function lotteryListApi(data) {
   return request({
@@ -21,8 +21,8 @@ export function lotteryListApi(data) {
 }
 
 /**
- * @description 九宫格抽奖 -- 详情
- * @param id 抽奖活动id
+ * @description Xổ số Cửu Cung -- Chi tiết
+ * Sự kiện xổ số @param idid
  */
 export function lotteryDetailApi(id) {
   return request({
@@ -32,8 +32,8 @@ export function lotteryDetailApi(id) {
 }
 
 /**
- * @description 九宫格抽奖 -- 新版详情
- * @param id 抽奖活动id
+ * @description Xổ số lưới chín ô vuông - chi tiết phiên bản mới
+ * Sự kiện xổ số @param idid
  */
 export function lotteryNewDetailApi(type) {
   return request({
@@ -43,7 +43,7 @@ export function lotteryNewDetailApi(type) {
 }
 
 /**
- * @description 九宫格抽奖 -- 创建
+ * @description Xổ số lưới chín ô vuông -- Tạo
  */
 export function lotteryCreateApi(data) {
   return request({
@@ -54,7 +54,7 @@ export function lotteryCreateApi(data) {
 }
 /**
  **
- * @description 九宫格抽奖 -- 修改/编辑
+ * @description Xổ số Cửu Cung -- Sửa đổi/Chỉnh sửa
  */
 export function lotteryEditApi(id, data) {
   return request({
@@ -66,7 +66,7 @@ export function lotteryEditApi(id, data) {
 
 /**
  **
- * @description 九宫格抽奖 -- 删除
+ * @description Xổ số Cửu Cung -- Xóa
  */
 export function lotteryDelApi(id) {
   return request({
@@ -77,7 +77,7 @@ export function lotteryDelApi(id) {
 
 /**
  **
- * @description 九宫格抽奖 -- 显示状态
+ * @description Xổ số lưới chín ô vuông - trạng thái hiển thị
  */
 export function lotteryStatusApi(data) {
   return request({
@@ -88,7 +88,7 @@ export function lotteryStatusApi(data) {
 
 /**
  **
- * @description 九宫格抽奖 -- 中奖记录
+ * @description Xổ số Cửu Công - Kỷ lục trúng thưởng
  */
 export function lotteryRecordList(data) {
   return request({
@@ -100,7 +100,7 @@ export function lotteryRecordList(data) {
 
 /**
  **
- * @description 九宫格抽奖 -- 中奖发货/备注处理
+ * @description Xổ số Jiugongge - Giải thưởng Vận chuyển/Xử lý nhận xét
  */
 export function lotteryRecordDeliver(data) {
   return request({
@@ -112,7 +112,7 @@ export function lotteryRecordDeliver(data) {
 
 /**
  **
- * @description 抽奖列表
+ * @description Danh sách xổ số
  */
 export function lotteryList(data) {
   return request({
@@ -123,7 +123,7 @@ export function lotteryList(data) {
 }
 /**
  **
- * @description 抽奖类型获取
+ * @description Mua lại loại xổ số
  */
 export function factorListApi(data) {
   return request({
@@ -134,7 +134,7 @@ export function factorListApi(data) {
 
 /**
  **
- * @description 抽奖配置保存
+ * @description Lưu cấu hình xổ số
  */
 export function factorUseApi(data) {
   return request({
@@ -145,8 +145,8 @@ export function factorUseApi(data) {
 }
 
 /**
- * @description 抽奖状态切换
- * @param data {Object} 传值
+ * @description Chuyển đổi trạng thái xổ số
+ * @param data {Object} Giá trị vượt qua
  */
 export function lotteryStatus(data) {
   return request({

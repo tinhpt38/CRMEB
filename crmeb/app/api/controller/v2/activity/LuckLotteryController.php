@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -28,7 +28,7 @@ class LuckLotteryController
     }
 
     /**
-     * 抽奖活动信息
+     * Thông tin rút thăm trúng thưởng
      * @param Request $request
      * @param $factor
      * @return mixed
@@ -39,14 +39,14 @@ class LuckLotteryController
      */
     public function LotteryInfo(Request $request, $factor, $lottery_id = 0)
     {
-        if (!$factor) return app('json')->fail('参数错误');
+        if (!$factor) return app('json')->fail('Lỗi tham số');
         if ($lottery_id) {
             $lottery = $this->services->getLottery($lottery_id, '*', ['prize'], true);
         } else {
             $lottery = $this->services->getFactorLottery((int)$factor, '*', ['prize'], true);
         }
         if (!$lottery) {
-            return app('json')->fail('抽奖不存在');
+            return app('json')->fail('Xổ số không tồn tại');
         }
         $uid = (int)$request->uid();
         $lottery = $lottery->toArray();
@@ -70,7 +70,7 @@ class LuckLotteryController
     }
 
     /**
-     * 参与抽奖
+     * Tham gia xổ số
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -88,7 +88,7 @@ class LuckLotteryController
         $channel_type = $request->getFromType();
         $key = 'lucklotter_limit_' . $uid;
         if (CacheService::get($key)) {
-            return app('json')->fail('您求的频率太过频繁,请稍后请求!');
+            return app('json')->fail('Yêu cầu của bạn quá thường xuyên,Vui lòng yêu cầu sau!');
         }
         CacheService::set('lucklotter_limit_' . $uid, $uid, 1);
 
@@ -101,18 +101,18 @@ class LuckLotteryController
                 /** @var QrcodeServices $qrcodeService */
                 $qrcodeService = app()->make(QrcodeServices::class);
                 $url = $qrcodeService->getTemporaryQrcode('luckLottery-5', $request->uid())->url;
-                return app('json')->success('请先关注公众号', ['code' => 'subscribe', 'url' => $url]);
+                return app('json')->success('Vui lòng theo dõi tài khoản công khai trước', ['code' => 'subscribe', 'url' => $url]);
             }
         }
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
 
         return app('json')->success($this->services->luckLottery($uid, $id, $channel_type));
     }
 
     /**
-     * 领取奖品
+     * Nhận giải thưởng
      * @param Request $request
      * @param LuckLotteryRecordServices $lotteryRecordServices
      * @return mixed
@@ -131,14 +131,14 @@ class LuckLotteryController
             ['mark', '']
         ], true);
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $uid = (int)$request->uid();
-        return app('json')->success($lotteryRecordServices->receivePrize($uid, $id, compact('name', 'phone', 'address', 'detail', 'mark')) ? '领取成功' : '领取失败');
+        return app('json')->success($lotteryRecordServices->receivePrize($uid, $id, compact('name', 'phone', 'address', 'detail', 'mark')) ? 'Đã nhận thành công' : 'Không thể thu thập');
     }
 
     /**
-     * 获取中奖记录
+     * Nhận kỷ lục chiến thắng
      * @param Request $request
      * @param LuckLotteryRecordServices $lotteryRecordServices
      * @return mixed

@@ -3,7 +3,7 @@
     <el-col :xs="24" :sm="24" :md="24" :lg="18">
       <el-card :bordered="false" shadow="never" class="ivu-mt-16">
         <div class="acea-row row-between-wrapper">
-          <h4 class="statics-header-title mb20">用户地域分布</h4>
+          <h4 class="statics-header-title mb20">Phân bố địa lý của người dùng</h4>
         </div>
         <el-row>
           <el-col :xs="24" :sm="24" :md="24" :lg="10">
@@ -32,7 +32,7 @@
     <el-col :xs="24" :sm="24" :md="24" :lg="6">
       <el-card :bordered="false" shadow="never" class="ivu-mt-16">
         <div class="acea-row row-between-wrapper">
-          <h4 class="statics-header-title mb20">用户性别比例</h4>
+          <h4 class="statics-header-title mb20">Tỷ lệ giới tính người dùng</h4>
         </div>
         <echarts-new
           :option-data="optionData"
@@ -48,7 +48,7 @@
 
 <script>
 import echarts from 'echarts';
-import '../../../../../node_modules/echarts/map/js/china.js'; // 引入中国地图数据
+import '../../../../../node_modules/echarts/map/js/china.js'; // Giới thiệu dữ liệu bản đồ Trung Quốc
 import { statisticWechatRegionApi, statisticWechatSexApi } from '@/api/statistic';
 import echartsNew from '@/components/echartsNew/index';
 export default {
@@ -74,26 +74,26 @@ export default {
       resdataList: [],
       columns1: [
         {
-          title: 'TOP省份',
+          title: 'TOPtỉnh',
           key: 'province',
         },
         {
-          title: '累积用户数',
+          title: 'Số lượng người dùng tích lũy',
           key: 'allNum',
           sortable: true,
         },
         {
-          title: '新增用户数',
+          title: 'Số lượng người dùng mới',
           key: 'newNum',
           sortable: true,
         },
         {
-          title: '访客数',
+          title: 'Số lượng khách truy cập',
           key: 'visitNum',
           sortable: true,
         },
         {
-          title: '支付金额',
+          title: 'Số tiền thanh toán',
           key: 'payPrice',
           sortable: true,
         },
@@ -119,20 +119,20 @@ export default {
         this.chart.dispose();
       }
       this.$nextTick(() => {
-        let myChart = echarts.init(this.$refs.myEchart); //这里是为了获得容器所在位置
+        let myChart = echarts.init(this.$refs.myEchart); //Đây là để có được vị trí của container
         this.chart = myChart;
         window.onresize = myChart.resize;
         myChart.setOption({
-          // 进行相关配置
+          // Thực hiện các cấu hình liên quan
           backgroundColor: '#fff',
           tooltip: {
             trigger: 'item',
             formatter: function (params) {
               return params.data
-                ? `地区:${params.name}</br>累计用户: ${params.data.value}</br>新增用户: ${params.data.newNum}</br>访客数: ${params.data.visitNum}</br>支付金额: ${params.data.payPrice}`
-                : `地区:${params.name}</br>累计用户: 0</br>新增用户: 0</br>访客数: 0</br>支付金额: 0`;
+                ? `khu vực:${params.name}</br>Người dùng tích lũy: ${params.data.value}</br>Thêm người dùng mới: ${params.data.newNum}</br>Số lượng khách truy cập: ${params.data.visitNum}</br>Số tiền thanh toán: ${params.data.payPrice}`
+                : `khu vực:${params.name}</br>Người dùng tích lũy: 0</br>Thêm người dùng mới: 0</br>Số lượng khách truy cập: 0</br>Số tiền thanh toán: 0`;
             },
-          }, // 鼠标移到图里面的浮动提示框
+          }, // Di chuyển chuột đến hộp nhắc nổi bên trong ảnh
           dataRange: {
             show: false,
             min: 0,
@@ -143,12 +143,12 @@ export default {
             color: ['orangered', 'yellow', 'lightskyblue'],
           },
           geo: {
-            // 这个是重点配置区
-            map: 'china', // 表示中国地图
+            // Đây là khu vực cấu hình chính
+            map: 'china', // Thể hiện bản đồ Trung Quốc
             roam: false,
             label: {
               normal: {
-                show: false, // 是否显示对应地名
+                show: false, // Có hiển thị tên địa điểm tương ứng hay không
                 textStyle: {
                   color: 'rgba(0,0,0,0.4)',
                 },
@@ -172,8 +172,8 @@ export default {
             {
               type: 'scatter',
               zoom: 1.2,
-              aspectScale: 1.75, //长宽比
-              coordinateSystem: 'geo', // 对应上方配置
+              aspectScale: 1.75, //tỷ lệ khung hình
+              coordinateSystem: 'geo', // Tương ứng với cấu hình trên
             },
             {
               type: 'map',
@@ -184,14 +184,14 @@ export default {
         });
       });
     },
-    // 统计图
+    // Biểu đồ thống kê
     getTrend() {
       statisticWechatRegionApi(this.formInline)
         .then(async (res) => {
           this.resdataList = res.data;
           this.resdata = res.data.map((item) => {
             let jsonData = {};
-            jsonData.name = item.province.replace('省', '');
+            jsonData.name = item.province.replace('Tỉnh', '');
             jsonData.value = item.allNum;
             jsonData.newNum = item.newNum;
             jsonData.payPrice = item.payPrice;
@@ -204,7 +204,7 @@ export default {
           this.$message.error(res);
         });
     },
-    //性别
+    //giới tính
     getSex() {
       statisticWechatSexApi(this.formInline)
         .then(async (res) => {
@@ -215,8 +215,8 @@ export default {
           this.optionData = {
             title: {
               show: true,
-              text: '总用户数', // 当前写死
-              subtext: totalSumAll, // 当前写死
+              text: 'Tổng số người dùng', // Hiện đang được viết cho đến chết
+              subtext: totalSumAll, // Hiện đang được viết cho đến chết
               x: 'center',
               y: 'center',
               textStyle: {
@@ -236,11 +236,11 @@ export default {
             legend: {
               orient: 'vertical',
               left: 10,
-              data: ['未知', '男', '女'],
+              data: ['không rõ', 'nam giới', 'nữ giới'],
             },
             series: [
               {
-                name: '访问来源',
+                name: 'Truy cập nguồn',
                 type: 'pie',
                 radius: ['50%', '70%'],
                 avoidLabelOverlap: false,
@@ -260,7 +260,7 @@ export default {
                   },
                   normal: {
                     color: function (params) {
-                      //自定义颜色
+                      //Màu tùy chỉnh
                       var colorList = ['#999999', '#1890FF', '#FFAB2B'];
                       return colorList[params.dataIndex];
                     },

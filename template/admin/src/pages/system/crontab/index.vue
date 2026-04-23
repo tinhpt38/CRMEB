@@ -15,32 +15,32 @@
     <el-card :bordered="false" shadow="never">
       <el-alert type="warning" :closable="false">
         <template slot="title">
-          启动定时任务两种方式：<br />
-          1、使用命令启动：php think timer start
-          --d；如果更改了执行周期、编辑是否开启、删除定时任务需要重新启动下定时任务确保生效；<br />
-          2、使用接口触发定时任务，建议每分钟调用一次，接口地址 {{ apiBaseURL }}api/crontab/run <br />
+          Hai cách để bắt đầu nhiệm vụ theo lịch trình：<br />
+          1、Bắt đầu sử dụng lệnh: php think time start
+          --d; Nếu bạn thay đổi chu kỳ thực hiện, cho dù tính năng chỉnh sửa được bật hay xóa tác vụ đã lên lịch, bạn cần khởi động lại tác vụ đã lên lịch để đảm bảo nó có hiệu lực.；<br />
+          2、Sử dụng giao diện để kích hoạt các tác vụ theo lịch trình. Nên gọi nó mỗi phút một lần. Địa chỉ giao diện {{ apiBaseURL }}api/crontab/run <br />
         </template>
       </el-alert>
       <el-button v-if="currentTab === '1'" type="primary" v-db-click @click="addTask" class="mt14"
-        >添加定时任务</el-button
+        >Thêm một nhiệm vụ theo lịch trình</el-button
       >
       <el-table :data="tableData" v-loading="loading" class="ivu-mt">
-        <el-table-column label="标题" min-width="150">
+        <el-table-column label="tiêu đề" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="任务说明" min-width="130">
+        <el-table-column label="Tuyên bố sứ mệnh" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="执行周期" min-width="130">
+        <el-table-column label="chu kỳ thực hiện" min-width="130">
           <template slot-scope="scope">
             <span>{{ taskTrip(scope.row) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否开启" min-width="130">
+        <el-table-column label="Có nên bật không" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -49,22 +49,22 @@
               v-model="scope.row.is_open"
               size="large"
               @change="handleChange(scope.row)"
-              active-text="开启"
-              inactive-text="关闭"
+              active-text="bật lên"
+              inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="vận hành" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">编辑</a>
+            <a v-db-click @click="edit(scope.row.id)">biên tập</a>
             <el-divider direction="vertical" v-if="currentTab === '1'"></el-divider>
             <a
               v-if="currentTab === '1'"
               v-permission="'seckill'"
               v-db-click
-              @click="handleDelete(scope.row, '删除定时任务', scope.$index)"
-              >删除</a
+              @click="handleDelete(scope.row, 'Xóa nhiệm vụ đã lên lịch', scope.$index)"
+              >xóa bỏ</a
             >
           </template>
         </el-table-column>
@@ -93,8 +93,8 @@ export default {
       total: 1,
       apiBaseURL: '',
       headerList: [
-        { label: '系统任务', value: '0' },
-        { label: '自定义任务', value: '1' },
+        { label: 'Nhiệm vụ hệ thống', value: '0' },
+        { label: 'Nhiệm vụ tùy chỉnh', value: '1' },
       ],
       currentTab: '0',
     };
@@ -107,24 +107,24 @@ export default {
     taskTrip(row) {
       switch (row.type) {
         case 1:
-          return `每隔${row.second}秒执行一次`;
+          return `mọi${row.second}Thực hiện một lần mỗi giây`;
         case 2:
-          return `每隔${row.minute}分钟执行一次`;
+          return `mọi${row.minute}Thực hiện mỗi phút một lần`;
         case 3:
-          return `每隔${row.hour}小时执行一次`;
+          return `mọi${row.hour}Thực hiện mỗi giờ một lần`;
         case 4:
-          return `每隔${row.day}天执行一次`;
+          return `mọi${row.day}Thực hiện mỗi ngày một lần`;
         case 5:
-          return `每天${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return `mỗi ngày${row.hour}giờ${row.minute}điểm${row.second}Thực hiện một lần mỗi giây`;
         case 6:
-          return `每个星期${row.week}的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return `mỗi tuần${row.week}của${row.hour}giờ${row.minute}điểm${row.second}Thực hiện một lần mỗi giây`;
         case 7:
-          return `每月${row.day}日的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return `mỗi tháng${row.day}tiếng Nhật${row.hour}giờ${row.minute}điểm${row.second}Thực hiện một lần mỗi giây`;
         case 8:
-          return `每年${row.month}月${row.day}日的${row.hour}时${row.minute}分${row.second}秒执行一次`;
+          return `mỗi năm${row.month}mặt trăng${row.day}tiếng Nhật${row.hour}giờ${row.minute}điểm${row.second}Thực hiện một lần mỗi giây`;
       }
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       timerIndex({
@@ -149,7 +149,7 @@ export default {
     edit(id) {
       this.$refs.addTask.timerInfo(id);
     },
-    // 删除
+    // xóa bỏ
     handleDelete(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -167,7 +167,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 是否开启
+    // Có nên bật không
     handleChange({ id, is_open }) {
       showTimer(id, is_open)
         .then((res) => {

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -32,7 +32,7 @@ class JwtAuth
     protected $token;
 
     /**
-     * 获取token
+     * lấytoken
      * @param int|string $id
      * @param string $type
      * @param array $params
@@ -57,7 +57,7 @@ class JwtAuth
     }
 
     /**
-     * 解析token
+     * phân tích cú pháptoken
      * @param string $jwt
      * @return array
      */
@@ -70,7 +70,7 @@ class JwtAuth
     }
 
     /**
-     * 验证token
+     * xác minhtoken
      */
     public function verifyToken()
     {
@@ -82,7 +82,7 @@ class JwtAuth
     }
 
     /**
-     * 获取token并放入令牌桶
+     * Nhận mã thông báo và đặt nó vào nhóm mã thông báo
      * @param $id
      * @param string $type
      * @param array $params
@@ -95,7 +95,7 @@ class JwtAuth
         $exp = $tokenInfo['params']['exp'] - $tokenInfo['params']['iat'] + 60;
         $res = CacheService::set(md5($tokenInfo['token']), ['uid' => $id, 'type' => $type, 'token' => $tokenInfo['token'], 'exp' => $exp], (int)$exp, $type);
         if (!$res) {
-            throw new AdminException('保存token失败');
+            throw new AdminException('Không lưu được mã thông báo');
         }
         return $tokenInfo;
     }

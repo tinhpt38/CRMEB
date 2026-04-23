@@ -33,11 +33,11 @@ export default {
   },
   data() {
     return {
-      sizes: {}, // 尺寸映射（依赖响应式）
+      sizes: {}, // Ánh xạ kích thước (phụ thuộc vào khả năng đáp ứng）
     };
   },
   computed: {
-    // 计算出每个item（的key值）到滚动容器顶部的距离
+    // Tính khoảng cách từ mỗi mục (giá trị khóa) đến đầu vùng chứa cuộn
     offsetMap({ keyProp, height, sizes, data }) {
       const res = {};
       let total = 0;
@@ -53,31 +53,31 @@ export default {
     },
   },
   methods: {
-    // 初始化数据
+    // dữ liệu khởi tạo
     initData() {
-      // 可视范围内显示数据
+      // Hiển thị dữ liệu trong phạm vi hình ảnh
       this.renderData = [];
-      // 页面可视范围顶端、底部
+      // Phần trên cùng và dưới cùng của phạm vi hiển thị của trang
       this.top = undefined;
       this.bottom = undefined;
-      // 截取页面可视范围内显示数据的开始和结尾索引
+      // Ghi lại chỉ mục bắt đầu và kết thúc của dữ liệu được hiển thị trong phạm vi hiển thị của trang
       this.start = 0;
       this.end = undefined;
 
       this.scroller = this.$el.querySelector('.el-table__body-wrapper');
 
-      // 初次执行
+      // lần thực hiện đầu tiên
       setTimeout(() => {
         this.handleScroll();
       }, 100);
 
-      // 监听事件
+      // Lắng nghe sự kiện
       this.onScroll = throttle(this.handleScroll, this.throttleTime);
       this.scroller.addEventListener('scroll', this.handleScroll);
       window.addEventListener('resize', this.onScroll);
     },
 
-    // 更新尺寸（高度）
+    // Cập nhật kích thước (chiều cao）
     updateSizes() {
       const rows = this.$el.querySelectorAll('.el-table__body > tbody > .el-table__row');
 
@@ -94,20 +94,20 @@ export default {
       });
     },
 
-    // 处理滚动事件
+    // Xử lý các sự kiện cuộn
     handleScroll(shouldUpdate = true) {
-      // 更新当前尺寸（高度）
+      // Cập nhật kích thước hiện tại (chiều cao）
       this.updateSizes();
-      // 计算renderData
+      // tính toánrenderData
       this.calcRenderData();
-      // 计算位置
+      // Tính toán vị trí
       this.calcPosition();
       shouldUpdate && this.updatePosition();
-      // 触发事件
+      // sự kiện kích hoạt
       this.$emit('change', this.renderData, this.start, this.end);
     },
 
-    // 获取某条数据offsetTop
+    // Lấy một phần dữ liệuoffsetTop
     getOffsetTop(index) {
       const item = this.data[index];
       if (item) {
@@ -116,7 +116,7 @@ export default {
       return 0;
     },
 
-    // 获取某条数据的尺寸
+    // Lấy kích thước của một phần dữ liệu
     getSize(index) {
       const item = this.data[index];
       if (item) {
@@ -126,14 +126,14 @@ export default {
       return this.height;
     },
 
-    // 计算只在视图上渲染的数据
+    // Tính toán dữ liệu chỉ được hiển thị trên dạng xem
     calcRenderData() {
       const { scroller, data, buffer } = this;
-      // 计算可视范围顶部、底部
+      // Tính toán phần trên và phần dưới của phạm vi nhìn thấy được
       const top = scroller.scrollTop - buffer;
       const bottom = scroller.scrollTop + scroller.offsetHeight + buffer;
 
-      // 二分法计算可视范围内的开始的第一个内容
+      // Phương pháp chia đôi tính toán nội dung đầu tiên ở đầu phạm vi hiển thị
       let l = 0;
       let r = data.length - 1;
       let mid = 0;
@@ -149,7 +149,7 @@ export default {
         }
       }
 
-      // 计算渲染内容的开始、结束索引
+      // Tính chỉ số bắt đầu và kết thúc của nội dung được hiển thị
       let start = mid;
       let end = data.length - 1;
       for (let i = start + 1; i < data.length; i++) {
@@ -160,7 +160,7 @@ export default {
         }
       }
 
-      // 开始索引始终保持偶数，如果为奇数，则加1使其保持偶数【确保表格行的偶数数一致，不会导致斑马纹乱序显示】
+      // Chỉ số bắt đầu luôn là số chẵn. Nếu là số lẻ thì cộng thêm 1 để thành số chẵn. [Đảm bảo rằng số chẵn của các hàng trong bảng nhất quán và sẽ không làm cho mẫu ngựa vằn hiển thị không theo thứ tự.】
       if (start % 2) {
         start = start - 1;
       }
@@ -173,15 +173,15 @@ export default {
       this.renderData = data.slice(start, end + 1);
     },
 
-    // 计算位置
+    // Tính toán vị trí
     calcPosition() {
       const last = this.data.length - 1;
-      // 计算内容总高度
+      // Tính tổng chiều cao nội dung
       const wrapHeight = this.getOffsetTop(last) + this.getSize(last);
-      // 计算当前滚动位置需要撑起的高度
+      // Tính chiều cao cần đỡ ở vị trí cuộn hiện tại
       const offsetTop = this.getOffsetTop(this.start);
 
-      // 设置dom位置
+      // Đặt vị trí dom
       const classNames = [
         '.el-table__body-wrapper',
         '.el-table__fixed-right .el-table__fixed-body-wrapper',
@@ -191,7 +191,7 @@ export default {
         const el = this.$el.querySelector(className);
         if (!el) return;
 
-        // 创建wrapEl、innerEl
+        // tạo nênwrapEl、innerEl
         if (!el.wrapEl) {
           const wrapEl = document.createElement('div');
           const innerEl = document.createElement('div');
@@ -203,32 +203,32 @@ export default {
         }
 
         if (el.wrapEl) {
-          // 设置高度
+          // Đặt chiều cao
           el.wrapEl.style.height = wrapHeight + 'px';
-          // 设置transform撑起高度
+          // Đặt chiều cao hỗ trợ chuyển đổi
           el.innerEl.style.transform = `translateY(${offsetTop}px)`;
-          // 设置paddingTop撑起高度
+          // Đặt chiều cao hỗ trợ phần đệmTop
           // el.innerEl.style.paddingTop = `${offsetTop}px`
         }
       });
     },
 
-    // 空闲时更新位置
+    // Cập nhật vị trí khi không hoạt động
     updatePosition() {
       this.timer && clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.timer && clearTimeout(this.timer);
-        // 传入false，避免一直循环调用
+        // Chuyển sai để tránh gọi vòng lặp
         this.handleScroll(false);
       }, this.throttleTime + 10);
     },
 
-    // 【外部调用】更新
+    // 【Cuộc gọi bên ngoài】Cập nhật
     update() {
       this.handleScroll();
     },
 
-    // 【外部调用】滚动到第几行
+    // 【Cuộc gọi bên ngoài】Cuộn đến dòng nào
     scrollTo(index, stop = false) {
       const item = this.data[index];
       if (item && this.scroller) {
@@ -239,7 +239,7 @@ export default {
           const offsetTop = this.getOffsetTop(index);
           this.scroller.scrollTop = offsetTop;
 
-          // 调用两次scrollTo，第一次滚动时，如果表格行初次渲染高度发生变化时，会导致滚动位置有偏差，此时需要第二次执行滚动，确保滚动位置无误
+          // Gọi rollTo hai lần. Khi cuộn lần đầu tiên, nếu chiều cao hiển thị ban đầu của hàng trong bảng thay đổi, vị trí cuộn sẽ bị lệch. Lúc này, bạn cần thực hiện cuộn lần thứ 2 để đảm bảo vị trí cuộn chính xác.
           if (!stop) {
             setTimeout(() => {
               this.scrollTo(index, true);
@@ -249,7 +249,7 @@ export default {
       }
     },
 
-    // 【外部调用】重置
+    // 【Cuộc gọi bên ngoài】Đặt lại
     reset() {
       this.sizes = {};
       this.scrollTo(0, false);

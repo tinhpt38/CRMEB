@@ -1,6 +1,6 @@
 <template>
   <div class="goodClass">
-    <!-- <div class="title">页面设置</div> -->
+    <!-- <div class="title">Cài đặt trang</div> -->
     <div class="list acea-row row-top">
       <div
         class="item"
@@ -27,9 +27,9 @@ export default {
   data() {
     return {
       classList: [
-        { image: require('@/assets/images/cate1.png'), name: '样式1' },
-        { image: require('@/assets/images/cate2.png'), name: '样式2' },
-        { image: require('@/assets/images/cate3.png'), name: '样式3' },
+        { image: require('@/assets/images/cate1.png'), name: 'phong cách1' },
+        { image: require('@/assets/images/cate2.png'), name: 'phong cách2' },
+        { image: require('@/assets/images/cate3.png'), name: 'phong cách3' },
       ],
       activeStyle: '-1',
       themeColor: '',
@@ -67,29 +67,29 @@ export default {
       });
     },
     saveAndClose() {
-      // 先触发父组件事件
+      // Trước tiên hãy kích hoạt sự kiện thành phần gốc
       this.$emit('parentFun', true);
 
-      // 保存数据
+      // lưu dữ liệu
       themeSave(this.$route.query.id, {
         type: 'category',
         value: this.activeStyle + 1,
       })
         .then((res) => {
-          // 如果是新建（id为0），更新路由参数
+          // Nếu nó mới được tạo (id là 0), hãy cập nhật các tham số định tuyến
           if (this.$route.query.id == 0) {
             this.$router.replace({ query: { ...this.$route.query, id: res.data.id } });
           }
 
-          // 显示成功消息
+          // Hiển thị thông báo thành công
           this.$message.success(res.msg);
 
-          // 保存成功后跳转回主题列表页面
+          // Sau khi lưu thành công, hãy quay lại trang danh sách chủ đề.
           this.$router.push(`${setting.routePre}/setting/my_theme`);
         })
         .catch((err) => {
-          // 保存失败时的处理
-          this.$message.error(err.msg || '保存失败');
+          // Phải làm gì khi lưu không thành công
+          this.$message.error(err.msg || 'Lưu không thành công');
         });
     },
   },

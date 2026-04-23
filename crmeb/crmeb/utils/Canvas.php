@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,27 +14,27 @@ namespace crmeb\utils;
 /**
  * Class Canvas
  * @package crmeb\utils
- * @method $this setFileName(string $fileName) 设置文件名
- * @method $this setPath(string $path) 设置存放路径
- * @method $this setImageType(string $imageType) 设置图片类型
- * @method $this setBackgroundHeight(int $backgroundHeight) 设置背景高
- * @method $this setBackgroundWidth(int $backgroundWidth) 设置背景宽
- * @method $this setFontSize(int $fontSize) 设置字体大小
- * @method $this setFontColor($fontColor) 设置字体颜色
- * @method $this setFontLeft(int $fontLeft) 设置字体距离左侧位置
- * @method $this setFontTop(int $fontTop) 设置字体距离顶部位置
- * @method $this setFontText(string $fontText) 设置文字
- * @method $this setFontPath(string $fontPath) 设置字体文件路径
- * @method $this setFontAngle(int $fontAngle) 设置字体角度
- * @method $this setImageUrl(string $imageUrl) 设置图片路径
- * @method $this setImageLeft(int $imageLeft) 设置图片距离左侧位置
- * @method $this setImageTop(int $imageTop) 设置图片距离顶部位置
- * @method $this setImageRight(int $imageRight) 设置图片距离左侧位置
- * @method $this setImageStream(bool $imageStream) 设置图片是否未流文件
- * @method $this setImageBottom(int $imageBottom) 设置图片距离底部位置
- * @method $this setImageWidth(int $imageWidth) 设置图片宽
- * @method $this setImageHeight(int $imageHeight) 设置图片高
- * @method $this setImageOpacity(int $imageOpacity) 设置图片透明度
+ * @method $this setFileName(string $fileName) Đặt tên tập tin
+ * @method $this setPath(string $path) Đặt đường dẫn lưu trữ
+ * @method $this setImageType(string $imageType) Đặt loại hình ảnh
+ * @method $this setBackgroundHeight(int $backgroundHeight) Đặt chiều cao nền
+ * @method $this setBackgroundWidth(int $backgroundWidth) Đặt chiều rộng nền
+ * @method $this setFontSize(int $fontSize) Đặt kích thước phông chữ
+ * @method $this setFontColor($fontColor) Đặt màu phông chữ
+ * @method $this setFontLeft(int $fontLeft) Đặt khoảng cách phông chữ sang trái
+ * @method $this setFontTop(int $fontTop) Đặt khoảng cách phông chữ từ trên xuống
+ * @method $this setFontText(string $fontText) Đặt văn bản
+ * @method $this setFontPath(string $fontPath) Đặt đường dẫn tệp phông chữ
+ * @method $this setFontAngle(int $fontAngle) Đặt góc phông chữ
+ * @method $this setImageUrl(string $imageUrl) Đặt đường dẫn hình ảnh
+ * @method $this setImageLeft(int $imageLeft) Đặt khoảng cách hình ảnh sang trái
+ * @method $this setImageTop(int $imageTop) Đặt khoảng cách từ đầu hình ảnh
+ * @method $this setImageRight(int $imageRight) Đặt khoảng cách hình ảnh sang trái
+ * @method $this setImageStream(bool $imageStream) Đặt xem hình ảnh có phải là tập tin phát trực tuyến hay không
+ * @method $this setImageBottom(int $imageBottom) Đặt khoảng cách giữa hình ảnh và đáy
+ * @method $this setImageWidth(int $imageWidth) Đặt chiều rộng hình ảnh
+ * @method $this setImageHeight(int $imageHeight) Đặt chiều cao hình ảnh
+ * @method $this setImageOpacity(int $imageOpacity) Đặt độ trong suốt của hình ảnh
  */
 class Canvas
 {
@@ -42,49 +42,49 @@ class Canvas
     const FONT = 'statics/font/Alibaba-PuHuiTi-Regular.otf';
 
     /**
-     * 背景宽
+     * nền rộng
      * @var int
      */
     protected $backgroundWidth = 600;
 
     /**
-     * 背景高
+     * nền cao
      * @var int
      */
     protected $backgroundHeight = 1000;
 
     /**
-     * 图片类型
+     * Loại hình ảnh
      * @var string
      */
     protected $imageType = 'jpeg';
 
     /**
-     * 保存地址
+     * lưu địa chỉ
      * @var string
      */
     protected $path = 'uploads/routine/';
 
     /**
-     * 文件名
+     * tên tập tin
      * @var string
      */
     protected $fileName;
 
     /**
-     * 规则
+     * luật lệ
      * @var array
      */
     protected $propsRule = ['fileName', 'path', 'imageType', 'backgroundHeight', 'backgroundWidth'];
 
     /**
-     * 字体数据集
+     * Tập dữ liệu phông chữ
      * @var array
      */
     protected $fontValue = [];
 
     /**
-     * 字体默认可设置vlaue
+     * Phông chữ có thể được đặt theo mặc địnhvlaue
      * @var array
      */
     protected $defaultFontValue = [
@@ -99,13 +99,13 @@ class Canvas
 
     protected $defaultFont;
     /**
-     * 图片数据集
+     * Tập dữ liệu hình ảnh
      * @var array
      */
     protected $imageValue = [];
 
     /**
-     * 图片可设置属性
+     * Hình ảnh có thể thiết lập thuộc tính
      * @var array
      */
     protected $defaultImageValue = [
@@ -121,7 +121,7 @@ class Canvas
     ];
 
     /**
-     * 实例化本身
+     * chính sự khởi tạo
      * @var self
      */
     protected static $instance;
@@ -135,7 +135,7 @@ class Canvas
     }
 
     /**
-     * 实例化本类
+     * Khởi tạo lớp này
      * @return Canvas
      */
     public static function instance()
@@ -147,7 +147,7 @@ class Canvas
     }
 
     /**
-     * 创建一个新图象
+     * Tạo một hình ảnh mới
      * @param string $file
      * @return array
      */
@@ -174,7 +174,7 @@ class Canvas
     }
 
     /**
-     * 放入字体
+     * Đặt phông chữ
      * @return $this
      */
     public function pushFontValue()
@@ -185,7 +185,7 @@ class Canvas
     }
 
     /**
-     * 放入图片
+     * Đặt hình ảnh
      * @return $this
      */
     public function pushImageValue()
@@ -196,7 +196,7 @@ class Canvas
     }
 
     /**
-     * 创建背景
+     * Tạo nền
      * @param int $w
      * @param int $h
      * @return false|resource
@@ -208,8 +208,8 @@ class Canvas
 
 
     /**
-     * 开始画图
-     * @param bool $force 生成错误时是否抛出异常
+     * Bắt đầu vẽ
+     * @param bool $force Có ném ngoại lệ khi tạo lỗi hay không
      * @return string
      * @throws \Exception
      */
@@ -263,7 +263,7 @@ class Canvas
             }
 
             if (make_path($path, 4, true) === '') {
-                throw new \RuntimeException('无法创建文件夹，请检查您的上传目录权限');
+                throw new \RuntimeException('Không thể tạo thư mục, vui lòng kiểm tra quyền thư mục tải lên của bạn');
             }
 
             $save_file = $this->path . $this->fileName . '.' . $this->imageType;

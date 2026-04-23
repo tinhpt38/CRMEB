@@ -68,14 +68,14 @@ export default {
     getChangeTabs(tab) {
       this.$refs.table.getList();
     },
-    // 列表数据
+    // Liệt kê dữ liệu
     getData(res) {
       if (this.$refs.table) {
         this.$refs.table.checkBox = false;
         this.$refs.table.getList(res);
       }
     },
-    // 模块数据
+    // dữ liệu mô-đun
     getCards(list) {
       this.cardLists = list;
     },

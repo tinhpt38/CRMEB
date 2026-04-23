@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,19 +26,19 @@ use app\services\user\UserRechargeServices;
  */
 class TradeStatisticServices extends BaseServices
 {
-    public $_day = ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时', '24时'];
+    public $_day = ['00giờ', '01giờ', '02giờ', '03giờ', '04giờ', '05giờ', '06giờ', '07giờ', '08giờ', '09giờ', '10giờ', '11giờ', '12giờ', '13giờ', '14giờ', '15giờ', '16giờ', '17giờ', '18giờ', '19giờ', '20giờ', '21giờ', '22giờ', '23giờ', '24giờ'];
 
     /**
-     * 基本概况
+     * Tổng quan cơ bản
      * @param $where
      * @return mixed
      */
     public function getTopLeftTrade($where)
     {
-        //总交易额
+        //tổng khối lượng giao dịch
         $selectType = "sum";
         $tradeTotalMoney = $this->tradeTotalMoney($where, $selectType);
-        //交易曲线
+        //đường cong giao dịch
         $selectType = "group";
         $hourTotalMoney = $this->tradeGroupMoney($where, $selectType);
         return ['total_money' => $tradeTotalMoney, 'curve' => $hourTotalMoney];
@@ -48,55 +48,55 @@ class TradeStatisticServices extends BaseServices
     {
         /** @var StoreOrderServices $orderService */
         $orderService = app()->make(StoreOrderServices::class);
-        /** day订单数 */
-        //今日订单数
+        /** daySố lượng đơn hàng */
+        //Số đơn hàng hôm nay
         $orderCountWhere['is_del'] = 0;
         $orderCountWhere['paid'] = 1;
         $orderCountWhere['pid'] = 0;
         $orderCountWhere['timeKey'] = $this->TimeConvert("today");
         $todayOrderCount = $orderService->getOrderCountByWhere($orderCountWhere);
 
-        //今日订单数曲线
+        //Đường cong đặt hàng ngày nay
         $todayHourOrderCount = $orderService->getOrderGroupCountByWhere($orderCountWhere);
         $todayHourOrderCount = $this->trendYdata($todayHourOrderCount, $orderCountWhere['timeKey']);
-        //昨日订单数
+        //Số đơn hàng ngày hôm qua
         $yestodayWhere['is_del'] = 0;
         $yestodayWhere['paid'] = 1;
         $yestodayWhere['pid'] = 0;
         $yestodayWhere['timeKey'] = $this->TimeConvert("yestoday");
         $yesTodayOrderCount = $orderService->getOrderCountByWhere($yestodayWhere);
-        //昨日订单曲线
+        //Đường cong đặt hàng của ngày hôm qua
         // $yestodayHourOrderCount = $orderService->getOrderGroupCountByWhere($yestodayWhere);
         // $yestodayHourOrderCount = $this->trendYdata($yestodayHourOrderCount, 'day');
-        //订单数环比增长率
+        //Tốc độ tăng trưởng đơn hàng hàng tháng
         $orderCountDayChain = $this->countRate($todayOrderCount, $yesTodayOrderCount);
         $data[] = [
-            'name' => "今日订单数",
+            'name' => "Số lượng đặt hàng hôm nay",
             'now_value' => $todayOrderCount,
             'last_value' => $yesTodayOrderCount,
             'rate' => $orderCountDayChain,
             'curve' => $todayHourOrderCount
         ];
-        /** day支付人数 */
-        //今日支付人数
+        /** daySố người thanh toán */
+        //Số người thanh toán hôm nay
         $orderPeopleWhere['timeKey'] = $this->TimeConvert("today");
         $orderPeopleWhere['paid'] = 1;
         $orderPeopleWhere['pid'] = 0;
         $todayPayOrderPeople = count($orderService->getPayOrderPeopleByWhere($orderPeopleWhere));
-        //今日支付人数曲线
+        //Đường cong của người trả tiền ngày nay
         $todayHourOrderPeople = $orderService->getPayOrderGroupPeopleByWhere($orderPeopleWhere);
         $todayHourOrderPeople = $this->trendYdata($todayHourOrderPeople, $orderPeopleWhere['timeKey']);
-        //昨日支付人数
+        //Số người đã thanh toán ngày hôm qua
         $yestodayOrderPeopleWhere['timeKey'] = $this->TimeConvert("yestoday");
         $yestodayOrderPeopleWhere['paid'] = 1;
         $yestodayPayOrderPeople = count($orderService->getPayOrderPeopleByWhere($yestodayOrderPeopleWhere));
-        //昨日支付曲线
+        //Đường cong thanh toán của ngày hôm qua
         // $yestodayHourOrderPeople = $orderService->getPayOrderGroupPeopleByWhere($yestodayOrderPeopleWhere);
         // $yestodayHourOrderPeople = $this->trendYdata($yestodayHourOrderPeople, 'day');
-        //订单支付人数环比
+        //Số người thanh toán đơn hàng theo tháng
         $orderPeopleDayChain = $this->countRate($todayPayOrderPeople, $yestodayPayOrderPeople);
         $data[] = [
-            'name' => "今日支付人数",
+            'name' => "Số người thanh toán hôm nay",
             'now_value' => $todayPayOrderPeople,
             'last_value' => $yestodayPayOrderPeople,
             'rate' => $orderPeopleDayChain,
@@ -120,53 +120,53 @@ class TradeStatisticServices extends BaseServices
     {
         /** @var StoreOrderServices $orderService */
         $orderService = app()->make(StoreOrderServices::class);
-        /** month订单数 */
+        /** monthSố lượng đơn đặt hàng */
         $monthOrderCountWhere['is_del'] = 0;
         $monthOrderCountWhere['paid'] = 1;
         $monthOrderCountWhere['pid'] = 0;
         $monthOrderCountWhere['timeKey'] = $this->TimeConvert("month");
         $monthOrderCount = $orderService->getOrderCountByWhere($monthOrderCountWhere);
-        //本月订单数曲线
+        //Đường cong đặt hàng của tháng này
         $monthCurveOrderCount = $orderService->getOrderGroupCountByWhere($monthOrderCountWhere);
         $monthCurveOrderCount = $this->trendYdata($monthCurveOrderCount, $monthOrderCountWhere['timeKey']);
-        //上月订单数
+        //Số đơn hàng tháng trước
         $lastOrderCountWhere['timeKey'] = $this->TimeConvert("last_month");
         $lastOrderCountWhere['is_del'] = 0;
         $lastOrderCountWhere['paid'] = 1;
         $lastOrderCountWhere['pid'] = 0;
         $lastOrderCount = $orderService->getOrderCountByWhere($lastOrderCountWhere);
-        //上月订单曲线
+        //Đường cong đặt hàng tháng trước
         // $lastCurveOrderCount = $orderService->getOrderGroupCountByWhere($lastOrderCountWhere);
         // $lastCurveOrderCount = $this->trendYdata($lastCurveOrderCount, 'month');
-        //订单数环比增长率
+        //Tốc độ tăng trưởng đơn hàng hàng tháng
         // $orderCountMonthChain = (($monthOrderCount - $lastOrderCount) / $lastOrderCount) * 100;
         $orderCountMonthChain = $this->countRate($monthOrderCount, $lastOrderCount);
         $data[] = [
-            'name' => "本月订单数",
+            'name' => "Số lượng đơn hàng trong tháng này",
             'now_value' => $monthOrderCount,
             'last_value' => $lastOrderCount,
             'rate' => $orderCountMonthChain,
             'curve' => $monthCurveOrderCount
         ];
-        /** month下单人数 */
-        //本月支付人数
+        /** monthSố người đặt hàng */
+        //Số người thanh toán tháng này
         $monthOrderPeopleWhere['timeKey'] = $this->TimeConvert("month");;
         $monthOrderPeopleWhere['paid'] = 1;
         $monthPayOrderPeople = count($orderService->getPayOrderPeopleByWhere($monthOrderPeopleWhere));
-        //本月支付人数曲线
+        //Đường cong số người trả tiền trong tháng này
         $monthCurveOrderPeople = $orderService->getPayOrderGroupPeopleByWhere($monthOrderPeopleWhere);
         $monthCurveOrderPeople = $this->trendYdata($monthCurveOrderPeople, $monthOrderPeopleWhere['timeKey']);
-        //上月支付人数
+        //Số người đã thanh toán tháng trước
         $lastOrderPeopleWhere['timeKey'] = $this->TimeConvert("last_month");
         $lastOrderPeopleWhere['paid'] = 1;
         $lastPayOrderPeople = count($orderService->getPayOrderPeopleByWhere($lastOrderPeopleWhere));
-        //上月支付曲线
+        //Đường cong thanh toán tháng trước
         // $lastCurveOrderPeople = $orderService->getPayOrderGroupPeopleByWhere($lastOrderPeopleWhere);
         // $lastCurveOrderPeople = $this->trendYdata($lastCurveOrderPeople, 'month');
-        //订单支付人数环比
+        //Số người thanh toán đơn hàng theo tháng
         $orderPeopleDayChain = $this->countRate($monthPayOrderPeople, $lastPayOrderPeople);
         $data[] = [
-            'name' => "本月支付人数",
+            'name' => "Số người thanh toán tháng này",
             'now_value' => $monthPayOrderPeople,
             'last_value' => $lastPayOrderPeople,
             'rate' => $orderPeopleDayChain,
@@ -185,31 +185,31 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 交易总额
+     * tổng số tiền giao dịch
      * @param $where
      * @param $selectType
      * @return array|float|int|mixed
      */
     public function tradeTotalMoney($where, $selectType, $isNum = false)
     {
-        /** 收入营业额 */
-        //商品订单收入
+        /** Doanh thu doanh thu */
+        //Thu nhập đơn hàng sản phẩm
         $inOrderMoney = $this->getOrderTotalMoney($where, $selectType, "", $isNum);
-        //用户充值收入
+        //Thu nhập nạp tiền của người dùng
         $inRechargeMoneyHome = $this->getRechargeTotalMoney($where, $selectType, "", $isNum);
         $inrechgeMoneyAdmin = $this->getBillYeTotalMoney($where, $selectType, '', $isNum);
         $inRechargeMoney = bcadd($inRechargeMoneyHome, $inrechgeMoneyAdmin, 2);
-        //购买会员收入
+        //Mua thu nhập thành viên
         $inMemberMoney = $this->getMemberTotalMoney($where, $selectType, "", $isNum);
-        //线下收款收入
+        //Thu nhập thu thập ngoại tuyến
         $inOfflineMoney = $this->getOfflineTotalMoney($where, $selectType, "", $isNum);
-        //总交易额
+        //tổng khối lượng giao dịch
         $inTotalMoney = bcadd(bcadd($inOrderMoney, $inRechargeMoney, 2), bcadd($inMemberMoney, $inOfflineMoney, 2), 2);/* - $outExtractUserMoney*/
         return $inTotalMoney;
     }
 
     /**
-     * 交易额曲线图
+     * Biểu đồ khối lượng giao dịch
      * @param $where
      * @param $selectType
      * @return array
@@ -217,25 +217,25 @@ class TradeStatisticServices extends BaseServices
     public function tradeGroupMoney($where, $selectType)
     {
 
-        //商品订单收入
+        //Doanh thu đặt hàng sản phẩm
         $orderGroup = "add_time";
         $OrderMoney = $this->getOrderTotalMoney($where, $selectType, $orderGroup);
-        //用户充值收入
+        //Thu nhập nạp tiền của người dùng
         $rechargeGroup = "add_time";
         $RechargeMoneyHome = $this->getRechargeTotalMoney($where, $selectType, $rechargeGroup);
         $RechargeMoneyAdmin = $this->getBillYeTotalMoney($where, $selectType, $rechargeGroup);
         $RechargeMoney = $this->totalArrData([$RechargeMoneyHome, $RechargeMoneyAdmin]);
-        //购买会员收入
+        //Mua thu nhập thành viên
         $memberGroup = "add_time";
         $MemberMoney = $this->getMemberTotalMoney($where, $selectType, $memberGroup);
-        //线下收款收入
+        //Thu nhập thu thập ngoại tuyến
         $offlineGroup = "add_time";
         $OfflineMoney = $this->getOfflineTotalMoney($where, $selectType, $offlineGroup);
         return $this->totalArrData([$OrderMoney, $RechargeMoney, $MemberMoney, $OfflineMoney]);
     }
 
     /**
-     * 底部数据
+     * dữ liệu dưới cùng
      * @param $where
      * @return array
      * @throws \Exception
@@ -259,14 +259,14 @@ class TradeStatisticServices extends BaseServices
         $topData = array();
         $Chain = array();
 
-        /** 商品支付金额 */
+        /** Số tiền thanh toán sản phẩm */
         $OrderMoney = $this->getOrderTotalMoney($where, "sum");
         $lastOrderMoney = $this->getOrderTotalMoney($dateWhere, "sum", "", $isNum);
         $OrderCurve = $this->getOrderTotalMoney($where, "group", "add_time");
         $OrderChain = $this->countRate($OrderMoney, $lastOrderMoney);
         $topData[1] = [
-            'title' => '商品支付金额',
-            'desc' => '选定条件下，用户购买商品的实际支付金额，包括微信支付、余额支付、支付宝支付、线下支付金额（拼团商品在成团之后计入，线下支付订单在后台确认支付后计入）',
+            'title' => 'Số tiền thanh toán sản phẩm',
+            'desc' => 'Trong các điều kiện đã chọn, số tiền thanh toán thực tế của hàng hóa mà người dùng đã mua, bao gồm thanh toán WeChat, thanh toán số dư, thanh toán Alipay và số tiền thanh toán ngoại tuyến (các sản phẩm nhóm được bao gồm sau khi nhóm được thành lập và các đơn đặt hàng thanh toán ngoại tuyến được bao gồm sau khi thanh toán được xác nhận ở chế độ nền)）',
             'total_money' => $OrderMoney,
             'rate' => $OrderChain,
             'value' => $OrderCurve['y'],
@@ -276,14 +276,14 @@ class TradeStatisticServices extends BaseServices
 
         $Chain['goods'] = $OrderCurve;
 
-        /** 购买会员金额 */
+        /** Mua số tiền thành viên */
         $memberMoney = $this->getMemberTotalMoney($where, 'sum');
         $lastMemberMoney = $this->getMemberTotalMoney($dateWhere, 'sum', "", $isNum);
         $memberCurve = $this->getMemberTotalMoney($where, 'group', "pay_time");
         $MemberChain = $this->countRate($memberMoney, $lastMemberMoney);
         $topData[2] = [
-            'title' => '购买会员金额',
-            'desc' => '选定条件下，用户成功购买付费会员的金额',
+            'title' => 'Mua số tiền thành viên',
+            'desc' => 'Số lượng thành viên trả phí mà người dùng đã mua thành công theo các điều kiện đã chọn',
             'total_money' => $memberMoney,
             'rate' => $MemberChain,
             'value' => $memberCurve['y'],
@@ -292,7 +292,7 @@ class TradeStatisticServices extends BaseServices
         ];
         $Chain['member'] = $memberCurve;
 
-        /** 充值金额 */
+        /** Số tiền nạp */
         $rechgeMoneyHome = $this->getRechargeTotalMoney($where, 'sum');
         $rechgeMoneyAdmin = $this->getBillYeTotalMoney($where, 'sum');
         $rechgeMoneyTotal = bcadd($rechgeMoneyHome, $rechgeMoneyAdmin, 2);
@@ -304,8 +304,8 @@ class TradeStatisticServices extends BaseServices
         $RechgeTotalCurve = $this->totalArrData([$RechgeHomeCurve, $RechgeAdminCurve]);
         $RechgeChain = $this->countRate($rechgeMoneyTotal, $lastRechgeMoneyTotal);
         $topData[3] = [
-            'title' => '充值金额',
-            'desc' => '选定条件下，用户成功充值的金额',
+            'title' => 'Số tiền nạp',
+            'desc' => 'Số tiền người dùng đã nạp thành công theo các điều kiện đã chọn',
             'total_money' => $rechgeMoneyTotal,
             'rate' => $RechgeChain,
             'value' => $RechgeTotalCurve['y'],
@@ -314,14 +314,14 @@ class TradeStatisticServices extends BaseServices
         ];
         $Chain['rechage'] = $RechgeTotalCurve;
 
-        /** 线下收银 */
+        /** Thu ngân ngoại tuyến */
         $offlineMoney = $this->getOfflineTotalMoney($where, 'sum');
         $lastOfflineMoney = $this->getOfflineTotalMoney($dateWhere, 'sum', "", $isNum);
         $offlineCurve = $this->getOfflineTotalMoney($where, 'group', "pay_time");
         $offlineChain = $this->countRate($offlineMoney, $lastOfflineMoney);
         $topData[4] = [
-            'title' => '线下收银金额',
-            'desc' => '选定条件下，用户在线下扫码支付的金额',
+            'title' => 'Số tiền thu ngân ngoại tuyến',
+            'desc' => 'Trong các điều kiện đã chọn, số tiền người dùng thanh toán ngoại tuyến bằng cách quét mã QR',
             'total_money' => $offlineMoney,
             'rate' => $offlineChain,
             'value' => $offlineCurve['y'],
@@ -330,25 +330,25 @@ class TradeStatisticServices extends BaseServices
         ];
         $Chain['offline'] = $offlineCurve;
 
-        /**  支出*/
-        //余额支付商品
+        /**  Chi tiêu*/
+        //Thanh toán số dư hàng hóa
         $outYeOrderMoney = $this->getOrderTotalMoney(['pay_type' => "yue", 'time' => $where['time']], 'sum');
         $lastOutYeOrderMoney = $this->getOrderTotalMoney(['pay_type' => "yue", 'time' => $dateWhere['time']], 'sum', "", $isNum);
         $outYeOrderCurve = $this->getOrderTotalMoney(['pay_type' => "yue", 'time' => $where['time']], 'group', 'pay_time');
         $outYeOrderChain = $this->countRate($outYeOrderMoney, $lastOutYeOrderMoney);
-        //余额购买会员
+        //Thành viên mua số dư
         $outYeMemberMoney = $this->getMemberTotalMoney(['pay_type' => "yue", 'time' => $where['time']], 'sum');
         $lastOutYeMemberMoney = $this->getMemberTotalMoney(['pay_type' => "yue", 'time' => $dateWhere['time']], 'sum', "", $isNum);
         $outYeMemberCurve = $this->getMemberTotalMoney(['pay_type' => "yue", 'time' => $where['time']], 'group', "pay_time");
         $outYeMemberChain = $this->countRate($outYeMemberMoney, $lastOutYeMemberMoney);
-        //余额支付
+        //thanh toán số dư
         $outYeMoney = bcadd($outYeOrderMoney, $outYeMemberMoney, 2);
         $lastOutYeMoney = bcadd($lastOutYeOrderMoney, $lastOutYeMemberMoney, 2);
         $outYeCurve = $this->totalArrData([$outYeOrderCurve, $outYeMemberCurve]);
         $outYeChain = $this->countRate($outYeOrderChain, $outYeMemberChain);
         $topData[6] = [
-            'title' => '余额支付金额',
-            'desc' => '用户下单时使用余额实际支付的金额',
+            'title' => 'Số tiền thanh toán số dư',
+            'desc' => 'Số tiền thực tế thanh toán bằng số dư khi người dùng đặt hàng',
             'total_money' => $outYeMoney,
             'rate' => $outYeChain,
             'value' => $outYeCurve['y'],
@@ -358,14 +358,14 @@ class TradeStatisticServices extends BaseServices
         $Chain['out_ye'] = $outYeCurve;
 
 
-        //支付佣金金额
+        //Số tiền hoa hồng đã trả
         $outExtractMoney = $this->getExtractTotalMoney($where, 'sum');
         $lastOutExtractMoney = $this->getExtractTotalMoney($dateWhere, 'sum', "", $isNum);
         $OutExtractCurve = $this->getExtractTotalMoney($where, 'group', "add_time");
         $OutExtractChain = $this->countRate($outExtractMoney, $lastOutExtractMoney);
         $topData[7] = [
-            'title' => '支付佣金金额',
-            'desc' => '后台给推广员支付的推广佣金，以实际支付为准',
+            'title' => 'Số tiền hoa hồng đã trả',
+            'desc' => 'Hoa hồng khuyến mãi được người phụ trợ trả cho người quảng bá sẽ tùy thuộc vào khoản thanh toán thực tế.',
             'total_money' => $outExtractMoney,
             'rate' => $OutExtractChain,
             'value' => $OutExtractCurve['y'],
@@ -374,14 +374,14 @@ class TradeStatisticServices extends BaseServices
         ];
         $Chain['extract'] = $OutExtractCurve;
 
-        //商品退款金额
+        //Số tiền hoàn lại sản phẩm
         $outOrderRefund = $this->getOrderRefundTotalMoney(['refund_type' => 6, 'time' => $where['time']], 'sum');
         $lastOutOrderRefund = $this->getOrderRefundTotalMoney(['refund_type' => 6, 'time' => $dateWhere['time']], 'sum', "", $isNum);
         $outOrderRefundCurve = $this->getOrderRefundTotalMoney(['refund_type' => 6, 'time' => $where['time']], 'group', 'add_time');
         $orderRefundChain = $this->countRate($outOrderRefund, $lastOutOrderRefund);
         $topData[8] = [
-            'title' => '商品退款金额',
-            'desc' => '用户成功退款的商品金额',
+            'title' => 'Số tiền hoàn lại sản phẩm',
+            'desc' => 'Số lượng hàng hóa được người dùng hoàn trả thành công',
             'total_money' => $outOrderRefund,
             'rate' => $orderRefundChain,
             'value' => $outOrderRefundCurve['y'],
@@ -390,14 +390,14 @@ class TradeStatisticServices extends BaseServices
         ];
         $Chain['refund'] = $outOrderRefundCurve;
 
-        //支出金额
+        //Số tiền chi tiêu
         $outTotalMoney = bcadd(bcadd($outYeMoney, $outExtractMoney, 2), $outOrderRefund, 2);
         $lastOutTotalMoney = bcadd(bcadd($lastOutYeMoney, $lastOutExtractMoney, 2), $lastOutOrderRefund, 2);
         $outTotalCurve = $this->totalArrData([$outYeCurve, $OutExtractCurve, $outOrderRefundCurve]);
         $outTotalChain = $this->countRate($outTotalMoney, $lastOutTotalMoney);
         $topData[5] = [
-            'title' => '支出金额',
-            'desc' => '余额支付金额、支付佣金金额、商品退款金额',
+            'title' => 'Số tiền chi tiêu',
+            'desc' => 'Số tiền thanh toán số dư, số tiền hoa hồng đã trả, số tiền hoàn trả sản phẩm',
             'total_money' => $outTotalMoney,
             'rate' => $outTotalChain,
             'value' => $outTotalCurve['y'],
@@ -406,7 +406,7 @@ class TradeStatisticServices extends BaseServices
         ];
         $Chain['out'] = $outTotalCurve;
 
-//        /** 交易毛利金额*/
+//        /** Số tiền lãi gộp giao dịch*/
 //        $jiaoyiMoney = $this->tradeTotalMoney($where, "sum");
 //
 //        $jiaoyiMoney = bcsub($jiaoyiMoney, $outTotalMoney, 2);
@@ -416,8 +416,8 @@ class TradeStatisticServices extends BaseServices
 //        $jiaoyiCurve = $this->subdutionArrData($jiaoyiCurve, $outTotalCurve);
 //        $jiaoyiChain = $this->countRate($jiaoyiMoney, $lastJiaoyiMoney);
 //        $topData[1] = [
-//            'title' => '交易毛利金额',
-//            'desc' => '交易毛利金额 = 营业额 - 支出金额',
+//            'title' => 'Số tiền lãi gộp giao dịch',
+//            'desc' => 'Số tiền lãi gộp giao dịch = Doanh thu - Số tiền chi tiêu',
 //            'total_money' => $jiaoyiMoney,
 //            'rate' => $jiaoyiChain,
 //            'value' => $jiaoyiCurve['y'],
@@ -426,14 +426,14 @@ class TradeStatisticServices extends BaseServices
 //        ];
 //        $Chain['jiaoyi'] = $jiaoyiCurve;
 
-        /** @var 营业额 $inTotalMoney */
+        /** @var doanh thu $inTotalMoney */
         $inTotalMoney = $this->tradeTotalMoney($where, "sum");
         $lastInTotalMoney = $this->tradeTotalMoney($dateWhere, "sum", $isNum);
         $inTotalCurve = $this->tradeGroupMoney($where, "group");
         $inTotalChain = $this->countRate($inTotalMoney, $lastInTotalMoney);
         $topData[0] = [
-            'title' => '营业额',
-            'desc' => '商品支付金额、充值金额、购买付费会员金额、线下收银金额',
+            'title' => 'doanh thu',
+            'desc' => 'Số tiền thanh toán sản phẩm, số tiền nạp lại, số tiền mua thành viên trả phí, số tiền thu ngân ngoại tuyến',
             'total_money' => $inTotalMoney,
             'rate' => $inTotalChain,
             'value' => $inTotalCurve['y'],
@@ -451,13 +451,13 @@ class TradeStatisticServices extends BaseServices
             $data['series'][$k]['rate'] = $v['rate'];
             $data['series'][$k]['value'] = array_values($v['value']);
         }
-        $export = $exportService->tradeData($data, '交易统计', 2);
+        $export = $exportService->tradeData($data, 'Thống kê giao dịch', 2);
         $data['export'] = $export[0];
         return $data;
     }
 
     /**
-     * 多个数组相加
+     * Thêm nhiều mảng
      * @param array $arr
      * @return array|false
      */
@@ -480,7 +480,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 数组相减
+     * Phép trừ mảng
      * @param array $arr1
      * @param array $arr2
      * @return array
@@ -496,7 +496,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 搜索时间转换
+     * Chuyển đổi thời gian tìm kiếm
      * @param $timeKey
      * @param false $isNum
      * @return array
@@ -570,7 +570,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 获取订单退款
+     * Nhận tiền hoàn lại cho đơn đặt hàng của bạn
      * @param $where
      * @param string $selectType
      * @param string $group
@@ -596,7 +596,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 获取商品营收
+     * Nhận doanh thu sản phẩm
      * @param $where
      * @param string $selectType
      * @param string $group
@@ -606,7 +606,7 @@ class TradeStatisticServices extends BaseServices
      */
     public function getOrderTotalMoney($where, string $selectType, string $group = "", bool $isNum = false)
     {
-        /** 普通商品订单支付金额 */
+        /** Số tiền thanh toán cho đơn hàng sản phẩm thông thường */
         /** @var StoreOrderServices $storeOrderService */
         $storeOrderService = app()->make(StoreOrderServices::class);
         $orderSumField = isset($where['refund_status']) ? "refund_price" : "pay_price";
@@ -627,7 +627,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 支付佣金
+     * Trả hoa hồng
      * @param $where
      * @param string $selectType
      * @param string $group
@@ -637,7 +637,7 @@ class TradeStatisticServices extends BaseServices
      */
     public function getExtractTotalMoney($where, string $selectType, string $group = "", bool $isNum = false)
     {
-        /** 普通商品订单支付金额 */
+        /** Số tiền thanh toán cho đơn hàng sản phẩm thông thường */
         /** @var UserExtractServices $extractService */
         $extractService = app()->make(UserExtractServices::class);
         $orderSumField = "extract_price";
@@ -653,7 +653,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 获取用户充值营收
+     * Nhận doanh thu nạp tiền của người dùng
      * @param array $where
      * @param string $selectType
      * @param string $group
@@ -679,7 +679,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 后台手动充值
+     * Nạp tiền thủ công ở chế độ nền
      * @param array $where
      * @param string $selectType
      * @param string $group
@@ -689,7 +689,7 @@ class TradeStatisticServices extends BaseServices
      */
     public function getBillYeTotalMoney(array $where, string $selectType, string $group = "", bool $isNum = false)
     {
-        /** 后台用户充值金额 */
+        /** Số tiền nạp lại của người dùng phụ trợ */
         $rechargeSumField = "number";
         $whereInRecharge['pm'] = 1;
         $whereInRecharge['type'] = 'system_add';
@@ -705,7 +705,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 购买会员总额
+     * Tổng số tiền mua thành viên
      * @param array $where
      * @param string $selectType
      * @param string $group
@@ -716,7 +716,7 @@ class TradeStatisticServices extends BaseServices
     public function getMemberTotalMoney(array $where, string $selectType, string $group = "", bool $isNum = false)
     {
 
-        /** 购买会员 */
+        /** Mua thành viên */
         /** @var OtherOrderServices $otherOrderService */
         $otherOrderService = app()->make(OtherOrderServices::class);
         $memberSumField = "pay_price";
@@ -738,7 +738,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 线下付款总额
+     * Tổng số tiền thanh toán ngoại tuyến
      * @param array $where
      * @param string $selectType
      * @param string $group
@@ -748,7 +748,7 @@ class TradeStatisticServices extends BaseServices
      */
     public function getOfflineTotalMoney(array $where, string $selectType, string $group = "", bool $isNum = false)
     {
-        /** 线下付款总额 */
+        /** Tổng số tiền thanh toán ngoại tuyến */
         /** @var OtherOrderServices $otherOrderService */
         $otherOrderService = app()->make(OtherOrderServices::class);
         $offlineSumField = "pay_price";
@@ -765,7 +765,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 处理Y坐标数据
+     * Xử lý dữ liệu tọa độ Y
      * @param array $data
      * @param array $timeKey
      * @return array
@@ -775,7 +775,7 @@ class TradeStatisticServices extends BaseServices
     {
         $hourMoney = array();
         $timeData = array();
-        //获取日期之间的天数
+        //Lấy số ngày giữa các ngày
         $getDayRange = function ($date, $timeKey) {
             $datearr = [];
             $stime = strtotime($timeKey['start_time']);
@@ -787,7 +787,7 @@ class TradeStatisticServices extends BaseServices
             }
             return $datearr;
         };
-        //获取日期之间的月份
+        //Nhận tháng giữa các ngày
         $getMonthRange = function ($date, $timeKey) {
             $datearr = [];
             $stime = date('Y-m-d', strtotime($timeKey['start_time']));
@@ -833,7 +833,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 计算环比增长率
+     * Tính tốc độ tăng trưởng hàng tháng
      * @param $nowValue
      * @param $lastValue
      * @return float|int|string
@@ -847,7 +847,7 @@ class TradeStatisticServices extends BaseServices
     }
 
     /**
-     * 获取环比时间类型
+     * Lấy loại thời gian đổ chuông
      * @param $timeKey
      * @return string
      */

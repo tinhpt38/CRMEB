@@ -26,18 +26,18 @@ export default {
     return {
       imgUrl: require('@/assets/images/ren.png'),
       spinShow: false,
-      isShowLogn: false, // 登录
-      isShow: false, // 修改密码
-      isShowReg: false, // 注册
-      isShowList: false, // 登录之后列表
+      isShowLogn: false, // Đăng nhập
+      isShow: false, // Thay đổi mật khẩu
+      isShowReg: false, // đăng ký
+      isShowList: false, // Danh sách sau khi đăng nhập
       smsAccount: '',
       accountInfo: {},
-      isForgetPhone: false, // 修改手机号
-      isIndex: false, // 判断忘记密码返回的路径
-      sms: { open: 0 }, // 短信信息
-      query: { open: 0 }, // 物流查询
-      dump: { open: 0 }, // 电子面单打印
-      copy: { open: 0 }, // 商品采集
+      isForgetPhone: false, // Sửa đổi số điện thoại di động
+      isIndex: false, // Xác định đường dẫn quay lại khi quên mật khẩu
+      sms: { open: 0 }, // tin nhắn SMS
+      query: { open: 0 }, // Điều tra hậu cần
+      dump: { open: 0 }, // In biểu mẫu điện tử
+      copy: { open: 0 }, // Bộ sưu tập sản phẩm
     };
   },
   created() {
@@ -45,7 +45,7 @@ export default {
     window.addEventListener('message', this.handleConfig);
   },
   beforeDestroy() {
-    // 移除事件监听器
+    // Xóa trình xử lý sự kiện
     window.removeEventListener('message', this.handleConfig);
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
     mealPay(val) {
       this.$router.push({ path: this.$routeProStr + '/setting/sms/sms_pay/index', query: { type: val } });
     },
-    // 开通服务
+    // Kích hoạt dịch vụ
     openService(val) {
       switch (val) {
         case 'sms':
@@ -92,7 +92,7 @@ export default {
           break;
       }
     },
-    // 平台用户信息
+    // Thông tin người dùng nền tảng
     getServeInfo() {
       this.spinShow = true;
       serveInfoApi()
@@ -129,7 +129,7 @@ export default {
           this.spinShow = false;
         });
     },
-    // 查看是否登录
+    // Kiểm tra xem bạn đã đăng nhập chưa
     onIsLogin() {
       this.spinShow = true;
       isLoginApi()
@@ -147,7 +147,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 退出登录
+    // Đăng xuất
     signOut() {
       logoutApi()
         .then(async (res) => {
@@ -158,12 +158,12 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 修改密码
+    // Thay đổi mật khẩu
     onChangePassswordIndex() {
       this.isIndex = true;
       this.passsword();
     },
-    // 忘记密码
+    // quên mật khẩu
     onChangePasssword() {
       this.isIndex = false;
       this.passsword();
@@ -177,19 +177,19 @@ export default {
       this.isShowList = false;
     },
 
-    // 立即注册
+    // Đăng ký ngay bây giờ
     onChangeReg() {
       this.isShowLogn = false;
       this.isShow = false;
       this.isShowReg = true;
     },
-    // 立即登录
+    // Đăng nhập ngay bây giờ
     logoup() {
       this.isShowLogn = true;
       this.isShow = false;
       this.isShowReg = false;
     },
-    // 登录跳转
+    // Đăng nhập nhảy
     onLogin() {
       let url = this.$route.query.url;
       if (url) {
@@ -203,7 +203,7 @@ export default {
         this.getServeInfo();
       }
     },
-    // 密码返回
+    // Trả lại mật khẩu
     goback() {
       if (this.isIndex) {
         this.isShowList = true;
@@ -213,7 +213,7 @@ export default {
         this.isShow = false;
       }
     },
-    // 手机号返回
+    // Trả lại số điện thoại di động
     gobackPhone() {
       this.isShowList = true;
       this.isForgetPhone = false;

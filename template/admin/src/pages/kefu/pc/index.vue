@@ -27,17 +27,17 @@
                       <img v-lazy="item.avatar" alt="" />
                     </div>
                     <div class="msg-wrapper">
-                      <!-- 文档 -->
+                      <!-- tài liệu -->
                       <template v-if="item.msn_type <= 2">
                         <div class="txt-wrapper pad16" v-html="item.msn"></div>
                       </template>
-                      <!-- 图片 -->
+                      <!-- hình ảnh -->
                       <template v-if="item.msn_type == 3">
                         <div class="img-wraper" v-viewer>
                           <img v-lazy="item.msn" alt="" />
                         </div>
                       </template>
-                      <!-- 商品 -->
+                      <!-- hàng hóa -->
                       <template v-if="item.msn_type == 5">
                         <div class="order-wrapper pad16">
                           <div class="img-box">
@@ -47,17 +47,17 @@
                             <div class="name line1">
                               {{ item.productInfo.store_name }}
                             </div>
-                            <div class="sku">库存：{{ item.productInfo.stock }} 销量：{{ item.productInfo.sales }}</div>
+                            <div class="sku">trong kho：{{ item.productInfo.stock }} Doanh số bán hàng：{{ item.productInfo.sales }}</div>
                             <div class="price-box">
                               <div class="num">¥ {{ item.productInfo.price }}</div>
                               <a herf="javascript:;" class="more" v-db-click @click.stop="lookGoods(item)"
-                                >查看商品 ></a
+                                >Xem sản phẩm ></a
                               >
                             </div>
                           </div>
                         </div>
                       </template>
-                      <!-- 订单 -->
+                      <!-- Đặt hàng -->
                       <template
                         v-if="item.msn_type == 6 && item.orderInfo && (item.orderInfo.length > 0 || item.orderInfo.id)"
                       >
@@ -69,11 +69,11 @@
                             <div class="name line1">
                               {{ item.orderInfo.order_id }}
                             </div>
-                            <div class="sku">商品数量：{{ item.orderInfo.total_num }}</div>
+                            <div class="sku">số lượng sản phẩm：{{ item.orderInfo.total_num }}</div>
                             <div class="price-box">
                               <div class="num">¥ {{ item.orderInfo.pay_price }}</div>
                               <a href="javascript:;" class="more" v-db-click @click.stop="lookOrder(item)"
-                                >查看订单 ></a
+                                >Xem đơn hàng ></a
                               >
                             </div>
                           </div>
@@ -115,14 +115,14 @@
               <div class="right-wrapper">
                 <div class="icon-item" v-db-click @click.stop="isTransfer = !isTransfer">
                   <span class="iconfont iconzhuanjie"></span>
-                  <span>转接</span>
+                  <span>chuyển khoản</span>
                 </div>
                 <div class="transfer-box" v-if="isTransfer">
                   <transfer @close="msgClose" @transferPeople="transferPeople" :userUid="userActive.to_uid"></transfer>
                 </div>
                 <div class="transfer-bg" v-if="isTransfer" v-db-click @click.stop="isTransfer = false"></div>
               </div>
-              <!-- 表情 -->
+              <!-- sự biểu lộ -->
               <div class="emoji-box" v-show="isEmoji">
                 <div class="emoji-item" v-for="(emoji, index) in emojiList" :key="index">
                   <i class="em" :class="emoji" v-db-click @click.stop="select(emoji)"></i>
@@ -137,12 +137,12 @@
                 type="textarea"
                 :rows="7"
                 @keydown.enter.native="listen($event)"
-                placeholder="请输入文字内容"
+                placeholder="Vui lòng nhập nội dung văn bản"
                 style="font-size: 14px; height: 150px"
               />
               <div class="send-btn">
                 <el-button class="btns" type="primary" :disabled="disabled" v-db-click @click.stop="sendText"
-                  >发送</el-button
+                  >gửi</el-button
                 >
               </div>
             </div>
@@ -157,18 +157,18 @@
           ></rightMenu>
         </div>
       </div>
-      <!-- 用户标签 -->
-      <el-dialog :visible.sync="isMsg" title="客服话术" class="none-radius isMsgbox" width="720px">
+      <!-- Thẻ người dùng -->
+      <el-dialog :visible.sync="isMsg" title="Kỹ năng phục vụ khách hàng" class="none-radius isMsgbox" width="720px">
         <msgWindow v-if="isMsg" @close="msgClose" @activeTxt="activeTxt"></msgWindow>
       </el-dialog>
-      <!-- 商品弹窗 -->
+      <!-- Cửa sổ bật lên sản phẩm -->
       <div v-if="isProductBox">
         <div class="bg" v-db-click @click.stop="isProductBox = false"></div>
         <goodsDetail :goodsId="goodsId"></goodsDetail>
       </div>
-      <!-- 订单详情 -->
+      <!-- Chi tiết đặt hàng -->
       <div v-if="isOrder">
-        <el-dialog :visible.sync="isOrder" title="订单信息" width="720px" class="none-radius">
+        <el-dialog :visible.sync="isOrder" title="Thông tin đặt hàng" width="720px" class="none-radius">
           <orderDetail :orderId="orderId"></orderDetail>
         </el-dialog>
       </div>
@@ -224,19 +224,19 @@ export default {
     return {
       isEmoji: false,
       chatCon: '',
-      emojiGroup: chunk(emojiList, 20), // 表情列表
+      emojiGroup: chunk(emojiList, 20), // Danh sách biểu thức
       emojiList: emojiList,
       html: '',
-      userActive: {}, //左侧用户列表选中信息
-      kefuInfo: {}, //客服信息
+      userActive: {}, //Thông tin được chọn trong danh sách người dùng ở bên trái
+      kefuInfo: {}, //Thông tin dịch vụ khách hàng
       isMsg: false,
       isTransfer: false,
-      activeMsg: '', // 选中的话术
+      activeMsg: '', // Từ đã chọn
       chatList: [],
       text: '',
       limit: 20,
       upperId: 0,
-      online: true, //当前客服在线状态
+      online: true, //Tình trạng trực tuyến dịch vụ khách hàng hiện tại
       scrollTop: 0,
       isScroll: true,
       oldHeight: 0,
@@ -251,10 +251,10 @@ export default {
         filename: 'file',
       },
       userOnline: {},
-      newRecored: {}, //新对话信息
-      searchData: '', // 搜索文字
-      scrollNum: 0, //滚动次数
-      transferId: '', //转接id
+      newRecored: {}, //Thông tin hội thoại mới
+      searchData: '', // Tìm kiếm văn bản
+      scrollNum: 0, //Số lượng cuộn
+      transferId: '', //chuyển khoảnid
       bodyClose: false,
       tourist: 0,
     };
@@ -286,12 +286,12 @@ export default {
       });
     },
   },
-  // 指令粘贴指令定义
+  // lệnh dán định nghĩa lệnh
   directives: {
     paste: {
       bind(el, binding, vnode) {
         el.addEventListener('paste', function (event) {
-          //这里直接监听元素的粘贴事件
+          //Tại đây bạn trực tiếp nghe sự kiện dán của phần tử
           binding.value(event);
         });
       },
@@ -367,16 +367,16 @@ export default {
           // mp3.play();
         });
         ws.$on('socket_error', () => {
-          this.$message.error('连接失败');
+          this.$message.error('Kết nối không thành công');
         });
         ws.$on('err_tip', (data) => {
           this.$message.error(data.msg);
         });
-        //用户上线提醒广播
+        //Phát sóng nhắc nhở trực tuyến của người dùng
         ws.$on('user_online', (data) => {
           this.userOnline = data;
         });
-        //用户未读消息条数更改
+        //Thay đổi về số lượng tin nhắn chưa đọc của người dùng
         ws.$on('mssage_num', (data) => {
           if (data.num > 0) {
             mp3.play();
@@ -407,7 +407,7 @@ export default {
     },
     onSocketClose(data) {
       if (data.key == 2) {
-        this.$message.error('连接断开，正在尝试重连...');
+        this.$message.error('Đã ngắt kết nối, đang cố gắng kết nối lại...');
         setTimeout(() => {
           this.ws.init(2);
         }, 2000);
@@ -417,10 +417,10 @@ export default {
       return isPicUpload(file);
     },
     handleFormatError(file) {
-      this.$message.error('上传图片只能是 jpg、jpg、jpeg、gif 格式!');
+      this.$message.error('Hình ảnh tải lên chỉ có thể ở định dạng jpg, jpg, jpeg, gif!');
     },
     bindEnter(e) {},
-    //微信截图上传图片时触发
+    //Được kích hoạt khi ảnh chụp màn hình WeChat tải lên
     handleParse(e) {
       let file = null;
       if (
@@ -429,29 +429,29 @@ export default {
         e.clipboardData.items[0].type &&
         e.clipboardData.items[0].type.indexOf('image') > -1
       ) {
-        //这里就是判断是否有粘贴进来的文件且文件为图片格式
+        //Đây là để xác định xem có tệp nào được dán vào và tệp đó có định dạng hình ảnh hay không.
         file = e.clipboardData.items[0].getAsFile();
       } else {
         this.$message({
           type: 'warning',
-          message: '上传的文件必须为图片且无法复制本地图片且无法同时复制多张图片',
+          message: 'Tệp được tải lên phải là một hình ảnh và không thể sao chép hình ảnh cục bộ cũng như không thể sao chép nhiều hình ảnh cùng một lúc.',
         });
         return;
       }
       this.update(file);
     },
     update(e) {
-      // 上传照片
+      // Tải ảnh lên
       let file = e;
-      let param = new FormData(); // 创建form对象
-      param.append('filename', 'file'); // 通过append向form对象添加数据进去
-      param.append('file', file); // 通过append向form对象添加数据进去
-      // 添加请求头
+      let param = new FormData(); // Tạo đối tượng biểu mẫu
+      param.append('filename', 'file'); // Thêm dữ liệu vào đối tượng biểu mẫu thông qua chắp thêm
+      param.append('file', file); // Thêm dữ liệu vào đối tượng biểu mẫu thông qua chắp thêm
+      // Thêm tiêu đề yêu cầu
       uploadImg(param).then((res) => {
         this.sendMsg(res.data.url, 3);
       });
     },
-    // 上传成功
+    // Tải lên thành công
     handleSuccess(res, file, fileList) {
       if (res.status === 200) {
         this.$message.success(res.msg);
@@ -460,7 +460,7 @@ export default {
         this.$message.error(res.msg);
       }
     },
-    //订单详情
+    //Chi tiết đặt hàng
     lookOrder(item) {
       this.orderId = item.orderInfo.id;
       this.isOrder = true;
@@ -476,33 +476,33 @@ export default {
       });
       this.online = data;
     },
-    // 阻止浏览器默认换行操作
+    // Ngăn chặn hoạt động gói dòng mặc định của trình duyệt
     listen(event) {
       if (!event.shiftKey && event.keyCode == 13) {
         if (event.target.value == '') {
-          return this.$message.error('请输入消息');
+          return this.$message.error('Vui lòng nhập tin nhắn');
         }
         this.sendMsg(event.target.value, 1);
         this.chatCon = '';
         this.$nextTick(() => this.$refs.chatInput.focus());
       }
     },
-    // 输入框选择表情
+    // Ô nhập chọn biểu tượng cảm xúc
     select(data) {
       let val = `[${data}]`;
       this.chatCon += val;
       this.isEmoji = false;
     },
-    // 聊天表情转换
+    // Chuyển đổi biểu tượng cảm xúc trò chuyện
     replace_em(str) {
       str = str.replace(/\[([^\[\]]+)\]/g, "<span class='em $1'/></span>");
       return str;
     },
-    // 获取是否游客
+    // Nhận được liệu một khách truy cập
     changeType(data) {
       this.tourist = data;
     },
-    // 获取列表用户信息
+    // Lấy thông tin người dùng danh sách
     setDataId(data) {
       this.userActive = data;
       this.chatList = [];
@@ -511,8 +511,8 @@ export default {
       this.isScroll = true;
       if (data) {
         window.document.title = data.nickname
-          ? `正在和${data.nickname}对话中 - ${this.kefuInfo.site_name}`
-          : '正在和游客对话中 - ' + this.kefuInfo.site_name;
+          ? `Ở bên${data.nickname}Trong cuộc trò chuyện - ${this.kefuInfo.site_name}`
+          : 'Nói chuyện với khách du lịch - ' + this.kefuInfo.site_name;
 
         Socket.then((ws) => {
           ws.send({
@@ -530,19 +530,19 @@ export default {
     msgClose() {
       this.isTransfer = false;
     },
-    // 话术选中
+    // Lựa chọn giọng nói
     activeTxt(data) {
       this.chatCon = data;
       this.isMsg = false;
     },
-    // 文本发送
+    // Gửi văn bản
     sendText() {
       this.sendMsg(this.chatCon, 1);
       this.chatCon = '';
       this.$nextTick(() => this.$refs.chatInput.focus());
     },
 
-    // 统一发送处理
+    // Xử lý gửi thống nhất
     sendMsg(msn, type) {
       let obj = {
         type: 'chat',
@@ -563,7 +563,7 @@ export default {
         type,
       });
     },
-    // 获取聊天列表
+    // Nhận danh sách trò chuyện
     getChatList() {
       serviceList({
         limit: this.limit,
@@ -596,7 +596,7 @@ export default {
         });
       });
     },
-    // 设置页面滚动位置
+    // Đặt vị trí cuộn trang
     setPageScrollTo(selector) {
       this.$nextTick(() => {
         if (selector) {
@@ -615,7 +615,7 @@ export default {
         }
       });
     },
-    //滚动到顶部
+    //cuộn lên trên cùng
     scrollHandler() {
       let self = this;
       if (this.isScroll && this.upperId) {
@@ -623,7 +623,7 @@ export default {
         this.getChatList();
       }
     },
-    // 滚动条动画
+    // Hoạt hình thanh cuộn
     scrollToTop(duration) {
       var container = document.querySelector('#chat_scroll');
       this.scrollTop = container.offsetHeight - this.oldHeight;
@@ -631,27 +631,27 @@ export default {
         this.scrollTop = this.$refs.scrollBox.offsetHeight - this.oldHeight;
       }, 300);
     },
-    // 商品推送
+    // Đẩy sản phẩm
     bindPush(data) {
       this.sendMsg(data, 5);
     },
-    // 商品详情
+    // Chi tiết sản phẩm
     lookGoods(item) {
       this.goodsId = item.msn;
       this.isProductBox = true;
     },
-    // 搜索用户
+    // Tìm kiếm người dùng
     bindSearch(data) {
       this.searchData = data;
       this.oldHeight = 0;
       this.upperId = 0;
       this.isScroll = false;
     },
-    // 客服转接
+    // Chuyển dịch vụ khách hàng
     transferPeople(data) {
       this.transferId = data.id;
       this.isTransfer = false;
-      this.$message.success('转接成功');
+      this.$message.success('Chuyển thành công');
       Socket.then((ws) => {
         ws.send({
           type: 'to_chat',
@@ -659,7 +659,7 @@ export default {
         });
       });
     },
-    // 客服转接确定
+    // Đã xác nhận chuyển dịch vụ khách hàng
     transferOk() {},
   },
 };

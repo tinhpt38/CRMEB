@@ -23,7 +23,7 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
   name: 'c_home_hot',
   componentsName: 'home_hot',
-  cname: '超值爆款',
+  cname: 'Mẫu hot siêu giá trị',
   props: {
     activeIndex: {
       type: null,
@@ -113,7 +113,7 @@ export default {
       if (!data.paddingConfig) {
         this.$set(data, 'paddingConfig', {
           isAll: false,
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -123,7 +123,7 @@ export default {
       if (!data.marginConfig) {
         this.$set(data, 'marginConfig', {
           isAll: false,
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,
@@ -132,7 +132,7 @@ export default {
       }
       if (!data.bottomBgColor) {
         this.$set(data, 'bottomBgColor', {
-          title: '底部背景',
+          title: 'nền dưới cùng',
           default: [
             {
               item: '#F5F5F5',

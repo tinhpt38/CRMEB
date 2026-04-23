@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\dao\BaseDao;
 use app\model\service\StoreServiceLog;
 
 /**
- * 客服聊天记录dao
+ * Lịch sử trò chuyện dịch vụ khách hàngdao
  * Class StoreServiceLogDao
  * @package app\dao\service
  */
@@ -27,13 +27,13 @@ class StoreServiceLogDao extends BaseDao
      */
     public function __construct()
     {
-        //清楚去年的聊天记录
+        //Xóa lịch sử trò chuyện từ năm ngoái
 //        $this->removeChat();
 //        $this->removeYesterDayChat();
     }
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -42,7 +42,7 @@ class StoreServiceLogDao extends BaseDao
     }
 
     /**
-     * 获取聊天记录下的uid和to_uid
+     * Lấy uid và bản ghi trò chuyệnto_uid
      * @param int $uid
      * @return mixed
      */
@@ -52,7 +52,7 @@ class StoreServiceLogDao extends BaseDao
     }
 
     /**
-     * 获取聊天记录并分页
+     * Nhận lịch sử trò chuyện và phân trang
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -67,7 +67,7 @@ class StoreServiceLogDao extends BaseDao
     }
 
     /**
-     * 获取聊天记录上翻页
+     * Lấy lịch sử chat để lật trang
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -87,7 +87,7 @@ class StoreServiceLogDao extends BaseDao
     }
 
     /**
-     * 清楚去年的聊天记录
+     * Xóa lịch sử trò chuyện từ năm ngoái
      * @return bool
      */
     public function removeChat()
@@ -96,7 +96,7 @@ class StoreServiceLogDao extends BaseDao
     }
 
     /**
-     * 清楚上周的游客用户聊天记录
+     * Xóa lịch sử trò chuyện của người dùng khách vào tuần trước
      * @return bool
      */
     public function removeYesterDayChat()
@@ -106,7 +106,7 @@ class StoreServiceLogDao extends BaseDao
 
 
     /**
-     * 根据条件获取条数
+     * Lấy số lượng vật phẩm dựa trên điều kiện
      * @param array $where
      * @return int
      */
@@ -116,7 +116,7 @@ class StoreServiceLogDao extends BaseDao
     }
 
     /**
-     * 获取未读消息条数
+     * Lấy số lượng tin nhắn chưa đọc
      * @param array $where
      * @return int
      */
@@ -126,7 +126,7 @@ class StoreServiceLogDao extends BaseDao
     }
 
     /**
-     * 搜索聊天记录
+     * Tìm kiếm lịch sử trò chuyện
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException

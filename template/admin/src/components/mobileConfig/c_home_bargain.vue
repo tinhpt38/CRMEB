@@ -399,7 +399,7 @@ export default {
       if (!data) return data;
       if (!data.headerBgColor) {
         this.$set(data, 'headerBgColor', {
-          title: '头部背景',
+          title: 'Nền đầu',
           name: 'headerBgColor',
           default: [
             {
@@ -422,7 +422,7 @@ export default {
       if (!data.paddingConfig) {
         this.$set(data, 'paddingConfig', {
           isAll: false,
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -438,7 +438,7 @@ export default {
       if (!data.marginConfig) {
         this.$set(data, 'marginConfig', {
           isAll: false,
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,
@@ -449,17 +449,17 @@ export default {
       if (!data.c_common_style) {
         this.$set(data, 'c_common_style', {
           color: {
-            title: '背景颜色',
+            title: 'màu nền',
             val: '',
             name: 'bgColor',
           },
           color2: {
-            title: '线条颜色',
+            title: 'màu đường',
             val: '',
             name: 'lineColor',
           },
           lr: {
-            title: '左右边距',
+            title: 'lề trái và lề phải',
             val: 0,
             min: 0,
             max: 100,
@@ -1105,7 +1105,7 @@ export default {
         }
       }
     },
-    // 获取组件参数
+    // Lấy tham số thành phần
     getConfig(data) {},
   },
 };

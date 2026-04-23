@@ -56,21 +56,21 @@ export default {
   },
   computed: {
     ...mapState('menu', ['activePath']),
-    // 设置分栏高亮风格
+    // Đặt kiểu đánh dấu cột
     setColumnsAsideStyle() {
       return this.$store.state.themeConfig.themeConfig.columnsAsideStyle;
     },
-    // 获取布局配置信息
+    // Nhận thông tin cấu hình bố cục
     getThemeConfig() {
       return this.$store.state.themeConfig.themeConfig;
     },
-    // 设置左侧菜单是否展开/收起
+    // Đặt xem menu bên trái có mở rộng/thu gọn hay không
     setIsCollapse() {
       return document.body.clientWidth < 1000 ? false : this.$store.state.themeConfig.themeConfig.isCollapse;
     },
   },
   watch: {
-    // 监听路由的变化
+    // Giám sát các thay đổi định tuyến
     $route: {
       handler(to) {
         this.defaultActive = to.path;

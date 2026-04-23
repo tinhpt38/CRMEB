@@ -1,60 +1,60 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
 /**
- * 附件相关路由
+ * Định tuyến liên quan đến tệp đính kèm
  */
 Route::group('file', function () {
-    //附件列表
-    Route::get('file', 'v1.file.SystemAttachment/index')->option(['real_name' => '图片附件列表']);
-    //删除图片和数据记录
-    Route::post('file/delete', 'v1.file.SystemAttachment/delete')->option(['real_name' => '删除图片']);
-    //移动图片分来表单
-    Route::get('file/move', 'v1.file.SystemAttachment/move')->option(['real_name' => '移动图片分类表单']);
-    //移动图片分类
-    Route::put('file/do_move', 'v1.file.SystemAttachment/moveImageCate')->option(['real_name' => '移动图片分类']);
-    //修改图片名称
-    Route::put('file/update/:id', 'v1.file.SystemAttachment/update')->option(['real_name' => '修改图片名称']);
-    //上传图片
-    Route::post('upload/[:upload_type]', 'v1.file.SystemAttachment/upload')->option(['real_name' => '上传图片']);
-    //附件分类管理资源路由
+    //Danh sách đính kèm
+    Route::get('file', 'v1.file.SystemAttachment/index')->option(['real_name' => 'Danh sách đính kèm hình ảnh']);
+    //Xóa hình ảnh và bản ghi dữ liệu
+    Route::post('file/delete', 'v1.file.SystemAttachment/delete')->option(['real_name' => 'Xóa ảnh']);
+    //Hình thức chia sẻ hình ảnh di động
+    Route::get('file/move', 'v1.file.SystemAttachment/move')->option(['real_name' => 'Mẫu phân loại hình ảnh di động']);
+    //Phân loại hình ảnh di động
+    Route::put('file/do_move', 'v1.file.SystemAttachment/moveImageCate')->option(['real_name' => 'Phân loại hình ảnh di động']);
+    //Sửa tên ảnh
+    Route::put('file/update/:id', 'v1.file.SystemAttachment/update')->option(['real_name' => 'Sửa tên ảnh']);
+    //Tải ảnh lên
+    Route::post('upload/[:upload_type]', 'v1.file.SystemAttachment/upload')->option(['real_name' => 'Tải ảnh lên']);
+    //Định tuyến tài nguyên quản lý phân loại tệp đính kèm
     Route::resource('category', 'v1.file.SystemAttachmentCategory')->except(['read'])->option([
         'real_name' => [
-            'index' => '获取附件分类管理列表',
-            'create' => '获取附件分类管理表单',
-            'save' => '保存附件分类管理',
-            'edit' => '获取修改附件分类管理表单',
-            'update' => '修改附件分类管理',
-            'delete' => '删除附件分类管理'
+            'index' => 'Nhận danh sách quản lý phân loại tệp đính kèm',
+            'create' => 'Nhận biểu mẫu quản lý phân loại tệp đính kèm',
+            'save' => 'Lưu quản lý phân loại tệp đính kèm',
+            'edit' => 'Nhận biểu mẫu quản lý phân loại tệp đính kèm sửa đổi',
+            'update' => 'Sửa đổi quản lý phân loại tệp đính kèm',
+            'delete' => 'Xóa quản lý phân loại tệp đính kèm'
         ],
 
     ]);
-    //获取上传类型
-    Route::get('upload_type', 'v1.file.SystemAttachment/uploadType')->option(['real_name' => '上传类型']);
-    //分片上传本地视频
-    Route::post('video_upload', 'v1.file.SystemAttachment/videoUpload')->option(['real_name' => '分片上传本地视频']);
-    //云存储视频保存数据
-    Route::post('video_data_save', 'v1.file.SystemAttachment/videoDataSave')->option(['real_name' => '云存储视频保存数据']);
-    //获取扫码上传页面链接以及参数
-    Route::get('scan_upload/qrcode', 'v1.file.SystemAttachment/scanUploadQrcode')->option(['real_name' => '扫码上传页面链接']);
-    //删除扫码上传token
-    Route::delete('scan_upload/qrcode', 'v1.file.SystemAttachment/removeUploadQrcode')->option(['real_name' => '删除扫码上传页面链接']);
-    //获取扫码上传的图片数据
-    Route::get('scan_upload/image/:scan_token', 'v1.file.SystemAttachment/scanUploadImage')->option(['real_name' => '获取扫码上传的图片数据']);
-    //网络图片上传
-    Route::post('online_upload', 'v1.file.SystemAttachment/onlineUpload')->option(['real_name' => '网络图片上传']);
+    //Nhận loại tải lên
+    Route::get('upload_type', 'v1.file.SystemAttachment/uploadType')->option(['real_name' => 'Loại tải lên']);
+    //Tải video cục bộ lên theo từng phần
+    Route::post('video_upload', 'v1.file.SystemAttachment/videoUpload')->option(['real_name' => 'Tải video cục bộ lên theo từng phần']);
+    //Lưu trữ video lưu trữ đám mây dữ liệu
+    Route::post('video_data_save', 'v1.file.SystemAttachment/videoDataSave')->option(['real_name' => 'Lưu trữ video lưu trữ đám mây dữ liệu']);
+    //Lấy link trang upload code scan và thông số
+    Route::get('scan_upload/qrcode', 'v1.file.SystemAttachment/scanUploadQrcode')->option(['real_name' => 'Quét mã để tải lên liên kết trang']);
+    //Xóa tải lên mã quéttoken
+    Route::delete('scan_upload/qrcode', 'v1.file.SystemAttachment/removeUploadQrcode')->option(['real_name' => 'Xóa liên kết trang tải lên mã quét']);
+    //Lấy dữ liệu hình ảnh được tải lên bằng cách quét mã QR
+    Route::get('scan_upload/image/:scan_token', 'v1.file.SystemAttachment/scanUploadImage')->option(['real_name' => 'Lấy dữ liệu hình ảnh được tải lên bằng cách quét mã QR']);
+    //Tải hình ảnh lên Internet
+    Route::post('online_upload', 'v1.file.SystemAttachment/onlineUpload')->option(['real_name' => 'Tải hình ảnh lên Internet']);
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'file', 'mark_name' => '素材管理']);
+])->option(['mark' => 'file', 'mark_name' => 'Quản lý vật tư']);

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,120 +16,120 @@ use app\services\BaseServices;
 use crmeb\exceptions\ApiException;
 
 /**
- * 用户佣金
+ * Hoa hồng người dùng
  * Class UserBrokerageServices
  * @package app\services\user
- * @method getUserFrozenPrice(int $uid) 获取某个用户冻结的佣金
+ * @method getUserFrozenPrice(int $uid) Nhận hoa hồng cố định của người dùng
  */
 class UserBrokerageServices extends BaseServices
 {
     /**
-     * 用户记录模板
+     * Mẫu hồ sơ người dùng
      * @var array[]
      */
     protected $incomeData = [
         'get_self_member_brokerage' => [
-            'title' => '获得自购付费会员佣金',
+            'title' => 'Nhận hoa hồng thành viên trả phí khi tự mua hàng',
             'type' => 'self_member_brokerage',
-            'mark' => '您成功消费{%pay_price%}元,奖励自购佣金{%number%}',
+            'mark' => 'Bạn đã tiêu thụ thành công{%pay_price%}Nhân dân tệ,Thưởng hoa hồng tự mua{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_member_brokerage' => [
-            'title' => '获得下级购买付费会员佣金',
+            'title' => 'Kiếm hoa hồng thành viên trả phí khi mua hàng ở cấp độ thấp hơn',
             'type' => 'one_member_brokerage',
-            'mark' => '{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => '{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_two_member_brokerage' => [
-            'title' => '获得二级购买付费会员佣金',
+            'title' => 'Nhận hoa hồng liên kết được trả tiền khi mua hàng thứ cấp',
             'type' => 'two_member_brokerage',
-            'mark' => '二级推广人{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => 'Nhà quảng bá cấp hai{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_self_brokerage' => [
-            'title' => '获得自购订单佣金',
+            'title' => 'Nhận hoa hồng cho đơn hàng tự mua',
             'type' => 'self_brokerage',
-            'mark' => '您成功消费{%pay_price%}元,奖励自购佣金{%number%}',
+            'mark' => 'Bạn đã tiêu thụ thành công{%pay_price%}Nhân dân tệ,Thưởng hoa hồng tự mua{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_brokerage' => [
-            'title' => '获得下级推广订单佣金',
+            'title' => 'Nhận hoa hồng cho các đơn hàng khuyến mãi cấp thấp hơn',
             'type' => 'one_brokerage',
-            'mark' => '{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => '{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_two_brokerage' => [
-            'title' => '获得二级推广订单佣金',
+            'title' => 'Nhận hoa hồng cho các đơn hàng khuyến mãi thứ cấp',
             'type' => 'two_brokerage',
-            'mark' => '二级推广人{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => 'Nhà quảng bá cấp hai{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_user_brokerage' => [
-            'title' => '获得推广用户佣金',
+            'title' => 'Nhận hoa hồng khi quảng bá người dùng',
             'type' => 'brokerage_user',
-            'mark' => '成功推广用户：{%nickname%},奖励推广佣金{%number%}',
+            'mark' => 'Quảng bá người dùng thành công：{%nickname%},Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'extract' => [
-            'title' => '佣金提现',
+            'title' => 'Rút tiền hoa hồng',
             'type' => 'extract',
             'mark' => '{%mark%}',
             'status' => 1,
             'pm' => 0
         ],
         'extract_fail' => [
-            'title' => '提现失败',
+            'title' => 'Rút tiền không thành công',
             'type' => 'extract_fail',
-            'mark' => '提现失败,退回佣金{%number%}元',
+            'mark' => 'Rút tiền không thành công,Hoa hồng trả lại{%number%}Nhân dân tệ',
             'status' => 1,
             'pm' => 1
         ],
         'brokerage_to_nowMoney' => [
-            'title' => '佣金提现到余额',
+            'title' => 'Hoa hồng được rút về số dư',
             'type' => 'extract_money',
-            'mark' => '佣金提现到余额{%number%}元',
+            'mark' => 'Hoa hồng được rút về số dư{%number%}Nhân dân tệ',
             'status' => 1,
             'pm' => 0
         ],
         'brokerage_refund' => [
-            'title' => '退款退佣金',
+            'title' => 'Hoa hồng hoàn tiền',
             'type' => 'refund',
-            'mark' => '订单退款扣除佣金{%number%}元',
+            'mark' => 'Hoàn tiền đơn hàng trừ hoa hồng{%number%}Nhân dân tệ',
             'status' => 1,
             'pm' => 0
         ],
         'get_staff_brokerage' => [
-            'title' => '获得员工推广订单佣金',
+            'title' => 'Nhận hoa hồng theo lệnh thăng tiến của nhân viên',
             'type' => 'staff_brokerage',
-            'mark' => '{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => '{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_agent_brokerage' => [
-            'title' => '获得代理推广订单佣金',
+            'title' => 'Nhận hoa hồng từ đơn hàng khuyến mại của đại lý',
             'type' => 'agent_brokerage',
-            'mark' => '{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => '{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_division_brokerage' => [
-            'title' => '获得事业部推广订单佣金',
+            'title' => 'Nhận hoa hồng cho các đơn hàng khuyến mãi của bộ phận kinh doanh',
             'type' => 'division_brokerage',
-            'mark' => '{%nickname%}成功消费{%pay_price%}元,奖励推广佣金{%number%}',
+            'mark' => '{%nickname%}tiêu dùng thành công{%pay_price%}Nhân dân tệ,Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
         'get_pink_master_brokerage' => [
-            'title' => '获得拼团团长佣金',
+            'title' => 'Nhận hoa hồng từ trưởng nhóm',
             'type' => 'pink_master_brokerage',
-            'mark' => '开团成功，奖励团长佣金{%number%}',
+            'mark' => 'Nếu nhóm ra mắt thành công thì trưởng nhóm sẽ được thưởng hoa hồng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
@@ -146,8 +146,8 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * 写入佣金记录
-     * @param string $type 写入类型
+     * Viết hồ sơ hoa hồng
+     * @param string $type viết kiểu
      * @param int $uid
      * @param int|string|array $number
      * @param int|string $balance
@@ -182,7 +182,7 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * 某个用户佣金总和
+     * Tổng hoa hồng của một người dùng nhất định
      * @param int $uid
      * @param array|string[] $type
      * @param string $time
@@ -198,7 +198,7 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * 退佣金
+     * Hoàn tiền hoa hồng
      * @param $order
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -215,11 +215,11 @@ class UserBrokerageServices extends BaseServices
             'pm' => 1
         ];
         $brokerageList = $this->dao->getUserBrokerageList($where);
-        //子订单
+        //Đơn hàng phụ
         if (!$brokerageList && $order['pid']) {
             $where['link_id'] = $order['pid'];
             $p_brokerageList = $this->dao->getUserBrokerageList($where);
-            //主订单已分佣 子订单按订单拆分后计算结果回退
+            //Đơn hàng chính đã được chia thành hoa hồng. Kết quả tính toán sẽ được khôi phục sau khi các đơn hàng con được chia theo thứ tự.
             if ($p_brokerageList) {
                 $brokerageList = [
                     ['uid' => $order['spread_uid'], 'number' => $order['one_brokerage']],
@@ -242,7 +242,7 @@ class UserBrokerageServices extends BaseServices
                 }
                 $res = $res && $userServices->bcDec($item['uid'], 'brokerage_price', (string)$item['number'], 'uid');
                 $brokerageData[] = [
-                    'title' => '退款退佣金',
+                    'title' => 'Hoa hồng hoàn tiền',
                     'uid' => $item['uid'],
                     'pm' => 0,
                     'add_time' => time(),
@@ -250,20 +250,20 @@ class UserBrokerageServices extends BaseServices
                     'number' => $item['number'],
                     'link_id' => $id,
                     'balance' => bcsub((string)$usermoney, (string)$item['number'], 2),
-                    'mark' => '订单退款扣除佣金' . floatval($item['number']) . '元'
+                    'mark' => 'Hoàn tiền đơn hàng trừ hoa hồng' . floatval($item['number']) . 'Nhân dân tệ'
                 ];
             }
             if ($brokerageData) {
                 $res = $res && $this->dao->saveAll($brokerageData);
             }
-            //修改佣金冻结时间
+            //Sửa đổi thời gian đóng băng hoa hồng
             $this->dao->update($where, ['frozen_time' => 0]);
         }
         return $res;
     }
 
     /**
-     * 佣金排行
+     * Xếp hạng hoa hồng
      * @param string $time
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -294,7 +294,7 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * 获取用户排名
+     * Nhận xếp hạng người dùng
      * @param int $uid
      * @param string $time
      * @return false|int|string
@@ -329,7 +329,7 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * 推广数据    昨天的佣金   累计提现金额  当前佣金
+     * Dữ liệu khuyến mãi Hoa hồng của ngày hôm qua Số tiền rút tích lũy Hoa hồng hiện tại
      * @param int $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -341,7 +341,7 @@ class UserBrokerageServices extends BaseServices
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         if (!$userServices->getUserInfo($uid)) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         /** @var UserExtractServices $userExtract */
         $userExtract = app()->make(UserExtractServices::class);
@@ -354,13 +354,13 @@ class UserBrokerageServices extends BaseServices
         $data['pm'] = 0;
         $data['commissionRefund'] = $this->getUsersBokerageSum($data);
         $data['commissionCount'] = $data['commissionSum'] > $data['commissionRefund'] ? bcsub((string)$data['commissionSum'], (string)$data['commissionRefund'], 2) : 0.00;
-        $data['lastDayCount'] = $this->getUsersBokerageSum($data, 'yesterday');//昨天的佣金
-        $data['extractCount'] = $userExtract->getUserExtract($uid);//累计提现金额
+        $data['lastDayCount'] = $this->getUsersBokerageSum($data, 'yesterday');//hoa hồng của ngày hôm qua
+        $data['extractCount'] = $userExtract->getUserExtract($uid);//Số tiền rút tích lũy
         return $data;
     }
 
     /**
-     * 计算佣金
+     * Tính hoa hồng
      * @param array $where
      * @param int $time
      * @return mixed
@@ -379,7 +379,7 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * 佣金明细
+     * Chi tiết hoa hồng
      * @param $uid
      * @param $type
      * @return array
@@ -413,13 +413,13 @@ class UserBrokerageServices extends BaseServices
                 if ($type == 4) {
                     $extract_type = $userExtract[$item['link_id']]['extract_type'] ?? '';
                     if ($extract_type == 'alipay') {
-                        $item['extract_type'] = '支付宝';
+                        $item['extract_type'] = 'Alipay';
                     } elseif ($extract_type == 'weixin') {
-                        $item['extract_type'] = '微信';
+                        $item['extract_type'] = 'WeChat';
                     } elseif ($extract_type == 'bank') {
-                        $item['extract_type'] = '银行卡';
+                        $item['extract_type'] = 'thẻ ngân hàng';
                     } else {
-                        $item['extract_type'] = '余额';
+                        $item['extract_type'] = 'Sự cân bằng';
                     }
                     $item['state'] = $userExtract[$item['link_id']]['state'] ?? '';
                     $item['fail_msg'] = $userExtract[$item['link_id']]['fail_msg'] ?? '';
@@ -439,7 +439,7 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * 前端佣金排行页面数据
+     * Dữ liệu trang xếp hạng hoa hồng giao diện người dùng
      * @param int $uid
      * @param $type
      * @return array
@@ -452,7 +452,7 @@ class UserBrokerageServices extends BaseServices
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid)) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         return [
             'rank' => $this->brokerageRankList($type),

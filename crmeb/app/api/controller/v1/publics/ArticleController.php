@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace app\api\controller\v1\publics;
 use app\services\article\ArticleServices;
 
 /**
- * 文章类
+ * bài viết
  * Class ArticleController
  * @package app\api\controller\publics
  */
@@ -27,7 +27,7 @@ class ArticleController
     }
 
     /**
-     * 文章列表
+     * Danh sách bài viết
      * @param $cid
      * @return mixed
      * @throws \ReflectionException
@@ -51,7 +51,7 @@ class ArticleController
     }
 
     /**
-     * 文章详情
+     * Chi tiết bài viết
      * @param $id
      * @return mixed
      * @throws \ReflectionException
@@ -66,7 +66,7 @@ class ArticleController
     }
 
     /**
-     * 获取热门文章
+     * Nhận các bài viết phổ biến
      * @return mixed
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
@@ -101,7 +101,7 @@ class ArticleController
     }
 
     /**
-     * 获取顶部banner文章
+     * Nhận bài viết biểu ngữ hàng đầu
      * @return mixed
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException

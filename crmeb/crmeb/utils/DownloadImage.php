@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,23 +18,23 @@ use think\facade\Config;
 use think\Image;
 
 /**
- * 下载图片到本地
+ * Tải hình ảnh về địa phương
  * Class DownloadImage
  * @package crmeb\utils
- * @method $this thumb(bool $thumb) 是否生成缩略图
- * @method $this thumbWidth(int $thumbWidth) 缩略图宽度
- * @method $this thumHeight(int $thumHeight) 缩略图宽度
- * @method $this path(int $path) 存储位置
+ * @method $this thumb(bool $thumb) Có tạo hình thu nhỏ hay không
+ * @method $this thumbWidth(int $thumbWidth) Chiều rộng hình thu nhỏ
+ * @method $this thumHeight(int $thumHeight) Chiều rộng hình thu nhỏ
+ * @method $this path(int $path) vị trí lưu trữ
  */
 class DownloadImage
 {
-    //是否生成缩略图
+    //Có tạo hình thu nhỏ hay không
     protected $thumb = false;
-    //缩略图宽度
+    //Chiều rộng hình thu nhỏ
     protected $thumbWidth = 300;
-    //缩略图高度
+    //Chiều cao hình thu nhỏ
     protected $thumHeight = 300;
-    //存储位置
+    //vị trí lưu trữ
     protected $path = 'attach';
 
     /**
@@ -43,7 +43,7 @@ class DownloadImage
     protected $rules = ['thumb', 'thumbWidth', 'thumHeight', 'path'];
 
     /**
-     * 获取即将要下载的图片扩展名
+     * Tải xuống phần mở rộng hình ảnh
      * @param string $url
      * @param string $ex
      * @return array|string[]
@@ -64,7 +64,7 @@ class DownloadImage
     }
 
     /**
-     * 下载图片
+     * Tải hình ảnh
      * @param string $url
      * @param string $name
      * @param int $upload_type
@@ -73,16 +73,16 @@ class DownloadImage
     public function downloadImage(string $url, $name = '')
     {
         if (!$name) {
-            //TODO 获取要下载的文件名称
+            //TODO Lấy tên file cần tải
             $downloadImageInfo = $this->getImageExtname($url);
             $ext = $downloadImageInfo['ext_name'];
             $name = $downloadImageInfo['file_name'];
-            if (!$name) throw new AdminException('上传图片不存在');
+            if (!$name) throw new AdminException('Hình ảnh được tải lên không tồn tại');
         } else {
             $ext = $this->getImageExtname($name)['ext_name'];
         }
         if (!in_array($ext, Config::get('upload.fileExt'))) {
-            throw new AdminException('格式错误');
+            throw new AdminException('Lỗi định dạng');
         }
         if (strstr($url, 'http://') === false && strstr($url, 'https://') === false) {
             $url = 'http:' . $url;
@@ -101,9 +101,9 @@ class DownloadImage
             $content = ob_get_contents();
             ob_end_clean();
             $size = strlen(trim($content));
-            if (!$content || $size <= 2) throw new AdminException('图片流获取失败');
+            if (!$content || $size <= 2) throw new AdminException('Việc thu thập luồng hình ảnh không thành công');
             if ($upload->to($to_path)->down($content, $name) === false) {
-                throw new AdminException('图片下载失败');
+                throw new AdminException('Tải xuống hình ảnh không thành công');
             }
             $imageInfo = $upload->getDownloadInfo();
             $path = $imageInfo['dir'];

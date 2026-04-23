@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -42,12 +42,12 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * 返回用户信息的缓存key，返回是否强制绑定手机号
+     * Trả về khóa bộ đệm của thông tin người dùng và trả về việc có buộc buộc liên kết số điện thoại di động hay không.
      * @param $code
      * @param $spread
      * @param $spid
      * @return array
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
      */
@@ -56,7 +56,7 @@ class RoutineServices extends BaseServices
         $agent_id = 0;
         $userInfoConfig = app()->make(OAuth::class, ['mini_program'])->oauth($code, ['silence' => true]);
         if (!isset($userInfoConfig['openid'])) {
-            throw new ApiException('静默授权失败');
+            throw new ApiException('Ủy quyền im lặng không thành công');
         }
         $routineInfo = ['unionid' => $userInfoConfig['unionid'] ?? ''];
         $info = app()->make(QrcodeServices::class)->getOne(['id' => $spread, 'status' => 1]);
@@ -83,21 +83,21 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * 根据缓存获取token
+     * Nhận từ bộ đệmtoken
      * @param $key
      * @return array
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
      */
     public function authLogin($key)
     {
         $createData = CacheService::get($key);
-        //写入用户信息
+        //Viết thông tin người dùng
         $user = app()->make(WechatUserServices::class)->wechatOauthAfter($createData);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -108,12 +108,12 @@ class RoutineServices extends BaseServices
                 'bindName' => (int)sys_config('get_avatar') && $user['avatar'] == sys_config('h5_avatar'),
             ];
         } else {
-            throw new ApiException('登录失败');
+            throw new ApiException('Đăng nhập không thành công');
         }
     }
 
     /**
-     * 自动获取手机号绑定
+     * Tự động lấy liên kết số điện thoại di động
      * @param $code
      * @param $iv
      * @param $encryptedData
@@ -142,7 +142,7 @@ class RoutineServices extends BaseServices
         ]);
         $session_key = $userInfoCong['session_key'];
         if (!$userInfo || !isset($userInfo['purePhoneNumber'])) {
-            throw new ApiException('获取用户信息失败');
+            throw new ApiException('Không thể lấy được thông tin người dùng');
         }
 
         $spreadId = $spid ?? 0;
@@ -160,7 +160,7 @@ class RoutineServices extends BaseServices
         $wechatInfo['phone'] = $userInfo['purePhoneNumber'];
         /** @var WechatUserServices $wechatUserServices */
         $wechatUserServices = app()->make(WechatUserServices::class);
-        //写入用户信息
+        //Viết thông tin người dùng
         $user = $wechatUserServices->wechatOauthAfter([$openid, $wechatInfo, $spreadId, $agent_id, $login_type, $userType]);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -171,12 +171,12 @@ class RoutineServices extends BaseServices
                 'bindName' => (int)sys_config('get_avatar') && $user['avatar'] == sys_config('h5_avatar'),
             ];
         } else {
-            throw new ApiException('登录失败');
+            throw new ApiException('Đăng nhập không thành công');
         }
     }
 
     /**
-     * 小程序手机号登录
+     * Chương trình nhỏ đăng nhập số điện thoại di động
      * @param $key
      * @param $phone
      * @param string $spread_code
@@ -187,7 +187,7 @@ class RoutineServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
      */
@@ -200,7 +200,7 @@ class RoutineServices extends BaseServices
         } else {
             $userInfoConfig = app()->make(OAuth::class, ['mini_program'])->oauth($code, ['silence' => true]);
             if (!isset($userInfoConfig['openid'])) {
-                throw new ApiException('静默授权失败');
+                throw new ApiException('Ủy quyền im lặng không thành công');
             }
             $routineInfo = ['unionid' => $userInfoConfig['unionid'] ?? ''];
             $info = app()->make(QrcodeServices::class)->getOne(['id' => $spread, 'status' => 1]);
@@ -216,7 +216,7 @@ class RoutineServices extends BaseServices
             $routineInfo['phone'] = $phone;
             $createData = [$openid, $routineInfo, $spid, $agent_id, 'routine', 'routine'];
         }
-        //写入用户信息
+        //Viết thông tin người dùng
         $user = app()->make(WechatUserServices::class)->wechatOauthAfter($createData);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -227,17 +227,17 @@ class RoutineServices extends BaseServices
                 'bindName' => (int)sys_config('get_avatar') && $user['avatar'] == sys_config('h5_avatar'),
             ];
         } else {
-            throw new ApiException('登录失败');
+            throw new ApiException('Đăng nhập không thành công');
         }
     }
 
     /**
-     * 小程序绑定手机号
+     * Chương trình mini liên kết số điện thoại di động
      * @param $code
      * @param $iv
      * @param $encryptedData
      * @return bool
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
      */
@@ -248,39 +248,39 @@ class RoutineServices extends BaseServices
             'encryptedData' => $encryptedData
         ]);
         if (!$userInfo || !isset($userInfo['purePhoneNumber'])) {
-            throw new ApiException('获取用户信息失败');
+            throw new ApiException('Không thể lấy được thông tin người dùng');
         }
         $uid = app()->make(WechatUserServices::class)->openidToUid($userInfoCong['openid']);
         $userServices = app()->make(UserServices::class);
         if ($userServices->count(['phone' => $userInfo['purePhoneNumber'], 'is_del' => 0])) {
-            throw new ApiException('手机号已注册');
+            throw new ApiException('Số điện thoại di động đã được đăng ký');
         }
         $res = $userServices->update(['uid' => $uid], ['phone' => $userInfo['purePhoneNumber']]);
         if ($res) return true;
-        throw new ApiException('绑定失败');
+        throw new ApiException('Ràng buộc không thành công');
     }
 
     /**
-     * 小程序创建用户后返回uid
+     * Applet trả về sau khi tạo người dùnguid
      * @param $routine
      * @return array
      */
     public function routineOauth($routine)
     {
-        $routineInfo['nickname'] = filter_emoji($routine['nickName']);//姓名
-        $routineInfo['sex'] = $routine['gender'];//性别
-        $routineInfo['language'] = $routine['language'];//语言
-        $routineInfo['city'] = $routine['city'];//城市
-        $routineInfo['province'] = $routine['province'];//省份
-        $routineInfo['country'] = $routine['country'];//国家
-        $routineInfo['headimgurl'] = $routine['avatarUrl'];//头像
+        $routineInfo['nickname'] = filter_emoji($routine['nickName']);//Tên
+        $routineInfo['sex'] = $routine['gender'];//giới tính
+        $routineInfo['language'] = $routine['language'];//ngôn ngữ
+        $routineInfo['city'] = $routine['city'];//Thành phố
+        $routineInfo['province'] = $routine['province'];//tỉnh
+        $routineInfo['country'] = $routine['country'];//Quốc gia
+        $routineInfo['headimgurl'] = $routine['avatarUrl'];//hình đại diện
         $routineInfo['openid'] = $routine['openId'];
-        $routineInfo['session_key'] = $routine['session_key'];//会话密匙
-        $routineInfo['unionid'] = $routine['unionId'];//用户在开放平台的唯一标识符
-        $routineInfo['user_type'] = 'routine';//用户类型
+        $routineInfo['session_key'] = $routine['session_key'];//khóa phiên
+        $routineInfo['unionid'] = $routine['unionId'];//Mã định danh duy nhất của người dùng trên nền tảng mở
+        $routineInfo['user_type'] = 'routine';//Loại người dùng
         $routineInfo['phone'] = $routine['phone'] ?? $routine['purePhoneNumber'] ?? '';
-        $spid = $routine['spid'] ?? 0;//绑定关系uid
-        //获取是否有扫码进小程序
+        $spid = $routine['spid'] ?? 0;//Uid mối quan hệ ràng buộc
+        //Nhận xem có quét mã để vào chương trình mini hay không
         /** @var QrcodeServices $qrcode */
         $qrcode = app()->make(QrcodeServices::class);
         if (isset($routine['code']) && $routine['code'] && ($info = $qrcode->get($routine['code']))) {
@@ -290,7 +290,7 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * 小程序支付回调
+     * Gọi lại thanh toán chương trình nhỏ
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \EasyWeChat\Core\Exceptions\FaultException
      */
@@ -300,7 +300,7 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * 获取小程序订阅消息id
+     * Nhận tin nhắn đăng ký chương trình nhỏid
      * @return bool|mixed|null
      */
     public function tempIds()
@@ -313,7 +313,7 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * 获取小程序直播列表
+     * Nhận danh sách phát sóng trực tiếp chương trình mini
      * @param $page
      * @param $limit
      * @return array|bool|mixed
@@ -331,7 +331,7 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * 更新用户信息
+     * Cập nhật thông tin người dùng
      * @param $uid
      * @param array $data
      * @return bool
@@ -345,23 +345,23 @@ class RoutineServices extends BaseServices
         $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new ApiException('数据不存在');
+            throw new ApiException('Dữ liệu không tồn tại');
         }
         $userInfo = [];
-        $userInfo['nickname'] = filter_emoji($data['nickName'] ?? '');//姓名
-        $userInfo['sex'] = $data['gender'] ?? '';//性别
-        $userInfo['language'] = $data['language'] ?? '';//语言
-        $userInfo['city'] = $data['city'] ?? '';//城市
-        $userInfo['province'] = $data['province'] ?? '';//省份
-        $userInfo['country'] = $data['country'] ?? '';//国家
-        $userInfo['headimgurl'] = $data['avatarUrl'] ?? '';//头像
+        $userInfo['nickname'] = filter_emoji($data['nickName'] ?? '');//Tên
+        $userInfo['sex'] = $data['gender'] ?? '';//giới tính
+        $userInfo['language'] = $data['language'] ?? '';//ngôn ngữ
+        $userInfo['city'] = $data['city'] ?? '';//Thành phố
+        $userInfo['province'] = $data['province'] ?? '';//tỉnh
+        $userInfo['country'] = $data['country'] ?? '';//Quốc gia
+        $userInfo['headimgurl'] = $data['avatarUrl'] ?? '';//hình đại diện
         $userInfo['is_complete'] = 1;
         /** @var LoginServices $loginService */
         $loginService = app()->make(LoginServices::class);
         $loginService->updateUserInfo($userInfo, $user);
-        //更新用户信息
+        //Cập nhật thông tin người dùng
         if (!$this->dao->update(['uid' => $user['uid'], 'user_type' => 'routine'], $userInfo)) {
-            throw new ApiException('更新失败');
+            throw new ApiException('Cập nhật không thành công');
         }
         return true;
     }

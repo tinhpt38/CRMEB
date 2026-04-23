@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,19 +21,19 @@ use crmeb\services\express\Express;
 use crmeb\services\FormBuilder as Form;
 
 /**
- * 物流数据
+ * Dữ liệu hậu cần
  * Class ExpressServices
  * @package app\services\shipping
- * @method save(array $data) 保存数据
- * @method get(int $id, ?array $field = []) 获取数据
- * @method delete(int $id, ?string $key = null) 删除数据
- * @method update($id, array $data, ?string $key = null) 修改数据
+ * @method save(array $data) lưu dữ liệu
+ * @method get(int $id, ?array $field = []) Nhận dữ liệu
+ * @method delete(int $id, ?string $key = null) Xóa dữ liệu
+ * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  */
 class ExpressServices extends BaseServices
 {
     public $_cacheKey = "plat_express_list";
 
-    //物流查询物流公司code
+    //Truy vấn hậu cần công ty hậu cầncode
     public $express_code = [
         'yunda' => 'yunda',
         'yundakuaiyun' => 'yunda56',
@@ -48,7 +48,7 @@ class ExpressServices extends BaseServices
     ];
 
     /**
-     * 构造方法
+     * Người xây dựng
      * ExpressServices constructor.
      * @param ExpressDao $dao
      */
@@ -58,7 +58,7 @@ class ExpressServices extends BaseServices
     }
 
     /**
-     * 获取物流信息
+     * Nhận thông tin hậu cần
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -79,36 +79,36 @@ class ExpressServices extends BaseServices
     }
 
     /**
-     * 物流表单
+     * Hình thức hậu cần
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function createExpressForm(array $formData = [])
     {
-        if (isset($formData['partner_id']) && $formData['partner_id'] == 1) $field[] = Form::input('account', '月结账号', $formData['account'] ?? '');
-        if (isset($formData['partner_key']) && $formData['partner_key'] == 1) $field[] = Form::input('key', '月结密码', $formData['key'] ?? '');
-        if (isset($formData['net']) && $formData['net'] == 1) $field[] = Form::input('net_name', '取件网点', $formData['net_name'] ?? '')->required();
-        if (isset($formData['check_man']) && $formData['check_man'] == 1) $field[] = Form::input('courier_name', '承载快递员名', $formData['courier_name'] ?? '')->required();
-        if (isset($formData['partner_name']) && $formData['partner_name'] == 1) $field[] = Form::input('customer_name', '客户账户名称', $formData['customer_name'] ?? '')->required();
-        if (isset($formData['is_code']) && $formData['is_code'] == 1) $field[] = Form::input('code_name', '电子面单承载编号', $formData['code_name'] ?? '')->required();
-        $field[] = Form::number('sort', '排序', (int)($formData['sort'] ?? 0))->precision(0);
-        $field[] = Form::radio('is_show', '是否启用', $formData['is_show'] ?? 1)->options([['value' => 0, 'label' => '隐藏'], ['value' => 1, 'label' => '启用']]);
+        if (isset($formData['partner_id']) && $formData['partner_id'] == 1) $field[] = Form::input('account', 'tài khoản hàng tháng', $formData['account'] ?? '');
+        if (isset($formData['partner_key']) && $formData['partner_key'] == 1) $field[] = Form::input('key', 'Mật khẩu quyết toán hàng tháng', $formData['key'] ?? '');
+        if (isset($formData['net']) && $formData['net'] == 1) $field[] = Form::input('net_name', 'Điểm đón', $formData['net_name'] ?? '')->required();
+        if (isset($formData['check_man']) && $formData['check_man'] == 1) $field[] = Form::input('courier_name', 'Tên hãng vận chuyển chuyển phát nhanh', $formData['courier_name'] ?? '')->required();
+        if (isset($formData['partner_name']) && $formData['partner_name'] == 1) $field[] = Form::input('customer_name', 'Tên tài khoản khách hàng', $formData['customer_name'] ?? '')->required();
+        if (isset($formData['is_code']) && $formData['is_code'] == 1) $field[] = Form::input('code_name', 'Số mang biểu mẫu điện tử', $formData['code_name'] ?? '')->required();
+        $field[] = Form::number('sort', 'loại', (int)($formData['sort'] ?? 0))->precision(0);
+        $field[] = Form::radio('is_show', 'Có bật hay không', $formData['is_show'] ?? 1)->options([['value' => 0, 'label' => 'trốn'], ['value' => 1, 'label' => 'cho phép']]);
         return $field;
     }
 
     /**
-     * 创建物流信息表单获取
+     * Tạo một biểu mẫu thông tin hậu cần để có được
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function createForm()
     {
-        return create_form('添加物流公司', $this->createExpressForm(), $this->url('/freight/express'));
+        return create_form('Thêm công ty hậu cần', $this->createExpressForm(), $this->url('/freight/express'));
     }
 
     /**
-     * 修改物流信息表单获取
+     * Sửa đổi việc thu thập mẫu thông tin hậu cần
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -117,13 +117,13 @@ class ExpressServices extends BaseServices
     {
         $express = $this->dao->get($id);
         if (!$express) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
-        return create_form('编辑物流公司', $this->createExpressForm($express->toArray()), $this->url('/freight/express/' . $id), 'PUT');
+        return create_form('Chỉnh sửa Công ty Logistics', $this->createExpressForm($express->toArray()), $this->url('/freight/express/' . $id), 'PUT');
     }
 
     /**
-     * 平台获取快递
+     * Nền tảng để nhận chuyển phát nhanh
      * @return array|mixed
      */
     public function getPlatExpress()
@@ -146,7 +146,7 @@ class ExpressServices extends BaseServices
     }
 
     /**
-     * 获取物流信息组合成新的数组返回
+     * Lấy thông tin hậu cần và kết hợp nó thành một mảng mới để trả về
      * @param array $where
      * @return array
      */
@@ -165,7 +165,7 @@ class ExpressServices extends BaseServices
     }
 
     /**
-     * 获取物流信息组合成新的数组返回
+     * Lấy thông tin hậu cần và kết hợp nó thành một mảng mới để trả về
      * @param array $where
      * @return array
      */
@@ -187,7 +187,7 @@ class ExpressServices extends BaseServices
     }
 
     /**
-     * 物流公司查询
+     * Điều tra công ty hậu cần
      * @param string $cacheName
      * @param string $expressNum
      * @param string|null $com
@@ -236,7 +236,7 @@ class ExpressServices extends BaseServices
     }
 
     /**
-     * 同步物流公司
+     * Công ty Logistics đồng bộ
      * @return bool
      */
     public function syncExpress()
@@ -266,7 +266,7 @@ class ExpressServices extends BaseServices
         return true;
     }
 
-    /** 查询单个快递公司
+    /** Truy vấn một công ty chuyển phát nhanh
      * @param array $where
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException

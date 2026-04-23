@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ use crmeb\services\SpreadsheetExcelService;
 class ExportServices extends BaseServices
 {
     /**
-     * 用户导出
+     * Xuất người dùng
      * @param $where
      * @return array
      */
@@ -36,8 +36,8 @@ class ExportServices extends BaseServices
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $data = $userServices->index($where)['list'];
-        $header = ['用户ID', '昵称', '真实姓名', '性别', '电话', '用户等级', '用户分组', '用户标签', '用户类型', '用户余额', '最后登录时间', '注册时间', '是否注销'];
-        $filename = '用户列表_' . date('YmdHis', time());
+        $header = ['người dùngID', 'biệt danh', 'tên thật', 'giới tính', 'Điện thoại', 'Cấp độ người dùng', 'Nhóm người dùng', 'Thẻ người dùng', 'Loại người dùng', 'Số dư người dùng', 'Lần đăng nhập cuối cùng', 'Thời gian đăng ký', 'Có nên đăng xuất không'];
+        $filename = 'Danh sách người dùng_' . date('YmdHis', time());
         $export = $fileKey = [];
         if (!empty($data)) {
             $i = 0;
@@ -55,7 +55,7 @@ class ExportServices extends BaseServices
                     'now_money' => $item['now_money'],
                     'last_time' => date('Y-m-d H:i:s', $item['last_time']),
                     'add_time' => date('Y-m-d H:i:s', $item['add_time']),
-                    'is_del' => $item['is_del'] ? '已注销' : '正常'
+                    'is_del' => $item['is_del'] ? 'Đã đăng xuất' : 'Bình thường'
                 ];
                 $export[] = $one_data;
                 if ($i == 0) {
@@ -68,7 +68,7 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 订单导出
+     * Xuất đơn hàng
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -77,8 +77,8 @@ class ExportServices extends BaseServices
      */
     public function exportOrderList($where)
     {
-        $header = ['订单号', '收货人姓名', '收货人电话', '收货地址', '商品名称', '规格', '数量', '价格', '总价格', '实际支付', '支付状态', '支付时间', '订单状态', '下单时间', '用户备注', '商家备注', '表单信息'];
-        $filename = '订单列表_' . date('YmdHis', time());
+        $header = ['Số đơn hàng', 'Tên người nhận hàng', 'Số điện thoại của người nhận hàng', 'Địa chỉ giao hàng', 'Tên sản phẩm', 'Đặc điểm kỹ thuật', 'Số lượng', 'giá', 'tổng giá', 'thanh toán thực tế', 'Trạng thái thanh toán', 'thời gian thanh toán', 'Trạng thái đơn hàng', 'thời gian đặt hàng', 'Nhận xét của người dùng', 'Nhận xét của người bán', 'thông tin biểu mẫu'];
+        $filename = 'danh sách đặt hàng_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreOrderServices $orderServices */
         $orderServices = app()->make(StoreOrderServices::class);
@@ -89,46 +89,46 @@ class ExportServices extends BaseServices
                 if ($item['paid'] == 1) {
                     switch ($item['pay_type']) {
                         case 'weixin':
-                            $item['pay_type_name'] = '微信支付';
+                            $item['pay_type_name'] = 'WeChat trả tiền';
                             break;
                         case 'yue':
-                            $item['pay_type_name'] = '余额支付';
+                            $item['pay_type_name'] = 'thanh toán số dư';
                             break;
                         case 'offline':
-                            $item['pay_type_name'] = '线下支付';
+                            $item['pay_type_name'] = 'Thanh toán ngoại tuyến';
                             break;
                         default:
-                            $item['pay_type_name'] = '其他支付';
+                            $item['pay_type_name'] = 'Các khoản thanh toán khác';
                             break;
                     }
                 } else {
                     switch ($item['pay_type']) {
                         default:
-                            $item['pay_type_name'] = '未支付';
+                            $item['pay_type_name'] = 'Chưa thanh toán';
                             break;
                         case 'offline':
-                            $item['pay_type_name'] = '线下支付';
+                            $item['pay_type_name'] = 'Thanh toán ngoại tuyến';
                             break;
                     }
                 }
                 if ($item['paid'] == 0 && $item['status'] == 0) {
-                    $item['status_name'] = '未支付';
+                    $item['status_name'] = 'Chưa thanh toán';
                 } else if ($item['paid'] == 1 && $item['status'] == 0 && $item['shipping_type'] == 1 && $item['refund_status'] == 0) {
-                    $item['status_name'] = '未发货';
+                    $item['status_name'] = 'Không được vận chuyển';
                 } else if ($item['paid'] == 1 && $item['status'] == 0 && $item['shipping_type'] == 2 && $item['refund_status'] == 0) {
-                    $item['status_name'] = '未核销';
+                    $item['status_name'] = 'Không được viết tắt';
                 } else if ($item['paid'] == 1 && $item['status'] == 1 && $item['shipping_type'] == 1 && $item['refund_status'] == 0) {
-                    $item['status_name'] = '待收货';
+                    $item['status_name'] = 'Đang chờ nhận';
                 } else if ($item['paid'] == 1 && $item['status'] == 1 && $item['shipping_type'] == 2 && $item['refund_status'] == 0) {
-                    $item['status_name'] = '未核销';
+                    $item['status_name'] = 'Không được viết tắt';
                 } else if ($item['paid'] == 1 && $item['status'] == 2 && $item['refund_status'] == 0) {
-                    $item['status_name'] = '待评价';
+                    $item['status_name'] = 'Đang chờ đánh giá';
                 } else if ($item['paid'] == 1 && $item['status'] == 3 && $item['refund_status'] == 0) {
-                    $item['status_name'] = '已完成';
+                    $item['status_name'] = 'Hoàn thành';
                 } else if ($item['paid'] == 1 && $item['refund_status'] == 1) {
-                    $item['status_name'] = '正在退款';
+                    $item['status_name'] = 'Hoàn tiền';
                 } else if ($item['paid'] == 1 && $item['refund_status'] == 2) {
-                    $item['status_name'] = '已退款';
+                    $item['status_name'] = 'Đã hoàn tiền';
                 }
                 $custom_form = '';
                 foreach ($item['custom_form'] as $custom_form_value) {
@@ -165,8 +165,8 @@ class ExportServices extends BaseServices
 //                    'total_price' => $item['total_price'],
 //                    'pay_price' => $item['pay_price'],
 //                    'pay_type_name' => $item['pay_type_name'],
-//                    'pay_time' => $item['pay_time'] > 0 ? date('Y-m-d H:i', (int)$item['pay_time']) : '暂无',
-//                    'status_name' => $item['status_name'] ?? '未知状态',
+//                    'pay_time' => $item['pay_time'] > 0 ? date('Y-m-d H:i', (int)$item['pay_time']) : 'Chưa có',
+//                    'status_name' => $item['status_name'] ?? 'trạng thái không xác định',
 //                    'add_time' => $item['add_time'],
 //                    'mark' => $item['mark'],
 //                    'remark' => $item['remark'],
@@ -190,8 +190,8 @@ class ExportServices extends BaseServices
                     $item['total_price'],
                     $item['pay_price'],
                     $item['pay_type_name'],
-                    $item['pay_time'] > 0 ? date('Y-m-d H:i', (int)$item['pay_time']) : '暂无',
-                    $item['status_name'] ?? '未知状态',
+                    $item['pay_time'] > 0 ? date('Y-m-d H:i', (int)$item['pay_time']) : 'Chưa có',
+                    $item['status_name'] ?? 'trạng thái không xác định',
                     $item['add_time'],
                     $item['mark'],
                     $item['remark'],
@@ -208,7 +208,7 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 订单导出
+     * Xuất đơn hàng
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -216,8 +216,8 @@ class ExportServices extends BaseServices
      */
     public function exportOrderDeliveryList()
     {
-        $header = ['订单ID', '订单号', '快递名称', '快递编码', '快递单号', '收货人姓名', '收货人电话', '收货地址', '商品信息', '实际支付', '用户备注'];
-        $filename = '发货单_' . date('YmdHis', time());
+        $header = ['Đặt hàngID', 'Số đơn hàng', 'Tên thể hiện', 'Mã nhanh', 'Số theo dõi nhanh', 'Tên người nhận hàng', 'Số điện thoại của người nhận hàng', 'Địa chỉ giao hàng', 'Thông tin sản phẩm', 'thanh toán thực tế', 'Nhận xét của người dùng'];
+        $filename = 'Hóa đơn_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreOrderServices $orderServices */
         $orderServices = app()->make(StoreOrderServices::class);
@@ -266,7 +266,7 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 商品导出
+     * Xuất khẩu sản phẩm
      * @param $where
      * @return array
      */
@@ -287,15 +287,15 @@ class ExportServices extends BaseServices
         }
         $productList = $productServices->dao->getList($where, $page, $limit);
         $header = [
-            '商品编号',
-            '商品名称', '商品类型', '商品分类(一级)', '商品分类(二级)', '商品单位',
-            '已售数量', '起购数量',
-            '规格类型', '规格名称', '售价', '划线价', '成本价', '库存', '重量', '体积', '商品编码', '条形码',
-            '商品简介', '商品关键字', '商品口令',
-            '购买送积分'
+            'Số mặt hàng',
+            'Tên sản phẩm', 'Loại sản phẩm', 'Phân loại sản phẩm(Cấp 1)', 'Phân loại sản phẩm(Cấp 2)', 'đơn vị hàng hóa',
+            'Số lượng bán', 'Số lượng mua tối thiểu',
+            'Loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'trong kho', 'cân nặng', 'âm lượng', 'Mã sản phẩm', 'mã vạch',
+            'Giới thiệu sản phẩm', 'Từ khóa sản phẩm', 'Mật khẩu sản phẩm',
+            'Mua và nhận điểm'
         ];
-        $filename = '商品导出_' . date('YmdHis', time());
-        $virtualType = ['普通商品', '卡密/网盘', '优惠券', '虚拟商品'];
+        $filename = 'Xuất khẩu sản phẩm_' . date('YmdHis', time());
+        $virtualType = ['Hàng thông thường', 'Thẻ bí mật/đĩa mạng', 'Phiếu giảm giá', 'hàng ảo'];
         $export = $fileKey = [];
         if (!empty($productList)) {
             $productList = array_column($productList, null, 'id');
@@ -319,11 +319,11 @@ class ExportServices extends BaseServices
                     $skuArr = array_combine(array_column($attrResult['attr'], 'value'), $value['detail']);
                     $attrArr = [];
                     foreach ($attrResult['attr'] as $attrArray) {
-                        // 将每个子数组的 'value' 和 'detail' 组合成字符串
+                        // Chuyển đổi từng mảng con thành 'value' Và 'detail' kết hợp thành chuỗi
                         if (isset($attrArray['detail'][0]['value'])) {
                             $attrArray['detail'] = array_column($attrArray['detail'], 'value');
                         }
-                        $detailString = implode(',', $attrArray['detail']); // 将 detail 数组转换为逗号分隔的字符串
+                        $detailString = implode(',', $attrArray['detail']); // Chuyển đổi mảng chi tiết thành chuỗi được phân tách bằng dấu phẩy
                         $attrArr[] = $attrArray['value'] . '=' . $detailString;
                     }
                     $attrString = implode(';', $attrArr);
@@ -343,7 +343,7 @@ class ExportServices extends BaseServices
                         'unit_name' => $productInfo['unit_name'],
                         'ficti' => intval($productInfo['ficti']),
                         'min_qty' => intval($productInfo['min_qty']),
-                        'spec_type' => intval($productInfo['spec_type']) == 1 ? '多规格' : '单规格',
+                        'spec_type' => intval($productInfo['spec_type']) == 1 ? 'Nhiều thông số kỹ thuật' : 'Đặc điểm kỹ thuật đơn',
                         'sku_name' => implode(',', $value['detail']),
                         'price' => floatval($value['price']),
                         'ot_price' => floatval($value['ot_price']),
@@ -370,7 +370,7 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 砍价商品导出
+     * Xuất khẩu mặt hàng giá hời
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -379,8 +379,8 @@ class ExportServices extends BaseServices
      */
     public function exportBargainList($where)
     {
-        $header = ['砍价名称', '起始价格', '最低价', '参与人数', '成功人数', '剩余库存', '活动状态', '活动时间', '添加时间'];
-        $filename = '砍价列表_' . date('YmdHis', time());
+        $header = ['tên thương lượng', 'giá khởi điểm', 'giá thấp nhất', 'Số lượng người tham gia', 'số lượng thành công', 'hàng còn lại', 'trạng thái hoạt động', 'Thời gian hoạt động', 'Thêm thời gian'];
+        $filename = 'Danh sách mặc cả_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreBargainServices $bargainServices */
         $bargainServices = app()->make(StoreBargainServices::class);
@@ -396,7 +396,7 @@ class ExportServices extends BaseServices
                     'count_people_success' => $item['count_people_success'],
                     'quota' => $item['quota'],
                     'start_name' => $item['start_name'],
-                    'activity_time' => $item['start_time'] . '至' . $item['stop_time'],
+                    'activity_time' => $item['start_time'] . 'ĐẾN' . $item['stop_time'],
                     'add_time' => $item['add_time']
                 ];
                 $export[] = $one_data;
@@ -410,14 +410,14 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 拼团商品导出
+     * Nhóm sản phẩm xuất khẩu
      * @param $where
      * @return array
      */
     public function exportCombinationList($where)
     {
-        $header = ['拼团名称', '拼团价', '原价', '拼团人数', '参与人数', '成团数量', '剩余库存', '活动状态', '活动时间', '添加时间'];
-        $filename = '拼团列表_' . date('YmdHis', time());
+        $header = ['Tên nhóm', 'Giá nhóm', 'giá gốc', 'Số người trong nhóm', 'Số lượng người tham gia', 'Số lượng nhóm', 'hàng còn lại', 'trạng thái hoạt động', 'Thời gian hoạt động', 'Thêm thời gian'];
+        $filename = 'Danh sách nhóm nhóm_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreCombinationServices $combinationServices */
         $combinationServices = app()->make(StoreCombinationServices::class);
@@ -434,7 +434,7 @@ class ExportServices extends BaseServices
                     'count_people_pink' => $item['count_people_pink'],
                     'quota' => $item['quota'],
                     'start_name' => $item['start_name'],
-                    'activity_time' => $item['start_time'] . '至' . $item['stop_time'],
+                    'activity_time' => $item['start_time'] . 'ĐẾN' . $item['stop_time'],
                     'add_time' => $item['add_time']
                 ];
                 $export[] = $one_data;
@@ -448,7 +448,7 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 秒杀导出
+     * Xuất flash sale
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -457,8 +457,8 @@ class ExportServices extends BaseServices
      */
     public function exportSeckillList($where)
     {
-        $header = ['秒杀名称', '秒杀价', '原价', '剩余库存', '活动状态', '活动时间', '添加时间'];
-        $filename = '秒杀列表_' . date('YmdHis', time());
+        $header = ['tên bán flash', 'giá bán chớp nhoáng', 'giá gốc', 'hàng còn lại', 'trạng thái hoạt động', 'Thời gian hoạt động', 'Thêm thời gian'];
+        $filename = 'danh sách bán chớp nhoáng_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreSeckillServices $seckillServices */
         $seckillServices = app()->make(StoreSeckillServices::class);
@@ -472,7 +472,7 @@ class ExportServices extends BaseServices
                     'ot_price' => $item['ot_price'],
                     'quota' => $item['quota'],
                     'start_name' => $item['start_name'],
-                    'activity_time' => $item['start_time'] . '至' . $item['stop_time'],
+                    'activity_time' => $item['start_time'] . 'ĐẾN' . $item['stop_time'],
                     'add_time' => $item['add_time']
                 ];
                 $export[] = $one_data;
@@ -486,7 +486,7 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 会员卡导出
+     * Xuất thẻ thành viên
      * @param $id
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -498,8 +498,8 @@ class ExportServices extends BaseServices
         /** @var MemberCardServices $memberCardServices */
         $memberCardServices = app()->make(MemberCardServices::class);
         $data = $memberCardServices->getExportData(['batch_card_id' => $id]);
-        $header = ['会员卡号', '密码', '领取人', '领取人手机号', '领取时间', '是否使用'];
-        $filename = $data['title'] . '批次列表_' . date('YmdHis', time());
+        $header = ['Số thẻ thành viên', 'mật khẩu', 'Người nhận', 'Số điện thoại di động của người nhận', 'Thời gian thu thập', 'Có nên sử dụng không'];
+        $filename = $data['title'] . 'danh sách lô_' . date('YmdHis', time());
         $export = $fileKey = [];
         if (!empty($data['data'])) {
             $userIds = array_column($data['data']->toArray(), 'use_uid');
@@ -516,7 +516,7 @@ class ExportServices extends BaseServices
                     'user_name' => $userList[$item['use_uid']]['real_name'] ?? $userList[$item['use_uid']]['nickname'] ?? '',
                     'user_phone' => $userList[$item['use_uid']]['phone'] ?? "",
                     'use_time' => $item['use_time'],
-                    'use_uid' => $item['use_uid'] ? '已领取' : '未领取'
+                    'use_uid' => $item['use_uid'] ? 'Đã nhận' : 'Không được thu thập'
                 ];
                 $export[] = $one_data;
                 if ($i == 0) {
@@ -529,19 +529,19 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 真实请求导出
-     * @param $header excel表头
-     * @param $title 标题
-     * @param array $export 填充数据
-     * @param string $filename 保存文件名称
-     * @param string $suffix 保存文件后缀
-     * @param bool $is_save true|false 是否保存到本地
+     * Xuất yêu cầu thực
+     * @param $header exceltiêu đề
+     * @param $title tiêu đề
+     * @param array $export Điền dữ liệu
+     * @param string $filename Lưu tên tập tin
+     * @param string $suffix Lưu hậu tố tập tin
+     * @param bool $is_save true|false Có nên lưu vào địa phương hay không
      * @return mixed
      */
     public function export($header, $title_arr, $export = [], $filename = '', $suffix = 'xlsx', $is_save = false)
     {
-        $title = isset($title_arr[0]) && !empty($title_arr[0]) ? $title_arr[0] : '导出数据';
-        $name = isset($title_arr[1]) && !empty($title_arr[1]) ? $title_arr[1] : '导出数据';
+        $title = isset($title_arr[0]) && !empty($title_arr[0]) ? $title_arr[0] : 'Xuất dữ liệu';
+        $name = isset($title_arr[1]) && !empty($title_arr[1]) ? $title_arr[1] : 'Xuất dữ liệu';
         $info = isset($title_arr[2]) && !empty($title_arr[2]) ? $title_arr[2] : date('Y-m-d H:i:s', time());
 
         $path = SpreadsheetExcelService::instance()->setExcelHeader($header)
@@ -553,7 +553,7 @@ class ExportServices extends BaseServices
     }
 
     /**
-     * 获取系统接口域名
+     * Lấy tên miền giao diện hệ thống
      * @return string
      */
     public function siteUrl()
@@ -565,8 +565,8 @@ class ExportServices extends BaseServices
 
 
     /**
-     * 用户资金导出
-     * @param $data 导出数据
+     * Xuất tiền của người dùng
+     * @param $data Xuất dữ liệu
      */
     public function userFinance($data = [])
     {
@@ -583,17 +583,17 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['会员ID', '昵称', '金额/积分', '类型', '备注', '创建时间'];
-        $title = ['资金监控', '资金监控', date('Y-m-d H:i:s', time())];
-        $filename = '资金监控_' . date('YmdHis', time());
+        $header = ['thành viênID', 'biệt danh', 'Số tiền/Điểm', 'kiểu', 'Nhận xét', 'thời gian sáng tạo'];
+        $title = ['Giám sát quỹ', 'Giám sát quỹ', date('Y-m-d H:i:s', time())];
+        $filename = 'Giám sát quỹ_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 用户佣金导出
-     * @param $data 导出数据
+     * Xuất hoa hồng người dùng
+     * @param $data Xuất dữ liệu
      */
     public function userCommission($data = [])
     {
@@ -609,17 +609,17 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['昵称/姓名', '总佣金金额', '账户余额', '账户佣金', '提现到账佣金'];
-        $title = ['拥金记录', '拥金记录' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '拥金记录_' . date('YmdHis', time());
+        $header = ['Biệt hiệu/Tên', 'Tổng số tiền hoa hồng', 'Số dư tài khoản', 'Hoa hồng tài khoản', 'Hoa hồng rút tiền'];
+        $title = ['Kỷ lục vàng', 'Kỷ lục vàng' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Kỷ lục vàng_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 用户积分导出
-     * @param $data 导出数据
+     * Xuất điểm người dùng
+     * @param $data Xuất dữ liệu
      */
     public function userPoint($data = [])
     {
@@ -637,26 +637,26 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['编号', '标题', '变动前积分', '积分变动', '备注', '用户微信昵称', '添加时间'];
-        $title = ['积分日志', '积分日志' . time(), '生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '积分日志_' . date('YmdHis', time());
+        $header = ['số seri', 'tiêu đề', 'Điểm trước khi thay đổi', 'Thay đổi điểm', 'Nhận xét', 'Biệt hiệu WeChat của người dùng', 'Thêm thời gian'];
+        $title = ['Nhật ký điểm', 'Nhật ký điểm' . time(), 'Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Nhật ký điểm_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 用户充值导出
-     * @param $data 导出数据
+     * Xuất nạp tiền người dùng
+     * @param $data Xuất dữ liệu
      */
     public function userRecharge($data = [])
     {
         $export = [];
         if (!empty($data)) {
             foreach ($data as $item) {
-                $item['_pay_time'] = $item['pay_time'] ? date('Y-m-d H:i:s', $item['pay_time']) : '暂无';
-                $item['_add_time'] = $item['add_time'] ? date('Y-m-d H:i:s', $item['add_time']) : '暂无';
-                $item['paid_type'] = $item['paid'] ? '已支付' : '未支付';
+                $item['_pay_time'] = $item['pay_time'] ? date('Y-m-d H:i:s', $item['pay_time']) : 'Chưa có';
+                $item['_add_time'] = $item['add_time'] ? date('Y-m-d H:i:s', $item['add_time']) : 'Chưa có';
+                $item['paid_type'] = $item['paid'] ? 'trả' : 'Chưa thanh toán';
 
                 $export[] = [
                     $item['nickname'],
@@ -665,21 +665,21 @@ class ExportServices extends BaseServices
                     $item['paid_type'],
                     $item['_recharge_type'],
                     $item['_pay_time'],
-                    $item['paid'] == 1 && $item['refund_price'] == $item['price'] ? '已退款' : '未退款'
+                    $item['paid'] == 1 && $item['refund_price'] == $item['price'] ? 'Đã hoàn tiền' : 'Không hoàn lại tiền'
                 ];
             }
         }
-        $header = ['昵称/姓名', '订单号', '充值金额', '是否支付', '充值类型', '支付时间', '是否退款'];
-        $title = ['充值记录', '充值记录' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '充值记录_' . date('YmdHis', time());
+        $header = ['Biệt hiệu/Tên', 'Số đơn hàng', 'Số tiền nạp', 'Có nên trả tiền không', 'Loại nạp tiền', 'thời gian thanh toán', 'Có hoàn lại tiền không'];
+        $title = ['Kỷ lục nạp tiền', 'Kỷ lục nạp tiền' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Kỷ lục nạp tiền_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 用户推广导出
-     * @param $data 导出数据
+     * Xuất khuyến mãi của người dùng
+     * @param $data Xuất dữ liệu
      */
     public function userAgent($data = [])
     {
@@ -701,17 +701,17 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['用户编号', '昵称', '电话号码', '推广用户数量', '推广订单数量', '推广订单金额', '佣金金额', '已提现金额', '提现次数', '未提现金额', '上级推广人'];
-        $title = ['推广用户', '推广用户导出' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '推广用户_' . date('YmdHis', time());
+        $header = ['ID người dùng', 'biệt danh', 'số điện thoại', 'Số lượng người dùng được thăng cấp', 'Số lượng đặt hàng khuyến mãi', 'Số lượng đặt hàng khuyến mãi', 'số tiền hoa hồng', 'Số tiền đã rút', 'Số lần rút tiền', 'Số tiền mặt chưa rút', 'Nhà quảng bá cấp cao'];
+        $title = ['Quảng bá người dùng', 'Thúc đẩy xuất khẩu người dùng' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Quảng bá người dùng_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 微信用户导出
-     * @param $data 导出数据
+     * Xuất người dùng WeChat
+     * @param $data Xuất dữ liệu
      */
     public function wechatUser($data = [])
     {
@@ -722,21 +722,21 @@ class ExportServices extends BaseServices
                     $item['nickname'],
                     $item['sex'],
                     $item['country'] . $item['province'] . $item['city'],
-                    $item['subscribe'] == 1 ? '关注' : '未关注',
+                    $item['subscribe'] == 1 ? 'tập trung vào' : 'Không theo dõi',
                 ];
             }
         }
-        $header = ['名称', '性别', '地区', '是否关注公众号'];
-        $title = ['微信用户导出', '微信用户导出' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '微信用户导出_' . date('YmdHis', time());
+        $header = ['tên', 'giới tính', 'khu vực', 'Có nên theo dõi tài khoản công khai hay không'];
+        $title = ['Xuất người dùng WeChat', 'Xuất người dùng WeChat' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất người dùng WeChat_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 订单资金导出
-     * @param $data 导出数据
+     * Quỹ đặt hàng xuất khẩu
+     * @param $data Xuất dữ liệu
      */
     public function orderFinance($data = [])
     {
@@ -747,23 +747,23 @@ class ExportServices extends BaseServices
                 $price = $info['total_price'] + $info['pay_postage'];
                 $zhichu = $info['coupon_price'] + $info['deduction_price'] + $info['cost'];
                 $profit = ($info['total_price'] + $info['pay_postage']) - ($info['coupon_price'] + $info['deduction_price'] + $info['cost']);
-                $deduction = $info['deduction_price'];//积分抵扣
-                $coupon = $info['coupon_price'];//优惠
-                $cost = $info['cost'];//成本
+                $deduction = $info['deduction_price'];//Trừ điểm
+                $coupon = $info['coupon_price'];//giảm giá
+                $cost = $info['cost'];//trị giá
                 $export[] = [$time, $price, $zhichu, $cost, $coupon, $deduction, $profit];
             }
         }
-        $header = ['时间', '营业额(元)', '支出(元)', '成本', '优惠', '积分抵扣', '盈利(元)'];
-        $title = ['财务统计', '财务统计', date('Y-m-d H:i:s', time())];
-        $filename = '财务统计_' . date('YmdHis', time());
+        $header = ['thời gian', 'doanh thu(Nhân dân tệ)', 'chi tiêu(Nhân dân tệ)', 'trị giá', 'giảm giá', 'Trừ điểm', 'lợi nhuận(Nhân dân tệ)'];
+        $title = ['thống kê tài chính', 'thống kê tài chính', date('Y-m-d H:i:s', time())];
+        $filename = 'thống kê tài chính_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 商铺砍价活动导出
-     * @param $data 导出数据
+     * Hoạt động mặc cả của cửa hàng xuất khẩu
+     * @param $data Xuất dữ liệu
      */
     public function storeBargain($data = [])
     {
@@ -775,7 +775,7 @@ class ExportServices extends BaseServices
                     $item['info'],
                     '￥' . $item['price'],
                     $item['bargain_num'],
-                    $item['status'] ? '开启' : '关闭',
+                    $item['status'] ? 'bật lên' : 'đóng cửa',
                     empty($item['start_time']) ? '' : date('Y-m-d H:i:s', (int)$item['start_time']),
                     empty($item['stop_time']) ? '' : date('Y-m-d H:i:s', (int)$item['stop_time']),
                     $item['sales'],
@@ -784,17 +784,17 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['砍价活动名称', '砍价活动简介', '砍价金额', '用户每次砍价的次数', '砍价状态', '砍价开启时间', '砍价结束时间', '销量', '限量', '添加时间'];
-        $title = ['砍价商品导出', '商品信息' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '砍价商品导出_' . date('YmdHis', time());
+        $header = ['Tên hoạt động mặc cả', 'Giới thiệu về hoạt động thương lượng', 'Số tiền mặc cả', 'Số lần người dùng mặc cả mỗi lần', 'Tình trạng thương lượng', 'Thời gian mở cửa giao dịch', 'Thời gian kết thúc thương lượng', 'Doanh số bán hàng', 'phiên bản giới hạn', 'Thêm thời gian'];
+        $title = ['Xuất khẩu mặt hàng giá hời', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất khẩu mặt hàng giá hời_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 商铺拼团导出
-     * @param $data 导出数据
+     * Xuất nhóm cửa hàng
+     * @param $data Xuất dữ liệu
      */
     public function storeCombination($data = [])
     {
@@ -811,22 +811,22 @@ class ExportServices extends BaseServices
                     $item['count_people_all'],
                     $item['count_people_pink'],
                     $item['sales'] ?? 0,
-                    $item['is_show'] ? '开启' : '关闭',
+                    $item['is_show'] ? 'bật lên' : 'đóng cửa',
                     empty($item['stop_time']) ? '' : date('Y/m/d H:i:s', (int)$item['stop_time'])
                 ];
             }
         }
-        $header = ['编号', '拼团名称', '原价', '拼团价', '限量', '拼团人数', '参与人数', '成团数量', '销量', '商品状态', '结束时间'];
-        $title = ['拼团商品导出', '商品信息' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '拼团商品导出_' . date('YmdHis', time());
+        $header = ['số seri', 'Tên nhóm', 'giá gốc', 'Giá nhóm', 'phiên bản giới hạn', 'Số người trong nhóm', 'Số lượng người tham gia', 'Số lượng nhóm', 'Doanh số bán hàng', 'Tình trạng sản phẩm', 'thời gian kết thúc'];
+        $title = ['Nhóm sản phẩm xuất khẩu', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Nhóm sản phẩm xuất khẩu_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 商铺秒杀活动导出
-     * @param $data 导出数据
+     * Xuất hoạt động flash sale của cửa hàng
+     * @param $data Xuất dữ liệu
      */
     public function storeSeckill($data = [])
     {
@@ -835,13 +835,13 @@ class ExportServices extends BaseServices
             foreach ($data as $item) {
                 if ($item['status']) {
                     if ($item['start_time'] > time())
-                        $item['start_name'] = '活动未开始';
+                        $item['start_name'] = 'Sự kiện chưa bắt đầu';
                     else if ($item['stop_time'] < time())
-                        $item['start_name'] = '活动已结束';
+                        $item['start_name'] = 'Sự kiện đã kết thúc';
                     else if ($item['stop_time'] > time() && $item['start_time'] < time())
-                        $item['start_name'] = '正在进行中';
+                        $item['start_name'] = 'đang tiến hành';
                 } else {
-                    $item['start_name'] = '活动已结束';
+                    $item['start_name'] = 'Sự kiện đã kết thúc';
                 }
                 $export[] = [
                     $item['id'],
@@ -853,21 +853,21 @@ class ExportServices extends BaseServices
                     $item['sales'],
                     $item['start_name'],
                     $item['stop_time'] ? date('Y-m-d H:i:s', $item['stop_time']) : '/',
-                    $item['status'] ? '开启' : '关闭',
+                    $item['status'] ? 'bật lên' : 'đóng cửa',
                 ];
             }
         }
-        $header = ['编号', '活动标题', '活动简介', '原价', '秒杀价', '限量', '销量', '秒杀状态', '结束时间', '状态'];
-        $title = ['秒杀商品导出', ' ', ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '秒杀商品导出_' . date('YmdHis', time());
+        $header = ['số seri', 'Tiêu đề sự kiện', 'Giới thiệu hoạt động', 'giá gốc', 'giá bán chớp nhoáng', 'phiên bản giới hạn', 'Doanh số bán hàng', 'tình trạng bán hàng chớp nhoáng', 'thời gian kết thúc', 'tình trạng'];
+        $title = ['Xuất khẩu sản phẩm flash sale', ' ', ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất khẩu sản phẩm flash sale_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 商铺商品导出
-     * @param $data 导出数据
+     * Cửa hàng xuất sản phẩm
+     * @param $data Xuất dữ liệu
      */
     public function storeProduct($data = [])
     {
@@ -885,9 +885,9 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['商品名称', '商品简介', '商品分类', '价格', '库存', '销量', '浏览量'];
-        $title = ['商品导出', '商品信息' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '商品导出_' . date('YmdHis', time());
+        $header = ['Tên sản phẩm', 'Giới thiệu sản phẩm', 'Phân loại sản phẩm', 'giá', 'trong kho', 'Doanh số bán hàng', 'Lượt xem'];
+        $title = ['Xuất khẩu sản phẩm', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất khẩu sản phẩm_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -895,8 +895,8 @@ class ExportServices extends BaseServices
 
 
     /**
-     * 商铺自提点导出
-     * @param $data 导出数据
+     * Cửa hàng tự xuất điểm lấy hàng
+     * @param $data Xuất dữ liệu
      */
     public function storeMerchant($data = [])
     {
@@ -908,13 +908,13 @@ class ExportServices extends BaseServices
                     $item['phone'],
                     $item['address'] . '' . $item['detailed_address'],
                     $item['day_time'],
-                    $item['is_show'] ? '开启' : '关闭'
+                    $item['is_show'] ? 'bật lên' : 'đóng cửa'
                 ];
             }
         }
-        $header = ['提货点名称', '提货点', '地址', '营业时间', '状态'];
-        $title = ['提货点导出', '提货点信息' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '提货点导出_' . date('YmdHis', time());
+        $header = ['Tên điểm đón', 'Điểm đón', 'Địa chỉ', 'Giờ làm việc', 'tình trạng'];
+        $title = ['Xuất điểm đón', 'Thông tin điểm đón' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất điểm đón_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -931,23 +931,23 @@ class ExportServices extends BaseServices
                     $item['user_name'],
                     $item['user_phone'],
                     $item['use_time'],
-                    $item['use_uid'] ? '已领取' : '未领取'
+                    $item['use_uid'] ? 'Đã nhận' : 'Không được thu thập'
                 ];
             }
         }
-        $header = ['会员卡号', '密码', '领取人', '领取人手机号', '领取时间', '是否使用'];
-        $title = ['会员卡导出', '会员卡导出' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = $data['title'] ? ("卡密会员_" . trim(str_replace(["\r\n", "\r", "\\", "\n", "/", "<", ">", "=", " "], '', $data['title']))) : "";
+        $header = ['Số thẻ thành viên', 'mật khẩu', 'Người nhận', 'Số điện thoại di động của người nhận', 'Thời gian thu thập', 'Có nên sử dụng không'];
+        $title = ['Xuất thẻ thành viên', 'Xuất thẻ thành viên' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = $data['title'] ? ("Thành viên thẻ_" . trim(str_replace(["\r\n", "\r", "\\", "\n", "/", "<", ">", "=", " "], '', $data['title']))) : "";
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
-    public function tradeData($data = [], $tradeTitle = "交易统计")
+    public function tradeData($data = [], $tradeTitle = "Thống kê giao dịch")
     {
         $export = $header = [];
         if (!empty($data)) {
-            $header = ['时间'];
+            $header = ['thời gian'];
             $headerArray = array_column($data['series'], 'name');
             $header = array_merge($header, $headerArray);
             $export = [];
@@ -958,7 +958,7 @@ class ExportServices extends BaseServices
                 }
             }
         }
-        $title = [$tradeTitle, $tradeTitle, ' 生成时间：' . date('Y-m-d H:i:s', time())];
+        $title = [$tradeTitle, $tradeTitle, ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
         $filename = $tradeTitle;
         $suffix = 'xlsx';
         $is_save = true;
@@ -967,8 +967,8 @@ class ExportServices extends BaseServices
 
 
     /**
-     * 商品统计
-     * @param $data 导出数据
+     * Thống kê sản phẩm
+     * @param $data Xuất dữ liệu
      */
     public function productTrade($data = [])
     {
@@ -990,9 +990,9 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['日期/时间', '商品浏览量', '商品访客数', '加购件数', '下单件数', '支付件数', '支付金额', '成本金额', '退款金额', '退款件数', '访客-支付转化率'];
-        $title = ['商品统计', '商品统计' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '商品统计_' . date('YmdHis', time());
+        $header = ['ngày/giờ', 'Lượt xem sản phẩm', 'Số lượng khách truy cập sản phẩm', 'Số lượng mặt hàng bổ sung được mua', 'Số lượng đặt hàng', 'Số lượng đã thanh toán', 'Số tiền thanh toán', 'số tiền chi phí', 'Số tiền hoàn lại', 'Số lần hoàn tiền', 'Tỷ lệ chuyển đổi từ khách truy cập sang thanh toán'];
+        $title = ['Thống kê sản phẩm', 'Thống kê sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Thống kê sản phẩm_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -1013,16 +1013,16 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['日期/时间', '访客数', '浏览量', '新增用户数', '成交用户数', '付费会员数'];
-        $title = ['用户统计', '用户统计' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '用户统计_' . date('YmdHis', time());
+        $header = ['ngày/giờ', 'Số lượng khách truy cập', 'Lượt xem', 'Số lượng người dùng mới', 'Số lượng người dùng đã thực hiện giao dịch', 'Số lượng thành viên trả phí'];
+        $title = ['Thống kê người dùng', 'Thống kê người dùng' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Thống kê người dùng_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
     }
 
     /**
-     * 核销记录导出
+     * Xuất hồ sơ xóa sổ
      * @param array $data
      * @return mixed|string[]
      * @author wuhaotian
@@ -1051,9 +1051,9 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['订单号', '用户信息', '商品信息', '支付金额', '核销员', '核销门店', '支付状态', '订单状态', '下单时间'];
-        $title = ['核销记录导出', '核销记录导出' . time(), ' 生成时间：' . date('Y-m-d H:i:s', time())];
-        $filename = '核销记录_' . date('YmdHis', time());
+        $header = ['Số đơn hàng', 'Thông tin người dùng', 'Thông tin sản phẩm', 'Số tiền thanh toán', 'người bảo lãnh', 'Cửa hàng xóa sổ', 'Trạng thái thanh toán', 'Trạng thái đơn hàng', 'thời gian đặt hàng'];
+        $title = ['Xuất hồ sơ xóa sổ', 'Xuất hồ sơ xóa sổ' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Hồ sơ xóa sổ_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);

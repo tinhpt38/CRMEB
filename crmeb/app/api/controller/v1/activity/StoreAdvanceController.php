@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\Request;
 use app\services\activity\advance\StoreAdvanceServices;
 
 /**
- * 预售控制器
+ * Bộ điều khiển trước khi bán
  * Class StoreAdvanceController
  * @package app\api\controller\v1\activity
  */
@@ -31,7 +31,7 @@ class StoreAdvanceController
     }
 
     /**
-     * 预售列表
+     * Danh sách bán trước
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -49,7 +49,7 @@ class StoreAdvanceController
     }
 
     /**
-     * 预售商品详情
+     * Chi tiết sản phẩm trước khi bán
      * @param Request $request
      * @param $id
      * @return mixed

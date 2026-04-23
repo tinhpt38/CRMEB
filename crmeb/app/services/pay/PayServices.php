@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,42 +16,42 @@ use crmeb\exceptions\ApiException;
 use crmeb\services\pay\Pay;
 
 /**
- * 支付统一入口
+ * Cổng thanh toán thống nhất
  * Class PayServices
  * @package app\services\pay
  */
 class PayServices
 {
-    //微信支付类型
+    //Loại thanh toán WeChat
     const WEIXIN_PAY = 'weixin';
 
-    //余额支付
+    //thanh toán số dư
     const YUE_PAY = 'yue';
 
-    //线下支付
+    //Thanh toán ngoại tuyến
     const OFFLINE_PAY = 'offline';
 
-    //支付宝
+    //Alipay
     const ALIAPY_PAY = 'alipay';
 
-    //通联支付
+    //thanh toán Tonglian
     const ALLIN_PAY = 'allinpay';
 
-    //好友代付
+    //Bạn bè trả tiền thay mặt
     const FRIEND = 'friend';
 
-    //银行转账
+    //chuyển khoản ngân hàng
     const BANK = 'bank';
 
-    //支付方式
+    //Phương thức thanh toán
     const PAY_TYPE = [
-        PayServices::WEIXIN_PAY => '微信支付',
-        PayServices::YUE_PAY => '余额支付',
-        PayServices::OFFLINE_PAY => '线下支付',
-        PayServices::ALIAPY_PAY => '支付宝',
-        PayServices::FRIEND => '好友代付',
-        PayServices::ALLIN_PAY => '通联支付',
-        PayServices::BANK => '银行转账',
+        PayServices::WEIXIN_PAY => 'WeChat trả tiền',
+        PayServices::YUE_PAY => 'thanh toán số dư',
+        PayServices::OFFLINE_PAY => 'Thanh toán ngoại tuyến',
+        PayServices::ALIAPY_PAY => 'Alipay',
+        PayServices::FRIEND => 'Bạn bè trả tiền thay mặt',
+        PayServices::ALLIN_PAY => 'thanh toán Tonglian',
+        PayServices::BANK => 'chuyển khoản ngân hàng',
     ];
 
     /**
@@ -63,7 +63,7 @@ class PayServices
      * @param string $key
      * @param $value
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/16
      */
@@ -76,7 +76,7 @@ class PayServices
     /**
      * @param array $value
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/16
      */
@@ -90,7 +90,7 @@ class PayServices
      * @param string $key
      * @param null $default
      * @return mixed|null
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/16
      */
@@ -100,7 +100,7 @@ class PayServices
     }
 
     /**
-     * 发起支付
+     * Bắt đầu thanh toán
      * @param string $payType
      * @param string $openid
      * @param string $orderId
@@ -113,10 +113,10 @@ class PayServices
     {
         try {
 
-            //这些全都是微信支付
+            //Đây là tất cả các khoản thanh toán WeChat
             if (in_array($payType, ['routine', 'weixinh5', 'weixin', 'pc', 'store'])) {
                 $payType = 'wechat_pay';
-                //判断是否使用v3
+                //Xác định xem có nên sử dụngv3
                 if (sys_config('pay_wechat_type') == 1) {
                     $payType = 'v3_wechat_pay';
                 }
@@ -136,14 +136,14 @@ class PayServices
 
         } catch (\Exception $e) {
             if (strpos($e->getMessage(), 'api unauthorized rid') !== false) {
-                throw new ApiException('请在微信支付配置中将小程序商户号选择改为商户号绑定');
+                throw new ApiException('Vui lòng thay đổi lựa chọn tài khoản người bán trong Chương trình nhỏ thành ràng buộc tài khoản người bán trong cấu hình thanh toán WeChat');
             }
             throw new ApiException($e->getMessage());
         }
     }
 
     /**
-     * TODO 发起支付 弃用
+     * TODO Bắt đầu thanh toán Không được dùng nữa
      * @param string $payType
      * @param string $openid
      * @param string $orderId
@@ -156,10 +156,10 @@ class PayServices
 //    {
 //        try {
 //
-//            //这些全都是微信支付
+//            //Đây là tất cả các khoản thanh toán WeChat
 //            if (in_array($payType, ['routine', 'weixinh5', 'weixin', 'pc', 'store'])) {
 //                $payType = 'wechat_pay';
-//                //判断是否使用v3
+//                //Xác định xem có nên sử dụngv3
 //                if (sys_config('pay_wechat_type') == 1) {
 //                    $payType = 'v3_wechat_pay';
 //                }
@@ -189,7 +189,7 @@ class PayServices
 //
 //        } catch (\Exception $e) {
 //            if (strpos($e->getMessage(), 'api unauthorized rid') !== false) {
-//                throw new ApiException('请在微信支付配置中将小程序商户号选择改为商户号绑定');
+//                throw new ApiException('Vui lòng thay đổi lựa chọn tài khoản người bán trong Chương trình nhỏ thành ràng buộc tài khoản người bán trong cấu hình thanh toán WeChat');
 //            }
 //            throw new ApiException($e->getMessage());
 //        }

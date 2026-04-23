@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\services\order\StoreOrderSuccessServices;
 use app\services\user\UserRechargeServices;
 
 /**
- * 支付成功回调 所有的异步通知回调都会走下面的三个方法,不在取分微信/支付宝支付回调
+ * Gọi lại thanh toán thành công Tất cả các lệnh gọi lại thông báo không đồng bộ sẽ sử dụng ba phương thức sau:,Không còn nhận được cuộc gọi lại thanh toán WeChat/Alipay
  * Class PayNotifyServices
  * @package app\services\pay
  */
@@ -24,8 +24,8 @@ class PayNotifyServices
 {
 
     /**
-     * 订单支付成功之后
-     * @param string|null $order_id 订单id
+     * Sau khi thanh toán đơn hàng thành công
+     * @param string|null $order_id Đặt hàngid
      * @param string|null $trade_no
      * @param string $payType
      * @return bool
@@ -46,8 +46,8 @@ class PayNotifyServices
     }
 
     /**
-     * 充值成功后
-     * @param string|null $order_id 订单id
+     * Sau khi nạp tiền thành công
+     * @param string|null $order_id Đặt hàngid
      * @return bool
      */
     public function wechatUserRecharge(string $order_id = null, string $trade_no = null, string $payType = PayServices::WEIXIN_PAY)
@@ -63,7 +63,7 @@ class PayNotifyServices
     }
 
     /**
-     * 购买会员
+     * Mua thành viên
      * @param string|null $order_id
      * @return bool
      */

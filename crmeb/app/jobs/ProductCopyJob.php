@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -22,7 +22,7 @@ use crmeb\traits\QueueTrait;
 use think\facade\Log;
 
 /**
- * 复制商品
+ * Sao chép sản phẩm
  * Class ProductCopyJob
  * @package app\jobs
  */
@@ -31,7 +31,7 @@ class ProductCopyJob extends BaseJobs
     use QueueTrait;
 
     /**
-     * 下载商品详情图片
+     * Tải hình ảnh chi tiết sản phẩm
      * @param $id
      * @return bool
      */
@@ -64,13 +64,13 @@ class ProductCopyJob extends BaseJobs
                 CacheService::set('desc_images_count' . $id, $desc_count);
             }
         } catch (\Throwable $e) {
-            Log::error('下载商品详情图片失败，失败原因:' . $e->getMessage() . '_' . $e->getFile() . '_' . $e->getLine());
+            Log::error('Không tải được hình ảnh chi tiết sản phẩm, lý do không tải được:' . $e->getMessage() . '_' . $e->getFile() . '_' . $e->getLine());
         }
         return true;
     }
 
     /**
-     * 下载商品轮播图片
+     * Tải xuống hình ảnh băng chuyền sản phẩm
      * @param $id
      * @return bool
      */
@@ -81,15 +81,15 @@ class ProductCopyJob extends BaseJobs
             $copyTaobao = app()->make(CopyTaobaoServices::class);
             /** @var StoreProductServices $StoreProductServices */
             $StoreProductServices = app()->make(StoreProductServices::class);
-            //下载图片
+            //Tải hình ảnh
             $res = $copyTaobao->downloadCopyImage($image);
-            //获取缓存中的轮播图
+            //Lấy hình ảnh băng chuyền trong bộ đệm
             $slider_images = CacheService::get('slider_images_' . $id) ?? [];
-            //缓存为null则赋值[]
+            //Nếu bộ nhớ đệm rỗng, hãy gán giá trị[]
             if ($slider_images === null || $slider_images === '') $slider_images = [];
-            //将下载的图片插入数组
+            //Chèn hình ảnh đã tải xuống vào mảng
             array_push($slider_images, $res);
-            //如果$slider_images中图片数量和传入的$count相等，说明已经下载完成，写入商品表，如果不等则继续插入缓存
+            //nếu như$slider_imagesSố lượng ảnh vào và ảnh đến$countNếu bằng nhau thì có nghĩa là quá trình tải xuống đã hoàn tất và được ghi vào bảng sản phẩm. Nếu không, tiếp tục chèn vào bộ đệm.
             if (count($slider_images) == $count) {
                 CacheService::delete('slider_images_' . $id);
                 $image = $slider_images[0];
@@ -99,13 +99,13 @@ class ProductCopyJob extends BaseJobs
                 CacheService::set('slider_images_' . $id, $slider_images);
             }
         } catch (\Throwable $e) {
-            Log::error('下载商品轮播图片失败，失败原因:' . $e->getMessage() . '_' . $e->getFile() . '_' . $e->getLine());
+            Log::error('Không tải được hình ảnh băng chuyền sản phẩm, lý do không tải được:' . $e->getMessage() . '_' . $e->getFile() . '_' . $e->getLine());
         }
         return true;
     }
 
     /**
-     * 下载商品规格图片
+     * Tải hình ảnh thông số kỹ thuật sản phẩm
      * @param $value_id
      * @param $value_image
      * @return bool
@@ -117,11 +117,11 @@ class ProductCopyJob extends BaseJobs
             $copyTaobao = app()->make(CopyTaobaoServices::class);
             /** @var StoreProductAttrValueServices $StoreProductAttrValueServices */
             $StoreProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
-            //下载图片
+            //Tải hình ảnh
             $res = $copyTaobao->downloadCopyImage($value_image);
             $StoreProductAttrValueServices->update($value_id, ['image' => $res]);
         } catch (\Throwable $e) {
-            Log::error('下载商品规格图片失败，失败原因:' . $e->getMessage() . '_' . $e->getFile() . '_' . $e->getLine());
+            Log::error('Không tải được hình ảnh thông số sản phẩm, lý do không tải được:' . $e->getMessage() . '_' . $e->getFile() . '_' . $e->getLine());
         }
         return true;
     }

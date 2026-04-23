@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -55,11 +55,11 @@ class Workerman extends Command
 
     protected function configure()
     {
-        // 指令配置
+        // Cấu hình lệnh
         $this->setName('workerman')
             ->addArgument('status', Argument::REQUIRED, 'start/stop/reload/status/connections')
             ->addArgument('server', Argument::OPTIONAL, 'admin/chat/channel')
-            ->addOption('d', null, Option::VALUE_NONE, 'daemon（守护进程）方式启动')
+            ->addOption('d', null, Option::VALUE_NONE, 'daemon（daemon) để bắt đầu')
             ->setDescription('start/stop/restart workerman');
     }
 
@@ -89,12 +89,12 @@ class Workerman extends Command
         $confing['wss_open'] = 0;
         $confing['wss_local_cert'] = $sslConfig['wssLocalCert'] ?? '';
         $confing['wss_local_pk'] = $sslConfig['wssLocalpk'] ?? '';
-        // 证书最好是申请的证书
+        // Giấy chứng nhận tốt nhất nên là giấy chứng nhận được áp dụng cho
         if ($confing['wss_open']) {
             $context = [
                 'ssl' => [
-                    // 请使用绝对路径
-                    'local_cert' => realpath('public' . $confing['wss_local_cert']), // 也可以是crt文件
+                    // Vui lòng sử dụng đường dẫn tuyệt đối
+                    'local_cert' => realpath('public' . $confing['wss_local_cert']), // Nó cũng có thể là một tập tin crt
                     'local_pk' => realpath('public' . $confing['wss_local_pk']),
                     'verify_peer' => false,
                 ]
@@ -106,7 +106,7 @@ class Workerman extends Command
         Worker::$logFile = app()->getRootPath() . 'runtime/workerman.log';
         if (!$server || $server == 'admin') {
             var_dump('admin');
-            //创建 admin 长连接服务
+            //Tạo dịch vụ kết nối dài của quản trị viên
             $this->workerServer = new Worker($this->config['admin']['protocol'] . '://' . $this->config['admin']['ip'] . ':' . $this->config['admin']['port'], $context);
             $this->workerServer->count = $this->config['admin']['serverCount'];
             if ($confing['wss_open']) {
@@ -116,7 +116,7 @@ class Workerman extends Command
 
         if (!$server || $server == 'chat') {
             var_dump('chat');
-            //创建 h5 chat 长连接服务
+            //Tạo dịch vụ kết nối dài chat h5
             $this->chatWorkerServer = new Worker($this->config['chat']['protocol'] . '://' . $this->config['chat']['ip'] . ':' . $this->config['chat']['port'], $context);
             $this->chatWorkerServer->count = $this->config['chat']['serverCount'];
             if ($confing['wss_open']) {
@@ -126,7 +126,7 @@ class Workerman extends Command
 
         if (!$server || $server == 'channel') {
             var_dump('channel');
-            //创建内部通讯服务
+            //Tạo dịch vụ liên lạc nội bộ
             $this->channelServer = new Server($this->config['channel']['ip'], $this->config['channel']['port']);
         }
         $this->bindHandle();
@@ -138,56 +138,56 @@ class Workerman extends Command
     }
 
     /**
-     * 绑定 Workerman 各事件回调
+     * Lệnh gọi lại sự kiện Bind Workerman
      *
-     * 本方法负责把“管理后台长连接服务”和“聊天室长连接服务”分别与对应的业务处理类进行绑定，
-     * 使得当客户端连接、发送消息、进程启动或断开时，能够自动调用相应的业务逻辑。
+     * Phương pháp này chịu trách nhiệm“Nền tảng quản lý dịch vụ kết nối dài”Và“Phòng chat dịch vụ kết nối dài”Liên kết với các lớp xử lý kinh doanh tương ứng tương ứng.
+     * Cho phép logic nghiệp vụ tương ứng được gọi tự động khi máy khách kết nối, gửi tin nhắn hoặc các quá trình được khởi động hoặc ngắt kết nối.
      *
-     * 1. 若已创建 admin 服务（$this->workerServer 不为 null）：
-     *    - 实例化 WorkermanService，传入当前 worker 实例与 channel 服务实例
-     *    - 将 onConnect / onMessage / onWorkerStart / onClose 四个事件绑定到 WorkermanService 的同名方法
+     * 1. Nếu dịch vụ quản trị đã được tạo（$this->workerServer không rỗng):
+     * - Khởi tạo WorkermanService, chuyển vào phiên bản worker hiện tại và phiên bản dịch vụ kênh
+     * - Liên kết bốn sự kiện onConnect/onMessage/onWorkerStart/onClose với phương thức cùng tên của WorkermanService
      *
-     * 2. 若已创建 chat 服务（$this->chatWorkerServer 不为 null）：
-     *    - 实例化 ChatService，传入当前 chat worker 实例与 channel 服务实例
-     *    - 同样绑定上述四个事件到 ChatService 的同名方法
+     * 2. Nếu dịch vụ trò chuyện đã được tạo（$this->chatWorkerServer không rỗng):
+     * - Khởi tạo ChatService, chuyển vào phiên bản nhân viên trò chuyện hiện tại và phiên bản dịch vụ kênh
+     * - Đồng thời liên kết bốn sự kiện trên với phương thức cùng tên của ChatService
      *
-     * 通过这种方式，业务代码与 Workerman 核心解耦，便于后续维护与扩展。
+     * Bằng cách này, mã doanh nghiệp được tách khỏi lõi Workerman, tạo điều kiện thuận lợi cho việc bảo trì và mở rộng sau này.。
      */
     protected function bindHandle()
     {
-        // 绑定 admin 服务事件
-        // 只有当 admin 长连接服务实例已创建（$this->workerServer 不为 null）时才进行绑定
+        // Sự kiện dịch vụ quản trị viên ràng buộc
+        // Chỉ khi phiên bản dịch vụ kết nối dài của quản trị viên được tạo（$this->workerServer không phải là rỗng).
         if (!is_null($this->workerServer)) {
-            // 实例化 WorkermanService，传入当前 admin worker 实例与 channel 服务实例
-            // WorkermanService 负责处理管理后台相关的业务逻辑
+            // Khởi tạo WorkermanService, chuyển vào phiên bản nhân viên quản trị hiện tại và phiên bản dịch vụ kênh
+            // WorkermanService chịu trách nhiệm xử lý logic nghiệp vụ liên quan đến nền tảng quản lý.
             $server = new WorkermanService($this->workerServer, $this->channelServer);
             
-            // 将 Workerman 的四个核心事件绑定到 WorkermanService 的同名方法
-            // 当客户端连接成功时触发
+            // Liên kết bốn sự kiện cốt lõi của Workerman với phương thức cùng tên của WorkermanService
+            // Kích hoạt khi kết nối client thành công
             $this->workerServer->onConnect = [$server, 'onConnect'];
-            // 当收到客户端发来的消息时触发
+            // Kích hoạt khi nhận được tin nhắn từ client
             $this->workerServer->onMessage = [$server, 'onMessage'];
-            // 当 worker 进程启动时触发（每个进程生命周期内仅一次）
+            // Được kích hoạt khi tiến trình công nhân bắt đầu (chỉ một lần trong vòng đời của tiến trình）
             $this->workerServer->onWorkerStart = [$server, 'onWorkerStart'];
-            // 当客户端断开连接时触发
+            // Được kích hoạt khi máy khách ngắt kết nối
             $this->workerServer->onClose = [$server, 'onClose'];
         }
 
-        // 绑定 chat 服务事件
-        // 只有当 chat 长连接服务实例已创建（$this->chatWorkerServer 不为 null）时才进行绑定
+        // Liên kết các sự kiện dịch vụ trò chuyện
+        // Chỉ khi phiên bản dịch vụ kết nối dài trò chuyện được tạo（$this->chatWorkerServer không phải là rỗng).
         if (!is_null($this->chatWorkerServer)) {
-            // 实例化 ChatService，传入当前 chat worker 实例与 channel 服务实例
-            // ChatService 负责处理聊天室相关的业务逻辑
+            // Khởi tạo ChatService, chuyển vào phiên bản nhân viên trò chuyện hiện tại và phiên bản dịch vụ kênh
+            // ChatService chịu trách nhiệm xử lý logic nghiệp vụ liên quan đến phòng chat
             $chatServer = new ChatService($this->chatWorkerServer, $this->channelServer);
             
-            // 将 Workerman 的四个核心事件绑定到 ChatService 的同名方法
-            // 当客户端连接成功时触发
+            // Liên kết bốn sự kiện cốt lõi của Workerman với các phương thức cùng tên của ChatService
+            // Kích hoạt khi kết nối client thành công
             $this->chatWorkerServer->onConnect = [$chatServer, 'onConnect'];
-            // 当收到客户端发来的消息时触发
+            // Kích hoạt khi nhận được tin nhắn từ client
             $this->chatWorkerServer->onMessage = [$chatServer, 'onMessage'];
-            // 当 worker 进程启动时触发（每个进程生命周期内仅一次）
+            // Được kích hoạt khi tiến trình công nhân bắt đầu (chỉ một lần trong vòng đời của tiến trình）
             $this->chatWorkerServer->onWorkerStart = [$chatServer, 'onWorkerStart'];
-            // 当客户端断开连接时触发
+            // Được kích hoạt khi máy khách ngắt kết nối
             $this->chatWorkerServer->onClose = [$chatServer, 'onClose'];
         }
     }

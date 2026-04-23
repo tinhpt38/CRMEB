@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,56 +19,56 @@
 // +----------------------------------------------------------------------
 
 // +----------------------------------------------------------------------
-// | 应用设置
+// | Áp dụng cài đặt
 // +----------------------------------------------------------------------
 
 return [
-    // pathinfo分隔符
+    // pathinfodấu phân cách
     'pathinfo_depr'         => '/',
-    // URL伪静态后缀
+    // URLhậu tố giả tĩnh
     'url_html_suffix'       => 'html',
-    // URL普通方式参数 用于自动生成
+    // URLCác tham số chế độ thông thường để tạo tự động
     'url_common_param'      => true,
-    // 是否开启路由延迟解析
+    // Có bật tính năng giải quyết độ trễ tuyến đường hay không
     'url_lazy_route'        => false,
-    // 是否强制使用路由
+    // Có buộc phải sử dụng định tuyến hay không
     'url_route_must'        => true,
-    // 合并路由规则
+    // Hợp nhất các quy tắc định tuyến
     'route_rule_merge'      => false,
-    // 路由是否完全匹配
+    // Liệu tuyến đường có khớp chính xác không?
     'route_complete_match'  => true,
-    // 使用注解路由
+    // Sử dụng định tuyến chú thích
     'route_annotation'      => false,
-    // 是否开启路由缓存
+    // Có bật bộ nhớ đệm tuyến đường hay không
     'route_check_cache'     => false,
-    // 路由缓存连接参数
+    // Định tuyến tham số kết nối bộ đệm
     'route_cache_option'    => [],
-    // 路由缓存Key
+    // bộ đệm tuyến đườngKey
     'route_check_cache_key' => '',
-    // 访问控制器层名称
+    // Tên lớp bộ điều khiển truy cập
     'controller_layer'      => 'controller',
-    // 空控制器名
+    // Tên bộ điều khiển trống
     'empty_controller'      => 'Error',
-    // 是否使用控制器后缀
+    // Có nên sử dụng hậu tố điều khiển hay không
     'controller_suffix'     => false,
-    // 默认的路由变量规则
+    // Quy tắc biến định tuyến mặc định
     'default_route_pattern' => '[\w\.]+',
-    // 是否自动转换URL中的控制器和操作名
+    // Có tự động chuyển đổi tên bộ điều khiển và hành động trong URL hay không
     'url_convert'           => true,
-    // 是否开启请求缓存 true自动缓存 支持设置请求缓存规则
+    // Có bật bộ nhớ đệm yêu cầu hay không, bộ nhớ đệm tự động thực sự và hỗ trợ cài đặt quy tắc bộ nhớ đệm yêu cầu.
     'request_cache'         => false,
-    // 请求缓存有效期
+    // Yêu cầu thời hạn hiệu lực của bộ đệm
     'request_cache_expire'  => null,
-    // 全局请求缓存排除规则
+    // Quy tắc loại trừ bộ đệm yêu cầu chung
     'request_cache_except'  => [],
-    // 默认控制器名
+    // Tên bộ điều khiển mặc định
     'default_controller'    => 'Index',
-    // 默认操作名
+    // Tên hoạt động mặc định
     'default_action'        => 'index',
-    // 操作方法后缀
+    // Hậu tố phương thức hoạt động
     'action_suffix'         => '',
-    // 默认JSONP格式返回的处理方法
+    // Phương thức xử lý được trả về theo định dạng JSONP mặc định
     'default_jsonp_handler' => 'jsonpReturn',
-    // 默认JSONP处理方法
+    // Phương thức xử lý JSONP mặc định
     'var_jsonp_handler'     => 'callback',
 ];

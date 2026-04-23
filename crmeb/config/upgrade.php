@@ -1,52 +1,52 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 /**
- * 升级配置
- * 版本列表按从小到大排列，升级时会按顺序执行
+ * Nâng cấp cấu hình
+ * Danh sách phiên bản được sắp xếp từ nhỏ đến lớn và việc nâng cấp sẽ được thực hiện theo thứ tự.
  */
 return [
-    // 最低版本要求 (只有达到此版本才能使用跨版本在线升级功能)
-    // 因为跨版本在线升级功能是在 v6.0.0 版本开发的，低于此版本的用户无法使用
+    // Yêu cầu phiên bản tối thiểu (Chỉ khi đạt đến phiên bản này, bạn mới có thể sử dụng chức năng nâng cấp trực tuyến giữa các phiên bản)
+    // Vì chức năng nâng cấp trực tuyến đa phiên bản đã được phát triển ở phiên bản v6.0.0 nên người dùng có phiên bản thấp hơn phiên bản này không thể sử dụng được.
     'min_version' => [
         'version' => 'CRMEB-BZ v6.0.0',
         'code' => 600,
-        'message' => '跨版本在线升级功能需要 v6.0.0 及以上版本才能使用，请先手动升级到 v6.0.0 版本'
+        'message' => 'Chức năng nâng cấp trực tuyến đa phiên bản yêu cầu sử dụng v6.0.0 trở lên. Vui lòng nâng cấp thủ công lên v6.0.0 trước.'
     ],
 
-    // 版本列表 (按版本从小到大排列)
-    // version: 版本名称
-    // code: 版本代码 (数字，用于比较)
-    // file: 升级脚本文件名 (相对于 upgrade/versions/ 目录)
-    // description: 版本描述
+    // Danh sách phiên bản (Sắp xếp theo phiên bản từ nhỏ nhất đến lớn nhất)
+    // version: tên phiên bản
+    // code: mã phiên bản (Số, để so sánh)
+    // file: Nâng cấp tên tập lệnh (Liên quan đến thư mục nâng cấp/phiên bản/)
+    // description: Mô tả phiên bản
     'versions' => [
         [
             'version' => 'CRMEB-BZ v6.0.0',
             'code' => 600,
             'file' => 'v6.0.0.php',
-            'description' => '性能优化版本'
+            'description' => 'Phiên bản tối ưu hóa hiệu suất'
         ],
     ],
 
-    // 升级脚本目录
+    // Nâng cấp thư mục tập lệnh
     'upgrade_path' => app()->getRootPath() . 'upgrade' . DIRECTORY_SEPARATOR . 'versions' . DIRECTORY_SEPARATOR,
 
-    // 平台信息
+    // Thông tin nền tảng
     'platform' => 'CRMEB',
 
-    // APP认证信息 (可从.version文件读取覆盖)
+    // APPThông tin chứng nhận (Phần ghi đè có thể được đọc từ tệp .version)
     'app_id' => 'ze7x9rxsv09l6pvsyo',
     'app_key' => 'fuF7U9zaybLa5gageVQzxtxQMFnvU2OI',
 
-    // 远程升级服务器配置
+    // Nâng cấp cấu hình máy chủ từ xa
     'remote' => [
         'login_url' => 'https://upgrade.crmeb.net/api/login',
         'upgrade_url' => 'https://upgrade.crmeb.net/api/upgrade/list',
@@ -57,16 +57,16 @@ return [
         'upgrade_log_url' => 'https://upgrade.crmeb.net/api/upgrade/log',
     ],
 
-    // 备份配置
+    // Cấu hình dự phòng
     'backup' => [
-        'database' => true,  // 是否备份数据库
-        'project' => true,   // 是否备份项目文件
+        'database' => true,  // Có nên sao lưu cơ sở dữ liệu không
+        'project' => true,   // Có sao lưu các tập tin dự án hay không
         'path' => app()->getRootPath() . 'backup' . DIRECTORY_SEPARATOR,
     ],
 
-    // 忽略的目录 (备份时)
+    // Thư mục bị bỏ qua (Khi sao lưu)
     'ignore_dirs' => ['.', '..', '.git', '.idea', 'runtime', 'backup', 'upgrade'],
 
-    // 忽略的文件扩展名
+    // Phần mở rộng tập tin bị bỏ qua
     'ignore_extensions' => ['zip', 'gz', 'log'],
 ];

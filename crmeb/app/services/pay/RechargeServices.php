@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -39,10 +39,10 @@ class RechargeServices
     public function recharge(UserRecharge $recharge)
     {
         if (!$recharge) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
         if ($recharge['paid'] == 1) {
-            throw new ApiException('订单已支付');
+            throw new ApiException('Đơn hàng đã thanh toán');
         }
         $payType = '';
         switch ($recharge['recharge_type']) {
@@ -59,7 +59,7 @@ class RechargeServices
         $payType = app()->make(OrderPayServices::class)->getPayType($payType);
 
         if (!$payType) {
-            throw new ApiException('不支持该类型方式');
+            throw new ApiException('Loại phương pháp này không được hỗ trợ');
         }
 
         if ($recharge['recharge_type'] == PayServices::WEIXIN_PAY && !request()->isH5() && !request()->isApp()) {
@@ -73,19 +73,19 @@ class RechargeServices
             } else if (request()->isWechat()) {
                 $userType = 'wechat';
             } else {
-                throw new ApiException('获取用户openid失败,无法支付');
+                throw new ApiException('Không thể lấy openid người dùng,Không thể thanh toán');
             }
 
             $openid = $wechatUser->uidToOpenid((int)$recharge['uid'], $userType);
 
             if (!$openid) {
-                throw new ApiException('获取用户openid失败,无法支付');
+                throw new ApiException('Không thể lấy openid người dùng,Không thể thanh toán');
             }
         } else {
             $openid = '';
         }
 
-        $res = $this->pay->pay($payType, $recharge['order_id'], $recharge['price'], 'user_recharge', '用户充值', ['openid' => $openid]);
+        $res = $this->pay->pay($payType, $recharge['order_id'], $recharge['price'], 'user_recharge', 'Nạp tiền người dùng', ['openid' => $openid]);
 
         if ($payType == PayServices::WEIXIN_PAY) {
             if (request()->isH5()) {

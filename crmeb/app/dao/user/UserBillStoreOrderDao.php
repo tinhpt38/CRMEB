@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -28,7 +28,7 @@ class UserBillStoreOrderDao extends BaseDao
     protected $join_alis = '';
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -42,7 +42,7 @@ class UserBillStoreOrderDao extends BaseDao
     }
 
     /**
-     * 关联模型
+     * mô hình liên kết
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
@@ -60,7 +60,7 @@ class UserBillStoreOrderDao extends BaseDao
     }
 
     /**
-     * 时间分组
+     * nhóm thời gian
      * @param array $where
      * @param array $whereOr
      * @param string $field
@@ -82,7 +82,7 @@ class UserBillStoreOrderDao extends BaseDao
     }
 
     /**
-     * 时间分组
+     * nhóm thời gian
      * @param array $where
      * @param array $whereOr
      * @param string $field
@@ -99,7 +99,7 @@ class UserBillStoreOrderDao extends BaseDao
     }
 
     /**
-     * 时间分组
+     * nhóm thời gian
      * @param array $where
      * @param array $whereOr
      * @param string $field

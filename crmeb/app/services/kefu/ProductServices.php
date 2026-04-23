@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ class ProductServices extends BaseServices
     }
 
     /**
-     * 获取用户购买记录
+     * Nhận hồ sơ mua hàng của người dùng
      * @param int $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -54,7 +54,7 @@ class ProductServices extends BaseServices
     }
 
     /**
-     * 获取用户浏览足记
+     * Nhận lịch sử duyệt web của người dùng
      * @param int $uid
      * @return mixed
      */
@@ -67,7 +67,7 @@ class ProductServices extends BaseServices
     }
 
     /**
-     * 获取热销商品前20
+     * Trước khi nhận được hàng hot20
      * @param int $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -88,7 +88,7 @@ class ProductServices extends BaseServices
     }
 
     /**
-     * 获取商品详情
+     * Nhận chi tiết sản phẩm
      * @param int $id
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -100,7 +100,7 @@ class ProductServices extends BaseServices
         $productInfo = $this->dao->get($id, ['store_name', 'IFNULL(sales,0) + IFNULL(ficti,0) as sales', 'image',
             'slider_image', 'price', 'vip_price', 'ot_price', 'stock', 'id'], ['description']);
         if (!$productInfo) {
-            throw new ApiException('商品未查到');
+            throw new ApiException('Không tìm thấy sản phẩm');
         }
         return $productInfo->toArray();
     }

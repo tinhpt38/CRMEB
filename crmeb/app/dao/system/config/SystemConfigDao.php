@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,14 +15,14 @@ use app\dao\BaseDao;
 use app\model\system\config\SystemConfig;
 
 /**
- * 系统配置
+ * Cấu hình hệ thống
  * Class SystemConfigDao
  * @package app\dao\system\config
  */
 class SystemConfigDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -31,7 +31,7 @@ class SystemConfigDao extends BaseDao
     }
 
     /**
-     * 获取某个系统配置
+     * Nhận cấu hình hệ thống
      * @param string $configNmae
      * @return mixed
      * @throws \ReflectionException
@@ -42,7 +42,7 @@ class SystemConfigDao extends BaseDao
     }
 
     /**
-     * 获取所有配置
+     * Nhận tất cả các cấu hình
      * @param array $configName
      * @return array
      * @throws \ReflectionException
@@ -57,7 +57,7 @@ class SystemConfigDao extends BaseDao
     }
 
     /**
-     * 获取配置列表分页
+     * Nhận phân trang danh sách cấu hình
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -72,7 +72,7 @@ class SystemConfigDao extends BaseDao
     }
 
     /**
-     * 获取某些分类配置下的配置列表
+     * Nhận danh sách cấu hình theo cấu hình danh mục nhất định
      * @param int $tabId
      * @param int $status
      * @return array
@@ -88,7 +88,7 @@ class SystemConfigDao extends BaseDao
     }
 
     /**
-     * 获取上传配置中的上传类型
+     * Nhận loại tải lên trong cấu hình tải lên
      * @param string $configName
      * @return array
      * @throws \ReflectionException

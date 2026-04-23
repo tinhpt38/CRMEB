@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -41,7 +41,7 @@ use think\facade\Config;
 use think\facade\Log;
 
 /**
- * 订单创建
+ * Tạo đơn hàng
  * Class StoreOrderCreateServices
  * @package app\services\order
  */
@@ -57,7 +57,7 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * 使用雪花算法生成订单ID
+     * Tạo đơn hàng bằng thuật toán bông tuyếtID
      * @return string
      * @throws \Exception
      */
@@ -66,7 +66,7 @@ class StoreOrderCreateServices extends BaseServices
         $snowflake = new \Godruoyi\Snowflake\Snowflake();
 
         if (Config::get('cache.default') == 'file') {
-            //32位
+            //32Chút
             if (PHP_INT_SIZE == 4) {
                 $id = abs($snowflake->id());
             } else {
@@ -84,7 +84,7 @@ class StoreOrderCreateServices extends BaseServices
                 $swooleSequenceResolver = new \Godruoyi\Snowflake\RedisSequenceResolver($redis->handler());
                 return $swooleSequenceResolver->sequence($currentTime);
             };
-            //32位
+            //32Chút
             if (PHP_INT_SIZE == 4) {
                 $id = abs($snowflake->setSequenceResolver($is_callable)->id());
             } else {
@@ -96,13 +96,13 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * 核销订单生成核销码
+     * Lệnh xóa sổ tạo ra mã xóa sổ
      * @return false|string
      */
     public function getStoreCode()
     {
         list($msec, $sec) = explode(' ', microtime());
-        $num = time() + mt_rand(10, 999999) . '' . substr($msec, 2, 3);//生成随机数
+        $num = time() + mt_rand(10, 999999) . '' . substr($msec, 2, 3);//Tạo số ngẫu nhiên
         if (strlen($num) < 12)
             $num = str_pad((string)$num, 12, 0, STR_PAD_RIGHT);
         else
@@ -114,7 +114,7 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * 创建订单
+     * Tạo đơn hàng
      * @param $uid
      * @param $key
      * @param $userInfo
@@ -139,7 +139,7 @@ class StoreOrderCreateServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
      */
@@ -150,9 +150,9 @@ class StoreOrderCreateServices extends BaseServices
         $bargainServices = app()->make(StoreBargainServices::class);
         $cartGroup = $storeOrderServices->getCacheOrderInfo($uid, $key);
         if (!$cartGroup) {
-            throw new ApiException('订单已过期,请刷新当前页面');
+            throw new ApiException('Đơn hàng đã hết hạn,Vui lòng làm mới trang hiện tại');
         }
-        //下单前砍价验证
+        //Xác minh giá trước khi đặt hàng
         if ($bargainId) {
             $bargainServices->checkBargainUser((int)$bargainId, $uid);
         }
@@ -162,13 +162,13 @@ class StoreOrderCreateServices extends BaseServices
             /** @var StorePinkServices $pinkServices */
             $pinkServices = app()->make(StorePinkServices::class);
             if ($pinkServices->isPink($pinkId, $uid))
-                throw new ApiStatusException('ORDER_EXIST', '订单生成失败，你已经在该团内不能再参加了', ['orderId' => $storeOrderServices->getStoreIdPink($pinkId, $uid)]);
+                throw new ApiStatusException('ORDER_EXIST', 'Việc tạo đơn hàng không thành công. Bạn đã ở trong nhóm và không thể tham gia được nữa.', ['orderId' => $storeOrderServices->getStoreIdPink($pinkId, $uid)]);
             if ($storeOrderServices->getIsOrderPink($pinkId, $uid))
-                throw new ApiStatusException('ORDER_EXIST', '订单生成失败，你已经参加该团了，请先支付订单', ['orderId' => $storeOrderServices->getStoreIdPink($pinkId, $uid)]);
+                throw new ApiStatusException('ORDER_EXIST', 'Việc tạo đơn hàng không thành công. Bạn đã tham gia nhóm. Vui lòng thanh toán đơn hàng trước.', ['orderId' => $storeOrderServices->getStoreIdPink($pinkId, $uid)]);
         }
         $virtual_type = $cartGroup['cartInfo'][0]['productInfo']['virtual_type'] ?? 0;
 
-        //下单前发票验证
+        //Xác minh hóa đơn trước khi đặt hàng
         if ($invoice_id) {
             app()->make(UserInvoiceServices::class)->checkInvoice((int)$invoice_id, $uid);
         }
@@ -183,14 +183,14 @@ class StoreOrderCreateServices extends BaseServices
         if ($is_gift == 0) {
             if ($shippingType == 1 && $virtual_type == 0) {
                 if (!$addressId) {
-                    throw new ApiException('请选择收货地址');
+                    throw new ApiException('Vui lòng chọn địa chỉ giao hàng');
                 }
                 if (!$addressInfo = $addressServices->getOne(['uid' => $uid, 'id' => $addressId, 'is_del' => 0]))
-                    throw new ApiException('地址选择有误');
+                    throw new ApiException('Chọn sai địa chỉ');
                 $addressInfo = $addressInfo->toArray();
             } else {
                 if ((!$real_name || !$phone) && $virtual_type == 0) {
-                    throw new ApiException('请填写姓名和电话');
+                    throw new ApiException('Vui lòng điền tên và số điện thoại của bạn');
                 }
                 $addressInfo['real_name'] = $real_name;
                 $addressInfo['phone'] = $phone;
@@ -234,7 +234,7 @@ class StoreOrderCreateServices extends BaseServices
             $gainIntegral = 0;
             $useIntegral = false;
         }
-        //$shipping_type = 1 快递发货 $shipping_type = 2 门店自提
+        //$shipping_type = 1 chuyển phát nhanh $shipping_type = 2 Nhận tại cửa hàng
         $storeSelfMention = sys_config('store_self_mention') ?? 0;
         if (!$storeSelfMention) $shippingType = 1;
         if ($is_gift == 1) $shippingType = 0;
@@ -289,45 +289,45 @@ class StoreOrderCreateServices extends BaseServices
             $storeServices = app()->make(SystemStoreServices::class);
             $orderInfo['store_id'] = $storeServices->getStoreDispose($storeId, 'id');
             if (!$orderInfo['store_id']) {
-                throw new ApiException('暂无门店无法选择门店自提');
+                throw new ApiException('Hiện tại chưa có cửa hàng và bạn không thể chọn nhận hàng tại cửa hàng.');
             }
         }
         /** @var StoreOrderCartInfoServices $cartServices */
         $cartServices = app()->make(StoreOrderCartInfoServices::class);
         $priceData['coupon_id'] = $couponId;
         $order = $this->transaction(function () use ($cartIds, $orderInfo, $cartInfo, $key, $userInfo, $useIntegral, $priceData, $combinationId, $seckillId, $bargainId, $cartServices, $uid, $addressId, $advanceId) {
-            //创建订单
+            //Tạo đơn hàng
             $order = $this->dao->save($orderInfo);
             if (!$order) {
-                throw new ApiException('订单生成失败');
+                throw new ApiException('Tạo đơn hàng không thành công');
             }
-            //记录自提人电话和姓名
+            //Ghi lại số điện thoại và tên người nhận xe
             /** @var UserServices $userService */
             $userService = app()->make(UserServices::class);
             $realName = $userService->value(['uid' => $uid], 'real_name');
             if ($realName == '') $userService->update(['uid' => $uid], ['real_name' => $orderInfo['real_name'], 'record_phone' => $orderInfo['user_phone']]);
-            //积分抵扣
+            //Trừ điểm
             if ($priceData['usedIntegral'] > 0) {
                 $this->deductIntegral($userInfo, $useIntegral, $priceData, (int)$userInfo['uid'], $order['id']);
             }
-            //扣库存
+            //Khấu trừ hàng tồn kho
             $this->decGoodsStock($cartInfo, $combinationId, $seckillId, $bargainId, $advanceId);
-            //保存购物车商品信息
+            //Lưu thông tin sản phẩm giỏ hàng
             $cartServices->setCartInfo($order['id'], $uid, $cartInfo);
             return $order;
         });
 
-        //创建开票数据
+        //Tạo dữ liệu hóa đơn
         if ($invoice_id) {
             app()->make(StoreOrderInvoiceServices::class)->makeUp($uid, $order['order_id'], (int)$invoice_id);
         }
 
-        // 订单创建成功后置事件
+        // Sự kiện sau khi tạo đơn hàng thành công
         event('OrderCreateAfterListener', [$order, compact('cartInfo', 'priceData', 'addressId', 'cartIds', 'news'), $uid, $key, $combinationId, $seckillId, $bargainId]);
-        // 推送订单
+        // Lệnh đẩy
         event('OutPushListener', ['order_create_push', ['order_id' => (int)$order['id']]]);
 
-        //自定义事件-订单创建事件
+        //Sự kiện tạo đơn hàng sự kiện tùy chỉnh
         event('CustomEventListener', ['order_create', [
             'uid' => $uid,
             'id' => (int)$order['id'],
@@ -349,7 +349,7 @@ class StoreOrderCreateServices extends BaseServices
 
 
     /**
-     * 抵扣积分
+     * Điểm trừ
      * @param array $userInfo
      * @param bool $useIntegral
      * @param array $priceData
@@ -377,12 +377,12 @@ class StoreOrderCreateServices extends BaseServices
             $res2 = $res2 && false != $res3;
         }
         if (!$res2) {
-            throw new ApiException('使用积分抵扣失败');
+            throw new ApiException('Không thể sử dụng điểm để khấu trừ');
         }
     }
 
     /**
-     * 扣库存
+     * Khấu trừ hàng tồn kho
      * @param array $cartInfo
      * @param int $combinationId
      * @param int $seckillId
@@ -403,7 +403,7 @@ class StoreOrderCreateServices extends BaseServices
         $advanceServices = app()->make(StoreAdvanceServices::class);
         try {
             foreach ($cartInfo as $cart) {
-                //减库存加销量
+                //Giảm hàng tồn kho và tăng doanh số bán hàng
                 if ($combinationId) $res5 = $res5 && $pinkServices->decCombinationStock((int)$cart['cart_num'], $combinationId, isset($cart['productInfo']['attrInfo']) ? $cart['productInfo']['attrInfo']['unique'] : '');
                 else if ($seckillId) $res5 = $res5 && $seckillServices->decSeckillStock((int)$cart['cart_num'], $seckillId, isset($cart['productInfo']['attrInfo']) ? $cart['productInfo']['attrInfo']['unique'] : '');
                 else if ($bargainId) $res5 = $res5 && $bargainServices->decBargainStock((int)$cart['cart_num'], $bargainId, isset($cart['productInfo']['attrInfo']) ? $cart['productInfo']['attrInfo']['unique'] : '');
@@ -411,15 +411,15 @@ class StoreOrderCreateServices extends BaseServices
                 else $res5 = $res5 && $services->decProductStock((int)$cart['cart_num'], (int)$cart['productInfo']['id'], isset($cart['productInfo']['attrInfo']) ? $cart['productInfo']['attrInfo']['unique'] : '');
             }
             if (!$res5) {
-                throw new ApiException('选择的规格库存不足');
+                throw new ApiException('Thông số kỹ thuật đã chọn đã hết hàng.');
             }
         } catch (\Throwable $e) {
-            throw new ApiException('选择的规格库存不足');
+            throw new ApiException('Thông số kỹ thuật đã chọn đã hết hàng.');
         }
     }
 
     /**
-     * 订单数据创建之后的商品实际金额计算，佣金计算，优惠折扣计算，设置默认地址，清理购物车
+     * Sau khi dữ liệu đơn hàng được tạo, hãy tính số lượng thực tế của sản phẩm, tính hoa hồng, tính chiết khấu, đặt địa chỉ mặc định và dọn sạch giỏ hàng.
      * @param $order
      * @param array $group
      * @param $activity
@@ -428,13 +428,13 @@ class StoreOrderCreateServices extends BaseServices
     {
         /** @var UserAddressServices $addressServices */
         $addressServices = app()->make(UserAddressServices::class);
-        //设置用户默认地址
+        //Đặt địa chỉ mặc định của người dùng
         if (!$addressServices->be(['is_default' => 1, 'uid' => $order['uid']])) {
             $addressServices->setDefaultAddress($group['addressId'], $order['uid']);
             $province = $addressServices->value(['id' => $group['addressId']], 'province') ?? '';
             app()->make(WechatUserServices::class)->update(['uid' => $order['uid']], ['province' => $province]);
         }
-        //删除购物车
+        //Xóa giỏ hàng
         if ($group['news']) {
             array_map(function ($key) {
                 CacheService::delete($key);
@@ -483,15 +483,15 @@ class StoreOrderCreateServices extends BaseServices
             }
             $isCommission = 0;
             if ($order['combination_id']) {
-                //检测拼团是否参与返佣
+                //Kiểm tra xem việc mua theo nhóm có được hưởng chiết khấu hoa hồng hay không
                 $isCommission = app()->make(StoreCombinationServices::class)->value(['id' => $order['combination_id']], 'is_commission');
             }
             if ($order['seckill_id']) {
-                //检测秒杀是否参与返佣
+                //Kiểm tra xem chương trình khuyến mãi chớp nhoáng có tham gia giảm giá hoa hồng hay không
                 $isCommission = app()->make(StoreSeckillServices::class)->value(['id' => $order['seckill_id']], 'is_commission');
             }
             if ($order['bargain_id']) {
-                //检测砍价是否参与返佣
+                //Kiểm tra xem thương lượng có liên quan đến giảm giá hoa hồng hay không
                 $isCommission = app()->make(StoreBargainServices::class)->value(['id' => $order['bargain_id']], 'is_commission');
             }
             if ($cartInfo && (!$activity || $isCommission)) {
@@ -505,12 +505,12 @@ class StoreOrderCreateServices extends BaseServices
             }
             $createService->update(['id' => $orderId], $orderData);
         } catch (\Throwable $e) {
-            throw new ApiException('计算订单实际优惠、积分、邮费、佣金失败，原因：' . $e->getMessage());
+            throw new ApiException('Tính chiết khấu thực tế, điểm, bưu phí, hoa hồng cho đơn hàng không thành công vì lý do：' . $e->getMessage());
         }
     }
 
     /**
-     * 计算订单每个商品真实付款价格
+     * Tính giá thanh toán thực tế của từng mặt hàng trong đơn hàng
      * @param array $cartInfo
      * @param array $priceData
      * @param $addressId
@@ -519,7 +519,7 @@ class StoreOrderCreateServices extends BaseServices
      */
     public function computeOrderProductTruePrice(array $cartInfo, array $priceData, $addressId, int $uid, $orderInfo)
     {
-        //统一放入默认数据
+        //Thống nhất dữ liệu mặc định
         foreach ($cartInfo as &$cart) {
             $cart['use_integral'] = 0;
             $cart['integral_price'] = 0.00;
@@ -529,11 +529,11 @@ class StoreOrderCreateServices extends BaseServices
             $cartInfo = $this->computeOrderProductCoupon($cartInfo, $priceData);
             $cartInfo = $this->computeOrderProductIntegral($cartInfo, $priceData);
         } catch (\Throwable $e) {
-            Log::error('订单商品结算失败,File：' . $e->getFile() . ',Line：' . $e->getLine() . ',Message：' . $e->getMessage());
-            throw new ApiException('订单商品结算失败');
+            Log::error('Thanh toán sản phẩm đặt hàng không thành công,File：' . $e->getFile() . ',Line：' . $e->getLine() . ',Message：' . $e->getMessage());
+            throw new ApiException('Thanh toán sản phẩm đặt hàng không thành công');
         }
-        //truePice实际支付单价（存在）
-        //几件商品总体优惠 以及积分抵扣金额
+        //truePiceĐơn giá thực tế thanh toán (có)
+        //Giảm giá tổng thể cho một số mặt hàng và số tiền khấu trừ điểm
         foreach ($cartInfo as &$cart) {
             $coupon_price = $cart['coupon_price'] ?? 0;
             $integral_price = $cart['integral_price'] ?? 0;
@@ -553,14 +553,14 @@ class StoreOrderCreateServices extends BaseServices
         try {
             [$cartInfo, $spread_ids] = $this->computeOrderProductBrokerage($uid, $cartInfo);
         } catch (\Throwable $e) {
-            Log::error('订单商品结算失败,File：' . $e->getFile() . ',Line：' . $e->getLine() . ',Message：' . $e->getMessage());
-            throw new ApiException('订单商品结算失败');
+            Log::error('Thanh toán sản phẩm đặt hàng không thành công,File：' . $e->getFile() . ',Line：' . $e->getLine() . ',Message：' . $e->getMessage());
+            throw new ApiException('Thanh toán sản phẩm đặt hàng không thành công');
         }
         return [$cartInfo, $spread_ids];
     }
 
     /**
-     * 计算每个商品实际支付运费
+     * Tính phí vận chuyển thực tế phải trả cho từng mặt hàng
      * @param array $cartInfo
      * @param array $priceData
      * @return array
@@ -574,7 +574,7 @@ class StoreOrderCreateServices extends BaseServices
             $addr = $addressServices->getAddress($addressId);
             if ($addr) {
                 $addr = $addr->toArray();
-                //按照运费模板计算每个运费模板下商品的件数/重量/体积以及总金额 按照首重倒序排列
+                //Tính toán số lượng/trọng lượng/khối lượng và tổng số lượng hàng hóa theo từng mẫu cước theo mẫu cước. Sắp xếp theo thứ tự ưu tiên giảm dần.
                 $cityId = $addr['city_id'] ?? 0;
                 $tempIds[] = 1;
                 foreach ($cartInfo as $key_c => $item_c) {
@@ -622,7 +622,7 @@ class StoreOrderCreateServices extends BaseServices
                 foreach ($temp_num as $k => $v) {
                     if (isset($temp[$v['temp_id']]['appoint']) && $temp[$v['temp_id']]['appoint']) {
                         if ($freeServices->isFree($v['temp_id'], $v['city_id'], $v['number'], $v['price'], $v['type'])) {
-                            //免运费
+                            //miễn phí vận chuyển
                             foreach ($v['cart_id'] as $c_id) {
                                 if (isset($cartInfo[$c_id])) $cartInfo[$c_id]['postage_price'] = 0.00;
                             }
@@ -634,14 +634,14 @@ class StoreOrderCreateServices extends BaseServices
                 $total_price = 0;
                 $postage_price = 0.00;
                 foreach ($cartInfo as &$cart) {
-                    if (isset($cart['postage_price'])) {//免运费
+                    if (isset($cart['postage_price'])) {//miễn phí vận chuyển
                         continue;
                     }
                     $total_price = bcadd((string)$total_price, (string)bcmul((string)$cart['truePrice'], (string)$cart['cart_num'], 4), 2);
                     $count++;
                 }
                 foreach ($cartInfo as &$cart) {
-                    if (isset($cart['postage_price'])) {//免运费
+                    if (isset($cart['postage_price'])) {//miễn phí vận chuyển
                         continue;
                     }
                     if ($count > 1) {
@@ -656,7 +656,7 @@ class StoreOrderCreateServices extends BaseServices
                 $cartInfo = array_merge($cartInfo);
             }
         }
-        //保证不进运费模版计算的购物车商品postage_price字段有值
+        //Đảm bảo rằng trường postage_price của các sản phẩm trong giỏ hàng không có trong tính toán mẫu vận chuyển hàng hóa có giá trị.
         foreach ($cartInfo as &$item) {
             if (!isset($item['postage_price'])) $item['postage_price'] = 0.00;
         }
@@ -664,7 +664,7 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * 计算订单商品积分实际抵扣金额
+     * Tính số tiền khấu trừ thực tế của điểm sản phẩm đơn hàng
      * @param array $cartInfo
      * @param array $priceData
      * @return array
@@ -703,7 +703,7 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * 计算订单商品优惠券实际抵扣金额
+     * Tính số tiền chiết khấu thực tế của phiếu mua hàng sản phẩm
      * @param array $cartInfo
      * @param array $priceData
      * @return array
@@ -740,7 +740,7 @@ class StoreOrderCreateServices extends BaseServices
                             $count--;
                         }
                         break;
-                    case 1://品类券
+                    case 1://Phiếu giảm giá danh mục
                         /** @var StoreCategoryServices $storeCategoryServices */
                         $storeCategoryServices = app()->make(StoreCategoryServices::class);
                         $coupon_category = explode(',', (string)$couponInfo['category_id']);
@@ -770,7 +770,7 @@ class StoreOrderCreateServices extends BaseServices
                             }
                         }
                         break;
-                    case 2://商品劵
+                    case 2://phiếu giảm giá hàng hóa
                         foreach ($cartInfo as $cart) {
                             if (isset($cart['product_id']) && in_array($cart['product_id'], explode(',', $couponInfo['product_id']))) {
                                 $total_price = bcadd((string)$total_price, (string)bcmul((string)$cart['truePrice'], (string)$cart['cart_num'], 4), 2);
@@ -800,7 +800,7 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * 计算实际佣金
+     * Tính hoa hồng thực tế
      * @param int $uid
      * @param array $cartInfo
      * @return array
@@ -818,21 +818,21 @@ class StoreOrderCreateServices extends BaseServices
         [$storeBrokerageRatio, $storeBrokerageTwo, $staffPercent, $agentPercent, $divisionPercent] = $divisionService->getDivisionPercent($uid, $storeBrokerageRatio, $storeBrokerageTwo, sys_config('is_self_brokerage', 0));
 
         foreach ($cartInfo as &$cart) {
-            $oneBrokerage = '0';//一级返佣金额
-            $twoBrokerage = '0';//二级返佣金额
-            $staffBrokerage = '0';//店员返佣金额
-            $agentBrokerage = '0';//代理商返佣金额
-            $divisionBrokerage = '0';//事业部返佣金额
+            $oneBrokerage = '0';//Số tiền hoàn trả cấp 1
+            $twoBrokerage = '0';//Số tiền hoàn trả cấp 2
+            $staffBrokerage = '0';//Số tiền giảm giá của nhân viên cửa hàng
+            $agentBrokerage = '0';//Số tiền chiết khấu đại lý
+            $divisionBrokerage = '0';//Số tiền giảm giá của đơn vị kinh doanh
             $cartNum = (string)$cart['cart_num'] ?? '0';
             if (isset($cart['productInfo'])) {
                 $productInfo = $cart['productInfo'];
 
-                //计算商品金额
+                //Tính số lượng sản phẩm
                 if (sys_config('user_brokerage_type') == 1) {
-                    //按照实际支付价格返佣
+                    //Chiết khấu hoa hồng dựa trên giá thực tế thanh toán
                     $price = bcmul((string)bcadd((string)$cart['truePrice'], (string)$cart['postage_price'], 2), $cartNum, 4);
                 } else {
-                    //按照商品价格返佣
+                    //Chiết khấu hoa hồng dựa trên giá sản phẩm
                     if (isset($productInfo['attrInfo'])) {
                         $price = bcmul((string)($productInfo['attrInfo']['price'] ?? '0'), $cartNum, 4);
                     } else {
@@ -840,21 +840,21 @@ class StoreOrderCreateServices extends BaseServices
                     }
                 }
 
-                //指定返佣金额
+                //Chỉ định số tiền giảm giá
                 if (isset($productInfo['is_sub']) && $productInfo['is_sub'] == 1) {
                     $oneBrokerage = bcmul((string)($productInfo['attrInfo']['brokerage'] ?? '0'), $cartNum, 2);
                     $twoBrokerage = bcmul((string)($productInfo['attrInfo']['brokerage_two'] ?? '0'), $cartNum, 2);
                 } else {
                     if ($price) {
-                        //一级返佣比例 小于等于零时直接返回 不返佣
+                        //Nếu tỷ lệ giảm giá cấp đầu tiên nhỏ hơn hoặc bằng 0, nó sẽ được trả lại trực tiếp mà không cần giảm giá.
                         if ($storeBrokerageRatio > 0) {
-                            //计算获取一级返佣比例
+                            //Tính tỷ lệ giảm giá cấp đầu tiên
                             $brokerageRatio = bcdiv($storeBrokerageRatio, 100, 4);
                             $oneBrokerage = bcmul((string)$price, (string)$brokerageRatio, 2);
                         }
-                        //二级返佣比例小于等于0 直接返回
+                        //Nếu tỷ lệ giảm giá cấp 2 nhỏ hơn hoặc bằng 0, hãy trả lại trực tiếp
                         if ($storeBrokerageTwo > 0) {
-                            //计算获取二级返佣比例
+                            //Tính tỷ lệ giảm giá cấp hai
                             $brokerageTwo = bcdiv($storeBrokerageTwo, 100, 4);
                             $twoBrokerage = bcmul((string)$price, (string)$brokerageTwo, 2);
                         }
@@ -877,24 +877,24 @@ class StoreOrderCreateServices extends BaseServices
 
 
     /**
-     * 获取计算好的佣金比例以及返佣人员uid
+     * Nhận tỷ lệ hoa hồng được tính toán và nhân viên giảm giáuid
      * @param int $uid
      * @return array|int[]
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/10/8
      */
     public function getSpreadDate(int $uid)
     {
-        //商城分销是否开启，用户uid是否存在，全部返回0
+        //Việc phân phối trung tâm mua sắm có được bật hay không, uid người dùng có tồn tại hay không, tất cả đều trả về0
         if (!sys_config('brokerage_func_status') || !$uid) {
             return [0, 0, 0, 0];
         }
 
-        //获取用户信息，获取不到全部返回0
+        //Lấy thông tin người dùng, trả lại nếu không lấy được hết0
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
@@ -902,21 +902,21 @@ class StoreOrderCreateServices extends BaseServices
             return [0, 0, 0, 0];
         }
 
-        //获取系统一二级分佣比例
+        //Nhận tỷ lệ hoa hồng cấp một và cấp hai của hệ thống
         $storeBrokerageRatio = sys_config('store_brokerage_ratio') != '' ? sys_config('store_brokerage_ratio') : 0;
         $storeBrokerageTwo = sys_config('store_brokerage_two') != '' ? sys_config('store_brokerage_two') : 0;
 
-        //获取上级和上上级的uid，开启自购获取自己和上级的uid
+        //Nhận ý kiến ​​của cấp trên và cấp trên của bạn, bắt đầu tự mua và nhận ý kiến ​​của chính bạn và cấp trên.uid
         $spread_one_uid = $userServices->getSpreadUid($uid, $userInfo);
         $spread_two_uid = 0;
         if ($spread_one_uid > 0 && $one_user_info = $userServices->getUserInfo($spread_one_uid)) {
             $spread_two_uid = $userServices->getSpreadUid($spread_one_uid, $one_user_info, false);
         }
 
-        //计算分销等级之后的佣金比例
+        //Tính tỷ lệ hoa hồng sau mức phân phối
         [$storeBrokerageRatio, $storeBrokerageTwo] = app()->make(AgentLevelServices::class)->getAgentLevelBrokerage($storeBrokerageRatio, $storeBrokerageTwo, $spread_one_uid, $spread_two_uid);
 
-        //判断返佣层级为一级时，将二级用户uid和二级分佣比例改为0
+        //Khi đánh giá rằng mức giảm giá là cấp một, hãy thay đổi uid người dùng cấp hai và tỷ lệ hoa hồng cấp hai thành0
         if (sys_config('brokerage_level') == 1) {
             $storeBrokerageTwo = $spread_two_uid = 0;
         }

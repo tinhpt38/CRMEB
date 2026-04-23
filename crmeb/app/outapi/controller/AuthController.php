@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use crmeb\basic\BaseController;
 use think\facade\Validate;
 
 /**
- * 基类 所有控制器继承的类
+ * Lớp cơ sở Lớp mà tất cả các bộ điều khiển kế thừa từ đó
  * Class AuthController
  * @package app\controller\out
  * @method success($msg = 'ok', array $data = [])
@@ -25,26 +25,26 @@ class AuthController extends BaseController
 {
 
     /**
-     * 当前对外接口ID
+     * Giao diện bên ngoài hiện tạiID
      * @var
      */
     protected $outId;
 
     /**
-     * 当前对外接口信息
+     * Thông tin giao diện bên ngoài hiện tại
      * @var
      */
     protected $outInfo;
 
     /**
-     * 当前对外接口权限
+     * Quyền giao diện bên ngoài hiện tại
      * @var array
      */
     protected $auth = [];
 
 
     /**
-     * 初始化
+     * khởi tạo
      */
     protected function initialize()
     {
@@ -55,7 +55,7 @@ class AuthController extends BaseController
 
 
     /**
-     * 验证数据
+     * Xác thực dữ liệu
      * @param array $data
      * @param $validate
      * @param null $message
@@ -69,7 +69,7 @@ class AuthController extends BaseController
             $v->rule($validate);
         } else {
             if (strpos($validate, '.')) {
-                // 支持场景
+                // Các tình huống hỗ trợ
                 list($validate, $scene) = explode('.', $validate);
             }
             $class = false !== strpos($validate, '\\') ? $validate : $this->app->parseClass('validate', $validate);
@@ -87,7 +87,7 @@ class AuthController extends BaseController
             $v->message($message);
 
 
-        // 是否批量验证
+        // Có xác minh hàng loạt hay không
         if ($batch) {
             $v->batch(true);
         }

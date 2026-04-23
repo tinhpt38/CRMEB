@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\services\HttpService;
 use think\facade\Log;
 
 /**
- * 企业微信发送消息
+ * Gửi tin nhắn qua WeChat của công ty
  * Created by PhpStorm.
  * User: xurongyao <763569752@qq.com>
  * Date: 2021/9/22 1:23 PM
@@ -25,13 +25,13 @@ use think\facade\Log;
 class EnterpriseWechatService extends NoticeService
 {
     /**
-     * 判断是否开启权限
+     * Xác định xem quyền có được bật hay không
      * @var bool
      */
     private $isOpen = true;
 
     /**
-     * 是否开启权限
+     * Có bật quyền hay không
      * @param string $mark
      * @return $this
      */
@@ -43,7 +43,7 @@ class EnterpriseWechatService extends NoticeService
     }
 
     /**
-     * 发送企业微信客服消息
+     * Gửi tin nhắn dịch vụ khách hàng WeChat của công ty
      * @param $data
      */
     public function weComSend($data)
@@ -67,7 +67,7 @@ class EnterpriseWechatService extends NoticeService
                     'markdown' => ['content' => $d]
                 ]));
             } catch (\Throwable $e) {
-                Log::error('发送企业群消息失败,失败原因:' . $e->getMessage());
+                Log::error('Không gửi được tin nhắn nhóm doanh nghiệp,Lý do thất bại:' . $e->getMessage());
 
             }
         }

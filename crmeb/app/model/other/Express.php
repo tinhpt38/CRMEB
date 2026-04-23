@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\basic\BaseModel;
 use think\Model;
 
 /**
- * 物流公司Model
+ * Công ty hậu cầnModel
  * Class Express
  * @package app\model\other
  */
@@ -26,19 +26,19 @@ class Express extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'express';
 
     /**
-     * 物流公司是否显示
+     * Công ty hậu cần có hiển thị
      * @param Model $query
      * @param $value
      */
@@ -48,7 +48,7 @@ class Express extends BaseModel
     }
 
     /**
-     * 物流公司信息是否完善
+     * Thông tin công ty logistics có đầy đủ không?
      * @param Model $query
      * @param $value
      */
@@ -58,7 +58,7 @@ class Express extends BaseModel
     }
 
     /**
-     * keyword 搜索器
+     * keyword Người tìm kiếm
      * @param Model $query
      * @param $value
      */

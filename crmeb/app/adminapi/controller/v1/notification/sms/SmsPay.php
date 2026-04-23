@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,7 +14,7 @@ use app\adminapi\controller\AuthController;
 use crmeb\services\{sms\Sms};
 
 /**
- * 短信购买
+ * mua hàng qua tin nhắn SMS
  * Class SmsPay
  * @package app\admin\controller\sms
  */
@@ -37,12 +37,12 @@ class SmsPay extends AuthController
             'site_url' => sys_config('site_url')
         ]);
         if (!$this->smsHandle->isLogin()) {
-            return app('json')->fail('请先填写短信配置');
+            return app('json')->fail('Vui lòng điền cấu hình SMS trước');
         }
     }
 
     /**
-     * 获取账号信息
+     * Nhận thông tin tài khoản
      * @return mixed
      */
     public function number()
@@ -56,7 +56,7 @@ class SmsPay extends AuthController
     }
 
     /**
-     * 获取支付套餐
+     * Nhận kế hoạch thanh toán
      * @return mixed
      */
     public function price()
@@ -71,7 +71,7 @@ class SmsPay extends AuthController
     }
 
     /**
-     * 获取支付码
+     * Nhận mã thanh toán
      * @return mixed
      */
     public function pay()

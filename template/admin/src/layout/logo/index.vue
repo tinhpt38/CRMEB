@@ -24,11 +24,11 @@ export default {
     };
   },
   computed: {
-    // 获取布局配置信息
+    // Nhận thông tin cấu hình bố cục
     getThemeConfig() {
       return this.$store.state.themeConfig.themeConfig;
     },
-    // 设置 logo 是否显示
+    // Đặt xem logo có được hiển thị hay không
     setShowLogo() {
       let { isCollapse, layout } = this.$store.state.themeConfig.themeConfig;
       return !isCollapse || layout === 'classic' || document.body.clientWidth < 1000;
@@ -38,7 +38,7 @@ export default {
     this.getLogo();
   },
   methods: {
-    // logo 点击实现菜单展开/收起
+    // logo Bấm để mở rộng/thu gọn menu
     onThemeConfigChange() {
       if (
         this.$store.state.themeConfig.themeConfig.layout == 'columns' &&

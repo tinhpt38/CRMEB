@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,14 +14,14 @@ namespace crmeb\services\upload\extend\cos;
 
 class Sts
 {
-// 临时密钥计算样例
+// Ví dụ tính toán khóa tạm thời
     function _hex2bin($data)
     {
         $len = strlen($data);
         return pack("H" . $len, $data);
     }
 
-    // obj 转 query string
+    // obj thay đổi query string
     function json2str($obj, $notEncode = false)
     {
         ksort($obj);
@@ -35,7 +35,7 @@ class Sts
         return join('&', $arr);
     }
 
-    // 计算临时密钥用的签名
+    // Chữ ký dùng để tính khóa tạm thời
     function getSignature($opt, $key, $method, $config)
     {
         $host = "sts.tencentcloudapi.com";
@@ -54,7 +54,7 @@ class Sts
         return $sign;
     }
 
-    // v2接口的key首字母小写，v3改成大写，此处做了向下兼容
+    // v2Chữ cái đầu tiên của khóa giao diện là chữ thường và v3 được đổi thành chữ hoa. Điều này tương thích ngược.
     function backwardCompat($result)
     {
         if (!is_array($result)) {
@@ -73,7 +73,7 @@ class Sts
         return $compat;
     }
 
-    // 获取临时密钥
+    // Nhận chìa khóa tạm thời
     function getTempKeys($config)
     {
         $result = null;
@@ -179,7 +179,7 @@ class Sts
         }
     }
 
-    //申请角色授权
+    //Đăng ký ủy quyền vai trò
     function getRoleCredential($config)
     {
         $result = null;

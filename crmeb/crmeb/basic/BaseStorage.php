@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,28 +20,28 @@ abstract class BaseStorage
 {
 
     /**
-     * 驱动名称
+     * Tên tài xế
      * @var string
      */
     protected $name;
 
     /**
-     * 驱动配置文件名
+     * Tên tập tin cấu hình trình điều khiển
      * @var string
      */
     protected $configFile;
 
     /**
-     * 错误信息
+     * thông báo lỗi
      * @var string
      */
     protected $error;
 
     /**
      * BaseStorage constructor.
-     * @param string $name 驱动名
-     * @param string $configFile 驱动配置名
-     * @param array $config 其他配置
+     * @param string $name Tên tài xế
+     * @param string $configFile Tên cấu hình trình điều khiển
+     * @param array $config Các cấu hình khác
      */
     public function __construct(string $name, array $config = [], string $configFile = null)
     {
@@ -52,18 +52,18 @@ abstract class BaseStorage
 
 
     /**
-     * 设置错误信息
+     * Đặt thông báo lỗi
      * @param string|null $error
      * @return bool
      */
     protected function setError(?string $error = null)
     {
-        $this->error = $error ?: '未知错误';
+        $this->error = $error ?: 'lỗi không xác định';
         return false;
     }
 
     /**
-     * 获取错误信息
+     * Nhận thông báo lỗi
      * @return string
      */
     public function getError()
@@ -74,7 +74,7 @@ abstract class BaseStorage
     }
 
     /**
-     * 初始化
+     * khởi tạo
      * @param array $config
      * @return mixed
      */

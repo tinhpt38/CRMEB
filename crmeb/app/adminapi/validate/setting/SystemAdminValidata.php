@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,8 +15,8 @@ use think\Validate;
 class SystemAdminValidata extends Validate
 {
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -29,19 +29,19 @@ class SystemAdminValidata extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'account.require' => '请填写管理员账号',
-        'account.alphaDash' => '管理员账号为英文字母',
-        'conf_pwd.require' => '请输入确认密码',
-        'pwd.require' => '请输入密码',
-        'real_name.require' => '请输管理员姓名',
-        'roles.require' => '请选择管理员身份',
-        'roles.array' => '身份必须为数组',
+        'account.require' => 'Vui lòng điền vào tài khoản quản trị viên',
+        'account.alphaDash' => 'Tài khoản quản trị viên phải bằng chữ cái tiếng Anh',
+        'conf_pwd.require' => 'Vui lòng nhập mật khẩu xác nhận',
+        'pwd.require' => 'Vui lòng nhập mật khẩu',
+        'real_name.require' => 'Vui lòng nhập tên quản trị viên',
+        'roles.require' => 'Vui lòng chọn danh tính quản trị viên',
+        'roles.array' => 'danh tính phải là một mảng',
     ];
 
     protected $scene = [

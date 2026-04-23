@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,7 +26,7 @@ use Throwable;
 class KefuApiExceptionHandle extends Handle
 {
     /**
-     * 不需要记录信息（日志）的异常类列表
+     * Danh sách các lớp ngoại lệ không yêu cầu ghi thông tin (log)
      * @var array
      */
     protected $ignoreReport = [
@@ -37,7 +37,7 @@ class KefuApiExceptionHandle extends Handle
     ];
 
     /**
-     * 记录异常信息（包括日志或者其它方式记录）
+     * Ghi lại thông tin bất thường (bao gồm nhật ký hoặc phương tiện ghi khác）
      * @access public
      * @param Throwable $exception
      * @return void
@@ -52,16 +52,16 @@ class KefuApiExceptionHandle extends Handle
                 'code' => $this->getCode($exception),
             ];
 
-            //日志内容
+            //Nội dung nhật ký
             $log = [
-                request()->kefuId(),                                                                  //客服ID
-                request()->ip(),                                                                      //客户ip
-                ceil(msectime() - (request()->time(true) * 1000)),                                    //耗时（毫秒）
-                request()->rule()->getMethod(),                                                       //请求类型
-                str_replace("/", "", request()->rootUrl()),                                           //应用
-                request()->baseUrl(),                                                                 //路由
-                json_encode(request()->param(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),     //请求参数
-                json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),                  //报错数据
+                request()->kefuId(),                                                                  //dịch vụ khách hàngID
+                request()->ip(),                                                                      //khách hàngip
+                ceil(msectime() - (request()->time(true) * 1000)),                                    //Thời gian thực hiện (mili giây）
+                request()->rule()->getMethod(),                                                       //Loại yêu cầu
+                str_replace("/", "", request()->rootUrl()),                                           //ứng dụng
+                request()->baseUrl(),                                                                 //lộ trình
+                json_encode(request()->param(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),     //Thông số yêu cầu
+                json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),                  //dữ liệu lỗi
 
             ];
             Log::write(implode("|", $log), "error");
@@ -85,7 +85,7 @@ class KefuApiExceptionHandle extends Handle
             'previous' => $e->getPrevious(),
         ] : [];
         $message = $e->getMessage();
-        // 添加自定义异常处理机制
+        // Thêm cơ chế xử lý ngoại lệ tùy chỉnh
         if ($e instanceof AuthException || $e instanceof AdminException || $e instanceof ApiException || $e instanceof ValidateException) {
             return app('json')->make($e->getCode() ?: 400, $message, $massageData);
         } else {

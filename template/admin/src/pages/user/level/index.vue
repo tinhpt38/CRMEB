@@ -10,79 +10,79 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="等级状态：" label-for="status1">
+          <el-form-item label="trạng thái cấp độ：" label-for="status1">
             <el-select
               v-model="levelFrom.is_show"
-              placeholder="请选择"
+              placeholder="Vui lòng chọn"
               clearable
               element-id="status1"
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="显示"></el-option>
-              <el-option value="0" label="不显示"></el-option>
+              <el-option value="1" label="trình diễn"></el-option>
+              <el-option value="0" label="Không hiển thị"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="等级名称：" label-for="title">
-            <el-input clearable v-model="levelFrom.title" placeholder="请输入等级名称" class="form_content_width" />
+          <el-form-item label="Tên cấp độ：" label-for="title">
+            <el-input clearable v-model="levelFrom.title" placeholder="Vui lòng nhập tên cấp độ" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button v-auth="['admin-user-level_add']" type="primary" v-db-click @click="add">添加用户等级</el-button>
+      <el-button v-auth="['admin-user-level_add']" type="primary" v-db-click @click="add">Thêm cấp độ người dùng</el-button>
       <el-table
         :data="levelLists"
         ref="table"
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="等级图标" min-width="100">
+        <el-table-column label="biểu tượng cấp độ" min-width="100">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.icon" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="等级背景图" min-width="100">
+        <el-table-column label="Bản đồ nền cấp độ" min-width="100">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="等级名称" min-width="120">
+        <el-table-column label="Tên cấp độ" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="等级" min-width="120">
+        <el-table-column label="cấp" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.grade }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="享受折扣" min-width="100">
+        <el-table-column label="tận hưởng giảm giá" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.discount }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="经验值要求" min-width="100">
+        <el-table-column label="Yêu cầu về giá trị kinh nghiệm" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.exp_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="100">
+        <el-table-column label="Có hiển thị hay không" min-width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -95,11 +95,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column fixed="right" label="vận hành" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除等级', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'xóa cấp độ', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -113,7 +113,7 @@
         />
       </div>
     </el-card>
-    <!-- 等级任务-->
+    <!-- nhiệm vụ cấp độ-->
     <task-list ref="tasks"></task-list>
   </div>
 </template>
@@ -167,7 +167,7 @@ export default {
   methods: {
     ...mapMutations('userLevel', ['getlevelId']),
 
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -186,11 +186,11 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 删除成功
+    // Xóa thành công
     // submitModel () {
     //     this.levelLists.splice(this.delfromData.num, 1)
     // },
-    // 修改是否显示
+    // Sửa đổi xem có hiển thị hay không
     onchangeIsShow(row) {
       let data = {
         id: row.id,
@@ -204,7 +204,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 等级列表
+    // Danh sách bậc
     getList() {
       this.loading = true;
       this.levelFrom.is_show = this.levelFrom.is_show || '';
@@ -220,23 +220,23 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 添加
+    // Thêm vào
     add() {
       this.levelId = 0;
       this.$modalForm(createApi({ id: this.levelId })).then(() => this.getList());
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.levelId = row.id;
       this.$modalForm(createApi({ id: this.levelId })).then(() => this.getList());
       this.getlevelId(this.levelId);
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.levelFrom.page = 1;
       this.getList();
     },
-    // 修改成功
+    // Sửa đổi thành công
     submitFail() {
       this.getList();
     },

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,7 +23,7 @@ class SystemEventServices extends BaseServices
     }
 
     /**
-     * 获取场景列表
+     * Nhận danh sách cảnh
      * @return \string[][]
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -33,392 +33,392 @@ class SystemEventServices extends BaseServices
     {
 //        $data = [
 //            [
-//                'label' => '用户注册',
+//                'label' => 'Đăng ký người dùng',
 //                'value' => 'user_register',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户手机号',
-//                    'add_time' => '用户注册时间',
-//                    'user_type' => '用户来源',
+//                    'uid' => 'người dùnguid',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại di động của người dùng',
+//                    'add_time' => 'Thời gian đăng ký người dùng',
+//                    'user_type' => 'Nguồn người dùng',
 //                ]
 //            ],
 //            [
-//                'label' => '用户登录',
+//                'label' => 'Đăng nhập người dùng',
 //                'value' => 'user_login',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户手机号',
-//                    'add_time' => '用户注册时间',
-//                    'login_time' => '用户登录时间',
-//                    'user_type' => '用户来源',
+//                    'uid' => 'người dùnguid',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại di động của người dùng',
+//                    'add_time' => 'Thời gian đăng ký người dùng',
+//                    'login_time' => 'Thời gian đăng nhập của người dùng',
+//                    'user_type' => 'Nguồn người dùng',
 //                ]
 //            ],
 //            [
-//                'label' => '用户注销',
+//                'label' => 'Đăng xuất người dùng',
 //                'value' => 'user_cancel',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户手机号',
-//                    'add_time' => '用户注册时间',
-//                    'cancel_time' => '用户注销时间',
-//                    'user_type' => '用户来源',
+//                    'uid' => 'người dùnguid',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại di động của người dùng',
+//                    'add_time' => 'Thời gian đăng ký người dùng',
+//                    'cancel_time' => 'Thời gian đăng xuất của người dùng',
+//                    'user_type' => 'Nguồn người dùng',
 //                ]
 //            ],
 //            [
-//                'label' => '用户修改信息',
+//                'label' => 'Thông tin người dùng sửa đổi',
 //                'value' => 'user_change_info',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户手机号',
-//                    'avatar' => '用户头像',
-//                    'add_time' => '用户注册时间',
-//                    'user_type' => '用户来源',
+//                    'uid' => 'người dùnguid',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại di động của người dùng',
+//                    'avatar' => 'Hình đại diện của người dùng',
+//                    'add_time' => 'Thời gian đăng ký người dùng',
+//                    'user_type' => 'Nguồn người dùng',
 //                ]
 //            ],
 //            [
-//                'label' => '绑定推广关系',
+//                'label' => 'Mối quan hệ thăng tiến ràng buộc',
 //                'value' => 'user_spread',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'nickname' => '用户昵称',
-//                    'spread_uid' => '上级用户uid',
-//                    'spread_time' => '用户绑定时间',
-//                    'user_type' => '用户来源',
+//                    'uid' => 'người dùnguid',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'spread_uid' => 'Người dùng cấp caouid',
+//                    'spread_time' => 'Thời gian ràng buộc người dùng',
+//                    'user_type' => 'Nguồn người dùng',
 //                ]
 //            ],
 //            [
-//                'label' => '用户签到',
+//                'label' => 'Đăng nhập người dùng',
 //                'value' => 'user_sign',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'sign_point' => '签到积分',
-//                    'sign_exp' => '签到经验',
-//                    'sign_time' => '签到时间',
+//                    'uid' => 'người dùnguid',
+//                    'sign_point' => 'Điểm đăng nhập',
+//                    'sign_exp' => 'Trải nghiệm đăng nhập',
+//                    'sign_time' => 'Giờ nhận phòng',
 //                ]
 //            ],
 //            [
-//                'label' => '用户充值',
+//                'label' => 'Nạp tiền người dùng',
 //                'value' => 'user_recharge',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'id' => '订单id',
-//                    'order_id' => '订单order_id',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户电话',
-//                    'price' => '充值金额',
-//                    'give_price' => '赠送金额',
-//                    'now_money' => '当前余额',
-//                    'recharge_time' => '充值时间',
+//                    'uid' => 'người dùnguid',
+//                    'id' => 'Đặt hàngid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại của người dùng',
+//                    'price' => 'Số tiền nạp',
+//                    'give_price' => 'Số tiền quà tặng',
+//                    'now_money' => 'Số dư hiện tại',
+//                    'recharge_time' => 'thời gian nạp tiền',
 //                ]
 //            ],
 //            [
-//                'label' => '用户提现',
+//                'label' => 'Người dùng rút tiền',
 //                'value' => 'user_extract',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'phone' => '用户电话',
-//                    'extract_type' => '提现类型',
-//                    'extract_price' => '提现金额',
-//                    'extract_fee' => '提现手续费',
-//                    'extract_time' => '提现时间',
+//                    'uid' => 'người dùnguid',
+//                    'phone' => 'Số điện thoại của người dùng',
+//                    'extract_type' => 'Loại rút tiền',
+//                    'extract_price' => 'Số tiền rút',
+//                    'extract_fee' => 'Phí rút tiền',
+//                    'extract_time' => 'Thời gian rút tiền',
 //                ]
 //            ],
 //            [
-//                'label' => '用户商品访问',
+//                'label' => 'Quyền truy cập sản phẩm của người dùng',
 //                'value' => 'user_product_visit',
 //                'data' => [
-//                    'product_id' => '商品id',
-//                    'uid' => '用户uid',
-//                    'visit_time' => '访问时间',
+//                    'product_id' => 'hàng hóaid',
+//                    'uid' => 'người dùnguid',
+//                    'visit_time' => 'thời gian truy cập',
 //                ]
 //            ],
 //            [
-//                'label' => '用户商品收藏',
+//                'label' => 'Bộ sưu tập sản phẩm của người dùng',
 //                'value' => 'user_product_collect',
 //                'data' => [
-//                    'product_id' => '商品id',
-//                    'uid' => '用户uid',
-//                    'collect_time' => '访问时间',
+//                    'product_id' => 'hàng hóaid',
+//                    'uid' => 'người dùnguid',
+//                    'collect_time' => 'thời gian truy cập',
 //                ]
 //            ],
 //            [
-//                'label' => '用户加入购物车',
+//                'label' => 'Người dùng thêm vào giỏ hàng',
 //                'value' => 'user_add_cart',
 //                'data' => [
-//                    'product_id' => '商品id',
-//                    'uid' => '用户uid',
-//                    'cart_num' => '商品数量',
-//                    'add_time' => '添加时间',
+//                    'product_id' => 'hàng hóaid',
+//                    'uid' => 'người dùnguid',
+//                    'cart_num' => 'số lượng sản phẩm',
+//                    'add_time' => 'Thêm thời gian',
 //                ]
 //            ],
 //            [
-//                'label' => '用户抽奖',
+//                'label' => 'Xổ số người dùng',
 //                'value' => 'user_lottery',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'lottery_id' => '抽奖id',
-//                    'prize_id' => '奖品id',
-//                    'record_id' => '中奖记录id',
-//                    'lottery_time' => '抽奖时间',
+//                    'uid' => 'người dùnguid',
+//                    'lottery_id' => 'xổ sốid',
+//                    'prize_id' => 'phần thưởngid',
+//                    'record_id' => 'Kỷ lục chiến thắngid',
+//                    'lottery_time' => 'Thời gian vẽ',
 //                ]
 //            ],
 //            [
-//                'label' => '订单创建',
+//                'label' => 'Tạo đơn hàng',
 //                'value' => 'order_create',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'id' => '订单id',
-//                    'order_id' => '订单order_id',
-//                    'real_name' => '用户名称',
-//                    'user_phone' => '用户电话',
-//                    'user_address' => '用户地址',
-//                    'total_num' => '商品总数',
-//                    'pay_price' => '支付金额',
-//                    'pay_postage' => '支付邮费',
-//                    'deduction_price' => '积分抵扣金额',
-//                    'coupon_price' => '优惠券抵扣金额',
-//                    'store_name' => '商品名称',
-//                    'add_time' => '订单创建时间',
+//                    'uid' => 'người dùnguid',
+//                    'id' => 'Đặt hàngid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'real_name' => 'Tên người dùng',
+//                    'user_phone' => 'Số điện thoại của người dùng',
+//                    'user_address' => 'Địa chỉ người dùng',
+//                    'total_num' => 'Tổng số mặt hàng',
+//                    'pay_price' => 'Số tiền thanh toán',
+//                    'pay_postage' => 'Trả bưu phí',
+//                    'deduction_price' => 'Số tiền trừ điểm',
+//                    'coupon_price' => 'Số tiền khấu trừ phiếu giảm giá',
+//                    'store_name' => 'Tên sản phẩm',
+//                    'add_time' => 'Thời gian tạo đơn hàng',
 //                ]
 //            ],
 //            [
-//                'label' => '订单取消',
+//                'label' => 'Hủy đơn hàng',
 //                'value' => 'order_cancel',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'id' => '订单id',
-//                    'order_id' => '订单order_id',
-//                    'real_name' => '用户名称',
-//                    'user_phone' => '用户电话',
-//                    'user_address' => '用户地址',
-//                    'total_num' => '商品总数',
-//                    'pay_price' => '支付金额',
-//                    'deduction_price' => '积分抵扣金额',
-//                    'coupon_price' => '优惠券抵扣金额',
-//                    'cancel_time' => '订单取消时间',
+//                    'uid' => 'người dùnguid',
+//                    'id' => 'Đặt hàngid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'real_name' => 'Tên người dùng',
+//                    'user_phone' => 'Số điện thoại của người dùng',
+//                    'user_address' => 'Địa chỉ người dùng',
+//                    'total_num' => 'Tổng số mặt hàng',
+//                    'pay_price' => 'Số tiền thanh toán',
+//                    'deduction_price' => 'Số tiền trừ điểm',
+//                    'coupon_price' => 'Số tiền khấu trừ phiếu giảm giá',
+//                    'cancel_time' => 'Thời gian hủy đơn hàng',
 //                ]
 //            ],
 //            [
-//                'label' => '订单支付',
+//                'label' => 'Thanh toán đơn hàng',
 //                'value' => 'order_pay',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'id' => '订单id',
-//                    'order_id' => '订单order_id',
-//                    'real_name' => '用户名称',
-//                    'user_phone' => '用户电话',
-//                    'user_address' => '用户地址',
-//                    'total_num' => '商品总数',
-//                    'pay_price' => '支付金额',
-//                    'pay_postage' => '支付邮费',
-//                    'deduction_price' => '积分抵扣金额',
-//                    'coupon_price' => '优惠券抵扣金额',
-//                    'store_name' => '商品名称',
-//                    'add_time' => '订单创建时间',
+//                    'uid' => 'người dùnguid',
+//                    'id' => 'Đặt hàngid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'real_name' => 'Tên người dùng',
+//                    'user_phone' => 'Số điện thoại của người dùng',
+//                    'user_address' => 'Địa chỉ người dùng',
+//                    'total_num' => 'Tổng số mặt hàng',
+//                    'pay_price' => 'Số tiền thanh toán',
+//                    'pay_postage' => 'Trả bưu phí',
+//                    'deduction_price' => 'Số tiền trừ điểm',
+//                    'coupon_price' => 'Số tiền khấu trừ phiếu giảm giá',
+//                    'store_name' => 'Tên sản phẩm',
+//                    'add_time' => 'Thời gian tạo đơn hàng',
 //                ]
 //            ],
 //            [
-//                'label' => '订单收货/核销',
+//                'label' => 'Biên nhận/xóa đơn hàng',
 //                'value' => 'order_take',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'id' => '订单id',
-//                    'order_id' => '订单order_id',
-//                    'real_name' => '用户名称',
-//                    'user_phone' => '用户电话',
-//                    'user_address' => '用户地址',
-//                    'total_num' => '商品总数',
-//                    'pay_price' => '支付金额',
-//                    'pay_postage' => '支付邮费',
-//                    'deduction_price' => '积分抵扣金额',
-//                    'coupon_price' => '优惠券抵扣金额',
-//                    'store_name' => '商品名称',
-//                    'add_time' => '订单创建时间',
+//                    'uid' => 'người dùnguid',
+//                    'id' => 'Đặt hàngid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'real_name' => 'Tên người dùng',
+//                    'user_phone' => 'Số điện thoại của người dùng',
+//                    'user_address' => 'Địa chỉ người dùng',
+//                    'total_num' => 'Tổng số mặt hàng',
+//                    'pay_price' => 'Số tiền thanh toán',
+//                    'pay_postage' => 'Trả bưu phí',
+//                    'deduction_price' => 'Số tiền trừ điểm',
+//                    'coupon_price' => 'Số tiền khấu trừ phiếu giảm giá',
+//                    'store_name' => 'Tên sản phẩm',
+//                    'add_time' => 'Thời gian tạo đơn hàng',
 //                ]
 //            ],
 //            [
-//                'label' => '订单发起退款',
+//                'label' => 'Hoàn tiền đơn hàng',
 //                'value' => 'order_initiated_refund',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'refund_order_id' => '退款订单order_id',
-//                    'order_id' => '订单order_id',
-//                    'real_name' => '用户名称',
-//                    'user_phone' => '用户电话',
-//                    'user_address' => '用户地址',
-//                    'refund_num' => '退款数量',
-//                    'refund_price' => '退款金额',
-//                    'refund_time' => '退款发起时间',
+//                    'uid' => 'người dùnguid',
+//                    'refund_order_id' => 'Lệnh hoàn tiềnorder_id',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'real_name' => 'Tên người dùng',
+//                    'user_phone' => 'Số điện thoại của người dùng',
+//                    'user_address' => 'Địa chỉ người dùng',
+//                    'refund_num' => 'Số tiền hoàn lại',
+//                    'refund_price' => 'Số tiền hoàn lại',
+//                    'refund_time' => 'Thời gian bắt đầu hoàn tiền',
 //                ]
 //            ],
 //            [
-//                'label' => '用户取消退款',
+//                'label' => 'Hoàn tiền hủy của người dùng',
 //                'value' => 'order_refund_cancel',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'id' => '退款订单id',
-//                    'store_order_id' => '对应正常订单id',
-//                    'order_id' => '退款订单order_id',
-//                    'refund_num' => '退款数量',
-//                    'refund_price' => '退款金额',
-//                    'cancel_time' => '拒绝时间',
+//                    'uid' => 'người dùnguid',
+//                    'id' => 'Lệnh hoàn tiềnid',
+//                    'store_order_id' => 'Tương ứng với các đơn đặt hàng thông thườngid',
+//                    'order_id' => 'Lệnh hoàn tiềnorder_id',
+//                    'refund_num' => 'Số tiền hoàn lại',
+//                    'refund_price' => 'Số tiền hoàn lại',
+//                    'cancel_time' => 'thời gian từ chối',
 //                ]
 //            ],
 //            [
-//                'label' => '佣金到账',
+//                'label' => 'Hoa hồng nhận được',
 //                'value' => 'order_brokerage',
 //                'data' => [
-//                    'uid' => '推广人uid',
-//                    'order_id' => '订单order_id',
-//                    'phone' => '推广人电话',
-//                    'brokeragePrice' => '佣金金额',
-//                    'goodsName' => '商品名称',
-//                    'goodsPrice' => '订单金额',
-//                    'add_time' => '到账时间',
+//                    'uid' => 'người quảng báuid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'phone' => 'Số điện thoại của nhà quảng cáo',
+//                    'brokeragePrice' => 'số tiền hoa hồng',
+//                    'goodsName' => 'Tên sản phẩm',
+//                    'goodsPrice' => 'Số tiền đặt hàng',
+//                    'add_time' => 'Thời gian đến',
 //                ]
 //            ],
 //            [
-//                'label' => '积分到账',
+//                'label' => 'Điểm đến',
 //                'value' => 'order_point',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'order_id' => '订单order_id',
-//                    'phone' => '用户电话',
-//                    'storeTitle' => '商品名称',
-//                    'give_integral' => '赠送积分',
-//                    'integral' => '总积分',
-//                    'add_time' => '赠送时间',
+//                    'uid' => 'người dùnguid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'phone' => 'Số điện thoại của người dùng',
+//                    'storeTitle' => 'Tên sản phẩm',
+//                    'give_integral' => 'Tặng điểm',
+//                    'integral' => 'tổng điểm',
+//                    'add_time' => 'thời gian tặng quà',
 //                ]
 //            ],
 //            [
-//                'label' => '申请开票',
+//                'label' => 'Yêu cầu lập hóa đơn',
 //                'value' => 'order_invoice',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'order_id' => '订单order_id',
-//                    'phone' => '用户电话',
-//                    'invoice_id' => '发票id',
-//                    'add_time' => '开票时间',
+//                    'uid' => 'người dùnguid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'phone' => 'Số điện thoại của người dùng',
+//                    'invoice_id' => 'hóa đơnid',
+//                    'add_time' => 'Thời điểm lập hóa đơn',
 //                ]
 //            ],
 //            [
-//                'label' => '订单评价',
+//                'label' => 'Đánh giá đơn hàng',
 //                'value' => 'order_comment',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'oid' => '订单id',
-//                    'unique' => '商品规格唯一值',
-//                    'suk' => '商品规格',
-//                    'product_id' => '商品id',
-//                    'add_time' => '评价时间',
+//                    'uid' => 'người dùnguid',
+//                    'oid' => 'Đặt hàngid',
+//                    'unique' => 'Giá trị duy nhất của thông số kỹ thuật sản phẩm',
+//                    'suk' => 'Thông số sản phẩm',
+//                    'product_id' => 'hàng hóaid',
+//                    'add_time' => 'Thời gian đánh giá',
 //                ]
 //            ],
 //            [
-//                'label' => '管理员登录',
+//                'label' => 'Đăng nhập quản trị viên',
 //                'value' => 'admin_login',
 //                'data' => [
-//                    'id' => '管理员id',
-//                    'account' => '管理员账号',
-//                    'head_pic' => '管理员头像',
-//                    'real_name' => '管理员名称',
-//                    'login_time' => '登录时间',
+//                    'id' => 'quản trị viênid',
+//                    'account' => 'Tài khoản quản trị viên',
+//                    'head_pic' => 'Hình đại diện của quản trị viên',
+//                    'real_name' => 'Tên quản trị viên',
+//                    'login_time' => 'Thời gian đăng nhập',
 //                ]
 //            ],
 //
 //            [
-//                'label' => '后台提现成功',
+//                'label' => 'Rút tiền phụ trợ thành công',
 //                'value' => 'admin_extract_success',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'price' => '提现金额',
-//                    'pay_type' => '提现类型',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户电话',
-//                    'success_time' => '成功时间'
+//                    'uid' => 'người dùnguid',
+//                    'price' => 'Số tiền rút',
+//                    'pay_type' => 'Loại rút tiền',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại của người dùng',
+//                    'success_time' => 'thời gian thành công'
 //                ]
 //            ],
 //            [
-//                'label' => '后台提现失败',
+//                'label' => 'Rút tiền phụ trợ không thành công',
 //                'value' => 'admin_extract_fail',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'price' => '提现金额',
-//                    'pay_type' => '提现类型',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户电话',
-//                    'fail_time' => '失败时间'
+//                    'uid' => 'người dùnguid',
+//                    'price' => 'Số tiền rút',
+//                    'pay_type' => 'Loại rút tiền',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại của người dùng',
+//                    'fail_time' => 'thời gian thất bại'
 //                ]
 //            ],
 //            [
-//                'label' => '后台充值退款',
+//                'label' => 'Nạp tiền và hoàn tiền phụ trợ',
 //                'value' => 'admin_recharge_refund',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'refund_price' => '退款金额',
-//                    'now_money' => '剩余余额',
-//                    'nickname' => '用户昵称',
-//                    'phone' => '用户电话',
-//                    'refund_time' => '退款时间',
+//                    'uid' => 'người dùnguid',
+//                    'refund_price' => 'Số tiền hoàn lại',
+//                    'now_money' => 'số dư còn lại',
+//                    'nickname' => 'Biệt hiệu của người dùng',
+//                    'phone' => 'Số điện thoại của người dùng',
+//                    'refund_time' => 'Thời gian hoàn tiền',
 //                ]
 //            ],
 //            [
-//                'label' => '后台修改订单改价',
+//                'label' => 'Sửa đổi đơn đặt hàng và thay đổi giá trong nền',
 //                'value' => 'admin_order_change',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'order_id' => '订单order_id',
-//                    'pay_price' => '修改后订单金额',
-//                    'gain_integral' => '修改后订单赠送积分',
-//                    'change_time' => '修改时间',
+//                    'uid' => 'người dùnguid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'pay_price' => 'Số lượng đặt hàng đã sửa đổi',
+//                    'gain_integral' => 'Điểm thưởng cho các đơn hàng được sửa đổi',
+//                    'change_time' => 'thời gian sửa đổi',
 //                ]
 //            ],
 //            [
-//                'label' => '后台订单发货',
+//                'label' => 'Giao hàng phụ trợ',
 //                'value' => 'admin_order_express',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'real_name' => '用户名称',
-//                    'user_phone' => '用户电话',
-//                    'user_address' => '用户地址',
-//                    'order_id' => '订单order_id',
-//                    'delivery_name' => '快递名称/配送员名称',
-//                    'delivery_id' => '快递单号/配送员电话',
-//                    'express_time' => '发货事件',
+//                    'uid' => 'người dùnguid',
+//                    'real_name' => 'Tên người dùng',
+//                    'user_phone' => 'Số điện thoại của người dùng',
+//                    'user_address' => 'Địa chỉ người dùng',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'delivery_name' => 'Tên người giao hàng/tên người giao hàng',
+//                    'delivery_id' => 'Số theo dõi chuyển phát nhanh/số điện thoại của người giao hàng',
+//                    'express_time' => 'Sự kiện vận chuyển',
 //                ]
 //            ],
 //            [
-//                'label' => '后台订单退款',
+//                'label' => 'Hoàn tiền đơn hàng phụ trợ',
 //                'value' => 'admin_order_refund_success',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'order_id' => '订单order_id',
-//                    'real_name' => '用户名称',
-//                    'user_phone' => '用户电话',
-//                    'user_address' => '用户地址',
-//                    'total_num' => '商品总数',
-//                    'pay_price' => '支付金额',
-//                    'refund_reason_wap' => '退款理由类型',
-//                    'refund_reason_wap_explain' => '退款理由',
-//                    'refund_price' => '实际退款金额',
-//                    'refund_time' => '退款时间',
+//                    'uid' => 'người dùnguid',
+//                    'order_id' => 'Đặt hàngorder_id',
+//                    'real_name' => 'Tên người dùng',
+//                    'user_phone' => 'Số điện thoại của người dùng',
+//                    'user_address' => 'Địa chỉ người dùng',
+//                    'total_num' => 'Tổng số mặt hàng',
+//                    'pay_price' => 'Số tiền thanh toán',
+//                    'refund_reason_wap' => 'Loại lý do hoàn tiền',
+//                    'refund_reason_wap_explain' => 'Lý do hoàn tiền',
+//                    'refund_price' => 'Số tiền hoàn trả thực tế',
+//                    'refund_time' => 'Thời gian hoàn tiền',
 //                ]
 //            ],
 //            [
-//                'label' => '后台订单拒绝退款',
+//                'label' => 'Lệnh hậu trường từ chối hoàn tiền',
 //                'value' => 'admin_order_refund_fail',
 //                'data' => [
-//                    'uid' => '用户uid',
-//                    'id' => '退款订单id',
-//                    'store_order_id' => '对应正常订单id',
-//                    'order_id' => '退款订单order_id',
-//                    'refund_num' => '退款数量',
-//                    'refund_price' => '退款金额',
-//                    'refuse_reason' => '拒绝退款理由',
-//                    'refuse_time' => '拒绝时间',
+//                    'uid' => 'người dùnguid',
+//                    'id' => 'Lệnh hoàn tiềnid',
+//                    'store_order_id' => 'Tương ứng với các đơn đặt hàng thông thườngid',
+//                    'order_id' => 'Lệnh hoàn tiềnorder_id',
+//                    'refund_num' => 'Số tiền hoàn lại',
+//                    'refund_price' => 'Số tiền hoàn lại',
+//                    'refuse_reason' => 'Lý do từ chối hoàn tiền',
+//                    'refuse_time' => 'thời gian từ chối',
 //                ]
 //            ],
 //        ];
@@ -437,7 +437,7 @@ class SystemEventServices extends BaseServices
     }
 
     /**
-     * 获取事件列表
+     * Nhận danh sách sự kiện
      * @return array
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
@@ -464,7 +464,7 @@ class SystemEventServices extends BaseServices
     }
 
     /**
-     * 获取事件详情
+     * Nhận chi tiết sự kiện
      * @param $id
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -477,7 +477,7 @@ class SystemEventServices extends BaseServices
     public function getEventInfo($id)
     {
         $info = $this->dao->get($id);
-        if (!$info) throw new AdminException('事件不存在');
+        if (!$info) throw new AdminException('sự kiện không tồn tại');
         $info = $info->toArray();
         $info['add_time'] = date('Y-m-d H:i:s', $info['add_time']);
         $info['customCode'] = "<?php\n\n" . json_decode($info['customCode'], true);
@@ -494,12 +494,12 @@ class SystemEventServices extends BaseServices
         } else {
             $res = $this->dao->update(['id' => $data['id']], $data);
         }
-        if (!$res) throw new AdminException('保存失败');
+        if (!$res) throw new AdminException('Lưu không thành công');
         return true;
     }
 
     /**
-     * 删除事件
+     * xóa sự kiện
      * @param $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -512,14 +512,14 @@ class SystemEventServices extends BaseServices
     public function eventDel($id)
     {
         $info = $this->dao->get($id);
-        if (!$info) throw new AdminException('事件不存在');
+        if (!$info) throw new AdminException('sự kiện không tồn tại');
         $info->is_del = 1;
         $info->save();
         return true;
     }
 
     /**
-     * 设置事件状态
+     * Đặt trạng thái sự kiện
      * @param $id
      * @param $is_open
      * @return bool
@@ -530,7 +530,7 @@ class SystemEventServices extends BaseServices
     public function setEventStatus($id, $is_open)
     {
         $res = $this->dao->update(['id' => $id], ['is_open' => $is_open]);
-        if (!$res) throw new AdminException('设置成功');
+        if (!$res) throw new AdminException('Thiết lập thành công');
         return true;
     }
 }

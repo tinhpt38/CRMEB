@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,8 +17,8 @@ use think\Validate;
 class ExpressValidata extends Validate
 {
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -32,18 +32,18 @@ class ExpressValidata extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'com.require' => '请选择快递公司',
-        'temp_id.number' => '请选择运费模板',
-        'to_name.require' => '请填写寄件人姓名',
-        'to_tel.require' => '请输入寄件人手机号码',
-        'to_tel.mobile' => '寄件人手机号码不正确',
-        'to_address.require' => '请填写寄件人详细地址',
-        'siid.require' => '请填写云打印机编号',
+        'com.require' => 'Hãy chọn công ty chuyển phát nhanh',
+        'temp_id.number' => 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+        'to_name.require' => 'Vui lòng điền tên người gửi',
+        'to_tel.require' => 'Vui lòng nhập số điện thoại di động của người gửi',
+        'to_tel.mobile' => 'Số điện thoại di động của người gửi không chính xác',
+        'to_address.require' => 'Vui lòng điền địa chỉ chi tiết của người gửi',
+        'siid.require' => 'Vui lòng điền số máy in trên đám mây',
     ];
 }

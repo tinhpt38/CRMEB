@@ -2,11 +2,11 @@
   <div>
     <el-card v-for="(value, key, index) in tableList" :key="index" :bordered="false" shadow="never" class="ivu-mt mb16">
       <div class="head acea-row row-between-wrapper">{{ key | headText }}</div>
-      <el-table ref="table" :data="tableList[key]" empty-text="暂无数据">
-        <el-table-column :label="key == 'permissions' ? '文件/目录' : '环境'" minWidth="180">
+      <el-table ref="table" :data="tableList[key]" empty-text="Chưa có dữ liệu">
+        <el-table-column :label="key == 'permissions' ? 'tập tin/thư mục' : 'môi trường'" minWidth="180">
           <template slot-scope="scope">{{ scope.row.name }} </template>
         </el-table-column>
-        <el-table-column label="要求" minWidth="180">
+        <el-table-column label="Yêu cầu" minWidth="180">
           <template slot-scope="scope">
             <span>{{ scope.row.require }} </span>
             <el-tooltip placement="top" v-if="key == 'process' && !scope.row.value">
@@ -15,7 +15,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="状态" width="180">
+        <el-table-column label="tình trạng" width="180">
           <template slot-scope="scope">
             <span v-if="typeof scope.row.value === 'boolean'">
               <i v-if="scope.row.value === true" class="el-icon-check"></i>
@@ -27,33 +27,33 @@
       </el-table>
     </el-card>
 
-    <el-dialog :visible.sync="isTemplate" title="商业授权" width="550px" @closed="cancel">
+    <el-dialog :visible.sync="isTemplate" title="ủy quyền thương mại" width="550px" @closed="cancel">
       <iframe width="100%" height="780" :src="iframeUrl" frameborder="0"></iframe>
     </el-dialog>
-    <el-dialog :visible.sync="modalCopyright" title="版权信息" width="550px">
+    <el-dialog :visible.sync="modalCopyright" title="Thông tin bản quyền" width="550px">
       <div class="auth">
-        <div class="update">修改版权信息:</div>
+        <div class="update">Sửa đổi thông tin bản quyền:</div>
         <el-input style="width: 460px" v-model="copyrightText" />
       </div>
       <div class="auth">
-        <div class="update">上传版权图片:</div>
+        <div class="update">Tải lên hình ảnh có bản quyền:</div>
         <div>
-          <div class="uploadPictrue" v-if="authorizedPicture" v-db-click @click="modalPicTap('单选')">
+          <div class="uploadPictrue" v-if="authorizedPicture" v-db-click @click="modalPicTap('Lựa chọn duy nhất')">
             <img v-lazy="authorizedPicture" />
             <i class="el-icon-error" @click.stop="authorizedPicture = ''"></i>
           </div>
-          <div class="upload" v-else v-db-click @click="modalPicTap('单选')">
+          <div class="upload" v-else v-db-click @click="modalPicTap('Lựa chọn duy nhất')">
             <div class="iconfont">+</div>
           </div>
-          <div class="tips-info">建议尺寸：宽290px*高100px</div>
+          <div class="tips-info">Kích thước đề xuất: chiều rộng 290px*chiều cao100px</div>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="modalCopyright = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="saveCopyRight">保存</el-button>
+        <el-button v-db-click @click="modalCopyright = false">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="saveCopyRight">cứu</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="modalPic" width="1024px" title="上传授权图片" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modalPic" width="1024px" title="Tải lên hình ảnh được ủy quyền" :close-on-click-modal="false">
       <uploadPictures :isChoice="isChoice" @getPic="getPic" :gridBtn="gridBtn" :gridPic="gridPic" v-if="modalPic">
       </uploadPictures>
     </el-dialog>
@@ -97,7 +97,7 @@ export default {
       success: false,
       payType: '',
       disabled: false,
-      isShow: false, // 验证码模态框是否出现
+      isShow: false, // Hộp phương thức mã xác minh có xuất hiện không?
       active: 0,
       spread_uid: 0,
       timer: null,
@@ -105,8 +105,8 @@ export default {
       label: '',
       productType: '',
       modalPic: false,
-      isChoice: '单选',
-      authorizedPicture: '', // 版权图片
+      isChoice: 'Lựa chọn duy nhất',
+      authorizedPicture: '', // Hình ảnh bản quyền
       gridPic: {
         xl: 6,
         lg: 8,
@@ -128,19 +128,19 @@ export default {
       loading: false,
       trips: [
         {
-          title: '温馨提示',
+          title: 'Lời khuyên tử tế',
           message:
-            '您的【长连接】未开启，没有开启会导致系统默认客服无法使用,后台订单通知无法收到。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+            '[Kết nối dài] của bạn chưa được bật. Việc không bật nó sẽ khiến dịch vụ khách hàng mặc định của hệ thống không khả dụng.,Không thể nhận được thông báo đơn hàng phụ trợ. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
         },
         {
-          title: '温馨提示',
+          title: 'Lời khuyên tử tế',
           message:
-            '您的【定时任务】未开启，没有开启会导致自动收货、未支付自动取消订单、订单自动好评、拼团到期退款等任务无法正常执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+            '[Nhiệm vụ theo lịch trình] của bạn chưa được bật. Nếu nó không được bật, các tác vụ như tự động nhận hàng, tự động hủy đơn hàng mà không thanh toán, tự động khen ngợi đơn hàng và hoàn tiền khi đến hạn mua hàng theo nhóm sẽ không thể thực hiện được bình thường. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
         },
         {
-          title: '温馨提示',
+          title: 'Lời khuyên tử tế',
           message:
-            '您的【消息队列】未开启，没有开启会导致异步任务无法执行。请尽快执行命令开启！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">点击查看开启方法</a>',
+            '[Hàng đợi tin nhắn] của bạn chưa được bật. Nếu nó không được bật, các tác vụ không đồng bộ sẽ không thể được thực thi. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
         },
       ],
     };
@@ -154,13 +154,13 @@ export default {
     },
     headText(z) {
       if (z === 'server') {
-        return '服务器信息';
+        return 'Thông tin máy chủ';
       } else if (z === 'environment') {
-        return '系统环境要求';
+        return 'Yêu cầu môi trường hệ thống';
       } else if (z === 'permissions') {
-        return '权限状态';
+        return 'trạng thái cho phép';
       } else if (z === 'process') {
-        return '启动进程';
+        return 'Bắt đầu quá trình';
       }
     },
   },
@@ -195,7 +195,7 @@ export default {
         this.getAuth();
       });
     },
-    //保存版权信息
+    //Lưu thông tin bản quyền
     saveCopyRight() {
       saveCrmebCopyRight({
         copyright: this.copyrightText,
@@ -206,16 +206,16 @@ export default {
         return this.$message.success(res.msg);
       });
     },
-    // 选择图片
+    // Chọn ảnh
     modalPicTap() {
       this.modalPic = true;
     },
-    // 选中图片
+    // Chọn ảnh
     getPic(pc) {
       this.authorizedPicture = pc.att_dir;
       this.modalPic = false;
     },
-    //获取版权信息
+    //Nhận thông tin bản quyền
     getCopyRight() {
       getCrmebCopyRight().then((res) => {
         const { copyrightContext, copyrightImage } = res.data;
@@ -294,7 +294,7 @@ export default {
         this.baseUrl + '?url=' + host + '&product=' + product + '&version=' + this.version + '&label=' + this.label + '&spread_uid=' + this.label;
       this.isTemplate = true;
     },
-    // 用户点击遮罩层，应该关闭模态框
+    // Khi người dùng nhấp vào lớp mặt nạ, hộp phương thức sẽ được đóng lại
     onClose() {
       this.isShow = false;
     },
@@ -348,7 +348,7 @@ export default {
 .auth .text .pro_price {
   height: 18px;
   font-size: 14px;
-  font-family: PingFangSC-Semibold, PingFang SC;
+  font-family: "Google Sans", "Product Sans", sans-serif;
   font-weight: 600;
   color: #f5222d;
   line-height: 18px;

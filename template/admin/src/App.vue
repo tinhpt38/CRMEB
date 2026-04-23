@@ -2,7 +2,7 @@
   <div id="app">
     <router-view />
     <Setings ref="setingsRef" />
-    <!-- 检测版本更新 -->
+    <!-- Kiểm tra cập nhật phiên bản -->
     <!-- <Upgrade v-if="isVersion" /> -->
   </div>
 </template>
@@ -53,13 +53,13 @@ export default {
         this.isRouterAlive = true;
       });
     },
-    // 布局配置弹窗打开
+    // Cửa sổ bật lên cấu hình bố cục sẽ mở ra.
     openSetingsDrawer() {
       this.bus.$on('openSetingsDrawer', () => {
         this.$refs.setingsRef.openDrawer();
       });
     },
-    // 获取缓存中的布局配置
+    // Nhận cấu hình bố cục từ bộ đệm
     getLayoutThemeConfig() {
       if (Local.get('themeConfigPrev')) {
         this.$store.dispatch('themeConfig/setThemeConfig', Local.get('themeConfigPrev'));
@@ -110,7 +110,7 @@ body {
 #app {
   width: 100%;
   height: 100%;
-  font-family: PingFang SC, Arial, Microsoft YaHei, sans-serif;
+  font-family: "Google Sans", "Product Sans", sans-serif;
 }
 .right-box .ivu-color-picker .ivu-select-dropdown {
   position: absolute;

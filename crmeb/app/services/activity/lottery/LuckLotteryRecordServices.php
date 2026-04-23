@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ use crmeb\services\pay\Pay;
 use think\facade\Log;
 
 /**
- *  抽奖记录
+ *  Kỷ lục xổ số
  * Class LuckLotteryRecordServices
  * @package app\services\activity\lottery
  */
@@ -44,7 +44,7 @@ class LuckLotteryRecordServices extends BaseServices
     }
 
     /**
-     * 获取抽奖记录列表
+     * Lấy danh sách hồ sơ xổ số
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -63,7 +63,7 @@ class LuckLotteryRecordServices extends BaseServices
     }
 
     /**
-     * 获取中奖记录
+     * Nhận kỷ lục chiến thắng
      * @param array $where
      * @param int $limit
      * @return array
@@ -83,7 +83,7 @@ class LuckLotteryRecordServices extends BaseServices
     }
 
     /**
-     * 参与抽奖数据统计
+     * Tham gia thống kê xổ số
      * @param int $lottery_id
      * @return int[]
      */
@@ -100,7 +100,7 @@ class LuckLotteryRecordServices extends BaseServices
     }
 
     /**
-     * 写入中奖纪录
+     * Viết kỷ lục chiến thắng
      * @param int $uid
      * @param array $prize
      * @param array $userInfo
@@ -117,10 +117,10 @@ class LuckLotteryRecordServices extends BaseServices
             $userInfo = $userServices->getUserInfo($uid);
         }
         if (!$userInfo) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         if (!$prize) {
-            throw new ApiException('奖品不存在');
+            throw new ApiException('Giải thưởng không tồn tại');
         }
         $data = [];
         $data['uid'] = $uid;
@@ -131,13 +131,13 @@ class LuckLotteryRecordServices extends BaseServices
         $data['channel_type'] = $channel_type;
         $data['add_time'] = time();
         if (!$res = $this->dao->save($data)) {
-            throw new ApiException('写入中奖记录失败');
+            throw new ApiException('Không viết được kỷ lục chiến thắng');
         }
         return $res;
     }
 
     /**
-     * 领取奖品
+     * Nhận giải thưởng
      * @param int $uid
      * @param int $lottery_record_id
      * @param string $receive_info
@@ -152,19 +152,19 @@ class LuckLotteryRecordServices extends BaseServices
         $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         $lotteryRecord = $this->dao->get($lottery_record_id, ['*'], ['prize']);
         if (!$lotteryRecord || !isset($lotteryRecord['prize'])) {
-            throw new ApiException('请继续参与活动抽奖');
+            throw new ApiException('Hãy tiếp tục tham gia rút thăm sự kiện');
         }
         if ($lotteryRecord['is_receive'] == 1) {
-            throw new ApiException('已经领取成功');
+            throw new ApiException('Đã nhận được thành công');
         }
         $data = ['is_receive' => 1, 'receive_time' => time(), 'receive_info' => $receive_info];
         $prize = $lotteryRecord['prize'];
         $this->transaction(function () use ($uid, $userInfo, $lottery_record_id, $data, $prize, $userServices, $receive_info, $lotteryRecord) {
-            //奖品类型1：未中奖2：积分3:余额4：红包5:优惠券6：站内商品7：等级经验8：用户等级 9：svip天数
+            //Loại giải thưởng 1: Không trúng giải 2: Điểm3:Số dư 4: phong bì màu đỏ5:Phiếu giảm giá 6: Sản phẩm trang web 7: Kinh nghiệm cấp độ 8: Cấp độ người dùng 9: Số ngày svip
             switch ($prize['type']) {
                 case 1:
                     break;
@@ -217,17 +217,17 @@ class LuckLotteryRecordServices extends BaseServices
                                 $openid,
                                 '',
                                 bcmul($prize['num'], '100', 0),
-                                '抽奖活动红包中奖',
+                                'Rút thăm may mắn phong bì màu đỏ',
                                 sys_config('site_url') . '/api/transfer/notify/' . $type,
-                                '劳务报酬',
+                                'tiền công lao động',
                                 [
                                     [
-                                        'info_type' => '岗位类型',
-                                        'info_content' => '抽奖'
+                                        'info_type' => 'Loại vị trí',
+                                        'info_content' => 'xổ số'
                                     ],
                                     [
-                                        'info_type' => '报酬说明',
-                                        'info_content' => '抽奖活动红包中奖'
+                                        'info_type' => 'Mô tả thù lao',
+                                        'info_content' => 'Rút thăm may mắn phong bì màu đỏ'
                                     ],
                                 ]
                             );
@@ -241,7 +241,7 @@ class LuckLotteryRecordServices extends BaseServices
                             ]);
                             event('NoticeListener', [['uid' => $uid, 'order_id' => $wechat_order_id, 'extractNumber' => $prize['num'], 'type' => 2], 'revenue_received']);
                         } else {
-                            WechatService::merchantPay($openid, $wechat_order_id, (string)$prize['num'], '抽奖中奖红包');
+                            WechatService::merchantPay($openid, $wechat_order_id, (string)$prize['num'], 'Phong bì đỏ trúng thưởng xổ số');
                         }
                     }
                     break;
@@ -251,15 +251,15 @@ class LuckLotteryRecordServices extends BaseServices
                     try {
                         $couponIssueService->issueUserCoupon($prize['coupon_id'], $userInfo);
                     } catch (\Throwable $e) {
-                        Log::error('抽奖领取优惠券失败，原因：' . $e->getMessage());
+                        Log::error('Không thu được phiếu giảm giá trong xổ số, lý do：' . $e->getMessage());
                     }
                     break;
                 case 6:
                     if (!$receive_info['name'] || !$receive_info['phone'] || !$receive_info['address']) {
-                        throw new ApiException('请输入收货人信息');
+                        throw new ApiException('Vui lòng nhập thông tin người nhận hàng');
                     }
                     if (!check_phone($receive_info['phone'])) {
-                        throw new ApiException('请输入正确的收货人电话');
+                        throw new ApiException('Vui lòng nhập đúng số điện thoại người nhận hàng');
                     }
                     break;
             }
@@ -269,7 +269,7 @@ class LuckLotteryRecordServices extends BaseServices
     }
 
     /**
-     * 发货、备注
+     * Vận chuyển, nhận xét
      * @param int $lottery_record_id
      * @param array $data
      * @return bool
@@ -281,17 +281,17 @@ class LuckLotteryRecordServices extends BaseServices
     {
         $lotteryRecord = $this->dao->get($lottery_record_id);
         if (!$lotteryRecord) {
-            throw new ApiException('抽奖记录不存在');
+            throw new ApiException('Hồ sơ xổ số không tồn tại');
         }
         $deliver_info = $lotteryRecord['deliver_info'];
         $edit = [];
-        //备注
+        //Nhận xét
         if ($data['deliver_name'] && $data['deliver_number']) {
             if ($lotteryRecord['type'] != 6 && ($data['deliver_name'] || $data['deliver_number'])) {
-                throw new ApiException('该奖品不需要发货');
+                throw new ApiException('Giải thưởng này không yêu cầu vận chuyển');
             }
             if ($lotteryRecord['type'] == 6 && (!$data['deliver_name'] || !$data['deliver_number'])) {
-                throw new ApiException('请选择快递公司或输入快递单号');
+                throw new ApiException('Vui lòng chọn công ty chuyển phát nhanh hoặc nhập số chuyển phát nhanh');
             }
             $deliver_info['deliver_name'] = $data['deliver_name'];
             $deliver_info['deliver_number'] = $data['deliver_number'];
@@ -301,13 +301,13 @@ class LuckLotteryRecordServices extends BaseServices
         $deliver_info['mark'] = $data['mark'];
         $edit['deliver_info'] = $deliver_info;
         if (!$this->dao->update($lottery_record_id, $edit, 'id')) {
-            throw new ApiException('操作失败');
+            throw new ApiException('Thao tác không thành công');
         }
         return true;
     }
 
     /**
-     * 获取中奖记录
+     * Nhận kỷ lục chiến thắng
      * @param int $uid
      * @param array $where
      * @return array

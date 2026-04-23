@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "收藏商品",
+  "navigationBarTitleText": "Thu thập vật phẩm",
   "usingComponents": {
     "recommend": "/components/recommend/index",
     "authorize": "/components/Authorize",

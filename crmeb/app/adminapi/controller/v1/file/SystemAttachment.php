@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\services\CacheService;
 use think\facade\App;
 
 /**
- * 附件管理类
+ * Lớp quản lý tệp đính kèm
  * Class SystemAttachment
  * @package app\adminapi\controller\v1\file
  */
@@ -38,7 +38,7 @@ class SystemAttachment extends AuthController
     }
 
     /**
-     * 显示列表
+     * hiển thị danh sách
      * @return mixed
      */
     public function index()
@@ -52,7 +52,7 @@ class SystemAttachment extends AuthController
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @return mixed
      */
     public function delete()
@@ -61,11 +61,11 @@ class SystemAttachment extends AuthController
             ['ids', '']
         ], true);
         $this->service->del($ids);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 图片上传
+     * Tải lên hình ảnh
      * @param int $upload_type
      * @param int $type
      * @return mixed
@@ -78,11 +78,11 @@ class SystemAttachment extends AuthController
             ['menu_name', '']
         ], true);
         $res = $this->service->upload((int)$pid, $file, $upload_type, $type, $menuName);
-        return app('json')->success('上传成功', ['src' => $res]);
+        return app('json')->success('Tải lên thành công', ['src' => $res]);
     }
 
     /**
-     * 移动图片
+     * hình ảnh chuyển động
      * @return mixed
      */
     public function moveImageCate()
@@ -92,11 +92,11 @@ class SystemAttachment extends AuthController
             ['images', '']
         ]);
         $this->service->move($data);
-        return app('json')->success('移动成功');
+        return app('json')->success('Đã di chuyển thành công');
     }
 
     /**
-     * 修改文件名
+     * Sửa đổi tên tập tin
      * @param $id
      * @return mixed
      */
@@ -104,14 +104,14 @@ class SystemAttachment extends AuthController
     {
         $realName = $this->request->post('real_name', '');
         if (!$realName) {
-            return app('json')->fail('文件名称不能为空');
+            return app('json')->fail('Tên tệp không được để trống');
         }
         $this->service->update($id, ['real_name' => $realName]);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 获取上传类型
+     * Nhận loại tải lên
      * @return mixed
      */
     public function uploadType()
@@ -121,28 +121,28 @@ class SystemAttachment extends AuthController
     }
 
     /**
-     * 视频分片上传
+     * Tải lên nhiều phần video
      * @return mixed
      */
     public function videoUpload()
     {
         $data = $this->request->postMore([
-            ['chunkNumber', 0],//第几分片
-            ['currentChunkSize', 0],//分片大小
-            ['chunkSize', 0],//总大小
-            ['totalChunks', 0],//分片总数
-            ['file', 'file'],//文件
+            ['chunkNumber', 0],//mảnh nào
+            ['currentChunkSize', 0],//Kích thước mảnh
+            ['chunkSize', 0],//tổng kích thước
+            ['totalChunks', 0],//Tổng số mảnh vỡ
+            ['file', 'file'],//tài liệu
             ['md5', ''],//MD5
-            ['filename', ''],//文件名称
+            ['filename', ''],//Tên tập tin
         ]);
         $res = $this->service->videoUpload($data, $_FILES['file']);
         return app('json')->success($res);
     }
 
     /**
-     * 获取扫码上传页面链接以及参数
+     * Lấy link trang upload code scan và thông số
      * @return \think\Response
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
      */
@@ -158,9 +158,9 @@ class SystemAttachment extends AuthController
     }
 
     /**
-     * 删除二维码
+     * Xóa mã QR
      * @return \think\Response
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/6/26
      */
@@ -171,10 +171,10 @@ class SystemAttachment extends AuthController
     }
 
     /**
-     * 获取扫码上传的图片数据
+     * Lấy dữ liệu hình ảnh được tải lên bằng cách quét mã QR
      * @param $scan_token
      * @return \think\Response
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
      */
@@ -184,10 +184,10 @@ class SystemAttachment extends AuthController
     }
 
     /**
-     * 网络图片上传
+     * Tải hình ảnh lên Internet
      * @return \think\Response
      * @throws \Exception
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
      */
@@ -198,7 +198,7 @@ class SystemAttachment extends AuthController
             ['images', []]
         ]);
         $this->service->onlineUpload($data);
-        return app('json')->success('上传成功');
+        return app('json')->success('Tải lên thành công');
     }
 
     public function videoDataSave()
@@ -221,6 +221,6 @@ class SystemAttachment extends AuthController
             1,
             $data['video_name']
         );;
-        return app('json')->success('上传成功');
+        return app('json')->success('Tải lên thành công');
     }
 }

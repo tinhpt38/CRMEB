@@ -45,17 +45,17 @@ export default {
     };
   },
   computed: {
-    // 获取布局配置信息
+    // Nhận thông tin cấu hình bố cục
     getThemeConfig() {
       return this.$store.state.themeConfig.themeConfig;
     },
   },
   methods: {
-    // 残忍拒绝
+    // sự từ chối tàn nhẫn
     onCancel() {
       this.isUpgrade = false;
     },
-    // 马上更新
+    // Cập nhật ngay bây giờ
     onUpgrade() {
       this.isLoading = true;
       this.btnTxt = this.$t('message.upgrade.btnTwoLoading');
@@ -66,7 +66,7 @@ export default {
         this.$router.push({ path: `${setting.routePre}/login` });
       }, 2000);
     },
-    // 延迟显示，防止刷新时界面显示太快
+    // Trì hoãn hiển thị để tránh giao diện hiển thị quá nhanh khi làm mới
     delayShow() {
       setTimeout(() => {
         this.btnTxt = this.$t('message.upgrade.btnTwo');

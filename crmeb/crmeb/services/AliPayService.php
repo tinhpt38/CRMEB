@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -30,18 +30,18 @@ class AliPayService
 {
 
     /**
-     * 配置
+     * Cấu hình
      * @var array
      */
     protected $config = [
         'appId' => '',
-        'merchantPrivateKey' => '',//应用私钥
-        'alipayPublicKey' => '',//支付宝公钥
-        'notifyUrl' => '',//可设置异步通知接收服务地址
-        'encryptKey' => '',//可设置AES密钥，调用AES加解密相关接口时需要（可选）
-        'alipayCertPath' => '',//支付宝证书路径(可选)
-        'alipayRootCertPath' => '',//支付宝根证书路径(可选)
-        'merchantCertPath' => '',//商户证书路径(可选)
+        'merchantPrivateKey' => '',//Áp dụng khóa riêng
+        'alipayPublicKey' => '',//Khóa công khai Alipay
+        'notifyUrl' => '',//Địa chỉ dịch vụ nhận thông báo không đồng bộ có thể được đặt
+        'encryptKey' => '',//Khóa AES có thể được đặt, điều này được yêu cầu khi gọi các giao diện liên quan đến mã hóa và giải mã AES (tùy chọn）
+        'alipayCertPath' => '',//Đường dẫn chứng chỉ Alipay(Không bắt buộc)
+        'alipayRootCertPath' => '',//Đường dẫn chứng chỉ gốc Alipay(Không bắt buộc)
+        'merchantCertPath' => '',//Đường dẫn chứng chỉ người bán(Không bắt buộc)
     ];
 
     /**
@@ -93,7 +93,7 @@ class AliPayService
     }
 
     /**
-     * 实例化
+     * Khởi tạo
      * @param array $config
      * @return static
      */
@@ -106,7 +106,7 @@ class AliPayService
     }
 
     /**
-     * 初始化
+     * khởi tạo
      */
     protected function initialize()
     {
@@ -114,7 +114,7 @@ class AliPayService
     }
 
     /**
-     * 设置配置
+     * Đặt cấu hình
      * @return Config
      */
     protected function getOptions()
@@ -125,22 +125,22 @@ class AliPayService
         $options->signType = 'RSA2';
 
         $options->appId = $this->config['appId'];
-        // 为避免私钥随源码泄露，推荐从文件中读取私钥字符串而不是写入源码中
+        // Để tránh khóa riêng bị rò rỉ cùng với mã nguồn, bạn nên đọc chuỗi khóa riêng tư từ tệp thay vì ghi nó vào mã nguồn.
         $options->merchantPrivateKey = $this->config['merchantPrivateKey'];
 
         if (sys_config('alipay_sign_type') == 0) {
-            // 密钥模式
+            // Chế độ phím
             $options->alipayPublicKey = $this->config['alipayPublicKey'];
         } else {
-            // 证书模式
+            // Chế độ chứng chỉ
             $options->alipayCertPath = $this->config['alipayCertPath'];
             $options->alipayRootCertPath = $this->config['alipayRootCertPath'];
             $options->merchantCertPath = $this->config['merchantCertPath'];
             $options->alipayPublicKey = '';
         }
-        //可设置异步通知接收服务地址（可选）
+        //Bạn có thể đặt địa chỉ dịch vụ nhận thông báo không đồng bộ (tùy chọn）
         $options->notifyUrl = $this->config['notifyUrl'];
-        //可设置AES密钥，调用AES加解密相关接口时需要（可选）
+        //Khóa AES có thể được đặt, điều này được yêu cầu khi gọi các giao diện liên quan đến mã hóa và giải mã AES (tùy chọn）
         if ($this->config['encryptKey']) {
             $options->encryptKey = $this->config['encryptKey'];
         }
@@ -149,12 +149,12 @@ class AliPayService
     }
 
     /**
-     * 创建订单
-     * @param string $title 商品名称
-     * @param string $orderId 订单号
-     * @param string $totalAmount 支付金额
-     * @param string $passbackParams 备注
-     * @param string $quitUrl 同步跳转地址
+     * Tạo đơn hàng
+     * @param string $title Tên sản phẩm
+     * @param string $orderId Số đơn hàng
+     * @param string $totalAmount Số tiền thanh toán
+     * @param string $passbackParams Nhận xét
+     * @param string $quitUrl Địa chỉ nhảy đồng bộ
      * @param string $returnUrl
      * @param bool $isCode
      * @return AlipayTradeWapPayResponse
@@ -164,19 +164,19 @@ class AliPayService
         $title = trim($title);
         try {
             if ($isCode) {
-                //二维码支付
+                //thanh toán bằng mã QR
                 $result = Factory::payment()->faceToFace()->optional('passback_params', $passbackParams)->precreate($title, $orderId, $totalAmount);
             } else if (request()->isApp()) {
-                //app支付
+                //appchi trả
                 $result = Factory::payment()->app()->optional('passback_params', $passbackParams)->pay($title, $orderId, $totalAmount);
             } else {
-                //h5支付
+                //h5chi trả
                 $result = Factory::payment()->wap()->optional('passback_params', $passbackParams)->pay($title, $orderId, $totalAmount, $quitUrl, $returnUrl);
             }
             if ($this->response->success($result)) {
                 return $result->body ?? $result;
             } else {
-                throw new PayException('失败原因:' . $result->msg . ',' . $result->subMsg);
+                throw new PayException('Lý do thất bại:' . $result->msg . ',' . $result->subMsg);
             }
         } catch (\Exception $e) {
             throw new PayException($e->getMessage());
@@ -184,10 +184,10 @@ class AliPayService
     }
 
     /**
-     * 订单退款
-     * @param string $outTradeNo 订单号
-     * @param string $totalAmount 退款金额
-     * @param string $refund_id 退款单号
+     * Hoàn tiền đơn hàng
+     * @param string $outTradeNo Số đơn hàng
+     * @param string $totalAmount Số tiền hoàn lại
+     * @param string $refund_id Số đơn hàng hoàn tiền
      * @return \Alipay\EasySDK\Payment\Common\Models\AlipayTradeRefundResponse
      */
     public function refund(string $outTradeNo, string $totalAmount, string $refund_id)
@@ -197,7 +197,7 @@ class AliPayService
             if ($this->response->success($result)) {
                 return $result;
             } else {
-                throw new PayException('失败原因:' . $result->msg . ',' . $result->subMsg);
+                throw new PayException('Lý do thất bại:' . $result->msg . ',' . $result->subMsg);
             }
         } catch (\Exception $e) {
             throw new PayException($e->getMessage());
@@ -205,7 +205,7 @@ class AliPayService
     }
 
     /**
-     * 查询交易退款单号信息
+     * Truy vấn thông tin mã lệnh hoàn tiền giao dịch
      * @param string $outTradeNo
      * @param string $outRequestNo
      * @return \Alipay\EasySDK\Payment\Common\Models\AlipayTradeFastpayRefundQueryResponse
@@ -217,7 +217,7 @@ class AliPayService
             if ($this->response->success($result)) {
                 return $result;
             } else {
-                throw new PayException('失败原因:' . $result->msg . ',' . $result->subMsg);
+                throw new PayException('Lý do thất bại:' . $result->msg . ',' . $result->subMsg);
             }
         } catch (\Exception $e) {
             throw new PayException($e->getMessage());
@@ -225,7 +225,7 @@ class AliPayService
     }
 
     /**
-     * 支付异步回调
+     * Trả tiền gọi lại không đồng bộ
      * @return string
      */
     public static function handleNotify()
@@ -246,7 +246,7 @@ class AliPayService
     }
 
     /**
-     * 异步回调
+     * Gọi lại không đồng bộ
      * @param callable $notifyFn
      * @return string
      */
@@ -257,13 +257,13 @@ class AliPayService
         if (isset($paramInfo['type'])) {
             unset($paramInfo['type']);
         }
-        //商户订单号
+        //Số đơn đặt hàng của người bán
         $postOrder['out_trade_no'] = $paramInfo['out_trade_no'] ?? '';
-        //支付宝交易号
+        //Số giao dịch Alipay
         $postOrder['trade_no'] = $paramInfo['trade_no'] ?? '';
-        //交易状态
+        //trạng thái giao dịch
         $postOrder['trade_status'] = $paramInfo['trade_status'] ?? '';
-        //备注
+        //Nhận xét
         $postOrder['attach'] = isset($paramInfo['passback_params']) ? urldecode($paramInfo['passback_params']) : '';
         if (in_array($paramInfo['trade_status'], ['TRADE_SUCCESS', 'TRADE_FINISHED']) && $this->verifyNotify($paramInfo)) {
             try {
@@ -272,7 +272,7 @@ class AliPayService
                 }
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                Log::error('支付宝异步会回调成功,执行函数错误。错误单号：' . $postOrder['out_trade_no']);
+                Log::error('Cuộc gọi lại không đồng bộ của Alipay sẽ thành công,Lỗi chức năng thực thi. Số thứ tự lỗi：' . $postOrder['out_trade_no']);
             }
         }
         return 'fail';
@@ -280,7 +280,7 @@ class AliPayService
     }
 
     /**
-     * 验签
+     * Xác minh
      * @return bool
      */
     protected function verifyNotify(array $param)
@@ -288,34 +288,34 @@ class AliPayService
         try {
             return Factory::payment()->common()->verifyNotify($param);
         } catch (\Exception $e) {
-            Log::error('支付宝回调成功,验签发生错误，错误原因:' . $e->getMessage());
+            Log::error('Gọi lại Alipay thành công,Đã xảy ra lỗi trong quá trình xác minh chữ ký, nguyên nhân gây ra lỗi:' . $e->getMessage());
         }
         return false;
     }
 
     /**
-     * 商家支付接口
+     * Giao diện thanh toán của người bán
      *
-     * @param array $bizParams 业务参数
-     * @return mixed|false 支付结果或者false
-     * @throws PayException 支付异常
+     * @param array $bizParams Thông số kinh doanh
+     * @return mixed|false Kết quả thanh toán hoặc sai
+     * @throws ngoại lệ thanh toán PayException
      */
     public function merchantPay(array $bizParams, $alipaySignType = 0)
     {
         try {
-            // 调用工厂类的通用方法执行支付宝转账操作
+            // Gọi phương thức chung của lớp nhà máy để thực hiện thao tác chuyển Alipay
             $method = $alipaySignType == 0 ? 'alipay.fund.trans.toaccount.transfer' : 'alipay.fund.trans.uni.transfer';
             $result = Factory::util()->generic()->execute($method, [], $bizParams);
-            // 判断支付是否成功
+            // Xác định xem thanh toán có thành công hay không
             if ($this->response->success($result)) {
                 return $result;
             } else {
-                Log::error('支付宝转账失败，失败原因:' . $result->msg . ' | ' . $result->subCode . ' | ' . $result->subMsg);
+                Log::error('Chuyển khoản Alipay không thành công, lý do thất bại:' . $result->msg . ' | ' . $result->subCode . ' | ' . $result->subMsg);
                 return false;
             }
         } catch (\Exception $e) {
-            // 记录日志并返回false
-            Log::error('支付宝转账失败，失败原因:' . $e->getMessage());
+            // Đăng nhập và trả lạifalse
+            Log::error('Chuyển khoản Alipay không thành công, lý do thất bại:' . $e->getMessage());
             return false;
         }
     }

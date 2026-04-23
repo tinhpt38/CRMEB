@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use crmeb\traits\QueueTrait;
 use think\facade\Log;
 
 /**
- * 主题导出队列任务
+ * Nhiệm vụ hàng đợi xuất chủ đề
  * Class ThemeExportJob
  * @package app\jobs
  */
@@ -27,12 +27,12 @@ class ThemeExportJob extends BaseJobs
     use QueueTrait;
 
     /**
-     * 执行主题导出任务
-     * 1. 打包主题文件生成 zip
-     * 2. 将 download_url 写回 eb_theme_download 记录
+     * Thực hiện nhiệm vụ xuất chủ đề
+     * 1. Đóng gói các tập tin chủ đề để tạo zip
+     * 2. Viết download_url quay lại bản ghi eb_theme_download
      *
-     * @param $info 主题信息
-     * @param int $recordId eb_theme_download 记录ID
+     * @param $info Thông tin chủ đề
+     * @param int $recordId eb_theme_download GhiID
      * @return bool
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -48,10 +48,10 @@ class ThemeExportJob extends BaseJobs
 
             $downloadUrl = $themeServices->exportThemePackage($info);
 
-            // 将生成的下载地址写回下载记录
+            // Ghi lại địa chỉ tải xuống đã tạo vào bản ghi tải xuống
             $themeDownloadServices->updateDownloadUrl($recordId, $downloadUrl);
         } catch (\Throwable $e) {
-            Log::error('主题导出队列失败，原因：' . $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine());
+            Log::error('Hàng đợi xuất chủ đề không thành công, lý do：' . $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine());
             return false;
         }
         return true;

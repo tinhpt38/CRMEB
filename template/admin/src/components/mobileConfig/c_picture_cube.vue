@@ -21,7 +21,7 @@ import rightBtn from '@/components/rightBtn/index.vue';
 export default {
   name: 'c_picture_cube',
   componentsName: 'picture_cube',
-  cname: '图片魔方',
+  cname: 'Hình ảnh khối Rubik',
   props: {
     activeIndex: {
       type: null,
@@ -45,7 +45,7 @@ export default {
           components: toolCom.c_set_up,
           configNme: 'setUp',
         },
-      ], // 当前页面组件
+      ], // thành phần trang hiện tại
       setUp: 0,
     };
   },
@@ -132,7 +132,7 @@ export default {
       if (!config.paddingConfig) {
         config.paddingConfig = {
           isAll: false,
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -147,7 +147,7 @@ export default {
       if (!config.marginConfig) {
         config.marginConfig = {
           isAll: false,
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,

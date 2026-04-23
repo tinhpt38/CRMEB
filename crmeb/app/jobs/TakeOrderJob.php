@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use crmeb\traits\QueueTrait;
 use think\facade\Log;
 
 /**
- * 自动收货消息队列
+ * Hàng đợi tin nhắn nhận tự động
  * Class TakeOrderJob
  * @package crmeb\jobs
  */
@@ -58,13 +58,13 @@ class TakeOrderJob extends BaseJobs
         $res           = $orderInfo->save() && $statusService->save([
                 'oid'            => $orderInfo['id'],
                 'change_type'    => 'take_delivery',
-                'change_message' => '已收货[自动收货]',
+                'change_message' => 'Hàng đã nhận[Tự động nhận]',
                 'change_time'    => time()
             ]);
         try {
             $services->storeProductOrderUserTakeDelivery($order);
         } catch (\Throwable $e) {
-            Log::error('自动收货消息队列执行成功,收货后置动作失败,失败原因:' . $e->getMessage());
+            Log::error('Thực hiện hàng đợi tin nhắn gửi tự động thành công,Hành động sau khi nhận không thành công,Lý do thất bại:' . $e->getMessage());
         }
         return $res;
     }

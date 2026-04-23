@@ -1,29 +1,29 @@
-crmeb/app/listener目录用来定义项目的事件监听器。
+crmeb/app/listenerThư mục được sử dụng để xác định trình xử lý sự kiện cho dự án.
 
-在ThinkPHP框架中,事件监听器是一个重要的机制。它可以用于:
+Trong khung ThinkPHP,Trình lắng nghe sự kiện là một cơ chế quan trọng. nó có thể được sử dụng cho:
 
-- 项目运行过程中的各个时间点自动调用指定的监听方法。
+- Phương thức nghe được chỉ định sẽ tự động được gọi tại nhiều thời điểm khác nhau trong quá trình chạy dự án.
 
-- 监听特定事物(如请求、响应等)发生后自动执行回调。
+- Theo dõi những điều cụ thể(Chẳng hạn như yêu cầu, phản hồi, v.v.)Tự động thực hiện gọi lại sau khi xảy ra.
 
-- 监听其它模块触发的事件,实现扩展钩子函数。
+- Nghe các sự kiện được kích hoạt bởi các mô-đun khác,Thực hiện các chức năng hook mở rộng.
 
-具体来说:
+Cụ thể:
 
-- 监听器类实现接口定义监听方法。
+- Lớp người nghe thực hiện giao diện và định nghĩa các phương thức nghe.
 
-- 方法内可以完成业务逻辑,也可以触发下一个监听器。
+- Logic nghiệp vụ có thể được hoàn thành trong phương thức,Cũng có thể kích hoạt người nghe tiếp theo.
 
-- 监听器在配置中注册,在特定点自动调用定义的回调方法。
+- Người nghe được đăng ký trong cấu hình,Tự động gọi các phương thức gọi lại đã xác định tại các điểm cụ thể.
 
-- 常见监听点有请求开始、响应结束等生命周期点。
+- Các điểm lắng nghe phổ biến bao gồm các điểm trong vòng đời như bắt đầu yêu cầu và kết thúc phản hồi.
 
-这种设计可以:
+Thiết kế này có thể:
 
-- 实现跨模块调用无需依赖。
+- Không cần có sự phụ thuộc để triển khai lệnh gọi nhiều mô-đun.
 
-- 解耦业务和基础模块。
+- Tách rời các mô-đun kinh doanh và cơ bản.
 
-- 让第三方功能易于插拔扩展。
+- Làm cho các chức năng của bên thứ ba dễ dàng cắm và mở rộng.
 
-所以此目录定义的就是项目各种事件监听回调,起到系统级的扩展与定制作用。
+Vì vậy, những gì thư mục này xác định là các lệnh gọi lại giám sát sự kiện khác nhau của dự án.,Đóng vai trò trong việc mở rộng và tùy chỉnh cấp hệ thống。

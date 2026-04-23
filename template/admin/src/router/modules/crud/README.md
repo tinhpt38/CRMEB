@@ -1,5 +1,5 @@
-# CRMEB ADMIN CRUD 路由存放
+# CRMEB ADMIN CRUD Lưu trữ tuyến đường
 
-此目录下的所有路由会被自动加载到 router,无需其他配置
+Tất cả các tuyến đường trong thư mục này sẽ được tự động tải vào router,Không cần cấu hình bổ sung
 
-可以对此路由进行修改删除
+Tuyến đường này có thể được sửa đổi hoặc xóa

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use think\App;
 class MemberCardBatchServices extends BaseServices
 {
     /**
-     * 初始化，获得dao层句柄
+     * Khởi tạo và lấy phần xử lý lớp dao
      * MemberCardServices constructor.
      * @param MemberCardBatchDao $memberCardDao
      */
@@ -30,7 +30,7 @@ class MemberCardBatchServices extends BaseServices
     }
 
     /**
-     * 获取会员卡批次列表
+     * Lấy danh sách lô thẻ thành viên
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -58,14 +58,14 @@ class MemberCardBatchServices extends BaseServices
      */
     public function save(int $id, array $data)
     {
-        if (!$data['title']) throw new AdminException('请填写批次名称');
-        if (!$data['total_num']) throw new AdminException('请填写要生成卡的数量');
-        if (!is_numeric($data['total_num']) || $data['total_num'] < 0) throw new AdminException('卡片数量只能为正整数');
-        if ($data['total_num'] > 6000) throw new AdminException('单次制卡数量最高不得超过6000张');
-        if (!$data['use_day'] || !is_numeric($data['use_day'])) throw new AdminException('请填写免费使用天数');
-        if ($data['use_day'] < 0) throw new AdminException('免费使用天数只能为正整数');
+        if (!$data['title']) throw new AdminException('Vui lòng điền tên lô');
+        if (!$data['total_num']) throw new AdminException('Vui lòng điền số lượng thẻ cần tạo');
+        if (!is_numeric($data['total_num']) || $data['total_num'] < 0) throw new AdminException('Số lượng thẻ chỉ có thể là số nguyên dương');
+        if ($data['total_num'] > 6000) throw new AdminException('Số lượng thẻ in tối đa trong một lần không vượt quá 6.000.');
+        if (!$data['use_day'] || !is_numeric($data['use_day'])) throw new AdminException('Hãy điền số ngày rảnh rỗi');
+        if ($data['use_day'] < 0) throw new AdminException('Số ngày sử dụng miễn phí chỉ được là số nguyên dương');
         /**
-         * 具体时间段试用，业务需要打开即可
+         * Dùng thử trong một khoảng thời gian cụ thể, doanh nghiệp cần được mở
          */
 //        $use_start_time = strtotime($data['use_start_time']);
 //        $use_end_time = strtotime($data['use_end_time']);
@@ -79,8 +79,8 @@ class MemberCardBatchServices extends BaseServices
 //        } else {
 //            $use_end_time = strtotime($data['use_end_time']);
 //        }
-//        if ($use_end_time < time()) throw new AdminException("体验结束时间不能小于当天");
-//        if ($use_end_time < $use_start_time) throw new AdminException("体验结束时间不能小于体验开始时间");
+//        if ($use_end_time < time()) throw new AdminException("Thời gian kết thúc trải nghiệm không được ít hơn ngày hiện tại");
+//        if ($use_end_time < $use_start_time) throw new AdminException("Thời gian kết thúc trải nghiệm không được ít hơn thời gian bắt đầu trải nghiệm");
 //        $data['use_start_time'] = $use_start_time;
 //        $data['use_end_time'] = $use_end_time;
         $data['use_day'] = abs(ceil($data['use_day']));
@@ -91,7 +91,7 @@ class MemberCardBatchServices extends BaseServices
                 unset($data['total_num']);
                 $data['update_time'] = time();
                 return $this->dao->update($id, $data);
-                //return ['status' => 1, "msg" => "编辑批次卡成功"];
+                //return ['status' => 1, "msg" => "Chỉnh sửa thẻ hàng loạt thành công"];
             } else {
                 /** @var MemberCardServices $memberCardService */
                 $memberCardService = app()->make(MemberCardServices::class);
@@ -99,27 +99,27 @@ class MemberCardBatchServices extends BaseServices
                 $add_card['card_batch_id'] = $res->id;
                 $add_card['total_num'] = $data['total_num'];
                 return $memberCardService->addCard($add_card);
-                // return ['status' => 2, "msg" => "生成批次卡成功"];
+                // return ['status' => 2, "msg" => "Đã tạo thẻ lô thành công"];
             }
         });
     }
 
     /**
-     * 列表操作
+     * Liệt kê các thao tác
      * @param int $id
      * @param array $data
      */
     public function setValue(int $id, array $data)
     {
-        if (!is_numeric($id) || !$id) throw new AdminException('参数错误');
-        if (!isset($data['field']) || !isset($data['value']) || !$data['field']) throw new AdminException('参数错误');
+        if (!is_numeric($id) || !$id) throw new AdminException('Lỗi tham số');
+        if (!isset($data['field']) || !isset($data['value']) || !$data['field']) throw new AdminException('Lỗi tham số');
         $this->dao->update($id, [$data['field'] => $data['value']]);
         app()->make(MemberCardServices::class)->update(['card_batch_id' => $id], ['status' => $data['value']]);
     }
 
 
     /**
-     * 获取单条卡批次资源
+     * Nhận tài nguyên hàng loạt thẻ đơn
      * @param array $uid
      * @param string $field
      * @return array|\think\Model|null
@@ -134,7 +134,7 @@ class MemberCardBatchServices extends BaseServices
     }
 
     /**
-     * 批次卡数量统计
+     * Thống kê số lượng thẻ theo lô
      * @param int $id
      * @param string $field
      * @param int $inc

@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 import request from '@/libs/request';
 
 /**
- * @description 分销 -- 列表
- * @param {Object} param params {Object} 传值参数
+ * @description Phân phối -- Danh sách
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function agentListApi(params) {
   return request({
@@ -23,8 +23,8 @@ export function agentListApi(params) {
 }
 
 /**
- * @description 修改上级用户
- * @param {Object} param params {Object} 传值参数
+ * @description Sửa đổi người dùng cao cấp
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function agentSpreadApi(data) {
   return request({
@@ -35,8 +35,8 @@ export function agentSpreadApi(data) {
 }
 
 /**
- * @description 分销 -- 表头
- * @param {Object} param params {Object} 传值参数
+ * @description Phân phối -- Tiêu đề
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function statisticsApi(params) {
   return request({
@@ -47,9 +47,9 @@ export function statisticsApi(params) {
 }
 
 /**
- * @description 分销 -- 推广人,订单列表
- * @param {Object} param params {Object} 传值参数
- * @param {String} param url {String} 请求地址
+ * @description Phân phối -- Nhà quảng bá,danh sách đặt hàng
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
+ * @param {String} param url {String} Địa chỉ yêu cầu
  */
 export function stairListApi(url, params) {
   return request({
@@ -60,8 +60,8 @@ export function stairListApi(url, params) {
 }
 
 /**
- * @description 分销 -- 公众号推广二维码
- * @param {Object} param params {Object} 传值参数
+ * @description Phân phối - mã QR khuyến mãi tài khoản công khai
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function lookCodeApi(params) {
   return request({
@@ -72,8 +72,8 @@ export function lookCodeApi(params) {
 }
 
 /**
- * @description 分销 -- 小程序推广二维码
- * @param {Object} param params {Object} 传值参数
+ * @description Phân phối - chương trình mini mã QR khuyến mãi
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function lookxcxCodeApi(params) {
   return request({
@@ -84,8 +84,8 @@ export function lookxcxCodeApi(params) {
 }
 
 /**
- * @description 分销 -- h5推广二维码
- * @param {Object} param params {Object} 传值参数
+ * @description Phân phối - mã QR khuyến mãi h5
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function lookh5CodeApi(params) {
   return request({
@@ -96,7 +96,7 @@ export function lookh5CodeApi(params) {
 }
 
 /**
- * @description 分销 -- 用户推广列表导出
+ * @description Phân phối - Xuất danh sách khuyến mãi của người dùng
  */
 export function userAgentApi(data) {
   return request({
@@ -107,8 +107,8 @@ export function userAgentApi(data) {
 }
 
 /**
- * @description 事业部--列表
- * @param {Object} param data {Object} 传值参数
+ * @description Đơn vị kinh doanh--Danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function regionList(data) {
   return request({
@@ -119,8 +119,8 @@ export function regionList(data) {
 }
 
 /**
- * @description 代理商申请--列表
- * @param {Object} param data {Object} 传值参数
+ * @description Đơn đăng ký đại lý--Danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function divisionList(data) {
   return request({
@@ -130,8 +130,8 @@ export function divisionList(data) {
   });
 }
 /**
- * @description 事业部统计--列表
- * @param {Object} param data {Object} 传值参数
+ * @description Thống kê đơn vị kinh doanh--danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function divisionStatistics(data) {
   return request({
@@ -142,8 +142,8 @@ export function divisionStatistics(data) {
 }
 
 /**
- * @description 代理商添加--表单
- * @param {Object} param data {Object} 传值参数
+ * @description Thêm đại lý--Biểu mẫu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function agentFrom(uid) {
   return request({
@@ -153,8 +153,8 @@ export function agentFrom(uid) {
 }
 
 /**
- * @description 代理商审核
- * @param {Object} param data {Object} 传值参数
+ * @description Đánh giá đại lý
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function divisionFrom(id, type) {
   return request({
@@ -164,8 +164,8 @@ export function divisionFrom(id, type) {
 }
 
 /**
- * @description 事业部添加--表单
- * @param {Object} param data {Object} 传值参数
+ * @description Thêm bộ phận kinh doanh--mẫu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function regionFrom(uid) {
   return request({
@@ -174,8 +174,8 @@ export function regionFrom(uid) {
   });
 }
 /**
- * @description 事业部列表
- * @param {Object} param data {Object} 传值参数
+ * @description Danh sách đơn vị kinh doanh
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function clerkList(data) {
   return request({
@@ -186,8 +186,8 @@ export function clerkList(data) {
 }
 
 /**
- * @description 事业部状态切换--列表
- * @param {Object} param data {Object} 传值参数
+ * @description Chuyển đổi trạng thái đơn vị kinh doanh--danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function isShowApi(data) {
   return request({
@@ -197,8 +197,8 @@ export function isShowApi(data) {
 }
 
 /**
- * @description 员工添加--表单
- * @param {Object} param data {Object} 传值参数
+ * @description Biểu mẫu bổ sung nhân viên
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function staffAddFrom(uid) {
   return request({
@@ -208,8 +208,8 @@ export function staffAddFrom(uid) {
 }
 
 /**
- * @description 申请列表--分销员
- * @param {Object} param data {Object} 传值参数
+ * @description Danh sách ứng dụng--Nhà phân phối
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function spreadList(data) {
   return request({
@@ -220,8 +220,8 @@ export function spreadList(data) {
 }
 
 /**
- * @description 审核--分销员
- * @param {Object} param data {Object} 传值参数
+ * @description Đánh giá--Nhà phân phối
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function spreadFrom(id, uid, type, data) {
   return request({

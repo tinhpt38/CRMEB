@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -32,7 +32,7 @@ class UserRecharge extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @return \think\Response
      */
     public function index()
@@ -46,18 +46,18 @@ class UserRecharge extends AuthController
     }
 
     /**
-     * 删除指定资源
+     * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
      */
     public function delete($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
-        return app('json')->success($this->services->delRecharge((int)$id) ? '删除成功' : '删除失败');
+        if (!$id) return app('json')->fail('Lỗi tham số');
+        return app('json')->success($this->services->delRecharge((int)$id) ? 'Xóa thành công' : 'Xóa không thành công');
     }
 
     /**
-     * 获取用户充值数据
+     * Nhận dữ liệu nạp tiền của người dùng
      * @return array
      */
     public function user_recharge()
@@ -71,18 +71,18 @@ class UserRecharge extends AuthController
     }
 
     /**
-     * 退款表单
+     * Hình thức hoàn tiền
      * @param $id
      * @return mixed|void
      */
     public function refund_edit($id)
     {
-        if (!$id) return app('json')->fail('数据不存在');
+        if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
         return app('json')->success($this->services->refund_edit((int)$id));
     }
 
     /**
-     * 退款操作
+     * Hoạt động hoàn tiền
      * @param $id
      * @return mixed
      */
@@ -91,7 +91,7 @@ class UserRecharge extends AuthController
         $data = $this->request->postMore([
             'refund_price',
         ]);
-        if (!$id) return app('json')->fail('数据不存在');
-        return app('json')->success($this->services->refund_update((int)$id, $data['refund_price']) ? '退款成功' : '退款失败');
+        if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
+        return app('json')->success($this->services->refund_update((int)$id, $data['refund_price']) ? 'Hoàn tiền thành công' : 'Hoàn tiền không thành công');
     }
 }

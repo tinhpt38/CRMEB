@@ -6,7 +6,7 @@ export default {
   getters: {},
   mutations: {
     /**
-     * @description 设置侧边栏展开关闭
+     * @description Đặt thanh bên để mở rộng và đóng
      * @param {Object} state vuex state
      * @param {Array} status status
      */

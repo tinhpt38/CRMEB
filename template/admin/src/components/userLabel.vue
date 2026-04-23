@@ -1,13 +1,13 @@
 <template>
   <div class="label-wrapper">
-    <div v-if="!labelList[0]" class="nonefont">暂无标签</div>
+    <div v-if="!labelList[0]" class="nonefont">Chưa có thẻ nào</div>
     <template v-else>
       <div v-if="is_batch" class="flex flex-y-center mb20">
-        <div class="title mr10">设置类型</div>
+        <div class="title mr10">Kiểu cài đặt</div>
         <el-radio-group v-model="label_type">
-          <el-radio :label="0">统一设置</el-radio>
-          <el-radio :label="1">增加</el-radio>
-          <el-radio :label="2">减少</el-radio>
+          <el-radio :label="0">Cài đặt hợp nhất</el-radio>
+          <el-radio :label="1">Tăng</el-radio>
+          <el-radio :label="2">giảm bớt</el-radio>
         </el-radio-group>
       </div>
       <div class="label-box" v-for="(item, index) in labelList" :key="index">
@@ -27,8 +27,8 @@
       </div>
     </template>
     <div class="acea-row row-right mt20">
-      <el-button v-db-click @click="cancel">取 消</el-button>
-      <el-button type="primary" v-db-click @click="subBtn">确 定</el-button>
+      <el-button v-db-click @click="cancel">Hủy bỏ</el-button>
+      <el-button type="primary" v-db-click @click="subBtn">Chắc chắn</el-button>
     </div>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
         [];
       },
     },
-    // 是否支持批量设置
+    // Có hỗ trợ cài đặt hàng loạt hay không
     is_batch: {
       type: Boolean,
       default: false,
@@ -62,7 +62,7 @@ export default {
       labelList: [],
       activeIds: [],
       unLaberids: [],
-      // 批量设置标签 label_type  统一设置 增加 减少
+      // Đặt nhãn theo lô label_type Đặt đồng đều Tăng Giảm
       label_type: 0,
     };
   },
@@ -118,7 +118,7 @@ export default {
         label.disabled = true;
       }
     },
-    // 确定
+    // Chắc chắn
     subBtn() {
       let unLaberids = [];
       if (this.only_get) {

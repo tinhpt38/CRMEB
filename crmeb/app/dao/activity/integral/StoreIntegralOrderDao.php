@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\dao\BaseDao;
 use app\model\activity\integral\StoreIntegralOrder;
 
 /**
- * 订单
+ * Đặt hàng
  * Class StoreOrderDao
  * @package app\dao\order
  */
@@ -24,7 +24,7 @@ class StoreIntegralOrderDao extends BaseDao
 {
 
     /**
-     * 限制精确查询字段
+     * Giới hạn các trường truy vấn chính xác
      * @var string[]
      */
     protected $withField = ['uid', 'order_id', 'real_name', 'user_phone', 'store_name'];
@@ -38,7 +38,7 @@ class StoreIntegralOrderDao extends BaseDao
     }
 
     /**
-     * 订单搜索
+     * Tìm kiếm đơn hàng
      * @param array $where
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
@@ -70,7 +70,7 @@ class StoreIntegralOrderDao extends BaseDao
     }
 
     /**
-     * 订单搜索列表
+     * Danh sách tìm kiếm đơn hàng
      * @param array $where
      * @param array $field
      * @param int $page
@@ -87,7 +87,7 @@ class StoreIntegralOrderDao extends BaseDao
     }
 
     /**
-     * 获取订单总数
+     * Lấy tổng số đơn hàng
      * @param array $where
      * @param bool $search
      * @return int
@@ -99,7 +99,7 @@ class StoreIntegralOrderDao extends BaseDao
     }
 
     /**
-     * 查找指定条件下的订单数据以数组形式返回
+     * Tìm dữ liệu đơn hàng trong các điều kiện được chỉ định và trả về dưới dạng mảng
      * @param array $where
      * @param string $field
      * @param string $key
@@ -114,7 +114,7 @@ class StoreIntegralOrderDao extends BaseDao
     }
 
     /**
-     * 获取订单详情
+     * Nhận chi tiết đơn hàng
      * @param $uid
      * @param $key
      * @return array|\think\Model|null
@@ -128,7 +128,7 @@ class StoreIntegralOrderDao extends BaseDao
     }
 
     /**
-     * 获取用户已购买此活动商品的个数
+     * Lấy số lượng vật phẩm người dùng đã mua cho sự kiện này
      * @param $uid
      * @param $productId
      * @return int

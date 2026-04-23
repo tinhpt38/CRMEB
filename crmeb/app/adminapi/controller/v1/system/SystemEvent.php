@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class SystemEvent extends AuthController
     }
 
     /**
-     * 自定事件类型
+     * Loại sự kiện tùy chỉnh
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -36,7 +36,7 @@ class SystemEvent extends AuthController
     }
 
     /**
-     * 自定事件列表
+     * Danh sách sự kiện tùy chỉnh
      * @return \think\Response
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
@@ -52,7 +52,7 @@ class SystemEvent extends AuthController
     }
 
     /**
-     * 自定事件详情
+     * Chi tiết sự kiện tùy chỉnh
      * @param $id
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -64,12 +64,12 @@ class SystemEvent extends AuthController
      */
     public function getEventInfo($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->getEventInfo($id));
     }
 
     /**
-     * 自定事件添加编辑
+     * Thêm và chỉnh sửa sự kiện tùy chỉnh
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -86,21 +86,21 @@ class SystemEvent extends AuthController
             ['customCode', ''],
             ['password', ''],
         ]);
-        if ($data['name'] == '') return app('json')->fail('请填写事件名称');
-        if ($data['mark'] == '') return app('json')->fail('请选择事件类型');
-        if (!Env::get('app_debug', false)) return app('json')->fail('生产环境下无法新增和修改自定义内容，如需修改请修改.env文件中app_debug项为true');
-        if ($data['password'] === '') return app('json')->fail('密码不能为空');
-        if (config('filesystem.password') !== $data['password']) return app('json')->fail('密码错误');
+        if ($data['name'] == '') return app('json')->fail('Vui lòng điền tên sự kiện');
+        if ($data['mark'] == '') return app('json')->fail('Vui lòng chọn loại sự kiện');
+        if (!Env::get('app_debug', false)) return app('json')->fail('Nội dung tùy chỉnh không thể được thêm hoặc sửa đổi trong môi trường sản xuất. Nếu bạn cần sửa đổi nó, vui lòng sửa đổi mục app_debug trong tệp .env thànhtrue');
+        if ($data['password'] === '') return app('json')->fail('Mật khẩu không thể trống');
+        if (config('filesystem.password') !== $data['password']) return app('json')->fail('Mật khẩu sai');
         $adminInfo = $this->request->adminInfo();
-        if (!$adminInfo) return app('json')->fail('非法操作');
-        if ($adminInfo['level'] != 0) return app('json')->fail('仅超级管理员可以操作定时任务');
-        if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('自定义内容存在危险代码，请检查代码');
+        if (!$adminInfo) return app('json')->fail('Hoạt động trái phép');
+        if ($adminInfo['level'] != 0) return app('json')->fail('Chỉ quản trị viên cấp cao mới có thể vận hành các tác vụ theo lịch trình');
+        if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('Có mã nguy hiểm trong nội dung tùy chỉnh, vui lòng kiểm tra mã');
         $this->services->saveEvent($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 检查是否包含删除表，删除表数据，删除文件，修改文件内容以及后缀，执行命令等操作的关键词
+     * Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
      * @param $code
      * @return bool
      * @author wuhaotian
@@ -109,7 +109,7 @@ class SystemEvent extends AuthController
      */
     function isSafePhpCode($code)
     {
-        // 检查是否包含删除表，删除表数据，删除文件，修改文件内容以及后缀，执行命令等操作的关键词
+        // Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
         $dangerous_keywords = [
             'delete',
             'destroy',
@@ -127,11 +127,11 @@ class SystemEvent extends AuthController
                 return false;
             }
         }
-        return true; // 如果通过所有安全检查，返回 true
+        return true; // Nếu tất cả các bước kiểm tra bảo mật đều vượt qua, hãy quay lại true
     }
 
     /**
-     * 自定事件是否开启开关
+     * Liệu sự kiện tùy chỉnh có bật nút chuyển hay không
      * @param $id
      * @param $is_open
      * @return \think\Response
@@ -142,11 +142,11 @@ class SystemEvent extends AuthController
     public function setEventStatus($id, $is_open)
     {
         $this->services->setEventStatus($id, $is_open);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 删除自定事件
+     * Xóa sự kiện tùy chỉnh
      * @param $id
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -158,8 +158,8 @@ class SystemEvent extends AuthController
      */
     public function delEvent($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->eventDel($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 }

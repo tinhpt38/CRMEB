@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\jobs\TakeOrderJob;
 use crmeb\interfaces\ListenerInterface;
 
 /**
- * 订单到期自动收货
+ * Tự động giao hàng khi hết đơn hàng
  * Class OrderDeliveryListener
  * @package app\listener\order
  */
@@ -25,7 +25,7 @@ class OrderDeliveryListener implements ListenerInterface
     {
         [$orderInfo, $storeTitle, $data, $type] = $event;
 
-        //到期自动收货
+        //Tự động nhận hàng khi hết hạn
         $time = sys_config('system_delivery_time') ?? 0;
         if ($time != 0) {
             $sevenDay = 24 * 3600 * $time;

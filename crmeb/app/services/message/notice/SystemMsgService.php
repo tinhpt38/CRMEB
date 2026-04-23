@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\message\MessageSystemServices;
 use think\facade\Log;
 
 /**
- * 短信发送消息列表
+ * danh sách tin nhắn SMS
  * Created by PhpStorm.
  * User: xurongyao <763569752@qq.com>
  * Date: 2021/9/22 1:23 PM
@@ -25,7 +25,7 @@ use think\facade\Log;
 class SystemMsgService extends NoticeService
 {
     /**
-     * 发送消息
+     * Gửi tin nhắn
      * @param int $uid
      * @param $data
      * @return bool|void
@@ -59,7 +59,7 @@ class SystemMsgService extends NoticeService
     }
 
     /**
-     * 给客服发站内信
+     * Gửi tin nhắn nội bộ tới bộ phận chăm sóc khách hàng
      * @param $data
      * @return bool|void
      */

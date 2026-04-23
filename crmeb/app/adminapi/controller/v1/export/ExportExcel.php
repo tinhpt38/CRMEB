@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ use app\services\wechat\WechatUserServices;
 use think\facade\App;
 
 /**
- * 导出excel类
+ * Xuất lớp excel
  * Class ExportExcel
  * @package app\adminapi\controller\v1\export
  */
@@ -79,7 +79,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 订单导出
+     * Xuất đơn hàng
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -104,7 +104,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 发货订单列表导出
+     * Xuất danh sách đơn hàng vận chuyển
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -116,7 +116,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 商品列表导出
+     * Xuất danh sách sản phẩm
      * @return mixed
      */
     public function productList()
@@ -131,7 +131,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 砍价商品列表导出
+     * Danh mục sản phẩm xuất khẩu giá hời
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -148,7 +148,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 拼团商品导出
+     * Nhóm sản phẩm xuất khẩu
      * @return mixed
      */
     public function combinationList()
@@ -162,7 +162,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 秒杀商品导出
+     * Xuất khẩu sản phẩm flash sale
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -178,7 +178,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 会员卡导出
+     * Xuất thẻ thành viên
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -191,7 +191,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 保存用户资金监控的excel表格
+     * Lưu bảng excel để theo dõi quỹ người dùng
      * @param UserBillServices $services
      * @return mixed
      */
@@ -208,7 +208,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 用户佣金
+     * Hoa hồng người dùng
      * @param UserBillServices $services
      * @return mixed
      */
@@ -228,7 +228,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 用户积分
+     * Điểm người dùng
      * @param UserBillServices $services
      * @return mixed
      */
@@ -245,7 +245,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 用户充值
+     * Nạp tiền người dùng
      * @param UserRechargeServices $services
      * @return mixed
      */
@@ -264,7 +264,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 分销管理 用户推广
+     * Quảng cáo người dùng quản lý phân phối
      * @param AgentManageServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -283,7 +283,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 微信用户导出（弃用）
+     * Xuất người dùng WeChat (không được dùng nữa)）
      * @param WechatUserServices $services
      * @return mixed
      */
@@ -313,7 +313,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 商铺砍价活动导出
+     * Hoạt động mặc cả của cửa hàng xuất khẩu
      * @param StoreBargainServices $services
      * @return mixed
      */
@@ -329,7 +329,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 拼团导出
+     * Xuất nhóm
      * @param StoreCombinationServices $services
      * @return mixed
      */
@@ -347,25 +347,25 @@ class ExportExcel extends AuthController
         $countTeam = $storePinkServices->getPinkCount(['k_id' => 0, 'status' => 2]);
         $countPeople = $storePinkServices->getPinkCount(['k_id' => 0]);
         foreach ($data as &$item) {
-            $item['count_people'] = $countPeople[$item['id']] ?? 0;//拼团数量
-            $item['count_people_all'] = $countAll[$item['id']] ?? 0;//参与人数
-            $item['count_people_pink'] = $countTeam[$item['id']] ?? 0;//成团数量
+            $item['count_people'] = $countPeople[$item['id']] ?? 0;//Số lượng nhóm
+            $item['count_people_all'] = $countAll[$item['id']] ?? 0;//Số lượng người tham gia
+            $item['count_people_pink'] = $countTeam[$item['id']] ?? 0;//Số lượng nhóm
             $item['stop_status'] = $item['stop_time'] < time() ? 1 : 0;
             if ($item['is_show']) {
                 if ($item['start_time'] > time())
-                    $item['start_name'] = '未开始';
+                    $item['start_name'] = 'Chưa bắt đầu';
                 else if ($item['stop_time'] < time())
-                    $item['start_name'] = '已结束';
+                    $item['start_name'] = 'đã kết thúc';
                 else if ($item['stop_time'] > time() && $item['start_time'] < time()) {
-                    $item['start_name'] = '进行中';
+                    $item['start_name'] = 'đang tiến hành';
                 }
-            } else $item['start_name'] = '已结束';
+            } else $item['start_name'] = 'đã kết thúc';
         }
         return app('json')->success($this->service->storeCombination($data));
     }
 
     /**
-     * 秒杀导出
+     * Xuất flash sale
      * @param StoreSeckillServices $services
      * @return mixed
      */
@@ -381,7 +381,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 商品导出
+     * Xuất khẩu sản phẩm
      * @param StoreProductServices $services
      * @return mixed
      */
@@ -397,7 +397,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 订单列表导出
+     * Xuất danh sách đơn hàng
      * @param StoreOrderServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -424,7 +424,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 获取提货点
+     * Nhận điểm đón
      * @param SystemStoreServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -442,7 +442,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 会员卡导出
+     * Xuất thẻ thành viên
      * @param int $id
      * @param MemberCardServices $services
      * @return mixed
@@ -457,7 +457,7 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * 核销订单导出
+     * Xuất lệnh xóa nợ
      * @param StoreOrderServices $services
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException

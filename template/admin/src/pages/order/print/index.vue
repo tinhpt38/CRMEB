@@ -1,52 +1,52 @@
 <template>
-  <!-- 支付订单 -->
+  <!-- Thanh toán đơn hàng -->
   <div class="order-bgc">
     <div class="putSupplier perpage" v-for="(item, index) in newArrayData" :key="index">
       <div class="header acea-row row-between-wrapper">
         <div class="left acea-row row-middle">
           <!-- <div class="picture" :id="'qrCodeUrl' + index"></div> -->
           <div class="info">
-            <div><span class="name">收货人：</span>{{ orderData.user_name }}</div>
-            <div><span class="name">收货地址：</span>{{ orderData.user_address }}</div>
+            <div><span class="name">người nhận hàng：</span>{{ orderData.user_name }}</div>
+            <div><span class="name">Địa chỉ giao hàng：</span>{{ orderData.user_address }}</div>
             <div>
-              <span class="name">手机号：</span><span>{{ orderData.user_phone }}</span>
+              <span class="name">Số điện thoại：</span><span>{{ orderData.user_phone }}</span>
             </div>
           </div>
         </div>
         <div class="info">
-          <div><span class="name">订单编号：</span>{{ orderData.order_id }}</div>
-          <div><span class="name">支付时间：</span>{{ orderData.pay_time }}</div>
-          <div><span class="name">支付方式：</span>{{ orderData.pay_type }}</div>
+          <div><span class="name">số thứ tự：</span>{{ orderData.order_id }}</div>
+          <div><span class="name">thời gian thanh toán：</span>{{ orderData.pay_time }}</div>
+          <div><span class="name">Phương thức thanh toán：</span>{{ orderData.pay_type }}</div>
         </div>
       </div>
       <div class="mt20">
         <el-table border :data="item" :disabled-hover="true">
-          <el-table-column label="商品编号" width="80" align="center">
+          <el-table-column label="Số mặt hàng" width="80" align="center">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.index }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="商品名称" width="170">
+          <el-table-column label="Tên sản phẩm" width="170">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.name }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="商品规格" minWidth="150">
+          <el-table-column label="Thông số sản phẩm" minWidth="150">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.sku }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="单价" width="80">
+          <el-table-column label="đơn giá" width="80">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.price }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="数量" width="80">
+          <el-table-column label="Số lượng" width="80">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.num }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="金额" width="100">
+          <el-table-column label="Số lượng" width="100">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.sum_price }}</span>
             </template>
@@ -55,20 +55,20 @@
       </div>
       <div class="bottom acea-row row-between-wrapper">
         <div class="acea-row row-middle">
-          <div class="item"><span class="name">运费：</span>{{ orderData.pay_postage }}</div>
-          <div class="item"><span class="name">优惠：</span>{{ orderData.coupon_price }}</div>
-          <div class="item"><span class="name">会员折扣：</span>{{ orderData.vip_price }}</div>
-          <div class="item"><span class="name">积分抵扣：</span>{{ orderData.deduction_price }}</div>
+          <div class="item"><span class="name">vận chuyển hàng hóa：</span>{{ orderData.pay_postage }}</div>
+          <div class="item"><span class="name">giảm giá：</span>{{ orderData.coupon_price }}</div>
+          <div class="item"><span class="name">giảm giá thành viên：</span>{{ orderData.vip_price }}</div>
+          <div class="item"><span class="name">Trừ điểm：</span>{{ orderData.deduction_price }}</div>
         </div>
-        <div class="pricePay">实付金额：{{ orderData.pay_price }}</div>
+        <div class="pricePay">Số tiền thực trả：{{ orderData.pay_price }}</div>
       </div>
       <div class="bottom acea-row">
         <div class="name">
-          用户备注：<span class="con">{{ orderData.mark || '-' }}</span>
+          Nhận xét của người dùng：<span class="con">{{ orderData.mark || '-' }}</span>
         </div>
       </div>
     </div>
-    <!--  注意：后续要是加内容使页面撑大，记得查看下打印是否在同一张,是否会多余一张空白纸  -->
+    <!--  Lưu ý: Nếu sau này bạn thêm nội dung để trang lớn hơn thì hãy nhớ kiểm tra xem nội dung đó có được in trên cùng một trang hay không.,Sẽ có thêm một mảnh giấy trắng?  -->
   </div>
 </template>
 <script>
@@ -91,14 +91,14 @@ export default {
   },
   mounted() {},
   methods: {
-    // 生成二维码
+    // Tạo mã QR
     creatQrCode() {
       let qrcode;
       let url = window.location.origin + '/pages/goods/order_details/index?order_id=' + this.$route.query.id;
       this.newArrayData.forEach((item, index) => {
         let obj = document.getElementById('qrCodeUrl' + index);
         qrcode = new QRCode(obj, {
-          text: url, // 需要转换为二维码的内容
+          text: url, // Nội dung cần chuyển đổi thành mã QR
           width: 90,
           height: 90,
           colorDark: '#000000',

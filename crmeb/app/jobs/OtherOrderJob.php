@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use crmeb\traits\QueueTrait;
 use think\facade\Log;
 
 /**
- * 订单消息队列
+ * Hàng đợi tin nhắn đặt hàng
  * Class OrderJob
  * @package crmeb\jobs
  */
@@ -29,37 +29,37 @@ class OtherOrderJob extends BaseJobs
     use QueueTrait;
 
     /**
-     * 执行订单支付成功发送消息
+     * Gửi tin nhắn khi thanh toán đơn hàng được thực hiện thành công
      * @param $order
      * @return bool
      */
     public function doJob($order)
     {
-        //更新用户支付订单数量
+        //Cập nhật số lượng đơn hàng thanh toán của người dùng
         try {
             $this->setUserPayCountAndPromoter($order);
         } catch (\Throwable $e) {
-            Log::error('更新用户订单数失败,失败原因:' . $e->getMessage());
+            Log::error('Không thể cập nhật số đơn đặt hàng của người dùng,Lý do thất bại:' . $e->getMessage());
         }
 
-        // 计算用户节省金额
+        // Tính toán mức tiết kiệm của người dùng
         try {
             $this->setEconomizeMoney($order);
         } catch (\Throwable $e) {
-            Log::error('计算节省金额,失败原因:' . $e->getMessage());
+            Log::error('Tính toán tiết kiệm,Lý do thất bại:' . $e->getMessage());
         }
 
-        //收银订单赠送积分
+        //Điểm thưởng cho đơn hàng thu ngân
         try {
             $this->sendMemberIntegral($order);
         } catch (\Throwable $e) {
-            Log::error('消费积分返还失败,失败原因:' . $e->getMessage());
+            Log::error('Hoàn trả điểm tiêu dùng không thành công,Lý do thất bại:' . $e->getMessage());
         }
         return true;
     }
 
     /**
-     * 设置用户购买次数和检测时候成为推广人
+     * Đặt số lượng người dùng mua hàng và thời gian phát hiện để trở thành người quảng bá
      * @param $order
      */
     public function setUserPayCountAndPromoter($order)
@@ -82,13 +82,13 @@ class OtherOrderJob extends BaseJobs
         }
     }
 
-    /** 线下付款奖励积分
+    /** Điểm thưởng thanh toán ngoại tuyến
      * @param $order
      * @return bool
      */
     public function sendMemberIntegral($order)
     {
-        //只有线下付款才奖励
+        //Phần thưởng chỉ có sẵn cho thanh toán ngoại tuyến
         if ($order['type'] == 3) {
             $order_give_integral = sys_config('order_give_integral');
             $order_integral = bcmul($order_give_integral, (string)$order['pay_price'], 0);
@@ -97,7 +97,7 @@ class OtherOrderJob extends BaseJobs
             $userInfo = $userService->getUserInfo($order['uid']);
             if (!$userInfo) return false;
             if ($userInfo['is_money_level'] > 0) {
-                //看是否开启消费返积分翻倍奖励
+                //Kiểm tra xem phần thưởng nhân đôi điểm tiêu thụ có được kích hoạt hay không
                 /** @var MemberCardServices $memberCardService */
                 $memberCardService = app()->make(MemberCardServices::class);
                 $integral_rule_number = $memberCardService->isOpenMemberCard('integral');
@@ -113,12 +113,12 @@ class OtherOrderJob extends BaseJobs
     }
 
     /**
-     * 计算节省金额
+     * Tính toán tiết kiệm
      * @param $order
      */
     public function setEconomizeMoney($order)
     {
-        //只有线下付款才计算节省
+        //Khoản tiết kiệm chỉ được tính cho thanh toán ngoại tuyến
         if ($order['type'] == 3) {
             /** @var StoreOrderEconomizeServices $economizeService */
             $economizeService = app()->make(StoreOrderEconomizeServices::class);

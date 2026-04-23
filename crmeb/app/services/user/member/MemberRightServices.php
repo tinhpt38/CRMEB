@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -50,49 +50,49 @@ class MemberRightServices extends BaseServices
     }
 
     /**
-     * 编辑保存
+     * Chỉnh sửa và lưu
      * @param int $id
      * @param array $data
      */
     public function save(int $id, array $data)
     {
-        if (!$data['right_type']) throw new AdminException('会员权益类型缺失');
-        if (!$id) throw new AdminException('参数错误');
-        if (!$data['title'] || !$data['show_title']) throw new AdminException('请设置权益名称');
-        if (!$data['image']) throw new AdminException('请上传会员权益图标');
-        if (mb_strlen($data['show_title']) > 6) throw new AdminException('展示名称不能大于6个字');
-        if (mb_strlen($data['explain']) > 8) throw new AdminException('权益简介不能大于8个字');
+        if (!$data['right_type']) throw new AdminException('Loại lợi ích dành cho thành viên bị thiếu');
+        if (!$id) throw new AdminException('Lỗi tham số');
+        if (!$data['title'] || !$data['show_title']) throw new AdminException('Vui lòng đặt tên sở thích');
+        if (!$data['image']) throw new AdminException('Vui lòng tải lên các biểu tượng quyền thành viên');
+        if (mb_strlen($data['show_title']) > 6) throw new AdminException('Tên hiển thị không thể dài hơn 6 ký tự');
+        if (mb_strlen($data['explain']) > 8) throw new AdminException('Phần giới thiệu lợi ích không được dài quá 8 từ');
         switch ($data['right_type']) {
             case "integral":
-                if (!$data['number']) throw new AdminException('请设置返还积分倍数');
-                if ($data['number'] < 0) throw new AdminException('返还积分倍数不能为负数');
+                if (!$data['number']) throw new AdminException('Hãy đặt số điểm trả về bội số');
+                if ($data['number'] < 0) throw new AdminException('bội số trả về của điểm không thể là số âm');
                 $save['number'] = abs($data['number']);
                 break;
             case "express" :
-                if (!$data['number']) throw new AdminException('请设置运费折扣');
-                if ($data['number'] < 0) throw new AdminException('运费折扣不能为负数');
+                if (!$data['number']) throw new AdminException('Vui lòng thiết lập giảm giá vận chuyển');
+                if ($data['number'] < 0) throw new AdminException('Giảm giá vận chuyển không thể âm');
                 $save['number'] = abs($data['number']);
                 break;
             case "sign" :
-                if (!$data['number']) throw new AdminException('请设置签到积分倍数');
-                if ($data['number'] < 0) throw new AdminException('签到积分倍数不能为负数');
+                if (!$data['number']) throw new AdminException('Vui lòng đặt hệ số nhân điểm đăng ký');
+                if ($data['number'] < 0) throw new AdminException('Hệ số điểm đăng nhập không được là số âm');
                 $save['number'] = abs($data['number']);
                 break;
             case "offline" :
-                if (!$data['number']) throw new AdminException('请设置线下付款折扣');
-                if ($data['number'] < 0) throw new AdminException('线下付款不能为负数');
+                if (!$data['number']) throw new AdminException('Vui lòng thiết lập giảm giá thanh toán ngoại tuyến');
+                if ($data['number'] < 0) throw new AdminException('Thanh toán ngoại tuyến không thể âm');
                 $save['number'] = abs($data['number']);
         }
         $save['show_title'] = $data['show_title'];
         $save['image'] = $data['image'];
         $save['status'] = $data['status'];
         $save['sort'] = $data['sort'];
-        //TODO $save没有使用
+        //TODO $savekhông được sử dụng
         return $this->dao->update($id, $data);
     }
 
     /**
-     * 获取单条信息
+     * Nhận một thông tin duy nhất
      * @param array $where
      * @return array|bool|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -106,7 +106,7 @@ class MemberRightServices extends BaseServices
     }
 
     /**
-     * 查看某权益是否开启
+     * Kiểm tra xem một lợi ích nhất định có được kích hoạt hay không
      * @param $rightType
      * @return bool
      */

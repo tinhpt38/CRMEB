@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\activity\lottery\LuckLotteryServices;
 use think\facade\App;
 
 /**
- * 抽奖活动
+ * rút thăm trúng thưởng
  * Class LuckLottery
  * @package app\controller\admin\v1\marketing\lottery
  */
@@ -36,7 +36,7 @@ class LuckLottery extends AuthController
     }
 
     /**
-     * 抽奖列表
+     * Danh sách xổ số
      * @return mixed
      */
     public function index()
@@ -52,7 +52,7 @@ class LuckLottery extends AuthController
     }
 
     /**
-     * 抽奖活动详情
+     * Chi tiết rút thăm may mắn
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -62,13 +62,13 @@ class LuckLottery extends AuthController
     public function detail($id)
     {
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         return app('json')->success($this->services->getLotteryInfo((int)$id));
     }
 
     /**
-     * 添加抽奖
+     * Thêm xổ số
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -98,29 +98,29 @@ class LuckLottery extends AuthController
             ['prize', []]
         ]);
         if (!$data['name']) {
-            return app('json')->fail('请添加抽奖活动名称');
+            return app('json')->fail('Vui lòng thêm tên rút thăm trúng thưởng');
         }
         if ($data['is_content'] && !$data['content']) {
-            return app('json')->fail('请添加抽奖描述等文案');
+            return app('json')->fail('Vui lòng thêm bản sao như mô tả xổ số');
         }
         [$start, $end] = $data['period'];
         unset($data['period']);
         $data['start_time'] = $start ? strtotime($start) : 0;
         $data['end_time'] = $end ? strtotime($end) + 86399 : 0;
         if ($data['start_time'] && $data['end_time'] && $data['end_time'] <= $data['start_time']) {
-            return app('json')->fail('活动结束时间必须大于开始时间');
+            return app('json')->fail('Thời gian kết thúc hoạt động phải lớn hơn thời gian bắt đầu');
         }
         if (!$data['prize']) {
-            return app('json')->fail('请添加奖品');
+            return app('json')->fail('Vui lòng thêm giải thưởng');
         }
         if (in_array($data['factor'], [1, 2]) && !$data['factor_num']) {
-            return app('json')->fail('请填写消耗数量');
+            return app('json')->fail('Vui lòng điền số lượng tiêu thụ');
         }
-        return app('json')->success($this->services->add($data) ? '保存成功' : '保存失败');
+        return app('json')->success($this->services->add($data) ? 'Đã lưu thành công' : 'Lưu không thành công');
     }
 
     /**
-     * 修改抽奖
+     * Sửa đổi xổ số
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -151,32 +151,32 @@ class LuckLottery extends AuthController
             ['prize', []]
         ]);
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         if (!$data['name']) {
-            return app('json')->fail('请添加抽奖活动名称');
+            return app('json')->fail('Vui lòng thêm tên rút thăm trúng thưởng');
         }
         [$start, $end] = $data['period'];
         unset($data['period']);
         $data['start_time'] = $start ? strtotime($start) : 0;
         $data['end_time'] = $end ? strtotime($end) + 86399 : 0;
         if ($data['start_time'] && $data['end_time'] && $data['end_time'] <= $data['start_time']) {
-            return app('json')->fail('活动结束时间必须大于开始时间');
+            return app('json')->fail('Thời gian kết thúc hoạt động phải lớn hơn thời gian bắt đầu');
         }
         if ($data['is_content'] && !$data['content']) {
-            return app('json')->fail('请添加抽奖描述等文案');
+            return app('json')->fail('Vui lòng thêm bản sao như mô tả xổ số');
         }
         if (!$data['prize']) {
-            return app('json')->fail('请添加奖品');
+            return app('json')->fail('Vui lòng thêm giải thưởng');
         }
         if (in_array($data['factor'], [1, 2]) && !$data['factor_num']) {
-            return app('json')->fail('请填写消耗数量');
+            return app('json')->fail('Vui lòng điền số lượng tiêu thụ');
         }
-        return app('json')->success($this->services->edit((int)$id, $data) ? '修改成功' : '修改失败');
+        return app('json')->success($this->services->edit((int)$id, $data) ? 'Sửa đổi thành công' : 'Sửa đổi không thành công');
     }
 
     /**
-     * 删除抽奖
+     * Xóa xổ số
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -187,13 +187,13 @@ class LuckLottery extends AuthController
         list($id) = $this->request->getMore([
             ['id', 0],
         ], true);
-        if (!$id) return app('json')->fail('数据不存在');
+        if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
         $this->services->delLottery((int)$id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 设置活动状态
+     * Đặt trạng thái hoạt động
      * @param string $id
      * @param string $status
      * @return mixed
@@ -203,9 +203,9 @@ class LuckLottery extends AuthController
      */
     public function setStatus($id = '', $status = '')
     {
-        if ($status == '' || $id == '') return app('json')->fail('参数错误');
+        if ($status == '' || $id == '') return app('json')->fail('Lỗi tham số');
         $this->services->setStatus((int)$id, (int)$status);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     public function factorList()
@@ -221,6 +221,6 @@ class LuckLottery extends AuthController
             [['evaluate', 'd'], 0],
         ]);
         $this->services->factorUse($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 }

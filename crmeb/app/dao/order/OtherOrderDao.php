@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\model\order\OtherOrder;
 
 class OtherOrderDao extends BaseDao
 {
-    /** 设置模型
+    /** Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -27,7 +27,7 @@ class OtherOrderDao extends BaseDao
     }
 
     /**
-     * 获取某个时间点一共有多少用户是付费会员状态
+     * Biết có bao nhiêu người dùng là thành viên trả phí tại một thời điểm nhất định
      * @param $time
      * @param string $channel_type
      * @return int|mixed
@@ -46,7 +46,7 @@ class OtherOrderDao extends BaseDao
     }
 
     /**
-     * 获取VIP曲线
+     * Nhận đường cong VIP
      * @param $time
      * @param $type
      * @param $timeType
@@ -67,7 +67,7 @@ class OtherOrderDao extends BaseDao
             ->group('days')->select()->toArray();
     }
 
-    /**合计某字段值
+    /**Tính tổng một giá trị trường
      * @param array $where
      * @param string $sumField
      * @return float
@@ -81,7 +81,7 @@ class OtherOrderDao extends BaseDao
             ->sum($sumField);
     }
 
-    /**根据某字段分组查询
+    /**Truy vấn nhóm dựa trên một trường nhất định
      * @param array $where
      * @param string $field
      * @param string $group
@@ -110,7 +110,7 @@ class OtherOrderDao extends BaseDao
             ->order('add_time ASC')->select()->toArray();
     }
 
-    /**根据条件获取单条信息
+    /**Nhận một phần thông tin dựa trên các điều kiện
      * @param array $where
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -123,7 +123,7 @@ class OtherOrderDao extends BaseDao
         return $this->getModel()->where($where)->find();
     }
 
-    /**收银订单
+    /**Thu ngân đặt hàng
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -143,7 +143,7 @@ class OtherOrderDao extends BaseDao
             ->page($page, $limit)->select()->toArray();
     }
 
-    /**获取会员记录
+    /**Nhận hồ sơ thành viên
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -162,12 +162,12 @@ class OtherOrderDao extends BaseDao
     }
 
     /**
-     * 其他订单搜索
+     * Tìm kiếm đơn hàng khác
      * @param array $where
      * @param bool $search
      * @return \crmeb\basic\BaseModel
      * @throws \ReflectionException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/20
      */
@@ -186,7 +186,7 @@ class OtherOrderDao extends BaseDao
      * @param bool $search
      * @return int
      * @throws \ReflectionException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/11
      */

@@ -4,26 +4,26 @@
       <div class="content">
         <img :src="copyrightImg" alt="" />
         <div class="desc">
-          <p class="tit">让客户服务如此简单</p>
-          <p class="kefu">专业客服系统<br />助力企业打造一流的服务体验</p>
+          <p class="tit">Làm cho dịch vụ khách hàng trở nên dễ dàng</p>
+          <p class="kefu">Hệ thống chăm sóc khách hàng chuyên nghiệp<br />Giúp doanh nghiệp tạo trải nghiệm dịch vụ hạng nhất</p>
         </div>
       </div>
       <div class="container" :class="[fullWidth > 768 ? 'containerSamll' : 'containerBig']">
         <div class="index_from page-account-container">
           <div :style="{ display: !loginType ? 'block' : 'none' }">
             <div class="page-account-top">
-              <div class="page-account-top-logo">客服登录</div>
+              <div class="page-account-top-logo">Đăng nhập dịch vụ khách hàng</div>
             </div>
             <el-form ref="formInline" :model="formInline" :rules="ruleInline" @keyup.enter="handleSubmit('formInline')">
               <el-form-item class="mb20" prop="username">
-                <el-input type="text" v-model="formInline.username" placeholder="请输入用户名" size="large" />
+                <el-input type="text" v-model="formInline.username" placeholder="Vui lòng nhập tên người dùng" size="large" />
               </el-form-item>
               <el-form-item class="mb20" prop="password">
-                <el-input type="password" v-model="formInline.password" placeholder="请输入密码" size="large" />
+                <el-input type="password" v-model="formInline.password" placeholder="Vui lòng nhập mật khẩu" size="large" />
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" size="large" v-db-click @click="handleSubmit('formInline')" class="btn"
-                  >登录
+                  >Đăng nhập
                 </el-button>
               </el-form-item>
             </el-form>
@@ -33,13 +33,13 @@
           </div>
           <div :style="{ display: loginType ? 'block' : 'none' }">
             <div class="page-account-top">
-              <div class="page-account-top-logo">微信扫码登录</div>
+              <div class="page-account-top-logo">WeChat quét mã để đăng nhập</div>
             </div>
             <div class="code-box">
               <div class="qrcode" ref="qrCodeUrl"></div>
               <div class="rxpired-box" v-show="rxpired">
-                <p>已过期</p>
-                <el-button type="primary" v-db-click @click="bindRefresh">点击刷新</el-button>
+                <p>Hết hạn</p>
+                <el-button type="primary" v-db-click @click="bindRefresh">Bấm để làm mới</el-button>
               </div>
             </div>
             <div class="qh_box" v-db-click @click="loginType = 0"><span class="iconfont iconzhanghaomima"></span></div>
@@ -78,21 +78,21 @@ export default {
         code: '',
       },
       ruleInline: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+        username: [{ required: true, message: 'Vui lòng nhập tên người dùng', trigger: 'blur' }],
+        password: [{ required: true, message: 'Vui lòng nhập mật khẩu', trigger: 'blur' }],
+        code: [{ required: true, message: 'Vui lòng nhập mã xác minh', trigger: 'blur' }],
       },
       errorNum: 0,
       jigsaw: null,
       login_logo: '',
       swiperList: [],
       defaultSwiperList: require('@/assets/images/sw.jpg'),
-      loginType: 0, // 0 账号 1 扫码
+      loginType: 0, // 0 Tài khoản 1 Quét mã QR
       codeKey: '',
       scanTime: '',
-      rxpired: false, // 扫码是否过期
+      rxpired: false, // Quét mã để xem nó đã hết hạn chưa
       isMobile: false,
-      version: '', //版本号
+      version: '', //số phiên bản
       isScan: false,
       timeNum: 0,
       copyright: '',
@@ -125,14 +125,14 @@ export default {
   },
   watch: {
     fullWidth(val) {
-      // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
+      // Để tránh thường xuyên kích hoạt chức năng thay đổi kích thước và khiến trang bị treo, hãy sử dụng bộ hẹn giờ.
       if (!this.timer) {
-        // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
+        // Khi giá trị screenWidth được theo dõi thay đổi, nó sẽ được gán lại cho giá trị trong dữ liệu.screenWidth
         this.screenWidth = val;
         this.timer = true;
         let that = this;
         setTimeout(function () {
-          // 打印screenWidth变化的值
+          // In giá trị đã thay đổi của screenWidth
           that.timer = false;
         }, 400);
       }
@@ -147,7 +147,7 @@ export default {
     this.captchas();
   },
   methods: {
-    // 切换扫码
+    // Chuyển mã quét
     bindScan() {
       if (!this.isScan) {
         this.isScan = true;
@@ -155,11 +155,11 @@ export default {
       }
       this.loginType = 1;
     },
-    // 生成二维码
+    // Tạo mã QR
     creatQrCode() {
       let url = `${window.location.protocol}//${window.location.host}/pages/users/scan_login/index?key=${this.codeKey}`;
       var qrcode = new QRCode(this.$refs.qrCodeUrl, {
-        text: url, // 需要转换为二维码的内容
+        text: url, // Nội dung cần chuyển đổi thành mã QR
         width: 160,
         height: 160,
         colorDark: '#000000',
@@ -167,7 +167,7 @@ export default {
         correctLevel: QRCode.CorrectLevel.H,
       });
     },
-    // 关闭模态框
+    // Đóng hộp phương thức
     closeModel() {
       AccountLogin({
         account: this.formInline.username,
@@ -176,20 +176,20 @@ export default {
       })
         .then(async (res) => {
           let expires = this.getExpiresTime(res.data.exp_time);
-          // 记录用户登录信息
+          // Ghi lại thông tin đăng nhập của người dùng
           setCookies('kefu_uuid', res.data.kefuInfo.uid, expires);
           setCookies('kefu_token', res.data.token, expires);
           setCookies('kefu_expires_time', res.data.exp_time, expires);
           setCookies('kefuInfo', res.data.kefuInfo, expires);
 
-          // 记录用户信息
+          // Ghi lại thông tin người dùng
           this.$store.commit('kefu/setInfo', res.data.kefuInfo);
 
           if (this.$store.state.media.isMobile) {
-            //手机页面
+            //Trang di động
             return this.$router.replace({ path: this.$route.query.redirect || '/kefu/mobile_list' });
           } else {
-            // pc页面
+            // pctrang
             return this.$router.replace({ path: this.$route.query.redirect || '/kefu/pc_list' });
           }
         })
@@ -197,7 +197,7 @@ export default {
           let data = res === undefined ? {} : res;
           this.errorNum++;
           this.captchas();
-          this.$message.error(data.msg || '登录失败');
+          this.$message.error(data.msg || 'Đăng nhập không thành công');
           if (this.jigsaw) this.jigsaw.reset();
         });
     },
@@ -208,7 +208,7 @@ export default {
     },
     closefail() {
       if (this.jigsaw) this.jigsaw.reset();
-      this.$message.error('校验错误');
+      this.$message.error('Kiểm tra lỗi');
     },
     handleResize(event) {
       this.fullWidth = document.documentElement.clientWidth;
@@ -223,7 +223,7 @@ export default {
         }
       });
     },
-    // 获取客服扫码key
+    // Nhận mã quét dịch vụ khách hàngkey
     getSanCodeKey() {
       getSanCodeKey()
         .then((res) => {
@@ -247,35 +247,35 @@ export default {
           this.$message.error(error.msg);
         });
     },
-    // 扫码登录情况
+    // Quét mã để đăng nhập
     getScanStatus() {
       scanStatus(this.codeKey)
         .then(async (res) => {
-          // 0 = 二维码过期需要重新获取授权凭证
+          // 0 = Nếu mã QR hết hạn, bạn cần lấy lại chứng chỉ ủy quyền.
           if (res.data.status == 0) {
             this.timeNum = 0;
             window.clearInterval(this.scanTime);
             this.rxpired = true;
           }
-          // 1=正在扫描
+          // 1=Đang quét
           if (res.data.status == 1) {
           }
-          // 3 扫描成功正在登录
+          // 3 Quét thành công và đăng nhập
           if (res.data.status == 3) {
             window.clearInterval(this.scanTime);
             let expires = this.getExpiresTime(res.data.exp_time);
-            // 记录用户登录信息
+            // Ghi lại thông tin đăng nhập của người dùng
             setCookies('kefu_uuid', res.data.kefuInfo.uid, expires);
             setCookies('kefu_token', res.data.token, expires);
             setCookies('kefu_expires_time', res.data.exp_time, expires);
             setCookies('kefuInfo', res.data.kefuInfo, expires);
-            // 记录用户信息
+            // Ghi lại thông tin người dùng
             this.$store.commit('kefu/setInfo', res.data.kefuInfo);
             if (this.$store.state.media.isMobile) {
-              //手机页面
+              //Trang di động
               return this.$router.replace({ path: this.$route.query.redirect || '/kefu/mobile_list' });
             } else {
-              // pc页面
+              // pctrang
               return this.$router.replace({ path: this.$route.query.redirect || '/kefu/pc_list' });
             }
           }
@@ -287,7 +287,7 @@ export default {
           this.rxpired = true;
         });
     },
-    // 刷新二维码
+    // Làm mới mã QR
     bindRefresh() {
       this.$refs.qrCodeUrl.innerHTML = '';
       this.rxpired = false;
@@ -541,9 +541,9 @@ a:active {
   }
   .ivu-input {
     border: 1px solid #dcdee2;
-    -webkit-appearance: none; /*去除阴影边框*/
+    -webkit-appearance: none; /*Xóa đường viền bóng*/
     outline: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*点击高亮的颜色*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*Bấm vào màu được đánh dấu*/
   }
 }
 </style>

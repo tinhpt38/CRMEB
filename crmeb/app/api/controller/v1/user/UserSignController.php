@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,7 +14,7 @@ use app\Request;
 use app\services\user\UserSignServices;
 
 /**
- * 用户签到
+ * Đăng nhập người dùng
  * Class UserController
  * @package app\api\controller\v1\user
  */
@@ -32,7 +32,7 @@ class UserSignController
     }
 
     /**
-     * 签到 配置
+     * Đăng nhập cấu hình
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -45,7 +45,7 @@ class UserSignController
     }
 
     /**
-     * 签到 列表
+     * Danh sách đăng ký
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -64,7 +64,7 @@ class UserSignController
     }
 
     /**
-     * 签到
+     * Đăng nhập
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -74,15 +74,15 @@ class UserSignController
     public function sign_integral(Request $request)
     {
         if (sys_config('sign_status') == 0) {
-            return app('json')->fail('签到功能未开启');
+            return app('json')->fail('Chức năng đăng nhập chưa được kích hoạt');
         }
         $uid = (int)$request->uid();
         $integral = $this->services->sign($uid);
-        return app('json')->success('签到获得{:integral}积分', ['integral' => $integral], ['integral' => $integral]);
+        return app('json')->success('Đăng nhập để nhận{:integral}tích phân', ['integral' => $integral], ['integral' => $integral]);
     }
 
     /**
-     * 签到用户信息
+     * Đăng nhập thông tin người dùng
      * @param Request $request
      * @return mixed
      */
@@ -98,7 +98,7 @@ class UserSignController
     }
 
     /**
-     * 签到列表（年月）
+     * Danh sách đăng nhập (năm, tháng)）
      * @param Request $request
      * @return mixed
      */
@@ -109,11 +109,11 @@ class UserSignController
     }
 
     /**
-     * 用户设置签到提醒
+     * Người dùng đặt lời nhắc đăng ký
      * @param Request $request
      * @param $status
      * @return \think\Response
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/9
      */
@@ -121,7 +121,7 @@ class UserSignController
     {
         $uid = (int)$request->uid();
         $this->services->setSignRemind($uid, $status);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
 }

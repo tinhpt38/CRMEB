@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace crmeb\services\pay\extend\allinpay;
 /**
  *
  * Class AllinPay
- * @author 等风来
+ * @author Chờ gió tới
  * @email 136327134@qq.com
  * @date 2022/12/27
  * @package crmeb\services\pay\extend\allinpay
@@ -22,21 +22,21 @@ namespace crmeb\services\pay\extend\allinpay;
 class AllinPay extends Client
 {
 
-    //统一支付接口
+    //Giao diện thanh toán thống nhất
     const UNITODER_PAY_API = 'unitorder/pay';
 
-    //统一扫码接口
+    //Giao diện quét mã thống nhất
     const UNITORDER_SCANQRPAY = 'unitorder/scanqrpay';
 
-    //退款
+    //Đền bù
     const UNITODER_TRANX_REFUND = 'tranx/refund';
 
-    //订单查询
+    //Yêu cầu đặt hàng
     const  UNITODER_TRANX_QUERY = 'tranx/query';
 
     const  UNITODER_QPAY_AGREEAPPLY = 'qpay/agreeapply';
 
-    //微信公众号内支付请求地址
+    //Địa chỉ yêu cầu thanh toán trong tài khoản chính thức của WeChat
     const UNITODER_H5UNIONPAY = 'https://vsp.allinpay.com/apiweb/h5unionpay/unionorder';
 
     /**
@@ -45,7 +45,7 @@ class AllinPay extends Client
     protected $api = '';
 
     /**
-     * 支付类型
+     * Hình thức thanh toán
      * @var string
      */
     protected $payType = '';
@@ -66,7 +66,7 @@ class AllinPay extends Client
     protected $validtime = 720;
 
     /**
-     * 创建支付订单
+     * Tạo lệnh thanh toán
      * @param string $trxamt
      * @param string $orderId
      * @param string $body
@@ -132,7 +132,7 @@ class AllinPay extends Client
     }
 
     /**
-     * 微信H5支付
+     * Thanh toán WeChat H5
      * @param string $trxamt
      * @param string $orderId
      * @param string $body
@@ -147,7 +147,7 @@ class AllinPay extends Client
     }
 
     /**
-     * 微信js支付
+     * Thanh toán Wechat js
      * @param string $trxamt
      * @param string $orderId
      * @param string $body
@@ -164,14 +164,14 @@ class AllinPay extends Client
     }
 
     /**
-     * app支付 微信和支付宝
+     * appThanh toán WeChat và Alipay
      * @param string $trxamt
      * @param string $orderId
      * @param string $body
      * @param bool $isWechat
      * @param string $remark
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/14
      */
@@ -184,12 +184,12 @@ class AllinPay extends Client
     }
 
     /**
-     * PC 收银台支付
+     * PC Thanh toán tại quầy thu ngân
      * @param string $trxamt
      * @param string $orderId
      * @param string $body
      * @return mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/15
      */
@@ -215,7 +215,7 @@ class AllinPay extends Client
      * @param string $returl
      * @param string $remark
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/15
      */
@@ -270,10 +270,10 @@ class AllinPay extends Client
 
 
     /**
-     * 查询订单
+     * Thứ tự truy vấn
      * @param string $reqsn
      * @return array|mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/15
      */
@@ -287,11 +287,11 @@ class AllinPay extends Client
     }
 
     /**
-     * 发起退款
+     * Bắt đầu hoàn lại tiền
      * @param string $trxamt
      * @param string $reqsn
      * @return array|mixed
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/15
      */
@@ -309,10 +309,10 @@ class AllinPay extends Client
     }
 
     /**
-     * 异步回调
+     * Gọi lại không đồng bộ
      * @param callable $callback
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/15
      */
@@ -323,19 +323,19 @@ class AllinPay extends Client
             $params[$key] = $val;
         }
 
-        $this->debugLog('通联支付回调数据' . json_encode($params));
+        $this->debugLog('Dữ liệu gọi lại thanh toán Tonglian' . json_encode($params));
 
         if (count($params) < 1) {
-            //如果参数为空,则不进行处理
+            //nếu tham số trống,sẽ không được xử lý
             return "error";
         }
 
         $res = $this->validSign($params);
 
-        $this->debugLog('通联支付回调验证：' . json_encode(['res' => $res]));
+        $this->debugLog('Xác minh gọi lại thanh toán Tonglian：' . json_encode(['res' => $res]));
 
         if ($res && isset($params['trxstatus']) && $params['trxstatus'] === '0000') {
-            //验签成功
+            //Xác minh chữ ký thành công
             return $callback($params) ? 'success' : 'error';
         } else {
             return "error";

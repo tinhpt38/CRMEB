@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -38,25 +38,25 @@ class SystemTicketServices extends BaseServices
     {
         $info = $this->dao->get($id) ?? [];
         if ($info) $info = $info->toArray();
-        $field[] = Form::input('print_name', '打印机名称', $info['print_name'] ?? '')->required('请输入打印机名称')->placeholder('打印机名称');
-        $field[] = Form::radio('type', '平台选择', $info['type'] ?? 1)
-            ->options([['label' => '易联云', 'value' => 1], ['label' => '飞鹅云', 'value' => 2]])
+        $field[] = Form::input('print_name', 'Tên máy in', $info['print_name'] ?? '')->required('Vui lòng nhập tên máy in')->placeholder('Tên máy in');
+        $field[] = Form::radio('type', 'Lựa chọn nền tảng', $info['type'] ?? 1)
+            ->options([['label' => 'Yilianyun', 'value' => 1], ['label' => 'Đám mây ngỗng bay', 'value' => 2]])
             ->appendControl(1, [
-                    Form::input('yly_user_id', '用户ID：', $info['yly_user_id'] ?? '')->required('请输入用户ID')->placeholder('易联云开发者ID'),
-                    Form::input('yly_app_id', '应用ID：', $info['yly_app_id'] ?? '')->required('请输入应用ID')->placeholder('易联应用ID'),
-                    Form::input('yly_app_secret', '应用密钥：', $info['yly_app_secret'] ?? '')->required('请输入应用密钥')->placeholder('易联应用密钥'),
-                    Form::input('yly_sn', '终端号：', $info['yly_sn'] ?? '')->required('请输入终端号')->placeholder('易联云打印机终端号，打印机型号：易联云打印机 K4无线版'),
+                    Form::input('yly_user_id', 'người dùngID：', $info['yly_user_id'] ?? '')->required('Vui lòng nhập người dùngID')->placeholder('Nhà phát triển đám mây YilianID'),
+                    Form::input('yly_app_id', 'ứng dụngID：', $info['yly_app_id'] ?? '')->required('Vui lòng nhập đơn đăng kýID')->placeholder('Ứng dụng YilianID'),
+                    Form::input('yly_app_secret', 'phím ứng dụng：', $info['yly_app_secret'] ?? '')->required('Vui lòng nhập mã ứng dụng')->placeholder('Khóa ứng dụng Yilian'),
+                    Form::input('yly_sn', 'số thiết bị đầu cuối：', $info['yly_sn'] ?? '')->required('Vui lòng nhập số thiết bị đầu cuối')->placeholder('Số thiết bị đầu cuối máy in Yilianyun, model máy in: Máy in Yilianyun K4 phiên bản không dây'),
                 ]
             )->appendControl(2, [
-                    Form::input('fey_user', '飞鹅云USER：', $info['fey_user'] ?? '')->required('请输入飞鹅云USER')->placeholder('飞鹅云后台注册账号'),
-                    Form::input('fey_ukey', '飞鹅云UYEK：', $info['fey_ukey'] ?? '')->required('请输入飞鹅云UYEK')->placeholder('飞鹅云后台注册账号后生成的UKEY 【备注：这不是填打印机的KEY】'),
-                    Form::input('fey_sn', '飞鹅云SN：', $info['fey_sn'] ?? '')->required('请输入飞鹅云SN')->placeholder('打印机标签上的编号，必须要在管理后台里添加打印机或调用API接口'),
+                    Form::input('fey_user', 'Đám mây ngỗng bayUSER：', $info['fey_user'] ?? '')->required('Vui lòng nhập Fei'eyunUSER')->placeholder('Đăng ký tài khoản trong phần phụ trợ của Fei'e Cloud'),
+                    Form::input('fey_ukey', 'Đám mây ngỗng bayUYEK：', $info['fey_ukey'] ?? '')->required('Vui lòng nhập Fei'eyunUYEK')->placeholder('UKEY được tạo sau khi đăng ký tài khoản trong phần phụ trợ của Fei'e Cloud [Lưu ý: Phần này không được điền cho máy inKEY】'),
+                    Form::input('fey_sn', 'Đám mây ngỗng baySN：', $info['fey_sn'] ?? '')->required('Vui lòng nhập Fei'eyunSN')->placeholder('Đối với số trên nhãn máy in, bạn phải thêm máy in vào nền quản lý hoặc gọi giao diện API.'),
                 ]
             );
-        $field[] = Form::number('times', '打印联数', $info['times'] ?? 1)->min(1)->required('请输入打印联数')->placeholder('打印机单次打印张数');
-        $field[] = Form::radio('print_type', '打印时机', $info['print_type'] ?? 1)->options([['label' => '支付后打印', 'value' => 1], ['label' => '下单后打印', 'value' => 2]]);
-        $field[] = Form::radio('status', '打印开关', $info['status'] ?? 1)->options([['label' => '开启', 'value' => 1], ['label' => '关闭', 'value' => 0]]);
-        return create_form('小票打印', $field, $this->url('/system/ticket/save/' . $id), 'POST');
+        $field[] = Form::number('times', 'In số lượng câu đối', $info['times'] ?? 1)->min(1)->required('Vui lòng nhập số in')->placeholder('Số tờ được máy in in cùng một lúc');
+        $field[] = Form::radio('print_type', 'Thời gian in', $info['print_type'] ?? 1)->options([['label' => 'In sau khi thanh toán', 'value' => 1], ['label' => 'In sau khi đặt hàng', 'value' => 2]]);
+        $field[] = Form::radio('status', 'Công tắc in', $info['status'] ?? 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        return create_form('In biên lai', $field, $this->url('/system/ticket/save/' . $id), 'POST');
     }
 
     public function ticketSave($id, $data)
@@ -100,7 +100,7 @@ class SystemTicketServices extends BaseServices
         $where = $print_type === true ? ['status' => 1] : ['status' => 1, 'print_type' => $print_type];
         $list = $this->dao->ticketList($where);
         foreach ($list as $item) {
-            if ($item['type'] == 1) { //易联云
+            if ($item['type'] == 1) { //Yilianyun
                 $name = 'yi_lian_yun';
                 $configData = [
                     'partner' => $item['yly_user_id'],
@@ -109,9 +109,9 @@ class SystemTicketServices extends BaseServices
                     'terminal' => $item['yly_sn']
                 ];
                 $print_content = json_decode($item['print_content'], true);
-                if (is_null($print_content) || !count($print_content)) throw new AdminException('请先配置打印内容');
+                if (is_null($print_content) || !count($print_content)) throw new AdminException('Vui lòng định cấu hình nội dung in trước');
                 $content = $this->ylyContent($print_content, $order, $product, $item['times'], $print_type);
-            } else { //飞鹅云
+            } else { //Đám mây ngỗng bay
                 $name = 'fei_e_yun';
                 $configData = [
                     'feyUser' => $item['fey_user'],
@@ -119,7 +119,7 @@ class SystemTicketServices extends BaseServices
                     'feySn' => $item['fey_sn']
                 ];
                 $print_content = json_decode($item['print_content'], true);
-                if (is_null($print_content) || !count($print_content)) throw new AdminException('请先配置打印内容');
+                if (is_null($print_content) || !count($print_content)) throw new AdminException('Vui lòng định cấu hình nội dung in trước');
                 $content = $this->feyContent($print_content, $order, $product, $print_type);
             }
             $printer = new Printer($name, $configData);
@@ -129,7 +129,7 @@ class SystemTicketServices extends BaseServices
 
     public function ylyContent($printContent, $orderInfo, $product, $times, $print_type)
     {
-        $goodsStr = '<table><tr><td>名称</td><td>单价</td><td>数量</td><td>金额</td></tr>';
+        $goodsStr = '<table><tr><td>tên</td><td>đơn giá</td><td>Số lượng</td><td>Số lượng</td></tr>';
         foreach ($product as $item) {
             $goodsStr .= '<tr><td><FH2><FW2>----------------</FW2></FH2></td></tr>';
             $goodsStr .= '<tr>';
@@ -140,7 +140,7 @@ class SystemTicketServices extends BaseServices
             $goodsStr .= '</tr>';
             if (in_array(1, $printContent['goods'])) {
                 $goodsStr .= '<tr>';
-                $goodsStr .= "<td>规格编码：{$item['productInfo']['attrInfo']['bar_code']}</td>";
+                $goodsStr .= "<td>Mã đặc điểm kỹ thuật：{$item['productInfo']['attrInfo']['bar_code']}</td>";
                 $goodsStr .= '</tr>';
             }
             unset($price, $num, $prices);
@@ -159,36 +159,36 @@ class SystemTicketServices extends BaseServices
         }
         if ($printContent['delivery']) {
             if ($orderInfo['shipping_type'] == 1) {
-                $content .= '配送方式：商家配送 \r';
+                $content .= 'Phương thức giao hàng: Giao hàng cho người bán \r';
             } else {
-                $content .= '配送方式：门店自提 \r';
+                $content .= 'Hình thức giao hàng: Nhận hàng tại cửa hàng \r';
             }
-            $content .= '客户姓名: ' . $orderInfo['real_name'] . ' \r';
-            $content .= '客户电话: ' . $orderInfo['user_phone'] . ' \r';
-            if ($orderInfo['shipping_type'] == 1) $content .= '收货地址: ' . $orderInfo['user_address'] . ' \r';
+            $content .= 'Tên khách hàng: ' . $orderInfo['real_name'] . ' \r';
+            $content .= 'Số điện thoại của khách hàng: ' . $orderInfo['user_phone'] . ' \r';
+            if ($orderInfo['shipping_type'] == 1) $content .= 'Địa chỉ giao hàng: ' . $orderInfo['user_address'] . ' \r';
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
         }
         if ($printContent['buyer_remarks']) {
-            $content .= '买家备注: ' . $orderInfo['mark'] . ' \r';
+            $content .= 'Ghi chú của người mua: ' . $orderInfo['mark'] . ' \r';
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
         }
         if (in_array(0, $printContent['goods'])) {
-            $content .= '*************商品***************';
+            $content .= '*************hàng hóa***************';
             $content .= '      \r';
             $content .= $goodsStr;
             $content .= '********************************\r';
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
-            $content .= '<RA>合计：' . $total_price . '元</RA>';
+            $content .= '<RA>tổng cộng：' . $total_price . 'Nhân dân tệ</RA>';
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
         }
         if ($printContent['preferential'] || $printContent['freight']) {
             if ($printContent['freight']) {
-                $content .= '<RA>邮费：' . $orderInfo['pay_postage'] . '元</RA>';
+                $content .= '<RA>Bưu phí：' . $orderInfo['pay_postage'] . 'Nhân dân tệ</RA>';
             }
             if ($printContent['preferential']) {
                 $discount_price = bcsub(bcadd($orderInfo['total_price'], $orderInfo['pay_postage'], 2), bcadd($orderInfo['deduction_price'], $orderInfo['pay_price'], 2), 2);
-                $content .= '<RA>优惠：-' . $discount_price . '元</RA>';
-                $content .= '<RA>抵扣：-' . $orderInfo['deduction_price'] . '元</RA>';
+                $content .= '<RA>giảm giá：-' . $discount_price . 'Nhân dân tệ</RA>';
+                $content .= '<RA>Khấu trừ：-' . $orderInfo['deduction_price'] . 'Nhân dân tệ</RA>';
             }
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
         }
@@ -196,42 +196,42 @@ class SystemTicketServices extends BaseServices
             if ($print_type == 1) {
                 switch ($orderInfo['pay_type']) {
                     case 'weixin':
-                        $content .= '<RA>支付方式：微信支付</RA>';
+                        $content .= '<RA>Phương thức thanh toán: WeChat Pay</RA>';
                         break;
                     case 'alipay':
-                        $content .= '<RA>支付方式：支付宝支付</RA>';
+                        $content .= '<RA>Phương thức thanh toán: Thanh toán Alipay</RA>';
                         break;
                     case 'yue':
-                        $content .= '<RA>支付方式：余额支付</RA>';
+                        $content .= '<RA>Phương thức thanh toán: thanh toán số dư</RA>';
                         break;
                     case 'offline':
-                        $content .= '<RA>支付方式：线下支付</RA>';
+                        $content .= '<RA>Phương thức thanh toán: thanh toán ngoại tuyến</RA>';
                         break;
                     default:
-                        $content .= '<RA>支付方式：暂无</RA>';
+                        $content .= '<RA>Phương thức thanh toán: Chưa có</RA>';
                         break;
                 }
             } else {
-                $content .= '<RA>支付方式：暂无</RA>';
+                $content .= '<RA>Phương thức thanh toán: Chưa có</RA>';
             }
         }
         if (in_array(1, $printContent['pay'])) {
-            $content .= '<RA>实际支付：' . $orderInfo['pay_price'] . '元</RA>';
+            $content .= '<RA>thanh toán thực tế：' . $orderInfo['pay_price'] . 'Nhân dân tệ</RA>';
         }
         if (count($printContent['pay'])) {
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
         }
         if (in_array(0, $printContent['order'])) {
-            $content .= '订单编号：' . $orderInfo['order_id'] . '\r';
+            $content .= 'số thứ tự：' . $orderInfo['order_id'] . '\r';
         }
         if (in_array(1, $printContent['order'])) {
-            $content .= '下单时间：' . $addTime . '\r';
+            $content .= 'thời gian đặt hàng：' . $addTime . '\r';
         }
         if (in_array(2, $printContent['order'])) {
-            $content .= '支付时间：' . $payTime . '\r';
+            $content .= 'thời gian thanh toán：' . $payTime . '\r';
         }
         if (in_array(3, $printContent['order'])) {
-            $content .= '打印时间：' . $printTime . '\r';
+            $content .= 'Thời gian in：' . $printTime . '\r';
         }
         if (count($printContent['order'])) {
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
@@ -259,24 +259,24 @@ class SystemTicketServices extends BaseServices
         }
         if ($printContent['delivery']) {
             if ($orderInfo['shipping_type'] == 1) {
-                $content .= '配送方式：商家配送<BR>';
+                $content .= 'Phương thức giao hàng: Giao hàng cho người bán<BR>';
             } else {
-                $content .= '配送方式：门店自提<BR>';
+                $content .= 'Hình thức giao hàng: Nhận hàng tại cửa hàng<BR>';
             }
-            $content .= '客户姓名: ' . $orderInfo['real_name'] . '<BR>';
-            $content .= '客户电话: ' . $orderInfo['user_phone'] . '<BR>';
-            if ($orderInfo['shipping_type'] == 1) $content .= '收货地址：' . $orderInfo['user_address'] . '<BR>';
+            $content .= 'Tên khách hàng: ' . $orderInfo['real_name'] . '<BR>';
+            $content .= 'Số điện thoại của khách hàng: ' . $orderInfo['user_phone'] . '<BR>';
+            if ($orderInfo['shipping_type'] == 1) $content .= 'Địa chỉ giao hàng：' . $orderInfo['user_address'] . '<BR>';
             $content .= '--------------------------------<BR>';
         }
         if ($printContent['buyer_remarks']) {
-            $content .= '买家备注：' . $orderInfo['mark'] . '<BR>';
+            $content .= 'Ghi chú của người mua：' . $orderInfo['mark'] . '<BR>';
             $content .= '--------------------------------<BR>';
         }
         if (in_array(0, $printContent['goods'])) {
             $content .= '<BR>';
-            $content .= '**************商品**************<BR>';
+            $content .= '**************hàng hóa**************<BR>';
             $content .= '<BR>';
-            $content .= '名称           单价  数量 金额<BR>';
+            $content .= 'Tên Đơn vị Giá Số lượng Số lượng<BR>';
             foreach ($product as $item) {
                 $content .= '--------------------------------<BR>';
                 $name = $item['productInfo']['store_name'] . " | " . $item['productInfo']['attrInfo']['suk'];
@@ -288,7 +288,7 @@ class SystemTicketServices extends BaseServices
                 $kw2 = '';
                 $kw4 = '';
                 $str = $name;
-                $blankNum = 14;//名称控制为14个字节
+                $blankNum = 14;//Kiểm soát tên là 14 byte
                 $lan = mb_strlen($str, 'utf-8');
                 $m = 0;
                 $j = 1;
@@ -358,7 +358,7 @@ class SystemTicketServices extends BaseServices
                 }
                 $content .= $head . $tail;
                 if (in_array(1, $printContent['goods'])) {
-                    $content .= '规格编码：' . $item['productInfo']['attrInfo']['bar_code'] . '<BR>';
+                    $content .= 'Mã đặc điểm kỹ thuật：' . $item['productInfo']['attrInfo']['bar_code'] . '<BR>';
                 }
                 unset($price);
             }
@@ -367,17 +367,17 @@ class SystemTicketServices extends BaseServices
             $content .= '<BR>';
             $content .= '--------------------------------<BR>';
             $total_price = bcadd($orderInfo['total_price'], $orderInfo['pay_postage'], 2);
-            $content .= '<RIGHT>合计：' . number_format($total_price, 2) . '元</RIGHT>';
+            $content .= '<RIGHT>tổng cộng：' . number_format($total_price, 2) . 'Nhân dân tệ</RIGHT>';
             $content .= '--------------------------------<BR>';
         }
         if ($printContent['preferential'] || $printContent['freight']) {
             if ($printContent['freight']) {
-                $content .= '<RIGHT>邮费：' . number_format($orderInfo['pay_postage'], 2) . '元</RIGHT><BR>';
+                $content .= '<RIGHT>Bưu phí：' . number_format($orderInfo['pay_postage'], 2) . 'Nhân dân tệ</RIGHT><BR>';
             }
             if ($printContent['preferential']) {
                 $discount_price = bcsub(bcadd($orderInfo['total_price'], $orderInfo['pay_postage'], 2), bcadd($orderInfo['deduction_price'], $orderInfo['pay_price'], 2), 2);
-                $content .= '<RIGHT>优惠：-' . number_format($discount_price, 2) . '元</RIGHT><BR>';
-                $content .= '<RIGHT>抵扣：-' . number_format($orderInfo['deduction_price'], 2) . '元</RIGHT>';
+                $content .= '<RIGHT>giảm giá：-' . number_format($discount_price, 2) . 'Nhân dân tệ</RIGHT><BR>';
+                $content .= '<RIGHT>Khấu trừ：-' . number_format($orderInfo['deduction_price'], 2) . 'Nhân dân tệ</RIGHT>';
             }
             $content .= '--------------------------------<BR>';
         }
@@ -385,42 +385,42 @@ class SystemTicketServices extends BaseServices
             if ($print_type == 1) {
                 switch ($orderInfo['pay_type']) {
                     case 'weixin':
-                        $content .= '<RIGHT>支付方式：微信支付</RIGHT><BR>';
+                        $content .= '<RIGHT>Phương thức thanh toán: WeChat Pay</RIGHT><BR>';
                         break;
                     case 'alipay':
-                        $content .= '<RIGHT>支付方式：支付宝支付</RIGHT><BR>';
+                        $content .= '<RIGHT>Phương thức thanh toán: Thanh toán Alipay</RIGHT><BR>';
                         break;
                     case 'yue':
-                        $content .= '<RIGHT>支付方式：余额支付</RIGHT><BR>';
+                        $content .= '<RIGHT>Phương thức thanh toán: thanh toán số dư</RIGHT><BR>';
                         break;
                     case 'offline':
-                        $content .= '<RIGHT>支付方式：线下支付</RIGHT><BR>';
+                        $content .= '<RIGHT>Phương thức thanh toán: thanh toán ngoại tuyến</RIGHT><BR>';
                         break;
                     default:
-                        $content .= '<RIGHT>支付方式：暂无</RIGHT><BR>';
+                        $content .= '<RIGHT>Phương thức thanh toán: Chưa có</RIGHT><BR>';
                         break;
                 }
             } else {
-                $content .= '<RIGHT>支付方式：暂无</RIGHT><BR>';
+                $content .= '<RIGHT>Phương thức thanh toán: Chưa có</RIGHT><BR>';
             }
         }
         if (in_array(1, $printContent['pay'])) {
-            $content .= '<RIGHT>实际支付：' . number_format($orderInfo['pay_price'], 2) . '元</RIGHT>';
+            $content .= '<RIGHT>thanh toán thực tế：' . number_format($orderInfo['pay_price'], 2) . 'Nhân dân tệ</RIGHT>';
         }
         if (count($printContent['pay'])) {
             $content .= '--------------------------------<BR>';
         }
         if (in_array(0, $printContent['order'])) {
-            $content .= '订单编号：' . $orderInfo['order_id'] . '<BR>';
+            $content .= 'số thứ tự：' . $orderInfo['order_id'] . '<BR>';
         }
         if (in_array(1, $printContent['order'])) {
-            $content .= '下单时间: ' . $addTime . '<BR>';
+            $content .= 'thời gian đặt hàng: ' . $addTime . '<BR>';
         }
         if (in_array(2, $printContent['order'])) {
-            $content .= '付款时间: ' . $payTime . '<BR>';
+            $content .= 'thời gian thanh toán: ' . $payTime . '<BR>';
         }
         if (in_array(3, $printContent['order'])) {
-            $content .= '打印时间: ' . $printTime . '<BR>';
+            $content .= 'Thời gian in: ' . $printTime . '<BR>';
         }
         if (count($printContent['order'])) {
             $content .= '--------------------------------<BR>';

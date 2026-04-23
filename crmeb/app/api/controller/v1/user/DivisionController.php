@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -35,7 +35,7 @@ class DivisionController
     }
 
     /**
-     * 申请代理商
+     * Đăng ký làm đại lý
      * @param Request $request
      * @param $id
      * @return mixed
@@ -52,14 +52,14 @@ class DivisionController
             ['images', []]
         ]);
         $verifyCode = CacheService::get('code_' . $data['phone']);
-        if ($verifyCode != $data['code']) return app('json')->fail('验证码错误');
-        if ($data['division_invite'] == 0) return app('json')->fail('请填写邀请码');
+        if ($verifyCode != $data['code']) return app('json')->fail('Lỗi mã xác minh');
+        if ($data['division_invite'] == 0) return app('json')->fail('Vui lòng điền mã mời');
         $this->services->applyAgent($data, $id);
-        return app('json')->success('提交成功');
+        return app('json')->success('Gửi thành công');
     }
 
     /**
-     * 申请详情
+     * Chi tiết ứng dụng
      * @param Request $request
      * @return mixed
      * @throws DataNotFoundException
@@ -74,7 +74,7 @@ class DivisionController
     }
 
     /**
-     * 移动端获取规则
+     * Quy tắc truy cập di động
      * @param AgreementServices $agreementServices
      * @return mixed
      * @throws DataNotFoundException
@@ -88,7 +88,7 @@ class DivisionController
     }
 
     /**
-     * 员工列表
+     * danh sách nhân viên
      * @param Request $request
      * @return mixed
      * @throws DataNotFoundException
@@ -106,7 +106,7 @@ class DivisionController
     }
 
     /**
-     * 设置员工比例
+     * Đặt tỷ lệ nhân viên
      * @param Request $request
      * @return mixed
      */
@@ -117,39 +117,39 @@ class DivisionController
             ['uid', 0],
         ], true);
         $agentId = $request->uid();
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         $upPercent = $userService->value(['uid' => $agentId], 'division_percent');
-        if ($agentPercent >= $upPercent) return app('json')->fail('比例不能大于您的比例');
+        if ($agentPercent >= $upPercent) return app('json')->fail('Tỷ lệ không thể lớn hơn tỷ lệ của bạn');
         $userService->update(['uid' => $uid, 'agent_id' => $agentId], ['division_percent' => $agentPercent]);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 删除员工
+     * Xóa nhân viên
      * @param Request $request
      * @param $uid
      * @return mixed
      */
     public function delStaff(Request $request, $uid)
     {
-        if (!$uid) return app('json')->fail('参数错误');
+        if (!$uid) return app('json')->fail('Lỗi tham số');
         $agentId = $request->uid();
         /** @var UserServices $userService */
         $userService = app()->make(UserServices::class);
         $userService->update(['uid' => $uid, 'agent_id' => $agentId], ['division_percent' => 0, 'agent_id' => 0, 'division_id' => 0, 'staff_id' => 0, 'division_type' => 0, 'is_staff' => 0]);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 绑定员工方法
+     * Phương thức ràng buộc nhân viên
      * @param Request $request
      * @return \think\Response
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/2/2
      */
@@ -163,7 +163,7 @@ class DivisionController
         if ($res) {
             return app('json')->success($res);
         } else {
-            return app('json')->fail('无操作');
+            return app('json')->fail('Không có hành động');
         }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\services\FormBuilder as Form;
 use think\facade\Route as Url;
 
 /**
- * @author: 吴汐
+ * @author: thủy triều
  * @email: 442384644@qq.com
  * @date: 2023/7/28
  */
@@ -32,14 +32,14 @@ class SystemSignRewardServices extends BaseServices
     }
 
     /**
-     * 签到奖励列表
+     * Danh sách phần thưởng đăng nhập
      * @param int $type
      * @return array
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
      */
@@ -52,7 +52,7 @@ class SystemSignRewardServices extends BaseServices
     }
 
     /**
-     * 新增修改签到奖励表单
+     * Đã thêm và sửa đổi hình thức phần thưởng đăng nhập
      * @param int $id
      * @param int $type
      * @return array
@@ -60,7 +60,7 @@ class SystemSignRewardServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
      */
@@ -69,19 +69,19 @@ class SystemSignRewardServices extends BaseServices
         $info = $this->dao->get($id);
         if ($info) $type = $info['type'];
         $form[] = Form::hidden('type', $type);
-        $form[] = Form::number('days', $type == 1 ? '累积签到天数' : '连续签到天数', (int)($info['days'] ?? 0))->max(sys_config('sign_mode') == 1 ? 7 : 30);
-        $form[] = Form::number('point', '赠送积分', (int)($info['point'] ?? 0))->controls(false)->max(999)->min(0);
-        $form[] = Form::number('exp', '赠送经验', (int)($info['exp'] ?? 0))->controls(false)->max(999)->min(0);
-        return create_form($type == 1 ? '累积签到奖励' : '连续签到奖励', $form, Url::buildUrl('/marketing/sign/save_rewards/' . $id), 'POST');
+        $form[] = Form::number('days', $type == 1 ? 'Số ngày nhận phòng tích lũy' : 'Số ngày nhận phòng liên tiếp', (int)($info['days'] ?? 0))->max(sys_config('sign_mode') == 1 ? 7 : 30);
+        $form[] = Form::number('point', 'Tặng điểm', (int)($info['point'] ?? 0))->controls(false)->max(999)->min(0);
+        $form[] = Form::number('exp', 'Trải nghiệm quà tặng', (int)($info['exp'] ?? 0))->controls(false)->max(999)->min(0);
+        return create_form($type == 1 ? 'Phần thưởng đăng nhập tích lũy' : 'Phần thưởng đăng nhập liên tục', $form, Url::buildUrl('/marketing/sign/save_rewards/' . $id), 'POST');
     }
 
     /**
-     * 保存签到奖励
+     * Lưu phần thưởng đăng nhập
      * @param $id
      * @param $data
      * @return bool
      * @throws \ReflectionException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/10
      */
@@ -91,7 +91,7 @@ class SystemSignRewardServices extends BaseServices
             $this->dao->update($id, $data);
         } else {
             if ($this->dao->count(['type' => $data['type'], 'days' => $data['days']])) {
-                throw new AdminException('签到奖励已存在');
+                throw new AdminException('Phần thưởng đăng nhập đã tồn tại');
             } else {
                 $this->dao->save($data);
             }
@@ -100,14 +100,14 @@ class SystemSignRewardServices extends BaseServices
     }
 
     /**
-     * 获取累积或者连续签到奖励数据
+     * Nhận dữ liệu phần thưởng đăng nhập tích lũy hoặc liên tục
      * @param $type
      * @param $days
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author: 吴汐
+     * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/1
      */

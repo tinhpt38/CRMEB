@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * 购物车Model
+ * giỏ hàngModel
  * Class StoreCart
  * @package app\model\order
  */
@@ -26,25 +26,25 @@ class StoreCart extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_cart';
 
     /**
-     * 自动添加字段
+     * Tự động thêm trường
      * @var string[]
      */
     protected $insert = ['add_time'];
 
     /**
-     * 添加时间修改器
+     * Thêm công cụ sửa đổi thời gian
      * @return int
      */
     protected function setAddTimeAttr()
@@ -53,8 +53,8 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 一对一关联
-     * 购物车关联商品商品详情
+     * hiệp hội một-một
+     *Chi tiết sản phẩm các sản phẩm liên kết với giỏ hàng
      * @return \think\model\relation\HasOne
      */
     public function productInfo()
@@ -63,8 +63,8 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 一对一关联
-     * 购物车关联商品商品规格
+     * hiệp hội một-một
+     * Thông số sản phẩm sản phẩm liên quan đến giỏ hàng
      * @return \think\model\relation\HasOne
      */
     public function attrInfo()
@@ -74,7 +74,7 @@ class StoreCart extends BaseModel
 
 
     /**
-     * 类型搜索器
+     * Nhập trình tìm kiếm
      * @param Model $query
      * @param $value
      * @param $data
@@ -85,7 +85,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 是否支付
+     * Có nên trả tiền không
      * @param Model $query
      * @param $value
      * @param $data
@@ -96,7 +96,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 是否删除
+     * Có nên xóa không
      * @param Model $query
      * @param $value
      * @param $data
@@ -107,7 +107,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 是否立即支付
+     * Có nên thanh toán ngay không
      * @param Model $query
      * @param $value
      * @param $data
@@ -118,7 +118,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 查询用户购物车
+     * Truy vấn giỏ hàng của người dùng
      * @param Model $query
      * @param $value
      * @param $data
@@ -129,7 +129,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 商品ID搜索器
+     * Trình tìm kiếm ID sản phẩm
      * @param Model $query
      * @param $value
      * @param $data
@@ -144,7 +144,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 商品规格唯一值搜索器
+     * Trình tìm kiếm giá trị duy nhất của đặc điểm kỹ thuật sản phẩm
      * @param Model $query
      * @param $value
      * @param $data
@@ -155,7 +155,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 拼团ID搜索器
+     * Trình tìm kiếm ID nhóm
      * @param Model $query
      * @param $value
      * @param $data
@@ -166,7 +166,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 砍价ID搜索器
+     * Công cụ tìm ID mặc cả
      * @param Model $query
      * @param $value
      * @param $data
@@ -177,7 +177,7 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 秒杀ID搜索器
+     * Trình tìm kiếm ID Flash
      * @param Model $query
      * @param $value
      * @param $data
@@ -188,8 +188,8 @@ class StoreCart extends BaseModel
     }
 
     /**
-     * 一对多关联
-     * 商品关联优惠卷模板id
+     * liên kết một-nhiều
+     * Mẫu phiếu giảm giá liên quan đến sản phẩmid
      * @return \think\model\relation\HasMany
      */
     public function product()

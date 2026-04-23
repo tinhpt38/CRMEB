@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,14 +16,14 @@ use app\dao\BaseDao;
 use app\model\system\store\SystemStore;
 
 /**
- * 门店dao
+ * cửa hàngdao
  * Class SystemStoreDao
  * @package app\dao\system\store
  */
 class SystemStoreDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -32,7 +32,7 @@ class SystemStoreDao extends BaseDao
     }
 
     /**
-     * 经纬度排序计算
+     * Tính toán sắp xếp vĩ độ và kinh độ
      * @param string $latitude
      * @param string $longitude
      * @return string
@@ -43,7 +43,7 @@ class SystemStoreDao extends BaseDao
     }
 
     /**
-     * 获取
+     * lấy
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -64,7 +64,7 @@ class SystemStoreDao extends BaseDao
     }
 
     /**
-     * 获取门店不分页
+     * Nhận cửa hàng mà không cần phân trang
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException

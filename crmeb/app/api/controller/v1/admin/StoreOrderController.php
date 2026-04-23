@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,7 +26,7 @@ use app\services\user\UserServices;
 use app\services\shipping\ExpressServices;
 
 /**
- * 订单类
+ * Loại lệnh
  * Class StoreOrderController
  * @package app\api\controller\admin\order
  */
@@ -48,7 +48,7 @@ class StoreOrderController
 
 
     /**
-     * 订单 查看物流
+     * Đặt hàng Xem hậu cần
      * @param StoreOrderCartInfoServices $services
      * @param ExpressServices $expressServices
      * @param $uni
@@ -85,10 +85,10 @@ class StoreOrderController
             $orderInfo['delivery_code'] = '';
         } else {
             if (!$uni || !($order = $orderServices->getUserOrderDetail($uni, 0, []))) {
-                return app('json')->fail('订单不存在');
+                return app('json')->fail('Đơn hàng không tồn tại');
             }
             if ($type != 'refund' && ($order['delivery_type'] != 'express' || !$order['delivery_id'])) {
-                return app('json')->fail('快递单号不存在');
+                return app('json')->fail('Số theo dõi chuyển phát nhanh không tồn tại');
             }
             $express = $type == 'refund' ? $order['refund_express'] : $order['delivery_id'];
             $cacheName = $uni . $express;
@@ -108,7 +108,7 @@ class StoreOrderController
                 unset($cart);
             }
             $orderInfo['delivery_id'] = $express;
-            $orderInfo['delivery_name'] = $type == 'refund' ? '用户退回' : $order['delivery_name'];;
+            $orderInfo['delivery_name'] = $type == 'refund' ? 'Người dùng trả lại' : $order['delivery_name'];;
             $orderInfo['delivery_code'] = $type == 'refund' ? '' : $order['delivery_code'];
             $orderInfo['delivery_type'] = $order['delivery_type'];
             $orderInfo['user_address'] = $order['user_address'];
@@ -125,7 +125,7 @@ class StoreOrderController
     }
 
     /**
-     * 订单数据统计
+     * Thống kê dữ liệu đơn hàng
      * @param StoreOrderServices $services
      * @return mixed
      */
@@ -138,7 +138,7 @@ class StoreOrderController
     }
 
     /**
-     * 订单每月统计数据
+     * Thống kê đặt hàng hàng tháng
      * @param Request $request
      * @return mixed
      */
@@ -152,7 +152,7 @@ class StoreOrderController
     }
 
     /**
-     * 订单列表
+     * danh sách đặt hàng
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -179,7 +179,7 @@ class StoreOrderController
     }
 
     /**
-     * 订单详情
+     * Chi tiết đặt hàng
      * @param Request $request
      * @param StoreOrderServices $services
      * @param UserServices $userServices
@@ -198,7 +198,7 @@ class StoreOrderController
     }
 
     /**
-     * 订单发货获取订单信息
+     * Giao hàngNhận thông tin đơn hàng
      * @param UserServices $userServices
      * @param $orderId
      * @return mixed
@@ -206,18 +206,18 @@ class StoreOrderController
     public function delivery_gain(UserServices $userServices, $orderId)
     {
         $order = $this->service->getOne(['order_id' => $orderId], 'real_name,user_phone,user_address,order_id,uid,status,paid,id');
-        if (!$order) return app('json')->fail('订单不存在');
+        if (!$order) return app('json')->fail('Đơn hàng không tồn tại');
         if ($order['paid']) {
             $order['nickname'] = $userServices->value(['uid' => $order['uid']], 'nickname');
             $order['config_export_open'] = (bool)((int)sys_config('config_export_open'));
             $order = $order->hidden(['uid', 'status', 'paid'])->toArray();
             return app('json')->success($order);
         }
-        return app('json')->fail('获取失败');
+        return app('json')->fail('Không thể lấy được');
     }
 
     /**
-     * 订单发货
+     * Đơn hàng đã được vận chuyển
      * @param Request $request
      * @param StoreOrderDeliveryServices $services
      * @param $id
@@ -227,22 +227,22 @@ class StoreOrderController
     {
         $data = $request->postMore([
             ['type', 1],
-            ['delivery_name', ''],//快递公司id
-            ['delivery_id', ''],//快递单号
-            ['delivery_code', ''],//快递公司编码
-            ['delivery_type', ''],//快递公司名称
+            ['delivery_name', ''],//công ty chuyển phát nhanhid
+            ['delivery_id', ''],//Số theo dõi nhanh
+            ['delivery_code', ''],//Mã công ty chuyển phát nhanh
+            ['delivery_type', ''],//Tên công ty chuyển phát nhanh
 
-            ['express_record_type', 2],//发货记录类型
-            ['express_temp_id', ""],//电子面单模板
-            ['to_name', ''],//寄件人姓名
-            ['to_tel', ''],//寄件人电话
-            ['to_addr', ''],//寄件人地址
+            ['express_record_type', 2],//Loại hồ sơ vận chuyển
+            ['express_temp_id', ""],//Mẫu biểu mẫu điện tử
+            ['to_name', ''],//Tên người gửi
+            ['to_tel', ''],//Số điện thoại của người gửi
+            ['to_addr', ''],//Địa chỉ người gửi
 
-            ['sh_delivery_name', ''],//送货人姓名
-            ['sh_delivery_id', ''],//送货人电话
-            ['sh_delivery_uid', ''],//送货人ID
+            ['sh_delivery_name', ''],//Tên người giao hàng
+            ['sh_delivery_id', ''],//Số điện thoại người giao hàng
+            ['sh_delivery_uid', ''],//người giao hàngID
 
-            ['fictitious_content', ''],//虚拟发货内容
+            ['fictitious_content', ''],//Nội dung phân phối ảo
             ['pickup_time', []]
         ]);
         if ($data['delivery_type']) {
@@ -250,11 +250,11 @@ class StoreOrderController
             unset($data['delivery_type']);
         }
         $services->delivery((int)$id, $data);
-        return app('json')->success('发货成功');
+        return app('json')->success('Lô hàng thành công');
     }
 
     /**
-     * 订单改价
+     * Thay đổi giá đặt hàng
      * @param Request $request
      * @param StoreOrderServices $services
      * @return mixed
@@ -267,19 +267,19 @@ class StoreOrderController
             ['price', '']
         ], true);
         $order = $this->service->getOne(['order_id' => $order_id], 'id,user_phone,id,paid,pay_price,order_id,total_price,total_postage,pay_postage,gain_integral');
-        if (!$order) return app('json')->fail('订单不存在');
+        if (!$order) return app('json')->fail('Đơn hàng không tồn tại');
         if ($order['paid']) {
-            return app('json')->fail('订单已支付');
+            return app('json')->fail('Đơn hàng đã thanh toán');
         }
-        if ($price === '') return app('json')->fail('请填写实际支付金额');
-        if ($price < 0) return app('json')->fail('实际支付金额不能小于0元');
-        if ($order['pay_price'] == $price) return app('json')->success('修改成功', ['order_id' => $order_id]);
+        if ($price === '') return app('json')->fail('Vui lòng điền số tiền thanh toán thực tế');
+        if ($price < 0) return app('json')->fail('Số tiền thanh toán thực tế không được nhỏ hơn 0 nhân dân tệ');
+        if ($order['pay_price'] == $price) return app('json')->success('Sửa đổi thành công', ['order_id' => $order_id]);
         $order_id = $services->updateOrder($order['id'], ['total_price' => $order['total_price'], 'pay_price' => $price]);
-        return app('json')->success('修改成功', ['order_id' => $order_id]);
+        return app('json')->success('Sửa đổi thành công', ['order_id' => $order_id]);
     }
 
     /**
-     * 订单备注
+     * Ghi chú đặt hàng
      * @param Request $request
      * @return mixed
      */
@@ -290,16 +290,16 @@ class StoreOrderController
             ['remark', '']
         ], true);
         $order = $this->service->getOne(['order_id' => $order_id], 'id,remark');
-        if (!$order) return app('json')->fail('订单不存在');
-        if (!strlen(trim($remark))) return app('json')->fail('请填写备注内容');
+        if (!$order) return app('json')->fail('Đơn hàng không tồn tại');
+        if (!strlen(trim($remark))) return app('json')->fail('Hãy điền nhận xét');
         $order->remark = $remark;
         if (!$order->save())
-            return app('json')->fail('备注失败');
-        return app('json')->success('备注成功');
+            return app('json')->fail('Nhận xét không thành công');
+        return app('json')->success('Bình luận thành công');
     }
 
     /**
-     * 订单交易额/订单数量时间统计
+     * Thống kê khối lượng giao dịch/số lượng đặt hàng theo thời gian
      * @param Request $request
      * @return bool
      */
@@ -317,8 +317,8 @@ class StoreOrderController
             $stop = $start;
             $start = $middle;
         }
-        $space = bcsub($stop, $start, 0);//间隔时间段
-        $front = bcsub($start, $space, 0) - 1;//第一个时间段
+        $space = bcsub($stop, $start, 0);//Khoảng thời gian ngắt quãng
+        $front = bcsub($start, $space, 0) - 1;//khoảng thời gian đầu tiên
         /** @var StoreOrderServices $orderService */
         $orderService = app()->make(StoreOrderServices::class);
         $order_where = [
@@ -329,38 +329,38 @@ class StoreOrderController
             'is_system_del' => 0
         ];
 
-        if ($type == 1) {//销售额
+        if ($type == 1) {//việc bán hàng
             $frontPrice = $orderService->sum($order_where + ['time' => [$front, $start - 1]], 'pay_price', true);
             $afterPrice = $orderService->sum($order_where + ['time' => [$start, $stop]], 'pay_price', true);
             $chartInfo = $orderService->chartTimePrice($start, $stop);
-            $data['chart'] = $chartInfo;//营业额图表数据
-            $data['time'] = $afterPrice;//时间区间营业额
-            $increase = (float)bcsub((string)$afterPrice, (string)$frontPrice, 2); //同比上个时间区间增长营业额
+            $data['chart'] = $chartInfo;//Dữ liệu biểu đồ bán hàng
+            $data['time'] = $afterPrice;//Doanh thu khoảng thời gian
+            $increase = (float)bcsub((string)$afterPrice, (string)$frontPrice, 2); //Doanh thu tăng so với cùng kỳ năm trước
             $growthRate = abs($increase);
             if ($growthRate == 0) $data['growth_rate'] = 0;
             else if ($frontPrice == 0) $data['growth_rate'] = (int)bcmul($growthRate, 100, 0);
-            else $data['growth_rate'] = (int)bcmul((string)bcdiv((string)$growthRate, (string)$frontPrice, 2), '100', 0);//时间区间增长率
-            $data['increase_time'] = abs($increase); //同比上个时间区间增长营业额
-            $data['increase_time_status'] = $increase >= 0 ? 1 : 2; //同比上个时间区间增长营业额增长 1 减少 2
-        } else {//订单数
+            else $data['growth_rate'] = (int)bcmul((string)bcdiv((string)$growthRate, (string)$frontPrice, 2), '100', 0);//tốc độ tăng trưởng khoảng thời gian
+            $data['increase_time'] = abs($increase); //Doanh thu tăng so với cùng kỳ năm trước
+            $data['increase_time_status'] = $increase >= 0 ? 1 : 2; //Tăng trưởng so với cùng kỳ thời gian trước, doanh thu tăng trưởng 1 giảm 2
+        } else {//Số lượng đơn đặt hàng
             $frontNumber = $orderService->count($order_where + ['time' => [$front, $start - 1]]);
             $afterNumber = $orderService->count($order_where + ['time' => [$start, $stop]]);
             $chartInfo = $orderService->chartTimeNumber($start, $stop);
-            $data['chart'] = $chartInfo;//订单数图表数据
-            $data['time'] = $afterNumber;//时间区间订单数
-            $increase = $afterNumber - $frontNumber; //同比上个时间区间增长订单数
+            $data['chart'] = $chartInfo;//Dữ liệu biểu đồ số thứ tự
+            $data['time'] = $afterNumber;//Số lượng đơn đặt hàng trong khoảng thời gian
+            $increase = $afterNumber - $frontNumber; //Số lượng đơn hàng tăng so với khoảng thời gian trước đó
             $growthRate = abs($increase);
             if ($growthRate == 0) $data['growth_rate'] = 0;
             else if ($frontNumber == 0) $data['growth_rate'] = (int)bcmul($growthRate, 100, 0);
-            else $data['growth_rate'] = (int)bcmul((string)bcdiv((string)$growthRate, (string)$frontNumber, 2), '100', 0);//时间区间增长率
-            $data['increase_time'] = abs($increase); //同比上个时间区间增长营业额
-            $data['increase_time_status'] = $increase >= 0 ? 1 : 2; //同比上个时间区间增长营业额增长 1 减少 2
+            else $data['growth_rate'] = (int)bcmul((string)bcdiv((string)$growthRate, (string)$frontNumber, 2), '100', 0);//tốc độ tăng trưởng khoảng thời gian
+            $data['increase_time'] = abs($increase); //Doanh thu tăng so với cùng kỳ năm trước
+            $data['increase_time_status'] = $increase >= 0 ? 1 : 2; //Tăng trưởng so với cùng kỳ thời gian trước, doanh thu tăng trưởng 1 giảm 2
         }
         return app('json')->success($data);
     }
 
     /**
-     * 订单支付
+     * Thanh toán đơn hàng
      * @param Request $request
      * @param OrderOfflineServices $services
      * @return mixed
@@ -369,15 +369,15 @@ class StoreOrderController
     {
         [$orderId] = $request->postMore([['order_id', '']], true);
         $orderInfo = $this->service->getOne(['order_id' => $orderId], 'id');
-        if (!$orderInfo) return app('json')->fail('参数错误');
+        if (!$orderInfo) return app('json')->fail('Lỗi tham số');
         $id = $orderInfo->id;
         $services->orderOffline((int)$id);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
 
     }
 
     /**
-     * 订单退款
+     * Hoàn tiền đơn hàng
      * @param Request $request
      * @param StoreOrderRefundServices $services
      * @param StoreOrderServices $orderServices
@@ -395,31 +395,31 @@ class StoreOrderController
             ['price', '0'],
             ['type', 1],
         ], true);
-        if (!strlen(trim($orderId))) return app('json')->fail('参数错误');
-        //退款订单详情
+        if (!strlen(trim($orderId))) return app('json')->fail('Lỗi tham số');
+        //Chi tiết đơn hàng hoàn tiền
         $orderRefund = $services->getOne(['order_id' => $orderId]);
         $is_admin = 0;
         if (!$orderRefund) {
-            //主动退款主订单详情
+            //Chi tiết đơn hàng chính hoàn tiền đang hoạt động
             $orderRefund = $orderServices->getOne(['order_id' => $orderId]);
             $is_admin = 1;
             if ($services->count(['store_order_id' => $orderRefund['id'], 'refund_type' => [0, 1, 2, 4, 5], 'is_cancel' => 0, 'is_del' => 0])) {
-                return app('json')->fail('请先处理售后申请');
+                return app('json')->fail('Vui lòng xử lý đơn đăng ký sau bán hàng trước');
             }
         }
         if (!$is_admin) {
             if (!$orderRefund) {
-                return app('json')->fail('数据不存在');
+                return app('json')->fail('Dữ liệu không tồn tại');
             }
             if ($orderRefund['is_cancel'] == 1) {
-                return app('json')->fail('用户已取消申请');
+                return app('json')->fail('Người dùng đã hủy ứng dụng');
             }
             $orderInfo = $this->service->get((int)$orderRefund['store_order_id']);
             if (!$orderInfo) {
-                return app('json')->fail('数据不存在');
+                return app('json')->fail('Dữ liệu không tồn tại');
             }
             if (!in_array($orderRefund['refund_type'], [1, 2, 5])) {
-                return app('json')->fail('售后订单状态不支持该操作');
+                return app('json')->fail('Trạng thái đơn hàng sau bán hàng không hỗ trợ thao tác này');
             }
 
             if ($type == 1) {
@@ -427,35 +427,35 @@ class StoreOrderController
             } else if ($type == 2) {
                 $data['refund_type'] = 3;
             } else {
-                return app('json')->fail('退款修改状态错误');
+                return app('json')->fail('Lỗi trạng thái sửa đổi hoàn tiền');
             }
             $data['refunded_time'] = time();
-            //拒绝退款
+            //Từ chối hoàn tiền
             if ($type == 2) {
                 $services->refuseRefund((int)$orderRefund['id'], $data, $orderRefund);
-                return app('json')->success('修改退款状态成功');
+                return app('json')->success('Sửa đổi trạng thái hoàn tiền thành công');
             } else {
-                if ($orderRefund['refund_price'] == $orderInfo['refunded_price']) return app('json')->fail('已退完支付金额，不能再退款了');
+                if ($orderRefund['refund_price'] == $orderInfo['refunded_price']) return app('json')->fail('Số tiền thanh toán đã được hoàn lại và không thể hoàn lại được nữa.');
                 if (!$price) {
-                    return app('json')->fail('请输入退款金额');
+                    return app('json')->fail('Vui lòng nhập số tiền hoàn lại');
                 }
                 $data['refunded_price'] = bcadd($price, $orderRefund['refunded_price'], 2);
                 $bj = bccomp((float)$orderRefund['refund_price'], (float)$data['refunded_price'], 2);
                 if ($bj < 0) {
-                    return app('json')->fail('退款金额大于支付金额，请修改退款金额');
+                    return app('json')->fail('Số tiền hoàn lại lớn hơn số tiền thanh toán, vui lòng sửa đổi số tiền hoàn trả');
                 }
                 $refundData['pay_price'] = $orderInfo['pay_price'];
                 $refundData['refund_price'] = $price;
                 $refundData['order_id'] = $orderId;
 
 
-                //修改订单退款状态
+                //Sửa đổi trạng thái hoàn tiền đơn hàng
                 if ($services->agreeRefund((int)$orderRefund['id'], $refundData)) {
                     $services->update((int)$orderRefund['id'], $data);
-                    return app('json')->success('退款成功');
+                    return app('json')->success('Hoàn tiền thành công');
                 } else {
                     $services->storeProductOrderRefundYFasle((int)$orderInfo['id'], $price);
-                    return app('json')->fail('退款失败');
+                    return app('json')->fail('Hoàn tiền không thành công');
                 }
             }
         } else {
@@ -463,21 +463,21 @@ class StoreOrderController
             $data['refund_price'] = $price;
             $data['type'] = $type;
             $id = $order['id'];
-            //0元退款
+            //0hoàn lại tiền nhân dân tệ
             if ($order['pay_price'] == 0 && in_array($order['refund_status'], [0, 1])) {
                 $refund_price = 0;
             } else {
                 if ($order['pay_price'] == $order['refund_price']) {
-                    return app('json')->fail('已退完支付金额，不能再退款了');
+                    return app('json')->fail('Số tiền thanh toán đã được hoàn lại và không thể hoàn lại được nữa.');
                 }
                 if (!$data['refund_price']) {
-                    return app('json')->fail('请输入退款金额');
+                    return app('json')->fail('Vui lòng nhập số tiền hoàn lại');
                 }
                 $refund_price = $data['refund_price'];
                 $data['refund_price'] = bcadd($data['refund_price'], $order['refund_price'], 2);
                 $bj = bccomp((string)$order['pay_price'], (string)$data['refund_price'], 2);
                 if ($bj < 0) {
-                    return app('json')->fail('退款金额大于支付金额，请修改退款金额');
+                    return app('json')->fail('Số tiền hoàn lại lớn hơn số tiền thanh toán, vui lòng sửa đổi số tiền hoàn trả');
                 }
             }
             if ($data['type'] == 1) {
@@ -488,18 +488,18 @@ class StoreOrderController
                 $data['refund_type'] = 3;
             }
             $type = $data['type'];
-            //拒绝退款
+            //Từ chối hoàn tiền
             if ($type == 2) {
                 $this->service->update((int)$order['id'], ['refund_status' => 0, 'refund_type' => 3]);
-                return app('json')->success('修改退款状态成功');
+                return app('json')->success('Sửa đổi trạng thái hoàn tiền thành công');
             } else {
                 unset($data['type']);
                 $refund_data['pay_price'] = $order['pay_price'];
                 $refund_data['refund_price'] = $refund_price;
 
-                //主动退款清楚原本退款单
+                //Chủ động hoàn tiền và làm rõ mẫu hoàn tiền ban đầu
                 $services->delete(['store_order_id' => $id]);
-                //生成退款订单
+                //Tạo lệnh hoàn tiền
                 $refundOrderData['uid'] = $order['uid'];
                 $refundOrderData['store_id'] = $order['store_id'];
                 $refundOrderData['store_order_id'] = $id;
@@ -507,7 +507,7 @@ class StoreOrderController
                 $refundOrderData['refund_type'] = $data['refund_type'];
                 $refundOrderData['refund_price'] = $order['pay_price'];
                 $refundOrderData['refunded_price'] = $refund_price;
-                $refundOrderData['refunded_reason'] = '管理员手动退款';
+                $refundOrderData['refunded_reason'] = 'Hoàn tiền thủ công cho quản trị viên';
                 $refundOrderData['order_id'] = $storeOrderCreateServices->getNewOrderId('');
                 $refundOrderData['refunded_time'] = time();
                 $refundOrderData['add_time'] = time();
@@ -519,13 +519,13 @@ class StoreOrderController
                 $res = $services->save($refundOrderData);
                 $refund_data['order_id'] = $refundOrderData['order_id'];
 
-                //修改订单退款状态
+                //Sửa đổi trạng thái hoàn tiền đơn hàng
                 if ($services->agreeRefund((int)$res->id, $refund_data)) {
                     $this->service->update($id, $data);
-                    return app('json')->success('退款成功');
+                    return app('json')->success('Hoàn tiền thành công');
                 } else {
                     $services->storeProductOrderRefundYFasle((int)$id, $refund_price);
-                    return app('json')->fail('退款失败');
+                    return app('json')->fail('Hoàn tiền không thành công');
                 }
             }
         }
@@ -533,7 +533,7 @@ class StoreOrderController
     }
 
     /**
-     * 门店核销
+     * Xóa sổ cửa hàng
      * @param Request $request
      * @param StoreOrderWriteOffServices $services
      * @return mixed
@@ -548,17 +548,17 @@ class StoreOrderController
             ['is_confirm', 0],
             ['auth', 0],
         ], true);
-        if (!$verifyCode) return app('json')->fail('请输入核销码或者扫描核销二维码');
+        if (!$verifyCode) return app('json')->fail('Vui lòng nhập mã xóa sổ hoặc quét mã QR xóa sổ');
         $uid = $request->uid();
         $orderInfo = $services->writeOffOrder($verifyCode, (int)$isConfirm, $uid, $auth);
         if ($isConfirm == 0) {
             return app('json')->success($orderInfo);
         }
-        return app('json')->success('核销成功');
+        return app('json')->success('Xóa sổ thành công');
     }
 
     /**
-     * 获取所有配送员列表
+     * Nhận danh sách tất cả các nhà chuyển phát nhanh
      * @param DeliveryServiceServices $services
      * @return mixed
      */
@@ -569,7 +569,7 @@ class StoreOrderController
     }
 
     /**
-     * 获取配置信息
+     * Nhận thông tin cấu hình
      * @return mixed
      */
     public function getDeliveryInfo()
@@ -584,7 +584,7 @@ class StoreOrderController
     }
 
     /**
-     * 获取面单信息
+     * Nhận thông tin thứ tự khuôn mặt
      * @param Request $request
      * @param ServeServices $services
      * @return mixed
@@ -598,7 +598,7 @@ class StoreOrderController
     }
 
     /**
-     * 物流公司
+     * Công ty hậu cần
      * @param ExpressServices $services
      * @return mixed
      */
@@ -608,7 +608,7 @@ class StoreOrderController
     }
 
     /**
-     * 移动端订单管理退款列表
+     * Danh sách hoàn tiền quản lý đơn hàng di động
      * @param Request $request
      * @param StoreOrderRefundServices $services
      * @return mixed
@@ -628,7 +628,7 @@ class StoreOrderController
     }
 
     /**
-     * 订单详情
+     * Chi tiết đặt hàng
      * @param StoreOrderRefundServices $services
      * @param $uni
      * @return mixed
@@ -640,7 +640,7 @@ class StoreOrderController
     }
 
     /**
-     * 退款备注
+     * Nhận xét hoàn tiền
      * @param StoreOrderRefundServices $services
      * @param Request $request
      * @return mixed
@@ -652,22 +652,22 @@ class StoreOrderController
             ['order_id', ''],
         ], true);
         if (!$remark)
-            return app('json')->fail('请填写备注内容');
+            return app('json')->fail('Hãy điền nhận xét');
         if (!$order_id)
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
 
         if (!$order = $services->get(['order_id' => $order_id])) {
-            return app('json')->fail('订单不存在');
+            return app('json')->fail('Đơn hàng không tồn tại');
         }
         $order->remark = $remark;
         if ($order->save()) {
-            return app('json')->success('备注成功');
+            return app('json')->success('Bình luận thành công');
         } else
-            return app('json')->fail('备注失败');
+            return app('json')->fail('Nhận xét không thành công');
     }
 
     /**
-     * 同意退货
+     * Đồng ý quay lại
      * @param StoreOrderRefundServices $services
      * @param Request $request
      * @return mixed
@@ -678,6 +678,6 @@ class StoreOrderController
             ['id', ''],
         ], true);
         $services->agreeExpress($id);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 }

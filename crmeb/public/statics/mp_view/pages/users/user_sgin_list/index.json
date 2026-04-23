@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "签到记录",
+  "navigationBarTitleText": "Bản ghi đăng nhập",
   "usingComponents": {
     "empty-page": "/components/emptyPage",
     "authorize": "/components/Authorize"

@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 import request from '@/libs/request';
 
 /**
- * @description 列表
- * @param {Object} param data {Object} 传值参数
+ * @description danh sách
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function adminListApi(data) {
   return request({
@@ -23,7 +23,7 @@ export function adminListApi(data) {
 }
 
 /**
- * @description 管理员添加表单
+ * @description Quản trị viên thêm biểu mẫu
  */
 export function adminFromApi() {
   return request({
@@ -33,8 +33,8 @@ export function adminFromApi() {
 }
 
 /**
- * @description 管理员编辑表单
- * @param {Number} param id {Number} 管理员id
+ * @description Quản trị viên chỉnh sửa biểu mẫu
+ * @param {Number} param id {Number} quản trị viênid
  */
 export function adminEditFromApi(id) {
   return request({
@@ -44,8 +44,8 @@ export function adminEditFromApi(id) {
 }
 
 /**
- * @description 管理员删除
- * @param {Number} param id {Number} 管理员id
+ * @description Quản trị viên xóa
+ * @param {Number} param id {Number} quản trị viênid
  */
 export function adminDelFromApi(id) {
   return request({
@@ -55,8 +55,8 @@ export function adminDelFromApi(id) {
 }
 
 /**
- * @description 管理员 修改状态
- * @param {Object} param data {Object} 传值
+ * @description Quản trị viên sửa đổi trạng thái
+ * @param {Object} param data {Object} Giá trị vượt qua
  */
 export function setShowApi(data) {
   return request({

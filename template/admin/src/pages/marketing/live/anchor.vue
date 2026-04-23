@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-row>
         <el-col v-bind="grid">
-          <el-button v-auth="['admin-user-label_add']" type="primary" v-db-click @click="add">添加主播</el-button>
+          <el-button v-auth="['admin-user-label_add']" type="primary" v-db-click @click="add">Thêm mỏ neo</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -12,34 +12,34 @@
         class="mt14"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="名称" min-width="300">
+        <el-table-column label="tên" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="电话" min-width="300">
+        <el-table-column label="Điện thoại" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="微信号" min-width="300">
+        <el-table-column label="ID WeChat" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.wechat }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column label="vận hành" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">修改</a>
+            <a v-db-click @click="edit(scope.row.id)">Ôn lại</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除主播', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa mỏ neo', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -93,15 +93,15 @@ export default {
     this.getList();
   },
   methods: {
-    // 添加
+    // Thêm vào
     add() {
       this.$modalForm(liveAuchorAdd(0)).then(() => this.getList());
     },
-    // 修改
+    // Ôn lại
     edit(id) {
       this.$modalForm(liveAuchorAdd(id)).then(() => this.getList());
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -125,7 +125,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 分组列表
+    // danh sách được nhóm
     getList() {
       this.loading = true;
       liveAuchorList(this.labelFrom)

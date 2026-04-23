@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -44,7 +44,7 @@ class OutPushListener implements ListenerInterface
     }
 
     /**
-     * 获取推送token
+     * Nhận lực đẩytoken
      * @param array $info
      * @return false|mixed
      */
@@ -56,7 +56,7 @@ class OutPushListener implements ListenerInterface
             $res = HttpService::postRequest($info['push_token_url'], $param, ['Content-Type:application/json', 'Content-Length:' . strlen($param)]);
             $res = $res ? json_decode($res, true) : [];
             if (!$res || !isset($res['code']) || $res['code'] != 0) {
-                Log::error(['msg' => $info['title'] . '，获取token失败']);
+                Log::error(['msg' => $info['title'] . '，Không thể lấy được mã thông báo']);
                 return false;
             }
             CacheService::set('pushToken' . $info['id'], $res['token'], $res['time']);

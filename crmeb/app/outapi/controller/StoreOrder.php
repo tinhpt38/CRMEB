@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\services\CacheService;
 use think\facade\App;
 
 /**
- * 订单管理
+ * Quản lý đơn hàng
  * Class StoreOrder
  * @package app\outapi\controller
  */
@@ -35,7 +35,7 @@ class StoreOrder extends AuthController
     }
 
     /**
-     * 获取订单列表
+     * Nhận danh sách đặt hàng
      * @return mixed
      */
     public function lst()
@@ -57,7 +57,7 @@ class StoreOrder extends AuthController
     }
 
     /**
-     * 快递公司列表
+     * Danh sách công ty chuyển phát nhanh
      * @return mixed
      */
     public function express(ExpressServices $services)
@@ -74,56 +74,56 @@ class StoreOrder extends AuthController
     }
 
     /**
-     * 订单发货
-     * @param string $order_id 订单号
+     * Đơn hàng đã được vận chuyển
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function delivery(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
-            ['delivery_name', ''],//快递公司名称
-            ['delivery_id', ''],//快递单号
-            ['delivery_code', ''],//快递公司编码
+            ['delivery_name', ''],//Tên công ty chuyển phát nhanh
+            ['delivery_id', ''],//Số theo dõi nhanh
+            ['delivery_code', ''],//Mã công ty chuyển phát nhanh
         ]);
         $data['express_record_type'] = 1;
         $data['type'] = 1;
-        return app('json')->success('操作成功', $this->services->delivery($order_id, $data));
+        return app('json')->success('Hoạt động thành công', $this->services->delivery($order_id, $data));
     }
 
     /**
-     * 获取订单可拆分发货商品列表
-     * @param string $order_id 订单号
+     * Lấy danh sách các mặt hàng có thể được vận chuyển riêng cho một đơn hàng
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function splitCartInfo(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->getCartList($order_id));
     }
 
     /**
-     * 订单拆单发送货
-     * @param string $order_id 订单号
+     * Chia đơn hàng và gửi hàng
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function splitDelivery(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
-            ['delivery_name', ''],//快递公司名称
-            ['delivery_id', ''],//快递单号
-            ['delivery_code', ''],//快递公司编码
-            ['fictitious_content', ''],//虚拟发货内容
+            ['delivery_name', ''],//Tên công ty chuyển phát nhanh
+            ['delivery_id', ''],//Số theo dõi nhanh
+            ['delivery_code', ''],//Mã công ty chuyển phát nhanh
+            ['fictitious_content', ''],//Nội dung phân phối ảo
             ['cart_ids', []]
         ]);
 
         if (!$data['cart_ids']) {
-            return app('json')->fail('请选择发货商品');
+            return app('json')->fail('Vui lòng chọn sản phẩm cần vận chuyển');
         }
         foreach ($data['cart_ids'] as &$cart) {
             if (!isset($cart['cart_id']) || !$cart['cart_id'] || !isset($cart['cart_num']) || !$cart['cart_num']) {
-                return app('json')->fail('请重新选择发货商品或发货件数');
+                return app('json')->fail('Vui lòng chọn lại sản phẩm hoặc số lượng lô hàng');
             }
             $cart['cart_id'] = (int)$cart['cart_id'];
             $cart['cart_num'] = (int)$cart['cart_num'];
@@ -132,30 +132,30 @@ class StoreOrder extends AuthController
         $data['type'] = 1;
 
         $this->services->splitDelivery($order_id, $data);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 确认收货
-     * @param string $order_id 订单号
+     * xác nhận đã nhận hàng
+     * @param string $order_id Số đơn hàng
      * @return mixed
      * @throws \Exception
      */
     public function receive(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $this->services->receive($order_id);
-        return app('json')->success('收货成功');
+        return app('json')->success('Đã nhận hàng thành công');
     }
 
     /**
-     * 设置发票信息
-     * @param string $order_id 订单号
+     * Thiết lập thông tin hóa đơn
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function setInvoice(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
             [['header_type', 'd'], 1],
             [['type', 'd'], 1],
@@ -169,43 +169,43 @@ class StoreOrder extends AuthController
             ['card_number', ''],
         ]);
 
-        if (!$data['drawer_phone']) return app('json')->fail('请填写开票手机号');
-        if (!check_phone($data['drawer_phone'])) return app('json')->fail('手机号格式不正确');
-        if (!$data['name']) return app('json')->fail('请填写发票抬头（开具发票企业名称）');
+        if (!$data['drawer_phone']) return app('json')->fail('Vui lòng điền số điện thoại di động lập hóa đơn');
+        if (!check_phone($data['drawer_phone'])) return app('json')->fail('Định dạng số điện thoại di động không chính xác');
+        if (!$data['name']) return app('json')->fail('Vui lòng điền tiêu đề hóa đơn (tên công ty phát hành hóa đơn)）');
         if (!in_array($data['header_type'], [1, 2])) {
             $data['header_type'] = empty($data['duty_number']) ? 1 : 2;
         }
         if ($data['header_type'] == 1 && !preg_match('/^[\x80-\xff]{2,60}$/', $data['name'])) {
-            return app('json')->fail('请填写正确的发票抬头（开具发票企业名称）');
+            return app('json')->fail('Vui lòng điền đúng tiêu đề hóa đơn (tên công ty phát hành hóa đơn)）');
         }
         if ($data['header_type'] == 2 && !preg_match('/^[0-9a-zA-Z&\(\)\（\）\x80-\xff]{2,150}$/', $data['name'])) {
-            return app('json')->fail('请填写正确的发票抬头（开具发票企业名称）');
+            return app('json')->fail('Vui lòng điền đúng tiêu đề hóa đơn (tên công ty phát hành hóa đơn)）');
         }
         if ($data['header_type'] == 2 && !$data['duty_number']) {
-            return app('json')->fail('请填写发票税号');
+            return app('json')->fail('Vui lòng điền mã số thuế trên hóa đơn');
         }
         if ($data['header_type'] == 2 && !preg_match('/^[A-Z0-9]{15}$|^[A-Z0-9]{17}$|^[A-Z0-9]{18}$|^[A-Z0-9]{20}$/', $data['duty_number'])) {
-            return app('json')->fail('请填写正确的发票税号');
+            return app('json')->fail('Vui lòng điền đúng mã số thuế trên hóa đơn');
         }
         if ($data['card_number'] && !preg_match('/^[1-9]\d{11,19}$/', $data['card_number'])) {
-            return app('json')->fail('请填写正确的银行卡号');
+            return app('json')->fail('Vui lòng điền đúng số thẻ ngân hàng');
         }
 
         if ($this->services->setInvoice($order_id, $data)) {
-            return app('json')->success('修改成功');
+            return app('json')->success('Sửa đổi thành công');
         } else {
-            return app('json')->fail('操作失败');
+            return app('json')->fail('Thao tác không thành công');
         }
     }
 
     /**
-     * 设置发票状态
-     * @param string $order_id 订单号
+     * Đặt trạng thái hóa đơn
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function setInvoiceStatus(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
             ['is_invoice', 0],
             ['invoice_number', 0],
@@ -213,56 +213,56 @@ class StoreOrder extends AuthController
         ]);
 
         if ($data['is_invoice'] == 1 && !$data['invoice_number']) {
-            return app('json')->fail('请填写开票号');
+            return app('json')->fail('Vui lòng điền số hóa đơn');
         }
 
         $this->services->setInvoice($order_id, $data);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 订单详情
-     * @param string $order_id 订单号
+     * Chi tiết đặt hàng
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function read(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->getInfo($order_id));
     }
 
     /**
-     * 修改备注
-     * @param string $order_id 订单号
+     * Sửa đổi nhận xét
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function remark(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([['remark', '']]);
-        if (!$data['remark']) return app('json')->fail('备注不能为空');
+        if (!$data['remark']) return app('json')->fail('Chú thích không được để trống');
 
         if (!$order = $this->services->get(['order_id' => $order_id])) {
-            return app('json')->fail('订单不存在');
+            return app('json')->fail('Đơn hàng không tồn tại');
         }
         $order->remark = $data['remark'];
         if ($order->save()) {
-            return app('json')->success('备注成功');
+            return app('json')->success('Bình luận thành công');
         } else
-            return app('json')->fail('备注失败');
+            return app('json')->fail('Nhận xét không thành công');
     }
 
     /**
-     * 修改配送信息
-     * @param string $order_id 订单号
+     * Sửa đổi thông tin vận chuyển
+     * @param string $order_id Số đơn hàng
      * @return mixed
      */
     public function updateDistribution(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([['delivery_name', ''], ['delivery_code', ''], ['delivery_id', '']]);
 
         $this->services->updateDistribution($order_id, $data);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 }

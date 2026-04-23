@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\order\OutStoreOrderRefundServices;
 use think\facade\App;
 
 /**
- * 售后单控制器
+ * Bộ điều khiển đơn hậu mãi
  * Class RefundOrder
  * @package app\outapi\controller
  */
@@ -34,7 +34,7 @@ class RefundOrder extends AuthController
     }
 
     /**
-     * 获取售后订单列表
+     * Nhận danh sách đơn hàng sau bán hàng
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -53,34 +53,34 @@ class RefundOrder extends AuthController
     }
 
     /**
-     * 修改备注
-     * @param string $order_id 售后单号
+     * Sửa đổi nhận xét
+     * @param string $order_id Số đơn hàng sau bán hàng
      * @return mixed
      */
     public function remark(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         [$remark] = $this->request->postMore([['remark', '']], true);
 
         $this->services->remark($order_id, $remark);
-        return app('json')->success('备注成功');
+        return app('json')->success('Bình luận thành công');
     }
 
     /**
-     * 同意退款
-     * @param string $order_id 售后单号
+     * Đồng ý hoàn tiền
+     * @param string $order_id Số đơn hàng sau bán hàng
      * @return mixed
      */
     public function agree(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
        $this->services->agree($order_id);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 订单不退款
-     * @param string $order_id 售后单号
+     * Đơn đặt hàng không được hoàn lại
+     * @param string $order_id Số đơn hàng sau bán hàng
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -88,28 +88,28 @@ class RefundOrder extends AuthController
      */
     public function refuse(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         [$refund_reason] = $this->request->postMore([['refund_reason', '']], true);
 
         $this->services->refuse($order_id, $refund_reason);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 订单详情
-     * @param string $order_id 售后单号
+     * Chi tiết đặt hàng
+     * @param string $order_id Số đơn hàng sau bán hàng
      * @return mixed
      */
     public function read(string $order_id)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->services->getInfo($order_id);
         return app('json')->success($data);
     }
 
     /**
-     * 订单退款
-     * @param string $order_id 售后单号
+     * Hoàn tiền đơn hàng
+     * @param string $order_id Số đơn hàng sau bán hàng
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -118,10 +118,10 @@ class RefundOrder extends AuthController
      */
     public function refundPrice(string $order_id, Request $request)
     {
-        if (!$order_id) return app('json')->fail('参数错误');
+        if (!$order_id) return app('json')->fail('Lỗi tham số');
         [$refund_price] = $request->postMore([['refund_price', '']], true);
         $this->services->refundPrice($order_id, $refund_price);
-        return app('json')->success('退款成功');
+        return app('json')->success('Hoàn tiền thành công');
     }
 
 }

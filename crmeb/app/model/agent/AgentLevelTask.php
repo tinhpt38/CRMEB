@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * 分销员等级任务
+ * Nhiệm vụ cấp nhà phân phối
  * Class AgentLevelTask
  * @package app\model\agent
  */
@@ -27,19 +27,19 @@ class AgentLevelTask extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'agent_level_task';
 
     /**
-     * 关联分销员等级
+     * Cấp độ nhà phân phối liên kết
      * @return \think\model\relation\HasOne
      */
     public function level()
@@ -48,7 +48,7 @@ class AgentLevelTask extends BaseModel
     }
 
     /**
-     * 关联任务完成记录
+     * Hồ sơ hoàn thành nhiệm vụ liên quan
      * @return \think\model\relation\HasMany
      */
     public function record()
@@ -57,7 +57,7 @@ class AgentLevelTask extends BaseModel
     }
 
     /**
-     * 关键词搜索器
+     * người tìm kiếm từ khóa
      * @param $query Model
      * @param $value
      */
@@ -67,7 +67,7 @@ class AgentLevelTask extends BaseModel
     }
 
     /**
-     * 任务类型搜索器
+     * Công cụ tìm loại nhiệm vụ
      * @param $query Model
      * @param $value
      */
@@ -82,7 +82,7 @@ class AgentLevelTask extends BaseModel
     }
 
     /**
-     * 分销员等级搜索器
+     * Trình tìm kiếm cấp độ nhà phân phối
      * @param $query Model
      * @param $value
      */
@@ -98,7 +98,7 @@ class AgentLevelTask extends BaseModel
 
 
     /**
-     * 状态搜索器
+     * công cụ tìm trạng thái
      * @param $query Model
      * @param $value
      */
@@ -108,7 +108,7 @@ class AgentLevelTask extends BaseModel
     }
 
     /**
-     * 是否删除搜索器
+     * Có nên xóa người tìm kiếm hay không
      * @param $query Model
      * @param $value
      */

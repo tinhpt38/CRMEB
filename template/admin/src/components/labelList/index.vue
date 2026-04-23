@@ -18,11 +18,11 @@
           </div>
         </div>
       </template>
-      <div v-if="!isUser">暂无标签</div>
+      <div v-if="!isUser">Chưa có thẻ nào</div>
     </div>
     <div class="footer">
-      <el-button class="btns" ghost v-db-click @click="cancel">取消</el-button>
-      <el-button type="primary" class="btns" v-db-click @click="subBtn">确定</el-button>
+      <el-button class="btns" ghost v-db-click @click="cancel">Hủy bỏ</el-button>
+      <el-button type="primary" class="btns" v-db-click @click="subBtn">Chắc chắn</el-button>
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
       }
       return false;
     },
-    // 用户标签
+    // Thẻ người dùng
     setLabel() {
       // this.dataLabel = data;
       productUserLabel()
@@ -89,7 +89,7 @@ export default {
         label.disabled = true;
       }
     },
-    // 确定
+    // Chắc chắn
     subBtn() {
       this.$emit('activeData', JSON.parse(JSON.stringify(this.dataLabel)));
     },

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,14 +16,14 @@ use app\services\shipping\SystemCityServices;
 use think\facade\App;
 
 /**
- * 运费模板
+ * Mẫu vận chuyển hàng hóa
  * Class ShippingTemplates
  * @package app\adminapi\controller\v1\setting
  */
 class ShippingTemplates extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * ShippingTemplates constructor.
      * @param App $app
      * @param ShippingTemplatesServices $services
@@ -35,7 +35,7 @@ class ShippingTemplates extends AuthController
     }
 
     /**
-     * 运费模板列表
+     * Danh sách mẫu vận chuyển hàng hóa
      * @return mixed
      */
     public function temp_list()
@@ -47,7 +47,7 @@ class ShippingTemplates extends AuthController
     }
 
     /**
-     * 修改
+     * Ôn lại
      * @return string
      * @throws \Exception
      */
@@ -57,7 +57,7 @@ class ShippingTemplates extends AuthController
     }
 
     /**
-     * 保存或者修改
+     * Lưu hoặc sửa đổi
      * @param int $id
      */
     public function save($id = 0)
@@ -80,11 +80,11 @@ class ShippingTemplates extends AuthController
         $temp['sort'] = $data['sort'];
         $temp['add_time'] = time();
         $this->services->save((int)$id, $temp, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 删除运费模板
+     * Xóa mẫu vận chuyển
      */
     public function delete()
     {
@@ -92,15 +92,15 @@ class ShippingTemplates extends AuthController
             [['id', 'd'], 0],
         ], true);
         if ($id == 1) {
-            return app('json')->fail('默认模板不能删除');
+            return app('json')->fail('Không thể xóa mẫu mặc định');
         } else {
             $this->services->detete($id);
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
         }
     }
 
     /**
-     * 城市数据
+     * dữ liệu thành phố
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException

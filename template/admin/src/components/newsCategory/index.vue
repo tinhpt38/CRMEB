@@ -9,13 +9,13 @@
         label-position="right"
         class="tabform"
       >
-        <el-form-item label="图文搜索：" prop="cate_name" label-for="cate_name">
-          <el-input clearable placeholder="请输入" v-model="formValidate.cate_name" class="form_content_width" />
+        <el-form-item label="Tìm kiếm hình ảnh và văn bản：" prop="cate_name" label-for="cate_name">
+          <el-input clearable placeholder="Vui lòng nhập" v-model="formValidate.cate_name" class="form_content_width" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+          <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           <router-link :to="routePre + '/app/wechat/news_category/save/0'">
-            <el-button type="primary" class="bnt ml15">添加图文消息</el-button>
+            <el-button type="primary" class="bnt ml15">Thêm tin nhắn đồ họa</el-button>
           </router-link>
         </el-form-item>
       </el-form>
@@ -56,7 +56,7 @@
                     icon="el-icon-delete"
                     v-show="props.value.new[i].isDel && isShow"
                     v-db-click
-                    @click="del(props.value, '删除图文', i)"
+                    @click="del(props.value, 'Xóa hình ảnh và văn bản', i)"
                     style="margin-top: 5px"
                   ></el-button>
                   <el-button
@@ -64,8 +64,8 @@
                     icon="el-icon-s-promotion"
                     v-show="props.value.new[i].isDel && isShowSend"
                     v-db-click
-                    @click="send(props.value, '发送', i)"
-                    >推送</el-button
+                    @click="send(props.value, 'gửi', i)"
+                    >xô</el-button
                   >
                 </div>
                 <span class="news_sp">{{ j.title }}</span>
@@ -133,10 +133,10 @@ export default {
       routePre: settings.routePre,
       isDel: false,
       imgsArr: [],
-      group: 0, // 当前加载的加载图片的次数
-      fetchImgsArr: [], // 存放每次滚动时下一批要加载的图片的数组
+      group: 0, // Số lần hình ảnh hiện được tải
+      fetchImgsArr: [], // Một mảng lưu trữ loạt hình ảnh tiếp theo sẽ được tải mỗi khi bạn cuộn.
       orderData: {},
-      cols: NaN, // 需要根据窗口宽度初始化
+      cols: NaN, // Cần được khởi tạo theo chiều rộng cửa sổ
       gridPic: {
         xl: 6,
         lg: 8,
@@ -171,7 +171,7 @@ export default {
   mounted() {},
   computed: {},
   methods: {
-    // 发送图文消息
+    // Gửi tin nhắn đồ họa
     send(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -197,7 +197,7 @@ export default {
         this.$emit('getCentList', value);
       }
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -219,9 +219,9 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 删除成功
+    // Xóa thành công
     // submitModel () {
-    //     if (this.delfromData.title === '删除图文') {
+    //     if (this.delfromData.title === 'Xóa hình ảnh và văn bản') {
     //         // this.imgsArr.splice(this.delfromData.num, 1)
     //         this.$nextTick(() => {
     //             this.imgsArr = [];
@@ -230,21 +230,21 @@ export default {
     //         this.getData();
     //     }
     // },
-    // 编辑
+    // biên tập
     clkk(item) {
       this.$router.push({
         path: this.routePre + '/app/wechat/news_category/save/' + item.id,
       });
     },
-    // 鼠标移进
+    // Di chuyển chuột vào
     mouseenterOut(item) {
       this.$set(item, 'isDel', true);
     },
-    // 鼠标移出
+    // Di chuột ra
     mouseenterOver(item) {
       this.$set(item, 'isDel', false);
     },
-    // 搜索
+    // tìm kiếm
     userSearchs() {
       this.$nextTick(() => {
         this.imgsArr = [];
@@ -252,12 +252,12 @@ export default {
       this.formValidate.page = 1;
       this.getData();
     },
-    // 瀑布流数据
+    // dữ liệu thác nước
     getData() {
       wechatNewsListApi(this.formValidate)
         .then(async (res) => {
           if (res.data.list.length === 0) {
-            // 模拟已经无新数据，显示 slot="waterfall-over"
+            // Mô phỏng không có dữ liệu mới và hiển thị slot="waterfall-over"
             this.imgsArr = [];
             this.$nextTick(() => {
               this.$refs.waterfall.waterfallOver();
@@ -270,7 +270,7 @@ export default {
             this.imgsArr = this.imgsArr.concat(res.data.list) || [];
             this.formValidate.page++;
             if (this.formValidate.page === num) {
-              // 模拟已经无新数据，显示 slot="waterfall-over"
+              // Mô phỏng không có dữ liệu mới và hiển thị slot="waterfall-over"
               this.$refs.waterfall.waterfallOver();
               return;
             }

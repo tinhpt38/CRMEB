@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,19 +19,19 @@ class StoreProductVirtual extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_product_virtual';
 
     /**
-     * 卡号搜索器
+     * Trình tìm kiếm số thẻ
      * @param $query
      * @param $value
      */
@@ -41,7 +41,7 @@ class StoreProductVirtual extends BaseModel
     }
 
     /**
-     * 卡密搜索器
+     * Công cụ tìm kiếm thẻ
      * @param $query
      * @param $value
      */
@@ -51,7 +51,7 @@ class StoreProductVirtual extends BaseModel
     }
 
     /**
-     * 商品搜索器
+     * Công cụ tìm sản phẩm
      * @param $query
      * @param $value
      */
@@ -61,7 +61,7 @@ class StoreProductVirtual extends BaseModel
     }
 
     /**
-     * 用户搜索器
+     * Người tìm kiếm người dùng
      * @param $query
      * @param $value
      */
@@ -71,7 +71,7 @@ class StoreProductVirtual extends BaseModel
     }
 
     /**
-     * 订单搜索器
+     * Trình tìm đơn hàng
      * @param $query
      * @param $value
      */

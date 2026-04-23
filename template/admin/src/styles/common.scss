@@ -9,7 +9,7 @@ html {
 //    font-size: 14px;
 //}
 
-// 隐藏滚动条样式
+// Ẩn kiểu thanh cuộn
 .chart-scroll .ivu-scroll-container,
 .i-scrollbar-hide {
   &::-webkit-scrollbar {
@@ -25,7 +25,7 @@ html {
   }
 }
 
-// 极简滚动条样式
+// Phong cách thanh cuộn tối giản
 .right-scroll .ivu-scroll-container,
 .i-scrollbar {
   &::-webkit-scrollbar {
@@ -42,7 +42,7 @@ html {
   }
 }
 
-// 隐藏滚动条样式
+// Ẩn kiểu thanh cuộn
 .i-scrollbar-hide {
   &::-webkit-scrollbar {
     width: 0;
@@ -57,7 +57,7 @@ html {
   }
 }
 
-// 极简滚动条样式
+// Phong cách thanh cuộn tối giản
 .i-scrollbar {
   &::-webkit-scrollbar {
     width: 6px;
@@ -73,7 +73,7 @@ html {
   }
 }
 
-// 去除 Table 的左右边框，更精简
+// Loại bỏ viền trái, phải của Table để sắp xếp hợp lý hơn
 .i-table-no-border {
   .ivu-table th {
     background-color: #fff;

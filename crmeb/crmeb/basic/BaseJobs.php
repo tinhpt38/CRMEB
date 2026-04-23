@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use think\facade\Log;
 use think\queue\Job;
 
 /**
- * 消息队列基类
+ * Lớp cơ sở hàng đợi tin nhắn
  * Class BaseJobs
  * @package crmeb\basic
  */
@@ -34,25 +34,25 @@ abstract class BaseJobs implements JobInterface
     }
 
     /**
-     * 运行消息队列
+     * Chạy hàng đợi tin nhắn
      * @param Job $job
      * @param $data
      */
     public function fire(Job $job, $data): void
     {
         try {
-            $action = $data['do'] ?? 'doJob';//任务名
-            $infoData = $data['data'] ?? [];//执行数据
-            $errorCount = $data['errorCount'] ?? 0;//最大错误次数
+            $action = $data['do'] ?? 'doJob';//Tên nhiệm vụ
+            $infoData = $data['data'] ?? [];//dữ liệu thực thi
+            $errorCount = $data['errorCount'] ?? 0;//Số lỗi tối đa
             $this->runJob($action, $job, $infoData, $errorCount);
         } catch (\Throwable $e) {
-            Log::error('队列错误：' . $e->getMessage());
+            Log::error('lỗi xếp hàng：' . $e->getMessage());
             $job->delete();
         }
     }
 
     /**
-     * 执行队列
+     * hàng đợi thực thi
      * @param string $action
      * @param Job $job
      * @param array $infoData
@@ -67,14 +67,14 @@ abstract class BaseJobs implements JobInterface
         }
 
         if ($this->{$action}(...$infoData)) {
-            //删除任务
+            //Xóa tác vụ
             $job->delete();
         } else {
             if ($job->attempts() >= $errorCount && $errorCount) {
-                //删除任务
+                //Xóa tác vụ
                 $job->delete();
             } else {
-                //从新放入队列
+                //Xếp hàng lại
                 $job->release();
             }
         }

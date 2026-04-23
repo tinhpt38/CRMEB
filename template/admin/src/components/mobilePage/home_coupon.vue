@@ -32,7 +32,7 @@
               >
                 <span class="lable">¥</span>70
               </div>
-              <div class="tips">满5000可用</div>
+              <div class="tips">Áp dụng cho đơn hàng trên 5000</div>
             </div>
             <div
               class="sill"
@@ -42,7 +42,7 @@
                   : themeColor,
               }"
             >
-              满200可用
+              Áp dụng cho đơn hàng trên 200
             </div>
             <img src="../../assets/images/newVip02.png" />
           </div>
@@ -65,7 +65,7 @@
             v-for="(item, index) in numberConfig"
             :key="index"
           >
-            <div class="type">品类券</div>
+            <div class="type">Phiếu giảm giá danh mục</div>
             <div
               class="money"
               :style="{
@@ -74,7 +74,7 @@
             >
               <span class="label">¥</span>50
             </div>
-            <div class="tips">满500元可用</div>
+            <div class="tips">Có sẵn cho các đơn hàng trên 500 nhân dân tệ</div>
             <div
               class="bnt"
               :style="{
@@ -83,7 +83,7 @@
                   : themeColor,
               }"
             >
-              去领取
+              Đi và lấy nó
             </div>
           </div>
         </div>
@@ -114,10 +114,10 @@
                 >
                   <span>￥</span>50
                 </div>
-                <div class="txt">满100元可用</div>
+                <div class="txt">Có sẵn cho các đơn hàng trên 100 nhân dân tệ</div>
               </div>
               <div class="right">
-                <div class="rightCon">立即领取</div>
+                <div class="rightCon">Nhận nó ngay bây giờ</div>
               </div>
               <div class="roll up-roll"></div>
               <div class="roll down-roll"></div>
@@ -149,7 +149,7 @@
                 v-if="index < 4"
               >
                 <div class="type">
-                  <div class="typeCon">通用券</div>
+                  <div class="typeCon">Phiếu giảm giá phổ quát</div>
                 </div>
                 <div
                   class="money"
@@ -159,7 +159,7 @@
                 >
                   <span class="label">¥</span>50
                 </div>
-                <div class="tips">满5000可用</div>
+                <div class="tips">Áp dụng cho đơn hàng trên 5000</div>
               </div>
             </template>
           </div>
@@ -171,10 +171,10 @@
                 : themeColor2,
             }"
           >
-            <div class="tips">先领券 再购物</div>
-            <div class="info">领券下单·享购物优惠</div>
+            <div class="tips">Nhận phiếu giảm giá trước rồi mua sắm</div>
+            <div class="info">Nhận phiếu giảm giá và đặt hàng để được giảm giá mua sắm</div>
             <div class="bnt">
-              <div class="bntCon">立即领取</div>
+              <div class="bntCon">Nhận nó ngay bây giờ</div>
             </div>
           </div>
         </div>
@@ -207,10 +207,10 @@
               >
                 <span class="label">¥</span>50
               </div>
-              <div class="tips">满5000可用</div>
+              <div class="tips">Áp dụng cho đơn hàng trên 5000</div>
             </div>
             <div class="right acea-row row-center">
-              <div class="rightCon">领取</div>
+              <div class="rightCon">nhận được</div>
             </div>
             <div class="roll"></div>
           </div>
@@ -225,11 +225,11 @@ import { mapState } from 'vuex';
 // import theme from "@/mixins/theme";
 export default {
   name: 'home_coupon',
-  cname: '优惠券',
+  cname: 'Phiếu giảm giá',
   configName: 'c_home_coupon',
   icon: '#iconzujian-youhuiquan',
-  type: 1, // 0 基础组件 1 营销组件 2工具组件
-  defaultName: 'coupon', // 外面匹配名称
+  type: 1, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
+  defaultName: 'coupon', // tên trận đấu bên ngoài
   props: {
     index: {
       type: null,
@@ -269,58 +269,58 @@ export default {
   // mixins: [theme],
   data() {
     return {
-      // 默认初始化数据禁止修改
+      // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: '优惠券',
+        cname: 'Phiếu giảm giá',
         name: 'coupon',
-        desc: '优惠券的介绍',
+        desc: 'Giới thiệu về phiếu giảm giá',
         timestamp: this.num,
         isHide: false,
         setUp: {
           tabVal: 0,
         },
         zIndexConfig: {
-          title: '组件上浮',
+          title: 'Thành phần nổi',
           val: 0,
           min: 0,
         },
         borderConfig: {
-          title: '边框设置',
+          title: 'Cài đặt đường viền',
           tabVal: 0,
           tabList: [
             {
-              name: '隐藏',
+              name: 'trốn',
             },
             {
-              name: '显示',
+              name: 'trình diễn',
             },
           ],
           val: 0,
           styleConfig: {
-            title: '边框样式',
+            title: 'phong cách biên giới',
             tabVal: 0,
             tabList: [
               {
-                name: '实线',
+                name: 'đường liền nét',
                 style: 'solid',
               },
               {
-                name: '虚线',
+                name: 'đường chấm chấm',
                 style: 'dashed',
               },
               {
-                name: '点状',
+                name: 'Say mê',
                 style: 'dotted',
               },
             ],
           },
           widthConfig: {
-            title: '边框粗细',
+            title: 'Độ dày viền',
             val: 1,
             min: 1,
           },
           colorConfig: {
-            title: '边框颜色',
+            title: 'màu viền',
             default: [
               {
                 item: '#e5e5e5',
@@ -334,77 +334,77 @@ export default {
           },
         },
         shadowConfig: {
-          title: '阴影设置',
+          title: 'Cài đặt bóng',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0,
           colorConfig: {
-            title: '阴影颜色',
+            title: 'màu bóng',
             default: [{ item: 'rgba(0,0,0,0.1)' }],
             color: [{ item: 'rgba(0,0,0,0.1)' }],
           },
           xConfig: {
-            title: 'X轴偏移',
+            title: 'Xđộ lệch trục',
             val: 0,
             min: -50,
           },
           yConfig: {
-            title: 'Y轴偏移',
+            title: 'Yđộ lệch trục',
             val: 0,
             min: -50,
           },
           blurConfig: {
-            title: '模糊半径',
+            title: 'bán kính lờ mờ',
             val: 10,
             min: 0,
           },
           spreadConfig: {
-            title: '扩展半径',
+            title: 'Bán kính mở rộng',
             val: 0,
             min: -50,
           },
         },
-        titleLeft: '展示设置',
-        titleData: '优惠券数据',
-        titleRight: '优惠券样式',
-        titleCurrency: '通用样式',
+        titleLeft: 'Cài đặt hiển thị',
+        titleData: 'Dữ liệu phiếu giảm giá',
+        titleRight: 'Phong cách phiếu giảm giá',
+        titleCurrency: 'Phong cách phổ quát',
         styleConfig: {
-          title: '选择风格',
+          title: 'Chọn phong cách',
           tabVal: 0,
           tabList: [
             {
-              name: '风格一',
+              name: 'phong cách một',
             },
             {
-              name: '风格二',
+              name: 'Phong cách 2',
             },
             {
-              name: '风格三',
+              name: 'phong cách ba',
             },
             {
-              name: '风格四',
+              name: 'phong cách bốn',
             },
           ],
         },
         numberConfig: {
-          title: '展示数量',
+          title: 'Số lần hiển thị',
           val: 5,
           min: 1,
         },
         toneConfig: {
-          title: '色调',
+          title: 'giai điệu',
           tabVal: 0,
           tabList: [
             {
-              name: '跟随主题风格',
+              name: 'Theo dõi chủ đề',
             },
             {
-              name: '自定义',
+              name: 'Tùy chỉnh',
             },
           ],
         },
         couponMoneyColor: {
-          title: '优惠金额',
+          title: 'Số tiền chiết khấu',
           default: [
             {
               item: '#E93323',
@@ -417,7 +417,7 @@ export default {
           ],
         },
         bntBgColor: {
-          title: '按钮背景',
+          title: 'nút nền',
           name: 'bntBgColor',
           default: [
             {
@@ -437,7 +437,7 @@ export default {
           ],
         },
         couponBgColor: {
-          title: '优惠券背景',
+          title: 'Nền phiếu giảm giá',
           default: [
             {
               item: '#E93323',
@@ -450,12 +450,12 @@ export default {
           ],
         },
         spacingConfig: {
-          title: '优惠券间距',
+          title: 'Khoảng cách phiếu giảm giá',
           val: 6,
           min: 0,
         },
         moduleColor: {
-          title: '组件背景',
+          title: 'Nền thành phần',
           default: [
             {
               item: '#E93323',
@@ -474,30 +474,30 @@ export default {
           ],
         },
         componentBgConfig: {
-          title: '背景设置',
+          title: 'Cài đặt nền',
           tabVal: 0,
-          tabList: [{ name: '颜色' }, { name: '图片' }],
+          tabList: [{ name: 'màu sắc' }, { name: 'hình ảnh' }],
           colorConfig: {
-            title: '背景颜色',
+            title: 'màu nền',
             default: [{ item: '#F5F5F5' }, { item: '#F5F5F5' }],
             color: [{ item: '#F5F5F5' }, { item: '#F5F5F5' }],
           },
           colorDirection: {
-            title: '渐变方向',
+            title: 'Hướng dốc',
             tabVal: 0,
-            tabList: [{ name: '横向' }, { name: '纵向' }, { name: '左斜' }, { name: '右斜' }],
+            tabList: [{ name: 'Nằm ngang' }, { name: 'chân dung' }, { name: 'xiên trái' }, { name: 'Nghiêng phải' }],
           },
           imageConfig: {
-            header: '背景图片',
+            header: 'hình nền',
             title: '',
-            name: '上传图片',
+            name: 'Tải ảnh lên',
             type: 'code',
             url: '',
-            info: '建议尺寸：750px * 400px',
+            info: 'Kích thước đề xuất：750px * 400px',
           },
         },
         bottomBgColor: {
-          title: '底部背景',
+          title: 'nền dưới cùng',
           default: [
             {
               item: '#f5f5f5',
@@ -510,33 +510,33 @@ export default {
           ],
         },
         paddingConfig: {
-          title: '内边距',
+          title: 'phần đệm',
           isAll: false,
           val: 10,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         marginConfig: {
-          title: '外边距',
+          title: 'lề',
           isAll: false,
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         fillet: {
-          title: '背景圆角',
+          title: 'Nền bo tròn các góc',
           type: 0,
           list: [
             {
-              val: '全部',
+              val: 'tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
-              val: '单个',
+              val: 'đơn',
               icon: 'iconcaozuo-bianjiao',
             },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 8,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],

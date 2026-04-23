@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -28,7 +28,7 @@ class StoreProductRuleServices extends BaseServices
     }
 
     /**
-     * 获取商品规格列表
+     * Nhận danh sách đặc điểm kỹ thuật sản phẩm
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -61,7 +61,7 @@ class StoreProductRuleServices extends BaseServices
     }
 
     /**
-     * 保存数据
+     * lưu dữ liệu
      * @param int $id
      * @param array $data
      */
@@ -74,11 +74,11 @@ class StoreProductRuleServices extends BaseServices
         } else {
             $res = $this->dao->save($data);
         }
-        if (!$res) throw new AdminException('保存失败');
+        if (!$res) throw new AdminException('Lưu không thành công');
     }
 
     /**
-     * 获取一条数据
+     * Lấy một phần dữ liệu
      * @param int $id
      * @return array
      */
@@ -90,12 +90,12 @@ class StoreProductRuleServices extends BaseServices
     }
 
     /**
-     * 删除数据
+     * Xóa dữ liệu
      * @param string $ids
      */
     public function del(string $ids)
     {
-        if ($ids == '') throw new AdminException('参数错误');
+        if ($ids == '') throw new AdminException('Lỗi tham số');
         $this->dao->del($ids);
     }
 }

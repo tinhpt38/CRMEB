@@ -1,14 +1,14 @@
-import md5 from 'js-md5'; //引入MD5加密
-import { upload } from '@/api/upload.js'; // 这里指前端调用接口的api方法
+import md5 from 'js-md5'; //Giới thiệu mã hóa MD5
+import { upload } from '@/api/upload.js'; // Điều này đề cập đến phương thức api của giao diện gọi giao diện người dùng
 export const uploadByPieces = ({ file, pieceSize = 2, success, error, uploading }) => {
-  // 如果文件传入为空直接 return 返回
+  // Nếu tệp được truyền vào trống, hãy quay lại trực tiếp.
   if (!file) return;
-  let fileMD5 = ''; // 总文件列表
-  const chunkSize = pieceSize * 1024 * 1024; // 5MB一片
-  const chunkCount = Math.ceil(file.size / chunkSize); // 总片数
-  // 获取md5
+  let fileMD5 = ''; // Tổng danh sách tập tin
+  const chunkSize = pieceSize * 1024 * 1024; // 5MBcái
+  const chunkCount = Math.ceil(file.size / chunkSize); // Tổng số mảnh
+  // lấymd5
   const readFileMD5 = () => {
-    // 读取视频文件的md5
+    // Đọc tập tin videomd5
     let fileRederInstance = new FileReader();
     fileRederInstance.readAsBinaryString(file);
     fileRederInstance.addEventListener('load', (e) => {
@@ -23,9 +23,9 @@ export const uploadByPieces = ({ file, pieceSize = 2, success, error, uploading 
     let chunk = file.slice(start, end);
     return { start, end, chunk };
   };
-  // 针对每个文件进行chunk处理
+  // Thực hiện xử lý chunk cho mỗi tệp
   const readChunkMD5 = async () => {
-    // 针对单个文件进行chunk上传
+    // Tải lên từng đoạn cho một tệp
     for (var i = 0; i < chunkCount; i++) {
       const { chunk } = getChunkInfo(file, i, chunkSize);
       await uploadChunk({ chunk, currentChunk: i, chunkCount });
@@ -39,26 +39,26 @@ export const uploadByPieces = ({ file, pieceSize = 2, success, error, uploading 
           'Content-Type': 'multipart/form-data',
         },
       };
-      // 创建formData对象，下面是结合不同项目给后端传入的对象。
+      // Tạo một đối tượng formData. Sau đây là các đối tượng được chuyển đến phần phụ trợ kết hợp với các dự án khác nhau.。
       let fetchForm = new FormData();
-      fetchForm.append('chunkNumber', chunkInfo.currentChunk + 1); // 第几片
-      fetchForm.append('chunkSize', chunkSize); // 分片大小的限制  例如限制 5M
-      fetchForm.append('currentChunkSize', chunkInfo.chunk.size); // 每一片的大小
-      fetchForm.append('file', chunkInfo.chunk); //每一片的文件
-      fetchForm.append('filename', file.name); // 文件名
-      fetchForm.append('totalChunks', chunkInfo.chunkCount); //总片数
+      fetchForm.append('chunkNumber', chunkInfo.currentChunk + 1); // Phim nào
+      fetchForm.append('chunkSize', chunkSize); // Giới hạn về kích thước phân đoạn, ví dụ: giới hạn 5M
+      fetchForm.append('currentChunkSize', chunkInfo.chunk.size); // kích thước của mỗi mảnh
+      fetchForm.append('file', chunkInfo.chunk); //tập tin cho mỗi phần
+      fetchForm.append('filename', file.name); // tên tập tin
+      fetchForm.append('totalChunks', chunkInfo.chunkCount); //Tổng số mảnh
       fetchForm.append('md5', fileMD5);
       upload(fetchForm, config)
         .then((res) => {
           if (res.data.code == 1) {
-            // // 结合不同项目 将成功的信息返回出去
-            // 下面如果在项目中没有用到可以不用打开注释
+            // // Kết hợp các dự án khác nhau và trả về thông tin thành công
+            // Nếu phần sau không được sử dụng trong dự án, bạn không cần phải mở bình luận.
             uploading(chunkInfo.currentChunk + 1, chunkInfo.chunkCount);
             resolver(true);
           } else if (res.data.code == 2) {
             if (chunkInfo.currentChunk < chunkInfo.chunkCount - 1) {
             } else {
-              // 当总数大于等于分片个数的时候
+              // Khi tổng số lớn hơn hoặc bằng số mảnh
               if (chunkInfo.currentChunk + 1 == chunkInfo.chunkCount) {
                 success(res.data);
               }
@@ -70,5 +70,5 @@ export const uploadByPieces = ({ file, pieceSize = 2, success, error, uploading 
         });
     });
   };
-  readFileMD5(); // 开始执行代码
+  readFileMD5(); // Bắt đầu thực thi mã
 };

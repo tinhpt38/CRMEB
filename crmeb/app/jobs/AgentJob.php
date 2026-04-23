@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use crmeb\traits\QueueTrait;
 use think\facade\Log;
 
 /**
- * 检测分销员等级升级
+ * Phát hiện nâng cấp cấp nhà phân phối
  * Class OrderJob
  * @package crmeb\jobs
  */
@@ -27,15 +27,15 @@ class AgentJob extends BaseJobs
     use QueueTrait;
 
     /**
-     * 执行检测升级
+     * Thực hiện nâng cấp phát hiện
      * @param $order
      * @return bool
      */
     public function doJob(int $uid)
     {
-        //检测分销员等级升级
+        //Phát hiện nâng cấp cấp nhà phân phối
         try {
-            //商城分销是否开启
+            //Phân phối trung tâm mua sắm có được kích hoạt không?
             if (!sys_config('brokerage_func_status')) {
                 return true;
             }
@@ -45,7 +45,7 @@ class AgentJob extends BaseJobs
             if (!$userInfo) {
                 return true;
             }
-            //获取上级uid ｜｜ 开启自购返回自己uid
+            //Trở nên vượt trộiuid ｜｜ Bắt đầu tự mua và quay lại với chính mìnhuid
             $spread_uid = $userServices->getSpreadUid($uid, $userInfo);
             $two_spread_uid = 0;
             if ($spread_uid > 0 && $one_user_info = $userServices->getUserInfo($spread_uid)) {
@@ -55,12 +55,12 @@ class AgentJob extends BaseJobs
 
             /** @var AgentLevelServices $agentLevelServices */
             $agentLevelServices = app()->make(AgentLevelServices::class);
-            //检测升级
+            //Phát hiện nâng cấp
             $agentLevelServices->checkUserLevelFinish($uid, $uids);
 
             return true;
         } catch (\Throwable $e) {
-            Log::error('检测分销等级升级失败,失败原因:' . $e->getMessage());
+            Log::error('Phát hiện lỗi nâng cấp cấp độ phân phối,Lý do thất bại:' . $e->getMessage());
         }
     }
 }

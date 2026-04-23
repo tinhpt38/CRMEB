@@ -15,25 +15,25 @@
         <el-row :gutter="24">
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="电子发票状态：" prop="name" label-for="name">
+              <el-form-item label="Tình trạng hóa đơn điện tử：" prop="name" label-for="name">
                 <el-radio-group v-model="formItem.elec_invoice">
-                  <el-radio :label="1">开启</el-radio>
-                  <el-radio :label="0">关闭</el-radio>
+                  <el-radio :label="1">bật lên</el-radio>
+                  <el-radio :label="0">đóng cửa</el-radio>
                 </el-radio-group>
-                <div class="tips-info">是否开启电子发票</div>
+                <div class="tips-info">Có bật hóa đơn điện tử hay không</div>
               </el-form-item>
             </el-col>
           </el-col>
           <template v-if="formItem.elec_invoice === 1">
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="是否自动开票：" prop="name" label-for="name">
+                <el-form-item label="Có tự động lập hóa đơn hay không：" prop="name" label-for="name">
                   <div>
                     <el-radio-group v-model="formItem.auto_invoice">
-                      <el-radio :label="1">开启</el-radio>
-                      <el-radio :label="0">关闭</el-radio>
+                      <el-radio :label="1">bật lên</el-radio>
+                      <el-radio :label="0">đóng cửa</el-radio>
                     </el-radio-group>
-                    <div class="tips-info">是否开启自动开票功能</div>
+                    <div class="tips-info">Có nên bật chức năng lập hóa đơn tự động hay không</div>
                   </div>
                 </el-form-item>
               </el-col>
@@ -41,7 +41,7 @@
             <template v-if="formItem.auto_invoice === 1 && formItem.elec_invoice === 1">
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="电子发票分类：">
+                  <el-form-item label="Phân loại hóa đơn điện tử：">
                     <el-select
                       class="input-width"
                       v-model="formItem.elec_invoice_cate"
@@ -50,27 +50,27 @@
                       reserve-keyword
                       :remote-method="remoteMethod"
                       :loading="loading"
-                      placeholder="请输入并选择电子发票的商品分类"
+                      placeholder="Vui lòng nhập và chọn danh mục sản phẩm của hóa đơn điện tử"
                       @change="selectChange"
                     >
                       <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
                       </el-option>
                     </el-select>
-                    <div class="tips-info">电子发票需输入搜索并选择商品分类，如：电子产品、电子服务等</div>
+                    <div class="tips-info">Đối với hóa đơn điện tử, bạn cần tìm kiếm và chọn danh mục sản phẩm như: sản phẩm điện tử, dịch vụ điện tử,..</div>
                   </el-form-item>
                 </el-col>
               </el-col>
               <el-col :span="24">
                 <el-col v-bind="grid">
-                  <el-form-item label="电子发票税率：">
+                  <el-form-item label="Thuế suất hóa đơn điện tử：">
                     <el-input
                       type="number"
                       class="input-width"
                       v-model="formItem.elec_invoice_tax_rate"
-                      placeholder="请输入电子发票税率"
+                      placeholder="Vui lòng nhập thuế suất hóa đơn điện tử"
                     />
                     <div class="tips-info">
-                      默认填充税率可能存在误差，请确认无误后再保存电子发票的税率，填写0-100直接的整数，如：13%的税率请填写13
+                      Có thể có sai sót về thuế suất mặc định. Vui lòng xác nhận đúng trước khi lưu thuế suất của hóa đơn điện tử. Điền số nguyên trực tiếp từ 0 đến 100. Ví dụ: điền thuế suất 13%.13
                     </div>
                   </el-form-item>
                 </el-col>
@@ -80,7 +80,7 @@
           <el-col :span="24">
             <el-col v-bind="grid">
               <el-form-item>
-                <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">保存</el-button>
+                <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">cứu</el-button>
               </el-form-item>
             </el-col>
           </el-col>
@@ -145,7 +145,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           saveBasics(this.formItem).then(() => {
-            this.$message.success('保存成功');
+            this.$message.success('Đã lưu thành công');
           });
         } else {
           console.log('error submit!!');

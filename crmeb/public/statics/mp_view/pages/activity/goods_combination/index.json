@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "拼团活动",
+  "navigationBarTitleText": "Hoạt động nhóm",
   "usingComponents": {
     "home": "/components/home/index"
   }

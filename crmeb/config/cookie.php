@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,22 +19,22 @@
 // +----------------------------------------------------------------------
 
 // +----------------------------------------------------------------------
-// | Cookie设置
+// | Cookiecài đặt
 // +----------------------------------------------------------------------
 return [
-    // cookie 保存时间
+    // cookie tiết kiệm thời gian
     'expire'    => 0,
-    // cookie 保存路径
+    // cookie lưu đường dẫn
     'path'      => '/',
-    // cookie 有效域名
+    // cookie Tên miền hợp lệ
     'domain'    => '',
-    // cookie 启用安全传输
+    // cookie Cho phép chuyển giao an toàn
     'secure'    => false,
-    // httponly设置
+    // httponlycài đặt
     'httponly'  => false,
-    // 是否使用 setcookie
+    // Có nên sử dụng không setcookie
     'setcookie' => true,
-    // 跨域header
+    // Tên miền chéoheader
     'header'    => [
         'Access-Control-Allow-Origin'       => '*',
         'Access-Control-Allow-Headers'      => 'Authori-zation,Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-Requested-With, Form-type, Cb-lang, Invalid-zation',
@@ -42,6 +42,6 @@ return [
         'Access-Control-Max-Age'            =>  '1728000',
         'Access-Control-Allow-Credentials'  => 'true'
     ],
-    // token名称
+    // tokentên
     'token_name' => 'Authori-zation',
 ];

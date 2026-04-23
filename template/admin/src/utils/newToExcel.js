@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,10 +11,10 @@ import { export_json_to_excel } from '../vendor/Export2Excel';
 
 /**
  * @method exportExcel
- * @param {Array} header   表头
- * @param {Array} filterVal 表头属性字段
- * @param {String} filename 文件名称
- * @param {Array} tableData 列表数据
+ * @param {Array} header   tiêu đề
+ * @param {Array} filterVal trường thuộc tính tiêu đề
+ * @param {String} filename Tên tập tin
+ * @param {Array} tableData Liệt kê dữ liệu
  **/
 export default function exportExcel(header, filterVal, filename, tableData) {
   var data = formatJson(filterVal, tableData);

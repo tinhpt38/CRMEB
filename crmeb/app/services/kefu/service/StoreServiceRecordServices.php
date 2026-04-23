@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use think\Model;
 /**
  * Class StoreServiceRecordServices
  * @package app\services\kefu\service
- * @method array|Model|null getLatelyMsgUid(array $where, string $key) 查询最近和用户聊天的uid用户
+ * @method array|Model|null getLatelyMsgUid(array $where, string $key) Truy vấn người dùng uid gần đây đã trò chuyện với người dùng
  */
 class StoreServiceRecordServices extends BaseServices
 {
@@ -35,7 +35,7 @@ class StoreServiceRecordServices extends BaseServices
     }
 
     /**
-     * 获取客服用户聊天列表
+     * Nhận danh sách trò chuyện của người dùng dịch vụ khách hàng
      * @param int $userId
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -71,7 +71,7 @@ class StoreServiceRecordServices extends BaseServices
     }
 
     /**
-     * 更新客服用户信息
+     * Cập nhật thông tin người dùng dịch vụ khách hàng
      * @param int $uid
      * @param array $data
      * @return mixed
@@ -82,7 +82,7 @@ class StoreServiceRecordServices extends BaseServices
     }
 
     /**
-     * 写入聊天相关人数据
+     * Viết dữ liệu người liên quan đến trò chuyện
      * @param int $uid
      * @param int $toUid
      * @param string $message

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -30,7 +30,7 @@ class DiyPro extends AuthController
 
     public function getInfo($id = 0)
     {
-        if ($id == 0) return app('json')->fail('参数错误');
+        if ($id == 0) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->getInfo($id));
     }
 
@@ -61,7 +61,7 @@ class DiyPro extends AuthController
                 if (isset($item['goodsList']['list']) && is_array($item['goodsList']['list'])) {
                     $limitMax = config('database.page.limitMax', 50);
                     if (isset($item['numConfig']['val']) && isset($item['tabConfig']['tabVal']) && $item['tabConfig']['tabVal'] == 0 && $item['numConfig']['val'] > $limitMax) {
-                        return app('json')->fail('您设置得商品个数超出系统限制,最大限制' . $limitMax . '个商品');
+                        return app('json')->fail('Số lượng sản phẩm bạn đặt vượt quá giới hạn hệ thống,giới hạn tối đa' . $limitMax . 'mặt hàng');
                     }
                     $item['goodsList']['ids'] = array_column($item['goodsList']['list'], 'id');
                     unset($item['goodsList']['list'], $item['productList']['list']);
@@ -77,7 +77,7 @@ class DiyPro extends AuthController
                         if (isset($tabValue['goodsList']['list']) && is_array($tabValue['goodsList']['list'])) {
                             $limitMax = config('database.page.limitMax', 50);
                             if (isset($tabValue['numConfig']['val']) && isset($tabValue['tabConfig']['tabVal']) && $tabValue['tabConfig']['tabVal'] == 0 && $tabValue['numConfig']['val'] > $limitMax) {
-                                return app('json')->fail('您设置得商品个数超出系统限制,最大限制' . $limitMax . '个商品');
+                                return app('json')->fail('Số lượng sản phẩm bạn đặt vượt quá giới hạn hệ thống,giới hạn tối đa' . $limitMax . 'mặt hàng');
                             }
                             $tabValue['goodsList']['ids'] = array_column($tabValue['goodsList']['list'], 'id');
                         }
@@ -93,13 +93,13 @@ class DiyPro extends AuthController
         }
         $data['value'] = json_encode($value);
         $data['version'] = uniqid();
-        return app('json')->success($id ? '修改成功' : '保存成功', ['id' => $this->services->saveInfo($id, $data)]);
+        return app('json')->success($id ? 'Sửa đổi thành công' : 'Đã lưu thành công', ['id' => $this->services->saveInfo($id, $data)]);
     }
 
     public function delInfo($id)
     {
         $this->services->delInfo($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     public function setInfoStatus($id)
@@ -110,11 +110,11 @@ class DiyPro extends AuthController
     public function getProduct()
     {
         $where = $this->request->getMore([
-            ['cate_id', []], //搜索分类
-            ['salesOrder', ''], //销量排序
-            ['priceOrder', ''], //价格排序
-            ['store_label_id', []], //标签ID
-            ['ids', ''], //商品ID
+            ['cate_id', []], //Tìm kiếm danh mục
+            ['salesOrder', ''], //Phân loại khối lượng bán hàng
+            ['priceOrder', ''], //sắp xếp giá
+            ['store_label_id', []], //NhãnID
+            ['ids', ''], //hàng hóaID
         ]);
         $where['is_show'] = 1;
         $where['is_del'] = 0;
@@ -129,91 +129,91 @@ class DiyPro extends AuthController
         [$name] = $this->request->postMore([
             ['name', '']
         ], true);
-        if (!$name) return app('json')->fail('请输入名称');
+        if (!$name) return app('json')->fail('Vui lòng nhập tên');
         $this->services->updateName($id, $name);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     public function exportDIYData($id)
     {
         $value = $this->services->exportDIYData($id);
-        $filename = 'DIY数据_' . date('YmdHis', time()) . '.txt';
-        return app('json')->success('导出成功', ['value' => $value, 'filename' => $filename]);
+        $filename = 'DIYdữ liệu_' . date('YmdHis', time()) . '.txt';
+        return app('json')->success('Xuất thành công', ['value' => $value, 'filename' => $filename]);
     }
 
     public function importDIYData()
     {
-        // 获取文件
+        // Nhận tập tin
         $file = $this->request->file('file');
-        if (!$file) return app('json')->fail('请上传文件');
+        if (!$file) return app('json')->fail('Vui lòng tải tập tin lên');
 
-        // 获取文件的临时路径
+        // Lấy đường dẫn tạm thời của tập tin
         $tempPath = $file->getRealPath();
 
-        // 使用文件流读取内容
+        // Đọc nội dung bằng luồng tệp
         $content = file_get_contents($tempPath);
 
-        // 保存内容
+        // Lưu nội dung
         $this->services->importDIYData($content);
-        return app('json')->success('导入成功');
+        return app('json')->success('Nhập thành công');
     }
 
     public function textField()
     {
         $user = [
-            ['label' => '用户名称', 'value' => 'nickname'],
-            ['label' => '用户id', 'value' => 'uid'],
-            ['label' => '用户头像', 'value' => 'image'],
-            ['label' => '商品收藏', 'value' => 'collection_num'],
-            ['label' => '商品加购', 'value' => 'cart_num'],
-            ['label' => '订单总数', 'value' => 'order_num'],
-            ['label' => '我的积分', 'value' => 'integral'],
-            ['label' => '我的余额', 'value' => 'now_money'],
-            ['label' => '我的佣金', 'value' => 'brokerage_price'],
-            ['label' => '未读消息', 'value' => 'unread_msg_num'],
+            ['label' => 'Tên người dùng', 'value' => 'nickname'],
+            ['label' => 'người dùngid', 'value' => 'uid'],
+            ['label' => 'Hình đại diện của người dùng', 'value' => 'image'],
+            ['label' => 'Bộ sưu tập sản phẩm', 'value' => 'collection_num'],
+            ['label' => 'Mua thêm sản phẩm', 'value' => 'cart_num'],
+            ['label' => 'Tổng số đơn đặt hàng', 'value' => 'order_num'],
+            ['label' => 'điểm của tôi', 'value' => 'integral'],
+            ['label' => 'số dư của tôi', 'value' => 'now_money'],
+            ['label' => 'hoa hồng của tôi', 'value' => 'brokerage_price'],
+            ['label' => 'tin nhắn chưa đọc', 'value' => 'unread_msg_num'],
         ];
 
         $article = [
-            ['label' => '文章标题', 'value' => 'title'],
-            ['label' => '文章id', 'value' => 'id'],
-            ['label' => '文章封面', 'value' => 'image'],
-            ['label' => '文章分类', 'value' => 'cid_name'],
-            ['label' => '文章简介', 'value' => 'synopsis'],
-            ['label' => '文章浏览量', 'value' => 'visit'],
-            ['label' => '添加时间', 'value' => 'add_time'],
+            ['label' => 'Tiêu đề bài viết', 'value' => 'title'],
+            ['label' => 'bài báoid', 'value' => 'id'],
+            ['label' => 'Bìa bài viết', 'value' => 'image'],
+            ['label' => 'Phân loại bài viết', 'value' => 'cid_name'],
+            ['label' => 'Giới thiệu bài viết', 'value' => 'synopsis'],
+            ['label' => 'Lượt xem bài viết', 'value' => 'visit'],
+            ['label' => 'Thêm thời gian', 'value' => 'add_time'],
         ];
 
         $coupon = [
-            ['label' => '优惠券名称', 'value' => 'coupon_title'],
-            ['label' => '优惠券id', 'value' => 'id'],
-            ['label' => '优惠券类型', 'value' => 'type'],
-            ['label' => '优惠券面值', 'value' => 'coupon_price'],
-            ['label' => '优惠券状态', 'value' => 'status'],
-            ['label' => '领取时间', 'value' => 'receive_time'],
-            ['label' => '使用时间', 'value' => 'use_time'],
-            ['label' => '使用门槛', 'value' => 'use_min_price'],
-            ['label' => '发放数量', 'value' => 'receive_count'],
-            ['label' => '添加时间', 'value' => 'add_time'],
+            ['label' => 'Tên phiếu giảm giá', 'value' => 'coupon_title'],
+            ['label' => 'Phiếu giảm giáid', 'value' => 'id'],
+            ['label' => 'Loại phiếu giảm giá', 'value' => 'type'],
+            ['label' => 'Mệnh giá phiếu giảm giá', 'value' => 'coupon_price'],
+            ['label' => 'Trạng thái phiếu giảm giá', 'value' => 'status'],
+            ['label' => 'Thời gian thu thập', 'value' => 'receive_time'],
+            ['label' => 'thời gian sử dụng', 'value' => 'use_time'],
+            ['label' => 'Ngưỡng sử dụng', 'value' => 'use_min_price'],
+            ['label' => 'Số lượng phát hành', 'value' => 'receive_count'],
+            ['label' => 'Thêm thời gian', 'value' => 'add_time'],
         ];
 
         $product = [
-            ['label' => '商品名称', 'value' => 'store_name'],
-            ['label' => '商品id', 'value' => 'id'],
-            ['label' => '商品图片', 'value' => 'image'],
-            ['label' => '商品简介', 'value' => 'store_info'],
-            ['label' => '商品单位', 'value' => 'unit_name'],
-            ['label' => '商品分类', 'value' => 'cate_name'],
-            ['label' => '商品库存', 'value' => 'stock'],
-            ['label' => '商品售价', 'value' => 'price'],
-            ['label' => '商品最高售价', 'value' => 'max_price'],
-            ['label' => '商品最低售价', 'value' => 'min_price'],
-            ['label' => '商品原价', 'value' => 'ot_price'],
-            ['label' => '商品最高原价', 'value' => 'max_ot_price'],
-            ['label' => '商品最低原价', 'value' => 'min_ot_price'],
-            ['label' => '商品起购数量', 'value' => 'min_qty'],
-            ['label' => '商品销量', 'value' => 'sales'],
-            ['label' => '商品访问量', 'value' => 'browse'],
-            ['label' => '商品添加时间', 'value' => 'add_time'],
+            ['label' => 'Tên sản phẩm', 'value' => 'store_name'],
+            ['label' => 'hàng hóaid', 'value' => 'id'],
+            ['label' => 'Hình ảnh sản phẩm', 'value' => 'image'],
+            ['label' => 'Giới thiệu sản phẩm', 'value' => 'store_info'],
+            ['label' => 'đơn vị hàng hóa', 'value' => 'unit_name'],
+            ['label' => 'Phân loại sản phẩm', 'value' => 'cate_name'],
+            ['label' => 'Kiểm kê sản phẩm', 'value' => 'stock'],
+            ['label' => 'Giá bán sản phẩm', 'value' => 'price'],
+            ['label' => 'Giá bán tối đa của sản phẩm', 'value' => 'max_price'],
+            ['label' => 'Giá bán sản phẩm thấp nhất', 'value' => 'min_price'],
+            ['label' => 'Giá gốc sản phẩm', 'value' => 'ot_price'],
+            ['label' => 'Giá gốc tối đa của sản phẩm', 'value' => 'max_ot_price'],
+            ['label' => 'Sản phẩm có giá gốc thấp nhất', 'value' => 'min_ot_price'],
+            ['label' => 'Số lượng mua tối thiểu của sản phẩm', 'value' => 'min_qty'],
+            ['label' => 'bán sản phẩm', 'value' => 'sales'],
+            ['label' => 'Tham quan sản phẩm', 'value' => 'browse'],
+            ['label' => 'Thời gian bổ sung sản phẩm', 'value' => 'add_time'],
         ];
 
         return app('json')->success(compact('user', 'article', 'coupon', 'product'));

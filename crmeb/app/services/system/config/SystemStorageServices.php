@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -84,16 +84,16 @@ class SystemStorageServices extends BaseServices
         }
 
         $rule = [
-            FormBuilder::input('name', '空间名称')->required(),
-            FormBuilder::select('region', '空间区域')->options($upload->getRegion())->required(),
-            FormBuilder::radio('acl', '读写权限', 'public-read')->options([
-                ['label' => '公共读(推荐)', 'value' => 'public-read'],
-                ['label' => '公共读写', 'value' => 'public-read-write'],
+            FormBuilder::input('name', 'Tên không gian')->required(),
+            FormBuilder::select('region', 'diện tích không gian')->options($upload->getRegion())->required(),
+            FormBuilder::radio('acl', 'Quyền đọc và ghi', 'public-read')->options([
+                ['label' => 'đọc trước công chúng(gợi ý)', 'value' => 'public-read'],
+                ['label' => 'biết chữ công cộng', 'value' => 'public-read-write'],
             ])->required(),
         ];
 
         $rule = array_merge($ruleConfig, $rule);
-        return create_form('添加云空间', $rule, '/system/config/storage/' . $type);
+        return create_form('Thêm không gian đám mây', $rule, '/system/config/storage/' . $type);
     }
 
     /**
@@ -107,26 +107,26 @@ class SystemStorageServices extends BaseServices
             'secretKey' => ''
         ];
         switch ($type) {
-            case 2://七牛
+            case 2://Qiniu
                 $config = [
                     'accessKey' => sys_config('qiniu_accessKey', ''),
                     'secretKey' => sys_config('qiniu_secretKey', ''),
                 ];
                 break;
-            case 3:// oss 阿里云
+            case 3:// oss Đám mây của Alibaba
                 $config = [
                     'accessKey' => sys_config('accessKey', ''),
                     'secretKey' => sys_config('secretKey', ''),
                 ];
                 break;
-            case 4:// cos 腾讯云
+            case 4:// cos Đám mây Tencent
                 $config = [
                     'accessKey' => sys_config('tengxun_accessKey', ''),
                     'secretKey' => sys_config('tengxun_secretKey', ''),
                     'appid' => sys_config('tengxun_appid', ''),
                 ];
                 break;
-            case 5:// cos 京东云
+            case 5:// cos Đám mây JD
                 $config = [
                     'accessKey' => sys_config('jd_accessKey', ''),
                     'secretKey' => sys_config('jd_secretKey', ''),
@@ -134,13 +134,13 @@ class SystemStorageServices extends BaseServices
 
                 ];
                 break;
-            case 6:// cos 华为云
+            case 6:// cos Đám mây Huawei
                 $config = [
                     'accessKey' => sys_config('hw_accessKey', ''),
                     'secretKey' => sys_config('hw_secretKey', ''),
                 ];
                 break;
-            case 7:// cos 天翼云
+            case 7:// cos Đám mây Thiên Nhất
                 $config = [
                     'accessKey' => sys_config('ty_accessKey', ''),
                     'secretKey' => sys_config('ty_secretKey', ''),
@@ -173,11 +173,11 @@ class SystemStorageServices extends BaseServices
         }
 
 
-        return create_form('配置信息', $rule, '/system/config/storage/config');
+        return create_form('Thông tin cấu hình', $rule, '/system/config/storage/config');
     }
 
     /**
-     * 删除空间
+     * Xóa không gian
      * @param int $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -188,10 +188,10 @@ class SystemStorageServices extends BaseServices
     {
         $storageInfo = $this->dao->get(['is_delete' => 0, 'id' => $id]);
         if (!$storageInfo) {
-            throw new AdminException('删除的云存储不存在');
+            throw new AdminException('Bộ lưu trữ đám mây đã xóa không tồn tại');
         }
         if ($storageInfo->status) {
-            throw new AdminException('云存储正在使用中,需要启动其他空间才能删除');
+            throw new AdminException('Bộ nhớ đám mây đang được sử dụng,Cần bắt đầu các không gian khác để xóa');
         }
 
         try {
@@ -213,7 +213,7 @@ class SystemStorageServices extends BaseServices
 
     public function saveConfig(int $type, array $data)
     {
-        //保存配置信息
+        //Lưu thông tin cấu hình
         if (1 !== $type) {
             $accessKey = $secretKey = $appid = $storageRegion = '';
             if (isset($data['accessKey']) && isset($data['secretKey']) && $data['accessKey'] && $data['secretKey']) {
@@ -235,29 +235,29 @@ class SystemStorageServices extends BaseServices
             /** @var SystemConfigServices $make */
             $make = app()->make(SystemConfigServices::class);
             switch ($type) {
-                case 2://七牛
+                case 2://Qiniu
                     $make->update('qiniu_accessKey', ['value' => json_encode($accessKey)], 'menu_name');
                     $make->update('qiniu_secretKey', ['value' => json_encode($secretKey)], 'menu_name');
                     break;
-                case 3:// oss 阿里云
+                case 3:// oss Đám mây của Alibaba
                     $make->update('accessKey', ['value' => json_encode($accessKey)], 'menu_name');
                     $make->update('secretKey', ['value' => json_encode($secretKey)], 'menu_name');
                     break;
-                case 4:// cos 腾讯云
+                case 4:// cos Đám mây Tencent
                     $make->update('tengxun_accessKey', ['value' => json_encode($accessKey)], 'menu_name');
                     $make->update('tengxun_secretKey', ['value' => json_encode($secretKey)], 'menu_name');
                     $make->update('tengxun_appid', ['value' => json_encode($appid)], 'menu_name');
                     break;
-                case 5:// oss 京东云
+                case 5:// oss Đám mây JD
                     $make->update('jd_accessKey', ['value' => json_encode($accessKey)], 'menu_name');
                     $make->update('jd_secretKey', ['value' => json_encode($secretKey)], 'menu_name');
                     $make->update('jd_storageRegion', ['value' => json_encode($storageRegion)], 'menu_name');
                     break;
-                case 6:// oss 华为云
+                case 6:// oss Đám mây Huawei
                     $make->update('hw_accessKey', ['value' => json_encode($accessKey)], 'menu_name');
                     $make->update('hw_secretKey', ['value' => json_encode($secretKey)], 'menu_name');
                     break;
-                case 7:// oss 天翼云
+                case 7:// oss Đám mây Thiên Nhất
                     $make->update('ty_accessKey', ['value' => json_encode($accessKey)], 'menu_name');
                     $make->update('ty_secretKey', ['value' => json_encode($secretKey)], 'menu_name');
                     break;
@@ -267,19 +267,19 @@ class SystemStorageServices extends BaseServices
     }
 
     /**
-     * 保存云存储
+     * Tiết kiệm bộ nhớ đám mây
      * @param int $type
      * @param array $data
      * @return mixed
      */
     public function saveStorage(int $type, array $data)
     {
-        //保存配置信息
+        //Lưu thông tin cấu hình
         $this->saveConfig($type, $data);
         if ($this->dao->count(['name' => $data['name']])) {
-            throw new AdminException('云空间名称不能重复');
+            throw new AdminException('Tên không gian đám mây không thể lặp lại');
         }
-        //保存云存储
+        //Tiết kiệm bộ nhớ đám mây
         $data['type'] = $type;
         $upload = UploadService::init($type);
         $res = $upload->createBucket($data['name'], $data['region'], $data['acl']);
@@ -307,7 +307,7 @@ class SystemStorageServices extends BaseServices
     }
 
     /**
-     * 同步云储存桶
+     * Đồng bộ hóa nhóm lưu trữ đám mây
      * @param int $type
      * @return bool
      */
@@ -315,7 +315,7 @@ class SystemStorageServices extends BaseServices
     {
         $data = [];
         switch ($type) {
-            case 2://七牛
+            case 2://Qiniu
                 $config = $this->getStorageConfig($type);
                 $upload = UploadService::init($type);
                 $list = $upload->listbuckets();
@@ -335,7 +335,7 @@ class SystemStorageServices extends BaseServices
                     }
                 }
                 break;
-            case 3:// oss 阿里云
+            case 3:// oss Đám mây của Alibaba
                 $upload = UploadService::init($type);
                 $list = $upload->listbuckets();
                 $config = $this->getStorageConfig($type);
@@ -357,7 +357,7 @@ class SystemStorageServices extends BaseServices
                     }
                 }
                 break;
-            case 4:// cos 腾讯云
+            case 4:// cos Đám mây Tencent
                 $upload = UploadService::init($type);
                 $list = $upload->listbuckets();
                 if (!empty($list['Name'])) {
@@ -383,7 +383,7 @@ class SystemStorageServices extends BaseServices
                     }
                 }
                 break;
-            case 5:// cos 京东云
+            case 5:// cos Đám mây JD
                 $upload = UploadService::init($type);
                 $res = $upload->listbuckets(sys_config('jd_storageRegion'));
                 $list = $res['Buckets'];
@@ -406,8 +406,8 @@ class SystemStorageServices extends BaseServices
                     }
                 }
                 break;
-            case 6:// cos 华为云
-            case 7:// cos 天翼云
+            case 6:// cos Đám mây Huawei
+            case 7:// cos Đám mây Thiên Nhất
                 $upload = UploadService::init($type);
                 $list = $upload->listbuckets();
                 if (!empty($list['Name'])) {
@@ -461,7 +461,7 @@ class SystemStorageServices extends BaseServices
     }
 
     /**
-     * 获取域名
+     * Nhận tên miền
      * @param int $type
      * @param string $name
      * @param string $reagion
@@ -472,19 +472,19 @@ class SystemStorageServices extends BaseServices
     {
         $domainName = '';
         switch ($type) {
-            case 3:// oss 阿里云
+            case 3:// oss Đám mây của Alibaba
                 $domainName = 'https://' . $name . '.' . $reagion;
                 break;
-            case 4:// cos 腾讯云
+            case 4:// cos Đám mây Tencent
                 $domainName = 'https://' . $name . ($appid ? '-' . $appid : '') . '.cos.' . $reagion . '.myqcloud.com';
                 break;
-            case 5:// cos 京东云
+            case 5:// cos Đám mây JD
                 $domainName = 'https://' . $name . '.s3.' . $reagion . '.jdcloud-oss.com';
                 break;
-            case 6:// cos 华为云
+            case 6:// cos Đám mây Huawei
                 $domainName = 'https://' . $name . '.obs.' . $reagion . '.myhuaweicloud.com';
                 break;
-            case 7:// cos 天翼云
+            case 7:// cos Đám mây Thiên Nhất
                 $domainName = 'https://' . $name . '.obs.' . $reagion . '.ctyun.cn';
                 break;
         }
@@ -493,7 +493,7 @@ class SystemStorageServices extends BaseServices
 
 
     /**
-     * 获取云存储配置
+     * Nhận cấu hình lưu trữ đám mây
      * @param int $type
      * @return array|string[]
      */
@@ -512,7 +512,7 @@ class SystemStorageServices extends BaseServices
     }
 
     /**
-     * 获取修改域名表单
+     * Nhận mẫu sửa đổi tên miền
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -521,14 +521,14 @@ class SystemStorageServices extends BaseServices
     {
         $storage = $this->dao->get(['id' => $id], ['domain', 'cdn']);
         $rule = [
-            FormBuilder::input('domain', '空间域名', $storage['domain']),
-            FormBuilder::input('cdn', 'cdn域名', $storage['cdn']),
+            FormBuilder::input('domain', 'Tên miền không gian', $storage['domain']),
+            FormBuilder::input('cdn', 'cdntên miền', $storage['cdn']),
         ];
-        return create_form('修改空间域名', $rule, '/system/config/storage/domain/' . $id);
+        return create_form('Sửa đổi tên miền không gian', $rule, '/system/config/storage/domain/' . $id);
     }
 
     /**
-     * 修改域名并绑定
+     * Sửa đổi tên miền và liên kết nó
      * @param int $id
      * @param string $domain
      * @return bool
@@ -540,25 +540,25 @@ class SystemStorageServices extends BaseServices
     {
         $info = $this->dao->get($id);
         if (!$info) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         if ($info->domain != $domain) {
             $info->domain = $domain;
             $upload = UploadService::init($info->type);
-            //是否添加过域名不存在需要绑定域名
+            //Bạn đã thêm tên miền chưa? Nó không tồn tại. Bạn cần phải ràng buộc tên miền.
             $domainList = $upload->getDomian($info->name, $info->region);
             $domainParse = parse_url($domain);
             if (false === $domainParse) {
-                throw new AdminException('域名输入有误');
+                throw new AdminException('Tên miền nhập sai');
             }
             if (!in_array($domainParse['host'], $domainList)) {
-                //绑定域名到云储存桶
+                //Liên kết tên miền với nhóm lưu trữ đám mây
                 $res = $upload->bindDomian($info->name, $domain, $info->region);
                 if (false === $res) {
                     throw new AdminException($upload->getError());
                 }
             }
-            //七牛云需要通过接口获取cname
+            //Qiniu Cloud cần lấy được thông qua giao diệncname
             if (2 === ((int)$info->type)) {
                 $resDomain = $upload->getDomianInfo($domain);
                 $info->cname = $resDomain['cname'] ?? '';

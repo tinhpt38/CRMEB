@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -33,7 +33,7 @@ class Product extends AuthController
     }
 
     /**
-     * 获取用户购买记录
+     * Nhận hồ sơ mua hàng của người dùng
      * @param $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -46,7 +46,7 @@ class Product extends AuthController
     }
 
     /**
-     * 用户浏览记录
+     * Lịch sử duyệt web của người dùng
      * @param $uid
      * @param string $store_name
      * @return mixed
@@ -57,7 +57,7 @@ class Product extends AuthController
     }
 
     /**
-     * 获取用户购买的热销商品
+     * Nhận các sản phẩm bán chạy nhất được người dùng mua
      * @param $uid
      * @param string $store_name
      * @return mixed
@@ -71,7 +71,7 @@ class Product extends AuthController
     }
 
     /**
-     * 商品详情
+     * Chi tiết sản phẩm
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException

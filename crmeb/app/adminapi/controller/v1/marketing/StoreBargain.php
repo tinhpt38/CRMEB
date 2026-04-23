@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use app\services\activity\bargain\StoreBargainUserServices;
 use think\facade\App;
 
 /**
- * 砍价管理
+ * Quản lý mặc cả
  * Class StoreBargain
  * @package app\adminapi\controller\v1\marketing
  */
@@ -35,7 +35,7 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * 砍价列表
+     * Danh sách mặc cả
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -55,7 +55,7 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * 保存砍价商品
+     * Lưu lại những món hàng giá hời
      * @param $id
      * @return mixed
      */
@@ -84,9 +84,9 @@ class StoreBargain extends AuthController
             ['copy', 0],
             ['bargain_num', 1],
             ['people_num', 1],
-            ['logistics', []],//物流方式
-            ['freight', 1],//运费设置
-            ['postage', 0],//邮费
+            ['logistics', []],//Phương pháp hậu cần
+            ['freight', 1],//Cài đặt phí vận chuyển
+            ['postage', 0],//Bưu phí
             ['custom_form', ''],
             ['virtual_type', 0],
             ['is_commission', 0],
@@ -95,20 +95,20 @@ class StoreBargain extends AuthController
         if ($data['section_time']) {
             [$start_time, $end_time] = $data['section_time'];
             if (strtotime($end_time) < time()) {
-                return app('json')->fail('活动结束时间不能小于当前时间');
+                return app('json')->fail('Thời gian kết thúc hoạt động không được nhỏ hơn thời gian hiện tại');
             }
         }
         $bragain = [];
         if ($id) {
             $bragain = $this->services->get((int)$id);
             if (!$bragain) {
-                return app('json')->fail('数据不存在');
+                return app('json')->fail('Dữ liệu không tồn tại');
             }
         }
-        //限制编辑
+        //Hạn chế chỉnh sửa
         if ($data['copy'] == 0 && $bragain) {
             if ($bragain['stop_time'] < time()) {
-                return app('json')->fail('活动已结束,请重新添加或复制');
+                return app('json')->fail('Sự kiện đã kết thúc,Vui lòng thêm lại hoặc sao chép');
             }
         }
         if ($data['copy'] == 1) {
@@ -116,11 +116,11 @@ class StoreBargain extends AuthController
             unset($data['copy']);
         }
         $this->services->saveData($id, $data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 获取详情
+     * Nhận thông tin chi tiết
      * @param $id
      * @return mixed
      */
@@ -131,7 +131,7 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * 删除砍价
+     * Xóa món hời
      * @param $id
      * @return mixed
      */
@@ -141,11 +141,11 @@ class StoreBargain extends AuthController
         /** @var StoreBargainUserServices $bargainUserService */
         $bargainUserService = app()->make(StoreBargainUserServices::class);
         $bargainUserService->userBargainStatusFail($id, true);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param $id
      * @param $status
      * @return mixed
@@ -159,15 +159,15 @@ class StoreBargain extends AuthController
         } else {
             $info = $this->services->get($id);
             if ($info['stop_time'] < time()) {
-                return app('json')->fail('活动已结束，无法继续上架');
+                return app('json')->fail('Sự kiện đã kết thúc và không thể thêm vào kệ');
             }
         }
         $this->services->update($id, ['status' => $status]);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 砍价列表
+     * Danh sách mặc cả
      * @return mixed
      */
     public function bargainList()
@@ -183,7 +183,7 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * 砍价信息
+     * Thông tin mặc cả
      * @param $id
      * @return mixed
      */
@@ -196,7 +196,7 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * 砍价统计
+     * Thống kê mặc cả
      * @param $id
      * @return mixed
      */
@@ -207,7 +207,7 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * 砍价列表
+     * Danh sách mặc cả
      * @param $id
      * @return mixed
      */
@@ -221,7 +221,7 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * 砍价订单
+     * lệnh mặc cả
      * @param $id
      * @return mixed
      */

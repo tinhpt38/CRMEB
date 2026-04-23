@@ -1,56 +1,56 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 // +----------------------------------------------------------------------
-// | 短信配置
+// | cấu hình tin nhắn
 // +----------------------------------------------------------------------
 
 return [
-    //平台账号
+    //Tài khoản nền tảng
     'account' => '',
-    //平台秘钥
+    //Khóa nền tảng
     'secret' => '',
-    //驱动模式
+    //Chế độ lái xe
     'stores' => [
         'sms' => [
-            //单个手机每日发送上限
+            //Giới hạn gửi hàng ngày cho một điện thoại di động
             'maxPhoneCount' => 10,
-            //验证码每分钟发送上线
+            //Mã xác minh được gửi trực tuyến mỗi phút
             'maxMinuteCount' => 20,
-            //单个IP每日发送上限
+            //Giới hạn gửi hàng ngày cho một IP
             'maxIpCount' => 50,
-            //短信模板id
+            //mẫu tin nhắnid
             'template_id' => [
-                //验证码自定义时效
+                //Mã xác minh tùy chỉnh giới hạn thời gian
                 'VERIFICATION_CODE_TIME' => 538393,
-                //验证码
+                //Mã xác minh
                 'VERIFICATION_CODE' => 518076,
-                //支付成功
+                //Thanh toán thành công
                 'PAY_SUCCESS_CODE' => 520268,
-                //发货提醒
+                //Nhắc nhở vận chuyển
                 'DELIVER_GOODS_CODE' => 520269,
-                //确认收货提醒
+                //Xác nhận lời nhắc giao hàng
                 'TAKE_DELIVERY_CODE' => 520271,
-                //管理员下单提醒
+                //Nhắc nhở đặt hàng của quản trị viên
                 'ADMIN_PLACE_ORDER_CODE' => 520272,
-                //管理员退货提醒
+                //Lời nhắc trả lại của quản trị viên
                 'ADMIN_RETURN_GOODS_CODE' => 520274,
-                //管理员支付成功提醒
+                //Lời nhắc thanh toán thành công của quản trị viên
                 'ADMIN_PAY_SUCCESS_CODE' => 520273,
-                //管理员确认收货
+                //Quản trị viên xác nhận đã nhận
                 'ADMIN_TAKE_DELIVERY_CODE' => 520422,
-                //改价提醒
+                //Nhắc nhở thay đổi giá
                 'PRICE_REVISION_CODE' => 528288,
-                //订单未支付
+                //Đơn hàng chưa được thanh toán
                 'ORDER_PAY_FALSE' => 528116,
-                //管理员下单提醒
+                //Nhắc nhở đặt hàng của quản trị viên
                 'ADMIN_ORDER_UID' => 578254627,
             ]
         ]

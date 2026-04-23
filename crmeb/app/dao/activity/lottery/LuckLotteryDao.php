@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class LuckLotteryDao extends BaseDao
 {
 
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -33,12 +33,12 @@ class LuckLotteryDao extends BaseDao
     }
 
     /**
-     * 抽奖搜索
+     * Tìm kiếm xổ số
      * @param array $data
      * @param bool $search
      * @return \crmeb\basic\BaseModel
      * @throws \ReflectionException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/20
      */
@@ -71,7 +71,7 @@ class LuckLotteryDao extends BaseDao
     }
 
     /**
-     * 抽奖活动列表
+     * Danh sách rút thăm trúng thưởng
      * @param array $where
      * @param string $field
      * @param string $order
@@ -107,10 +107,10 @@ class LuckLotteryDao extends BaseDao
         $list = $model->with(['records' => function ($query) {
             $query->field([
                 'lottery_id',
-                'COUNT(DISTINCT uid) AS total_user',      // 总参与人数
-                'COUNT(DISTINCT CASE WHEN type != 1 THEN uid END) AS wins_user', // 中奖人数
-                'COUNT(*) AS total_num',                    // 总参与次数
-                'SUM(type != 1) AS wins_num',                  // 中奖次数
+                'COUNT(DISTINCT uid) AS total_user',      // tổng số người tham gia
+                'COUNT(DISTINCT CASE WHEN type != 1 THEN uid END) AS wins_user', // Số người chiến thắng
+                'COUNT(*) AS total_num',                    // Tổng số lần tham gia
+                'SUM(type != 1) AS wins_num',                  // Số lần thắng
             ])->group('lottery_id');
         }])->field($field)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -119,7 +119,7 @@ class LuckLotteryDao extends BaseDao
     }
 
     /**
-     * 获取单个活动
+     * Nhận một sự kiện duy nhất
      * @param int $id
      * @param string $field
      * @param array|string[] $with
@@ -140,7 +140,7 @@ class LuckLotteryDao extends BaseDao
     }
 
     /**
-     * 获取某个抽奖类型的一条抽奖数据
+     * Nhận một phần dữ liệu xổ số cho một loại xổ số nhất định
      * @param int $factor
      * @param string $field
      * @param array|string[] $with

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\activity\live\LiveGoodsServices;
 use think\facade\App;
 
 /**
- * 直播间商品
+ * Sản phẩm phòng phát sóng trực tiếp
  * Class LiveGoods
  * @package app\controller\admin\store
  */
@@ -33,7 +33,7 @@ class LiveGoods extends AuthController
     }
 
     /**
-     * 直播间商品列表
+     * Danh sách sản phẩm phòng phát sóng trực tiếp
      * @return mixed
      */
     public function list()
@@ -48,7 +48,7 @@ class LiveGoods extends AuthController
     }
 
     /**
-     * 生成直播商品
+     * Tạo sản phẩm phát sóng trực tiếp
      * @return mixed
      */
     public function create()
@@ -60,7 +60,7 @@ class LiveGoods extends AuthController
     }
 
     /**
-     * 上传直播商品
+     * Tải lên sản phẩm trực tiếp
      * @return mixed
      * @throws \EasyWeChat\Core\Exceptions\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
@@ -81,33 +81,33 @@ class LiveGoods extends AuthController
         }
         if ($error) return app('json')->fail(40137);
         $this->services->add($goods_info);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 商品详情
+     * Chi tiết sản phẩm
      * @param $id
      * @return mixed
      */
     public function detail($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $goods = $this->services->get($id, ['*'], ['product']);
         return app('json')->success($goods ? $goods->toArray() : []);
     }
 
     /**
-     * 同步直播商品
+     * Đồng bộ hóa các sản phẩm phát sóng trực tiếp
      * @return mixed
      */
     public function syncGoods()
     {
         $this->services->syncGoodStatus();
-        return app('json')->success('同步成功');
+        return app('json')->success('Đồng bộ hóa thành công');
     }
 
     /**
-     * 重新提交审核
+     * Gửi lại để xem xét
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -116,13 +116,13 @@ class LiveGoods extends AuthController
      */
     public function audit($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->audit((int)$id);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 撤回审核
+     * Rút lại đánh giá
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -131,25 +131,25 @@ class LiveGoods extends AuthController
      */
     public function resetAudit($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->resetAudit((int)$id);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 设置状态
+     * Đặt trạng thái
      * @param int $id
      * @param $is_show
      * @return mixed
      */
     public function setShow(int $id, $is_show)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->isShow($id, $is_show));
     }
 
     /**
-     * 删除商品
+     * Xóa sản phẩm
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -158,9 +158,9 @@ class LiveGoods extends AuthController
      */
     public function delete($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->delete($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
 }

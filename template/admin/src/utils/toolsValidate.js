@@ -1,287 +1,312 @@
 /**
- * 2020.11.29 lyt 整理
- * 工具类集合，适用于平时开发
+ * 2020.11.29 lyt tổ chức
+ * Bộ sưu tập các công cụ phù hợp cho việc phát triển hàng ngày
  */
 
 /**
- * 验证百分比（不可以小数）
- * @param val 当前值字符串
- * @returns 返回处理后的字符串
+ * Tỷ lệ phần trăm xác minh (không cho phép số thập phân)
+ * @param val chuỗi giá trị hiện tại
+ * @returns trả về chuỗi đã xử lý
  */
 export function verifyNumberPercentage(val) {
-  // 匹配空格
+  // Khớp không gian
   let v = val.replace(/(^\s*)|(\s*$)/g, '');
-  // 只能是数字和小数点，不能是其他输入
+  // Chỉ có thể là số và dấu thập phân, không thể là đầu vào khác
   v = v.replace(/[^\d]/g, '');
-  // 不能以0开始
+  // không thể bắt đầu bằng 0
   v = v.replace(/^0/g, '');
-  // 数字超过100，赋值成最大值100
+  // Nếu số vượt quá 100 thì gán giá trị lớn nhất100
   v = v.replace(/^[1-9]\d\d{1,3}$/, '100');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
 /**
- * 验证百分比（可以小数）
- * @param val 当前值字符串
- * @returns 返回处理后的字符串
+ * Tỷ lệ xác minh (có thể là số thập phân)
+ * @param val chuỗi giá trị hiện tại
+ * @returns trả về chuỗi đã xử lý
  */
 export function verifyNumberPercentageFloat(val) {
   let v = verifyNumberIntegerAndFloat(val);
-  // 数字超过100，赋值成最大值100
+  // Nếu số vượt quá 100 thì gán giá trị lớn nhất100
   v = v.replace(/^[1-9]\d\d{1,3}$/, '100');
-  // 超过100之后不给再输入值
+  // Sẽ không có đầu vào nào nữa sau khi vượt quá 100
   v = v.replace(/^100\.$/, '100');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 小数或整数(不可以负数)
+// số thập phân hoặc số nguyên(Số âm không được phép)
 export function verifyNumberIntegerAndFloat(val) {
-  // 匹配空格
+  // Khớp không gian
   let v = val.replace(/(^\s*)|(\s*$)/g, '');
-  // 只能是数字和小数点，不能是其他输入
+  // Chỉ có thể là số và dấu thập phân, không thể là đầu vào khác
   v = v.replace(/[^\d.]/g, '');
-  // 以0开始只能输入一个
+  // Bắt đầu bằng 0, chỉ có thể nhập một.
   v = v.replace(/^0{2}$/g, '0');
-  // 保证第一位只能是数字，不能是点
+  // Đảm bảo rằng chữ số đầu tiên chỉ có thể là số chứ không phải dấu chấm
   v = v.replace(/^\./g, '');
-  // 小数只能出现1位
+  // Chỉ có thể xuất hiện 1 chữ số thập phân
   v = v.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.');
-  // 小数点后面保留2位
+  // Giữ 2 chữ số sau dấu thập phân
   v = v.replace(/^(\\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 正整数验证
+// Xác thực số nguyên dương
 export function verifiyNumberInteger(val) {
-  // 匹配空格
+  // Khớp không gian
   let v = val.replace(/(^\s*)|(\s*$)/g, '');
-  // 去掉 '.' , 防止贴贴的时候出现问题 如 0.1.12.12
+  // di dời '.' , Để tránh các vấn đề khi áp dụng nhãn dán, chẳng hạn như 0.1.12.12
   v = v.replace(/[\\.]*/g, '');
-  // 去掉以 0 开始后面的数, 防止贴贴的时候出现问题 如 00121323
+  // Xóa số bắt đầu bằng 0, Để tránh các vấn đề khi áp dụng nhãn dán, chẳng hạn như 00121323
   v = v.replace(/(^0[\d]*)$/g, '0');
-  // 首位是0,只能出现一次
+  // Nơi đầu tiên là0,Chỉ có thể xuất hiện một lần
   v = v.replace(/^0\d$/g, '0');
-  // 只匹配数字
+  // Chỉ khớp số
   v = v.replace(/[^\d]/g, '');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 去掉中文及空格
+// Xóa ký tự và dấu cách tiếng Trung
 export function verifyCnAndSpace(val) {
-  // 匹配中文与空格
+  // Nối các ký tự và dấu cách tiếng Trung
   let v = val.replace(/[\u4e00-\u9fa5\s]+/g, '');
-  // 匹配空格
+  // Khớp không gian
   v = v.replace(/(^\s*)|(\s*$)/g, '');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 去掉英文及空格
+// Xóa tiếng Anh và dấu cách
 export function verifyEnAndSpace(val) {
-  // 匹配英文与空格
+  // Kết hợp tiếng Anh và dấu cách
   let v = val.replace(/[a-zA-Z]+/g, '');
-  // 匹配空格
+  // Khớp không gian
   v = v.replace(/(^\s*)|(\s*$)/g, '');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 禁止输入空格
+// Không được phép có khoảng trống
 export function verifyAndSpace(val) {
-  // 匹配空格
+  // Khớp không gian
   let v = val.replace(/(^\s*)|(\s*$)/g, '');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 金额用 `,` 区分开
+// Đối với số tiền `,` phân biệt
 export function verifyNumberComma(val) {
-  // 调用小数或整数(不可以负数)方法
+  // Gọi số thập phân hoặc số nguyên(Số âm không được phép)phương pháp
   let v = verifyNumberIntegerAndFloat(val);
-  // 字符串转成数组
+  // Chuyển chuỗi thành mảng
   v = v.toString().split('.');
-  // \B 匹配非单词边界，两边都是单词字符或者两边都是非单词字符
+  // \B Khớp các ranh giới không phải từ là ký tự từ ở hai bên hoặc ký tự không phải từ ở cả hai bên
   v[0] = v[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  // 数组转字符串
+  // Mảng thành chuỗi
   v = v.join('.');
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 匹配文字变色（搜索时）
+// So khớp văn bản thay đổi màu sắc (khi tìm kiếm）
 export function verifyTextColor(val, text = '', color = 'red') {
-  // 返回内容，添加颜色
+  // Trả lại nội dung, thêm màu sắc
   let v = text.replace(new RegExp(val, 'gi'), `<span style='color: ${color}'>${val}</span>`);
-  // 返回结果
+  // Trả về kết quả
   return v;
 }
 
-// 数字转中文大写
-export function verifyNumberCnUppercase(val, unit = '仟佰拾亿仟佰拾万仟佰拾元角分', v = '') {
-  // 当前内容字符串添加 2个0，为什么??
-  val += '00';
-  // 返回某个指定的字符串值在字符串中首次出现的位置，没有出现，则该方法返回 -1
-  let lookup = val.indexOf('.');
-  // substring：不包含结束下标内容，substr：包含结束下标内容
-  if (lookup >= 0) val = val.substring(0, lookup) + val.substr(lookup + 1, 2);
-  // 根据内容 val 的长度，截取返回对应大写
-  unit = unit.substr(unit.length - val.length);
-  // 循环截取拼接大写
-  for (let i = 0; i < val.length; i++) {
-    v += '零壹贰叁肆伍陆柒捌玖'.substr(val.substr(i, 1), 1) + unit.substr(i, 1);
+// Chuyển số sang chữ tiếng Việt (đồng)
+export function verifyNumberCnUppercase(val) {
+  const digits = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+  const unitBlock = ['', 'nghìn', 'triệu', 'tỷ'];
+  let amount = String(val || '').replace(/[, ]/g, '');
+
+  if (!/^\d+(\.\d+)?$/.test(amount)) return '';
+
+  amount = amount.split('.')[0].replace(/^0+(?=\d)/, '');
+  if (!amount) return 'không đồng';
+
+  const readTriple = (triple, full = false) => {
+    const [h, t, o] = triple.split('').map((n) => Number(n));
+    let result = '';
+
+    if (h > 0 || full) result += `${digits[h]} trăm`;
+
+    if (t > 1) {
+      result += `${result ? ' ' : ''}${digits[t]} mươi`;
+      if (o === 1) result += ' mốt';
+      else if (o === 4) result += ' tư';
+      else if (o === 5) result += ' lăm';
+      else if (o > 0) result += ` ${digits[o]}`;
+    } else if (t === 1) {
+      result += `${result ? ' ' : ''}mười`;
+      if (o === 5) result += ' lăm';
+      else if (o > 0) result += ` ${digits[o]}`;
+    } else if (o > 0) {
+      if (h > 0 || full) result += ' lẻ';
+      result += `${result ? ' ' : ''}${digits[o]}`;
+    }
+
+    return result.trim();
+  };
+
+  const blocks = [];
+  for (let i = amount.length; i > 0; i -= 3) {
+    blocks.unshift(amount.substring(Math.max(0, i - 3), i).padStart(3, '0'));
   }
-  // 正则处理
-  v = v
-    .replace(/零角零分$/, '整')
-    .replace(/零[仟佰拾]/g, '零')
-    .replace(/零{2,}/g, '零')
-    .replace(/零([亿|万])/g, '$1')
-    .replace(/零+元/, '元')
-    .replace(/亿零{0,3}万/, '亿')
-    .replace(/^元/, '零元');
-  // 返回结果
-  return v;
+
+  const words = [];
+  const totalBlocks = blocks.length;
+
+  blocks.forEach((block, idx) => {
+    if (block === '000') return;
+    const unitIndex = (totalBlocks - idx - 1) % 4;
+    const blockWords = readTriple(block, idx !== 0);
+    words.push(`${blockWords}${unitBlock[unitIndex] ? ` ${unitBlock[unitIndex]}` : ''}`.trim());
+  });
+
+  return `${words.join(' ').replace(/\s+/g, ' ').trim()} đồng`;
 }
 
-// 手机号码
+// số điện thoại
 export function verifyPhone(val) {
-  // false: 手机号码不正确
-  if (!/^((12[0-9])|(13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/.test(val)) return false;
-  // true: 手机号码正确
-  else return true;
+  // Hỗ trợ định dạng 10 số hoặc +84/84
+  const phone = String(val || '').replace(/\s+/g, '');
+  if (!/^(?:\+84|84|0)(3|5|7|8|9)\d{8}$/.test(phone)) return false;
+  return true;
+
 }
 
-// 国内电话号码
+// Số điện thoại trong nước
 export function verifyTelPhone(val) {
-  // false: 国内电话号码不正确
-  if (!/\d{3}-\d{8}|\d{4}-\d{7}/.test(val)) return false;
-  // true: 国内电话号码正确
-  else return true;
+  // Định dạng phổ biến: 02412345678, 028-12345678, 0236 1234567
+  const tel = String(val || '').replace(/\s+/g, '');
+  if (!/^0\d{1,3}-?\d{7,8}$/.test(tel)) return false;
+  return true;
 }
 
-// 登录账号 (字母开头，允许5-16字节，允许字母数字下划线)
+// Đăng nhập tài khoản (Bắt đầu bằng một chữ cái, cho phép 5-16 byte, cho phép gạch dưới chữ và số)
 export function verifyAccount(val) {
-  // false: 登录账号不正确
+  // false: Tài khoản đăng nhập không chính xác
   if (!/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(val)) return false;
-  // true: 登录账号正确
+  // true: Tài khoản đăng nhập là chính xác
   else return true;
 }
 
-// 密码 (以字母开头，长度在6~16之间，只能包含字母、数字和下划线)
+// mật khẩu (Bắt đầu bằng một chữ cái và có độ dài6~16giữa, chỉ có thể chứa chữ cái, số và dấu gạch dưới)
 export function verifyPassword(val) {
-  // false: 密码不正确
+  // false: Mật khẩu không đúng
   if (!/^[a-zA-Z]\w{5,15}$/.test(val)) return false;
-  // true: 密码正确
+  // true: Mật khẩu đúng
   else return true;
 }
 
-// 强密码 (字母+数字+特殊字符，长度在6-16之间)
+// Mật khẩu mạnh (Chữ cái + số + ký tự đặc biệt, độ dài từ 6-16)
 export function verifyPasswordPowerful(val) {
-  // false: 强密码不正确
+  // false: Mật khẩu mạnh không chính xác
   if (
     !/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\\.*]+$)(?![\d!@#$%^&\\.*]+$)[a-zA-Z\d!@#$%^&\\.*]{6,16}$/.test(
       val,
     )
   )
     return false;
-  // true: 强密码正确
+  // true: Mật khẩu mạnh là chính xác
   else return true;
 }
 
-// 密码强度
+// Độ mạnh mật khẩu
 export function verifyPasswordStrength(val) {
   let v = '';
-  // 弱：纯数字，纯字母，纯特殊字符
-  if (/^(?:\d+|[a-zA-Z]+|[!@#$%^&\\.*]+){6,16}$/.test(val)) v = '弱';
-  // 中：字母+数字，字母+特殊字符，数字+特殊字符
-  if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\\.*]+$)[a-zA-Z\d!@#$%^&\\.*]{6,16}$/.test(val)) v = '中';
-  // 强：字母+数字+特殊字符
+  // Yếu: thuần số, thuần chữ, thuần ký tự đặc biệt
+  if (/^(?:\d+|[a-zA-Z]+|[!@#$%^&\\.*]+){6,16}$/.test(val)) v = 'yếu đuối';
+  // Medium: chữ cái + số, chữ cái + ký tự đặc biệt, số + ký tự đặc biệt
+  if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\\.*]+$)[a-zA-Z\d!@#$%^&\\.*]{6,16}$/.test(val)) v = 'ở giữa';
+  // Mạnh: chữ cái + số + ký tự đặc biệt
   if (
     /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\\.*]+$)(?![\d!@#$%^&\\.*]+$)[a-zA-Z\d!@#$%^&\\.*]{6,16}$/.test(
       val,
     )
   )
-    v = '强';
-  // 返回结果
+    v = 'mạnh mẽ';
+  // Trả về kết quả
   return v;
 }
 
-// IP地址
+// IPĐịa chỉ
 export function verifyIPAddress(val) {
-  // false: IP地址不正确
-  if (
-    !/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(
-      val,
-    )
-  )
-    return false;
-  // true: IP地址正确
-  else return true;
+  // false: IPĐịa chỉ không chính xác
+  // if (
+  //   !/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(
+  //     val,
+  //   )
+  // )
+  //   return false;
+  // // true: IPĐịa chỉ đúng
+  // else return true;
+  return true;
 }
 
-// 邮箱
+// Thư
 export function verifyEmail(val) {
-  // false: 邮箱不正确
+  // false: Email không chính xác
   if (
     !/^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       val,
     )
   )
     return false;
-  // true: 邮箱正确
+  // true: Email là chính xác
   else return true;
 }
 
-// 身份证
+// CMND
 export function verifyIdCard(val) {
-  // false: 身份证不正确
-  if (!/^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(val)) return false;
-  // true: 身份证正确
-  else return true;
+  // Chấp nhận CMND 9 số hoặc CCCD 12 số
+  const id = String(val || '').replace(/\s+/g, '');
+  if (!/^(\d{9}|\d{12})$/.test(id)) return false;
+  return true;
 }
 
-// 姓名
+// Tên
 export function verifyFullName(val) {
-  // false: 姓名不正确
-  if (!/^[\u4e00-\u9fa5]{1,6}(·[\u4e00-\u9fa5]{1,6}){0,2}$/.test(val)) return false;
-  // true: 姓名正确
-  else return true;
+  // Hỗ trợ tên tiếng Việt có dấu, dấu nháy và khoảng trắng
+  const name = String(val || '').trim();
+  if (!/^[A-Za-zÀ-ỹĂăÂâĐđÊêÔôƠơƯư\s'.-]{2,60}$/.test(name)) return false;
+  return true;
 }
 
-// 邮政编码
+// mã bưu chính
 export function verifyPostalCode(val) {
-  // false: 邮政编码不正确
-  if (!/^[1-9][0-9]{5}$/.test(val)) return false;
-  // true: 邮政编码正确
+  // false: Mã bưu chính không chính xác
+  if (!/^\d{5}$/.test(val)) return false;
+  // true: Mã bưu chính là chính xác
   else return true;
 }
 
 // url
 export function verifyUrl(val) {
-  // false: url不正确
+  // false: urlKhông đúng
   if (
     !/^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
       val,
     )
   )
     return false;
-  // true: url正确
+  // true: urlChính xác
   else return true;
 }
 
-// 车牌号
+// biển số xe
 export function verifyCarNum(val) {
-  // false: 车牌号不正确
-  if (
-    !/^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/.test(
-      val,
-    )
-  )
+  // false: Biển số xe không đúng
+  const plate = String(val || '').toUpperCase().replace(/\s+/g, '');
+  if (!/^\d{2}[A-Z]{1,2}-?\d{3,5}(\.\d{2})?$/.test(plate))
     return false;
-  // true：车牌号正确
+  // true：Số biển số xe là chính xác
   else return true;
 }

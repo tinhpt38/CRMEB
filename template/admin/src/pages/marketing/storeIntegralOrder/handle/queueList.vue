@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modal" title="任务列表" width="1000px">
+  <el-dialog :visible.sync="modal" title="danh sách nhiệm vụ" width="1000px">
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-form
         ref="formValidate"
@@ -11,7 +11,7 @@
       >
         <el-row :gutter="24">
           <el-col span="10">
-            <el-form-item label="操作时间：">
+            <el-form-item label="Thời gian hoạt động：">
               <el-date-picker
                 clearable
                 :editable="false"
@@ -21,15 +21,15 @@
                 type="datetimerange"
                 value-format="yyyy/MM/dd"
                 range-separator="-"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                start-placeholder="ngày bắt đầu"
+                end-placeholder="ngày kết thúc"
                 style="width: 90%"
                 :options="options"
               ></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="7">
-            <el-form-item label="类型：">
+            <el-form-item label="kiểu：">
               <el-select v-model="formValidate.type" clearable @change="typeSearchs">
                 <el-option
                   v-for="item in typeList"
@@ -41,7 +41,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="7">
-            <el-form-item label="状态：">
+            <el-form-item label="tình trạng：">
               <el-select v-model="formValidate.status" clearable @change="statusSearchs">
                 <el-option
                   v-for="item in statusList"
@@ -60,45 +60,45 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作时间" min-width="130">
+        <el-table-column label="Thời gian hoạt động" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="发货单数" min-width="130">
+        <el-table-column label="Số lượng lô hàng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.total_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="成功发货单数" min-width="130">
+        <el-table-column label="Số lô hàng thành công" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.success_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="发货类型" min-width="130">
+        <el-table-column label="Loại vận chuyển" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" min-width="130">
+        <el-table-column label="tình trạng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.status_cn }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column label="vận hành" fixed="right" width="170">
           <template slot-scope="scope">
             <template v-if="scope.row.is_show_log">
-              <a v-db-click @click="deliveryLook(scope.row)">查看</a>
+              <a v-db-click @click="deliveryLook(scope.row)">Kiểm tra</a>
               <el-divider direction="vertical"></el-divider>
             </template>
             <template>
               <el-dropdown size="small" @command="changeMenu(scope.row, $event)">
-                <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="1">下载</el-dropdown-item>
-                  <el-dropdown-item command="2">重新执行</el-dropdown-item>
-                  <el-dropdown-item v-if="scope.row.is_stop_button" command="3">停止任务</el-dropdown-item>
-                  <el-dropdown-item v-if="scope.row.is_error_button" command="4">清除异常任务</el-dropdown-item>
+                  <el-dropdown-item command="1">tải về</el-dropdown-item>
+                  <el-dropdown-item command="2">Thực hiện lại</el-dropdown-item>
+                  <el-dropdown-item v-if="scope.row.is_stop_button" command="3">Dừng tác vụ</el-dropdown-item>
+                  <el-dropdown-item v-if="scope.row.is_error_button" command="4">Xóa nhiệm vụ ngoại lệ</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </template>
@@ -156,9 +156,9 @@ export default {
       modal: false,
       data1: [],
       page1: {
-        total: 0, // 总条数
-        pageNum: 1, // 当前页
-        pageSize: 10, // 每页显示条数
+        total: 0, // Tổng số mặt hàng
+        pageNum: 1, // Trang hiện tại
+        pageSize: 10, // Số mục được hiển thị trên mỗi trang
       },
       formValidate: {
         type: '',
@@ -168,7 +168,7 @@ export default {
       options: {
         shortcuts: [
           {
-            text: '今天',
+            text: 'Hôm nay',
             value() {
               const end = new Date();
               const start = new Date();
@@ -177,7 +177,7 @@ export default {
             },
           },
           {
-            text: '昨天',
+            text: 'Hôm qua',
             value() {
               const end = new Date();
               const start = new Date();
@@ -191,7 +191,7 @@ export default {
             },
           },
           {
-            text: '最近7天',
+            text: '7 ngày qua',
             value() {
               const end = new Date();
               const start = new Date();
@@ -202,7 +202,7 @@ export default {
             },
           },
           {
-            text: '最近30天',
+            text: '30 ngày qua',
             value() {
               const end = new Date();
               const start = new Date();
@@ -213,7 +213,7 @@ export default {
             },
           },
           {
-            text: '本月',
+            text: 'tháng này',
             value() {
               const end = new Date();
               const start = new Date();
@@ -222,7 +222,7 @@ export default {
             },
           },
           {
-            text: '本年',
+            text: 'năm nay',
             value() {
               const end = new Date();
               const start = new Date();
@@ -235,132 +235,132 @@ export default {
       timeVal: [],
       typeList: [
         // {
-        //     label: '批量发放用户优惠券',
+        //     label: 'Phát hành phiếu giảm giá cho người dùng theo đợt',
         //     value: '1'
         // },
         // {
-        //     label: '批量设置用户分组',
+        //     label: 'Đặt nhóm người dùng theo đợt',
         //     value: '2'
         // },
         // {
-        //     label: '批量设置用户标签',
+        //     label: 'Đặt nhãn người dùng theo lô',
         //     value: '3'
         // },
         // {
-        //     label: '批量下架商品',
+        //     label: 'Loại bỏ sản phẩm theo lô',
         //     value: '4'
         // },
         // {
-        //     label: '批量删除商品规格',
+        //     label: 'Xóa thông số sản phẩm theo lô',
         //     value: '5'
         // },
         {
-          label: '批量删除订单',
+          label: 'Xóa đơn hàng theo đợt',
           value: '6',
         },
         {
-          label: '批量手动发货',
+          label: 'Giao hàng thủ công theo lô',
           value: '7',
         },
         {
-          label: '批量打印电子面单',
+          label: 'In các biểu mẫu điện tử theo lô',
           value: '8',
         },
         {
-          label: '批量配送',
+          label: 'Giao hàng số lượng lớn',
           value: '9',
         },
         {
-          label: '批量虚拟发货',
+          label: 'Lô hàng ảo hàng loạt',
           value: '10',
         },
       ],
       statusList: [
         {
-          label: '未处理',
+          label: 'Chưa được xử lý',
           value: '0',
         },
         {
-          label: '处理中',
+          label: 'Xử lý',
           value: '1',
         },
         {
-          label: '已完成',
+          label: 'Hoàn thành',
           value: '2',
         },
         {
-          label: '处理失败',
+          label: 'Xử lý không thành công',
           value: '3',
         },
       ],
       columns2: [
         {
-          title: '订单ID',
+          title: 'Đặt hàngID',
           key: 'order_id',
         },
         {
-          title: '物流公司',
+          title: 'Công ty hậu cần',
           key: 'delivery_name',
         },
         {
-          title: '物流单号',
+          title: 'Số đơn hàng hậu cần',
           key: 'delivery_id',
         },
         {
-          title: '处理状态',
+          title: 'Trạng thái xử lý',
           key: 'status_cn',
         },
         {
-          title: '异常原因',
+          title: 'Nguyên nhân bất thường',
           key: 'error',
         },
       ],
       columns3: [
         {
-          title: '订单ID',
+          title: 'Đặt hàngID',
           key: 'order_id',
         },
         {
-          title: '备注',
+          title: 'Nhận xét',
           key: 'fictitious_content',
         },
         {
-          title: '处理状态',
+          title: 'Trạng thái xử lý',
           key: 'status_cn',
         },
         {
-          title: '异常原因',
+          title: 'Nguyên nhân bất thường',
           key: 'error',
         },
       ],
       columns5: [
         {
-          title: '订单ID',
+          title: 'Đặt hàngID',
           key: 'order_id',
         },
         {
-          title: '配送员',
+          title: 'người giao hàng',
           key: 'delivery_name',
         },
         {
-          title: '配送员电话',
+          title: 'Số điện thoại người giao hàng',
           key: 'delivery_id',
         },
         {
-          title: '处理状态',
+          title: 'Trạng thái xử lý',
           key: 'status_cn',
         },
         {
-          title: '异常原因',
+          title: 'Nguyên nhân bất thường',
           key: 'error',
         },
       ],
       columns4: [],
       data2: [],
       page2: {
-        total: 0, // 总条数
-        pageNum: 1, // 当前页
-        pageSize: 12, // 每页显示条数
+        total: 0, // Tổng số mặt hàng
+        pageNum: 1, // Trang hiện tại
+        pageSize: 12, // Số mục được hiển thị trên mỗi trang
       },
       modal1: false,
       deliveryLog: null,
@@ -408,24 +408,24 @@ export default {
           this.loading = false;
         });
     },
-    // 搜索-操作时间
+    // Thời gian thao tác tìm kiếm
     onchangeTime(time) {
       this.timeVal = time || [];
       this.formValidate.data = this.timeVal[0] ? (this.timeVal ? this.timeVal.join('-') : '') : '';
       this.page1.pageNum = 1;
       this.getQueue();
     },
-    // 搜索-类型
+    // Loại tìm kiếm
     typeSearchs() {
       this.page1.pageNum = 1;
       this.getQueue();
     },
-    // 搜索-状态
+    // Trạng thái tìm kiếm
     statusSearchs() {
       this.page1.pageNum = 1;
       this.getQueue();
     },
-    // 查看-获取数据
+    // Xem-lấy dữ liệu
     getDeliveryLog() {
       this.loading2 = true;
       deliveryLog(this.deliveryLogId, this.deliveryLogType, {
@@ -441,7 +441,7 @@ export default {
           this.loading2 = false;
         });
     },
-    // 查看
+    // Kiểm tra
     deliveryLook(row) {
       this.modal1 = true;
       this.deliveryLogId = row.id;
@@ -461,10 +461,10 @@ export default {
       }
       this.getDeliveryLog();
     },
-    // 更多
+    // Hơn
     changeMenu(row, $event) {
       switch ($event) {
-        // 下载
+        // tải về
         case '1':
           batchOrderDelivery(row.id, row.type, row.cache_type)
             .then((res) => {
@@ -474,18 +474,18 @@ export default {
               this.$message.error(err.msg);
             });
           break;
-        // 重新执行
+        // Thực hiện lại
         case '2':
           this.queueAgain(row.id, row.type);
           break;
-        // 停止任务
+        // Dừng tác vụ
         case '3':
           this.$msgbox({
-            title: '谨慎操作',
-            message: '确认停止该任务？',
+            title: 'Tiến hành thận trọng',
+            message: 'Xác nhận dừng tác vụ？',
             showCancelButton: true,
-            cancelButtonText: '取消',
-            confirmButtonText: '确定',
+            cancelButtonText: 'Hủy bỏ',
+            confirmButtonText: 'Chắc chắn',
             iconClass: 'el-icon-warning',
             confirmButtonClass: 'btn-custom-cancel',
           })
@@ -494,13 +494,13 @@ export default {
             })
             .catch(() => {});
           break;
-        // 清除异常任务
+        // Xóa nhiệm vụ ngoại lệ
         case '4':
           this.queueDel(row.id, row.type);
           break;
       }
     },
-    // 重新执行
+    // Thực hiện lại
     queueAgain(id, type) {
       queueAgain(id, type)
         .then((res) => {
@@ -511,7 +511,7 @@ export default {
           this.$message.error(err.msg);
         });
     },
-    // 清除异常任务
+    // Xóa nhiệm vụ ngoại lệ
     queueDel(id, type) {
       queueDel(id, type)
         .then((res) => {
@@ -522,7 +522,7 @@ export default {
           this.$message.error(err.msg);
         });
     },
-    // 停止任务
+    // Dừng tác vụ
     stopQueue(id) {
       stopWrongQueue(id)
         .then((res) => {

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -25,9 +25,9 @@ class StoreServiceFeedbackValidate extends Validate
     ];
 
     protected $message = [
-        'phone.require' => '手机号必须填写',
-        'phone.regex' => '手机号格式错误',
-        'content.require' => '请填写反馈内容',
-        'rela_name.require' => '名称必须填写',
+        'phone.require' => 'Số điện thoại di động là bắt buộc',
+        'phone.regex' => 'Lỗi định dạng số điện thoại di động',
+        'content.require' => 'Vui lòng điền nội dung phản hồi',
+        'rela_name.require' => 'Tên là bắt buộc',
     ];
 }

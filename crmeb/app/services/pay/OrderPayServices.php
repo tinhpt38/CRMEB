@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,14 +23,14 @@ use crmeb\utils\Str;
 use think\exception\ValidateException;
 
 /**
- * 订单发起支付
+ * Thanh toán bắt đầu đặt hàng
  * Class OrderPayServices
  * @package app\services\pay
  */
 class OrderPayServices
 {
     /**
-     * 支付
+     * chi trả
      * @var PayServices
      */
     protected $payServices;
@@ -41,21 +41,21 @@ class OrderPayServices
     }
 
     /**
-     * 获取支付方式
+     * Nhận phương thức thanh toán
      * @param string $payType
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
      */
     public function getPayType(string $payType)
     {
-        //微信支付没有开启，通联支付开启，用户访问端在小程序或者公众号的时候，使用通联微信H5支付
+        //Thanh toán WeChat không được bật, thanh toán Tonglian được bật và người dùng sử dụng thanh toán Tonglian WeChat H5 khi truy cập chương trình nhỏ hoặc tài khoản chính thức.
         if ($payType == PayServices::WEIXIN_PAY && !request()->isH5() && !request()->isApp()) {
             $payType = sys_config('pay_weixin_open', 0);
         }
 
-        //支付宝没有开启，通联支付开了，用户使用支付宝支付，并且在app端访问的时候，使用通联app支付宝支付
+        //Alipay chưa được bật nhưng Tonglian Pay đã được bật. Người dùng sử dụng Alipay để thanh toán và khi truy cập ứng dụng, hãy sử dụng ứng dụng Tonglian Alipay để thanh toán.
         if ($payType == PayServices::ALIAPY_PAY && request()->isApp()) {
             $payType = sys_config('ali_pay_status', 0);
         }
@@ -64,10 +64,10 @@ class OrderPayServices
     }
 
     /**
-     * 获取返回类型
+     * Nhận kiểu trả về
      * @param string $payType
      * @return string
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
      */
@@ -86,13 +86,13 @@ class OrderPayServices
         } else if ($payType == PayServices::ALLIN_PAY) {
             $payStstus = 'allinpay_pay';
         } else {
-            throw new ValidateException('获取支付返回类型失败');
+            throw new ValidateException('Không thể lấy được loại trả lại thanh toán');
         }
         return $payStstus;
     }
 
     /**
-     * 发起支付前
+     * Trước khi bắt đầu thanh toán
      * @param array $orderInfo
      * @param string $payType
      * @param array $options
@@ -100,7 +100,7 @@ class OrderPayServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
      */
@@ -111,10 +111,10 @@ class OrderPayServices
         $payType = $this->getPayType($payType);
 
         if ($orderInfo['paid']) {
-            throw new ApiException('订单已支付');
+            throw new ApiException('Đơn hàng đã thanh toán');
         }
         if ($orderInfo['pay_price'] <= 0) {
-            throw new ApiException('无需支付');
+            throw new ApiException('Không cần phải trả tiền');
         }
 
         switch ($payType) {
@@ -130,7 +130,7 @@ class OrderPayServices
                     $services = app()->make(WechatUserServices::class);
                     $openid = $services->uidToOpenid($orderInfo['pay_uid'] ?? $orderInfo['uid'], $userType);
                     if (!$openid) {
-                        throw new ApiException('获取用户openid失败,无法支付');
+                        throw new ApiException('Không thể lấy openid người dùng,Không thể thanh toán');
                     }
                 }
                 $options['openid'] = $openid;
@@ -167,13 +167,13 @@ class OrderPayServices
         }
 
         if (!$body) {
-            throw new ApiException('网站名称配置未填写,无法支付');
+            throw new ApiException('Cấu hình tên trang web chưa được điền,Không thể thanh toán');
         }
 
-        //发起支付
+        //Bắt đầu thanh toán
         $jsConfig = $this->payServices->pay($payType, $orderInfo['order_id'], $orderInfo['pay_price'], $successAction, $body, $options);
 
-        //发起支付后处理返回参数
+        //Xử lý các tham số trả về sau khi bắt đầu thanh toán
         $payInfo = $this->afterPay($orderInfo, $jsConfig, $payType);
         $statusType = $this->payStatus($payType);
 
@@ -184,12 +184,12 @@ class OrderPayServices
     }
 
     /**
-     * 支付发起后处理返回参数
+     * Xử lý các tham số trả về sau khi thanh toán được bắt đầu
      * @param $order
      * @param $jsConfig
      * @param string $payType
      * @return array
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
      */

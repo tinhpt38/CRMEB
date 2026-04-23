@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -53,48 +53,48 @@ use crmeb\services\pay\Pay;
 use crmeb\services\workerman\ChannelService;
 
 /**
- * 公共类
+ * lớp công cộng
  * Class PublicController
  * @package app\api\controller
  */
 class PublicController
 {
     /**
-     * 主页获取
+     * Mua lại trang chủ
      * @param Request $request
      * @return mixed
      */
     public function index(Request $request)
     {
-        $banner = sys_data('routine_home_banner') ?: []; //TODO 首页banner图
-        $menus = sys_data('routine_home_menus') ?: []; //TODO 首页按钮
-        $roll = sys_data('routine_home_roll_news') ?: []; //TODO 首页滚动新闻
-        $activity = sys_data('routine_home_activity', 3) ?: []; //TODO 首页活动区域图片
-        $explosive_money = sys_data('index_categy_images') ?: []; //TODO 首页超值爆款
+        $banner = sys_data('routine_home_banner') ?: []; //TODO Hình ảnh banner trang chủ
+        $menus = sys_data('routine_home_menus') ?: []; //TODO Nút trang chủ
+        $roll = sys_data('routine_home_roll_news') ?: []; //TODO Trang chủ tung tin tức
+        $activity = sys_data('routine_home_activity', 3) ?: []; //TODO Hình ảnh khu vực sự kiện trang chủ
+        $explosive_money = sys_data('index_categy_images') ?: []; //TODO Trang chủ siêu giá trị đồ hot
         $site_name = sys_config('site_name');
         $routine_index_page = sys_data('routine_index_page');
-        $info['fastInfo'] = $routine_index_page[0]['fast_info'] ?? ''; //TODO 快速选择简介
-        $info['bastInfo'] = $routine_index_page[0]['bast_info'] ?? ''; //TODO 精品推荐简介
-        $info['firstInfo'] = $routine_index_page[0]['first_info'] ?? ''; //TODO 首发新品简介
-        $info['salesInfo'] = $routine_index_page[0]['sales_info'] ?? ''; //TODO 促销单品简介
-        $logoUrl = sys_config('routine_index_logo'); //TODO 促销单品简介
+        $info['fastInfo'] = $routine_index_page[0]['fast_info'] ?? ''; //TODO Giới thiệu về lựa chọn nhanh
+        $info['bastInfo'] = $routine_index_page[0]['bast_info'] ?? ''; //TODO Giới thiệu các khuyến nghị về chất lượng
+        $info['firstInfo'] = $routine_index_page[0]['first_info'] ?? ''; //TODO Giới thiệu sản phẩm mới đầu tiên
+        $info['salesInfo'] = $routine_index_page[0]['sales_info'] ?? ''; //TODO Giới thiệu các mặt hàng khuyến mãi
+        $logoUrl = sys_config('routine_index_logo'); //TODO Giới thiệu các mặt hàng khuyến mãi
         if (strstr($logoUrl, 'http') === false && $logoUrl) {
             $logoUrl = sys_config('site_url') . $logoUrl;
         }
         $logoUrl = str_replace('\\', '/', $logoUrl);
-        $fastNumber = (int)sys_config('fast_number', 0);//TODO 快速选择分类个数
+        $fastNumber = (int)sys_config('fast_number', 0);//TODO Chọn nhanh số lượng danh mục
 
         /** @var StoreCategoryServices $categoryService */
         $categoryService = app()->make(StoreCategoryServices::class);
-        $info['fastList'] = $fastNumber ? $categoryService->byIndexList($fastNumber, 'id,cate_name,pid,pic') : [];//TODO 快速选择分类个数
+        $info['fastList'] = $fastNumber ? $categoryService->byIndexList($fastNumber, 'id,cate_name,pid,pic') : [];//TODO Chọn nhanh số lượng danh mục
         /** @var StoreProductServices $storeProductServices */
         $storeProductServices = app()->make(StoreProductServices::class);
-        //获取推荐商品
+        //Nhận sản phẩm được đề xuất
         [$baseList, $firstList, $benefit, $likeInfo, $vipList] = $storeProductServices->getRecommendProductArr((int)$request->uid(), ['is_best', 'is_new', 'is_benefit', 'is_hot']);
-        $info['bastList'] = $baseList; //TODO 精品推荐个数
-        $info['firstList'] = $firstList; //TODO 首发新品个数
-        $info['bastBanner'] = sys_data('routine_home_bast_banner') ?? []; //TODO 首页精品推荐图片
-        $lovely = sys_data('routine_home_new_banner') ?: []; //TODO 首发新品顶部图
+        $info['bastList'] = $baseList; //TODO Số lượng sản phẩm được đề xuất
+        $info['firstList'] = $firstList; //TODO Số lượng sản phẩm mới ra mắt lần đầu
+        $info['bastBanner'] = sys_data('routine_home_bast_banner') ?? []; //TODO Trang chủ Hình ảnh được đề xuất
+        $lovely = sys_data('routine_home_new_banner') ?: []; //TODO Hình ảnh đầu tiên của sản phẩm mới đầu tiên
         if ($request->uid()) {
             /** @var WechatUserServices $wechatUserService */
             $wechatUserService = app()->make(WechatUserServices::class);
@@ -108,7 +108,7 @@ class PublicController
     }
 
     /**
-     * 获取分享配置
+     * Nhận cấu hình chia sẻ
      * @return mixed
      */
     public function share()
@@ -124,7 +124,7 @@ class PublicController
     }
 
     /**
-     * 获取网站配置
+     * Nhận cấu hình trang web
      * @return mixed
      */
     public function getSiteConfig()
@@ -137,7 +137,7 @@ class PublicController
     }
 
     /**
-     * 获取个人中心菜单
+     * Nhận menu trung tâm cá nhân
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -152,29 +152,29 @@ class PublicController
         if ($request->hasMacro('user')) $userInfo = $request->user();
         if ($request->hasMacro('uid')) $uid = $request->uid();
 
-        //用户等级开关
+        //Chuyển đổi cấp độ người dùng
         $vipOpen = sys_config('member_func_status');
-        //分销功能开关
+        //Công tắc chức năng phân phối
         $brokerageFuncStatus = sys_config('brokerage_func_status');
-        //余额功能开关
+        //Công tắc chức năng cân bằng
         $balanceFuncStatus = sys_config('balance_func_status');
-        //付费会员开关
+        //Chuyển đổi thành viên trả phí
         $svipOpen = sys_config('member_card_status');
         $userService = $userOrder = $userVerifyStatus = $deliveryUser = $invoiceStatus = $isUserPromoter = false;
         if ($uid && $userInfo) {
             /** @var StoreServiceServices $storeService */
             $storeService = app()->make(StoreServiceServices::class);
-            //是否客服
+            //Đó có phải là dịch vụ khách hàng?
             $userService = $storeService->checkoutIsService(['uid' => $uid, 'status' => 1]);
-            //是否订单管理
+            //Cho dù quản lý đơn hàng
             $userOrder = $storeService->checkoutIsService(['uid' => $uid, 'status' => 1, 'customer' => 1]);
-            //是否核销员
+            //Có phải là người bảo lãnh không?
             $userVerifyStatus = app()->make(SystemStoreStaffServices::class)->verifyStatus($uid);
-            //是否配送员
+            //Có phải là người giao hàng không?
             $deliveryUser = app()->make(DeliveryServiceServices::class)->checkoutIsService($uid);
-            //发票功能开关
+            //Chuyển đổi chức năng hóa đơn
             $invoiceStatus = app()->make(UserInvoiceServices::class)->invoiceFuncStatus(false);
-            //是否分销员
+            //Có phải là nhà phân phối không?
             $isUserPromoter = app()->make(UserServices::class)->checkUserPromoter($uid, $userInfo);
         }
         $auth = [];
@@ -193,7 +193,7 @@ class PublicController
                 continue;
             }
             if ($value['url'] == '/pages/users/user_spread_user/index' && $auth['/pages/annex/settled/index']) {
-                $value['name'] = '分销申请';
+                $value['name'] = 'Ứng dụng phân phối';
                 $value['url'] = '/pages/annex/settled/index';
             }
             if (isset($auth[$value['url']]) && !$auth[$value['url']]) {
@@ -220,7 +220,7 @@ class PublicController
     }
 
     /**
-     * 热门搜索关键字获取
+     * Có được từ khóa tìm kiếm phổ biến
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -240,7 +240,7 @@ class PublicController
 
 
     /**
-     * 图片上传
+     * Tải lên hình ảnh
      * @param Request $request
      * @param SystemAttachmentServices $services
      * @return mixed
@@ -250,8 +250,8 @@ class PublicController
         $data = $request->postMore([
             ['filename', 'file'],
         ]);
-        if (!$data['filename']) return app('json')->fail('参数错误');
-        if (CacheService::has('start_uploads_' . $request->uid()) && CacheService::get('start_uploads_' . $request->uid()) >= 100) return app('json')->fail('非法操作');
+        if (!$data['filename']) return app('json')->fail('Lỗi tham số');
+        if (CacheService::has('start_uploads_' . $request->uid()) && CacheService::get('start_uploads_' . $request->uid()) >= 100) return app('json')->fail('Hoạt động trái phép');
         $upload = UploadService::init();
         $info = $upload->to('store/comment')->validate()->move($data['filename']);
         if ($info === false) {
@@ -267,11 +267,11 @@ class PublicController
         CacheService::set('start_uploads_' . $request->uid(), $start_uploads, 86400);
         $res['dir'] = path_to_url($res['dir']);
         if (strpos($res['dir'], 'http') === false) $res['dir'] = $request->domain() . $res['dir'];
-        return app('json')->success('图片上传成功', ['name' => $res['name'], 'url' => $res['dir']]);
+        return app('json')->success('Hình ảnh được tải lên thành công', ['name' => $res['name'], 'url' => $res['dir']]);
     }
 
     /**
-     * 物流公司
+     * Công ty hậu cần
      * @return mixed
      */
     public function logistics(ExpressServices $services)
@@ -281,7 +281,7 @@ class PublicController
     }
 
     /**
-     * 短信购买异步通知
+     * Thông báo mua hàng qua SMS không đồng bộ
      *
      * @param Request $request
      * @return mixed
@@ -301,13 +301,13 @@ class PublicController
                 ChannelService::instance()->send('PAY_SMS_SUCCESS', ['price' => $price, 'number' => $num], [$attach]);
             } catch (\Throwable $e) {
             }
-            return app('json')->success('操作成功');
+            return app('json')->success('Hoạt động thành công');
         }
-        return app('json')->fail('操作失败');
+        return app('json')->fail('Thao tác không thành công');
     }
 
     /**
-     * 记录用户分享
+     * Ghi lại chia sẻ của người dùng
      * @param Request $request
      * @param UserBillServices $services
      * @return mixed
@@ -316,11 +316,11 @@ class PublicController
     {
         $uid = (int)$request->uid();
         $services->setUserShare($uid);
-        return app('json')->success('更新成功');
+        return app('json')->success('Cập nhật thành công');
     }
 
     /**
-     * 获取图片base64
+     * Nhận hình ảnhbase64
      * @param Request $request
      * @return mixed
      */
@@ -379,12 +379,12 @@ class PublicController
             });
             return app('json')->success(compact('code', 'image'));
         } catch (\Exception $e) {
-            return app('json')->fail('操作失败');
+            return app('json')->fail('Thao tác không thành công');
         }
     }
 
     /**
-     * 门店列表
+     * Danh sách cửa hàng
      * @return mixed
      */
     public function store_list(Request $request, SystemStoreServices $services)
@@ -399,7 +399,7 @@ class PublicController
     }
 
     /**
-     * 查找城市数据
+     * Tìm dữ liệu thành phố
      * @param Request $request
      * @return mixed
      */
@@ -411,7 +411,7 @@ class PublicController
     }
 
     /**
-     * 获取拼团数据
+     * Nhận dữ liệu nhóm nhóm
      * @return mixed
      */
     public function pink(StorePinkServices $pink, UserServices $user)
@@ -431,7 +431,7 @@ class PublicController
     }
 
     /**
-     * 复制口令接口
+     * Sao chép giao diện mật khẩu
      * @return mixed
      */
     public function copy_words()
@@ -440,7 +440,7 @@ class PublicController
         return app('json')->success($data);
     }
 
-    /**生成口令关键字
+    /**Tạo từ khóa mật khẩu
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -459,7 +459,7 @@ class PublicController
     }
 
     /**
-     * 获取页面数据
+     * Lấy dữ liệu trang
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -471,7 +471,7 @@ class PublicController
     }
 
     /**
-     * 获取底部导航
+     * Nhận điều hướng phía dưới
      * @param DiyServices $services
      * @param string $template_name
      * @return mixed
@@ -482,7 +482,7 @@ class PublicController
     }
 
     /**
-     * 首页商品数据
+     * Dữ liệu sản phẩm gia đình
      * @param Request $request
      */
     public function home_products_list(Request $request, DiyServices $services)
@@ -503,7 +503,7 @@ class PublicController
         $where['productId'] = '';
         if ($data['selectType'] == 1) {
             if (!$data['ids']) {
-                return app('json')->success('暂无数据');
+                return app('json')->success('Chưa có dữ liệu');
             }
             $where['ids'] = $data['ids'] ? explode(',', $data['ids']) : [];
             if ($data['type'] != 2 && $data['type'] != 3 && $data['type'] != 8) {
@@ -548,7 +548,7 @@ class PublicController
 
 
     /**
-     * 统计代码
+     * Mã thống kê
      * @return array|string
      */
     public function getScript()
@@ -562,7 +562,7 @@ class PublicController
     }
 
     /**
-     * 获取workerman请求域名
+     * Nhận tên miền yêu cầu của công nhân
      * @return mixed
      */
     public function getWorkerManUrl()
@@ -571,7 +571,7 @@ class PublicController
     }
 
     /**
-     * 首页开屏广告
+     * Quảng cáo màn hình mở trang chủ
      * @return mixed
      */
     public function getOpenAdv()
@@ -583,7 +583,7 @@ class PublicController
     }
 
     /**
-     * 获取用户协议内容
+     * Nhận nội dung thỏa thuận người dùng
      * @return mixed
      */
     public function getUserAgreement()
@@ -595,7 +595,7 @@ class PublicController
     }
 
     /**
-     * 获取协议
+     * Nhận thỏa thuận
      * @param AgreementServices $agreementServices
      * @param $type
      * @return mixed
@@ -610,7 +610,7 @@ class PublicController
     }
 
     /**
-     * 查询版权信息
+     * Truy vấn thông tin bản quyền
      * @return mixed
      */
     public function copyright()
@@ -623,7 +623,7 @@ class PublicController
     }
 
     /**
-     * 获取多语言类型列表
+     * Nhận danh sách các loại đa ngôn ngữ
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -642,7 +642,7 @@ class PublicController
     }
 
     /**
-     * 获取当前语言json
+     * Nhận ngôn ngữ hiện tạijson
      * @return mixed
      * @throws \Throwable
      */
@@ -654,11 +654,11 @@ class PublicController
         $langCountryServices = app()->make(LangCountryServices::class);
 
         $request = app()->request;
-        //获取接口传入的语言类型
+        //Lấy loại ngôn ngữ được truyền vào bởi giao diện
         if (!$range = $request->header('cb-lang')) {
-            //没有传入则使用系统默认语言显示
+            //Nếu không có đầu vào nào được cung cấp, ngôn ngữ mặc định của hệ thống sẽ được sử dụng.
             if (!$range = $langTypeServices->value(['is_default' => 1], 'file_name')) {
-                //系统没有设置默认语言的话，根据浏览器语言显示，如果浏览器语言在库中找不到，则使用简体中文
+                //Nếu hệ thống không đặt ngôn ngữ mặc định thì nó sẽ hiển thị theo ngôn ngữ trình duyệt. Nếu không tìm thấy ngôn ngữ trình duyệt trong thư viện, tiếng Trung giản thể sẽ được sử dụng.
                 if ($request->header('accept-language') !== null) {
                     $range = explode(',', $request->header('accept-language'))[0];
                 } else {
@@ -666,14 +666,14 @@ class PublicController
                 }
             }
         }
-        // 获取type_id
+        // lấytype_id
         $typeId = $langCountryServices->value(['code' => $range], 'type_id') ?: 1;
 
-        // 获取缓存key
+        // Nhận bộ đệmkey
         $langData = $langTypeServices->getColumn(['status' => 1, 'is_del' => 0], 'file_name', 'id');
         $langStr = 'api_lang_' . str_replace('-', '_', $langData[$typeId]);
 
-        //读取当前语言的语言包
+        //Đọc gói ngôn ngữ của ngôn ngữ hiện tại
         $lang = CacheService::remember($langStr, function () use ($typeId, $range) {
             /** @var LangCodeServices $langCodeServices */
             $langCodeServices = app()->make(LangCodeServices::class);
@@ -683,7 +683,7 @@ class PublicController
     }
 
     /**
-     * 获取当前后台设置的默认语言类型
+     * Nhận loại ngôn ngữ mặc định của cài đặt nền hiện tại
      * @return mixed
      */
     public function getDefaultLangType()
@@ -695,7 +695,7 @@ class PublicController
     }
 
     /**
-     * 获取版本号
+     * Nhận số phiên bản
      * @return mixed
      */
     public function getVersion()
@@ -705,9 +705,9 @@ class PublicController
     }
 
     /**
-     * 获取多语言缓存
+     * Nhận bộ đệm đa ngôn ngữ
      * @return \think\Response
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/06
      */
@@ -717,43 +717,43 @@ class PublicController
     }
 
     /**
-     * 商城基础配置汇总接口
+     * Giao diện tóm tắt cấu hình cơ bản của Mall
      * @return \think\Response
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/03
      */
     public function getMallBasicConfig()
     {
-        $data['site_name'] = sys_config('site_name'); //网站名称
-        $data['site_url'] = sys_config('site_url'); //网站地址
-        $data['wap_login_logo'] = sys_config('wap_login_logo'); //移动端登录logo
-        $data['record_No'] = sys_config('record_No'); //备案号
-        $data['icp_url'] = sys_config('icp_url'); //备案号链接
-        $data['network_security'] = sys_config('network_security'); //网安备案
-        $data['network_security_url'] = sys_config('network_security_url'); //网安备案链接
-        $data['store_self_mention'] = sys_config('store_self_mention'); //是否开启到店自提
-        $data['invoice_func_status'] = sys_config('invoice_func_status'); //发票功能启用
-        $data['special_invoice_status'] = sys_config('special_invoice_status'); //专用发票启用
-        $data['member_func_status'] = sys_config('member_func_status'); //用户等级启用
-        $data['balance_func_status'] = sys_config('balance_func_status'); //余额功能启用
-        $data['recharge_switch'] = sys_config('recharge_switch'); //小程序充值开关
-        $data['member_card_status'] = sys_config('member_card_status'); //是否开启付费会员
-        $data['member_price_status'] = sys_config('member_price_status'); //商品会员折扣价展示启用
-        $data['ali_pay_status'] = sys_config('ali_pay_status') != '0'; //支付宝是否启用
-        $data['pay_weixin_open'] = sys_config('pay_weixin_open') != '0'; //微信是否启用
-        $data['yue_pay_status'] = sys_config('yue_pay_status') == 1 && sys_config('balance_func_status') != 0; //余额是否启用
-        $data['offline_pay_status'] = sys_config('offline_pay_status') == 1; //线下是否启用
-        $data['friend_pay_status'] = sys_config('friend_pay_status') == 1; //好友是否启用
-        $data['wechat_auth_switch'] = (int)in_array(1, sys_config('routine_auth_type')); //微信登录开关
-        $data['phone_auth_switch'] = (int)in_array(2, sys_config('routine_auth_type')); //手机号登录开关
-        $data['wechat_status'] = sys_config('wechat_appid') != '' && sys_config('wechat_appsecret') != ''; //公众号是否配置
+        $data['site_name'] = sys_config('site_name'); //Tên trang web
+        $data['site_url'] = sys_config('site_url'); //địa chỉ trang web
+        $data['wap_login_logo'] = sys_config('wap_login_logo'); //Đăng nhập di độnglogo
+        $data['record_No'] = sys_config('record_No'); //Số đăng ký
+        $data['icp_url'] = sys_config('icp_url'); //Liên kết số đăng ký
+        $data['network_security'] = sys_config('network_security'); //Hồ sơ an ninh mạng
+        $data['network_security_url'] = sys_config('network_security_url'); //Link đăng ký an ninh mạng
+        $data['store_self_mention'] = sys_config('store_self_mention'); //Có bật tính năng nhận hàng tại cửa hàng hay không
+        $data['invoice_func_status'] = sys_config('invoice_func_status'); //Đã bật chức năng hóa đơn
+        $data['special_invoice_status'] = sys_config('special_invoice_status'); //Đã bật hóa đơn chuyên dụng
+        $data['member_func_status'] = sys_config('member_func_status'); //Đã bật cấp độ người dùng
+        $data['balance_func_status'] = sys_config('balance_func_status'); //Đã bật chức năng cân bằng
+        $data['recharge_switch'] = sys_config('recharge_switch'); //Công tắc nạp tiền chương trình nhỏ
+        $data['member_card_status'] = sys_config('member_card_status'); //Có bật tính năng thành viên trả phí hay không
+        $data['member_price_status'] = sys_config('member_price_status'); //Đã bật hiển thị giá chiết khấu cho thành viên sản phẩm
+        $data['ali_pay_status'] = sys_config('ali_pay_status') != '0'; //Alipay có được kích hoạt không?
+        $data['pay_weixin_open'] = sys_config('pay_weixin_open') != '0'; //WeChat có được bật không?
+        $data['yue_pay_status'] = sys_config('yue_pay_status') == 1 && sys_config('balance_func_status') != 0; //Cân bằng có được kích hoạt không?
+        $data['offline_pay_status'] = sys_config('offline_pay_status') == 1; //Có bật ngoại tuyến hay không
+        $data['friend_pay_status'] = sys_config('friend_pay_status') == 1; //Cho dù bạn bè có được bật hay không
+        $data['wechat_auth_switch'] = (int)in_array(1, sys_config('routine_auth_type')); //Công tắc đăng nhập WeChat
+        $data['phone_auth_switch'] = (int)in_array(2, sys_config('routine_auth_type')); //Công tắc đăng nhập số điện thoại di động
+        $data['wechat_status'] = sys_config('wechat_appid') != '' && sys_config('wechat_appsecret') != ''; //Tài khoản chính thức đã được cấu hình chưa?
         $data['site_func'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         return app('json')->success($data);
     }
 
     /**
-     * 小程序跳转链接接口
+     * Giao diện liên kết nhảy chương trình mini
      * @param $id
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -765,12 +765,12 @@ class PublicController
         if ($url) {
             echo '<script>window.location.href="' . $url . '";</script>';
         } else {
-            echo '<h1>未找到跳转路径</h1>';
+            echo '<h1>Không tìm thấy đường nhảy</h1>';
         }
     }
 
     /**
-     * 微信服务商支付
+     * Thanh toán của nhà cung cấp dịch vụ WeChat
      * @param Request $request
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -787,13 +787,13 @@ class PublicController
             ['out_trade_no', ''],
             ['check_code', ''],
         ], true);
-        $data['site_name'] = sys_config('site_name'); //网站名称
-        $data['site_url'] = sys_config('site_url'); //网站地址
-        $data['site_logo'] = sys_config('wap_login_logo'); //移动端登录logo
+        $data['site_name'] = sys_config('site_name'); //Tên trang web
+        $data['site_url'] = sys_config('site_url'); //địa chỉ trang web
+        $data['site_logo'] = sys_config('wap_login_logo'); //Đăng nhập di độnglogo
         $order = app()->make(StoreOrderServices::class)->getOne(['order_id' => $out_trade_no]);
         $data['goods_name'] = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
         $data['pay_price'] = $order['pay_price'];
-        $data['jump_url'] = sys_config('site_url') . '/pages/goods/order_pay_status/index?order_id=' . $out_trade_no . '&msg=支付成功&type=3&totalPrice=' . $data['pay_price'];
+        $data['jump_url'] = sys_config('site_url') . '/pages/goods/order_pay_status/index?order_id=' . $out_trade_no . '&msg=Thanh toán thành công&type=3&totalPrice=' . $data['pay_price'];
         return app('json')->header(['X-Frame-Options' => 'payapp.weixin.qq.com'])->success($data);
     }
 
@@ -814,7 +814,7 @@ class PublicController
             $res = $pay->queryTransferBills($order_id);
             if (isset($res['fail_reason']) && $res['fail_reason'] != '') {
                 if ($type == 1) {
-                    $extractServices->changeFail($info['id'], $info, '提现失败，原因：超时未领取');
+                    $extractServices->changeFail($info['id'], $info, 'Rút tiền không thành công, lý do: hết thời gian và không nhận được');
                     $extractServices->update($info['id'], ['state' => 'FAIL']);
                 } else {
                     $lotteryRecordServices->update($info['id'], ['state' => 'FAIL']);
@@ -838,8 +838,8 @@ class PublicController
     }
 
     /**
-     * 获取主题信息
-     * @param string $type 主题类型，当为'user'时会附加用户权限和订单统计信息
+     * Nhận thông tin chủ đề
+     * @param string $type Loại chủ đề, khi'user'Quyền của người dùng và thống kê đơn hàng sẽ được thêm vào khi
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -850,7 +850,7 @@ class PublicController
      */
     public function themeInfo(Request $request, $type = '')
     {
-        // 获取主题ID参数
+        // Nhận tham số ID chủ đề
         [$theme_id] = $request->getMore([
             ['theme_id', 0],
         ], true);
@@ -864,27 +864,27 @@ class PublicController
             }
         }
 
-        // 当类型为'user'时，处理用户相关的权限和菜单配置
+        // Khi loại là'user'Khi xử lý các quyền liên quan đến người dùng và cấu hình menu
         if ($type == 'user') {
-            // 初始化用户信息
+            // Khởi tạo thông tin người dùng
             $uid = 0;
             $userInfo = [];
             if ($request->hasMacro('uid')) $uid = $request->uid();
             if ($request->hasMacro('user')) $userInfo = $request->user();
 
-            // 获取系统功能开关配置
-            //用户等级开关
+            // Nhận cấu hình chuyển đổi chức năng hệ thống
+            // Chuyển đổi cấp độ người dùng
             $levelOpen = (bool)sys_config('member_func_status');
-            //分销功能开关
+            //Công tắc chức năng phân phối
             $brokerageOpen = (bool)sys_config('brokerage_func_status');
-            //余额功能开关
+            //Công tắc chức năng cân bằng
             $balanceOpen = (bool)sys_config('balance_func_status');
-            //付费会员开关
+            //Chuyển đổi thành viên trả phí
             $sVipOpen = (bool)sys_config('member_card_status');
-            //发票功能
+            //chức năng hóa đơn
             $invoiceOpen = (bool)sys_config('invoice_func_status');
 
-            // 初始化用户角色标识
+            // Khởi tạo ID vai trò người dùng
             $userIsService = $userIsOrder = $userIsVerify = $userIsDelivery = $userIsPromoter = false;
 
             if ($uid && $userInfo) {
@@ -895,19 +895,19 @@ class PublicController
                 /** @var StoreOrderRefundServices $storeOrderRefundServices */
                 $orderRefundServices = app()->make(StoreOrderRefundServices::class);
 
-                // 检查用户角色权限
-                //是否客服
+                // Kiểm tra quyền vai trò của người dùng
+                // Cho dù đó là dịch vụ khách hàng
                 $userIsService = (bool)$storeService->checkoutIsService(['uid' => $uid, 'status' => 1]);
-                //是否订单管理
+                //Cho dù quản lý đơn hàng
                 $userIsOrder = (bool)$storeService->checkoutIsService(['uid' => $uid, 'status' => 1, 'customer' => 1]);
-                //是否核销员
+                //Có phải là người bảo lãnh không?
                 $userIsVerify = (bool)app()->make(SystemStoreStaffServices::class)->verifyStatus($uid);
-                //是否配送员
+                //Có phải là người giao hàng không?
                 $userIsDelivery = (bool)app()->make(DeliveryServiceServices::class)->checkoutIsService($uid);
-                //是否分销员
+                //Có phải là nhà phân phối không?
                 $userIsPromoter = (bool)app()->make(UserServices::class)->checkUserPromoter($uid, $userInfo);
 
-                // 统计各状态订单数量，用于菜单角标显示
+                // Đếm số lượng đơn hàng ở từng trạng thái để hiển thị ở góc menu.
                 $orderAuth = [];
                 $countWhere = ['is_del' => 0, 'is_system_del' => 0, 'uid' => $uid];
                 $orderAuth['/pages/goods/order_list/index'] = (int)$orderServices->count($countWhere + ['refund_status' => [0, 3], 'pid' => 0]);
@@ -919,7 +919,7 @@ class PublicController
                 $orderAuth['/pages/users/user_return_list/index'] = (int)$orderRefundServices->count(['uid' => $uid, 'is_cancel' => 0, 'is_del' => 0, 'refund_type' => [1, 2, 4, 5]]);
             }
 
-            // 配置各页面的访问权限
+            // Định cấu hình quyền truy cập cho từng trang
             $auth = [];
             $auth['/pages/users/user_vip/index'] = $levelOpen;
             $auth['/pages/users/user_spread_user/index'] = $brokerageOpen && $userIsPromoter;
@@ -931,25 +931,25 @@ class PublicController
             $auth['/pages/annex/vip_paid/index'] = $sVipOpen;
             $auth['/kefu/mobile_list'] = $userIsService;
 
-            // 处理主题菜单配置
+            // Xử lý cấu hình menu chủ đề
             if ($themeInfo) {
                 foreach ($themeInfo['value'] as &$userDataItem) {
                     if ($userDataItem['name'] == 'menus') {
                         foreach ($userDataItem['menuConfig']['list'] as &$menuDataItem) {
-                            // 设置菜单显示权限和角标数量
+                            // Menu cài đặt hiển thị quyền và số lượng huy hiệu
                             $menuDataItem['show'] = ($auth[$menuDataItem['info'][1]['value']] ?? true) && $menuDataItem['show'];
                             $menuDataItem['num'] = $orderAuth[$menuDataItem['info'][1]['value']] ?? 0;
 
-                            // 处理客服链接，拼接完整URL
+                            // Xử lý các liên kết dịch vụ khách hàng và hoàn thành việc ghép nốiURL
                             if ($menuDataItem['info'][1]['value'] == '/kefu/mobile_list') {
                                 $menuDataItem['info'][1]['value'] = sys_config('site_url') . $menuDataItem['info'][1]['value'];
-                                // 小程序环境强制使用https
+                                // Bắt buộc sử dụng trong môi trường chương trình minihttps
                                 if ($request->isRoutine()) {
                                     $menuDataItem['info'][1]['value'] = str_replace('http://', 'https://', $menuDataItem['info'][1]['value']);
                                 }
                             }
 
-                            // 处理客服聊天页面，添加联系方式类型配置
+                            // Xử lý trang trò chuyện dịch vụ khách hàng và thêm cấu hình loại liên hệ
                             if ($menuDataItem['info'][1]['value'] == '/pages/extension/customer_list/chat') {
                                 if ($request->isRoutine()) {
                                     $menuDataItem['routine_contact_type'] = (int)sys_config('routine_contact_type', 0);
@@ -957,7 +957,7 @@ class PublicController
                             }
 
                             if ($menuDataItem['info'][1]['value'] == '/pages/users/user_spread_user/index' && $brokerageOpen && sys_config('store_brokerage_statu') == 1 && !$userIsPromoter) {
-                                $menuDataItem['info'][0]['value'] = '分销申请';
+                                $menuDataItem['info'][0]['value'] = 'Ứng dụng phân phối';
                                 $menuDataItem['info'][1]['value'] = '/pages/annex/settled/index';
                                 $menuDataItem['show'] = true;
                             }
@@ -971,7 +971,7 @@ class PublicController
     }
 
     /**
-     * 获取主题版本信息
+     * Nhận thông tin phiên bản chủ đề
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -987,7 +987,7 @@ class PublicController
     }
 
     /**
-     * 自定义组件-用户
+     * Người dùng thành phần tùy chỉnh
      * @param Request $request
      * @return \think\Response
      * @author wuhaotian
@@ -997,7 +997,7 @@ class PublicController
     public function themeUser(Request $request)
     {
         $userInfo = $request->uid() ? $request->user() : [];
-        if (!$userInfo) return app('json')->fail('暂无数据');
+        if (!$userInfo) return app('json')->fail('Chưa có dữ liệu');
         $user = [
             'nickname' => $userInfo['nickname'],
             'uid' => $userInfo['uid'],
@@ -1014,7 +1014,7 @@ class PublicController
     }
 
     /**
-     * 自定义组件-文章
+     * Thành phần tùy chỉnh-Bài viết
      * @param Request $request
      * @return \think\Response
      * @throws \ReflectionException
@@ -1039,7 +1039,7 @@ class PublicController
     }
 
     /**
-     * 自定义组件-优惠券
+     * Phiếu giảm giá thành phần tùy chỉnh
      * @param Request $request
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -1069,7 +1069,7 @@ class PublicController
     }
 
     /**
-     * 自定义组件-商品
+     * Thành phần-hàng hóa tùy chỉnh
      * @param Request $request
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -1093,15 +1093,15 @@ class PublicController
     }
 
     /**
-     * 获取主题导航数据
-     * 调用 ThemeServices 中的 themeNavigation 方法获取导航配置并返回 JSON 响应
+     * Nhận dữ liệu điều hướng chủ đề
+     * Gọi phương thức themeNavigation trong ThemeServices để lấy cấu hình điều hướng và trả về phản hồi JSON
      * @return mixed
      */
     public function themeNavigation()
     {
-        // 实例化 ThemeServices 并调用 themeNavigation 方法获取导航数据
+        // Khởi tạo ThemeServices và gọi phương thức themeNavigation để lấy dữ liệu điều hướng
         $data = app()->make(ThemeServices::class)->themeNavigation();
-        // 返回成功响应，包含导航数据
+        // Trả về phản hồi thành công, bao gồm cả dữ liệu điều hướng
         return app('json')->success($data);
     }
 }

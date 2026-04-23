@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,22 +19,22 @@ use crmeb\exceptions\ApiException;
 use crmeb\services\FormBuilder;
 
 /**
- * 客服
+ * dịch vụ khách hàng
  * Class StoreServiceServices
  * @package app\services\kefu\service
- * @method getStoreServiceOrderNotice() 获取接受通知的客服
+ * @method getStoreServiceOrderNotice() Nhận dịch vụ khách hàng chấp nhận thông báo
  */
 class StoreServiceServices extends BaseServices
 {
 
     /**
-     * 创建form表单
+     * Tạo biểu mẫu
      * @var Form
      */
     protected $builder;
 
     /**
-     * 构造方法
+     * Người xây dựng
      * StoreServiceServices constructor.
      * @param StoreServiceDao $dao
      */
@@ -45,7 +45,7 @@ class StoreServiceServices extends BaseServices
     }
 
     /**
-     * 获取客服列表
+     * Nhận danh sách dịch vụ khách hàng
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -83,7 +83,7 @@ class StoreServiceServices extends BaseServices
     }
 
     /**
-     * 创建客服表单
+     * Tạo biểu mẫu dịch vụ khách hàng
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -91,42 +91,42 @@ class StoreServiceServices extends BaseServices
     public function createServiceForm(array $formData = [])
     {
         if ($formData) {
-            $field[] = $this->builder->frameImage('avatar', '客服头像', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'avatar'], true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
+            $field[] = $this->builder->frameImage('avatar', 'Hình đại diện dịch vụ khách hàng', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'avatar'], true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
         } else {
-            $field[] = $this->builder->frameImage('image', '选择用户', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
+            $field[] = $this->builder->frameImage('image', 'Chọn người dùng', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
             $field[] = $this->builder->hidden('uid', 0);
             $field[] = $this->builder->hidden('avatar', '');
         }
-        $field[] = $this->builder->input('nickname', '客服名称', $formData['nickname'] ?? '')->col(24)->required();
-        $field[] = $this->builder->input('phone', '手机号码', $formData['phone'] ?? '')->col(24)->required();
+        $field[] = $this->builder->input('nickname', 'Tên dịch vụ khách hàng', $formData['nickname'] ?? '')->col(24)->required();
+        $field[] = $this->builder->input('phone', 'số điện thoại', $formData['phone'] ?? '')->col(24)->required();
         if ($formData) {
-            $field[] = $this->builder->input('account', '登录账号', $formData['account'] ?? '')->col(24)->required();
-            $field[] = $this->builder->input('password', '登录密码')->type('password')->col(24)->placeholder('不修改密码请留空');
-            $field[] = $this->builder->input('true_password', '确认密码')->type('password')->col(24)->placeholder('不修改密码请留空');
+            $field[] = $this->builder->input('account', 'Đăng nhập tài khoản', $formData['account'] ?? '')->col(24)->required();
+            $field[] = $this->builder->input('password', 'Mật khẩu đăng nhập')->type('password')->col(24)->placeholder('Vui lòng để trống nếu bạn không muốn thay đổi mật khẩu.');
+            $field[] = $this->builder->input('true_password', 'Xác nhận mật khẩu')->type('password')->col(24)->placeholder('Vui lòng để trống nếu bạn không muốn thay đổi mật khẩu.');
         } else {
-            $field[] = $this->builder->input('account', '登录账号')->col(24)->required();
-            $field[] = $this->builder->input('password', '登录密码')->type('password')->col(24)->required();
-            $field[] = $this->builder->input('true_password', '确认密码')->type('password')->col(24)->required();
+            $field[] = $this->builder->input('account', 'Đăng nhập tài khoản')->col(24)->required();
+            $field[] = $this->builder->input('password', 'Mật khẩu đăng nhập')->type('password')->col(24)->required();
+            $field[] = $this->builder->input('true_password', 'Xác nhận mật khẩu')->type('password')->col(24)->required();
         }
-        $field[] = $this->builder->switches('status', '客服状态', (string)($formData['status'] ?? 1))->appendControl('1', [
-            $this->builder->switches('customer', '手机订单管理：', (string)($formData['customer'] ?? 0)),
-            $this->builder->switches('notify', '订单通知：', (string)($formData['notify'] ?? 0)),
+        $field[] = $this->builder->switches('status', 'Tình trạng dịch vụ khách hàng', (string)($formData['status'] ?? 1))->appendControl('1', [
+            $this->builder->switches('customer', 'Quản lý đơn hàng di động：', (string)($formData['customer'] ?? 0)),
+            $this->builder->switches('notify', 'Thông báo đặt hàng：', (string)($formData['notify'] ?? 0)),
         ])->activeValue('1')->inactiveValue('0');
         return $field;
     }
 
     /**
-     * 创建客服获取表单
+     * Tạo biểu mẫu mua lại dịch vụ khách hàng
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function create()
     {
-        return create_form('添加客服', $this->createServiceForm(), $this->url('/app/wechat/kefu'), 'POST');
+        return create_form('Thêm dịch vụ khách hàng', $this->createServiceForm(), $this->url('/app/wechat/kefu'), 'POST');
     }
 
     /**
-     * 编辑获取表单
+     * Chỉnh sửa Nhận biểu mẫu
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -135,13 +135,13 @@ class StoreServiceServices extends BaseServices
     {
         $serviceInfo = $this->dao->get($id);
         if (!$serviceInfo) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
-        return create_form('编辑客服', $this->createServiceForm($serviceInfo->toArray()), $this->url('/app/wechat/kefu/' . $id), 'PUT');
+        return create_form('Chỉnh sửa dịch vụ khách hàng', $this->createServiceForm($serviceInfo->toArray()), $this->url('/app/wechat/kefu/' . $id), 'PUT');
     }
 
     /**
-     * 获取某人的聊天记录用户列表
+     * Lấy danh sách người dùng lịch sử trò chuyện của ai đó
      * @param int $uid
      * @return array|array[]
      * @throws \think\db\exception\DataNotFoundException
@@ -162,7 +162,7 @@ class StoreServiceServices extends BaseServices
     }
 
     /**
-     * 检查用户是否是客服
+     * Kiểm tra xem người dùng có phải là nhân viên dịch vụ khách hàng không
      * @param array $where
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -175,11 +175,11 @@ class StoreServiceServices extends BaseServices
     }
 
     /**
-     * 查询聊天记录和获取客服uid
-     * @param int $uid 当前用户uid
-     * @param int $uidTo 上翻页id
-     * @param int $limit 展示条数
-     * @param int $toUid 客服uid
+     * Kiểm tra lịch sử trò chuyện và nhận dịch vụ khách hànguid
+     * @param int $uid người dùng hiện tạiuid
+     * @param int $uidTo Trang lênid
+     * @param int $limit Số hiển thị
+     * @param int $toUid dịch vụ khách hànguid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -190,17 +190,17 @@ class StoreServiceServices extends BaseServices
         if (!$toUid) {
             $serviceInfoList = $this->getServiceList(['status' => 1, 'online' => 1]);
             if (!count($serviceInfoList)) {
-                throw new ApiException('暂无客服人员在线，请稍后联系');
+                throw new ApiException('Hiện tại chưa có nhân viên chăm sóc khách hàng trực tuyến, vui lòng liên hệ sau.');
             }
             $uids = array_column($serviceInfoList['list'], 'uid');
             if (!$uids) {
-                throw new ApiException('暂无客服人员在线，请稍后联系');
+                throw new ApiException('Hiện tại chưa có nhân viên chăm sóc khách hàng trực tuyến, vui lòng liên hệ sau.');
             }
             /** @var StoreServiceRecordServices $recordServices */
             $recordServices = app()->make(StoreServiceRecordServices::class);
-            //上次聊天客服优先对话
+            //Cuộc trò chuyện ưu tiên dịch vụ khách hàng cuối cùng
             $toUid = $recordServices->getLatelyMsgUid(['to_uid' => $uid], 'user_id');
-            //如果上次聊天的客不在当前客服中从新
+            //Nếu khách hàng mà bạn trò chuyện lần trước không thuộc dịch vụ khách hàng hiện tại, hãy bắt đầu một khách hàng mới
             if (!in_array($toUid, $uids)) {
                 $toUid = 0;
             }
@@ -208,7 +208,7 @@ class StoreServiceServices extends BaseServices
                 $toUid = $uids[array_rand($uids)] ?? 0;
             }
             if (!$toUid) {
-                throw new ApiException('暂无客服人员在线，请稍后联系');
+                throw new ApiException('Hiện tại chưa có nhân viên chăm sóc khách hàng trực tuyến, vui lòng liên hệ sau.');
             }
         }
         $userInfo = $this->dao->get(['uid' => $toUid], ['nickname', 'avatar']);

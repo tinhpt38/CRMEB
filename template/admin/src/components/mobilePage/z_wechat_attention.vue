@@ -11,7 +11,7 @@
         <div class="name">{{ txt }}</div>
       </div>
       <div class="right">
-        <div class="btn" :style="{ borderColor: themeColor, color: themeColor }">关注</div>
+        <div class="btn" :style="{ borderColor: themeColor, color: themeColor }">tập trung vào</div>
         <div class="iconfont iconguanbi5"></div>
       </div>
     </div>
@@ -22,11 +22,11 @@
 import { mapState, mapMutations } from 'vuex';
 export default {
   name: 'z_wechat_attention',
-  cname: '关注公众号',
+  cname: 'Theo dõi tài khoản công khai',
   configName: 'c_wechat_attention',
   icon: '#iconzujian-gongzhonghao',
-  type: 2, // 0 基础组件 1 营销组件 2工具组件
-  defaultName: 'follow', // 外面匹配名称
+  type: 2, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
+  defaultName: 'follow', // tên trận đấu bên ngoài
   props: {
     index: {
       type: null,
@@ -69,52 +69,52 @@ export default {
   data() {
     return {
       configObj: null,
-      // 默认初始化数据禁止修改
+      // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: '关注公众号',
+        cname: 'Theo dõi tài khoản công khai',
         name: 'follow',
         timestamp: this.num,
         isHide: false,
         setUp: {
           tabVal: 0,
         },
-        titleLeft: '标题设置',
-        positionTitle: '位置设置',
-        pictrueTitle: '图片设置',
-        codeTitle: '关注二维码',
-        titleRight: '关注按钮',
-        titleCurrency: '通用样式',
+        titleLeft: 'Cài đặt tiêu đề',
+        positionTitle: 'cài đặt vị trí',
+        pictrueTitle: 'Cài đặt hình ảnh',
+        codeTitle: 'Theo dõi mã QR',
+        titleRight: 'nút theo dõi',
+        titleCurrency: 'Phong cách phổ quát',
         positionConfig: {
-          title: '展示位置',
+          title: 'vị trí',
           tabVal: 0,
           tabList: [
             {
-              name: '顶部',
+              name: 'đứng đầu',
             },
             {
-              name: '底部',
+              name: 'đáy',
             },
           ],
         },
         titleConfig: {
-          title: '标题名称',
-          value: '标题',
-          place: '请输入标题',
+          title: 'tên chức danh',
+          value: 'tiêu đề',
+          place: 'Vui lòng nhập tiêu đề',
           max: 10,
         },
         imgConfig: {
-          info: '建议：图片尺寸92px * 92px',
+          info: 'Gợi ý: Kích thước hình ảnh92px * 92px',
           url: '',
           type: 'code',
-          name: '上传图片',
+          name: 'Tải ảnh lên',
         },
         codeConfig: {
           url: '',
           type: 'code',
-          name: '上传二维码',
+          name: 'Tải lên mã QR',
         },
         themeColor: {
-          title: '按钮颜色',
+          title: 'màu nút',
           default: [
             {
               item: '#E93323',
@@ -127,7 +127,7 @@ export default {
           ],
         },
         bgColor: {
-          title: '背景颜色',
+          title: 'màu nền',
           default: [
             {
               item: '#fff',
@@ -146,7 +146,7 @@ export default {
           ],
         },
         paddingConfig: {
-          title: '内边距',
+          title: 'phần đệm',
           isAll: false,
           val: 0,
           min: 0,
@@ -154,7 +154,7 @@ export default {
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         marginConfig: {
-          title: '外边距',
+          title: 'lề',
           isAll: false,
           val: 0,
           min: 0,
@@ -162,19 +162,19 @@ export default {
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         fillet: {
-          title: '背景圆角',
+          title: 'Nền bo tròn các góc',
           type: 0,
           list: [
             {
-              val: '全部',
+              val: 'tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
-              val: '单个',
+              val: 'đơn',
               icon: 'iconcaozuo-bianjiao',
             },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
@@ -223,7 +223,7 @@ export default {
 
       if (!this.configObj.paddingConfig) {
         this.$set(this.configObj, 'paddingConfig', {
-          title: '内边距',
+          title: 'phần đệm',
           isAll: false,
           val: 0,
           min: 0,
@@ -238,7 +238,7 @@ export default {
       }
       if (!this.configObj.marginConfig) {
         this.$set(this.configObj, 'marginConfig', {
-          title: '外边距',
+          title: 'lề',
           isAll: false,
           val: 0,
           min: 0,

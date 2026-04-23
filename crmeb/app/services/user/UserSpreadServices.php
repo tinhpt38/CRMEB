@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -32,7 +32,7 @@ class UserSpreadServices extends BaseServices
     }
 
     /**
-     * 记录推广关系
+     * Ghi lại các mối quan hệ quảng cáo
      * @param int $uid
      * @param int $spread_uid
      * @return false|mixed
@@ -58,9 +58,9 @@ class UserSpreadServices extends BaseServices
     }
 
     /**
-     * 查询推广用户uids
+     * Truy vấn người dùng quảng cáouids
      * @param int $uid
-     * @param int $type 1:一级2：二级 0：所有
+     * @param int $type 1:Cấp 2: Cấp 2 0: Tất cả
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException

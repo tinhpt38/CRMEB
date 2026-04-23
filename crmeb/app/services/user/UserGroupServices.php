@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -36,7 +36,7 @@ class UserGroupServices extends BaseServices
     }
 
     /**
-     * 获取某一个分组
+     * Nhận một nhóm nhất định
      * @param int $id
      * @return array|\think\Model|null
      */
@@ -46,7 +46,7 @@ class UserGroupServices extends BaseServices
     }
 
     /**
-     * 获取分组列表
+     * Lấy danh sách nhóm
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -66,7 +66,7 @@ class UserGroupServices extends BaseServices
     }
 
     /**
-     * 获取一些用户的分组名称
+     * Lấy tên nhóm của một số người dùng
      * @param array $ids
      * @return array
      */
@@ -76,7 +76,7 @@ class UserGroupServices extends BaseServices
     }
 
     /**
-     * 添加/修改分组页面
+     * Thêm/sửa đổi trang nhóm
      * @param int $id
      * @return string
      */
@@ -85,18 +85,18 @@ class UserGroupServices extends BaseServices
         $group = $this->getGroup($id);
         $field = array();
         if (!$group) {
-            $title = '添加分组';
-            $field[] = Form::input('group_name', '分组名称', '')->required();
+            $title = 'Thêm nhóm';
+            $field[] = Form::input('group_name', 'Tên nhóm', '')->required();
         } else {
-            $title = '修改分组';
+            $title = 'Sửa đổi nhóm';
             $field[] = Form::hidden('id', $id);
-            $field[] = Form::input('group_name', '分组名称', $group->getData('group_name'))->required();
+            $field[] = Form::input('group_name', 'Tên nhóm', $group->getData('group_name'))->required();
         }
         return create_form($title, $field, Url::buildUrl('/user/user_group/save'), 'POST');
     }
 
     /**
-     * 添加|修改
+     * Thêm vào|Ôn lại
      * @param int $id
      * @param array $data
      * @return mixed
@@ -106,31 +106,31 @@ class UserGroupServices extends BaseServices
         $groupName = $this->dao->getOne(['group_name' => $data['group_name']]);
         if ($id) {
             if (!$this->getGroup($id)) {
-                throw new AdminException('数据不存在');
+                throw new AdminException('Dữ liệu không tồn tại');
             }
             if ($groupName && $id != $groupName['id']) {
-                throw new AdminException('该分组已经存在');
+                throw new AdminException('Nhóm đã tồn tại');
             }
             if ($this->dao->update($id, $data)) {
                 return true;
             } else {
-                throw new AdminException('修改失败');
+                throw new AdminException('Sửa đổi không thành công');
             }
         } else {
             unset($data['id']);
             if ($groupName) {
-                throw new AdminException('该分组已经存在');
+                throw new AdminException('Nhóm đã tồn tại');
             }
             if ($this->dao->save($data)) {
                 return true;
             } else {
-                throw new AdminException('添加失败');
+                throw new AdminException('Thêm không thành công');
             }
         }
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param int $id
      * @return string
      */
@@ -138,9 +138,9 @@ class UserGroupServices extends BaseServices
     {
         if ($this->getGroup($id)) {
             if (!$this->dao->delete($id)) {
-                throw new AdminException('删除失败');
+                throw new AdminException('Xóa không thành công');
             }
         }
-        return '删除成功!';
+        return 'Xóa thành công!';
     }
 }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -12,67 +12,67 @@
 use think\facade\Route;
 
 /**
- * 直播相关路由
+ * Định tuyến liên quan đến phát sóng trực tiếp
  */
 Route::group('live', function () {
 
-    /** 主播 */
+    /** Neo */
     Route::group(function () {
-        //主播列表
-        Route::get('anchor/list', 'v1.marketing.live.LiveAnchor/list')->option(['real_name' => '主播列表']);
-        //添加修改主播表单
-        Route::get('anchor/add/:id', 'v1.marketing.live.LiveAnchor/add')->option(['real_name' => '添加修改主播表单']);
-        //保存主播数据
-        Route::post('anchor/save', 'v1.marketing.live.LiveAnchor/save')->option(['real_name' => '保存主播数据']);
-        //删除主播
-        Route::delete('anchor/del/:id', 'v1.marketing.live.LiveAnchor/delete')->option(['real_name' => '删除主播']);
-        //设置是否显示
-        Route::get('anchor/set_show/:id/:is_show', 'v1.marketing.live.LiveAnchor/setShow')->option(['real_name' => '设置主播是否显示']);
-    })->option(['parent' => 'live', 'cate_name' => '主播']);
+        //Danh sách neo
+        Route::get('anchor/list', 'v1.marketing.live.LiveAnchor/list')->option(['real_name' => 'Danh sách neo']);
+        //Thêm và sửa đổi biểu mẫu máy chủ
+        Route::get('anchor/add/:id', 'v1.marketing.live.LiveAnchor/add')->option(['real_name' => 'Thêm và sửa đổi biểu mẫu máy chủ']);
+        //Lưu dữ liệu neo
+        Route::post('anchor/save', 'v1.marketing.live.LiveAnchor/save')->option(['real_name' => 'Lưu dữ liệu neo']);
+        //Xóa mỏ neo
+        Route::delete('anchor/del/:id', 'v1.marketing.live.LiveAnchor/delete')->option(['real_name' => 'Xóa mỏ neo']);
+        //Đặt xem có hiển thị hay không
+        Route::get('anchor/set_show/:id/:is_show', 'v1.marketing.live.LiveAnchor/setShow')->option(['real_name' => 'Đặt xem neo có được hiển thị hay không']);
+    })->option(['parent' => 'live', 'cate_name' => 'Neo']);
 
-    /** 直播商品 */
+    /** Sản phẩm sống */
     Route::group(function () {
-        //直播商品列表
-        Route::get('goods/list', 'v1.marketing.live.LiveGoods/list')->option(['real_name' => '直播商品列表']);
-        //生成直播商品
-        Route::post('goods/create', 'v1.marketing.live.LiveGoods/create')->option(['real_name' => '生成直播商品']);
-        //添加修改商品
-        Route::post('goods/add', 'v1.marketing.live.LiveGoods/add')->option(['real_name' => '添加修改直播商品']);
-        //商品详情
-        Route::get('goods/detail/:id', 'v1.marketing.live.LiveGoods/detail')->option(['real_name' => '直播商品详情']);
-        //商品重新审核
-        Route::get('goods/audit/:id', 'v1.marketing.live.LiveGoods/audit')->option(['real_name' => '直播商品重新审核']);
-        //商品撤回审核
-        Route::get('goods/resestAudit/:id', 'v1.marketing.live.LiveGoods/resetAudit')->option(['real_name' => '直播商品撤回审核']);
-        //删除商品
-        Route::delete('goods/del/:id', 'v1.marketing.live.LiveGoods/delete')->option(['real_name' => '删除直播商品']);
-        //设置是否显示
-        Route::get('goods/set_show/:id/:is_show', 'v1.marketing.live.liveGoods/setShow')->option(['real_name' => '设置直播商品是否显示']);
-        //同步直播商品状态
-        Route::get('goods/syncGoods', 'v1.marketing.live.liveGoods/syncGoods')->option(['real_name' => '同步直播商品状态']);
-    })->option(['parent' => 'live', 'cate_name' => '直播商品']);
+        //Danh sách sản phẩm trực tiếp
+        Route::get('goods/list', 'v1.marketing.live.LiveGoods/list')->option(['real_name' => 'Danh sách sản phẩm trực tiếp']);
+        //Tạo sản phẩm phát sóng trực tiếp
+        Route::post('goods/create', 'v1.marketing.live.LiveGoods/create')->option(['real_name' => 'Tạo sản phẩm phát sóng trực tiếp']);
+        //Thêm và sửa đổi sản phẩm
+        Route::post('goods/add', 'v1.marketing.live.LiveGoods/add')->option(['real_name' => 'Thêm và sửa đổi các sản phẩm phát sóng trực tiếp']);
+        //Chi tiết sản phẩm
+        Route::get('goods/detail/:id', 'v1.marketing.live.LiveGoods/detail')->option(['real_name' => 'Chi tiết sản phẩm trực tiếp']);
+        //Đánh giá sản phẩm
+        Route::get('goods/audit/:id', 'v1.marketing.live.LiveGoods/audit')->option(['real_name' => 'Đánh giá sản phẩm trực tiếp']);
+        //Đánh giá rút sản phẩm
+        Route::get('goods/resestAudit/:id', 'v1.marketing.live.LiveGoods/resetAudit')->option(['real_name' => 'Đánh giá rút sản phẩm trực tiếp']);
+        //Xóa sản phẩm
+        Route::delete('goods/del/:id', 'v1.marketing.live.LiveGoods/delete')->option(['real_name' => 'Xóa sản phẩm trực tiếp']);
+        //Đặt xem có hiển thị hay không
+        Route::get('goods/set_show/:id/:is_show', 'v1.marketing.live.liveGoods/setShow')->option(['real_name' => 'Đặt xem các sản phẩm phát sóng trực tiếp có được hiển thị hay không']);
+        //Đồng bộ hóa trạng thái sản phẩm trực tiếp
+        Route::get('goods/syncGoods', 'v1.marketing.live.liveGoods/syncGoods')->option(['real_name' => 'Đồng bộ hóa trạng thái sản phẩm trực tiếp']);
+    })->option(['parent' => 'live', 'cate_name' => 'Sản phẩm sống']);
 
-    /** 主播间 */
+    /** phòng neo */
     Route::group(function () {
-        //直播间列表
-        Route::get('room/list', 'v1.marketing.live.LiveRoom/list')->option(['real_name' => '直播间列表']);
-        //直播间添加
-        Route::post('room/add', 'v1.marketing.live.LiveRoom/add')->option(['real_name' => '直播间添加']);
-        //直播间详情
-        Route::get('room/detail/:id', 'v1.marketing.live.LiveRoom/detail')->option(['real_name' => '直播间详情']);
-        //直播间添加商品
-        Route::post('room/add_goods', 'v1.marketing.live.LiveRoom/addGoods')->option(['real_name' => '直播间添加商品']);
-        //删除直播
-        Route::delete('room/del/:id', 'v1.marketing.live.LiveRoom/delete')->option(['real_name' => '删除直播间']);
-        //设置是否显示
-        Route::get('room/set_show/:id/:is_show', 'v1.marketing.live.LiveRoom/setShow')->option(['real_name' => '设置直播间是否显示']);
-        //同步直播间状态
-        Route::get('room/syncRoom', 'v1.marketing.live.LiveRoom/syncRoom')->option(['real_name' => '同步直播间状态']);
-    })->option(['parent' => 'live', 'cate_name' => '直播间']);
+        //Danh sách phòng phát sóng trực tiếp
+        Route::get('room/list', 'v1.marketing.live.LiveRoom/list')->option(['real_name' => 'Danh sách phòng phát sóng trực tiếp']);
+        //Thêm phòng phát sóng trực tiếp
+        Route::post('room/add', 'v1.marketing.live.LiveRoom/add')->option(['real_name' => 'Thêm phòng phát sóng trực tiếp']);
+        //Chi tiết phòng phát sóng trực tiếp
+        Route::get('room/detail/:id', 'v1.marketing.live.LiveRoom/detail')->option(['real_name' => 'Chi tiết phòng phát sóng trực tiếp']);
+        //Thêm sản phẩm vào phòng phát sóng trực tiếp
+        Route::post('room/add_goods', 'v1.marketing.live.LiveRoom/addGoods')->option(['real_name' => 'Thêm sản phẩm vào phòng phát sóng trực tiếp']);
+        //Xóa chương trình phát sóng trực tiếp
+        Route::delete('room/del/:id', 'v1.marketing.live.LiveRoom/delete')->option(['real_name' => 'Xóa phòng trực tiếp']);
+        //Đặt xem có hiển thị hay không
+        Route::get('room/set_show/:id/:is_show', 'v1.marketing.live.LiveRoom/setShow')->option(['real_name' => 'Đặt xem phòng phát sóng trực tiếp có được hiển thị hay không']);
+        //Đồng bộ trạng thái phòng live
+        Route::get('room/syncRoom', 'v1.marketing.live.LiveRoom/syncRoom')->option(['real_name' => 'Đồng bộ trạng thái phòng live']);
+    })->option(['parent' => 'live', 'cate_name' => 'Phòng phát sóng trực tiếp']);
 
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'live', 'mark_name' => '直播管理']);
+])->option(['mark' => 'live', 'mark_name' => 'Quản lý phát sóng trực tiếp']);

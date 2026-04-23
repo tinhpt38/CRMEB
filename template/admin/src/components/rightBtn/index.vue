@@ -1,7 +1,7 @@
 <template>
   <div class="btn-box" style="display: none">
     <el-button type="primary" v-db-click @click="handleSubmit('formInline')" style="text-align: center; width: 60%"
-      >确定</el-button
+      >Chắc chắn</el-button
     >
   </div>
 </template>
@@ -12,7 +12,7 @@ export default {
   name: 'rightBtn',
   props: ['activeIndex', 'configObj'],
   methods: {
-    // 右侧确认保存配置
+    // Xác nhận bên phải để lưu cấu hình
     handleSubmit(name) {
       let obj = {};
       obj.activeIndex = this.activeIndex;

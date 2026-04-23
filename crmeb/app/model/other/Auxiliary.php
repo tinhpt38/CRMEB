@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\basic\BaseModel;
 use crmeb\traits\ModelTrait;
 
 /**
- * 辅助表
+ * Bàn phụ
  * Class Auxiliary
  * @package app\model\other
  */
@@ -26,19 +26,19 @@ class Auxiliary extends BaseModel
     use ModelTrait;
 
     /**
-     * 表明
+     * trình diễn
      * @var string
      */
     protected $name = 'auxiliary';
     protected $insert = ['add_time'];
     protected $autoWriteTimestamp = false;
     /**
-     * 主键
+     * khóa chính
      * @var string
      */
     protected $pk = 'id';
 
-    /**类型搜索器
+    /**Nhập trình tìm kiếm
      * @param $query
      * @param $value
      */
@@ -47,7 +47,7 @@ class Auxiliary extends BaseModel
         $query->where('type', $value);
     }
 
-    /**类型绑定id搜索器
+    /**loại tìm kiếm id ràng buộc
      * @param $query
      * @param $value
      */
@@ -56,7 +56,7 @@ class Auxiliary extends BaseModel
         $query->where('binding_id', $value);
     }
 
-    /**类型状态搜索器
+    /**Nhập Trình tìm trạng thái
      * @param $query
      * @param $value
      */
@@ -64,7 +64,7 @@ class Auxiliary extends BaseModel
     {
         $query->whereIn('status', $value);
     }
-    /**类型关联id搜索器
+    /**gõ công cụ tìm kiếm id liên kết
      * @param $query
      * @param $value
      */

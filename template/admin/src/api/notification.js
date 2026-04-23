@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 import request from '@/libs/request';
 
 /**
- * @description 获取消息管理列表数据
- * @param {Object} param params {Object} 传值参数
+ * @description Nhận dữ liệu danh sách quản lý tin nhắn
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function getNotificationList(type) {
   return request({
@@ -21,8 +21,8 @@ export function getNotificationList(type) {
   });
 }
 /**
- * @description 获取消息管理设置数据获取
- * @param {Object} param params {Object} 传值参数
+ * @description Nhận thu thập dữ liệu cài đặt quản lý tin nhắn
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function getNotificationInfo(id, type) {
   return request({
@@ -32,8 +32,8 @@ export function getNotificationInfo(id, type) {
 }
 
 /**
- * @description 获取消息管理设置数据获取
- * @param {Object} param params {Object} 传值参数
+ * @description Nhận thu thập dữ liệu cài đặt quản lý tin nhắn
+ * @param {Object} param params {Object} Tham số truyền theo giá trị
  */
 export function getNotificationSave(data) {
   return request({
@@ -44,7 +44,7 @@ export function getNotificationSave(data) {
 }
 
 /**
- * @description 设置站内消息
+ * @description Thiết lập thông báo trang web
  * @param {Number} param id {Number}
  */
 export function noticeStatus(type, status, id) {
@@ -55,8 +55,8 @@ export function noticeStatus(type, status, id) {
 }
 
 /**
- * @description 添加修改消息表单
- * @param {Number} param id {Number} 传值参数
+ * @description Thêm mẫu tin nhắn sửa đổi
+ * @param {Number} param id {Number} Tham số truyền theo giá trị
  */
 export function notificationForm(id) {
   return request({

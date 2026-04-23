@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,8 +16,8 @@ class StoreCombinationValidate extends Validate
 {
 
     /**
-     * 定义验证规则
-     * 格式：'字段名'    =>    ['规则1','规则2'...]
+     * Xác định quy tắc xác thực
+     *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
      */
@@ -40,32 +40,32 @@ class StoreCombinationValidate extends Validate
     ];
 
     /**
-     * 定义错误信息
-     * 格式：'字段名.规则名'    =>    '错误信息'
+     * Xác định thông báo lỗi
+     *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
      */
     protected $message = [
-        'product_id.require' => '请选择商品',
-        'title.require' => '请输入商品名称',
-        'info.require' => '请填写活动简介',
-        'unit_name.require' => '请填写单位',
-        'images.require' => '请选择商品轮播图',
-        'section_time.require' => '请选择活动时间段',
-        'num.require' => '请填写购买数量限制',
-        'num.gt' => '购买数量限制必须大于0',
-        'virtual.require' => '请填写虚拟拼团比例',
-        'virtual.gt' => '虚拟参团人数不能大于成团人数',
-        'virtual.elt' => '虚拟参团人数不能大于成团人数',
-        'once_num.require' => '请填写单次购买数量',
-        'once_num.gt' => '单次购买数量必须大于0',
-        'temp_id.require' => '请选择运费模板',
-        'description.require' => '请填写商品详情',
-        'attrs.require' => '请选择规格',
-        'people.require' => '请填写成团人数',
-        'people.gt' => '拼团人数不能小于2人',
-        'effective_time.require' => '请填写成团有效期',
-        'effective_time.gt' => '成团有效期必须大于0',
+        'product_id.require' => 'Vui lòng chọn sản phẩm',
+        'title.require' => 'Vui lòng nhập tên sản phẩm',
+        'info.require' => 'Vui lòng điền phần giới thiệu hoạt động',
+        'unit_name.require' => 'Vui lòng điền vào đơn vị',
+        'images.require' => 'Vui lòng chọn hình ảnh băng chuyền sản phẩm',
+        'section_time.require' => 'Vui lòng chọn khoảng thời gian sự kiện',
+        'num.require' => 'Vui lòng điền giới hạn số lượng mua hàng',
+        'num.gt' => 'Giới hạn số lượng mua phải lớn hơn0',
+        'virtual.require' => 'Vui lòng điền tỷ lệ chia sẻ nhóm ảo',
+        'virtual.gt' => 'Số lượng người tham gia ảo không được lớn hơn số lượng người tham gia trong nhóm',
+        'virtual.elt' => 'Số lượng người tham gia ảo không được lớn hơn số lượng người tham gia trong nhóm',
+        'once_num.require' => 'Vui lòng điền số lượng mua một lần',
+        'once_num.gt' => 'Số lượng mua một lần phải lớn hơn0',
+        'temp_id.require' => 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+        'description.require' => 'Vui lòng điền thông tin chi tiết sản phẩm',
+        'attrs.require' => 'Vui lòng chọn thông số kỹ thuật',
+        'people.require' => 'Vui lòng điền số người trong nhóm',
+        'people.gt' => 'Số người trong nhóm không thể ít hơn 2 người',
+        'effective_time.require' => 'Vui lòng điền thời hạn hiệu lực của nhóm',
+        'effective_time.gt' => 'Thời hạn hiệu lực của nhóm phải lớn hơn0',
     ];
 
     protected $scene = [

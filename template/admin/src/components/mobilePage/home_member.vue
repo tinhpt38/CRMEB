@@ -1,7 +1,7 @@
 <template>
   <common_wrapper :config="configObj">
     <div class="member-card" :class="'style' + (styleConfig + 1)">
-      <!-- 信息样式 共五种 -->
+      <!-- Tổng cộng có năm kiểu thông tin -->
       <template v-if="styleConfig == 0">
         <div
           class="card-header acea-row row-between-wrapper"
@@ -17,15 +17,15 @@
               </div>
             </div>
             <div class="text">
-              <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">这里是昵称</div>
-              <!-- 可以切换显示手机号或ID -->
+              <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">Đây là biệt danh</div>
+              <!-- Bạn có thể chuyển đổi hiển thị số điện thoại di động hoặcID -->
               <div v-if="userInfoConfig == 0" class="level" :style="{ color: numColor, fontSize: numSize + 'px' }">
                 14512349876
               </div>
               <div v-else class="level" :style="{ color: numColor, fontSize: numSize + 'px' }">ID: 9527</div>
             </div>
           </div>
-          <!-- 菜单入口 -->
+          <!-- Lối vào thực đơn -->
           <div
             class="menu-entry"
             v-if="menuList.length"
@@ -58,7 +58,7 @@
         <div class="card-header acea-row row-between-wrapper">
           <div class="user-info style-2 acea-row row-between-wrapper">
             <div class="text">
-              <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">这里是昵称</div>
+              <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">Đây là biệt danh</div>
               <div class="level" v-if="userInfoConfig == 0" :style="{ color: numColor, fontSize: numSize + 'px' }">
                 14512349876
               </div>
@@ -84,7 +84,7 @@
               </div>
             </div>
             <div class="text">
-              <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">这里是昵称</div>
+              <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">Đây là biệt danh</div>
               <div class="level" v-if="userInfoConfig == 0" :style="{ color: numColor, fontSize: numSize + 'px' }">
                 14512349876
               </div>
@@ -134,7 +134,7 @@
                 </div>
               </div>
               <div class="text">
-                <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">这里是昵称</div>
+                <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">Đây là biệt danh</div>
                 <div class="level" v-if="userInfoConfig == 0" :style="{ color: numColor, fontSize: numSize + 'px' }">
                   14512349876
                 </div>
@@ -217,7 +217,7 @@
                 </div>
               </div>
               <div class="text">
-                <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">这里是昵称</div>
+                <div class="name" :style="{ color: nameColor, fontSize: nameSize + 'px' }">Đây là biệt danh</div>
                 <div class="level" v-if="userInfoConfig == 0" :style="{ color: numColor, fontSize: numSize + 'px' }">
                   14512349876
                 </div>
@@ -290,7 +290,7 @@
           </div>
         </div>
       </template>
-      <!-- 快捷入口 -->
+      <!-- Nhập nhanh -->
       <template
         v-if="
           ((assetMode == 0 && checkType.length) || (assetMode == 1 && assetList.length)) &&
@@ -298,7 +298,7 @@
           styleConfig != 4
         "
       >
-        <!-- 快捷入口 -->
+        <!-- Nhập nhanh -->
         <div class="card-data acea-row row-around">
           <!-- Data Mode -->
           <template v-if="assetMode == 0">
@@ -343,7 +343,7 @@
           </template>
         </div>
       </template>
-      <!-- 会员样式 共四种 -->
+      <!-- Tổng cộng có bốn kiểu thành viên -->
       <template v-if="memberStyleConfig == 0">
         <div class="member-style-1" :style="[cardStyle, { marginTop: memberTopMargin }]">
           <div class="item" v-for="(item, index) in memberList" :key="index">
@@ -430,7 +430,7 @@
       <template v-if="memberStyleConfig == 3">
         <div class="member-style-4" :style="[cardStyle, { marginTop: memberTopMargin }]">
           <div class="left-box">
-            <div class="label" style="color: #999; font-size: 12px; margin-bottom: 5px">可提现(元)</div>
+            <div class="label" style="color: #999; font-size: 12px; margin-bottom: 5px">Có thể rút(Nhân dân tệ)</div>
             <div class="value" style="color: #f6d99d; font-size: 24px; font-weight: bold">200.00</div>
           </div>
           <div
@@ -444,7 +444,7 @@
               font-weight: bold;
             "
           >
-            立即提现
+            Rút tiền ngay lập tức
           </div>
         </div>
       </template>
@@ -458,10 +458,10 @@ import template from '../../pages/setting/devise/template.vue';
 export default {
   components: { template },
   name: 'home_member',
-  cname: '会员中心',
+  cname: 'Trung tâm thành viên',
   configName: 'c_member',
   icon: '#iconzujian-huiyuanxinxi',
-  type: 4, // 0 基础组件 1 营销组件 2工具组件 3 商品组件 4 用户组件
+  type: 4, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ 3 Thành phần sản phẩm 4 Thành phần người dùng
   defaultName: 'member',
   props: {
     index: {
@@ -478,14 +478,14 @@ export default {
     ...mapState('mobildConfig', ['defaultArray']),
     dataList() {
       let list = [
-        { id: 1, name: '余额', val: '200' },
-        { id: 3, name: '优惠券', val: '2888' },
-        { id: 2, name: '积分', val: '3000' },
-        { id: 5, name: '收藏商品', val: '1660' },
-        { id: 6, name: '浏览记录', val: '1660' },
-        { id: 8, name: '推广佣金', val: '666' },
-        { id: 9, name: '推广人', val: '1660' },
-        { id: 10, name: '推广订单', val: '1660' },
+        { id: 1, name: 'Sự cân bằng', val: '200' },
+        { id: 3, name: 'Phiếu giảm giá', val: '2888' },
+        { id: 2, name: 'tích phân', val: '3000' },
+        { id: 5, name: 'Thu thập vật phẩm', val: '1660' },
+        { id: 6, name: 'Lịch sử duyệt web', val: '1660' },
+        { id: 8, name: 'Hoa hồng khuyến mại', val: '666' },
+        { id: 9, name: 'người quảng bá', val: '1660' },
+        { id: 10, name: 'Đơn hàng khuyến mại', val: '1660' },
       ];
       return list.filter((item) => this.checkType.indexOf(item.id) != -1);
     },
@@ -609,36 +609,36 @@ export default {
       assetTextColor: '',
       assetTextSize: 12,
       defaultConfig: {
-        cname: '会员中心',
+        cname: 'Trung tâm thành viên',
         name: 'member',
-        desc: '会员中心模块，可以用来展示会员信息、优惠券、积分等',
+        desc: 'Mô-đun trung tâm thành viên có thể được sử dụng để hiển thị thông tin thành viên, phiếu giảm giá, điểm, v.v.',
         timestamp: this.num,
         isHide: false,
         setUp: {
           tabVal: 0,
         },
-        titleLeft: '展示设置',
-        titleImg: '默认头像',
-        titleRight: '样式设置',
-        titleCurrency: '通用样式',
-        infoStyleText: '会员信息',
-        memberStyleText: '会员样式',
-        iconStyleText: '图标样式',
-        assetConfigText: '图文入口',
+        titleLeft: 'Cài đặt hiển thị',
+        titleImg: 'Hình đại diện mặc định',
+        titleRight: 'Cài đặt kiểu',
+        titleCurrency: 'Phong cách phổ quát',
+        infoStyleText: 'Thông tin thành viên',
+        memberStyleText: 'phong cách thành viên',
+        iconStyleText: 'phong cách biểu tượng',
+        assetConfigText: 'Lối vào hình ảnh và văn bản',
         styleConfig: {
-          title: '选择风格',
+          title: 'Chọn phong cách',
           tabVal: 0,
-          tabList: [{ name: '样式一' }, { name: '样式二' }, { name: '样式三' }, { name: '样式四' }, { name: '样式五' }],
+          tabList: [{ name: 'phong cách một' }, { name: 'Phong cách 2' }, { name: 'phong cách ba' }, { name: 'phong cách bốn' }, { name: 'phong cách năm' }],
         },
         memberStyleConfig: {
-          title: '会员样式',
+          title: 'phong cách thành viên',
           tabVal: 0,
-          tabList: [{ name: '样式一' }, { name: '样式二' }, { name: '样式三' }, { name: '样式四' }],
+          tabList: [{ name: 'phong cách một' }, { name: 'Phong cách 2' }, { name: 'phong cách ba' }, { name: 'phong cách bốn' }],
         },
         menuConfig: {
-          title: '最多可添加2张图片，建议宽度40 * 40px',
-          bnt: '添加',
-          listStyleName: '操作内容',
+          title: 'Bạn có thể thêm tối đa 2 ảnh, chiều rộng khuyến nghị40 * 40px',
+          bnt: 'Thêm vào',
+          listStyleName: 'Nội dung hoạt động',
           type: 1,
           listStyle: 0,
           maxList: 2,
@@ -650,15 +650,15 @@ export default {
               icon: '',
               info: [
                 {
-                  title: '标题',
-                  value: '标题',
-                  tips: '选填，不超过4个字',
+                  title: 'tiêu đề',
+                  value: 'tiêu đề',
+                  tips: 'Tùy chọn, không quá 4 từ',
                   max: 4,
                 },
                 {
-                  title: '链接',
+                  title: 'liên kết',
                   value: '',
-                  tips: '请输入链接',
+                  tips: 'Vui lòng nhập liên kết',
                   max: 100,
                 },
               ],
@@ -670,15 +670,15 @@ export default {
               icon: '',
               info: [
                 {
-                  title: '标题',
-                  value: '标题',
-                  tips: '选填，不超过4个字',
+                  title: 'tiêu đề',
+                  value: 'tiêu đề',
+                  tips: 'Tùy chọn, không quá 4 từ',
                   max: 4,
                 },
                 {
-                  title: '链接',
+                  title: 'liên kết',
                   value: '',
-                  tips: '请输入链接',
+                  tips: 'Vui lòng nhập liên kết',
                   max: 100,
                 },
               ],
@@ -686,161 +686,161 @@ export default {
           ],
         },
         checkboxInfo: {
-          title: '数据内容',
+          title: 'Nội dung dữ liệu',
           name: 'checkboxInfo',
           maxList: 5,
           type: [1, 2, 3],
           list: [
-            { id: 1, name: '余额' },
-            { id: 3, name: '优惠券' },
-            { id: 2, name: '积分' },
-            { id: 5, name: '收藏商品' },
-            { id: 6, name: '浏览记录' },
-            { id: 8, name: '推广佣金' },
-            { id: 9, name: '推广人' },
-            { id: 10, name: '推广订单' },
+            { id: 1, name: 'Sự cân bằng' },
+            { id: 3, name: 'Phiếu giảm giá' },
+            { id: 2, name: 'tích phân' },
+            { id: 5, name: 'Thu thập vật phẩm' },
+            { id: 6, name: 'Lịch sử duyệt web' },
+            { id: 8, name: 'Hoa hồng khuyến mại' },
+            { id: 9, name: 'người quảng bá' },
+            { id: 10, name: 'Đơn hàng khuyến mại' },
           ],
         },
         logoConfig: {
-          info: '建议：图片尺寸90px * 90px',
+          info: 'Gợi ý: Kích thước hình ảnh90px * 90px',
           url: '',
           type: 'code',
           delType: 1,
-          name: '上传图片',
+          name: 'Tải ảnh lên',
         },
         bottomBgColor: {
-          title: '底部背景',
+          title: 'nền dưới cùng',
           default: [{ item: '#fff' }],
           color: [{ item: '#fff' }],
         },
         componentBgConfig: {
-          title: '背景设置',
+          title: 'Cài đặt nền',
           tabVal: 0,
-          tabList: [{ name: '颜色' }, { name: '图片' }],
+          tabList: [{ name: 'màu sắc' }, { name: 'hình ảnh' }],
           colorConfig: {
-            title: '背景颜色',
+            title: 'màu nền',
             default: [{ item: '#E93323' }, { item: '#E93323' }],
             color: [{ item: '#E93323' }, { item: '#E93323' }],
           },
           colorDirection: {
-            title: '渐变方向',
+            title: 'Hướng dốc',
             tabVal: 0,
-            tabList: [{ name: '横向' }, { name: '纵向' }, { name: '左斜' }, { name: '右斜' }],
+            tabList: [{ name: 'Nằm ngang' }, { name: 'chân dung' }, { name: 'xiên trái' }, { name: 'Nghiêng phải' }],
           },
           imageConfig: {
-            header: '背景图片',
+            header: 'hình nền',
             title: '',
-            name: '上传图片',
+            name: 'Tải ảnh lên',
             type: 'code',
             url: '',
-            info: '建议尺寸：750px * 400px',
+            info: 'Kích thước đề xuất：750px * 400px',
           },
         },
         zIndexConfig: {
-          title: '组件上浮',
+          title: 'Thành phần nổi',
           val: 0,
           min: 0,
         },
         borderConfig: {
-          title: '边框设置',
+          title: 'Cài đặt đường viền',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Hide, 1: Show
           styleConfig: {
-            title: '边框样式',
+            title: 'phong cách biên giới',
             tabVal: 0,
             tabList: [
-              { name: '实线', style: 'solid' },
-              { name: '虚线', style: 'dashed' },
-              { name: '点状', style: 'dotted' },
+              { name: 'đường liền nét', style: 'solid' },
+              { name: 'đường chấm chấm', style: 'dashed' },
+              { name: 'Say mê', style: 'dotted' },
             ],
           },
           widthConfig: {
-            title: '边框粗细',
+            title: 'Độ dày viền',
             val: 1,
             min: 1,
           },
           colorConfig: {
-            title: '边框颜色',
+            title: 'màu viền',
             default: [{ item: '#e5e5e5' }],
             color: [{ item: '#e5e5e5' }],
           },
         },
         shadowConfig: {
-          title: '阴影设置',
+          title: 'Cài đặt bóng',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0, // 0: Off, 1: On
           colorConfig: {
-            title: '阴影颜色',
+            title: 'màu bóng',
             default: [{ item: 'rgba(0,0,0,0.1)' }],
             color: [{ item: 'rgba(0,0,0,0.1)' }],
           },
           xConfig: {
-            title: 'X轴偏移',
+            title: 'Xđộ lệch trục',
             val: 0,
             min: -50,
           },
           yConfig: {
-            title: 'Y轴偏移',
+            title: 'Yđộ lệch trục',
             val: 0,
             min: -50,
           },
           blurConfig: {
-            title: '模糊半径',
+            title: 'bán kính lờ mờ',
             val: 10,
             min: 0,
           },
           spreadConfig: {
-            title: '扩展半径',
+            title: 'Bán kính mở rộng',
             val: 0,
             min: -50,
           },
         },
         fillet: {
-          title: '背景圆角',
+          title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: '全部', icon: 'iconcaozuo-zhengti' },
-            { val: '单个', icon: 'iconcaozuo-bianjiao' },
+            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
-          valName: '圆角值',
+          valName: 'Giá trị phi lê',
           val: 0,
           min: 0,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         paddingConfig: {
-          title: '内边距',
+          title: 'phần đệm',
           val: 15,
           min: 0,
           isAll: false,
           valList: [{ val: 15 }, { val: 15 }, { val: 0 }, { val: 15 }],
         },
         marginConfig: {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           isAll: false,
           valList: [{ val: 0 }, { val: 0 }, { val: 0 }, { val: 0 }],
         },
         assetIconColor: {
-          title: '图标颜色',
+          title: 'màu biểu tượng',
           default: [{ item: '#fff' }],
           color: [{ item: '#fff' }],
         },
         assetIconSize: {
-          title: '图标大小',
+          title: 'kích thước biểu tượng',
           val: 20,
           min: 10,
           max: 32,
         },
         assetTextColor: {
-          title: '文字颜色',
+          title: 'màu văn bản',
           default: [{ item: '#fff' }],
           color: [{ item: '#fff' }],
         },
         assetTextSize: {
-          title: '文字大小',
+          title: 'kích thước văn bản',
           val: 12,
           min: 10,
           max: 32,
@@ -866,14 +866,14 @@ export default {
       bottomBgColor: '',
       fillet: null,
       paddingConfig: {
-        title: '内边距',
+        title: 'phần đệm',
         isAll: false,
         val: 15,
         min: 0,
         valList: [{ val: 15 }, { val: 15 }, { val: 15 }, { val: 15 }],
       },
       marginConfig: {
-        title: '外边距',
+        title: 'lề',
         isAll: false,
         val: 0,
         min: 0,

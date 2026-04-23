@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use app\services\wechat\WechatUserServices;
 
 
 /**
- * 用户类
+ * Lớp người dùng
  * Class UserController
  * @package app\api\controller\store
  */
@@ -36,7 +36,7 @@ class UserController
     }
 
     /**
-     * 获取用户信息
+     * Lấy thông tin người dùng
      * @param Request $request
      * @return mixed
      */
@@ -47,7 +47,7 @@ class UserController
     }
 
     /**
-     * 用户资金统计
+     * Thống kê quỹ người dùng
      * @param Request $request
      * @return mixed
      */
@@ -58,7 +58,7 @@ class UserController
     }
 
     /**
-     * 个人中心
+     * Trung tâm cá nhân
      * @param Request $request
      * @return mixed
      */
@@ -69,7 +69,7 @@ class UserController
     }
 
     /**
-     * 获取活动状态
+     * Nhận trạng thái hoạt động
      * @return mixed
      */
     public function activity()
@@ -78,7 +78,7 @@ class UserController
     }
 
     /**
-     * 用户修改信息
+     * Thông tin người dùng sửa đổi
      * @param Request $request
      * @return mixed
      */
@@ -89,17 +89,17 @@ class UserController
             ['nickname', ''],
         ], true);
         if (!$avatar && $nickname == '') {
-            return app('json')->fail('请输入昵称或者选择头像');
+            return app('json')->fail('Vui lòng nhập biệt hiệu hoặc chọn hình đại diện');
         }
         $uid = (int)$request->uid();
         if ($this->services->eidtNickname($uid, ['avatar' => $avatar, 'nickname' => $nickname])) {
-            return app('json')->success('设置成功');
+            return app('json')->success('Thiết lập thành công');
         }
-        return app('json')->fail('设置失败');
+        return app('json')->fail('Thiết lập không thành công');
     }
 
     /**
-     * 推广人排行
+     * Xếp hạng nhà quảng cáo
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -116,7 +116,7 @@ class UserController
     }
 
     /**
-     * 添加访问记录
+     * Thêm bản ghi truy cập
      * @param Request $request
      * @return mixed
      */
@@ -126,18 +126,18 @@ class UserController
             ['url', ''],
             ['stay_time', 0]
         ]);
-        if ($data['url'] == '') return app('json')->fail('参数错误');
+        if ($data['url'] == '') return app('json')->fail('Lỗi tham số');
         $data['uid'] = (int)$request->uid();
         $data['ip'] = $request->ip();
         if ($this->services->setVisit($data)) {
-            return app('json')->success('添加成功');
+            return app('json')->success('Đã thêm thành công');
         } else {
-            return app('json')->fail('添加失败');
+            return app('json')->fail('Thêm không thành công');
         }
     }
 
     /**
-     * 静默绑定推广人
+     * Trình quảng bá liên kết âm thầm
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -157,7 +157,7 @@ class UserController
     }
 
     /**
-     * 推荐用户
+     * Người dùng được đề xuất
      * @param Request $request
      * @return mixed
      */
@@ -169,14 +169,14 @@ class UserController
             ['sort', ''],
         ]);
         if (!in_array($spreadInfo['grade'], [0, 1])) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $uid = $request->uid();
         return app('json')->success($this->services->getUserSpreadGrade($uid, $spreadInfo['grade'], $spreadInfo['sort'], $spreadInfo['keyword']));
     }
 
     /**
-     * 是否关注
+     * Bạn có chú ý không?
      * @param Request $request
      * @return mixed
      */
@@ -193,7 +193,7 @@ class UserController
     }
 
     /**
-     * 用户注销
+     * Đăng xuất người dùng
      * @param Request $request
      * @return mixed
      */
@@ -202,11 +202,11 @@ class UserController
         /** @var UserCancelServices $userCancelServices */
         $userCancelServices = app()->make(UserCancelServices::class);
         $userCancelServices->SetUserCancel($request->uid());
-        return app('json')->success('注销成功');
+        return app('json')->success('Đăng xuất thành công');
     }
 
     /**
-     * 商品浏览记录
+     * Lịch sử duyệt sản phẩm
      * @param Request $request
      * @param StoreProductLogServices $services
      * @return mixed
@@ -223,7 +223,7 @@ class UserController
         if ($result['list']) {
             foreach ($result['list'] as $key => &$item) {
                 $add_time = strtotime($item['add_time']);
-                if (date('Y') == date('Y', $add_time)) {//今年
+                if (date('Y') == date('Y', $add_time)) {//Năm nay
                     $item['time_key'] = date('m-d', $add_time);
                 } else {
                     $item['time_key'] = date('Y-m-d', $add_time);
@@ -236,7 +236,7 @@ class UserController
     }
 
     /**
-     * 商品浏览记录删除
+     * Xóa lịch sử duyệt sản phẩm
      * @param Request $request
      * @param StoreProductLogServices $services
      * @return mixed
@@ -254,6 +254,6 @@ class UserController
             $where = ['uid' => $uid, 'product_id' => $ids];
             $services->delete($where);
         }
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -30,16 +30,16 @@ class StoreOrderValidate extends Validate
     ];
 
     protected $message = [
-        'order_id.require'      => '订单号必须存在',
-        'order_id.length'       => '订单号有误',
-        'order_id.alphaNum'     => '订单号必须为字母和数字',
-        'total_price.require'   => '订单金额必须填写',
-        'total_price.float'    => '订单金额必须为数字',
-        'pay_price.require'     => '订单金额必须填写',
-        'pay_price.float'      => '订单金额必须为数字',
-        'pay_postage.require'   => '订单邮费必须填写',
-        'pay_postage.float'    => '订单邮费必须为数字',
-        'gain_integral.float'  => '赠送积分必须为数字',
+        'order_id.require'      => 'Số đơn đặt hàng phải tồn tại',
+        'order_id.length'       => 'Số đơn hàng sai',
+        'order_id.alphaNum'     => 'Mã đơn hàng phải là chữ cái và số',
+        'total_price.require'   => 'Số tiền đặt hàng phải được điền vào',
+        'total_price.float'    => 'Số tiền đặt hàng phải là một con số',
+        'pay_price.require'     => 'Số tiền đặt hàng phải được điền vào',
+        'pay_price.float'      => 'Số tiền đặt hàng phải là một con số',
+        'pay_postage.require'   => 'Bưu phí đặt hàng phải được điền vào',
+        'pay_postage.float'    => 'Bưu phí đặt hàng phải là một con số',
+        'gain_integral.float'  => 'Điểm quà tặng phải là số',
     ];
 
     protected $scene = [

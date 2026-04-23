@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,7 +27,7 @@ class BalanceStatistic extends AuthController
     }
 
     /**
-     * 余额统计基础信息
+     * Thông tin cơ bản về thống kê số dư
      * @return mixed
      */
     public function getBasic()
@@ -37,7 +37,7 @@ class BalanceStatistic extends AuthController
     }
 
     /**
-     * 余额统计趋势图
+     * Biểu đồ xu hướng thống kê số dư
      * @return mixed
      */
     public function getTrend()
@@ -50,7 +50,7 @@ class BalanceStatistic extends AuthController
     }
 
     /**
-     * 余额来源
+     * Nguồn cân bằng
      * @return mixed
      */
     public function getChannel()
@@ -63,7 +63,7 @@ class BalanceStatistic extends AuthController
     }
 
     /**
-     * 余额类型
+     * Loại số dư
      * @return mixed
      */
     public function getType()

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -41,7 +41,7 @@ class MiniOrderService
     }
 
     /**
-     * 初始化
+     * khởi tạo
      * @param bool $cache
      * @return Application
      */
@@ -58,13 +58,13 @@ class MiniOrderService
 
 
     /**
-     * 上传订单
-     * @param string $out_trade_no 订单号(商城订单好)
-     * @param int $logistics_type 物流模式，发货方式枚举值：1、实体物流配送采用快递公司进行实体物流配送形式 2、同城配送 3、虚拟商品，虚拟商品，例如话费充值，点卡等，无实体配送形式 4、用户自提
-     * @param array $shipping_list 物流信息列表，发货物流单列表，支持统一发货（单个物流单）和分拆发货（多个物流单）两种模式，多重性: [1, 10]
-     * @param string $payer_openid 支付者，支付者信息
-     * @param int $delivery_mode 发货模式，发货模式枚举值：1、UNIFIED_DELIVERY（统一发货）2、SPLIT_DELIVERY（分拆发货） 示例值: UNIFIED_DELIVERY
-     * @param bool $is_all_delivered 分拆发货模式时必填，用于标识分拆发货模式下是否已全部发货完成，只有全部发货完成的情况下才会向用户推送发货完成通知。示例值: true/false
+     * Tải lên thứ tự
+     * @param string $out_trade_no Số đơn hàng(Đơn hàng trung tâm mua sắm tốt)
+     * @param int $logistics_type Chế độ hậu cần, giá trị liệt kê phương thức giao hàng: 1. Phân phối hậu cần vật lý áp dụng hình thức phân phối hậu cần vật lý của các công ty chuyển phát nhanh 2. Giao hàng trong cùng thành phố 3. Hàng hóa ảo, hàng hóa ảo, chẳng hạn như nạp tiền điện thoại, thẻ điểm, v.v., không có hình thức giao hàng thực tế 4. Người dùng tự nhận hàng
+     * @param array $shipping_list Danh sách thông tin hậu cần, danh sách đơn hàng hậu cần giao hàng, hỗ trợ giao hàng thống nhất (đơn hàng hậu cần đơn) và giao hàng chia nhỏ (nhiều đơn hàng hậu cần), đa dạng: [1, 10]
+     * @param string $payer_openid Người trả tiền, thông tin người trả tiền
+     * @param int $delivery_mode Chế độ phân phối, giá trị liệt kê của chế độ phân phối: 1. UNIFIED_DELIVERY (phân phối thống nhất) 2. SPLIT_DELIVERY (phân phối chia tách) Các giá trị ví dụ: UNIFIED_DELIVERY
+     * @param bool $is_all_delivered Cần thiết khi sử dụng chế độ vận chuyển chia nhỏ. Nó được sử dụng để xác định xem tất cả các lô hàng đã được hoàn thành ở chế độ vận chuyển chia nhỏ hay chưa. Chỉ khi tất cả các lô hàng được hoàn thành thì thông báo hoàn thành vận chuyển mới được gửi đến người dùng. Giá trị mẫu: true/false
      * @return array
      *
      * @throws HttpException
@@ -77,7 +77,7 @@ class MiniOrderService
     }
 
     /**
-     * 获取小程序发货管理订单列表
+     * Nhận danh sách đơn hàng quản lý giao hàng chương trình mini
      * @param array $params
      * @return array
      * @throws HttpException
@@ -91,7 +91,7 @@ class MiniOrderService
     }
 
     /**
-     * 合单
+     * thứ tự kết hợp
      * @param string $out_trade_no
      * @param int $logistics_type
      * @param array $sub_orders
@@ -110,7 +110,7 @@ class MiniOrderService
     }
 
     /**
-     * 签收通知
+     * Ký nhận thông báo
      * @param string $merchant_trade_no
      * @param string $received_time
      * @return array
@@ -124,7 +124,7 @@ class MiniOrderService
     }
 
     /**
-     * 判断是否开通
+     * Xác định xem có nên mở không
      * @return bool
      * @throws HttpException
      *
@@ -138,7 +138,7 @@ class MiniOrderService
 
 
     /**
-     * 设置小修跳转路径
+     * Đặt đường dẫn nhảy sửa chữa nhỏ
      * @param $path
      * @return array
      * @throws HttpException

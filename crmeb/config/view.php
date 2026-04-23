@@ -1,36 +1,36 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 // +----------------------------------------------------------------------
-// | 模板设置
+// | Cài đặt mẫu
 // +----------------------------------------------------------------------
 
 return [
-    // 模板引擎类型使用Think
+    // Loại công cụ tạo mẫu được sử dụngThink
     'type'          => 'Think',
-    // 默认模板渲染规则 1 解析为小写+下划线 2 全部转换小写 3 保持操作方法
+    // Quy tắc hiển thị mẫu mặc định 1 Phân tích thành chữ thường + gạch chân 2 Chuyển đổi tất cả thành chữ thường 3 Giữ nguyên phương thức hoạt động
     'auto_rule'     => 1,
-    // 模板目录名
+    // Tên thư mục mẫu
     'view_dir_name' => 'view',
-    // 模板后缀
+    // Hậu tố mẫu
     'view_suffix'   => 'html',
-    // 模板文件名分隔符
+    // Dấu phân cách tên tệp mẫu
     'view_depr'     => DIRECTORY_SEPARATOR,
-    // 模板引擎普通标签开始标记
+    // Thẻ bắt đầu thẻ thông thường của công cụ mẫu
     'tpl_begin'     => '{',
-    // 模板引擎普通标签结束标记
+    // Thẻ đóng thẻ thông thường của công cụ tạo mẫu
     'tpl_end'       => '}',
-    // 标签库标签开始标记
+    // thẻ thư viện thẻ thẻ bắt đầu
     'taglib_begin'  => '{',
-    // 标签库标签结束标记
+    // thẻ thẻ thư viện thẻ thẻ cuối
     'taglib_end'    => '}',
-    //模板文件路径
+    //Đường dẫn tệp mẫu
     'view_path'     => public_path(),
 ];

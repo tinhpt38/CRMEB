@@ -3,19 +3,19 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    /* 背景渐变色 */
+    /* Màu nền gradient */
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
     background-image: linear-gradient(to right, #134392, #132FBB, #5F38C1, #134392);
-    /* 背景渐变色大小 */
+    /* Kích thước màu nền gradient */
     background-size: 300%;
     box-shadow: none;
     animation: light 10s infinite;
     animation-direction: alternate;
 }
 
-/* 下面设计 发光效果 */
+/* Thiết kế bên dưới hiệu ứng phát sáng */
 .wrap::before {
     content: '';
     position: absolute;
@@ -24,13 +24,13 @@
     left: -6px;
     right: -6px;
     border-radius: 60px;
-    /* 背景渐变色 */
+    /* Màu nền gradient */
     background-image: linear-gradient(to right, rgba(48,114,229,0.15), rgba(48,114,229,0.15));
-    /* 背景渐变色大小 */
+    /* Kích thước màu nền gradient */
     background-size: 300%;
-    /* 元素的位置 底层或者顶层  -值表示底层 + 值表示顶层 */
+    /* Vị trí của phần tử là lớp dưới cùng hoặc lớp trên cùng - giá trị biểu thị lớp dưới cùng + giá trị biểu thị lớp trên cùng */
     z-index: -1;
-    /* 设置模糊度 显示发光效果 */
+    /* Đặt hiệu ứng làm mờ và hiển thị ánh sáng */
     filter: blur(20px);
 }
 

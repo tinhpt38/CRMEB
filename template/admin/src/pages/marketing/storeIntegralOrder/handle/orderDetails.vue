@@ -1,75 +1,75 @@
 <template>
   <div v-if="orderDatalist">
-    <el-dialog :visible.sync="modals" title="订单信息" width="720px" class="order_box">
+    <el-dialog :visible.sync="modals" title="Thông tin đặt hàng" width="720px" class="order_box">
       <el-card :bordered="false" shadow="never" class="i-table-no-border">
-        <div class="ivu-description-list-title">收货信息</div>
+        <div class="ivu-description-list-title">Tiếp nhận thông tin</div>
         <el-row class="mb10">
-          <el-col :span="12">用户昵称：{{ orderDatalist.userInfo.nickname }}</el-col>
-          <el-col :span="12">收货人：{{ orderDatalist.orderInfo.real_name }}</el-col>
+          <el-col :span="12">Biệt hiệu của người dùng：{{ orderDatalist.userInfo.nickname }}</el-col>
+          <el-col :span="12">người nhận hàng：{{ orderDatalist.orderInfo.real_name }}</el-col>
         </el-row>
         <el-row class="mb10">
-          <el-col :span="12">联系电话：{{ orderDatalist.orderInfo.user_phone }}</el-col>
-          <el-col :span="12">收货地址：{{ orderDatalist.orderInfo.user_address }}</el-col>
+          <el-col :span="12">Số liên lạc：{{ orderDatalist.orderInfo.user_phone }}</el-col>
+          <el-col :span="12">Địa chỉ giao hàng：{{ orderDatalist.orderInfo.user_address }}</el-col>
         </el-row>
         <el-divider></el-divider>
-        <div class="ivu-description-list-title">订单信息</div>
+        <div class="ivu-description-list-title">Thông tin đặt hàng</div>
         <el-row class="mb10">
-          <el-col :span="12">订单ID：{{ orderDatalist.orderInfo.order_id }}</el-col>
-          <el-col :span="12" class="fontColor1">订单状态：{{ orderDatalist.orderInfo.status_name }}</el-col>
+          <el-col :span="12">Đặt hàngID：{{ orderDatalist.orderInfo.order_id }}</el-col>
+          <el-col :span="12" class="fontColor1">Trạng thái đơn hàng：{{ orderDatalist.orderInfo.status_name }}</el-col>
         </el-row>
         <el-row class="mb10">
           <el-col :span="12"
-            >商品名称：{{ orderDatalist.orderInfo.store_name + ' | '
+            >Tên sản phẩm：{{ orderDatalist.orderInfo.store_name + ' | '
             }}{{ orderDatalist.orderInfo.suk ? orderDatalist.orderInfo.suk : '' }}</el-col
           >
         </el-row>
         <el-row class="mb10">
-          <el-col :span="12">商品总数：{{ orderDatalist.orderInfo.total_num }}</el-col>
-          <el-col :span="12">商品总积分：{{ orderDatalist.orderInfo.total_price }}</el-col>
+          <el-col :span="12">Tổng số mặt hàng：{{ orderDatalist.orderInfo.total_num }}</el-col>
+          <el-col :span="12">Tổng điểm sản phẩm：{{ orderDatalist.orderInfo.total_price }}</el-col>
         </el-row>
         <el-row class="mb10">
-          <el-col :span="12" class="mb10">创建时间：{{ orderDatalist.orderInfo.add_time }}</el-col>
+          <el-col :span="12" class="mb10">thời gian sáng tạo：{{ orderDatalist.orderInfo.add_time }}</el-col>
           <el-col :span="12" class="mb10" v-if="orderDatalist.orderInfo.remark"
-            >商家备注：{{ orderDatalist.orderInfo.remark }}</el-col
+            >Nhận xét của người bán：{{ orderDatalist.orderInfo.remark }}</el-col
           >
           <el-col :span="12" class="mb10" v-if="orderDatalist.orderInfo.fictitious_content"
-            >虚拟发货备注：{{ orderDatalist.orderInfo.fictitious_content }}</el-col
+            >Nhận xét vận chuyển ảo：{{ orderDatalist.orderInfo.fictitious_content }}</el-col
           >
         </el-row>
         <div v-if="orderDatalist.orderInfo.delivery_type === 'express'">
           <el-divider></el-divider>
-          <div class="ivu-description-list-title">物流信息</div>
+          <div class="ivu-description-list-title">Thông tin hậu cần</div>
           <el-row class="mb10">
-            <el-col :span="12">快递公司：{{ orderDatalist.orderInfo.delivery_name }}</el-col>
+            <el-col :span="12">công ty chuyển phát nhanh：{{ orderDatalist.orderInfo.delivery_name }}</el-col>
             <el-col :span="12"
-              >快递单号：{{ orderDatalist.orderInfo.delivery_id }}
-              <a size="small" v-db-click @click="openLogistics">物流查询</a></el-col
+              >Số theo dõi nhanh：{{ orderDatalist.orderInfo.delivery_id }}
+              <a size="small" v-db-click @click="openLogistics">Điều tra hậu cần</a></el-col
             >
           </el-row>
         </div>
         <div v-if="orderDatalist.orderInfo.delivery_type === 'send'">
           <el-divider></el-divider>
-          <div class="ivu-description-list-title">配送信息</div>
+          <div class="ivu-description-list-title">Thông tin vận chuyển</div>
           <el-row class="mb10">
-            <el-col :span="12">送货人姓名：{{ orderDatalist.orderInfo.delivery_name }}</el-col>
-            <el-col :span="12">送货人电话：{{ orderDatalist.orderInfo.delivery_id }}</el-col>
+            <el-col :span="12">Tên người giao hàng：{{ orderDatalist.orderInfo.delivery_name }}</el-col>
+            <el-col :span="12">Số điện thoại người giao hàng：{{ orderDatalist.orderInfo.delivery_id }}</el-col>
           </el-row>
         </div>
         <div v-if="orderDatalist.orderInfo.mark">
           <el-divider></el-divider>
-          <div class="ivu-description-list-title" v-if="orderDatalist.orderInfo.mark">备注信息</div>
+          <div class="ivu-description-list-title" v-if="orderDatalist.orderInfo.mark">Bình luận</div>
           <el-row class="mb10">
             <el-col :span="12" class="fontColor2">{{ orderDatalist.orderInfo.mark }}</el-col>
           </el-row>
         </div>
       </el-card>
     </el-dialog>
-    <el-dialog :visible.sync="modal2" title="物流查询" width="470px" class="order_box2">
+    <el-dialog :visible.sync="modal2" title="Điều tra hậu cần" width="470px" class="order_box2">
       <div class="logistics acea-row row-top">
         <div class="logistics_img"><img src="../../../../assets/images/expressi.jpg" /></div>
         <div class="logistics_cent">
-          <span>物流公司：{{ orderDatalist.orderInfo.delivery_name }}</span>
-          <span>物流单号：{{ orderDatalist.orderInfo.delivery_id }}</span>
+          <span>Công ty hậu cần：{{ orderDatalist.orderInfo.delivery_name }}</span>
+          <span>Số đơn hàng hậu cần：{{ orderDatalist.orderInfo.delivery_id }}</span>
         </div>
       </div>
       <div class="acea-row row-column-around trees-coadd">
@@ -112,7 +112,7 @@ export default {
       this.getOrderData();
       this.modal2 = true;
     },
-    // 获取订单物流信息
+    // Nhận thông tin hậu cần đơn hàng
     getOrderData() {
       getExpress(this.orderId)
         .then(async (res) => {

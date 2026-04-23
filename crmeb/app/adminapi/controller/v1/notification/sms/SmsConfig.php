@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,14 +18,14 @@ use crmeb\services\CacheService;
 use think\facade\App;
 
 /**
- * 短信配置
+ * cấu hình tin nhắn
  * Class SmsConfig
  * @package app\admin\controller\sms
  */
 class SmsConfig extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SmsConfig constructor.
      * @param App $app
      * @param SmsAdminServices $services
@@ -37,7 +37,7 @@ class SmsConfig extends AuthController
     }
 
     /**
-     * 保存短信配置
+     * Lưu cấu hình SMS
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
@@ -51,14 +51,14 @@ class SmsConfig extends AuthController
         $this->validate(['sms_account' => $account, 'sms_token' => $token], \app\adminapi\validate\notification\SmsConfigValidate::class);
 
         if ($this->services->login($account, $token)) {
-            return app('json')->success('登录成功');
+            return app('json')->success('Đăng nhập thành công');
         } else {
-            return app('json')->fail('账号或密码错误');
+            return app('json')->fail('Tài khoản hoặc mật khẩu không chính xác');
         }
     }
 
     /**
-     * 检测登录
+     * Phát hiện đăng nhập
      * @param ServeServices $services
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -85,7 +85,7 @@ class SmsConfig extends AuthController
             CacheService::clear();
             $account = sys_config('sms_account');
             $password = sys_config('sms_token');
-            //没有退出登录 清空这两个数据 自动登录
+            //Không cần đăng xuất, hãy xóa hai dữ liệu này và đăng nhập tự động.
             if ($account && $password) {
                 $res = $services->user()->login($account, $password);
                 if ($res) {
@@ -99,7 +99,7 @@ class SmsConfig extends AuthController
     }
 
     /**
-     * 退出
+     * từ bỏ
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
@@ -108,11 +108,11 @@ class SmsConfig extends AuthController
         CacheService::delete('sms_account');
         $this->services->updateSmsConfig('', '');
         CacheService::clear();
-        return app('json')->success('退出成功');
+        return app('json')->success('Thoát thành công');
     }
 
     /**
-     * 短信发送记录
+     * Bản ghi gửi SMS
      * @param ServeServices $services
      * @return mixed
      */
@@ -127,7 +127,7 @@ class SmsConfig extends AuthController
     }
 
     /**
-     * 获取当前登陆的短信账号信息
+     * Nhận thông tin tài khoản SMS hiện đang đăng nhập
      * @return mixed
      */
     public function data()

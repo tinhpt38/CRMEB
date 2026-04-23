@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,13 +20,13 @@ class StoreProductLog extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_product_log';
@@ -36,7 +36,7 @@ class StoreProductLog extends BaseModel
     protected $createTime = 'add_time';
 
     /**
-     * 添加时间修改器
+     * Thêm công cụ sửa đổi thời gian
      * @return int
      */
     public function setAddTimeAttr()
@@ -45,8 +45,8 @@ class StoreProductLog extends BaseModel
     }
 
     /**
-     * 一对一关联
-     * 商品记录关联商品名称
+     * hiệp hội một-một
+     * Tên sản phẩm gắn liền với hồ sơ sản phẩm
      * @return \think\model\relation\HasOne
      */
     public function storeName()
@@ -61,7 +61,7 @@ class StoreProductLog extends BaseModel
     }
 
     /**
-     * 记录类型搜索器
+     * Trình tìm kiếm loại bản ghi
      * @param $query
      * @param $value
      */
@@ -71,7 +71,7 @@ class StoreProductLog extends BaseModel
     }
 
     /**
-     * 商品ID搜索器
+     * Trình tìm kiếm ID sản phẩm
      * @param $query
      * @param $value
      */
@@ -80,7 +80,7 @@ class StoreProductLog extends BaseModel
         if ($value != '') $query->where('product_id', $value);
     }
     /**
-     * 用户ID搜索器
+     * Trình tìm kiếm ID người dùng
      * @param $query
      * @param $value
      */

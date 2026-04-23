@@ -32,11 +32,11 @@ export default {
         this.$refs.table.getTabs();
       }
     },
-    // 列表数据
+    // Liệt kê dữ liệu
     getData(res) {
       this.$refs.table.getList(res);
     },
-    // 模块数据
+    // dữ liệu mô-đun
     getCards(list) {
       this.cardLists = list;
     },

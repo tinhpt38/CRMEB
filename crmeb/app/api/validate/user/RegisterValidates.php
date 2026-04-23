@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace app\api\validate\user;
 use think\Validate;
 
 /**
- * 注册验证
+ * Xác minh đăng ký
  * Class RegisterValidates
  * @package app\http\validates\user
  */
@@ -30,13 +30,13 @@ class RegisterValidates extends Validate
     ];
 
     protected $message = [
-        'phone.require' => '请输入手机号',
-        'phone.regex' => '手机号格式不正确',
-        'account.require' => '请输入手机号',
-        'account.regex' => '手机号格式不正确',
-        'captcha.require' => '请输入验证码',
-        'captcha.length' => '验证码错误',
-        'password.require' => '密码必须是在6到16位之间',
+        'phone.require' => 'Vui lòng nhập số điện thoại di động',
+        'phone.regex' => 'Định dạng số điện thoại di động không chính xác',
+        'account.require' => 'Vui lòng nhập số điện thoại di động',
+        'account.regex' => 'Định dạng số điện thoại di động không chính xác',
+        'captcha.require' => 'Vui lòng nhập mã xác minh',
+        'captcha.length' => 'Lỗi mã xác minh',
+        'password.require' => 'Mật khẩu phải có từ 6 đến 16 ký tự',
     ];
 
 

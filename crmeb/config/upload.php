@@ -1,22 +1,22 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 
 return [
-    //默认上传模式,后台配置优先,添加类型一定索引要和驱动名一致 用小写字母
+    //Chế độ tải lên mặc định,Cấu hình phụ trợ được ưu tiên,Khi thêm loại, chỉ mục phải nhất quán với tên trình điều khiển và sử dụng chữ cái viết thường.
     'default' => 'local',
-    //上传文件大小 50M
+    //Kích thước tệp tải lên 50M
     'filesize' => 52428800,
-    //上传文件后缀类型
+    //Loại hậu tố tệp tải lên
     'fileExt' => ['jpg', 'jpeg', 'png', 'gif', 'pem', 'mp3', 'wma', 'wav', 'amr', 'mp4', 'key', 'xlsx', 'xls', 'txt', 'ico', 'crt', 'webp', 'zip'],
-    //上传文件类型
+    //Tải lên loại tệp
     'fileMime' => [
         'image/jpg',
         'image/jpeg',
@@ -36,48 +36,48 @@ return [
         'application/x-x509-ca-cert',
         'image/webp',
         'application/x-zip-compressed',
-        // 补充缺失
+        // bổ sung còn thiếu
         'audio/x-ms-wma',              // wma
         'audio/wav',                   // wav
         'audio/amr',                   // amr
         'application/x-pem-file',      // pem
-        // Windows 兼容
+        // Windows tương thích
         'audio/mp3',                   // mp3 Windows
         'audio/wave',                  // wav Windows Chrome
         'audio/x-wav',                 // wav Windows IE/Edge
         'application/msexcel',         // xls Windows
     ],
-    //驱动模式，此配置优先与后台配置，后台添加配置请加前缀，例如添加七牛云配置：accessKey 后台添加变量名 qiniu_accessKey
+    //Chế độ driver, cấu hình này được ưu tiên với cấu hình nền. Vui lòng thêm tiền tố khi thêm cấu hình ở chế độ nền. Ví dụ: thêm cấu hình Qiniu Cloud: accessKey. Thêm tên biến trong nền. qiniu_accessKey
     'stores' => [
-        //本地上传配置
+        //Cấu hình tải lên cục bộ
         'local' => [],
-        //七牛云上传配置
+        //Cấu hình tải lên đám mây Qiniu
         'qiniu' => [
             'AccessKeyId' => '', // sys_config('qiniu_accessKey')
             'AccessKeySecret' => '', // sys_config('qiniu_secretKey')
         ],
-        //oss 阿里云上传配置
+        //oss Cấu hình tải lên đám mây của Alibaba
         'oss' => [
             'AccessKeyId' => '', // sys_config('accessKey')
             'AccessKeySecret' => '', // sys_config('secretKey')
         ],
-        //cos 腾讯云上传配置
+        //cos Cấu hình tải lên của Tencent Cloud
         'cos' => [
             'AccessKeyId' => '', //sys_config('tengxun_accessKey')
             'AccessKeySecret' => '', //sys_config('tengxun_secretKey')
             'APPID' => '', //sys_config('tengxun_appid')
         ],
-        //oss 京东云
+        //oss Đám mây JD
         'jdoss' => [
             'AccessKeyId' => '', // sys_config('accessKey')
             'AccessKeySecret' => '', // sys_config('secretKey')
         ],
-        //oss 华为云
+        //oss Đám mây Huawei
         'obs' => [
             'AccessKeyId' => '', // sys_config('accessKey')
             'AccessKeySecret' => '', // sys_config('secretKey')
         ],
-        //oss 天翼云
+        //oss Đám mây Thiên Nhất
         'tyoss' => [
             'AccessKeyId' => '', // sys_config('accessKey')
             'AccessKeySecret' => '', // sys_config('secretKey')

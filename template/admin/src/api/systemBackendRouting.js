@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 import request from '@/libs/request';
 
 /**
- * 同步路由权限
+ * Đồng bộ hóa quyền định tuyến
  */
 export function syncRoute(appName) {
   return request({
@@ -20,7 +20,7 @@ export function syncRoute(appName) {
   });
 }
 /**
- * 新增路由分类
+ * Thêm danh mục định tuyến
  */
 export function routeCate(appName) {
   return request({
@@ -29,7 +29,7 @@ export function routeCate(appName) {
   });
 }
 /**
- * 路由树
+ * cây định tuyến
  */
 export function routeList(apiType) {
   return request({
@@ -39,7 +39,7 @@ export function routeList(apiType) {
 }
 
 /**
- * 添加/编辑接口
+ * Giao diện thêm/chỉnh sửa
  * @param {*} data
  * @returns
  */
@@ -52,7 +52,7 @@ export function routeSave(data) {
 }
 
 /**
- * 接口信息详情
+ * Chi tiết thông tin giao diện
  * @param {*} data
  * @returns
  */
@@ -63,7 +63,7 @@ export function routeDet(id) {
   });
 }
 /**
- * 接口分类编辑
+ * Trình chỉnh sửa phân loại giao diện
  * @param {*} data
  * @returns
  */
@@ -75,8 +75,8 @@ export function routeEdit(id, appName) {
 }
 
 /**
- * @description 修改名称
- * @param {Object} data data {Object} 传值
+ * @description Sửa đổi tên
+ * @param {Object} data data {Object} Giá trị vượt qua
  */
 export function interfaceEditName(data) {
   return request({
@@ -87,7 +87,7 @@ export function interfaceEditName(data) {
 }
 
 /**
- * @description 删除
+ * @description xóa bỏ
  */
 export function routeDel(id) {
   return request({
@@ -96,7 +96,7 @@ export function routeDel(id) {
   });
 }
 /**
- * @description 删除
+ * @description xóa bỏ
  */
 export function routeCateDel(id) {
   return request({
@@ -106,7 +106,7 @@ export function routeCateDel(id) {
 }
 
 /**
- * 接口信息详情
+ * Chi tiết thông tin giao diện
  * @param {*} data
  * @returns
  */

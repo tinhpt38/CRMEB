@@ -2,11 +2,11 @@
 
 
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,12 +17,12 @@ use app\services\BaseServices;
 use crmeb\exceptions\AdminException;
 
 /**
- * 主题组件服务类
+ * Lớp dịch vụ thành phần chủ đề
  */
 class ThemeModuleServices extends BaseServices
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * @param ThemeModuleDao $dao
      */
     public function __construct(ThemeModuleDao $dao)
@@ -31,7 +31,7 @@ class ThemeModuleServices extends BaseServices
     }
 
     /**
-     * 获取组件列表
+     * Lấy danh sách thành phần
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -46,7 +46,7 @@ class ThemeModuleServices extends BaseServices
     }
 
     /**
-     * 获取组件详情
+     * Nhận chi tiết thành phần
      * @param int $id
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -57,7 +57,7 @@ class ThemeModuleServices extends BaseServices
     {
         $info = $this->dao->get($id);
         if (!$info) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         $info = $info->toArray();
         $info['data'] = $info['data'] ? json_decode($info['data'], true) : [];
@@ -65,7 +65,7 @@ class ThemeModuleServices extends BaseServices
     }
 
     /**
-     * 保存组件数据（新增/编辑）
+     * Lưu dữ liệu thành phần (thêm/chỉnh sửa）
      * @param int $id
      * @param array $data
      * @return int
@@ -82,7 +82,7 @@ class ThemeModuleServices extends BaseServices
         }
 
         if (!$save) {
-            throw new AdminException('保存数据不能为空');
+            throw new AdminException('Lưu dữ liệu không được để trống');
         }
 
         if ($id) {
@@ -95,14 +95,14 @@ class ThemeModuleServices extends BaseServices
     }
 
     /**
-     * 删除组件
+     * Xóa thành phần
      * @param int $id
      * @return bool
      */
     public function deleteModule(int $id)
     {
         if (!$this->dao->get($id)) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         return (bool)$this->dao->delete($id);
     }

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-dialog :visible.sync="addressModal" title="选择可配送区域" width="50%" class="modal">
+    <el-dialog :visible.sync="addressModal" title="Chọn khu vực giao hàng" width="50%" class="modal">
       <el-row :gutter="24">
         <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" class="item">
           <div class="acea-row row-right row-middle">
-            <el-checkbox v-model="iSselect" @change="allCheckbox">全选</el-checkbox>
-            <div class="empty" v-db-click @click="empty">清空</div>
+            <el-checkbox v-model="iSselect" @change="allCheckbox">Chọn tất cả</el-checkbox>
+            <div class="empty" v-db-click @click="empty">Thông thoáng</div>
           </div>
         </el-col>
       </el-row>
@@ -49,8 +49,8 @@
         </el-col>
       </el-row>
       <div slot="footer">
-        <el-button v-db-click @click="close">取消</el-button>
-        <el-button type="primary" v-db-click @click="confirm">确定</el-button>
+        <el-button v-db-click @click="close">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="confirm">Chắc chắn</el-button>
       </div>
     </el-dialog>
   </div>
@@ -128,7 +128,7 @@ export default {
       });
     },
     /**
-     * 全选或者反选
+     * Chọn tất cả hoặc lựa chọn nghịch đảo
      * @param checked
      */
     allCheckbox: function () {
@@ -147,7 +147,7 @@ export default {
       });
       // this.render();
     },
-    // 清空；
+    // Thông thoáng；
     empty() {
       let that = this;
       that.cityList.forEach(function (item, key) {
@@ -160,7 +160,7 @@ export default {
       this.iSselect = false;
     },
     /**
-     * 点击省
+     * Bấm để lưu
      * @param index
      */
     checkedClick: function (index) {
@@ -181,7 +181,7 @@ export default {
       // this.render();
     },
     /**
-     * 点击市区
+     * Bấm vào khu vực thành thị
      * @param index
      * @param ind
      */
@@ -198,10 +198,10 @@ export default {
       this.$set(this.cityList[index], 'checked', checked);
       // this.render();
     },
-    // 确定;
+    // Chắc chắn;
     confirm() {
       let that = this;
-      // 被选中的省市；
+      // Các tỉnh, thành phố được chọn；
       let selectList = [];
       that.cityList.forEach(function (item, key) {
         let data = {};
@@ -224,7 +224,7 @@ export default {
         }
       });
       if (selectList.length === 0) {
-        return that.$message.error('至少选择一个省份或者城市');
+        return that.$message.error('Chọn ít nhất một tỉnh hoặc thành phố');
       } else {
         this.$emit('selectCity', selectList, this.type);
         that.addressModal = false;

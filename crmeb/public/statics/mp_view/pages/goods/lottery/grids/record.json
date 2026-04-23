@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "中奖记录",
+  "navigationBarTitleText": "Kỷ lục chiến thắng",
   "usingComponents": {
     "empty-page": "/components/emptyPage",
     "user-address": "/pages/goods/lottery/components/userAddress"

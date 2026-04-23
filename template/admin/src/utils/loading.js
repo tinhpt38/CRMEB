@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import loadingCss from '@/theme/loading.scss';
 
-// 定义方法
+// Xác định phương pháp
 export const PrevLoading = {
-  // 载入 css
+  // Trọng tải css
   setCss: () => {
     let link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -11,7 +11,7 @@ export const PrevLoading = {
     link.crossOrigin = 'anonymous';
     document.getElementsByTagName('head')[0].appendChild(link);
   },
-  // 创建 loading
+  // tạo nên loading
   start: (type = 'box') => {
     const bodys = document.body;
     const div = document.createElement('div');
@@ -45,7 +45,7 @@ export const PrevLoading = {
     div.innerHTML = type == 'box' ? htmls : htmls_1;
     bodys.insertBefore(div, bodys.childNodes[0]);
   },
-  // 移除 loading
+  // Di dời loading
   done: () => {
     Vue.nextTick(() => {
       setTimeout(() => {

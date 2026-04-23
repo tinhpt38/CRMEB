@@ -30,7 +30,7 @@ export default {
     this.initIframeLoad();
   },
   methods: {
-    // 初始化页面加载 loading
+    // Tải trang ban đầu loading
     initIframeLoad() {
       this.$nextTick(() => {
         this.iframeLoading = true;

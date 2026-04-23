@@ -61,13 +61,13 @@ export default {
     this.setCurrentRouterHighlight(this.$route.path);
   },
   methods: {
-    // 设置横向滚动条可以鼠标滚轮滚动
+    // Đặt thanh cuộn ngang để cuộn bằng con lăn chuột
     onElMenuHorizontalScroll(e) {
       const eventDelta = e.wheelDelta || -e.deltaY * 40;
       this.$refs.elMenuHorizontalScrollRef.$refs.wrap.scrollLeft =
         this.$refs.elMenuHorizontalScrollRef.$refs.wrap.scrollLeft + eventDelta / 4;
     },
-    // 初始化数据，页面刷新时，滚动条滚动到对应位置
+    // Khởi tạo dữ liệu. Khi trang được làm mới, thanh cuộn sẽ cuộn đến vị trí tương ứng.
     initElMenuOffsetLeft() {
       this.$nextTick(() => {
         let els = document.querySelector('.el-menu.el-menu--horizontal li.is-active');
@@ -75,7 +75,7 @@ export default {
         this.$refs.elMenuHorizontalScrollRef.$refs.wrap.scrollLeft = els.offsetLeft;
       });
     },
-    // 路由过滤递归函数
+    // Chức năng đệ quy lọc tuyến đường
     filterRoutesFun(arr) {
       return arr
         .filter((item) => !item.isHide)
@@ -85,7 +85,7 @@ export default {
           return item;
         });
     },
-    // 传送当前子级数据到菜单中
+    // Gửi dữ liệu con hiện tại vào menu
     setSendClassicChildren(path) {
       const currentPathSplit = path.split('/');
       let currentData = {};
@@ -99,11 +99,11 @@ export default {
       });
       return currentData;
     },
-    // 菜单激活回调
+    // Gọi lại kích hoạt menu
     onHorizontalSelect(path) {
       this.bus.$emit('setSendClassicChildren', this.setSendClassicChildren(path));
     },
-    // 设置页面当前路由高亮
+    // Đặt đánh dấu tuyến đường hiện tại trên trang
     setCurrentRouterHighlight(path) {
       const currentPathSplit = path.split('/');
       if (this.$store.state.themeConfig.themeConfig.layout === 'classic') {
@@ -114,7 +114,7 @@ export default {
     },
   },
   watch: {
-    // 监听路由的变化
+    // Giám sát các thay đổi định tuyến
     $route: {
       handler(to) {
         this.setCurrentRouterHighlight(to.path);

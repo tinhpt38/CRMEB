@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use app\services\article\ArticleServices;
 use think\facade\Log;
 
 /**
- * 图文信息
+ * Thông tin đồ họa
  * Class WechatNewsCategory
  * @package app\admin\controller\wechat
  *
@@ -26,7 +26,7 @@ use think\facade\Log;
 class WechatNewsCategory extends AuthController
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * Menus constructor.
      * @param App $app
      * @param WechatNewsCategoryServices $services
@@ -38,7 +38,7 @@ class WechatNewsCategory extends AuthController
     }
 
     /**
-     * 图文消息列表
+     * Danh sách tin nhắn đồ họa
      * @return mixed
      */
     public function index()
@@ -53,7 +53,7 @@ class WechatNewsCategory extends AuthController
     }
 
     /**
-     * 图文详情
+     * Chi tiết hình ảnh và văn bản
      * @param $id
      * @return mixed
      */
@@ -69,20 +69,20 @@ class WechatNewsCategory extends AuthController
     }
 
     /**
-     * 删除图文
+     * Xóa hình ảnh và văn bản
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
         if (!$this->services->delete($id))
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         else
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 新增或编辑保存
+     * Thêm hoặc chỉnh sửa lưu
      * @return mixed
      */
     public function save()
@@ -94,14 +94,14 @@ class WechatNewsCategory extends AuthController
         try {
             $id = [];
             $countList = count($data['list']);
-            if (!$countList) return app('json')->fail('请添加图文');
+            if (!$countList) return app('json')->fail('Vui lòng thêm hình ảnh và văn bản');
             /** @var ArticleServices $services */
             $services = app()->make(ArticleServices::class);
             foreach ($data['list'] as $k => $v) {
-                if ($v['title'] == '') return app('json')->fail('标题不能为空');
-                if ($v['author'] == '') return app('json')->fail('作者不能为空');
-                if ($v['content'] == '') return app('json')->fail('正文不能为空');
-                if ($v['synopsis'] == '') return app('json')->fail('摘要不能为空');
+                if ($v['title'] == '') return app('json')->fail('Tiêu đề không thể trống');
+                if ($v['author'] == '') return app('json')->fail('Tác giả không thể trống');
+                if ($v['content'] == '') return app('json')->fail('Văn bản không thể trống');
+                if ($v['synopsis'] == '') return app('json')->fail('Tóm tắt không thể trống');
                 $v['status'] = 1;
                 $v['add_time'] = time();
                 if ($v['id']) {
@@ -119,8 +119,8 @@ class WechatNewsCategory extends AuthController
             }
             $countId = count($id);
             if ($countId != $countList) {
-                if ($data['id']) return app('json')->fail('修改失败');
-                else return app('json')->fail('添加失败');
+                if ($data['id']) return app('json')->fail('Sửa đổi không thành công');
+                else return app('json')->fail('Thêm không thành công');
             } else {
                 $newsCategory['cate_name'] = $data['list'][0]['title'];
                 $newsCategory['new_id'] = implode(',', $id);
@@ -129,19 +129,19 @@ class WechatNewsCategory extends AuthController
                 $newsCategory['status'] = 1;
                 if ($data['id']) {
                     $this->services->update($data['id'], $newsCategory, 'id');
-                    return app('json')->success('修改成功');
+                    return app('json')->success('Sửa đổi thành công');
                 } else {
                     $this->services->save($newsCategory);
-                    return app('json')->success('添加成功');
+                    return app('json')->success('Đã thêm thành công');
                 }
             }
         } catch (\Exception $e) {
-            return app('json')->fail('非法操作');
+            return app('json')->fail('Hoạt động trái phép');
         }
     }
 
     /**
-     * 发送消息
+     * Gửi tin nhắn
      */
     public function push()
     {
@@ -149,22 +149,22 @@ class WechatNewsCategory extends AuthController
             ['id', 0],
             ['user_ids', '']
         ]);
-        if (!$data['id']) return app('json')->fail('参数错误');
+        if (!$data['id']) return app('json')->fail('Lỗi tham số');
         $list = $this->services->getWechatNewsItem($data['id']);
         $wechatNews = [];
         if ($list) {
             if (is_array($list['new']) && count($list['new'])) {
                 $wechatNews['title'] = $list['new'][0]['title'];
                 $wechatNews['image_input'] = $list['new'][0]['image_input'];
-                $wechatNews['date'] = date('m月d日', time());
+                $wechatNews['date'] = date('mngày thứ', time());
                 $wechatNews['description'] = $list['new'][0]['synopsis'];
                 $wechatNews['id'] = $list['new'][0]['id'];
             }
         }
-        if ($data['user_ids'] != '') {//客服消息
+        if ($data['user_ids'] != '') {//Tin nhắn dịch vụ khách hàng
             $wechatNews = $this->services->wechatPush($wechatNews);
             $message = WechatService::newsMessage($wechatNews);
-            $errorLog = [];//发送失败的用户
+            $errorLog = [];//Người dùng không gửi được
             $user = $this->services->getWechatUser($data['user_ids'], 'nickname,subscribe,openid', 'uid');
             if ($user) {
                 foreach ($user as $v) {
@@ -172,20 +172,20 @@ class WechatNewsCategory extends AuthController
                         try {
                             WechatService::staffService()->message($message)->to($v['openid'])->send();
                         } catch (\Exception $e) {
-                            Log::error($v['nickname'] . '发送失败，原因' . $e->getMessage());
-                            $errorLog[] = $v['nickname'] . '发送失败';
+                            Log::error($v['nickname'] . 'Gửi không thành công, lý do' . $e->getMessage());
+                            $errorLog[] = $v['nickname'] . 'Gửi không thành công';
                         }
                     } else {
-                        $errorLog[] = $v['nickname'] . '没有关注发送失败(不是微信公众号用户)';
+                        $errorLog[] = $v['nickname'] . 'Không gửi sự chú ý không thành công(Không phải là người dùng tài khoản công khai WeChat)';
                     }
                 }
                 if (!count($errorLog)) {
-                    return app('json')->success('发送成功');
+                    return app('json')->success('Đã gửi thành công');
                 } else {
-                    return app('json')->fail('发送失败');
+                    return app('json')->fail('Gửi không thành công');
                 }
             } else {
-                return app('json')->fail('发送失败');
+                return app('json')->fail('Gửi không thành công');
             }
 
         }
@@ -193,7 +193,7 @@ class WechatNewsCategory extends AuthController
     }
 
     /**
-     * 发送消息图文列表
+     * Gửi danh sách văn bản tin nhắn
      * @return mixed
      */
     public function send_news()

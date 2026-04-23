@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\services\activity\coupon\StoreCouponUserServices;
 use think\facade\App;
 
 /**
- * 优惠券发放记录控制器
+ * Người kiểm soát hồ sơ phát hành phiếu giảm giá
  * Class StoreCategory
  * @package app\admin\controller\system
  */
@@ -29,7 +29,7 @@ class StoreCouponUser extends AuthController
     }
 
     /**
-     * 用户领取记录
+     * Bản ghi bộ sưu tập của người dùng
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -47,7 +47,7 @@ class StoreCouponUser extends AuthController
     }
 
     /**
-     * 发放优惠券到指定个人
+     * Phát hành phiếu giảm giá cho các cá nhân được chỉ định
      * @return mixed
      */
     public function grant()
@@ -56,20 +56,20 @@ class StoreCouponUser extends AuthController
             ['id', 0],
             ['uid', '']
         ]);
-        if (!$data['id']) return app('json')->fail('参数错误');
+        if (!$data['id']) return app('json')->fail('Lỗi tham số');
         /** @var StoreCouponIssueServices $issueService */
         $issueService = app()->make(StoreCouponIssueServices::class);
         $coupon = $issueService->get($data['id']);
         if (!$coupon) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         } else {
             $coupon = $coupon->toArray();
         }
         $user = explode(',', $data['uid']);
         if (!$issueService->setCoupon($coupon, $user))
-            return app('json')->fail('发送失败');
+            return app('json')->fail('Gửi không thành công');
         else
-            return app('json')->success('发送成功');
+            return app('json')->success('Đã gửi thành công');
 
     }
 }

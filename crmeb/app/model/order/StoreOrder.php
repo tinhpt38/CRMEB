@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,7 +20,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO 订单Model
+ * TODO Đặt hàngModel
  * Class StoreOrder
  * @package app\model\order
  */
@@ -29,7 +29,7 @@ class StoreOrder extends BaseModel
     use ModelTrait;
 
     /**
-     * 支付类型
+     * Hình thức thanh toán
      * @var string[]
      */
     protected $pay_type = [
@@ -40,13 +40,13 @@ class StoreOrder extends BaseModel
     ];
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_order';
@@ -54,13 +54,13 @@ class StoreOrder extends BaseModel
     protected $insert = ['add_time'];
 
     /**
-     * 更新时间
+     * Thời gian cập nhật
      * @var bool | string | int
      */
     protected $updateTime = false;
 
     /**
-     * 创建时间修改器
+     * Tạo công cụ sửa đổi thời gian
      * @return int
      */
     protected function setAddTimeAttr($time = 0)
@@ -70,7 +70,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 自定义表单修改器
+     * Công cụ sửa đổi biểu mẫu tùy chỉnh
      * @param $value
      * @return array|mixed
      */
@@ -80,7 +80,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 自定义表单获取器
+     * Trình lấy biểu mẫu tùy chỉnh
      * @param $value
      * @return array|mixed
      */
@@ -90,7 +90,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 一对多关联查询子订单
+     * Thứ tự phụ truy vấn liên quan một đến nhiều
      * @return \think\model\relation\HasMany
      */
     public function split()
@@ -99,7 +99,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 一对一关联用户表
+     * Liên kết một-một của các bảng người dùng
      * @return \think\model\relation\HasOne
      */
     public function user()
@@ -119,7 +119,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 一对一关联上级用户信息
+     * Liên kết một-một với thông tin người dùng vượt trội
      * @return \think\model\relation\HasOne
      */
     public function spread()
@@ -130,7 +130,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 一对一拼团获取状态
+     * Cuộc chiến nhóm một chọi một để giành được địa vị
      * @return \think\model\relation\HasOne
      */
     public function pink()
@@ -141,7 +141,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 门店一对一关联
+     * Lưu trữ mối quan hệ một-một
      * @return \think\model\relation\HasOne
      */
     public function store()
@@ -152,7 +152,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 订单关联店员
+     * Nhân viên liên quan đặt hàng
      * @return \think\model\relation\HasOne
      */
     public function staff()
@@ -165,7 +165,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 店员关联用户
+     * Người dùng liên quan đến thư ký cửa hàng
      * @return \think\model\relation\HasOne
      */
     public function staffUser()
@@ -176,7 +176,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 关联订单发票
+     * Hóa đơn đặt hàng liên quan
      * @return \think\model\relation\HasOne
      */
     public function invoice()
@@ -185,7 +185,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 一对多关联退款订单
+     * Lệnh hoàn tiền liên quan một đến nhiều
      * @return \think\model\relation\hasMany
      */
     public function refund()
@@ -194,7 +194,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 购物车ID修改器
+     * Công cụ sửa đổi ID giỏ hàng
      * @param $value
      * @return false|string
      */
@@ -204,7 +204,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 购物车获取器
+     * Trình thu thập giỏ hàng
      * @param $value
      * @param $data
      * @return mixed
@@ -215,7 +215,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 订单ID搜索器
+     * Trình tìm kiếm ID đơn hàng
      * @param Model $query
      * @param $value
      */
@@ -225,7 +225,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 父类ID搜索器
+     * Trình tìm kiếm ID lớp cha
      * @param Model $query
      * @param $value
      */
@@ -239,7 +239,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 没拆分订单 与子订单(0:为拆分订单-1：已拆分主订单 >0 :拆分后子订单)
+     * Không phân chia đơn hàng và đơn hàng phụ(0:Đối với lệnh tách -1: Lệnh chính đã được tách >0 :Đơn hàng phụ sau khi tách)
      * @param Model $query
      * @param $value
      */
@@ -262,7 +262,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 支付方式搜索器
+     * Công cụ tìm phương thức thanh toán
      * @param $query
      * @param $value
      */
@@ -283,7 +283,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 不等于余额支付
+     * Không bằng thanh toán số dư
      * @param $query
      * @param $value
      */
@@ -293,7 +293,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 订单id或者用户名搜索器
+     * ID đơn hàng hoặc người tìm kiếm tên người dùng
      * @param $query
      * @param $value
      */
@@ -303,7 +303,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 用户ID搜索器
+     * Trình tìm kiếm ID người dùng
      * @param Model $query
      * @param $value
      */
@@ -316,7 +316,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 不包含用户ID搜索器
+     * Không bao gồm người tìm kiếm ID người dùng
      * @param Model $query
      * @param $value
      */
@@ -326,7 +326,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 支付状态搜索器
+     * Trình tìm trạng thái thanh toán
      * @param Model $query
      * @param $value
      */
@@ -338,7 +338,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 退款状态搜索器
+     * Công cụ tìm trạng thái hoàn tiền
      * @param Model $query
      * @param $value
      * @param $data
@@ -355,7 +355,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 退款状态搜索器
+     * Công cụ tìm trạng thái hoàn tiền
      * @param Model $query
      * @param $value
      * @param $data
@@ -366,7 +366,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 是否是拼团订单
+     * Đây có phải là lệnh nhóm không?
      * @param Model $query
      * @param $value
      */
@@ -376,7 +376,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 拼团id搜索器
+     * Trình tìm kiếm ID nhóm
      * @param Model $query
      * @param $value
      */
@@ -386,7 +386,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 没有拼团订单或拼团商品
+     * Không có đơn hàng nhóm hoặc sản phẩm nhóm
      * @param Model $query
      * @param $value
      */
@@ -396,7 +396,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 不是秒杀搜索器
+     * Không phải là công cụ tìm kiếm flash sale
      * @param Model $query
      * @param $value
      */
@@ -406,7 +406,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 秒杀id商品搜索器
+     * Trình tìm kiếm sản phẩm ID flash sale
      * @param Model $query
      * @param $value
      */
@@ -416,7 +416,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 砍价商品id搜索器
+     * Trình tìm kiếm ID sản phẩm mặc cả
      * @param Model $query
      * @param $value
      */
@@ -426,7 +426,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 属于砍价搜索器
+     * Thuộc về người tìm kiếm mặc cả
      * @param Model $query
      * @param $value
      * @param $data
@@ -437,7 +437,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 核销码搜索器
+     * Trình tìm kiếm mã xác minh
      * @param Model $query
      * @param $value
      */
@@ -447,7 +447,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 支付状态搜索器
+     * Trình tìm trạng thái thanh toán
      * @param Model $query
      * @param $value
      */
@@ -457,7 +457,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 是否删除搜索器
+     * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
      */
@@ -467,7 +467,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 退款状态搜索器
+     * Công cụ tìm trạng thái hoàn tiền
      * @param $query
      * @param $value
      */
@@ -489,7 +489,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 用户来源
+     * Nguồn người dùng
      * @param Model $query
      * @param $value
      */
@@ -499,7 +499,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 退款id搜索器
+     * Trình tìm ID hoàn tiền
      * @param Model $query
      * @param $value
      */
@@ -511,7 +511,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 上级｜上上级推广人
+     * Thượng đẳng｜Nhà quảng bá vượt trội
      * @param $query
      * @param $value
      */
@@ -526,7 +526,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 上级推广人
+     * Nhà quảng bá cấp cao
      * @param $query
      * @param $value
      */
@@ -536,7 +536,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 上上级推广人
+     * Nhà quảng bá vượt trội
      * @param $query
      * @param $value
      */
@@ -546,7 +546,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 支付渠道
+     * kênh thanh toán
      * @param $query
      * @param $value
      */
@@ -556,7 +556,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 活动查询0普通，1秒杀，2砍价，3拼团，4预售
+     * Truy vấn hoạt động 0 bình thường, 1 flash sale, 2 mặc cả, 3 mua theo nhóm, 4 bán trước
      * @param $query
      * @param $value
      * @param $data
@@ -587,7 +587,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 事业部推广订单
+     * Lệnh khuyến mãi của bộ phận kinh doanh
      * @param $query
      * @param $value
      */
@@ -597,7 +597,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 代理商推广订单
+     * Lệnh khuyến mãi đại lý
      * @param $query
      * @param $value
      */
@@ -607,7 +607,7 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * 代理商推广订单
+     * Lệnh khuyến mãi đại lý
      * @param $query
      * @param $value
      */

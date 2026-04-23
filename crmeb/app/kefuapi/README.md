@@ -1,33 +1,33 @@
-crmeb/app/kefuapi这个目录是用来放置客服相关接口的。
+crmeb/app/kefuapiThư mục này được sử dụng để đặt các giao diện liên quan đến dịch vụ khách hàng.
 
-主要作用和特征:
+Các chức năng và tính năng chính:
 
-1. 提供客服系统与商城前后端交互的API接口。
+1. Cung cấp giao diện API để hệ thống dịch vụ khách hàng tương tác với mặt trước và mặt sau của trung tâm mua sắm.
 
-2. 接口主要用于聊天记录的增删改查以及发送消息等功能。
+2. Giao diện chủ yếu được sử dụng để thêm, xóa, sửa đổi và kiểm tra các bản ghi trò chuyện và gửi tin nhắn.
 
-3. 使用ThinkPHP的Restful风格定义接口请求方式和参数。
+3. Sử dụng kiểu Restful của ThinkPHP để xác định các tham số và phương thức yêu cầu giao diện.
 
-4. 接口供移动端APP和PC网站调用实现客服聊天功能。
+4. Giao diện có thể được gọi bằng APP di động và trang web PC để thực hiện chức năng trò chuyện dịch vụ khách hàng.
 
-5. 后台也可以调用相关接口对客服记录进行管理。
+5. Nền cũng có thể gọi các giao diện liên quan để quản lý hồ sơ dịch vụ khách hàng.
 
-具体包含:
+Cụ thể bao gồm:
 
-- 控制器定义各API接口方法接受请求。
+- Bộ điều khiển xác định từng phương thức giao diện API để chấp nhận yêu cầu.
 
-- 业务处理逻辑以及与数据库的交互。
+- Logic xử lý nghiệp vụ và tương tác với cơ sở dữ liệu.
 
-- 数据验证和结果输出。
+- Xác thực dữ liệu và đưa ra kết quả.
 
-使用这个目录定义的客服API,可以:
+Sử dụng dịch vụ khách hàng được xác định trong thư mục nàyAPI,Có thể:
 
-- 商城各端实现在线客服功能。
+- Mỗi đầu của trung tâm mua sắm đều thực hiện các chức năng dịch vụ khách hàng trực tuyến.
 
-- 查看历史记录。
+- Xem lịch sử.
 
-- 服务端管理客服信息。
+- Máy chủ quản lý thông tin dịch vụ khách hàng.
 
-- 第三方也可以实现其它客服系统对接。
+- Các bên thứ ba cũng có thể triển khai việc kết nối với các hệ thống dịch vụ khách hàng khác.
 
-所以总之,此目录主要对客服系统开放API接口,便于商城多端整合用户支持体系。
+Vì vậy, trong ngắn hạn,Thư mục này chủ yếu mở giao diện API cho hệ thống dịch vụ khách hàng.,Tạo điều kiện tích hợp đa thiết bị đầu cuối của các hệ thống hỗ trợ người dùng trong trung tâm mua sắm。

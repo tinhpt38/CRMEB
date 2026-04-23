@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,7 +19,7 @@ use app\services\wechat\WechatUserServices;
 use think\facade\App;
 
 /**
- * 退款订单
+ * Lệnh hoàn tiền
  * Class RefundOrder
  * @package app\adminapi\controller\v1\order
  */
@@ -39,7 +39,7 @@ class RefundOrder extends AuthController
     }
 
     /**
-     * 退款订单列表
+     * Danh sách đơn hàng hoàn tiền
      * @return mixed
      */
     public function getRefundList()
@@ -55,13 +55,13 @@ class RefundOrder extends AuthController
     }
 
     /**
-     * 订单详情
+     * Chi tiết đặt hàng
      * @param $uni
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/02
      */
@@ -75,17 +75,17 @@ class RefundOrder extends AuthController
     }
 
     /**
-     * 商家同意退款
+     * Người bán đồng ý hoàn tiền
      * @return mixed
      */
     public function agreeExpress($id)
     {
         $this->services->agreeExpress($id);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 修改备注
+     * Sửa đổi nhận xét
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -97,23 +97,23 @@ class RefundOrder extends AuthController
         [$remark] = $this->request->postMore([['remark', '']], true);
 
         $this->services->updateRemark((int)$id, $remark);
-        return app('json')->success('备注成功');
+        return app('json')->success('Bình luận thành công');
     }
 
     /**
-     * 退款表单生成
+     * Tạo biểu mẫu hoàn tiền
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function refund($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->refundOrderForm((int)$id));
     }
 
     /**
-     * 订单退款(产品)
+     * Hoàn tiền đơn hàng(sản phẩm)
      * @param Request $request
      * @param StoreOrderServices $services
      * @param $id
@@ -129,21 +129,21 @@ class RefundOrder extends AuthController
             ['type', 1]
         ]);
         if (!$id) {
-            return app('json')->fail('参数错误');
+            return app('json')->fail('Lỗi tham số');
         }
         $orderRefund = $this->services->get($id);
         if (!$orderRefund) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         if ($orderRefund['is_cancel'] == 1) {
-            return app('json')->fail('订单不存在');
+            return app('json')->fail('Đơn hàng không tồn tại');
         }
         $order = $services->get((int)$orderRefund['store_order_id']);
         if (!$order) {
-            return app('json')->fail('数据不存在');
+            return app('json')->fail('Dữ liệu không tồn tại');
         }
         if (!in_array($orderRefund['refund_type'], [1, 5])) {
-            return app('json')->fail('售后订单状态不支持该操作');
+            return app('json')->fail('Trạng thái đơn hàng sau bán hàng không hỗ trợ thao tác này');
         }
 
         if ($data['type'] == 1 || $data['type'] == 5) {
@@ -153,20 +153,20 @@ class RefundOrder extends AuthController
         }
         $data['refunded_time'] = time();
         $type = $data['type'];
-        //拒绝退款
+        //Từ chối hoàn tiền
         if ($type == 2) {
             $this->services->refuseRefund((int)$id, $data, $orderRefund);
-            return app('json')->success('修改退款状态成功');
+            return app('json')->success('Sửa đổi trạng thái hoàn tiền thành công');
         } else {
-            //0元退款
+            //0hoàn lại tiền nhân dân tệ
             if ($orderRefund['refund_price'] == 0 && in_array($orderRefund['refund_type'], [1, 5])) {
                 $refund_price = 0;
             } else {
                 if (!$data['refund_price']) {
-                    return app('json')->fail('请输入退款金额');
+                    return app('json')->fail('Vui lòng nhập số tiền hoàn lại');
                 }
                 if ($orderRefund['refund_price'] == $orderRefund['refunded_price']) {
-                    return app('json')->fail('已退完支付金额，不能再退款了');
+                    return app('json')->fail('Số tiền thanh toán đã được hoàn lại và không thể hoàn lại được nữa.');
                 }
                 $refund_price = $data['refund_price'];
             }
@@ -174,7 +174,7 @@ class RefundOrder extends AuthController
             $data['refunded_price'] = bcadd($data['refund_price'], $orderRefund['refunded_price'], 2);
             $bj = bccomp((string)$orderRefund['refund_price'], (string)$data['refunded_price'], 2);
             if ($bj < 0) {
-                return app('json')->fail('退款金额大于支付金额，请修改退款金额');
+                return app('json')->fail('Số tiền hoàn lại lớn hơn số tiền thanh toán, vui lòng sửa đổi số tiền hoàn trả');
             }
 
             unset($data['type']);
@@ -190,33 +190,33 @@ class RefundOrder extends AuthController
             $refund_data['open_id'] = $wechatUserServices->uidToOpenid((int)$order['uid'], 'routine') ?? '';
             $refund_data['refund_no'] = $orderRefund['order_id'];
             $refund_data['order_id'] = $orderRefund['order_id'];
-            //修改订单退款状态
+            //Sửa đổi trạng thái hoàn tiền đơn hàng
 //            $data['refund_price'] = $data['refunded_price'];
             unset($data['refund_price']);
             if ($this->services->agreeRefund($id, $refund_data)) {
                 $this->services->update($id, $data);
-                return app('json')->success('退款成功');
+                return app('json')->success('Hoàn tiền thành công');
             } else {
                 $this->services->storeProductOrderRefundYFasle((int)$id, $refund_price);
-                return app('json')->fail('退款失败');
+                return app('json')->fail('Hoàn tiền không thành công');
             }
         }
     }
 
     /**
-     * 不退款表单结构
+     * Không có cấu trúc biểu mẫu hoàn tiền
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function noRefund($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->noRefundForm((int)$id));
     }
 
     /**
-     * 订单不退款
+     * Đơn đặt hàng không được hoàn lại
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -227,6 +227,6 @@ class RefundOrder extends AuthController
     {
         [$refund_reason] = $this->request->postMore([['refund_reason', '']], true);
         $this->services->refuse($id, $refund_reason);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 }

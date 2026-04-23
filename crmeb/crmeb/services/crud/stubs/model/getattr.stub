@@ -1,5 +1,5 @@
     /**
-     * {%NAME%}获取器
+     * {%NAME%}Getter
      * @date {%DATE%}
      * @param string $value
      * @return string

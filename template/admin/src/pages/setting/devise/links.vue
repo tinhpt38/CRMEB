@@ -2,19 +2,19 @@
   <div class="right-box">
     <div class="link-item" v-for="(item, index) in list" :key="index">
       <div class="title">{{ item.name }}</div>
-      <div class="txt"><span>地址：</span>{{ item.url }}</div>
+      <div class="txt"><span>Địa chỉ：</span>{{ item.url }}</div>
       <div class="txt" v-if="item.parameter">
-        <p><span>参数：</span></p>
+        <p><span>tham số：</span></p>
         <span v-for="(val, key, index) in item.parameter" :key="index"
           >{{ key + '=' + val }}<i style="font-style: normal">&</i></span
         >
       </div>
       <div class="tips">
-        例如：{{ item.example }}
+        Ví dụ：{{ item.example }}
         <!--<el-button size="small" style="margin-left: 10px" v-clipboard:copy="item.example"-->
         <!--v-clipboard:success="onCopy"-->
-        <!--v-clipboard:error="onError">复制</el-button>-->
-        <span class="copy copy-data" v-db-click @click="onCopy(item.example)">复制</span>
+        <!--v-clipboard:error="onError">sao chép</el-button>-->
+        <span class="copy copy-data" v-db-click @click="onCopy(item.example)">sao chép</span>
       </div>
     </div>
   </div>
@@ -29,13 +29,13 @@ export default {
     return {
       list: [
         {
-          name: '商城首页',
+          name: 'Trang chủ trung tâm mua sắm',
           url: '/pages/goods/order_list/index',
           parameter: [{}],
           example: '/pages/activity/bargain/index',
         },
         {
-          name: '商城首页',
+          name: 'Trang chủ trung tâm mua sắm',
           url: '/pages/goods/order_list/index',
           parameter: [{}],
           example: '/pages/activity/bargain/index',
@@ -52,7 +52,7 @@ export default {
     this.$nextTick(function () {
       const clipboard = new ClipboardJS('.copy-data');
       clipboard.on('success', () => {
-        this.$message.success('复制成功');
+        this.$message.success('Đã sao chép thành công');
       });
     });
   },
@@ -60,14 +60,14 @@ export default {
     onCopy(copyData) {
       this.$copyText(copyData)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success('Đã sao chép thành công');
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error('Sao chép không thành công');
         });
     },
     // onError () {
-    //     this.$message.error('复制成功');
+    //     this.$message.error('Đã sao chép thành công');
     // }
   },
 };
@@ -83,18 +83,18 @@ export default {
   overflow-y: scroll;
   padding: 0 10px;
   &::-webkit-scrollbar {
-    /*滚动条整体样式*/
-    width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+    /*Phong cách tổng thể của thanh cuộn*/
+    width: 4px; /*Chiều cao và chiều rộng tương ứng với kích thước của thanh cuộn ngang và dọc.*/
     height: 1px;
   }
   &::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
+    /*Ô vuông nhỏ bên trong thanh cuộn*/
     border-radius: 4px;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     background: #535353;
   }
   &::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
+    /*theo dõi bên trong thanh cuộn*/
     box-shadow: inset 0 0 5px #fff;
     border-radius: 4px;
     background: #fff;

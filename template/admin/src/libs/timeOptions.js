@@ -1,7 +1,7 @@
 export default {
   shortcuts: [
     {
-      text: '今天',
+      text: 'Hôm nay',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -10,7 +10,7 @@ export default {
       },
     },
     {
-      text: '昨天',
+      text: 'Hôm qua',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -22,7 +22,7 @@ export default {
       },
     },
     {
-      text: '本月',
+      text: 'tháng này',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -31,7 +31,7 @@ export default {
       },
     },
     {
-      text: '上月',
+      text: 'tháng trước',
       onClick(picker) {
         const start = new Date();
         const end = new Date(start);
@@ -43,7 +43,7 @@ export default {
       },
     },
     {
-      text: '最近7天',
+      text: '7 ngày qua',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -52,7 +52,7 @@ export default {
       },
     },
     {
-      text: '最近30天',
+      text: '30 ngày qua',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -61,7 +61,7 @@ export default {
       },
     },
     {
-      text: '最近90天',
+      text: '90 ngày qua',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -71,7 +71,7 @@ export default {
     },
 
     {
-      text: '最近1年',
+      text: 'Năm ngoái',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -80,7 +80,7 @@ export default {
       },
     },
     {
-      text: '本年',
+      text: 'năm nay',
       onClick(picker) {
         const end = new Date();
         const start = new Date();
@@ -89,15 +89,15 @@ export default {
       },
     },
     {
-      text: '去年',
+      text: 'năm ngoái',
       onClick(picker) {
-        //获取当前时间
+        //Nhận thời gian hiện tại
         let currentDate = new Date();
-        //获得当前年份4位年
+        //Lấy năm có 4 chữ số của năm hiện tại
         let currentYear = currentDate.getFullYear() - 1;
-        //本年第一天
+        //ngày đầu tiên của năm
         const start = new Date(currentYear, 0, 1);
-        //本年最后一天
+        //ngày cuối cùng của năm
         const end = new Date(currentYear, 11, 31);
         //end.setHours(23, 59, 59, 0)
         picker.$emit('pick', [start, end]);

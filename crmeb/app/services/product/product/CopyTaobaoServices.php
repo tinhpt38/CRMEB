@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -35,7 +35,7 @@ class CopyTaobaoServices extends BaseServices
     /**
      * @var string
      */
-    public $AttachmentCategoryName = '远程下载';
+    public $AttachmentCategoryName = 'Tải xuống từ xa';
 
     /**
      * @var string[]
@@ -53,7 +53,7 @@ class CopyTaobaoServices extends BaseServices
     {
         $result = [];
         switch ((int)sys_config('system_product_copy_type')) {
-            case 1://平台
+            case 1://nền tảng
                 /** @var ServeServices $services */
                 $services = app()->make(ServeServices::class);
                 $resultData = $services->copy('copy')->goods($url);
@@ -68,7 +68,7 @@ class CopyTaobaoServices extends BaseServices
                 break;
             case 2://99API
                 $apikey = sys_config('copy_product_apikey');
-                if (!$apikey) throw new AdminException('请先配置接口密钥');
+                if (!$apikey) throw new AdminException('Vui lòng cấu hình khóa giao diện trước');
                 /** @var ServeServices $services */
                 $services = app()->make(ServeServices::class);
                 $result = $services->copy('copy99api')->goods($url, [
@@ -101,7 +101,7 @@ class CopyTaobaoServices extends BaseServices
                 $productInfo['attrs'][$attrs_k]['attr_arr'] = array_values($attrs_v['detail']);
                 $productInfo['attrs'][$attrs_k]['is_show'] = 1;
             }
-            $productInfo['activity'] = ['默认', '秒杀', '砍价', '拼团'];
+            $productInfo['activity'] = ['mặc định', 'bán chớp nhoáng', 'Mặc cả', 'Chia sẻ nhóm'];
             $productInfo['bar_code'] = '';
             $productInfo['browse'] = 0;
             $productInfo['cate_id'] = [];
@@ -157,7 +157,7 @@ class CopyTaobaoServices extends BaseServices
     }
 
     /**
-     * 下载商品详情图片
+     * Tải hình ảnh chi tiết sản phẩm
      * @param int $id
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -165,24 +165,24 @@ class CopyTaobaoServices extends BaseServices
      */
     public function uploadDescriptionImage(int $id)
     {
-        //查询附件分类
+        //Phân loại tệp đính kèm truy vấn
         /** @var SystemAttachmentCategoryServices $systemAttachmentCategoryService */
         $systemAttachmentCategoryService = app()->make(SystemAttachmentCategoryServices::class);
         /** @var StoreDescriptionServices $storeDescriptionServices */
         $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
         $AttachmentCategory = $systemAttachmentCategoryService->getOne(['name' => $this->AttachmentCategoryName]);
-        //不存在则创建
+        //Tạo nếu nó không tồn tại
         if (!$AttachmentCategory) $AttachmentCategory = $systemAttachmentCategoryService->save(['pid' => '0', 'name' => $this->AttachmentCategoryName, 'enname' => '']);
-        //生成附件目录
+        //Tạo thư mục đính kèm
         try {
             if (make_path('attach', 3, true) === '')
-                throw new AdminException('无法创建文件夹，请检查您的上传目录权限');
+                throw new AdminException('Không thể tạo thư mục, vui lòng kiểm tra quyền thư mục tải lên của bạn');
         } catch (\Exception $e) {
-            throw new AdminException('无法创建文件夹，请检查您的上传目录权限');
+            throw new AdminException('Không thể tạo thư mục, vui lòng kiểm tra quyền thư mục tải lên của bạn');
         }
         $description = $storeDescriptionServices->getDescription(['product_id ' => $id, 'type' => 0]);
-        if (!$description) throw new AdminException('商品参数错误');
-        //替换并下载详情里面的图片默认下载全部图片
+        if (!$description) throw new AdminException('Lỗi thông số sản phẩm');
+        //Thay thế và tải xuống các hình ảnh chi tiết và tải xuống tất cả các hình ảnh theo mặc định
         $description = preg_replace('#<style>.*?</style>#is', '', $description);
         $description = $this->uploadImage([], $description, 1, $AttachmentCategory['id']);
         $storeDescriptionServices->saveDescription((int)$id, $description);
@@ -190,7 +190,7 @@ class CopyTaobaoServices extends BaseServices
     }
 
     /**
-     * 上传图片处理
+     * Xử lý hình ảnh tải lên
      * @param array $images
      * @param string $html
      * @param int $uploadType
@@ -206,17 +206,17 @@ class CopyTaobaoServices extends BaseServices
         switch ($uploadType) {
             case 0:
                 foreach ($images as $item) {
-                    //下载图片文件
+                    //Tải tập tin hình ảnh
                     if ($item['w'] && $item['h'])
                         $uploadValue = $this->downloadImage($item['line'], '', 0, 30, $item['w'], $item['h']);
                     else
                         $uploadValue = $this->downloadImage($item['line']);
-                    //下载成功更新数据库
+                    //Tải xuống cơ sở dữ liệu được cập nhật thành công
                     if (is_array($uploadValue)) {
-                        //TODO 拼接图片地址
+                        //TODO Địa chỉ nối ảnh
                         if ($uploadValue['image_type'] == 1) $imagePath = $siteUrl . $uploadValue['path'];
                         else $imagePath = $uploadValue['path'];
-                        //写入数据库
+                        //Ghi vào cơ sở dữ liệu
                         if (!$uploadValue['is_exists'] && $AttachmentCategoryId) {
                             $systemAttachmentService->save([
                                 'name' => $uploadValue['name'],
@@ -231,7 +231,7 @@ class CopyTaobaoServices extends BaseServices
                                 'pid' => $AttachmentCategoryId
                             ]);
                         }
-                        //组装数组
+                        //Lắp ráp một mảng
                         if (isset($item['isTwoArray']) && $item['isTwoArray'])
                             $uploadImage[$item['valuename']][] = $imagePath;
                         else
@@ -248,12 +248,12 @@ class CopyTaobaoServices extends BaseServices
                         else
                             $arcurl = 'http://' . ltrim($item, '\//');
                         $uploadValue = $this->downloadImage($arcurl);
-                        //下载成功更新数据库
+                        //Tải xuống cơ sở dữ liệu được cập nhật thành công
                         if (is_array($uploadValue)) {
-                            //TODO 拼接图片地址
+                            //TODO Địa chỉ nối ảnh
                             if ($uploadValue['image_type'] == 1) $imagePath = $siteUrl . $uploadValue['path'];
                             else $imagePath = $uploadValue['path'];
-                            //写入数据库
+                            //Ghi vào cơ sở dữ liệu
                             if (!$uploadValue['is_exists'] && $AttachmentCategoryId) {
                                 $systemAttachmentService->save([
                                     'name' => $uploadValue['name'],
@@ -268,10 +268,10 @@ class CopyTaobaoServices extends BaseServices
                                     'pid' => $AttachmentCategoryId
                                 ]);
                             }
-                            //替换图片
+                            //Thay thế hình ảnh
                             $html = str_replace($item, $imagePath, $html);
                         } else {
-                            //替换掉没有下载下来的图片
+                            //Thay thế hình ảnh chưa được tải xuống
                             $html = preg_replace('#<img.*?src="' . $item . '"*>#i', '', $html);
                         }
                     }
@@ -279,7 +279,7 @@ class CopyTaobaoServices extends BaseServices
                 return $html;
                 break;
             default:
-                throw new AdminException('上传方式错误');
+                throw new AdminException('Phương pháp tải lên sai');
                 break;
         }
         return $uploadImage;
@@ -298,7 +298,7 @@ class CopyTaobaoServices extends BaseServices
     {
         if (!strlen(trim($url))) return '';
 
-        // 自动判断当前图片链接是否为需要使用curl下载的平台（淘宝、京东、天猫、1688）
+        // Tự động xác định xem liên kết hình ảnh hiện tại có phải là nền tảng yêu cầu tải xuống cuộn tròn hay không (Taobao, JD.com, Tmall、1688）
         if ($type == 0 && strlen(trim($url))) {
             $antiHotlinkingPlatforms = ['alicdn.com', 'taobao.com', 'tmall.com', 'jd.com', 'jdstatic.com', '1688.com'];
             foreach ($antiHotlinkingPlatforms as $platform) {
@@ -310,7 +310,7 @@ class CopyTaobaoServices extends BaseServices
         }
 
         if (!strlen(trim($name))) {
-            //TODO 获取要下载的文件名称
+            //TODO Lấy tên file cần tải
             $downloadImageInfo = $this->getImageExtname($url);
             $ext = $downloadImageInfo['ext_name'];
             $name = $downloadImageInfo['file_name'];
@@ -319,20 +319,20 @@ class CopyTaobaoServices extends BaseServices
             $ext = $this->getImageExtname($name)['ext_name'];
         }
         if (!in_array($ext, Config::get('upload.fileExt'))) {
-            throw new AdminException('格式错误');
+            throw new AdminException('Lỗi định dạng');
         }
-        //TODO 获取远程文件所采用的方法
+        //TODO Phương pháp được sử dụng để lấy tập tin từ xa
         if ($type) {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //TODO 跳过证书检查
-            if (stripos($url, "https://") !== FALSE) curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);  //TODO 从证书中检查SSL加密算法是否存在
-            // 根据URL识别平台并获取对应的防盗链headers
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //TODO Bỏ qua kiểm tra chứng chỉ
+            if (stripos($url, "https://") !== FALSE) curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);  //TODO Kiểm tra xem thuật toán mã hóa SSL có tồn tại từ chứng chỉ không
+            //Xác định nền tảng dựa trên URL và lấy anti-hotlink tương ứngheaders
             $headers = $this->getAntiHotlinkingHeaders($url);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            if (ini_get('open_basedir') == '' && ini_get('safe_mode') == 'Off') curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);//TODO 是否采集301、302之后的页面
+            if (ini_get('open_basedir') == '' && ini_get('safe_mode') == 'Off') curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);//TODO Có thu thập các trang sau 301 và 302 hay không
             $content = curl_exec($ch);
             curl_close($ch);
         } else {
@@ -349,7 +349,7 @@ class CopyTaobaoServices extends BaseServices
             }
         }
         $size = strlen(trim($content));
-        if (!$content || $size <= 2) throw new AdminException('图片流获取失败');
+        if (!$content || $size <= 2) throw new AdminException('Việc thu thập luồng hình ảnh không thành công');
         $date_dir = date('Y') . '/' . date('m') . '/' . date('d');
         $upload_type = sys_config('upload_type', 1);
         $upload = UploadService::init($upload_type);
@@ -367,7 +367,7 @@ class CopyTaobaoServices extends BaseServices
     }
 
     /**
-     * 获取即将要下载的图片扩展名
+     * Tải xuống phần mở rộng hình ảnh
      * @param string $url
      * @param string $ex
      * @return array|string[]
@@ -397,40 +397,40 @@ class CopyTaobaoServices extends BaseServices
     }
 
     /**
-     * 下载远程图片并上传
+     * Tải xuống hình ảnh từ xa và tải chúng lên
      * @param $image
      * @return false|mixed|string
      * @throws \Exception
      */
     public function downloadCopyImage($image)
     {
-        //查询附件分类
+        //Phân loại tệp đính kèm truy vấn
         /** @var SystemAttachmentCategoryServices $systemAttachmentCategoryService */
         $systemAttachmentCategoryService = app()->make(SystemAttachmentCategoryServices::class);
-        $AttachmentCategory = $systemAttachmentCategoryService->getOne(['name' => '远程下载']);
-        //不存在则创建
+        $AttachmentCategory = $systemAttachmentCategoryService->getOne(['name' => 'Tải xuống từ xa']);
+        //Tạo nếu nó không tồn tại
         if (!$AttachmentCategory) {
-            $AttachmentCategory = $systemAttachmentCategoryService->save(['pid' => '0', 'name' => '远程下载', 'enname' => '']);
+            $AttachmentCategory = $systemAttachmentCategoryService->save(['pid' => '0', 'name' => 'Tải xuống từ xa', 'enname' => '']);
         }
 
-        //生成附件目录
+        //Tạo thư mục đính kèm
         if (make_path('attach', 3, true) === '') {
-            throw new AdminException('无法创建文件夹，请检查您的上传目录权限');
+            throw new AdminException('Không thể tạo thư mục, vui lòng kiểm tra quyền thư mục tải lên của bạn');
         }
 
-        //上传图片
+        //Tải ảnh lên
         /** @var SystemAttachmentServices $systemAttachmentService */
         $systemAttachmentService = app()->make(SystemAttachmentServices::class);
         $siteUrl = sys_config('site_url');
         $uploadValue = $this->downloadImage($image);
         if (is_array($uploadValue)) {
-            //TODO 拼接图片地址
+            //TODO Địa chỉ nối ảnh
             if ($uploadValue['image_type'] == 1) {
                 $imagePath = $siteUrl . $uploadValue['path'];
             } else {
                 $imagePath = $uploadValue['path'];
             }
-            //写入数据库
+            //Ghi vào cơ sở dữ liệu
             if (!$uploadValue['is_exists'] && $AttachmentCategory['id']) {
                 $systemAttachmentService->save([
                     'name' => $uploadValue['name'],
@@ -451,13 +451,13 @@ class CopyTaobaoServices extends BaseServices
     }
 
     /**
-     * 根据URL识别平台并获取对应的防盗链headers
-     * @param string $url 图片URL
-     * @return array 返回对应的HTTP headers
+     * Xác định nền tảng dựa trên URL và nhận được anti-hotlink tương ứngheaders
+     * @param string $url URL hình ảnh
+     * Mảng @return trả về giá trị tương ứngHTTP headers
      */
     public function getAntiHotlinkingHeaders(string $url): array
     {
-        // 基础headers
+        // Căn cứheaders
         $baseHeaders = [
             'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept: image/webp,image/apng,image/*,*/*;q=0.8',
@@ -466,39 +466,39 @@ class CopyTaobaoServices extends BaseServices
             'Connection: keep-alive',
         ];
 
-        // 根据URL识别平台
+        // Xác định nền tảng dựa trên URL
         if (stripos($url, 'alicdn.com') !== false || stripos($url, 'taobao.com') !== false) {
-            // 淘宝/天猫/1688的图片 (通常在alicdn.com域名下)
+            // Hình ảnh của Taobao/Tmall/1688 (Thông thường dưới tên miền alicdn.com)
             return array_merge($baseHeaders, [
-                'Referer: https://buyer.taobao.com/',  // 淘宝买家中心
+                'Referer: https://buyer.taobao.com/',  // Trung tâm người mua hàng của taobao
             ]);
         } elseif (stripos($url, 'tmall.com') !== false) {
-            // 天猫的图片
+            // hình ảnh nhỏ
             return array_merge($baseHeaders, [
-                'Referer: https://www.tmall.com/',  // 天猫首页
+                'Referer: https://www.tmall.com/',  // Trang chủ Tmall
             ]);
         } elseif (stripos($url, 'jd.com') !== false || stripos($url, 'jdstatic.com') !== false) {
-            // 京东的图片
+            // hình ảnh JD.com
             return array_merge($baseHeaders, [
-                'Referer: https://www.jd.com/',  // 京东首页
+                'Referer: https://www.jd.com/',  // trang chủ JD.com
             ]);
         } elseif (stripos($url, '1688.com') !== false) {
-            // 1688的图片
+            // 1688hình ảnh
             return array_merge($baseHeaders, [
-                'Referer: https://www.1688.com/',  // 1688首页
+                'Referer: https://www.1688.com/',  // 1688trang đầu
             ]);
         } elseif (stripos($url, 'baidu.com') !== false) {
-            // 百度图片
+            // hình ảnh Baidu
             return array_merge($baseHeaders, [
-                'Referer: https://image.baidu.com/',  // 百度图片
+                'Referer: https://image.baidu.com/',  // hình ảnh Baidu
             ]);
         } elseif (stripos($url, 'sinaimg.cn') !== false) {
-            // 新浪图片
+            // hình ảnh Sina
             return array_merge($baseHeaders, [
-                'Referer: https://weibo.com/',  // 新浪微博
+                'Referer: https://weibo.com/',  // Sina weibo
             ]);
         } else {
-            // 默认headers，不设置Referer
+            // Tiêu đề mặc định, chưa được đặtReferer
             return $baseHeaders;
         }
     }

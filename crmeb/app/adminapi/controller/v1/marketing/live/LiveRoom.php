@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\activity\live\LiveRoomServices;
 use think\facade\App;
 
 /**
- * 直播间
+ * Phòng phát sóng trực tiếp
  * Class LiveRoom
  * @package app\adminapi\controller\v1\marketing\live
  */
@@ -33,7 +33,7 @@ class LiveRoom extends AuthController
     }
 
     /**
-     * 直播间列表
+     * Danh sách phòng phát sóng trực tiếp
      * @return mixed
      */
     public function list()
@@ -46,18 +46,18 @@ class LiveRoom extends AuthController
     }
 
     /**
-     * 直播间详情
+     * Chi tiết phòng phát sóng trực tiếp
      * @param $id
      * @return mixed
      */
     public function detail($id)
     {
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->get((int)$id)->toArray());
     }
 
     /**
-     * 添加直播间
+     * Thêm phòng phát sóng trực tiếp
      * @return mixed
      */
     public function add()
@@ -79,15 +79,15 @@ class LiveRoom extends AuthController
             ['sort', 0]
         ]);
         if (mb_strlen($data['name']) < 6 || mb_strlen($data['name']) > 17) {
-            return app('json')->fail('名称长度需在6-17个字符之间');
+            return app('json')->fail('Tên phải dài từ 6-17 ký tự');
         }
         $this->validate($data, \app\adminapi\validate\marketing\LiveRoomValidate::class, 'save');
         $this->services->add($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 添加直播间商品
+     * Thêm sản phẩm phòng phát sóng trực tiếp
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -100,11 +100,11 @@ class LiveRoom extends AuthController
             ['goods_ids', []]
         ], true);
         $this->services->exportGoods((int)$room_id, $goods_ids);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 提交审核
+     * Gửi để xem xét
      * @param $id
      * @return mixed
      */
@@ -115,11 +115,11 @@ class LiveRoom extends AuthController
             ['msg', '']
         ], true);
         $this->services->apply((int)$id, $status, $msg);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 设置状态
+     * Đặt trạng thái
      * @param $id
      * @param $is_show
      * @return mixed
@@ -127,28 +127,28 @@ class LiveRoom extends AuthController
     public function setShow($id, $is_show)
     {
         $this->services->isShow((int)$id, $is_show);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 删除直播间
+     * Xóa phòng trực tiếp
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
         $this->services->delete($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 同步直播间
+     * Phòng phát sóng trực tiếp đồng bộ
      * @return mixed
      */
     public function syncRoom()
     {
         $this->services->syncRoomStatus();
-        return app('json')->success('同步成功');
+        return app('json')->success('Đồng bộ hóa thành công');
     }
 
 }

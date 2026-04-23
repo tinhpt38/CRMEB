@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -76,7 +76,7 @@ class LiveRoomServices extends BaseServices
     {
         $room = $this->dao->get(['id' => $id, 'is_del' => 0]);
         if (!$room) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         [$page, $limit] = $this->getPageValue();
         return MiniProgramService::getLivePlayback($room['room_id'], $page, $limit);
@@ -89,18 +89,18 @@ class LiveRoomServices extends BaseServices
         $anchorServices = app()->make(LiveAnchorServices::class);
         $anchor = $anchorServices->get(['wechat' => $data['anchor_wechat']]);
         if (!$anchor) {
-            throw new AdminException('该主播不存在');
+            throw new AdminException('Mỏ neo không tồn tại');
         }
         $data['start_time'] = strtotime($data['start_time']);
         $data['end_time'] = strtotime($data['end_time']);
         $time = time() + 600;
         $time6 = time() + 180 * 24 * 3600;
         if ($data['start_time'] < $time || $data['start_time'] > $time6) {
-            throw new AdminException('开播时间需要在当前时间的10分钟后，并且开始时间不能在6个月后');
+            throw new AdminException('Thời gian bắt đầu phải sau thời điểm hiện tại là 10 phút và thời gian bắt đầu không được muộn hơn 6 tháng');
         }
         $t = $data['end_time'] - $data['start_time'];
         if ($t < 1800 || $t > 24 * 3600) {
-            throw new AdminException('开播时间和结束时间间隔不得短于30分钟，不得超过24小时');
+            throw new AdminException('Khoảng thời gian giữa thời gian bắt đầu và thời gian kết thúc không ngắn hơn 30 phút và không quá 24 giờ.');
         }
         $data['anchor_name'] = $data['anchor_name'] ?? $anchor['name'];
         $data['add_time'] = time();
@@ -109,7 +109,7 @@ class LiveRoomServices extends BaseServices
         $data['status'] = 2;
 
         if (!$this->dao->save($data)) {
-            throw new AdminException('添加成功');
+            throw new AdminException('Đã thêm thành công');
         }
 
         return true;
@@ -118,13 +118,13 @@ class LiveRoomServices extends BaseServices
 
     public function apply($id, $status, $msg = '')
     {
-        if (!$id) throw new AdminException('参数错误');
+        if (!$id) throw new AdminException('Lỗi tham số');
         $status = $status == 1 ? 1 : -1;
-        if ($status == -1 && !$msg) throw new AdminException('请输入理由');
+        if ($status == -1 && !$msg) throw new AdminException('Vui lòng nhập lý do');
 
         $room = $this->dao->get($id);
         if (!$room) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         $room->status = $status;
         if ($status == -1)
@@ -144,7 +144,7 @@ class LiveRoomServices extends BaseServices
             $coverImg = $downloadImage->downloadImage($room['cover_img'])['path'];
             $shareImg = $downloadImage->downloadImage($room['share_img'])['path'];
         } catch (\Throwable $e) {
-            Log::error('添加直播间封面图出错误，原因：' . $e->getMessage());
+            Log::error('Lỗi thêm ảnh bìa phòng phát sóng trực tiếp, nguyên nhân：' . $e->getMessage());
             $coverImg = $room['cover_img'];
             $shareImg = $room['share_img'];
         }
@@ -172,18 +172,18 @@ class LiveRoomServices extends BaseServices
 
     public function isShow(int $id, $is_show)
     {
-        if (!$id) throw new AdminException('参数错误');
+        if (!$id) throw new AdminException('Lỗi tham số');
         $this->dao->update($id, ['is_show' => $is_show]);
         return true;
     }
 
     public function delete(int $id)
     {
-        if (!$id) throw new AdminException('参数错误');
+        if (!$id) throw new AdminException('Lỗi tham số');
         $room = $this->dao->get(['id' => $id, 'is_del' => 0]);
         if ($room) {
             if (!$this->dao->update($id, ['is_del' => 1])) {
-                throw new AdminException('删除失败');
+                throw new AdminException('Xóa không thành công');
             }
             /** @var LiveRoomGoodsServices $liveRoomGoods */
             $liveRoomGoods = app()->make(LiveRoomGoodsServices::class);
@@ -198,7 +198,7 @@ class LiveRoomServices extends BaseServices
     }
 
     /**
-     * 直播间添加商品
+     * Thêm sản phẩm vào phòng phát sóng trực tiếp
      * @param $room_id
      * @param array $ids
      * @return bool
@@ -208,17 +208,17 @@ class LiveRoomServices extends BaseServices
      */
     public function exportGoods(int $room_id, array $ids)
     {
-        if (!$room_id) throw new AdminException('参数错误');
-        if (!$ids) throw new AdminException('参数错误');
+        if (!$room_id) throw new AdminException('Lỗi tham số');
+        if (!$ids) throw new AdminException('Lỗi tham số');
         $liveGoodsServices = app()->make(LiveGoodsServices::class);
         if (count($ids) != count($goods = $liveGoodsServices->goodsList($ids)))
-            throw new AdminException('请选择正确的直播商品');
+            throw new AdminException('Vui lòng chọn đúng sản phẩm phát sóng trực tiếp');
         if (!$room = $this->dao->validRoom($room_id))
-            throw new AdminException('直播间状态有误');
+            throw new AdminException('Tình trạng phòng phát sóng trực tiếp bị sai');
         $data = [];
         /** @var LiveRoomGoodsServices $liveRoomGoodsServices */
         $liveRoomGoodsServices = app()->make(LiveRoomGoodsServices::class);
-        //查询已经关联的
+        //Truy vấn liên quan
         $roomGoods = $liveRoomGoodsServices->getColumn(['live_room_id' => $room_id], 'live_goods_id', 'Live_goods_id');
         $goods_ids = [];
         foreach ($goods as $key => $item) {
@@ -240,7 +240,7 @@ class LiveRoomServices extends BaseServices
     }
 
     /**
-     * 同步直播间状态
+     * Đồng bộ trạng thái phòng live
      * @return bool
      * @throws \Exception
      */

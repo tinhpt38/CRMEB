@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use crmeb\basic\BaseModel;
 use think\Model;
 
 /**
- *  包邮Model
+ *  miễn phí vận chuyểnModel
  * Class ShippingTemplatesFree
  * @package app\model\shipping
  */
@@ -25,19 +25,19 @@ class ShippingTemplatesFree extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'shipping_templates_free';
 
     /**
-     * 城市ID搜索器
+     * Công cụ tìm ID thành phố
      * @param Model $query
      * @param $value
      * @param $data
@@ -48,7 +48,7 @@ class ShippingTemplatesFree extends BaseModel
     }
 
     /**
-     * 模板id搜索
+     * Tìm kiếm id mẫu
      * @param Model $query
      * @param $value
      */
@@ -58,7 +58,7 @@ class ShippingTemplatesFree extends BaseModel
     }
 
     /**
-     * uniqid 搜索器
+     * uniqid Người tìm kiếm
      * @param Model $query
      * @param $value
      */

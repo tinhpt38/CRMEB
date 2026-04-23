@@ -1,5 +1,5 @@
     /**
-     * 列表
+     * danh sách
      * @date {%DATE%}
      * @return \think\Response
      */

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,8 +19,8 @@ use crmeb\exceptions\AdminException;
 class PayTransferNotifyServices
 {
     /**
-     * 提现
-     * @param string|null $order_id 订单id
+     * Rút tiền mặt
+     * @param string|null $order_id Đặt hàngid
      * @return bool
      */
     public function wechatTx(string $order_id = null, string $trade_no = null, string $state = null, string $fail_reason = null)
@@ -54,14 +54,14 @@ class PayTransferNotifyServices
 
                 event('NoticeListener', [['uid' => $userExtractInfo['uid'], 'userType' => strtolower($user['user_type']), 'extractNumber' => $extractNumber, 'nickname' => $user['nickname']], 'user_extract']);
 
-                //自定义通知-用户提现成功
+                //Thông báo tùy chỉnh-người dùng rút tiền thành công
                 $userExtract['nickname'] = $user['nickname'];
                 $userExtract['phone'] = $user['phone'];
                 $userExtract['time'] = date('Y-m-d H:i:s');
                 $userExtract['price'] = $extractNumber;
                 event('CustomNoticeListener', [$userExtract['uid'], $userExtract, 'extract_success']);
 
-                //自定义事件-用户提现成功
+                //Người dùng sự kiện tùy chỉnh rút tiền thành công
                 event('CustomEventListener', ['admin_extract_success', [
                     'uid' => $userExtract['uid'],
                     'price' => $extractNumber,
@@ -71,7 +71,7 @@ class PayTransferNotifyServices
                     'success_time' => date('Y-m-d H:i:s')
                 ]]);
             } else {
-                $userExtractServices->changeFail($userExtractInfo['id'], $userExtractInfo, '提现失败，原因：超时未领取');
+                $userExtractServices->changeFail($userExtractInfo['id'], $userExtractInfo, 'Rút tiền không thành công, lý do: hết thời gian và không nhận được');
             }
         } catch (\Exception $e) {
             return false;
@@ -80,8 +80,8 @@ class PayTransferNotifyServices
     }
 
     /**
-     * 红包
-     * @param string|null $order_id 订单id
+     * phong bì màu đỏ
+     * @param string|null $order_id Đặt hàngid
      * @return bool
      */
     public function wechatHb(string $order_id = null, string $trade_no = null, string $state = null, string $fail_reason = null)

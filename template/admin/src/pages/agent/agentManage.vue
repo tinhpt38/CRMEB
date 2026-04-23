@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="时间选择：">
+          <el-form-item label="Lựa chọn thời gian：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -19,36 +19,36 @@
               @change="onchangeTime"
               format="yyyy/MM/dd"
               value-format="yyyy/MM/dd"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              start-placeholder="ngày bắt đầu"
+              end-placeholder="ngày kết thúc"
               :picker-options="pickerOptions"
               style="width: 250px"
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="搜索：" label-for="status">
+          <el-form-item label="tìm kiếm：" label-for="status">
             <el-input
               clearable
-              placeholder="请输入姓名、电话、UID"
+              placeholder="Vui lòng nhập tên và số điện thoại của bạn、UID"
               v-model="formValidate.nickname"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">查询</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <cards-data :cardLists="cardLists" v-if="cardLists.length >= 0"></cards-data>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['export-userAgent']" class="export" v-db-click @click="exports">导出</el-button>
+      <el-button v-auth="['export-userAgent']" class="export" v-db-click @click="exports">Xuất khẩu</el-button>
       <el-table
         ref="selection"
         :data="tableList"
         class="mt14"
         v-loading="loading"
-        empty-text="暂无数据"
+        empty-text="Chưa có dữ liệu"
         highlight-current-row
       >
         <el-table-column label="ID" width="80">
@@ -56,81 +56,81 @@
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品图片" min-width="90">
+        <el-table-column label="Hình ảnh sản phẩm" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.headimgurl ? scope.row.headimgurl : require('../../assets/images/moren.jpg')" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="用户信息" width="150">
+        <el-table-column label="Thông tin người dùng" width="150">
           <template slot-scope="scope">
             <div class="name">
-              <div class="item">昵称:{{ scope.row.nickname }}</div>
-              <div class="item">姓名:{{ scope.row.real_name }}</div>
-              <div class="item">电话:{{ scope.row.phone }}</div>
+              <div class="item">biệt danh:{{ scope.row.nickname }}</div>
+              <div class="item">Tên:{{ scope.row.real_name }}</div>
+              <div class="item">Điện thoại:{{ scope.row.phone }}</div>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="分销等级" min-width="120">
+        <el-table-column label="Cấp độ phân phối" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.agentLevel ? scope.row.agentLevel.name : '--' }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="推广用户数量" min-width="120">
+        <el-table-column label="Số lượng người dùng được thăng cấp" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.spread_count }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="推广订单数量" min-width="120">
+        <el-table-column label="Số lượng đặt hàng khuyến mãi" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.spread_order.order_count }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="推广订单金额" min-width="120">
+        <el-table-column label="Số lượng đặt hàng khuyến mãi" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.spread_order.order_price || '0.00' }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="佣金总金额" min-width="120">
+        <el-table-column label="Tổng số tiền hoa hồng" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.brokerage_money }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="已提现金额" min-width="120">
+        <el-table-column label="Số tiền đã rút" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.extract_count_price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="提现次数" min-width="120">
+        <el-table-column label="Số lần rút tiền" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.extract_count_num }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="未提现金额" min-width="120">
+        <el-table-column label="Số tiền mặt chưa rút" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.new_money }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="上级推广人" min-width="120">
+        <el-table-column label="Nhà quảng bá cấp cao" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.spread_name }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="120">
+        <el-table-column label="vận hành" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="promoters(scope.row, 'man')">推广人</a>
+            <a v-db-click @click="promoters(scope.row, 'man')">người quảng bá</a>
             <el-divider direction="vertical"></el-divider>
             <template>
               <el-dropdown size="small" @command="changeMenu(scope.row, $event, scope.$index)" :transfer="true">
-                <span class="el-dropdown-link">更多<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="1">推广订单</el-dropdown-item>
-                  <el-dropdown-item command="2">推广二维码</el-dropdown-item>
-                  <el-dropdown-item command="3">修改上级推广人</el-dropdown-item>
-                  <el-dropdown-item command="4" v-if="scope.row.spread_uid">清除上级推广人</el-dropdown-item>
-                  <el-dropdown-item command="5">取消推广资格</el-dropdown-item>
-                  <el-dropdown-item command="6">修改分销等级</el-dropdown-item>
+                  <el-dropdown-item command="1">Đơn hàng khuyến mại</el-dropdown-item>
+                  <el-dropdown-item command="2">Quảng cáo mã QR</el-dropdown-item>
+                  <el-dropdown-item command="3">Sửa đổi trình quảng bá ưu việt</el-dropdown-item>
+                  <el-dropdown-item command="4" v-if="scope.row.spread_uid">Rõ ràng các nhà quảng bá vượt trội</el-dropdown-item>
+                  <el-dropdown-item command="5">Bị loại khỏi chương trình khuyến mãi</el-dropdown-item>
+                  <el-dropdown-item command="6">Sửa đổi mức phân phối</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </template>
@@ -147,29 +147,29 @@
         />
       </div>
     </el-card>
-    <!-- 推广人列表-->
+    <!-- Danh sách nhà quảng bá-->
     <promoters-list ref="promotersLists"></promoters-list>
-    <!-- 推广二维码-->
-    <el-dialog :visible.sync="modals" title="推广二维码" :close-on-click-modal="false" width="540px">
+    <!-- Quảng cáo mã QR-->
+    <el-dialog :visible.sync="modals" title="Quảng cáo mã QR" :close-on-click-modal="false" width="540px">
       <div class="acea-row row-around" v-loading="spinShow">
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_src"><img v-lazy="code_src" /></div>
-          <span class="QRpic_sp1 mt10" v-db-click @click="getWeChat">公众号推广二维码</span>
+          <span class="QRpic_sp1 mt10" v-db-click @click="getWeChat">Mã QR khuyến mãi tài khoản công khai</span>
         </div>
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_xcx"><img v-lazy="code_xcx" /></div>
-          <span class="QRpic_sp2 mt10" v-db-click @click="getXcx">小程序推广二维码</span>
+          <span class="QRpic_sp2 mt10" v-db-click @click="getXcx">Mã QR khuyến mãi chương trình nhỏ</span>
         </div>
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_h5"><img v-lazy="code_h5" /></div>
-          <span class="QRpic_sp2 mt10" v-db-click @click="getH5">H5推广二维码</span>
+          <span class="QRpic_sp2 mt10" v-db-click @click="getH5">H5Quảng cáo mã QR</span>
         </div>
       </div>
     </el-dialog>
-    <!--修改推广人-->
-    <el-dialog :visible.sync="promoterShow" title="修改推广人" width="540px" :show-close="true">
+    <!--Sửa đổi người quảng bá-->
+    <el-dialog :visible.sync="promoterShow" title="Sửa đổi người quảng bá" width="540px" :show-close="true">
       <el-form ref="formInline" :model="formInline" label-width="100px" @submit.native.prevent>
-        <el-form-item label="用户头像：" prop="image">
+        <el-form-item label="Hình đại diện của người dùng：" prop="image">
           <div class="picBox" v-db-click @click="customer">
             <div class="pictrue" v-if="formInline.image">
               <img v-lazy="formInline.image" />
@@ -181,11 +181,11 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="cancel('formInline')">取 消</el-button>
-        <el-button type="primary" v-db-click @click="putSend('formInline')">提交</el-button>
+        <el-button v-db-click @click="cancel('formInline')">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="putSend('formInline')">nộp</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="customerShow" title="请选择商城用户" :show-close="true" width="1000px">
+    <el-dialog :visible.sync="customerShow" title="Vui lòng chọn một người dùng trung tâm mua sắm" :show-close="true" width="1000px">
       <customerInfo v-if="customerShow" @imageObject="imageObject"></customerInfo>
     </el-dialog>
   </div>
@@ -254,12 +254,12 @@ export default {
     this.getStatistics();
   },
   methods: {
-    // 提交
+    // nộp
     putSend(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
           if (!this.formInline.spread_uid) {
-            return this.$message.error('请上传用户');
+            return this.$message.error('Vui lòng tải lên người dùng');
           }
           agentSpreadApi(this.formInline)
             .then((res) => {
@@ -274,7 +274,7 @@ export default {
         }
       });
     },
-    // 导出
+    // Xuất khẩu
     exports() {
       let formValidate = this.formValidate;
       let data = {
@@ -289,25 +289,25 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 操作
+    // vận hành
     changeMenu(row, name, index) {
       switch (name) {
         case '1':
-          this.promoters(row, 'order'); //推广人订单
+          this.promoters(row, 'order'); //Đơn hàng quảng bá
           break;
         case '2':
-          this.spreadQR(row); //推广方式二维码
+          this.spreadQR(row); //Phương thức khuyến mãi mã QR
           break;
         case '3':
-          this.editS(row); //修改上级推广人
+          this.editS(row); //Sửa đổi trình quảng bá ưu việt
           break;
-        case '4': //清除上级推广人
-          this.del_parent(row, '清除【 ' + row.nickname + ' 】的上级推广人', index);
+        case '4': //Rõ ràng các nhà quảng bá vượt trội
+          this.del_parent(row, 'Thông thoáng【 ' + row.nickname + ' 】nhà quảng bá cấp cao', index);
           break;
-        case '5': //取消推广资格
-          this.del_agent(row, '取消【 ' + row.nickname + ' 】的推广资格', index);
+        case '5': //Bị loại khỏi chương trình khuyến mãi
+          this.del_agent(row, 'Hủy bỏ【 ' + row.nickname + ' 】trình độ thăng tiến', index);
           break;
-        case '6': //修改推广等级
+        case '6': //Sửa đổi mức khuyến mãi
           this.$modalForm(membershipDataAddApi({ uid: row.uid }, '/agent/get_level_form')).then(() => this.getList());
           break;
         default:
@@ -326,7 +326,7 @@ export default {
       this.formInline.spread_uid = e.uid;
       this.formInline.image = e.image;
     },
-    // 清除上级关系
+    // Mối quan hệ cấp trên rõ ràng
     del_parent(rows, titile, num) {
       let delfromDatap = {
         title: titile,
@@ -344,7 +344,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 取消自己推广资格
+    // Hủy tư cách thăng tiến của bạn
     del_agent(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -370,12 +370,12 @@ export default {
       this.promoterShow = false;
       this.$refs[name].resetFields();
     },
-    // 推广人列表 订单
+    // Thứ tự danh sách nhà quảng bá
     promoters(row, tit) {
       this.$refs.promotersLists.modals = true;
       this.$refs.promotersLists.getList(row, tit);
     },
-    // 统计
+    // thống kê
     getStatistics() {
       let data = {
         nickname: this.formValidate.nickname,
@@ -390,7 +390,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 具体日期
+    // ngày cụ thể
     onchangeTime(e) {
       this.timeVal = e;
       this.formValidate.data = this.timeVal ? this.timeVal.join('-') : '';
@@ -401,7 +401,7 @@ export default {
       this.getList();
       this.getStatistics();
     },
-    // 选择时间
+    // Chọn thời gian
     selectChange(tab) {
       this.formValidate.page = 1;
       this.formValidate.data = tab;
@@ -409,7 +409,7 @@ export default {
       this.getList();
       this.getStatistics();
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       agentListApi(this.formValidate)
@@ -424,13 +424,13 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 表格搜索
+    // tìm kiếm bảng
     userSearchs() {
       this.formValidate.page = 1;
       this.getList();
       this.getStatistics();
     },
-    // 二维码
+    // mã QR
     spreadQR(row) {
       this.modals = true;
       this.rows = row;
@@ -438,7 +438,7 @@ export default {
       this.getXcx();
       this.getH5();
     },
-    // 公众号推广二维码
+    // Mã QR khuyến mãi tài khoản công khai
     getWeChat() {
       this.spinShow = true;
       let data = {
@@ -456,7 +456,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 小程序推广二维码
+    // Mã QR khuyến mãi chương trình nhỏ
     getXcx() {
       this.spinShow = true;
       let data = {

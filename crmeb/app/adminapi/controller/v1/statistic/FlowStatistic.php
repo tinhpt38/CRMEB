@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -28,7 +28,7 @@ class FlowStatistic extends AuthController
     }
 
     /**
-     * 资金流水
+     * Dòng vốn
      * @return mixed
      */
     public function getFlowList()
@@ -45,7 +45,7 @@ class FlowStatistic extends AuthController
     }
 
     /**
-     * 资金流水备注
+     * Lưu ý về dòng vốn
      * @param $id
      * @return mixed
      */
@@ -55,11 +55,11 @@ class FlowStatistic extends AuthController
             ['mark', '']
         ]);
         $this->services->setMark($id, $data);
-        return app('json')->success('备注成功');
+        return app('json')->success('Bình luận thành công');
     }
 
     /**
-     * 账单记录
+     * hồ sơ thanh toán
      * @return mixed
      */
     public function getFlowRecord()
@@ -69,7 +69,7 @@ class FlowStatistic extends AuthController
             ['time', '']
         ]);
 
-        // 当$where['time']不为空，且格式不是2025/12/01-2025/12/15时，重置$where['time']为空
+        // khi$where['time']Khi nó không trống và định dạng không phải là 2025/12/01-2025/12/15, hãy đặt lại$where['time']trống rỗng
         if ($where['time'] != '' && !preg_match('/^\d{4}\/\d{2}\/\d{2}-\d{4}\/\d{2}\/\d{2}$/', $where['time'])) {
             $where['time'] = '';
         }

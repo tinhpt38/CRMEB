@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -41,7 +41,7 @@ class KefuServices extends BaseServices
     }
 
     /**
-     * 获取客服列表
+     * Nhận danh sách dịch vụ khách hàng
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -60,7 +60,7 @@ class KefuServices extends BaseServices
     }
 
     /**
-     * 获取聊天记录
+     * Nhận lịch sử trò chuyện
      * @param int $uid
      * @param int $toUid
      * @param int $isUp
@@ -78,7 +78,7 @@ class KefuServices extends BaseServices
     }
 
     /**
-     * 转移客服
+     * Chuyển dịch vụ khách hàng
      * @param int $kfuUid
      * @param int $uid
      * @param int $toUid
@@ -87,7 +87,7 @@ class KefuServices extends BaseServices
     public function setTransfer(int $kfuUid, int $uid, int $kfuToUid)
     {
         if ($uid === $kfuToUid) {
-            throw new ApiException('自己不能转接给自己');
+            throw new ApiException('Bạn không thể chuyển nó cho chính mình');
         }
         /** @var StoreServiceAuxiliaryServices $auxiliaryServices */
         $auxiliaryServices = app()->make(StoreServiceAuxiliaryServices::class);
@@ -123,7 +123,7 @@ class KefuServices extends BaseServices
             $record = $serviceRecord->saveRecord($uid, $kfuToUid, $messageData['msn'] ?? '', $info['type'] ?? 1, $messageData['message_type'] ?? 1, $num, $info['is_tourist'] ?? 0, $info['nickname'] ?? "", $info['avatar'] ?? '');
             $res = $res && $auxiliaryServices->saveAuxliary(['binding_id' => $kfuUid, 'relation_id' => $uid]);
             if (!$res && !$record) {
-                throw new ApiException('转接客服失败');
+                throw new ApiException('Chuyển sang dịch vụ khách hàng không thành công');
             }
             return $record;
         });
@@ -141,11 +141,11 @@ class KefuServices extends BaseServices
             } else {
                 $keufInfo = (object)[];
             }
-            //给转接的客服发送消息通知
+            //Gửi tin nhắn thông báo tới bộ phận chăm sóc khách hàng được chuyển
             ChannelService::instance()
                 ->setTrigger('crmeb_chat')
                 ->send('transfer', ['recored' => $record, 'kefuInfo' => $keufInfo, 'fun' => true], [$kfuToUid]);
-            //告知用户对接此用户聊天
+            //Thông báo cho người dùng trò chuyện với người dùng này
             $keufToInfo = $this->dao->get(['uid' => $kfuToUid], ['avatar', 'nickname']);
             ChannelService::instance()
                 ->setTrigger('crmeb_chat')
@@ -156,7 +156,7 @@ class KefuServices extends BaseServices
     }
 
     /**
-     * 关键字回复，没有默认关键词会自动发送给客服
+     * Trả lời từ khóa, nếu không có từ khóa mặc định sẽ tự động gửi đến bộ phận chăm sóc khách hàng
      * @param string $reply
      * @param string $openId
      * @return bool
@@ -184,9 +184,9 @@ class KefuServices extends BaseServices
         }
         /** @var StoreServiceRecordServices $recordServices */
         $recordServices = app()->make(StoreServiceRecordServices::class);
-        //上次聊天客服优先对话
+        //Cuộc trò chuyện ưu tiên dịch vụ khách hàng cuối cùng
         $toUid = $recordServices->getLatelyMsgUid(['to_uid' => $userInfo['uid']], 'user_id');
-        //如果上次聊天的客不在当前客服中从新获取新的客服人员
+        //Nếu khách hàng mà bạn trò chuyện lần trước không thuộc bộ phận dịch vụ khách hàng hiện tại, hãy tuyển nhân viên dịch vụ khách hàng mới
         if (!in_array($toUid, $uids)) {
             $toUid = 0;
         }
@@ -225,7 +225,7 @@ class KefuServices extends BaseServices
             ChannelService::instance()
                 ->setTrigger('crmeb_chat')->send('reply', $data, [$toUid]);
         } catch (\Throwable $e) {
-            Log::error('没有开启长连接无法推送消息，消息内容为：' . $reply);
+            Log::error('Không thể đẩy tin nhắn nếu không mở kết nối dài. Nội dung tin nhắn là：' . $reply);
         }
     }
 }

@@ -1,69 +1,69 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
 /**
- * 运费模板 相关路由
+ * Các tuyến đường liên quan đến mẫu vận chuyển hàng hóa
  */
 Route::group('merchant', function () {
 
-    /** 门店 */
+    /** cửa hàng */
     Route::group(function () {
-        //门店设置详情
-        Route::get('store', 'v1.merchant.SystemStore/index')->option(['real_name' => '门店列表']);
-        //门店列表数量
-        Route::get('store/get_header', 'v1.merchant.SystemStore/get_header')->option(['real_name' => '门店列表头部数据']);
-        //门店列表数量
-        Route::put('store/set_show/:id/:is_show', 'v1.merchant.SystemStore/set_show')->option(['real_name' => '门店上下架']);
-        //门店列表数量
-        Route::delete('store/del/:id', 'v1.merchant.SystemStore/delete')->option(['real_name' => '门店删除']);
-        //位置选择
-        Route::get('store/address', 'v1.merchant.SystemStore/select_address')->option(['real_name' => '门店位置选择']);
-        //门店设置详情
-        Route::get('store/get_info/:id', 'v1.merchant.SystemStore/get_info')->option(['real_name' => '门店详情']);
-        //保存修改门店信息
-        Route::post('store/:id', 'v1.merchant.SystemStore/save')->option(['real_name' => '保存修改门店信息']);
-    })->option(['parent' => 'merchant', 'cate_name' => '门店']);
+        //Chi tiết thiết lập cửa hàng
+        Route::get('store', 'v1.merchant.SystemStore/index')->option(['real_name' => 'Danh sách cửa hàng']);
+        //Số lượng danh sách cửa hàng
+        Route::get('store/get_header', 'v1.merchant.SystemStore/get_header')->option(['real_name' => 'Lưu trữ dữ liệu tiêu đề danh sách']);
+        //Số lượng danh sách cửa hàng
+        Route::put('store/set_show/:id/:is_show', 'v1.merchant.SystemStore/set_show')->option(['real_name' => 'kệ cửa hàng']);
+        //Số lượng danh sách cửa hàng
+        Route::delete('store/del/:id', 'v1.merchant.SystemStore/delete')->option(['real_name' => 'xóa cửa hàng']);
+        //Lựa chọn vị trí
+        Route::get('store/address', 'v1.merchant.SystemStore/select_address')->option(['real_name' => 'Lựa chọn vị trí cửa hàng']);
+        //Chi tiết thiết lập cửa hàng
+        Route::get('store/get_info/:id', 'v1.merchant.SystemStore/get_info')->option(['real_name' => 'Chi tiết cửa hàng']);
+        //Lưu và sửa đổi thông tin cửa hàng
+        Route::post('store/:id', 'v1.merchant.SystemStore/save')->option(['real_name' => 'Lưu và sửa đổi thông tin cửa hàng']);
+    })->option(['parent' => 'merchant', 'cate_name' => 'cửa hàng']);
 
-    /** 店员 */
+    /** nhân viên văn phòng */
     Route::group(function () {
-        //获取店员列表
-        Route::get('store_staff', 'v1.merchant.SystemStoreStaff/index')->option(['real_name' => '获取门店店员列表']);
-        //添加店员表单
-        Route::get('store_staff/create', 'v1.merchant.SystemStoreStaff/create')->option(['real_name' => '添加门店店员表单']);
-        //门店搜索列表
-        Route::get('store_list', 'v1.merchant.SystemStoreStaff/store_list')->option(['real_name' => '门店搜索列表']);
-        //修改店员状态
-        Route::put('store_staff/set_show/:id/:is_show', 'v1.merchant.SystemStoreStaff/set_show')->option(['real_name' => '修改店员状态']);
-        //修改店员表单
-        Route::get('store_staff/:id/edit', 'v1.merchant.SystemStoreStaff/edit')->option(['real_name' => '修改店员表单']);
-        //保存店员
-        Route::post('store_staff/save/:id', 'v1.merchant.SystemStoreStaff/save')->option(['real_name' => '保存店员']);
-        //删除店员
-        Route::delete('store_staff/del/:id', 'v1.merchant.SystemStoreStaff/delete')->option(['real_name' => '删除店员']);
-    })->option(['parent' => 'merchant', 'cate_name' => '店员']);
+        //Lấy danh sách nhân viên
+        Route::get('store_staff', 'v1.merchant.SystemStoreStaff/index')->option(['real_name' => 'Lấy danh sách nhân viên cửa hàng']);
+        //Thêm biểu mẫu nhân viên cửa hàng
+        Route::get('store_staff/create', 'v1.merchant.SystemStoreStaff/create')->option(['real_name' => 'Thêm biểu mẫu nhân viên cửa hàng']);
+        //Danh sách tìm kiếm cửa hàng
+        Route::get('store_list', 'v1.merchant.SystemStoreStaff/store_list')->option(['real_name' => 'Danh sách tìm kiếm cửa hàng']);
+        //Sửa đổi trạng thái nhân viên cửa hàng
+        Route::put('store_staff/set_show/:id/:is_show', 'v1.merchant.SystemStoreStaff/set_show')->option(['real_name' => 'Sửa đổi trạng thái nhân viên cửa hàng']);
+        //Sửa đổi mẫu thư ký
+        Route::get('store_staff/:id/edit', 'v1.merchant.SystemStoreStaff/edit')->option(['real_name' => 'Sửa đổi mẫu thư ký']);
+        //Lưu thư ký
+        Route::post('store_staff/save/:id', 'v1.merchant.SystemStoreStaff/save')->option(['real_name' => 'Lưu thư ký']);
+        //Xóa thư ký
+        Route::delete('store_staff/del/:id', 'v1.merchant.SystemStoreStaff/delete')->option(['real_name' => 'Xóa thư ký']);
+    })->option(['parent' => 'merchant', 'cate_name' => 'nhân viên văn phòng']);
 
-    /** 核销订单 */
+    /** Viết đơn đặt hàng */
     Route::group(function () {
-        //获取核销订单列表
-        Route::get('verify_order', 'v1.merchant.SystemVerifyOrder/list')->option(['real_name' => '获取核销订单列表']);
-        //获取核销订单头部
-        Route::get('verify_badge', 'v1.merchant.SystemVerifyOrder/getVerifyBadge')->option(['real_name' => '获取核销订单头部']);
-        //获取核销订单头部
-        Route::get('verify/spread_info/:uid', 'v1.merchant.SystemVerifyOrder/order_spread_user')->option(['real_name' => '核销订单推荐人信息']);
-    })->option(['parent' => 'merchant', 'cate_name' => '核销订单']);
+        //Nhận danh sách các lệnh xóa nợ
+        Route::get('verify_order', 'v1.merchant.SystemVerifyOrder/list')->option(['real_name' => 'Nhận danh sách các lệnh xóa nợ']);
+        //Nhận người đứng đầu lệnh xóa nợ
+        Route::get('verify_badge', 'v1.merchant.SystemVerifyOrder/getVerifyBadge')->option(['real_name' => 'Nhận người đứng đầu lệnh xóa nợ']);
+        //Nhận người đứng đầu lệnh xóa nợ
+        Route::get('verify/spread_info/:uid', 'v1.merchant.SystemVerifyOrder/order_spread_user')->option(['real_name' => 'Thông tin đề xuất lệnh xóa sổ']);
+    })->option(['parent' => 'merchant', 'cate_name' => 'Viết đơn đặt hàng']);
 
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'merchant', 'mark_name' => '门店核销']);
+])->option(['mark' => 'merchant', 'mark_name' => 'Xóa sổ cửa hàng']);

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,7 +23,7 @@ class OrderStatistic extends AuthController
     }
 
     /**
-     * 订单统计基础信息
+     * Thông tin cơ bản về thống kê đơn hàng
      * @return mixed
      */
     public function getBasic()
@@ -36,7 +36,7 @@ class OrderStatistic extends AuthController
     }
 
     /**
-     * 订单统计趋势图
+     * Biểu đồ xu hướng thống kê đơn hàng
      * @return mixed
      */
     public function getTrend()
@@ -49,7 +49,7 @@ class OrderStatistic extends AuthController
     }
 
     /**
-     * 订单来源
+     * Nguồn đặt hàng
      * @return mixed
      */
     public function getChannel()
@@ -62,7 +62,7 @@ class OrderStatistic extends AuthController
     }
 
     /**
-     * 订单类型
+     * Loại lệnh
      * @return mixed
      */
     public function getType()

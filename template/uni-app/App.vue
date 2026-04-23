@@ -358,8 +358,8 @@ view {
 }
 
 page {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, sans-serif;
+  font-family: "Google Sans", "Product Sans", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .bg-color-red {

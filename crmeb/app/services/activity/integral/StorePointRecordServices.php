@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -28,7 +28,7 @@ class StorePointRecordServices extends BaseServices
     }
 
     /**
-     * 积分记录
+     * Kỷ lục điểm
      * @param $where
      * @return array
      */
@@ -36,33 +36,33 @@ class StorePointRecordServices extends BaseServices
     {
         $where['category'] = 'integral';
         $status = [
-            'invite_user' => '邀新奖励',
-            'system_add' => '系统增加积分',
-            'system_sub' => '系统减少积分',
-            'gain' => '下单赠送积分',
-            'product_gain' => '购买商品赠送积分',
-            'deduction' => '下单积分抵扣',
-            'lottery_use' => '参与抽奖使用积分',
-            'lottery_add' => '抽奖中奖赠送积分',
-            'order_deduction' => '扣除订单下单赠送积分',
-            'storeIntegral_use' => '积分兑换商品',
-            'pay_product_integral_back' => '返还下单使用积分',
-            'sign' => '签到获得积分',
+            'invite_user' => 'Mời phần thưởng mới',
+            'system_add' => 'Hệ thống cộng điểm',
+            'system_sub' => 'Hệ thống giảm điểm',
+            'gain' => 'Nhận điểm thưởng khi đặt hàng',
+            'product_gain' => 'Tích điểm khi mua sản phẩm',
+            'deduction' => 'Trừ điểm khi đặt hàng',
+            'lottery_use' => 'Tham gia rút thăm và sử dụng điểm',
+            'lottery_add' => 'Điểm thưởng khi trúng giải xổ số',
+            'order_deduction' => 'Trừ điểm khi đặt hàng',
+            'storeIntegral_use' => 'Đổi điểm lấy hàng hóa',
+            'pay_product_integral_back' => 'Điểm hoàn tiền được sử dụng để đặt hàng',
+            'sign' => 'Đăng nhập để nhận điểm',
         ];
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, '*', $page, $limit);
-        //关联用户
+        //Người dùng được liên kết
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $uids = array_column($list, 'uid');
         $nicknameArr = $userServices->getColumn([['uid', 'in', $uids]], 'nickname', 'uid');
-        //关联订单
+        //Đơn hàng liên kết
         /** @var StoreOrderServices $orderServices */
         $orderServices = app()->make(StoreOrderServices::class);
         /** @var StoreIntegralOrderServices $integralOrderServices */
         $integralOrderServices = app()->make(StoreIntegralOrderServices::class);
         foreach ($list as &$item) {
-            $item['nickname'] = $nicknameArr[$item['uid']] ?? '未知用户';
+            $item['nickname'] = $nicknameArr[$item['uid']] ?? 'người dùng không xác định';
             if ($item['type'] == 'gain' || $item['type'] == 'deduction' || $item['type'] == 'product_deduction' || $item['type'] == 'pay_product_integral_back') {
                 $item['relation'] = $orderServices->value(['id' => $item['link_id']], 'order_id');
             } elseif ($item['type'] == 'storeIntegral_use') {
@@ -77,23 +77,23 @@ class StorePointRecordServices extends BaseServices
     }
 
     /**
-     * 积分记录备注
+     * Ghi chú ghi điểm
      * @param $data
      * @return bool
      */
     public function recordRemark($id, $mark)
     {
-        if (!$id) throw new AdminException('参数错误');
-        if ($mark === '') throw new AdminException('备注不能为空');
+        if (!$id) throw new AdminException('Lỗi tham số');
+        if ($mark === '') throw new AdminException('Chú thích không được để trống');
         if ($this->dao->update($id, ['mark' => $mark])) {
             return true;
         } else {
-            throw new AdminException('备注失败');
+            throw new AdminException('Nhận xét không thành công');
         }
     }
 
     /**
-     * 订单统计基础
+     * Cơ bản về thống kê đơn hàng
      * @param $where
      * @return array
      */
@@ -108,14 +108,14 @@ class StorePointRecordServices extends BaseServices
     }
 
     /**
-     * 订单趋势
+     * Xu hướng đặt hàng
      * @param $where
      * @return array
      */
     public function getTrend($where)
     {
         $time = explode('-', $where['time']);
-        if (count($time) != 2) throw new AdminException('请选择时间');
+        if (count($time) != 2) throw new AdminException('Vui lòng chọn thời gian');
         $dayCount = (strtotime($time[1]) - strtotime($time[0])) / 86400 + 1;
         $data = [];
         if ($dayCount == 1) {
@@ -131,7 +131,7 @@ class StorePointRecordServices extends BaseServices
     }
 
     /**
-     * 订单趋势
+     * Xu hướng đặt hàng
      * @param $time
      * @param $num
      * @param false $excel
@@ -161,8 +161,8 @@ class StorePointRecordServices extends BaseServices
         $point_sub = array_column($this->dao->getPointTrend($time, $timeType, 'add_time', 'sum(number)', 'sub'), 'num', 'days');
         $data = $series = [];
         foreach ($xAxis as $item) {
-            $data['积分积累'][] = isset($point_add[$item]) ? floatval($point_add[$item]) : 0;
-            $data['积分消耗'][] = isset($point_sub[$item]) ? floatval($point_sub[$item]) : 0;
+            $data['Tích lũy điểm'][] = isset($point_add[$item]) ? floatval($point_add[$item]) : 0;
+            $data['Tiêu thụ điểm'][] = isset($point_sub[$item]) ? floatval($point_sub[$item]) : 0;
         }
         foreach ($data as $key => $item) {
             $series[] = [
@@ -175,13 +175,13 @@ class StorePointRecordServices extends BaseServices
     }
 
     /**
-     * 订单来源
+     * Nguồn đặt hàng
      * @param $where
      * @return array
      */
     public function getChannel($where)
     {
-        $bing_xdata = ['订单赠送', '商品赠送', '后台赠送', '签到获得', '九宫格抽奖'];
+        $bing_xdata = ['Miễn phí khi đặt hàng', 'Quà tặng sản phẩm', 'Quà tặng hậu trường', 'Đăng nhập để nhận', 'Xổ số Cửu Cung'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];
         $data = ['gain', 'product_gain', 'system_add', 'sign', 'lottery_add'];
         $bing_data = [];
@@ -206,13 +206,13 @@ class StorePointRecordServices extends BaseServices
     }
 
     /**
-     * 订单类型
+     * Loại lệnh
      * @param $where
      * @return array
      */
     public function getType($where)
     {
-        $bing_xdata = ['订单抵扣', '九宫格抽奖', '后台减少', '退款退回', '兑换商品'];
+        $bing_xdata = ['Khấu trừ đơn hàng', 'Xổ số Cửu Cung', 'Giảm hậu trường', 'hoàn lại tiền', 'Đổi hàng'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];
         $data = ['deduction', 'lottery_use', 'system_sub', 'order_deduction', 'storeIntegral_use'];
         $bing_data = [];

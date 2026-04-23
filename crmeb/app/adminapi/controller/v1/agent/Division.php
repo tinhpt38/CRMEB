@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,7 +19,7 @@ use crmeb\exceptions\AdminException;
 use think\facade\App;
 
 /**
- * 事业部控制器
+ * Người điều khiển bộ phận
  * Class Division
  * @package app\adminapi\controller\v1\agent
  */
@@ -42,7 +42,7 @@ class Division extends AuthController
     }
 
     /**
-     * 事业部列表
+     * Danh sách đơn vị kinh doanh
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -50,7 +50,7 @@ class Division extends AuthController
      */
     public function divisionList()
     {
-        // 获取请求参数
+        // Nhận thông số yêu cầu
         $where = $this->request->getMore([
             ['division_type', 0],
             ['keyword', '']
@@ -58,13 +58,13 @@ class Division extends AuthController
         if ($where['division_type'] == 2) {
             $where['division_id'] = $this->adminInfo['division_id'];
         }
-        // 调用服务层获取事业部列表
+        // Gọi lớp dịch vụ để lấy danh sách các đơn vị kinh doanh
         $data = $this->services->getDivisionList($where);
         return app('json')->success($data);
     }
 
     /**
-     * 下级列表
+     * Danh sách cấp dưới
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -72,35 +72,35 @@ class Division extends AuthController
      */
     public function divisionDownList()
     {
-        // 获取参数：事业部类型、用户ID
+        // Lấy thông số: loại đơn vị kinh doanh, người dùngID
         [$type, $uid] = $this->request->getMore([
             ['division_type', 0],
             ['uid', 0],
         ], true);
-        // 调用服务层获取下级列表
+        // Gọi lớp dịch vụ để lấy danh sách cấp dưới
         $data = $this->services->divisionDownList($type, $uid);
         return app('json')->success($data);
     }
 
     /**
-     * 添加编辑事业部
+     * Thêm bộ phận biên tập
      * @param $uid
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function divisionCreate($uid)
     {
-        // 调用服务层获取事业部表单
+        // Gọi lớp dịch vụ để lấy biểu mẫu đơn vị kinh doanh
         return app('json')->success($this->services->getDivisionForm((int)$uid));
     }
 
     /**
-     * 保存事业部
+     * Phòng bảo quản
      * @return mixed
      */
     public function divisionSave()
     {
-        // 获取并验证请求数据
+        // Nhận và xác minh dữ liệu yêu cầu
         $data = $this->request->postMore([
             ['uid', 0],
             ['aid', 0],
@@ -114,25 +114,25 @@ class Division extends AuthController
             ['roles', []],
             ['image', []]
         ]);
-        // 保存事业部数据
+        // Lưu dữ liệu đơn vị kinh doanh
         $this->services->divisionSave($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 添加编辑代理商
+     * Thêm cơ quan biên tập
      * @param $uid
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
     public function divisionAgentCreate($uid)
     {
-        // 调用服务层获取代理商表单
+        // Gọi lớp dịch vụ để lấy biểu mẫu tác nhân
         return app('json')->success($this->services->getDivisionAgentForm((int)$uid));
     }
 
     /**
-     * 保存代理商
+     * lưu đại lý
      * @param UserServices $userServices
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -141,7 +141,7 @@ class Division extends AuthController
      */
     public function divisionAgentSave(UserServices $userServices)
     {
-        // 获取并验证请求数据
+        // Nhận và xác minh dữ liệu yêu cầu
         $data = $this->request->postMore([
             ['division_id', 0],
             ['uid', 0],
@@ -153,50 +153,50 @@ class Division extends AuthController
             ['image', []],
         ]);
         if ((int)$data['uid'] == 0) $data['uid'] = $data['image']['uid'];
-        // 验证用户信息
+        // Xác minh thông tin người dùng
         $userInfo = $userServices->getUserInfo($data['uid'], 'is_division,is_agent,is_staff');
-        if (!$userInfo) throw new AdminException('参数错误');
+        if (!$userInfo) throw new AdminException('Lỗi tham số');
         if ($data['edit'] == 0) {
-            if ($userInfo['is_division']) throw new AdminException('此用户是事业部，请勿添加为代理商');
-            if ($userInfo['is_agent']) throw new AdminException('此用户是代理商，无法重复添加');
-            if ($userInfo['is_staff']) throw new AdminException('此用户是下级员工，无法添加为代理商');
-            // 验证事业部信息
+            if ($userInfo['is_division']) throw new AdminException('Người dùng này là bộ phận kinh doanh, vui lòng không thêm nó làm đại lý');
+            if ($userInfo['is_agent']) throw new AdminException('Người dùng này là đại lý và không thể được thêm nhiều lần');
+            if ($userInfo['is_staff']) throw new AdminException('Người dùng này là nhân viên cấp dưới và không thể được thêm làm đại lý');
+            // Xác minh thông tin đơn vị kinh doanh
             $divisionUserInfo = $userServices->count(['uid' => (int)$data['division_id'], 'is_division' => 1, 'division_id' => $data['division_id']]);
-            if (!$divisionUserInfo) throw new AdminException('参数错误');
+            if (!$divisionUserInfo) throw new AdminException('Lỗi tham số');
         }
-        // 保存代理商数据
+        // Lưu dữ liệu đại lý
         $this->services->divisionAgentSave($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 设置状态
+     * Đặt trạng thái
      * @param $status
      * @param $uid
      * @return mixed
      */
     public function setDivisionStatus($status, $uid)
     {
-        // 调用服务层设置状态
+        // Gọi lớp dịch vụ để đặt trạng thái
         $this->services->setDivisionStatus($status, $uid);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 删除成功
+     * Xóa thành công
      * @param $type
      * @param $uid
      * @return mixed
      */
     public function delDivision($type, $uid)
     {
-        // 调用服务层删除事业部/代理商
+        // Gọi lớp dịch vụ để xóa bộ phận kinh doanh/đại lý
         $this->services->delDivision($type, $uid);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 后台申请列表
+     * Danh sách ứng dụng phụ trợ
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -204,7 +204,7 @@ class Division extends AuthController
      */
     public function AdminApplyList()
     {
-        // 获取请求参数
+        // Nhận thông số yêu cầu
         $where = $this->request->getMore([
             ['uid', 0],
             ['division_id', 0],
@@ -216,13 +216,13 @@ class Division extends AuthController
         $where['division_id'] = $this->adminInfo['division_id'];
         /** @var DivisionAgentApplyServices $applyServices */
         $applyServices = app()->make(DivisionAgentApplyServices::class);
-        // 获取申请列表
+        // Nhận danh sách ứng dụng
         $data = $applyServices->AdminApplyList($where);
         return app('json')->success($data);
     }
 
     /**
-     * 审核表单
+     * Biểu mẫu đánh giá
      * @param $id
      * @param $type
      * @return mixed
@@ -232,13 +232,13 @@ class Division extends AuthController
     {
         /** @var DivisionAgentApplyServices $applyServices */
         $applyServices = app()->make(DivisionAgentApplyServices::class);
-        // 获取审核表单
+        // Nhận mẫu đánh giá
         $data = $applyServices->examineApply($id, $type);
         return app('json')->success($data);
     }
 
     /**
-     * 代理商审核
+     * Đánh giá đại lý
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -246,7 +246,7 @@ class Division extends AuthController
      */
     public function applyAgentSave()
     {
-        // 获取审核参数
+        // Nhận thông số kiểm tra
         $data = $this->request->getMore([
             ['type', 0],
             ['id', 0],
@@ -257,13 +257,13 @@ class Division extends AuthController
         ]);
         /** @var DivisionAgentApplyServices $applyServices */
         $applyServices = app()->make(DivisionAgentApplyServices::class);
-        // 保存审核结果
+        // Lưu kết quả đánh giá
         $data = $applyServices->applyAgentSave($data);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 删除代理商审核
+     * Xóa đánh giá đại lý
      * @param $id
      * @return mixed
      */
@@ -271,52 +271,52 @@ class Division extends AuthController
     {
         /** @var DivisionAgentApplyServices $applyServices */
         $applyServices = app()->make(DivisionAgentApplyServices::class);
-        // 删除申请记录
+        // Xóa bản ghi ứng dụng
         $applyServices->delApply($id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 添加员工表单
+     * Thêm biểu mẫu nhân viên
      * @param $uid
      * @return \think\Response
      * @throws \FormBuilder\Exception\FormBuilderException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/1/22
      */
     public function divisionStaffCreate($uid)
     {
-        // 调用服务层获取员工表单
+        // Gọi lớp dịch vụ để lấy biểu mẫu nhân viên
         return app('json')->success($this->services->getDivisionStaffForm((int)$uid));
     }
 
     /**
-     * 保存员工
+     * cứu nhân viên
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/1/22
      */
     public function divisionStaffSave()
     {
-        // 获取并验证请求数据
+        // Nhận và xác minh dữ liệu yêu cầu
         $data = $this->request->getMore([
             ['uid', 0],
             ['division_percent', 0],
             ['agent_id', 0],
             ['image', []],
         ]);
-        // 保存员工数据
+        // Lưu dữ liệu nhân viên
         $this->services->divisionStaffSave($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 分销统计
+     * Thống kê phân phối
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -324,7 +324,7 @@ class Division extends AuthController
      */
     public function divisionStatistics()
     {
-        // 获取请求参数：类型、时间、分页、排序
+        // Nhận thông số yêu cầu: loại, thời gian, phân trang, sắp xếp
         [$type, $time, $page, $limit, $sort, $order] = $this->request->getMore([
             ['type', 0],
             ['time', ''],
@@ -334,7 +334,7 @@ class Division extends AuthController
             ['order', 'desc'],
         ], true);
         $time = $time != '' ? explode('-', $time) : [];
-        // 获取统计数据
+        // Nhận số liệu thống kê
         $data = $this->services->divisionStatistics($type, $time, $page, $limit, $sort, $order);
         return app('json')->success($data);
 

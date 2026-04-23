@@ -8,25 +8,25 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <div class="acea-row row-between-wrapper mb20">
         <div class="acea-row row-middle">
-          <el-button type="primary" @click="add">添加微页面</el-button>
+          <el-button type="primary" @click="add">Thêm trang vi mô</el-button>
         </div>
       </div>
       <el-table
         :data="tableList"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="编号" min-width="80" prop="id"></el-table-column>
-        <el-table-column label="名称" min-width="150" prop="title"></el-table-column>
-        <el-table-column label="添加时间" min-width="150" prop="add_time"></el-table-column>
-        <el-table-column label="更新时间" min-width="150" prop="up_time"></el-table-column>
-        <el-table-column label="操作" fixed="right" width="150">
+        <el-table-column label="số seri" min-width="80" prop="id"></el-table-column>
+        <el-table-column label="tên" min-width="150" prop="title"></el-table-column>
+        <el-table-column label="Thêm thời gian" min-width="150" prop="add_time"></el-table-column>
+        <el-table-column label="Thời gian cập nhật" min-width="150" prop="up_time"></el-table-column>
+        <el-table-column label="vận hành" fixed="right" width="150">
           <template slot-scope="scope">
-            <a @click="edit(scope.row)">编辑</a>
+            <a @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a @click="del(scope.row, '删除微页面', scope.$index)">删除</a>
+            <a @click="del(scope.row, 'Xóa vi trang', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -103,7 +103,7 @@ export default {
         });
     },
     preview(row) {
-      this.$message.info('功能开发中');
+      this.$message.info('Chức năng đang được phát triển');
     },
   },
 };

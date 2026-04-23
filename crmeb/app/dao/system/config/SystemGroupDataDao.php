@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,14 +15,14 @@ use app\dao\BaseDao;
 use app\model\system\config\SystemGroupData;
 
 /**
- * 组合数据
+ * Dữ liệu kết hợp
  * Class SystemGroupDataDao
  * @package app\dao\system\config
  */
 class SystemGroupDataDao extends BaseDao
 {
     /**
-     * 设置模型
+     * Thiết lập mô hình
      * @return string
      */
     protected function setModel(): string
@@ -31,7 +31,7 @@ class SystemGroupDataDao extends BaseDao
     }
 
     /**
-     * 获取组合数据列表
+     * Nhận danh sách dữ liệu kết hợp
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -47,7 +47,7 @@ class SystemGroupDataDao extends BaseDao
     }
 
     /**
-     * 获取某个gid下的组合数据
+     * Nhận dữ liệu kết hợp theo một gid nhất định
      * @param int $gid
      * @param int $limit
      * @return array
@@ -63,7 +63,7 @@ class SystemGroupDataDao extends BaseDao
     }
 
     /**
-     * 根据id获取秒杀数据
+     * Nhận dữ liệu flash sale dựa trên id
      * @param array $ids
      * @param string $field
      * @return array
@@ -77,7 +77,7 @@ class SystemGroupDataDao extends BaseDao
     }
 
     /**
-     * 根据gid删除组合数据
+     * Xóa dữ liệu kết hợp dựa trên gid
      * @param int $gid
      * @return bool
      */
@@ -87,7 +87,7 @@ class SystemGroupDataDao extends BaseDao
     }
 
     /**
-     * 批量保存
+     * Lưu theo đợt
      * @param array $data
      * @return mixed|\think\Collection
      * @throws \Exception

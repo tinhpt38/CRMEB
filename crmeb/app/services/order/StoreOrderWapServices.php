@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use app\services\BaseServices;
 /**
  * Class StoreOrderWapServices
  * @package app\services\order
- * @method getOne(array $where, ?string $field = '*', ?array $with = []) 获取一条数据
+ * @method getOne(array $where, ?string $field = '*', ?array $with = []) Lấy một phần dữ liệu
  */
 class StoreOrderWapServices extends BaseServices
 {
@@ -32,30 +32,30 @@ class StoreOrderWapServices extends BaseServices
     }
 
     /**
-     * 获取 今日 昨日 本月 订单金额
+     * Nhận số lượng đặt hàng của ngày hôm qua và tháng này
      * @return mixed
      */
     public function getOrderTimeData()
     {
         $where = ['timeKey' => 'add_time', 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
-        //今日成交额
+        //Doanh số hôm nay
         $data['todayPrice'] = $this->dao->together($where + ['time' => 'today'], 'pay_price');
-        //今日订单数
+        //Số lượng đặt hàng hôm nay
         $data['todayCount'] = $this->dao->count($where + ['time' => 'today']);
-        //昨日成交额
+        //Doanh thu ngày hôm qua
         $data['proPrice'] = $this->dao->together($where + ['time' => 'yesterday'], 'pay_price');
-        //昨日订单数
+        //Số đơn hàng ngày hôm qua
         $data['proCount'] = $this->dao->count($where + ['time' => 'yesterday']);
-        //本月成交额
+        //Doanh thu tháng này
         $data['monthPrice'] = $this->dao->together($where + ['time' => 'month'], 'pay_price');
-        //本月订单数
+        //Số lượng đơn hàng trong tháng này
         $data['monthCount'] = $this->dao->count($where + ['time' => 'month']);
         return $data;
     }
     
 
     /**
-     * 订单每月统计数据
+     * Thống kê đặt hàng hàng tháng
      * @param array $where
      * @param int $store_id
      * @return array
@@ -67,7 +67,7 @@ class StoreOrderWapServices extends BaseServices
     }
 
     /**
-     * 获取手机端订单管理
+     * Nhận quản lý đơn hàng di động
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException

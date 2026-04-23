@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -30,7 +30,7 @@ use think\facade\Route as Url;
  *
  * Class UserRechargeServices
  * @package app\services\user
- * @method be($map, string $field = '') 查询一条数据是否存在
+ * @method be($map, string $field = '') Truy vấn xem một phần dữ liệu có tồn tại không
  * @method getDistinctCount(array $where, $field, ?bool $search = true)
  * @method getTrendData($time, $type, $timeType)
  */
@@ -47,7 +47,7 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 获取单条数据
+     * Nhận một phần dữ liệu
      * @param int $id
      * @param array $field
      */
@@ -57,7 +57,7 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 获取统计数据
+     * Nhận số liệu thống kê
      * @param array $where
      * @param string $field
      * @return float
@@ -81,7 +81,7 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 获取充值列表
+     * Nhận danh sách nạp tiền
      * @param array $where
      * @param string $field
      * @return array
@@ -105,21 +105,21 @@ class UserRechargeServices extends BaseServices
         foreach ($list as &$item) {
             switch ($item['recharge_type']) {
                 case PayServices::WEIXIN_PAY:
-                    $item['_recharge_type'] = '微信充值';
+                    $item['_recharge_type'] = 'nạp tiền WeChat';
                     break;
                 case 'system':
-                    $item['_recharge_type'] = '系统充值';
+                    $item['_recharge_type'] = 'Nạp tiền hệ thống';
                     break;
                 case PayServices::ALIAPY_PAY:
-                    $item['_recharge_type'] = '支付宝充值';
+                    $item['_recharge_type'] = 'nạp tiền Alipay';
                     break;
                 default:
-                    $item['_recharge_type'] = '其他充值';
+                    $item['_recharge_type'] = 'Nạp tiền khác';
                     break;
             }
-            $item['_pay_time'] = $item['pay_time'] ? date('Y-m-d H:i:s', $item['pay_time']) : '暂无';
-            $item['_add_time'] = $item['add_time'] ? date('Y-m-d H:i:s', $item['add_time']) : '暂无';
-            $item['paid_type'] = $item['paid'] ? '已支付' : '未支付';
+            $item['_pay_time'] = $item['pay_time'] ? date('Y-m-d H:i:s', $item['pay_time']) : 'Chưa có';
+            $item['_add_time'] = $item['add_time'] ? date('Y-m-d H:i:s', $item['add_time']) : 'Chưa có';
+            $item['paid_type'] = $item['paid'] ? 'trả' : 'Chưa thanh toán';
             $item['avatar'] = strpos($item['avatar'] ?? '', 'http') === false ? (sys_config('site_url') . $item['avatar']) : $item['avatar'];
             unset($item['user']);
         }
@@ -127,7 +127,7 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 获取用户充值数据
+     * Nhận dữ liệu nạp tiền của người dùng
      * @return array
      */
     public function user_recharge(array $where)
@@ -141,29 +141,29 @@ class UserRechargeServices extends BaseServices
         $data['sumWeixinPrice'] = $this->getRechargeSum($where, 'price');
         return [
             [
-                'name' => '充值总金额',
-                'field' => '元',
+                'name' => 'Tổng số tiền nạp lại',
+                'field' => 'Nhân dân tệ',
                 'count' => $data['sumPrice'],
                 'className' => 'iconjiaoyijine',
                 'col' => 6,
             ],
             [
-                'name' => '充值退款金额',
-                'field' => '元',
+                'name' => 'Nạp lại số tiền hoàn lại',
+                'field' => 'Nhân dân tệ',
                 'count' => $data['sumRefundPrice'],
                 'className' => 'iconshangpintuikuanjine',
                 'col' => 6,
             ],
             [
-                'name' => '支付宝充值金额',
-                'field' => '元',
+                'name' => 'Số tiền nạp Alipay',
+                'field' => 'Nhân dân tệ',
                 'count' => $data['sumAlipayPrice'],
                 'className' => 'iconzhifubao',
                 'col' => 6,
             ],
             [
-                'name' => '微信充值金额',
-                'field' => '元',
+                'name' => 'Số tiền nạp WeChat',
+                'field' => 'Nhân dân tệ',
                 'count' => $data['sumWeixinPrice'],
                 'className' => 'iconweixinzhifu',
                 'col' => 6,
@@ -172,11 +172,11 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 退款表单
+     * Hình thức hoàn tiền
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/24
      */
@@ -184,25 +184,25 @@ class UserRechargeServices extends BaseServices
     {
         $UserRecharge = $this->getRecharge($id);
         if (!$UserRecharge) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         if ($UserRecharge['paid'] != 1) {
-            throw new AdminException('订单未支付');
+            throw new AdminException('Đơn hàng chưa được thanh toán');
         }
         if ($UserRecharge['price'] == $UserRecharge['refund_price']) {
-            throw new AdminException('已退完支付金额，不能再退款了');
+            throw new AdminException('Số tiền thanh toán đã được hoàn lại và không thể hoàn lại được nữa.');
         }
         if ($UserRecharge['recharge_type'] == 'balance') {
-            throw new AdminException('佣金转入余额，不能退款');
+            throw new AdminException('Hoa hồng được chuyển vào số dư và không thể hoàn lại');
         }
         $f = array();
-        $f[] = Form::input('order_id', '退款单号', $UserRecharge->getData('order_id'))->disabled(true);
-        $f[] = Form::radio('refund_price', '状态', 1)->options([['label' => '本金(扣赠送余额)', 'value' => 1], ['label' => '仅本金', 'value' => 0]]);
-        return create_form('编辑', $f, Url::buildUrl('/finance/recharge/' . $id), 'PUT');
+        $f[] = Form::input('order_id', 'Số đơn hàng hoàn tiền', $UserRecharge->getData('order_id'))->disabled(true);
+        $f[] = Form::radio('refund_price', 'tình trạng', 1)->options([['label' => 'hiệu trưởng(Trừ đi số dư quà tặng)', 'value' => 1], ['label' => 'Chỉ có hiệu trưởng', 'value' => 0]]);
+        return create_form('biên tập', $f, Url::buildUrl('/finance/recharge/' . $id), 'PUT');
     }
 
     /**
-     * 退款操作
+     * Hoạt động hoàn tiền
      * @param int $id
      * @param string $refund_price
      * @return mixed
@@ -214,13 +214,13 @@ class UserRechargeServices extends BaseServices
     {
         $UserRecharge = $this->getRecharge($id);
         if (!$UserRecharge) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         if ($UserRecharge['price'] == $UserRecharge['refund_price']) {
-            throw new AdminException('已退完支付金额，不能再退款了');
+            throw new AdminException('Số tiền thanh toán đã được hoàn lại và không thể hoàn lại được nữa.');
         }
         if ($UserRecharge['recharge_type'] == 'balance') {
-            throw new AdminException('佣金转入余额，不能退款');
+            throw new AdminException('Hoa hồng được chuyển vào số dư và không thể hoàn lại');
         }
         $data['refund_price'] = $UserRecharge['price'];
         $refund_data['pay_price'] = $UserRecharge['price'];
@@ -263,10 +263,10 @@ class UserRechargeServices extends BaseServices
             throw new AdminException($e->getMessage());
         }
         if (!$this->dao->update($id, $data)) {
-            throw new AdminException('修改失败');
+            throw new AdminException('Sửa đổi không thành công');
         }
 
-        //修改用户余额
+        //Sửa đổi số dư người dùng
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($UserRecharge['uid']);
@@ -278,27 +278,27 @@ class UserRechargeServices extends BaseServices
         }
         $userServices->update((int)$UserRecharge['uid'], ['now_money' => $now_money], 'uid');
 
-        //写入资金流水
+        //Viết dòng vốn
         /** @var CapitalFlowServices $capitalFlowServices */
         $capitalFlowServices = app()->make(CapitalFlowServices::class);
         $UserRecharge['nickname'] = $userInfo['nickname'];
         $UserRecharge['phone'] = $userInfo['phone'];
         $capitalFlowServices->setFlow($UserRecharge, 'refund_recharge');
 
-        //保存余额记录
+        //Lưu hồ sơ số dư
         /** @var UserMoneyServices $userMoneyServices */
         $userMoneyServices = app()->make(UserMoneyServices::class);
         $userMoneyServices->income('user_recharge_refund', $UserRecharge['uid'], $number, $now_money, $id);
 
-        //提醒推送
+        //Đẩy lời nhắc
         event('NoticeListener', [['user_type' => strtolower($userInfo['user_type']), 'data' => $data, 'UserRecharge' => $UserRecharge, 'now_money' => $refund_price], 'recharge_order_refund_status']);
 
-        //自定义通知-充值退款
+        //Thông báo tùy chỉnh-nạp tiền và hoàn tiền
         $UserRecharge['now_money'] = $now_money;
         $UserRecharge['time'] = date('Y-m-d H:i:s');
         event('NoticeListener', [$UserRecharge['uid'], $UserRecharge, 'recharge_refund']);
 
-        //自定义事件-后台充值退款
+        //Sự kiện tùy chỉnh - nạp tiền và hoàn tiền nền
         event('CustomEventListener', ['admin_recharge_refund', [
             'uid' => $UserRecharge['uid'],
             'refund_price' => $UserRecharge['price'],
@@ -312,25 +312,25 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param int $id
      * @return bool
      */
     public function delRecharge(int $id)
     {
         $rechargInfo = $this->getRecharge($id);
-        if (!$rechargInfo) throw new AdminException('数据不存在');
+        if (!$rechargInfo) throw new AdminException('Dữ liệu không tồn tại');
         if ($rechargInfo->paid) {
-            throw new AdminException('已支付的订单记录无法删除');
+            throw new AdminException('Không thể xóa hồ sơ đơn hàng đã thanh toán');
         }
         if ($this->dao->delete($id))
             return true;
         else
-            throw new AdminException('删除失败');
+            throw new AdminException('Xóa không thành công');
     }
 
     /**
-     * 生成充值订单号
+     * Tạo số thứ tự nạp tiền
      * @return bool|string
      */
     public function getOrderId()
@@ -339,7 +339,7 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 导入佣金到余额
+     * Nhập hoa hồng để cân bằng
      * @param int $uid
      * @param $price
      * @return bool
@@ -353,23 +353,23 @@ class UserRechargeServices extends BaseServices
         $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new ApiException('参数错误');
+            throw new ApiException('Lỗi tham số');
         }
         /** @var UserBrokerageServices $frozenPrices */
         $frozenPrices = app()->make(UserBrokerageServices::class);
         $broken_commission = $frozenPrices->getUserFrozenPrice($uid);
         $commissionCount = bcsub((string)$user['brokerage_price'], (string)$broken_commission, 2);
         if ($price > $commissionCount) {
-            throw new ApiException('转入金额不能大于可提现佣金');
+            throw new ApiException('Số tiền chuyển không thể lớn hơn hoa hồng có thể rút');
         }
         $edit_data = [];
         $edit_data['now_money'] = bcadd((string)$user['now_money'], (string)$price, 2);
         $edit_data['brokerage_price'] = $user['brokerage_price'] > $price ? bcsub((string)$user['brokerage_price'], (string)$price, 2) : 0;
         if (!$userServices->update($uid, $edit_data, 'uid')) {
-            throw new ApiException('修改失败');
+            throw new ApiException('Sửa đổi không thành công');
         }
 
-        //写入充值记录
+        //Viết hồ sơ nạp tiền
         $rechargeInfo = [
             'uid' => $uid,
             'order_id' => app()->make(StoreOrderCreateServices::class)->getNewOrderId('cz'),
@@ -381,15 +381,15 @@ class UserRechargeServices extends BaseServices
             'add_time' => time()
         ];
         if (!$re = $this->dao->save($rechargeInfo)) {
-            throw new ApiException('写入余额充值失败');
+            throw new ApiException('Không thể ghi số dư nạp lại');
         }
 
-        //余额记录
+        //Hồ sơ số dư
         /** @var UserMoneyServices $userMoneyServices */
         $userMoneyServices = app()->make(UserMoneyServices::class);
         $userMoneyServices->income('brokerage_to_nowMoney', $uid, $price, $edit_data['now_money'], $re['id']);
 
-        //写入提现记录
+        //Viết biên bản rút tiền
         $extractInfo = [
             'uid' => $uid,
             'real_name' => $user['nickname'],
@@ -403,7 +403,7 @@ class UserRechargeServices extends BaseServices
         $userExtract = app()->make(UserExtractServices::class);
         $userExtract->save($extractInfo);
 
-        //佣金提现记录
+        //Hồ sơ rút tiền hoa hồng
         /** @var UserBrokerageServices $userBrokerageServices */
         $userBrokerageServices = app()->make(UserBrokerageServices::class);
         $userBrokerageServices->income('brokerage_to_nowMoney', $uid, $price, $edit_data['brokerage_price'], $re['id']);
@@ -411,7 +411,7 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 申请充值
+     * Đăng ký nạp tiền
      * @param int $uid
      * @param $price
      * @param $recharId
@@ -429,17 +429,17 @@ class UserRechargeServices extends BaseServices
         $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         switch ((int)$type) {
-            case 0: //支付充值余额
+            case 0: //Thanh toán số dư nạp lại
                 $paid_price = 0;
                 if ($recharId) {
                     /** @var SystemGroupDataServices $systemGroupData */
                     $systemGroupData = app()->make(SystemGroupDataServices::class);
                     $data = $systemGroupData->getDateValue($recharId);
                     if ($data === false) {
-                        throw new ApiException('您选择的充值方式已下架');
+                        throw new ApiException('Phương thức nạp tiền bạn chọn đã bị xóa khỏi kệ');
                     } else {
                         $paid_price = $data['give_money'] ?? 0;
                         $price = $data['price'] ?? 0;
@@ -455,7 +455,7 @@ class UserRechargeServices extends BaseServices
                 $recharge_data['give_price'] = $paid_price;
                 $recharge_data['channel_type'] = $user['user_type'];
                 if (!$rechargeOrder = $this->dao->save($recharge_data)) {
-                    throw new ApiException('充值订单生成失败');
+                    throw new ApiException('Tạo lệnh nạp tiền không thành công');
                 }
                 try {
                     /** @var RechargeServices $recharge */
@@ -468,16 +468,16 @@ class UserRechargeServices extends BaseServices
                     return $order_info;
                 }
                 return ['msg' => '', 'type' => $from, 'data' => $order_info];
-            case 1: //佣金转入余额
+            case 1: //Hoa hồng được chuyển vào số dư
                 $this->importNowMoney($uid, $price);
-                return ['msg' => '转入余额成功', 'type' => $from, 'data' => []];
+                return ['msg' => 'Số dư được chuyển thành công', 'type' => $from, 'data' => []];
             default:
-                throw new ApiException('参数错误');
+                throw new ApiException('Lỗi tham số');
         }
     }
 
     /**
-     * 用户充值成功后
+     * Sau khi người dùng nạp tiền thành công
      * @param $orderId
      * @param array $other
      * @return bool
@@ -489,24 +489,24 @@ class UserRechargeServices extends BaseServices
     {
         $order = $this->dao->getOne(['order_id' => $orderId, 'paid' => 0]);
         if (!$order) {
-            throw new ApiException('订单不存在');
+            throw new ApiException('Đơn hàng không tồn tại');
         }
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo((int)$order['uid']);
         if (!$user) {
-            throw new ApiException('用户不存在');
+            throw new ApiException('Người dùng không tồn tại');
         }
         $price = bcadd((string)$order['price'], (string)$order['give_price'], 2);
         if (!$this->dao->update($order['id'], ['paid' => 1, 'recharge_type' => $other['pay_type'], 'pay_time' => time(), 'trade_no' => $other['trade_no'] ?? ''], 'id')) {
-            throw new ApiException('修改订单失败');
+            throw new ApiException('Không thể sửa đổi thứ tự');
         }
         $now_money = bcadd((string)$user['now_money'], (string)$price, 2);
         /** @var UserMoneyServices $userMoneyServices */
         $userMoneyServices = app()->make(UserMoneyServices::class);
         $userMoneyServices->income('user_recharge', $user['uid'], ['number' => $price, 'price' => $order['price'], 'give_price' => $order['give_price']], $now_money, $order['id']);
         if (!$userServices->update((int)$order['uid'], ['now_money' => $now_money], 'uid')) {
-            throw new ApiException('修改用户信息失败');
+            throw new ApiException('Không thể sửa đổi thông tin người dùng');
         }
 
         /** @var CapitalFlowServices $capitalFlowServices */
@@ -515,19 +515,19 @@ class UserRechargeServices extends BaseServices
         $order['phone'] = $user['phone'];
         $capitalFlowServices->setFlow($order, 'recharge');
 
-        //提醒推送
+        //Đẩy lời nhắc
         event('NoticeListener', [['order' => $order, 'now_money' => $now_money], 'recharge_success']);
 
-        //自定义消息-订单拒绝退款
+        //Thông báo tùy chỉnh - Đơn hàng bị từ chối để được hoàn tiền
         $order['now_money'] = $now_money;
         $order['time'] = date('Y-m-d H:i:s');
         event('CustomNoticeListener', [$order['uid'], $order, 'recharge_success']);
 
         $order['pay_type'] = $other['pay_type'];
-        // 小程序订单服务
+        // Dịch vụ đặt hàng chương trình nhỏ
         event('OrderShippingListener', ['recharge', $order, 3, '', '']);
 
-        //自定义事件-用户充值
+        //Nạp tiền cho người dùng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_recharge', [
             'uid' => $order['uid'],
             'id' => (int)$order['id'],
@@ -544,7 +544,7 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * 根据查询用户充值金额
+     * Theo số tiền nạp lại của người dùng truy vấn
      * @param array $where
      * @param string $rechargeSumField
      * @param string $selectType

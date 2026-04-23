@@ -22,7 +22,7 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'c_product_service',
-  cname: '商品服务',
+  cname: 'Hàng hóa và Dịch vụ',
   componentsName: 'home_product_service',
   components: {
     ...toolCom,
@@ -91,7 +91,7 @@ export default {
       if (!data) return data;
       if (!data.paddingConfig) {
         this.$set(data, 'paddingConfig', {
-          title: '内边距',
+          title: 'phần đệm',
           val: 10,
           min: 0,
           max: 100,
@@ -101,7 +101,7 @@ export default {
       }
       if (!data.marginConfig) {
         this.$set(data, 'marginConfig', {
-          title: '外边距',
+          title: 'lề',
           isAll: false,
           val: 0,
           min: 0,

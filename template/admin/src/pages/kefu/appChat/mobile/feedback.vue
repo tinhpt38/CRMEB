@@ -2,23 +2,23 @@
   <div class="feedback-wrapper">
     <div class="head">
       <div class="left-wrapper">
-        <div class="title">商城客服已离线</div>
+        <div class="title">Dịch vụ khách hàng của trung tâm mua sắm đang ngoại tuyến</div>
         <div class="txt">{{ feedback }}</div>
       </div>
       <div class="img-box"><img src="@/assets/images/feed-icon.png" mode="" /></div>
     </div>
     <div class="main">
-      <div class="title">我要反馈</div>
+      <div class="title">Tôi muốn phản hồi</div>
       <div class="input-box">
-        <el-input type="text" placeholder="请输入您的姓名" v-model="name" />
+        <el-input type="text" placeholder="Vui lòng nhập tên của bạn" v-model="name" />
       </div>
       <div class="input-box">
-        <el-input type="text" placeholder="请输入您的联系电话" v-model="phone" />
+        <el-input type="text" placeholder="Vui lòng nhập số liên lạc của bạn" v-model="phone" />
       </div>
       <div class="input-box">
-        <el-input type="textarea" placeholder="请填写内容" v-model="con" />
+        <el-input type="textarea" placeholder="Vui lòng điền nội dung" v-model="con" />
       </div>
-      <el-button class="sub_btn" v-db-click @click="subMit" :disabled="isDisabled">提交</el-button>
+      <el-button class="sub_btn" v-db-click @click="subMit" :disabled="isDisabled">nộp</el-button>
     </div>
   </div>
 </template>
@@ -47,13 +47,13 @@ export default {
     },
     subMit() {
       if (!this.name) {
-        return this.$message.error('请填写姓名');
+        return this.$message.error('Vui lòng điền tên của bạn');
       }
       if (!this.phone || !/^1(3|4|5|7|8|9|6)\d{9}$/i.test(this.phone)) {
-        return this.$message.error('请填写正确的手机号码');
+        return this.$message.error('Vui lòng điền đúng số điện thoại di động');
       }
       if (!this.con) {
-        return this.$message.error('请填写内容');
+        return this.$message.error('Vui lòng điền nội dung');
       }
       this.isDisabled = true;
       feedbackFromApi({

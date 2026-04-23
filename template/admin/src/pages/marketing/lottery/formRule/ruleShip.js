@@ -3,14 +3,14 @@ const ruleShip = {
     {
       required: true,
       type: 'string',
-      message: '请选择快递公司',
+      message: 'Hãy chọn công ty chuyển phát nhanh',
       trigger: 'select',
     },
   ],
   deliver_number: [
     {
       required: true,
-      message: '请输入快递单号',
+      message: 'Vui lòng nhập số chuyển phát nhanh',
       trigger: 'blur',
     },
   ],
@@ -19,7 +19,7 @@ const ruleMark = {
   mark: [
     {
       required: true,
-      message: '请输入备注信息',
+      message: 'Vui lòng nhập thông tin nhận xét',
       trigger: 'blur',
     },
   ],

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -18,7 +18,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * 客服话术
+ * Kỹ năng phục vụ khách hàng
  * @mixin Model
  */
 class StoreServiceSpeechcraft extends BaseModel
@@ -26,19 +26,19 @@ class StoreServiceSpeechcraft extends BaseModel
     use ModelTrait;
 
     /**
-     * 表名
+     * tên bảng
      * @var string
      */
     protected $name = 'store_service_speechcraft';
 
     /**
-     * 主键
+     * khóa chính
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 时间格式化
+     * định dạng thời gian
      * @param $value
      * @param $data
      * @return false|string
@@ -49,7 +49,7 @@ class StoreServiceSpeechcraft extends BaseModel
     }
 
     /**
-     * 关联标签分类
+     * Phân loại thẻ liên quan
      * @return \think\model\relation\HasOne
      */
     public function cateName()
@@ -58,7 +58,7 @@ class StoreServiceSpeechcraft extends BaseModel
     }
 
     /**
-     * 话术搜索
+     * Tìm kiếm từ
      * @param Model $query
      * @param $value
      */
@@ -68,7 +68,7 @@ class StoreServiceSpeechcraft extends BaseModel
     }
 
     /**
-     * 归属客服搜索
+     * Tìm kiếm dịch vụ khách hàng được phân bổ
      * @param Model $query
      * @param $value
      */
@@ -80,7 +80,7 @@ class StoreServiceSpeechcraft extends BaseModel
     }
 
     /**
-     * 分类搜索
+     * Tìm kiếm danh mục
      * @param Model $query
      * @param $value
      */

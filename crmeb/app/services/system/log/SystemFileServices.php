@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -26,14 +26,14 @@ use think\facade\Log;
 use think\facade\Route as Url;
 
 /**
- * 文件校验
+ * Xác minh tập tin
  * Class SystemFileServices
  * @package app\services\system\log
  */
 class SystemFileServices extends BaseServices
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * SystemFileServices constructor.
      * @param SystemFileDao $dao
      */
@@ -57,7 +57,7 @@ class SystemFileServices extends BaseServices
     public function Login(string $password, string $type)
     {
         if (config('filesystem.password') !== $password) {
-            throw new AdminException('账号或密码错误');
+            throw new AdminException('Tài khoản hoặc mật khẩu không chính xác');
         }
         $md5Password = md5($password);
         /** @var JwtAuth $jwtAuth */
@@ -72,7 +72,7 @@ class SystemFileServices extends BaseServices
     }
 
     /**
-     * 获取Admin授权信息
+     * Nhận thông tin ủy quyền của quản trị viên
      * @param string $token
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -83,36 +83,36 @@ class SystemFileServices extends BaseServices
         $cacheService = app()->make(CacheService::class);
 
         if (!$token || $token === 'undefined') {
-            throw new AuthException('登录已过期,请重新登录', [], 403);
+            throw new AuthException('Đăng nhập đã hết hạn,Vui lòng đăng nhập lại', [], 403);
         }
 
         /** @var JwtAuth $jwtAuth */
         $jwtAuth = app()->make(JwtAuth::class);
-        //设置解析token
+        //Thiết lập phân tích cú pháptoken
         [$id, $type, $pwd] = $jwtAuth->parseToken($token);
 
-        //检测token是否过期
+        //Kiểm tra xem mã thông báo đã hết hạn chưa
         $md5Token = md5($token);
         if (!$cacheService->has($md5Token) || !($cacheService->get($md5Token))) {
-            throw new AuthException('登录已过期,请重新登录', [], 403);
+            throw new AuthException('Đăng nhập đã hết hạn,Vui lòng đăng nhập lại', [], 403);
         }
 
-        //验证token
+        //xác minhtoken
         try {
             $jwtAuth->verifyToken();
         } catch (\Throwable $e) {
             if (!request()->isCli()) {
                 $cacheService->delete($md5Token);
             }
-            throw new AuthException('登录已过期,请重新登录', [], 403);
+            throw new AuthException('Đăng nhập đã hết hạn,Vui lòng đăng nhập lại', [], 403);
         }
 
         if ($id !== md5(config('filesystem.password'))) {
-            throw new AuthException('登录已过期,请重新登录', [], 403);
+            throw new AuthException('Đăng nhập đã hết hạn,Vui lòng đăng nhập lại', [], 403);
         }
 
         if ($pwd !== md5(config('filesystem.password'))) {
-            throw new AuthException('登录已过期,请重新登录', [], 403);
+            throw new AuthException('Đăng nhập đã hết hạn,Vui lòng đăng nhập lại', [], 403);
         }
 
         return true;
@@ -120,7 +120,7 @@ class SystemFileServices extends BaseServices
 
 
     /**
-     * 获取文件校验列表
+     * Nhận danh sách xác minh tập tin
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -137,10 +137,10 @@ class SystemFileServices extends BaseServices
             $arr = array_merge($app, $extend);
             CacheService::set(md5($key), $arr, 3600 * 24);
         }
-        $fileAll = [];//本地文件
-        $cha = [];//不同的文件
+        $fileAll = [];//tập tin cục bộ
+        $cha = [];//các tập tin khác nhau
         $len = strlen($rootPath);
-        $file = $this->dao->getAll();//数据库中的文件
+        $file = $this->dao->getAll();//tập tin trong cơ sở dữ liệu
         if (empty($file)) {
             foreach ($arr as $k => $v) {
                 $update_time = stat($v);
@@ -159,7 +159,7 @@ class SystemFileServices extends BaseServices
                 return $res;
             });
             if ($res) {
-                $cha = [];//不同的文件
+                $cha = [];//các tập tin khác nhau
             } else {
                 $cha = $fileAll;
             }
@@ -174,11 +174,11 @@ class SystemFileServices extends BaseServices
                     'atime' => date('Y-m-d H:i:s', $update_time['atime']),
                     'mtime' => date('Y-m-d H:i:s', $update_time['mtime']),
                     'ctime' => date('Y-m-d H:i:s', $update_time['ctime']),
-                    'type' => '新增的',
+                    'type' => 'Mới',
                 ];
                 if (isset($file[$vo]) && $file[$vo] != $cthash) {
                     $cha[] = [
-                        'type' => '已修改',
+                        'type' => 'Đã sửa đổi',
                     ];
                     unset($file[$vo]);
                 }
@@ -190,7 +190,7 @@ class SystemFileServices extends BaseServices
                     'atime' => date('Y-m-d H:i:s', $v['atime']),
                     'mtime' => date('Y-m-d H:i:s', $v['mtime']),
                     'ctime' => date('Y-m-d H:i:s', $v['ctime']),
-                    'type' => '已删除',
+                    'type' => 'Đã xóa',
 
                 ];
             }
@@ -201,7 +201,7 @@ class SystemFileServices extends BaseServices
     }
 
     /**
-     * 获取文件夹中的文件 包括子文件
+     * Nhận các tập tin trong một thư mục bao gồm các tập tin con
      * @param $dir
      * @return array
      */
@@ -213,7 +213,7 @@ class SystemFileServices extends BaseServices
     }
 
     /**
-     * 获取文件夹中的文件 包括子文件 不能直接用  直接使用  $this->getDir()方法 P156
+     * Lấy các tập tin trong thư mục, bao gồm cả các tập tin con. Nó không thể được sử dụng trực tiếp. Sử dụng nó trực tiếp.  $this->getDir()phương pháp P156
      * @param $path
      * @param $data
      */
@@ -232,18 +232,18 @@ class SystemFileServices extends BaseServices
         }
     }
 
-    //打开目录
+    //Mở thư mục
     public function opendir($dir, $fileDir, $superior)
     {
         $markList = app()->make(SystemFileInfoServices::class)->getColumn([], 'mark', 'full_path');
         $fileAll = array('dir' => [], 'file' => []);
-        //根目录
+        //thư mục gốc
         $rootDir = $this->formatPath(app()->getRootPath());
-        //防止查看站点以外的目录
+        //Ngăn chặn xem các thư mục bên ngoài trang web
         if (strpos($dir, $rootDir) === false || $dir == '') {
             $dir = $rootDir;
         }
-        //判断是否是返回上级
+        //Xác định xem có nên quay lại mức trước đó không
         if ($superior) {
             if (strpos(dirname($dir), $rootDir) !== false) {
                 $dir = dirname($dir);
@@ -264,7 +264,7 @@ class SystemFileServices extends BaseServices
                 }
             }
         }
-        //兼容windows
+        //tương thíchwindows
         $uname = php_uname('s');
         if (strstr($uname, 'Windows') !== false) {
             $dir = ltrim($dir, '\\');
@@ -295,7 +295,7 @@ class SystemFileServices extends BaseServices
                 'update_time' => date('Y-m-d H:i:s', time()),
             ]);
         }
-        $routeList = [['key' => '根目录', 'route' => '']];
+        $routeList = [['key' => 'thư mục gốc', 'route' => '']];
         $pathArray = explode('/', str_replace($rootDir, '', $dir));
         $str = '';
         foreach ($pathArray as $item) {
@@ -307,21 +307,21 @@ class SystemFileServices extends BaseServices
         return compact('dir', 'list', 'navList', 'routeList');
     }
 
-    //读取文件
+    //đọc tập tin
     public function openfile($filepath)
     {
-        //根目录
+        //thư mục gốc
         $rootDir = $this->formatPath(app()->getRootPath());
-        //防止查看站点以外的文件
+        //Ngăn chặn việc xem các tập tin bên ngoài trang web
         if (strpos($filepath, $rootDir) === false || $filepath == '') {
-            throw new AdminException('无法打开站点以外的文件');
+            throw new AdminException('Không thể mở tập tin bên ngoài trang web');
         }
 
         $filepath = $this->formatPath($filepath);
-        $content = FileClass::readFile($filepath);//防止页面内嵌textarea标签
+        $content = FileClass::readFile($filepath);//Ngăn không cho thẻ vùng văn bản được nhúng vào trang
         $ext = FileClass::getExt($filepath);
         $encoding = mb_detect_encoding($content, mb_detect_order());
-        //前端组件支持的语言类型
+        //Các loại ngôn ngữ được hỗ trợ bởi các thành phần giao diện người dùng
         //['plaintext', 'json', 'abap', 'apex', 'azcli', 'bat', 'cameligo', 'clojure', 'coffeescript', 'c', 'cpp', 'csharp', 'csp', 'css', 'dart', 'dockerfile', 'fsharp', 'go', 'graphql', 'handlebars', 'hcl', 'html', 'ini', 'java', 'javascript', 'julia', 'kotlin', 'less', 'lexon', 'lua', 'markdown', 'mips', 'msdax', 'mysql', 'objective-c', 'pascal', 'pascaligo', 'perl', 'pgsql', 'php', 'postiats', 'powerquery', 'powershell', 'pug', 'python', 'r', 'razor', 'redis', 'redshift', 'restructuredtext', 'ruby', 'rust', 'sb', 'scala', 'scheme', 'scss', 'shell', 'sol', 'aes', 'sql', 'st', 'swift', 'systemverilog', 'verilog', 'tcl', 'twig', 'typescript', 'vb', 'xml', 'yaml']
 
         $extarray = [
@@ -347,17 +347,17 @@ class SystemFileServices extends BaseServices
         return compact('content', 'mode', 'filepath', 'encoding');
     }
 
-    //保存文件
+    //lưu tập tin
     public function savefile($filepath, $comment)
     {
         $filepath = $this->formatPath($filepath);
         if (!FileClass::isWritable($filepath)) {
-            throw new AdminException('请检查目录权限，需要给全部文件777WWW权限');
+            throw new AdminException('Vui lòng kiểm tra quyền của thư mục. Tất cả các tập tin cần phải được cấp quyền 777WWW.');
         }
         return FileClass::writeFile($filepath, $comment);
     }
 
-    // 文件重命名
+    // Đổi tên tập tin
     public function rename($newname, $oldname)
     {
         if (($newname != $oldname) && is_writable($oldname)) {
@@ -368,7 +368,7 @@ class SystemFileServices extends BaseServices
 
 
     /**
-     * 删除文件或文件夹
+     * Xóa một tập tin hoặc thư mục
      * @param string $path
      * @return bool
      *
@@ -397,7 +397,7 @@ class SystemFileServices extends BaseServices
     }
 
     /**
-     * 新建文件夹
+     * Tạo thư mục mới
      * @param string $path
      * @param string $name
      * @param int $permissions
@@ -415,7 +415,7 @@ class SystemFileServices extends BaseServices
     }
 
     /**
-     * 新建文件
+     * Tạo tập tin mới
      * @param string $path
      * @param string $name
      * @return bool
@@ -437,7 +437,7 @@ class SystemFileServices extends BaseServices
     }
 
     /**
-     * 格式化路径
+     * Đường dẫn định dạng
      * @param string $path
      * @param string $name
      * @return string
@@ -459,12 +459,12 @@ class SystemFileServices extends BaseServices
     }
 
     /**
-     * 文件备注表单
+     * Mẫu ghi chú tập tin
      * @param $path
      * @param $fileToken
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/10
      */
@@ -474,15 +474,15 @@ class SystemFileServices extends BaseServices
         $mark = app()->make(SystemFileInfoServices::class)->value(['full_path' => str_replace(root_path(), '/', $path)], 'mark');
         $f = [];
         $f[] = Form::hidden('full_path', $full_path);
-        $f[] = Form::input('mark', '文件备注', $mark);
-        return create_form('文件备注', $f, Url::buildUrl('/system/file/mark/save?fileToken=' . $fileToken . '&type=mark'), 'POST');
+        $f[] = Form::input('mark', 'Tập tin nhận xét', $mark);
+        return create_form('Tập tin nhận xét', $f, Url::buildUrl('/system/file/mark/save?fileToken=' . $fileToken . '&type=mark'), 'POST');
     }
 
     /**
-     * 保存文件备注
+     * Lưu tập tin ghi chú
      * @param $full_path
      * @param $mark
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/10
      */
@@ -490,12 +490,12 @@ class SystemFileServices extends BaseServices
     {
         $res = app()->make(SystemFileInfoServices::class)->update(['full_path' => $full_path], ['mark' => $mark]);
         if (!$res) {
-            throw new AdminException('保存失败');
+            throw new AdminException('Lưu không thành công');
         }
     }
 
     /**
-     * 写入文件md5
+     * ghi tập tinmd5
      * @return bool
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -507,7 +507,7 @@ class SystemFileServices extends BaseServices
             $this->getDir($rootPath . 'app'),
             $this->getDir($rootPath . 'crmeb')
         );
-        // 只找 .php 文件
+        // Chỉ tìm kiếm tệp .php
         $files = array_filter($files, function ($path) {
             return pathinfo($path, PATHINFO_EXTENSION) === 'php';
         });

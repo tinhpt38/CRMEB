@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,37 +17,37 @@ use crmeb\services\wechat\Payment;
 use EasyWeChat\Payment\Order;
 
 /**
- * v3支付
+ * v3chi trả
  * Class PayClient
  * @package crmeb\services\easywechat\v3pay
  */
 class PayClient extends BaseClient
 {
-    //app支付
+    //appchi trả
     const API_APP_APY_URL = 'v3/pay/transactions/app';
-    //app支付-服务商模式
+    //appMô hình nhà cung cấp dịch vụ thanh toán
     const API_APP_APY_PARTNER_URL = 'v3/pay/partner/transactions/app';
-    //Native下单API
+    //NativeĐặt hàngAPI
     const API_NATIVE_URL = 'v3/pay/transactions/native';
-    //Native下单API-服务商模式
+    //NativeMô hình nhà cung cấp dịch vụ API đặt hàng
     const API_NATIVE_PARTNER_URL = 'v3/pay/partner/transactions/native';
-    //h5支付接口
+    //h5Giao diện thanh toán
     const API_H5_URL = 'v3/pay/transactions/h5';
-    //h5支付接口-服务商模式
+    //h5Mô hình nhà cung cấp dịch vụ giao diện thanh toán
     const API_H5_PARTNER_URL = 'v3/pay/partner/transactions/h5';
-    //jsapi支付接口
+    //jsapiGiao diện thanh toán
     const API_JSAPI_URL = 'v3/pay/transactions/jsapi';
-    //jsapi支付接口-服务商模式
+    //jsapiMô hình nhà cung cấp dịch vụ giao diện thanh toán
     const API_JSAPI_PARTNER_URL = 'v3/pay/partner/transactions/jsapi';
-    //发起商家转账API
+    //Bắt đầu chuyển nhượng người bánAPI
     const API_BATCHES_URL = 'v3/transfer/batches';
-    //退款
+    //Đền bù
     const API_REFUND_URL = 'v3/refund/domestic/refunds';
-    //退款查询接口
+    //Giao diện truy vấn hoàn tiền
     const API_REFUND_QUERY_URL = 'v3/refund/domestic/refunds/{out_refund_no}';
-    //发起转账
+    //Bắt đầu chuyển khoản
     const API_TRANSFER_BILLS_URL = 'v3/fund-app/mch-transfer/transfer-bills';
-    //查询转账
+    //Hỏi về chuyển khoản
     const API_TRANSFER_QUERY_URL = 'v3/fund-app/mch-transfer/transfer-bills/out-bill-no/{out_bill_no}';
 
     /**
@@ -58,7 +58,7 @@ class PayClient extends BaseClient
     /**
      * @param string $type
      * @return $this
-     * @author 等风来
+     * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/10
      */
@@ -69,7 +69,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * 公众号jsapi支付下单
+     * Lệnh thanh toán jsapi tài khoản công cộng
      * @param string $outTradeNo
      * @param string $total
      * @param string $description
@@ -84,7 +84,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * 小程序支付
+     * Thanh toán chương trình nhỏ
      * @param string $outTradeNo
      * @param string $total
      * @param string $description
@@ -99,7 +99,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * APP支付下单
+     * APPTrả tiền cho đơn hàng
      * @param string $outTradeNo
      * @param string $total
      * @param string $description
@@ -113,7 +113,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * native支付下单
+     * nativeTrả tiền cho đơn hàng
      * @param string $outTradeNo
      * @param string $total
      * @param string $description
@@ -126,7 +126,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * h5支付下单
+     * h5Trả tiền cho đơn hàng
      * @param string $outTradeNo
      * @param string $total
      * @param string $description
@@ -139,7 +139,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * 下单
+     * Đặt hàng
      * @param string $type
      * @param string $appid
      * @param string $outTradeNo
@@ -170,7 +170,7 @@ class PayClient extends BaseClient
             $data['payer'] = $payer;
         }
 
-        //服务商支付模式
+        //Mô hình thanh toán của nhà cung cấp dịch vụ
         if ($this->app['config']['v3_payment']['mer_type']) {
 
             $mchid = $data['mchid'];
@@ -232,13 +232,13 @@ class PayClient extends BaseClient
 
 
         if (!$url) {
-            throw new PayException('缺少请求地址');
+            throw new PayException('Thiếu địa chỉ yêu cầu');
         }
 
         $res = $this->request($url, 'POST', ['json' => $data]);
 
         if (!$res) {
-            throw new PayException('微信支付:下单失败');
+            throw new PayException('WeChat trả tiền:Đặt hàng không thành công');
         }
         if (isset($res['code']) && isset($res['message'])) {
             throw new PayException($res['message']);
@@ -248,7 +248,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * 发起商家转账API
+     * Bắt đầu chuyển nhượng người bánAPI
      * @param string $outBatchNo
      * @param string $amount
      * @param string $batchName
@@ -262,7 +262,7 @@ class PayClient extends BaseClient
         $amount = bcadd($amount, '0', 2);
         foreach ($transferDetailList as &$item) {
             if ($item['transfer_amount'] >= 2000 && empty($item['user_name'])) {
-                throw new PayException('明细金额大于等于2000时,收款人姓名必须填写');
+                throw new PayException('Khi số tiền chi tiết lớn hơn hoặc bằng 2000,Tên người nhận thanh toán là bắt buộc');
             }
             $totalFee = bcadd($totalFee, $item['transfer_amount'], 2);
             $item['transfer_amount'] = (int)bcmul($item['transfer_amount'], 100, 0);
@@ -272,7 +272,7 @@ class PayClient extends BaseClient
         }
 
         if ($totalFee !== $amount) {
-            throw new PayException('转账明细金额总和和转账总金额不一致');
+            throw new PayException('Tổng số tiền chuyển khoản không khớp với tổng số tiền chuyển khoản');
         }
 
         $amount = (int)bcmul($amount, 100, 0);
@@ -287,7 +287,7 @@ class PayClient extends BaseClient
         }
 
         if (!$appid) {
-            throw new PayException('暂时只支持微信用户、小程序用户、APP微信登录用户提现');
+            throw new PayException('Hiện tại, chỉ người dùng WeChat, người dùng chương trình nhỏ và người dùng đã đăng nhập APP WeChat mới có thể rút tiền mặt.');
         }
 
         $data = [
@@ -303,7 +303,7 @@ class PayClient extends BaseClient
         $res = $this->request(self::API_BATCHES_URL, 'POST', ['json' => $data]);
 
         if (!$res) {
-            throw new PayException('微信支付:发起商家转账失败');
+            throw new PayException('WeChat trả tiền:Không thể bắt đầu chuyển giao người bán');
         }
 
         if (isset($res['code']) && isset($res['message'])) {
@@ -325,11 +325,11 @@ class PayClient extends BaseClient
             $appid = $this->app['config']['app']['appid'];
         }
         if ($appid === '') {
-            throw new PayException('暂时只支持微信用户、小程序用户、APP微信登录用户提现');
+            throw new PayException('Hiện tại, chỉ người dùng WeChat, người dùng chương trình nhỏ và người dùng đã đăng nhập APP WeChat mới có thể rút tiền mặt.');
         }
         if ($transfer_amount > 200000) {
             if ($user_name === '') {
-                throw new PayException('金额大于等于2000时，收款人姓名必须填写');
+                throw new PayException('Khi số tiền lớn hơn hoặc bằng 2.000 thì phải điền tên người nhận tiền');
             }
             $user_name = $this->encryptor($user_name);
         } else {
@@ -348,7 +348,7 @@ class PayClient extends BaseClient
         $data['transfer_scene_report_infos'] = $transfer_scene_report_infos;
         $res = $this->request(self::API_TRANSFER_BILLS_URL, 'POST', ['json' => $data]);
         if (!$res || isset($res['code'], $res['message'])) {
-            throw new PayException($res['message'] ?? '微信支付:发起商家转账失败');
+            throw new PayException($res['message'] ?? 'WeChat trả tiền:Không thể bắt đầu chuyển giao người bán');
         }
         return $res;
     }
@@ -358,14 +358,14 @@ class PayClient extends BaseClient
         $res = $this->request($this->getApiUrl(self::API_TRANSFER_QUERY_URL, ['out_bill_no'], [$outBillNo]), 'GET');
 
         if (!$res) {
-            throw new PayException('发起退款查询失败');
+            throw new PayException('Không thể bắt đầu yêu cầu hoàn tiền');
         }
 
         return $res;
     }
 
     /**
-     * 退款
+     * Đền bù
      * @param string $outTradeNo
      * @param array $options
      * @return mixed
@@ -373,15 +373,15 @@ class PayClient extends BaseClient
     public function refund(string $outTradeNo, array $options = [])
     {
         if (!isset($options['pay_price'])) {
-            throw new PayException('缺少pay_price');
+            throw new PayException('Thiếupay_price');
         }
         $totalFee = floatval(bcmul($options['pay_price'], 100, 0));
         $refundFee = isset($options['refund_price']) ? floatval(bcmul($options['refund_price'], 100, 0)) : null;
         $refundReason = $options['desc'] ?? '';
         $refundNo = $options['refund_id'] ?? $outTradeNo;
-        /*仅针对老资金流商户使用
-        REFUND_SOURCE_UNSETTLED_FUNDS---未结算资金退款（默认使用未结算资金退款）
-        REFUND_SOURCE_RECHARGE_FUNDS---可用余额退款
+        /*Chỉ dành cho người bán dòng tiền cũ
+        REFUND_SOURCE_UNSETTLED_FUNDS---Hoàn tiền cho các khoản tiền chưa thanh toán (hoàn trả các khoản tiền chưa thanh toán được sử dụng theo mặc định)
+        REFUND_SOURCE_RECHARGE_FUNDS---Hoàn lại số dư khả dụng
         */
         $refundAccount = $opt['refund_account'] ?? 'AVAILABLE';
 
@@ -400,7 +400,7 @@ class PayClient extends BaseClient
             $data['reason'] = $refundReason;
         }
 
-        //服务商支付退款
+        //Nhà cung cấp dịch vụ trả tiền hoàn lại
         $merType = $this->app['config']['v3_payment']['mer_type'];
         if ($merType) {
             $data['sub_mchid'] = $this->app['config']['v3_payment']['sub_mch_id'];
@@ -409,7 +409,7 @@ class PayClient extends BaseClient
         $res = $this->request(self::API_REFUND_URL, 'POST', ['json' => $data]);
 
         if (!$res) {
-            throw new PayException('微信支付:发起退款失败');
+            throw new PayException('WeChat trả tiền:Không thể bắt đầu hoàn tiền');
         }
 
         if (isset($res['code']) && isset($res['message'])) {
@@ -420,7 +420,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * 查询退款
+     * Yêu cầu hoàn tiền
      * @param string $outRefundNo
      * @return mixed
      */
@@ -429,7 +429,7 @@ class PayClient extends BaseClient
         $res = $this->request($this->getApiUrl(self::API_REFUND_QUERY_URL, ['out_refund_no'], [$outRefundNo]), 'GET');
 
         if (!$res) {
-            throw new PayException('发起退款查询失败');
+            throw new PayException('Không thể bắt đầu yêu cầu hoàn tiền');
         }
 
         if (isset($res['code']) && isset($res['message'])) {
@@ -440,7 +440,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * jsapi支付
+     * jsapichi trả
      * @param string $appid
      * @param string $prepayId
      * @param bool $json
@@ -495,7 +495,7 @@ class PayClient extends BaseClient
     }
 
     /**
-     * 小程序支付
+     * Thanh toán chương trình nhỏ
      * @param string $appid
      * @param string $prepayId
      * @return array|false|string

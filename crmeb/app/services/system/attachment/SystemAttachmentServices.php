@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -24,9 +24,9 @@ use app\services\other\UploadService;
  *
  * Class SystemAttachmentServices
  * @package app\services\attachment
- * @method getYesterday() 获取昨日生成数据
- * @method delYesterday() 删除昨日生成数据
- * @method scanUploadImage($scan_token) 获取扫码上传的图片数据
+ * @method getYesterday() Nhận dữ liệu được tạo của ngày hôm qua
+ * @method delYesterday() Xóa dữ liệu được tạo của ngày hôm qua
+ * @method scanUploadImage($scan_token) Lấy dữ liệu hình ảnh được tải lên bằng cách quét mã QR
  */
 class SystemAttachmentServices extends BaseServices
 {
@@ -41,7 +41,7 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 获取单个资源
+     * Nhận một tài nguyên duy nhất
      * @param array $where
      * @param string $field
      * @return array
@@ -55,7 +55,7 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 获取图片列表
+     * Lấy danh sách hình ảnh
      * @param array $where
      * @return array
      */
@@ -77,13 +77,13 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 删除图片
+     * Xóa ảnh
      * @param string $ids
      */
     public function del(string $ids)
     {
         $ids = explode(',', $ids);
-        if (empty($ids)) throw new AdminException('请选择要删除的图片');
+        if (empty($ids)) throw new AdminException('Vui lòng chọn ảnh cần xóa');
         foreach ($ids as $v) {
             $attinfo = $this->dao->get((int)$v);
             if ($attinfo) {
@@ -105,7 +105,7 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 图片上传
+     * Tải lên hình ảnh
      * @param int $pid
      * @param string $file
      * @param int $upload_type
@@ -125,7 +125,7 @@ class SystemAttachmentServices extends BaseServices
         try {
             $path = make_path('attach', 2, true);
             if ($path === '') {
-                throw new AdminException('无法创建文件夹，请检查您的上传目录权限');
+                throw new AdminException('Không thể tạo thư mục, vui lòng kiểm tra quyền thư mục tải lên của bạn');
             }
             $upload = UploadService::init($upload_type);
             $res = $upload->to($path)->validate()->move($file, $realName);
@@ -165,7 +165,7 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 添加信息
+     * Thêm thông tin
      * @param array $data
      */
     public function save(array $data)
@@ -174,7 +174,7 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * TODO 添加附件记录
+     * TODO Thêm bản ghi đính kèm
      * @param $name
      * @param $att_size
      * @param $att_type
@@ -199,13 +199,13 @@ class SystemAttachmentServices extends BaseServices
         $data['type'] = $type;
         $data['real_name'] = $real_name != '' ? $real_name : $name;
         if (!$this->dao->save($data)) {
-            throw new ApiException('添加失败');
+            throw new ApiException('Thêm không thành công');
         }
         return true;
     }
 
     /**
-     * 推广名片生成
+     * Tạo danh thiếp quảng cáo
      * @param $name
      */
     public function getLikeNameList($name)
@@ -214,7 +214,7 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 清除昨日海报
+     * Xóa áp phích ngày hôm qua
      * @return bool
      * @throws \Exception
      */
@@ -247,7 +247,7 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 视频分片上传
+     * Tải lên nhiều phần video
      * @param $data
      * @param $file
      * @return mixed
@@ -256,7 +256,7 @@ class SystemAttachmentServices extends BaseServices
     {
         $pathinfo = pathinfo($data['filename']);
         if (isset($pathinfo['extension']) && !in_array($pathinfo['extension'], ['avi', 'mp4', 'wmv', 'rm', 'mpg', 'mpeg', 'mov', 'flv', 'swf'])) {
-            throw new AdminException('格式错误');
+            throw new AdminException('Lỗi định dạng');
         }
         $data['chunkNumber'] = (int)$data['chunkNumber'];
         $public_dir = app()->getRootPath() . 'public';
@@ -293,22 +293,22 @@ class SystemAttachmentServices extends BaseServices
     }
 
     /**
-     * 网络图片上传
+     * Tải hình ảnh lên Internet
      * @param $data
      * @return bool
      * @throws \Exception
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
      */
     public function onlineUpload($data)
     {
-        //生成附件目录
+        //Tạo thư mục đính kèm
         if (make_path('attach', 3, true) === '') {
-            throw new AdminException('无法创建文件夹，请检查您的上传目录权限');
+            throw new AdminException('Không thể tạo thư mục, vui lòng kiểm tra quyền thư mục tải lên của bạn');
         }
 
-        //上传图片
+        //Tải ảnh lên
         /** @var SystemAttachmentServices $systemAttachmentService */
         $systemAttachmentService = app()->make(SystemAttachmentServices::class);
         $siteUrl = sys_config('site_url');
@@ -316,13 +316,13 @@ class SystemAttachmentServices extends BaseServices
         foreach ($data['images'] as $image) {
             $uploadValue = app()->make(CopyTaobaoServices::class)->downloadImage($image);
             if (is_array($uploadValue)) {
-                //TODO 拼接图片地址
+                //TODO Địa chỉ nối ảnh
                 if ($uploadValue['image_type'] == 1) {
                     $imagePath = $siteUrl . $uploadValue['path'];
                 } else {
                     $imagePath = $uploadValue['path'];
                 }
-                //写入数据库
+                //Ghi vào cơ sở dữ liệu
                 if (!$uploadValue['is_exists']) {
                     $systemAttachmentService->save([
                         'name' => $uploadValue['name'],

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,108 +15,108 @@ use crmeb\exceptions\AdminException;
 use think\facade\Log;
 
 /**
- * Node.js 环境管理服务类
+ * Node.js Dịch vụ quản lý môi trường
  *
- * 功能概述:
- * 本服务类负责检测和管理小程序 CI 上传所需的运行环境，
- * 包括 Node.js、npm 和 miniprogram-ci 工具的检测与安装指导。
+ * Tổng quan về chức năng:
+ * Lớp dịch vụ này chịu trách nhiệm phát hiện và quản lý môi trường hoạt động cần thiết để tải lên CI chương trình nhỏ.
+ * Bao gồm hướng dẫn phát hiện và cài đặt cho các công cụ Node.js, npm và miniprogram-ci.
  *
- * 主要功能:
- * 1. 环境检测 - 检测 Node.js、npm、miniprogram-ci 的安装状态和版本
- * 2. 系统识别 - 识别操作系统类型 (CentOS/Ubuntu/macOS/Windows)
- * 3. 安装指南 - 根据操作系统提供对应的安装命令
- * 4. exec 函数检测 - 检查 PHP 的 exec() 函数是否可用
+ * Chức năng chính:
+ * 1. Phát hiện môi trường - phát hiện trạng thái cài đặt và phiên bản của Node.js, npm, miniprogram-ci
+ * 2. Nhận dạng hệ thống - xác định loại hệ điều hành (CentOS/Ubuntu/macOS/Windows)
+ * 3. Hướng dẫn cài đặt - Cung cấp các lệnh cài đặt tương ứng theo hệ điều hành
+ * 4. Phát hiện hàm exec - kiểm tra PHP exec() Chức năng này có sẵn không?
  *
- * 环境要求:
- * - Node.js >= 14.0.0 (推荐 18.x LTS)
- * - npm (随 Node.js 一起安装)
- * - miniprogram-ci (通过 npm install -g miniprogram-ci 全局安装)
- * - PHP exec() 函数未被禁用
+ * Yêu cầu về môi trường:
+ * - Node.js >= 14.0.0 (gợi ý 18.x LTS)
+ * - npm (Đã cài đặt với Node.js)
+ * - miniprogram-ci (Cài đặt trên toàn cầu thông qua npm install -g miniprogram-ci)
+ * - PHP exec() Chức năng không bị vô hiệu hóa
  *
  * @package app\services\system
  */
 class NodeEnvironmentServices extends BaseServices
 {
     /**
-     * Node.js 最低版本要求
+     * Node.js Yêu cầu phiên bản tối thiểu
      *
-     * miniprogram-ci 工具需要 Node.js 14.0.0 或更高版本。
+     * Công cụ miniprogram-ci yêu cầu Node.js 14.0.0 trở lên。
      */
     const MIN_NODE_VERSION = '14.0.0';
 
     /**
-     * 推荐的 Node.js 版本
+     * Phiên bản Node.js được đề xuất
      *
-     * 推荐使用 Node.js 18 LTS 版本，提供更好的性能和安全性。
+     * Nên sử dụng phiên bản Node.js 18 LTS để mang lại hiệu suất và bảo mật tốt hơn。
      */
     const RECOMMENDED_NODE_VERSION = '18';
 
     /**
-     * 获取完整的环境状态信息
+     * Nhận thông tin trạng thái môi trường đầy đủ
      *
-     * 检测并返回小程序 CI 上传所需的所有环境信息，
-     * 前端根据这些信息展示环境就绪状态或引导用户完成环境配置。
+     * Phát hiện và trả về tất cả thông tin môi trường cần thiết để tải lên CI chương trình nhỏ,
+     * Giao diện người dùng hiển thị trạng thái sẵn sàng của môi trường hoặc hướng dẫn người dùng hoàn tất cấu hình môi trường dựa trên thông tin này.
      *
-     * @return array 完整的环境状态信息，包含:
-     *               - os: 操作系统信息 {family, type, version}
-     *               - node: Node.js 状态 {installed, version, path, meets_requirement}
-     *               - npm: npm 状态 {installed, version}
-     *               - miniprogram_ci: CI工具状态 {installed, version}
-     *               - ready: 环境是否完全就绪
-     *               - can_install: 是否支持自动安装
-     *               - exec_enabled: exec 函数是否可用
-     *               - message: 提示信息
+     * @return mảng thông tin trạng thái môi trường đầy đủ, bao gồm:
+     *               - os: Thông tin hệ điều hành {family, type, version}
+     *               - node: Node.js tình trạng {installed, version, path, meets_requirement}
+     *               - npm: npm tình trạng {installed, version}
+     *               - miniprogram_ci: CItrạng thái công cụ {installed, version}
+     *               - ready: Môi trường đã hoàn toàn sẵn sàng chưa?
+     *               - can_install: Có hỗ trợ cài đặt tự động hay không
+     *               - exec_enabled: exec Chức năng này có sẵn không?
+     *               - message: Tin nhắn nhắc nhở
      */
     public function getEnvironmentStatus(): array
     {
-        // 检测各项环境
-        $nodeInfo = $this->checkNodeInstalled();       // Node.js 状态
-        $npmInfo = $this->checkNpmInstalled();         // npm 状态
-        $ciInfo = $this->checkMiniprogramCIInstalled(); // miniprogram-ci 状态
-        $osInfo = $this->getOsInfo();                  // 操作系统信息
-        $execEnabled = $this->isExecEnabled();         // exec 函数可用性
+        // Kiểm tra các môi trường khác nhau
+        $nodeInfo = $this->checkNodeInstalled();       // Node.js tình trạng
+        $npmInfo = $this->checkNpmInstalled();         // npm tình trạng
+        $ciInfo = $this->checkMiniprogramCIInstalled(); // miniprogram-ci tình trạng
+        $osInfo = $this->getOsInfo();                  // Thông tin hệ điều hành
+        $execEnabled = $this->isExecEnabled();         // exec Tính khả dụng của chức năng
 
         return [
-            'os' => $osInfo,                           // 操作系统信息
-            'node' => $nodeInfo,                       // Node.js 状态
-            'npm' => $npmInfo,                         // npm 状态
-            'miniprogram_ci' => $ciInfo,               // miniprogram-ci 状态
-            // 环境就绪条件: Node.js + npm + miniprogram-ci 均已安装且 exec 可用
+            'os' => $osInfo,                           // Thông tin hệ điều hành
+            'node' => $nodeInfo,                       // Node.js tình trạng
+            'npm' => $npmInfo,                         // npm tình trạng
+            'miniprogram_ci' => $ciInfo,               // miniprogram-ci Trạng thái
+            //Điều kiện sẵn sàng của môi trường: Node.js + npm + miniprogram-ci Cả hai đều được cài đặt và thực thi có sẵn
             'ready' => $nodeInfo['installed'] && $npmInfo['installed'] && $ciInfo['installed'] && $execEnabled,
-            'can_install' => $this->canAutoInstall(),  // 是否支持自动安装
-            'exec_enabled' => $execEnabled,            // exec 函数是否可用
-            'message' => $execEnabled ? '' : '服务器禁用了 exec 函数，无法使用小程序上传功能。请联系服务器管理员启用 exec 函数。',
+            'can_install' => $this->canAutoInstall(),  // Có hỗ trợ cài đặt tự động hay không
+            'exec_enabled' => $execEnabled,            // exec Chức năng này có sẵn không?
+            'message' => $execEnabled ? '' : 'Máy chủ đã tắt chức năng thực thi và không thể sử dụng chức năng tải lên chương trình mini. Vui lòng liên hệ với quản trị viên máy chủ của bạn để kích hoạt chức năng exec。',
         ];
     }
 
     /**
-     * 检查 PHP exec() 函数是否可用
+     * nghiên cứu PHP exec() Chức năng này có sẵn không?
      *
-     * 小程序 CI 上传功能依赖 PHP 的 exec() 函数来执行命令行工具。
-     * 很多服务器出于安全考虑会禁用该函数，需要检测其可用性。
+     * Chức năng tải lên CI của chương trình mini dựa trên PHP exec() Chức năng thực thi các công cụ dòng lệnh.
+     * Nhiều máy chủ sẽ tắt chức năng này vì lý do bảo mật và cần phải kiểm tra tính khả dụng của nó.
      *
-     * 检测步骤:
-     * 1. 检查 exec 函数是否存在
-     * 2. 检查 disable_functions 配置中是否包含 exec
-     * 3. 尝试执行简单命令验证实际可用性
+     * Các bước phát hiện:
+     * 1. Kiểm tra xem chức năng exec có tồn tại không
+     * 2. Kiểm tra xem cấu hìnhdisable_functions có chứa exec hay không
+     * 3. Thử thực hiện một lệnh đơn giản để xác minh tính khả dụng thực tế
      *
-     * @return bool exec 函数可用返回 true，否则返回 false
+     * @return hàm exec bool có thể trả về true, nếu không thì trả về false
      */
     public function isExecEnabled(): bool
     {
-        // 检查 exec 函数是否存在
+        // Kiểm tra xem chức năng exec có tồn tại không
         if (!function_exists('exec')) {
             return false;
         }
 
-        // 检查 disable_functions 配置中是否禁用了 exec
+        // Kiểm tra xem vô hiệu hóa chức năng có bị tắt trong cấu hình không exec
         $disabled = explode(',', ini_get('disable_functions'));
         $disabled = array_map('trim', $disabled);
         if (in_array('exec', $disabled)) {
             return false;
         }
 
-        // 尝试执行一个简单命令验证实际可用性
+        // Hãy thử thực hiện một lệnh đơn giản để xác minh tính khả dụng thực tế
         $output = [];
         $code = 0;
         @exec('echo test 2>&1', $output, $code);
@@ -125,15 +125,15 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * 检查 Node.js 是否已安装
+     * Kiểm tra xem Node.js đã được cài đặt chưa
      *
-     * 通过执行 node -v 命令获取 Node.js 的安装状态和版本信息。
+     * Lấy trạng thái cài đặt và thông tin phiên bản của Node.js bằng cách thực hiện lệnh node -v.
      *
-     * @return array Node.js 状态信息，包含:
-     *               - installed: 是否已安装
-     *               - version: 版本号 (如 18.17.0)
-     *               - path: 可执行文件路径
-     *               - meets_requirement: 是否满足最低版本要求
+     * @return mảng Thông tin trạng thái Node.js, bao gồm:
+     *               - installed: Nó đã được cài đặt chưa
+     *               - version: số phiên bản (giống 18.17.0)
+     *               - path: Đường dẫn tập tin thực thi
+     *               - meets_requirement: Nó có đáp ứng các yêu cầu phiên bản tối thiểu không?
      */
     public function checkNodeInstalled(): array
     {
@@ -144,15 +144,15 @@ class NodeEnvironmentServices extends BaseServices
             'meets_requirement' => false,
         ];
 
-        // 执行 node -v 获取版本信息
+        // Thực thi node -v để lấy thông tin phiên bản
         $output = $this->execCommand('node -v 2>&1');
         if ($output && preg_match('/v?(\d+\.\d+\.\d+)/', $output, $matches)) {
             $result['installed'] = true;
             $result['version'] = $matches[1];
-            // 检查版本是否满足最低要求 (>= 14.0.0)
+            // Kiểm tra xem phiên bản có đáp ứng yêu cầu tối thiểu không (>= 14.0.0)
             $result['meets_requirement'] = version_compare($matches[1], self::MIN_NODE_VERSION, '>=');
 
-            // 获取 node 可执行文件的完整路径
+            // Nhận đường dẫn đầy đủ đến tệp thực thi của nút
             $path = $this->execCommand('which node 2>&1');
             $result['path'] = trim($path);
         }
@@ -161,14 +161,14 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * 检查 npm 是否已安装
+     * Kiểm tra xem npm đã được cài đặt chưa
      *
-     * npm 是 Node.js 的包管理器，通常随 Node.js 一起安装。
-     * 用于安装 miniprogram-ci 等 npm 包。
+     * npm là trình quản lý gói cho Node.js và thường được cài đặt cùng với Node.js.
+     * Được sử dụng để cài đặt các gói npm như miniprogram-ci.
      *
-     * @return array npm 状态信息，包含:
-     *               - installed: 是否已安装
-     *               - version: 版本号
+     * @return mảng thông tin trạng thái npm, bao gồm:
+     *               - installed: Nó đã được cài đặt chưa
+     *               - version: số phiên bản
      */
     public function checkNpmInstalled(): array
     {
@@ -177,7 +177,7 @@ class NodeEnvironmentServices extends BaseServices
             'version' => '',
         ];
 
-        // 执行 npm -v 获取版本信息
+        // Thực thi npm -v để lấy thông tin phiên bản
         $output = $this->execCommand('npm -v 2>&1');
         if ($output && preg_match('/(\d+\.\d+\.\d+)/', $output, $matches)) {
             $result['installed'] = true;
@@ -188,14 +188,14 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * 检查 miniprogram-ci 是否已全局安装
+     * Kiểm tra xem miniprogram-ci có được cài đặt trên toàn cầu không
      *
-     * miniprogram-ci 是微信官方提供的小程序代码上传工具。
-     * 需要通过 npm install -g miniprogram-ci 全局安装。
+     * miniprogram-ci là công cụ tải lên mã chương trình mini được WeChat cung cấp chính thức.
+     * Yêu cầu cài đặt toàn cầu thông qua npm install -g miniprogram-ci.
      *
-     * @return array miniprogram-ci 状态信息，包含:
-     *               - installed: 是否已安装
-     *               - version: 版本号
+     * @return mảng thông tin trạng thái chương trình nhỏ-ci, bao gồm:
+     *               - installed: Nó đã được cài đặt chưa
+     *               - version: số phiên bản
      */
     public function checkMiniprogramCIInstalled(): array
     {
@@ -204,7 +204,7 @@ class NodeEnvironmentServices extends BaseServices
             'version' => '',
         ];
 
-        // 通过 npm list -g 检查全局安装的包
+        // Kiểm tra các gói được cài đặt trên toàn cầu thông qua npm list -g
         $output = $this->execCommand('npm list -g miniprogram-ci --depth=0 2>&1');
         if ($output && preg_match('/miniprogram-ci@(\d+\.\d+\.\d+)/', $output, $matches)) {
             $result['installed'] = true;
@@ -215,33 +215,33 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * 获取操作系统信息
+     * Nhận thông tin hệ điều hành
      *
-     * 识别服务器的操作系统类型，用于提供对应的安装指南。
-     * 使用命令行方式检测，避免受 open_basedir 限制影响。
+     * Xác định loại hệ điều hành của máy chủ để cung cấp hướng dẫn cài đặt tương ứng.
+     * Sử dụng tính năng phát hiện dòng lệnh để tránh bị ảnh hưởng bởi các hạn chế open_basedir.
      *
-     * 支持识别的系统:
-     * - Linux: CentOS/RHEL/Rocky/Ubuntu/Debian/Alpine 等
-     * - macOS: 通过 sw_vers 获取版本
-     * - Windows: 通过 PHP_OS_FAMILY 识别
+     * Hỗ trợ hệ thống nhận dạng:
+     * - Linux: CentOS/RHEL/Rocky/Ubuntu/Debian/Alpine Chờ đợi
+     * - macOS: Nhận phiên bản qua sw_vers
+     * - Windows: Được xác định bởi PHP_OS_FAMILY
      *
-     * @return array 操作系统信息，包含:
-     *               - family: 系统家族 (Linux/Darwin/Windows)
-     *               - type: 具体类型 (centos/ubuntu/debian/macos/windows)
-     *               - version: 系统版本号
+     * @return mảng thông tin hệ điều hành, bao gồm:
+     *               - family: gia đình hệ thống (Linux/Darwin/Windows)
+     *               - type: loại bê tông (centos/ubuntu/debian/macos/windows)
+     *               - version: Số phiên bản hệ thống
      */
     public function getOsInfo(): array
     {
-        $os = PHP_OS_FAMILY;  // 获取 PHP 识别的操作系统家族
+        $os = PHP_OS_FAMILY;  // Nhận họ hệ điều hành được PHP công nhận
         $type = 'unknown';
         $version = '';
 
         if ($os === 'Linux') {
-            // Linux 系统: 通过命令行读取 /etc/os-release 获取发行版信息
+            // Linux hệ thống: Đọc /etc/os-release thông qua dòng lệnh để lấy thông tin phát hành
             $osRelease = $this->execCommand('cat /etc/os-release 2>/dev/null');
 
             if ($osRelease) {
-                // 解析 os-release 文件内容
+                // Phân tích nội dung của tệp phát hành os
                 $lines = explode("\n", $osRelease);
                 $osInfo = [];
                 foreach ($lines as $line) {
@@ -254,9 +254,9 @@ class NodeEnvironmentServices extends BaseServices
                 $id = strtolower($osInfo['ID'] ?? '');
                 $version = $osInfo['VERSION_ID'] ?? '';
 
-                // 映射操作系统类型
+                // Bản đồ loại hệ điều hành
                 if (in_array($id, ['centos', 'rhel', 'rocky', 'almalinux', 'fedora'])) {
-                    $type = 'centos';  // Red Hat 系列
+                    $type = 'centos';  // Red Hat loạt
                 } elseif ($id === 'ubuntu') {
                     $type = 'ubuntu';
                 } elseif (in_array($id, ['debian', 'raspbian'])) {
@@ -267,49 +267,49 @@ class NodeEnvironmentServices extends BaseServices
                     $type = $id ?: 'linux';
                 }
             } else {
-                // 备用方案: 使用 uname 命令
+                // kế hoạch dự phòng: Sử dụng lệnh uname
                 $uname = $this->execCommand('uname -a 2>/dev/null');
                 $type = 'linux';
                 $version = $uname ?: '';
             }
         } elseif ($os === 'Darwin') {
-            // macOS 系统
+            // macOS hệ thống
             $type = 'macos';
             $version = $this->execCommand('sw_vers -productVersion 2>&1') ?: '';
         } elseif ($os === 'Windows') {
-            // Windows 系统
+            // Windows hệ thống
             $type = 'windows';
         }
 
         return [
-            'family' => $os,            // 系统家族
-            'type' => $type,            // 具体类型
-            'version' => trim($version), // 版本号
+            'family' => $os,            // gia đình hệ thống
+            'type' => $type,            // loại bê tông
+            'version' => trim($version), // số phiên bản
         ];
     }
 
     /**
-     * 检查是否支持自动安装
+     * Kiểm tra xem cài đặt tự động có được hỗ trợ không
      *
-     * 检查服务器环境是否支持自动安装 Node.js 和相关工具。
-     * 自动安装功能依赖于操作系统类型和 PHP 函数可用性。
+     * Kiểm tra xem môi trường máy chủ có hỗ trợ cài đặt tự động Node.js và các công cụ liên quan hay không.
+     *Chức năng cài đặt tự động tùy thuộc vào loại hệ điều hành và tính khả dụng của chức năng PHP.
      *
-     * 支持的操作系统: CentOS/RHEL、Ubuntu、Debian、Alpine、macOS
+     * Hệ điều hành được hỗ trợ: CentOS/RHEL、Ubuntu、Debian、Alpine、macOS
      *
-     * @return bool 支持自动安装返回 true
+     * @return bool Hỗ trợ quay lại cài đặt tự động true
      */
     public function canAutoInstall(): bool
     {
         $os = $this->getOsInfo();
 
-        // 支持自动安装的操作系统列表
+        // Danh sách hệ điều hành hỗ trợ cài đặt tự động
         $supportedOs = ['centos', 'rhel', 'ubuntu', 'debian', 'alpine', 'macos'];
 
         if (!in_array($os['type'], $supportedOs)) {
             return false;
         }
 
-        // 检查是否有执行命令的权限 (exec 或 shell_exec)
+        // Kiểm tra xem bạn có quyền thực thi lệnh không (exec hoặc shell_exec)
         if (!function_exists('exec') && !function_exists('shell_exec')) {
             return false;
         }
@@ -318,22 +318,22 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * 执行命令并返回输出
+     * Thực hiện lệnh và trả về đầu ra
      *
-     * 封装的命令执行方法，优先使用 exec，如果不可用则尝试 shell_exec。
+     * Phương thức thực thi lệnh được đóng gói, sử dụng exec trước, nếu không có thì thử shell_exec。
      *
-     * @param string $command 要执行的命令
-     * @return string|null 命令输出，执行失败返回 null
+     * @param string $command lệnh để thực thi
+     * @return string|null Đầu ra lệnh, trả về nếu thực thi không thành công null
      */
     protected function execCommand(string $command): ?string
     {
-        // 优先使用 exec 函数
+        // Thích sử dụng chức năng exec
         if (function_exists('exec')) {
             $output = [];
             exec($command, $output);
             return implode("\n", $output);
         }
-        // 备用: 使用 shell_exec 函数
+        // dự phòng: Sử dụng hàm shell_exec
         elseif (function_exists('shell_exec')) {
             return shell_exec($command);
         }
@@ -342,11 +342,11 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * 获取一键安装脚本 URL
+     * Nhận URL tập lệnh cài đặt bằng một cú nhấp chuột
      *
-     * 返回用于自动安装 Node.js 环境的 Shell 脚本地址。
+     * Trả về địa chỉ của tập lệnh shell được sử dụng để tự động cài đặt môi trường Node.js.
      *
-     * @return string 安装脚本的 URL 地址
+     * @return địa chỉ URL chuỗi của tập lệnh cài đặt
      */
     public function getInstallScriptUrl(): string
     {
@@ -355,116 +355,116 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * 获取安装指南 (手动安装说明)
+     * Nhận hướng dẫn cài đặt (Hướng dẫn cài đặt thủ công)
      *
-     * 根据服务器操作系统类型返回对应的 Node.js 和 miniprogram-ci 安装步骤。
-     * 每个操作系统都有专门优化的安装命令。
+     * Trả về các bước cài đặt Node.js và miniprogram-ci tương ứng theo loại hệ điều hành máy chủ.
+     * Mỗi hệ điều hành đều có các lệnh cài đặt được tối ưu hóa đặc biệt.
      *
-     * 支持的操作系统:
-     * - CentOS/RHEL: 使用 NodeSource 的 rpm 仓库
-     * - Ubuntu/Debian: 使用 NodeSource 的 deb 仓库
-     * - macOS: 使用 Homebrew 包管理器
-     * - Windows: 从 Node.js 官网下载安装包
+     * Hệ điều hành được hỗ trợ:
+     * - CentOS/RHEL: Sử dụng kho lưu trữ vòng/phút của NodeSource
+     * - Ubuntu/Debian: kho lưu trữ deb bằng NodeSource
+     * - macOS: Sử dụng trình quản lý gói Homebrew
+     * - Windows: Tải xuống gói cài đặt từ trang web chính thức của Node.js
      *
-     * @return array 安装指南信息，包含:
-     *               - title: 指南标题 (如 "CentOS/RHEL 安装指南")
-     *               - steps: 安装步骤数组，包含具体的命令行指令
-     *               - script_url: 一键安装脚本的 URL 地址
+     * @return thông tin hướng dẫn cài đặt mảng, bao gồm:
+     *               - title: Tiêu đề hướng dẫn (Chẳng hạn như "Hướng dẫn cài đặt CentOS/RHEL")
+     *               - steps: Mảng các bước cài đặt, chứa hướng dẫn dòng lệnh cụ thể
+     *               - script_url: Địa chỉ URL của tập lệnh cài đặt bằng một cú nhấp chuột
      */
     public function getInstallGuide(): array
     {
-        // 获取当前操作系统信息
+        // Nhận thông tin hệ điều hành hiện tại
         $os = $this->getOsInfo();
 
-        // 各操作系统的安装指南
+        // Hướng dẫn cài đặt cho từng hệ điều hành
         $guides = [
-            // CentOS/RHEL 系列 - 使用 yum 包管理器
+            // CentOS/RHEL Series - sử dụng trình quản lý gói yum
             'centos' => [
-                'title' => 'CentOS/RHEL 安装指南',
+                'title' => 'CentOS/RHEL Hướng dẫn cài đặt',
                 'steps' => [
-                    '1. 添加 NodeSource 仓库:',
+                    '1. Thêm kho lưu trữ NodeSource:',
                     '   curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -',
-                    '2. 安装 Node.js:',
+                    '2. Cài đặt Node.js:',
                     '   sudo yum install -y nodejs',
-                    '3. 验证安装:',
+                    '3. Xác minh cài đặt:',
                     '   node -v && npm -v',
-                    '4. 安装 miniprogram-ci:',
+                    '4. Cài đặt miniprogram-ci:',
                     '   sudo npm install miniprogram-ci -g',
                 ],
             ],
-            // Ubuntu - 使用 apt 包管理器
+            // Ubuntu - Sử dụng trình quản lý gói apt
             'ubuntu' => [
-                'title' => 'Ubuntu/Debian 安装指南',
+                'title' => 'Ubuntu/Debian Hướng dẫn cài đặt',
                 'steps' => [
-                    '1. 添加 NodeSource 仓库:',
+                    '1. Thêm kho lưu trữ NodeSource:',
                     '   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -',
-                    '2. 安装 Node.js:',
+                    '2. Cài đặt Node.js:',
                     '   sudo apt-get install -y nodejs',
-                    '3. 验证安装:',
+                    '3. Xác minh cài đặt:',
                     '   node -v && npm -v',
-                    '4. 安装 miniprogram-ci:',
+                    '4. Cài đặt miniprogram-ci:',
                     '   sudo npm install miniprogram-ci -g',
                 ],
             ],
-            // Debian - 与 Ubuntu 相同
+            // Debian - Tương tự như Ubuntu
             'debian' => [
-                'title' => 'Ubuntu/Debian 安装指南',
+                'title' => 'Ubuntu/Debian Hướng dẫn cài đặt',
                 'steps' => [
-                    '1. 添加 NodeSource 仓库:',
+                    '1. Thêm kho lưu trữ NodeSource:',
                     '   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -',
-                    '2. 安装 Node.js:',
+                    '2. Cài đặt Node.js:',
                     '   sudo apt-get install -y nodejs',
-                    '3. 验证安装:',
+                    '3. Xác minh cài đặt:',
                     '   node -v && npm -v',
-                    '4. 安装 miniprogram-ci:',
+                    '4. Cài đặt miniprogram-ci:',
                     '   sudo npm install miniprogram-ci -g',
                 ],
             ],
-            // macOS - 使用 Homebrew
+            // macOS - sử dụng Homebrew
             'macos' => [
-                'title' => 'macOS 安装指南',
+                'title' => 'macOS Hướng dẫn cài đặt',
                 'steps' => [
-                    '1. 安装 Homebrew (如果未安装):',
+                    '1. Cài đặt Homebrew (Nếu không được cài đặt):',
                     '   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
-                    '2. 安装 Node.js:',
+                    '2. Cài đặt Node.js:',
                     '   brew install node@18',
-                    '3. 验证安装:',
+                    '3. Xác minh cài đặt:',
                     '   node -v && npm -v',
-                    '4. 安装 miniprogram-ci:',
+                    '4. Cài đặt miniprogram-ci:',
                     '   npm install miniprogram-ci -g',
                 ],
             ],
-            // Windows - 从官网下载安装
+            // Windows - Tải xuống và cài đặt từ trang web chính thức
             'windows' => [
-                'title' => 'Windows 安装指南',
+                'title' => 'Windows Hướng dẫn cài đặt',
                 'steps' => [
-                    '1. 下载 Node.js 安装包:',
-                    '   访问 https://nodejs.org/zh-cn/download/',
-                    '2. 运行安装程序，按提示完成安装',
-                    '3. 打开命令提示符，验证安装:',
+                    '1. Tải xuống gói cài đặt Node.js:',
+                    '   truy cập https://nodejs.org/zh-cn/download/',
+                    '2. Chạy trình cài đặt và làm theo lời nhắc để hoàn tất cài đặt',
+                    '3. Mở dấu nhắc lệnh và xác minh cài đặt:',
                     '   node -v && npm -v',
-                    '4. 安装 miniprogram-ci:',
+                    '4. Cài đặt miniprogram-ci:',
                     '   npm install miniprogram-ci -g',
                 ],
             ],
         ];
 
-        // 根据操作系统类型获取对应指南，未知系统使用通用指南
+        // Nhận hướng dẫn tương ứng dựa trên loại hệ điều hành, hướng dẫn chung cho các hệ thống chưa biết
         $type = $os['type'] ?: 'unknown';
         $guide = isset($guides[$type]) ? $guides[$type] : [
-            'title' => '通用安装指南',
+            'title' => 'Hướng dẫn cài đặt chung',
             'steps' => [
-                '1. 访问 Node.js 官网下载安装包:',
+                '1. Truy cập trang web chính thức của Node.js để tải xuống gói cài đặt:',
                 '   https://nodejs.org/zh-cn/download/',
-                '2. 按照官方文档完成安装',
-                '3. 验证安装:',
+                '2. Hoàn tất cài đặt theo tài liệu chính thức',
+                '3. Xác minh cài đặt:',
                 '   node -v && npm -v',
-                '4. 安装 miniprogram-ci:',
+                '4. Cài đặt miniprogram-ci:',
                 '   npm install miniprogram-ci -g',
             ],
         ];
 
-        // 添加一键安装脚本 URL
+        // Thêm tập lệnh cài đặt bằng một cú nhấp chuột URL
         $guide['script_url'] = $this->getInstallScriptUrl();
 
         return $guide;

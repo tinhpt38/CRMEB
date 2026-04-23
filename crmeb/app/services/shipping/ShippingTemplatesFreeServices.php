@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,16 +17,16 @@ use app\services\BaseServices;
 use crmeb\exceptions\AdminException;
 
 /**
- * 包邮
+ * miễn phí vận chuyển
  * Class ShippingTemplatesFreeServices
  * @package app\services\shipping
- * @method  delete($id, ?string $key = null) 删除数据
- * @method isFree($tempId, $cityid, $number, $price) 是否可以满足包邮
+ * @method  delete($id, ?string $key = null) Xóa dữ liệu
+ * @method isFree($tempId, $cityid, $number, $price) Có thể đáp ứng yêu cầu miễn phí vận chuyển?
  */
 class ShippingTemplatesFreeServices extends BaseServices
 {
     /**
-     * 构造方法
+     * Người xây dựng
      * ShippingTemplatesFreeServices constructor.
      * @param ShippingTemplatesDao $dao
      */
@@ -36,7 +36,7 @@ class ShippingTemplatesFreeServices extends BaseServices
     }
 
     /**
-     * 添加包邮信息
+     * Thêm thông tin vận chuyển miễn phí
      * @param array $appointInfo
      * @param int $type
      * @param int $tempId
@@ -59,7 +59,7 @@ class ShippingTemplatesFreeServices extends BaseServices
                     if (isset($value['children']) && is_array($value['children'])) {
                         foreach ($value['children'] as $vv) {
                             if (!isset($vv['city_id'])) {
-                                throw new AdminException('缺少城市id无法保存');
+                                throw new AdminException('Không thể lưu nếu không có id thành phố');
                             }
                             $placeList [] = [
                                 'temp_id' => $tempId,
@@ -83,7 +83,7 @@ class ShippingTemplatesFreeServices extends BaseServices
     }
 
     /**
-     * 获得指定包邮城市地址
+     * Nhận địa chỉ thành phố vận chuyển miễn phí được chỉ định
      * @param int $tempId
      * @return array
      */
@@ -107,7 +107,7 @@ class ShippingTemplatesFreeServices extends BaseServices
     }
 
     /**
-     * 获取包邮的省份
+     * Nhận miễn phí vận chuyển các tỉnh thành
      * @param string $uniqid
      * @param int $provinceId
      * @return array
@@ -121,7 +121,7 @@ class ShippingTemplatesFreeServices extends BaseServices
         foreach ($infoList as $item) {
             $childrenData[] = [
                 'city_id' => $item['province_id'],
-                'name' => $item['name'] ?? '全国',
+                'name' => $item['name'] ?? 'Toàn quốc',
                 'children' => $this->getCityTemp($uniqid, $item['province_id'])
             ];
         }
@@ -129,7 +129,7 @@ class ShippingTemplatesFreeServices extends BaseServices
     }
 
     /**
-     * 获取市区数据
+     * Nhận dữ liệu thành phố
      * @param string $uniqid
      * @param int $provinceId
      * @return array
@@ -143,7 +143,7 @@ class ShippingTemplatesFreeServices extends BaseServices
         foreach ($infoList as $item) {
             $childrenData[] = [
                 'city_id' => $item['city_id'],
-                'name' => $item['name'] ?? '全国',
+                'name' => $item['name'] ?? 'Toàn quốc',
             ];
         }
         return $childrenData;

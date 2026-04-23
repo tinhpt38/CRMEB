@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\activity\live\LiveAnchorServices;
 use think\facade\App;
 
 /**
- * 直播间主播
+ * Người dẫn chương trình phòng phát sóng trực tiếp
  * Class LiveAnchor
  * @package app\controller\admin\store
  */
@@ -33,7 +33,7 @@ class LiveAnchor extends AuthController
     }
 
     /**
-     * 列表
+     * danh sách
      * @return mixed
      */
     public function list()
@@ -45,7 +45,7 @@ class LiveAnchor extends AuthController
     }
 
     /**
-     * 添加修改表单
+     * Thêm mẫu sửa đổi
      * @return mixed
      */
     public function add()
@@ -57,7 +57,7 @@ class LiveAnchor extends AuthController
     }
 
     /**
-     * 保存标签表单数据
+     * Lưu dữ liệu biểu mẫu nhãn
      * @return mixed
      */
     public function save()
@@ -72,14 +72,14 @@ class LiveAnchor extends AuthController
         $this->validate($data, \app\adminapi\validate\marketing\LiveAnchorValidate::class, 'save');
         $res = $this->services->save((int)$data['id'], $data);
         if ($res === true) {
-            return app('json')->success('保存成功', ['auth' => false]);
+            return app('json')->success('Đã lưu thành công', ['auth' => false]);
         }else{
-            return app('json')->fail('保存失败');
+            return app('json')->fail('Lưu không thành công');
         }
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @return mixed
      * @throws \Exception
      */
@@ -88,31 +88,31 @@ class LiveAnchor extends AuthController
         list($id) = $this->request->getMore([
             ['id', 0],
         ], true);
-        if (!$id) return app('json')->fail('参数错误');
+        if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->delAnchor((int)$id);
-        return app('json')->success('删除成功');
+        return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 设置会员等级显示|隐藏
+     * Đặt hiển thị cấp độ thành viên|trốn
      * @param string $id
      * @param string $is_show
      * @return mixed
      */
     public function setShow($id = '', $is_show = '')
     {
-        if ($is_show == '' || $id == '') return app('json')->fail('参数错误');
+        if ($is_show == '' || $id == '') return app('json')->fail('Lỗi tham số');
         $this->services->setShow((int)$id, (int)$is_show);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 同步主播
+     * Đồng bộ hóa neo
      * @return mixed
      */
     public function syncAnchor()
     {
         $this->services->syncAnchor();
-        return app('json')->success('同步成功');
+        return app('json')->success('Đồng bộ hóa thành công');
     }
 }

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "拼团",
+  "navigationBarTitleText": "Chia sẻ nhóm",
   "usingComponents": {
     "count-down": "/components/countDown/index",
     "product-window": "/components/productWindow/index",

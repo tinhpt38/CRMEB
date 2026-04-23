@@ -1,6 +1,6 @@
 /*
 ===================
-初始化【请勿修改】
+Khởi tạo 【Không sửa đổi】
 ===================
 */
 html,body,
@@ -53,7 +53,7 @@ html {
 }
 /*
 ===================
-html5标签
+html5Nhãn
 ===================
 */
 article,
@@ -71,9 +71,9 @@ section {
 
 /*
 ===================
-清除浮动【请勿修改】
->>	cc	作用于父模型
->>	c		作用于浮动模型后，父模型区域里
+Rõ ràng nổi 【Không sửa đổi】
+>>	cc	Hành động trên mô hình gốc
+>>	c		Sau khi thao tác trên mô hình nổi, tại vùng mô hình gốc
 ===================
 */
 .cc{
@@ -96,19 +96,19 @@ section {
 
 /*
 ===================
-基础样式
->>	b			加粗
->>	u			下划线
->>	i			斜体
->>	w			文本不换行
->>	tal		文本靠左显示
->>	tac		文本居中显示
->>	tar		文本靠右显示
->>	fl		左浮动
->>	fr		右浮动
->>	pr		相对定位
->>	cp		鼠标点击手势
->>	vt		表格内容靠上显示
+Phong cách cơ bản
+>>	b			In đậm
+>>	u			gạch chân
+>>	i			chữ nghiêng
+>>	w			Văn bản không ngắt dòng
+>>	tal		Văn bản được hiển thị ở bên trái
+>>	tac		văn bản trung tâm
+>>	tar		Văn bản được hiển thị bên phải
+>>	fl		trôi sang trái
+>>	fr		trôi sang phải
+>>	pr		định vị tương đối
+>>	cp		Cử chỉ nhấp chuột
+>>	vt		Nội dung của bảng hiển thị ở trên cùng
 ===================
 */
 .b{
@@ -153,13 +153,13 @@ section {
 
 /*
 ===================
-字体
->>	f10		小字体
->>	f12		正常字
->>	f14		大字
->>	f16		更大
->>	f24		标题类
->>	fn		文本去粗
+phông chữ
+>>	f10		phông chữ nhỏ
+>>	f12		ký tự bình thường
+>>	f14		nhân vật lớn
+>>	f16		lớn hơn
+>>	f24		Lớp tiêu đề
+>>	fn		Văn bản in đậm
 ===================
 */
 .f10{
@@ -187,7 +187,7 @@ section {
 
 /*
 ===================
-全局
+tình hình chung
 ===================
 */
 body{
@@ -225,7 +225,7 @@ a:hover{
 
 /*
 ===================
-包裹
+đóng gói
 ===================
 */
 .wrap{
@@ -235,12 +235,12 @@ a:hover{
 	background: linear-gradient(180deg, #134392 0%, #363A8A 100%);
 	box-shadow: 0px 6px 20px 10px rgba(48,114,229,0.15);
 	border-radius: 36px 36px 36px 36px;
-	font-family: PingFang SC, serif;
+	font-family: "Google Sans", "Product Sans", sans-serif;
 	position: relative;
 }
 /*
 ===================
-头部
+cái đầu
 ===================
 */
 .header{
@@ -258,7 +258,7 @@ a:hover{
 }
 /*
 ===================
-主体
+phần thân chính
 ===================
 */
 .main{
@@ -271,7 +271,7 @@ a:hover{
 
 /*
 ===================
-底部
+đáy
 ===================
 */
 .footer{
@@ -313,7 +313,7 @@ input[type=checkbox]:checked:after {
 
 /*
 ===================
-协议
+giao thức
 ===================
 */
 .pact::-webkit-scrollbar { width: 0 !important }
@@ -380,7 +380,7 @@ pre{
 
 /*
 ===================
-版本号
+số phiên bản
 ===================
 */
 .version{
@@ -421,7 +421,7 @@ LOGO
 }
 /*
 ===================
-安装类型文案
+Bản sao loại cài đặt
 ===================
 */
 .icon_install,
@@ -442,13 +442,13 @@ LOGO
 
 /*
 ===================
-按钮
+cái nút
 ===================
 */
 
 /*
 ===================
-步骤
+bước chân
 ===================
 */
 .step,
@@ -502,7 +502,7 @@ LOGO
 
 /*
 ===================
-数据表写入
+Viết bảng dữ liệu
 ===================
 */
 /*.install{*/
@@ -525,7 +525,7 @@ LOGO
 
 /*
 ===================
-成功提示
+Lời khuyên để thành công
 ===================
 */
 .success_tip{
@@ -552,16 +552,16 @@ LOGO
 
 /*
 ===================
-操作提示
->>	tips					普通
->>	tips_error		错误
->>	tips_success	正确
->>	tips_loading	加载中
-使用方法
-	可独立样式使用，亦可与tips组装，例：
-	<div class="tips"><span class="tips_error">错误内容</span></div>
+Mẹo vận hành
+>>	tips					bình thường
+>>	tips_error		sai lầm
+>>	tips_success	Chính xác
+>>	tips_loading	Đang tải
+Cách sử dụng
+	Nó có thể được sử dụng độc lập hoặc được lắp ráp bằng các mẹo, ví dụ：
+	<div class="tips"><span class="tips_error">Nội dung lỗi</span></div>
 
-	可在外出包裹 tips_block 对错误提示进行块级效果展示
+	Bạn có thể hiển thị các hiệu ứng cấp khối trên các mẹo lỗi trong gói gửi đi tip_block
 ===================
 */
 .tips,
@@ -627,7 +627,7 @@ loading
 
 /*
 ===================
-升级类型选择
+Lựa chọn loại nâng cấp
 ===================
 */
 .updata_type{
@@ -636,7 +636,7 @@ loading
 .updata_type .hd{
 	font-size:16px;
 }
-/*切换选择*/
+/*Chuyển đổi lựa chọn*/
 .updata_type .tab{
 	padding-top:10px;
 }
@@ -713,7 +713,7 @@ loading
 	list-style:none;
 	color:#666;
 }
-/*立即升级*/
+/*Nâng cấp ngay bây giờ*/
 .once_updata{
 	text-align:center;
 	padding:100px 0;

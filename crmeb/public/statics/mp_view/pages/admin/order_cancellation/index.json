@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "订单核销",
+  "navigationBarTitleText": "Xóa đơn hàng",
   "usingComponents": {
     "home": "/components/home/index"
   }

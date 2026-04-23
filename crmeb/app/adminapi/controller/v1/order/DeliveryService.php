@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ use app\services\user\UserWechatuserServices;
 use think\facade\App;
 
 /**
- * 配送员管理
+ * Quản lý nhân viên giao hàng
  * Class StoreService
  * @package app\admin\controller\store
  */
@@ -34,7 +34,7 @@ class DeliveryService extends AuthController
     }
 
     /**
-     * 配送员列表
+     * Danh sách người giao hàng
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -46,7 +46,7 @@ class DeliveryService extends AuthController
     }
 
     /**
-     * 添加客服表单
+     * Thêm biểu mẫu dịch vụ khách hàng
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -56,7 +56,7 @@ class DeliveryService extends AuthController
     }
 
     /**
-     * 保存配送员
+     * Cứu người giao hàng
      * @return mixed
      */
     public function save()
@@ -71,11 +71,11 @@ class DeliveryService extends AuthController
         ]);
 
         $this->services->saveDeliveryService($data);
-        return app('json')->success('保存成功');
+        return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * 编辑表单
+     * chỉnh sửa biểu mẫu
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -86,7 +86,7 @@ class DeliveryService extends AuthController
     }
 
     /**
-     * 修改配送员
+     * Sửa đổi người giao hàng
      * @param $id
      * @return mixed
      */
@@ -100,37 +100,37 @@ class DeliveryService extends AuthController
         ]);
 
         $this->services->updateDeliveryService((int)$id, $data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除配送员
+     * Xóa người giao hàng
      * @param $id
      * @return mixed
      */
     public function delete($id)
     {
         if (!$this->services->delete($id))
-            return app('json')->fail('删除失败');
+            return app('json')->fail('Xóa không thành công');
         else
-            return app('json')->success('删除成功');
+            return app('json')->success('Xóa thành công');
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param $id
      * @param $status
      * @return mixed
      */
     public function set_status($id, $status)
     {
-        if ($status == '' || $id == 0) return app('json')->fail('参数错误');
+        if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['status' => $status]);
-        return app('json')->success('设置成功');
+        return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * 获取所有配送员列表
+     * Nhận danh sách tất cả các nhà chuyển phát nhanh
      * @return mixed
      */
     public function get_delivery_list()

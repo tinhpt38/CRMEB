@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -22,7 +22,7 @@ use think\facade\Route as Url;
  *
  * Class UserLabelServices
  * @package app\services\user
- *  * @method getColumn(array $where, string $field, string $key = '') 获取某个字段数组
+ *  * @method getColumn(array $where, string $field, string $key = '') Nhận một mảng trường
  */
 class UserLabelServices extends BaseServices
 {
@@ -37,7 +37,7 @@ class UserLabelServices extends BaseServices
     }
 
     /**
-     * 获取某一本标签
+     * Nhận một thẻ nhất định
      * @param $id
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
@@ -50,7 +50,7 @@ class UserLabelServices extends BaseServices
     }
 
     /**
-     * 获取所有用户标签
+     * Nhận tất cả các thẻ người dùng
      * @param array $where
      * @param array|string[] $field
      * @return array
@@ -64,7 +64,7 @@ class UserLabelServices extends BaseServices
     }
 
     /**
-     * 获取列表
+     * Nhận danh sách
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -79,7 +79,7 @@ class UserLabelServices extends BaseServices
     }
 
     /**
-     * 添加修改标签表单
+     * Thêm biểu mẫu chỉnh sửa nhãn
      * @param int $id
      * @param int $cateId
      * @return array
@@ -91,25 +91,25 @@ class UserLabelServices extends BaseServices
         $field = array();
         /** @var UserLabelCateServices $service */
         $service = app()->make(UserLabelCateServices::class);
-        $options[] = ['value' => 0, 'label' => '全部'];
+        $options[] = ['value' => 0, 'label' => 'tất cả'];
         foreach ($service->getLabelCateAll() as $item) {
             $options[] = ['value' => $item['id'], 'label' => $item['name']];
         }
         if (!$label) {
-            $title = '添加标签';
-            $field[] = Form::select('label_cate', '标签分类', $cateId)->setOptions($options);
-            $field[] = Form::input('label_name', '标签名称', '')->required();
+            $title = 'Thêm thẻ';
+            $field[] = Form::select('label_cate', 'Phân loại thẻ', $cateId)->setOptions($options);
+            $field[] = Form::input('label_name', 'Tên thẻ', '')->required();
         } else {
-            $title = '修改标签';
-            $field[] = Form::select('label_cate', '分类', (int)$label->getData('label_cate'))->setOptions($options);
+            $title = 'Sửa đổi nhãn';
+            $field[] = Form::select('label_cate', 'Phân loại', (int)$label->getData('label_cate'))->setOptions($options);
             $field[] = Form::hidden('id', $label->getData('id'));
-            $field[] = Form::input('label_name', '标签名称', $label->getData('label_name'))->required('请填写标签名称');
+            $field[] = Form::input('label_name', 'Tên thẻ', $label->getData('label_name'))->required('Vui lòng điền tên nhãn');
         }
         return create_form($title, $field, Url::buildUrl('/user/user_label/save'), 'POST');
     }
 
     /**
-     * 保存标签表单数据
+     * Lưu dữ liệu biểu mẫu nhãn
      * @param int $id
      * @param array $data
      * @return mixed
@@ -120,36 +120,36 @@ class UserLabelServices extends BaseServices
     public function save(int $id, array $data)
     {
         if (!$data['label_cate']) {
-            throw new AdminException('请选择标签分类');
+            throw new AdminException('Vui lòng chọn danh mục nhãn');
         }
         $levelName = $this->dao->getOne(['label_name' => $data['label_name'], 'label_cate' => $data['label_cate']]);
         if ($id) {
             if (!$this->getLable($id)) {
-                throw new AdminException('数据不存在');
+                throw new AdminException('Dữ liệu không tồn tại');
             }
             if ($levelName && $id != $levelName['id']) {
-                throw new AdminException('该标签已经存在');
+                throw new AdminException('Nhãn đã tồn tại');
             }
             if ($this->dao->update($id, $data)) {
                 return true;
             } else {
-                throw new AdminException('修改失败');
+                throw new AdminException('Sửa đổi không thành công');
             }
         } else {
             unset($data['id']);
             if ($levelName) {
-                throw new AdminException('该标签已经存在');
+                throw new AdminException('Nhãn đã tồn tại');
             }
             if ($this->dao->save($data)) {
                 return true;
             } else {
-                throw new AdminException('添加失败');
+                throw new AdminException('Thêm không thành công');
             }
         }
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param int $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -160,14 +160,14 @@ class UserLabelServices extends BaseServices
     {
         if ($this->getLable($id)) {
             if (!$this->dao->delete($id)) {
-                throw new AdminException('删除失败');
+                throw new AdminException('Xóa không thành công');
             }
         }
         return true;
     }
 
     /**
-     * tree处理 分类、标签数据
+     * treeDữ liệu nhãn và phân loại quy trình
      * @param array $cate
      * @param array $label
      * @return array

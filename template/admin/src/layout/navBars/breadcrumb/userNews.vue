@@ -1,8 +1,8 @@
 <template>
   <div class="layout-navbars-breadcrumb-user-news">
     <div class="head-box">
-      <div class="head-box-title">系统通知</div>
-      <!-- <div class="head-box-btn" v-if="newsList.length > 0" v-db-click @click="onAllReadClick">全部已读</div> -->
+      <div class="head-box-title">Thông báo hệ thống</div>
+      <!-- <div class="head-box-btn" v-if="newsList.length > 0" v-db-click @click="onAllReadClick">Tất cả đã đọc</div> -->
     </div>
     <div class="content-box">
       <template v-if="newsList.length > 0">
@@ -21,7 +21,7 @@
       <div class="content-box-empty" v-else>
         <div class="content-box-empty-margin">
           <img class="no-msg" src="@/assets/images/no-msg.png" alt="" />
-          <div class="mt15">暂无通知</div>
+          <div class="mt15">Chưa có thông báo</div>
         </div>
       </div>
     </div>
@@ -58,12 +58,12 @@ export default {
 
       ws.$on('NEW_ORDER', function (data) {
         that.$notify.info({
-          title: '新订单',
-          message: '您有一个新的订单,ID为(' + data.order_id + '),请注意查看',
+          title: 'trật tự mới',
+          message: 'Bạn có một đơn đặt hàng mới,IDvì(' + data.order_id + '),Vui lòng kiểm tra',
         });
         if (newOrderAudioLink) newOrderAudioLink.play();
         that.messageList.push({
-          title: '新订单提醒',
+          title: 'Nhắc nhở đơn hàng mới',
           icon: 'md-bulb',
           iconColor: '#87d068',
           time: 0,
@@ -72,12 +72,12 @@ export default {
       });
       ws.$on('NEW_REFUND_ORDER', function (data) {
         that.$notify.info({
-          title: '退款订单提醒',
-          message: '您有一个订单申请退款,ID为(' + data.order_id + '),请注意查看',
+          title: 'Nhắc nhở hoàn tiền đơn hàng',
+          message: 'Bạn có đơn đặt hàng yêu cầu hoàn lại tiền,IDvì(' + data.order_id + '),Vui lòng kiểm tra',
         });
         if (newOrderAudioLink) newOrderAudioLink.play();
         that.messageList.push({
-          title: '退款订单提醒',
+          title: 'Nhắc nhở hoàn tiền đơn hàng',
           icon: 'md-information',
           iconColor: '#fe5c57',
           time: 0,
@@ -86,16 +86,16 @@ export default {
       });
       ws.$on('WITHDRAW', function (data) {
         // that.$Notice.warning({
-        //   title: '提现提醒',
+        //   title: 'Nhắc nhở rút tiền',
         //   duration: 8,
-        //   desc: '有用户申请提现,编号为(' + data.id + '),请注意查看',
+        //   desc: 'Một người dùng đã đăng ký rút tiền,Đánh số(' + data.id + '),Vui lòng kiểm tra',
         // });
         that.$notify.info({
-          title: '提现提醒',
-          message: '有用户申请提现,编号为(' + data.id + '),请注意查看',
+          title: 'Nhắc nhở rút tiền',
+          message: 'Một người dùng đã đăng ký rút tiền,Đánh số(' + data.id + '),Vui lòng kiểm tra',
         });
         that.messageList.push({
-          title: '退款订单提醒',
+          title: 'Nhắc nhở hoàn tiền đơn hàng',
           icon: 'md-people',
           iconColor: '#f06292',
           time: 0,
@@ -104,11 +104,11 @@ export default {
       });
       ws.$on('STORE_STOCK', function (data) {
         that.$notify.info({
-          title: '库存预警',
-          message: '商品ID为(' + data.id + ')的库存不足啦,请注意查看~',
+          title: 'Cảnh báo chứng khoán',
+          message: 'ID sản phẩm là(' + data.id + ')Hàng tồn kho thấp,Vui lòng kiểm tra~',
         });
         that.messageList.push({
-          title: '库存预警',
+          title: 'Cảnh báo chứng khoán',
           icon: 'md-information',
           iconColor: '#fe5c57',
           time: 0,
@@ -117,11 +117,11 @@ export default {
       });
       ws.$on('PAY_SMS_SUCCESS', function (data) {
         that.$notify.info({
-          title: '短信充值成功',
-          message: '恭喜您充值' + data.price + '元，获得' + data.number + '条短信',
+          title: 'Nạp SMS thành công',
+          message: 'Chúc mừng bạn đã nạp tiền' + data.price + 'Nhân dân tệ, lấy' + data.number + 'tin nhắn SMS',
         });
         that.messageList.push({
-          title: '短信充值成功',
+          title: 'Nạp SMS thành công',
           icon: 'md-bulb',
           iconColor: '#87d068',
           time: 0,
@@ -131,35 +131,35 @@ export default {
     });
   },
   filters: {
-    // 1 待发货 2 库存报警  3评论回复  4提现申请
+    // 1 Đang chờ giao hàng 2 Báo động tồn kho 3 Phản hồi bình luận 4 Đơn xin rút tiền
     msgType(type) {
       let typeName;
       switch (type) {
         case 1:
-          typeName = '待发货订单提醒';
+          typeName = 'Nhắc nhở các đơn hàng chờ vận chuyển';
           break;
         case 2:
-          typeName = '库存报警';
+          typeName = 'Báo động tồn kho';
           break;
         case 3:
-          typeName = '评论回复';
+          typeName = 'Trả lời bình luận';
           break;
         case 4:
-          typeName = '提现申请';
+          typeName = 'Đơn xin rút tiền';
           break;
         default:
-          typeName = '其它';
+          typeName = 'khác';
       }
       return typeName;
     },
   },
   methods: {
-    // 全部已读点击
+    // Tất cả nhấp vào đọc
     onAllReadClick() {
       this.newsList = [];
       this.$emit('haveNews', !!this.newsList.length);
     },
-    // 前往通知中心点击
+    // Đi đến trung tâm thông báo và nhấp vào
     onGoToGiteeClick() {},
     getNotict() {
       jnoticeRequest()
@@ -171,17 +171,17 @@ export default {
     },
     jumpUrl(path) {
       if (!path) return;
-      // 外链直接新窗口打开
+      // Liên kết ngoài mở trực tiếp trong cửa sổ mới
       if (/^https?:\/\//.test(path)) {
         window.open(path, '_blank');
         return;
       }
-      // 兼容在弹层等特殊渲染环境下 this.$router 可能为 undefined 的情况
+      // Tương thích trong các môi trường kết xuất đặc biệt như lớp đàn hồi this.$router Các trường hợp có thể không xác định
       const router = this.$router || (this.$root && this.$root.$router);
       if (router && typeof router.push === 'function') {
         router.push({ path });
       } else {
-        // 兜底：直接跳转
+        // Tóm lại: Nhảy trực tiếp
         window.location.href = path;
       }
     },

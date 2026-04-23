@@ -3,7 +3,7 @@
     <div class="header acea-row row-middle">
       <div class="state">{{ title }}</div>
       <div class="data">
-        <div class="order-num">订单：{{ orderInfo.order_id }}</div>
+        <div class="order-num">Đặt hàng：{{ orderInfo.order_id }}</div>
         <div>
           <span class="time">{{ orderInfo._add_time }}</span>
         </div>
@@ -14,7 +14,7 @@
       <span
         class="line1"
         style="text-align: left"
-        v-text="orderInfo.remark ? orderInfo.remark : '订单未备注，点击添加备注信息'"
+        v-text="orderInfo.remark ? orderInfo.remark : 'Đơn hàng chưa có ghi chú, bấm vào để thêm thông tin ghi chú'"
         v-db-click
         @click="modify(1)"
       />
@@ -50,96 +50,96 @@
       </div>
     </div>
     <div class="public-total">
-      共{{ orderInfo.cart_num }}件商品，应支付 <span class="money">￥{{ orderInfo.pay_price }}</span> ( 邮费 ¥{{
+      chung{{ orderInfo.cart_num }}khoản mục phải trả <span class="money">￥{{ orderInfo.pay_price }}</span> ( Bưu phí ¥{{
         orderInfo.pay_postage
       }}
       )
     </div>
     <div class="wrapper">
       <div class="item acea-row row-between">
-        <div>订单编号：</div>
+        <div>số thứ tự：</div>
         <div class="conter acea-row row-middle row-right">
           {{ orderInfo.order_id }}
-          <span class="copy copy-data" v-db-click @click="copyText(orderInfo.order_id)">复制</span>
+          <span class="copy copy-data" v-db-click @click="copyText(orderInfo.order_id)">sao chép</span>
         </div>
       </div>
       <div class="item acea-row row-between">
-        <div>支付时间：</div>
+        <div>thời gian thanh toán：</div>
         <div class="conter">{{ orderInfo._pay_time }}</div>
       </div>
       <div class="item acea-row row-between">
-        <div>支付状态：</div>
+        <div>Trạng thái thanh toán：</div>
         <div class="conter">
           {{ title }}
         </div>
       </div>
       <div class="item acea-row row-between">
-        <div>支付方式：</div>
+        <div>Phương thức thanh toán：</div>
         <div class="conter">
           {{ orderInfo._status ? orderInfo._status._payType : '' }}
         </div>
       </div>
       <div class="item acea-row row-between">
-        <div>买家留言：</div>
+        <div>Tin nhắn của người mua：</div>
         <div class="conter">{{ orderInfo.mark }}</div>
       </div>
     </div>
     <div class="wrapper">
       <div class="item acea-row row-between">
-        <div>支付金额：</div>
+        <div>Số tiền thanh toán：</div>
         <div class="conter">￥{{ orderInfo.total_price }}</div>
       </div>
       <div class="item acea-row row-between">
-        <div>优惠券抵扣：</div>
+        <div>Khấu trừ phiếu giảm giá：</div>
         <div class="conter">-￥{{ orderInfo.coupon_price }}</div>
       </div>
       <div class="item acea-row row-between">
-        <div>运费：</div>
+        <div>vận chuyển hàng hóa：</div>
         <div class="conter">￥{{ orderInfo.total_postage }}</div>
       </div>
       <div class="actualPay acea-row row-right">
-        实付款：<span class="money font-color-red">￥{{ orderInfo.pay_price }}</span>
+        thanh toán thực tế：<span class="money font-color-red">￥{{ orderInfo.pay_price }}</span>
       </div>
     </div>
     <div class="wrapper" v-if="orderInfo.deliveryType === 'express'">
       <div class="item acea-row row-between">
-        <div>配送方式：</div>
-        <div class="conter" v-if="orderInfo.delivery_type === 'express'">快递</div>
-        <div class="conter" v-if="orderInfo.delivery_type === 'send'">送货</div>
+        <div>Phương thức giao hàng：</div>
+        <div class="conter" v-if="orderInfo.delivery_type === 'express'">chuyển phát nhanh</div>
+        <div class="conter" v-if="orderInfo.delivery_type === 'send'">giao hàng</div>
       </div>
       <div class="item acea-row row-between">
-        <div v-if="orderInfo.delivery_type === 'express'">快递公司：</div>
-        <div v-if="orderInfo.delivery_type === 'send'">送货人：</div>
+        <div v-if="orderInfo.delivery_type === 'express'">công ty chuyển phát nhanh：</div>
+        <div v-if="orderInfo.delivery_type === 'send'">người giao hàng：</div>
         <div class="conter">{{ orderInfo.deliveryName }}</div>
       </div>
       <div class="item acea-row row-between">
-        <div v-if="orderInfo.delivery_type === 'express'">快递单号：</div>
-        <div v-if="orderInfo.delivery_type === 'send'">送货人电话：</div>
+        <div v-if="orderInfo.delivery_type === 'express'">Số theo dõi nhanh：</div>
+        <div v-if="orderInfo.delivery_type === 'send'">Số điện thoại người giao hàng：</div>
         <div class="conter">
           {{ orderInfo.delivery_id
-          }}<span class="copy copy-data" v-db-click @click="copyText(orderInfo.delivery_id)">复制</span>
+          }}<span class="copy copy-data" v-db-click @click="copyText(orderInfo.delivery_id)">sao chép</span>
         </div>
       </div>
     </div>
     <div style="height: 1.2rem"></div>
     <div class="footer acea-row row-right row-middle" v-if="$route.params.goname != 'looks'">
       <div class="more"></div>
-      <div class="bnt cancel" v-db-click @click="modify(0)" v-if="types === 0">一键改价</div>
-      <div class="bnt cancel" v-db-click @click="modify(0)" v-if="types === -1">立即退款</div>
-      <div class="bnt cancel" v-db-click @click="modify(1)">订单备注</div>
+      <div class="bnt cancel" v-db-click @click="modify(0)" v-if="types === 0">Thay đổi giá chỉ bằng một cú nhấp chuột</div>
+      <div class="bnt cancel" v-db-click @click="modify(0)" v-if="types === -1">Hoàn tiền ngay lập tức</div>
+      <div class="bnt cancel" v-db-click @click="modify(1)">Ghi chú đặt hàng</div>
       <div
         class="bnt cancel"
         v-if="orderInfo.pay_type === 'offline' && orderInfo.paid === 0"
         v-db-click
         @click="offlinePay"
       >
-        确认付款
+        Xác nhận thanh toán
       </div>
       <router-link
         class="bnt delivery"
         v-if="types === 1 && orderInfo.shipping_type !== 2"
         :to="'/kefu/orderDelivery/' + orderInfo.id + '/' + orderInfo.order_id"
-        >去发货
+        >Đi tàu
       </router-link>
     </div>
     <PriceChange
@@ -206,10 +206,10 @@ export default {
     copyText(text) {
       this.$copyText(text)
         .then((message) => {
-          this.$message.success('复制成功');
+          this.$message.success('Đã sao chép thành công');
         })
         .catch((err) => {
-          this.$message.error('复制失败');
+          this.$message.error('Sao chép không thành công');
         });
     },
     getIndex: function () {

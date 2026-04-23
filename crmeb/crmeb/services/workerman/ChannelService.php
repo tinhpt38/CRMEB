@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -61,10 +61,10 @@ class ChannelService
     }
 
     /**
-     * 发送消息
-     * @param string $type 类型
-     * @param array|null $data 数据
-     * @param array|null $ids 用户 id,不传为全部用户
+     * Gửi tin nhắn
+     * @param string $type kiểu
+     * @param array|null $data dữ liệu
+     * @param array|null $ids người dùng id,Không chuyển cho tất cả người dùng
      */
     public function send(string $type, ?array $data = null, ?array $ids = null)
     {

@@ -23,7 +23,7 @@ import { mapMutations } from 'vuex';
 export default {
   name: 'c_sign_in',
   componentsName: 'sign_in',
-  cname: '签到',
+  cname: 'Đăng nhập',
   props: {
     activeIndex: {
       type: null,
@@ -41,17 +41,17 @@ export default {
   },
   data() {
     return {
-      // 组件参数配置
+      // Cấu hình tham số thành phần
       option: {
         submitBtn: false,
       },
-      configObj: {}, // 配置对象
+      configObj: {}, // Đối tượng cấu hình
       rCom: [
         {
           components: toolCom.c_set_up,
           configNme: 'setUp',
         },
-      ], // 当前页面组件
+      ], // thành phần trang hiện tại
       oneStyle: [
         {
           components: toolCom.c_title,
@@ -166,7 +166,7 @@ export default {
     patchConfig(config) {
       if (!config.paddingConfig) {
         config.paddingConfig = {
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -180,7 +180,7 @@ export default {
       }
       if (!config.marginConfig) {
         config.marginConfig = {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,

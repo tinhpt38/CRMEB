@@ -23,7 +23,7 @@ import rightBtn from '@/components/rightBtn/index.vue';
 export default {
   name: 'c_ranking',
   componentsName: 'home_ranking',
-  cname: '排行榜',
+  cname: 'Danh sách xếp hạng',
   props: {
     activeIndex: {
       type: null,
@@ -206,7 +206,7 @@ export default {
     patchConfig(config) {
       if (!config.paddingConfig) {
         config.paddingConfig = {
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -220,7 +220,7 @@ export default {
       }
       if (!config.marginConfig) {
         config.marginConfig = {
-          title: '外边距',
+          title: 'lề',
           val: 0,
           min: 0,
           max: 100,
@@ -281,7 +281,7 @@ export default {
         }
       }
     },
-    // 获取组件参数
+    // Lấy tham số thành phần
     getConfig(data) {},
   },
 };

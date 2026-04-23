@@ -1,16 +1,16 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2021 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 /**
- * @description 鉴权指令
- * 当传入的权限当前用户没有时，会移除该组件
- * 用例：<Tag v-auth="['admin']">text</Tag>
+ * @description Hướng dẫn xác thực
+ * Khi người dùng hiện tại không được cấp quyền, thành phần sẽ bị xóa
+ * Các trường hợp sử dụng：<Tag v-auth="['admin']">text</Tag>
  * */
 import store from '@/store';
 import { includeArray } from '@/libs/auth';

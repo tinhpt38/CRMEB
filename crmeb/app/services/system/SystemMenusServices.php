@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -19,21 +19,21 @@ use crmeb\services\FormBuilder as Form;
 use crmeb\utils\Arr;
 
 /**
- * 权限菜单
+ * Trình đơn quyền
  * Class SystemMenusServices
  * @package app\services\system
- * @method save(array $data) 保存数据
- * @method get(int $id, ?array $field = []) 获取数据
- * @method update($id, array $data, ?string $key = null) 修改数据
- * @method getSearchList() 主页搜索
- * @method getColumn(array $where, string $field, ?string $key = '') 主页搜索
- * @method getVisitName(string $rule) 根据访问地址获得菜单名
+ * @method save(array $data) lưu dữ liệu
+ * @method get(int $id, ?array $field = []) Nhận dữ liệu
+ * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
+ * @method getSearchList() Tìm kiếm trang chủ
+ * @method getColumn(array $where, string $field, ?string $key = '') Tìm kiếm trang chủ
+ * @method getVisitName(string $rule) Lấy tên menu dựa trên địa chỉ truy cập
  */
 class SystemMenusServices extends BaseServices
 {
 
     /**
-     * 初始化
+     * khởi tạo
      * SystemMenusServices constructor.
      * @param SystemMenusDao $dao
      */
@@ -43,7 +43,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 获取菜单没有被修改器修改的数据
+     * Lấy dữ liệu của menu chưa được modifier sửa đổi
      * @param $menusList
      * @return array
      */
@@ -62,7 +62,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 获取后台权限菜单和权限
+     * Nhận menu quyền và quyền nền
      * @param $rouleId
      * @param int $level
      * @return array
@@ -82,7 +82,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 获取后台菜单树型结构列表
+     * Lấy danh sách cấu trúc cây menu nền
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -97,7 +97,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 获取form表单所需要的所要的菜单列表
+     * Lấy danh sách menu bắt buộc theo mẫu đơn
      * @return array[]
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -107,7 +107,7 @@ class SystemMenusServices extends BaseServices
     {
         $menuList = $this->dao->getMenusRoule(['is_del' => 0], ['id', 'pid', 'menu_name']);
         $list = sort_list_tier($this->getMenusData($menuList), '0', 'pid', 'id');
-        $menus = [['value' => 0, 'label' => '顶级按钮']];
+        $menus = [['value' => 0, 'label' => 'nút trên cùng']];
         foreach ($list as $menu) {
             $menus[] = ['value' => $menu['id'], 'label' => $menu['html'] . $menu['menu_name']];
         }
@@ -134,7 +134,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 创建权限规格生表单
+     * Tạo biểu mẫu đặc tả quyền
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -144,21 +144,21 @@ class SystemMenusServices extends BaseServices
      */
     public function createMenusForm(array $formData = [])
     {
-        $field[] = Form::input('menu_name', '按钮名称', $formData['menu_name'] ?? '')->required('按钮名称必填');
-        $field[] = Form::input('menu_path', '路由名称', $formData['menu_path'] ?? '')->placeholder('请输入前台跳转路由地址')->required('请填写前台路由地址');
-        $field[] = Form::input('unique_auth', '权限标识', $formData['unique_auth'] ?? '')->placeholder('不填写则后台自动生成');
-        $field[] = Form::frameInput('icon', '图标', $this->url(config('app.admin_prefix', 'admin') . '/widget.widgets/icon', ['fodder' => 'icon']), $formData['icon'] ?? '')->icon('md-add')->height('560px')->props(['footer' => false]);
-        $field[] = Form::number('sort', '排序', (int)($formData['sort'] ?? 0))->precision(0);
-        $field[] = Form::radio('auth_type', '类型', $formData['auth_type'] ?? 1)->options([['value' => 1, 'label' => '菜单'], ['value' => 3, 'label' => '按钮'], ['value' => 2, 'label' => '接口']]);
-        $field[] = Form::radio('is_show', '权限状态', $formData['is_show'] ?? 1)->options([['value' => 1, 'label' => '开启'], ['value' => 0, 'label' => '关闭']]);
-        $field[] = Form::radio('is_show_path', '是否显示', $formData['is_show_path'] ?? 0)->options([['value' => 1, 'label' => '显示'], ['value' => 0, 'label' => '隐藏']]);
+        $field[] = Form::input('menu_name', 'Tên nút', $formData['menu_name'] ?? '')->required('Cần có tên nút');
+        $field[] = Form::input('menu_path', 'Tên tuyến đường', $formData['menu_path'] ?? '')->placeholder('Vui lòng nhập địa chỉ định tuyến nhảy của quầy lễ tân')->required('Vui lòng điền địa chỉ định tuyến của quầy lễ tân');
+        $field[] = Form::input('unique_auth', 'ID quyền', $formData['unique_auth'] ?? '')->placeholder('Nếu không được điền, nó sẽ tự động được tạo ở chế độ nền.');
+        $field[] = Form::frameInput('icon', 'biểu tượng', $this->url(config('app.admin_prefix', 'admin') . '/widget.widgets/icon', ['fodder' => 'icon']), $formData['icon'] ?? '')->icon('md-add')->height('560px')->props(['footer' => false]);
+        $field[] = Form::number('sort', 'loại', (int)($formData['sort'] ?? 0))->precision(0);
+        $field[] = Form::radio('auth_type', 'kiểu', $formData['auth_type'] ?? 1)->options([['value' => 1, 'label' => 'thực đơn'], ['value' => 3, 'label' => 'cái nút'], ['value' => 2, 'label' => 'giao diện']]);
+        $field[] = Form::radio('is_show', 'trạng thái cho phép', $formData['is_show'] ?? 1)->options([['value' => 1, 'label' => 'bật lên'], ['value' => 0, 'label' => 'đóng cửa']]);
+        $field[] = Form::radio('is_show_path', 'Có hiển thị hay không', $formData['is_show_path'] ?? 0)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
         [$menuList, $data] = $this->getFormCascaderMenus((int)($formData['pid'] ?? 0), 3);
-        $field[] = Form::cascader('menu_list', '父级id', $data)->options($menuList)->filterable(true);
+        $field[] = Form::cascader('menu_list', 'cha mẹid', $data)->options($menuList)->filterable(true);
         return $field;
     }
 
     /**
-     * 新增权限表单
+     * Thêm biểu mẫu cho phép
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
      * @throws \think\db\exception\DataNotFoundException
@@ -167,11 +167,11 @@ class SystemMenusServices extends BaseServices
      */
     public function createMenus()
     {
-        return create_form('添加权限', $this->createMenusForm(), $this->url('/setting/save'));
+        return create_form('Thêm quyền', $this->createMenusForm(), $this->url('/setting/save'));
     }
 
     /**
-     * 修改权限菜单
+     * Sửa đổi menu quyền
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -183,13 +183,13 @@ class SystemMenusServices extends BaseServices
     {
         $menusInfo = $this->dao->get($id);
         if (!$menusInfo) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
-        return create_form('修改权限', $this->createMenusForm($menusInfo->getData()), $this->url('/setting/update/' . $id), 'PUT');
+        return create_form('Sửa đổi quyền', $this->createMenusForm($menusInfo->getData()), $this->url('/setting/update/' . $id), 'PUT');
     }
 
     /**
-     * 获取一条数据
+     * Lấy một phần dữ liệu
      * @param int $id
      * @return mixed
      */
@@ -197,7 +197,7 @@ class SystemMenusServices extends BaseServices
     {
         $menusInfo = $this->dao->get($id);
         if (!$menusInfo) {
-            throw new AdminException('数据不存在');
+            throw new AdminException('Dữ liệu không tồn tại');
         }
         $menu = $menusInfo->getData();
         $menu['pid'] = (int)$menu['pid'];
@@ -220,7 +220,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 删除菜单
+     * xóa thực đơn
      * @param int $id
      * @return mixed
      */
@@ -236,7 +236,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 获取添加身份规格
+     * Nhận thêm thông số nhận dạng
      * @param $roles
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -263,7 +263,7 @@ class SystemMenusServices extends BaseServices
     }
 
     /**
-     * 组合菜单数据
+     * Dữ liệu menu kết hợp
      * @param bool $adminFilter
      * @param $menusList
      * @param int $pid

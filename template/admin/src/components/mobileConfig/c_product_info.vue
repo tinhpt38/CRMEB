@@ -43,183 +43,183 @@ export default {
     return {
       configObj: {},
       defaultConfig: {
-        cname: '商品信息',
-        desc: '商品信息组件',
+        cname: 'Thông tin sản phẩm',
+        desc: 'Thành phần thông tin sản phẩm',
         name: 'productInfo',
         timestamp: this.num,
         setUp: {
           tabVal: 0,
         },
         indicatorConfig: {
-          title: '指示器设置',
+          title: 'Cài đặt chỉ báo',
           tabVal: 1,
-          tabList: [{ name: '线段样式' }, { name: '点线样式' }, { name: '数字样式' }],
+          tabList: [{ name: 'Kiểu đường' }, { name: 'Kiểu đường chấm' }, { name: 'Kiểu số' }],
           positionVal: 1,
-          positionList: [{ name: '左对齐' }, { name: '居中对齐' }, { name: '右对齐' }],
+          positionList: [{ name: 'căn trái' }, { name: 'căn giữa' }, { name: 'Căn phải' }],
           selectColor: {
-            title: '选中样式',
+            title: 'phong cách đã chọn',
             name: 'selectColor',
             default: [{ item: '#E93323' }],
             color: [{ item: '#E93323' }],
           },
           defaultColor: {
-            title: '默认样式',
+            title: 'Kiểu mặc định',
             name: 'defaultColor',
             default: [{ item: '#CCCCCC' }],
             color: [{ item: '#CCCCCC' }],
           },
         },
         titleConfig: {
-          title: '标题设置',
+          title: 'Cài đặt tiêu đề',
           tabVal: 0,
           tabList: [
-            { name: '跟随主题风格', val: 0 },
-            { name: '自定义', val: 1 },
+            { name: 'Theo dõi chủ đề', val: 0 },
+            { name: 'Tùy chỉnh', val: 1 },
           ],
           color: {
-            title: '标题颜色',
+            title: 'màu tiêu đề',
             default: [{ item: '#333333' }],
             color: [{ item: '#333333' }],
           },
           fontSize: {
-            title: '字体大小',
+            title: 'cỡ chữ',
             val: 16,
             min: 12,
           },
         },
         specStyle: {
-          title: '规格样式',
+          title: 'phong cách đặc điểm kỹ thuật',
           tabVal: 0,
-          tabList: [{ name: '样式一' }, { name: '样式二' }, { name: '样式三' }, { name: '样式四' }],
+          tabList: [{ name: 'phong cách một' }, { name: 'Phong cách 2' }, { name: 'phong cách ba' }, { name: 'phong cách bốn' }],
         },
         specSettings: {
-          title: '规格设置',
+          title: 'Thông số kỹ thuật',
           colorTone: {
-            title: '色调',
+            title: 'giai điệu',
             tabVal: 0,
             tabList: [
-              { name: '跟随主题风格', val: 0 },
-              { name: '自定义', val: 1 },
+              { name: 'Theo dõi chủ đề', val: 0 },
+              { name: 'Tùy chỉnh', val: 1 },
             ],
           },
           textColor: {
-            title: '按钮颜色',
+            title: 'màu nút',
             name: 'textColor',
             default: [{ item: '#666' }],
             color: [{ item: '#666' }],
           },
           selectedBorderColor: {
-            title: '选中边框',
+            title: 'Chọn đường viền',
             name: 'selectedBorderColor',
             default: [{ item: '#E93323' }],
             color: [{ item: '#E93323' }],
           },
           selectedTextColor: {
-            title: '选中文字',
+            title: 'Chọn văn bản',
             name: 'selectedTextColor',
             default: [{ item: '#E93323' }],
             color: [{ item: '#E93323' }],
           },
           selectedBgColor: {
-            title: '选中背景',
+            title: 'Chọn nền',
             name: 'selectedBgColor',
             default: [{ item: '#FDEBEB' }],
             color: [{ item: '#FDEBEB' }],
           },
           unselectedTextColor: {
-            title: '未选中文字',
+            title: 'Không có văn bản nào được chọn',
             name: 'unselectedTextColor',
             default: [{ item: '#333333' }],
             color: [{ item: '#333333' }],
           },
         },
         sortList: {
-          title: '信息设置',
-          tips: '鼠标拖拽板块可调整信息展示顺序',
+          title: 'Cài đặt thông tin',
+          tips: 'Kéo chuột để điều chỉnh thứ tự hiển thị thông tin.',
           list: [
             {
               name: 'price',
-              cname: '商品价格',
+              cname: 'Giá sản phẩm',
               type: 'radio',
               show: true,
               checkList: [0, 1, 2],
               checkBoxList: [
-                { name: '售价', value: 0 },
-                { name: '划线价', value: 1 },
-                { name: '会员价', value: 2 },
+                { name: 'giá bán', value: 0 },
+                { name: 'giá chéo', value: 1 },
+                { name: 'Giá thành viên', value: 2 },
               ],
             },
             {
               name: 'name',
-              cname: '商品名称',
+              cname: 'Tên sản phẩm',
               type: 'radio',
               show: true,
             },
             {
               name: 'data',
-              cname: '商品数据',
+              cname: 'Dữ liệu sản phẩm',
               type: 'radio',
               show: true,
               checkList: [0, 1, 2],
               checkBoxList: [
-                { name: '原价', value: 0 },
-                { name: '库存', value: 1 },
-                { name: '销量', value: 2 },
+                { name: 'giá gốc', value: 0 },
+                { name: 'trong kho', value: 1 },
+                { name: 'Doanh số bán hàng', value: 2 },
               ],
             },
             {
               name: 'tags',
-              cname: '商品标签',
+              cname: 'Thẻ sản phẩm',
               type: 'radio',
               show: true,
             },
           ],
         },
         priceSettings: {
-          title: '价格设置',
+          title: 'thiết lập giá',
           colorTone: {
-            title: '色调',
+            title: 'giai điệu',
             tabVal: 0,
             tabList: [
-              { name: '跟随主题风格', val: 0 },
-              { name: '自定义', val: 1 },
+              { name: 'Theo dõi chủ đề', val: 0 },
+              { name: 'Tùy chỉnh', val: 1 },
             ],
           },
           finalPriceColor: {
-            title: '到手价颜色',
+            title: 'Màu giá',
             name: 'finalPriceColor',
             default: [{ item: '#E93323' }],
             color: [{ item: '#E93323' }],
           },
           sellingPriceColor: {
-            title: '售价颜色',
+            title: 'Màu giá bán',
             name: 'sellingPriceColor',
             default: [{ item: '#333333' }],
             color: [{ item: '#333333' }],
           },
           priceFontSize: {
-            title: '价格字号',
+            title: 'Cỡ chữ giá',
             val: 24,
             min: 12,
             max: 50,
           },
         },
         dataSettings: {
-          title: '数据设置',
+          title: 'Cài đặt dữ liệu',
           originalPriceColor: {
-            title: '原价颜色',
+            title: 'Màu giá gốc',
             name: 'originalPriceColor',
             default: [{ item: '#999999' }],
             color: [{ item: '#999999' }],
           },
           stockColor: {
-            title: '库存颜色',
+            title: 'Màu sắc chứng khoán',
             name: 'stockColor',
             default: [{ item: '#999999' }],
             color: [{ item: '#999999' }],
           },
           salesColor: {
-            title: '销量颜色',
+            title: 'màu bán hàng',
             name: 'salesColor',
             default: [{ item: '#999999' }],
             color: [{ item: '#999999' }],
@@ -276,32 +276,32 @@ export default {
     patchConfig(data) {
       if (!data.componentBgConfig) {
         this.$set(data, 'componentBgConfig', {
-          title: '背景设置',
+          title: 'Cài đặt nền',
           tabVal: 0,
-          tabList: [{ name: '颜色' }, { name: '图片' }],
+          tabList: [{ name: 'màu sắc' }, { name: 'hình ảnh' }],
           colorConfig: {
-            title: '背景颜色',
+            title: 'màu nền',
             default: [{ item: '#fff' }, { item: '#fff' }],
             color: [{ item: '#fff' }, { item: '#fff' }],
           },
           colorDirection: {
-            title: '渐变方向',
+            title: 'Hướng dốc',
             tabVal: 0,
-            tabList: [{ name: '横向' }, { name: '纵向' }, { name: '左斜' }, { name: '右斜' }],
+            tabList: [{ name: 'Nằm ngang' }, { name: 'chân dung' }, { name: 'xiên trái' }, { name: 'Nghiêng phải' }],
           },
           imageConfig: {
-            header: '背景图片',
+            header: 'hình nền',
             title: '',
-            name: '上传图片',
+            name: 'Tải ảnh lên',
             type: 'code',
             url: '',
-            info: '建议尺寸：750px * 400px',
+            info: 'Kích thước đề xuất：750px * 400px',
           },
         });
       }
       if (!data.paddingConfig) {
         this.$set(data, 'paddingConfig', {
-          title: '内边距',
+          title: 'phần đệm',
           val: 0,
           min: 0,
           max: 100,
@@ -311,7 +311,7 @@ export default {
       }
       if (!data.marginConfig) {
         this.$set(data, 'marginConfig', {
-          title: '外边距',
+          title: 'lề',
           isAll: false,
           val: 0,
           min: 0,
@@ -321,33 +321,33 @@ export default {
       }
       if (!data.zIndexConfig) {
         this.$set(data, 'zIndexConfig', {
-          title: '组件上浮',
+          title: 'Thành phần nổi',
           val: 0,
           min: 0,
         });
       }
       if (!data.borderConfig) {
         this.$set(data, 'borderConfig', {
-          title: '边框设置',
+          title: 'Cài đặt đường viền',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0,
           styleConfig: {
-            title: '边框样式',
+            title: 'phong cách biên giới',
             tabVal: 0,
             tabList: [
-              { name: '实线', style: 'solid' },
-              { name: '虚线', style: 'dashed' },
-              { name: '点状', style: 'dotted' },
+              { name: 'đường liền nét', style: 'solid' },
+              { name: 'đường chấm chấm', style: 'dashed' },
+              { name: 'Say mê', style: 'dotted' },
             ],
           },
           widthConfig: {
-            title: '边框粗细',
+            title: 'Độ dày viền',
             val: 1,
             min: 1,
           },
           colorConfig: {
-            title: '边框颜色',
+            title: 'màu viền',
             default: [{ item: '#e5e5e5' }],
             color: [{ item: '#e5e5e5' }],
           },
@@ -355,32 +355,32 @@ export default {
       }
       if (!data.shadowConfig) {
         this.$set(data, 'shadowConfig', {
-          title: '阴影设置',
+          title: 'Cài đặt bóng',
           tabVal: 0,
-          tabList: [{ name: '隐藏' }, { name: '显示' }],
+          tabList: [{ name: 'trốn' }, { name: 'trình diễn' }],
           val: 0,
           colorConfig: {
-            title: '阴影颜色',
+            title: 'màu bóng',
             default: [{ item: 'rgba(0,0,0,0.1)' }],
             color: [{ item: 'rgba(0,0,0,0.1)' }],
           },
           xConfig: {
-            title: 'X轴偏移',
+            title: 'Xđộ lệch trục',
             val: 0,
             min: -50,
           },
           yConfig: {
-            title: 'Y轴偏移',
+            title: 'Yđộ lệch trục',
             val: 0,
             min: -50,
           },
           blurConfig: {
-            title: '模糊半径',
+            title: 'bán kính lờ mờ',
             val: 10,
             min: 0,
           },
           spreadConfig: {
-            title: '扩展半径',
+            title: 'Bán kính mở rộng',
             val: 0,
             min: -50,
           },
@@ -389,7 +389,7 @@ export default {
       if (data.specSettings) {
         if (!data.specSettings.selectedBorderColor) {
           this.$set(data.specSettings, 'selectedBorderColor', {
-            title: '选中边框',
+            title: 'Chọn đường viền',
             name: 'selectedBorderColor',
             default: [{ item: '#E93323' }],
             color: [{ item: '#E93323' }],
@@ -397,7 +397,7 @@ export default {
         }
         if (!data.specSettings.selectedTextColor) {
           this.$set(data.specSettings, 'selectedTextColor', {
-            title: '选中文字',
+            title: 'Chọn văn bản',
             name: 'selectedTextColor',
             default: [{ item: '#E93323' }],
             color: [{ item: '#E93323' }],
@@ -405,7 +405,7 @@ export default {
         }
         if (!data.specSettings.selectedBgColor) {
           this.$set(data.specSettings, 'selectedBgColor', {
-            title: '选中背景',
+            title: 'Chọn nền',
             name: 'selectedBgColor',
             default: [{ item: '#FDEBEB' }],
             color: [{ item: '#FDEBEB' }],
@@ -413,7 +413,7 @@ export default {
         }
         if (!data.specSettings.unselectedTextColor) {
           this.$set(data.specSettings, 'unselectedTextColor', {
-            title: '未选中文字',
+            title: 'Không có văn bản nào được chọn',
             name: 'unselectedTextColor',
             default: [{ item: '#333333' }],
             color: [{ item: '#333333' }],

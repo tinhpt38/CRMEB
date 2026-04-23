@@ -1,9 +1,9 @@
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2023 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 import request from '@/libs/request';
 
 /**
- * @description 获取分类
+ * @description Nhận danh mục
  */
 export function categoryList() {
   return request({
@@ -21,8 +21,8 @@ export function categoryList() {
 }
 
 /**
- * @description 恢复模板初始数据
- * @param {Object} param data {Object} 传值参数
+ * @description Khôi phục dữ liệu ban đầu của mẫu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function recovery(id) {
   return request({
@@ -32,8 +32,8 @@ export function recovery(id) {
 }
 
 /**
- * @description 设置初始数据
- * @param {Object} param data {Object} 传值参数
+ * @description Đặt dữ liệu ban đầu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function setDefault(id) {
   return request({
@@ -43,8 +43,8 @@ export function setDefault(id) {
 }
 
 /**
- * @description 保存DIY数据
- * @param {Object} param data {Object} 传值参数
+ * @description Lưu dữ liệu DIY
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diySave(id, data) {
   return request({
@@ -55,8 +55,8 @@ export function diySave(id, data) {
 }
 
 /**
- * @description 保存DIY数据
- * @param {Object} param data {Object} 传值参数
+ * @description Lưu dữ liệu DIY
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function saveDiy(id, data) {
   return request({
@@ -67,8 +67,8 @@ export function saveDiy(id, data) {
 }
 
 /**
- * @description 获取可视化数据
- * @param {Object} param data {Object} 传值参数
+ * @description Nhận dữ liệu trực quan
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diyGetInfo(id, data) {
   return request({
@@ -79,8 +79,8 @@ export function diyGetInfo(id, data) {
 }
 
 /**
- * @description 使用diy模板(活动商品)
- * @param {Object} param data {Object} 传值参数
+ * @description Sử dụng các mẫu tự làm(Hàng hóa sự kiện)
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function getGroomList(type, data) {
   return request({
@@ -91,7 +91,7 @@ export function getGroomList(type, data) {
 }
 
 /**
- * @description 获取商品列表
+ * @description Nhận danh sách sản phẩm
  */
 export function getProduct(data) {
   return request({
@@ -102,7 +102,7 @@ export function getProduct(data) {
 }
 
 /**
- * @description 获取自定义组件字段
+ * @description Nhận các trường thành phần tùy chỉnh
  */
 export function getDiyField() {
   return request({
@@ -112,8 +112,8 @@ export function getDiyField() {
 }
 
 /**
- * @description 获取DIY数据
- * @param {Object} param data {Object} 传值参数
+ * @description Nhận dữ liệu DIY
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function getDiyInfo(id) {
   return request({
@@ -123,7 +123,7 @@ export function getDiyInfo(id) {
 }
 
 /**
- * @description 获取链接列表
+ * @description Lấy danh sách liên kết
  */
 export function getUrl() {
   return request({
@@ -133,7 +133,7 @@ export function getUrl() {
 }
 
 /**
- * @description 获取产品分类
+ * @description Nhận danh mục sản phẩm
  */
 export function getCategory() {
   return request({
@@ -143,7 +143,7 @@ export function getCategory() {
 }
 
 /**
- * @description 获取产品一或二级分类
+ * @description Nhận phân loại sản phẩm cấp một hoặc cấp hai
  */
 export function getByCategory(data) {
   return request({
@@ -154,8 +154,8 @@ export function getByCategory(data) {
 }
 
 /**
- * @description DIY模板列表
- * @param {Object} param data {Object} 传值参数
+ * @description DIYDanh sách mẫu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diyList(data) {
   return request({
@@ -166,8 +166,8 @@ export function diyList(data) {
 }
 
 /**
- * @description 删除DIY数据
- * @param {Object} param data {Object} 传值参数
+ * @description Xóa dữ liệu DIY
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diyDel(id) {
   return request({
@@ -177,8 +177,8 @@ export function diyDel(id) {
 }
 
 /**
- * @description 使用diy模板
- * @param {Object} param data {Object} 传值参数
+ * @description Sử dụng các mẫu tự làm
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function setStatus(id) {
   return request({
@@ -188,8 +188,8 @@ export function setStatus(id) {
 }
 
 /**
- * @description 使用diy模板(判断是否显示周边门店列表)
- * @param {Object} param data {Object} 传值参数
+ * @description Sử dụng các mẫu tự làm(Xác định xem có hiển thị danh sách các cửa hàng xung quanh không)
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function storeStatus() {
   return request({
@@ -199,8 +199,8 @@ export function storeStatus() {
 }
 
 /**
- * @description 添加模板
- * @param {Object} param data {Object} 传值参数
+ * @description Thêm mẫu
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function getDiyCreate() {
   return request({
@@ -210,8 +210,8 @@ export function getDiyCreate() {
 }
 
 /**
- * @description 设置默认数据
- * @param {Object} param data {Object} 传值参数
+ * @description Đặt dữ liệu mặc định
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function getRecovery(id) {
   return request({
@@ -221,8 +221,8 @@ export function getRecovery(id) {
 }
 
 /**
- * @description 手动添加,弹窗列表数据
- * @param {Object} param data {Object} 传值参数
+ * @description Thêm thủ công,Dữ liệu danh sách cửa sổ bật lên
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function getProductList(params) {
   return request({
@@ -233,7 +233,7 @@ export function getProductList(params) {
 }
 
 /**
- * @description 换色 -- 一键换色、分类提交；
+ * @description Thay đổi màu sắc - thay đổi màu sắc bằng một cú nhấp chuột và gửi phân loại；
  */
 export function colorChange(status, name) {
   return request({
@@ -243,7 +243,7 @@ export function colorChange(status, name) {
 }
 
 /**
- * @description 换色 -- 一键换色、分类信息；
+ * @description Thay đổi màu sắc - thông tin phân loại và thay đổi màu sắc chỉ bằng một cú nhấp chuột；
  */
 export function getColorChange(name) {
   return request({
@@ -253,7 +253,7 @@ export function getColorChange(name) {
 }
 
 /**
- * @description 个人中心-获取信息；
+ * @description Trung tâm cá nhân-Nhận thông tin；
  */
 export function getMember() {
   return request({
@@ -263,7 +263,7 @@ export function getMember() {
 }
 
 /**
- * @description 小程序 -- 二维码；
+ * @description Chương trình nhỏ - mã QR；
  */
 export function getRoutineCode(id) {
   return request({
@@ -273,7 +273,7 @@ export function getRoutineCode(id) {
 }
 
 /**
- * @description 个人中心-提交信息；
+ * @description Trung tâm cá nhân-Gửi thông tin；
  */
 export function memberSave(data) {
   return request({
@@ -284,7 +284,7 @@ export function memberSave(data) {
 }
 
 /**
- * @description 页面链接-获取分类；
+ * @description Danh mục liên kết trang；
  */
 export function pageCategory() {
   return request({
@@ -294,7 +294,7 @@ export function pageCategory() {
 }
 
 /**
- * @description 页面链接-获取链接；
+ * @description Liên kết trang - nhận liên kết；
  */
 export function pageLink(id) {
   return request({
@@ -304,7 +304,7 @@ export function pageLink(id) {
 }
 
 /**
- * @description 页面链接-自定义链接提交；
+ * @description Liên kết trang-Gửi liên kết tùy chỉnh；
  */
 export function saveLink(data, id) {
   return request({
@@ -315,7 +315,7 @@ export function saveLink(data, id) {
 }
 
 /**
- * @description diy页面-热搜词；
+ * @description diyTừ tìm kiếm nóng trên trang；
  */
 export function getWordsAll() {
   return request({
@@ -324,7 +324,7 @@ export function getWordsAll() {
   });
 }
 /**
- * @description diy模板导出
+ * @description diyXuất mẫu
  */
 export function exportDiyDataApi(id) {
   return request({
@@ -334,8 +334,8 @@ export function exportDiyDataApi(id) {
 }
 
 /**
- * @description 保存DIY名称
- * @param {Object} param data {Object} 传值参数
+ * @description Lưu tên DIY
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diyUpdateName(id, data) {
   return request({
@@ -345,11 +345,11 @@ export function diyUpdateName(id, data) {
   });
 }
 
-/** 5.6+版本使用 */
+/** 5.6+Cách sử dụng phiên bản */
 
 /**
- * @description DIY模板列表
- * @param {Object} param data {Object} 传值参数
+ * @description Danh sách mẫu DIY
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diyProList(data) {
   return request({
@@ -360,8 +360,8 @@ export function diyProList(data) {
 }
 
 /**
- * @description 获取可视化数据
- * @param {Object} param data {Object} 传值参数
+ * @description Nhận dữ liệu trực quan
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diyProInfo(id, data) {
   return request({
@@ -372,8 +372,8 @@ export function diyProInfo(id, data) {
 }
 
 /**
- * @description 保存DIY数据
- * @param {Object} param data {Object} 传值参数
+ * @description Lưu dữ liệu DIY
+ * @param {Object} param data {Object} Tham số truyền theo giá trị
  */
 export function diyProSave(id, data) {
   return request({
@@ -383,9 +383,9 @@ export function diyProSave(id, data) {
   });
 }
 /**
- * @description 保存商城主题
- * @param type 保存类型
- * @param value diy格值
+ * @description Lưu chủ đề trung tâm mua sắm
+ * Kiểu lưu kiểu @param
+ * Giá trị @param Giá trị lưới tự làm
  */
 export function themeSave(id, data) {
   return request({
@@ -395,10 +395,10 @@ export function themeSave(id, data) {
   });
 }
 /**
- * @description 获取商城主题
- * @param id 主题id
- * @param type 类型
- * @return {Object} 主题数据
+ * @description Nhận chủ đề trung tâm mua sắm
+ * @param id id chủ đề
+ * Kiểu loại @param
+ * @return {Object} Dữ liệu chủ đề
  */
 export function themeInfo(id, type) {
   return request({
@@ -408,7 +408,7 @@ export function themeInfo(id, type) {
 }
 
 /**
- * @description 获取文章列表
+ * @description Nhận danh sách bài viết
  */
 export function getArticleList(data) {
   return request({
@@ -419,7 +419,7 @@ export function getArticleList(data) {
 }
 
 /**
- * @description 获取优惠券列表
+ * @description Nhận danh sách phiếu giảm giá
  */
 export function getCouponList(data) {
   return request({
@@ -430,7 +430,7 @@ export function getCouponList(data) {
 }
 
 /**
- * @description 获取商品列表
+ * @description Nhận danh sách sản phẩm
  */
 export function getProProduct(data) {
   return request({
@@ -441,7 +441,7 @@ export function getProProduct(data) {
 }
 
 /**
- * @description 获取主题商品列表
+ * @description Nhận danh sách các sản phẩm theo chủ đề
  */
 export function getThemeProduct(data) {
   return request({
@@ -452,7 +452,7 @@ export function getThemeProduct(data) {
 }
 
 /**
- * @description 导入主题
+ * @description Nhập chủ đề
  * @param data
  */
 export function importTheme(data) {
@@ -463,9 +463,9 @@ export function importTheme(data) {
   });
 }
 /**
- * @description 保存主题名称
- * @param id 主题id
- * @param data 主题名称
+ * @description Lưu tên chủ đề
+ * @param id id chủ đề
+ * Tên chủ đề dữ liệu @param
  */
 export function saveThemeTitle(id, data) {
   return request({
@@ -476,9 +476,9 @@ export function saveThemeTitle(id, data) {
 }
 
 /**
- * @description 保存主题封面
- * @param id 主题id
- * @param data 封面图地址
+ * @description Lưu bìa chủ đề
+ * @param id id chủ đề
+ * @param địa chỉ ảnh bìa dữ liệu
  */
 export function saveThemeImage(id, data) {
   return request({
@@ -489,7 +489,7 @@ export function saveThemeImage(id, data) {
 }
 
 /**
- * @description 获取主题列表
+ * @description Lấy danh sách chủ đề
  */
 export function getThemeList(data) {
   return request({
@@ -499,8 +499,8 @@ export function getThemeList(data) {
   });
 }
 /**
- * @description 导出主题
- * @param id 主题id
+ * @description Xuất chủ đề
+ * Chủ đề id @paramid
  */
 export function exportTheme(id) {
   return request({
@@ -510,8 +510,8 @@ export function exportTheme(id) {
 }
 
 /**
- * @description 查询主题导出记录（轮询用）
- * @param recordId 下载记录id
+ * @description Truy vấn bản ghi xuất chủ đề (để bỏ phiếu)
+ * Bản ghi tải xuống @param recordIdid
  */
 export function getExportRecord(recordId) {
   return request({
@@ -521,8 +521,8 @@ export function getExportRecord(recordId) {
 }
 
 /**
- * @description 使用主题
- * @param id 主题id
+ * @description Sử dụng chủ đề
+ * Chủ đề id @paramid
  */
 export function useTheme(id) {
   return request({
@@ -532,7 +532,7 @@ export function useTheme(id) {
 }
 
 /**
- * @description 获取当前使用的主题
+ * @description Lấy chủ đề hiện đang được sử dụng
  */
 export function getThemeUsing() {
   return request({
@@ -541,8 +541,8 @@ export function getThemeUsing() {
   });
 }
 /**
- * @description 恢复主题
- * @param id 主题id
+ * @description Khôi phục chủ đề
+ * Chủ đề id @paramid
  */
 export function restoreTheme(id) {
   return request({
@@ -552,8 +552,8 @@ export function restoreTheme(id) {
 }
 
 /**
- * @description 使用主题数据
- * @param id 当前主题id
+ * @description Sử dụng dữ liệu chủ đề
+ * @param id chủ đề hiện tạiid
  * @param data {theme_id, type}
  */
 export function useThemeData(id, data) {
@@ -565,8 +565,8 @@ export function useThemeData(id, data) {
 }
 
 /**
- * @description 删除主题
- * @param id 主题id
+ * @description Xóa chủ đề
+ * Chủ đề id @paramid
  */
 export function deleteTheme(id) {
   return request({
@@ -576,7 +576,7 @@ export function deleteTheme(id) {
 }
 
 /**
- * @description 获取微页面列表
+ * @description Nhận danh sách các micropage
  * @param data
  */
 export function getMicroPageList(data) {

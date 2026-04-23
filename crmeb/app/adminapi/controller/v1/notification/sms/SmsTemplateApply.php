@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -15,7 +15,7 @@ use app\services\serve\ServeServices;
 use think\facade\App;
 
 /**
- * 短信模板申请
+ * Ứng dụng mẫu SMS
  * Class SmsTemplateApply
  * @package app\admin\controller\sms
  */
@@ -32,7 +32,7 @@ class SmsTemplateApply extends AuthController
     }
 
     /**
-     * 异步获取模板列表
+     * Nhận danh sách mẫu không đồng bộ
      * @return mixed
      */
     public function index()
@@ -51,13 +51,13 @@ class SmsTemplateApply extends AuthController
             $item['templateid'] = $item['temp_id'];
             switch ((int)$item['temp_type']) {
                 case 1:
-                    $item['type'] = '验证码';
+                    $item['type'] = 'Mã xác minh';
                     break;
                 case 2:
-                    $item['type'] = '通知';
+                    $item['type'] = 'thông báo';
                     break;
                 case 30:
-                    $item['type'] = '营销短信';
+                    $item['type'] = 'SMS tiếp thị';
                     break;
             }
         }
@@ -65,7 +65,7 @@ class SmsTemplateApply extends AuthController
     }
 
     /**
-     * 显示创建资源表单页
+     * Hiển thị trang biểu mẫu tạo tài nguyên
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
@@ -75,7 +75,7 @@ class SmsTemplateApply extends AuthController
     }
 
     /**
-     * 保存新建的资源
+     * Lưu tài nguyên mới
      * @return mixed
      */
     public function save()
@@ -86,12 +86,12 @@ class SmsTemplateApply extends AuthController
             ['type', 0]
         ]);
         if (!strlen(trim($data['title']))) {
-            return app('json')->fail('请输入模板名称');
+            return app('json')->fail('Vui lòng nhập tên mẫu');
         }
         if (!strlen(trim($data['content']))) {
-            return app('json')->fail('请输入模板内容');
+            return app('json')->fail('Vui lòng nhập nội dung mẫu');
         }
         $this->services->sms()->apply($data['title'], $data['content'], $data['type']);
-        return app('json')->success('申请成功');
+        return app('json')->success('Ứng dụng thành công');
     }
 }

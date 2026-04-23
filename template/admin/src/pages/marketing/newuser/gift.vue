@@ -3,25 +3,25 @@
     <div class="article-manager">
       <el-card :bordered="false" shadow="never" class="ivu-mt fromBox">
         <el-form ref="formRef" :model="formData" label-width="100px">
-          <el-form-item label="赠送余额(元)：">
+          <el-form-item label="Số dư quà tặng(Nhân dân tệ)：">
             <el-input-number
               class="form-width"
               v-model="formData.reward_money"
-              placeholder="请输入赠送余额"
+              placeholder="Vui lòng nhập số dư quà tặng"
               :min="0"
             ></el-input-number>
-            <div class="tips-info">新用户奖励金额，必须大于等于0，0为不赠送</div>
+            <div class="tips-info">Số tiền thưởng của người dùng mới phải lớn hơn hoặc bằng 0, 0 nghĩa là không có quà tặng</div>
           </el-form-item>
-          <el-form-item label="赠送积分：">
+          <el-form-item label="Tặng điểm：">
             <el-input-number
               class="form-width"
               v-model="formData.reward_integral"
-              placeholder="请输入赠送积分数量"
+              placeholder="Vui lòng nhập số điểm thưởng"
               :min="0"
             ></el-input-number>
-            <div class="tips-info">新用户奖励积分，必须大于等于0，0为不赠送</div>
+            <div class="tips-info">Điểm thưởng của người dùng mới phải lớn hơn hoặc bằng 0, 0 nghĩa là không có quà.</div>
           </el-form-item>
-          <el-form-item label="赠送优惠券：">
+          <el-form-item label="Tặng phiếu giảm giá：">
             <div v-if="formData.reward_coupon.length" class="mb10">
               <el-tag
                 class="mr10"
@@ -32,10 +32,10 @@
                 >{{ item.title }}</el-tag
               >
             </div>
-            <el-button v-db-click @click="addCoupon">选择优惠券</el-button>
+            <el-button v-db-click @click="addCoupon">Chọn phiếu giảm giá</el-button>
           </el-form-item>
           <el-form-item label="">
-            <el-button type="primary" v-db-click @click="submitForm">确认</el-button>
+            <el-button type="primary" v-db-click @click="submitForm">xác nhận</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -65,17 +65,17 @@ export default {
     this.getInfo();
   },
   methods: {
-    //对象数组去重；
+    //Sao chép mảng đối tượng；
     uniqueArray(arr) {
       const seen = {};
       return arr.filter((item) => {
         item.title =
           item.use_min_price !== '0.00'
-            ? `${item.title} | 满${item.use_min_price}元 减 ${item.coupon_price}元`
-            : `${item.title} | ${item.coupon_price}元 无门槛券`;
+            ? `${item.title} | Đầy${item.use_min_price}trừ nhân dân tệ ${item.coupon_price}Nhân dân tệ`
+            : `${item.title} | ${item.coupon_price}Phiếu giảm giá nhân dân tệ không có ngưỡng`;
         delete item.use_min_price;
         delete item.coupon_price;
-        const key = JSON.stringify(item); // 使用 JSON.stringify 生成唯一键
+        const key = JSON.stringify(item); // Tạo khóa duy nhất bằng JSON.stringify
         if (seen[key]) {
           return false;
         } else {
@@ -84,11 +84,11 @@ export default {
         }
       });
     },
-    // 获取优惠券id数据
+    // Nhận dữ liệu id phiếu giảm giá
     nameId(id, names) {
       this.formData.reward_coupon = this.uniqueArray(names);
     },
-    // 添加优惠券
+    // thêm phiếu giảm giá
     addCoupon() {
       this.$refs.couponTemplates.isTemplate = true;
       this.$refs.couponTemplates.tableList();
@@ -106,20 +106,20 @@ export default {
         })
         .catch((err) => {
           this.spinShow = false;
-          this.$message.error('获取失败');
+          this.$message.error('Không thể lấy được');
         });
     },
-    // 提交表单
+    // Gửi biểu mẫu
     submitForm() {
       this.spinShow = true;
       editNewbie(this.formData)
         .then((res) => {
           this.spinShow = false;
-          this.$message.success('提交成功');
+          this.$message.success('Gửi thành công');
         })
         .catch((err) => {
           this.spinShow = false;
-          this.$message.error('提交失败');
+          this.$message.error('Gửi không thành công');
         });
     },
   },

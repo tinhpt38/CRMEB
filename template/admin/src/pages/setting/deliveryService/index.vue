@@ -4,7 +4,7 @@
       <el-row class="mb20">
         <el-col :span="24">
           <el-button v-auth="['setting-delivery_service-add']" type="primary" v-db-click @click="add" class="mr10"
-            >添加配送员</el-button
+            >Thêm người giao hàng</el-button
           >
         </el-col>
       </el-row>
@@ -12,32 +12,32 @@
         :data="data1"
         v-loading="loading"
         highlight-current-row
-        no-userFrom-text="暂无数据"
-        no-filtered-userFrom-text="暂无筛选结果"
+        no-userFrom-text="Chưa có dữ liệu"
+        no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="头像" min-width="90">
+        <el-table-column label="hình đại diện" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="名称" min-width="130">
+        <el-table-column label="tên" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="手机号码" min-width="130">
+        <el-table-column label="số điện thoại" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" min-width="130">
+        <el-table-column label="Có hiển thị hay không" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -47,22 +47,22 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="显示"
-              inactive-text="隐藏"
+              active-text="trình diễn"
+              inactive-text="trốn"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="添加时间" min-width="130">
+        <el-table-column label="Thêm thời gian" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="100">
+        <el-table-column label="vận hành" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除配送员', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa người giao hàng', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -103,7 +103,7 @@ export default {
     this.getOrderDeliveryList();
   },
   methods: {
-    // 配送员列表
+    // Danh sách người giao hàng
     getOrderDeliveryList() {
       this.loading = true;
       deliveryList(this.tableOptions)
@@ -117,15 +117,15 @@ export default {
           this.$message.error(err.msg);
         });
     },
-    // 添加配送员
+    // Thêm người giao hàng
     add() {
       this.$modalForm(orderDeliveryAdd()).then(() => this.getOrderDeliveryList());
     },
-    // 编辑
+    // biên tập
     edit(row) {
       this.$modalForm(orderDeliveryEdit(row.id)).then(() => this.getOrderDeliveryList());
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -143,7 +143,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // 是否显示
+    // Có hiển thị hay không
     onchangeIsShow(row) {
       orderDeliveryStatus(row)
         .then((res) => {

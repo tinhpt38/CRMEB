@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -27,9 +27,9 @@ class UserController
     }
 
     /**
-     * 用户资金记录明细
+     * Chi tiết hồ sơ quỹ người dùng
      * @param Request $request
-     * @param $type 0 全部  1 消费  2 充值  3 返佣  4 提现
+     * @param $type 0 Tất cả 1 Chi tiêu 2 Nạp tiền 3 Hoàn tiền 4 Rút tiền
      * @return mixed
      */
     public function getBalanceRecord(Request $request, $type)
@@ -55,7 +55,7 @@ class UserController
     }
 
     /**
-     * 获取收藏列表
+     * Nhận danh sách yêu thích
      * @param Request $request
      * @return mixed
      */

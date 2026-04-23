@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -21,7 +21,7 @@ use crmeb\traits\QueueTrait;
 use think\facade\Log;
 
 /**
- * 未支付订单到期取消
+ * Hủy đơn hàng chưa thanh toán đến hạn
  * Class UnpaidOrderCancelJob
  * @package crmeb\jobs
  */
@@ -58,20 +58,20 @@ class UnpaidOrderCancelJob extends BaseJobs
 
         try {
             $res = $refundServices->transaction(function () use ($orderInfo, $refundServices) {
-                //回退积分和优惠卷
+                //Trả lại điểm và phiếu giảm giá
                 $refundServices->integralAndCouponBack($orderInfo, 'cancel');
-                //回退库存和销量
+                //Khôi phục hàng tồn kho và doanh số bán hàng
                 $refundServices->regressionStock($orderInfo);
                 return true;
             });
             if ($res) {
                 $orderInfo->is_cancel = 1;
-                $orderInfo->mark = '订单未支付已超过系统预设时间';
+                $orderInfo->mark = 'Đơn hàng chưa được thanh toán quá thời gian quy định của hệ thống';
                 $orderInfo->save();
             }
             return $res;
         } catch (\Throwable $e) {
-            Log::error('自动取消订单失败,失败原因:' . $e->getMessage());
+            Log::error('Tự động hủy đơn hàng không thành công,Lý do thất bại:' . $e->getMessage());
             return false;
         }
     }

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -20,19 +20,19 @@ class StoreOrderRefund extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_order_refund';
 
     /**
-     * 购物车信息获取器
+     * Công cụ lấy thông tin giỏ hàng
      * @param $value
      * @return array|mixed
      */
@@ -42,7 +42,7 @@ class StoreOrderRefund extends BaseModel
     }
 
     /**
-     * 图片获取器
+     * Trình lấy hình ảnh
      * @param $value
      * @return array|mixed
      */
@@ -52,7 +52,7 @@ class StoreOrderRefund extends BaseModel
     }
 
     /**
-     * 一对一关联订单表
+     * Bảng thứ tự liên quan một-một
      * @return StoreOrderRefund|\think\model\relation\HasOne
      */
     public function order()
@@ -61,7 +61,7 @@ class StoreOrderRefund extends BaseModel
     }
 
     /**
-     * 一对一关联用户表
+     * Liên kết một-một của các bảng người dùng
      * @return \think\model\relation\HasOne
      */
     public function user()
@@ -74,7 +74,7 @@ class StoreOrderRefund extends BaseModel
     }
 
     /**
-     * 订单ID搜索器
+     * Trình tìm kiếm ID đơn hàng
      * @param $query
      * @param $value
      */
@@ -115,7 +115,7 @@ class StoreOrderRefund extends BaseModel
     }
 
     /**
-     * is_del搜索器
+     * is_delNgười tìm kiếm
      * @param Model $query
      * @param $value
      */
@@ -125,7 +125,7 @@ class StoreOrderRefund extends BaseModel
     }
 
     /**
-     * is_system_del搜索器
+     * is_system_delNgười tìm kiếm
      * @param Model $query
      * @param $value
      */
@@ -162,7 +162,7 @@ class StoreOrderRefund extends BaseModel
     }
 
     /**
-     * 一对一关联订单表
+     * Bảng thứ tự liên quan một-một
      * @return StoreOrderRefund|\think\model\relation\HasOne
      */
     public function orderData()

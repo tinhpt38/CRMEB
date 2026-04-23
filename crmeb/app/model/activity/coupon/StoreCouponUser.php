@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -17,7 +17,7 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO 优惠券发放Model
+ * TODO Phát hành phiếu giảm giáModel
  * Class StoreCouponUser
  * @package app\model\coupon
  */
@@ -26,25 +26,25 @@ class StoreCouponUser extends BaseModel
     use ModelTrait;
 
     /**
-     * 数据表主键
+     * Khóa chính của bảng dữ liệu
      * @var string
      */
     protected $pk = 'id';
 
     /**
-     * 模型名称
+     * Tên mẫu
      * @var string
      */
     protected $name = 'store_coupon_user';
 
     /**
-     * 获取类型
+     * Nhận loại
      * @var string[]
      */
-    protected $gainType = ['send' => '后台发放', 'get' => '手动领取'];
+    protected $gainType = ['send' => 'Phân phối phụ trợ', 'get' => 'Thu thập thủ công'];
 
     /**
-     * 类型获取器
+     * gõ kiểu
      * @param $value
      * @return string
      */
@@ -54,13 +54,13 @@ class StoreCouponUser extends BaseModel
     }
 
     /**
-     * 使用状态
+     * trạng thái sử dụng
      * @var string[]
      */
-    protected $statusType = [0 => '未使用', 1 => '已使用', 2 => '已过期'];
+    protected $statusType = [0 => 'Không được sử dụng', 1 => 'Đã sử dụng', 2 => 'Hết hạn'];
 
     /**
-     * 状态获取器
+     * nhận trạng thái
      * @param $value
      * @return string
      */
@@ -86,7 +86,7 @@ class StoreCouponUser extends BaseModel
     }
 
     /**
-     * 获取领取人名称头像
+     * Lấy tên và hình đại diện của người nhận
      * @return \think\model\relation\HasOne
      */
     public function userInfo()
@@ -95,7 +95,7 @@ class StoreCouponUser extends BaseModel
     }
 
     /**
-     * 优惠券ID搜索器
+     * Trình tìm ID phiếu giảm giá
      * @param Model $query
      * @param $value
      * @param $data
@@ -110,7 +110,7 @@ class StoreCouponUser extends BaseModel
     }
 
     /**
-     * 用户ID搜索器
+     * Trình tìm kiếm ID người dùng
      * @param Model $query
      * @param $value
      * @param $data
@@ -121,7 +121,7 @@ class StoreCouponUser extends BaseModel
     }
 
     /**
-     * 优惠券名称搜索器
+     * Trình tìm tên phiếu giảm giá
      * @param Model $query
      * @param $value
      * @param $data
@@ -132,7 +132,7 @@ class StoreCouponUser extends BaseModel
     }
 
     /**
-     * 获取方式搜索器
+     * Nhận công cụ tìm kiếm phương pháp
      * @param Model $query
      * @param $value
      * @param $data
@@ -144,7 +144,7 @@ class StoreCouponUser extends BaseModel
 
 
     /**
-     * 是否失效
+     * Cho dù nó không hợp lệ
      * @param Model $query
      * @param $value
      * @param $data
@@ -155,7 +155,7 @@ class StoreCouponUser extends BaseModel
     }
 
     /**
-     * 是否在使用期限内搜索器
+     * Công cụ tìm kiếm có còn hạn sử dụng không?
      * @param Model $query
      * @param $value
      * @param $data

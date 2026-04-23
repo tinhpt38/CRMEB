@@ -1,44 +1,44 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
 return [
 
-    // 系统程序接收到发送过来的消息，通过此端口推送给对应的客户或者客服，以及后台新订单弹窗提醒
+    // Chương trình hệ thống nhận tin nhắn đã gửi và đẩy nó đến khách hàng hoặc bộ phận dịch vụ khách hàng tương ứng thông qua cổng này, cũng như lời nhắc bật lên nền cho các đơn hàng mới.
     'channel' => [
-        //内部通讯监听端口
+        //Cổng nghe giao tiếp nội bộ
         'port' => 40003,
-        //内部通讯地址
+        //Địa chỉ thư từ nội bộ
         'ip' => '127.0.0.1',
     ],
 
-    // notice 新订单和新退款单发送消息给程序，后台的消息通知
+    // notice Đơn hàng mới và đơn hàng hoàn tiền mới gửi tin nhắn đến chương trình và thông báo tin nhắn nền
     'admin' => [
-        //协议
+        //giao thức
         'protocol' => 'websocket',
-        //监听地址
+        //địa chỉ nghe
         'ip' => '0.0.0.0',
-        //监听端口
+        //cổng nghe
         'port' => 40001,
-        //设置当前Worker实例启动多少个进程
+        //Đặt số lượng quy trình được bắt đầu bởi phiên bản Worker hiện tại
         'serverCount' => 1,
     ],
 
-    // msg 客户或者客服发送消息给程序，客服消息通知
+    // msg Khách hàng hoặc bộ phận chăm sóc khách hàng gửi tin nhắn vào chương trình, tin nhắn chăm sóc khách hàng được thông báo
     'chat' => [
-        //协议
+        //giao thức
         'protocol' => 'websocket',
-        //监听地址
+        //địa chỉ nghe
         'ip' => '0.0.0.0',
-        //监听端口
+        //cổng nghe
         'port' => 40002,
-        //设置当前Worker实例启动多少个进程
+        //Đặt số lượng quy trình được bắt đầu bởi phiên bản Worker hiện tại
         'serverCount' => 1,
     ],
 ];

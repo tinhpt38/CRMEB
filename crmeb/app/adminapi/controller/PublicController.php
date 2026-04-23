@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,7 +23,7 @@ class PublicController
 {
 
     /**
-     * 下载文件
+     * Tải tập tin xuống
      * @param string $key
      * @return Response|\think\response\File
      */
@@ -46,7 +46,7 @@ class PublicController
     }
 
     /**
-     * 获取workerman请求域名
+     * Nhận tên miền yêu cầu của công nhân
      * @return mixed
      */
     public function getWorkerManUrl()
@@ -55,12 +55,12 @@ class PublicController
     }
 
     /**
-     * 扫码上传
+     * Quét mã để tải lên
      * @param Request $request
      * @param int $upload_type
      * @param int $type
      * @return Response
-     * @author 吴汐
+     * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
      */
@@ -73,24 +73,24 @@ class PublicController
         ], true);
         $service = app()->make(SystemAttachmentServices::class);
         if (CacheService::get('scan_upload') != $uploadToken) {
-            return app('json')->fail('配置已更改或token已失效');
+            return app('json')->fail('Cấu hình đã được thay đổi hoặc mã thông báo đã hết hạn');
         }
         $service->upload((int)$pid, $file, $upload_type, $type, '', $uploadToken);
-        return app('json')->success('上传成功');
+        return app('json')->success('Tải lên thành công');
     }
 
     public function import(Request $request)
     {
         $filePath = $request->param('file_path', '');
         if (empty($filePath)) {
-            return app('json')->fail('文件不存在');
+            return app('json')->fail('Tập tin không tồn tại');
         }
         app()->make(SystemRouteServices::class)->import($filePath);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 
     /**
-     * 服务器信息
+     * Thông tin máy chủ
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
@@ -99,63 +99,63 @@ class PublicController
     public function getSystemInfo()
     {
         $info['server'] = [
-            ['name' => '服务器系统', 'require' => '类UNIX', 'value' => PHP_OS],
-            ['name' => 'WEB环境', 'require' => 'Apache/Nginx/IIS', 'value' => $_SERVER['SERVER_SOFTWARE']],
+            ['name' => 'Hệ thống máy chủ', 'require' => 'loạiUNIX', 'value' => PHP_OS],
+            ['name' => 'WEBmôi trường', 'require' => 'Apache/Nginx/IIS', 'value' => $_SERVER['SERVER_SOFTWARE']],
         ];
         $gd_info = function_exists('gd_info') ? gd_info() : array();
         $info['environment'] = [
-            ['name' => 'PHP版本', 'require' => '7.1-7.4', 'value' => phpversion()],
-            ['name' => 'MySql版本', 'require' => '5.6-8.0', 'value' => Db::query("SELECT VERSION()")[0]['VERSION()']],
-            ['name' => 'MySqli', 'require' => '开启', 'value' => function_exists('mysqli_connect')],
-            ['name' => 'Openssl', 'require' => '开启', 'value' => function_exists('openssl_encrypt')],
-            ['name' => 'Session', 'require' => '开启', 'value' => function_exists('session_start')],
-            ['name' => 'Safe_Mode', 'require' => '开启', 'value' => !ini_get('safe_mode')],
-            ['name' => 'GD', 'require' => '开启', 'value' => !empty($gd_info['GD Version'])],
-            ['name' => 'Curl', 'require' => '开启', 'value' => function_exists('curl_init')],
-            ['name' => 'Bcmath', 'require' => '开启', 'value' => function_exists('bcadd')],
-            ['name' => 'Upload', 'require' => '开启', 'value' => (bool)ini_get('file_uploads')],
+            ['name' => 'PHPPhiên bản', 'require' => '7.1-7.4', 'value' => phpversion()],
+            ['name' => 'MySqlPhiên bản', 'require' => '5.6-8.0', 'value' => Db::query("SELECT VERSION()")[0]['VERSION()']],
+            ['name' => 'MySqli', 'require' => 'bật lên', 'value' => function_exists('mysqli_connect')],
+            ['name' => 'Openssl', 'require' => 'bật lên', 'value' => function_exists('openssl_encrypt')],
+            ['name' => 'Session', 'require' => 'bật lên', 'value' => function_exists('session_start')],
+            ['name' => 'Safe_Mode', 'require' => 'bật lên', 'value' => !ini_get('safe_mode')],
+            ['name' => 'GD', 'require' => 'bật lên', 'value' => !empty($gd_info['GD Version'])],
+            ['name' => 'Curl', 'require' => 'bật lên', 'value' => function_exists('curl_init')],
+            ['name' => 'Bcmath', 'require' => 'bật lên', 'value' => function_exists('bcadd')],
+            ['name' => 'Upload', 'require' => 'bật lên', 'value' => (bool)ini_get('file_uploads')],
         ];
 
         $info['permissions'] = [
-            ['name' => 'backup', 'require' => '读写', 'value' => is_readable(root_path('backup')) && is_writable(root_path('backup'))],
-            ['name' => 'public', 'require' => '读写', 'value' => is_readable(root_path('public')) && is_writable(root_path('public'))],
-            ['name' => 'runtime', 'require' => '读写', 'value' => is_readable(root_path('runtime')) && is_writable(root_path('runtime'))],
-            ['name' => '.env', 'require' => '读写', 'value' => is_readable(root_path() . '.env') && is_writable(root_path() . '.env')],
-            ['name' => '.version', 'require' => '读写', 'value' => is_readable(root_path() . '.version') && is_writable(root_path() . '.version')],
-            ['name' => '.constant', 'require' => '读写', 'value' => is_readable(root_path() . '.constant') && is_writable(root_path() . '.constant')],
+            ['name' => 'backup', 'require' => 'Đọc và viết', 'value' => is_readable(root_path('backup')) && is_writable(root_path('backup'))],
+            ['name' => 'public', 'require' => 'Đọc và viết', 'value' => is_readable(root_path('public')) && is_writable(root_path('public'))],
+            ['name' => 'runtime', 'require' => 'Đọc và viết', 'value' => is_readable(root_path('runtime')) && is_writable(root_path('runtime'))],
+            ['name' => '.env', 'require' => 'Đọc và viết', 'value' => is_readable(root_path() . '.env') && is_writable(root_path() . '.env')],
+            ['name' => '.version', 'require' => 'Đọc và viết', 'value' => is_readable(root_path() . '.version') && is_writable(root_path() . '.version')],
+            ['name' => '.constant', 'require' => 'Đọc và viết', 'value' => is_readable(root_path() . '.constant') && is_writable(root_path() . '.constant')],
         ];
 
         if (function_exists('exec')) {
             $workermanOutput = $timerOutput = $queueOutput = [];
             // exec("ps aux | grep 'php think workerman' | grep -v grep", $workermanOutput);
             $targetPort = config('workerman.chat.port');
-            $thinkPath = root_path(); // think 文件的绝对路径
+            $thinkPath = root_path(); // think đường dẫn tuyệt đối đến tập tin
             $checkService = function($service) {
                 if($service === 'queue'){
                     $command = 'queue:listen'; 
-                    // 执行 ps 命令查找队列进程
+                    // Thực hiện lệnh ps để tìm quá trình xếp hàng
                     exec("ps aux | grep '{$command}' | grep -v grep", $output);
                     
-                    // 若输出不为空，说明进程存在
+                    // Nếu đầu ra không trống, điều đó có nghĩa là quá trình tồn tại
                     return !empty($output);
                 } else {
                     $pidFile = root_path('runtime') . $service . '.pid';
-                    // 优先检查PID文件
+                    // Kiểm tra tập tin PID trước
                     if (!file_exists($pidFile)) {
                         return false;
                     }
                     
-                    // 如果PID文件存在，尝试获取进程状态
+                    // Nếu tệp PID tồn tại, hãy thử lấy trạng thái quy trình
                     $pid = trim(file_get_contents($pidFile));
                     if ($pid && is_numeric($pid)) {
                         if (function_exists('posix_kill') && posix_kill($pid, 0)) {
                             return true;
                         }
-                        // 备用检查方法
+                        // Phương pháp kiểm tra thay thế
                         if (function_exists('exec')) {
                             $output = [];
                             exec("ps -ef | grep " . escapeshellarg($pid) . " | grep -v grep", $output);
-                            // 判断是否有非 grep 进程的输出
+                            // Xác định xem có đầu ra từ quy trình không phải grep không
                             return !empty($output);
                         }
                     }
@@ -163,16 +163,16 @@ class PublicController
             };
         
             $info['process'] = [
-                ['name' => '长链接', 'require' => '开启', 'value' => $checkService('workerman')],
-                ['name' => '定时任务', 'require' => '开启', 'value' => $checkService('timer')],
-                ['name' => '消息队列', 'require' => '开启', 'value' => $checkService('queue')],
+                ['name' => 'liên kết dài', 'require' => 'bật lên', 'value' => $checkService('workerman')],
+                ['name' => 'nhiệm vụ theo lịch trình', 'require' => 'bật lên', 'value' => $checkService('timer')],
+                ['name' => 'hàng đợi tin nhắn', 'require' => 'bật lên', 'value' => $checkService('queue')],
             ];
             
         } else {
             $info['process'] = [
-                ['name' => '长链接', 'require' => '开启', 'value' => file_exists(root_path('runtime') . 'workerman.pid')],
-                ['name' => '定时任务', 'require' => '开启', 'value' => file_exists(root_path('runtime') . 'timer.pid')],
-                ['name' => '消息队列', 'require' => '开启', 'value' => file_exists(root_path('runtime') . '.queue')],
+                ['name' => 'liên kết dài', 'require' => 'bật lên', 'value' => file_exists(root_path('runtime') . 'workerman.pid')],
+                ['name' => 'nhiệm vụ theo lịch trình', 'require' => 'bật lên', 'value' => file_exists(root_path('runtime') . 'timer.pid')],
+                ['name' => 'hàng đợi tin nhắn', 'require' => 'bật lên', 'value' => file_exists(root_path('runtime') . '.queue')],
             ];
         }
 

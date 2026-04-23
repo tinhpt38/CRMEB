@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mb-16" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form :model="formValidate" :label-width="labelWidth" label-position="right" @submit.native.prevent inline>
-          <el-form-item label="语言分类：">
+          <el-form-item label="Phân loại ngôn ngữ：">
             <el-select v-model="formValidate.is_admin" clearable @change="selChange" class="form_content_width">
               <el-option
                 v-for="(item, index) in langType.isAdmin"
@@ -13,7 +13,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="语言类型：">
+          <el-form-item label="loại ngôn ngữ：">
             <el-select v-model="formValidate.type_id" clearable @change="selChange" class="form_content_width">
               <el-option
                 v-for="(item, index) in langType.langType"
@@ -23,67 +23,67 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="搜索：">
+          <el-form-item label="tìm kiếm：">
             <el-input
               clearable
-              placeholder="请输入语言备注"
+              placeholder="Vui lòng nhập nhận xét ngôn ngữ"
               v-model="formValidate.remarks"
               class="form_content_width"
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="userSearch" v-db-click @click="selChange">搜索</el-button>
+            <el-button type="primary" class="userSearch" v-db-click @click="selChange">tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-alert type="warning" :closable="false">
       <template slot="title">
-        <p class="alert_title">页面语言</p>
-        添加页面语言，添加完成之后状态码为中文文字，移动端页面使用 $t(`xxxx`)，js文件中使用 this.t(`xxxx`) 或者使用
-        that.t(`xxxx`) 实现语言的切换<br />
+        <p class="alert_title">Ngôn ngữ trang</p>
+        Thêm ngôn ngữ trang. Sau khi bổ sung xong, mã trạng thái sẽ là văn bản tiếng Trung, có thể sử dụng được trên các trang di động. $t(`xxxx`)，jsđược sử dụng trong tập tin this.t(`xxxx`) Hoặc sử dụng
+        that.t(`xxxx`) Thực hiện chuyển đổi ngôn ngữ<br />
         <br />
-        <p class="alert_title">接口语言</p>
-        添加接口语言，添加完成之后状态码为6位数字，接口返回提示信息时，直接返回对应的错误码即可实现语言的切换
+        <p class="alert_title">ngôn ngữ giao diện</p>
+        Thêm ngôn ngữ giao diện. Sau khi việc cộng hoàn tất, mã trạng thái sẽ là một số có 6 chữ số. Khi giao diện trả về thông tin nhắc nhở, mã lỗi tương ứng có thể được trả về trực tiếp để thực hiện chuyển đổi ngôn ngữ.
       </template>
     </el-alert>
     <el-card class="mt14" :bordered="false" shadow="never">
       <el-row class="mb14">
         <el-col>
-          <el-button type="primary" v-db-click @click="add">添加语句</el-button>
+          <el-button type="primary" v-db-click @click="add">Thêm câu lệnh</el-button>
         </el-col>
       </el-row>
-      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" empty-text="暂无数据">
-        <el-table-column label="编号" width="80">
+      <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" empty-text="Chưa có dữ liệu">
+        <el-table-column label="số seri" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="原语句" min-width="230">
+        <el-table-column label="câu gốc" min-width="230">
           <template slot-scope="scope">
             <span>{{ scope.row.remarks }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="对应语言翻译" min-width="130">
+        <el-table-column label="Dịch ngôn ngữ tương ứng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.lang_explain }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态码/文字(接口/页面调用参考)" min-width="130">
+        <el-table-column label="mã trạng thái/văn bản(Tham chiếu cuộc gọi giao diện/trang)" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="语言类型" min-width="130">
+        <el-table-column label="loại ngôn ngữ" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.language_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" width="170">
+        <el-table-column label="vận hành" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">编辑</a>
+            <a v-db-click @click="edit(scope.row)">biên tập</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, '删除语言', scope.$index)">删除</a>
+            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ', scope.$index)">xóa bỏ</a>
           </template>
         </el-table-column>
       </el-table>
@@ -97,9 +97,9 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="addlangModal" width="720px" title="添加需要翻译的语句" @closed="modalChange">
+    <el-dialog :visible.sync="addlangModal" width="720px" title="Thêm câu cần dịch" @closed="modalChange">
       <el-form ref="langFormData" :model="langFormData" :rules="ruleValidate">
-        <el-form-item label="应用端：" class="mb20" label-width="120px">
+        <el-form-item label="Bên ứng dụng：" class="mb20" label-width="120px">
           <el-radio-group type="button" v-model="langFormData.is_admin" class="mr15">
             <el-radio :label="item.value" v-for="(item, index) in langType.isAdmin" :key="index">{{
               item.title
@@ -107,25 +107,25 @@
           </el-radio-group>
         </el-form-item>
         <el-input v-model="langFormData.edit" v-show="false"></el-input>
-        <el-form-item label="需要翻译的语句：" prop="remarks" class="mb20">
+        <el-form-item label="Những câu cần dịch：" prop="remarks" class="mb20">
           <el-input
             v-model="langFormData.remarks"
-            placeholder="请输入需要添加翻译的语句"
+            placeholder="Hãy nhập câu cần dịch"
             style="width: 330px"
             search
             @on-search="translate"
           >
-            <el-button type="primary" slot="append" v-db-click @click="translate">翻译</el-button>
+            <el-button type="primary" slot="append" v-db-click @click="translate">dịch</el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="remark" class="mb20">
-          <el-table ref="langTable" v-loading="traTabLoading" :data="langFormData.list" empty-text="暂无数据">
-            <el-table-column label="语言类型" width="140">
+          <el-table ref="langTable" v-loading="traTabLoading" :data="langFormData.list" empty-text="Chưa có dữ liệu">
+            <el-table-column label="loại ngôn ngữ" width="140">
               <template slot-scope="scope">
                 <span> {{ scope.row.language_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="对应语言翻译" min-width="250">
+            <el-table-column label="Dịch ngôn ngữ tương ứng" min-width="250">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.lang_explain" class="priceBox"></el-input>
               </template>
@@ -134,8 +134,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="addlangModal = false">取消</el-button>
-        <el-button type="primary" v-db-click @click="ok">确定</el-button>
+        <el-button v-db-click @click="addlangModal = false">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="ok">Chắc chắn</el-button>
       </span>
     </el-dialog>
   </div>
@@ -161,17 +161,17 @@ export default {
       FormLoading: true,
       loading: false,
       ruleValidate: {
-        code: [{ required: true, message: '请输入状态码/文字', trigger: 'blur' }],
-        remarks: [{ required: true, message: '请输入文字', trigger: 'blur' }],
+        code: [{ required: true, message: 'Vui lòng nhập mã trạng thái/văn bản', trigger: 'blur' }],
+        remarks: [{ required: true, message: 'Vui lòng nhập văn bản', trigger: 'blur' }],
       },
       langColumns: [
         {
-          title: '语言类型',
+          title: 'loại ngôn ngữ',
           key: 'language_name',
           width: 120,
         },
         {
-          title: '对应语言翻译',
+          title: 'Dịch ngôn ngữ tương ứng',
           slot: 'lang_explain',
           minWidth: 250,
         },
@@ -205,7 +205,7 @@ export default {
   methods: {
     translate() {
       if (!this.langFormData.remarks.trim()) {
-        return this.$message.warning('请先输入翻译内容');
+        return this.$message.warning('Vui lòng nhập nội dung dịch trước');
       }
       this.traTabLoading = true;
       langCodeTranslate({
@@ -239,7 +239,7 @@ export default {
         this.$nextTick(() => {
           this.FormLoading = true;
         });
-        return this.$message.error('请先输入语言说明');
+        return this.$message.error('Vui lòng nhập mô tả ngôn ngữ trước');
       }
       langCodeSettingSave(this.langFormData)
         .then((res) => {
@@ -271,7 +271,7 @@ export default {
           this.$message.error(err.msg);
         });
     },
-    // 删除
+    // xóa bỏ
     del(row, tit, num) {
       let delfromData = {
         title: tit,
@@ -299,12 +299,12 @@ export default {
       };
       this.code = null;
     },
-    // 选择
+    // chọn
     selChange() {
       this.formValidate.page = 1;
       this.getList();
     },
-    // 列表
+    // danh sách
     getList() {
       this.loading = true;
       langCodeList(this.formValidate)

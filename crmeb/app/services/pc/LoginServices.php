@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -23,7 +23,7 @@ use crmeb\services\oauth\OAuth;
 class LoginServices extends BaseServices
 {
     /**
-     * 扫码登陆
+     * Quét mã QR để đăng nhập
      * @param string $key
      * @return array|int[]
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -32,11 +32,11 @@ class LoginServices extends BaseServices
     {
         $hasKey = CacheService::has($key);
         if ($hasKey === false) {
-            $status = 0;//不存在需要刷新二维码
+            $status = 0;//Không cần phải làm mới mã QR
         } else {
             $keyValue = CacheService::get($key);
             if ($keyValue === 0) {
-                $status = 1;//正在扫描中
+                $status = 1;//Đang quét
                 /** @var UserServices $user */
                 $user = app()->make(UserServices::class);
                 $userInfo = $user->get(['uniqid' => $key], ['account', 'uniqid']);
@@ -49,14 +49,14 @@ class LoginServices extends BaseServices
                     return $tokenInfo;
                 }
             } else {
-                $status = 2;//没有扫描
+                $status = 2;//Không quét
             }
         }
         return ['status' => $status];
     }
 
     /**
-     * 扫码登陆
+     * Quét mã QR để đăng nhập
      * @param string $account
      * @param string|null $password
      * @return array
@@ -68,13 +68,13 @@ class LoginServices extends BaseServices
 
         $userInfo = $user->get(['account' => $account]);
         if (!$userInfo) {
-            throw new ApiException('没有此用户');
+            throw new ApiException('Không có người dùng như vậy');
         }
         if ($password && !password_verify($password, $userInfo->password)) {
-            throw new ApiException('账号或密码错误');
+            throw new ApiException('Tài khoản hoặc mật khẩu không chính xác');
         }
         if (!$userInfo->status) {
-            throw new ApiException('您已被禁止登录，请联系管理员');
+            throw new ApiException('Bạn đã bị cấm đăng nhập, vui lòng liên hệ với quản trị viên');
         }
         $token = $this->createToken($userInfo->id, 'api');
         $userInfo->update_time = time();
@@ -101,16 +101,16 @@ class LoginServices extends BaseServices
         $info = $oauth->oauth(null, ['open' => true]);
 
         if (!$info) {
-            throw new ApiException('授权失败');
+            throw new ApiException('Ủy quyền không thành công');
         }
         $wechatInfo = $info->getOriginal();
         if (!isset($wechatInfo['unionid'])) {
-            throw new ApiException('unionid不存在');
+            throw new ApiException('unionidkhông tồn tại');
         }
         if (!isset($wechatInfo['nickname'])) {
             $wechatInfo = $oauth->getUserInfo($wechatInfo['openid']);
             if (!isset($wechatInfo['nickname']))
-                throw new ApiException('授权失败');
+                throw new ApiException('Ủy quyền không thành công');
             if (isset($wechatInfo['tagid_list']))
                 $wechatInfo['tagid_list'] = implode(',', $wechatInfo['tagid_list']);
         } else {
@@ -130,7 +130,7 @@ class LoginServices extends BaseServices
         if (!$user) {
             $user = $wechatUserServices->wechatOauthAfter($createData);
         } else {
-            //更新用户信息
+            //Cập nhật thông tin người dùng
             $wechatUserServices->wechatUpdata([$user['uid'], $wechatInfo]);
         }
         $token = $this->createToken((int)$user->uid, 'api');

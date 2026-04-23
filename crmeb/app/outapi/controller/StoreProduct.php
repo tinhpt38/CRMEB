@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// | CRMEB [ CRMEBTrao quyền cho các nhà phát triển và giúp doanh nghiệp phát triển ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016~2026 https://www.crmeb.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// | Licensed CRMEBĐây không phải là phần mềm miễn phí và không thể xóa bản quyền liên quan đến CRMEB nếu không được phép.
 // +----------------------------------------------------------------------
 // | Author: CRMEB Team <admin@crmeb.com>
 // +----------------------------------------------------------------------
@@ -30,7 +30,7 @@ class StoreProduct extends AuthController
     }
 
     /**
-     * 显示资源列表
+     * Hiển thị danh sách tài nguyên
      * @return mixed
      */
     public function index()
@@ -61,19 +61,19 @@ class StoreProduct extends AuthController
     }
 
     /**
-     * 修改状态
+     * Sửa đổi trạng thái
      * @param string $id
      * @param string $is_show
      */
     public function set_show($id = '', $is_show = '')
     {
-        if ($id == '' || $is_show == '') return app('json')->fail('参数错误');
+        if ($id == '' || $is_show == '') return app('json')->fail('Lỗi tham số');
         $this->services->setShow((int)$id, (int)$is_show);
-        return app('json')->success($is_show == 1 ? '显示成功' : '隐藏成功');
+        return app('json')->success($is_show == 1 ? 'Hiển thị thành công' : 'Ẩn thành công');
     }
 
     /**
-     * 获取商品信息
+     * Nhận thông tin sản phẩm
      * @param $id
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -85,109 +85,109 @@ class StoreProduct extends AuthController
     }
 
     /**
-     * 保存
+     * cứu
      * @return mixed
      * @throws \Exception
      */
     public function save()
     {
         $data = $this->request->postMore([
-            ['cate_id', []],//分类id
-            ['store_name', ''],//商品名称
-            ['keyword', ''],//关键字
-            ['unit_name', '件'],//单位
-            ['store_info', ''],//商品简介
-            ['slider_image', []],//轮播图
-            ['video_open', 0],//是否开启视频
-            ['video_link', ''],//视频链接
-            ['spec_type', 0],//单多规格
-            ['items', []],//规格
-            ['attrs', []],//规格
-            ['description', ''],//商品详情
-            ['description_images', []],//商品详情
-            ['logistics', []],//物流方式
-            ['freight', 1],//运费设置
-            ['postage', 0],//邮费
-            ['is_sub', 0],//佣金是单独还是默认
-            ['is_vip', 0],//付费会员价
-            ['recommend', []],//商品推荐
-            ['temp_id', 0],//运费模版id
-            ['give_integral', 0],//赠送积分
-            ['presale', 0],//预售商品开关
-            ['presale_time', 0],//预售时间
-            ['presale_day', 0],//预售发货日
-            ['vip_product', 0],//是否付费会员商品
-            ['activity', []],//活动优先级
-            ['command_word', ''],//商品口令
-            ['is_show', 0],//是否上架
-            ['ficti', 0],//虚拟销量
-            ['sort', 0],//排序
-            ['recommend_image', ''],//商品推荐图
-            ['custom_form', []],//自定义表单
-            ['is_limit', 0],//是否限购
-            ['limit_type', 0],//限购类型
-            ['limit_num', 0]//限购数量
+            ['cate_id', []],//Phân loạiid
+            ['store_name', ''],//Tên sản phẩm
+            ['keyword', ''],//Từ khóa
+            ['unit_name', 'miếng'],//đơn vị
+            ['store_info', ''],//Giới thiệu sản phẩm
+            ['slider_image', []],//băng chuyền
+            ['video_open', 0],//Có bật video hay không
+            ['video_link', ''],//Liên kết video
+            ['spec_type', 0],//Thông số kỹ thuật đơn và nhiều
+            ['items', []],//Đặc điểm kỹ thuật
+            ['attrs', []],//Đặc điểm kỹ thuật
+            ['description', ''],//Chi tiết sản phẩm
+            ['description_images', []],//Chi tiết sản phẩm
+            ['logistics', []],//Phương pháp hậu cần
+            ['freight', 1],//Cài đặt phí vận chuyển
+            ['postage', 0],//Bưu phí
+            ['is_sub', 0],//Hoa hồng là riêng biệt hay mặc định?
+            ['is_vip', 0],//Giá thành viên trả phí
+            ['recommend', []],//Khuyến nghị sản phẩm
+            ['temp_id', 0],//Mẫu vận chuyển hàng hóaid
+            ['give_integral', 0],//Tặng điểm
+            ['presale', 0],//Chuyển đổi sản phẩm trước khi bán
+            ['presale_time', 0],//Thời gian bán trước
+            ['presale_day', 0],//Ngày vận chuyển trước khi bán
+            ['vip_product', 0],//Có nên trả tiền cho các sản phẩm thành viên hay không
+            ['activity', []],//Ưu tiên hoạt động
+            ['command_word', ''],//Mật khẩu sản phẩm
+            ['is_show', 0],//Nó có ở trên kệ không?
+            ['ficti', 0],//bán hàng ảo
+            ['sort', 0],//loại
+            ['recommend_image', ''],//Hình ảnh gợi ý sản phẩm
+            ['custom_form', []],//Biểu mẫu tùy chỉnh
+            ['is_limit', 0],//Có giới hạn mua hàng không?
+            ['limit_type', 0],//Loại hạn chế mua hàng
+            ['limit_num', 0]//Giới hạn mua hàng
         ]);
         $id = $this->services->save(0, $data);
-        return app('json')->success('保存成功', ['id' => $id]);
+        return app('json')->success('Đã lưu thành công', ['id' => $id]);
     }
 
     /**
-     * 更新
+     * gia hạn
      * @param $id
      * @return mixed
      */
     public function update($id)
     {
         $data = $this->request->postMore([
-            ['cate_id', []],//分类id
-            ['store_name', ''],//商品名称
-            ['keyword', ''],//关键字
-            ['unit_name', '件'],//单位
-            ['store_info', ''],//商品简介
-            ['slider_image', []],//轮播图
-            ['video_open', 0],//是否开启视频
-            ['video_link', ''],//视频链接
-            ['spec_type', 0],//单多规格
-            ['items', []],//规格
-            ['attrs', []],//规格
-            ['description', ''],//商品详情
-            ['description_images', []],//商品详情
-            ['logistics', []],//物流方式
-            ['freight', 1],//运费设置
-            ['postage', 0],//邮费
-            ['is_sub', 0],//佣金是单独还是默认
-            ['is_vip', 0],//付费会员价
-            ['recommend', []],//商品推荐
-            ['temp_id', 0],//运费模版id
-            ['give_integral', 0],//赠送积分
-            ['presale', 0],//预售商品开关
-            ['presale_time', 0],//预售时间
-            ['presale_day', 0],//预售发货日
-            ['vip_product', 0],//是否付费会员商品
-            ['activity', []],//活动优先级
-            ['command_word', ''],//商品口令
-            ['is_show', 0],//是否上架
-            ['ficti', 0],//虚拟销量
-            ['sort', 0],//排序
-            ['recommend_image', ''],//商品推荐图
-            ['custom_form', []],//自定义表单
-            ['is_limit', 0],//是否限购
-            ['limit_type', 0],//限购类型
-            ['limit_num', 0]//限购数量
+            ['cate_id', []],//Phân loạiid
+            ['store_name', ''],//Tên sản phẩm
+            ['keyword', ''],//Từ khóa
+            ['unit_name', 'miếng'],//đơn vị
+            ['store_info', ''],//Giới thiệu sản phẩm
+            ['slider_image', []],//băng chuyền
+            ['video_open', 0],//Có bật video hay không
+            ['video_link', ''],//Liên kết video
+            ['spec_type', 0],//Thông số kỹ thuật đơn và nhiều
+            ['items', []],//Đặc điểm kỹ thuật
+            ['attrs', []],//Đặc điểm kỹ thuật
+            ['description', ''],//Chi tiết sản phẩm
+            ['description_images', []],//Chi tiết sản phẩm
+            ['logistics', []],//Phương pháp hậu cần
+            ['freight', 1],//Cài đặt phí vận chuyển
+            ['postage', 0],//Bưu phí
+            ['is_sub', 0],//Hoa hồng là riêng biệt hay mặc định?
+            ['is_vip', 0],//Giá thành viên trả phí
+            ['recommend', []],//Khuyến nghị sản phẩm
+            ['temp_id', 0],//Mẫu vận chuyển hàng hóaid
+            ['give_integral', 0],//Tặng điểm
+            ['presale', 0],//Chuyển đổi sản phẩm trước khi bán
+            ['presale_time', 0],//Thời gian bán trước
+            ['presale_day', 0],//Ngày vận chuyển trước khi bán
+            ['vip_product', 0],//Có nên trả tiền cho các sản phẩm thành viên hay không
+            ['activity', []],//Ưu tiên hoạt động
+            ['command_word', ''],//Mật khẩu sản phẩm
+            ['is_show', 0],//Nó có ở trên kệ không?
+            ['ficti', 0],//bán hàng ảo
+            ['sort', 0],//loại
+            ['recommend_image', ''],//Hình ảnh gợi ý sản phẩm
+            ['custom_form', []],//Biểu mẫu tùy chỉnh
+            ['is_limit', 0],//Có giới hạn mua hàng không?
+            ['limit_type', 0],//Loại hạn chế mua hàng
+            ['limit_num', 0]//Giới hạn mua hàng
         ]);
         $this->services->save((int)$id, $data);
-        return app('json')->success('修改成功');
+        return app('json')->success('Sửa đổi thành công');
     }
 
     /**
-     * 删除
+     * xóa bỏ
      * @param int $id
      * @return \think\Response
      */
     public function delete($id)
     {
-        //删除商品检测是否有参与活动
+        //Xóa một sản phẩm để kiểm tra xem nó đã tham gia hoạt động chưa
         $this->services->checkActivity($id);
         $res = $this->services->del($id);
         /** @var StoreCartServices $cartService */
@@ -197,7 +197,7 @@ class StoreProduct extends AuthController
     }
 
     /**
-     * 同步库存
+     * Đồng bộ hóa hàng tồn kho
      * @return void
      */
     public function uploadStock()
@@ -206,15 +206,15 @@ class StoreProduct extends AuthController
 
         foreach ($items as $item) {
             if (!isset($item['bar_code']) || !isset($item['bar_code_number']) || !isset($item['qty'])) {
-                return app('json')->fail('请检查属性编码或库存数量');
+                return app('json')->fail('Vui lòng kiểm tra mã thuộc tính hoặc số lượng hàng tồn kho');
             }
         }
 
         if (count($items) > 100) {
-            return app('json')->fail('同步条数不能超过100');
+            return app('json')->fail('Số lượng mục được đồng bộ hóa không thể vượt quá100');
         }
 
         $this->services->syncStock($items);
-        return app('json')->success('操作成功');
+        return app('json')->success('Hoạt động thành công');
     }
 }

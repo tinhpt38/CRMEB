@@ -2,19 +2,19 @@
   <div>
     <el-drawer
       :visible.sync="modal"
-      :title="formValidate.id ? '编辑事件' : '添加事件'"
+      :title="formValidate.id ? 'Chỉnh sửa sự kiện' : 'Thêm sự kiện'"
       size="1000px"
       @closed="initData"
     >
       <el-form v-if="modal" class="pb-20" ref="formValidate" :model="formValidate" label-width="97px" label-colon>
-        <el-form-item label="事件名称：" required>
+        <el-form-item label="tên sự kiện：" required>
           <el-row :gutter="16">
             <el-col :span="20">
-              <el-input v-model="formValidate.name" placeholder="请输入事件名称"></el-input>
+              <el-input v-model="formValidate.name" placeholder="Vui lòng nhập tên sự kiện"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="事件类型：" required>
+        <el-form-item label="loại sự kiện：" required>
           <el-row :gutter="16">
             <el-col :span="20">
               <el-select v-model="formValidate.mark" @change="taskChange">
@@ -23,19 +23,19 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="事件说明：">
+        <el-form-item label="Mô tả sự kiện：">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
                 v-model="formValidate.content"
                 type="textarea"
                 :autosize="{ minRows: 3, maxRows: 5 }"
-                placeholder="请输入事件说明"
+                placeholder="Vui lòng nhập mô tả sự kiện"
               ></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="执行代码：">
+        <el-form-item label="Thực thi mã：">
           <el-row :gutter="10">
             <el-col :span="24">
               <div ref="container" id="container" class="monaco-editor"></div>
@@ -54,7 +54,7 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="可用参数：" v-if="copyData">
+        <el-form-item label="Thông số có sẵn：" v-if="copyData">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
@@ -62,7 +62,7 @@
                 v-model="copyData"
                 type="textarea"
                 :autosize="{ minRows: 7, maxRows: 7 }"
-                placeholder="请输入事件说明"
+                placeholder="Vui lòng nhập mô tả sự kiện"
                 readonly
               ></el-input>
               <!-- <span class="text-area">{{ copyData }}</span> -->
@@ -70,27 +70,27 @@
           </el-row>
         </el-form-item>
 
-        <el-form-item label="开发密码：" required>
+        <el-form-item label="mật khẩu phát triển：" required>
           <el-row :gutter="10">
             <el-col :span="24">
-              <el-input v-model="formValidate.password" type="password" placeholder="请输入系统开发密码，开发密码在crmeb/config/filesystem.php中修改password"></el-input>
+              <el-input v-model="formValidate.password" type="password" placeholder="Vui lòng nhập mật khẩu phát triển hệ thống. Mật khẩu phát triển có thể được sửa đổi trong crmeb/config/filesystem.phppassword"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="是否开启：">
+        <el-form-item label="Có nên bật không：">
           <el-row :gutter="10">
             <el-col :span="12">
               <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.is_open" size="large">
-                <span slot="open">开启</span>
-                <span slot="close">关闭</span>
+                <span slot="open">bật lên</span>
+                <span slot="close">đóng cửa</span>
               </el-switch>
             </el-col>
           </el-row>
         </el-form-item>
       </el-form>
       <span class="dialog-footer">
-        <el-button v-db-click @click="modal = false">取 消</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit">提 交</el-button>
+        <el-button v-db-click @click="modal = false">Hủy bỏ</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit">nộp</el-button>
       </span>
     </el-drawer>
   </div>
@@ -107,7 +107,7 @@ export default {
       task: [],
       loading: false,
       formValidate: {
-        mark: '', //键
+        mark: '', //chìa khóa
         content: '',
         is_open: 0,
         name: '',
@@ -116,7 +116,7 @@ export default {
       },
       copyData: '',
       trip: '',
-      editor: '', //当前编辑器对象
+      editor: '', //đối tượng soạn thảo hiện tại
     };
   },
   created() {
@@ -125,33 +125,33 @@ export default {
   methods: {
     ...mapMutations('admin/layout', ['setCopyrightShow']),
     taskChange(item) {
-      // 获取选中值对应 task 中的的data的值
+      // Lấy giá trị của dữ liệu trong task tương ứng với giá trị đã chọn
       let taskData = this.task.find((i) => i.value === item);
       this.copyData = taskData.data;
     },
     /**
-     * 初始化编辑器
+     * Khởi tạo trình soạn thảo
      */
     initEditor(conetnt = '') {
       try {
         let that = this;
         that.$nextTick(() => {
-          // 初始化编辑器，确保dom已经渲染
+          // Khởi tạo trình chỉnh sửa và đảm bảo rằng dom đã được hiển thị
           that.editor = monaco.editor.create(document.getElementById('container'), {
-            value: conetnt, //编辑器初始显示文字
-            language: 'php', //语言支持自行查阅demo
-            automaticLayout: true, //自动布局
-            theme: 'vs-dark', //官方自带三种主题vs, hc-black, or vs-dark
-            foldingStrategy: 'indentation', // 代码可分小段折叠
-            overviewRulerBorder: false, // 不要滚动条的边框
+            value: conetnt, //Văn bản hiển thị ban đầu của trình soạn thảo
+            language: 'php', //Ngôn ngữ hỗ trợ tự kiểm trademo
+            automaticLayout: true, //tự động thanh toán
+            theme: 'vs-dark', //Chính thức đi kèm với ba chủ đềvs, hc-black, or vs-dark
+            foldingStrategy: 'indentation', // Mã có thể được gấp lại thành các phần nhỏ
+            overviewRulerBorder: false, // Không có đường viền thanh cuộn
             minimap: { enabled: false },
             scrollbar: {
               vertical: 'hidden',
               horizontal: 'hidden',
             },
             wordWrap: 'on',
-            autoIndent: true, // 自动布局
-            tabSize: 4, // tab缩进长度
+            autoIndent: true, // tự động thanh toán
+            tabSize: 4, // tabchiều dài thụt lề
             autoClosingOvertype: 'always',
             readOnly: false,
           });
@@ -169,10 +169,10 @@ export default {
     //   let data = `$data['${copyData}']`;
     //   this.$copyText(data)
     //     .then((message) => {
-    //       this.$message.success('复制成功');
+    //       this.$message.success('Đã sao chép thành công');
     //     })
     //     .catch((err) => {
-    //       this.$message.error('复制失败');
+    //       this.$message.error('Sao chép không thành công');
     //     });
     // },
     initData(status) {
@@ -191,7 +191,7 @@ export default {
       if (!id) {
         this.modal = true;
         this.initEditor(
-          "<?php\n\n//示例代码\n//参数使用实例  $data['uid']\n\n//直接写入数据库\n\\think\\facade\\Db::name('cache')->insert(['key' => 'custom_event_' . rand(), 'result' => $data['nickname'] . rand(), 'expire_time' => 0]);\n\n//调用系统方法\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_event_' . rand(), $data['nickname']);",
+          "<?php\n\n//Mã mẫu\n//Ví dụ sử dụng tham số  $data['uid']\n\n//Viết trực tiếp vào cơ sở dữ liệu\n\\think\\facade\\Db::name('cache')->insert(['key' => 'custom_event_' . rand(), 'result' => $data['nickname'] . rand(), 'expire_time' => 0]);\n\n//Phương thức hệ thống gọi\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_event_' . rand(), $data['nickname']);",
         );
         return;
       }
@@ -203,12 +203,12 @@ export default {
         this.initEditor(res.data.customCode || '');
       });
     },
-    // 提交
+    // nộp
     handleSubmit() {
       this.formValidate.customCode = this.editor.getValue();
       if (!this.formValidate.mark) {
         return this.$message.error({
-          message: '请选择事件类型',
+          message: 'Vui lòng chọn loại sự kiện',
           onClose: () => {
             // this.loading = false;
           },
@@ -310,7 +310,7 @@ export default {
 }
 
 .dialog-footer {
-  // 固定在底部
+  // cố định ở phía dưới
   position: absolute;
   bottom: 0;
   left: 0;
