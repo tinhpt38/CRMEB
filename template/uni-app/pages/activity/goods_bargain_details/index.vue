@@ -6,14 +6,14 @@
 			<!-- #endif -->
 			<view :style="'background-image: url(' + (bargainUid != userInfo.uid ? imgHost + picUrl.support : imgHost + picUrl.barga) + ');'" class="header">
 				<view class="people">
-					{{ peopleCount.lookCount || 0 }}{{ $t(`mọi người xem`) }} 丨 {{ peopleCount.shareCount || 0 }}{{ $t(`mọi người chia sẻ`) }} 丨 {{ peopleCount.userCount || 0 }}{{ $t(`mọi người tham gia`) }}
+					{{ peopleCount.lookCount || 0 }}{{ $t(`mọi người xem`) }} | {{ peopleCount.shareCount || 0 }}{{ $t(`mọi người chia sẻ`) }} | {{ peopleCount.userCount || 0 }}{{ $t(`mọi người tham gia`) }}
 				</view>
 				<countDown
 					:tipText="$t(`Đếm ngược`)"
-					:dayText="$t(`bầu trời`)"
+					:dayText="$t(`ngày`)"
 					:hourText="$t(`giờ`)"
-					:minuteText="$t(`điểm`)"
-					:secondText="$t(`Thứ hai`)"
+					:minuteText="$t(`phút`)"
+					:secondText="$t(`giây`)"
 					:datatime="datatime"
 					:isDay="true"
 					v-if="bargainUid == userInfo.uid"

@@ -143,7 +143,7 @@ export default {
       const list =
         colorConfig.color ||
         colorConfig["màu sắc"] ||
-        colorConfig["颜色"] ||
+        colorConfig["\u989c\u8272"] ||
         [];
       if (!Array.isArray(list)) return fallback;
       const item = list[idx];
