@@ -1,1 +1,62 @@
-.base-tag{display:flex;justify-content:center;align-items:center;height:30rpx;font-size:18rpx;padding:0 8rpx;color:#333;border-radius:4rpx;background-color:#fff;margin-right:8rpx;box-sizing:border-box;margin-bottom:8rpx}.middle{height:36rpx;padding:0 12rpx;border-radius:8rpx;font-size:20rpx;margin-right:16rpx}.img-tag{display:block;height:30rpx;border-radius:4rpx;margin-right:14rpx;box-sizing:border-box;margin-bottom:8rpx}.middle-img-tag{height:36rpx;border-radius:8rpx;margin-right:8rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.base-tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30rpx;
+  font-size: 18rpx;
+  padding: 0 8rpx;
+  color: #333;
+  border-radius: 4rpx;
+  background-color: #fff;
+  margin-right: 8rpx;
+  box-sizing: border-box;
+  margin-bottom: 8rpx;
+}
+.middle {
+  height: 36rpx;
+  padding: 0 12rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  margin-right: 16rpx;
+}
+.img-tag {
+  display: block;
+  height: 30rpx;
+  border-radius: 4rpx;
+  margin-right: 14rpx;
+  box-sizing: border-box;
+  margin-bottom: 8rpx;
+}
+.middle-img-tag {
+  height: 36rpx;
+  border-radius: 8rpx;
+  margin-right: 8rpx;
+}

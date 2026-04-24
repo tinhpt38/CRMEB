@@ -1,1 +1,125 @@
-page{background-color:#fff}.data-v-76f56ea0 uni-radio .uni-radio-input.uni-radio-input-checked{border:1px solid #fdc383!important;background-color:#fdc383!important}.input-section .section-hd.data-v-76f56ea0{padding:30rpx;font-size:28rpx;color:#666}.input-section .section-bd.data-v-76f56ea0{padding-right:30rpx;padding-left:30rpx}.input-section .input-group.data-v-76f56ea0{display:flex;align-items:flex-end;padding:45rpx 20rpx 47rpx;font-size:80rpx;color:#999}.input-section .input.data-v-76f56ea0{flex:1;height:110rpx;margin-left:15rpx;font-size:100rpx;color:#282828}.input-section .discount.data-v-76f56ea0{padding:27rpx 20rpx;border-top:1rpx solid #eee;font-size:28rpx;color:#e93323}.radio-section.data-v-76f56ea0{border-top:20rpx solid #f5f5f5}.radio-section .section-hd.data-v-76f56ea0{padding:30rpx;font-size:28rpx;color:#666}.radio-section .section-bd.data-v-76f56ea0{padding-left:50rpx}.radio-section .item.data-v-76f56ea0{display:flex;align-items:center;padding-top:30rpx;padding-right:30rpx;padding-bottom:30rpx;border-bottom:1rpx solid #f5f5f5}.radio-section .item .name.data-v-76f56ea0{display:flex;align-items:center;justify-content:space-between}.radio-section .iconfont.data-v-76f56ea0{font-size:44rpx}.radio-section .icon-yue.data-v-76f56ea0{color:#fe960f}.radio-section .icon-weixinzhifu.data-v-76f56ea0{color:#41b035}.radio-section .icon-zhifubao.data-v-76f56ea0{color:#099bdf}.radio-section .name.data-v-76f56ea0{flex:1;margin-left:30rpx;font-size:30rpx;color:#333}.radio-section .money.data-v-76f56ea0{float:right;padding-right:20rpx;font-size:20rpx}.button.data-v-76f56ea0{height:86rpx;border-radius:43rpx;margin:114rpx 30rpx 30rpx;background:linear-gradient(90deg,#fee2b7,#fdc383);font-size:30rpx;line-height:86rpx;color:#5d3324}.alipay.data-v-76f56ea0{display:none}
+
+page {
+	background-color: #ffffff;
+}
+
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.data-v-5390e1eb uni-radio .uni-radio-input.uni-radio-input-checked {
+  border: 1px solid #fdc383 !important;
+  background-color: #fdc383 !important;
+}
+.input-section .section-hd.data-v-5390e1eb {
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+.input-section .section-bd.data-v-5390e1eb {
+  padding-right: 30rpx;
+  padding-left: 30rpx;
+}
+.input-section .input-group.data-v-5390e1eb {
+  display: flex;
+  align-items: flex-end;
+  padding: 45rpx 20rpx 47rpx;
+  font-size: 80rpx;
+  color: #999999;
+}
+.input-section .input.data-v-5390e1eb {
+  flex: 1;
+  height: 110rpx;
+  margin-left: 15rpx;
+  font-size: 100rpx;
+  color: #282828;
+}
+.input-section .discount.data-v-5390e1eb {
+  padding: 27rpx 20rpx;
+  border-top: 1rpx solid #eeeeee;
+  font-size: 28rpx;
+  color: #e93323;
+}
+.radio-section.data-v-5390e1eb {
+  border-top: 20rpx solid #f5f5f5;
+}
+.radio-section .section-hd.data-v-5390e1eb {
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+.radio-section .section-bd.data-v-5390e1eb {
+  padding-left: 50rpx;
+}
+.radio-section .item.data-v-5390e1eb {
+  display: flex;
+  align-items: center;
+  padding-top: 30rpx;
+  padding-right: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.radio-section .item .name.data-v-5390e1eb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.radio-section .iconfont.data-v-5390e1eb {
+  font-size: 44rpx;
+}
+.radio-section .icon-yue.data-v-5390e1eb {
+  color: #fe960f;
+}
+.radio-section .icon-weixinzhifu.data-v-5390e1eb {
+  color: #41b035;
+}
+.radio-section .icon-zhifubao.data-v-5390e1eb {
+  color: #099bdf;
+}
+.radio-section .name.data-v-5390e1eb {
+  flex: 1;
+  margin-left: 30rpx;
+  font-size: 30rpx;
+  color: #333333;
+}
+.radio-section .money.data-v-5390e1eb {
+  float: right;
+  padding-right: 20rpx;
+  font-size: 20rpx;
+}
+.button.data-v-5390e1eb {
+  height: 86rpx;
+  border-radius: 43rpx;
+  margin: 114rpx 30rpx 30rpx;
+  background: linear-gradient(90deg, #fee2b7 0%, #fdc383 100%);
+  font-size: 30rpx;
+  line-height: 86rpx;
+  color: #5d3324;
+}
+.alipay.data-v-5390e1eb {
+  display: none;
+}

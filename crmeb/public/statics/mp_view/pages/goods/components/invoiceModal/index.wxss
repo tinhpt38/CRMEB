@@ -1,1 +1,110 @@
-.aleart.data-v-7b2398f4{width:80%;position:fixed;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);z-index:9999;top:45%;margin-top:-357rpx;background-color:#fff;padding:30rpx;border-radius:12rpx;background-image:-webkit-gradient(linear,50% 0,0 100%,from(transparent),color-stop(.5,transparent),color-stop(.5,#999),to(#999)),-webkit-gradient(linear,50% 0,100% 100%,from(transparent),color-stop(.5,transparent),color-stop(.5,#999),to(#999));background-size:20rpx 10rpx;background-repeat:repeat-x;background-position:0 100%}.aleart .icon-top.data-v-7b2398f4{margin-left:calc(50% - 40rpx);margin-top:-40rpx;display:flex;flex-direction:column;align-items:center;border-radius:50%;width:100rpx;height:100rpx}.aleart .icon-top .icon-fapiao2.data-v-7b2398f4{text-align:center;border-radius:50%;font-size:80rpx;color:#fff;background-color:var(--view-theme);padding:20rpx;border:4rpx solid #fff;margin-top:-40rpx}.aleart .icon-top .bill.data-v-7b2398f4{width:172rpx;text-align:center}.aleart .title.data-v-7b2398f4{font-size:34rpx;color:var(--view-theme);font-weight:700;text-align:center;padding-bottom:10rpx;border-bottom:1px solid var(--view-op-ten)}.aleart .aleart-body.data-v-7b2398f4{display:flex;justify-content:center;flex-direction:column;padding:60rpx 0}.aleart .aleart-body .body-head.data-v-7b2398f4{font-size:30rpx;font-weight:700;padding-bottom:10rpx;border-bottom:1px solid #eee;margin:10rpx 0}.aleart .aleart-body .label.data-v-7b2398f4{width:100%;display:flex;justify-content:space-between;margin-bottom:15rpx;color:#333;font-size:28rpx}.aleart .aleart-body .label .label-value.data-v-7b2398f4{color:#666}.aleart .btn.data-v-7b2398f4{width:100%;padding:15rpx 0;color:#fff;background:var(--view-theme);border-radius:20px;text-align:center;margin-bottom:30rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.aleart.data-v-a922e48c {
+  width: 80%;
+  position: fixed;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 9999;
+  top: 45%;
+  margin-top: -357rpx;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  background-image: -webkit-gradient(linear, 50% 0, 0 100%, from(transparent), color-stop(0.5, transparent), color-stop(0.5, #999999), to(#999999)), -webkit-gradient(linear, 50% 0, 100% 100%, from(transparent), color-stop(0.5, transparent), color-stop(0.5, #999999), to(#999999));
+  background-size: 20rpx 10rpx;
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+}
+.aleart .icon-top.data-v-a922e48c {
+  margin-left: calc(50% - 40rpx);
+  margin-top: -40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50%;
+  width: 100rpx;
+  height: 100rpx;
+}
+.aleart .icon-top .icon-fapiao2.data-v-a922e48c {
+  text-align: center;
+  border-radius: 50%;
+  font-size: 80rpx;
+  color: #fff;
+  background-color: var(--view-theme);
+  padding: 20rpx;
+  border: 4rpx solid #fff;
+  margin-top: -40rpx;
+}
+.aleart .icon-top .bill.data-v-a922e48c {
+  width: 172rpx;
+  text-align: center;
+}
+.aleart .title.data-v-a922e48c {
+  font-size: 34rpx;
+  color: var(--view-theme);
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid var(--view-op-ten);
+}
+.aleart .aleart-body.data-v-a922e48c {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 60rpx 0;
+}
+.aleart .aleart-body .body-head.data-v-a922e48c {
+  font-size: 30rpx;
+  font-weight: bold;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid #EEEEEE;
+  margin: 10rpx 0;
+}
+.aleart .aleart-body .label.data-v-a922e48c {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15rpx;
+  color: #333333;
+  font-size: 28rpx;
+}
+.aleart .aleart-body .label .label-value.data-v-a922e48c {
+  color: #666666;
+}
+.aleart .btn.data-v-a922e48c {
+  width: 100%;
+  padding: 15rpx 0;
+  color: #fff;
+  background: var(--view-theme);
+  border-radius: 20px;
+  text-align: center;
+  margin-bottom: 30rpx;
+}

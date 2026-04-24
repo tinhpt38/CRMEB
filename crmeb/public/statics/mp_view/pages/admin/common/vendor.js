@@ -1,1 +1,6363 @@
-(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["pages/admin/common/vendor"],{"161c":function(t,e,a){"use strict";(function(t,e){var i=a("3b2d"),o={yAxisWidth:15,yAxisSplit:5,xAxisHeight:15,xAxisLineHeight:15,legendHeight:15,yAxisTitleWidth:15,padding:[10,10,10,10],pixelRatio:1,rotate:!1,columePadding:3,fontSize:13,dataPointShape:["circle","circle","circle","circle"],colors:["#1890ff","#2fc25b","#facc14","#f04864","#8543e0","#90ed7d"],pieChartLinePadding:15,pieChartTextPadding:5,xAxisTextPadding:3,titleColor:"#333333",titleFontSize:20,subtitleColor:"#999999",subtitleFontSize:15,toolTipPadding:3,toolTipBackground:"#000000",toolTipOpacity:.7,toolTipLineHeight:20,radarLabelTextMargin:15,gaugeLabelTextMargin:15},r=function(t){for(var e=arguments.length,a=new Array(e>1?e-1:0),i=1;i<e;i++)a[i-1]=arguments[i];if(null==t)throw new TypeError("Cannot convert undefined or null to object");if(!a||a.length<=0)return t;function o(t,e){for(var a in e)t[a]=t[a]&&"[object Object]"===t[a].toString()?o(t[a],e[a]):t[a]=e[a];return t}return a.forEach((function(e){t=o(t,e)})),t},n={toFixed:function(t,e){return e=e||2,this.isFloat(t)&&(t=t.toFixed(e)),t},isFloat:function(t){return t%1!==0},approximatelyEqual:function(t,e){return Math.abs(t-e)<1e-10},isSameSign:function(t,e){return Math.abs(t)===t&&Math.abs(e)===e||Math.abs(t)!==t&&Math.abs(e)!==e},isSameXCoordinateArea:function(t,e){return this.isSameSign(t.x,e.x)},isCollision:function(t,e){t.end={},t.end.x=t.start.x+t.width,t.end.y=t.start.y-t.height,e.end={},e.end.x=e.start.x+e.width,e.end.y=e.start.y-e.height;var a=e.start.x>t.end.x||e.end.x<t.start.x||e.end.y>t.start.y||e.start.y<t.end.y;return!a}};function l(t,e){var a=t.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,(function(t,e,a,i){return e+e+a+a+i+i})),i=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a),o=parseInt(i[1],16),r=parseInt(i[2],16),n=parseInt(i[3],16);return"rgba("+o+","+r+","+n+","+e+")"}function s(t,e,a){if(isNaN(t))throw new Error("[uCharts] unvalid series data!");a=a||10,e=e||"upper";var i=1;while(a<1)a*=10,i*=10;t="upper"===e?Math.ceil(t*i):Math.floor(t*i);while(t%a!==0)"upper"===e?t++:t--;return t/i}function h(t,e,a){function i(t){while(t<0)t+=2*Math.PI;while(t>2*Math.PI)t-=2*Math.PI;return t}return t=i(t),e=i(e),a=i(a),e>a&&(a+=2*Math.PI,t<e&&(t+=2*Math.PI)),t>=e&&t<=a}function c(t,e){function a(t,e){return!(!t[e-1]||!t[e+1])&&(t[e].y>=Math.max(t[e-1].y,t[e+1].y)||t[e].y<=Math.min(t[e-1].y,t[e+1].y))}function i(t,e){return!(!t[e-1]||!t[e+1])&&(t[e].x>=Math.max(t[e-1].x,t[e+1].x)||t[e].x<=Math.min(t[e-1].x,t[e+1].x))}var o=.2,r=.2,n=null,l=null,s=null,h=null;if(e<1?(n=t[0].x+(t[1].x-t[0].x)*o,l=t[0].y+(t[1].y-t[0].y)*o):(n=t[e].x+(t[e+1].x-t[e-1].x)*o,l=t[e].y+(t[e+1].y-t[e-1].y)*o),e>t.length-3){var c=t.length-1;s=t[c].x-(t[c].x-t[c-1].x)*r,h=t[c].y-(t[c].y-t[c-1].y)*r}else s=t[e+1].x-(t[e+2].x-t[e].x)*r,h=t[e+1].y-(t[e+2].y-t[e].y)*r;return a(t,e+1)&&(h=t[e+1].y),a(t,e)&&(l=t[e].y),i(t,e+1)&&(s=t[e+1].x),i(t,e)&&(n=t[e].x),(l>=Math.max(t[e].y,t[e+1].y)||l<=Math.min(t[e].y,t[e+1].y))&&(l=t[e].y),(h>=Math.max(t[e].y,t[e+1].y)||h<=Math.min(t[e].y,t[e+1].y))&&(h=t[e+1].y),(n>=Math.max(t[e].x,t[e+1].x)||n<=Math.min(t[e].x,t[e+1].x))&&(n=t[e].x),(s>=Math.max(t[e].x,t[e+1].x)||s<=Math.min(t[e].x,t[e+1].x))&&(s=t[e+1].x),{ctrA:{x:n,y:l},ctrB:{x:s,y:h}}}function d(t,e,a){return{x:a.x+t,y:a.y-e}}function f(t,e){if(e)while(n.isCollision(t,e))t.start.x>0?t.start.y--:t.start.x<0||t.start.y>0?t.start.y++:t.start.y--;return t}function x(t,e,a){var i=0;return t.map((function(t){if(t.color||(t.color=a.colors[i],i=(i+1)%a.colors.length),t.index||(t.index=0),t.type||(t.type=e.type),"undefined"==typeof t.show&&(t.show=!0),t.type||(t.type=e.type),t.pointShape||(t.pointShape="circle"),!t.legendShape)switch(t.type){case"line":t.legendShape="line";break;case"column":t.legendShape="rect";break;case"area":t.legendShape="triangle";break;default:t.legendShape="circle"}return t}))}function p(t,e){var a=0,i=e-t;return a=i>=1e4?1e3:i>=1e3?100:i>=100?10:i>=10?5:i>=1?1:i>=.1?.1:i>=.01?.01:i>=.001?.001:i>=1e-4?1e-4:i>=1e-5?1e-5:1e-6,{minRange:s(t,"lower",a),maxRange:s(e,"upper",a)}}function g(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:o.fontSize;t=String(t);t=t.split("");for(var a=0,i=0;i<t.length;i++){var r=t[i];/[a-zA-Z]/.test(r)?a+=7:/[0-9]/.test(r)?a+=5.5:/\./.test(r)?a+=2.7:/-/.test(r)?a+=3.25:/[\u4e00-\u9fa5]/.test(r)?a+=10:/\(|\)/.test(r)?a+=3.73:/\s/.test(r)?a+=2.5:/%/.test(r)?a+=8:a+=10}return a*e/10}function b(t){return t.reduce((function(t,e){return(t.data?t.data:t).concat(e.data)}),[])}function u(t,e){for(var a=new Array(e),i=0;i<a.length;i++)a[i]=0;for(var o=0;o<t.length;o++)for(i=0;i<a.length;i++)a[i]+=t[o].data[i];return t.reduce((function(t,e){return(t.data?t.data:t).concat(e.data).concat(a)}),[])}function y(t,e,a){var i,o;return t.clientX?e.rotate?(o=e.height-t.clientX*e.pixelRatio,i=(t.pageY-a.currentTarget.offsetTop-e.height/e.pixelRatio/2*(e.pixelRatio-1))*e.pixelRatio):(i=t.clientX*e.pixelRatio,o=(t.pageY-a.currentTarget.offsetTop-e.height/e.pixelRatio/2*(e.pixelRatio-1))*e.pixelRatio):e.rotate?(o=e.height-t.x*e.pixelRatio,i=t.y*e.pixelRatio):(i=t.x*e.pixelRatio,o=t.y*e.pixelRatio),{x:i,y:o}}function v(t,e){for(var a=[],i=0;i<t.length;i++){var o=t[i];if(null!==o.data[e]&&"undefined"!==typeof o.data[e]&&o.show){var r={};r.color=o.color,r.type=o.type,r.style=o.style,r.pointShape=o.pointShape,r.disableLegend=o.disableLegend,r.name=o.name,r.show=o.show,r.data=o.format?o.format(o.data[e]):o.data[e],a.push(r)}}return a}function A(t){var e=t.map((function(t){return g(t)}));return Math.max.apply(null,e)}function m(t){for(var e=2*Math.PI/t,a=[],i=0;i<t;i++)a.push(e*i);return a.map((function(t){return-1*t+Math.PI/2}))}function S(t,e,a,i){for(var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:{},r=t.map((function(t){var e=[];return e=i||t.data,{text:o.format?o.format(t,e[a]):t.name+": "+t.data,color:t.color}})),n=[],l={x:0,y:0},s=0;s<e.length;s++){var h=e[s];"undefined"!==typeof h[a]&&null!==h[a]&&n.push(h[a])}for(var c=0;c<n.length;c++){var d=n[c];l.x=Math.round(d.x),l.y+=d.y}return l.y/=n.length,{textList:r,offset:l}}function T(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:{},r=t.map((function(t){return{text:o.format?o.format(t,i[a]):t.name+": "+t.data,color:t.color,disableLegend:!!t.disableLegend}}));r=r.filter((function(t){if(!0!==t.disableLegend)return t}));for(var n=[],l={x:0,y:0},s=0;s<e.length;s++){var h=e[s];"undefined"!==typeof h[a]&&null!==h[a]&&n.push(h[a])}for(var c=0;c<n.length;c++){var d=n[c];l.x=Math.round(d.x),l.y+=d.y}return l.y/=n.length,{textList:r,offset:l}}function w(t,e,a,i,o,r){var n=r.color.upFill,l=r.color.downFill,s=[n,n,l,n],h=[],c={text:o[i],color:null};h.push(c),e.map((function(e){0==i&&e.data[1]-e.data[0]<0?s[1]=l:(e.data[0]<t[i-1][1]&&(s[0]=l),e.data[1]<e.data[0]&&(s[1]=l),e.data[2]>t[i-1][1]&&(s[2]=n),e.data[3]<t[i-1][1]&&(s[3]=l));var a={text:"khai mạc："+e.data[0],color:s[0]},o={text:"đóng："+e.data[1],color:s[1]},r={text:"thấp nhất："+e.data[2],color:s[2]},c={text:"Cao nhất："+e.data[3],color:s[3]};h.push(a,o,r,c)}));for(var d=[],f={x:0,y:0},x=0;x<a.length;x++){var p=a[x];"undefined"!==typeof p[i]&&null!==p[i]&&d.push(p[i])}return f.x=Math.round(d[0][0].x),{textList:h,offset:f}}function P(t,e,a){return t.x<=e.width-e.area[1]+10&&t.x>=e.area[3]-10&&t.y>=e.area[0]&&t.y<=e.height-e.area[2]}function M(t,e,a){return Math.pow(t.x-e.x,2)+Math.pow(t.y-e.y,2)<=Math.pow(a,2)}function D(t){var e=[],a=[];return t.forEach((function(t,i){null!==t?a.push(t):(a.length&&e.push(a),a=[])})),a.length&&e.push(a),e}function F(t,e,a,i){var o={angle:0,xAxisHeight:a.xAxisHeight},r=t.map((function(t){return g(t,e.xAxis.fontSize||a.fontSize)})),n=Math.max.apply(this,r);return 1==e.xAxis.rotateLabel&&n+2*a.xAxisTextPadding>i&&(o.angle=45*Math.PI/180,o.xAxisHeight=2*a.xAxisTextPadding+n*Math.sin(o.angle)),o}function R(t,e,a){var o={angle:0,xAxisHeight:a.xAxisHeight};o.ranges=function(t,e,a){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:-1,r=b(t),n=[];r=r.filter((function(t){return"object"===i(t)&&null!==t?t.constructor==Array?null!==t:null!==t.value:null!==t})),r.map((function(t){"object"===i(t)?t.constructor==Array?"candle"==e.type?t.map((function(t){n.push(t)})):n.push(t[0]):n.push(t.value):n.push(t)}));var l=0,s=0;if(n.length>0&&(l=Math.min.apply(this,n),s=Math.max.apply(this,n)),o>-1?("number"===typeof e.xAxis.data[o].min&&(l=Math.min(e.xAxis.data[o].min,l)),"number"===typeof e.xAxis.data[o].max&&(s=Math.max(e.xAxis.data[o].max,s))):("number"===typeof e.xAxis.min&&(l=Math.min(e.xAxis.min,l)),"number"===typeof e.xAxis.max&&(s=Math.max(e.xAxis.max,s))),l===s){var h=s||10;s+=h}for(var c=l,d=s,f=[],x=(d-c)/e.xAxis.splitNumber,p=0;p<=e.xAxis.splitNumber;p++)f.push(c+x*p);return f}(t,e,a),o.rangesFormat=o.ranges.map((function(t){return t=e.xAxis.format?e.xAxis.format(t):n.toFixed(t,2),t}));var r=o.ranges.map((function(t){return t=n.toFixed(t,2),t=e.xAxis.format?e.xAxis.format(Number(t)):t,t}));o=Object.assign(o,j(r,e,a));var l=o.eachSpacing,s=r.map((function(t){return g(t)})),h=Math.max.apply(this,s);return h+2*a.xAxisTextPadding>l&&(o.angle=45*Math.PI/180,o.xAxisHeight=2*a.xAxisTextPadding+h*Math.sin(o.angle)),!0===e.xAxis.disabled&&(o.xAxisHeight=0),o}function C(t,e,a,i,o){var r=arguments.length>5&&void 0!==arguments[5]?arguments[5]:1,n=o.extra.radar||{};n.max=n.max||0;for(var l=Math.max(n.max,Math.max.apply(null,b(i))),s=[],h=function(o){var n=i[o],h={};h.color=n.color,h.legendShape=n.legendShape,h.pointShape=n.pointShape,h.data=[],n.data.forEach((function(i,o){var n={};n.angle=t[o],n.proportion=i/l,n.position=d(a*n.proportion*r*Math.cos(n.angle),a*n.proportion*r*Math.sin(n.angle),e),h.data.push(n)})),s.push(h)},c=0;c<i.length;c++)h(c);return s}function L(t,e){for(var a=arguments.length>2&&void 0!==arguments[2]?arguments[2]:1,i=0,o=0,r=0;r<t.length;r++){var n=t[r];n.data=null===n.data?0:n.data,i+=n.data}for(var l=0;l<t.length;l++){var s=t[l];s.data=null===s.data?0:s.data,s._proportion_=0===i?1/t.length*a:s.data/i*a,s._radius_=e}for(var h=0;h<t.length;h++){var c=t[h];c._start_=o,o+=2*c._proportion_*Math.PI}return t}function k(t,e){var a=arguments.length>2&&void 0!==arguments[2]?arguments[2]:1;t=t.sort((function(t,e){return parseInt(e.data)-parseInt(t.data)}));for(var i=0;i<t.length;i++)t[i].radius=t[i].data/t[0].data*e*a,t[i]._proportion_=t[i].data/t[0].data;return t.reverse()}function I(t,e,a,i){for(var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,r=0,n=0,l=[],s=0;s<t.length;s++){var h=t[s];h.data=null===h.data?0:h.data,r+=h.data,l.push(h.data)}for(var c=Math.min.apply(null,l),d=Math.max.apply(null,l),f=i-a,x=0;x<t.length;x++){var p=t[x];p.data=null===p.data?0:p.data,0===r||"area"==e?(p._proportion_=p.data/r*o,p._rose_proportion_=1/t.length*o):(p._proportion_=p.data/r*o,p._rose_proportion_=p.data/r*o),p._radius_=a+f*((p.data-c)/(d-c))}for(var g=0;g<t.length;g++){var b=t[g];b._start_=n,n+=2*b._rose_proportion_*Math.PI}return t}function E(t,e){var a=arguments.length>2&&void 0!==arguments[2]?arguments[2]:1;1==a&&(a=.999999);for(var i=0;i<t.length;i++){var o=t[i];o.data=null===o.data?0:o.data;var r=void 0;r="circle"==e.type?2:e.endAngle<e.startAngle?2+e.endAngle-e.startAngle:e.startAngle-e.endAngle,o._proportion_=r*o.data*a+e.startAngle,o._proportion_>=2&&(o._proportion_=o._proportion_%2)}return t}function z(t,e,a){for(var i=e-a+1,o=e,r=0;r<t.length;r++)t[r].value=null===t[r].value?0:t[r].value,t[r]._startAngle_=o,t[r]._endAngle_=i*t[r].value+e,t[r]._endAngle_>=2&&(t[r]._endAngle_=t[r]._endAngle_%2),o=t[r]._endAngle_;return t}function O(t,e,a){for(var i=arguments.length>3&&void 0!==arguments[3]?arguments[3]:1,o=0;o<t.length;o++){var r=t[o];if(r.data=null===r.data?0:r.data,"auto"==a.pointer.color){for(var n=0;n<e.length;n++)if(r.data<=e[n].value){r.color=e[n].color;break}}else r.color=a.pointer.color;var l=a.startAngle-a.endAngle+1;r._endAngle_=l*r.data+a.startAngle,r._oldAngle_=a.oldAngle,a.oldAngle<a.endAngle&&(r._oldAngle_+=2),r.data>=a.oldData?r._proportion_=(r._endAngle_-r._oldAngle_)*i+a.oldAngle:r._proportion_=r._oldAngle_-(r._oldAngle_-r._endAngle_)*i,r._proportion_>=2&&(r._proportion_=r._proportion_%2)}return t}function W(t,e,a,i,o,r){return t.map((function(t){return null===t?null:(t.width=Math.ceil((e-2*o.columePadding)/a),r.extra.column&&r.extra.column.width&&+r.extra.column.width>0&&(t.width=Math.min(t.width,+r.extra.column.width)),t.width<=0&&(t.width=1),t.x+=(i+.5-a/2)*t.width,t)}))}function N(t,e,a,i,o,r,n){return t.map((function(t){return null===t?null:(t.width=Math.ceil((e-2*o.columePadding)/2),r.extra.column&&r.extra.column.width&&+r.extra.column.width>0&&(t.width=Math.min(t.width,+r.extra.column.width)),i>0&&(t.width-=2*n),t)}))}function B(t,e,a,i,o,r,n){return t.map((function(t,a){return null===t?null:(t.width=Math.ceil((e-2*o.columePadding)/2),r.extra.column&&r.extra.column.width&&+r.extra.column.width>0&&(t.width=Math.min(t.width,+r.extra.column.width)),t)}))}function j(t,e,a){var i=e.width-e.area[1]-e.area[3],o=e.enableScroll?Math.min(e.xAxis.itemCount,t.length):t.length;("line"==e.type||"area"==e.type)&&o>1&&"justify"==e.xAxis.boundaryGap&&(o-=1);var r=i/o,n=[],l=e.area[3],s=e.width-e.area[1];return t.forEach((function(t,e){n.push(l+e*r)})),"justify"!==e.xAxis.boundaryGap&&(!0===e.enableScroll?n.push(l+t.length*r):n.push(s)),{xAxisPoints:n,startX:l,endX:s,eachSpacing:r}}function U(t,e,a,i,o,r,n){var l=arguments.length>7&&void 0!==arguments[7]?arguments[7]:1,s=[],h=r.height-r.area[0]-r.area[2];return t.forEach((function(t,n){if(null===t)s.push(null);else{var c=[];t.forEach((function(t,s){var d={};d.x=i[n]+Math.round(o/2);var f=t.value||t,x=h*(f-e)/(a-e);x*=l,d.y=r.height-Math.round(x)-r.area[2],c.push(d)})),s.push(c)}})),s}function Z(t,e,a,o,r,n,l){var s=arguments.length>7&&void 0!==arguments[7]?arguments[7]:1,h="center";"line"!=n.type&&"area"!=n.type||(h=n.xAxis.boundaryGap);var c=[],d=n.height-n.area[0]-n.area[2],f=n.width-n.area[1]-n.area[3];return t.forEach((function(t,l){if(null===t)c.push(null);else{var x={};x.color=t.color,x.x=o[l];var p,g,b,u=t;if("object"===i(t)&&null!==t)if(t.constructor==Array)p=[].concat(n.chartData.xAxisData.ranges),g=p.shift(),b=p.pop(),u=t[1],x.x=n.area[3]+f*(t[0]-g)/(b-g);else u=t.value;"center"==h&&(x.x+=Math.round(r/2));var y=d*(u-e)/(a-e);y*=s,x.y=n.height-Math.round(y)-n.area[2],c.push(x)}})),c}function H(t,e,a,i,o,r,n,l,s){var h=arguments.length>9&&void 0!==arguments[9]?arguments[9]:1,c=[],d=r.height-r.area[0]-r.area[2];return t.forEach((function(t,n){if(null===t)c.push(null);else{var f={};if(f.color=t.color,f.x=i[n]+Math.round(o/2),l>0){for(var x=0,p=0;p<=l;p++)x+=s[p].data[n];var g=x-t,b=d*(x-e)/(a-e),u=d*(g-e)/(a-e)}else x=t,b=d*(x-e)/(a-e),u=0;var y=u;b*=h,y*=h,f.y=r.height-Math.round(b)-r.area[2],f.y0=r.height-Math.round(y)-r.area[2],c.push(f)}})),c}function _(t,e,a,o){var r,n=arguments.length>4&&void 0!==arguments[4]?arguments[4]:-1;r="stack"==o?u(t,e.categories.length):b(t);var l=[];r=r.filter((function(t){return"object"===i(t)&&null!==t?t.constructor==Array?null!==t:null!==t.value:null!==t})),r.map((function(t){"object"===i(t)?t.constructor==Array?"candle"==e.type?t.map((function(t){l.push(t)})):l.push(t[1]):l.push(t.value):l.push(t)}));var s=0,h=0;if(l.length>0&&(s=Math.min.apply(this,l),h=Math.max.apply(this,l)),n>-1?("number"===typeof e.yAxis.data[n].min&&(s=Math.min(e.yAxis.data[n].min,s)),"number"===typeof e.yAxis.data[n].max&&(h=Math.max(e.yAxis.data[n].max,h))):("number"===typeof e.yAxis.min&&(s=Math.min(e.yAxis.min,s)),"number"===typeof e.yAxis.max&&(h=Math.max(e.yAxis.max,h))),s===h){var c=h||10;h+=c}for(var d=p(s,h),f=d.minRange,x=d.maxRange,g=[],y=(x-f)/e.yAxis.splitNumber,v=0;v<=e.yAxis.splitNumber;v++)g.push(f+y*v);return g.reverse()}function K(t,e,a){var i=r({},{type:""},e.extra.column),o=e.yAxis.data.length,l=new Array(o);if(o>0){for(var s=0;s<o;s++){l[s]=[];for(var h=0;h<t.length;h++)t[h].index==s&&l[s].push(t[h])}for(var c=new Array(o),d=new Array(o),f=new Array(o),x=function(t){var o=e.yAxis.data[t];1==e.yAxis.disabled&&(o.disabled=!0),c[t]=_(l[t],e,a,i.type,t);var r=o.fontSize||a.fontSize;f[t]={position:o.position?o.position:"left",width:0},d[t]=c[t].map((function(e){return e=n.toFixed(e,6),e=o.format?o.format(Number(e)):e,f[t].width=Math.max(f[t].width,g(e,r)+5),e}));var s=o.calibration?4*e.pixelRatio:0;f[t].width+=s+3*e.pixelRatio,!0===o.disabled&&(f[t].width=0)},p=0;p<o;p++)x(p)}else{c=new Array(1),d=new Array(1),f=new Array(1);c[0]=_(t,e,a,i.type),f[0]={position:"left",width:0};var b=e.yAxis.fontSize||a.fontSize;d[0]=c[0].map((function(t){return t=n.toFixed(t,6),t=e.yAxis.format?e.yAxis.format(Number(t)):t,f[0].width=Math.max(f[0].width,g(t,b)+5),t})),f[0].width+=3*e.pixelRatio,!0===e.yAxis.disabled?(f[0]={position:"left",width:0},e.yAxis.data[0]={disabled:!0}):e.yAxis.data[0]={disabled:!1,position:"left",max:e.yAxis.max,min:e.yAxis.min,format:e.yAxis.format}}return{rangesFormat:d,ranges:c,yAxisWidth:f}}function G(t,e){!0!==e.rotateLock?(t.translate(e.height,0),t.rotate(90*Math.PI/180)):!0!==e._rotate_&&(t.translate(e.height,0),t.rotate(90*Math.PI/180),e._rotate_=!0)}function X(t,e,a,i,o){i.beginPath(),"hollow"==o.dataPointShapeType?(i.setStrokeStyle(e),i.setFillStyle(o.background),i.setLineWidth(2*o.pixelRatio)):(i.setStrokeStyle("#ffffff"),i.setFillStyle(e),i.setLineWidth(1*o.pixelRatio)),"diamond"===a?t.forEach((function(t,e){null!==t&&(i.moveTo(t.x,t.y-4.5),i.lineTo(t.x-4.5,t.y),i.lineTo(t.x,t.y+4.5),i.lineTo(t.x+4.5,t.y),i.lineTo(t.x,t.y-4.5))})):"circle"===a?t.forEach((function(t,e){null!==t&&(i.moveTo(t.x+2.5*o.pixelRatio,t.y),i.arc(t.x,t.y,3*o.pixelRatio,0,2*Math.PI,!1))})):"rect"===a?t.forEach((function(t,e){null!==t&&(i.moveTo(t.x-3.5,t.y-3.5),i.rect(t.x-3.5,t.y-3.5,7,7))})):"triangle"===a&&t.forEach((function(t,e){null!==t&&(i.moveTo(t.x,t.y-4.5),i.lineTo(t.x-4.5,t.y+4.5),i.lineTo(t.x+4.5,t.y+4.5),i.lineTo(t.x,t.y-4.5))})),i.closePath(),i.fill(),i.stroke()}function q(t,e,a,i){var o=t.title.fontSize||e.titleFontSize,r=t.subtitle.fontSize||e.subtitleFontSize,n=t.title.name||"",l=t.subtitle.name||"",s=t.title.color||e.titleColor,h=t.subtitle.color||e.subtitleColor,c=n?o:0,d=l?r:0;if(l){var f=g(l,r),x=i.x-f/2+(t.subtitle.offsetX||0),p=i.y+r/2+(t.subtitle.offsetY||0);n&&(p+=(c+5)/2),a.beginPath(),a.setFontSize(r),a.setFillStyle(h),a.fillText(l,x,p),a.closePath(),a.stroke()}if(n){var b=g(n,o),u=i.x-b/2+(t.title.offsetX||0),y=i.y+o/2+(t.title.offsetY||0);l&&(y-=(d+5)/2),a.beginPath(),a.setFontSize(o),a.setFillStyle(s),a.fillText(n,u,y),a.closePath(),a.stroke()}}function Q(t,e,a,o){var r=e.data;t.forEach((function(t,n){if(null!==t){o.beginPath(),o.setFontSize(e.textSize||a.fontSize),o.setFillStyle(e.textColor||"#666666");var l=r[n];"object"===i(r[n])&&null!==r[n]&&(l=r[n].constructor==Array?r[n][1]:r[n].value);var s=e.format?e.format(l):l;o.fillText(String(s),t.x-g(s,e.textSize||a.fontSize)/2,t.y-4),o.closePath(),o.stroke()}}))}function J(t,e,a,i,o,r){e-=t.width/2+o.gaugeLabelTextMargin;for(var n=t.startAngle-t.endAngle+1,l=n/t.splitLine.splitNumber,s=t.endNumber-t.startNumber,h=s/t.splitLine.splitNumber,c=t.startAngle,d=t.startNumber,f=0;f<t.splitLine.splitNumber+1;f++){var x={x:e*Math.cos(c*Math.PI),y:e*Math.sin(c*Math.PI)},p=t.labelFormat?t.labelFormat(d):d;x.x+=a.x-g(p)/2,x.y+=a.y;var b=x.x,u=x.y;r.beginPath(),r.setFontSize(o.fontSize),r.setFillStyle(t.labelColor||"#666666"),r.fillText(p,b,u+o.fontSize/2),r.closePath(),r.stroke(),c+=l,c>=2&&(c%=2),d+=h}}function V(t,e,a,i,o,r){var l=i.extra.radar||{};e+=o.radarLabelTextMargin,t.forEach((function(t,s){var h={x:e*Math.cos(t),y:e*Math.sin(t)},c=d(h.x,h.y,a),f=c.x,x=c.y;n.approximatelyEqual(h.x,0)?f-=g(i.categories[s]||"")/2:h.x<0&&(f-=g(i.categories[s]||"")),r.beginPath(),r.setFontSize(o.fontSize),r.setFillStyle(l.labelColor||"#666666"),r.fillText(i.categories[s]||"",f,x+o.fontSize/2),r.closePath(),r.stroke()}))}function Y(t,e,a,i,o,r){for(var l=a.pieChartLinePadding,s=[],h=null,c=t.map((function(t){var e=t.format?t.format(+t._proportion_.toFixed(2)):n.toFixed(100*t._proportion_.toFixed(4))+"%";t._rose_proportion_&&(t._proportion_=t._rose_proportion_);var a=2*Math.PI-(t._start_+2*Math.PI*t._proportion_/2),i=t.color,o=t._radius_;return{arc:a,text:e,color:i,radius:o,textColor:t.textColor,textSize:t.textSize}})),x=0;x<c.length;x++){var p=c[x],b=Math.cos(p.arc)*(p.radius+l),u=Math.sin(p.arc)*(p.radius+l),y=Math.cos(p.arc)*p.radius,v=Math.sin(p.arc)*p.radius,A=b>=0?b+a.pieChartTextPadding:b-a.pieChartTextPadding,m=u,S=g(p.text,p.textSize||a.fontSize),T=m;h&&n.isSameXCoordinateArea(h.start,{x:A})&&(T=A>0?Math.min(m,h.start.y):b<0||m>0?Math.max(m,h.start.y):Math.min(m,h.start.y)),A<0&&(A-=S);var w={lineStart:{x:y,y:v},lineEnd:{x:b,y:u},start:{x:A,y:T},width:S,height:a.fontSize,text:p.text,color:p.color,textColor:p.textColor,textSize:p.textSize};h=f(w,h),s.push(h)}for(var P=0;P<s.length;P++){var M=s[P],D=d(M.lineStart.x,M.lineStart.y,r),F=d(M.lineEnd.x,M.lineEnd.y,r),R=d(M.start.x,M.start.y,r);i.setLineWidth(1*e.pixelRatio),i.setFontSize(a.fontSize),i.beginPath(),i.setStrokeStyle(M.color),i.setFillStyle(M.color),i.moveTo(D.x,D.y);var C=M.start.x<0?R.x+M.width:R.x,L=M.start.x<0?R.x-5:R.x+5;i.quadraticCurveTo(F.x,F.y,C,R.y),i.moveTo(D.x,D.y),i.stroke(),i.closePath(),i.beginPath(),i.moveTo(R.x+M.width,R.y),i.arc(C,R.y,2,0,2*Math.PI),i.closePath(),i.fill(),i.beginPath(),i.setFontSize(M.textSize||a.fontSize),i.setFillStyle(M.textColor||"#666666"),i.fillText(M.text,L,R.y+3),i.closePath(),i.stroke(),i.closePath()}}function $(t,e,a){for(var i=r({},{type:"solid",dashLength:4,data:[]},t.extra.markLine),o=t.area[3],n=t.width-t.area[1],s=function(t,e){for(var a,i,o=e.height-e.area[0]-e.area[2],r=0;r<t.length;r++){t[r].yAxisIndex=t[r].yAxisIndex?t[r].yAxisIndex:0;var n=[].concat(e.chartData.yAxisData.ranges[t[r].yAxisIndex]);a=n.pop(),i=n.shift();var l=o*(t[r].value-a)/(i-a);t[r].y=e.height-Math.round(l)-e.area[2]}return t}(i.data,t),h=0;h<s.length;h++){var c=r({},{lineColor:"#DE4A42",showLabel:!1,labelFontColor:"#666666",labelBgColor:"#DFE8FF",labelBgOpacity:.8,yAxisIndex:0},s[h]);if("dash"==i.type&&a.setLineDash([i.dashLength,i.dashLength]),a.setStrokeStyle(c.lineColor),a.setLineWidth(1*t.pixelRatio),a.beginPath(),a.moveTo(o,c.y),a.lineTo(n,c.y),a.stroke(),a.setLineDash([]),c.showLabel){var d=t.yAxis.format?t.yAxis.format(Number(c.value)):c.value;a.setFontSize(e.fontSize);var f=g(d,e.fontSize),x=t.padding[3]+e.yAxisTitleWidth-e.toolTipPadding,p=Math.max(t.area[3],f+2*e.toolTipPadding),b=p-x,u=x+(b-f)/2,y=c.y;a.setFillStyle(l(c.labelBgColor,c.labelBgOpacity)),a.setStrokeStyle(c.labelBgColor),a.setLineWidth(1*t.pixelRatio),a.beginPath(),a.rect(x,y-.5*e.fontSize-e.toolTipPadding,b,e.fontSize+2*e.toolTipPadding),a.closePath(),a.stroke(),a.fill(),a.beginPath(),a.setFontSize(e.fontSize),a.setFillStyle(c.labelFontColor),a.fillText(String(d),u,y+.5*e.fontSize),a.stroke()}}}function tt(t,e,a,i,o){var n=r({},{gridType:"solid",dashLength:4},t.extra.tooltip),s=t.area[3],h=t.width-t.area[1];if("dash"==n.gridType&&a.setLineDash([n.dashLength,n.dashLength]),a.setStrokeStyle(n.gridColor||"#cccccc"),a.setLineWidth(1*t.pixelRatio),a.beginPath(),a.moveTo(s,t.tooltip.offset.y),a.lineTo(h,t.tooltip.offset.y),a.stroke(),a.setLineDash([]),n.yAxisLabel)for(var c=function(t,e,a,i,o){for(var r=[].concat(a.chartData.yAxisData.ranges),n=a.height-a.area[0]-a.area[2],l=a.area[0],s=[],h=0;h<r.length;h++){var c=r[h].shift(),d=r[h].pop(),f=c-(c-d)*(t-l)/n;f=a.yAxis.data[h].format?a.yAxis.data[h].format(Number(f)):f.toFixed(0),s.push(String(f))}return s}(t.tooltip.offset.y,t.series,t),d=t.chartData.yAxisData.yAxisWidth,f=t.area[3],x=t.width-t.area[1],p=0;p<c.length;p++){a.setFontSize(e.fontSize);var b,u=g(c[p],e.fontSize),y=void 0,v=void 0;"left"==d[p].position?(y=f-d[p].width,v=Math.max(y,y+u+2*e.toolTipPadding)):(y=x,v=Math.max(y+d[p].width,y+u+2*e.toolTipPadding)),b=v-y;var A=y+(b-u)/2,m=t.tooltip.offset.y;a.beginPath(),a.setFillStyle(l(n.labelBgColor||e.toolTipBackground,n.labelBgOpacity||e.toolTipOpacity)),a.setStrokeStyle(n.labelBgColor||e.toolTipBackground),a.setLineWidth(1*t.pixelRatio),a.rect(y,m-.5*e.fontSize-e.toolTipPadding,b,e.fontSize+2*e.toolTipPadding),a.closePath(),a.stroke(),a.fill(),a.beginPath(),a.setFontSize(e.fontSize),a.setFillStyle(n.labelFontColor||e.fontColor),a.fillText(c[p],A,m+.5*e.fontSize),a.closePath(),a.stroke(),"left"==d[p].position?f-=d[p].width+t.yAxis.padding:x+=d[p].width+t.yAxis.padding}}function et(t,e,a,i,o){var n=r({},{activeBgColor:"#000000",activeBgOpacity:.08},e.extra.tooltip),s=e.area[0],h=e.height-e.area[2];i.beginPath(),i.setFillStyle(l(n.activeBgColor,n.activeBgOpacity)),i.rect(t-o/2,s,o,h-s),i.closePath(),i.fill()}function at(t,e,a,i,o,n,s){var h=r({},{showBox:!0,bgColor:"#000000",bgOpacity:.7,fontColor:"#FFFFFF"},a.extra.tooltip),c=4*a.pixelRatio,d=5*a.pixelRatio,f=8*a.pixelRatio,x=!1;"line"!=a.type&&"area"!=a.type&&"candle"!=a.type&&"mix"!=a.type||function(t,e,a,i){var o=e.extra.tooltip||{};o.gridType=void 0==o.gridType?"solid":o.gridType,o.dashLength=void 0==o.dashLength?4:o.dashLength;var r=e.area[0],n=e.height-e.area[2];if("dash"==o.gridType&&i.setLineDash([o.dashLength,o.dashLength]),i.setStrokeStyle(o.gridColor||"#cccccc"),i.setLineWidth(1*e.pixelRatio),i.beginPath(),i.moveTo(t,r),i.lineTo(t,n),i.stroke(),i.setLineDash([]),o.xAxisLabel){var s=e.categories[e.tooltip.index];i.setFontSize(a.fontSize);var h=g(s,a.fontSize),c=t-.5*h,d=n;i.beginPath(),i.setFillStyle(l(o.labelBgColor||a.toolTipBackground,o.labelBgOpacity||a.toolTipOpacity)),i.setStrokeStyle(o.labelBgColor||a.toolTipBackground),i.setLineWidth(1*e.pixelRatio),i.rect(c-a.toolTipPadding,d,h+2*a.toolTipPadding,a.fontSize+2*a.toolTipPadding),i.closePath(),i.stroke(),i.fill(),i.beginPath(),i.setFontSize(a.fontSize),i.setFillStyle(o.labelFontColor||a.fontColor),i.fillText(String(s),c,d+a.toolTipPadding+a.fontSize),i.closePath(),i.stroke()}}(a.tooltip.offset.x,a,i,o),e=r({x:0,y:0},e),e.y-=8*a.pixelRatio;var p=t.map((function(t){return g(t.text,i.fontSize)})),b=c+d+4*i.toolTipPadding+Math.max.apply(null,p),u=2*i.toolTipPadding+t.length*i.toolTipLineHeight;0!=h.showBox&&(e.x-Math.abs(a._scrollDistance_)+f+b>a.width&&(x=!0),u+e.y>a.height&&(e.y=a.height-u),o.beginPath(),o.setFillStyle(l(h.bgColor||i.toolTipBackground,h.bgOpacity||i.toolTipOpacity)),x?(o.moveTo(e.x,e.y+10*a.pixelRatio),o.lineTo(e.x-f,e.y+10*a.pixelRatio-5*a.pixelRatio),o.lineTo(e.x-f,e.y),o.lineTo(e.x-f-Math.round(b),e.y),o.lineTo(e.x-f-Math.round(b),e.y+u),o.lineTo(e.x-f,e.y+u),o.lineTo(e.x-f,e.y+10*a.pixelRatio+5*a.pixelRatio),o.lineTo(e.x,e.y+10*a.pixelRatio)):(o.moveTo(e.x,e.y+10*a.pixelRatio),o.lineTo(e.x+f,e.y+10*a.pixelRatio-5*a.pixelRatio),o.lineTo(e.x+f,e.y),o.lineTo(e.x+f+Math.round(b),e.y),o.lineTo(e.x+f+Math.round(b),e.y+u),o.lineTo(e.x+f,e.y+u),o.lineTo(e.x+f,e.y+10*a.pixelRatio+5*a.pixelRatio),o.lineTo(e.x,e.y+10*a.pixelRatio)),o.closePath(),o.fill(),t.forEach((function(t,a){if(null!==t.color){o.beginPath(),o.setFillStyle(t.color);var r=e.x+f+2*i.toolTipPadding,n=e.y+(i.toolTipLineHeight-i.fontSize)/2+i.toolTipLineHeight*a+i.toolTipPadding+1;x&&(r=e.x-b-f+2*i.toolTipPadding),o.fillRect(r,n,c,i.fontSize),o.closePath()}})),t.forEach((function(t,a){var r=e.x+f+2*i.toolTipPadding+c+d;x&&(r=e.x-b-f+2*i.toolTipPadding+ +c+d);var n=e.y+(i.toolTipLineHeight-i.fontSize)/2+i.toolTipLineHeight*a+i.toolTipPadding;o.beginPath(),o.setFontSize(i.fontSize),o.setFillStyle(h.fontColor),o.fillText(t.text,r,n+i.fontSize),o.closePath(),o.stroke()})))}function it(t,e,a,i,o,r){var n=t.extra.tooltip||{};n.horizentalLine&&t.tooltip&&1===i&&("line"==t.type||"area"==t.type||"column"==t.type||"candle"==t.type||"mix"==t.type)&&tt(t,e,a),a.save(),t._scrollDistance_&&0!==t._scrollDistance_&&!0===t.enableScroll&&a.translate(t._scrollDistance_,0),t.tooltip&&t.tooltip.textList&&t.tooltip.textList.length&&1===i&&at(t.tooltip.textList,t.tooltip.offset,t,e,a),a.restore()}function ot(t,e,a,i){var o=e.chartData.xAxisData,r=o.xAxisPoints,n=o.startX,l=o.endX,s=o.eachSpacing,h="center";"line"!=e.type&&"area"!=e.type||(h=e.xAxis.boundaryGap);var c=e.height-e.area[2],d=e.area[0];if(e.enableScroll&&e.xAxis.scrollShow){var f=e.height-e.area[2]+a.xAxisHeight,x=l-n,p=s*(r.length-1),b=x*x/p,u=0;e._scrollDistance_&&(u=-e._scrollDistance_*x/p),i.beginPath(),i.setLineCap("round"),i.setLineWidth(6*e.pixelRatio),i.setStrokeStyle(e.xAxis.scrollBackgroundColor||"#EFEBEF"),i.moveTo(n,f),i.lineTo(l,f),i.stroke(),i.closePath(),i.beginPath(),i.setLineCap("round"),i.setLineWidth(6*e.pixelRatio),i.setStrokeStyle(e.xAxis.scrollColor||"#A6A6A6"),i.moveTo(n+u,f),i.lineTo(n+u+b,f),i.stroke(),i.closePath(),i.setLineCap("butt")}if(i.save(),e._scrollDistance_&&0!==e._scrollDistance_&&i.translate(e._scrollDistance_,0),!0===e.xAxis.calibration&&(i.setStrokeStyle(e.xAxis.gridColor||"#cccccc"),i.setLineCap("butt"),i.setLineWidth(1*e.pixelRatio),r.forEach((function(t,a){a>0&&(i.beginPath(),i.moveTo(t-s/2,c),i.lineTo(t-s/2,c+3*e.pixelRatio),i.closePath(),i.stroke())}))),!0!==e.xAxis.disableGrid&&(i.setStrokeStyle(e.xAxis.gridColor||"#cccccc"),i.setLineCap("butt"),i.setLineWidth(1*e.pixelRatio),"dash"==e.xAxis.gridType&&i.setLineDash([e.xAxis.dashLength,e.xAxis.dashLength]),e.xAxis.gridEval=e.xAxis.gridEval||1,r.forEach((function(t,a){a%e.xAxis.gridEval==0&&(i.beginPath(),i.moveTo(t,c),i.lineTo(t,d),i.stroke())})),i.setLineDash([])),!0!==e.xAxis.disabled){var y=t.length;e.xAxis.labelCount&&(y=e.xAxis.itemCount?Math.ceil(t.length/e.xAxis.itemCount*e.xAxis.labelCount):e.xAxis.labelCount,y-=1);for(var v=Math.ceil(t.length/y),A=[],m=t.length,S=0;S<m;S++)S%v!==0?A.push(""):A.push(t[S]);A[m-1]=t[m-1];var T=e.xAxis.fontSize||a.fontSize;0===a._xAxisTextAngle_?A.forEach((function(t,o){var n=-g(String(t),T)/2;"center"==h&&(n+=s/2);var l=0;e.xAxis.scrollShow&&(l=6*e.pixelRatio),i.beginPath(),i.setFontSize(T),i.setFillStyle(e.xAxis.fontColor||"#666666"),i.fillText(String(t),r[o]+n,c+T+(a.xAxisHeight-l-T)/2),i.closePath(),i.stroke()})):A.forEach((function(t,o){i.save(),i.beginPath(),i.setFontSize(T),i.setFillStyle(e.xAxis.fontColor||"#666666");var n=g(String(t),T),l=-n;"center"==h&&(l+=s/2);var d=function(t,e,a){var i=t,o=a-e,r=i+(a-o-i)/Math.sqrt(2);r*=-1;var n=(a-o)*(Math.sqrt(2)-1)-(a-o-i)/Math.sqrt(2);return{transX:r,transY:n}}(r[o]+s/2,c+T/2+5,e.height),f=d.transX,x=d.transY;i.rotate(-1*a._xAxisTextAngle_),i.translate(f,x),i.fillText(String(t),r[o]+l,c+T+5),i.closePath(),i.stroke(),i.restore()}))}i.restore(),e.xAxis.axisLine&&(i.beginPath(),i.setStrokeStyle(e.xAxis.axisLineColor),i.setLineWidth(1*e.pixelRatio),i.moveTo(n,e.height-e.area[2]),i.lineTo(l,e.height-e.area[2]),i.stroke())}function rt(t,e,a,i){if(!0!==e.yAxis.disableGrid){for(var o=e.height-e.area[0]-e.area[2],r=o/e.yAxis.splitNumber,n=e.area[3],l=e.chartData.xAxisData.xAxisPoints,s=e.chartData.xAxisData.eachSpacing,h=s*(l.length-1),c=n+h,d=[],f=0;f<e.yAxis.splitNumber+1;f++)d.push(e.height-e.area[2]-r*f);i.save(),e._scrollDistance_&&0!==e._scrollDistance_&&i.translate(e._scrollDistance_,0),"dash"==e.yAxis.gridType&&i.setLineDash([e.yAxis.dashLength,e.yAxis.dashLength]),i.setStrokeStyle(e.yAxis.gridColor),i.setLineWidth(1*e.pixelRatio),d.forEach((function(t,e){i.beginPath(),i.moveTo(n,t),i.lineTo(c,t),i.stroke()})),i.setLineDash([]),i.restore()}}function nt(t,e,a,i){if(!0!==e.yAxis.disabled){var o=e.height-e.area[0]-e.area[2],r=o/e.yAxis.splitNumber,n=e.area[3],l=e.width-e.area[1],s=e.height-e.area[2],h=s+a.xAxisHeight;e.xAxis.scrollShow&&(h-=3*e.pixelRatio),e.xAxis.rotateLabel&&(h=e.height-e.area[2]+3),i.beginPath(),i.setFillStyle(e.background||"#ffffff"),e._scrollDistance_<0&&i.fillRect(0,0,n,h),1==e.enableScroll&&i.fillRect(l,0,e.width,h),i.closePath(),i.stroke();for(var c=[],d=0;d<=e.yAxis.splitNumber;d++)c.push(e.area[0]+r*d);for(var f=e.area[3],x=e.width-e.area[1],p=function(t){var o=e.yAxis.data[t];if(!0!==o.disabled){var r=e.chartData.yAxisData.rangesFormat[t],n=o.fontSize||a.fontSize,l=e.chartData.yAxisData.yAxisWidth[t];if(r.forEach((function(t,a){var r=c[a]?c[a]:s;i.beginPath(),i.setFontSize(n),i.setLineWidth(1*e.pixelRatio),i.setStrokeStyle(o.axisLineColor||"#cccccc"),i.setFillStyle(o.fontColor||"#666666"),"left"==l.position?(i.fillText(String(t),f-l.width,r+n/2),1==o.calibration&&(i.moveTo(f,r),i.lineTo(f-3*e.pixelRatio,r))):(i.fillText(String(t),x+4*e.pixelRatio,r+n/2),1==o.calibration&&(i.moveTo(x,r),i.lineTo(x+3*e.pixelRatio,r))),i.closePath(),i.stroke()})),!1!==o.axisLine&&(i.beginPath(),i.setStrokeStyle(o.axisLineColor||"#cccccc"),i.setLineWidth(1*e.pixelRatio),"left"==l.position?(i.moveTo(f,e.height-e.area[2]),i.lineTo(f,e.area[0])):(i.moveTo(x,e.height-e.area[2]),i.lineTo(x,e.area[0])),i.stroke()),e.yAxis.showTitle){var h=o.titleFontSize||a.fontSize,d=o.title;i.beginPath(),i.setFontSize(h),i.setFillStyle(o.titleFontColor||"#666666"),"left"==l.position?i.fillText(d,f-g(d,h)/2,e.area[0]-10*e.pixelRatio):i.fillText(d,x-g(d,h)/2,e.area[0]-10*e.pixelRatio),i.closePath(),i.stroke()}"left"==l.position?f-=l.width+e.yAxis.padding:x+=l.width+e.yAxis.padding}},b=0;b<e.yAxis.data.length;b++)p(b)}}function lt(t,e,a,i,o){if(!1!==e.legend.show){var r=o.legendData,n=r.points,l=r.area,s=e.legend.padding,h=e.legend.fontSize,c=15*e.pixelRatio,d=5*e.pixelRatio,f=e.legend.itemGap,x=Math.max(e.legend.lineHeight*e.pixelRatio,h);i.beginPath(),i.setLineWidth(e.legend.borderWidth),i.setStrokeStyle(e.legend.borderColor),i.setFillStyle(e.legend.backgroundColor),i.moveTo(l.start.x,l.start.y),i.rect(l.start.x,l.start.y,l.width,l.height),i.closePath(),i.fill(),i.stroke(),n.forEach((function(t,o){var n,p=0;p=r.widthArr[o],n=r.heightArr[o];var b=0,u=0;"top"==e.legend.position||"bottom"==e.legend.position?(b=l.start.x+(l.width-p)/2,u=l.start.y+s+o*x):(p=0==o?0:r.widthArr[o-1],b=l.start.x+s+p,u=l.start.y+s+(l.height-n)/2),i.setFontSize(a.fontSize);for(var y=0;y<t.length;y++){var v=t[y];switch(v.area=[0,0,0,0],v.area[0]=b,v.area[1]=u,v.area[3]=u+x,i.beginPath(),i.setLineWidth(1*e.pixelRatio),i.setStrokeStyle(v.show?v.color:e.legend.hiddenColor),i.setFillStyle(v.show?v.color:e.legend.hiddenColor),v.legendShape){case"line":i.moveTo(b,u+.5*x-2*e.pixelRatio),i.fillRect(b,u+.5*x-2*e.pixelRatio,15*e.pixelRatio,4*e.pixelRatio);break;case"triangle":i.moveTo(b+7.5*e.pixelRatio,u+.5*x-5*e.pixelRatio),i.lineTo(b+2.5*e.pixelRatio,u+.5*x+5*e.pixelRatio),i.lineTo(b+12.5*e.pixelRatio,u+.5*x+5*e.pixelRatio),i.lineTo(b+7.5*e.pixelRatio,u+.5*x-5*e.pixelRatio);break;case"diamond":i.moveTo(b+7.5*e.pixelRatio,u+.5*x-5*e.pixelRatio),i.lineTo(b+2.5*e.pixelRatio,u+.5*x),i.lineTo(b+7.5*e.pixelRatio,u+.5*x+5*e.pixelRatio),i.lineTo(b+12.5*e.pixelRatio,u+.5*x),i.lineTo(b+7.5*e.pixelRatio,u+.5*x-5*e.pixelRatio);break;case"circle":i.moveTo(b+7.5*e.pixelRatio,u+.5*x),i.arc(b+7.5*e.pixelRatio,u+.5*x,5*e.pixelRatio,0,2*Math.PI);break;case"rect":i.moveTo(b,u+.5*x-5*e.pixelRatio),i.fillRect(b,u+.5*x-5*e.pixelRatio,15*e.pixelRatio,10*e.pixelRatio);break;default:i.moveTo(b,u+.5*x-5*e.pixelRatio),i.fillRect(b,u+.5*x-5*e.pixelRatio,15*e.pixelRatio,10*e.pixelRatio)}i.closePath(),i.fill(),i.stroke(),b+=c+d;var A=.5*x+.5*h-2;i.beginPath(),i.setFontSize(h),i.setFillStyle(v.show?e.legend.fontColor:e.legend.hiddenColor),i.fillText(v.name,b,u+A),i.closePath(),i.stroke(),"top"==e.legend.position||"bottom"==e.legend.position?(b+=g(v.name,h)+f,v.area[2]=b):(v.area[2]=b+g(v.name,h)+f,b-=c+d,u+=x)}}))}}function st(t,e,a){a=0==a?1:a;for(var i=[],o=0;o<a;o++)i[o]=Math.random();return Math.floor(i.reduce((function(t,e){return t+e}))/a*(e-t))+t}function ht(t,e,a,i){for(var o=!1,r=0;r<e.length;r++)if(e[r].area){if(!(t[3]<e[r].area[1]||t[0]>e[r].area[2]||t[1]>e[r].area[3]||t[2]<e[r].area[0])){o=!0;break}if(t[0]<0||t[1]<0||t[2]>a||t[3]>i){o=!0;break}o=!1}return o}function ct(t,e,a,i,o,r){return{x:(e-a.xMin)*i+o,y:(a.yMax-t)*i+r}}function dt(t,e,a){if(e[1]==a[1])return!1;if(e[1]>t[1]&&a[1]>t[1])return!1;if(e[1]<t[1]&&a[1]<t[1])return!1;if(e[1]==t[1]&&a[1]>t[1])return!1;if(a[1]==t[1]&&e[1]>t[1])return!1;if(e[0]<t[0]&&a[1]<t[1])return!1;var i=a[0]-(a[0]-e[0])*(a[1]-t[1])/(a[1]-e[1]);return!(i<t[0])}function ft(t,e){for(var a=0,i=0;i<e.length;i++){var o=e[i][0];1==e.length&&(o=e[i][0]);for(var r=0;r<o.length-1;r++){var n=o[r],l=o[r+1];dt(t,n,l)&&(a+=1)}}return a%2==1}function xt(t,e,a,i,o,r,l){for(var s=0;s<t.length;s++){var h=t[s],c=void 0,d=void 0,f=void 0,x=void 0,p=h.format?h.format(+h._proportion_.toFixed(2)):n.toFixed(100*h._proportion_)+"%";"right"==o?(c=0==s?(h.funnelArea[2]+l.x)/2:(h.funnelArea[2]+t[s-1].funnelArea[2])/2,d=c+2*r,f=h.funnelArea[1]+i/2,x=h.textSize||e.fontSize,a.setLineWidth(1*e.pixelRatio),a.setStrokeStyle(h.color),a.setFillStyle(h.color),a.beginPath(),a.moveTo(c,f),a.lineTo(d,f),a.stroke(),a.closePath(),a.beginPath(),a.moveTo(d,f),a.arc(d,f,2,0,2*Math.PI),a.closePath(),a.fill(),a.beginPath(),a.setFontSize(x),a.setFillStyle(h.textColor||"#666666"),a.fillText(p,d+5,f+x/2-2),a.closePath(),a.stroke(),a.closePath()):(c=0==s?(h.funnelArea[0]+l.x)/2:(h.funnelArea[0]+t[s-1].funnelArea[0])/2,d=c-2*r,f=h.funnelArea[1]+i/2,x=h.textSize||e.fontSize,a.setLineWidth(1*e.pixelRatio),a.setStrokeStyle(h.color),a.setFillStyle(h.color),a.beginPath(),a.moveTo(c,f),a.lineTo(d,f),a.stroke(),a.closePath(),a.beginPath(),a.moveTo(d,f),a.arc(d,f,2,0,2*Math.PI),a.closePath(),a.fill(),a.beginPath(),a.setFontSize(x),a.setFillStyle(h.textColor||"#666666"),a.fillText(p,d-5-g(p),f+x/2-2),a.closePath(),a.stroke(),a.closePath())}}function pt(t,e){e.draw()}var gt={easeIn:function(t){return Math.pow(t,3)},easeOut:function(t){return Math.pow(t-1,3)+1},easeInOut:function(t){return(t/=.5)<1?.5*Math.pow(t,3):.5*(Math.pow(t-2,3)+2)},linear:function(t){return t}};function bt(t){this.isStop=!1,t.duration="undefined"===typeof t.duration?1e3:t.duration,t.timing=t.timing||"linear";var e=function(){return"undefined"!==typeof setTimeout?function(t,e){setTimeout((function(){var e=+new Date;t(e)}),e)}:"undefined"!==typeof requestAnimationFrame?requestAnimationFrame:function(t){t(null)}}(),a=null,i=function(o){if(null===o||!0===this.isStop)return t.onProcess&&t.onProcess(1),void(t.onAnimationFinish&&t.onAnimationFinish());if(null===a&&(a=o),o-a<t.duration){var r=(o-a)/t.duration,n=gt[t.timing];r=n(r),t.onProcess&&t.onProcess(r),e(i,17)}else t.onProcess&&t.onProcess(1),t.onAnimationFinish&&t.onAnimationFinish()};i=i.bind(this),e(i,17)}function ut(t,e,a,i){var o=this,s=e.series,h=e.categories;s=x(s,e,a);var f=e.animation?e.duration:0;o.animationInstance&&o.animationInstance.stop();var p=null;if("candle"==t){var b=r({},e.extra.candle.average);b.show?(p=function(t,e,a,i){for(var o=[],r=0;r<t.length;r++){for(var n={data:[],name:e[r],color:a[r]},l=0,s=i.length;l<s;l++)if(l<t[r])n.data.push(null);else{for(var h=0,c=0;c<t[r];c++)h+=i[l-c][1];n.data.push(+(h/t[r]).toFixed(3))}o.push(n)}return o}(b.day,b.name,b.color,s[0].data),p=x(p,e,a),e.seriesMA=p):p=e.seriesMA?e.seriesMA=x(e.seriesMA,e,a):s}else p=s;e._series_=s=function(t){for(var e=[],a=0;a<t.length;a++)1==t[a].show&&e.push(t[a]);return e}(s),e.area=new Array(4);for(var u=0;u<4;u++)e.area[u]=e.padding[u];var y=function(t,e,a,i){var o={area:{start:{x:0,y:0},end:{x:0,y:0},width:0,height:0,wholeWidth:0,wholeHeight:0},points:[],widthArr:[],heightArr:[]};if(!1===e.legend.show)return i.legendData=o,o;var r=e.legend.padding,n=e.legend.margin,l=e.legend.fontSize,s=15*e.pixelRatio,h=5*e.pixelRatio,c=Math.max(e.legend.lineHeight*e.pixelRatio,l);if("top"==e.legend.position||"bottom"==e.legend.position){for(var d=[],f=0,x=[],p=[],b=0;b<t.length;b++){var u=t[b],y=s+h+g(u.name||"undefined",l)+e.legend.itemGap;f+y>e.width-e.padding[1]-e.padding[3]?(d.push(p),x.push(f-e.legend.itemGap),f=y,p=[u]):(f+=y,p.push(u))}if(p.length){d.push(p),x.push(f-e.legend.itemGap),o.widthArr=x;var v=Math.max.apply(null,x);switch(e.legend.float){case"left":o.area.start.x=e.padding[3],o.area.end.x=e.padding[3]+2*r;break;case"right":o.area.start.x=e.width-e.padding[1]-v-2*r,o.area.end.x=e.width-e.padding[1];break;default:o.area.start.x=(e.width-v)/2-r,o.area.end.x=(e.width+v)/2+r}o.area.width=v+2*r,o.area.wholeWidth=v+2*r,o.area.height=d.length*c+2*r,o.area.wholeHeight=d.length*c+2*r+2*n,o.points=d}}else{var A=t.length,m=e.height-e.padding[0]-e.padding[2]-2*n-2*r,S=Math.min(Math.floor(m/c),A);switch(o.area.height=S*c+2*r,o.area.wholeHeight=S*c+2*r,e.legend.float){case"top":o.area.start.y=e.padding[0]+n,o.area.end.y=e.padding[0]+n+o.area.height;break;case"bottom":o.area.start.y=e.height-e.padding[2]-n-o.area.height,o.area.end.y=e.height-e.padding[2]-n;break;default:o.area.start.y=(e.height-o.area.height)/2,o.area.end.y=(e.height+o.area.height)/2}for(var T=A%S===0?A/S:Math.floor(A/S+1),w=[],P=0;P<T;P++){var M=t.slice(P*S,P*S+S);w.push(M)}if(o.points=w,w.length){for(var D=0;D<w.length;D++){for(var F=w[D],R=0,C=0;C<F.length;C++){var L=s+h+g(F[C].name||"undefined",l)+e.legend.itemGap;L>R&&(R=L)}o.widthArr.push(R),o.heightArr.push(F.length*c+2*r)}for(var k=0,I=0;I<o.widthArr.length;I++)k+=o.widthArr[I];o.area.width=k-e.legend.itemGap+2*r,o.area.wholeWidth=o.area.width+r}}switch(e.legend.position){case"top":o.area.start.y=e.padding[0]+n,o.area.end.y=e.padding[0]+n+o.area.height;break;case"bottom":o.area.start.y=e.height-e.padding[2]-o.area.height-n,o.area.end.y=e.height-e.padding[2]-n;break;case"left":o.area.start.x=e.padding[3],o.area.end.x=e.padding[3]+o.area.width;break;case"right":o.area.start.x=e.width-e.padding[1]-o.area.width,o.area.end.x=e.width-e.padding[1];break}return i.legendData=o,o}(p,e,0,e.chartData),v=y.area.wholeHeight,S=y.area.wholeWidth;switch(e.legend.position){case"top":e.area[0]+=v;break;case"bottom":e.area[2]+=v;break;case"left":e.area[3]+=S;break;case"right":e.area[1]+=S;break}var T={},w=0;if("line"===e.type||"column"===e.type||"area"===e.type||"mix"===e.type||"candle"===e.type){if(T=K(s,e,a),w=T.yAxisWidth,e.yAxis.showTitle){for(var P=0,M=0;M<e.yAxis.data.length;M++)P=Math.max(P,e.yAxis.data[M].titleFontSize?e.yAxis.data[M].titleFontSize:a.fontSize);e.area[0]+=(P+6)*e.pixelRatio}for(var _=0,tt=0,at=0;at<w.length;at++)"left"==w[at].position?(e.area[3]+=tt>0?w[at].width+e.yAxis.padding:w[at].width,tt+=1):(e.area[1]+=_>0?w[at].width+e.yAxis.padding:w[at].width,_+=1)}else a.yAxisWidth=w;if(e.chartData.yAxisData=T,e.categories&&e.categories.length){e.chartData.xAxisData=j(e.categories,e);var dt=F(e.categories,e,a,e.chartData.xAxisData.eachSpacing),ft=dt.xAxisHeight,gt=dt.angle;a.xAxisHeight=ft,a._xAxisTextAngle_=gt,e.area[2]+=ft,e.chartData.categoriesData=dt}else if("line"===e.type||"area"===e.type||"points"===e.type){e.chartData.xAxisData=R(s,e,a),h=e.chartData.xAxisData.rangesFormat;var ut=F(h,e,a,e.chartData.xAxisData.eachSpacing),yt=ut.xAxisHeight,vt=ut.angle;a.xAxisHeight=yt,a._xAxisTextAngle_=vt,e.area[2]+=yt,e.chartData.categoriesData=ut}else e.chartData.xAxisData={xAxisPoints:[]};if(e.enableScroll&&"right"==e.xAxis.scrollAlign&&void 0===e._scrollDistance_){var At,mt=e.chartData.xAxisData.xAxisPoints,St=e.chartData.xAxisData.startX,Tt=e.chartData.xAxisData.endX,wt=e.chartData.xAxisData.eachSpacing,Pt=wt*(mt.length-1),Mt=Tt-St;At=Mt-Pt,o.scrollOption={currentOffset:At,startTouchX:At,distance:0,lastMoveTime:0},e._scrollDistance_=At}switch("pie"!==t&&"ring"!==t&&"rose"!==t||(a._pieTextMaxLength_=!1===e.dataLabel?0:function(t){t=L(t);for(var e=0,a=0;a<t.length;a++){var i=t[a],o=i.format?i.format(+i._proportion_.toFixed(2)):n.toFixed(100*i._proportion_)+"%";e=Math.max(e,g(o))}return e}(p)),t){case"word":var Dt=r({},{type:"normal",autoColors:!0},e.extra.word);1!=e.updateData&&void 0!=e.updateData||(e.chartData.wordCloudData=function(t,e){var a=t.series.sort((function(t,e){return parseInt(e.textSize)-parseInt(t.textSize)}));switch(e){case"normal":for(var i=0;i<a.length;i++){var o=a[i].name,r=a[i].textSize,n=g(o,r),l=void 0,s=void 0,h=void 0,c=0;while(1){c++,l=st(-t.width/2,t.width/2,5)-n/2,s=st(-t.height/2,t.height/2,5)+r/2,h=[l-5+t.width/2,s-5-r+t.height/2,l+n+5+t.width/2,s+5+t.height/2];var d=ht(h,a,t.width,t.height);if(!d)break;if(1e3==c){h=[-100,-100,-100,-100];break}}a[i].area=h}break;case"vertical":for(var f=function(){return Math.random()>.7},x=0;x<a.length;x++){var p=a[x].name,b=a[x].textSize,u=g(p,b),y=f(),v=void 0,A=void 0,m=void 0,S=void 0,T=0;while(1){T++;var w=void 0;if(y?(v=st(-t.width/2,t.width/2,5)-u/2,A=st(-t.height/2,t.height/2,5)+b/2,m=[A-5-u+t.width/2,-v-5+t.height/2,A+5+t.width/2,-v+b+5+t.height/2],S=[t.width-(t.width/2-t.height/2)-(-v+b+5+t.height/2)-5,t.height/2-t.width/2+(A-5-u+t.width/2)-5,t.width-(t.width/2-t.height/2)-(-v+b+5+t.height/2)+b,t.height/2-t.width/2+(A-5-u+t.width/2)+u+5],w=ht(S,a,t.height,t.width)):(v=st(-t.width/2,t.width/2,5)-u/2,A=st(-t.height/2,t.height/2,5)+b/2,m=[v-5+t.width/2,A-5-b+t.height/2,v+u+5+t.width/2,A+5+t.height/2],w=ht(m,a,t.width,t.height)),!w)break;if(1e3==T){m=[-1e3,-1e3,-1e3,-1e3];break}}y?(a[x].area=S,a[x].areav=m):a[x].area=m,a[x].rotate=y}break}return a}(e,Dt.type)),this.animationInstance=new bt({timing:"easeInOut",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1;r({},{type:"normal",autoColors:!0},e.extra.word),i.beginPath(),i.setFillStyle(e.background||"#FFFFFF"),i.rect(0,0,e.width,e.height),i.fill(),i.save();var n=e.chartData.wordCloudData;i.translate(e.width/2,e.height/2);for(var l=0;l<n.length;l++){i.save(),n[l].rotate&&i.rotate(90*Math.PI/180);var s=n[l].name,h=n[l].textSize,c=g(s,h);i.beginPath(),i.setStrokeStyle(n[l].color),i.setFillStyle(n[l].color),i.setFontSize(h),n[l].rotate?n[l].areav[0]>0&&(e.tooltip&&e.tooltip.index==l?i.strokeText(s,(n[l].areav[0]+5-e.width/2)*o-c*(1-o)/2,(n[l].areav[1]+5+h-e.height/2)*o):i.fillText(s,(n[l].areav[0]+5-e.width/2)*o-c*(1-o)/2,(n[l].areav[1]+5+h-e.height/2)*o)):n[l].area[0]>0&&(e.tooltip&&e.tooltip.index==l?i.strokeText(s,(n[l].area[0]+5-e.width/2)*o-c*(1-o)/2,(n[l].area[1]+5+h-e.height/2)*o):i.fillText(s,(n[l].area[0]+5-e.width/2)*o-c*(1-o)/2,(n[l].area[1]+5+h-e.height/2)*o)),i.stroke(),i.restore()}i.restore()}(s,e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"map":i.clearRect(0,0,e.width,e.height),function(t,e,a,i){var o,n,s=r({},{border:!0,borderWidth:1,borderColor:"#666666",fillOpacity:.6,activeBorderColor:"#f04864",activeFillColor:"#facc14",activeFillOpacity:1},e.extra.map),h=t,c=function(t){for(var e,a={xMin:180,xMax:0,yMin:90,yMax:0},i=0;i<t.length;i++)for(var o=t[i].geometry.coordinates,r=0;r<o.length;r++){e=o[r],1==e.length&&(e=e[0]);for(var n=0;n<e.length;n++){var l=e[n][0],s=e[n][1],h={x:l,y:s};a.xMin=a.xMin<h.x?a.xMin:h.x,a.xMax=a.xMax>h.x?a.xMax:h.x,a.yMin=a.yMin<h.y?a.yMin:h.y,a.yMax=a.yMax>h.y?a.yMax:h.y}}return a}(h),d=e.width/Math.abs(c.xMax-c.xMin),f=e.height/Math.abs(c.yMax-c.yMin),x=d<f?d:f,p=e.width/2-Math.abs(c.xMax-c.xMin)/2*x,b=e.height/2-Math.abs(c.yMax-c.yMin)/2*x;i.beginPath(),i.clearRect(0,0,e.width,e.height),i.setFillStyle(e.background||"#FFFFFF"),i.rect(0,0,e.width,e.height),i.fill();for(var u=0;u<h.length;u++){i.beginPath(),i.setLineWidth(s.borderWidth*e.pixelRatio),i.setStrokeStyle(s.borderColor),i.setFillStyle(l(t[u].color,s.fillOpacity)),e.tooltip&&e.tooltip.index==u&&(i.setStrokeStyle(s.activeBorderColor),i.setFillStyle(l(s.activeFillColor,s.activeFillOpacity)));for(var y=h[u].geometry.coordinates,v=0;v<y.length;v++){o=y[v],1==o.length&&(o=o[0]);for(var A=0;A<o.length;A++)n=ct(o[A][1],o[A][0],c,x,p,b),0===A?(i.beginPath(),i.moveTo(n.x,n.y)):i.lineTo(n.x,n.y);i.fill(),1==s.border&&i.stroke()}if(1==e.dataLabel){var m=h[u].properties.centroid;if(m){n=ct(m[1],m[0],c,x,p,b);var S=h[u].textSize||a.fontSize,T=h[u].properties.name;i.beginPath(),i.setFontSize(S),i.setFillStyle(h[u].textColor||"#666666"),i.fillText(T,n.x-g(T,S)/2,n.y+S/2),i.closePath(),i.stroke()}}}e.chartData.mapData={bounds:c,scale:x,xoffset:p,yoffset:b},it(e,a,i,1),i.draw()}(s,e,a,i);break;case"funnel":this.animationInstance=new bt({timing:"easeInOut",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),e.chartData.funnelData=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,n=r({},{activeWidth:10,activeOpacity:.3,border:!1,borderWidth:2,borderColor:"#FFFFFF",fillOpacity:1,labelAlign:"right"},e.extra.funnel),s=(e.height-e.area[0]-e.area[2])/t.length,h={x:e.area[3]+(e.width-e.area[1]-e.area[3])/2,y:e.height-e.area[2]},c=n.activeWidth,d=Math.min((e.width-e.area[1]-e.area[3])/2-c,(e.height-e.area[0]-e.area[2])/2-c);t=k(t,d,o),i.save(),i.translate(h.x,h.y);for(var f=0;f<t.length;f++)0==f?(e.tooltip&&e.tooltip.index==f&&(i.beginPath(),i.setFillStyle(l(t[f].color,n.activeOpacity)),i.moveTo(-c,0),i.lineTo(-t[f].radius-c,-s),i.lineTo(t[f].radius+c,-s),i.lineTo(c,0),i.lineTo(-c,0),i.closePath(),i.fill()),t[f].funnelArea=[h.x-t[f].radius,h.y-s,h.x+t[f].radius,h.y],i.beginPath(),i.setLineWidth(n.borderWidth*e.pixelRatio),i.setStrokeStyle(n.borderColor),i.setFillStyle(l(t[f].color,n.fillOpacity)),i.moveTo(0,0),i.lineTo(-t[f].radius,-s),i.lineTo(t[f].radius,-s),i.lineTo(0,0),i.closePath(),i.fill(),1==n.border&&i.stroke()):(e.tooltip&&e.tooltip.index==f&&(i.beginPath(),i.setFillStyle(l(t[f].color,n.activeOpacity)),i.moveTo(0,0),i.lineTo(-t[f-1].radius-c,0),i.lineTo(-t[f].radius-c,-s),i.lineTo(t[f].radius+c,-s),i.lineTo(t[f-1].radius+c,0),i.lineTo(0,0),i.closePath(),i.fill()),t[f].funnelArea=[h.x-t[f].radius,h.y-s*(f+1),h.x+t[f].radius,h.y-s*f],i.beginPath(),i.setLineWidth(n.borderWidth*e.pixelRatio),i.setStrokeStyle(n.borderColor),i.setFillStyle(l(t[f].color,n.fillOpacity)),i.moveTo(0,0),i.lineTo(-t[f-1].radius,0),i.lineTo(-t[f].radius,-s),i.lineTo(t[f].radius,-s),i.lineTo(t[f-1].radius,0),i.lineTo(0,0),i.closePath(),i.fill(),1==n.border&&i.stroke()),i.translate(0,-s);return i.restore(),!1!==e.dataLabel&&1===o&&xt(t,e,i,s,n.labelAlign,c,h),{center:h,radius:d,series:t}}(s,e,a,i,t),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"line":this.animationInstance=new bt({timing:"easeIn",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),rt(0,e,0,i),ot(h,e,a,i);var o=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,n=r({},{type:"straight",width:2},e.extra.line);n.width*=e.pixelRatio;var l=e.chartData.xAxisData,s=l.xAxisPoints,h=l.eachSpacing,d=[];i.save();var f=0,x=e.width+h;return e._scrollDistance_&&0!==e._scrollDistance_&&!0===e.enableScroll&&(i.translate(e._scrollDistance_,0),f=-e._scrollDistance_-h+e.area[3],x=f+(e.xAxis.itemCount+4)*h),t.forEach((function(t,r){var l,p,g;l=[].concat(e.chartData.yAxisData.ranges[t.index]),p=l.pop(),g=l.shift();var b=t.data,u=Z(b,p,g,s,h,e,a,o);d.push(u);var y=D(u);if("dash"==t.lineType){var v=t.dashLength?t.dashLength:8;v*=e.pixelRatio,i.setLineDash([v,v])}i.beginPath(),i.setStrokeStyle(t.color),i.setLineWidth(n.width),y.forEach((function(t,e){if(1===t.length)i.moveTo(t[0].x,t[0].y),i.arc(t[0].x,t[0].y,1,0,2*Math.PI);else{i.moveTo(t[0].x,t[0].y);var a=0;if("curve"===n.type)for(var o=0;o<t.length;o++){var r=t[o];if(0==a&&r.x>f&&(i.moveTo(r.x,r.y),a=1),o>0&&r.x>f&&r.x<x){var l=c(t,o-1);i.bezierCurveTo(l.ctrA.x,l.ctrA.y,l.ctrB.x,l.ctrB.y,r.x,r.y)}}else for(var s=0;s<t.length;s++){var h=t[s];0==a&&h.x>f&&(i.moveTo(h.x,h.y),a=1),s>0&&h.x>f&&h.x<x&&i.lineTo(h.x,h.y)}i.moveTo(t[0].x,t[0].y)}})),i.stroke(),i.setLineDash([]),!1!==e.dataPointShape&&X(u,t.color,t.pointShape,i,e)})),!1!==e.dataLabel&&1===o&&t.forEach((function(t,r){var n,l,c;n=[].concat(e.chartData.yAxisData.ranges[t.index]),l=n.pop(),c=n.shift();var d=t.data,f=Z(d,l,c,s,h,e,a,o);Q(f,t,a,i)})),i.restore(),{xAxisPoints:s,calPoints:d,eachSpacing:h}}(s,e,a,i,t),n=o.xAxisPoints,l=o.calPoints,d=o.eachSpacing;e.chartData.xAxisPoints=n,e.chartData.calPoints=l,e.chartData.eachSpacing=d,nt(0,e,a,i),!1!==e.enableMarkLine&&1===t&&$(e,a,i),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"mix":this.animationInstance=new bt({timing:"easeIn",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),rt(0,e,0,i),ot(h,e,a,i);var o=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,r=e.chartData.xAxisData,n=r.xAxisPoints,s=r.eachSpacing,h=e.height-e.area[2],d=[],f=0,x=0;t.forEach((function(t,e){"column"==t.type&&(x+=1)})),i.save();var p=-2,g=n.length+2,b=0,u=e.width+s;if(e._scrollDistance_&&0!==e._scrollDistance_&&!0===e.enableScroll&&(i.translate(e._scrollDistance_,0),p=Math.floor(-e._scrollDistance_/s)-2,g=p+e.xAxis.itemCount+4,b=-e._scrollDistance_-s+e.area[3],u=b+(e.xAxis.itemCount+4)*s),t.forEach((function(t,r){var y,v,A;y=[].concat(e.chartData.yAxisData.ranges[t.index]),v=y.pop(),A=y.shift();var m=t.data,S=Z(m,v,A,n,s,e,a,o);if(d.push(S),"column"==t.type){S=W(S,s,x,f,a,e);for(var T=0;T<S.length;T++){var w=S[T];if(null!==w&&T>p&&T<g){i.beginPath(),i.setStrokeStyle(w.color||t.color),i.setLineWidth(1),i.setFillStyle(w.color||t.color);var P=w.x-w.width/2;e.height,w.y,e.area[2];i.moveTo(P,w.y),i.moveTo(P,w.y),i.lineTo(P+w.width-2,w.y),i.lineTo(P+w.width-2,e.height-e.area[2]),i.lineTo(P,e.height-e.area[2]),i.lineTo(P,w.y),i.closePath(),i.stroke(),i.fill(),i.closePath(),i.fill()}}f+=1}if("area"==t.type)for(var M=D(S),F=0;F<M.length;F++){var R=M[F];if(i.beginPath(),i.setStrokeStyle(t.color),i.setFillStyle(l(t.color,.2)),i.setLineWidth(2*e.pixelRatio),R.length>1){var C=R[0],L=R[R.length-1];i.moveTo(C.x,C.y);var k=0;if("curve"===t.style)for(var I=0;I<R.length;I++){var E=R[I];if(0==k&&E.x>b&&(i.moveTo(E.x,E.y),k=1),I>0&&E.x>b&&E.x<u){var z=c(R,I-1);i.bezierCurveTo(z.ctrA.x,z.ctrA.y,z.ctrB.x,z.ctrB.y,E.x,E.y)}}else for(var O=0;O<R.length;O++){var N=R[O];0==k&&N.x>b&&(i.moveTo(N.x,N.y),k=1),O>0&&N.x>b&&N.x<u&&i.lineTo(N.x,N.y)}i.lineTo(L.x,h),i.lineTo(C.x,h),i.lineTo(C.x,C.y)}else{var B=R[0];i.moveTo(B.x-s/2,B.y),i.lineTo(B.x+s/2,B.y),i.lineTo(B.x+s/2,h),i.lineTo(B.x-s/2,h),i.moveTo(B.x-s/2,B.y)}i.closePath(),i.fill()}if("line"==t.type){var j=D(S);j.forEach((function(a,o){if("dash"==t.lineType){var r=t.dashLength?t.dashLength:8;r*=e.pixelRatio,i.setLineDash([r,r])}if(i.beginPath(),i.setStrokeStyle(t.color),i.setLineWidth(2*e.pixelRatio),1===a.length)i.moveTo(a[0].x,a[0].y),i.arc(a[0].x,a[0].y,1,0,2*Math.PI);else{i.moveTo(a[0].x,a[0].y);var n=0;if("curve"==t.style)for(var l=0;l<a.length;l++){var s=a[l];if(0==n&&s.x>b&&(i.moveTo(s.x,s.y),n=1),l>0&&s.x>b&&s.x<u){var h=c(a,l-1);i.bezierCurveTo(h.ctrA.x,h.ctrA.y,h.ctrB.x,h.ctrB.y,s.x,s.y)}}else for(var d=0;d<a.length;d++){var f=a[d];0==n&&f.x>b&&(i.moveTo(f.x,f.y),n=1),d>0&&f.x>b&&f.x<u&&i.lineTo(f.x,f.y)}i.moveTo(a[0].x,a[0].y)}i.stroke(),i.setLineDash([])}))}"point"==t.type&&(t.addPoint=!0),1==t.addPoint&&"column"!==t.type&&X(S,t.color,t.pointShape,i,e)})),!1!==e.dataLabel&&1===o){f=0;t.forEach((function(t,r){var l,h,c;l=[].concat(e.chartData.yAxisData.ranges[t.index]),h=l.pop(),c=l.shift();var d=t.data,p=Z(d,h,c,n,s,e,a,o);"column"!==t.type?Q(p,t,a,i):(p=W(p,s,x,f,a,e),Q(p,t,a,i),f+=1)}))}return i.restore(),{xAxisPoints:n,calPoints:d,eachSpacing:s}}(s,e,a,i,t),r=o.xAxisPoints,n=o.calPoints,d=o.eachSpacing;e.chartData.xAxisPoints=r,e.chartData.calPoints=n,e.chartData.eachSpacing=d,nt(0,e,a,i),!1!==e.enableMarkLine&&1===t&&$(e,a,i),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"column":this.animationInstance=new bt({timing:"easeIn",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),rt(0,e,0,i),ot(h,e,a,i);var o=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,n=e.chartData.xAxisData,l=n.xAxisPoints,s=n.eachSpacing,h=r({},{type:"group",width:s/2,meter:{border:4,fillColor:"#FFFFFF"}},e.extra.column),c=[];i.save();var d=-2,f=l.length+2;return e._scrollDistance_&&0!==e._scrollDistance_&&!0===e.enableScroll&&(i.translate(e._scrollDistance_,0),d=Math.floor(-e._scrollDistance_/s)-2,f=d+e.xAxis.itemCount+4),e.tooltip&&e.tooltip.textList&&e.tooltip.textList.length&&1===o&&et(e.tooltip.offset.x,e,0,i,s),t.forEach((function(r,n){var x,p,g;x=[].concat(e.chartData.yAxisData.ranges[r.index]),p=x.pop(),g=x.shift();var b=r.data;switch(h.type){case"group":var u=Z(b,p,g,l,s,e,a,o),y=H(b,p,g,l,s,e,a,n,t,o);c.push(y),u=W(u,s,t.length,n,a,e);for(var v=0;v<u.length;v++){var A=u[v];if(null!==A&&v>d&&v<f){i.beginPath(),i.setStrokeStyle(A.color||r.color),i.setLineWidth(1),i.setFillStyle(A.color||r.color);var m=A.x-A.width/2,S=e.height-A.y-e.area[2];i.moveTo(m,A.y),i.lineTo(m+A.width-2,A.y),i.lineTo(m+A.width-2,e.height-e.area[2]),i.lineTo(m,e.height-e.area[2]),i.lineTo(m,A.y),i.closePath(),i.stroke(),i.fill()}}break;case"stack":u=H(b,p,g,l,s,e,a,n,t,o);c.push(u),u=B(u,s,t.length,0,a,e);for(var T=0;T<u.length;T++){var w=u[T];if(null!==w&&T>d&&T<f){i.beginPath(),i.setFillStyle(w.color||r.color);m=w.x-w.width/2+1,S=e.height-w.y-e.area[2];var P=e.height-w.y0-e.area[2];n>0&&(S-=P),i.moveTo(m,w.y),i.fillRect(m,w.y,w.width-2,S),i.closePath(),i.fill()}}break;case"meter":u=Z(b,p,g,l,s,e,a,o);if(c.push(u),u=N(u,s,t.length,n,a,e,h.meter.border),0==n)for(var M=0;M<u.length;M++){var D=u[M];if(null!==D&&M>d&&M<f){i.beginPath(),i.setFillStyle(h.meter.fillColor);m=D.x-D.width/2,S=e.height-D.y-e.area[2];i.moveTo(m,D.y),i.fillRect(m,D.y,D.width,S),i.closePath(),i.fill(),h.meter.border>0&&(i.beginPath(),i.setStrokeStyle(r.color),i.setLineWidth(h.meter.border*e.pixelRatio),i.moveTo(m+.5*h.meter.border,D.y+S),i.lineTo(m+.5*h.meter.border,D.y+.5*h.meter.border),i.lineTo(m+D.width-.5*h.meter.border,D.y+.5*h.meter.border),i.lineTo(m+D.width-.5*h.meter.border,D.y+S),i.stroke())}}else for(var F=0;F<u.length;F++){var R=u[F];if(null!==R&&F>d&&F<f){i.beginPath(),i.setFillStyle(R.color||r.color);m=R.x-R.width/2,S=e.height-R.y-e.area[2];i.moveTo(m,R.y),i.fillRect(m,R.y,R.width,S),i.closePath(),i.fill()}}break}})),!1!==e.dataLabel&&1===o&&t.forEach((function(r,n){var c,d,f;c=[].concat(e.chartData.yAxisData.ranges[r.index]),d=c.pop(),f=c.shift();var x=r.data;switch(h.type){case"group":var p=Z(x,d,f,l,s,e,a,o);p=W(p,s,t.length,n,a,e),Q(p,r,a,i);break;case"stack":p=H(x,d,f,l,s,e,a,n,t,o);Q(p,r,a,i);break;case"meter":p=Z(x,d,f,l,s,e,a,o);Q(p,r,a,i);break}})),i.restore(),{xAxisPoints:l,calPoints:c,eachSpacing:s}}(s,e,a,i,t),n=o.xAxisPoints,l=o.calPoints,c=o.eachSpacing;e.chartData.xAxisPoints=n,e.chartData.calPoints=l,e.chartData.eachSpacing=c,nt(0,e,a,i),!1!==e.enableMarkLine&&1===t&&$(e,a,i),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"area":this.animationInstance=new bt({timing:"easeIn",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),rt(0,e,0,i),ot(h,e,a,i);var o=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,n=r({},{type:"straight",opacity:.2,addLine:!1,width:2,gradient:!1},e.extra.area),s=e.chartData.xAxisData,h=s.xAxisPoints,d=s.eachSpacing,f=e.height-e.area[2],x=[];i.save();var p=0,g=e.width+d;return e._scrollDistance_&&0!==e._scrollDistance_&&!0===e.enableScroll&&(i.translate(e._scrollDistance_,0),p=-e._scrollDistance_-d+e.area[3],g=p+(e.xAxis.itemCount+4)*d),t.forEach((function(t,r){var s,b,u;s=[].concat(e.chartData.yAxisData.ranges[t.index]),b=s.pop(),u=s.shift();var y=t.data,v=Z(y,b,u,h,d,e,a,o);x.push(v);for(var A=D(v),m=0;m<A.length;m++){var S=A[m];if(i.beginPath(),i.setStrokeStyle(l(t.color,n.opacity)),n.gradient){var T=i.createLinearGradient(0,e.area[0],0,e.height-e.area[2]);T.addColorStop("0",l(t.color,n.opacity)),T.addColorStop("1.0",l("#FFFFFF",.1)),i.setFillStyle(T)}else i.setFillStyle(l(t.color,n.opacity));if(i.setLineWidth(n.width*e.pixelRatio),S.length>1){var w=S[0],P=S[S.length-1];i.moveTo(w.x,w.y);var M=0;if("curve"===n.type)for(var F=0;F<S.length;F++){var R=S[F];if(0==M&&R.x>p&&(i.moveTo(R.x,R.y),M=1),F>0&&R.x>p&&R.x<g){var C=c(S,F-1);i.bezierCurveTo(C.ctrA.x,C.ctrA.y,C.ctrB.x,C.ctrB.y,R.x,R.y)}}else for(var L=0;L<S.length;L++){var k=S[L];0==M&&k.x>p&&(i.moveTo(k.x,k.y),M=1),L>0&&k.x>p&&k.x<g&&i.lineTo(k.x,k.y)}i.lineTo(P.x,f),i.lineTo(w.x,f),i.lineTo(w.x,w.y)}else{var I=S[0];i.moveTo(I.x-d/2,I.y),i.lineTo(I.x+d/2,I.y),i.lineTo(I.x+d/2,f),i.lineTo(I.x-d/2,f),i.moveTo(I.x-d/2,I.y)}if(i.closePath(),i.fill(),n.addLine){if("dash"==t.lineType){var E=t.dashLength?t.dashLength:8;E*=e.pixelRatio,i.setLineDash([E,E])}if(i.beginPath(),i.setStrokeStyle(t.color),i.setLineWidth(n.width*e.pixelRatio),1===S.length)i.moveTo(S[0].x,S[0].y),i.arc(S[0].x,S[0].y,1,0,2*Math.PI);else{i.moveTo(S[0].x,S[0].y);var z=0;if("curve"===n.type)for(var O=0;O<S.length;O++){var W=S[O];if(0==z&&W.x>p&&(i.moveTo(W.x,W.y),z=1),O>0&&W.x>p&&W.x<g){var N=c(S,O-1);i.bezierCurveTo(N.ctrA.x,N.ctrA.y,N.ctrB.x,N.ctrB.y,W.x,W.y)}}else for(var B=0;B<S.length;B++){var j=S[B];0==z&&j.x>p&&(i.moveTo(j.x,j.y),z=1),B>0&&j.x>p&&j.x<g&&i.lineTo(j.x,j.y)}i.moveTo(S[0].x,S[0].y)}i.stroke(),i.setLineDash([])}}!1!==e.dataPointShape&&X(v,t.color,t.pointShape,i,e)})),!1!==e.dataLabel&&1===o&&t.forEach((function(t,r){var n,l,s;n=[].concat(e.chartData.yAxisData.ranges[t.index]),l=n.pop(),s=n.shift();var c=t.data,f=Z(c,l,s,h,d,e,a,o);Q(f,t,a,i)})),i.restore(),{xAxisPoints:h,calPoints:x,eachSpacing:d}}(s,e,a,i,t),n=o.xAxisPoints,d=o.calPoints,f=o.eachSpacing;e.chartData.xAxisPoints=n,e.chartData.calPoints=d,e.chartData.eachSpacing=f,nt(0,e,a,i),!1!==e.enableMarkLine&&1===t&&$(e,a,i),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"ring":case"pie":this.animationInstance=new bt({timing:"easeInOut",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),e.chartData.pieData=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,n=r({},{activeOpacity:.5,activeRadius:10*e.pixelRatio,offsetAngle:0,labelWidth:15*e.pixelRatio,ringWidth:0,border:!1,borderWidth:2,borderColor:"#FFFFFF"},e.extra.pie),s={x:e.area[3]+(e.width-e.area[1]-e.area[3])/2,y:e.area[0]+(e.height-e.area[0]-e.area[2])/2};0==a.pieChartLinePadding&&(a.pieChartLinePadding=n.activeRadius);var h=Math.min((e.width-e.area[1]-e.area[3])/2-a.pieChartLinePadding-a.pieChartTextPadding-a._pieTextMaxLength_,(e.height-e.area[0]-e.area[2])/2-a.pieChartLinePadding-a.pieChartTextPadding);t=L(t,h,o);var c=n.activeRadius;if(t=t.map((function(t){return t._start_+=n.offsetAngle*Math.PI/180,t})),t.forEach((function(t,a){e.tooltip&&e.tooltip.index==a&&(i.beginPath(),i.setFillStyle(l(t.color,e.extra.pie.activeOpacity||.5)),i.moveTo(s.x,s.y),i.arc(s.x,s.y,t._radius_+c,t._start_,t._start_+2*t._proportion_*Math.PI),i.closePath(),i.fill()),i.beginPath(),i.setLineWidth(n.borderWidth*e.pixelRatio),i.lineJoin="round",i.setStrokeStyle(n.borderColor),i.setFillStyle(t.color),i.moveTo(s.x,s.y),i.arc(s.x,s.y,t._radius_,t._start_,t._start_+2*t._proportion_*Math.PI),i.closePath(),i.fill(),1==n.border&&i.stroke()})),"ring"===e.type){var d=.6*h;"number"===typeof e.extra.pie.ringWidth&&e.extra.pie.ringWidth>0&&(d=Math.max(0,h-e.extra.pie.ringWidth)),i.beginPath(),i.setFillStyle(e.background||"#ffffff"),i.moveTo(s.x,s.y),i.arc(s.x,s.y,d,0,2*Math.PI),i.closePath(),i.fill()}if(!1!==e.dataLabel&&1===o){for(var f=!1,x=0,p=t.length;x<p;x++)if(t[x].data>0){f=!0;break}f&&Y(t,e,a,i,0,s)}return 1===o&&"ring"===e.type&&q(e,a,i,s),{center:s,radius:h,series:t}}(s,e,a,i,t),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"rose":this.animationInstance=new bt({timing:"easeInOut",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),e.chartData.pieData=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,n=r({},{type:"area",activeOpacity:.5,activeRadius:10*e.pixelRatio,offsetAngle:0,labelWidth:15*e.pixelRatio,border:!1,borderWidth:2,borderColor:"#FFFFFF"},e.extra.rose);0==a.pieChartLinePadding&&(a.pieChartLinePadding=n.activeRadius);var s={x:e.area[3]+(e.width-e.area[1]-e.area[3])/2,y:e.area[0]+(e.height-e.area[0]-e.area[2])/2},h=Math.min((e.width-e.area[1]-e.area[3])/2-a.pieChartLinePadding-a.pieChartTextPadding-a._pieTextMaxLength_,(e.height-e.area[0]-e.area[2])/2-a.pieChartLinePadding-a.pieChartTextPadding),c=n.minRadius||.5*h;t=I(t,n.type,c,h,o);var d=n.activeRadius;if(t=t.map((function(t){return t._start_+=(n.offsetAngle||0)*Math.PI/180,t})),t.forEach((function(t,a){e.tooltip&&e.tooltip.index==a&&(i.beginPath(),i.setFillStyle(l(t.color,n.activeOpacity||.5)),i.moveTo(s.x,s.y),i.arc(s.x,s.y,d+t._radius_,t._start_,t._start_+2*t._rose_proportion_*Math.PI),i.closePath(),i.fill()),i.beginPath(),i.setLineWidth(n.borderWidth*e.pixelRatio),i.lineJoin="round",i.setStrokeStyle(n.borderColor),i.setFillStyle(t.color),i.moveTo(s.x,s.y),i.arc(s.x,s.y,t._radius_,t._start_,t._start_+2*t._rose_proportion_*Math.PI),i.closePath(),i.fill(),1==n.border&&i.stroke()})),!1!==e.dataLabel&&1===o){for(var f=!1,x=0,p=t.length;x<p;x++)if(t[x].data>0){f=!0;break}f&&Y(t,e,a,i,0,s)}return{center:s,radius:h,series:t}}(s,e,a,i,t),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"radar":this.animationInstance=new bt({timing:"easeInOut",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),e.chartData.radarData=function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,n=r({},{gridColor:"#cccccc",labelColor:"#666666",opacity:.2,gridCount:3},e.extra.radar),s=m(e.categories.length),h={x:e.area[3]+(e.width-e.area[1]-e.area[3])/2,y:e.area[0]+(e.height-e.area[0]-e.area[2])/2},c=Math.min(h.x-(A(e.categories)+a.radarLabelTextMargin),h.y-a.radarLabelTextMargin);c-=e.padding[1],i.beginPath(),i.setLineWidth(1*e.pixelRatio),i.setStrokeStyle(n.gridColor),s.forEach((function(t){var e=d(c*Math.cos(t),c*Math.sin(t),h);i.moveTo(h.x,h.y),i.lineTo(e.x,e.y)})),i.stroke(),i.closePath();for(var f=function(t){var a={};i.beginPath(),i.setLineWidth(1*e.pixelRatio),i.setStrokeStyle(n.gridColor),s.forEach((function(e,o){var r=d(c/n.gridCount*t*Math.cos(e),c/n.gridCount*t*Math.sin(e),h);0===o?(a=r,i.moveTo(r.x,r.y)):i.lineTo(r.x,r.y)})),i.lineTo(a.x,a.y),i.stroke(),i.closePath()},x=1;x<=n.gridCount;x++)f(x);var p=C(s,h,c,t,e,o);return p.forEach((function(t,a){if(i.beginPath(),i.setFillStyle(l(t.color,n.opacity)),t.data.forEach((function(t,e){0===e?i.moveTo(t.position.x,t.position.y):i.lineTo(t.position.x,t.position.y)})),i.closePath(),i.fill(),!1!==e.dataPointShape){var o=t.data.map((function(t){return t.position}));X(o,t.color,t.pointShape,i,e)}})),V(s,c,h,e,a,i),{center:h,radius:c,angleList:s}}(s,e,a,i,t),lt(e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"arcbar":this.animationInstance=new bt({timing:"easeInOut",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),e.chartData.arcbarData=function(t,e,a,i){var o,n,l=arguments.length>4&&void 0!==arguments[4]?arguments[4]:1,s=r({},{startAngle:.75,endAngle:.25,type:"default",width:12*e.pixelRatio,gap:2*e.pixelRatio},e.extra.arcbar);t=E(t,s,l),o=s.center?s.center:{x:e.width/2,y:e.height/2},s.radius?n=s.radius:(n=Math.min(o.x,o.y),n-=5*e.pixelRatio,n-=s.width/2);for(var h=0;h<t.length;h++){var c=t[h];i.setLineWidth(s.width),i.setStrokeStyle(s.backgroundColor||"#E9E9E9"),i.setLineCap("round"),i.beginPath(),"default"==s.type?i.arc(o.x,o.y,n-(s.width+s.gap)*h,s.startAngle*Math.PI,s.endAngle*Math.PI,!1):i.arc(o.x,o.y,n-(s.width+s.gap)*h,0,2*Math.PI,!1),i.stroke(),i.setLineWidth(s.width),i.setStrokeStyle(c.color),i.setLineCap("round"),i.beginPath(),i.arc(o.x,o.y,n-(s.width+s.gap)*h,s.startAngle*Math.PI,c._proportion_*Math.PI,!1),i.stroke()}return q(e,a,i,o),{center:o,radius:n,series:t}}(s,e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"gauge":this.animationInstance=new bt({timing:"easeInOut",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),e.chartData.gaugeData=function(t,e,a,i,o){var n=arguments.length>5&&void 0!==arguments[5]?arguments[5]:1,s=r({},{type:"default",startAngle:.75,endAngle:.25,width:15,splitLine:{fixRadius:0,splitNumber:10,width:15,color:"#FFFFFF",childNumber:5,childWidth:5},pointer:{width:15,color:"auto"}},a.extra.gauge);void 0==s.oldAngle&&(s.oldAngle=s.startAngle),void 0==s.oldData&&(s.oldData=0),t=z(t,s.startAngle,s.endAngle);var h={x:a.width/2,y:a.height/2},c=Math.min(h.x,h.y);c-=5*a.pixelRatio,c-=s.width/2;var d=c-s.width,f=0;if("progress"==s.type){var x=c-3*s.width;o.beginPath();var p=o.createLinearGradient(h.x,h.y-x,h.x,h.y+x);p.addColorStop("0",l(e[0].color,.3)),p.addColorStop("1.0",l("#FFFFFF",.1)),o.setFillStyle(p),o.arc(h.x,h.y,x,0,2*Math.PI,!1),o.fill(),o.setLineWidth(s.width),o.setStrokeStyle(l(e[0].color,.3)),o.setLineCap("round"),o.beginPath(),o.arc(h.x,h.y,d,s.startAngle*Math.PI,s.endAngle*Math.PI,!1),o.stroke(),f=s.startAngle-s.endAngle+1;s.splitLine.splitNumber;var g=f/s.splitLine.splitNumber/s.splitLine.childNumber,b=-c-.5*s.width-s.splitLine.fixRadius,u=-c-s.width-s.splitLine.fixRadius+s.splitLine.width;o.save(),o.translate(h.x,h.y),o.rotate((s.startAngle-1)*Math.PI);for(var y=s.splitLine.splitNumber*s.splitLine.childNumber+1,v=e[0].data*n,A=0;A<y;A++)o.beginPath(),v>A/y?o.setStrokeStyle(l(e[0].color,1)):o.setStrokeStyle(l(e[0].color,.3)),o.setLineWidth(3*a.pixelRatio),o.moveTo(b,0),o.lineTo(u,0),o.stroke(),o.rotate(g*Math.PI);o.restore(),e=E(e,s,n),o.setLineWidth(s.width),o.setStrokeStyle(e[0].color),o.setLineCap("round"),o.beginPath(),o.arc(h.x,h.y,d,s.startAngle*Math.PI,e[0]._proportion_*Math.PI,!1),o.stroke();var m=c-2.5*s.width;o.save(),o.translate(h.x,h.y),o.rotate((e[0]._proportion_-1)*Math.PI),o.beginPath(),o.setLineWidth(s.width/3);var S=o.createLinearGradient(0,.6*-m,0,.6*m);S.addColorStop("0",l("#FFFFFF",0)),S.addColorStop("0.5",l(e[0].color,1)),S.addColorStop("1.0",l("#FFFFFF",0)),o.setStrokeStyle(S),o.arc(0,0,m,.85*Math.PI,1.15*Math.PI,!1),o.stroke(),o.beginPath(),o.setLineWidth(1),o.setStrokeStyle(e[0].color),o.setFillStyle(e[0].color),o.moveTo(-m-s.width/3/2,-4),o.lineTo(-m-s.width/3/2-4,0),o.lineTo(-m-s.width/3/2,4),o.lineTo(-m-s.width/3/2,-4),o.stroke(),o.fill(),o.restore()}else{o.setLineWidth(s.width),o.setLineCap("butt");for(var T=0;T<t.length;T++){var w=t[T];o.beginPath(),o.setStrokeStyle(w.color),o.arc(h.x,h.y,c,w._startAngle_*Math.PI,w._endAngle_*Math.PI,!1),o.stroke()}o.save(),f=s.startAngle-s.endAngle+1;var P=f/s.splitLine.splitNumber,M=f/s.splitLine.splitNumber/s.splitLine.childNumber,D=-c-.5*s.width-s.splitLine.fixRadius,F=-c-.5*s.width-s.splitLine.fixRadius+s.splitLine.width,R=-c-.5*s.width-s.splitLine.fixRadius+s.splitLine.childWidth;o.translate(h.x,h.y),o.rotate((s.startAngle-1)*Math.PI);for(var C=0;C<s.splitLine.splitNumber+1;C++)o.beginPath(),o.setStrokeStyle(s.splitLine.color),o.setLineWidth(2*a.pixelRatio),o.moveTo(D,0),o.lineTo(F,0),o.stroke(),o.rotate(P*Math.PI);o.restore(),o.save(),o.translate(h.x,h.y),o.rotate((s.startAngle-1)*Math.PI);for(var L=0;L<s.splitLine.splitNumber*s.splitLine.childNumber+1;L++)o.beginPath(),o.setStrokeStyle(s.splitLine.color),o.setLineWidth(1*a.pixelRatio),o.moveTo(D,0),o.lineTo(R,0),o.stroke(),o.rotate(M*Math.PI);o.restore(),e=O(e,t,s,n);for(var k=0;k<e.length;k++){var I=e[k];o.save(),o.translate(h.x,h.y),o.rotate((I._proportion_-1)*Math.PI),o.beginPath(),o.setFillStyle(I.color),o.moveTo(s.pointer.width,0),o.lineTo(0,-s.pointer.width/2),o.lineTo(-d,0),o.lineTo(0,s.pointer.width/2),o.lineTo(s.pointer.width,0),o.closePath(),o.fill(),o.beginPath(),o.setFillStyle("#FFFFFF"),o.arc(0,0,s.pointer.width/6,0,2*Math.PI,!1),o.fill(),o.restore()}!1!==a.dataLabel&&J(s,c,h,0,i,o)}return q(a,i,o,h),1===n&&"gauge"===a.type&&(a.extra.gauge.oldAngle=e[0]._proportion_,a.extra.gauge.oldData=e[0].data),{center:h,radius:c,innerRadius:d,categories:t,totalAngle:f}}(h,s,e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break;case"candle":this.animationInstance=new bt({timing:"easeIn",duration:f,onProcess:function(t){i.clearRect(0,0,e.width,e.height),e.rotate&&G(i,e),rt(0,e,0,i),ot(h,e,a,i);var o=function(t,e,a,i,o){var n=arguments.length>5&&void 0!==arguments[5]?arguments[5]:1,l=r({},{color:{},average:{}},a.extra.candle);l.color=r({},{upLine:"#f04864",upFill:"#f04864",downLine:"#2fc25b",downFill:"#2fc25b"},l.color),l.average=r({},{show:!1,name:[],day:[],color:i.colors},l.average),a.extra.candle=l;var s=a.chartData.xAxisData,h=s.xAxisPoints,d=s.eachSpacing,f=[];o.save();var x=-2,p=h.length+2,g=0,b=a.width+d;return a._scrollDistance_&&0!==a._scrollDistance_&&!0===a.enableScroll&&(o.translate(a._scrollDistance_,0),x=Math.floor(-a._scrollDistance_/d)-2,p=x+a.xAxis.itemCount+4,g=-a._scrollDistance_-d+a.area[3],b=g+(a.xAxis.itemCount+4)*d),l.average.show&&e.forEach((function(t,e){var r,l,s;r=[].concat(a.chartData.yAxisData.ranges[t.index]),l=r.pop(),s=r.shift();for(var f=t.data,x=Z(f,l,s,h,d,a,i,n),p=D(x),u=0;u<p.length;u++){var y=p[u];if(o.beginPath(),o.setStrokeStyle(t.color),o.setLineWidth(1),1===y.length)o.moveTo(y[0].x,y[0].y),o.arc(y[0].x,y[0].y,1,0,2*Math.PI);else{o.moveTo(y[0].x,y[0].y);for(var v=0,A=0;A<y.length;A++){var m=y[A];if(0==v&&m.x>g&&(o.moveTo(m.x,m.y),v=1),A>0&&m.x>g&&m.x<b){var S=c(y,A-1);o.bezierCurveTo(S.ctrA.x,S.ctrA.y,S.ctrB.x,S.ctrB.y,m.x,m.y)}}o.moveTo(y[0].x,y[0].y)}o.closePath(),o.stroke()}})),t.forEach((function(t,e){var r,s,c;r=[].concat(a.chartData.yAxisData.ranges[t.index]),s=r.pop(),c=r.shift();var g=t.data,b=U(g,s,c,h,d,a,i,n);f.push(b);for(var u=D(b),y=0;y<u[0].length;y++)if(y>x&&y<p){var v=u[0][y];o.beginPath(),g[y][1]-g[y][0]>0?(o.setStrokeStyle(l.color.upLine),o.setFillStyle(l.color.upFill),o.setLineWidth(1*a.pixelRatio),o.moveTo(v[3].x,v[3].y),o.lineTo(v[1].x,v[1].y),o.lineTo(v[1].x-d/4,v[1].y),o.lineTo(v[0].x-d/4,v[0].y),o.lineTo(v[0].x,v[0].y),o.lineTo(v[2].x,v[2].y),o.lineTo(v[0].x,v[0].y),o.lineTo(v[0].x+d/4,v[0].y),o.lineTo(v[1].x+d/4,v[1].y),o.lineTo(v[1].x,v[1].y),o.moveTo(v[3].x,v[3].y)):(o.setStrokeStyle(l.color.downLine),o.setFillStyle(l.color.downFill),o.setLineWidth(1*a.pixelRatio),o.moveTo(v[3].x,v[3].y),o.lineTo(v[0].x,v[0].y),o.lineTo(v[0].x-d/4,v[0].y),o.lineTo(v[1].x-d/4,v[1].y),o.lineTo(v[1].x,v[1].y),o.lineTo(v[2].x,v[2].y),o.lineTo(v[1].x,v[1].y),o.lineTo(v[1].x+d/4,v[1].y),o.lineTo(v[0].x+d/4,v[0].y),o.lineTo(v[0].x,v[0].y),o.moveTo(v[3].x,v[3].y)),o.closePath(),o.fill(),o.stroke()}})),o.restore(),{xAxisPoints:h,calPoints:f,eachSpacing:d}}(s,p,e,a,i,t),n=o.xAxisPoints,l=o.calPoints,d=o.eachSpacing;e.chartData.xAxisPoints=n,e.chartData.calPoints=l,e.chartData.eachSpacing=d,nt(0,e,a,i),!1!==e.enableMarkLine&&1===t&&$(e,a,i),lt(p?0:e.series,e,a,i,e.chartData),it(e,a,i,t),pt(0,i)},onAnimationFinish:function(){o.event.trigger("renderComplete")}});break}}function yt(){this.events={}}bt.prototype.stop=function(){this.isStop=!0},yt.prototype.addEventListener=function(t,e){this.events[t]=this.events[t]||[],this.events[t].push(e)},yt.prototype.trigger=function(){for(var t=arguments.length,e=Array(t),a=0;a<t;a++)e[a]=arguments[a];var i=e[0],o=e.slice(1);this.events[i]&&this.events[i].forEach((function(t){try{t.apply(null,o)}catch(e){}}))};var vt=function(e){e.pixelRatio=e.pixelRatio?e.pixelRatio:1,e.fontSize=e.fontSize?e.fontSize*e.pixelRatio:13*e.pixelRatio,e.title=r({},e.title),e.subtitle=r({},e.subtitle),e.duration=e.duration?e.duration:1e3,e.yAxis=r({},{data:[],showTitle:!1,disabled:!1,disableGrid:!1,splitNumber:5,gridType:"solid",dashLength:4*e.pixelRatio,gridColor:"#cccccc",padding:10,fontColor:"#666666"},e.yAxis),e.yAxis.dashLength*=e.pixelRatio,e.yAxis.padding*=e.pixelRatio,e.xAxis=r({},{rotateLabel:!1,type:"calibration",gridType:"solid",dashLength:4,scrollAlign:"left",boundaryGap:"center",axisLine:!0,axisLineColor:"#cccccc"},e.xAxis),e.xAxis.dashLength*=e.pixelRatio,e.legend=r({},{show:!0,position:"bottom",float:"center",backgroundColor:"rgba(0,0,0,0)",borderColor:"rgba(0,0,0,0)",borderWidth:0,padding:5,margin:5,itemGap:10,fontSize:e.fontSize,lineHeight:e.fontSize,fontColor:"#333333",format:{},hiddenColor:"#CECECE"},e.legend),e.legend.borderWidth=e.legend.borderWidth*e.pixelRatio,e.legend.itemGap=e.legend.itemGap*e.pixelRatio,e.legend.padding=e.legend.padding*e.pixelRatio,e.legend.margin=e.legend.margin*e.pixelRatio,e.extra=r({},e.extra),e.rotate=!!e.rotate,e.animation=!!e.animation,e.rotate=!!e.rotate;var a=JSON.parse(JSON.stringify(o));if(a.colors=e.colors?e.colors:a.colors,a.yAxisTitleWidth=!0!==e.yAxis.disabled&&e.yAxis.title?a.yAxisTitleWidth:0,"pie"!=e.type&&"ring"!=e.type||(a.pieChartLinePadding=!1===e.dataLabel?0:e.extra.pie.labelWidth*e.pixelRatio||a.pieChartLinePadding*e.pixelRatio),"rose"==e.type&&(a.pieChartLinePadding=!1===e.dataLabel?0:e.extra.rose.labelWidth*e.pixelRatio||a.pieChartLinePadding*e.pixelRatio),a.pieChartTextPadding=!1===e.dataLabel?0:a.pieChartTextPadding*e.pixelRatio,a.yAxisSplit=e.yAxis.splitNumber?e.yAxis.splitNumber:o.yAxisSplit,a.rotate=e.rotate,e.rotate){var i=e.width,n=e.height;e.width=n,e.height=i}e.padding=e.padding?e.padding:a.padding;for(var l=0;l<4;l++)e.padding[l]*=e.pixelRatio;a.yAxisWidth=o.yAxisWidth*e.pixelRatio,a.xAxisHeight=o.xAxisHeight*e.pixelRatio,e.enableScroll&&e.xAxis.scrollShow&&(a.xAxisHeight+=6*e.pixelRatio),a.xAxisLineHeight=o.xAxisLineHeight*e.pixelRatio,a.fontSize=e.fontSize,a.titleFontSize=o.titleFontSize*e.pixelRatio,a.subtitleFontSize=o.subtitleFontSize*e.pixelRatio,a.toolTipPadding=o.toolTipPadding*e.pixelRatio,a.toolTipLineHeight=o.toolTipLineHeight*e.pixelRatio,a.columePadding=o.columePadding*e.pixelRatio,e.$this=e.$this?e.$this:this,this.context=t.createCanvasContext(e.canvasId,e.$this),e.chartData={},this.event=new yt,this.scrollOption={currentOffset:0,startTouchX:0,distance:0,lastMoveTime:0},this.opts=e,this.config=a,ut.call(this,e.type,e,a,this.context)};vt.prototype.updateData=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};this.opts=r({},this.opts,t),this.opts.updateData=!0;var e=t.scrollPosition||"current";switch(e){case"current":this.opts._scrollDistance_=this.scrollOption.currentOffset;break;case"left":this.opts._scrollDistance_=0,this.scrollOption={currentOffset:0,startTouchX:0,distance:0,lastMoveTime:0};break;case"right":var a=K(this.opts.series,this.opts,this.config),i=a.yAxisWidth;this.config.yAxisWidth=i;var o=0,n=j(this.opts.categories,this.opts,this.config),l=n.xAxisPoints,s=n.startX,h=n.endX,c=n.eachSpacing,d=c*(l.length-1),f=h-s;o=f-d,this.scrollOption={currentOffset:o,startTouchX:o,distance:0,lastMoveTime:0},this.opts._scrollDistance_=o;break}ut.call(this,this.opts.type,this.opts,this.config,this.context)},vt.prototype.zoom=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:this.opts.xAxis.itemCount;if(!0===this.opts.enableScroll){var e=Math.round(Math.abs(this.scrollOption.currentOffset)/this.opts.chartData.eachSpacing)+Math.round(this.opts.xAxis.itemCount/2);this.opts.animation=!1,this.opts.xAxis.itemCount=t.itemCount;var a=K(this.opts.series,this.opts,this.config),i=a.yAxisWidth;this.config.yAxisWidth=i;var o=0,r=j(this.opts.categories,this.opts,this.config),n=r.xAxisPoints,l=r.startX,s=r.endX,h=r.eachSpacing,c=h*e,d=s-l,f=d-h*(n.length-1);o=d/2-c,o>0&&(o=0),o<f&&(o=f),this.scrollOption={currentOffset:o,startTouchX:o,distance:0,lastMoveTime:0},this.opts._scrollDistance_=o,ut.call(this,this.opts.type,this.opts,this.config,this.context)}},vt.prototype.stopAnimation=function(){this.animationInstance&&this.animationInstance.stop()},vt.prototype.addEventListener=function(t,e){this.event.addEventListener(t,e)},vt.prototype.getCurrentDataIndex=function(t){var e=null;if(e=t.changedTouches?t.changedTouches[0]:t.mp.changedTouches[0],e){var a=y(e,this.opts,t);return"pie"===this.opts.type||"ring"===this.opts.type||"rose"===this.opts.type?function(t,e){var a=-1;if(M(t,e.center,e.radius)){var i=Math.atan2(e.center.y-t.y,t.x-e.center.x);i=-i;for(var o=0,r=e.series.length;o<r;o++){var n=e.series[o];if(h(i,n._start_,n._start_+2*n._proportion_*Math.PI)){a=o;break}}}return a}({x:a.x,y:a.y},this.opts.chartData.pieData):"radar"===this.opts.type?function(t,e,a){var i=2*Math.PI/a,o=-1;if(M(t,e.center,e.radius)){var r=function(t){return t<0&&(t+=2*Math.PI),t>2*Math.PI&&(t-=2*Math.PI),t},n=Math.atan2(e.center.y-t.y,t.x-e.center.x);n*=-1,n<0&&(n+=2*Math.PI);var l=e.angleList.map((function(t){return t=r(-1*t),t}));l.forEach((function(t,e){var a=r(t-i/2),l=r(t+i/2);l<a&&(l+=2*Math.PI),(n>=a&&n<=l||n+2*Math.PI>=a&&n+2*Math.PI<=l)&&(o=e)}))}return o}({x:a.x,y:a.y},this.opts.chartData.radarData,this.opts.categories.length):"funnel"===this.opts.type?function(t,e){for(var a=-1,i=0,o=e.series.length;i<o;i++){var r=e.series[i];if(t.x>r.funnelArea[0]&&t.x<r.funnelArea[2]&&t.y>r.funnelArea[1]&&t.y<r.funnelArea[3]){a=i;break}}return a}({x:a.x,y:a.y},this.opts.chartData.funnelData):"map"===this.opts.type?function(t,e){for(var a=-1,i=e.chartData.mapData,o=e.series,r=function(t,e,a,i,o,r){return{x:(e-o)/i+a.xMin,y:a.yMax-(t-r)/i}}(t.y,t.x,i.bounds,i.scale,i.xoffset,i.yoffset),n=[r.x,r.y],l=0,s=o.length;l<s;l++){var h=o[l].geometry.coordinates;if(ft(n,h)){a=l;break}}return a}({x:a.x,y:a.y},this.opts):"word"===this.opts.type?function(t,e){for(var a=-1,i=0,o=e.length;i<o;i++){var r=e[i];if(t.x>r.area[0]&&t.x<r.area[2]&&t.y>r.area[1]&&t.y<r.area[3]){a=i;break}}return a}({x:a.x,y:a.y},this.opts.chartData.wordCloudData):function(t,e,a,i){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:0,r=-1,n=a.chartData.eachSpacing/2,l=[];if(e.length>0){if("candle"==a.type)for(var s=0;s<e[0].length;s++)l.push(e[0][s][0].x);else for(var h=0;h<e[0].length;h++)l.push(e[0][h].x);"line"!=a.type&&"area"!=a.type||"justify"!=a.xAxis.boundaryGap||(n=a.chartData.eachSpacing/2),a.categories||(n=0),P(t,a,i)&&l.forEach((function(e,a){t.x+o+n>e&&(r=a)}))}return r}({x:a.x,y:a.y},this.opts.chartData.calPoints,this.opts,this.config,Math.abs(this.scrollOption.currentOffset))}return-1},vt.prototype.getLegendDataIndex=function(t){var e=null;if(e=t.changedTouches?t.changedTouches[0]:t.mp.changedTouches[0],e){var a=y(e,this.opts,t);return function(t,e,a){var i=-1;if(function(t,e){return t.x>e.start.x&&t.x<e.end.x&&t.y>e.start.y&&t.y<e.end.y}(t,e.area)){for(var o=e.points,r=-1,n=0,l=o.length;n<l;n++)for(var s=o[n],h=0;h<s.length;h++){r+=1;var c=s[h]["area"];if(t.x>c[0]&&t.x<c[2]&&t.y>c[1]&&t.y<c[3]){i=r;break}}return i}return i}({x:a.x,y:a.y},this.opts.chartData.legendData)}return-1},vt.prototype.touchLegend=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},a=null;if(a=t.changedTouches?t.changedTouches[0]:t.mp.changedTouches[0],a){y(a,this.opts,t);var i=this.getLegendDataIndex(t);i>=0&&(this.opts.series[i].show=!this.opts.series[i].show,this.opts.animation=!!e.animation,this.opts._scrollDistance_=this.scrollOption.currentOffset,ut.call(this,this.opts.type,this.opts,this.config,this.context))}},vt.prototype.showToolTip=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},a=null;a=t.changedTouches?t.changedTouches[0]:t.mp.changedTouches[0];var i=y(a,this.opts,t),o=this.scrollOption.currentOffset,n=r({},this.opts,{_scrollDistance_:o,animation:!1});if("line"===this.opts.type||"area"===this.opts.type||"column"===this.opts.type){var l=void 0==e.index?this.getCurrentDataIndex(t):e.index;if(l>-1){var s=v(this.opts.series,l);if(0!==s.length){var h=S(s,this.opts.chartData.calPoints,l,this.opts.categories,e),c=h.textList,d=h.offset;d.y=i.y,n.tooltip={textList:e.textList?e.textList:c,offset:d,option:e,index:l}}}ut.call(this,n.type,n,this.config,this.context)}if("mix"===this.opts.type){l=void 0==e.index?this.getCurrentDataIndex(t):e.index;if(l>-1){o=this.scrollOption.currentOffset,n=r({},this.opts,{_scrollDistance_:o,animation:!1}),s=v(this.opts.series,l);if(0!==s.length){var f=T(s,this.opts.chartData.calPoints,l,this.opts.categories,e);c=f.textList,d=f.offset;d.y=i.y,n.tooltip={textList:e.textList?e.textList:c,offset:d,option:e,index:l}}}ut.call(this,n.type,n,this.config,this.context)}if("candle"===this.opts.type){l=void 0==e.index?this.getCurrentDataIndex(t):e.index;if(l>-1){o=this.scrollOption.currentOffset,n=r({},this.opts,{_scrollDistance_:o,animation:!1}),s=v(this.opts.series,l);if(0!==s.length){h=w(this.opts.series[0].data,s,this.opts.chartData.calPoints,l,this.opts.categories,this.opts.extra.candle,e),c=h.textList,d=h.offset;d.y=i.y,n.tooltip={textList:e.textList?e.textList:c,offset:d,option:e,index:l}}}ut.call(this,n.type,n,this.config,this.context)}if("pie"===this.opts.type||"ring"===this.opts.type||"rose"===this.opts.type||"funnel"===this.opts.type){l=void 0==e.index?this.getCurrentDataIndex(t):e.index;if(l>-1){o=this.scrollOption.currentOffset,n=r({},this.opts,{_scrollDistance_:o,animation:!1}),s=this.opts._series_[l],c=[{text:e.format?e.format(s):s.name+": "+s.data,color:s.color}],d={x:i.x,y:i.y};n.tooltip={textList:e.textList?e.textList:c,offset:d,option:e,index:l}}ut.call(this,n.type,n,this.config,this.context)}if("map"===this.opts.type||"word"===this.opts.type){l=void 0==e.index?this.getCurrentDataIndex(t):e.index;if(l>-1){o=this.scrollOption.currentOffset,n=r({},this.opts,{_scrollDistance_:o,animation:!1}),s=this.opts._series_[l],c=[{text:e.format?e.format(s):s.properties.name,color:s.color}],d={x:i.x,y:i.y};n.tooltip={textList:e.textList?e.textList:c,offset:d,option:e,index:l}}n.updateData=!1,ut.call(this,n.type,n,this.config,this.context)}if("radar"===this.opts.type){l=void 0==e.index?this.getCurrentDataIndex(t):e.index;if(l>-1){o=this.scrollOption.currentOffset,n=r({},this.opts,{_scrollDistance_:o,animation:!1}),s=v(this.opts.series,l);if(0!==s.length){c=s.map((function(t){return{text:e.format?e.format(t):t.name+": "+t.data,color:t.color}})),d={x:i.x,y:i.y};n.tooltip={textList:e.textList?e.textList:c,offset:d,option:e,index:l}}}ut.call(this,n.type,n,this.config,this.context)}},vt.prototype.translate=function(t){this.scrollOption={currentOffset:t,startTouchX:t,distance:0,lastMoveTime:0};var e=r({},this.opts,{_scrollDistance_:t,animation:!1});ut.call(this,this.opts.type,e,this.config,this.context)},vt.prototype.scrollStart=function(t){var e=null;e=t.changedTouches?t.changedTouches[0]:t.mp.changedTouches[0];var a=y(e,this.opts,t);e&&!0===this.opts.enableScroll&&(this.scrollOption.startTouchX=a.x)},vt.prototype.scroll=function(t){0===this.scrollOption.lastMoveTime&&(this.scrollOption.lastMoveTime=Date.now());var e=this.opts.extra.touchMoveLimit||20,a=Date.now(),i=a-this.scrollOption.lastMoveTime;if(!(i<Math.floor(1e3/e))){this.scrollOption.lastMoveTime=a;var o=null;if(o=t.changedTouches?t.changedTouches[0]:t.mp.changedTouches[0],o&&!0===this.opts.enableScroll){var n,l=y(o,this.opts,t);n=l.x-this.scrollOption.startTouchX;var s=this.scrollOption.currentOffset,h=function(t,e,a,i,o){var r=o.width-o.area[1]-o.area[3],n=a.eachSpacing*(o.chartData.xAxisData.xAxisPoints.length-1),l=e;return e>=0?(l=0,t.event.trigger("scrollLeft")):Math.abs(e)>=n-r&&(l=r-n,t.event.trigger("scrollRight")),l}(this,s+n,this.opts.chartData,this.config,this.opts);this.scrollOption.distance=n=h-s;var c=r({},this.opts,{_scrollDistance_:s+n,animation:!1});return ut.call(this,c.type,c,this.config,this.context),s+n}}},vt.prototype.scrollEnd=function(t){if(!0===this.opts.enableScroll){var e=this.scrollOption,a=e.currentOffset,i=e.distance;this.scrollOption.currentOffset=a+i,this.scrollOption.distance=0}},"object"===i(e)&&"object"===i(e.exports)&&(e.exports=vt)}).call(this,a("df3c")["default"],a("dc84")(t))},"1fa1":function(t,e){t.exports="data:image/png;base64,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"},"385c":function(t,e){t.exports="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAABRCAYAAACqj0o2AAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAARpSURBVHic7Zwxb9tGFMf/TycDGTJorKwCobdsuVDyHHnrlgbo0E61P0HrT5DkE8T9Bu7eIZk6WtkKGBT4DUwDgbyqQEaeXgdTgERTwR35ZFPu+wEeeOI93v1Mijzq3gGKoiiKorQLkgp0eHhoF4vFKyKKmNkC6DFzj4giqWPUhZkzACCiFMAcQNrpdD5fXl6mEvEbSbTWRp1OZ0xEbwFEEg26Twq5fy4Wi7M0Ted149SWGMfx8a7Kq2AO4CRJko91Kps6lUaj0TsAHwD06tRvIU8A/DwYDGg2m01CKwefiXEc/05EHzx3nzNz7ctEEt/vZmY+nU6nZ0GxQ3a21vaMMVeoPgMzIvoI4FOe51mapllI7PvAWhsZYywRvWLmY2zoh3PuKKT9QRLjOH5XfA+uUee/1wa+cVWdJ0ly4hun47ujtbZHRL+Vy3dVIABMp9MzZj6t+GgcEsdbYrfbtbh7+k92VeCSov1ZqTgajUZj3xjeEgG8riir9UjQNpj5fUVxVX8r8ZbIzFG5zDn3ybd+mzHG3Bm5FKMuL0Ik3gnaxjtwHTYM/7yfgb0llp+zluPRx0JFf+TPxDJEVD7oTtOkP14SrbVR3QPsMr79rn0m4nbQrkAlrpLVrdhEolKgEgVQiQKoRAFUogAqUQCVKIBKFEAlCqASBVCJAqhEAVSiACpRAJUogEoUQCUKoBIF6Dao+8NwOLwQa8nD87xuxSYSvyv+/vd4Xc7dbvfpthvSRnz77SUxz/OvzZqzm/j2W28sAnjPlB0Oh1wq+sc594twex4MY8zfKN1ckiTx8hNyY5ljfabU88cyKwwA4jh+QrTmzHtyQsjlnJW2e9baR5GCUUyljlbLQrIemkhcTkHeear6QUQT3/ohEu8EZeZfA+q3maqpxd55f94SO53O54ri8a5Pu7PW9oqcljU29LcSb4nFlNysVBwZY+7ktewSxpiq9LpJSAZqUG5fv9//l4h+LBXb/f398WAwuJ7NZllIvIdkNBqN+/3+BSpyVpj5/c3NjbfE4Ny+4XB4hc2ZpXPcpmWkAOZEdB0av0yRM914LiQzP2PmAyJ6gdv52NGGXSdJkhyFxA5+AeGcOzLGXGxoRA/A8XKDufx8Xg+pOKXnwCrmzjnvdLQlwcO+NE0z59wbNJhZ2lIy59zLOgOIWmPnNE1T59xLAOd16reQ89DM0lUarwFRLGFwTESvEZD70QJSIprkef5H0+Gr2EIawO0z197eXrRYLF4w8wEAENGzOrGY+Scierqy/ZWI/qoZ67poyxURXed5njZZ86GMqERJ4ji+Wh3PMnM2nU4PHq5Fm9H3iQKoRAFUogAqUQCVKIBKFEAlCqASBVCJAmx9xGKttcaYtyGrewAAEX2P9Vd1OTN/CYyROedOtv3T7lYlFmtzbXr3eF/MnXMHkmPlMlu9nI0x33qDfF/0jDHjbR5gqxKdc5NtxvfFOSey7OkmtiqxuITeIOA3XEmYOWPm08c03UVRFEVRFB/+A3ajg3uUksENAAAAAElFTkSuQmCC"},"4b21":function(t,e){t.exports="data:image/png;base64,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"},"7a71":function(t,e){t.exports="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAABRCAYAAACqj0o2AAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAATASURBVHic7ZxPaxtHGId/77uy0kAFgpxiCl1fXEeXKvjWS+17Qgj00lt86bVJewuNvU1Kb6YpPYUempxyKbT0C1T+AAVBwU5zsQLFvgpscCut5teDbWKvVu7MamSvzDz4otHOOzOP949mmHeBQCAQCAQC5UJ8BWokvSZN9LGKiY1BUwR1gnWBxL7aKArBDgCIaBtAl5S26GBjM6m2fcQfS+JCchDrIFqC6BrA2EeHzhOCHQFfVLX6tJ1It2icwhIbj3r3plVeDl0as7L1zZVfi1TWIpUaq/0EIj9dEoEAUBfVXxqr/aRIZecz8caj3n0R+c7y8D0Ce65tTAIBZm2OI/lg60n1qWNse5oJ6z2TbgOo54TaIcwGiRaoOxCz6xL7XKBeh/IDARcFcgtAbfgg6RjtL79KrnZsw1Zc+tAzvfuA5gjEuqF5+bYfxiXs+SFmF8QugRbBdRX5FMCXpw9irJxZA7BiG9b6nthMWAf085yv1g35Mqe89Bz1e33oC2LJJY61xH/StInMZUzwj2kVeMxh/2XndCnjha/6S7YxrCVGEe5kywTSsq1fbgY/ZkvyxjsKa4mExNkyYy6HRIPor6Eyg6ZtfXuJNMNBy/gELgLN62yRSN4vkHysJWbnwAR2cg+cUnLG4/9MzOFynIVvKTweK4kLyUFctIFpxnbcxc9ElmM6VwYKSxS5XBJljHv8OPfEwBFBogeCRA8EiR4IEj0QJHogSPRAkOiBINEDQaIHgkQPBIkeCBI9ECR6IEj0QJDogSDRA0GiB5w2NJ2C+EhEnnnsy8VCxEW3vBaXKLgmwLXC9cvGGBuvrS5ngb5bvInpxXbcVhIJsz9ed6YT23GHB4sHrO8EjdU+T34m8CeNPPTfpYtB1PyQ3W+0+XjGyo/Lg6WLE5s8BYh5WXaFAQCkmimwzmtxuZw7mc81cJCzcXwK4aCWzS4gOAGJIp3hsmjeun6ZyRmHiLZsqzts8hzeFauit2zrlxmR4Y3upFjn/dlv8tTBRk7xIiK9bhujlHBQO8ppOcWI8eZiLfEwIzN7SXNWDT+zjVFGVCtfIJMURKLlkoHq9juR5uuc0tsieAZg0SnWxbOoor8BuJ39QsAXLoGcZ4yN1XT7jMTIPQAtAK8NzD6YzQ8pgEgN5Ph7IYWzSrlOyLyIzAPMzfUj0dp6MrPsEtp5AcJof1nNzO8jRNZw9J9VqL+UdPERSI7/AHDUQV1GqXU62jHO075XydUOUnN3+P447UjHaHrTJTHymEJz581vq+2qRjch8rxI/dIh8tw1s/RU9XHbX0gOYjV6D9A7cMj9KAFtEbQGkn5fVN4x3l6kARzlQ6MfG6MfKgZzhy1E7xcKRn4C4OR63j5Efi4Wa/AGAAyibRi+eadSaY/zzocsXiX65MZqb/vkqgrBztbj6tyFdegMwnqiB4JEDwSJHggSPRAkeiBI9ECQ6IEg0QNBogcmPmNpPOw1MaNruS/iOAOBvIfTS3Upwb+dGqd0GKUr486N/4+JSjxcnBi59nhedKtamfM5V84y0ctZUm2W4PWA9X/T3tIkG5ioxCuVamuS8W1hxXh57ekoJiqxnUiXxtwFMNFBjIJgh+SDSd8TA4FAIBAIlI3/APwMc6Z2jWRZAAAAAElFTkSuQmCC"},"84b0":function(t,e){t.exports="data:image/png;base64,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"},"9f40":function(t,e,a){"use strict";var i=a("47a9");Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var o=i(a("3b2d")),r=i(a("67ad")),n=i(a("0bdb")),l=i(a("ca17")),s=function(){function t(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},a=e.date,i=e.selected,o=e.startDate,n=e.endDate,l=e.range;(0,r.default)(this,t),this.date=this.getDate(a),this.selected=i||[],this.startDate=o,this.endDate=n,this.range=l,this.multipleStatus={before:"",after:"",data:[]},this.weeks={},this._getWeek(this.date.fullDate)}return(0,n.default)(t,[{key:"getDate",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:0,a=arguments.length>2&&void 0!==arguments[2]?arguments[2]:"day";t||(t=new Date),"object"!==(0,o.default)(t)&&(t=t.replace(/-/g,"/"));var i=new Date(t);switch(a){case"day":i.setDate(i.getDate()+e);break;case"month":31===i.getDate()?i.setDate(i.getDate()+e):i.setMonth(i.getMonth()+e);break;case"year":i.setFullYear(i.getFullYear()+e);break}var r=i.getFullYear(),n=i.getMonth()+1<10?"0"+(i.getMonth()+1):i.getMonth()+1,l=i.getDate()<10?"0"+i.getDate():i.getDate();return{fullDate:r+"-"+n+"-"+l,year:r,month:n,date:l,day:i.getDay()}}},{key:"_getLastMonthDays",value:function(t,e){for(var a=[],i=t;i>0;i--){var o=new Date(e.year,e.month-1,1-i).getDate();a.push({date:o,month:e.month-1,lunar:this.getlunar(e.year,e.month-1,o),disable:!0})}return a}},{key:"_currentMonthDys",value:function(t,e){for(var a=this,i=[],o=this.date.fullDate,r=function(t){var r=e.year+"-"+(e.month,e.month+"-")+(t<10?"0"+t:t),n=o===r,l=a.selected&&a.selected.find((function(t){if(a.dateEqual(r,t.date))return t})),s=!0,h=!0;if(a.startDate){var c=a.dateCompare(a.startDate,o);s=a.dateCompare(c?a.startDate:o,r)}if(a.endDate){var d=a.dateCompare(o,a.endDate);h=a.dateCompare(r,d?a.endDate:o)}var f=a.multipleStatus.data,x=!1,p=-1;a.range&&(f&&(p=f.findIndex((function(t){return a.dateEqual(t,r)}))),-1!==p&&(x=!0));var g={fullDate:r,year:e.year,date:t,multiple:!!a.range&&x,month:e.month,lunar:a.getlunar(e.year,e.month,t),disable:!s||!h,isDay:n};l&&(g.extraInfo=l),i.push(g)},n=1;n<=t;n++)r(n);return i}},{key:"_getNextMonthDays",value:function(t,e){for(var a=[],i=1;i<t+1;i++)a.push({date:i,month:Number(e.month)+1,lunar:this.getlunar(e.year,Number(e.month)+1,i),disable:!0});return a}},{key:"setDate",value:function(t){this._getWeek(t)}},{key:"getInfo",value:function(t){var e=this;t||(t=new Date);var a=this.canlender.find((function(a){return a.fullDate===e.getDate(t).fullDate}));return a}},{key:"dateCompare",value:function(t,e){return t=new Date(t.replace("-","/").replace("-","/")),e=new Date(e.replace("-","/").replace("-","/")),t<=e}},{key:"dateEqual",value:function(t,e){return t=new Date(t.replace("-","/").replace("-","/")),e=new Date(e.replace("-","/").replace("-","/")),t.getTime()-e.getTime()===0}},{key:"geDateAll",value:function(t,e){var a=[],i=t.split("-"),o=e.split("-"),r=new Date;r.setFullYear(i[0],i[1]-1,i[2]);var n=new Date;n.setFullYear(o[0],o[1]-1,o[2]);for(var l=r.getTime()-864e5,s=n.getTime()-864e5,h=l;h<=s;)h+=864e5,a.push(this.getDate(new Date(parseInt(h))).fullDate);return a}},{key:"getlunar",value:function(t,e,a){return l.default.solar2lunar(t,e,a)}},{key:"setSelectInfo",value:function(t,e){this.selected=e,this._getWeek(t)}},{key:"setMultiple",value:function(t){var e=this.multipleStatus,a=e.before,i=e.after;this.range&&(a&&i?(this.multipleStatus.before="",this.multipleStatus.after="",this.multipleStatus.data=[],this._getWeek(t)):a?(this.multipleStatus.after=t,this.dateCompare(this.multipleStatus.before,this.multipleStatus.after)?this.multipleStatus.data=this.geDateAll(this.multipleStatus.before,this.multipleStatus.after):this.multipleStatus.data=this.geDateAll(this.multipleStatus.after,this.multipleStatus.before),this._getWeek(t)):this.multipleStatus.before=t)}},{key:"_getWeek",value:function(t){var e=this.getDate(t),a=(e.fullDate,e.year),i=e.month,o=(e.date,e.day,new Date(a,i-1,1).getDay()),r=new Date(a,i,0).getDate(),n={lastMonthDays:this._getLastMonthDays(o,this.getDate(t)),currentMonthDys:this._currentMonthDys(r,this.getDate(t)),nextMonthDays:[],weeks:[]},l=[],s=42-(n.lastMonthDays.length+n.currentMonthDys.length);n.nextMonthDays=this._getNextMonthDays(s,this.getDate(t)),l=l.concat(n.lastMonthDays,n.currentMonthDys,n.nextMonthDays);for(var h={},c=0;c<l.length;c++)c%7===0&&(h[parseInt(c/7)]=new Array(7)),h[parseInt(c/7)][c%7]=l[c];this.canlender=l,this.weeks=h}}]),t}(),h=s;e.default=h},b69bb:function(t,e){t.exports="data:image/png;base64,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"},ca17:function(t,e,a){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i={lunarInfo:[19416,19168,42352,21717,53856,55632,91476,22176,39632,21970,19168,42422,42192,53840,119381,46400,54944,44450,38320,84343,18800,42160,46261,27216,27968,109396,11104,38256,21234,18800,25958,54432,59984,28309,23248,11104,100067,37600,116951,51536,54432,120998,46416,22176,107956,9680,37584,53938,43344,46423,27808,46416,86869,19872,42416,83315,21168,43432,59728,27296,44710,43856,19296,43748,42352,21088,62051,55632,23383,22176,38608,19925,19152,42192,54484,53840,54616,46400,46752,103846,38320,18864,43380,42160,45690,27216,27968,44870,43872,38256,19189,18800,25776,29859,59984,27480,23232,43872,38613,37600,51552,55636,54432,55888,30034,22176,43959,9680,37584,51893,43344,46240,47780,44368,21977,19360,42416,86390,21168,43312,31060,27296,44368,23378,19296,42726,42208,53856,60005,54576,23200,30371,38608,19195,19152,42192,118966,53840,54560,56645,46496,22224,21938,18864,42359,42160,43600,111189,27936,44448,84835,37744,18936,18800,25776,92326,59984,27424,108228,43744,41696,53987,51552,54615,54432,55888,23893,22176,42704,21972,21200,43448,43344,46240,46758,44368,21920,43940,42416,21168,45683,26928,29495,27296,44368,84821,19296,42352,21732,53600,59752,54560,55968,92838,22224,19168,43476,41680,53584,62034,54560],solarMonth:[31,28,31,30,31,30,31,31,30,31,30,31],Gan:["Đầu tiên","Thứ hai","C","Người đàn ông","E","bản thân","Geng","cay nồng","thứ chín trong mười Thiên Can","gui"],Zhi:["con trai","xấu xí","âm","Mão","Trần","Sĩ","buổi trưa","Chưa","tình trạng","đơn nhất","Xu","Hải"],Animals:["chuột","con bò đực","Con hổ","con thỏ","rồng","rắn","ngựa","con cừu","con khỉ","thịt gà","chó","con lợn"],solarTerm:["Osamu","Lạnh giá","đầu mùa xuân","nước mưa","Sự thức dậy của côn trùng","xuân phân","thanh minh","Guyu","đầu hè","Tiểu Mãn","Miscanthus","ngày hạ chí","Tiểu Thụ","Sức nóng lớn","đầu mùa thu","Cuối hè nắng nóng","sương trắng","thu phân","sương lạnh","sương giá","đầu mùa đông","Tiểu Tuyết","tuyết rơi dày đặc","ngày đông chí"],sTermInfo:["9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c3598082c95f8c965cc920f","97bd0b06bdb0722c965ce1cfcc920f","b027097bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c359801ec95f8c965cc920f","97bd0b06bdb0722c965ce1cfcc920f","b027097bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c359801ec95f8c965cc920f","97bd0b06bdb0722c965ce1cfcc920f","b027097bd097c36b0b6fc9274c91aa","9778397bd19801ec9210c965cc920e","97b6b97bd19801ec95f8c965cc920f","97bd09801d98082c95f8e1cfcc920f","97bd097bd097c36b0b6fc9210c8dc2","9778397bd197c36c9210c9274c91aa","97b6b97bd19801ec95f8c965cc920e","97bd09801d98082c95f8e1cfcc920f","97bd097bd097c36b0b6fc9210c8dc2","9778397bd097c36c9210c9274c91aa","97b6b97bd19801ec95f8c965cc920e","97bcf97c3598082c95f8e1cfcc920f","97bd097bd097c36b0b6fc9210c8dc2","9778397bd097c36c9210c9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c3598082c95f8c965cc920f","97bd097bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c3598082c95f8c965cc920f","97bd097bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c359801ec95f8c965cc920f","97bd097bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c359801ec95f8c965cc920f","97bd097bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf97c359801ec95f8c965cc920f","97bd097bd07f595b0b6fc920fb0722","9778397bd097c36b0b6fc9210c8dc2","9778397bd19801ec9210c9274c920e","97b6b97bd19801ec95f8c965cc920f","97bd07f5307f595b0b0bc920fb0722","7f0e397bd097c36b0b6fc9210c8dc2","9778397bd097c36c9210c9274c920e","97b6b97bd19801ec95f8c965cc920f","97bd07f5307f595b0b0bc920fb0722","7f0e397bd097c36b0b6fc9210c8dc2","9778397bd097c36c9210c9274c91aa","97b6b97bd19801ec9210c965cc920e","97bd07f1487f595b0b0bc920fb0722","7f0e397bd097c36b0b6fc9210c8dc2","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf7f1487f595b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf7f1487f595b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf7f1487f531b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c965cc920e","97bcf7f1487f531b0b0bb0b6fb0722","7f0e397bd07f595b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b97bd19801ec9210c9274c920e","97bcf7f0e47f531b0b0bb0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","9778397bd097c36b0b6fc9210c91aa","97b6b97bd197c36c9210c9274c920e","97bcf7f0e47f531b0b0bb0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","9778397bd097c36b0b6fc9210c8dc2","9778397bd097c36c9210c9274c920e","97b6b7f0e47f531b0723b0b6fb0722","7f0e37f5307f595b0b0bc920fb0722","7f0e397bd097c36b0b6fc9210c8dc2","9778397bd097c36b0b70c9274c91aa","97b6b7f0e47f531b0723b0b6fb0721","7f0e37f1487f595b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc9210c8dc2","9778397bd097c36b0b6fc9274c91aa","97b6b7f0e47f531b0723b0b6fb0721","7f0e27f1487f595b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","9778397bd097c36b0b6fc9274c91aa","97b6b7f0e47f531b0723b0787b0721","7f0e27f0e47f531b0b0bb0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","9778397bd097c36b0b6fc9210c91aa","97b6b7f0e47f149b0723b0787b0721","7f0e27f0e47f531b0723b0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","9778397bd097c36b0b6fc9210c8dc2","977837f0e37f149b0723b0787b0721","7f07e7f0e47f531b0723b0b6fb0722","7f0e37f5307f595b0b0bc920fb0722","7f0e397bd097c35b0b6fc9210c8dc2","977837f0e37f14998082b0787b0721","7f07e7f0e47f531b0723b0b6fb0721","7f0e37f1487f595b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc9210c8dc2","977837f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","977837f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e397bd097c35b0b6fc920fb0722","977837f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","977837f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","977837f0e37f14998082b0787b06bd","7f07e7f0e47f149b0723b0787b0721","7f0e27f0e47f531b0b0bb0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","977837f0e37f14998082b0723b06bd","7f07e7f0e37f149b0723b0787b0721","7f0e27f0e47f531b0723b0b6fb0722","7f0e397bd07f595b0b0bc920fb0722","977837f0e37f14898082b0723b02d5","7ec967f0e37f14998082b0787b0721","7f07e7f0e47f531b0723b0b6fb0722","7f0e37f1487f595b0b0bb0b6fb0722","7f0e37f0e37f14898082b0723b02d5","7ec967f0e37f14998082b0787b0721","7f07e7f0e47f531b0723b0b6fb0722","7f0e37f1487f531b0b0bb0b6fb0722","7f0e37f0e37f14898082b0723b02d5","7ec967f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e37f1487f531b0b0bb0b6fb0722","7f0e37f0e37f14898082b072297c35","7ec967f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e37f0e37f14898082b072297c35","7ec967f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e37f0e366aa89801eb072297c35","7ec967f0e37f14998082b0787b06bd","7f07e7f0e47f149b0723b0787b0721","7f0e27f1487f531b0b0bb0b6fb0722","7f0e37f0e366aa89801eb072297c35","7ec967f0e37f14998082b0723b06bd","7f07e7f0e47f149b0723b0787b0721","7f0e27f0e47f531b0723b0b6fb0722","7f0e37f0e366aa89801eb072297c35","7ec967f0e37f14998082b0723b06bd","7f07e7f0e37f14998083b0787b0721","7f0e27f0e47f531b0723b0b6fb0722","7f0e37f0e366aa89801eb072297c35","7ec967f0e37f14898082b0723b02d5","7f07e7f0e37f14998082b0787b0721","7f07e7f0e47f531b0723b0b6fb0722","7f0e36665b66aa89801e9808297c35","665f67f0e37f14898082b0723b02d5","7ec967f0e37f14998082b0787b0721","7f07e7f0e47f531b0723b0b6fb0722","7f0e36665b66a449801e9808297c35","665f67f0e37f14898082b0723b02d5","7ec967f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e36665b66a449801e9808297c35","665f67f0e37f14898082b072297c35","7ec967f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e26665b66a449801e9808297c35","665f67f0e37f1489801eb072297c35","7ec967f0e37f14998082b0787b06bd","7f07e7f0e47f531b0723b0b6fb0721","7f0e27f1487f531b0b0bb0b6fb0722"],nStr1:["ngày","một","hai","ba","bốn","năm","sáu","bảy","tám","Chín","mười"],nStr2:["sớm","mười","hai mươi","ba mươi"],nStr3:["chỉ","hai","ba","bốn","năm","sáu","bảy","tám","Chín","mười","mùa đông","sáp"],lYearDays:function(t){var e,a=348;for(e=32768;e>8;e>>=1)a+=this.lunarInfo[t-1900]&e?1:0;return a+this.leapDays(t)},leapMonth:function(t){return 15&this.lunarInfo[t-1900]},leapDays:function(t){return this.leapMonth(t)?65536&this.lunarInfo[t-1900]?30:29:0},monthDays:function(t,e){return e>12||e<1?-1:this.lunarInfo[t-1900]&65536>>e?30:29},solarDays:function(t,e){if(e>12||e<1)return-1;var a=e-1;return 1==a?t%4==0&&t%100!=0||t%400==0?29:28:this.solarMonth[a]},toGanZhiYear:function(t){var e=(t-3)%10,a=(t-3)%12;return 0==e&&(e=10),0==a&&(a=12),this.Gan[e-1]+this.Zhi[a-1]},toAstro:function(t,e){return"Ma Kết Bảo Bình Song Ngư Bạch Dương Kim Ngưu Song Tử Cự Giải Sư Tử Xử Nữ Thiên Bình Bò Cạp Nhân Mã Ma Kết".substr(2*t-(e<[20,19,21,21,21,22,23,23,23,23,22,22][t-1]?2:0),2)+"ghế"},toGanZhi:function(t){return this.Gan[t%10]+this.Zhi[t%12]},getTerm:function(t,e){if(t<1900||t>2100)return-1;if(e<1||e>24)return-1;var a=this.sTermInfo[t-1900],i=[parseInt("0x"+a.substr(0,5)).toString(),parseInt("0x"+a.substr(5,5)).toString(),parseInt("0x"+a.substr(10,5)).toString(),parseInt("0x"+a.substr(15,5)).toString(),parseInt("0x"+a.substr(20,5)).toString(),parseInt("0x"+a.substr(25,5)).toString()],o=[i[0].substr(0,1),i[0].substr(1,2),i[0].substr(3,1),i[0].substr(4,2),i[1].substr(0,1),i[1].substr(1,2),i[1].substr(3,1),i[1].substr(4,2),i[2].substr(0,1),i[2].substr(1,2),i[2].substr(3,1),i[2].substr(4,2),i[3].substr(0,1),i[3].substr(1,2),i[3].substr(3,1),i[3].substr(4,2),i[4].substr(0,1),i[4].substr(1,2),i[4].substr(3,1),i[4].substr(4,2),i[5].substr(0,1),i[5].substr(1,2),i[5].substr(3,1),i[5].substr(4,2)];return parseInt(o[e-1])},toChinaMonth:function(t){if(t>12||t<1)return-1;var e=this.nStr3[t-1];return e+="mặt trăng",e},toChinaDay:function(t){var e;switch(t){case 10:e="Ngày mồng mười tháng Giêng âm lịch";break;case 20:e="hai mươi";break;case 30:e="ba mươi";break;default:e=this.nStr2[Math.floor(t/10)],e+=this.nStr1[t%10]}return e},getAnimal:function(t){return this.Animals[(t-4)%12]},solar2lunar:function(t,e,a){if(t<1900||t>2100)return-1;if(1900==t&&1==e&&a<31)return-1;if(t)i=new Date(t,parseInt(e)-1,a);else var i=new Date;var o,r=0,n=(t=i.getFullYear(),e=i.getMonth()+1,a=i.getDate(),(Date.UTC(i.getFullYear(),i.getMonth(),i.getDate())-Date.UTC(1900,0,31))/864e5);for(o=1900;o<2101&&n>0;o++)r=this.lYearDays(o),n-=r;n<0&&(n+=r,o--);var l=new Date,s=!1;l.getFullYear()==t&&l.getMonth()+1==e&&l.getDate()==a&&(s=!0);var h=i.getDay(),c=this.nStr1[h];0==h&&(h=7);var d=o,f=this.leapMonth(o),x=!1;for(o=1;o<13&&n>0;o++)f>0&&o==f+1&&0==x?(--o,x=!0,r=this.leapDays(d)):r=this.monthDays(d,o),1==x&&o==f+1&&(x=!1),n-=r;0==n&&f>0&&o==f+1&&(x?x=!1:(x=!0,--o)),n<0&&(n+=r,--o);var p=o,g=n+1,b=e-1,u=this.toGanZhiYear(d),y=this.getTerm(t,2*e-1),v=this.getTerm(t,2*e),A=this.toGanZhi(12*(t-1900)+e+11);a>=y&&(A=this.toGanZhi(12*(t-1900)+e+12));var m=!1,S=null;y==a&&(m=!0,S=this.solarTerm[2*e-2]),v==a&&(m=!0,S=this.solarTerm[2*e-1]);var T=Date.UTC(t,b,1,0,0,0,0)/864e5+25567+10,w=this.toGanZhi(T+a-1),P=this.toAstro(e,a);return{lYear:d,lMonth:p,lDay:g,Animal:this.getAnimal(d),IMonthCn:(x?"bước nhảy vọt":"")+this.toChinaMonth(p),IDayCn:this.toChinaDay(g),cYear:t,cMonth:e,cDay:a,gzYear:u,gzMonth:A,gzDay:w,isToday:s,isLeap:x,nWeek:h,ncWeek:"Tuần"+c,isTerm:m,Term:S,astro:P}},lunar2solar:function(t,e,a,i){i=!!i;var o=this.leapMonth(t);this.leapDays(t);if(i&&o!=e)return-1;if(2100==t&&12==e&&a>1||1900==t&&1==e&&a<31)return-1;var r=this.monthDays(t,e),n=r;if(i&&(n=this.leapDays(t,e)),t<1900||t>2100||a>n)return-1;for(var l=0,s=1900;s<t;s++)l+=this.lYearDays(s);var h=0,c=!1;for(s=1;s<e;s++)h=this.leapMonth(t),c||h<=s&&h>0&&(l+=this.leapDays(t),c=!0),l+=this.monthDays(t,s);i&&(l+=r);var d=Date.UTC(1900,1,30,0,0,0),f=new Date(864e5*(l+a-31)+d),x=f.getUTCFullYear(),p=f.getUTCMonth()+1,g=f.getUTCDate();return this.solar2lunar(x,p,g)}},o=i;e.default=o},d30b:function(t,e){t.exports="data:image/png;base64,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"},ff72:function(t,e){t.exports="data:image/png;base64,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"}}]);
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/admin/common/vendor"],{
+
+/***/ 1566:
+/*!**********************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/components/uni-calendar/util.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
+var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 1567));
+var Calendar = /*#__PURE__*/function () {
+  function Calendar() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      date = _ref.date,
+      selected = _ref.selected,
+      startDate = _ref.startDate,
+      endDate = _ref.endDate,
+      range = _ref.range;
+    (0, _classCallCheck2.default)(this, Calendar);
+    // ngày hiện tại
+    this.date = this.getDate(date); // Ngày nhập cảnh hiện tại
+    // Lấy thông tin
+    this.selected = selected || [];
+    // phạm vi bắt đầu
+    this.startDate = startDate;
+    // cuối phạm vi
+    this.endDate = endDate;
+    this.range = range;
+    // Trạng thái lựa chọn nhiều lần
+    this.multipleStatus = {
+      before: '',
+      after: '',
+      data: []
+    };
+    // Các ngày trong tuần
+    this.weeks = {};
+    this._getWeek(this.date.fullDate);
+  }
+
+  /**
+   * Nhận bất cứ lúc nào
+   */
+  (0, _createClass2.default)(Calendar, [{
+    key: "getDate",
+    value: function getDate(date) {
+      var AddDayCount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var str = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'day';
+      if (!date) {
+        date = new Date();
+      }
+      if ((0, _typeof2.default)(date) !== 'object') {
+        date = date.replace(/-/g, '/');
+      }
+      var dd = new Date(date);
+      switch (str) {
+        case 'day':
+          dd.setDate(dd.getDate() + AddDayCount); // Lấy ngày sau AddDayCount ngày
+          break;
+        case 'month':
+          if (dd.getDate() === 31) {
+            dd.setDate(dd.getDate() + AddDayCount);
+          } else {
+            dd.setMonth(dd.getMonth() + AddDayCount); // Lấy ngày sau AddDayCount ngày
+          }
+
+          break;
+        case 'year':
+          dd.setFullYear(dd.getFullYear() + AddDayCount); // Lấy ngày sau AddDayCount ngày
+          break;
+      }
+      var y = dd.getFullYear();
+      var m = dd.getMonth() + 1 < 10 ? '0' + (dd.getMonth() + 1) : dd.getMonth() + 1; // Lấy ngày của tháng hiện tại, nếu nhỏ hơn 10 thì thêm vào0
+      var d = dd.getDate() < 10 ? '0' + dd.getDate() : dd.getDate(); // Lấy số hiện tại, nếu nhỏ hơn 10 thì bù0
+      return {
+        fullDate: y + '-' + m + '-' + d,
+        year: y,
+        month: m,
+        date: d,
+        day: dd.getDay()
+      };
+    }
+
+    /**
+     * Lấy số ngày còn lại của tháng trước
+     */
+  }, {
+    key: "_getLastMonthDays",
+    value: function _getLastMonthDays(firstDay, full) {
+      var dateArr = [];
+      for (var i = firstDay; i > 0; i--) {
+        var beforeDate = new Date(full.year, full.month - 1, -i + 1).getDate();
+        dateArr.push({
+          date: beforeDate,
+          month: full.month - 1,
+          lunar: this.getlunar(full.year, full.month - 1, beforeDate),
+          disable: true
+        });
+      }
+      return dateArr;
+    }
+    /**
+     * Lấy số ngày trong tháng này
+     */
+  }, {
+    key: "_currentMonthDys",
+    value: function _currentMonthDys(dateData, full) {
+      var _this = this;
+      var dateArr = [];
+      var fullDate = this.date.fullDate;
+      var _loop = function _loop(i) {
+        var isinfo = false;
+        var nowDate = full.year + '-' + (full.month < 10 ? full.month : full.month) + '-' + (i < 10 ? '0' + i : i);
+        // liệu hôm nay
+        var isDay = fullDate === nowDate;
+        // Nhận thông tin RBI
+        var info = _this.selected && _this.selected.find(function (item) {
+          if (_this.dateEqual(nowDate, item.date)) {
+            return item;
+          }
+        });
+
+        // Ngày bị vô hiệu hóa
+        var disableBefore = true;
+        var disableAfter = true;
+        if (_this.startDate) {
+          var dateCompBefore = _this.dateCompare(_this.startDate, fullDate);
+          disableBefore = _this.dateCompare(dateCompBefore ? _this.startDate : fullDate, nowDate);
+        }
+        if (_this.endDate) {
+          var dateCompAfter = _this.dateCompare(fullDate, _this.endDate);
+          disableAfter = _this.dateCompare(nowDate, dateCompAfter ? _this.endDate : fullDate);
+        }
+        var multiples = _this.multipleStatus.data;
+        var checked = false;
+        var multiplesStatus = -1;
+        if (_this.range) {
+          if (multiples) {
+            multiplesStatus = multiples.findIndex(function (item) {
+              return _this.dateEqual(item, nowDate);
+            });
+          }
+          if (multiplesStatus !== -1) {
+            checked = true;
+          }
+        }
+        var data = {
+          fullDate: nowDate,
+          year: full.year,
+          date: i,
+          multiple: _this.range ? checked : false,
+          month: full.month,
+          lunar: _this.getlunar(full.year, full.month, i),
+          disable: !disableBefore || !disableAfter,
+          isDay: isDay
+        };
+        if (info) {
+          data.extraInfo = info;
+        }
+        dateArr.push(data);
+      };
+      for (var i = 1; i <= dateData; i++) {
+        _loop(i);
+      }
+      return dateArr;
+    }
+    /**
+     * Lấy số ngày trong tháng tiếp theo
+     */
+  }, {
+    key: "_getNextMonthDays",
+    value: function _getNextMonthDays(surplus, full) {
+      var dateArr = [];
+      for (var i = 1; i < surplus + 1; i++) {
+        dateArr.push({
+          date: i,
+          month: Number(full.month) + 1,
+          lunar: this.getlunar(full.year, Number(full.month) + 1, i),
+          disable: true
+        });
+      }
+      return dateArr;
+    }
+    /**
+     * Đặt ngày
+     * @param {Object} date
+     */
+  }, {
+    key: "setDate",
+    value: function setDate(date) {
+      this._getWeek(date);
+    }
+    /**
+     * Nhận chi tiết ngày hiện tại
+     * @param {Object} date
+     */
+  }, {
+    key: "getInfo",
+    value: function getInfo(date) {
+      var _this2 = this;
+      if (!date) {
+        date = new Date();
+      }
+      var dateInfo = this.canlender.find(function (item) {
+        return item.fullDate === _this2.getDate(date).fullDate;
+      });
+      return dateInfo;
+    }
+
+    /**
+     * So sánh kích thước thời gian
+     */
+  }, {
+    key: "dateCompare",
+    value: function dateCompare(startDate, endDate) {
+      // Tính thời hạn
+      startDate = new Date(startDate.replace('-', '/').replace('-', '/'));
+      // Tính deadline cho các hạng mục chi tiết
+      endDate = new Date(endDate.replace('-', '/').replace('-', '/'));
+      if (startDate <= endDate) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    /**
+     * So sánh thời gian cho sự bình đẳng
+     */
+  }, {
+    key: "dateEqual",
+    value: function dateEqual(before, after) {
+      // Tính thời hạn
+      before = new Date(before.replace('-', '/').replace('-', '/'));
+      // Tính deadline cho các hạng mục chi tiết
+      after = new Date(after.replace('-', '/').replace('-', '/'));
+      if (before.getTime() - after.getTime() === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    /**
+     * Nhận tất cả các ngày trong một phạm vi ngày
+     * @param {Object} begin
+     * @param {Object} end
+     */
+  }, {
+    key: "geDateAll",
+    value: function geDateAll(begin, end) {
+      var arr = [];
+      var ab = begin.split('-');
+      var ae = end.split('-');
+      var db = new Date();
+      db.setFullYear(ab[0], ab[1] - 1, ab[2]);
+      var de = new Date();
+      de.setFullYear(ae[0], ae[1] - 1, ae[2]);
+      var unixDb = db.getTime() - 24 * 60 * 60 * 1000;
+      var unixDe = de.getTime() - 24 * 60 * 60 * 1000;
+      for (var k = unixDb; k <= unixDe;) {
+        k = k + 24 * 60 * 60 * 1000;
+        arr.push(this.getDate(new Date(parseInt(k))).fullDate);
+      }
+      return arr;
+    }
+    /**
+     * Tính toán hiển thị ngày âm lịch
+     */
+  }, {
+    key: "getlunar",
+    value: function getlunar(year, month, date) {
+      return _calendar.default.solar2lunar(year, month, date);
+    }
+    /**
+     * Đặt RBI
+     */
+  }, {
+    key: "setSelectInfo",
+    value: function setSelectInfo(data, value) {
+      this.selected = value;
+      this._getWeek(data);
+    }
+
+    /**
+     *  Nhận trạng thái chọn nhiều
+     */
+  }, {
+    key: "setMultiple",
+    value: function setMultiple(fullDate) {
+      var _this$multipleStatus = this.multipleStatus,
+        before = _this$multipleStatus.before,
+        after = _this$multipleStatus.after;
+      if (!this.range) return;
+      if (before && after) {
+        this.multipleStatus.before = '';
+        this.multipleStatus.after = '';
+        this.multipleStatus.data = [];
+        this._getWeek(fullDate);
+      } else {
+        if (!before) {
+          this.multipleStatus.before = fullDate;
+        } else {
+          this.multipleStatus.after = fullDate;
+          if (this.dateCompare(this.multipleStatus.before, this.multipleStatus.after)) {
+            this.multipleStatus.data = this.geDateAll(this.multipleStatus.before, this.multipleStatus.after);
+          } else {
+            this.multipleStatus.data = this.geDateAll(this.multipleStatus.after, this.multipleStatus.before);
+          }
+          this._getWeek(fullDate);
+        }
+      }
+    }
+
+    /**
+     * Nhận dữ liệu hàng tuần
+     * @param {Object} dateData
+     */
+  }, {
+    key: "_getWeek",
+    value: function _getWeek(dateData) {
+      var _this$getDate = this.getDate(dateData),
+        fullDate = _this$getDate.fullDate,
+        year = _this$getDate.year,
+        month = _this$getDate.month,
+        date = _this$getDate.date,
+        day = _this$getDate.day;
+      var firstDay = new Date(year, month - 1, 1).getDay();
+      var currentDay = new Date(year, month, 0).getDate();
+      var dates = {
+        lastMonthDays: this._getLastMonthDays(firstDay, this.getDate(dateData)),
+        // những ngày cuối cùng của tháng trước
+        currentMonthDys: this._currentMonthDys(currentDay, this.getDate(dateData)),
+        // Số ngày trong tháng này
+        nextMonthDays: [],
+        // Tháng tới sẽ bắt đầu bao nhiêu ngày?
+        weeks: []
+      };
+      var canlender = [];
+      var surplus = 42 - (dates.lastMonthDays.length + dates.currentMonthDys.length);
+      dates.nextMonthDays = this._getNextMonthDays(surplus, this.getDate(dateData));
+      canlender = canlender.concat(dates.lastMonthDays, dates.currentMonthDys, dates.nextMonthDays);
+      var weeks = {};
+      // Mảng nối: số ngày kể từ tháng trước + số ngày trong tháng này + số ngày trong tháng tiếp theo
+      for (var i = 0; i < canlender.length; i++) {
+        if (i % 7 === 0) {
+          weeks[parseInt(i / 7)] = new Array(7);
+        }
+        weeks[parseInt(i / 7)][i % 7] = canlender[i];
+      }
+      this.canlender = canlender;
+      this.weeks = weeks;
+    }
+
+    //phương pháp tĩnh
+    // static init(date) {
+    // 	if (!this.instance) {
+    // 		this.instance = new Calendar(date);
+    // 	}
+    // 	return this.instance;
+    // }
+  }]);
+  return Calendar;
+}();
+var _default = Calendar;
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1567:
+/*!**************************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/components/uni-calendar/calendar.js ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/**
+* @1900-2100Chuyển đổi giữa lịch Gregory và âm lịch trong khoảng thời gian
+* @charset UTF-8
+* @github  https://github.com/jjonline/calendar.js
+* @Author  JeaDương(JJonline@JJonline.Cn)
+* @Time    2014-7-21
+* @Time    2016-8-13 Fixed 2033hex、Attribution Annals
+* @Time    2016-9-25 Fixed lunar LeapMonth Param Bug
+* @Time    2017-7-24 Fixed use getTerm Func Param Error.use solar year,NOT lunar year
+* @Version 1.0.3
+* @Lịch Gregory sang âm lịch：calendar.solar2lunar(1987,11,01); //[you can ignore params of prefix 0]
+* @Chuyển đổi âm lịch sang lịch Gregory：calendar.lunar2solar(1987,09,10); //[you can ignore params of prefix 0]
+*/
+/* eslint-disable */
+var calendar = {
+  /**
+      * Bảng thông tin size chạy âm lịch 1900-2100
+      * @Array Of Property
+      * @return Hex
+      */
+  lunarInfo: [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+  // 1900-1909
+  0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+  // 1910-1919
+  0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
+  // 1920-1929
+  0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
+  // 1930-1939
+  0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
+  // 1940-1949
+  0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0,
+  // 1950-1959
+  0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
+  // 1960-1969
+  0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0, 0x195a6,
+  // 1970-1979
+  0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
+  // 1980-1989
+  0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x05ac0, 0x0ab60, 0x096d5, 0x092e0,
+  // 1990-1999
+  0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
+  // 2000-2009
+  0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
+  // 2010-2019
+  0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
+  // 2020-2029
+  0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
+  // 2030-2039
+  0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0,
+  // 2040-2049
+  /** Add By JJonline@JJonline.Cn**/
+  0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0,
+  // 2050-2059
+  0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4,
+  // 2060-2069
+  0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0,
+  // 2070-2079
+  0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d160,
+  // 2080-2089
+  0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a2d0, 0x0d150, 0x0f252,
+  // 2090-2099
+  0x0d520],
+  // 2100
+
+  /**
+      * Bảng tổng hợp các ngày trong mỗi tháng của lịch Gregory
+      * @Array Of Property
+      * @return Number
+      */
+  solarMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  /**
+      * Danh sách kiểm tra nhanh cành trời và cành đất
+      * @Array Of Property trans["Đầu tiên","Thứ hai","C","Người đàn ông","E","bản thân","Geng","cay nồng","thứ chín trong mười Thiên Can","gui"]
+      * @return Cn string
+      */
+  Gan: ["\u7532", "\u4E59", "\u4E19", "\u4E01", "\u620A", "\u5DF1", "\u5E9A", "\u8F9B", "\u58EC", "\u7678"],
+  /**
+      * Bảng cheat của Cành Thiên Đường và Cành Đất
+      * @Array Of Property
+      * @trans["con trai","xấu xí","âm","Mão","Trần","Sĩ","buổi trưa","Chưa","tình trạng","đơn nhất","Xu","Hải"]
+      * @return Cn string
+      */
+  Zhi: ["\u5B50", "\u4E11", "\u5BC5", "\u536F", "\u8FB0", "\u5DF3", "\u5348", "\u672A", "\u7533", "\u9149", "\u620C", "\u4EA5"],
+  /**
+      * Bảng cheat của Cành Thiên Đường và Cành Đất<=>Cung hoàng đạo Trung Quốc
+      * @Array Of Property
+      * @trans["chuột","con bò đực","Con hổ","con thỏ","rồng","rắn","ngựa","con cừu","con khỉ","thịt gà","chó","con lợn"]
+      * @return Cn string
+      */
+  Animals: ["\u9F20", "\u725B", "\u864E", "\u5154", "\u9F99", "\u86C7", "\u9A6C", "\u7F8A", "\u7334", "\u9E21", "\u72D7", "\u732A"],
+  /**
+      * 24Bảng tra cứu nhanh thuật ngữ mặt trời
+      * @Array Of Property
+      * @trans["Osamu","Lạnh giá","đầu mùa xuân","nước mưa","Sự thức dậy của côn trùng","xuân phân","thanh minh","Guyu","đầu hè","Tiểu Mãn","Miscanthus","ngày hạ chí","Tiểu Thụ","Sức nóng lớn","đầu mùa thu","Cuối hè nắng nóng","sương trắng","thu phân","sương lạnh","sương giá","đầu mùa đông","Tiểu Tuyết","tuyết rơi dày đặc","ngày đông chí"]
+      * @return Cn string
+      */
+  solarTerm: ["\u5C0F\u5BD2", "\u5927\u5BD2", "\u7ACB\u6625", "\u96E8\u6C34", "\u60CA\u86F0", "\u6625\u5206", "\u6E05\u660E", "\u8C37\u96E8", "\u7ACB\u590F", "\u5C0F\u6EE1", "\u8292\u79CD", "\u590F\u81F3", "\u5C0F\u6691", "\u5927\u6691", "\u7ACB\u79CB", "\u5904\u6691", "\u767D\u9732", "\u79CB\u5206", "\u5BD2\u9732", "\u971C\u964D", "\u7ACB\u51AC", "\u5C0F\u96EA", "\u5927\u96EA", "\u51AC\u81F3"],
+  /**
+      * 1900-2100Bảng tra cứu nhanh 24 ngày tiết khí trong năm
+      * @Array Of Property
+      * @return 0x string For splice
+      */
+  sTermInfo: ['9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '9778397bd19801ec9210c965cc920e', '97b6b97bd19801ec95f8c965cc920f', '97bd09801d98082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd197c36c9210c9274c91aa', '97b6b97bd19801ec95f8c965cc920e', '97bd09801d98082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec95f8c965cc920e', '97bcf97c3598082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd07f595b0b6fc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '9778397bd19801ec9210c9274c920e', '97b6b97bd19801ec95f8c965cc920f', '97bd07f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c920e', '97b6b97bd19801ec95f8c965cc920f', '97bd07f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bd07f1487f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c9274c920e', '97bcf7f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c91aa', '97b6b97bd197c36c9210c9274c920e', '97bcf7f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c920e', '97b6b7f0e47f531b0723b0b6fb0722', '7f0e37f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36b0b70c9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0787b0721', '7f0e27f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c91aa', '97b6b7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '977837f0e37f149b0723b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f5307f595b0b0bc920fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '977837f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0723b06bd', '7f07e7f0e37f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e37f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e37f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0723b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0723b06bd', '7f07e7f0e37f14998083b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14898082b0723b02d5', '7f07e7f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e36665b66aa89801e9808297c35', '665f67f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e36665b66a449801e9808297c35', '665f67f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e36665b66a449801e9808297c35', '665f67f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e26665b66a449801e9808297c35', '665f67f0e37f1489801eb072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722'],
+  /**
+      * Bảng cheat kỹ thuật số sang tiếng Trung
+      * @Array Of Property
+      * @trans ['ngày','một','hai','ba','bốn','năm','sáu','bảy','tám','Chín','mười']
+      * @return Cn string
+      */
+  nStr1: ["\u65E5", "\u4E00", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", "\u516D", "\u4E03", "\u516B", "\u4E5D", "\u5341"],
+  /**
+      * Bảng chuyển đổi ngày sang tên âm lịch
+      * @Array Of Property
+      * @trans ['sớm','mười','hai mươi','ba mươi']
+      * @return Cn string
+      */
+  nStr2: ["\u521D", "\u5341", "\u5EFF", "\u5345"],
+  /**
+      * Bảng cheat tên tháng đến âm lịch
+      * @Array Of Property
+      * @trans ['chỉ','một','hai','ba','bốn','năm','sáu','bảy','tám','Chín','mười','mùa đông','sáp']
+      * @return Cn string
+      */
+  nStr3: ["\u6B63", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", "\u516D", "\u4E03", "\u516B", "\u4E5D", "\u5341", "\u51AC", "\u814A"],
+  /**
+      * Trả về tổng số ngày trong năm âm lịch y
+      * @param lunar Year
+      * @return Number
+      * @eg:var count = calendar.lYearDays(1987) ;//count=387
+      */
+  lYearDays: function lYearDays(y) {
+    var i;
+    var sum = 348;
+    for (i = 0x8000; i > 0x8; i >>= 1) {
+      sum += this.lunarInfo[y - 1900] & i ? 1 : 0;
+    }
+    return sum + this.leapDays(y);
+  },
+  /**
+      * Trả về tháng nào là tháng nhuận trong năm y âm lịch; nếu không có tháng nhuận trong năm y, trả về0
+      * @param lunar Year
+      * @return Number (0-12)
+      * @eg:var leapMonth = calendar.leapMonth(1987) ;//leapMonth=6
+      */
+  leapMonth: function leapMonth(y) {
+    // mã hóa ký tự bước nhảy \u95f0
+    return this.lunarInfo[y - 1900] & 0xf;
+  },
+  /**
+      * Trả về số ngày trong tháng nhuận trong năm y âm lịch. Nếu trong năm không có tháng nhuận thì sẽ được trả về.0
+      * @param lunar Year
+      * @return Number (0、29、30)
+      * @eg:var leapMonthDay = calendar.leapDays(1987) ;//leapMonthDay=29
+      */
+  leapDays: function leapDays(y) {
+    if (this.leapMonth(y)) {
+      return this.lunarInfo[y - 1900] & 0x10000 ? 30 : 29;
+    }
+    return 0;
+  },
+  /**
+      * Trả về tổng số ngày trong tháng m (tháng không nhuận) của năm y theo âm lịch. Để tính số ngày mà m là tháng nhuận, hãy sử dụng phương pháp LeapDays.
+      * @param lunar Year
+      * @return Number (-1、29、30)
+      * @eg:var MonthDay = calendar.monthDays(1987,9) ;//MonthDay=29
+      */
+  monthDays: function monthDays(y, m) {
+    if (m > 12 || m < 1) {
+      return -1;
+    } // Tham số tháng nằm trong khoảng từ 1 đến 12 và trả về lỗi tham số.-1
+    return this.lunarInfo[y - 1900] & 0x10000 >> m ? 30 : 29;
+  },
+  /**
+      * Trở lại lịch Gregory(!)ySố ngày trong tháng m năm
+      * @param solar Year
+      * @return Number (-1、28、29、30、31)
+      * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
+      */
+  solarDays: function solarDays(y, m) {
+    if (m > 12 || m < 1) {
+      return -1;
+    } // Nếu tham số sai thì trả về-1
+    var ms = m - 1;
+    if (ms == 1) {
+      // 2Tính đều đặn của tháng nhuận được tính toán và xác nhận để trả về 28 hoặc29
+      return y % 4 == 0 && y % 100 != 0 || y % 400 == 0 ? 29 : 28;
+    } else {
+      return this.solarMonth[ms];
+    }
+  },
+  /**
+     * Chuyển đổi năm âm lịch sang năm gốc và năm nhánh
+     * @param lYear Số năm trong năm âm lịch
+     * @return Cn string
+     */
+  toGanZhiYear: function toGanZhiYear(lYear) {
+    var ganKey = (lYear - 3) % 10;
+    var zhiKey = (lYear - 3) % 12;
+    if (ganKey == 0) ganKey = 10; // Nếu số dư bằng 0 thì đó là cuống trời cuối cùng
+    if (zhiKey == 0) zhiKey = 12; // Nếu số dư bằng 0 thì đó là nhánh cuối cùng trên trái đất
+    return this.Gan[ganKey - 1] + this.Zhi[zhiKey - 1];
+  },
+  /**
+     * Xác định cung hoàng đạo theo tháng, ngày trong lịch Gregory
+     * @param  cMonth [description]
+     * @param  cDay [description]
+     * @return Cn string
+     */
+  toAstro: function toAstro(cMonth, cDay) {
+    var s = "\u9B54\u7FAF\u6C34\u74F6\u53CC\u9C7C\u767D\u7F8A\u91D1\u725B\u53CC\u5B50\u5DE8\u87F9\u72EE\u5B50\u5904\u5973\u5929\u79E4\u5929\u874E\u5C04\u624B\u9B54\u7FAF";
+    var arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
+    return s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2) + "\u5EA7"; // ghế
+  },
+
+  /**
+      * Truyền vào offset offset và trả về thân và nhánh
+      * @param offset offset so với Jiazi
+      * @return Cn string
+      */
+  toGanZhi: function toGanZhi(offset) {
+    return this.Gan[offset % 10] + this.Zhi[offset % 12];
+  },
+  /**
+      * Lịch Gregorian đến(!)yLấy ngày dương lịch của tiết khí thứ n trong năm
+      * @param y năm dương lịch(1900-2100)；nThuật ngữ mặt trời trong số 24 thuật ngữ mặt trời là gì?(1~24)；từn=1(Osamu)Đếm từ
+      * @return day Number
+      * @eg:var _24 = calendar.getTerm(1987,3) ;//_24=4;Nghĩa là ngày bắt đầu mùa xuân vào ngày 4 tháng 2 năm 1987
+      */
+  getTerm: function getTerm(y, n) {
+    if (y < 1900 || y > 2100) {
+      return -1;
+    }
+    if (n < 1 || n > 24) {
+      return -1;
+    }
+    var _table = this.sTermInfo[y - 1900];
+    var _info = [parseInt('0x' + _table.substr(0, 5)).toString(), parseInt('0x' + _table.substr(5, 5)).toString(), parseInt('0x' + _table.substr(10, 5)).toString(), parseInt('0x' + _table.substr(15, 5)).toString(), parseInt('0x' + _table.substr(20, 5)).toString(), parseInt('0x' + _table.substr(25, 5)).toString()];
+    var _calday = [_info[0].substr(0, 1), _info[0].substr(1, 2), _info[0].substr(3, 1), _info[0].substr(4, 2), _info[1].substr(0, 1), _info[1].substr(1, 2), _info[1].substr(3, 1), _info[1].substr(4, 2), _info[2].substr(0, 1), _info[2].substr(1, 2), _info[2].substr(3, 1), _info[2].substr(4, 2), _info[3].substr(0, 1), _info[3].substr(1, 2), _info[3].substr(3, 1), _info[3].substr(4, 2), _info[4].substr(0, 1), _info[4].substr(1, 2), _info[4].substr(3, 1), _info[4].substr(4, 2), _info[5].substr(0, 1), _info[5].substr(1, 2), _info[5].substr(3, 1), _info[5].substr(4, 2)];
+    return parseInt(_calday[n - 1]);
+  },
+  /**
+      * Tháng Giêng âm lịch đi qua sẽ trả về đại biểu bình dân của người Hoa.
+      * @param lunar month
+      * @return Cn string
+      * @eg:var cnMonth = calendar.toChinaMonth(12) ;//cnMonth='tháng mười hai âm lịch'
+      */
+  toChinaMonth: function toChinaMonth(m) {
+    // mặt trăng => \u6708
+    if (m > 12 || m < 1) {
+      return -1;
+    } // Nếu tham số sai thì trả về-1
+    var s = this.nStr3[m - 1];
+    s += "\u6708"; // Thêm từ "tháng"
+    return s;
+  },
+  /**
+      * Nhập số ngày âm và trả về cách biểu diễn ký tự tiếng Trung
+      * @param lunar day
+      * @return Cn string
+      * @eg:var cnDay = calendar.toChinaDay(21) ;//cnMonth='Hai mươi mốt'
+      */
+  toChinaDay: function toChinaDay(d) {
+    // ngày => \u65e5
+    var s;
+    switch (d) {
+      case 10:
+        s = "\u521D\u5341";
+        break;
+      case 20:
+        s = "\u4E8C\u5341";
+        break;
+        break;
+      case 30:
+        s = "\u4E09\u5341";
+        break;
+        break;
+      default:
+        s = this.nStr2[Math.floor(d / 10)];
+        s += this.nStr1[d % 10];
+    }
+    return s;
+  },
+  /**
+      * năm theo cung hoàng đạo[!Chỉ có thể chuyển đổi đại khái] => Đường phân chia chính xác giữa các cung hoàng đạo là“đầu mùa xuân”
+      * @param y year
+      * @return Cn string
+      * @eg:var animal = calendar.getAnimal(1987) ;//animal='con thỏ'
+      */
+  getAnimal: function getAnimal(y) {
+    return this.Animals[(y - 4) % 12];
+  },
+  /**
+      * Vượt qua năm, tháng và ngày theo lịch Gregory để có được thông tin chi tiết về đối tượng lịch Gregorian và lịch âm. <=>JSON
+      * @param y  solar year
+      * @param m  solar month
+      * @param d  solar day
+      * @return JSON object
+      * @eg:console.log(calendar.solar2lunar(1987,11,01));
+      */
+  solar2lunar: function solar2lunar(y, m, d) {
+    // khoảng tham số1900.1.31~2100.12.31
+    // Giới hạn năm, giới hạn trên
+    if (y < 1900 || y > 2100) {
+      return -1; // undefinedViệc chuyển đổi sang số trở thànhNaN
+    }
+    // Giới hạn tối thiểu để truyền tham số trong lịch Gregorian
+    if (y == 1900 && m == 1 && d < 31) {
+      return -1;
+    }
+    // Không có tham số nào được thông qua và nhận được trong cùng ngày
+    if (!y) {
+      var objDate = new Date();
+    } else {
+      var objDate = new Date(y, parseInt(m) - 1, d);
+    }
+    var i;
+    var leap = 0;
+    var temp = 0;
+    // Đúng thông số ymd
+    var y = objDate.getFullYear();
+    var m = objDate.getMonth() + 1;
+    var d = objDate.getDate();
+    var offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900, 0, 31)) / 86400000;
+    for (i = 1900; i < 2101 && offset > 0; i++) {
+      temp = this.lYearDays(i);
+      offset -= temp;
+    }
+    if (offset < 0) {
+      offset += temp;
+      i--;
+    }
+
+    // liệu hôm nay
+    var isTodayObj = new Date();
+    var isToday = false;
+    if (isTodayObj.getFullYear() == y && isTodayObj.getMonth() + 1 == m && isTodayObj.getDate() == d) {
+      isToday = true;
+    }
+    // ngày trong tuần
+    var nWeek = objDate.getDay();
+    var cWeek = this.nStr1[nWeek];
+    // Con số chỉ thứ trong tuần theo phong tục bắt đầu vào thứ Hai ở Trung Quốc
+    if (nWeek == 0) {
+      nWeek = 7;
+    }
+    // năm âm lịch
+    var year = i;
+    var leap = this.leapMonth(i); // Tháng nào là tháng nhuận?
+    var isLeap = false;
+
+    // Tháng nhuận hiệu quả
+    for (i = 1; i < 13 && offset > 0; i++) {
+      // tháng nhuận
+      if (leap > 0 && i == leap + 1 && isLeap == false) {
+        --i;
+        isLeap = true;
+        temp = this.leapDays(year); // Tính số ngày trong tháng nhuận theo âm lịch
+      } else {
+        temp = this.monthDays(year, i); // Tính số ngày trong các tháng bình thường của âm lịch
+      }
+      // Loại bỏ tháng nhuận
+      if (isLeap == true && i == leap + 1) {
+        isLeap = false;
+      }
+      offset -= temp;
+    }
+    // Tháng nhuận khiến chỉ số mảng trùng nhau và bị phủ định
+    if (offset == 0 && leap > 0 && i == leap + 1) {
+      if (isLeap) {
+        isLeap = false;
+      } else {
+        isLeap = true;
+        --i;
+      }
+    }
+    if (offset < 0) {
+      offset += temp;
+      --i;
+    }
+    // tháng âm lịch
+    var month = i;
+    // ngày âm lịch
+    var day = offset + 1;
+    // Xử lý Cành Thiên Đường và Cành Đất
+    var sm = m - 1;
+    var gzY = this.toGanZhiYear(year);
+
+    // Hai tiết khí trong tháng
+    // bugfix-2017-7-24 11:03:38 use lunar Year Param `y` Not `year`
+    var firstNode = this.getTerm(y, m * 2 - 1); // Trở về tháng hiện tại「Lễ hội」Bắt đầu bao nhiêu ngày
+    var secondNode = this.getTerm(y, m * 2); // Trở về tháng hiện tại「Lễ hội」Bắt đầu bao nhiêu ngày
+
+    // Chỉnh sửa thân, cành theo 12 tiết khí
+    var gzM = this.toGanZhi((y - 1900) * 12 + m + 11);
+    if (d >= firstNode) {
+      gzM = this.toGanZhi((y - 1900) * 12 + m + 12);
+    }
+
+    // Ngày đến có dương lịch hay không
+    var isTerm = false;
+    var Term = null;
+    if (firstNode == d) {
+      isTerm = true;
+      Term = this.solarTerm[m * 2 - 2];
+    }
+    if (secondNode == d) {
+      isTerm = true;
+      Term = this.solarTerm[m * 2 - 1];
+    }
+    // Số ngày từ ngày đầu tiên của tháng hiện tại đến ngày 1/1/1900
+    var dayCyclical = Date.UTC(y, sm, 1, 0, 0, 0, 0) / 86400000 + 25567 + 10;
+    var gzD = this.toGanZhi(dayCyclical + d - 1);
+    // Cung hoàng đạo thuộc về ngày này
+    var astro = this.toAstro(m, d);
+    return {
+      'lYear': year,
+      'lMonth': month,
+      'lDay': day,
+      'Animal': this.getAnimal(year),
+      'IMonthCn': (isLeap ? "\u95F0" : '') + this.toChinaMonth(month),
+      'IDayCn': this.toChinaDay(day),
+      'cYear': y,
+      'cMonth': m,
+      'cDay': d,
+      'gzYear': gzY,
+      'gzMonth': gzM,
+      'gzDay': gzD,
+      'isToday': isToday,
+      'isLeap': isLeap,
+      'nWeek': nWeek,
+      'ncWeek': "\u661F\u671F" + cWeek,
+      'isTerm': isTerm,
+      'Term': Term,
+      'astro': astro
+    };
+  },
+  /**
+      * Nhập năm, tháng, ngày âm lịch và liệu tháng tới có phải là tháng nhuận hay không để có được thông tin chi tiết về đối tượng lịch Gregory và lịch âm <=>JSON
+      * @param y  lunar year
+      * @param m  lunar month
+      * @param d  lunar day
+      * @param isLeapMonth  lunar month is leap or not.[Nếu là tháng nhuận theo âm lịch thì tham số thứ tư có thể được gán đúng]
+      * @return JSON object
+      * @eg:console.log(calendar.lunar2solar(1987,9,10));
+      */
+  lunar2solar: function lunar2solar(y, m, d, isLeapMonth) {
+    // khoảng tham số1900.1.31~2100.12.1
+    var isLeapMonth = !!isLeapMonth;
+    var leapOffset = 0;
+    var leapMonth = this.leapMonth(y);
+    var leapDay = this.leapDays(y);
+    if (isLeapMonth && leapMonth != m) {
+      return -1;
+    } // Tháng nhuận trong lịch Gregory bắt buộc phải tính khi tham số được truyền vào, tuy nhiên tháng nhuận thu được trong năm đó khác với tháng của tham số được truyền vào.
+    if (y == 2100 && m == 12 && d > 1 || y == 1900 && m == 1 && d < 31) {
+      return -1;
+    } // Đã vượt quá giới hạn tối đa
+    var day = this.monthDays(y, m);
+    var _day = day;
+    // bugFix 2016-9-25
+    // if month is leap, _day use leapDays method
+    if (isLeapMonth) {
+      _day = this.leapDays(y, m);
+    }
+    if (y < 1900 || y > 2100 || d > _day) {
+      return -1;
+    } // Xác minh tính hợp pháp của thông số
+
+    // Tính chênh lệch thời gian của âm lịch
+    var offset = 0;
+    for (var i = 1900; i < y; i++) {
+      offset += this.lYearDays(i);
+    }
+    var leap = 0;
+    var isAdd = false;
+    for (var i = 1; i < m; i++) {
+      leap = this.leapMonth(y);
+      if (!isAdd) {
+        // Xử lý tháng nhuận
+        if (leap <= i && leap > 0) {
+          offset += this.leapDays(y);
+          isAdd = true;
+        }
+      }
+      offset += this.monthDays(y, i);
+    }
+    // Để chuyển tháng nhuận sang âm lịch cần phải cộng thêm chênh lệch thời gian của tháng trước tháng nhuận trong năm.
+    if (isLeapMonth) {
+      offset += day;
+    }
+    // 1900Giờ Gregory vào ngày đầu tiên của tháng giêng âm lịch hàng năm là 0h00h ngày 30/1/1900(Thời điểm này cũng là thời điểm bắt đầu của âm lịch này.)
+    var stmap = Date.UTC(1900, 1, 30, 0, 0, 0);
+    var calObj = new Date((offset + d - 31) * 86400000 + stmap);
+    var cY = calObj.getUTCFullYear();
+    var cM = calObj.getUTCMonth() + 1;
+    var cD = calObj.getUTCDate();
+    return this.solar2lunar(cY, cM, cD);
+  }
+};
+var _default = calendar;
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1582:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer1-1.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAABRCAYAAACqj0o2AAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAARpSURBVHic7Zwxb9tGFMf/TycDGTJorKwCobdsuVDyHHnrlgbo0E61P0HrT5DkE8T9Bu7eIZk6WtkKGBT4DUwDgbyqQEaeXgdTgERTwR35ZFPu+wEeeOI93v1Mijzq3gGKoiiKorQLkgp0eHhoF4vFKyKKmNkC6DFzj4giqWPUhZkzACCiFMAcQNrpdD5fXl6mEvEbSbTWRp1OZ0xEbwFEEg26Twq5fy4Wi7M0Ted149SWGMfx8a7Kq2AO4CRJko91Kps6lUaj0TsAHwD06tRvIU8A/DwYDGg2m01CKwefiXEc/05EHzx3nzNz7ctEEt/vZmY+nU6nZ0GxQ3a21vaMMVeoPgMzIvoI4FOe51mapllI7PvAWhsZYywRvWLmY2zoh3PuKKT9QRLjOH5XfA+uUee/1wa+cVWdJ0ly4hun47ujtbZHRL+Vy3dVIABMp9MzZj6t+GgcEsdbYrfbtbh7+k92VeCSov1ZqTgajUZj3xjeEgG8riir9UjQNpj5fUVxVX8r8ZbIzFG5zDn3ybd+mzHG3Bm5FKMuL0Ik3gnaxjtwHTYM/7yfgb0llp+zluPRx0JFf+TPxDJEVD7oTtOkP14SrbVR3QPsMr79rn0m4nbQrkAlrpLVrdhEolKgEgVQiQKoRAFUogAqUQCVKIBKFEAlCqASBVCJAqhEAVSiACpRAJUogEoUQCUKoBIF6Dao+8NwOLwQa8nD87xuxSYSvyv+/vd4Xc7dbvfpthvSRnz77SUxz/OvzZqzm/j2W28sAnjPlB0Oh1wq+sc594twex4MY8zfKN1ckiTx8hNyY5ljfabU88cyKwwA4jh+QrTmzHtyQsjlnJW2e9baR5GCUUyljlbLQrIemkhcTkHeear6QUQT3/ohEu8EZeZfA+q3maqpxd55f94SO53O54ri8a5Pu7PW9oqcljU29LcSb4nFlNysVBwZY+7ktewSxpiq9LpJSAZqUG5fv9//l4h+LBXb/f398WAwuJ7NZllIvIdkNBqN+/3+BSpyVpj5/c3NjbfE4Ny+4XB4hc2ZpXPcpmWkAOZEdB0av0yRM914LiQzP2PmAyJ6gdv52NGGXSdJkhyFxA5+AeGcOzLGXGxoRA/A8XKDufx8Xg+pOKXnwCrmzjnvdLQlwcO+NE0z59wbNJhZ2lIy59zLOgOIWmPnNE1T59xLAOd16reQ89DM0lUarwFRLGFwTESvEZD70QJSIprkef5H0+Gr2EIawO0z197eXrRYLF4w8wEAENGzOrGY+Scierqy/ZWI/qoZ67poyxURXed5njZZ86GMqERJ4ji+Wh3PMnM2nU4PHq5Fm9H3iQKoRAFUogAqUQCVKIBKFEAlCqASBVCJAmx9xGKttcaYtyGrewAAEX2P9Vd1OTN/CYyROedOtv3T7lYlFmtzbXr3eF/MnXMHkmPlMlu9nI0x33qDfF/0jDHjbR5gqxKdc5NtxvfFOSey7OkmtiqxuITeIOA3XEmYOWPm08c03UVRFEVRFB/+A3ajg3uUksENAAAAAElFTkSuQmCC"
+
+/***/ }),
+
+/***/ 1583:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer1-2.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAABRCAYAAACqj0o2AAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAATASURBVHic7ZxPaxtHGId/77uy0kAFgpxiCl1fXEeXKvjWS+17Qgj00lt86bVJewuNvU1Kb6YpPYUempxyKbT0C1T+AAVBwU5zsQLFvgpscCut5teDbWKvVu7MamSvzDz4otHOOzOP949mmHeBQCAQCAQC5UJ8BWokvSZN9LGKiY1BUwR1gnWBxL7aKArBDgCIaBtAl5S26GBjM6m2fcQfS+JCchDrIFqC6BrA2EeHzhOCHQFfVLX6tJ1It2icwhIbj3r3plVeDl0as7L1zZVfi1TWIpUaq/0EIj9dEoEAUBfVXxqr/aRIZecz8caj3n0R+c7y8D0Ce65tTAIBZm2OI/lg60n1qWNse5oJ6z2TbgOo54TaIcwGiRaoOxCz6xL7XKBeh/IDARcFcgtAbfgg6RjtL79KrnZsw1Zc+tAzvfuA5gjEuqF5+bYfxiXs+SFmF8QugRbBdRX5FMCXpw9irJxZA7BiG9b6nthMWAf085yv1g35Mqe89Bz1e33oC2LJJY61xH/StInMZUzwj2kVeMxh/2XndCnjha/6S7YxrCVGEe5kywTSsq1fbgY/ZkvyxjsKa4mExNkyYy6HRIPor6Eyg6ZtfXuJNMNBy/gELgLN62yRSN4vkHysJWbnwAR2cg+cUnLG4/9MzOFynIVvKTweK4kLyUFctIFpxnbcxc9ElmM6VwYKSxS5XBJljHv8OPfEwBFBogeCRA8EiR4IEj0QJHogSPRAkOiBINEDQaIHgkQPBIkeCBI9ECR6IEj0QJDogSDRA0GiB5w2NJ2C+EhEnnnsy8VCxEW3vBaXKLgmwLXC9cvGGBuvrS5ngb5bvInpxXbcVhIJsz9ed6YT23GHB4sHrO8EjdU+T34m8CeNPPTfpYtB1PyQ3W+0+XjGyo/Lg6WLE5s8BYh5WXaFAQCkmimwzmtxuZw7mc81cJCzcXwK4aCWzS4gOAGJIp3hsmjeun6ZyRmHiLZsqzts8hzeFauit2zrlxmR4Y3upFjn/dlv8tTBRk7xIiK9bhujlHBQO8ppOcWI8eZiLfEwIzN7SXNWDT+zjVFGVCtfIJMURKLlkoHq9juR5uuc0tsieAZg0SnWxbOoor8BuJ39QsAXLoGcZ4yN1XT7jMTIPQAtAK8NzD6YzQ8pgEgN5Ph7IYWzSrlOyLyIzAPMzfUj0dp6MrPsEtp5AcJof1nNzO8jRNZw9J9VqL+UdPERSI7/AHDUQV1GqXU62jHO075XydUOUnN3+P447UjHaHrTJTHymEJz581vq+2qRjch8rxI/dIh8tw1s/RU9XHbX0gOYjV6D9A7cMj9KAFtEbQGkn5fVN4x3l6kARzlQ6MfG6MfKgZzhy1E7xcKRn4C4OR63j5Efi4Wa/AGAAyibRi+eadSaY/zzocsXiX65MZqb/vkqgrBztbj6tyFdegMwnqiB4JEDwSJHggSPRAkeiBI9ECQ6IEg0QNBogcmPmNpPOw1MaNruS/iOAOBvIfTS3Upwb+dGqd0GKUr486N/4+JSjxcnBi59nhedKtamfM5V84y0ctZUm2W4PWA9X/T3tIkG5ioxCuVamuS8W1hxXh57ekoJiqxnUiXxtwFMNFBjIJgh+SDSd8TA4FAIBAIlI3/APwMc6Z2jWRZAAAAAElFTkSuQmCC"
+
+/***/ }),
+
+/***/ 1584:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer2-1.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,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"
+
+/***/ }),
+
+/***/ 1585:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer2-2.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,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"
+
+/***/ }),
+
+/***/ 1586:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer3-1.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,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"
+
+/***/ }),
+
+/***/ 1587:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer3-2.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,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"
+
+/***/ }),
+
+/***/ 1588:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer4-1.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAABRCAYAAACqj0o2AAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAAbMSURBVHic7Zwxc9tGEIXfHqiZpDJTcSh6JvAvyBmEZ9KZ6tzZ7tyZ7tJJKlNFqlxK6tJZrpxUtrp0obrMWCDhLp3hhkJnunOBw6bQMUOBIAWQOIDy4GtsHYjd48PhDtjbJVBTU1NTU1OzWVDVHZjFdd1eHMc9IvoJgM3MTSKymTkgogDARP97dnFxMaiyr7NULqKU0m40GrvM3AfQzHFqAGCglDr0fT8w0besVCailLIphNgjol3kEy+N0yrFrERE13V7zPwW64s3SwBg3/O8dwXazIRVtkPHcfYAvAHwXYaPT5g5JCJk+HwTwLNOp0Pj8XiwVidzUupIdF33gJl/W/KRATOfCyEGaQvHgwcPZBzHDwH0AchFRojo8OLi4mDd/malNBFvEHCgv/ggq71ut/sEwBEAO+04M+8Ph8Pj3B1dgVJE1F/4bWoH1hw1yy4OEe2U8ShkXEQppW1Z1t+YHzETAC+KWAj0RXqF+YVqopS65/v+ZF0fyxAmjQNAo9HoI/2WK0RAANB2XqQcagoh9orwsQyjq7OU0iaiuduYiA49z/u9SF+Xl5f/djodAtBL+JKtVuvPMAyNjUajI9GyrLS5KjC1cmq7g0Rzs9Fo7JrwN8X07dxLNjDzoUmHRDRnP47jJ0Z9mjKsn+lGiWbf87z7pnxO6Xa7IySeI02u1MZGolJq7uoT0cCUv1mY+SzZFsdxz5Q/YyLqcFaSuS9nAiHEINlGRD8a82fKMFKCC1EU+Qb93eTHNuWvVBFNP/Qm/Fzzxcy2KX/GRGTmZuLvwJSvBf5LuWBACW8sU4jILstXmj8iun0P23ov5BpSyiKDsAtZ4Of2iYirSPM1Go3GwhhgkSzwE5jyZ3JO/JTS/NiUvwx+jD0ZGBMxjuPTlDajr19TmHnOjxDi3JQ/YyL6vh8kV2Qisl3X7ZnyCQCO4/Qx/0wYvH///vaNRM3rZAMzvzLpkIjmIkdEZHQH0KiIcRwfY35VtF3XPTDhT9u1E81BFEUnJvxNMRqUDcPwa7vd/p6IeolDvXa7/eXy8vKfonzprdiXyXYiOhkOh0ZHovF951ar5QshniHxGkhEj4oS0nGcPSI6SjkUeJ73dF37N2FcxDAMv7ZarXMhxC/JY0T0aJ3Ndill8+7duy8BHKQdV0rthGEYrmI7D6VkQIRhGLbb7S9E9CjlcG97e7uvR2XmFdRxnL4Q4g2ANJtg5v3RaFRKSsmmZUAEuNrIfx1FUTCboKSzx2wAj2/KIPtmMyCmLJm/FjFB9sSnCTMflpX5MKWSrDAppbQs6y2KDZQGSqmnvu+XEvidpdIkT317P8d6Yk6Y+SSO4+Oygr5JNilTtoclmV4p+Mx8VqV4UyoXcRYppS2E6BHRQ+jRycy2DqgGuJoffaXUWdUpxjU1NTU16WzUwgL8v8nU3Nraaia3XZNvMZtCpSLqLNqHRCSZWeqV2M5w6gSAT0Q+M58rpfwqxS1dxJnSs8fI91x4Ez4RDaIoOilb0FJE1NVTT4joOVJyFg0wYObXw+HwtARf5kV0HOegoNKzVQh0QOLUpBNjIurSs1fI9148fTMJ9P/BzJ+EEHf0ItPU9mzkL6Y0VrJWuIhSyqZlWUe4qnpaCjMHQoh3zOwrpc7zzGV6UZK42qjvIdvFOlVK7Rf9rl2oiBlDXBMiOkXBNcs6vXkXNwsaKKV2ilx8ChNxSUHOlNJCVo7j9PX+s72oLyiwjqYQEXWnF23KVxbvu2k7gplfFLHorC3iDQL6OtocrOtnVZaUxQEoRsi1RNRzYLLM4sow0XEURYdVB0ynuK57xMypJWpKqfvrbCusLOKyK1z2bltWltzegRZypQu+ci6OLjmzk+2bKiBwVbaWVnEFwNZPFSux0ua9ngcPku2bLOCU8Xg86HQ6TQA/Jw7ZnU7nfDweB3ltrnQ7d7vdj0jJvvI8794q9qogrXQNK97WuW/nBUmUUErt5LVVJUqpp0hJ+7Ms63leW7lFXJBEWfkP/ORFZ/Km5S3289rKJaJOFbYTzZMoik7zOt4EFiShyrwp0XlHYlpW/rvbNgqn+L4/WTAac1U55BJRZylcg4jm8rJvE2kVqXmrHDKvzjrE9TnRfKtW5EV0u93PSAROlFI/ZF2lM4/EBVVKpWdgGWKQbNja2rKznpxZxOT2pW77kPX8TSbte8RxnFb0nkqeOfFOsoGIPuY4f2NZ93vkETEt2PplHeebDDNnnuszi0hEc0NeKfVNzIlKqbnfpkhbtReROQAxHo8D/QtIkplDAIej0eivrOdvMmEYft3e3v4AHZRg5l89z/uj4m7V1NTU1NTUrMx/qe8i2jEyVOAAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1589:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/static/footer4-2.png ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,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"
+
+/***/ }),
+
+/***/ 925:
+/*!********************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/admin/components/ucharts/ucharts.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni, module) {
+
+var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
+var config = {
+  yAxisWidth: 15,
+  yAxisSplit: 5,
+  xAxisHeight: 15,
+  xAxisLineHeight: 15,
+  legendHeight: 15,
+  yAxisTitleWidth: 15,
+  padding: [10, 10, 10, 10],
+  pixelRatio: 1,
+  rotate: false,
+  columePadding: 3,
+  fontSize: 13,
+  //dataPointShape: ['diamond', 'circle', 'triangle', 'rect'],
+  dataPointShape: ['circle', 'circle', 'circle', 'circle'],
+  colors: ['#1890ff', '#2fc25b', '#facc14', '#f04864', '#8543e0', '#90ed7d'],
+  pieChartLinePadding: 15,
+  pieChartTextPadding: 5,
+  xAxisTextPadding: 3,
+  titleColor: '#333333',
+  titleFontSize: 20,
+  subtitleColor: '#999999',
+  subtitleFontSize: 15,
+  toolTipPadding: 3,
+  toolTipBackground: '#000000',
+  toolTipOpacity: 0.7,
+  toolTipLineHeight: 20,
+  radarLabelTextMargin: 15,
+  gaugeLabelTextMargin: 15
+};
+var assign = function assign(target) {
+  for (var _len2 = arguments.length, varArgs = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+    varArgs[_key2 - 1] = arguments[_key2];
+  }
+  if (target == null) {
+    throw new TypeError('Cannot convert undefined or null to object');
+  }
+  if (!varArgs || varArgs.length <= 0) {
+    return target;
+  }
+  // Các đối tượng hợp nhất sâu
+  function deepAssign(obj1, obj2) {
+    for (var key in obj2) {
+      obj1[key] = obj1[key] && obj1[key].toString() === "[object Object]" ? deepAssign(obj1[key], obj2[key]) : obj1[key] = obj2[key];
+    }
+    return obj1;
+  }
+  varArgs.forEach(function (val) {
+    target = deepAssign(target, val);
+  });
+  return target;
+};
+var util = {
+  toFixed: function toFixed(num, limit) {
+    limit = limit || 2;
+    if (this.isFloat(num)) {
+      num = num.toFixed(limit);
+    }
+    return num;
+  },
+  isFloat: function isFloat(num) {
+    return num % 1 !== 0;
+  },
+  approximatelyEqual: function approximatelyEqual(num1, num2) {
+    return Math.abs(num1 - num2) < 1e-10;
+  },
+  isSameSign: function isSameSign(num1, num2) {
+    return Math.abs(num1) === num1 && Math.abs(num2) === num2 || Math.abs(num1) !== num1 && Math.abs(num2) !== num2;
+  },
+  isSameXCoordinateArea: function isSameXCoordinateArea(p1, p2) {
+    return this.isSameSign(p1.x, p2.x);
+  },
+  isCollision: function isCollision(obj1, obj2) {
+    obj1.end = {};
+    obj1.end.x = obj1.start.x + obj1.width;
+    obj1.end.y = obj1.start.y - obj1.height;
+    obj2.end = {};
+    obj2.end.x = obj2.start.x + obj2.width;
+    obj2.end.y = obj2.start.y - obj2.height;
+    var flag = obj2.start.x > obj1.end.x || obj2.end.x < obj1.start.x || obj2.end.y > obj1.start.y || obj2.start.y < obj1.end.y;
+    return !flag;
+  }
+};
+
+//Tương thích với các sự kiện nhấp chuột H5
+function getH5Offset(e) {
+  e.mp = {
+    changedTouches: []
+  };
+  e.mp.changedTouches.push({
+    x: e.offsetX,
+    y: e.offsetY
+  });
+  return e;
+}
+
+// hex thay đổi rgba
+function hexToRgb(hexValue, opc) {
+  var rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  var hex = hexValue.replace(rgx, function (m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+  var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  var r = parseInt(rgb[1], 16);
+  var g = parseInt(rgb[2], 16);
+  var b = parseInt(rgb[3], 16);
+  return 'rgba(' + r + ',' + g + ',' + b + ',' + opc + ')';
+}
+function findRange(num, type, limit) {
+  if (isNaN(num)) {
+    throw new Error('[uCharts] unvalid series data!');
+  }
+  limit = limit || 10;
+  type = type ? type : 'upper';
+  var multiple = 1;
+  while (limit < 1) {
+    limit *= 10;
+    multiple *= 10;
+  }
+  if (type === 'upper') {
+    num = Math.ceil(num * multiple);
+  } else {
+    num = Math.floor(num * multiple);
+  }
+  while (num % limit !== 0) {
+    if (type === 'upper') {
+      num++;
+    } else {
+      num--;
+    }
+  }
+  return num / multiple;
+}
+function calCandleMA(dayArr, nameArr, colorArr, kdata) {
+  var seriesTemp = [];
+  for (var k = 0; k < dayArr.length; k++) {
+    var seriesItem = {
+      data: [],
+      name: nameArr[k],
+      color: colorArr[k]
+    };
+    for (var i = 0, len = kdata.length; i < len; i++) {
+      if (i < dayArr[k]) {
+        seriesItem.data.push(null);
+        continue;
+      }
+      var sum = 0;
+      for (var j = 0; j < dayArr[k]; j++) {
+        sum += kdata[i - j][1];
+      }
+      seriesItem.data.push(+(sum / dayArr[k]).toFixed(3));
+    }
+    seriesTemp.push(seriesItem);
+  }
+  return seriesTemp;
+}
+function calValidDistance(self, distance, chartData, config, opts) {
+  var dataChartAreaWidth = opts.width - opts.area[1] - opts.area[3];
+  var dataChartWidth = chartData.eachSpacing * (opts.chartData.xAxisData.xAxisPoints.length - 1);
+  var validDistance = distance;
+  if (distance >= 0) {
+    validDistance = 0;
+    self.event.trigger('scrollLeft');
+  } else if (Math.abs(distance) >= dataChartWidth - dataChartAreaWidth) {
+    validDistance = dataChartAreaWidth - dataChartWidth;
+    self.event.trigger('scrollRight');
+  }
+  return validDistance;
+}
+function isInAngleRange(angle, startAngle, endAngle) {
+  function adjust(angle) {
+    while (angle < 0) {
+      angle += 2 * Math.PI;
+    }
+    while (angle > 2 * Math.PI) {
+      angle -= 2 * Math.PI;
+    }
+    return angle;
+  }
+  angle = adjust(angle);
+  startAngle = adjust(startAngle);
+  endAngle = adjust(endAngle);
+  if (startAngle > endAngle) {
+    endAngle += 2 * Math.PI;
+    if (angle < startAngle) {
+      angle += 2 * Math.PI;
+    }
+  }
+  return angle >= startAngle && angle <= endAngle;
+}
+function calRotateTranslate(x, y, h) {
+  var xv = x;
+  var yv = h - y;
+  var transX = xv + (h - yv - xv) / Math.sqrt(2);
+  transX *= -1;
+  var transY = (h - yv) * (Math.sqrt(2) - 1) - (h - yv - xv) / Math.sqrt(2);
+  return {
+    transX: transX,
+    transY: transY
+  };
+}
+function createCurveControlPoints(points, i) {
+  function isNotMiddlePoint(points, i) {
+    if (points[i - 1] && points[i + 1]) {
+      return points[i].y >= Math.max(points[i - 1].y, points[i + 1].y) || points[i].y <= Math.min(points[i - 1].y, points[i + 1].y);
+    } else {
+      return false;
+    }
+  }
+  function isNotMiddlePointX(points, i) {
+    if (points[i - 1] && points[i + 1]) {
+      return points[i].x >= Math.max(points[i - 1].x, points[i + 1].x) || points[i].x <= Math.min(points[i - 1].x, points[i + 1].x);
+    } else {
+      return false;
+    }
+  }
+  var a = 0.2;
+  var b = 0.2;
+  var pAx = null;
+  var pAy = null;
+  var pBx = null;
+  var pBy = null;
+  if (i < 1) {
+    pAx = points[0].x + (points[1].x - points[0].x) * a;
+    pAy = points[0].y + (points[1].y - points[0].y) * a;
+  } else {
+    pAx = points[i].x + (points[i + 1].x - points[i - 1].x) * a;
+    pAy = points[i].y + (points[i + 1].y - points[i - 1].y) * a;
+  }
+  if (i > points.length - 3) {
+    var last = points.length - 1;
+    pBx = points[last].x - (points[last].x - points[last - 1].x) * b;
+    pBy = points[last].y - (points[last].y - points[last - 1].y) * b;
+  } else {
+    pBx = points[i + 1].x - (points[i + 2].x - points[i].x) * b;
+    pBy = points[i + 1].y - (points[i + 2].y - points[i].y) * b;
+  }
+  if (isNotMiddlePoint(points, i + 1)) {
+    pBy = points[i + 1].y;
+  }
+  if (isNotMiddlePoint(points, i)) {
+    pAy = points[i].y;
+  }
+  if (isNotMiddlePointX(points, i + 1)) {
+    pBx = points[i + 1].x;
+  }
+  if (isNotMiddlePointX(points, i)) {
+    pAx = points[i].x;
+  }
+  if (pAy >= Math.max(points[i].y, points[i + 1].y) || pAy <= Math.min(points[i].y, points[i + 1].y)) {
+    pAy = points[i].y;
+  }
+  if (pBy >= Math.max(points[i].y, points[i + 1].y) || pBy <= Math.min(points[i].y, points[i + 1].y)) {
+    pBy = points[i + 1].y;
+  }
+  if (pAx >= Math.max(points[i].x, points[i + 1].x) || pAx <= Math.min(points[i].x, points[i + 1].x)) {
+    pAx = points[i].x;
+  }
+  if (pBx >= Math.max(points[i].x, points[i + 1].x) || pBx <= Math.min(points[i].x, points[i + 1].x)) {
+    pBx = points[i + 1].x;
+  }
+  return {
+    ctrA: {
+      x: pAx,
+      y: pAy
+    },
+    ctrB: {
+      x: pBx,
+      y: pBy
+    }
+  };
+}
+function convertCoordinateOrigin(x, y, center) {
+  return {
+    x: center.x + x,
+    y: center.y - y
+  };
+}
+function avoidCollision(obj, target) {
+  if (target) {
+    // is collision test
+    while (util.isCollision(obj, target)) {
+      if (obj.start.x > 0) {
+        obj.start.y--;
+      } else if (obj.start.x < 0) {
+        obj.start.y++;
+      } else {
+        if (obj.start.y > 0) {
+          obj.start.y++;
+        } else {
+          obj.start.y--;
+        }
+      }
+    }
+  }
+  return obj;
+}
+function fillSeries(series, opts, config) {
+  var index = 0;
+  return series.map(function (item) {
+    if (!item.color) {
+      item.color = config.colors[index];
+      index = (index + 1) % config.colors.length;
+    }
+    if (!item.index) {
+      item.index = 0;
+    }
+    if (!item.type) {
+      item.type = opts.type;
+    }
+    if (typeof item.show == "undefined") {
+      item.show = true;
+    }
+    if (!item.type) {
+      item.type = opts.type;
+    }
+    if (!item.pointShape) {
+      item.pointShape = "circle";
+    }
+    if (!item.legendShape) {
+      switch (item.type) {
+        case 'line':
+          item.legendShape = "line";
+          break;
+        case 'column':
+          item.legendShape = "rect";
+          break;
+        case 'area':
+          item.legendShape = "triangle";
+          break;
+        default:
+          item.legendShape = "circle";
+      }
+    }
+    return item;
+  });
+}
+function getDataRange(minData, maxData) {
+  var limit = 0;
+  var range = maxData - minData;
+  if (range >= 10000) {
+    limit = 1000;
+  } else if (range >= 1000) {
+    limit = 100;
+  } else if (range >= 100) {
+    limit = 10;
+  } else if (range >= 10) {
+    limit = 5;
+  } else if (range >= 1) {
+    limit = 1;
+  } else if (range >= 0.1) {
+    limit = 0.1;
+  } else if (range >= 0.01) {
+    limit = 0.01;
+  } else if (range >= 0.001) {
+    limit = 0.001;
+  } else if (range >= 0.0001) {
+    limit = 0.0001;
+  } else if (range >= 0.00001) {
+    limit = 0.00001;
+  } else {
+    limit = 0.000001;
+  }
+  return {
+    minRange: findRange(minData, 'lower', limit),
+    maxRange: findRange(maxData, 'upper', limit)
+  };
+}
+function measureText(text) {
+  var fontSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : config.fontSize;
+  text = String(text);
+  var text = text.split('');
+  var width = 0;
+  for (var i = 0; i < text.length; i++) {
+    var item = text[i];
+    if (/[a-zA-Z]/.test(item)) {
+      width += 7;
+    } else if (/[0-9]/.test(item)) {
+      width += 5.5;
+    } else if (/\./.test(item)) {
+      width += 2.7;
+    } else if (/-/.test(item)) {
+      width += 3.25;
+    } else if (/[\u4e00-\u9fa5]/.test(item)) {
+      width += 10;
+    } else if (/\(|\)/.test(item)) {
+      width += 3.73;
+    } else if (/\s/.test(item)) {
+      width += 2.5;
+    } else if (/%/.test(item)) {
+      width += 8;
+    } else {
+      width += 10;
+    }
+  }
+  return width * fontSize / 10;
+}
+function dataCombine(series) {
+  return series.reduce(function (a, b) {
+    return (a.data ? a.data : a).concat(b.data);
+  }, []);
+}
+function dataCombineStack(series, len) {
+  var sum = new Array(len);
+  for (var j = 0; j < sum.length; j++) {
+    sum[j] = 0;
+  }
+  for (var i = 0; i < series.length; i++) {
+    for (var j = 0; j < sum.length; j++) {
+      sum[j] += series[i].data[j];
+    }
+  }
+  return series.reduce(function (a, b) {
+    return (a.data ? a.data : a).concat(b.data).concat(sum);
+  }, []);
+}
+function getTouches(touches, opts, e) {
+  var x, y;
+  if (touches.clientX) {
+    if (opts.rotate) {
+      y = opts.height - touches.clientX * opts.pixelRatio;
+      x = (touches.pageY - e.currentTarget.offsetTop - opts.height / opts.pixelRatio / 2 * (opts.pixelRatio - 1)) * opts.pixelRatio;
+    } else {
+      x = touches.clientX * opts.pixelRatio;
+      y = (touches.pageY - e.currentTarget.offsetTop - opts.height / opts.pixelRatio / 2 * (opts.pixelRatio - 1)) * opts.pixelRatio;
+    }
+  } else {
+    if (opts.rotate) {
+      y = opts.height - touches.x * opts.pixelRatio;
+      x = touches.y * opts.pixelRatio;
+    } else {
+      x = touches.x * opts.pixelRatio;
+      y = touches.y * opts.pixelRatio;
+    }
+  }
+  return {
+    x: x,
+    y: y
+  };
+}
+function getSeriesDataItem(series, index) {
+  var data = [];
+  for (var i = 0; i < series.length; i++) {
+    var item = series[i];
+    if (item.data[index] !== null && typeof item.data[index] !== 'undefined' && item.show) {
+      var seriesItem = {};
+      seriesItem.color = item.color;
+      seriesItem.type = item.type;
+      seriesItem.style = item.style;
+      seriesItem.pointShape = item.pointShape;
+      seriesItem.disableLegend = item.disableLegend;
+      seriesItem.name = item.name;
+      seriesItem.show = item.show;
+      seriesItem.data = item.format ? item.format(item.data[index]) : item.data[index];
+      data.push(seriesItem);
+    }
+  }
+  return data;
+}
+function getMaxTextListLength(list) {
+  var lengthList = list.map(function (item) {
+    return measureText(item);
+  });
+  return Math.max.apply(null, lengthList);
+}
+function getRadarCoordinateSeries(length) {
+  var eachAngle = 2 * Math.PI / length;
+  var CoordinateSeries = [];
+  for (var i = 0; i < length; i++) {
+    CoordinateSeries.push(eachAngle * i);
+  }
+  return CoordinateSeries.map(function (item) {
+    return -1 * item + Math.PI / 2;
+  });
+}
+function getToolTipData(seriesData, calPoints, index, categories) {
+  var option = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+  var textList = seriesData.map(function (item) {
+    var titleText = [];
+    if (categories) {
+      titleText = categories;
+    } else {
+      titleText = item.data;
+    }
+    return {
+      text: option.format ? option.format(item, titleText[index]) : item.name + ': ' + item.data,
+      color: item.color
+    };
+  });
+  var validCalPoints = [];
+  var offset = {
+    x: 0,
+    y: 0
+  };
+  for (var i = 0; i < calPoints.length; i++) {
+    var points = calPoints[i];
+    if (typeof points[index] !== 'undefined' && points[index] !== null) {
+      validCalPoints.push(points[index]);
+    }
+  }
+  for (var _i = 0; _i < validCalPoints.length; _i++) {
+    var item = validCalPoints[_i];
+    offset.x = Math.round(item.x);
+    offset.y += item.y;
+  }
+  offset.y /= validCalPoints.length;
+  return {
+    textList: textList,
+    offset: offset
+  };
+}
+function getMixToolTipData(seriesData, calPoints, index, categories) {
+  var option = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+  var textList = seriesData.map(function (item) {
+    return {
+      text: option.format ? option.format(item, categories[index]) : item.name + ': ' + item.data,
+      color: item.color,
+      disableLegend: item.disableLegend ? true : false
+    };
+  });
+  textList = textList.filter(function (item) {
+    if (item.disableLegend !== true) {
+      return item;
+    }
+  });
+  var validCalPoints = [];
+  var offset = {
+    x: 0,
+    y: 0
+  };
+  for (var i = 0; i < calPoints.length; i++) {
+    var points = calPoints[i];
+    if (typeof points[index] !== 'undefined' && points[index] !== null) {
+      validCalPoints.push(points[index]);
+    }
+  }
+  for (var _i2 = 0; _i2 < validCalPoints.length; _i2++) {
+    var item = validCalPoints[_i2];
+    offset.x = Math.round(item.x);
+    offset.y += item.y;
+  }
+  offset.y /= validCalPoints.length;
+  return {
+    textList: textList,
+    offset: offset
+  };
+}
+function getCandleToolTipData(series, seriesData, calPoints, index, categories, extra) {
+  var option = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : {};
+  var upColor = extra.color.upFill;
+  var downColor = extra.color.downFill;
+  //Thứ tự màu sắc là mở cửa, đóng cửa, thấp nhất, cao nhất
+  var color = [upColor, upColor, downColor, upColor];
+  var textList = [];
+  var text0 = {
+    text: categories[index],
+    color: null
+  };
+  textList.push(text0);
+  seriesData.map(function (item) {
+    if (index == 0 && item.data[1] - item.data[0] < 0) {
+      color[1] = downColor;
+    } else {
+      if (item.data[0] < series[index - 1][1]) {
+        color[0] = downColor;
+      }
+      if (item.data[1] < item.data[0]) {
+        color[1] = downColor;
+      }
+      if (item.data[2] > series[index - 1][1]) {
+        color[2] = upColor;
+      }
+      if (item.data[3] < series[index - 1][1]) {
+        color[3] = downColor;
+      }
+    }
+    var text1 = {
+      text: 'khai mạc：' + item.data[0],
+      color: color[0]
+    };
+    var text2 = {
+      text: 'đóng：' + item.data[1],
+      color: color[1]
+    };
+    var text3 = {
+      text: 'thấp nhất：' + item.data[2],
+      color: color[2]
+    };
+    var text4 = {
+      text: 'Cao nhất：' + item.data[3],
+      color: color[3]
+    };
+    textList.push(text1, text2, text3, text4);
+  });
+  var validCalPoints = [];
+  var offset = {
+    x: 0,
+    y: 0
+  };
+  for (var i = 0; i < calPoints.length; i++) {
+    var points = calPoints[i];
+    if (typeof points[index] !== 'undefined' && points[index] !== null) {
+      validCalPoints.push(points[index]);
+    }
+  }
+  offset.x = Math.round(validCalPoints[0][0].x);
+  return {
+    textList: textList,
+    offset: offset
+  };
+}
+function filterSeries(series) {
+  var tempSeries = [];
+  for (var i = 0; i < series.length; i++) {
+    if (series[i].show == true) {
+      tempSeries.push(series[i]);
+    }
+  }
+  return tempSeries;
+}
+function findCurrentIndex(currentPoints, calPoints, opts, config) {
+  var offset = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+  var currentIndex = -1;
+  var spacing = opts.chartData.eachSpacing / 2;
+  var xAxisPoints = [];
+  if (calPoints.length > 0) {
+    if (opts.type == 'candle') {
+      for (var i = 0; i < calPoints[0].length; i++) {
+        xAxisPoints.push(calPoints[0][i][0].x);
+      }
+    } else {
+      for (var _i3 = 0; _i3 < calPoints[0].length; _i3++) {
+        xAxisPoints.push(calPoints[0][_i3].x);
+      }
+    }
+    if ((opts.type == 'line' || opts.type == 'area') && opts.xAxis.boundaryGap == 'justify') {
+      spacing = opts.chartData.eachSpacing / 2;
+    }
+    if (!opts.categories) {
+      spacing = 0;
+    }
+    if (isInExactChartArea(currentPoints, opts, config)) {
+      xAxisPoints.forEach(function (item, index) {
+        if (currentPoints.x + offset + spacing > item) {
+          currentIndex = index;
+        }
+      });
+    }
+  }
+  return currentIndex;
+}
+function findLegendIndex(currentPoints, legendData, opts) {
+  var currentIndex = -1;
+  if (isInExactLegendArea(currentPoints, legendData.area)) {
+    var points = legendData.points;
+    var index = -1;
+    for (var i = 0, len = points.length; i < len; i++) {
+      var item = points[i];
+      for (var j = 0; j < item.length; j++) {
+        index += 1;
+        var area = item[j]['area'];
+        if (currentPoints.x > area[0] && currentPoints.x < area[2] && currentPoints.y > area[1] && currentPoints.y < area[3]) {
+          currentIndex = index;
+          break;
+        }
+      }
+    }
+    return currentIndex;
+  }
+  return currentIndex;
+}
+function isInExactLegendArea(currentPoints, area) {
+  return currentPoints.x > area.start.x && currentPoints.x < area.end.x && currentPoints.y > area.start.y && currentPoints.y < area.end.y;
+}
+function isInExactChartArea(currentPoints, opts, config) {
+  return currentPoints.x <= opts.width - opts.area[1] + 10 && currentPoints.x >= opts.area[3] - 10 && currentPoints.y >= opts.area[0] && currentPoints.y <= opts.height - opts.area[2];
+}
+function findRadarChartCurrentIndex(currentPoints, radarData, count) {
+  var eachAngleArea = 2 * Math.PI / count;
+  var currentIndex = -1;
+  if (isInExactPieChartArea(currentPoints, radarData.center, radarData.radius)) {
+    var fixAngle = function fixAngle(angle) {
+      if (angle < 0) {
+        angle += 2 * Math.PI;
+      }
+      if (angle > 2 * Math.PI) {
+        angle -= 2 * Math.PI;
+      }
+      return angle;
+    };
+    var angle = Math.atan2(radarData.center.y - currentPoints.y, currentPoints.x - radarData.center.x);
+    angle = -1 * angle;
+    if (angle < 0) {
+      angle += 2 * Math.PI;
+    }
+    var angleList = radarData.angleList.map(function (item) {
+      item = fixAngle(-1 * item);
+      return item;
+    });
+    angleList.forEach(function (item, index) {
+      var rangeStart = fixAngle(item - eachAngleArea / 2);
+      var rangeEnd = fixAngle(item + eachAngleArea / 2);
+      if (rangeEnd < rangeStart) {
+        rangeEnd += 2 * Math.PI;
+      }
+      if (angle >= rangeStart && angle <= rangeEnd || angle + 2 * Math.PI >= rangeStart && angle + 2 * Math.PI <= rangeEnd) {
+        currentIndex = index;
+      }
+    });
+  }
+  return currentIndex;
+}
+function findFunnelChartCurrentIndex(currentPoints, funnelData) {
+  var currentIndex = -1;
+  for (var i = 0, len = funnelData.series.length; i < len; i++) {
+    var item = funnelData.series[i];
+    if (currentPoints.x > item.funnelArea[0] && currentPoints.x < item.funnelArea[2] && currentPoints.y > item.funnelArea[1] && currentPoints.y < item.funnelArea[3]) {
+      currentIndex = i;
+      break;
+    }
+  }
+  return currentIndex;
+}
+function findWordChartCurrentIndex(currentPoints, wordData) {
+  var currentIndex = -1;
+  for (var i = 0, len = wordData.length; i < len; i++) {
+    var item = wordData[i];
+    if (currentPoints.x > item.area[0] && currentPoints.x < item.area[2] && currentPoints.y > item.area[1] && currentPoints.y < item.area[3]) {
+      currentIndex = i;
+      break;
+    }
+  }
+  return currentIndex;
+}
+function findMapChartCurrentIndex(currentPoints, opts) {
+  var currentIndex = -1;
+  var cData = opts.chartData.mapData;
+  var data = opts.series;
+  var tmp = pointToCoordinate(currentPoints.y, currentPoints.x, cData.bounds, cData.scale, cData.xoffset, cData.yoffset);
+  var poi = [tmp.x, tmp.y];
+  for (var i = 0, len = data.length; i < len; i++) {
+    var item = data[i].geometry.coordinates;
+    if (isPoiWithinPoly(poi, item)) {
+      currentIndex = i;
+      break;
+    }
+  }
+  return currentIndex;
+}
+function findPieChartCurrentIndex(currentPoints, pieData) {
+  var currentIndex = -1;
+  if (isInExactPieChartArea(currentPoints, pieData.center, pieData.radius)) {
+    var angle = Math.atan2(pieData.center.y - currentPoints.y, currentPoints.x - pieData.center.x);
+    angle = -angle;
+    for (var i = 0, len = pieData.series.length; i < len; i++) {
+      var item = pieData.series[i];
+      if (isInAngleRange(angle, item._start_, item._start_ + item._proportion_ * 2 * Math.PI)) {
+        currentIndex = i;
+        break;
+      }
+    }
+  }
+  return currentIndex;
+}
+function isInExactPieChartArea(currentPoints, center, radius) {
+  return Math.pow(currentPoints.x - center.x, 2) + Math.pow(currentPoints.y - center.y, 2) <= Math.pow(radius, 2);
+}
+function splitPoints(points) {
+  var newPoints = [];
+  var items = [];
+  points.forEach(function (item, index) {
+    if (item !== null) {
+      items.push(item);
+    } else {
+      if (items.length) {
+        newPoints.push(items);
+      }
+      items = [];
+    }
+  });
+  if (items.length) {
+    newPoints.push(items);
+  }
+  return newPoints;
+}
+function calLegendData(series, opts, config, chartData) {
+  var legendData = {
+    area: {
+      start: {
+        x: 0,
+        y: 0
+      },
+      end: {
+        x: 0,
+        y: 0
+      },
+      width: 0,
+      height: 0,
+      wholeWidth: 0,
+      wholeHeight: 0
+    },
+    points: [],
+    widthArr: [],
+    heightArr: []
+  };
+  if (opts.legend.show === false) {
+    chartData.legendData = legendData;
+    return legendData;
+  }
+  var padding = opts.legend.padding;
+  var margin = opts.legend.margin;
+  var fontSize = opts.legend.fontSize;
+  var shapeWidth = 15 * opts.pixelRatio;
+  var shapeRight = 5 * opts.pixelRatio;
+  var lineHeight = Math.max(opts.legend.lineHeight * opts.pixelRatio, fontSize);
+  if (opts.legend.position == 'top' || opts.legend.position == 'bottom') {
+    var legendList = [];
+    var widthCount = 0;
+    var widthCountArr = [];
+    var currentRow = [];
+    for (var i = 0; i < series.length; i++) {
+      var item = series[i];
+      var itemWidth = shapeWidth + shapeRight + measureText(item.name || 'undefined', fontSize) + opts.legend.itemGap;
+      if (widthCount + itemWidth > opts.width - opts.padding[1] - opts.padding[3]) {
+        legendList.push(currentRow);
+        widthCountArr.push(widthCount - opts.legend.itemGap);
+        widthCount = itemWidth;
+        currentRow = [item];
+      } else {
+        widthCount += itemWidth;
+        currentRow.push(item);
+      }
+    }
+    if (currentRow.length) {
+      legendList.push(currentRow);
+      widthCountArr.push(widthCount - opts.legend.itemGap);
+      legendData.widthArr = widthCountArr;
+      var legendWidth = Math.max.apply(null, widthCountArr);
+      switch (opts.legend.float) {
+        case 'left':
+          legendData.area.start.x = opts.padding[3];
+          legendData.area.end.x = opts.padding[3] + 2 * padding;
+          break;
+        case 'right':
+          legendData.area.start.x = opts.width - opts.padding[1] - legendWidth - 2 * padding;
+          legendData.area.end.x = opts.width - opts.padding[1];
+          break;
+        default:
+          legendData.area.start.x = (opts.width - legendWidth) / 2 - padding;
+          legendData.area.end.x = (opts.width + legendWidth) / 2 + padding;
+      }
+      legendData.area.width = legendWidth + 2 * padding;
+      legendData.area.wholeWidth = legendWidth + 2 * padding;
+      legendData.area.height = legendList.length * lineHeight + 2 * padding;
+      legendData.area.wholeHeight = legendList.length * lineHeight + 2 * padding + 2 * margin;
+      legendData.points = legendList;
+    }
+  } else {
+    var len = series.length;
+    var maxHeight = opts.height - opts.padding[0] - opts.padding[2] - 2 * margin - 2 * padding;
+    var maxLength = Math.min(Math.floor(maxHeight / lineHeight), len);
+    legendData.area.height = maxLength * lineHeight + padding * 2;
+    legendData.area.wholeHeight = maxLength * lineHeight + padding * 2;
+    switch (opts.legend.float) {
+      case 'top':
+        legendData.area.start.y = opts.padding[0] + margin;
+        legendData.area.end.y = opts.padding[0] + margin + legendData.area.height;
+        break;
+      case 'bottom':
+        legendData.area.start.y = opts.height - opts.padding[2] - margin - legendData.area.height;
+        legendData.area.end.y = opts.height - opts.padding[2] - margin;
+        break;
+      default:
+        legendData.area.start.y = (opts.height - legendData.area.height) / 2;
+        legendData.area.end.y = (opts.height + legendData.area.height) / 2;
+    }
+    var lineNum = len % maxLength === 0 ? len / maxLength : Math.floor(len / maxLength + 1);
+    var _currentRow = [];
+    for (var _i4 = 0; _i4 < lineNum; _i4++) {
+      var temp = series.slice(_i4 * maxLength, _i4 * maxLength + maxLength);
+      _currentRow.push(temp);
+    }
+    legendData.points = _currentRow;
+    if (_currentRow.length) {
+      for (var _i5 = 0; _i5 < _currentRow.length; _i5++) {
+        var _item = _currentRow[_i5];
+        var maxWidth = 0;
+        for (var j = 0; j < _item.length; j++) {
+          var _itemWidth = shapeWidth + shapeRight + measureText(_item[j].name || 'undefined', fontSize) + opts.legend.itemGap;
+          if (_itemWidth > maxWidth) {
+            maxWidth = _itemWidth;
+          }
+        }
+        legendData.widthArr.push(maxWidth);
+        legendData.heightArr.push(_item.length * lineHeight + padding * 2);
+      }
+      var _legendWidth = 0;
+      for (var _i6 = 0; _i6 < legendData.widthArr.length; _i6++) {
+        _legendWidth += legendData.widthArr[_i6];
+      }
+      legendData.area.width = _legendWidth - opts.legend.itemGap + 2 * padding;
+      legendData.area.wholeWidth = legendData.area.width + padding;
+    }
+  }
+  switch (opts.legend.position) {
+    case 'top':
+      legendData.area.start.y = opts.padding[0] + margin;
+      legendData.area.end.y = opts.padding[0] + margin + legendData.area.height;
+      break;
+    case 'bottom':
+      legendData.area.start.y = opts.height - opts.padding[2] - legendData.area.height - margin;
+      legendData.area.end.y = opts.height - opts.padding[2] - margin;
+      break;
+    case 'left':
+      legendData.area.start.x = opts.padding[3];
+      legendData.area.end.x = opts.padding[3] + legendData.area.width;
+      break;
+    case 'right':
+      legendData.area.start.x = opts.width - opts.padding[1] - legendData.area.width;
+      legendData.area.end.x = opts.width - opts.padding[1];
+      break;
+  }
+  chartData.legendData = legendData;
+  return legendData;
+}
+function calCategoriesData(categories, opts, config, eachSpacing) {
+  var result = {
+    angle: 0,
+    xAxisHeight: config.xAxisHeight
+  };
+  var categoriesTextLenth = categories.map(function (item) {
+    return measureText(item, opts.xAxis.fontSize || config.fontSize);
+  });
+  var maxTextLength = Math.max.apply(this, categoriesTextLenth);
+  if (opts.xAxis.rotateLabel == true && maxTextLength + 2 * config.xAxisTextPadding > eachSpacing) {
+    result.angle = 45 * Math.PI / 180;
+    result.xAxisHeight = 2 * config.xAxisTextPadding + maxTextLength * Math.sin(result.angle);
+  }
+  return result;
+}
+function getXAxisTextList(series, opts, config) {
+  var index = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : -1;
+  var data = dataCombine(series);
+  var sorted = [];
+  // remove null from data
+  data = data.filter(function (item) {
+    //return item !== null;
+    if (_typeof(item) === 'object' && item !== null) {
+      if (item.constructor == Array) {
+        return item !== null;
+      } else {
+        return item.value !== null;
+      }
+    } else {
+      return item !== null;
+    }
+  });
+  data.map(function (item) {
+    if (_typeof(item) === 'object') {
+      if (item.constructor == Array) {
+        if (opts.type == 'candle') {
+          item.map(function (subitem) {
+            sorted.push(subitem);
+          });
+        } else {
+          sorted.push(item[0]);
+        }
+      } else {
+        sorted.push(item.value);
+      }
+    } else {
+      sorted.push(item);
+    }
+  });
+  var minData = 0;
+  var maxData = 0;
+  if (sorted.length > 0) {
+    minData = Math.min.apply(this, sorted);
+    maxData = Math.max.apply(this, sorted);
+  }
+  //Để tương thích với các dự án trước v1.9.0
+  if (index > -1) {
+    if (typeof opts.xAxis.data[index].min === 'number') {
+      minData = Math.min(opts.xAxis.data[index].min, minData);
+    }
+    if (typeof opts.xAxis.data[index].max === 'number') {
+      maxData = Math.max(opts.xAxis.data[index].max, maxData);
+    }
+  } else {
+    if (typeof opts.xAxis.min === 'number') {
+      minData = Math.min(opts.xAxis.min, minData);
+    }
+    if (typeof opts.xAxis.max === 'number') {
+      maxData = Math.max(opts.xAxis.max, maxData);
+    }
+  }
+  if (minData === maxData) {
+    var rangeSpan = maxData || 10;
+    maxData += rangeSpan;
+  }
+
+  //var dataRange = getDataRange(minData, maxData);
+  var minRange = minData;
+  var maxRange = maxData;
+  var range = [];
+  var eachRange = (maxRange - minRange) / opts.xAxis.splitNumber;
+  for (var i = 0; i <= opts.xAxis.splitNumber; i++) {
+    range.push(minRange + eachRange * i);
+  }
+  return range;
+}
+function calXAxisData(series, opts, config) {
+  var result = {
+    angle: 0,
+    xAxisHeight: config.xAxisHeight
+  };
+  result.ranges = getXAxisTextList(series, opts, config);
+  result.rangesFormat = result.ranges.map(function (item) {
+    item = opts.xAxis.format ? opts.xAxis.format(item) : util.toFixed(item, 2);
+    return item;
+  });
+  var xAxisScaleValues = result.ranges.map(function (item) {
+    // Nếu giá trị đánh dấu là số dấu phẩy động,sau đó giữ hai chữ số thập phân
+    item = util.toFixed(item, 2);
+    // Nếu có định dạng tùy chỉnh, hãy gọi chức năng định dạng tùy chỉnh
+    item = opts.xAxis.format ? opts.xAxis.format(Number(item)) : item;
+    return item;
+  });
+  result = Object.assign(result, getXAxisPoints(xAxisScaleValues, opts, config));
+  // Tính toán các thuộc tính của thang đo trục X, chẳng hạn như khoảng cách giữa mỗi thang đo,điểm bắt đầu của thang đo\điểm cuối và tổng chiều dài
+  var eachSpacing = result.eachSpacing;
+  var textLength = xAxisScaleValues.map(function (item) {
+    return measureText(item);
+  });
+
+  // get max length of categories text
+  var maxTextLength = Math.max.apply(this, textLength);
+
+  // Nếu nội dung văn bản giá trị đánh dấu quá dài,sau đó xoay nó ngược chiều kim đồng hồ45°
+  if (maxTextLength + 2 * config.xAxisTextPadding > eachSpacing) {
+    result.angle = 45 * Math.PI / 180;
+    result.xAxisHeight = 2 * config.xAxisTextPadding + maxTextLength * Math.sin(result.angle);
+  }
+  if (opts.xAxis.disabled === true) {
+    result.xAxisHeight = 0;
+  }
+  return result;
+}
+function getRadarDataPoints(angleList, center, radius, series, opts) {
+  var process = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1;
+  var radarOption = opts.extra.radar || {};
+  radarOption.max = radarOption.max || 0;
+  var maxData = Math.max(radarOption.max, Math.max.apply(null, dataCombine(series)));
+  var data = [];
+  var _loop2 = function _loop2(i) {
+    var each = series[i];
+    var listItem = {};
+    listItem.color = each.color;
+    listItem.legendShape = each.legendShape;
+    listItem.pointShape = each.pointShape;
+    listItem.data = [];
+    each.data.forEach(function (item, index) {
+      var tmp = {};
+      tmp.angle = angleList[index];
+      tmp.proportion = item / maxData;
+      tmp.position = convertCoordinateOrigin(radius * tmp.proportion * process * Math.cos(tmp.angle), radius * tmp.proportion * process * Math.sin(tmp.angle), center);
+      listItem.data.push(tmp);
+    });
+    data.push(listItem);
+  };
+  for (var i = 0; i < series.length; i++) {
+    _loop2(i);
+  }
+  return data;
+}
+function getPieDataPoints(series, radius) {
+  var process = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  var count = 0;
+  var _start_ = 0;
+  for (var i = 0; i < series.length; i++) {
+    var item = series[i];
+    item.data = item.data === null ? 0 : item.data;
+    count += item.data;
+  }
+  for (var _i7 = 0; _i7 < series.length; _i7++) {
+    var _item2 = series[_i7];
+    _item2.data = _item2.data === null ? 0 : _item2.data;
+    if (count === 0) {
+      _item2._proportion_ = 1 / series.length * process;
+    } else {
+      _item2._proportion_ = _item2.data / count * process;
+    }
+    _item2._radius_ = radius;
+  }
+  for (var _i8 = 0; _i8 < series.length; _i8++) {
+    var _item3 = series[_i8];
+    _item3._start_ = _start_;
+    _start_ += 2 * _item3._proportion_ * Math.PI;
+  }
+  return series;
+}
+function getFunnelDataPoints(series, radius) {
+  var process = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  series = series.sort(function (a, b) {
+    return parseInt(b.data) - parseInt(a.data);
+  });
+  for (var i = 0; i < series.length; i++) {
+    series[i].radius = series[i].data / series[0].data * radius * process;
+    series[i]._proportion_ = series[i].data / series[0].data;
+  }
+  return series.reverse();
+}
+function getRoseDataPoints(series, type, minRadius, radius) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var count = 0;
+  var _start_ = 0;
+  var dataArr = [];
+  for (var i = 0; i < series.length; i++) {
+    var item = series[i];
+    item.data = item.data === null ? 0 : item.data;
+    count += item.data;
+    dataArr.push(item.data);
+  }
+  var minData = Math.min.apply(null, dataArr);
+  var maxData = Math.max.apply(null, dataArr);
+  var radiusLength = radius - minRadius;
+  for (var _i9 = 0; _i9 < series.length; _i9++) {
+    var _item4 = series[_i9];
+    _item4.data = _item4.data === null ? 0 : _item4.data;
+    if (count === 0 || type == 'area') {
+      _item4._proportion_ = _item4.data / count * process;
+      _item4._rose_proportion_ = 1 / series.length * process;
+    } else {
+      _item4._proportion_ = _item4.data / count * process;
+      _item4._rose_proportion_ = _item4.data / count * process;
+    }
+    _item4._radius_ = minRadius + radiusLength * ((_item4.data - minData) / (maxData - minData));
+  }
+  for (var _i10 = 0; _i10 < series.length; _i10++) {
+    var _item5 = series[_i10];
+    _item5._start_ = _start_;
+    _start_ += 2 * _item5._rose_proportion_ * Math.PI;
+  }
+  return series;
+}
+function getArcbarDataPoints(series, arcbarOption) {
+  var process = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  if (process == 1) {
+    process = 0.999999;
+  }
+  for (var i = 0; i < series.length; i++) {
+    var item = series[i];
+    item.data = item.data === null ? 0 : item.data;
+    var totalAngle = void 0;
+    if (arcbarOption.type == 'circle') {
+      totalAngle = 2;
+    } else {
+      if (arcbarOption.endAngle < arcbarOption.startAngle) {
+        totalAngle = 2 + arcbarOption.endAngle - arcbarOption.startAngle;
+      } else {
+        totalAngle = arcbarOption.startAngle - arcbarOption.endAngle;
+      }
+    }
+    item._proportion_ = totalAngle * item.data * process + arcbarOption.startAngle;
+    if (item._proportion_ >= 2) {
+      item._proportion_ = item._proportion_ % 2;
+    }
+  }
+  return series;
+}
+function getGaugeAxisPoints(categories, startAngle, endAngle) {
+  var totalAngle = startAngle - endAngle + 1;
+  var tempStartAngle = startAngle;
+  for (var i = 0; i < categories.length; i++) {
+    categories[i].value = categories[i].value === null ? 0 : categories[i].value;
+    categories[i]._startAngle_ = tempStartAngle;
+    categories[i]._endAngle_ = totalAngle * categories[i].value + startAngle;
+    if (categories[i]._endAngle_ >= 2) {
+      categories[i]._endAngle_ = categories[i]._endAngle_ % 2;
+    }
+    tempStartAngle = categories[i]._endAngle_;
+  }
+  return categories;
+}
+function getGaugeDataPoints(series, categories, gaugeOption) {
+  var process = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+  for (var i = 0; i < series.length; i++) {
+    var item = series[i];
+    item.data = item.data === null ? 0 : item.data;
+    if (gaugeOption.pointer.color == 'auto') {
+      for (var _i11 = 0; _i11 < categories.length; _i11++) {
+        if (item.data <= categories[_i11].value) {
+          item.color = categories[_i11].color;
+          break;
+        }
+      }
+    } else {
+      item.color = gaugeOption.pointer.color;
+    }
+    var totalAngle = gaugeOption.startAngle - gaugeOption.endAngle + 1;
+    item._endAngle_ = totalAngle * item.data + gaugeOption.startAngle;
+    item._oldAngle_ = gaugeOption.oldAngle;
+    if (gaugeOption.oldAngle < gaugeOption.endAngle) {
+      item._oldAngle_ += 2;
+    }
+    if (item.data >= gaugeOption.oldData) {
+      item._proportion_ = (item._endAngle_ - item._oldAngle_) * process + gaugeOption.oldAngle;
+    } else {
+      item._proportion_ = item._oldAngle_ - (item._oldAngle_ - item._endAngle_) * process;
+    }
+    if (item._proportion_ >= 2) {
+      item._proportion_ = item._proportion_ % 2;
+    }
+  }
+  return series;
+}
+function getPieTextMaxLength(series) {
+  series = getPieDataPoints(series);
+  var maxLength = 0;
+  for (var i = 0; i < series.length; i++) {
+    var item = series[i];
+    var text = item.format ? item.format(+item._proportion_.toFixed(2)) : util.toFixed(item._proportion_ * 100) + '%';
+    maxLength = Math.max(maxLength, measureText(text));
+  }
+  return maxLength;
+}
+function fixColumeData(points, eachSpacing, columnLen, index, config, opts) {
+  return points.map(function (item) {
+    if (item === null) {
+      return null;
+    }
+    item.width = Math.ceil((eachSpacing - 2 * config.columePadding) / columnLen);
+    if (opts.extra.column && opts.extra.column.width && +opts.extra.column.width > 0) {
+      item.width = Math.min(item.width, +opts.extra.column.width);
+    }
+    if (item.width <= 0) {
+      item.width = 1;
+    }
+    item.x += (index + 0.5 - columnLen / 2) * item.width;
+    return item;
+  });
+}
+function fixColumeMeterData(points, eachSpacing, columnLen, index, config, opts, border) {
+  return points.map(function (item) {
+    if (item === null) {
+      return null;
+    }
+    item.width = Math.ceil((eachSpacing - 2 * config.columePadding) / 2);
+    if (opts.extra.column && opts.extra.column.width && +opts.extra.column.width > 0) {
+      item.width = Math.min(item.width, +opts.extra.column.width);
+    }
+    if (index > 0) {
+      item.width -= 2 * border;
+    }
+    return item;
+  });
+}
+function fixColumeStackData(points, eachSpacing, columnLen, index, config, opts, series) {
+  return points.map(function (item, indexn) {
+    if (item === null) {
+      return null;
+    }
+    item.width = Math.ceil((eachSpacing - 2 * config.columePadding) / 2);
+    if (opts.extra.column && opts.extra.column.width && +opts.extra.column.width > 0) {
+      item.width = Math.min(item.width, +opts.extra.column.width);
+    }
+    return item;
+  });
+}
+function getXAxisPoints(categories, opts, config) {
+  var spacingValid = opts.width - opts.area[1] - opts.area[3];
+  var dataCount = opts.enableScroll ? Math.min(opts.xAxis.itemCount, categories.length) : categories.length;
+  if ((opts.type == 'line' || opts.type == 'area') && dataCount > 1 && opts.xAxis.boundaryGap == 'justify') {
+    dataCount -= 1;
+  }
+  var eachSpacing = spacingValid / dataCount;
+  var xAxisPoints = [];
+  var startX = opts.area[3];
+  var endX = opts.width - opts.area[1];
+  categories.forEach(function (item, index) {
+    xAxisPoints.push(startX + index * eachSpacing);
+  });
+  if (opts.xAxis.boundaryGap !== 'justify') {
+    if (opts.enableScroll === true) {
+      xAxisPoints.push(startX + categories.length * eachSpacing);
+    } else {
+      xAxisPoints.push(endX);
+    }
+  }
+  return {
+    xAxisPoints: xAxisPoints,
+    startX: startX,
+    endX: endX,
+    eachSpacing: eachSpacing
+  };
+}
+function getCandleDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config) {
+  var process = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 1;
+  var points = [];
+  var validHeight = opts.height - opts.area[0] - opts.area[2];
+  data.forEach(function (item, index) {
+    if (item === null) {
+      points.push(null);
+    } else {
+      var cPoints = [];
+      item.forEach(function (items, indexs) {
+        var point = {};
+        point.x = xAxisPoints[index] + Math.round(eachSpacing / 2);
+        var value = items.value || items;
+        var height = validHeight * (value - minRange) / (maxRange - minRange);
+        height *= process;
+        point.y = opts.height - Math.round(height) - opts.area[2];
+        cPoints.push(point);
+      });
+      points.push(cPoints);
+    }
+  });
+  return points;
+}
+function getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config) {
+  var process = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 1;
+  var boundaryGap = 'center';
+  if (opts.type == 'line' || opts.type == 'area') {
+    boundaryGap = opts.xAxis.boundaryGap;
+  }
+  var points = [];
+  var validHeight = opts.height - opts.area[0] - opts.area[2];
+  var validWidth = opts.width - opts.area[1] - opts.area[3];
+  data.forEach(function (item, index) {
+    if (item === null) {
+      points.push(null);
+    } else {
+      var point = {};
+      point.color = item.color;
+      point.x = xAxisPoints[index];
+      var value = item;
+      if (_typeof(item) === 'object' && item !== null) {
+        if (item.constructor == Array) {
+          var xranges, xminRange, xmaxRange;
+          xranges = [].concat(opts.chartData.xAxisData.ranges);
+          xminRange = xranges.shift();
+          xmaxRange = xranges.pop();
+          value = item[1];
+          point.x = opts.area[3] + validWidth * (item[0] - xminRange) / (xmaxRange - xminRange);
+        } else {
+          value = item.value;
+        }
+      }
+      if (boundaryGap == 'center') {
+        point.x += Math.round(eachSpacing / 2);
+      }
+      var height = validHeight * (value - minRange) / (maxRange - minRange);
+      height *= process;
+      point.y = opts.height - Math.round(height) - opts.area[2];
+      points.push(point);
+    }
+  });
+  return points;
+}
+function getStackDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, seriesIndex, stackSeries) {
+  var process = arguments.length > 9 && arguments[9] !== undefined ? arguments[9] : 1;
+  var points = [];
+  var validHeight = opts.height - opts.area[0] - opts.area[2];
+  data.forEach(function (item, index) {
+    if (item === null) {
+      points.push(null);
+    } else {
+      var point = {};
+      point.color = item.color;
+      point.x = xAxisPoints[index] + Math.round(eachSpacing / 2);
+      if (seriesIndex > 0) {
+        var value = 0;
+        for (var i = 0; i <= seriesIndex; i++) {
+          value += stackSeries[i].data[index];
+        }
+        var value0 = value - item;
+        var height = validHeight * (value - minRange) / (maxRange - minRange);
+        var height0 = validHeight * (value0 - minRange) / (maxRange - minRange);
+      } else {
+        var value = item;
+        var height = validHeight * (value - minRange) / (maxRange - minRange);
+        var height0 = 0;
+      }
+      var heightc = height0;
+      height *= process;
+      heightc *= process;
+      point.y = opts.height - Math.round(height) - opts.area[2];
+      point.y0 = opts.height - Math.round(heightc) - opts.area[2];
+      points.push(point);
+    }
+  });
+  return points;
+}
+function getYAxisTextList(series, opts, config, stack) {
+  var index = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : -1;
+  var data;
+  if (stack == 'stack') {
+    data = dataCombineStack(series, opts.categories.length);
+  } else {
+    data = dataCombine(series);
+  }
+  var sorted = [];
+  // remove null from data
+  data = data.filter(function (item) {
+    //return item !== null;
+    if (_typeof(item) === 'object' && item !== null) {
+      if (item.constructor == Array) {
+        return item !== null;
+      } else {
+        return item.value !== null;
+      }
+    } else {
+      return item !== null;
+    }
+  });
+  data.map(function (item) {
+    if (_typeof(item) === 'object') {
+      if (item.constructor == Array) {
+        if (opts.type == 'candle') {
+          item.map(function (subitem) {
+            sorted.push(subitem);
+          });
+        } else {
+          sorted.push(item[1]);
+        }
+      } else {
+        sorted.push(item.value);
+      }
+    } else {
+      sorted.push(item);
+    }
+  });
+  var minData = 0;
+  var maxData = 0;
+  if (sorted.length > 0) {
+    minData = Math.min.apply(this, sorted);
+    maxData = Math.max.apply(this, sorted);
+  }
+  //Để tương thích với các dự án trước v1.9.0
+  if (index > -1) {
+    if (typeof opts.yAxis.data[index].min === 'number') {
+      minData = Math.min(opts.yAxis.data[index].min, minData);
+    }
+    if (typeof opts.yAxis.data[index].max === 'number') {
+      maxData = Math.max(opts.yAxis.data[index].max, maxData);
+    }
+  } else {
+    if (typeof opts.yAxis.min === 'number') {
+      minData = Math.min(opts.yAxis.min, minData);
+    }
+    if (typeof opts.yAxis.max === 'number') {
+      maxData = Math.max(opts.yAxis.max, maxData);
+    }
+  }
+  if (minData === maxData) {
+    var rangeSpan = maxData || 10;
+    maxData += rangeSpan;
+  }
+  var dataRange = getDataRange(minData, maxData);
+  var minRange = dataRange.minRange;
+  var maxRange = dataRange.maxRange;
+  var range = [];
+  var eachRange = (maxRange - minRange) / opts.yAxis.splitNumber;
+  for (var i = 0; i <= opts.yAxis.splitNumber; i++) {
+    range.push(minRange + eachRange * i);
+  }
+  return range.reverse();
+}
+function calYAxisData(series, opts, config) {
+  //Biểu đồ xếp chồng tính toán lại trục Y
+  var columnstyle = assign({}, {
+    type: ""
+  }, opts.extra.column);
+  //Nếu có nhiều trục Y thì tính lại
+  var YLength = opts.yAxis.data.length;
+  var newSeries = new Array(YLength);
+  if (YLength > 0) {
+    for (var i = 0; i < YLength; i++) {
+      newSeries[i] = [];
+      for (var j = 0; j < series.length; j++) {
+        if (series[j].index == i) {
+          newSeries[i].push(series[j]);
+        }
+      }
+    }
+    var rangesArr = new Array(YLength);
+    var rangesFormatArr = new Array(YLength);
+    var yAxisWidthArr = new Array(YLength);
+    var _loop3 = function _loop3(_i12) {
+      var yData = opts.yAxis.data[_i12];
+      //Nếu công tắc chính không hiển thị, buộc từng trục Y không hiển thị.
+      if (opts.yAxis.disabled == true) {
+        yData.disabled = true;
+      }
+      rangesArr[_i12] = getYAxisTextList(newSeries[_i12], opts, config, columnstyle.type, _i12);
+      var yAxisFontSizes = yData.fontSize || config.fontSize;
+      yAxisWidthArr[_i12] = {
+        position: yData.position ? yData.position : 'left',
+        width: 0
+      };
+      rangesFormatArr[_i12] = rangesArr[_i12].map(function (items) {
+        items = util.toFixed(items, 6);
+        items = yData.format ? yData.format(Number(items)) : items;
+        yAxisWidthArr[_i12].width = Math.max(yAxisWidthArr[_i12].width, measureText(items, yAxisFontSizes) + 5);
+        return items;
+      });
+      var calibration = yData.calibration ? 4 * opts.pixelRatio : 0;
+      yAxisWidthArr[_i12].width += calibration + 3 * opts.pixelRatio;
+      if (yData.disabled === true) {
+        yAxisWidthArr[_i12].width = 0;
+      }
+    };
+    for (var _i12 = 0; _i12 < YLength; _i12++) {
+      _loop3(_i12);
+    }
+  } else {
+    var rangesArr = new Array(1);
+    var rangesFormatArr = new Array(1);
+    var yAxisWidthArr = new Array(1);
+    rangesArr[0] = getYAxisTextList(series, opts, config, columnstyle.type);
+    yAxisWidthArr[0] = {
+      position: 'left',
+      width: 0
+    };
+    var yAxisFontSize = opts.yAxis.fontSize || config.fontSize;
+    rangesFormatArr[0] = rangesArr[0].map(function (item) {
+      item = util.toFixed(item, 6);
+      item = opts.yAxis.format ? opts.yAxis.format(Number(item)) : item;
+      yAxisWidthArr[0].width = Math.max(yAxisWidthArr[0].width, measureText(item, yAxisFontSize) + 5);
+      return item;
+    });
+    yAxisWidthArr[0].width += 3 * opts.pixelRatio;
+    if (opts.yAxis.disabled === true) {
+      yAxisWidthArr[0] = {
+        position: 'left',
+        width: 0
+      };
+      opts.yAxis.data[0] = {
+        disabled: true
+      };
+    } else {
+      opts.yAxis.data[0] = {
+        disabled: false,
+        position: 'left',
+        max: opts.yAxis.max,
+        min: opts.yAxis.min,
+        format: opts.yAxis.format
+      };
+    }
+  }
+  return {
+    rangesFormat: rangesFormatArr,
+    ranges: rangesArr,
+    yAxisWidth: yAxisWidthArr
+  };
+}
+function calTooltipYAxisData(point, series, opts, config, eachSpacing) {
+  var ranges = [].concat(opts.chartData.yAxisData.ranges);
+  var spacingValid = opts.height - opts.area[0] - opts.area[2];
+  var minAxis = opts.area[0];
+  var items = [];
+  for (var i = 0; i < ranges.length; i++) {
+    var maxVal = ranges[i].shift();
+    var minVal = ranges[i].pop();
+    var item = maxVal - (maxVal - minVal) * (point - minAxis) / spacingValid;
+    item = opts.yAxis.data[i].format ? opts.yAxis.data[i].format(Number(item)) : item.toFixed(0);
+    items.push(String(item));
+  }
+  return items;
+}
+function calMarkLineData(points, opts) {
+  var minRange, maxRange;
+  var spacingValid = opts.height - opts.area[0] - opts.area[2];
+  for (var i = 0; i < points.length; i++) {
+    points[i].yAxisIndex = points[i].yAxisIndex ? points[i].yAxisIndex : 0;
+    var range = [].concat(opts.chartData.yAxisData.ranges[points[i].yAxisIndex]);
+    minRange = range.pop();
+    maxRange = range.shift();
+    var height = spacingValid * (points[i].value - minRange) / (maxRange - minRange);
+    points[i].y = opts.height - Math.round(height) - opts.area[2];
+  }
+  return points;
+}
+function contextRotate(context, opts) {
+  if (opts.rotateLock !== true) {
+    context.translate(opts.height, 0);
+    context.rotate(90 * Math.PI / 180);
+  } else if (opts._rotate_ !== true) {
+    context.translate(opts.height, 0);
+    context.rotate(90 * Math.PI / 180);
+    opts._rotate_ = true;
+  }
+}
+function drawPointShape(points, color, shape, context, opts) {
+  context.beginPath();
+  if (opts.dataPointShapeType == 'hollow') {
+    context.setStrokeStyle(color);
+    context.setFillStyle(opts.background);
+    context.setLineWidth(2 * opts.pixelRatio);
+  } else {
+    context.setStrokeStyle("#ffffff");
+    context.setFillStyle(color);
+    context.setLineWidth(1 * opts.pixelRatio);
+  }
+  if (shape === 'diamond') {
+    points.forEach(function (item, index) {
+      if (item !== null) {
+        context.moveTo(item.x, item.y - 4.5);
+        context.lineTo(item.x - 4.5, item.y);
+        context.lineTo(item.x, item.y + 4.5);
+        context.lineTo(item.x + 4.5, item.y);
+        context.lineTo(item.x, item.y - 4.5);
+      }
+    });
+  } else if (shape === 'circle') {
+    points.forEach(function (item, index) {
+      if (item !== null) {
+        context.moveTo(item.x + 2.5 * opts.pixelRatio, item.y);
+        context.arc(item.x, item.y, 3 * opts.pixelRatio, 0, 2 * Math.PI, false);
+      }
+    });
+  } else if (shape === 'rect') {
+    points.forEach(function (item, index) {
+      if (item !== null) {
+        context.moveTo(item.x - 3.5, item.y - 3.5);
+        context.rect(item.x - 3.5, item.y - 3.5, 7, 7);
+      }
+    });
+  } else if (shape === 'triangle') {
+    points.forEach(function (item, index) {
+      if (item !== null) {
+        context.moveTo(item.x, item.y - 4.5);
+        context.lineTo(item.x - 4.5, item.y + 4.5);
+        context.lineTo(item.x + 4.5, item.y + 4.5);
+        context.lineTo(item.x, item.y - 4.5);
+      }
+    });
+  }
+  context.closePath();
+  context.fill();
+  context.stroke();
+}
+function drawRingTitle(opts, config, context, center) {
+  var titlefontSize = opts.title.fontSize || config.titleFontSize;
+  var subtitlefontSize = opts.subtitle.fontSize || config.subtitleFontSize;
+  var title = opts.title.name || '';
+  var subtitle = opts.subtitle.name || '';
+  var titleFontColor = opts.title.color || config.titleColor;
+  var subtitleFontColor = opts.subtitle.color || config.subtitleColor;
+  var titleHeight = title ? titlefontSize : 0;
+  var subtitleHeight = subtitle ? subtitlefontSize : 0;
+  var margin = 5;
+  if (subtitle) {
+    var textWidth = measureText(subtitle, subtitlefontSize);
+    var startX = center.x - textWidth / 2 + (opts.subtitle.offsetX || 0);
+    var startY = center.y + subtitlefontSize / 2 + (opts.subtitle.offsetY || 0);
+    if (title) {
+      startY += (titleHeight + margin) / 2;
+    }
+    context.beginPath();
+    context.setFontSize(subtitlefontSize);
+    context.setFillStyle(subtitleFontColor);
+    context.fillText(subtitle, startX, startY);
+    context.closePath();
+    context.stroke();
+  }
+  if (title) {
+    var _textWidth = measureText(title, titlefontSize);
+    var _startX = center.x - _textWidth / 2 + (opts.title.offsetX || 0);
+    var _startY = center.y + titlefontSize / 2 + (opts.title.offsetY || 0);
+    if (subtitle) {
+      _startY -= (subtitleHeight + margin) / 2;
+    }
+    context.beginPath();
+    context.setFontSize(titlefontSize);
+    context.setFillStyle(titleFontColor);
+    context.fillText(title, _startX, _startY);
+    context.closePath();
+    context.stroke();
+  }
+}
+function drawPointText(points, series, config, context) {
+  // Vẽ bản sao dữ liệu
+  var data = series.data;
+  points.forEach(function (item, index) {
+    if (item !== null) {
+      //var formatVal = series.format ? series.format(data[index]) : data[index];
+      context.beginPath();
+      context.setFontSize(series.textSize || config.fontSize);
+      context.setFillStyle(series.textColor || '#666666');
+      var value = data[index];
+      if (_typeof(data[index]) === 'object' && data[index] !== null) {
+        if (data[index].constructor == Array) {
+          value = data[index][1];
+        } else {
+          value = data[index].value;
+        }
+      }
+      var formatVal = series.format ? series.format(value) : value;
+      context.fillText(String(formatVal), item.x - measureText(formatVal, series.textSize || config.fontSize) / 2, item.y - 4);
+      context.closePath();
+      context.stroke();
+    }
+  });
+}
+function drawGaugeLabel(gaugeOption, radius, centerPosition, opts, config, context) {
+  radius -= gaugeOption.width / 2 + config.gaugeLabelTextMargin;
+  var totalAngle = gaugeOption.startAngle - gaugeOption.endAngle + 1;
+  var splitAngle = totalAngle / gaugeOption.splitLine.splitNumber;
+  var totalNumber = gaugeOption.endNumber - gaugeOption.startNumber;
+  var splitNumber = totalNumber / gaugeOption.splitLine.splitNumber;
+  var nowAngle = gaugeOption.startAngle;
+  var nowNumber = gaugeOption.startNumber;
+  for (var i = 0; i < gaugeOption.splitLine.splitNumber + 1; i++) {
+    var pos = {
+      x: radius * Math.cos(nowAngle * Math.PI),
+      y: radius * Math.sin(nowAngle * Math.PI)
+    };
+    var labelText = gaugeOption.labelFormat ? gaugeOption.labelFormat(nowNumber) : nowNumber;
+    pos.x += centerPosition.x - measureText(labelText) / 2;
+    pos.y += centerPosition.y;
+    var startX = pos.x;
+    var startY = pos.y;
+    context.beginPath();
+    context.setFontSize(config.fontSize);
+    context.setFillStyle(gaugeOption.labelColor || '#666666');
+    context.fillText(labelText, startX, startY + config.fontSize / 2);
+    context.closePath();
+    context.stroke();
+    nowAngle += splitAngle;
+    if (nowAngle >= 2) {
+      nowAngle = nowAngle % 2;
+    }
+    nowNumber += splitNumber;
+  }
+}
+function drawRadarLabel(angleList, radius, centerPosition, opts, config, context) {
+  var radarOption = opts.extra.radar || {};
+  radius += config.radarLabelTextMargin;
+  angleList.forEach(function (angle, index) {
+    var pos = {
+      x: radius * Math.cos(angle),
+      y: radius * Math.sin(angle)
+    };
+    var posRelativeCanvas = convertCoordinateOrigin(pos.x, pos.y, centerPosition);
+    var startX = posRelativeCanvas.x;
+    var startY = posRelativeCanvas.y;
+    if (util.approximatelyEqual(pos.x, 0)) {
+      startX -= measureText(opts.categories[index] || '') / 2;
+    } else if (pos.x < 0) {
+      startX -= measureText(opts.categories[index] || '');
+    }
+    context.beginPath();
+    context.setFontSize(config.fontSize);
+    context.setFillStyle(radarOption.labelColor || '#666666');
+    context.fillText(opts.categories[index] || '', startX, startY + config.fontSize / 2);
+    context.closePath();
+    context.stroke();
+  });
+}
+function drawPieText(series, opts, config, context, radius, center) {
+  var lineRadius = config.pieChartLinePadding;
+  var textObjectCollection = [];
+  var lastTextObject = null;
+  var seriesConvert = series.map(function (item) {
+    var text = item.format ? item.format(+item._proportion_.toFixed(2)) : util.toFixed(item._proportion_.toFixed(4) * 100) + '%';
+    if (item._rose_proportion_) item._proportion_ = item._rose_proportion_;
+    var arc = 2 * Math.PI - (item._start_ + 2 * Math.PI * item._proportion_ / 2);
+    var color = item.color;
+    var radius = item._radius_;
+    return {
+      arc: arc,
+      text: text,
+      color: color,
+      radius: radius,
+      textColor: item.textColor,
+      textSize: item.textSize
+    };
+  });
+  for (var i = 0; i < seriesConvert.length; i++) {
+    var item = seriesConvert[i];
+    // line end
+    var orginX1 = Math.cos(item.arc) * (item.radius + lineRadius);
+    var orginY1 = Math.sin(item.arc) * (item.radius + lineRadius);
+
+    // line start
+    var orginX2 = Math.cos(item.arc) * item.radius;
+    var orginY2 = Math.sin(item.arc) * item.radius;
+
+    // text start
+    var orginX3 = orginX1 >= 0 ? orginX1 + config.pieChartTextPadding : orginX1 - config.pieChartTextPadding;
+    var orginY3 = orginY1;
+    var textWidth = measureText(item.text, item.textSize || config.fontSize);
+    var startY = orginY3;
+    if (lastTextObject && util.isSameXCoordinateArea(lastTextObject.start, {
+      x: orginX3
+    })) {
+      if (orginX3 > 0) {
+        startY = Math.min(orginY3, lastTextObject.start.y);
+      } else if (orginX1 < 0) {
+        startY = Math.max(orginY3, lastTextObject.start.y);
+      } else {
+        if (orginY3 > 0) {
+          startY = Math.max(orginY3, lastTextObject.start.y);
+        } else {
+          startY = Math.min(orginY3, lastTextObject.start.y);
+        }
+      }
+    }
+    if (orginX3 < 0) {
+      orginX3 -= textWidth;
+    }
+    var textObject = {
+      lineStart: {
+        x: orginX2,
+        y: orginY2
+      },
+      lineEnd: {
+        x: orginX1,
+        y: orginY1
+      },
+      start: {
+        x: orginX3,
+        y: startY
+      },
+      width: textWidth,
+      height: config.fontSize,
+      text: item.text,
+      color: item.color,
+      textColor: item.textColor,
+      textSize: item.textSize
+    };
+    lastTextObject = avoidCollision(textObject, lastTextObject);
+    textObjectCollection.push(lastTextObject);
+  }
+  for (var _i13 = 0; _i13 < textObjectCollection.length; _i13++) {
+    var _item6 = textObjectCollection[_i13];
+    var lineStartPoistion = convertCoordinateOrigin(_item6.lineStart.x, _item6.lineStart.y, center);
+    var lineEndPoistion = convertCoordinateOrigin(_item6.lineEnd.x, _item6.lineEnd.y, center);
+    var textPosition = convertCoordinateOrigin(_item6.start.x, _item6.start.y, center);
+    context.setLineWidth(1 * opts.pixelRatio);
+    context.setFontSize(config.fontSize);
+    context.beginPath();
+    context.setStrokeStyle(_item6.color);
+    context.setFillStyle(_item6.color);
+    context.moveTo(lineStartPoistion.x, lineStartPoistion.y);
+    var curveStartX = _item6.start.x < 0 ? textPosition.x + _item6.width : textPosition.x;
+    var textStartX = _item6.start.x < 0 ? textPosition.x - 5 : textPosition.x + 5;
+    context.quadraticCurveTo(lineEndPoistion.x, lineEndPoistion.y, curveStartX, textPosition.y);
+    context.moveTo(lineStartPoistion.x, lineStartPoistion.y);
+    context.stroke();
+    context.closePath();
+    context.beginPath();
+    context.moveTo(textPosition.x + _item6.width, textPosition.y);
+    context.arc(curveStartX, textPosition.y, 2, 0, 2 * Math.PI);
+    context.closePath();
+    context.fill();
+    context.beginPath();
+    context.setFontSize(_item6.textSize || config.fontSize);
+    context.setFillStyle(_item6.textColor || '#666666');
+    context.fillText(_item6.text, textStartX, textPosition.y + 3);
+    context.closePath();
+    context.stroke();
+    context.closePath();
+  }
+}
+function drawToolTipSplitLine(offsetX, opts, config, context) {
+  var toolTipOption = opts.extra.tooltip || {};
+  toolTipOption.gridType = toolTipOption.gridType == undefined ? 'solid' : toolTipOption.gridType;
+  toolTipOption.dashLength = toolTipOption.dashLength == undefined ? 4 : toolTipOption.dashLength;
+  var startY = opts.area[0];
+  var endY = opts.height - opts.area[2];
+  if (toolTipOption.gridType == 'dash') {
+    context.setLineDash([toolTipOption.dashLength, toolTipOption.dashLength]);
+  }
+  context.setStrokeStyle(toolTipOption.gridColor || '#cccccc');
+  context.setLineWidth(1 * opts.pixelRatio);
+  context.beginPath();
+  context.moveTo(offsetX, startY);
+  context.lineTo(offsetX, endY);
+  context.stroke();
+  context.setLineDash([]);
+  if (toolTipOption.xAxisLabel) {
+    var labelText = opts.categories[opts.tooltip.index];
+    context.setFontSize(config.fontSize);
+    var textWidth = measureText(labelText, config.fontSize);
+    var textX = offsetX - 0.5 * textWidth;
+    var textY = endY;
+    context.beginPath();
+    context.setFillStyle(hexToRgb(toolTipOption.labelBgColor || config.toolTipBackground, toolTipOption.labelBgOpacity || config.toolTipOpacity));
+    context.setStrokeStyle(toolTipOption.labelBgColor || config.toolTipBackground);
+    context.setLineWidth(1 * opts.pixelRatio);
+    context.rect(textX - config.toolTipPadding, textY, textWidth + 2 * config.toolTipPadding, config.fontSize + 2 * config.toolTipPadding);
+    context.closePath();
+    context.stroke();
+    context.fill();
+    context.beginPath();
+    context.setFontSize(config.fontSize);
+    context.setFillStyle(toolTipOption.labelFontColor || config.fontColor);
+    context.fillText(String(labelText), textX, textY + config.toolTipPadding + config.fontSize);
+    context.closePath();
+    context.stroke();
+  }
+}
+function drawMarkLine(opts, config, context) {
+  var markLineOption = assign({}, {
+    type: 'solid',
+    dashLength: 4,
+    data: []
+  }, opts.extra.markLine);
+  var startX = opts.area[3];
+  var endX = opts.width - opts.area[1];
+  var points = calMarkLineData(markLineOption.data, opts);
+  for (var i = 0; i < points.length; i++) {
+    var item = assign({}, {
+      lineColor: '#DE4A42',
+      showLabel: false,
+      labelFontColor: '#666666',
+      labelBgColor: '#DFE8FF',
+      labelBgOpacity: 0.8,
+      yAxisIndex: 0
+    }, points[i]);
+    if (markLineOption.type == 'dash') {
+      context.setLineDash([markLineOption.dashLength, markLineOption.dashLength]);
+    }
+    context.setStrokeStyle(item.lineColor);
+    context.setLineWidth(1 * opts.pixelRatio);
+    context.beginPath();
+    context.moveTo(startX, item.y);
+    context.lineTo(endX, item.y);
+    context.stroke();
+    context.setLineDash([]);
+    if (item.showLabel) {
+      var labelText = opts.yAxis.format ? opts.yAxis.format(Number(item.value)) : item.value;
+      context.setFontSize(config.fontSize);
+      var textWidth = measureText(labelText, config.fontSize);
+      var bgStartX = opts.padding[3] + config.yAxisTitleWidth - config.toolTipPadding;
+      var bgEndX = Math.max(opts.area[3], textWidth + config.toolTipPadding * 2);
+      var bgWidth = bgEndX - bgStartX;
+      var textX = bgStartX + (bgWidth - textWidth) / 2;
+      var textY = item.y;
+      context.setFillStyle(hexToRgb(item.labelBgColor, item.labelBgOpacity));
+      context.setStrokeStyle(item.labelBgColor);
+      context.setLineWidth(1 * opts.pixelRatio);
+      context.beginPath();
+      context.rect(bgStartX, textY - 0.5 * config.fontSize - config.toolTipPadding, bgWidth, config.fontSize + 2 * config.toolTipPadding);
+      context.closePath();
+      context.stroke();
+      context.fill();
+      context.beginPath();
+      context.setFontSize(config.fontSize);
+      context.setFillStyle(item.labelFontColor);
+      context.fillText(String(labelText), textX, textY + 0.5 * config.fontSize);
+      context.stroke();
+    }
+  }
+}
+function drawToolTipHorizentalLine(opts, config, context, eachSpacing, xAxisPoints) {
+  var toolTipOption = assign({}, {
+    gridType: 'solid',
+    dashLength: 4
+  }, opts.extra.tooltip);
+  var startX = opts.area[3];
+  var endX = opts.width - opts.area[1];
+  if (toolTipOption.gridType == 'dash') {
+    context.setLineDash([toolTipOption.dashLength, toolTipOption.dashLength]);
+  }
+  context.setStrokeStyle(toolTipOption.gridColor || '#cccccc');
+  context.setLineWidth(1 * opts.pixelRatio);
+  context.beginPath();
+  context.moveTo(startX, opts.tooltip.offset.y);
+  context.lineTo(endX, opts.tooltip.offset.y);
+  context.stroke();
+  context.setLineDash([]);
+  if (toolTipOption.yAxisLabel) {
+    var labelText = calTooltipYAxisData(opts.tooltip.offset.y, opts.series, opts, config, eachSpacing);
+    var widthArr = opts.chartData.yAxisData.yAxisWidth;
+    var tStartLeft = opts.area[3];
+    var tStartRight = opts.width - opts.area[1];
+    for (var i = 0; i < labelText.length; i++) {
+      context.setFontSize(config.fontSize);
+      var textWidth = measureText(labelText[i], config.fontSize);
+      var bgStartX = void 0,
+        bgEndX = void 0,
+        bgWidth = void 0;
+      if (widthArr[i].position == 'left') {
+        bgStartX = tStartLeft - widthArr[i].width;
+        bgEndX = Math.max(bgStartX, bgStartX + textWidth + config.toolTipPadding * 2);
+      } else {
+        bgStartX = tStartRight;
+        bgEndX = Math.max(bgStartX + widthArr[i].width, bgStartX + textWidth + config.toolTipPadding * 2);
+      }
+      bgWidth = bgEndX - bgStartX;
+      var textX = bgStartX + (bgWidth - textWidth) / 2;
+      var textY = opts.tooltip.offset.y;
+      context.beginPath();
+      context.setFillStyle(hexToRgb(toolTipOption.labelBgColor || config.toolTipBackground, toolTipOption.labelBgOpacity || config.toolTipOpacity));
+      context.setStrokeStyle(toolTipOption.labelBgColor || config.toolTipBackground);
+      context.setLineWidth(1 * opts.pixelRatio);
+      context.rect(bgStartX, textY - 0.5 * config.fontSize - config.toolTipPadding, bgWidth, config.fontSize + 2 * config.toolTipPadding);
+      context.closePath();
+      context.stroke();
+      context.fill();
+      context.beginPath();
+      context.setFontSize(config.fontSize);
+      context.setFillStyle(toolTipOption.labelFontColor || config.fontColor);
+      context.fillText(labelText[i], textX, textY + 0.5 * config.fontSize);
+      context.closePath();
+      context.stroke();
+      if (widthArr[i].position == 'left') {
+        tStartLeft -= widthArr[i].width + opts.yAxis.padding;
+      } else {
+        tStartRight += widthArr[i].width + opts.yAxis.padding;
+      }
+    }
+  }
+}
+function drawToolTipSplitArea(offsetX, opts, config, context, eachSpacing) {
+  var toolTipOption = assign({}, {
+    activeBgColor: '#000000',
+    activeBgOpacity: 0.08
+  }, opts.extra.tooltip);
+  var startY = opts.area[0];
+  var endY = opts.height - opts.area[2];
+  context.beginPath();
+  context.setFillStyle(hexToRgb(toolTipOption.activeBgColor, toolTipOption.activeBgOpacity));
+  context.rect(offsetX - eachSpacing / 2, startY, eachSpacing, endY - startY);
+  context.closePath();
+  context.fill();
+}
+function drawToolTip(textList, offset, opts, config, context, eachSpacing, xAxisPoints) {
+  var toolTipOption = assign({}, {
+    showBox: true,
+    bgColor: '#000000',
+    bgOpacity: 0.7,
+    fontColor: '#FFFFFF'
+  }, opts.extra.tooltip);
+  var legendWidth = 4 * opts.pixelRatio;
+  var legendMarginRight = 5 * opts.pixelRatio;
+  var arrowWidth = 8 * opts.pixelRatio;
+  var isOverRightBorder = false;
+  if (opts.type == 'line' || opts.type == 'area' || opts.type == 'candle' || opts.type == 'mix') {
+    drawToolTipSplitLine(opts.tooltip.offset.x, opts, config, context);
+  }
+  offset = assign({
+    x: 0,
+    y: 0
+  }, offset);
+  offset.y -= 8 * opts.pixelRatio;
+  var textWidth = textList.map(function (item) {
+    return measureText(item.text, config.fontSize);
+  });
+  var toolTipWidth = legendWidth + legendMarginRight + 4 * config.toolTipPadding + Math.max.apply(null, textWidth);
+  var toolTipHeight = 2 * config.toolTipPadding + textList.length * config.toolTipLineHeight;
+  if (toolTipOption.showBox == false) {
+    return;
+  }
+  // if beyond the right border
+  if (offset.x - Math.abs(opts._scrollDistance_) + arrowWidth + toolTipWidth > opts.width) {
+    isOverRightBorder = true;
+  }
+  if (toolTipHeight + offset.y > opts.height) {
+    offset.y = opts.height - toolTipHeight;
+  }
+  // draw background rect
+  context.beginPath();
+  context.setFillStyle(hexToRgb(toolTipOption.bgColor || config.toolTipBackground, toolTipOption.bgOpacity || config.toolTipOpacity));
+  if (isOverRightBorder) {
+    context.moveTo(offset.x, offset.y + 10 * opts.pixelRatio);
+    context.lineTo(offset.x - arrowWidth, offset.y + 10 * opts.pixelRatio - 5 * opts.pixelRatio);
+    context.lineTo(offset.x - arrowWidth, offset.y);
+    context.lineTo(offset.x - arrowWidth - Math.round(toolTipWidth), offset.y);
+    context.lineTo(offset.x - arrowWidth - Math.round(toolTipWidth), offset.y + toolTipHeight);
+    context.lineTo(offset.x - arrowWidth, offset.y + toolTipHeight);
+    context.lineTo(offset.x - arrowWidth, offset.y + 10 * opts.pixelRatio + 5 * opts.pixelRatio);
+    context.lineTo(offset.x, offset.y + 10 * opts.pixelRatio);
+  } else {
+    context.moveTo(offset.x, offset.y + 10 * opts.pixelRatio);
+    context.lineTo(offset.x + arrowWidth, offset.y + 10 * opts.pixelRatio - 5 * opts.pixelRatio);
+    context.lineTo(offset.x + arrowWidth, offset.y);
+    context.lineTo(offset.x + arrowWidth + Math.round(toolTipWidth), offset.y);
+    context.lineTo(offset.x + arrowWidth + Math.round(toolTipWidth), offset.y + toolTipHeight);
+    context.lineTo(offset.x + arrowWidth, offset.y + toolTipHeight);
+    context.lineTo(offset.x + arrowWidth, offset.y + 10 * opts.pixelRatio + 5 * opts.pixelRatio);
+    context.lineTo(offset.x, offset.y + 10 * opts.pixelRatio);
+  }
+  context.closePath();
+  context.fill();
+
+  // draw legend
+  textList.forEach(function (item, index) {
+    if (item.color !== null) {
+      context.beginPath();
+      context.setFillStyle(item.color);
+      var startX = offset.x + arrowWidth + 2 * config.toolTipPadding;
+      var startY = offset.y + (config.toolTipLineHeight - config.fontSize) / 2 + config.toolTipLineHeight * index + config.toolTipPadding + 1;
+      if (isOverRightBorder) {
+        startX = offset.x - toolTipWidth - arrowWidth + 2 * config.toolTipPadding;
+      }
+      context.fillRect(startX, startY, legendWidth, config.fontSize);
+      context.closePath();
+    }
+  });
+
+  // draw text list
+
+  textList.forEach(function (item, index) {
+    var startX = offset.x + arrowWidth + 2 * config.toolTipPadding + legendWidth + legendMarginRight;
+    if (isOverRightBorder) {
+      startX = offset.x - toolTipWidth - arrowWidth + 2 * config.toolTipPadding + +legendWidth + legendMarginRight;
+    }
+    var startY = offset.y + (config.toolTipLineHeight - config.fontSize) / 2 + config.toolTipLineHeight * index + config.toolTipPadding;
+    context.beginPath();
+    context.setFontSize(config.fontSize);
+    context.setFillStyle(toolTipOption.fontColor);
+    context.fillText(item.text, startX, startY + config.fontSize);
+    context.closePath();
+    context.stroke();
+  });
+}
+function drawYAxisTitle(title, opts, config, context) {
+  var startX = config.xAxisHeight + (opts.height - config.xAxisHeight - measureText(title)) / 2;
+  context.save();
+  context.beginPath();
+  context.setFontSize(config.fontSize);
+  context.setFillStyle(opts.yAxis.titleFontColor || '#333333');
+  context.translate(0, opts.height);
+  context.rotate(-90 * Math.PI / 180);
+  context.fillText(title, startX, opts.padding[3] + 0.5 * config.fontSize);
+  context.closePath();
+  context.stroke();
+  context.restore();
+}
+function drawColumnDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var xAxisData = opts.chartData.xAxisData,
+    xAxisPoints = xAxisData.xAxisPoints,
+    eachSpacing = xAxisData.eachSpacing;
+  var columnOption = assign({}, {
+    type: 'group',
+    width: eachSpacing / 2,
+    meter: {
+      border: 4,
+      fillColor: '#FFFFFF'
+    }
+  }, opts.extra.column);
+  var calPoints = [];
+  context.save();
+  var leftNum = -2;
+  var rightNum = xAxisPoints.length + 2;
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0 && opts.enableScroll === true) {
+    context.translate(opts._scrollDistance_, 0);
+    leftNum = Math.floor(-opts._scrollDistance_ / eachSpacing) - 2;
+    rightNum = leftNum + opts.xAxis.itemCount + 4;
+  }
+  if (opts.tooltip && opts.tooltip.textList && opts.tooltip.textList.length && process === 1) {
+    drawToolTipSplitArea(opts.tooltip.offset.x, opts, config, context, eachSpacing);
+  }
+  series.forEach(function (eachSeries, seriesIndex) {
+    var ranges, minRange, maxRange;
+    ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+    minRange = ranges.pop();
+    maxRange = ranges.shift();
+    var data = eachSeries.data;
+    switch (columnOption.type) {
+      case 'group':
+        var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+        var tooltipPoints = getStackDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, seriesIndex, series, process);
+        calPoints.push(tooltipPoints);
+        points = fixColumeData(points, eachSpacing, series.length, seriesIndex, config, opts);
+        for (var i = 0; i < points.length; i++) {
+          var item = points[i];
+          if (item !== null && i > leftNum && i < rightNum) {
+            context.beginPath();
+            context.setStrokeStyle(item.color || eachSeries.color);
+            context.setLineWidth(1);
+            context.setFillStyle(item.color || eachSeries.color);
+            var startX = item.x - item.width / 2;
+            var height = opts.height - item.y - opts.area[2];
+            context.moveTo(startX, item.y);
+            context.lineTo(startX + item.width - 2, item.y);
+            context.lineTo(startX + item.width - 2, opts.height - opts.area[2]);
+            context.lineTo(startX, opts.height - opts.area[2]);
+            context.lineTo(startX, item.y);
+            context.closePath();
+            context.stroke();
+            context.fill();
+          }
+        }
+        ;
+        break;
+      case 'stack':
+        // Vẽ dữ liệu xếp chồng
+        var points = getStackDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, seriesIndex, series, process);
+        calPoints.push(points);
+        points = fixColumeStackData(points, eachSpacing, series.length, seriesIndex, config, opts, series);
+        for (var _i14 = 0; _i14 < points.length; _i14++) {
+          var _item7 = points[_i14];
+          if (_item7 !== null && _i14 > leftNum && _i14 < rightNum) {
+            context.beginPath();
+            context.setFillStyle(_item7.color || eachSeries.color);
+            var startX = _item7.x - _item7.width / 2 + 1;
+            var height = opts.height - _item7.y - opts.area[2];
+            var height0 = opts.height - _item7.y0 - opts.area[2];
+            if (seriesIndex > 0) {
+              height -= height0;
+            }
+            context.moveTo(startX, _item7.y);
+            context.fillRect(startX, _item7.y, _item7.width - 2, height);
+            context.closePath();
+            context.fill();
+          }
+        }
+        ;
+        break;
+      case 'meter':
+        // Vẽ dữ liệu nhiệt kế
+        var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+        calPoints.push(points);
+        points = fixColumeMeterData(points, eachSpacing, series.length, seriesIndex, config, opts, columnOption.meter.border);
+        if (seriesIndex == 0) {
+          for (var _i15 = 0; _i15 < points.length; _i15++) {
+            var _item8 = points[_i15];
+            if (_item8 !== null && _i15 > leftNum && _i15 < rightNum) {
+              //Sơn màu nền
+              context.beginPath();
+              context.setFillStyle(columnOption.meter.fillColor);
+              var startX = _item8.x - _item8.width / 2;
+              var height = opts.height - _item8.y - opts.area[2];
+              context.moveTo(startX, _item8.y);
+              context.fillRect(startX, _item8.y, _item8.width, height);
+              context.closePath();
+              context.fill();
+              //Vẽ đường viền
+              if (columnOption.meter.border > 0) {
+                context.beginPath();
+                context.setStrokeStyle(eachSeries.color);
+                context.setLineWidth(columnOption.meter.border * opts.pixelRatio);
+                context.moveTo(startX + columnOption.meter.border * 0.5, _item8.y + height);
+                context.lineTo(startX + columnOption.meter.border * 0.5, _item8.y + columnOption.meter.border * 0.5);
+                context.lineTo(startX + _item8.width - columnOption.meter.border * 0.5, _item8.y + columnOption.meter.border * 0.5);
+                context.lineTo(startX + _item8.width - columnOption.meter.border * 0.5, _item8.y + height);
+                context.stroke();
+              }
+            }
+          }
+          ;
+        } else {
+          for (var _i16 = 0; _i16 < points.length; _i16++) {
+            var _item9 = points[_i16];
+            if (_item9 !== null && _i16 > leftNum && _i16 < rightNum) {
+              context.beginPath();
+              context.setFillStyle(_item9.color || eachSeries.color);
+              var startX = _item9.x - _item9.width / 2;
+              var height = opts.height - _item9.y - opts.area[2];
+              context.moveTo(startX, _item9.y);
+              context.fillRect(startX, _item9.y, _item9.width, height);
+              context.closePath();
+              context.fill();
+            }
+          }
+          ;
+        }
+        break;
+    }
+  });
+  if (opts.dataLabel !== false && process === 1) {
+    series.forEach(function (eachSeries, seriesIndex) {
+      var ranges, minRange, maxRange;
+      ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+      minRange = ranges.pop();
+      maxRange = ranges.shift();
+      var data = eachSeries.data;
+      switch (columnOption.type) {
+        case 'group':
+          var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+          points = fixColumeData(points, eachSpacing, series.length, seriesIndex, config, opts);
+          drawPointText(points, eachSeries, config, context);
+          break;
+        case 'stack':
+          var points = getStackDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, seriesIndex, series, process);
+          drawPointText(points, eachSeries, config, context);
+          break;
+        case 'meter':
+          var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+          drawPointText(points, eachSeries, config, context);
+          break;
+      }
+    });
+  }
+  context.restore();
+  return {
+    xAxisPoints: xAxisPoints,
+    calPoints: calPoints,
+    eachSpacing: eachSpacing
+  };
+}
+function drawCandleDataPoints(series, seriesMA, opts, config, context) {
+  var process = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1;
+  var candleOption = assign({}, {
+    color: {},
+    average: {}
+  }, opts.extra.candle);
+  candleOption.color = assign({}, {
+    upLine: '#f04864',
+    upFill: '#f04864',
+    downLine: '#2fc25b',
+    downFill: '#2fc25b'
+  }, candleOption.color);
+  candleOption.average = assign({}, {
+    show: false,
+    name: [],
+    day: [],
+    color: config.colors
+  }, candleOption.average);
+  opts.extra.candle = candleOption;
+  var xAxisData = opts.chartData.xAxisData,
+    xAxisPoints = xAxisData.xAxisPoints,
+    eachSpacing = xAxisData.eachSpacing;
+  var calPoints = [];
+  context.save();
+  var leftNum = -2;
+  var rightNum = xAxisPoints.length + 2;
+  var leftSpace = 0;
+  var rightSpace = opts.width + eachSpacing;
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0 && opts.enableScroll === true) {
+    context.translate(opts._scrollDistance_, 0);
+    leftNum = Math.floor(-opts._scrollDistance_ / eachSpacing) - 2;
+    rightNum = leftNum + opts.xAxis.itemCount + 4;
+    leftSpace = -opts._scrollDistance_ - eachSpacing + opts.area[3];
+    rightSpace = leftSpace + (opts.xAxis.itemCount + 4) * eachSpacing;
+  }
+
+  //Vẽ đường trung bình động
+  if (candleOption.average.show) {
+    seriesMA.forEach(function (eachSeries, seriesIndex) {
+      var ranges, minRange, maxRange;
+      ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+      minRange = ranges.pop();
+      maxRange = ranges.shift();
+      var data = eachSeries.data;
+      var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+      var splitPointList = splitPoints(points);
+      for (var i = 0; i < splitPointList.length; i++) {
+        var _points = splitPointList[i];
+        context.beginPath();
+        context.setStrokeStyle(eachSeries.color);
+        context.setLineWidth(1);
+        if (_points.length === 1) {
+          context.moveTo(_points[0].x, _points[0].y);
+          context.arc(_points[0].x, _points[0].y, 1, 0, 2 * Math.PI);
+        } else {
+          context.moveTo(_points[0].x, _points[0].y);
+          var startPoint = 0;
+          for (var j = 0; j < _points.length; j++) {
+            var item = _points[j];
+            if (startPoint == 0 && item.x > leftSpace) {
+              context.moveTo(item.x, item.y);
+              startPoint = 1;
+            }
+            if (j > 0 && item.x > leftSpace && item.x < rightSpace) {
+              var ctrlPoint = createCurveControlPoints(_points, j - 1);
+              context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
+            }
+          }
+          context.moveTo(_points[0].x, _points[0].y);
+        }
+        context.closePath();
+        context.stroke();
+      }
+    });
+  }
+  //Vẽ đường K
+  series.forEach(function (eachSeries, seriesIndex) {
+    var ranges, minRange, maxRange;
+    ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+    minRange = ranges.pop();
+    maxRange = ranges.shift();
+    var data = eachSeries.data;
+    var points = getCandleDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+    calPoints.push(points);
+    var splitPointList = splitPoints(points);
+    for (var i = 0; i < splitPointList[0].length; i++) {
+      if (i > leftNum && i < rightNum) {
+        var item = splitPointList[0][i];
+        context.beginPath();
+        //nếu nó tăng
+        if (data[i][1] - data[i][0] > 0) {
+          context.setStrokeStyle(candleOption.color.upLine);
+          context.setFillStyle(candleOption.color.upFill);
+          context.setLineWidth(1 * opts.pixelRatio);
+          context.moveTo(item[3].x, item[3].y); //đỉnh
+          context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+          context.lineTo(item[1].x - eachSpacing / 4, item[1].y); //Điểm đóng bên trái
+          context.lineTo(item[0].x - eachSpacing / 4, item[0].y); //Mở điểm bên trái
+          context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+          context.lineTo(item[2].x, item[2].y); //đáy
+          context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+          context.lineTo(item[0].x + eachSpacing / 4, item[0].y); //Mở điểm bên phải
+          context.lineTo(item[1].x + eachSpacing / 4, item[1].y); //Đóng điểm bên phải
+          context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+          context.moveTo(item[3].x, item[3].y); //đỉnh
+        } else {
+          context.setStrokeStyle(candleOption.color.downLine);
+          context.setFillStyle(candleOption.color.downFill);
+          context.setLineWidth(1 * opts.pixelRatio);
+          context.moveTo(item[3].x, item[3].y); //đỉnh
+          context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+          context.lineTo(item[0].x - eachSpacing / 4, item[0].y); //Mở điểm bên trái
+          context.lineTo(item[1].x - eachSpacing / 4, item[1].y); //Điểm đóng bên trái
+          context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+          context.lineTo(item[2].x, item[2].y); //đáy
+          context.lineTo(item[1].x, item[1].y); //điểm giữa đóng cửa
+          context.lineTo(item[1].x + eachSpacing / 4, item[1].y); //Đóng điểm bên phải
+          context.lineTo(item[0].x + eachSpacing / 4, item[0].y); //Mở điểm bên phải
+          context.lineTo(item[0].x, item[0].y); //điểm giữa mở đầu
+          context.moveTo(item[3].x, item[3].y); //đỉnh
+        }
+
+        context.closePath();
+        context.fill();
+        context.stroke();
+      }
+    }
+  });
+  context.restore();
+  return {
+    xAxisPoints: xAxisPoints,
+    calPoints: calPoints,
+    eachSpacing: eachSpacing
+  };
+}
+function drawAreaDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var areaOption = assign({}, {
+    type: 'straight',
+    opacity: 0.2,
+    addLine: false,
+    width: 2,
+    gradient: false
+  }, opts.extra.area);
+  var xAxisData = opts.chartData.xAxisData,
+    xAxisPoints = xAxisData.xAxisPoints,
+    eachSpacing = xAxisData.eachSpacing;
+  var endY = opts.height - opts.area[2];
+  var calPoints = [];
+  context.save();
+  var leftSpace = 0;
+  var rightSpace = opts.width + eachSpacing;
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0 && opts.enableScroll === true) {
+    context.translate(opts._scrollDistance_, 0);
+    leftSpace = -opts._scrollDistance_ - eachSpacing + opts.area[3];
+    rightSpace = leftSpace + (opts.xAxis.itemCount + 4) * eachSpacing;
+  }
+  series.forEach(function (eachSeries, seriesIndex) {
+    var ranges, minRange, maxRange;
+    ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+    minRange = ranges.pop();
+    maxRange = ranges.shift();
+    var data = eachSeries.data;
+    var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+    calPoints.push(points);
+    var splitPointList = splitPoints(points);
+    for (var i = 0; i < splitPointList.length; i++) {
+      var _points2 = splitPointList[i];
+      // Số vùng vẽ
+      context.beginPath();
+      context.setStrokeStyle(hexToRgb(eachSeries.color, areaOption.opacity));
+      if (areaOption.gradient) {
+        var gradient = context.createLinearGradient(0, opts.area[0], 0, opts.height - opts.area[2]);
+        gradient.addColorStop('0', hexToRgb(eachSeries.color, areaOption.opacity));
+        gradient.addColorStop('1.0', hexToRgb("#FFFFFF", 0.1));
+        context.setFillStyle(gradient);
+      } else {
+        context.setFillStyle(hexToRgb(eachSeries.color, areaOption.opacity));
+      }
+      context.setLineWidth(areaOption.width * opts.pixelRatio);
+      if (_points2.length > 1) {
+        var firstPoint = _points2[0];
+        var lastPoint = _points2[_points2.length - 1];
+        context.moveTo(firstPoint.x, firstPoint.y);
+        var startPoint = 0;
+        if (areaOption.type === 'curve') {
+          for (var j = 0; j < _points2.length; j++) {
+            var item = _points2[j];
+            if (startPoint == 0 && item.x > leftSpace) {
+              context.moveTo(item.x, item.y);
+              startPoint = 1;
+            }
+            if (j > 0 && item.x > leftSpace && item.x < rightSpace) {
+              var ctrlPoint = createCurveControlPoints(_points2, j - 1);
+              context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
+            }
+          }
+          ;
+        } else {
+          for (var _j = 0; _j < _points2.length; _j++) {
+            var _item10 = _points2[_j];
+            if (startPoint == 0 && _item10.x > leftSpace) {
+              context.moveTo(_item10.x, _item10.y);
+              startPoint = 1;
+            }
+            if (_j > 0 && _item10.x > leftSpace && _item10.x < rightSpace) {
+              context.lineTo(_item10.x, _item10.y);
+            }
+          }
+          ;
+        }
+        context.lineTo(lastPoint.x, endY);
+        context.lineTo(firstPoint.x, endY);
+        context.lineTo(firstPoint.x, firstPoint.y);
+      } else {
+        var _item11 = _points2[0];
+        context.moveTo(_item11.x - eachSpacing / 2, _item11.y);
+        context.lineTo(_item11.x + eachSpacing / 2, _item11.y);
+        context.lineTo(_item11.x + eachSpacing / 2, endY);
+        context.lineTo(_item11.x - eachSpacing / 2, endY);
+        context.moveTo(_item11.x - eachSpacing / 2, _item11.y);
+      }
+      context.closePath();
+      context.fill();
+
+      //vẽ đường kết nối
+      if (areaOption.addLine) {
+        if (eachSeries.lineType == 'dash') {
+          var dashLength = eachSeries.dashLength ? eachSeries.dashLength : 8;
+          dashLength *= opts.pixelRatio;
+          context.setLineDash([dashLength, dashLength]);
+        }
+        context.beginPath();
+        context.setStrokeStyle(eachSeries.color);
+        context.setLineWidth(areaOption.width * opts.pixelRatio);
+        if (_points2.length === 1) {
+          context.moveTo(_points2[0].x, _points2[0].y);
+          context.arc(_points2[0].x, _points2[0].y, 1, 0, 2 * Math.PI);
+        } else {
+          context.moveTo(_points2[0].x, _points2[0].y);
+          var _startPoint = 0;
+          if (areaOption.type === 'curve') {
+            for (var _j2 = 0; _j2 < _points2.length; _j2++) {
+              var _item12 = _points2[_j2];
+              if (_startPoint == 0 && _item12.x > leftSpace) {
+                context.moveTo(_item12.x, _item12.y);
+                _startPoint = 1;
+              }
+              if (_j2 > 0 && _item12.x > leftSpace && _item12.x < rightSpace) {
+                var _ctrlPoint = createCurveControlPoints(_points2, _j2 - 1);
+                context.bezierCurveTo(_ctrlPoint.ctrA.x, _ctrlPoint.ctrA.y, _ctrlPoint.ctrB.x, _ctrlPoint.ctrB.y, _item12.x, _item12.y);
+              }
+            }
+            ;
+          } else {
+            for (var _j3 = 0; _j3 < _points2.length; _j3++) {
+              var _item13 = _points2[_j3];
+              if (_startPoint == 0 && _item13.x > leftSpace) {
+                context.moveTo(_item13.x, _item13.y);
+                _startPoint = 1;
+              }
+              if (_j3 > 0 && _item13.x > leftSpace && _item13.x < rightSpace) {
+                context.lineTo(_item13.x, _item13.y);
+              }
+            }
+            ;
+          }
+          context.moveTo(_points2[0].x, _points2[0].y);
+        }
+        context.stroke();
+        context.setLineDash([]);
+      }
+    }
+
+    //vẽ dấu chấm
+    if (opts.dataPointShape !== false) {
+      drawPointShape(points, eachSeries.color, eachSeries.pointShape, context, opts);
+    }
+  });
+  if (opts.dataLabel !== false && process === 1) {
+    series.forEach(function (eachSeries, seriesIndex) {
+      var ranges, minRange, maxRange;
+      ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+      minRange = ranges.pop();
+      maxRange = ranges.shift();
+      var data = eachSeries.data;
+      var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+      drawPointText(points, eachSeries, config, context);
+    });
+  }
+  context.restore();
+  return {
+    xAxisPoints: xAxisPoints,
+    calPoints: calPoints,
+    eachSpacing: eachSpacing
+  };
+}
+function drawLineDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var lineOption = assign({}, {
+    type: 'straight',
+    width: 2
+  }, opts.extra.line);
+  lineOption.width *= opts.pixelRatio;
+  var xAxisData = opts.chartData.xAxisData,
+    xAxisPoints = xAxisData.xAxisPoints,
+    eachSpacing = xAxisData.eachSpacing;
+  var calPoints = [];
+  context.save();
+  var leftSpace = 0;
+  var rightSpace = opts.width + eachSpacing;
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0 && opts.enableScroll === true) {
+    context.translate(opts._scrollDistance_, 0);
+    leftSpace = -opts._scrollDistance_ - eachSpacing + opts.area[3];
+    rightSpace = leftSpace + (opts.xAxis.itemCount + 4) * eachSpacing;
+  }
+  series.forEach(function (eachSeries, seriesIndex) {
+    var ranges, minRange, maxRange;
+    ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+    minRange = ranges.pop();
+    maxRange = ranges.shift();
+    var data = eachSeries.data;
+    var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+    calPoints.push(points);
+    var splitPointList = splitPoints(points);
+    if (eachSeries.lineType == 'dash') {
+      var dashLength = eachSeries.dashLength ? eachSeries.dashLength : 8;
+      dashLength *= opts.pixelRatio;
+      context.setLineDash([dashLength, dashLength]);
+    }
+    context.beginPath();
+    context.setStrokeStyle(eachSeries.color);
+    context.setLineWidth(lineOption.width);
+    splitPointList.forEach(function (points, index) {
+      if (points.length === 1) {
+        context.moveTo(points[0].x, points[0].y);
+        context.arc(points[0].x, points[0].y, 1, 0, 2 * Math.PI);
+      } else {
+        context.moveTo(points[0].x, points[0].y);
+        var startPoint = 0;
+        if (lineOption.type === 'curve') {
+          for (var j = 0; j < points.length; j++) {
+            var item = points[j];
+            if (startPoint == 0 && item.x > leftSpace) {
+              context.moveTo(item.x, item.y);
+              startPoint = 1;
+            }
+            if (j > 0 && item.x > leftSpace && item.x < rightSpace) {
+              var ctrlPoint = createCurveControlPoints(points, j - 1);
+              context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
+            }
+          }
+          ;
+        } else {
+          for (var _j4 = 0; _j4 < points.length; _j4++) {
+            var _item14 = points[_j4];
+            if (startPoint == 0 && _item14.x > leftSpace) {
+              context.moveTo(_item14.x, _item14.y);
+              startPoint = 1;
+            }
+            if (_j4 > 0 && _item14.x > leftSpace && _item14.x < rightSpace) {
+              context.lineTo(_item14.x, _item14.y);
+            }
+          }
+          ;
+        }
+        context.moveTo(points[0].x, points[0].y);
+      }
+    });
+    context.stroke();
+    context.setLineDash([]);
+    if (opts.dataPointShape !== false) {
+      drawPointShape(points, eachSeries.color, eachSeries.pointShape, context, opts);
+    }
+  });
+  if (opts.dataLabel !== false && process === 1) {
+    series.forEach(function (eachSeries, seriesIndex) {
+      var ranges, minRange, maxRange;
+      ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+      minRange = ranges.pop();
+      maxRange = ranges.shift();
+      var data = eachSeries.data;
+      var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+      drawPointText(points, eachSeries, config, context);
+    });
+  }
+  context.restore();
+  return {
+    xAxisPoints: xAxisPoints,
+    calPoints: calPoints,
+    eachSpacing: eachSpacing
+  };
+}
+function drawMixDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var xAxisData = opts.chartData.xAxisData,
+    xAxisPoints = xAxisData.xAxisPoints,
+    eachSpacing = xAxisData.eachSpacing;
+  var endY = opts.height - opts.area[2];
+  var calPoints = [];
+  var columnIndex = 0;
+  var columnLength = 0;
+  series.forEach(function (eachSeries, seriesIndex) {
+    if (eachSeries.type == 'column') {
+      columnLength += 1;
+    }
+  });
+  context.save();
+  var leftNum = -2;
+  var rightNum = xAxisPoints.length + 2;
+  var leftSpace = 0;
+  var rightSpace = opts.width + eachSpacing;
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0 && opts.enableScroll === true) {
+    context.translate(opts._scrollDistance_, 0);
+    leftNum = Math.floor(-opts._scrollDistance_ / eachSpacing) - 2;
+    rightNum = leftNum + opts.xAxis.itemCount + 4;
+    leftSpace = -opts._scrollDistance_ - eachSpacing + opts.area[3];
+    rightSpace = leftSpace + (opts.xAxis.itemCount + 4) * eachSpacing;
+  }
+  series.forEach(function (eachSeries, seriesIndex) {
+    var ranges, minRange, maxRange;
+    ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+    minRange = ranges.pop();
+    maxRange = ranges.shift();
+    var data = eachSeries.data;
+    var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+    calPoints.push(points);
+
+    // Vẽ biểu đồ dữ liệu
+    if (eachSeries.type == 'column') {
+      points = fixColumeData(points, eachSpacing, columnLength, columnIndex, config, opts);
+      for (var i = 0; i < points.length; i++) {
+        var item = points[i];
+        if (item !== null && i > leftNum && i < rightNum) {
+          context.beginPath();
+          context.setStrokeStyle(item.color || eachSeries.color);
+          context.setLineWidth(1);
+          context.setFillStyle(item.color || eachSeries.color);
+          var startX = item.x - item.width / 2;
+          var height = opts.height - item.y - opts.area[2];
+          context.moveTo(startX, item.y);
+          context.moveTo(startX, item.y);
+          context.lineTo(startX + item.width - 2, item.y);
+          context.lineTo(startX + item.width - 2, opts.height - opts.area[2]);
+          context.lineTo(startX, opts.height - opts.area[2]);
+          context.lineTo(startX, item.y);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          context.closePath();
+          context.fill();
+        }
+      }
+      columnIndex += 1;
+    }
+
+    //Vẽ biểu đồ vùng dữ liệu
+
+    if (eachSeries.type == 'area') {
+      var _splitPointList = splitPoints(points);
+      for (var _i17 = 0; _i17 < _splitPointList.length; _i17++) {
+        var _points3 = _splitPointList[_i17];
+        // Dữ liệu vùng vẽ
+        context.beginPath();
+        context.setStrokeStyle(eachSeries.color);
+        context.setFillStyle(hexToRgb(eachSeries.color, 0.2));
+        context.setLineWidth(2 * opts.pixelRatio);
+        if (_points3.length > 1) {
+          var firstPoint = _points3[0];
+          var lastPoint = _points3[_points3.length - 1];
+          context.moveTo(firstPoint.x, firstPoint.y);
+          var startPoint = 0;
+          if (eachSeries.style === 'curve') {
+            for (var j = 0; j < _points3.length; j++) {
+              var _item15 = _points3[j];
+              if (startPoint == 0 && _item15.x > leftSpace) {
+                context.moveTo(_item15.x, _item15.y);
+                startPoint = 1;
+              }
+              if (j > 0 && _item15.x > leftSpace && _item15.x < rightSpace) {
+                var ctrlPoint = createCurveControlPoints(_points3, j - 1);
+                context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, _item15.x, _item15.y);
+              }
+            }
+            ;
+          } else {
+            for (var _j5 = 0; _j5 < _points3.length; _j5++) {
+              var _item16 = _points3[_j5];
+              if (startPoint == 0 && _item16.x > leftSpace) {
+                context.moveTo(_item16.x, _item16.y);
+                startPoint = 1;
+              }
+              if (_j5 > 0 && _item16.x > leftSpace && _item16.x < rightSpace) {
+                context.lineTo(_item16.x, _item16.y);
+              }
+            }
+            ;
+          }
+          context.lineTo(lastPoint.x, endY);
+          context.lineTo(firstPoint.x, endY);
+          context.lineTo(firstPoint.x, firstPoint.y);
+        } else {
+          var _item17 = _points3[0];
+          context.moveTo(_item17.x - eachSpacing / 2, _item17.y);
+          context.lineTo(_item17.x + eachSpacing / 2, _item17.y);
+          context.lineTo(_item17.x + eachSpacing / 2, endY);
+          context.lineTo(_item17.x - eachSpacing / 2, endY);
+          context.moveTo(_item17.x - eachSpacing / 2, _item17.y);
+        }
+        context.closePath();
+        context.fill();
+      }
+    }
+
+    // Vẽ biểu đồ dữ liệu đường
+    if (eachSeries.type == 'line') {
+      var splitPointList = splitPoints(points);
+      splitPointList.forEach(function (points, index) {
+        if (eachSeries.lineType == 'dash') {
+          var dashLength = eachSeries.dashLength ? eachSeries.dashLength : 8;
+          dashLength *= opts.pixelRatio;
+          context.setLineDash([dashLength, dashLength]);
+        }
+        context.beginPath();
+        context.setStrokeStyle(eachSeries.color);
+        context.setLineWidth(2 * opts.pixelRatio);
+        if (points.length === 1) {
+          context.moveTo(points[0].x, points[0].y);
+          context.arc(points[0].x, points[0].y, 1, 0, 2 * Math.PI);
+        } else {
+          context.moveTo(points[0].x, points[0].y);
+          var _startPoint2 = 0;
+          if (eachSeries.style == 'curve') {
+            for (var _j6 = 0; _j6 < points.length; _j6++) {
+              var _item18 = points[_j6];
+              if (_startPoint2 == 0 && _item18.x > leftSpace) {
+                context.moveTo(_item18.x, _item18.y);
+                _startPoint2 = 1;
+              }
+              if (_j6 > 0 && _item18.x > leftSpace && _item18.x < rightSpace) {
+                var ctrlPoint = createCurveControlPoints(points, _j6 - 1);
+                context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, _item18.x, _item18.y);
+              }
+            }
+          } else {
+            for (var _j7 = 0; _j7 < points.length; _j7++) {
+              var _item19 = points[_j7];
+              if (_startPoint2 == 0 && _item19.x > leftSpace) {
+                context.moveTo(_item19.x, _item19.y);
+                _startPoint2 = 1;
+              }
+              if (_j7 > 0 && _item19.x > leftSpace && _item19.x < rightSpace) {
+                context.lineTo(_item19.x, _item19.y);
+              }
+            }
+          }
+          context.moveTo(points[0].x, points[0].y);
+        }
+        context.stroke();
+        context.setLineDash([]);
+      });
+    }
+
+    // Vẽ dữ liệu điểm
+    if (eachSeries.type == 'point') {
+      eachSeries.addPoint = true;
+    }
+    if (eachSeries.addPoint == true && eachSeries.type !== 'column') {
+      drawPointShape(points, eachSeries.color, eachSeries.pointShape, context, opts);
+    }
+  });
+  if (opts.dataLabel !== false && process === 1) {
+    var columnIndex = 0;
+    series.forEach(function (eachSeries, seriesIndex) {
+      var ranges, minRange, maxRange;
+      ranges = [].concat(opts.chartData.yAxisData.ranges[eachSeries.index]);
+      minRange = ranges.pop();
+      maxRange = ranges.shift();
+      var data = eachSeries.data;
+      var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+      if (eachSeries.type !== 'column') {
+        drawPointText(points, eachSeries, config, context);
+      } else {
+        points = fixColumeData(points, eachSpacing, columnLength, columnIndex, config, opts);
+        drawPointText(points, eachSeries, config, context);
+        columnIndex += 1;
+      }
+    });
+  }
+  context.restore();
+  return {
+    xAxisPoints: xAxisPoints,
+    calPoints: calPoints,
+    eachSpacing: eachSpacing
+  };
+}
+function drawToolTipBridge(opts, config, context, process, eachSpacing, xAxisPoints) {
+  var toolTipOption = opts.extra.tooltip || {};
+  if (toolTipOption.horizentalLine && opts.tooltip && process === 1 && (opts.type == 'line' || opts.type == 'area' || opts.type == 'column' || opts.type == 'candle' || opts.type == 'mix')) {
+    drawToolTipHorizentalLine(opts, config, context, eachSpacing, xAxisPoints);
+  }
+  context.save();
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0 && opts.enableScroll === true) {
+    context.translate(opts._scrollDistance_, 0);
+  }
+  if (opts.tooltip && opts.tooltip.textList && opts.tooltip.textList.length && process === 1) {
+    drawToolTip(opts.tooltip.textList, opts.tooltip.offset, opts, config, context, eachSpacing, xAxisPoints);
+  }
+  context.restore();
+}
+function drawXAxis(categories, opts, config, context) {
+  var xAxisData = opts.chartData.xAxisData,
+    xAxisPoints = xAxisData.xAxisPoints,
+    startX = xAxisData.startX,
+    endX = xAxisData.endX,
+    eachSpacing = xAxisData.eachSpacing;
+  var boundaryGap = 'center';
+  if (opts.type == 'line' || opts.type == 'area') {
+    boundaryGap = opts.xAxis.boundaryGap;
+  }
+  var startY = opts.height - opts.area[2];
+  var endY = opts.area[0];
+
+  //Vẽ thanh cuộn
+  if (opts.enableScroll && opts.xAxis.scrollShow) {
+    var scrollY = opts.height - opts.area[2] + config.xAxisHeight;
+    var scrollScreenWidth = endX - startX;
+    var scrollTotalWidth = eachSpacing * (xAxisPoints.length - 1);
+    var scrollWidth = scrollScreenWidth * scrollScreenWidth / scrollTotalWidth;
+    var scrollLeft = 0;
+    if (opts._scrollDistance_) {
+      scrollLeft = -opts._scrollDistance_ * scrollScreenWidth / scrollTotalWidth;
+    }
+    context.beginPath();
+    context.setLineCap('round');
+    context.setLineWidth(6 * opts.pixelRatio);
+    context.setStrokeStyle(opts.xAxis.scrollBackgroundColor || "#EFEBEF");
+    context.moveTo(startX, scrollY);
+    context.lineTo(endX, scrollY);
+    context.stroke();
+    context.closePath();
+    context.beginPath();
+    context.setLineCap('round');
+    context.setLineWidth(6 * opts.pixelRatio);
+    context.setStrokeStyle(opts.xAxis.scrollColor || "#A6A6A6");
+    context.moveTo(startX + scrollLeft, scrollY);
+    context.lineTo(startX + scrollLeft + scrollWidth, scrollY);
+    context.stroke();
+    context.closePath();
+    context.setLineCap('butt');
+  }
+  context.save();
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0) {
+    context.translate(opts._scrollDistance_, 0);
+  }
+
+  //Vẽ dấu tích trục X
+  if (opts.xAxis.calibration === true) {
+    context.setStrokeStyle(opts.xAxis.gridColor || "#cccccc");
+    context.setLineCap('butt');
+    context.setLineWidth(1 * opts.pixelRatio);
+    xAxisPoints.forEach(function (item, index) {
+      if (index > 0) {
+        context.beginPath();
+        context.moveTo(item - eachSpacing / 2, startY);
+        context.lineTo(item - eachSpacing / 2, startY + 3 * opts.pixelRatio);
+        context.closePath();
+        context.stroke();
+      }
+    });
+  }
+  //Vẽ lưới trục X
+  if (opts.xAxis.disableGrid !== true) {
+    context.setStrokeStyle(opts.xAxis.gridColor || "#cccccc");
+    context.setLineCap('butt');
+    context.setLineWidth(1 * opts.pixelRatio);
+    if (opts.xAxis.gridType == 'dash') {
+      context.setLineDash([opts.xAxis.dashLength, opts.xAxis.dashLength]);
+    }
+    opts.xAxis.gridEval = opts.xAxis.gridEval || 1;
+    xAxisPoints.forEach(function (item, index) {
+      if (index % opts.xAxis.gridEval == 0) {
+        context.beginPath();
+        context.moveTo(item, startY);
+        context.lineTo(item, endY);
+        context.stroke();
+      }
+    });
+    context.setLineDash([]);
+  }
+
+  //Vẽ bản sao trục X
+  if (opts.xAxis.disabled !== true) {
+    // Làm mỏng danh sách trục X
+    // Hiển thị tất cả các nhãn trục X theo mặc định
+    var maxXAxisListLength = categories.length;
+    //Nếu số lượng màn hình đơn trục X được đặt
+    if (opts.xAxis.labelCount) {
+      //Nếu bạn đặt mật độ trục X
+      if (opts.xAxis.itemCount) {
+        maxXAxisListLength = Math.ceil(categories.length / opts.xAxis.itemCount * opts.xAxis.labelCount);
+      } else {
+        maxXAxisListLength = opts.xAxis.labelCount;
+      }
+      maxXAxisListLength -= 1;
+    }
+    var ratio = Math.ceil(categories.length / maxXAxisListLength);
+    var newCategories = [];
+    var cgLength = categories.length;
+    for (var i = 0; i < cgLength; i++) {
+      if (i % ratio !== 0) {
+        newCategories.push("");
+      } else {
+        newCategories.push(categories[i]);
+      }
+    }
+    newCategories[cgLength - 1] = categories[cgLength - 1];
+    var xAxisFontSize = opts.xAxis.fontSize || config.fontSize;
+    if (config._xAxisTextAngle_ === 0) {
+      newCategories.forEach(function (item, index) {
+        var offset = -measureText(String(item), xAxisFontSize) / 2;
+        if (boundaryGap == 'center') {
+          offset += eachSpacing / 2;
+        }
+        var scrollHeight = 0;
+        if (opts.xAxis.scrollShow) {
+          scrollHeight = 6 * opts.pixelRatio;
+        }
+        context.beginPath();
+        context.setFontSize(xAxisFontSize);
+        context.setFillStyle(opts.xAxis.fontColor || '#666666');
+        context.fillText(String(item), xAxisPoints[index] + offset, startY + xAxisFontSize + (config.xAxisHeight - scrollHeight - xAxisFontSize) / 2);
+        context.closePath();
+        context.stroke();
+      });
+    } else {
+      newCategories.forEach(function (item, index) {
+        context.save();
+        context.beginPath();
+        context.setFontSize(xAxisFontSize);
+        context.setFillStyle(opts.xAxis.fontColor || '#666666');
+        var textWidth = measureText(String(item), xAxisFontSize);
+        var offset = -textWidth;
+        if (boundaryGap == 'center') {
+          offset += eachSpacing / 2;
+        }
+        var _calRotateTranslate = calRotateTranslate(xAxisPoints[index] + eachSpacing / 2, startY + xAxisFontSize / 2 + 5, opts.height),
+          transX = _calRotateTranslate.transX,
+          transY = _calRotateTranslate.transY;
+        context.rotate(-1 * config._xAxisTextAngle_);
+        context.translate(transX, transY);
+        context.fillText(String(item), xAxisPoints[index] + offset, startY + xAxisFontSize + 5);
+        context.closePath();
+        context.stroke();
+        context.restore();
+      });
+    }
+  }
+  context.restore();
+
+  //Vẽ trục trục X
+  if (opts.xAxis.axisLine) {
+    context.beginPath();
+    context.setStrokeStyle(opts.xAxis.axisLineColor);
+    context.setLineWidth(1 * opts.pixelRatio);
+    context.moveTo(startX, opts.height - opts.area[2]);
+    context.lineTo(endX, opts.height - opts.area[2]);
+    context.stroke();
+  }
+}
+function drawYAxisGrid(categories, opts, config, context) {
+  if (opts.yAxis.disableGrid === true) {
+    return;
+  }
+  var spacingValid = opts.height - opts.area[0] - opts.area[2];
+  var eachSpacing = spacingValid / opts.yAxis.splitNumber;
+  var startX = opts.area[3];
+  var xAxisPoints = opts.chartData.xAxisData.xAxisPoints,
+    xAxiseachSpacing = opts.chartData.xAxisData.eachSpacing;
+  var TotalWidth = xAxiseachSpacing * (xAxisPoints.length - 1);
+  var endX = startX + TotalWidth;
+  var points = [];
+  for (var i = 0; i < opts.yAxis.splitNumber + 1; i++) {
+    points.push(opts.height - opts.area[2] - eachSpacing * i);
+  }
+  context.save();
+  if (opts._scrollDistance_ && opts._scrollDistance_ !== 0) {
+    context.translate(opts._scrollDistance_, 0);
+  }
+  if (opts.yAxis.gridType == 'dash') {
+    context.setLineDash([opts.yAxis.dashLength, opts.yAxis.dashLength]);
+  }
+  context.setStrokeStyle(opts.yAxis.gridColor);
+  context.setLineWidth(1 * opts.pixelRatio);
+  points.forEach(function (item, index) {
+    context.beginPath();
+    context.moveTo(startX, item);
+    context.lineTo(endX, item);
+    context.stroke();
+  });
+  context.setLineDash([]);
+  context.restore();
+}
+function drawYAxis(series, opts, config, context) {
+  if (opts.yAxis.disabled === true) {
+    return;
+  }
+  var spacingValid = opts.height - opts.area[0] - opts.area[2];
+  var eachSpacing = spacingValid / opts.yAxis.splitNumber;
+  var startX = opts.area[3];
+  var endX = opts.width - opts.area[1];
+  var endY = opts.height - opts.area[2];
+  var fillEndY = endY + config.xAxisHeight;
+  if (opts.xAxis.scrollShow) {
+    fillEndY -= 3 * opts.pixelRatio;
+  }
+  if (opts.xAxis.rotateLabel) {
+    fillEndY = opts.height - opts.area[2] + 3;
+  }
+  // set YAxis background
+  context.beginPath();
+  context.setFillStyle(opts.background || '#ffffff');
+  if (opts._scrollDistance_ < 0) {
+    context.fillRect(0, 0, startX, fillEndY);
+  }
+  if (opts.enableScroll == true) {
+    context.fillRect(endX, 0, opts.width, fillEndY);
+  }
+  context.closePath();
+  context.stroke();
+  var points = [];
+  for (var i = 0; i <= opts.yAxis.splitNumber; i++) {
+    points.push(opts.area[0] + eachSpacing * i);
+  }
+  var tStartLeft = opts.area[3];
+  var tStartRight = opts.width - opts.area[1];
+  var _loop4 = function _loop4(_i18) {
+    var yData = opts.yAxis.data[_i18];
+    if (yData.disabled !== true) {
+      var rangesFormat = opts.chartData.yAxisData.rangesFormat[_i18];
+      var yAxisFontSize = yData.fontSize || config.fontSize;
+      var yAxisWidth = opts.chartData.yAxisData.yAxisWidth[_i18];
+      //Vẽ tỷ lệ trục Y và copywriting
+      rangesFormat.forEach(function (item, index) {
+        var pos = points[index] ? points[index] : endY;
+        context.beginPath();
+        context.setFontSize(yAxisFontSize);
+        context.setLineWidth(1 * opts.pixelRatio);
+        context.setStrokeStyle(yData.axisLineColor || '#cccccc');
+        context.setFillStyle(yData.fontColor || '#666666');
+        if (yAxisWidth.position == 'left') {
+          context.fillText(String(item), tStartLeft - yAxisWidth.width, pos + yAxisFontSize / 2);
+          //vẽ dấu tích
+          if (yData.calibration == true) {
+            context.moveTo(tStartLeft, pos);
+            context.lineTo(tStartLeft - 3 * opts.pixelRatio, pos);
+          }
+        } else {
+          context.fillText(String(item), tStartRight + 4 * opts.pixelRatio, pos + yAxisFontSize / 2);
+          //vẽ dấu tích
+          if (yData.calibration == true) {
+            context.moveTo(tStartRight, pos);
+            context.lineTo(tStartRight + 3 * opts.pixelRatio, pos);
+          }
+        }
+        context.closePath();
+        context.stroke();
+      });
+      //Vẽ trục trục Y
+      if (yData.axisLine !== false) {
+        context.beginPath();
+        context.setStrokeStyle(yData.axisLineColor || '#cccccc');
+        context.setLineWidth(1 * opts.pixelRatio);
+        if (yAxisWidth.position == 'left') {
+          context.moveTo(tStartLeft, opts.height - opts.area[2]);
+          context.lineTo(tStartLeft, opts.area[0]);
+        } else {
+          context.moveTo(tStartRight, opts.height - opts.area[2]);
+          context.lineTo(tStartRight, opts.area[0]);
+        }
+        context.stroke();
+      }
+
+      //Vẽ tiêu đề trục Y
+      if (opts.yAxis.showTitle) {
+        var titleFontSize = yData.titleFontSize || config.fontSize;
+        var title = yData.title;
+        context.beginPath();
+        context.setFontSize(titleFontSize);
+        context.setFillStyle(yData.titleFontColor || '#666666');
+        if (yAxisWidth.position == 'left') {
+          context.fillText(title, tStartLeft - measureText(title, titleFontSize) / 2, opts.area[0] - 10 * opts.pixelRatio);
+        } else {
+          context.fillText(title, tStartRight - measureText(title, titleFontSize) / 2, opts.area[0] - 10 * opts.pixelRatio);
+        }
+        context.closePath();
+        context.stroke();
+      }
+      if (yAxisWidth.position == 'left') {
+        tStartLeft -= yAxisWidth.width + opts.yAxis.padding;
+      } else {
+        tStartRight += yAxisWidth.width + opts.yAxis.padding;
+      }
+    }
+  };
+  for (var _i18 = 0; _i18 < opts.yAxis.data.length; _i18++) {
+    _loop4(_i18);
+  }
+}
+function drawLegend(series, opts, config, context, chartData) {
+  if (opts.legend.show === false) {
+    return;
+  }
+  var legendData = chartData.legendData;
+  var legendList = legendData.points;
+  var legendArea = legendData.area;
+  var padding = opts.legend.padding;
+  var fontSize = opts.legend.fontSize;
+  var shapeWidth = 15 * opts.pixelRatio;
+  var shapeRight = 5 * opts.pixelRatio;
+  var itemGap = opts.legend.itemGap;
+  var lineHeight = Math.max(opts.legend.lineHeight * opts.pixelRatio, fontSize);
+
+  //Vẽ nền và đường viền
+  context.beginPath();
+  context.setLineWidth(opts.legend.borderWidth);
+  context.setStrokeStyle(opts.legend.borderColor);
+  context.setFillStyle(opts.legend.backgroundColor);
+  context.moveTo(legendArea.start.x, legendArea.start.y);
+  context.rect(legendArea.start.x, legendArea.start.y, legendArea.width, legendArea.height);
+  context.closePath();
+  context.fill();
+  context.stroke();
+  legendList.forEach(function (itemList, listIndex) {
+    var width = 0;
+    var height = 0;
+    width = legendData.widthArr[listIndex];
+    height = legendData.heightArr[listIndex];
+    var startX = 0;
+    var startY = 0;
+    if (opts.legend.position == 'top' || opts.legend.position == 'bottom') {
+      startX = legendArea.start.x + (legendArea.width - width) / 2;
+      startY = legendArea.start.y + padding + listIndex * lineHeight;
+    } else {
+      if (listIndex == 0) {
+        width = 0;
+      } else {
+        width = legendData.widthArr[listIndex - 1];
+      }
+      startX = legendArea.start.x + padding + width;
+      startY = legendArea.start.y + padding + (legendArea.height - height) / 2;
+    }
+    context.setFontSize(config.fontSize);
+    for (var i = 0; i < itemList.length; i++) {
+      var item = itemList[i];
+      item.area = [0, 0, 0, 0];
+      item.area[0] = startX;
+      item.area[1] = startY;
+      item.area[3] = startY + lineHeight;
+      context.beginPath();
+      context.setLineWidth(1 * opts.pixelRatio);
+      context.setStrokeStyle(item.show ? item.color : opts.legend.hiddenColor);
+      context.setFillStyle(item.show ? item.color : opts.legend.hiddenColor);
+      switch (item.legendShape) {
+        case 'line':
+          context.moveTo(startX, startY + 0.5 * lineHeight - 2 * opts.pixelRatio);
+          context.fillRect(startX, startY + 0.5 * lineHeight - 2 * opts.pixelRatio, 15 * opts.pixelRatio, 4 * opts.pixelRatio);
+          break;
+        case 'triangle':
+          context.moveTo(startX + 7.5 * opts.pixelRatio, startY + 0.5 * lineHeight - 5 * opts.pixelRatio);
+          context.lineTo(startX + 2.5 * opts.pixelRatio, startY + 0.5 * lineHeight + 5 * opts.pixelRatio);
+          context.lineTo(startX + 12.5 * opts.pixelRatio, startY + 0.5 * lineHeight + 5 * opts.pixelRatio);
+          context.lineTo(startX + 7.5 * opts.pixelRatio, startY + 0.5 * lineHeight - 5 * opts.pixelRatio);
+          break;
+        case 'diamond':
+          context.moveTo(startX + 7.5 * opts.pixelRatio, startY + 0.5 * lineHeight - 5 * opts.pixelRatio);
+          context.lineTo(startX + 2.5 * opts.pixelRatio, startY + 0.5 * lineHeight);
+          context.lineTo(startX + 7.5 * opts.pixelRatio, startY + 0.5 * lineHeight + 5 * opts.pixelRatio);
+          context.lineTo(startX + 12.5 * opts.pixelRatio, startY + 0.5 * lineHeight);
+          context.lineTo(startX + 7.5 * opts.pixelRatio, startY + 0.5 * lineHeight - 5 * opts.pixelRatio);
+          break;
+        case 'circle':
+          context.moveTo(startX + 7.5 * opts.pixelRatio, startY + 0.5 * lineHeight);
+          context.arc(startX + 7.5 * opts.pixelRatio, startY + 0.5 * lineHeight, 5 * opts.pixelRatio, 0, 2 * Math.PI);
+          break;
+        case 'rect':
+          context.moveTo(startX, startY + 0.5 * lineHeight - 5 * opts.pixelRatio);
+          context.fillRect(startX, startY + 0.5 * lineHeight - 5 * opts.pixelRatio, 15 * opts.pixelRatio, 10 * opts.pixelRatio);
+          break;
+        default:
+          context.moveTo(startX, startY + 0.5 * lineHeight - 5 * opts.pixelRatio);
+          context.fillRect(startX, startY + 0.5 * lineHeight - 5 * opts.pixelRatio, 15 * opts.pixelRatio, 10 * opts.pixelRatio);
+      }
+      context.closePath();
+      context.fill();
+      context.stroke();
+      startX += shapeWidth + shapeRight;
+      var fontTrans = 0.5 * lineHeight + 0.5 * fontSize - 2;
+      context.beginPath();
+      context.setFontSize(fontSize);
+      context.setFillStyle(item.show ? opts.legend.fontColor : opts.legend.hiddenColor);
+      context.fillText(item.name, startX, startY + fontTrans);
+      context.closePath();
+      context.stroke();
+      if (opts.legend.position == 'top' || opts.legend.position == 'bottom') {
+        startX += measureText(item.name, fontSize) + itemGap;
+        item.area[2] = startX;
+      } else {
+        item.area[2] = startX + measureText(item.name, fontSize) + itemGap;
+        ;
+        startX -= shapeWidth + shapeRight;
+        startY += lineHeight;
+      }
+    }
+  });
+}
+function drawPieDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var pieOption = assign({}, {
+    activeOpacity: 0.5,
+    activeRadius: 10 * opts.pixelRatio,
+    offsetAngle: 0,
+    labelWidth: 15 * opts.pixelRatio,
+    ringWidth: 0,
+    border: false,
+    borderWidth: 2,
+    borderColor: '#FFFFFF'
+  }, opts.extra.pie);
+  var centerPosition = {
+    x: opts.area[3] + (opts.width - opts.area[1] - opts.area[3]) / 2,
+    y: opts.area[0] + (opts.height - opts.area[0] - opts.area[2]) / 2
+  };
+  if (config.pieChartLinePadding == 0) {
+    config.pieChartLinePadding = pieOption.activeRadius;
+  }
+  var radius = Math.min((opts.width - opts.area[1] - opts.area[3]) / 2 - config.pieChartLinePadding - config.pieChartTextPadding - config._pieTextMaxLength_, (opts.height - opts.area[0] - opts.area[2]) / 2 - config.pieChartLinePadding - config.pieChartTextPadding);
+  series = getPieDataPoints(series, radius, process);
+  var activeRadius = pieOption.activeRadius;
+  series = series.map(function (eachSeries) {
+    eachSeries._start_ += pieOption.offsetAngle * Math.PI / 180;
+    return eachSeries;
+  });
+  series.forEach(function (eachSeries, seriesIndex) {
+    if (opts.tooltip) {
+      if (opts.tooltip.index == seriesIndex) {
+        context.beginPath();
+        context.setFillStyle(hexToRgb(eachSeries.color, opts.extra.pie.activeOpacity || 0.5));
+        context.moveTo(centerPosition.x, centerPosition.y);
+        context.arc(centerPosition.x, centerPosition.y, eachSeries._radius_ + activeRadius, eachSeries._start_, eachSeries._start_ + 2 * eachSeries._proportion_ * Math.PI);
+        context.closePath();
+        context.fill();
+      }
+    }
+    context.beginPath();
+    context.setLineWidth(pieOption.borderWidth * opts.pixelRatio);
+    context.lineJoin = "round";
+    context.setStrokeStyle(pieOption.borderColor);
+    context.setFillStyle(eachSeries.color);
+    context.moveTo(centerPosition.x, centerPosition.y);
+    context.arc(centerPosition.x, centerPosition.y, eachSeries._radius_, eachSeries._start_, eachSeries._start_ + 2 * eachSeries._proportion_ * Math.PI);
+    context.closePath();
+    context.fill();
+    if (pieOption.border == true) {
+      context.stroke();
+    }
+  });
+  if (opts.type === 'ring') {
+    var innerPieWidth = radius * 0.6;
+    if (typeof opts.extra.pie.ringWidth === 'number' && opts.extra.pie.ringWidth > 0) {
+      innerPieWidth = Math.max(0, radius - opts.extra.pie.ringWidth);
+    }
+    context.beginPath();
+    context.setFillStyle(opts.background || '#ffffff');
+    context.moveTo(centerPosition.x, centerPosition.y);
+    context.arc(centerPosition.x, centerPosition.y, innerPieWidth, 0, 2 * Math.PI);
+    context.closePath();
+    context.fill();
+  }
+  if (opts.dataLabel !== false && process === 1) {
+    var valid = false;
+    for (var i = 0, len = series.length; i < len; i++) {
+      if (series[i].data > 0) {
+        valid = true;
+        break;
+      }
+    }
+    if (valid) {
+      drawPieText(series, opts, config, context, radius, centerPosition);
+    }
+  }
+  if (process === 1 && opts.type === 'ring') {
+    drawRingTitle(opts, config, context, centerPosition);
+  }
+  return {
+    center: centerPosition,
+    radius: radius,
+    series: series
+  };
+}
+function drawRoseDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var roseOption = assign({}, {
+    type: 'area',
+    activeOpacity: 0.5,
+    activeRadius: 10 * opts.pixelRatio,
+    offsetAngle: 0,
+    labelWidth: 15 * opts.pixelRatio,
+    border: false,
+    borderWidth: 2,
+    borderColor: '#FFFFFF'
+  }, opts.extra.rose);
+  if (config.pieChartLinePadding == 0) {
+    config.pieChartLinePadding = roseOption.activeRadius;
+  }
+  var centerPosition = {
+    x: opts.area[3] + (opts.width - opts.area[1] - opts.area[3]) / 2,
+    y: opts.area[0] + (opts.height - opts.area[0] - opts.area[2]) / 2
+  };
+  var radius = Math.min((opts.width - opts.area[1] - opts.area[3]) / 2 - config.pieChartLinePadding - config.pieChartTextPadding - config._pieTextMaxLength_, (opts.height - opts.area[0] - opts.area[2]) / 2 - config.pieChartLinePadding - config.pieChartTextPadding);
+  var minRadius = roseOption.minRadius || radius * 0.5;
+  series = getRoseDataPoints(series, roseOption.type, minRadius, radius, process);
+  var activeRadius = roseOption.activeRadius;
+  series = series.map(function (eachSeries) {
+    eachSeries._start_ += (roseOption.offsetAngle || 0) * Math.PI / 180;
+    return eachSeries;
+  });
+  series.forEach(function (eachSeries, seriesIndex) {
+    if (opts.tooltip) {
+      if (opts.tooltip.index == seriesIndex) {
+        context.beginPath();
+        context.setFillStyle(hexToRgb(eachSeries.color, roseOption.activeOpacity || 0.5));
+        context.moveTo(centerPosition.x, centerPosition.y);
+        context.arc(centerPosition.x, centerPosition.y, activeRadius + eachSeries._radius_, eachSeries._start_, eachSeries._start_ + 2 * eachSeries._rose_proportion_ * Math.PI);
+        context.closePath();
+        context.fill();
+      }
+    }
+    context.beginPath();
+    context.setLineWidth(roseOption.borderWidth * opts.pixelRatio);
+    context.lineJoin = "round";
+    context.setStrokeStyle(roseOption.borderColor);
+    context.setFillStyle(eachSeries.color);
+    context.moveTo(centerPosition.x, centerPosition.y);
+    context.arc(centerPosition.x, centerPosition.y, eachSeries._radius_, eachSeries._start_, eachSeries._start_ + 2 * eachSeries._rose_proportion_ * Math.PI);
+    context.closePath();
+    context.fill();
+    if (roseOption.border == true) {
+      context.stroke();
+    }
+  });
+  if (opts.dataLabel !== false && process === 1) {
+    var valid = false;
+    for (var i = 0, len = series.length; i < len; i++) {
+      if (series[i].data > 0) {
+        valid = true;
+        break;
+      }
+    }
+    if (valid) {
+      drawPieText(series, opts, config, context, radius, centerPosition);
+    }
+  }
+  return {
+    center: centerPosition,
+    radius: radius,
+    series: series
+  };
+}
+function drawArcbarDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var arcbarOption = assign({}, {
+    startAngle: 0.75,
+    endAngle: 0.25,
+    type: 'default',
+    width: 12 * opts.pixelRatio,
+    gap: 2 * opts.pixelRatio
+  }, opts.extra.arcbar);
+  series = getArcbarDataPoints(series, arcbarOption, process);
+  var centerPosition;
+  if (arcbarOption.center) {
+    centerPosition = arcbarOption.center;
+  } else {
+    centerPosition = {
+      x: opts.width / 2,
+      y: opts.height / 2
+    };
+  }
+  var radius;
+  if (arcbarOption.radius) {
+    radius = arcbarOption.radius;
+  } else {
+    radius = Math.min(centerPosition.x, centerPosition.y);
+    radius -= 5 * opts.pixelRatio;
+    radius -= arcbarOption.width / 2;
+  }
+  for (var i = 0; i < series.length; i++) {
+    var eachSeries = series[i];
+    //màu nền
+    context.setLineWidth(arcbarOption.width);
+    context.setStrokeStyle(arcbarOption.backgroundColor || '#E9E9E9');
+    context.setLineCap('round');
+    context.beginPath();
+    if (arcbarOption.type == 'default') {
+      context.arc(centerPosition.x, centerPosition.y, radius - (arcbarOption.width + arcbarOption.gap) * i, arcbarOption.startAngle * Math.PI, arcbarOption.endAngle * Math.PI, false);
+    } else {
+      context.arc(centerPosition.x, centerPosition.y, radius - (arcbarOption.width + arcbarOption.gap) * i, 0, 2 * Math.PI, false);
+    }
+    context.stroke();
+    //thanh tiến trình
+    context.setLineWidth(arcbarOption.width);
+    context.setStrokeStyle(eachSeries.color);
+    context.setLineCap('round');
+    context.beginPath();
+    context.arc(centerPosition.x, centerPosition.y, radius - (arcbarOption.width + arcbarOption.gap) * i, arcbarOption.startAngle * Math.PI, eachSeries._proportion_ * Math.PI, false);
+    context.stroke();
+  }
+  drawRingTitle(opts, config, context, centerPosition);
+  return {
+    center: centerPosition,
+    radius: radius,
+    series: series
+  };
+}
+function drawGaugeDataPoints(categories, series, opts, config, context) {
+  var process = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1;
+  var gaugeOption = assign({}, {
+    type: 'default',
+    startAngle: 0.75,
+    endAngle: 0.25,
+    width: 15,
+    splitLine: {
+      fixRadius: 0,
+      splitNumber: 10,
+      width: 15,
+      color: '#FFFFFF',
+      childNumber: 5,
+      childWidth: 5
+    },
+    pointer: {
+      width: 15,
+      color: 'auto'
+    }
+  }, opts.extra.gauge);
+  if (gaugeOption.oldAngle == undefined) {
+    gaugeOption.oldAngle = gaugeOption.startAngle;
+  }
+  if (gaugeOption.oldData == undefined) {
+    gaugeOption.oldData = 0;
+  }
+  categories = getGaugeAxisPoints(categories, gaugeOption.startAngle, gaugeOption.endAngle);
+  var centerPosition = {
+    x: opts.width / 2,
+    y: opts.height / 2
+  };
+  var radius = Math.min(centerPosition.x, centerPosition.y);
+  radius -= 5 * opts.pixelRatio;
+  radius -= gaugeOption.width / 2;
+  var innerRadius = radius - gaugeOption.width;
+  var totalAngle = 0;
+
+  //Xác định kiểu của bảng điều khiển: kiểu Baidu mặc định, kiểu mới tiến bộ
+  if (gaugeOption.type == 'progress') {
+    //## Bước đầu tiên là vẽ nền hình tròn trung tâm và nền thanh tiến trình.
+    //nền tròn ở giữa
+    var pieRadius = radius - gaugeOption.width * 3;
+    context.beginPath();
+    var gradient = context.createLinearGradient(centerPosition.x, centerPosition.y - pieRadius, centerPosition.x, centerPosition.y + pieRadius);
+    //Định cấu hình tô màu gradient (điểm bắt đầu: điểm trung tâm trừ bán kính hướng lên trên; điểm trung tâm điểm cuối cộng bán kính hướng xuống)）
+    gradient.addColorStop('0', hexToRgb(series[0].color, 0.3));
+    gradient.addColorStop('1.0', hexToRgb("#FFFFFF", 0.1));
+    context.setFillStyle(gradient);
+    context.arc(centerPosition.x, centerPosition.y, pieRadius, 0, 2 * Math.PI, false);
+    context.fill();
+    //Vẽ nền thanh tiến trình
+    context.setLineWidth(gaugeOption.width);
+    context.setStrokeStyle(hexToRgb(series[0].color, 0.3));
+    context.setLineCap('round');
+    context.beginPath();
+    context.arc(centerPosition.x, centerPosition.y, innerRadius, gaugeOption.startAngle * Math.PI, gaugeOption.endAngle * Math.PI, false);
+    context.stroke();
+
+    //## Bước 2: Vẽ dấu tích
+    totalAngle = gaugeOption.startAngle - gaugeOption.endAngle + 1;
+    var splitAngle = totalAngle / gaugeOption.splitLine.splitNumber;
+    var childAngle = totalAngle / gaugeOption.splitLine.splitNumber / gaugeOption.splitLine.childNumber;
+    var startX = -radius - gaugeOption.width * 0.5 - gaugeOption.splitLine.fixRadius;
+    var endX = -radius - gaugeOption.width - gaugeOption.splitLine.fixRadius + gaugeOption.splitLine.width;
+    context.save();
+    context.translate(centerPosition.x, centerPosition.y);
+    context.rotate((gaugeOption.startAngle - 1) * Math.PI);
+    var len = gaugeOption.splitLine.splitNumber * gaugeOption.splitLine.childNumber + 1;
+    var proc = series[0].data * process;
+    for (var i = 0; i < len; i++) {
+      context.beginPath();
+      //Các dấu tích thay đổi màu sắc khi tiến trình diễn ra
+      if (proc > i / len) {
+        context.setStrokeStyle(hexToRgb(series[0].color, 1));
+      } else {
+        context.setStrokeStyle(hexToRgb(series[0].color, 0.3));
+      }
+      context.setLineWidth(3 * opts.pixelRatio);
+      context.moveTo(startX, 0);
+      context.lineTo(endX, 0);
+      context.stroke();
+      context.rotate(childAngle * Math.PI);
+    }
+    context.restore();
+
+    //## Bước thứ ba là vẽ thanh tiến trình
+    series = getArcbarDataPoints(series, gaugeOption, process);
+    context.setLineWidth(gaugeOption.width);
+    context.setStrokeStyle(series[0].color);
+    context.setLineCap('round');
+    context.beginPath();
+    context.arc(centerPosition.x, centerPosition.y, innerRadius, gaugeOption.startAngle * Math.PI, series[0]._proportion_ * Math.PI, false);
+    context.stroke();
+
+    //## Bước 4: Vẽ con trỏ
+    var pointerRadius = radius - gaugeOption.width * 2.5;
+    context.save();
+    context.translate(centerPosition.x, centerPosition.y);
+    context.rotate((series[0]._proportion_ - 1) * Math.PI);
+    context.beginPath();
+    context.setLineWidth(gaugeOption.width / 3);
+    var gradient3 = context.createLinearGradient(0, -pointerRadius * 0.6, 0, pointerRadius * 0.6);
+    gradient3.addColorStop('0', hexToRgb('#FFFFFF', 0));
+    gradient3.addColorStop('0.5', hexToRgb(series[0].color, 1));
+    gradient3.addColorStop('1.0', hexToRgb('#FFFFFF', 0));
+    context.setStrokeStyle(gradient3);
+    context.arc(0, 0, pointerRadius, 0.85 * Math.PI, 1.15 * Math.PI, false);
+    context.stroke();
+    context.beginPath();
+    context.setLineWidth(1);
+    context.setStrokeStyle(series[0].color);
+    context.setFillStyle(series[0].color);
+    context.moveTo(-pointerRadius - gaugeOption.width / 3 / 2, -4);
+    context.lineTo(-pointerRadius - gaugeOption.width / 3 / 2 - 4, 0);
+    context.lineTo(-pointerRadius - gaugeOption.width / 3 / 2, 4);
+    context.lineTo(-pointerRadius - gaugeOption.width / 3 / 2, -4);
+    context.stroke();
+    context.fill();
+    context.restore();
+
+    //defaultPhong cách Baidu
+  } else {
+    //Sơn nền
+    context.setLineWidth(gaugeOption.width);
+    context.setLineCap('butt');
+    for (var _i19 = 0; _i19 < categories.length; _i19++) {
+      var eachCategories = categories[_i19];
+      context.beginPath();
+      context.setStrokeStyle(eachCategories.color);
+      context.arc(centerPosition.x, centerPosition.y, radius, eachCategories._startAngle_ * Math.PI, eachCategories._endAngle_ * Math.PI, false);
+      context.stroke();
+    }
+    context.save();
+
+    //vẽ dấu tích
+    totalAngle = gaugeOption.startAngle - gaugeOption.endAngle + 1;
+    var _splitAngle = totalAngle / gaugeOption.splitLine.splitNumber;
+    var _childAngle = totalAngle / gaugeOption.splitLine.splitNumber / gaugeOption.splitLine.childNumber;
+    var _startX2 = -radius - gaugeOption.width * 0.5 - gaugeOption.splitLine.fixRadius;
+    var _endX = -radius - gaugeOption.width * 0.5 - gaugeOption.splitLine.fixRadius + gaugeOption.splitLine.width;
+    var childendX = -radius - gaugeOption.width * 0.5 - gaugeOption.splitLine.fixRadius + gaugeOption.splitLine.childWidth;
+    context.translate(centerPosition.x, centerPosition.y);
+    context.rotate((gaugeOption.startAngle - 1) * Math.PI);
+    for (var _i20 = 0; _i20 < gaugeOption.splitLine.splitNumber + 1; _i20++) {
+      context.beginPath();
+      context.setStrokeStyle(gaugeOption.splitLine.color);
+      context.setLineWidth(2 * opts.pixelRatio);
+      context.moveTo(_startX2, 0);
+      context.lineTo(_endX, 0);
+      context.stroke();
+      context.rotate(_splitAngle * Math.PI);
+    }
+    context.restore();
+    context.save();
+    context.translate(centerPosition.x, centerPosition.y);
+    context.rotate((gaugeOption.startAngle - 1) * Math.PI);
+    for (var _i21 = 0; _i21 < gaugeOption.splitLine.splitNumber * gaugeOption.splitLine.childNumber + 1; _i21++) {
+      context.beginPath();
+      context.setStrokeStyle(gaugeOption.splitLine.color);
+      context.setLineWidth(1 * opts.pixelRatio);
+      context.moveTo(_startX2, 0);
+      context.lineTo(childendX, 0);
+      context.stroke();
+      context.rotate(_childAngle * Math.PI);
+    }
+    context.restore();
+
+    //vẽ con trỏ
+    series = getGaugeDataPoints(series, categories, gaugeOption, process);
+    for (var _i22 = 0; _i22 < series.length; _i22++) {
+      var eachSeries = series[_i22];
+      context.save();
+      context.translate(centerPosition.x, centerPosition.y);
+      context.rotate((eachSeries._proportion_ - 1) * Math.PI);
+      context.beginPath();
+      context.setFillStyle(eachSeries.color);
+      context.moveTo(gaugeOption.pointer.width, 0);
+      context.lineTo(0, -gaugeOption.pointer.width / 2);
+      context.lineTo(-innerRadius, 0);
+      context.lineTo(0, gaugeOption.pointer.width / 2);
+      context.lineTo(gaugeOption.pointer.width, 0);
+      context.closePath();
+      context.fill();
+      context.beginPath();
+      context.setFillStyle('#FFFFFF');
+      context.arc(0, 0, gaugeOption.pointer.width / 6, 0, 2 * Math.PI, false);
+      context.fill();
+      context.restore();
+    }
+    if (opts.dataLabel !== false) {
+      drawGaugeLabel(gaugeOption, radius, centerPosition, opts, config, context);
+    }
+  }
+
+  //Vẽ tiêu đề và phụ đề của bảng điều khiển
+  drawRingTitle(opts, config, context, centerPosition);
+  if (process === 1 && opts.type === 'gauge') {
+    opts.extra.gauge.oldAngle = series[0]._proportion_;
+    opts.extra.gauge.oldData = series[0].data;
+  }
+  return {
+    center: centerPosition,
+    radius: radius,
+    innerRadius: innerRadius,
+    categories: categories,
+    totalAngle: totalAngle
+  };
+}
+function drawRadarDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var radarOption = assign({}, {
+    gridColor: '#cccccc',
+    labelColor: '#666666',
+    opacity: 0.2,
+    gridCount: 3
+  }, opts.extra.radar);
+  var coordinateAngle = getRadarCoordinateSeries(opts.categories.length);
+  var centerPosition = {
+    x: opts.area[3] + (opts.width - opts.area[1] - opts.area[3]) / 2,
+    y: opts.area[0] + (opts.height - opts.area[0] - opts.area[2]) / 2
+  };
+  var radius = Math.min(centerPosition.x - (getMaxTextListLength(opts.categories) + config.radarLabelTextMargin), centerPosition.y - config.radarLabelTextMargin);
+  //TODOLogic sai
+  radius -= opts.padding[1];
+
+  // draw grid
+  context.beginPath();
+  context.setLineWidth(1 * opts.pixelRatio);
+  context.setStrokeStyle(radarOption.gridColor);
+  coordinateAngle.forEach(function (angle) {
+    var pos = convertCoordinateOrigin(radius * Math.cos(angle), radius * Math.sin(angle), centerPosition);
+    context.moveTo(centerPosition.x, centerPosition.y);
+    context.lineTo(pos.x, pos.y);
+  });
+  context.stroke();
+  context.closePath();
+  // draw split line grid
+
+  var _loop = function _loop(i) {
+    var startPos = {};
+    context.beginPath();
+    context.setLineWidth(1 * opts.pixelRatio);
+    context.setStrokeStyle(radarOption.gridColor);
+    coordinateAngle.forEach(function (angle, index) {
+      var pos = convertCoordinateOrigin(radius / radarOption.gridCount * i * Math.cos(angle), radius / radarOption.gridCount * i * Math.sin(angle), centerPosition);
+      if (index === 0) {
+        startPos = pos;
+        context.moveTo(pos.x, pos.y);
+      } else {
+        context.lineTo(pos.x, pos.y);
+      }
+    });
+    context.lineTo(startPos.x, startPos.y);
+    context.stroke();
+    context.closePath();
+  };
+  for (var i = 1; i <= radarOption.gridCount; i++) {
+    _loop(i);
+  }
+  var radarDataPoints = getRadarDataPoints(coordinateAngle, centerPosition, radius, series, opts, process);
+  radarDataPoints.forEach(function (eachSeries, seriesIndex) {
+    // Dữ liệu vùng vẽ
+    context.beginPath();
+    context.setFillStyle(hexToRgb(eachSeries.color, radarOption.opacity));
+    eachSeries.data.forEach(function (item, index) {
+      if (index === 0) {
+        context.moveTo(item.position.x, item.position.y);
+      } else {
+        context.lineTo(item.position.x, item.position.y);
+      }
+    });
+    context.closePath();
+    context.fill();
+    if (opts.dataPointShape !== false) {
+      var points = eachSeries.data.map(function (item) {
+        return item.position;
+      });
+      drawPointShape(points, eachSeries.color, eachSeries.pointShape, context, opts);
+    }
+  });
+  // draw label text
+  drawRadarLabel(coordinateAngle, radius, centerPosition, opts, config, context);
+  return {
+    center: centerPosition,
+    radius: radius,
+    angleList: coordinateAngle
+  };
+}
+function normalInt(min, max, iter) {
+  iter = iter == 0 ? 1 : iter;
+  var arr = [];
+  for (var i = 0; i < iter; i++) {
+    arr[i] = Math.random();
+  }
+  ;
+  return Math.floor(arr.reduce(function (i, j) {
+    return i + j;
+  }) / iter * (max - min)) + min;
+}
+;
+function collisionNew(area, points, width, height) {
+  var isIn = false;
+  for (var i = 0; i < points.length; i++) {
+    if (points[i].area) {
+      if (area[3] < points[i].area[1] || area[0] > points[i].area[2] || area[1] > points[i].area[3] || area[2] < points[i].area[0]) {
+        if (area[0] < 0 || area[1] < 0 || area[2] > width || area[3] > height) {
+          isIn = true;
+          break;
+        } else {
+          isIn = false;
+        }
+      } else {
+        isIn = true;
+        break;
+      }
+    }
+  }
+  return isIn;
+}
+;
+function getBoundingBox(data) {
+  var bounds = {},
+    coords;
+  bounds.xMin = 180;
+  bounds.xMax = 0;
+  bounds.yMin = 90;
+  bounds.yMax = 0;
+  for (var i = 0; i < data.length; i++) {
+    var coorda = data[i].geometry.coordinates;
+    for (var k = 0; k < coorda.length; k++) {
+      coords = coorda[k];
+      if (coords.length == 1) {
+        coords = coords[0];
+      }
+      for (var j = 0; j < coords.length; j++) {
+        var longitude = coords[j][0];
+        var latitude = coords[j][1];
+        var point = {
+          x: longitude,
+          y: latitude
+        };
+        bounds.xMin = bounds.xMin < point.x ? bounds.xMin : point.x;
+        bounds.xMax = bounds.xMax > point.x ? bounds.xMax : point.x;
+        bounds.yMin = bounds.yMin < point.y ? bounds.yMin : point.y;
+        bounds.yMax = bounds.yMax > point.y ? bounds.yMax : point.y;
+      }
+    }
+  }
+  return bounds;
+}
+function coordinateToPoint(latitude, longitude, bounds, scale, xoffset, yoffset) {
+  return {
+    x: (longitude - bounds.xMin) * scale + xoffset,
+    y: (bounds.yMax - latitude) * scale + yoffset
+  };
+}
+function pointToCoordinate(pointY, pointX, bounds, scale, xoffset, yoffset) {
+  return {
+    x: (pointX - xoffset) / scale + bounds.xMin,
+    y: bounds.yMax - (pointY - yoffset) / scale
+  };
+}
+function isRayIntersectsSegment(poi, s_poi, e_poi) {
+  if (s_poi[1] == e_poi[1]) {
+    return false;
+  }
+  if (s_poi[1] > poi[1] && e_poi[1] > poi[1]) {
+    return false;
+  }
+  if (s_poi[1] < poi[1] && e_poi[1] < poi[1]) {
+    return false;
+  }
+  if (s_poi[1] == poi[1] && e_poi[1] > poi[1]) {
+    return false;
+  }
+  if (e_poi[1] == poi[1] && s_poi[1] > poi[1]) {
+    return false;
+  }
+  if (s_poi[0] < poi[0] && e_poi[1] < poi[1]) {
+    return false;
+  }
+  var xseg = e_poi[0] - (e_poi[0] - s_poi[0]) * (e_poi[1] - poi[1]) / (e_poi[1] - s_poi[1]);
+  if (xseg < poi[0]) {
+    return false;
+  } else {
+    return true;
+  }
+}
+function isPoiWithinPoly(poi, poly) {
+  var sinsc = 0;
+  for (var i = 0; i < poly.length; i++) {
+    var epoly = poly[i][0];
+    if (poly.length == 1) {
+      epoly = poly[i][0];
+    }
+    for (var j = 0; j < epoly.length - 1; j++) {
+      var s_poi = epoly[j];
+      var e_poi = epoly[j + 1];
+      if (isRayIntersectsSegment(poi, s_poi, e_poi)) {
+        sinsc += 1;
+      }
+    }
+  }
+  if (sinsc % 2 == 1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function drawMapDataPoints(series, opts, config, context) {
+  var mapOption = assign({}, {
+    border: true,
+    borderWidth: 1,
+    borderColor: '#666666',
+    fillOpacity: 0.6,
+    activeBorderColor: '#f04864',
+    activeFillColor: '#facc14',
+    activeFillOpacity: 1
+  }, opts.extra.map);
+  var coords, point;
+  var data = series;
+  var bounds = getBoundingBox(data);
+  var xScale = opts.width / Math.abs(bounds.xMax - bounds.xMin);
+  var yScale = opts.height / Math.abs(bounds.yMax - bounds.yMin);
+  var scale = xScale < yScale ? xScale : yScale;
+  var xoffset = opts.width / 2 - Math.abs(bounds.xMax - bounds.xMin) / 2 * scale;
+  var yoffset = opts.height / 2 - Math.abs(bounds.yMax - bounds.yMin) / 2 * scale;
+  context.beginPath();
+  context.clearRect(0, 0, opts.width, opts.height);
+  context.setFillStyle(opts.background || '#FFFFFF');
+  context.rect(0, 0, opts.width, opts.height);
+  context.fill();
+  for (var i = 0; i < data.length; i++) {
+    context.beginPath();
+    context.setLineWidth(mapOption.borderWidth * opts.pixelRatio);
+    context.setStrokeStyle(mapOption.borderColor);
+    context.setFillStyle(hexToRgb(series[i].color, mapOption.fillOpacity));
+    if (opts.tooltip) {
+      if (opts.tooltip.index == i) {
+        context.setStrokeStyle(mapOption.activeBorderColor);
+        context.setFillStyle(hexToRgb(mapOption.activeFillColor, mapOption.activeFillOpacity));
+      }
+    }
+    var coorda = data[i].geometry.coordinates;
+    for (var k = 0; k < coorda.length; k++) {
+      coords = coorda[k];
+      if (coords.length == 1) {
+        coords = coords[0];
+      }
+      for (var j = 0; j < coords.length; j++) {
+        point = coordinateToPoint(coords[j][1], coords[j][0], bounds, scale, xoffset, yoffset);
+        if (j === 0) {
+          context.beginPath();
+          context.moveTo(point.x, point.y);
+        } else {
+          context.lineTo(point.x, point.y);
+        }
+      }
+      context.fill();
+      if (mapOption.border == true) {
+        context.stroke();
+      }
+    }
+    if (opts.dataLabel == true) {
+      var centerPoint = data[i].properties.centroid;
+      if (centerPoint) {
+        point = coordinateToPoint(centerPoint[1], centerPoint[0], bounds, scale, xoffset, yoffset);
+        var fontSize = data[i].textSize || config.fontSize;
+        var text = data[i].properties.name;
+        context.beginPath();
+        context.setFontSize(fontSize);
+        context.setFillStyle(data[i].textColor || '#666666');
+        context.fillText(text, point.x - measureText(text, fontSize) / 2, point.y + fontSize / 2);
+        context.closePath();
+        context.stroke();
+      }
+    }
+  }
+  opts.chartData.mapData = {
+    bounds: bounds,
+    scale: scale,
+    xoffset: xoffset,
+    yoffset: yoffset
+  };
+  drawToolTipBridge(opts, config, context, 1);
+  context.draw();
+}
+function getWordCloudPoint(opts, type) {
+  var points = opts.series.sort(function (a, b) {
+    return parseInt(b.textSize) - parseInt(a.textSize);
+  });
+  switch (type) {
+    case 'normal':
+      for (var i = 0; i < points.length; i++) {
+        var text = points[i].name;
+        var tHeight = points[i].textSize;
+        var tWidth = measureText(text, tHeight);
+        var x = void 0,
+          y = void 0;
+        var area = void 0;
+        var breaknum = 0;
+        while (true) {
+          breaknum++;
+          x = normalInt(-opts.width / 2, opts.width / 2, 5) - tWidth / 2;
+          y = normalInt(-opts.height / 2, opts.height / 2, 5) + tHeight / 2;
+          area = [x - 5 + opts.width / 2, y - 5 - tHeight + opts.height / 2, x + tWidth + 5 + opts.width / 2, y + 5 + opts.height / 2];
+          var isCollision = collisionNew(area, points, opts.width, opts.height);
+          if (!isCollision) break;
+          if (breaknum == 1000) {
+            area = [-100, -100, -100, -100];
+            break;
+          }
+        }
+        ;
+        points[i].area = area;
+      }
+      break;
+    case 'vertical':
+      var Spin = function Spin() {
+        //Nhận một giá trị ngẫu nhiên thống nhất, có quay hay không thì xác suất quay là（1-0.5）
+        if (Math.random() > 0.7) {
+          return true;
+        } else {
+          return false;
+        }
+        ;
+      };
+      ;
+      for (var _i23 = 0; _i23 < points.length; _i23++) {
+        var _text = points[_i23].name;
+        var _tHeight = points[_i23].textSize;
+        var _tWidth = measureText(_text, _tHeight);
+        var isSpin = Spin();
+        var _x = void 0,
+          _y = void 0,
+          _area = void 0,
+          areav = void 0;
+        var _breaknum = 0;
+        while (true) {
+          _breaknum++;
+          var _isCollision = void 0;
+          if (isSpin) {
+            _x = normalInt(-opts.width / 2, opts.width / 2, 5) - _tWidth / 2;
+            _y = normalInt(-opts.height / 2, opts.height / 2, 5) + _tHeight / 2;
+            _area = [_y - 5 - _tWidth + opts.width / 2, -_x - 5 + opts.height / 2, _y + 5 + opts.width / 2, -_x + _tHeight + 5 + opts.height / 2];
+            areav = [opts.width - (opts.width / 2 - opts.height / 2) - (-_x + _tHeight + 5 + opts.height / 2) - 5, opts.height / 2 - opts.width / 2 + (_y - 5 - _tWidth + opts.width / 2) - 5, opts.width - (opts.width / 2 - opts.height / 2) - (-_x + _tHeight + 5 + opts.height / 2) + _tHeight, opts.height / 2 - opts.width / 2 + (_y - 5 - _tWidth + opts.width / 2) + _tWidth + 5];
+            _isCollision = collisionNew(areav, points, opts.height, opts.width);
+          } else {
+            _x = normalInt(-opts.width / 2, opts.width / 2, 5) - _tWidth / 2;
+            _y = normalInt(-opts.height / 2, opts.height / 2, 5) + _tHeight / 2;
+            _area = [_x - 5 + opts.width / 2, _y - 5 - _tHeight + opts.height / 2, _x + _tWidth + 5 + opts.width / 2, _y + 5 + opts.height / 2];
+            _isCollision = collisionNew(_area, points, opts.width, opts.height);
+          }
+          if (!_isCollision) break;
+          if (_breaknum == 1000) {
+            _area = [-1000, -1000, -1000, -1000];
+            break;
+          }
+        }
+        ;
+        if (isSpin) {
+          points[_i23].area = areav;
+          points[_i23].areav = _area;
+        } else {
+          points[_i23].area = _area;
+        }
+        points[_i23].rotate = isSpin;
+      }
+      ;
+      break;
+  }
+  return points;
+}
+function drawWordCloudDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var wordOption = assign({}, {
+    type: 'normal',
+    autoColors: true
+  }, opts.extra.word);
+  context.beginPath();
+  context.setFillStyle(opts.background || '#FFFFFF');
+  context.rect(0, 0, opts.width, opts.height);
+  context.fill();
+  context.save();
+  var points = opts.chartData.wordCloudData;
+  context.translate(opts.width / 2, opts.height / 2);
+  for (var i = 0; i < points.length; i++) {
+    context.save();
+    if (points[i].rotate) {
+      context.rotate(90 * Math.PI / 180);
+    }
+    var text = points[i].name;
+    var tHeight = points[i].textSize;
+    var tWidth = measureText(text, tHeight);
+    context.beginPath();
+    context.setStrokeStyle(points[i].color);
+    context.setFillStyle(points[i].color);
+    context.setFontSize(tHeight);
+    if (points[i].rotate) {
+      if (points[i].areav[0] > 0) {
+        if (opts.tooltip) {
+          if (opts.tooltip.index == i) {
+            context.strokeText(text, (points[i].areav[0] + 5 - opts.width / 2) * process - tWidth * (1 - process) / 2, (points[i].areav[1] + 5 + tHeight - opts.height / 2) * process);
+          } else {
+            context.fillText(text, (points[i].areav[0] + 5 - opts.width / 2) * process - tWidth * (1 - process) / 2, (points[i].areav[1] + 5 + tHeight - opts.height / 2) * process);
+          }
+        } else {
+          context.fillText(text, (points[i].areav[0] + 5 - opts.width / 2) * process - tWidth * (1 - process) / 2, (points[i].areav[1] + 5 + tHeight - opts.height / 2) * process);
+        }
+      }
+    } else {
+      if (points[i].area[0] > 0) {
+        if (opts.tooltip) {
+          if (opts.tooltip.index == i) {
+            context.strokeText(text, (points[i].area[0] + 5 - opts.width / 2) * process - tWidth * (1 - process) / 2, (points[i].area[1] + 5 + tHeight - opts.height / 2) * process);
+          } else {
+            context.fillText(text, (points[i].area[0] + 5 - opts.width / 2) * process - tWidth * (1 - process) / 2, (points[i].area[1] + 5 + tHeight - opts.height / 2) * process);
+          }
+        } else {
+          context.fillText(text, (points[i].area[0] + 5 - opts.width / 2) * process - tWidth * (1 - process) / 2, (points[i].area[1] + 5 + tHeight - opts.height / 2) * process);
+        }
+      }
+    }
+    context.stroke();
+    context.restore();
+  }
+  context.restore();
+}
+function drawFunnelDataPoints(series, opts, config, context) {
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var funnelOption = assign({}, {
+    activeWidth: 10,
+    activeOpacity: 0.3,
+    border: false,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
+    fillOpacity: 1,
+    labelAlign: 'right'
+  }, opts.extra.funnel);
+  var eachSpacing = (opts.height - opts.area[0] - opts.area[2]) / series.length;
+  var centerPosition = {
+    x: opts.area[3] + (opts.width - opts.area[1] - opts.area[3]) / 2,
+    y: opts.height - opts.area[2]
+  };
+  var activeWidth = funnelOption.activeWidth;
+  var radius = Math.min((opts.width - opts.area[1] - opts.area[3]) / 2 - activeWidth, (opts.height - opts.area[0] - opts.area[2]) / 2 - activeWidth);
+  series = getFunnelDataPoints(series, radius, process);
+  context.save();
+  context.translate(centerPosition.x, centerPosition.y);
+  for (var i = 0; i < series.length; i++) {
+    if (i == 0) {
+      if (opts.tooltip) {
+        if (opts.tooltip.index == i) {
+          context.beginPath();
+          context.setFillStyle(hexToRgb(series[i].color, funnelOption.activeOpacity));
+          context.moveTo(-activeWidth, 0);
+          context.lineTo(-series[i].radius - activeWidth, -eachSpacing);
+          context.lineTo(series[i].radius + activeWidth, -eachSpacing);
+          context.lineTo(activeWidth, 0);
+          context.lineTo(-activeWidth, 0);
+          context.closePath();
+          context.fill();
+        }
+      }
+      series[i].funnelArea = [centerPosition.x - series[i].radius, centerPosition.y - eachSpacing, centerPosition.x + series[i].radius, centerPosition.y];
+      context.beginPath();
+      context.setLineWidth(funnelOption.borderWidth * opts.pixelRatio);
+      context.setStrokeStyle(funnelOption.borderColor);
+      context.setFillStyle(hexToRgb(series[i].color, funnelOption.fillOpacity));
+      context.moveTo(0, 0);
+      context.lineTo(-series[i].radius, -eachSpacing);
+      context.lineTo(series[i].radius, -eachSpacing);
+      context.lineTo(0, 0);
+      context.closePath();
+      context.fill();
+      if (funnelOption.border == true) {
+        context.stroke();
+      }
+    } else {
+      if (opts.tooltip) {
+        if (opts.tooltip.index == i) {
+          context.beginPath();
+          context.setFillStyle(hexToRgb(series[i].color, funnelOption.activeOpacity));
+          context.moveTo(0, 0);
+          context.lineTo(-series[i - 1].radius - activeWidth, 0);
+          context.lineTo(-series[i].radius - activeWidth, -eachSpacing);
+          context.lineTo(series[i].radius + activeWidth, -eachSpacing);
+          context.lineTo(series[i - 1].radius + activeWidth, 0);
+          context.lineTo(0, 0);
+          context.closePath();
+          context.fill();
+        }
+      }
+      series[i].funnelArea = [centerPosition.x - series[i].radius, centerPosition.y - eachSpacing * (i + 1), centerPosition.x + series[i].radius, centerPosition.y - eachSpacing * i];
+      context.beginPath();
+      context.setLineWidth(funnelOption.borderWidth * opts.pixelRatio);
+      context.setStrokeStyle(funnelOption.borderColor);
+      context.setFillStyle(hexToRgb(series[i].color, funnelOption.fillOpacity));
+      context.moveTo(0, 0);
+      context.lineTo(-series[i - 1].radius, 0);
+      context.lineTo(-series[i].radius, -eachSpacing);
+      context.lineTo(series[i].radius, -eachSpacing);
+      context.lineTo(series[i - 1].radius, 0);
+      context.lineTo(0, 0);
+      context.closePath();
+      context.fill();
+      if (funnelOption.border == true) {
+        context.stroke();
+      }
+    }
+    context.translate(0, -eachSpacing);
+  }
+  context.restore();
+  if (opts.dataLabel !== false && process === 1) {
+    drawFunnelText(series, opts, context, eachSpacing, funnelOption.labelAlign, activeWidth, centerPosition);
+  }
+  return {
+    center: centerPosition,
+    radius: radius,
+    series: series
+  };
+}
+function drawFunnelText(series, opts, context, eachSpacing, labelAlign, activeWidth, centerPosition) {
+  for (var i = 0; i < series.length; i++) {
+    var item = series[i];
+    var startX = void 0,
+      endX = void 0,
+      startY = void 0,
+      fontSize = void 0;
+    var text = item.format ? item.format(+item._proportion_.toFixed(2)) : util.toFixed(item._proportion_ * 100) + '%';
+    if (labelAlign == 'right') {
+      if (i == 0) {
+        startX = (item.funnelArea[2] + centerPosition.x) / 2;
+      } else {
+        startX = (item.funnelArea[2] + series[i - 1].funnelArea[2]) / 2;
+      }
+      endX = startX + activeWidth * 2;
+      startY = item.funnelArea[1] + eachSpacing / 2;
+      fontSize = item.textSize || opts.fontSize;
+      context.setLineWidth(1 * opts.pixelRatio);
+      context.setStrokeStyle(item.color);
+      context.setFillStyle(item.color);
+      context.beginPath();
+      context.moveTo(startX, startY);
+      context.lineTo(endX, startY);
+      context.stroke();
+      context.closePath();
+      context.beginPath();
+      context.moveTo(endX, startY);
+      context.arc(endX, startY, 2, 0, 2 * Math.PI);
+      context.closePath();
+      context.fill();
+      context.beginPath();
+      context.setFontSize(fontSize);
+      context.setFillStyle(item.textColor || '#666666');
+      context.fillText(text, endX + 5, startY + fontSize / 2 - 2);
+      context.closePath();
+      context.stroke();
+      context.closePath();
+    } else {
+      if (i == 0) {
+        startX = (item.funnelArea[0] + centerPosition.x) / 2;
+      } else {
+        startX = (item.funnelArea[0] + series[i - 1].funnelArea[0]) / 2;
+      }
+      endX = startX - activeWidth * 2;
+      startY = item.funnelArea[1] + eachSpacing / 2;
+      fontSize = item.textSize || opts.fontSize;
+      context.setLineWidth(1 * opts.pixelRatio);
+      context.setStrokeStyle(item.color);
+      context.setFillStyle(item.color);
+      context.beginPath();
+      context.moveTo(startX, startY);
+      context.lineTo(endX, startY);
+      context.stroke();
+      context.closePath();
+      context.beginPath();
+      context.moveTo(endX, startY);
+      context.arc(endX, startY, 2, 0, 2 * Math.PI);
+      context.closePath();
+      context.fill();
+      context.beginPath();
+      context.setFontSize(fontSize);
+      context.setFillStyle(item.textColor || '#666666');
+      context.fillText(text, endX - 5 - measureText(text), startY + fontSize / 2 - 2);
+      context.closePath();
+      context.stroke();
+      context.closePath();
+    }
+  }
+}
+function drawCanvas(opts, context) {
+  context.draw();
+}
+var Timing = {
+  easeIn: function easeIn(pos) {
+    return Math.pow(pos, 3);
+  },
+  easeOut: function easeOut(pos) {
+    return Math.pow(pos - 1, 3) + 1;
+  },
+  easeInOut: function easeInOut(pos) {
+    if ((pos /= 0.5) < 1) {
+      return 0.5 * Math.pow(pos, 3);
+    } else {
+      return 0.5 * (Math.pow(pos - 2, 3) + 2);
+    }
+  },
+  linear: function linear(pos) {
+    return pos;
+  }
+};
+function Animation(opts) {
+  this.isStop = false;
+  opts.duration = typeof opts.duration === 'undefined' ? 1000 : opts.duration;
+  opts.timing = opts.timing || 'linear';
+  var delay = 17;
+  function createAnimationFrame() {
+    if (typeof setTimeout !== 'undefined') {
+      return function (step, delay) {
+        setTimeout(function () {
+          var timeStamp = +new Date();
+          step(timeStamp);
+        }, delay);
+      };
+    } else if (typeof requestAnimationFrame !== 'undefined') {
+      return requestAnimationFrame;
+    } else {
+      return function (step) {
+        step(null);
+      };
+    }
+  }
+  ;
+  var animationFrame = createAnimationFrame();
+  var startTimeStamp = null;
+  var _step = function step(timestamp) {
+    if (timestamp === null || this.isStop === true) {
+      opts.onProcess && opts.onProcess(1);
+      opts.onAnimationFinish && opts.onAnimationFinish();
+      return;
+    }
+    if (startTimeStamp === null) {
+      startTimeStamp = timestamp;
+    }
+    if (timestamp - startTimeStamp < opts.duration) {
+      var process = (timestamp - startTimeStamp) / opts.duration;
+      var timingFunction = Timing[opts.timing];
+      process = timingFunction(process);
+      opts.onProcess && opts.onProcess(process);
+      animationFrame(_step, delay);
+    } else {
+      opts.onProcess && opts.onProcess(1);
+      opts.onAnimationFinish && opts.onAnimationFinish();
+    }
+  };
+  _step = _step.bind(this);
+  animationFrame(_step, delay);
+}
+
+// stop animation immediately
+// and tigger onAnimationFinish
+Animation.prototype.stop = function () {
+  this.isStop = true;
+};
+function drawCharts(type, opts, config, context) {
+  var _this = this;
+  var series = opts.series;
+  var categories = opts.categories;
+  series = fillSeries(series, opts, config);
+  var duration = opts.animation ? opts.duration : 0;
+  _this.animationInstance && _this.animationInstance.stop();
+  var seriesMA = null;
+  if (type == 'candle') {
+    var average = assign({}, opts.extra.candle.average);
+    if (average.show) {
+      seriesMA = calCandleMA(average.day, average.name, average.color, series[0].data);
+      seriesMA = fillSeries(seriesMA, opts, config);
+      opts.seriesMA = seriesMA;
+    } else if (opts.seriesMA) {
+      seriesMA = opts.seriesMA = fillSeries(opts.seriesMA, opts, config);
+    } else {
+      seriesMA = series;
+    }
+  } else {
+    seriesMA = series;
+  }
+
+  /* lọc rashow=falsecủaseries */
+  opts._series_ = series = filterSeries(series);
+
+  //Tính toán lại diện tích biểu đồ
+
+  opts.area = new Array(4);
+  //Đặt lại vùng vẽ
+  for (var j = 0; j < 4; j++) {
+    opts.area[j] = opts.padding[j];
+  }
+
+  //Xác định vùng vẽ bằng cách tính kích thước của 3 vùng chính: chú giải, trục X và trục Y
+  var _calLegendData = calLegendData(seriesMA, opts, config, opts.chartData),
+    legendHeight = _calLegendData.area.wholeHeight,
+    legendWidth = _calLegendData.area.wholeWidth;
+  switch (opts.legend.position) {
+    case 'top':
+      opts.area[0] += legendHeight;
+      break;
+    case 'bottom':
+      opts.area[2] += legendHeight;
+      break;
+    case 'left':
+      opts.area[3] += legendWidth;
+      break;
+    case 'right':
+      opts.area[1] += legendWidth;
+      break;
+  }
+  var _calYAxisData = {},
+    yAxisWidth = 0;
+  if (opts.type === 'line' || opts.type === 'column' || opts.type === 'area' || opts.type === 'mix' || opts.type === 'candle') {
+    _calYAxisData = calYAxisData(series, opts, config);
+    yAxisWidth = _calYAxisData.yAxisWidth;
+    //Nếu tiêu đề trục Y được hiển thị
+    if (opts.yAxis.showTitle) {
+      var maxTitleHeight = 0;
+      for (var i = 0; i < opts.yAxis.data.length; i++) {
+        maxTitleHeight = Math.max(maxTitleHeight, opts.yAxis.data[i].titleFontSize ? opts.yAxis.data[i].titleFontSize : config.fontSize);
+      }
+      opts.area[0] += (maxTitleHeight + 6) * opts.pixelRatio;
+    }
+    var rightIndex = 0,
+      leftIndex = 0;
+    //Tính toán vị trí bên trái và bên phải của vùng vẽ chính
+    for (var _i24 = 0; _i24 < yAxisWidth.length; _i24++) {
+      if (yAxisWidth[_i24].position == 'left') {
+        if (leftIndex > 0) {
+          opts.area[3] += yAxisWidth[_i24].width + opts.yAxis.padding;
+        } else {
+          opts.area[3] += yAxisWidth[_i24].width;
+        }
+        leftIndex += 1;
+      } else {
+        if (rightIndex > 0) {
+          opts.area[1] += yAxisWidth[_i24].width + opts.yAxis.padding;
+        } else {
+          opts.area[1] += yAxisWidth[_i24].width;
+        }
+        rightIndex += 1;
+      }
+    }
+  } else {
+    config.yAxisWidth = yAxisWidth;
+  }
+  opts.chartData.yAxisData = _calYAxisData;
+  if (opts.categories && opts.categories.length) {
+    opts.chartData.xAxisData = getXAxisPoints(opts.categories, opts, config);
+    var _calCategoriesData = calCategoriesData(opts.categories, opts, config, opts.chartData.xAxisData.eachSpacing),
+      xAxisHeight = _calCategoriesData.xAxisHeight,
+      angle = _calCategoriesData.angle;
+    config.xAxisHeight = xAxisHeight;
+    config._xAxisTextAngle_ = angle;
+    opts.area[2] += xAxisHeight;
+    opts.chartData.categoriesData = _calCategoriesData;
+  } else {
+    if (opts.type === 'line' || opts.type === 'area' || opts.type === 'points') {
+      opts.chartData.xAxisData = calXAxisData(series, opts, config);
+      categories = opts.chartData.xAxisData.rangesFormat;
+      var _calCategoriesData2 = calCategoriesData(categories, opts, config, opts.chartData.xAxisData.eachSpacing),
+        _xAxisHeight = _calCategoriesData2.xAxisHeight,
+        _angle = _calCategoriesData2.angle;
+      config.xAxisHeight = _xAxisHeight;
+      config._xAxisTextAngle_ = _angle;
+      opts.area[2] += _xAxisHeight;
+      opts.chartData.categoriesData = _calCategoriesData2;
+    } else {
+      opts.chartData.xAxisData = {
+        xAxisPoints: []
+      };
+    }
+  }
+  //Tính khoảng cách offset căn phải
+  if (opts.enableScroll && opts.xAxis.scrollAlign == 'right' && opts._scrollDistance_ === undefined) {
+    var offsetLeft = 0,
+      xAxisPoints = opts.chartData.xAxisData.xAxisPoints,
+      startX = opts.chartData.xAxisData.startX,
+      endX = opts.chartData.xAxisData.endX,
+      eachSpacing = opts.chartData.xAxisData.eachSpacing;
+    var totalWidth = eachSpacing * (xAxisPoints.length - 1);
+    var screenWidth = endX - startX;
+    offsetLeft = screenWidth - totalWidth;
+    _this.scrollOption = {
+      currentOffset: offsetLeft,
+      startTouchX: offsetLeft,
+      distance: 0,
+      lastMoveTime: 0
+    };
+    opts._scrollDistance_ = offsetLeft;
+  }
+  if (type === 'pie' || type === 'ring' || type === 'rose') {
+    config._pieTextMaxLength_ = opts.dataLabel === false ? 0 : getPieTextMaxLength(seriesMA);
+  }
+  switch (type) {
+    case 'word':
+      var wordOption = assign({}, {
+        type: 'normal',
+        autoColors: true
+      }, opts.extra.word);
+      if (opts.updateData == true || opts.updateData == undefined) {
+        opts.chartData.wordCloudData = getWordCloudPoint(opts, wordOption.type);
+      }
+      this.animationInstance = new Animation({
+        timing: 'easeInOut',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          drawWordCloudDataPoints(series, opts, config, context, process);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'map':
+      context.clearRect(0, 0, opts.width, opts.height);
+      drawMapDataPoints(series, opts, config, context);
+      break;
+    case 'funnel':
+      this.animationInstance = new Animation({
+        timing: 'easeInOut',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          opts.chartData.funnelData = drawFunnelDataPoints(series, opts, config, context, process);
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'line':
+      this.animationInstance = new Animation({
+        timing: 'easeIn',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          drawYAxisGrid(categories, opts, config, context);
+          drawXAxis(categories, opts, config, context);
+          var _drawLineDataPoints = drawLineDataPoints(series, opts, config, context, process),
+            xAxisPoints = _drawLineDataPoints.xAxisPoints,
+            calPoints = _drawLineDataPoints.calPoints,
+            eachSpacing = _drawLineDataPoints.eachSpacing;
+          opts.chartData.xAxisPoints = xAxisPoints;
+          opts.chartData.calPoints = calPoints;
+          opts.chartData.eachSpacing = eachSpacing;
+          drawYAxis(series, opts, config, context);
+          if (opts.enableMarkLine !== false && process === 1) {
+            drawMarkLine(opts, config, context);
+          }
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process, eachSpacing, xAxisPoints);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'mix':
+      this.animationInstance = new Animation({
+        timing: 'easeIn',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          drawYAxisGrid(categories, opts, config, context);
+          drawXAxis(categories, opts, config, context);
+          var _drawMixDataPoints = drawMixDataPoints(series, opts, config, context, process),
+            xAxisPoints = _drawMixDataPoints.xAxisPoints,
+            calPoints = _drawMixDataPoints.calPoints,
+            eachSpacing = _drawMixDataPoints.eachSpacing;
+          opts.chartData.xAxisPoints = xAxisPoints;
+          opts.chartData.calPoints = calPoints;
+          opts.chartData.eachSpacing = eachSpacing;
+          drawYAxis(series, opts, config, context);
+          if (opts.enableMarkLine !== false && process === 1) {
+            drawMarkLine(opts, config, context);
+          }
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process, eachSpacing, xAxisPoints);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'column':
+      this.animationInstance = new Animation({
+        timing: 'easeIn',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          drawYAxisGrid(categories, opts, config, context);
+          drawXAxis(categories, opts, config, context);
+          var _drawColumnDataPoints = drawColumnDataPoints(series, opts, config, context, process),
+            xAxisPoints = _drawColumnDataPoints.xAxisPoints,
+            calPoints = _drawColumnDataPoints.calPoints,
+            eachSpacing = _drawColumnDataPoints.eachSpacing;
+          opts.chartData.xAxisPoints = xAxisPoints;
+          opts.chartData.calPoints = calPoints;
+          opts.chartData.eachSpacing = eachSpacing;
+          drawYAxis(series, opts, config, context);
+          if (opts.enableMarkLine !== false && process === 1) {
+            drawMarkLine(opts, config, context);
+          }
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process, eachSpacing, xAxisPoints);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'area':
+      this.animationInstance = new Animation({
+        timing: 'easeIn',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          drawYAxisGrid(categories, opts, config, context);
+          drawXAxis(categories, opts, config, context);
+          var _drawAreaDataPoints = drawAreaDataPoints(series, opts, config, context, process),
+            xAxisPoints = _drawAreaDataPoints.xAxisPoints,
+            calPoints = _drawAreaDataPoints.calPoints,
+            eachSpacing = _drawAreaDataPoints.eachSpacing;
+          opts.chartData.xAxisPoints = xAxisPoints;
+          opts.chartData.calPoints = calPoints;
+          opts.chartData.eachSpacing = eachSpacing;
+          drawYAxis(series, opts, config, context);
+          if (opts.enableMarkLine !== false && process === 1) {
+            drawMarkLine(opts, config, context);
+          }
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process, eachSpacing, xAxisPoints);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'ring':
+    case 'pie':
+      this.animationInstance = new Animation({
+        timing: 'easeInOut',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          opts.chartData.pieData = drawPieDataPoints(series, opts, config, context, process);
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'rose':
+      this.animationInstance = new Animation({
+        timing: 'easeInOut',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          opts.chartData.pieData = drawRoseDataPoints(series, opts, config, context, process);
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'radar':
+      this.animationInstance = new Animation({
+        timing: 'easeInOut',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          opts.chartData.radarData = drawRadarDataPoints(series, opts, config, context, process);
+          drawLegend(opts.series, opts, config, context, opts.chartData);
+          drawToolTipBridge(opts, config, context, process);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'arcbar':
+      this.animationInstance = new Animation({
+        timing: 'easeInOut',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          opts.chartData.arcbarData = drawArcbarDataPoints(series, opts, config, context, process);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'gauge':
+      this.animationInstance = new Animation({
+        timing: 'easeInOut',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          opts.chartData.gaugeData = drawGaugeDataPoints(categories, series, opts, config, context, process);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+    case 'candle':
+      this.animationInstance = new Animation({
+        timing: 'easeIn',
+        duration: duration,
+        onProcess: function onProcess(process) {
+          context.clearRect(0, 0, opts.width, opts.height);
+          if (opts.rotate) {
+            contextRotate(context, opts);
+          }
+          drawYAxisGrid(categories, opts, config, context);
+          drawXAxis(categories, opts, config, context);
+          var _drawCandleDataPoints = drawCandleDataPoints(series, seriesMA, opts, config, context, process),
+            xAxisPoints = _drawCandleDataPoints.xAxisPoints,
+            calPoints = _drawCandleDataPoints.calPoints,
+            eachSpacing = _drawCandleDataPoints.eachSpacing;
+          opts.chartData.xAxisPoints = xAxisPoints;
+          opts.chartData.calPoints = calPoints;
+          opts.chartData.eachSpacing = eachSpacing;
+          drawYAxis(series, opts, config, context);
+          if (opts.enableMarkLine !== false && process === 1) {
+            drawMarkLine(opts, config, context);
+          }
+          if (seriesMA) {
+            drawLegend(seriesMA, opts, config, context, opts.chartData);
+          } else {
+            drawLegend(opts.series, opts, config, context, opts.chartData);
+          }
+          drawToolTipBridge(opts, config, context, process, eachSpacing, xAxisPoints);
+          drawCanvas(opts, context);
+        },
+        onAnimationFinish: function onAnimationFinish() {
+          _this.event.trigger('renderComplete');
+        }
+      });
+      break;
+  }
+}
+
+// simple event implement
+
+function Event() {
+  this.events = {};
+}
+Event.prototype.addEventListener = function (type, listener) {
+  this.events[type] = this.events[type] || [];
+  this.events[type].push(listener);
+};
+Event.prototype.trigger = function () {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var type = args[0];
+  var params = args.slice(1);
+  if (!!this.events[type]) {
+    this.events[type].forEach(function (listener) {
+      try {
+        listener.apply(null, params);
+      } catch (e) {}
+    });
+  }
+};
+var Charts = function Charts(opts) {
+  opts.pixelRatio = opts.pixelRatio ? opts.pixelRatio : 1;
+  opts.fontSize = opts.fontSize ? opts.fontSize * opts.pixelRatio : 13 * opts.pixelRatio;
+  opts.title = assign({}, opts.title);
+  opts.subtitle = assign({}, opts.subtitle);
+  opts.duration = opts.duration ? opts.duration : 1000;
+  opts.yAxis = assign({}, {
+    data: [],
+    showTitle: false,
+    disabled: false,
+    disableGrid: false,
+    splitNumber: 5,
+    gridType: 'solid',
+    dashLength: 4 * opts.pixelRatio,
+    gridColor: '#cccccc',
+    padding: 10,
+    fontColor: '#666666'
+  }, opts.yAxis);
+  opts.yAxis.dashLength *= opts.pixelRatio;
+  opts.yAxis.padding *= opts.pixelRatio;
+  opts.xAxis = assign({}, {
+    rotateLabel: false,
+    type: 'calibration',
+    gridType: 'solid',
+    dashLength: 4,
+    scrollAlign: 'left',
+    boundaryGap: 'center',
+    axisLine: true,
+    axisLineColor: '#cccccc'
+  }, opts.xAxis);
+  opts.xAxis.dashLength *= opts.pixelRatio;
+  opts.legend = assign({}, {
+    show: true,
+    position: 'bottom',
+    float: 'center',
+    backgroundColor: 'rgba(0,0,0,0)',
+    borderColor: 'rgba(0,0,0,0)',
+    borderWidth: 0,
+    padding: 5,
+    margin: 5,
+    itemGap: 10,
+    fontSize: opts.fontSize,
+    lineHeight: opts.fontSize,
+    fontColor: '#333333',
+    format: {},
+    hiddenColor: '#CECECE'
+  }, opts.legend);
+  opts.legend.borderWidth = opts.legend.borderWidth * opts.pixelRatio;
+  opts.legend.itemGap = opts.legend.itemGap * opts.pixelRatio;
+  opts.legend.padding = opts.legend.padding * opts.pixelRatio;
+  opts.legend.margin = opts.legend.margin * opts.pixelRatio;
+  opts.extra = assign({}, opts.extra);
+  opts.rotate = opts.rotate ? true : false;
+  opts.animation = opts.animation ? true : false;
+  opts.rotate = opts.rotate ? true : false;
+  var config$$1 = JSON.parse(JSON.stringify(config));
+  config$$1.colors = opts.colors ? opts.colors : config$$1.colors;
+  config$$1.yAxisTitleWidth = opts.yAxis.disabled !== true && opts.yAxis.title ? config$$1.yAxisTitleWidth : 0;
+  if (opts.type == 'pie' || opts.type == 'ring') {
+    config$$1.pieChartLinePadding = opts.dataLabel === false ? 0 : opts.extra.pie.labelWidth * opts.pixelRatio || config$$1.pieChartLinePadding * opts.pixelRatio;
+  }
+  if (opts.type == 'rose') {
+    config$$1.pieChartLinePadding = opts.dataLabel === false ? 0 : opts.extra.rose.labelWidth * opts.pixelRatio || config$$1.pieChartLinePadding * opts.pixelRatio;
+  }
+  config$$1.pieChartTextPadding = opts.dataLabel === false ? 0 : config$$1.pieChartTextPadding * opts.pixelRatio;
+  config$$1.yAxisSplit = opts.yAxis.splitNumber ? opts.yAxis.splitNumber : config.yAxisSplit;
+
+  //xoay màn hình
+  config$$1.rotate = opts.rotate;
+  if (opts.rotate) {
+    var tempWidth = opts.width;
+    var tempHeight = opts.height;
+    opts.width = tempHeight;
+    opts.height = tempWidth;
+  }
+
+  //Thích ứng với màn hình độ phân giải cao
+  opts.padding = opts.padding ? opts.padding : config$$1.padding;
+  for (var i = 0; i < 4; i++) {
+    opts.padding[i] *= opts.pixelRatio;
+  }
+  config$$1.yAxisWidth = config.yAxisWidth * opts.pixelRatio;
+  config$$1.xAxisHeight = config.xAxisHeight * opts.pixelRatio;
+  if (opts.enableScroll && opts.xAxis.scrollShow) {
+    config$$1.xAxisHeight += 6 * opts.pixelRatio;
+  }
+  config$$1.xAxisLineHeight = config.xAxisLineHeight * opts.pixelRatio;
+  config$$1.fontSize = opts.fontSize;
+  config$$1.titleFontSize = config.titleFontSize * opts.pixelRatio;
+  config$$1.subtitleFontSize = config.subtitleFontSize * opts.pixelRatio;
+  config$$1.toolTipPadding = config.toolTipPadding * opts.pixelRatio;
+  config$$1.toolTipLineHeight = config.toolTipLineHeight * opts.pixelRatio;
+  config$$1.columePadding = config.columePadding * opts.pixelRatio;
+  opts.$this = opts.$this ? opts.$this : this;
+  this.context = uni.createCanvasContext(opts.canvasId, opts.$this);
+  /* Tương thích với bản địaH5
+  this.context = document.getElementById(opts.canvasId).getContext("2d");
+  this.context.setStrokeStyle = function(e){ return this.strokeStyle=e; }
+  this.context.setLineWidth = function(e){ return this.lineWidth=e; }
+  this.context.setLineCap = function(e){ return this.lineCap=e; }
+  this.context.setFontSize = function(e){ return this.font=e+"px sans-serif"; }
+  this.context.setFillStyle = function(e){ return this.fillStyle=e; }
+  this.context.draw = function(){ }
+  */
+
+  opts.chartData = {};
+  this.event = new Event();
+  this.scrollOption = {
+    currentOffset: 0,
+    startTouchX: 0,
+    distance: 0,
+    lastMoveTime: 0
+  };
+  this.opts = opts;
+  this.config = config$$1;
+  drawCharts.call(this, opts.type, opts, config$$1, this.context);
+};
+Charts.prototype.updateData = function () {
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  this.opts = assign({}, this.opts, data);
+  this.opts.updateData = true;
+  var scrollPosition = data.scrollPosition || 'current';
+  switch (scrollPosition) {
+    case 'current':
+      this.opts._scrollDistance_ = this.scrollOption.currentOffset;
+      break;
+    case 'left':
+      this.opts._scrollDistance_ = 0;
+      this.scrollOption = {
+        currentOffset: 0,
+        startTouchX: 0,
+        distance: 0,
+        lastMoveTime: 0
+      };
+      break;
+    case 'right':
+      var _calYAxisData = calYAxisData(this.opts.series, this.opts, this.config),
+        yAxisWidth = _calYAxisData.yAxisWidth;
+      this.config.yAxisWidth = yAxisWidth;
+      var offsetLeft = 0;
+      var _getXAxisPoints0 = getXAxisPoints(this.opts.categories, this.opts, this.config),
+        xAxisPoints = _getXAxisPoints0.xAxisPoints,
+        startX = _getXAxisPoints0.startX,
+        endX = _getXAxisPoints0.endX,
+        eachSpacing = _getXAxisPoints0.eachSpacing;
+      var totalWidth = eachSpacing * (xAxisPoints.length - 1);
+      var screenWidth = endX - startX;
+      offsetLeft = screenWidth - totalWidth;
+      this.scrollOption = {
+        currentOffset: offsetLeft,
+        startTouchX: offsetLeft,
+        distance: 0,
+        lastMoveTime: 0
+      };
+      this.opts._scrollDistance_ = offsetLeft;
+      break;
+  }
+  drawCharts.call(this, this.opts.type, this.opts, this.config, this.context);
+};
+Charts.prototype.zoom = function () {
+  var val = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.opts.xAxis.itemCount;
+  if (this.opts.enableScroll !== true) {
+    console.log('Vui lòng bật thanh cuộn trước khi sử dụng！');
+    return;
+  }
+  //Điểm trung tâm màn hình hiện tại
+  var centerPoint = Math.round(Math.abs(this.scrollOption.currentOffset) / this.opts.chartData.eachSpacing) + Math.round(this.opts.xAxis.itemCount / 2);
+  this.opts.animation = false;
+  this.opts.xAxis.itemCount = val.itemCount;
+  //Tính toán lại khoảng cách lệch trục x
+  var _calYAxisData = calYAxisData(this.opts.series, this.opts, this.config),
+    yAxisWidth = _calYAxisData.yAxisWidth;
+  this.config.yAxisWidth = yAxisWidth;
+  var offsetLeft = 0;
+  var _getXAxisPoints0 = getXAxisPoints(this.opts.categories, this.opts, this.config),
+    xAxisPoints = _getXAxisPoints0.xAxisPoints,
+    startX = _getXAxisPoints0.startX,
+    endX = _getXAxisPoints0.endX,
+    eachSpacing = _getXAxisPoints0.eachSpacing;
+  var centerLeft = eachSpacing * centerPoint;
+  var screenWidth = endX - startX;
+  var MaxLeft = screenWidth - eachSpacing * (xAxisPoints.length - 1);
+  offsetLeft = screenWidth / 2 - centerLeft;
+  if (offsetLeft > 0) {
+    offsetLeft = 0;
+  }
+  if (offsetLeft < MaxLeft) {
+    offsetLeft = MaxLeft;
+  }
+  this.scrollOption = {
+    currentOffset: offsetLeft,
+    startTouchX: offsetLeft,
+    distance: 0,
+    lastMoveTime: 0
+  };
+  this.opts._scrollDistance_ = offsetLeft;
+  drawCharts.call(this, this.opts.type, this.opts, this.config, this.context);
+};
+Charts.prototype.stopAnimation = function () {
+  this.animationInstance && this.animationInstance.stop();
+};
+Charts.prototype.addEventListener = function (type, listener) {
+  this.event.addEventListener(type, listener);
+};
+Charts.prototype.getCurrentDataIndex = function (e) {
+  var touches = null;
+  if (e.changedTouches) {
+    touches = e.changedTouches[0];
+  } else {
+    touches = e.mp.changedTouches[0];
+  }
+  if (touches) {
+    var _touches$ = getTouches(touches, this.opts, e);
+    if (this.opts.type === 'pie' || this.opts.type === 'ring' || this.opts.type === 'rose') {
+      return findPieChartCurrentIndex({
+        x: _touches$.x,
+        y: _touches$.y
+      }, this.opts.chartData.pieData);
+    } else if (this.opts.type === 'radar') {
+      return findRadarChartCurrentIndex({
+        x: _touches$.x,
+        y: _touches$.y
+      }, this.opts.chartData.radarData, this.opts.categories.length);
+    } else if (this.opts.type === 'funnel') {
+      return findFunnelChartCurrentIndex({
+        x: _touches$.x,
+        y: _touches$.y
+      }, this.opts.chartData.funnelData);
+    } else if (this.opts.type === 'map') {
+      return findMapChartCurrentIndex({
+        x: _touches$.x,
+        y: _touches$.y
+      }, this.opts);
+    } else if (this.opts.type === 'word') {
+      return findWordChartCurrentIndex({
+        x: _touches$.x,
+        y: _touches$.y
+      }, this.opts.chartData.wordCloudData);
+    } else {
+      return findCurrentIndex({
+        x: _touches$.x,
+        y: _touches$.y
+      }, this.opts.chartData.calPoints, this.opts, this.config, Math.abs(this.scrollOption.currentOffset));
+    }
+  }
+  return -1;
+};
+Charts.prototype.getLegendDataIndex = function (e) {
+  var touches = null;
+  if (e.changedTouches) {
+    touches = e.changedTouches[0];
+  } else {
+    touches = e.mp.changedTouches[0];
+  }
+  if (touches) {
+    var _touches$ = getTouches(touches, this.opts, e);
+    return findLegendIndex({
+      x: _touches$.x,
+      y: _touches$.y
+    }, this.opts.chartData.legendData);
+  }
+  return -1;
+};
+Charts.prototype.touchLegend = function (e) {
+  var option = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var touches = null;
+  if (e.changedTouches) {
+    touches = e.changedTouches[0];
+  } else {
+    touches = e.mp.changedTouches[0];
+  }
+  if (touches) {
+    var _touches$ = getTouches(touches, this.opts, e);
+    var index = this.getLegendDataIndex(e);
+    if (index >= 0) {
+      this.opts.series[index].show = !this.opts.series[index].show;
+      this.opts.animation = option.animation ? true : false;
+      this.opts._scrollDistance_ = this.scrollOption.currentOffset;
+      drawCharts.call(this, this.opts.type, this.opts, this.config, this.context);
+    }
+  }
+};
+Charts.prototype.showToolTip = function (e) {
+  var option = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var touches = null;
+  if (e.changedTouches) {
+    touches = e.changedTouches[0];
+  } else {
+    touches = e.mp.changedTouches[0];
+  }
+  if (!touches) {}
+  var _touches$ = getTouches(touches, this.opts, e);
+  var currentOffset = this.scrollOption.currentOffset;
+  var opts = assign({}, this.opts, {
+    _scrollDistance_: currentOffset,
+    animation: false
+  });
+  if (this.opts.type === 'line' || this.opts.type === 'area' || this.opts.type === 'column') {
+    var index = option.index == undefined ? this.getCurrentDataIndex(e) : option.index;
+    if (index > -1) {
+      var seriesData = getSeriesDataItem(this.opts.series, index);
+      if (seriesData.length !== 0) {
+        var _getToolTipData = getToolTipData(seriesData, this.opts.chartData.calPoints, index, this.opts.categories, option),
+          textList = _getToolTipData.textList,
+          offset = _getToolTipData.offset;
+        offset.y = _touches$.y;
+        opts.tooltip = {
+          textList: option.textList ? option.textList : textList,
+          offset: offset,
+          option: option,
+          index: index
+        };
+      }
+    }
+    drawCharts.call(this, opts.type, opts, this.config, this.context);
+  }
+  if (this.opts.type === 'mix') {
+    var index = option.index == undefined ? this.getCurrentDataIndex(e) : option.index;
+    if (index > -1) {
+      var currentOffset = this.scrollOption.currentOffset;
+      var opts = assign({}, this.opts, {
+        _scrollDistance_: currentOffset,
+        animation: false
+      });
+      var seriesData = getSeriesDataItem(this.opts.series, index);
+      if (seriesData.length !== 0) {
+        var _getMixToolTipData = getMixToolTipData(seriesData, this.opts.chartData.calPoints, index, this.opts.categories, option),
+          textList = _getMixToolTipData.textList,
+          offset = _getMixToolTipData.offset;
+        offset.y = _touches$.y;
+        opts.tooltip = {
+          textList: option.textList ? option.textList : textList,
+          offset: offset,
+          option: option,
+          index: index
+        };
+      }
+    }
+    drawCharts.call(this, opts.type, opts, this.config, this.context);
+  }
+  if (this.opts.type === 'candle') {
+    var index = option.index == undefined ? this.getCurrentDataIndex(e) : option.index;
+    if (index > -1) {
+      var currentOffset = this.scrollOption.currentOffset;
+      var opts = assign({}, this.opts, {
+        _scrollDistance_: currentOffset,
+        animation: false
+      });
+      var seriesData = getSeriesDataItem(this.opts.series, index);
+      if (seriesData.length !== 0) {
+        var _getToolTipData = getCandleToolTipData(this.opts.series[0].data, seriesData, this.opts.chartData.calPoints, index, this.opts.categories, this.opts.extra.candle, option),
+          textList = _getToolTipData.textList,
+          offset = _getToolTipData.offset;
+        offset.y = _touches$.y;
+        opts.tooltip = {
+          textList: option.textList ? option.textList : textList,
+          offset: offset,
+          option: option,
+          index: index
+        };
+      }
+    }
+    drawCharts.call(this, opts.type, opts, this.config, this.context);
+  }
+  if (this.opts.type === 'pie' || this.opts.type === 'ring' || this.opts.type === 'rose' || this.opts.type === 'funnel') {
+    var index = option.index == undefined ? this.getCurrentDataIndex(e) : option.index;
+    if (index > -1) {
+      var currentOffset = this.scrollOption.currentOffset;
+      var opts = assign({}, this.opts, {
+        _scrollDistance_: currentOffset,
+        animation: false
+      });
+      var seriesData = this.opts._series_[index];
+      var textList = [{
+        text: option.format ? option.format(seriesData) : seriesData.name + ': ' + seriesData.data,
+        color: seriesData.color
+      }];
+      var offset = {
+        x: _touches$.x,
+        y: _touches$.y
+      };
+      opts.tooltip = {
+        textList: option.textList ? option.textList : textList,
+        offset: offset,
+        option: option,
+        index: index
+      };
+    }
+    drawCharts.call(this, opts.type, opts, this.config, this.context);
+  }
+  if (this.opts.type === 'map' || this.opts.type === 'word') {
+    var index = option.index == undefined ? this.getCurrentDataIndex(e) : option.index;
+    if (index > -1) {
+      var currentOffset = this.scrollOption.currentOffset;
+      var opts = assign({}, this.opts, {
+        _scrollDistance_: currentOffset,
+        animation: false
+      });
+      var seriesData = this.opts._series_[index];
+      var textList = [{
+        text: option.format ? option.format(seriesData) : seriesData.properties.name,
+        color: seriesData.color
+      }];
+      var offset = {
+        x: _touches$.x,
+        y: _touches$.y
+      };
+      opts.tooltip = {
+        textList: option.textList ? option.textList : textList,
+        offset: offset,
+        option: option,
+        index: index
+      };
+    }
+    opts.updateData = false;
+    drawCharts.call(this, opts.type, opts, this.config, this.context);
+  }
+  if (this.opts.type === 'radar') {
+    var index = option.index == undefined ? this.getCurrentDataIndex(e) : option.index;
+    if (index > -1) {
+      var currentOffset = this.scrollOption.currentOffset;
+      var opts = assign({}, this.opts, {
+        _scrollDistance_: currentOffset,
+        animation: false
+      });
+      var seriesData = getSeriesDataItem(this.opts.series, index);
+      if (seriesData.length !== 0) {
+        var textList = seriesData.map(function (item) {
+          return {
+            text: option.format ? option.format(item) : item.name + ': ' + item.data,
+            color: item.color
+          };
+        });
+        var offset = {
+          x: _touches$.x,
+          y: _touches$.y
+        };
+        opts.tooltip = {
+          textList: option.textList ? option.textList : textList,
+          offset: offset,
+          option: option,
+          index: index
+        };
+      }
+    }
+    drawCharts.call(this, opts.type, opts, this.config, this.context);
+  }
+};
+Charts.prototype.translate = function (distance) {
+  this.scrollOption = {
+    currentOffset: distance,
+    startTouchX: distance,
+    distance: 0,
+    lastMoveTime: 0
+  };
+  var opts = assign({}, this.opts, {
+    _scrollDistance_: distance,
+    animation: false
+  });
+  drawCharts.call(this, this.opts.type, opts, this.config, this.context);
+};
+Charts.prototype.scrollStart = function (e) {
+  var touches = null;
+  if (e.changedTouches) {
+    touches = e.changedTouches[0];
+  } else {
+    touches = e.mp.changedTouches[0];
+  }
+  var _touches$ = getTouches(touches, this.opts, e);
+  if (touches && this.opts.enableScroll === true) {
+    this.scrollOption.startTouchX = _touches$.x;
+  }
+};
+Charts.prototype.scroll = function (e) {
+  if (this.scrollOption.lastMoveTime === 0) {
+    this.scrollOption.lastMoveTime = Date.now();
+  }
+  var Limit = this.opts.extra.touchMoveLimit || 20;
+  var currMoveTime = Date.now();
+  var duration = currMoveTime - this.scrollOption.lastMoveTime;
+  if (duration < Math.floor(1000 / Limit)) return;
+  this.scrollOption.lastMoveTime = currMoveTime;
+  var touches = null;
+  if (e.changedTouches) {
+    touches = e.changedTouches[0];
+  } else {
+    touches = e.mp.changedTouches[0];
+  }
+  if (touches && this.opts.enableScroll === true) {
+    var _touches$ = getTouches(touches, this.opts, e);
+    var _distance;
+    _distance = _touches$.x - this.scrollOption.startTouchX;
+    var currentOffset = this.scrollOption.currentOffset;
+    var validDistance = calValidDistance(this, currentOffset + _distance, this.opts.chartData, this.config, this.opts);
+    this.scrollOption.distance = _distance = validDistance - currentOffset;
+    var opts = assign({}, this.opts, {
+      _scrollDistance_: currentOffset + _distance,
+      animation: false
+    });
+    drawCharts.call(this, opts.type, opts, this.config, this.context);
+    return currentOffset + _distance;
+  }
+};
+Charts.prototype.scrollEnd = function (e) {
+  if (this.opts.enableScroll === true) {
+    var _scrollOption = this.scrollOption,
+      currentOffset = _scrollOption.currentOffset,
+      distance = _scrollOption.distance;
+    this.scrollOption.currentOffset = currentOffset + distance;
+    this.scrollOption.distance = 0;
+  }
+};
+if (( false ? undefined : _typeof(module)) === "object" && _typeof(module.exports) === "object") {
+  module.exports = Charts;
+  //export default Charts;//Bạn nên sử dụng phương thức xuất mô-đun nodejs. Nếu báo lỗi, vui lòng sử dụng phương thức xuất để xuất.
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./../../../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/module.js */ 132)(module)))
+
+/***/ })
+
+}]);
+//# sourceMappingURL=../../../../.sourcemap/mp-weixin/pages/admin/common/vendor.js.map

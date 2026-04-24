@@ -1,1 +1,125 @@
-.apply-return .list.data-v-480fc206{background-color:#fff;margin-top:18rpx}.apply-return .list .item.data-v-480fc206{margin-left:30rpx;padding-right:30rpx;min-height:90rpx;border-bottom:1rpx solid #eee;font-size:30rpx;color:#333}.apply-return .list .item .input.data-v-480fc206{text-align:right}.apply-return .list .item .num.data-v-480fc206{color:#282828;width:427rpx;text-align:right}.apply-return .list .item .num .picker .reason.data-v-480fc206{width:385rpx}.apply-return .list .item .num .picker .iconfont.data-v-480fc206{color:#666;font-size:30rpx;margin-top:2rpx}.apply-return .list .item.textarea.data-v-480fc206{padding:30rpx 30rpx 30rpx 0}.apply-return .list .item textarea.data-v-480fc206{height:100rpx;font-size:30rpx}.apply-return .list .item .placeholder.data-v-480fc206{color:#bbb;font-size:30rpx;text-align:right}.apply-return .list .item .title.data-v-480fc206{height:95rpx;width:100%}.apply-return .list .item .title .tip.data-v-480fc206{font-size:30rpx;color:#bbb}.apply-return .list .item .upload.data-v-480fc206{padding-bottom:36rpx}.apply-return .list .item .upload .pictrue.data-v-480fc206{margin:22rpx 23rpx 0 0;width:156rpx;height:156rpx;position:relative;font-size:24rpx;color:#bbb}.apply-return .list .item .upload .pictrue.data-v-480fc206:nth-of-type(4n){margin-right:0}.apply-return .list .item .upload .pictrue image.data-v-480fc206{width:100%;height:100%;border-radius:3rpx}.apply-return .list .item .upload .pictrue .icon-guanbi1.data-v-480fc206{position:absolute;font-size:45rpx;top:-10rpx;right:-10rpx}.apply-return .list .item .upload .pictrue .icon-icon25201.data-v-480fc206{color:#bfbfbf;font-size:50rpx}.apply-return .list .item .upload .pictrue.data-v-480fc206:nth-last-child(1){border:1rpx solid #ddd;box-sizing:border-box}.apply-return .returnBnt.data-v-480fc206{font-size:32rpx;color:#fff;width:690rpx;height:86rpx;border-radius:50rpx;text-align:center;line-height:86rpx;margin:43rpx auto}.goodsStyle .text .name.data-v-480fc206{align-self:flex-start}.list.data-v-480fc206  .uni-input-input{text-align:right}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.apply-return .list.data-v-87673f16 {
+  background-color: #fff;
+  margin-top: 18rpx;
+}
+.apply-return .list .item.data-v-87673f16 {
+  margin-left: 30rpx;
+  padding-right: 30rpx;
+  min-height: 90rpx;
+  border-bottom: 1rpx solid #eee;
+  font-size: 30rpx;
+  color: #333;
+}
+.apply-return .list .item .input.data-v-87673f16 {
+  text-align: right;
+}
+.apply-return .list .item .num.data-v-87673f16 {
+  color: #282828;
+  width: 427rpx;
+  text-align: right;
+}
+.apply-return .list .item .num .picker .reason.data-v-87673f16 {
+  width: 385rpx;
+}
+.apply-return .list .item .num .picker .iconfont.data-v-87673f16 {
+  color: #666;
+  font-size: 30rpx;
+  margin-top: 2rpx;
+}
+.apply-return .list .item.textarea.data-v-87673f16 {
+  padding: 30rpx 30rpx 30rpx 0;
+}
+.apply-return .list .item textarea.data-v-87673f16 {
+  height: 100rpx;
+  font-size: 30rpx;
+}
+.apply-return .list .item .placeholder.data-v-87673f16 {
+  color: #bbb;
+  font-size: 30rpx;
+  text-align: right;
+}
+.apply-return .list .item .title.data-v-87673f16 {
+  height: 95rpx;
+  width: 100%;
+}
+.apply-return .list .item .title .tip.data-v-87673f16 {
+  font-size: 30rpx;
+  color: #bbb;
+}
+.apply-return .list .item .upload.data-v-87673f16 {
+  padding-bottom: 36rpx;
+}
+.apply-return .list .item .upload .pictrue.data-v-87673f16 {
+  margin: 22rpx 23rpx 0 0;
+  width: 156rpx;
+  height: 156rpx;
+  position: relative;
+  font-size: 24rpx;
+  color: #bbb;
+}
+.apply-return .list .item .upload .pictrue.data-v-87673f16:nth-of-type(4n) {
+  margin-right: 0;
+}
+.apply-return .list .item .upload .pictrue image.data-v-87673f16 {
+  width: 100%;
+  height: 100%;
+  border-radius: 3rpx;
+}
+.apply-return .list .item .upload .pictrue .icon-guanbi1.data-v-87673f16 {
+  position: absolute;
+  font-size: 45rpx;
+  top: -10rpx;
+  right: -10rpx;
+}
+.apply-return .list .item .upload .pictrue .icon-icon25201.data-v-87673f16 {
+  color: #bfbfbf;
+  font-size: 50rpx;
+}
+.apply-return .list .item .upload .pictrue.data-v-87673f16:nth-last-child(1) {
+  border: 1rpx solid #ddd;
+  box-sizing: border-box;
+}
+.apply-return .returnBnt.data-v-87673f16 {
+  font-size: 32rpx;
+  color: #fff;
+  width: 690rpx;
+  height: 86rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 86rpx;
+  margin: 43rpx auto;
+}
+.goodsStyle .text .name.data-v-87673f16 {
+  align-self: flex-start;
+}
+.list.data-v-87673f16  .uni-input-input {
+  text-align: right;
+}

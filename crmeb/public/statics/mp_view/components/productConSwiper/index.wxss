@@ -1,1 +1,93 @@
-.product-bg.data-v-43dfb30c{width:100%;height:750rpx;position:relative}.product-bg swiper.data-v-43dfb30c{width:100%;height:100%;position:relative}.product-bg .slide-image.data-v-43dfb30c{width:100%;height:100%}.product-bg .pages.data-v-43dfb30c{position:absolute;background-color:#fff;height:34rpx;padding:0 10rpx;border-radius:3rpx;right:30rpx;bottom:30rpx;line-height:34rpx;font-size:24rpx;color:#050505}#myVideo.data-v-43dfb30c{width:100%;height:100%}.goods-video.data-v-43dfb30c{width:100%;height:100%}.product-bg .item.data-v-43dfb30c{position:relative;width:100%;height:100%}.product-bg .item .poster.data-v-43dfb30c{position:absolute;top:0;left:0;height:750rpx;width:100%;z-index:9}.product-bg .item .poster .image.data-v-43dfb30c{width:100%;height:100%}.product-bg .item .stop.data-v-43dfb30c{position:absolute;top:50%;left:50%;width:136rpx;height:136rpx;margin-top:-68rpx;margin-left:-68rpx;z-index:9}.product-bg .item .stop .image.data-v-43dfb30c{width:100%;height:100%}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.product-bg.data-v-fba0bbae {
+  width: 100%;
+  height: 750rpx;
+  position: relative;
+}
+.product-bg swiper.data-v-fba0bbae {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.product-bg .slide-image.data-v-fba0bbae {
+  width: 100%;
+  height: 100%;
+}
+.product-bg .pages.data-v-fba0bbae {
+  position: absolute;
+  background-color: #fff;
+  height: 34rpx;
+  padding: 0 10rpx;
+  border-radius: 3rpx;
+  right: 30rpx;
+  bottom: 30rpx;
+  line-height: 34rpx;
+  font-size: 24rpx;
+  color: #050505;
+}
+#myVideo.data-v-fba0bbae {
+  width: 100%;
+  height: 100%;
+}
+.goods-video.data-v-fba0bbae {
+  width: 100%;
+  height: 100%;
+}
+.product-bg .item.data-v-fba0bbae {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.product-bg .item .poster.data-v-fba0bbae {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 750rpx;
+  width: 100%;
+  z-index: 9;
+}
+.product-bg .item .poster .image.data-v-fba0bbae {
+  width: 100%;
+  height: 100%;
+}
+.product-bg .item .stop.data-v-fba0bbae {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 136rpx;
+  height: 136rpx;
+  margin-top: -68rpx;
+  margin-left: -68rpx;
+  z-index: 9;
+}
+.product-bg .item .stop .image.data-v-fba0bbae {
+  width: 100%;
+  height: 100%;
+}

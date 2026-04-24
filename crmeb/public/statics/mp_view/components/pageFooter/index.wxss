@@ -1,3 +1,101 @@
-.safe-area-inset-bottom.data-v-a23541ba{height:0;height:constant(safe-area-inset-bottom);height:env(safe-area-inset-bottom)}.page-footer-wrapper.data-v-a23541ba{position:relative}.page-footer.data-v-a23541ba{position:absolute;right:0;bottom:0;left:0;display:flex}.page-footer .foot-item image.data-v-a23541ba{display:block;height:48rpx;width:48rpx;margin:0 auto}.page-footer .foot-item .txt.data-v-a23541ba{margin-top:4rpx;font-size:20rpx;line-height:28rpx;color:#333}.page-footer .foot-item .txt.active.data-v-a23541ba{color:var(--view-theme)}.page-footer.data-v-a23541ba .uni-badge--x{position:absolute!important;top:0rpx}.page-footer .uni-badge-left-margin.data-v-a23541ba{position:absolute;margin-left:40rpx;top:-10rpx}.page-footer.data-v-a23541ba  .uni-badge-left-margin .uni-badge--error{color:#fff!important;background-color:var(--view-theme)!important;z-index:8}.page-footer.data-v-a23541ba  .uni-badge{right:unset!important;top:unset!important}.page-footer2 .foot-item .txt.data-v-a23541ba{margin-top:0;font-size:32rpx;line-height:44rpx;color:#333}.page-footer2 .foot-item .txt.active.data-v-a23541ba{color:var(--view-theme)}.page-footer2.float .foot-item.data-v-a23541ba::before,
-.page-footer3.float .foot-item.data-v-a23541ba::before{content:"";position:absolute;top:50%;left:0;width:2rpx;height:32rpx;background:#ccc;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.page-footer2.float .foot-item.data-v-a23541ba:first-child::before,
-.page-footer3.float .foot-item.data-v-a23541ba:first-child::before{display:none}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.safe-area-inset-bottom.data-v-0a85a370 {
+  height: 0;
+  height: constant(safe-area-inset-bottom);
+  height: env(safe-area-inset-bottom);
+}
+.page-footer-wrapper.data-v-0a85a370 {
+  position: relative;
+}
+.page-footer.data-v-0a85a370 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+}
+.page-footer .foot-item image.data-v-0a85a370 {
+  display: block;
+  height: 48rpx;
+  width: 48rpx;
+  margin: 0 auto;
+}
+.page-footer .foot-item .txt.data-v-0a85a370 {
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  line-height: 28rpx;
+  color: #333333;
+}
+.page-footer .foot-item .txt.active.data-v-0a85a370 {
+  color: var(--view-theme);
+}
+.page-footer.data-v-0a85a370 .uni-badge--x {
+  position: absolute !important;
+  top: 0rpx;
+}
+.page-footer .uni-badge-left-margin.data-v-0a85a370 {
+  position: absolute;
+  margin-left: 40rpx;
+  top: -10rpx;
+}
+.page-footer.data-v-0a85a370  .uni-badge-left-margin .uni-badge--error {
+  color: #fff !important;
+  background-color: var(--view-theme) !important;
+  z-index: 8;
+}
+.page-footer.data-v-0a85a370  .uni-badge {
+  right: unset !important;
+  top: unset !important;
+}
+.page-footer2 .foot-item .txt.data-v-0a85a370 {
+  margin-top: 0;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  color: #333333;
+}
+.page-footer2 .foot-item .txt.active.data-v-0a85a370 {
+  color: var(--view-theme);
+}
+.page-footer2.float .foot-item.data-v-0a85a370::before,
+.page-footer3.float .foot-item.data-v-0a85a370::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2rpx;
+  height: 32rpx;
+  background: #cccccc;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.page-footer2.float .foot-item.data-v-0a85a370:first-child::before,
+.page-footer3.float .foot-item.data-v-0a85a370:first-child::before {
+  display: none;
+}

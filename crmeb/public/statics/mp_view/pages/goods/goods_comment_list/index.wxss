@@ -1,1 +1,85 @@
-page{background-color:#fff}.evaluate-list .generalComment{height:94rpx;padding:0 30rpx;margin-top:1rpx;background-color:#fff;font-size:28rpx;color:grey}.evaluate-list .generalComment .evaluate{margin-right:7rpx}.evaluate-list .nav{font-size:24rpx;color:#282828;padding:0 30rpx 32rpx 30rpx;background-color:#fff;border-bottom:1rpx solid #f5f5f5}.evaluate-list .nav .item{font-size:24rpx;color:#282828;border-radius:6rpx;height:54rpx;padding:0 20rpx;background-color:#f4f4f4;line-height:54rpx;margin-right:17rpx}.evaluate-list .nav .item.bg-color{color:#fff}.noCommodity{background-color:#fff;padding-bottom:30rpx;padding-top:100rpx}.noCommodity .text{padding-top:40rpx;text-align:center;color:#aaa}.noCommodity .emptyBox{text-align:center;padding-top:20rpx}.noCommodity .emptyBox .tips{color:#aaa;font-size:26rpx;text-align:center}.noCommodity .emptyBox image{width:414rpx;height:304rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+page {
+  background-color: #fff;
+}
+.evaluate-list .generalComment {
+  height: 94rpx;
+  padding: 0 30rpx;
+  margin-top: 1rpx;
+  background-color: #fff;
+  font-size: 28rpx;
+  color: #808080;
+}
+.evaluate-list .generalComment .evaluate {
+  margin-right: 7rpx;
+}
+.evaluate-list .nav {
+  font-size: 24rpx;
+  color: #282828;
+  padding: 0 30rpx 32rpx 30rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.evaluate-list .nav .item {
+  font-size: 24rpx;
+  color: #282828;
+  border-radius: 6rpx;
+  height: 54rpx;
+  padding: 0 20rpx;
+  background-color: #f4f4f4;
+  line-height: 54rpx;
+  margin-right: 17rpx;
+}
+.evaluate-list .nav .item.bg-color {
+  color: #fff;
+}
+.noCommodity {
+  background-color: #fff;
+  padding-bottom: 30rpx;
+  padding-top: 100rpx;
+}
+.noCommodity .text {
+  padding-top: 40rpx;
+  text-align: center;
+  color: #aaa;
+}
+.noCommodity .emptyBox {
+  text-align: center;
+  padding-top: 20rpx;
+}
+.noCommodity .emptyBox .tips {
+  color: #aaa;
+  font-size: 26rpx;
+  text-align: center;
+}
+.noCommodity .emptyBox image {
+  width: 414rpx;
+  height: 304rpx;
+}

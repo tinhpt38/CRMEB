@@ -92,7 +92,8 @@
   font-size: 32rpx;
   font-weight: 700;
   margin: 23rpx 30rpx 0 30rpx;
-  word-break: break-all;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .product-con .wrapper .label {

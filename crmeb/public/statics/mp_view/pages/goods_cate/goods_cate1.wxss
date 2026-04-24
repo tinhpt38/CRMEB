@@ -1,4 +1,160 @@
-.data-v-2516bf58 uni-scroll-view{padding-bottom:0!important}.sys-title.data-v-2516bf58{z-index:10;position:relative;height:40px;line-height:40px;font-size:30rpx;color:#333;background-color:#fff;text-align:left;padding-left:30rpx}.sys-head.data-v-2516bf58{background-color:#fff}.productSort.data-v-2516bf58{display:flex;flex-direction:column;height:calc(100vh - 0px)!important}.productSort .header.data-v-2516bf58{width:100%;height:96rpx;background-color:#fff;border-bottom:1rpx solid #f5f5f5}.productSort .header .input.data-v-2516bf58{width:700rpx;height:60rpx;background-color:#f5f5f5;border-radius:50rpx;box-sizing:border-box;padding:0 25rpx}.productSort .header .input .iconfont.data-v-2516bf58{font-size:35rpx;color:#555}.productSort .header .input .placeholder.data-v-2516bf58{color:#999}.productSort .header .input input.data-v-2516bf58{font-size:26rpx;height:100%;width:597rpx}.productSort .scroll-box.data-v-2516bf58{flex:1;overflow:hidden;display:flex}.productSort .aside.data-v-2516bf58{width:180rpx;height:100%;overflow:hidden;background-color:#f7f7f7}.productSort .aside .item.data-v-2516bf58{height:100rpx;width:100%;font-size:26rpx;color:#424242;text-align:center}.productSort .aside .item.on.data-v-2516bf58{background-color:#fff;border-left:4rpx solid var(--view-theme);width:100%;color:var(--view-theme);font-weight:700}.productSort .conter.data-v-2516bf58{flex:1;height:100%;overflow:hidden;padding:0 14rpx;background-color:#fff;position:relative;padding-bottom:200rpx}.productSort .conter .listw.data-v-2516bf58{padding-top:20rpx}.productSort .conter .listw .title.data-v-2516bf58{height:90rpx}.productSort .conter .listw .title .line.data-v-2516bf58{width:100rpx;height:2rpx;background-color:#f0f0f0}.productSort .conter .listw .title .name.data-v-2516bf58{font-size:28rpx;color:#333;margin:0 30rpx;font-weight:700}.productSort .conter .list.data-v-2516bf58{flex-wrap:wrap}.productSort .conter .list .item.data-v-2516bf58{width:177rpx;margin-top:26rpx}.productSort .conter .list .item .picture.data-v-2516bf58{width:120rpx;height:120rpx;border-radius:50%}.productSort .conter .list .item .picture image.data-v-2516bf58{width:100%;height:100%;border-radius:50%}.productSort .conter .list .item .picture.data-v-2516bf58 ,
-.productSort .conter .list .item .picture.data-v-2516bf58  image,
-.productSort .conter .list .item .picture.data-v-2516bf58  .easy-loadimage,
-.productSort .conter .list .item .picture.data-v-2516bf58  uni-image{width:120rpx;height:120rpx;border-radius:50%}.productSort .conter .list .item .name.data-v-2516bf58{font-size:24rpx;color:#333;height:56rpx;line-height:56rpx;width:120rpx;text-align:center}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.data-v-1c523a5b uni-scroll-view {
+  padding-bottom: 0 !important;
+}
+.sys-title.data-v-1c523a5b {
+  z-index: 10;
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  font-size: 30rpx;
+  color: #333;
+  background-color: #fff;
+  text-align: left;
+  padding-left: 30rpx;
+}
+.sys-head.data-v-1c523a5b {
+  background-color: #fff;
+}
+.productSort.data-v-1c523a5b {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 0px) !important;
+}
+.productSort .header.data-v-1c523a5b {
+  width: 100%;
+  height: 96rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.productSort .header .input.data-v-1c523a5b {
+  width: 700rpx;
+  height: 60rpx;
+  background-color: #f5f5f5;
+  border-radius: 50rpx;
+  box-sizing: border-box;
+  padding: 0 25rpx;
+}
+.productSort .header .input .iconfont.data-v-1c523a5b {
+  font-size: 35rpx;
+  color: #555;
+}
+.productSort .header .input .placeholder.data-v-1c523a5b {
+  color: #999;
+}
+.productSort .header .input input.data-v-1c523a5b {
+  font-size: 26rpx;
+  height: 100%;
+  width: 597rpx;
+}
+.productSort .scroll-box.data-v-1c523a5b {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+.productSort .aside.data-v-1c523a5b {
+  width: 180rpx;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+.productSort .aside .item.data-v-1c523a5b {
+  height: 100rpx;
+  width: 100%;
+  font-size: 26rpx;
+  color: #424242;
+  text-align: center;
+}
+.productSort .aside .item.on.data-v-1c523a5b {
+  background-color: #fff;
+  border-left: 4rpx solid var(--view-theme);
+  width: 100%;
+  color: var(--view-theme);
+  font-weight: bold;
+}
+.productSort .conter.data-v-1c523a5b {
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 14rpx;
+  background-color: #fff;
+  position: relative;
+  padding-bottom: 200rpx;
+}
+.productSort .conter .listw.data-v-1c523a5b {
+  padding-top: 20rpx;
+}
+.productSort .conter .listw .title.data-v-1c523a5b {
+  height: 90rpx;
+}
+.productSort .conter .listw .title .line.data-v-1c523a5b {
+  width: 100rpx;
+  height: 2rpx;
+  background-color: #f0f0f0;
+}
+.productSort .conter .listw .title .name.data-v-1c523a5b {
+  font-size: 28rpx;
+  color: #333;
+  margin: 0 30rpx;
+  font-weight: bold;
+}
+.productSort .conter .list.data-v-1c523a5b {
+  flex-wrap: wrap;
+}
+.productSort .conter .list .item.data-v-1c523a5b {
+  width: 177rpx;
+  margin-top: 26rpx;
+}
+.productSort .conter .list .item .picture.data-v-1c523a5b {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+.productSort .conter .list .item .picture image.data-v-1c523a5b {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.productSort .conter .list .item .picture.data-v-1c523a5b ,
+.productSort .conter .list .item .picture.data-v-1c523a5b  image,
+.productSort .conter .list .item .picture.data-v-1c523a5b  .easy-loadimage,
+.productSort .conter .list .item .picture.data-v-1c523a5b  uni-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+.productSort .conter .list .item .name.data-v-1c523a5b {
+  font-size: 24rpx;
+  color: #333;
+  height: 56rpx;
+  line-height: 56rpx;
+  width: 120rpx;
+  text-align: center;
+}

@@ -1,1 +1,91 @@
-.record.data-v-8d3af676{background-color:#eee}.record-list.data-v-8d3af676{display:flex;align-items:center;background-color:#fff;padding:30rpx;border-bottom:1px solid #eee;height:100%}.record-list .goods-img.data-v-8d3af676{width:170rpx;height:170rpx;border-radius:6rpx;margin-right:15rpx}.record-list .right-data.data-v-8d3af676{display:flex;flex-direction:column;justify-content:space-between;min-height:170rpx}.record-list .right-data .title.data-v-8d3af676{font-size:28rpx}.record-list .right-data .goods-msg.data-v-8d3af676{font-size:24rpx;color:#999}.record-list .right-data .goods-msg .num.data-v-8d3af676{color:var(--view-theme)}.record-list .right-data .goods-msg .copy.data-v-8d3af676{display:-webkit-inline-flex;width:60rpx;margin-left:10rpx;padding:0rpx 4rpx;border:2rpx solid}.record-list .right-data .fail-btn.data-v-8d3af676{color:#fff;background-color:#999;border-radius:30rpx;text-align:center;padding:4rpx 0}.record-list .right-data .exchange.data-v-8d3af676{color:#fff;background-color:var(--view-theme);border-radius:30rpx;text-align:center;padding:4rpx 0}.record-list .mask.data-v-8d3af676{position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,.8);z-index:9}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.record.data-v-1a7981ea {
+  background-color: #eee;
+}
+.record-list.data-v-1a7981ea {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 30rpx;
+  border-bottom: 1px solid #eeeeee;
+  height: 100%;
+}
+.record-list .goods-img.data-v-1a7981ea {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 6rpx;
+  margin-right: 15rpx;
+}
+.record-list .right-data.data-v-1a7981ea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 170rpx;
+}
+.record-list .right-data .title.data-v-1a7981ea {
+  font-size: 28rpx;
+}
+.record-list .right-data .goods-msg.data-v-1a7981ea {
+  font-size: 24rpx;
+  color: #999;
+}
+.record-list .right-data .goods-msg .num.data-v-1a7981ea {
+  color: var(--view-theme);
+}
+.record-list .right-data .goods-msg .copy.data-v-1a7981ea {
+  display: -webkit-inline-flex;
+  width: 60rpx;
+  margin-left: 10rpx;
+  padding: 0rpx 4rpx;
+  border: 2rpx solid;
+}
+.record-list .right-data .fail-btn.data-v-1a7981ea {
+  color: #fff;
+  background-color: #999;
+  border-radius: 30rpx;
+  text-align: center;
+  padding: 4rpx 0;
+}
+.record-list .right-data .exchange.data-v-1a7981ea {
+  color: #fff;
+  background-color: var(--view-theme);
+  border-radius: 30rpx;
+  text-align: center;
+  padding: 4rpx 0;
+}
+.record-list .mask.data-v-1a7981ea {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9;
+}

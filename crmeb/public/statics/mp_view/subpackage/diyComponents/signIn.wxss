@@ -1,1 +1,111 @@
-.signIn .week-wrap.data-v-e9e679ec{height:156rpx}.signIn .week-wrap .week.data-v-e9e679ec{flex:1;font-weight:500;font-size:22rpx;line-height:30rpx;color:#999}.signIn .week-wrap .week .item.data-v-e9e679ec{flex:1}.signIn .week-wrap .week .image.data-v-e9e679ec{width:48rpx;margin-bottom:16rpx}.signIn .week-wrap .button.data-v-e9e679ec{width:88rpx;height:48rpx;border-radius:24rpx;margin:0 20rpx;background:linear-gradient(90deg,var(--view-theme),var(--view-gradient));text-align:center;font-size:24rpx;line-height:48rpx;color:#fff}.signIn .text-wrap.data-v-e9e679ec{height:140rpx;border-radius:16rpx;background:#fff}.signIn .text-wrap .image.data-v-e9e679ec{width:88rpx;height:88rpx;margin-left:20rpx}.signIn .text-wrap .text.data-v-e9e679ec{flex:1;padding:0 20rpx;font-size:24rpx;color:#999}.signIn .text-wrap .name-wrap.data-v-e9e679ec{margin-bottom:14rpx}.signIn .text-wrap .name.data-v-e9e679ec{font-weight:500;font-size:30rpx;color:#282828}.signIn .text-wrap .num.data-v-e9e679ec{border-radius:16rpx;margin-left:4rpx;background:var(--view-theme);font-size:20rpx;line-height:32rpx;color:var(--view-theme)}.signIn .text-wrap .num .inner.data-v-e9e679ec{height:32rpx;padding:0 6rpx 0 8rpx;border-radius:16rpx}.signIn .text-wrap .num .opacity.data-v-e9e679ec{background:hsla(0,0%,100%,.9)}.signIn .text-wrap .icon.data-v-e9e679ec{width:24rpx;height:24rpx}.signIn .text-wrap .button.data-v-e9e679ec{width:140rpx;height:52rpx;border-radius:26rpx;margin:0 20rpx;background:linear-gradient(90deg,var(--view-theme),var(--view-gradient));text-align:center;font-size:24rpx;line-height:52rpx;color:#fff}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.signIn .week-wrap.data-v-3db9e9f2 {
+  height: 156rpx;
+}
+.signIn .week-wrap .week.data-v-3db9e9f2 {
+  flex: 1;
+  font-weight: 500;
+  font-size: 22rpx;
+  line-height: 30rpx;
+  color: #999999;
+}
+.signIn .week-wrap .week .item.data-v-3db9e9f2 {
+  flex: 1;
+}
+.signIn .week-wrap .week .image.data-v-3db9e9f2 {
+  width: 48rpx;
+  margin-bottom: 16rpx;
+}
+.signIn .week-wrap .button.data-v-3db9e9f2 {
+  width: 88rpx;
+  height: 48rpx;
+  border-radius: 24rpx;
+  margin: 0 20rpx;
+  background: linear-gradient(90deg, var(--view-theme) 0%, var(--view-gradient) 100%);
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 48rpx;
+  color: #ffffff;
+}
+.signIn .text-wrap.data-v-3db9e9f2 {
+  height: 140rpx;
+  border-radius: 16rpx;
+  background: #ffffff;
+}
+.signIn .text-wrap .image.data-v-3db9e9f2 {
+  width: 88rpx;
+  height: 88rpx;
+  margin-left: 20rpx;
+}
+.signIn .text-wrap .text.data-v-3db9e9f2 {
+  flex: 1;
+  padding: 0 20rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+.signIn .text-wrap .name-wrap.data-v-3db9e9f2 {
+  margin-bottom: 14rpx;
+}
+.signIn .text-wrap .name.data-v-3db9e9f2 {
+  font-weight: 500;
+  font-size: 30rpx;
+  color: #282828;
+}
+.signIn .text-wrap .num.data-v-3db9e9f2 {
+  border-radius: 16rpx;
+  margin-left: 4rpx;
+  background: var(--view-theme);
+  font-size: 20rpx;
+  line-height: 32rpx;
+  color: var(--view-theme);
+}
+.signIn .text-wrap .num .inner.data-v-3db9e9f2 {
+  height: 32rpx;
+  padding: 0 6rpx 0 8rpx;
+  border-radius: 16rpx;
+}
+.signIn .text-wrap .num .opacity.data-v-3db9e9f2 {
+  background: rgba(255, 255, 255, 0.9);
+}
+.signIn .text-wrap .icon.data-v-3db9e9f2 {
+  width: 24rpx;
+  height: 24rpx;
+}
+.signIn .text-wrap .button.data-v-3db9e9f2 {
+  width: 140rpx;
+  height: 52rpx;
+  border-radius: 26rpx;
+  margin: 0 20rpx;
+  background: linear-gradient(90deg, var(--view-theme) 0%, var(--view-gradient) 100%);
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 52rpx;
+  color: #ffffff;
+}

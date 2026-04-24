@@ -1,4 +1,191 @@
-.my-order .header.data-v-57f9e36d{height:260rpx;padding:0 30rpx}.my-order .header .picTxt.data-v-57f9e36d{height:190rpx}.my-order .header .picTxt .text.data-v-57f9e36d{color:hsla(0,0%,100%,.8);font-size:26rpx;font-family:Guildford Pro}.my-order .header .picTxt .text .name.data-v-57f9e36d{font-size:34rpx;font-weight:700;color:#fff;margin-bottom:20rpx}.my-order .header .picTxt .pictrue.data-v-57f9e36d{width:122rpx;height:109rpx}.my-order .header .picTxt .pictrue image.data-v-57f9e36d{width:100%;height:100%}.my-order .nav.data-v-57f9e36d{background-color:#fff;width:690rpx;height:140rpx;border-radius:6rpx;margin:-73rpx auto 0 auto}.my-order .nav .item.data-v-57f9e36d{text-align:center;font-size:26rpx;color:#282828;width:3rem;padding:24rpx 0;border-bottom:5rpx solid transparent}.my-order .nav .item.on.data-v-57f9e36d{font-weight:700;border-color:var(--view-theme)}.my-order .nav .item .num.data-v-57f9e36d{margin-top:18rpx}.my-order .list.data-v-57f9e36d{width:690rpx;margin:14rpx auto 0 auto}.my-order .list .item.data-v-57f9e36d{background-color:#fff;border-radius:6rpx;margin-bottom:14rpx}.my-order .list .item .gift.data-v-57f9e36d{padding:26rpx 32rpx;background-color:#fefaf3;color:#ae5a2a}.my-order .list .item .title.data-v-57f9e36d{height:84rpx;padding:0 30rpx;border-bottom:1rpx solid #eee;font-size:28rpx;color:#282828}.my-order .list .item .title .sign.data-v-57f9e36d{font-size:24rpx;padding:0 7rpx;height:36rpx;margin-right:15rpx}.my-order .list .item .item-info.data-v-57f9e36d{padding:0 30rpx;margin-top:22rpx}.my-order .list .item .item-info .pictrue.data-v-57f9e36d{width:120rpx;height:120rpx}.my-order .list .item .item-info .pictrue.data-v-57f9e36d ,
-.my-order .list .item .item-info .pictrue.data-v-57f9e36d  image,
-.my-order .list .item .item-info .pictrue.data-v-57f9e36d  .easy-loadimage,
-.my-order .list .item .item-info .pictrue.data-v-57f9e36d  uni-image{width:120rpx;height:120rpx;border-radius:6rpx}.my-order .list .item .item-info .pictrue image.data-v-57f9e36d{width:100%;height:100%;border-radius:6rpx}.my-order .list .item .item-info .text.data-v-57f9e36d{width:486rpx;font-size:28rpx;color:#999;margin-top:6rpx;display:flex;line-height:39rpx}.my-order .list .item .item-info .text .name.data-v-57f9e36d{width:306rpx;color:#282828;height:78rpx}.my-order .list .item .item-info .text .money.data-v-57f9e36d{text-align:right;flex:1}.my-order .list .item .totalPrice.data-v-57f9e36d{font-size:26rpx;color:#282828;text-align:right;margin:27rpx 0 0 30rpx;padding:0 30rpx 30rpx 0;border-bottom:1rpx solid #eee}.my-order .list .item .totalPrice .money.data-v-57f9e36d{font-size:28rpx;font-weight:700;color:var(--view-priceColor)}.my-order .list .item .bottom.data-v-57f9e36d{height:107rpx;padding:0 30rpx}.my-order .list .item .bottom .bnt.data-v-57f9e36d{width:176rpx;height:60rpx;text-align:center;line-height:60rpx;color:#fff;border-radius:50rpx;font-size:27rpx}.my-order .list .item .bottom .bnt.cancelBnt.data-v-57f9e36d{border:1rpx solid #ddd;color:#aaa}.my-order .list .item .bottom .bnt ~ .bnt.data-v-57f9e36d{margin-left:17rpx}.noCart.data-v-57f9e36d{margin-top:171rpx;padding-top:.1rpx}.noCart .pictrue.data-v-57f9e36d{width:414rpx;height:336rpx;margin:78rpx auto 56rpx auto}.noCart .pictrue image.data-v-57f9e36d{width:100%;height:100%}.my-order .list .item .item-info .text .money .return.data-v-57f9e36d{margin-top:10rpx;font-size:24rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.my-order .header.data-v-afac94f8 {
+  height: 260rpx;
+  padding: 0 30rpx;
+}
+.my-order .header .picTxt.data-v-afac94f8 {
+  height: 190rpx;
+}
+.my-order .header .picTxt .text.data-v-afac94f8 {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 26rpx;
+  font-family: "Guildford Pro";
+}
+.my-order .header .picTxt .text .name.data-v-afac94f8 {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20rpx;
+}
+.my-order .header .picTxt .pictrue.data-v-afac94f8 {
+  width: 122rpx;
+  height: 109rpx;
+}
+.my-order .header .picTxt .pictrue image.data-v-afac94f8 {
+  width: 100%;
+  height: 100%;
+}
+.my-order .nav.data-v-afac94f8 {
+  background-color: #fff;
+  width: 690rpx;
+  height: 140rpx;
+  border-radius: 6rpx;
+  margin: -73rpx auto 0 auto;
+}
+.my-order .nav .item.data-v-afac94f8 {
+  text-align: center;
+  font-size: 26rpx;
+  color: #282828;
+  width: 3rem;
+  padding: 24rpx 0;
+  border-bottom: 5rpx solid transparent;
+}
+.my-order .nav .item.on.data-v-afac94f8 {
+  font-weight: bold;
+  border-color: var(--view-theme);
+}
+.my-order .nav .item .num.data-v-afac94f8 {
+  margin-top: 18rpx;
+}
+.my-order .list.data-v-afac94f8 {
+  width: 690rpx;
+  margin: 14rpx auto 0 auto;
+}
+.my-order .list .item.data-v-afac94f8 {
+  background-color: #fff;
+  border-radius: 6rpx;
+  margin-bottom: 14rpx;
+}
+.my-order .list .item .gift.data-v-afac94f8 {
+  padding: 26rpx 32rpx;
+  background-color: #fefaf3;
+  color: #ae5a2a;
+}
+.my-order .list .item .title.data-v-afac94f8 {
+  height: 84rpx;
+  padding: 0 30rpx;
+  border-bottom: 1rpx solid #eee;
+  font-size: 28rpx;
+  color: #282828;
+}
+.my-order .list .item .title .sign.data-v-afac94f8 {
+  font-size: 24rpx;
+  padding: 0 7rpx;
+  height: 36rpx;
+  margin-right: 15rpx;
+}
+.my-order .list .item .item-info.data-v-afac94f8 {
+  padding: 0 30rpx;
+  margin-top: 22rpx;
+}
+.my-order .list .item .item-info .pictrue.data-v-afac94f8 {
+  width: 120rpx;
+  height: 120rpx;
+}
+.my-order .list .item .item-info .pictrue.data-v-afac94f8 ,
+.my-order .list .item .item-info .pictrue.data-v-afac94f8  image,
+.my-order .list .item .item-info .pictrue.data-v-afac94f8  .easy-loadimage,
+.my-order .list .item .item-info .pictrue.data-v-afac94f8  uni-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 6rpx;
+}
+.my-order .list .item .item-info .pictrue image.data-v-afac94f8 {
+  width: 100%;
+  height: 100%;
+  border-radius: 6rpx;
+}
+.my-order .list .item .item-info .text.data-v-afac94f8 {
+  width: 486rpx;
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 6rpx;
+  display: flex;
+  line-height: 39rpx;
+}
+.my-order .list .item .item-info .text .name.data-v-afac94f8 {
+  width: 306rpx;
+  color: #282828;
+  height: 78rpx;
+}
+.my-order .list .item .item-info .text .money.data-v-afac94f8 {
+  text-align: right;
+  flex: 1;
+}
+.my-order .list .item .totalPrice.data-v-afac94f8 {
+  font-size: 26rpx;
+  color: #282828;
+  text-align: right;
+  margin: 27rpx 0 0 30rpx;
+  padding: 0 30rpx 30rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+.my-order .list .item .totalPrice .money.data-v-afac94f8 {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: var(--view-priceColor);
+}
+.my-order .list .item .bottom.data-v-afac94f8 {
+  height: 107rpx;
+  padding: 0 30rpx;
+}
+.my-order .list .item .bottom .bnt.data-v-afac94f8 {
+  width: 176rpx;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  color: #fff;
+  border-radius: 50rpx;
+  font-size: 27rpx;
+}
+.my-order .list .item .bottom .bnt.cancelBnt.data-v-afac94f8 {
+  border: 1rpx solid #ddd;
+  color: #aaa;
+}
+.my-order .list .item .bottom .bnt ~ .bnt.data-v-afac94f8 {
+  margin-left: 17rpx;
+}
+.noCart.data-v-afac94f8 {
+  margin-top: 171rpx;
+  padding-top: 0.1rpx;
+}
+.noCart .pictrue.data-v-afac94f8 {
+  width: 414rpx;
+  height: 336rpx;
+  margin: 78rpx auto 56rpx auto;
+}
+.noCart .pictrue image.data-v-afac94f8 {
+  width: 100%;
+  height: 100%;
+}
+.my-order .list .item .item-info .text .money .return.data-v-afac94f8 {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+}

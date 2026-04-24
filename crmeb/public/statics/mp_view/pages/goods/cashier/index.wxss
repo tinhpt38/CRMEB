@@ -1,1 +1,168 @@
-.page .pay-price.data-v-18674054{display:flex;justify-content:center;flex-direction:column;align-items:center;padding:50rpx 0 40rpx 0}.page .pay-price .price.data-v-18674054{color:#e93323;margin-bottom:20rpx;display:flex;align-items:flex-end}.page .pay-price .price .unit.data-v-18674054{font-size:34rpx;font-weight:500;line-height:41rpx}.page .pay-price .price .num.data-v-18674054{font-size:50rpx;font-weight:600}.page .pay-price .count-down.data-v-18674054{display:flex;align-items:center;background-color:#fff;padding:8rpx 28rpx;border-radius:40rpx;font-size:24rpx;color:#e93323}.page .pay-price .count-down .time.data-v-18674054{margin-top:0!important}.page .pay-price .count-down.data-v-18674054 .red{margin:0!important}.page .payment.data-v-18674054{width:690rpx;border-radius:14rpx 14rpx;background-color:#fff;z-index:999;margin:0 30rpx}.page .payment .title.data-v-18674054{color:#666;font-size:26rpx;padding:30rpx 0 0 30rpx}.page .payment .payMoney.data-v-18674054{font-size:28rpx;color:#333;text-align:center;margin-top:50rpx}.page .payment .payMoney .font-color.data-v-18674054{margin-left:10rpx}.page .payment .payMoney .font-color .money.data-v-18674054{font-size:40rpx}.page .payment.on.data-v-18674054{-webkit-transform:translateZ(0);transform:translateZ(0)}.page .icon-xuanzhong11.data-v-18674054{color:#e93323!important}.page .payment .item.data-v-18674054{border-bottom:1rpx solid #eee;height:130rpx;margin-left:30rpx;padding-right:30rpx}.page .payment .item.data-v-18674054:last-child{border-bottom:none}.page .payment .item .left.data-v-18674054{flex:1}.page .payment .item .left .text.data-v-18674054{flex:1}.page .payment .item .left .text .name.data-v-18674054{font-size:30rpx;color:#333}.page .payment .item .left .text .info.data-v-18674054{font-size:22rpx;color:#999}.page .payment .item .left .text .info .money.data-v-18674054{color:#f90}.page .payment .item .left .iconfont.data-v-18674054{font-size:50rpx;color:#09bb07;margin-right:28rpx}.page .payment .item .left .iconfont.icon-zhifubao.data-v-18674054{color:#00aaea}.page .payment .item .left .iconfont.icon-yuezhifu.data-v-18674054{color:#f90}.page .payment .item .left .iconfont.icon-yuezhifu1.data-v-18674054{color:#eb6623}.page .payment .item .left .iconfont.icon-tonglianzhifu1.data-v-18674054{color:#305fd8}.page .payment .item .iconfont.data-v-18674054{font-size:40rpx;color:#ccc}.page .icon-haoyoudaizhifu.data-v-18674054{color:#f34c3e!important}.page .btn.data-v-18674054{position:fixed;left:30rpx;display:flex;flex-direction:column;align-items:center;bottom:30rpx;bottom:calc(30rpx + constant(safe-area-inset-bottom));bottom:calc(30rpx + env(safe-area-inset-bottom))}.page .wait-pay.data-v-18674054{color:#aaa;font-size:24rpx;padding-top:20rpx}.page .button.data-v-18674054{width:690rpx;height:90rpx;border-radius:45rpx;color:#fff;background-color:#e93323}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.page .pay-price.data-v-61d0ebb8 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 50rpx 0 40rpx 0;
+}
+.page .pay-price .price.data-v-61d0ebb8 {
+  color: #E93323;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: flex-end;
+}
+.page .pay-price .price .unit.data-v-61d0ebb8 {
+  font-size: 34rpx;
+  font-weight: 500;
+  line-height: 41rpx;
+}
+.page .pay-price .price .num.data-v-61d0ebb8 {
+  font-size: 50rpx;
+  font-weight: 600;
+}
+.page .pay-price .count-down.data-v-61d0ebb8 {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 8rpx 28rpx;
+  border-radius: 40rpx;
+  font-size: 24rpx;
+  color: #E93323;
+}
+.page .pay-price .count-down .time.data-v-61d0ebb8 {
+  margin-top: 0 !important;
+}
+.page .pay-price .count-down.data-v-61d0ebb8 .red {
+  margin: 0 !important;
+}
+.page .payment.data-v-61d0ebb8 {
+  width: 690rpx;
+  border-radius: 14rpx 14rpx;
+  background-color: #fff;
+  z-index: 999;
+  margin: 0 30rpx;
+}
+.page .payment .title.data-v-61d0ebb8 {
+  color: #666666;
+  font-size: 26rpx;
+  padding: 30rpx 0 0 30rpx;
+}
+.page .payment .payMoney.data-v-61d0ebb8 {
+  font-size: 28rpx;
+  color: #333333;
+  text-align: center;
+  margin-top: 50rpx;
+}
+.page .payment .payMoney .font-color.data-v-61d0ebb8 {
+  margin-left: 10rpx;
+}
+.page .payment .payMoney .font-color .money.data-v-61d0ebb8 {
+  font-size: 40rpx;
+}
+.page .payment.on.data-v-61d0ebb8 {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.page .icon-xuanzhong11.data-v-61d0ebb8 {
+  color: #E93323 !important;
+}
+.page .payment .item.data-v-61d0ebb8 {
+  border-bottom: 1rpx solid #eee;
+  height: 130rpx;
+  margin-left: 30rpx;
+  padding-right: 30rpx;
+}
+.page .payment .item.data-v-61d0ebb8:last-child {
+  border-bottom: none;
+}
+.page .payment .item .left.data-v-61d0ebb8 {
+  flex: 1;
+}
+.page .payment .item .left .text.data-v-61d0ebb8 {
+  flex: 1;
+}
+.page .payment .item .left .text .name.data-v-61d0ebb8 {
+  font-size: 30rpx;
+  color: #333;
+}
+.page .payment .item .left .text .info.data-v-61d0ebb8 {
+  font-size: 22rpx;
+  color: #999;
+}
+.page .payment .item .left .text .info .money.data-v-61d0ebb8 {
+  color: #ff9900;
+}
+.page .payment .item .left .iconfont.data-v-61d0ebb8 {
+  font-size: 50rpx;
+  color: #09bb07;
+  margin-right: 28rpx;
+}
+.page .payment .item .left .iconfont.icon-zhifubao.data-v-61d0ebb8 {
+  color: #00aaea;
+}
+.page .payment .item .left .iconfont.icon-yuezhifu.data-v-61d0ebb8 {
+  color: #ff9900;
+}
+.page .payment .item .left .iconfont.icon-yuezhifu1.data-v-61d0ebb8 {
+  color: #eb6623;
+}
+.page .payment .item .left .iconfont.icon-tonglianzhifu1.data-v-61d0ebb8 {
+  color: #305fd8;
+}
+.page .payment .item .iconfont.data-v-61d0ebb8 {
+  font-size: 40rpx;
+  color: #ccc;
+}
+.page .icon-haoyoudaizhifu.data-v-61d0ebb8 {
+  color: #F34C3E !important;
+}
+.page .btn.data-v-61d0ebb8 {
+  position: fixed;
+  left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: 30rpx;
+  bottom: calc(30rpx + constant(safe-area-inset-bottom));
+  bottom: calc(30rpx + env(safe-area-inset-bottom));
+}
+.page .wait-pay.data-v-61d0ebb8 {
+  color: #aaa;
+  font-size: 24rpx;
+  padding-top: 20rpx;
+}
+.page .button.data-v-61d0ebb8 {
+  width: 690rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+  color: #FFFFFF;
+  background-color: #E93323;
+}

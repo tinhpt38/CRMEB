@@ -1,1 +1,139 @@
-checkbox .wx-checkbox-input.wx-checkbox-input-checked{border:1px solid #2a7efb!important;background-color:#2a7efb!important;color:#fff!important}.splitOrder{width:710rpx;background-color:#fff;border-radius:16rpx;margin:24rpx auto 0 auto;padding:32rpx 26rpx}.splitOrder .all{padding:20rpx 30rpx}.splitOrder .all .checkAll{margin-left:20rpx}.splitOrder .items ~ .items{margin-top:48rpx}.splitOrder .items .picTxt{width:604rpx;position:relative}.splitOrder .items .picTxt .name{width:444rpx}.splitOrder .items .picTxt .pictrue{width:136rpx;height:136rpx}.splitOrder .items .picTxt .pictrue image{width:100%;height:100%;border-radius:16rpx}.splitOrder .items .picTxt .text{width:450rpx;font-size:28rpx;color:#333;font-weight:400}.splitOrder .items .picTxt .text .reColor{color:#999}.splitOrder .items .picTxt .text .reElection{margin-top:20rpx}.splitOrder .items .picTxt .text .reElection .title{font-size:24rpx}.splitOrder .items .picTxt .text .reElection .reBnt{width:120rpx;height:46rpx;border-radius:23rpx;font-size:26rpx}.splitOrder .items .picTxt .text .infor{font-size:22rpx;color:#999;margin-top:12rpx;width:284rpx}.splitOrder .items .picTxt .text .money-section{margin-top:18rpx;font-size:22rpx;color:#999}.splitOrder .items .picTxt .text .money{font-size:36rpx;color:#333;font-family:Regular;color:#ff7d00}.splitOrder .items .picTxt .carnum{height:36rpx;position:absolute;bottom:0;right:0}.splitOrder .items .picTxt .carnum view{width:66rpx;text-align:center;height:100%;line-height:36rpx;font-size:24rpx;color:#333}.splitOrder .items .picTxt .carnum .reduce{border-right:0;border-radius:3rpx 0 0 3rpx}.splitOrder .items .picTxt .carnum .reduce.on{border-color:#e3e3e3;color:#dedede}.splitOrder .items .picTxt .carnum .plus{border-left:0;border-radius:0 3rpx 3rpx 0;font-size:26rpx}.splitOrder .items .picTxt .carnum .plus.on{border-color:#e3e3e3;color:#dedede}.splitOrder .items .picTxt .carnum .num{color:#282828;background:#f5f5f5;width:72rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border: 1px solid #2A7EFB !important;
+  background-color: #2A7EFB !important;
+  color: #fff !important;
+}
+.splitOrder {
+  width: 710rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin: 24rpx auto 0 auto;
+  padding: 32rpx 26rpx;
+}
+.splitOrder .all {
+  padding: 20rpx 30rpx;
+}
+.splitOrder .all .checkAll {
+  margin-left: 20rpx;
+}
+.splitOrder .items ~ .items {
+  margin-top: 48rpx;
+}
+.splitOrder .items .picTxt {
+  width: 604rpx;
+  position: relative;
+}
+.splitOrder .items .picTxt .name {
+  width: 444rpx;
+}
+.splitOrder .items .picTxt .pictrue {
+  width: 136rpx;
+  height: 136rpx;
+}
+.splitOrder .items .picTxt .pictrue image {
+  width: 100%;
+  height: 100%;
+  border-radius: 16rpx;
+}
+.splitOrder .items .picTxt .text {
+  width: 450rpx;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 400;
+}
+.splitOrder .items .picTxt .text .reColor {
+  color: #999;
+}
+.splitOrder .items .picTxt .text .reElection {
+  margin-top: 20rpx;
+}
+.splitOrder .items .picTxt .text .reElection .title {
+  font-size: 24rpx;
+}
+.splitOrder .items .picTxt .text .reElection .reBnt {
+  width: 120rpx;
+  height: 46rpx;
+  border-radius: 23rpx;
+  font-size: 26rpx;
+}
+.splitOrder .items .picTxt .text .infor {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 12rpx;
+  width: 284rpx;
+}
+.splitOrder .items .picTxt .text .money-section {
+  margin-top: 18rpx;
+  font-size: 22rpx;
+  color: #999999;
+}
+.splitOrder .items .picTxt .text .money {
+  font-size: 36rpx;
+  color: #333;
+  font-family: "Regular";
+  color: #FF7D00;
+}
+.splitOrder .items .picTxt .carnum {
+  height: 36rpx;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.splitOrder .items .picTxt .carnum view {
+  width: 66rpx;
+  text-align: center;
+  height: 100%;
+  line-height: 36rpx;
+  font-size: 24rpx;
+  color: #333;
+}
+.splitOrder .items .picTxt .carnum .reduce {
+  border-right: 0;
+  border-radius: 3rpx 0 0 3rpx;
+}
+.splitOrder .items .picTxt .carnum .reduce.on {
+  border-color: #e3e3e3;
+  color: #dedede;
+}
+.splitOrder .items .picTxt .carnum .plus {
+  border-left: 0;
+  border-radius: 0 3rpx 3rpx 0;
+  font-size: 26rpx;
+}
+.splitOrder .items .picTxt .carnum .plus.on {
+  border-color: #e3e3e3;
+  color: #dedede;
+}
+.splitOrder .items .picTxt .carnum .num {
+  color: #282828;
+  background: #F5F5F5;
+  width: 72rpx;
+}

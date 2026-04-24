@@ -1,1 +1,104 @@
-.goodList .item.data-v-53d4e718{position:relative;padding-left:30rpx}.goodList .item .pictrue.data-v-53d4e718{width:180rpx;height:180rpx;position:relative}.goodList .item .pictrue image.data-v-53d4e718{width:100%;height:100%;border-radius:20rpx}.goodList .item .pictrue .numPic.data-v-53d4e718{position:absolute;left:7rpx;top:7rpx;width:40rpx;height:40rpx;border-radius:50%}.goodList .item .underline.data-v-53d4e718{padding:30rpx 30rpx 30rpx 0;border-bottom:1px solid #f5f5f5}.goodList .item:nth-last-child(1) .underline.data-v-53d4e718{border-bottom:0}.goodList .item .text.data-v-53d4e718{font-size:30rpx;color:#222;width:489rpx}.goodList .item .text .money.data-v-53d4e718{font-size:26rpx;font-weight:700;margin-top:50rpx}.goodList .item .text .money .num.data-v-53d4e718{font-size:34rpx}.goodList .item .text .vip-money.data-v-53d4e718{font-size:24rpx;color:#282828;font-weight:700;margin-top:15rpx}.goodList .item .text .vip-money image.data-v-53d4e718{width:64rpx;height:26rpx;margin-right:8rpx;margin-left:8rpx}.goodList .item .text .vip-money .num.data-v-53d4e718{font-size:22rpx;color:#aaa;font-weight:400;margin-top:-2rpx;white-space:nowrap}.goodList .item .text .vip-money .num text.data-v-53d4e718{white-space:nowrap}.goodList .item .text .vip-money .num ~ .num.data-v-53d4e718{margin-left:22rpx}.goodList .item .iconfont.data-v-53d4e718{position:absolute;right:30rpx;width:50rpx;height:50rpx;border-radius:50%;font-size:30rpx;bottom:38rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.goodList .item.data-v-11dfe3b9 {
+  position: relative;
+  padding-left: 30rpx;
+}
+.goodList .item .pictrue.data-v-11dfe3b9 {
+  width: 180rpx;
+  height: 180rpx;
+  position: relative;
+}
+.goodList .item .pictrue image.data-v-11dfe3b9 {
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
+}
+.goodList .item .pictrue .numPic.data-v-11dfe3b9 {
+  position: absolute;
+  left: 7rpx;
+  top: 7rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+}
+.goodList .item .underline.data-v-11dfe3b9 {
+  padding: 30rpx 30rpx 30rpx 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+.goodList .item:nth-last-child(1) .underline.data-v-11dfe3b9 {
+  border-bottom: 0;
+}
+.goodList .item .text.data-v-11dfe3b9 {
+  font-size: 30rpx;
+  color: #222;
+  width: 489rpx;
+}
+.goodList .item .text .money.data-v-11dfe3b9 {
+  font-size: 26rpx;
+  font-weight: bold;
+  margin-top: 50rpx;
+}
+.goodList .item .text .money .num.data-v-11dfe3b9 {
+  font-size: 34rpx;
+}
+.goodList .item .text .vip-money.data-v-11dfe3b9 {
+  font-size: 24rpx;
+  color: #282828;
+  font-weight: bold;
+  margin-top: 15rpx;
+}
+.goodList .item .text .vip-money image.data-v-11dfe3b9 {
+  width: 64rpx;
+  height: 26rpx;
+  margin-right: 8rpx;
+  margin-left: 8rpx;
+}
+.goodList .item .text .vip-money .num.data-v-11dfe3b9 {
+  font-size: 22rpx;
+  color: #aaa;
+  font-weight: normal;
+  margin-top: -2rpx;
+  white-space: nowrap;
+}
+.goodList .item .text .vip-money .num text.data-v-11dfe3b9 {
+  white-space: nowrap;
+}
+.goodList .item .text .vip-money .num ~ .num.data-v-11dfe3b9 {
+  margin-left: 22rpx;
+}
+.goodList .item .iconfont.data-v-11dfe3b9 {
+  position: absolute;
+  right: 30rpx;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  font-size: 30rpx;
+  bottom: 38rpx;
+}

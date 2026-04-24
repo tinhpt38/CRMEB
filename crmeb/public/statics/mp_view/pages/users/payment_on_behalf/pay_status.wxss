@@ -1,1 +1,99 @@
-.main.data-v-3ff2ddb5{width:100%;height:100vh;background-color:#fff}.main .payment-status.data-v-3ff2ddb5{background-color:#fff;margin:0rpx 30rpx 0 30rpx;border-radius:10rpx;padding:94rpx 0 60rpx 0;color:#333}.main .payment-status .icons.data-v-3ff2ddb5{font-size:70rpx;width:140rpx;height:140rpx;border-radius:50%;color:#fff;text-align:center;line-height:140rpx;border:6rpx solid #f5f5f5;margin:0rpx auto 0 auto;background-color:#999}.main .payment-status .rmb.data-v-3ff2ddb5{font-size:33rpx}.main .payment-status .status.data-v-3ff2ddb5{font-size:32rpx;font-weight:700;text-align:center;margin:25rpx 0 7rpx 0}.main .payment-status .wrapper.data-v-3ff2ddb5{text-align:center;color:#333;font-size:66rpx;font-weight:700}.main .payment-status .head-other.data-v-3ff2ddb5{display:flex;align-items:center;justify-content:center;padding-top:20rpx}.main .payment-status .head-other .user-img.data-v-3ff2ddb5{display:flex;align-items:center}.main .payment-status .head-other .user-img image.data-v-3ff2ddb5{width:50rpx;height:50rpx;border-radius:50%}.main .payment-status .head-other .order-status.data-v-3ff2ddb5{margin-left:20rpx;color:#666;padding:6rpx 13rpx;font-size:24rpx}.main .returnBnt.data-v-3ff2ddb5{width:80%;height:86rpx;border-radius:50rpx;color:#fff;font-size:30rpx;text-align:center;line-height:86rpx;margin:0 auto;background-color:var(--view-theme)}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.main.data-v-326f563b {
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+}
+.main .payment-status.data-v-326f563b {
+  background-color: #fff;
+  margin: 0rpx 30rpx 0 30rpx;
+  border-radius: 10rpx;
+  padding: 94rpx 0 60rpx 0;
+  color: #333;
+}
+.main .payment-status .icons.data-v-326f563b {
+  font-size: 70rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  line-height: 140rpx;
+  border: 6rpx solid #f5f5f5;
+  margin: 0rpx auto 0 auto;
+  background-color: #999;
+}
+.main .payment-status .rmb.data-v-326f563b {
+  font-size: 33rpx;
+}
+.main .payment-status .status.data-v-326f563b {
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+  margin: 25rpx 0 7rpx 0;
+}
+.main .payment-status .wrapper.data-v-326f563b {
+  text-align: center;
+  color: #333;
+  font-size: 66rpx;
+  font-weight: bold;
+}
+.main .payment-status .head-other.data-v-326f563b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20rpx;
+}
+.main .payment-status .head-other .user-img.data-v-326f563b {
+  display: flex;
+  align-items: center;
+}
+.main .payment-status .head-other .user-img image.data-v-326f563b {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+}
+.main .payment-status .head-other .order-status.data-v-326f563b {
+  margin-left: 20rpx;
+  color: #666666;
+  padding: 6rpx 13rpx;
+  font-size: 24rpx;
+}
+.main .returnBnt.data-v-326f563b {
+  width: 80%;
+  height: 86rpx;
+  border-radius: 50rpx;
+  color: #fff;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 86rpx;
+  margin: 0 auto;
+  background-color: var(--view-theme);
+}

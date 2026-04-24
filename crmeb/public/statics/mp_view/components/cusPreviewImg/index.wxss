@@ -1,1 +1,101 @@
-.previewImg.data-v-e85d3508{position:fixed;top:0;left:0;z-index:300;width:100%;height:100%}.previewImg .mask.data-v-e85d3508{display:flex;justify-content:center;align-items:center;background-color:#000;opacity:1;z-index:8;width:100%;height:100%}.previewImg .mask-swiper.data-v-e85d3508{width:100%;height:100%}.previewImg .mask-swiper-img.data-v-e85d3508{width:100%}.previewImg .pagebox.data-v-e85d3508{position:absolute;width:100%;bottom:20rpx;z-index:300;color:#fff;text-align:center}.mask_sku.data-v-e85d3508{color:#fff;max-width:80%;z-index:300;text-align:center;display:flex;flex-direction:column;align-items:center;margin-top:30rpx}.mask_sku .sku_name.data-v-e85d3508{font-size:12px;border:1px solid #fff;padding:10rpx 30rpx 10rpx;border-radius:40px;box-sizing:border-box}.mask_sku .sku_price.data-v-e85d3508{padding-top:10px}.font12.data-v-e85d3508{font-size:24rpx}.share_btn.data-v-e85d3508{position:absolute;top:70rpx;right:50rpx;font-size:40rpx;color:#fff;z-index:300}.flex-column.data-v-e85d3508{flex-direction:column}.justify-center.data-v-e85d3508{justify-content:center}.align-center.data-v-e85d3508{align-items:center}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.previewImg.data-v-9a5be2d8 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  width: 100%;
+  height: 100%;
+}
+.previewImg .mask.data-v-9a5be2d8 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  opacity: 1;
+  z-index: 8;
+  width: 100%;
+  height: 100%;
+}
+.previewImg .mask-swiper.data-v-9a5be2d8 {
+  width: 100%;
+  height: 100%;
+}
+.previewImg .mask-swiper-img.data-v-9a5be2d8 {
+  width: 100%;
+}
+.previewImg .pagebox.data-v-9a5be2d8 {
+  position: absolute;
+  width: 100%;
+  bottom: 20rpx;
+  z-index: 300;
+  color: #fff;
+  text-align: center;
+}
+.mask_sku.data-v-9a5be2d8 {
+  color: #fff;
+  max-width: 80%;
+  z-index: 300;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+}
+.mask_sku .sku_name.data-v-9a5be2d8 {
+  font-size: 12px;
+  border: 1px solid #fff;
+  padding: 10rpx 30rpx 10rpx;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+.mask_sku .sku_price.data-v-9a5be2d8 {
+  padding-top: 10px;
+}
+.font12.data-v-9a5be2d8 {
+  font-size: 24rpx;
+}
+.share_btn.data-v-9a5be2d8 {
+  position: absolute;
+  top: 70rpx;
+  right: 50rpx;
+  font-size: 40rpx;
+  color: #fff;
+  z-index: 300;
+}
+.flex-column.data-v-9a5be2d8 {
+  flex-direction: column;
+}
+.justify-center.data-v-9a5be2d8 {
+  justify-content: center;
+}
+.align-center.data-v-9a5be2d8 {
+  align-items: center;
+}

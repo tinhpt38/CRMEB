@@ -1,1 +1,80 @@
-.aleart.data-v-786f0764{width:500rpx;position:fixed;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);z-index:9999;top:50%;margin-top:-357rpx;background-color:#fff;padding:30rpx;border-radius:12rpx}.aleart .title.data-v-786f0764{font-size:18px;color:#e82c27;font-weight:700;text-align:center;padding-bottom:10rpx;border-bottom:1px solid rgba(232,44,39,.2)}.aleart .aleart-body.data-v-786f0764{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:60rpx 0}.aleart .aleart-body .goods-img.data-v-786f0764{width:150rpx;height:150rpx}.aleart .aleart-body .msg.data-v-786f0764{font-size:30rpx;color:#282828}.aleart .btn.data-v-786f0764{width:100%;padding:15rpx 0;color:#fff;background:linear-gradient(90deg,#f34a46,#fa9532);border-radius:20px;text-align:center}.aleart .close.data-v-786f0764{width:46rpx;height:75rpx;position:fixed;right:0;top:-73rpx;display:block}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.aleart.data-v-83274be8 {
+  width: 500rpx;
+  position: fixed;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 9999;
+  top: 50%;
+  margin-top: -357rpx;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+}
+.aleart .title.data-v-83274be8 {
+  font-size: 18px;
+  color: #E82C27;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid rgba(232, 44, 39, 0.2);
+}
+.aleart .aleart-body.data-v-83274be8 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 60rpx 0;
+}
+.aleart .aleart-body .goods-img.data-v-83274be8 {
+  width: 150rpx;
+  height: 150rpx;
+}
+.aleart .aleart-body .msg.data-v-83274be8 {
+  font-size: 30rpx;
+  color: #282828;
+}
+.aleart .btn.data-v-83274be8 {
+  width: 100%;
+  padding: 15rpx 0;
+  color: #fff;
+  background: linear-gradient(90deg, #F34A46 0%, #FA9532 100%);
+  border-radius: 20px;
+  text-align: center;
+}
+.aleart .close.data-v-83274be8 {
+  width: 46rpx;
+  height: 75rpx;
+  position: fixed;
+  right: 0;
+  top: -73rpx;
+  display: block;
+}

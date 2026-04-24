@@ -1,1 +1,93 @@
-.page-design.data-v-6c27671a{overflow-y:scroll;overflow-x:hidden;min-height:100vh}.myApplet.data-v-6c27671a{position:relative}.myApplet.data-v-6c27671a::after{position:absolute;right:55px;top:-5px;content:"";width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #fff}.ysize.data-v-6c27671a{background-size:100%}.fullsize.data-v-6c27671a{background-size:100% 100%}.repeat.data-v-6c27671a{background-repeat:repeat}.noRepeat.data-v-6c27671a{background-repeat:no-repeat}.error-network.data-v-6c27671a{position:fixed;left:0;top:0;display:flex;flex-direction:column;align-items:center;width:100%;height:100%;padding-top:40rpx;background:#fff}.error-network image.data-v-6c27671a{width:414rpx;height:336rpx}.error-network .title.data-v-6c27671a{position:relative;top:-40rpx;font-size:32rpx;color:#666}.error-network .btn.data-v-6c27671a{display:flex;align-items:center;justify-content:center;width:508rpx;height:86rpx;margin-top:100rpx;border:1px solid #d74432;color:#e93323;font-size:30rpx;border-radius:120rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.page-design.data-v-fde32446 {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+.myApplet.data-v-fde32446 {
+  position: relative;
+}
+.myApplet.data-v-fde32446::after {
+  position: absolute;
+  right: 55px;
+  top: -5px;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #fff;
+}
+.ysize.data-v-fde32446 {
+  background-size: 100%;
+}
+.fullsize.data-v-fde32446 {
+  background-size: 100% 100%;
+}
+.repeat.data-v-fde32446 {
+  background-repeat: repeat;
+}
+.noRepeat.data-v-fde32446 {
+  background-repeat: no-repeat;
+}
+.error-network.data-v-fde32446 {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 40rpx;
+  background: #fff;
+}
+.error-network image.data-v-fde32446 {
+  width: 414rpx;
+  height: 336rpx;
+}
+.error-network .title.data-v-fde32446 {
+  position: relative;
+  top: -40rpx;
+  font-size: 32rpx;
+  color: #666;
+}
+.error-network .btn.data-v-fde32446 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 508rpx;
+  height: 86rpx;
+  margin-top: 100rpx;
+  border: 1px solid #d74432;
+  color: #e93323;
+  font-size: 30rpx;
+  border-radius: 120rpx;
+}

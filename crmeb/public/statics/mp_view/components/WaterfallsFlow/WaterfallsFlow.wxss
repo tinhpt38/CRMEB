@@ -1,1 +1,43 @@
-.wf-page.data-v-037eb1a4{display:grid;grid-template-columns:1fr 1fr;grid-gap:10px}.wf-item.data-v-037eb1a4{width:calc((100vw - 2 * 10px - 10px) / 2);padding-bottom:10px}.wf-page1 .wf-item.data-v-037eb1a4{margin-top:20rpx;background-color:#fff;border-radius:20rpx;padding-bottom:0}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.wf-page.data-v-26d87764 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+.wf-item.data-v-26d87764 {
+  width: calc((100vw - 2 * 10px - 10px) / 2);
+  padding-bottom: 10px;
+}
+.wf-page1 .wf-item.data-v-26d87764 {
+  margin-top: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding-bottom: 0;
+}

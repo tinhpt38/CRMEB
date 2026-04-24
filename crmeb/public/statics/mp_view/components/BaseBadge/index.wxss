@@ -1,1 +1,102 @@
-.uni-badge--x{display:inline-block;position:relative}.uni-badge--absolute{position:absolute}.uni-badge--small{-webkit-transform:scale(.8);transform:scale(.8);-webkit-transform-origin:center center;transform-origin:center center}.uni-badge{display:flex;overflow:hidden;box-sizing:border-box;justify-content:center;flex-direction:row;height:20px;min-width:20px;padding:0 4px;line-height:18px;color:#fff;border-radius:100px;background-color:#909399;background-color:initial;border:1px solid #fff;text-align:center;font-family:Helvetica Neue,Helvetica,sans-serif;-webkit-font-feature-settings:"tnum";font-feature-settings:"tnum";font-size:12px}.uni-badge--info{color:#fff;background-color:#909399}.uni-badge--primary{background-color:#2979ff}.uni-badge--success{background-color:#4cd964}.uni-badge--warning{background-color:#f0ad4e}.uni-badge--error{background-color:var(--view-theme)}.uni-badge--inverted{padding:0 5px 0 0;color:#909399}.uni-badge--info-inverted{color:#909399;background-color:initial}.uni-badge--primary-inverted{color:#2979ff;background-color:initial}.uni-badge--success-inverted{color:#4cd964;background-color:initial}.uni-badge--warning-inverted{color:#f0ad4e;background-color:initial}.uni-badge--error-inverted{color:var(--view-theme);background-color:initial}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.uni-badge--x {
+  display: inline-block;
+  position: relative;
+}
+.uni-badge--absolute {
+  position: absolute;
+}
+.uni-badge--small {
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+.uni-badge {
+  display: flex;
+  overflow: hidden;
+  box-sizing: border-box;
+  justify-content: center;
+  flex-direction: row;
+  height: 20px;
+  min-width: 20px;
+  padding: 0 4px;
+  line-height: 18px;
+  color: #fff;
+  border-radius: 100px;
+  background-color: #909399;
+  background-color: transparent;
+  border: 1px solid #fff;
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-feature-settings: "tnum";
+          font-feature-settings: "tnum";
+  font-size: 12px;
+}
+.uni-badge--info {
+  color: #fff;
+  background-color: #909399;
+}
+.uni-badge--primary {
+  background-color: #2979ff;
+}
+.uni-badge--success {
+  background-color: #4cd964;
+}
+.uni-badge--warning {
+  background-color: #f0ad4e;
+}
+.uni-badge--error {
+  background-color: var(--view-theme);
+}
+.uni-badge--inverted {
+  padding: 0 5px 0 0;
+  color: #909399;
+}
+.uni-badge--info-inverted {
+  color: #909399;
+  background-color: transparent;
+}
+.uni-badge--primary-inverted {
+  color: #2979ff;
+  background-color: transparent;
+}
+.uni-badge--success-inverted {
+  color: #4cd964;
+  background-color: transparent;
+}
+.uni-badge--warning-inverted {
+  color: #f0ad4e;
+  background-color: transparent;
+}
+.uni-badge--error-inverted {
+  color: var(--view-theme);
+  background-color: transparent;
+}

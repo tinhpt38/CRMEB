@@ -1,1 +1,68 @@
-.page-footer.data-v-192d10c8{position:fixed;bottom:0;left:0;z-index:20;display:flex;align-items:center;justify-content:space-around;width:100%;height:calc(100rpx + constant(safe-area-inset-bottom));height:calc(100rpx + env(safe-area-inset-bottom));box-sizing:border-box;border-top:solid 1rpx #f3f3f3;background-color:#fff;padding-bottom:constant(safe-area-inset-bottom);padding-bottom:env(safe-area-inset-bottom)}.page-footer .foot-item.data-v-192d10c8{display:flex;width:-webkit-max-content;width:max-content;align-items:center;justify-content:center;flex-direction:column;position:relative;padding:0 20rpx}.page-footer .foot-item.active.data-v-192d10c8{color:#2a7efb}.page-footer .foot-item image.data-v-192d10c8{height:40rpx;width:40rpx;text-align:center;margin:0 auto}.page-footer .foot-item .txt.data-v-192d10c8{font-size:20rpx;margin-top:6rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.page-footer.data-v-39faef86 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: calc(100rpx + constant(safe-area-inset-bottom));
+  height: calc(100rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  border-top: solid 1rpx #F3F3F3;
+  background-color: #fff;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.page-footer .foot-item.data-v-39faef86 {
+  display: flex;
+  width: -webkit-max-content;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  padding: 0 20rpx;
+}
+.page-footer .foot-item.active.data-v-39faef86 {
+  color: #2A7EFB;
+}
+.page-footer .foot-item image.data-v-39faef86 {
+  height: 40rpx;
+  width: 40rpx;
+  text-align: center;
+  margin: 0 auto;
+}
+.page-footer .foot-item .txt.data-v-39faef86 {
+  font-size: 20rpx;
+  margin-top: 6rpx;
+}

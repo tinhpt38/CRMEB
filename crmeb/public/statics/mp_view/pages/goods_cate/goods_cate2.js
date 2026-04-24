@@ -1,9 +1,956 @@
-(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["pages/goods_cate/goods_cate2"],{"01d1":function(t,i,e){"use strict";e.r(i);var r=e("27d29"),a=e("3125");for(var s in a)["default"].indexOf(s)<0&&function(t){e.d(i,t,(function(){return a[t]}))}(s);e("3a51");var c=e("828b"),o=Object(c["a"])(a["default"],r["b"],r["c"],!1,null,null,null,!1,r["a"],void 0);i["default"]=o.exports},"27d29":function(t,i,e){"use strict";e.d(i,"b",(function(){return r})),e.d(i,"c",(function(){return a})),e.d(i,"a",(function(){}));var r=function(){var t=this,i=t.$createElement,e=(t._self._c,t.$t("Tìm kiếm tên sản phẩm")),r=t.__map(t.categoryList,(function(i,e){var r=t.__get_orig(i),a=t.$t(i.cate_name);return{$orig:r,m1:a}})),a=t.iSlong?t.__map(t.categoryErList,(function(i,e){var r=t.__get_orig(i),a=t.$t(i.cate_name);return{$orig:r,m2:a}})):null,s=t.iSlong?null:t.__map(t.categoryErList,(function(i,e){var r=t.__get_orig(i),a=t.$t(i.cate_name);return{$orig:r,m3:a}})),c=t.$t("￥"),o=t.$t("Đi và trả tiền");t.$mp.data=Object.assign({},{$root:{m0:e,l0:r,l1:a,l2:s,m4:c,m5:o}})},a=[]},3125:function(t,i,e){"use strict";e.r(i);var r=e("795e"),a=e.n(r);for(var s in r)["default"].indexOf(s)<0&&function(t){e.d(i,t,(function(){return r[t]}))}(s);i["default"]=a.a},"3a51":function(t,i,e){"use strict";var r=e("79b2"),a=e.n(r);a.a},"795e":function(t,i,e){"use strict";(function(t){Object.defineProperty(i,"__esModule",{value:!0}),i.default=void 0;var r=e("8ede"),a=e("c28d"),s=e("8f59"),c=e("8633"),o=e("23a8"),n={computed:(0,s.mapGetters)(["isLogin","uid"]),components:{productWindow:function(){e.e("components/productWindow/index").then(function(){return resolve(e("ba74"))}.bind(null,e)).catch(e.oe)},goodList:function(){e.e("components/catGoodList/index").then(function(){return resolve(e("6abc"))}.bind(null,e)).catch(e.oe)},cartList:function(){e.e("components/cartList/index").then(function(){return resolve(e("2c02a"))}.bind(null,e)).catch(e.oe)}},data:function(){return{categoryList:[],navActive:0,categoryTitle:"",categoryErList:[],tabLeft:0,scrollTop:0,old:{scrollTop:0},isWidth:0,tabClick:0,iSlong:!0,tempArr:[],loading:!1,loadend:!1,loadTitle:this.$t("tải thêm"),page:1,limit:10,cid:0,sid:0,isAuto:!1,isShowAuth:!1,attr:{cartAttr:!1,productAttr:[],productSelect:{}},productValue:[],attrValue:"",storeName:"",id:0,cartData:{cartList:[],iScart:!1},cartCount:0,totalPrice:0,is_vip:0,cart_num:0,storeInfo:{}}},mounted:function(){var i=this,e=this;t.getSystemInfo({success:function(t){e.isWidth=t.windowWidth/5}}),e.categoryList.length||(this.getAllCategory(1),this.getCartNum(),this.getCartList(1)),t.$on("uploadCatData",(function(){i.getAllCategory(1),i.getCartNum()}))},methods:{jumpIndex:function(){this.$emit("jumpIndex")},subOrder:function(){var i=this.cartData.cartList,e=[];if(!i.length)return this.$util.Tips({title:this.$t("Vui lòng chọn sản phẩm")});i.forEach((function(t){e.push(t.id)})),t.navigateTo({url:"/pages/goods/order_confirm/index?cartId="+e.join(",")}),this.cartData.iScart=!1},getTotalPrice:function(){var t=this,i=t.cartData.cartList,e=0;i.forEach((function(i){i.attrStatus&&i.status&&(e=t.$util.$h.Add(e,t.$util.$h.Mul(i.cart_num,i.truePrice)))})),t.$set(t,"totalPrice",e)},ChangeSubDel:function(t){var i=this,e=i.cartData.cartList,r=[];e.forEach((function(t){r.push(t.id)})),(0,a.cartDel)(r.join(",")).then((function(t){i.$set(i.cartData,"cartList",[]),i.cartData.iScart=!1,i.totalPrice=0,i.page=1,i.loadend=!1,i.tempArr=[],i.productslist(),i.getCartNum()}))},ChangeOneDel:function(t,i){var e=this,r=e.cartData.cartList;(0,a.cartDel)(t.toString()).then((function(t){r.splice(i,1),r.length||(e.cartData.iScart=!1,e.page=1,e.loadend=!1,e.tempArr=[],e.productslist()),e.getCartNum()}))},getCartList:function(t){var i=this;(0,a.vcartList)().then((function(e){i.$set(i.cartData,"cartList",e.data),e.data.length?i.$set(i.cartData,"iScart",!t&&!i.cartData.iScart):i.$set(i.cartData,"iScart",!1),i.getTotalPrice()}))},closeList:function(t){this.$set(this.cartData,"iScart",t),this.page=1,this.loadend=!1,this.tempArr=[],this.productslist()},getCartNum:function(){var t=this;(0,a.getCartCounts)().then((function(i){t.cartCount=i.data.count,t.$refs.d_goodClass.addIng=!1}))},onMyEvent:function(){this.$set(this.attr,"cartAttr",!1)},DefaultSelect:function(){var t=this.attr.productAttr,i=[];for(var e in this.productValue)if(this.productValue[e].stock>0){i=this.attr.productAttr.length?e.split(","):[];break}for(var r=0;r<t.length;r++)this.$set(t[r],"index",i[r]);var a=this.productValue[i.join(",")];a&&t.length?(this.$set(this.attr.productSelect,"store_name",this.storeName),this.$set(this.attr.productSelect,"image",a.image),this.$set(this.attr.productSelect,"price",a.price),this.$set(this.attr.productSelect,"stock",a.stock),this.$set(this.attr.productSelect,"unique",a.unique),this.$set(this.attr.productSelect,"cart_num",this.storeInfo.min_qty),this.$set(this.attr.productSelect,"vip_price",a.vip_price),this.$set(this,"attrValue",i.join(","))):!a&&t.length?(this.$set(this.attr.productSelect,"store_name",this.storeName),this.$set(this.attr.productSelect,"image",this.storeInfo.image),this.$set(this.attr.productSelect,"price",this.storeInfo.price),this.$set(this.attr.productSelect,"stock",0),this.$set(this.attr.productSelect,"unique",""),this.$set(this.attr.productSelect,"cart_num",0),this.$set(this.attr.productSelect,"vip_price",this.storeInfo.vip_price),this.$set(this,"attrValue","")):a||t.length||(this.$set(this.attr.productSelect,"store_name",this.storeName),this.$set(this.attr.productSelect,"image",this.storeInfo.image),this.$set(this.attr.productSelect,"price",this.storeInfo.price),this.$set(this.attr.productSelect,"stock",this.storeInfo.stock),this.$set(this.attr.productSelect,"unique",this.storeInfo.unique||""),this.$set(this.attr.productSelect,"cart_num",this.storeInfo.min_qty),this.$set(this,"attrValue",""),this.$set(this.attr.productSelect,"vip_price",this.storeInfo.vip_price))},ChangeAttr:function(t){var i=this.productValue[t];i&&i.stock>0?(this.$set(this.attr.productSelect,"image",i.image),this.$set(this.attr.productSelect,"price",i.price),this.$set(this.attr.productSelect,"stock",i.stock),this.$set(this.attr.productSelect,"unique",i.unique),this.$set(this.attr.productSelect,"vip_price",i.vip_price),this.$set(this.attr.productSelect,"cart_num",this.storeInfo.min_qty),this.$set(this,"attrValue",t)):i&&0==i.stock?(this.$set(this.attr.productSelect,"image",i.image),this.$set(this.attr.productSelect,"price",i.price),this.$set(this.attr.productSelect,"stock",0),this.$set(this.attr.productSelect,"unique",""),this.$set(this.attr.productSelect,"vip_price",i.vip_price),this.$set(this.attr.productSelect,"cart_num",0),this.$set(this,"attrValue","")):(this.$set(this.attr.productSelect,"image",this.storeInfo.image),this.$set(this.attr.productSelect,"price",this.storeInfo.price),this.$set(this.attr.productSelect,"stock",0),this.$set(this.attr.productSelect,"unique",""),this.$set(this.attr.productSelect,"vip_price",this.storeInfo.vip_price),this.$set(this.attr.productSelect,"cart_num",0),this.$set(this,"attrValue",""))},attrVal:function(t){this.$set(this.attr.productAttr[t.indexw],"index",this.attr.productAttr[t.indexw].attr_values[t.indexn])},iptCartNum:function(t){var i=this;if(t){var e=this.storeInfo.min_qty;Number.isInteger(parseInt(t))&&parseInt(t)>=this.storeInfo.min_qty&&(e=parseInt(t)),this.$nextTick((function(t){i.$set(i.attr.productSelect,"cart_num",t<0?i.storeInfo.min_qty:e)}))}},onLoadFun:function(){},productslist:function(){var t=this,i=this;i.loadend||i.loading||(i.loading=!0,i.loadTitle="",(0,r.getProductslist)({page:i.page,limit:i.limit,type:1,cid:i.cid,sid:i.sid}).then((function(e){var r=e.data,a=r.length<i.limit;i.tempArr=i.$util.SplitArray(r,i.tempArr),i.$set(i,"tempArr",i.tempArr),i.loading=!1,i.loadend=a,i.loadTitle=a?i.$t("Không còn nội dung nữa~"):i.$t("tải thêm"),1==i.page&&t.goTop(),i.page=i.page+1})).catch((function(t){i.loading=!1,i.loadTitle=i.$t("tải thêm")})))},scroll:function(t){this.old.scrollTop=t.detail.scrollTop},goTop:function(t){var i=this;this.scrollTop=this.old.scrollTop,this.$nextTick((function(){i.scrollTop=0}))},ChangeCartNumDan:function(t,i,e){var r=this.tempArr[i],a=this.tempArr[i].stock;this.ChangeCartNum(t,r,a,0,e.id)},ChangeCartNumDuo:function(t){var i=this.productValue[this.attrValue];if(void 0!==i||this.attr.productAttr.length||(i=this.attr.productSelect),void 0!==i){var e=i.stock||0,r=this.attr.productSelect;this.ChangeCartNum(t,r,e,1,this.id)}},ChangeCartList:function(t,i){var e=this.cartData.cartList,r=e[i],a=e[i].trueStock;this.ChangeCartNum(t,r,a,0,r.product_id,i,1),e.length||(this.cartData.iScart=!1,this.page=1,this.loadend=!1,this.tempArr=[],this.productslist())},ChangeCartNum:function(t,i,e,r,a,s,c){if(this.$refs.d_goodClass.addIng=!1,t){if(i.cart_num++,i.cart_num>e)return r?(this.$set(this.attr.productSelect,"cart_num",e||1),this.$set(this,"cart_num",e||1)):(i.cart_num=e||0,this.$set(this,"tempArr",this.tempArr),this.$set(this.cartData,"cartList",this.cartData.cartList)),this.$util.Tips({title:this.$t("Không còn hàng cho sản phẩm này")});r||(c?(this.goCat(0,a,1,1,i.product_attr_unique,i),this.getTotalPrice()):this.goCat(0,a,1,0,!1,i))}else i.cart_num--,i.cart_num<i.min_qty?(this.cartData.cartList.splice(s,1),i.cart_num=0):0==i.cart_num&&this.cartData.cartList.splice(s,1),i.cart_num<0?r?(this.$set(this.attr.productSelect,"cart_num",this.storeInfo.min_qty),this.$set(this,"cart_num",this.storeInfo.min_qty)):(i.cart_num=0,this.$set(this,"tempArr",this.tempArr),this.$set(this.cartData,"cartList",this.cartData.cartList)):r||(c?(this.goCat(0,a,0,1,i.product_attr_unique,i),this.getTotalPrice()):this.goCat(0,a,0,0,!1,i))},goCatNum:function(){this.goCat(1,this.id,1)},goCat:function(t,i,e,a,s,c){var o=this;if(t){var n=o.productValue[this.attrValue];if(o.attr.productAttr.length&&void 0===n)return o.$util.Tips({title:o.$t("Không còn hàng cho sản phẩm này")});if(o.attr.productSelect.cart_num<=0)return o.$util.Tips({title:o.$t("Thêm ít nhất 1 mục")})}var u={product_id:i,type:e,unique:t?o.attr.productSelect.unique:a?s:""};c&&c.cart_num<c.min_qty&&(u.num=c.min_qty),o.cartData.iScart||(u.num=t?o.attr.productSelect.cart_num:this.storeInfo.min_qty),(0,r.postCartNum)(u).then((function(i){t&&(o.attr.cartAttr=!1,o.$util.Tips({title:o.$t("Đã thêm thành công")}),o.tempArr.forEach((function(t,i){if(t.id==o.id){var e=o.attr.productSelect.stock,r=parseInt(t.cart_num)+parseInt(o.attr.productSelect.cart_num);t.cart_num=r>e?e:r}}))),o.getCartNum(),a||o.getCartList(1)})).catch((function(t){return o.$util.Tips({title:t})}))},goCartDan:function(i,e){if(this.isLogin){if(!i.cart_button)return void(0,c.goShopDetail)(i,this.uid).then((function(e){t.navigateTo({url:"/pages/goods_details/index?id=".concat(i.id)})}));i.cart_num=i.min_qty,this.$set(this,"tempArr",this.tempArr),this.goCat(0,i.id,1)}else this.getIsLogin()},goCartDuo:function(i){if(this.isLogin){if(!i.cart_button)return void(0,c.goShopDetail)(i,this.uid).then((function(e){t.navigateTo({url:"/pages/goods_details/index?id=".concat(i.id)})}));t.showLoading({title:this.$t("Đang tải")}),this.storeName=i.store_name,this.getAttrs(i.id),this.$set(this,"id",i.id),this.$set(this.attr,"cartAttr",!0)}else this.getIsLogin()},getIsLogin:function(){(0,o.toLogin)()},getAttrs:function(i){var e=this;(0,r.getAttr)(i,0).then((function(i){t.hideLoading(),e.$set(e.attr,"productAttr",i.data.productAttr),e.$set(e,"productValue",i.data.productValue),e.$set(e,"is_vip",i.data.storeInfo.is_vip),e.$set(e,"storeInfo",i.data.storeInfo),e.DefaultSelect()}))},goDetail:function(i){(0,c.goShopDetail)(i,this.uid).then((function(e){t.navigateTo({url:"/pages/goods_details/index?id=".concat(i.id)})}))},openTap:function(){this.iSlong=!1},closeTap:function(){this.iSlong=!0},getAllCategory:function(i){var e=this;if(i||!t.getStorageSync("CAT2_DATA"))(0,r.getCategoryList)().then((function(i){t.setStorageSync("CAT2_DATA",i.data);var r=i.data;r.forEach((function(t){t.children.unshift({id:0,cate_name:e.$t("tất cả")})})),e.categoryTitle=r[0].cate_name,e.cid=r[0].id,e.sid=0,e.navActive=0,e.tabClick=0,e.categoryList=r,e.page=1,e.loadend=!1,e.tempArr=[],e.categoryErList=i.data[0].children?i.data[0].children:[],e.productslist()}));else{var a=t.getStorageSync("CAT2_DATA");a.forEach((function(t){t.children.unshift({id:0,cate_name:e.$t("tất cả")})})),e.cid||(e.categoryTitle=a[0].cate_name,e.cid=a[0].id,e.sid=0,e.navActive=0,e.tabClick=0,e.categoryList=a,e.categoryErList=a[0].children?a[0].children:[],e.page=1,e.loadend=!1,e.tempArr=[]),e.productslist()}},tapNav:function(t,i){var e=this.categoryList[t];this.navActive=t,this.categoryTitle=e.cate_name,this.categoryErList=i.children?i.children:[],this.tabClick=0,this.tabLeft=0,this.cid=e.id,this.sid=0,this.page=1,this.loadend=!1,this.tempArr=[],this.productslist()},longClick:function(t){this.categoryErList.length>3&&(this.tabLeft=(t-1)*(this.isWidth+6)),this.tabClick=t,this.iSlong=!0,this.sid=this.categoryErList[t].id,this.page=1,this.loadend=!1,this.tempArr=[],this.productslist()}},onReachBottom:function(){this.productslist()}};i.default=n}).call(this,e("df3c")["default"])},"79b2":function(t,i,e){}}]);
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/goods_cate/goods_cate2"],{
+
+/***/ 1247:
+/*!***********************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/goods_cate/goods_cate2.vue ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./goods_cate2.vue?vue&type=template&id=1c6051dc& */ 1248);
+/* harmony import */ var _goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./goods_cate2.vue?vue&type=script&lang=js& */ 1250);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _goods_cate2_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./goods_cate2.vue?vue&type=style&index=0&lang=scss& */ 1252);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 68);
+
+var renderjs
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null,
+  false,
+  _goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__["components"],
+  renderjs
+)
+
+component.options.__file = "pages/goods_cate/goods_cate2.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1248:
+/*!******************************************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/goods_cate/goods_cate2.vue?vue&type=template&id=1c6051dc& ***!
+  \******************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns, recyclableRender, components */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./goods_cate2.vue?vue&type=template&id=1c6051dc& */ 1249);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__["recyclableRender"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "components", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_template_id_1c6051dc___WEBPACK_IMPORTED_MODULE_0__["components"]; });
+
+
+
+/***/ }),
+
+/***/ 1249:
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/goods_cate/goods_cate2.vue?vue&type=template&id=1c6051dc& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns, recyclableRender, components */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
+var components
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  var m0 = _vm.$t("Tìm kiếm tên sản phẩm")
+  var l0 = _vm.__map(_vm.categoryList, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var m1 = _vm.$t(item.cate_name)
+    return {
+      $orig: $orig,
+      m1: m1,
+    }
+  })
+  var l1 = _vm.iSlong
+    ? _vm.__map(_vm.categoryErList, function (item, index) {
+        var $orig = _vm.__get_orig(item)
+        var m2 = _vm.$t(item.cate_name)
+        return {
+          $orig: $orig,
+          m2: m2,
+        }
+      })
+    : null
+  var l2 = !_vm.iSlong
+    ? _vm.__map(_vm.categoryErList, function (item, index) {
+        var $orig = _vm.__get_orig(item)
+        var m3 = _vm.$t(item.cate_name)
+        return {
+          $orig: $orig,
+          m3: m3,
+        }
+      })
+    : null
+  var m4 = _vm.$t("￥")
+  var m5 = _vm.$t("Đi và trả tiền")
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+        l0: l0,
+        l1: l1,
+        l2: l2,
+        m4: m4,
+        m5: m5,
+      },
+    }
+  )
+}
+var recyclableRender = false
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ 1250:
+/*!************************************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/goods_cate/goods_cate2.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/babel-loader/lib!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./goods_cate2.vue?vue&type=script&lang=js& */ 1251);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ 1251:
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/goods_cate/goods_cate2.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _store = __webpack_require__(/*! @/api/store.js */ 88);
+var _order = __webpack_require__(/*! @/api/order.js */ 87);
+var _vuex = __webpack_require__(/*! vuex */ 42);
+var _order2 = __webpack_require__(/*! @/libs/order.js */ 89);
+var _login = __webpack_require__(/*! @/libs/login.js */ 40);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var productWindow = function productWindow() {
+  __webpack_require__.e(/*! require.ensure | components/productWindow/index */ "components/productWindow/index").then((function () {
+    return resolve(__webpack_require__(/*! @/components/productWindow */ 1208));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
+var goodList = function goodList() {
+  __webpack_require__.e(/*! require.ensure | components/catGoodList/index */ "components/catGoodList/index").then((function () {
+    return resolve(__webpack_require__(/*! @/components/catGoodList */ 1939));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
+var cartList = function cartList() {
+  __webpack_require__.e(/*! require.ensure | components/cartList/index */ "components/cartList/index").then((function () {
+    return resolve(__webpack_require__(/*! @/components/cartList */ 1946));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
+var _default = {
+  computed: (0, _vuex.mapGetters)(['isLogin', 'uid']),
+  components: {
+    productWindow: productWindow,
+    goodList: goodList,
+    cartList: cartList
+  },
+  data: function data() {
+    return {
+      categoryList: [],
+      navActive: 0,
+      categoryTitle: '',
+      categoryErList: [],
+      tabLeft: 0,
+      scrollTop: 0,
+      old: {
+        scrollTop: 0
+      },
+      isWidth: 0,
+      //Mỗi thanh điều hướng chiếm không gian
+      tabClick: 0,
+      //Đã nhấp vào thanh điều hướng
+      iSlong: true,
+      tempArr: [],
+      loading: false,
+      loadend: false,
+      loadTitle: this.$t("t\u1EA3i th\xEAm"),
+      page: 1,
+      limit: 10,
+      cid: 0,
+      //Phân loại cấp độ đầu tiên
+      sid: 0,
+      //Phân loại thứ cấp
+      isAuto: false,
+      //Nếu không có ủy quyền, nó sẽ không được ủy quyền tự động.
+      isShowAuth: false,
+      //Có ẩn ủy quyền hay không
+      attr: {
+        cartAttr: false,
+        productAttr: [],
+        productSelect: {}
+      },
+      productValue: [],
+      attrValue: '',
+      //Thuộc tính đã chọn
+      storeName: '',
+      //Tên sản phẩm nhiều thuộc tính
+      id: 0,
+      cartData: {
+        cartList: [],
+        iScart: false
+      },
+      cartCount: 0,
+      totalPrice: 0.0,
+      is_vip: 0,
+      //Bạn có phải là thành viên?
+      cart_num: 0,
+      storeInfo: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+    var that = this;
+    // Nhận chiều rộng thiết bị
+    uni.getSystemInfo({
+      success: function success(e) {
+        that.isWidth = e.windowWidth / 5;
+      }
+    });
+    if (!that.categoryList.length) {
+      this.getAllCategory(1);
+      this.getCartNum();
+      this.getCartList(1);
+    }
+    uni.$on('uploadCatData', function () {
+      _this.getAllCategory(1);
+      _this.getCartNum();
+    });
+  },
+  methods: {
+    jumpIndex: function jumpIndex() {
+      this.$emit('jumpIndex');
+    },
+    // Tạo đơn hàng；
+    subOrder: function subOrder() {
+      var that = this,
+        list = that.cartData.cartList,
+        ids = [];
+      if (list.length) {
+        list.forEach(function (item) {
+          ids.push(item.id);
+        });
+        uni.navigateTo({
+          url: '/pages/goods/order_confirm/index?cartId=' + ids.join(',')
+        });
+        that.cartData.iScart = false;
+      } else {
+        return that.$util.Tips({
+          title: this.$t("Vui l\xF2ng ch\u1ECDn s\u1EA3n ph\u1EA9m")
+        });
+      }
+    },
+    // Tính tổng giá；
+    getTotalPrice: function getTotalPrice() {
+      var that = this,
+        list = that.cartData.cartList,
+        totalPrice = 0.0;
+      list.forEach(function (item) {
+        if (item.attrStatus && item.status) {
+          totalPrice = that.$util.$h.Add(totalPrice, that.$util.$h.Mul(item.cart_num, item.truePrice));
+        }
+      });
+      that.$set(that, 'totalPrice', totalPrice);
+    },
+    ChangeSubDel: function ChangeSubDel(event) {
+      var that = this,
+        list = that.cartData.cartList,
+        ids = [];
+      list.forEach(function (item) {
+        ids.push(item.id);
+      });
+      (0, _order.cartDel)(ids.join(',')).then(function (res) {
+        that.$set(that.cartData, 'cartList', []);
+        that.cartData.iScart = false;
+        that.totalPrice = 0.0;
+        that.page = 1;
+        that.loadend = false;
+        that.tempArr = [];
+        that.productslist();
+        that.getCartNum();
+      });
+    },
+    ChangeOneDel: function ChangeOneDel(id, index) {
+      var that = this,
+        list = that.cartData.cartList;
+      (0, _order.cartDel)(id.toString()).then(function (res) {
+        list.splice(index, 1);
+        if (!list.length) {
+          that.cartData.iScart = false;
+          that.page = 1;
+          that.loadend = false;
+          that.tempArr = [];
+          that.productslist();
+        }
+        that.getCartNum();
+      });
+    },
+    getCartList: function getCartList(iSshow) {
+      var that = this;
+      (0, _order.vcartList)().then(function (res) {
+        that.$set(that.cartData, 'cartList', res.data);
+        if (res.data.length) {
+          that.$set(that.cartData, 'iScart', iSshow ? false : !that.cartData.iScart);
+        } else {
+          that.$set(that.cartData, 'iScart', false);
+        }
+        that.getTotalPrice();
+      });
+    },
+    closeList: function closeList(e) {
+      this.$set(this.cartData, 'iScart', e);
+      this.page = 1;
+      this.loadend = false;
+      this.tempArr = [];
+      this.productslist();
+    },
+    getCartNum: function getCartNum() {
+      var that = this;
+      (0, _order.getCartCounts)().then(function (res) {
+        that.cartCount = res.data.count;
+        that.$refs.d_goodClass.addIng = false;
+      });
+    },
+    onMyEvent: function onMyEvent() {
+      this.$set(this.attr, 'cartAttr', false);
+    },
+    /**
+     * Thuộc tính được chọn theo mặc định
+     *
+     */
+    DefaultSelect: function DefaultSelect() {
+      var productAttr = this.attr.productAttr;
+      var value = [];
+      for (var key in this.productValue) {
+        if (this.productValue[key].stock > 0) {
+          value = this.attr.productAttr.length ? key.split(',') : [];
+          break;
+        }
+      }
+      for (var i = 0; i < productAttr.length; i++) {
+        this.$set(productAttr[i], 'index', value[i]);
+      }
+      //sort();Chức năng sắp xếp:Số-Ký tự Anh-Trung；
+      var productSelect = this.productValue[value.join(',')];
+      if (productSelect && productAttr.length) {
+        this.$set(this.attr.productSelect, 'store_name', this.storeName);
+        this.$set(this.attr.productSelect, 'image', productSelect.image);
+        this.$set(this.attr.productSelect, 'price', productSelect.price);
+        this.$set(this.attr.productSelect, 'stock', productSelect.stock);
+        this.$set(this.attr.productSelect, 'unique', productSelect.unique);
+        this.$set(this.attr.productSelect, 'cart_num', this.storeInfo.min_qty);
+        this.$set(this.attr.productSelect, 'vip_price', productSelect.vip_price);
+        this.$set(this, 'attrValue', value.join(','));
+      } else if (!productSelect && productAttr.length) {
+        this.$set(this.attr.productSelect, 'store_name', this.storeName);
+        this.$set(this.attr.productSelect, 'image', this.storeInfo.image);
+        this.$set(this.attr.productSelect, 'price', this.storeInfo.price);
+        this.$set(this.attr.productSelect, 'stock', 0);
+        this.$set(this.attr.productSelect, 'unique', '');
+        this.$set(this.attr.productSelect, 'cart_num', 0);
+        this.$set(this.attr.productSelect, 'vip_price', this.storeInfo.vip_price);
+        this.$set(this, 'attrValue', '');
+      } else if (!productSelect && !productAttr.length) {
+        this.$set(this.attr.productSelect, 'store_name', this.storeName);
+        this.$set(this.attr.productSelect, 'image', this.storeInfo.image);
+        this.$set(this.attr.productSelect, 'price', this.storeInfo.price);
+        this.$set(this.attr.productSelect, 'stock', this.storeInfo.stock);
+        this.$set(this.attr.productSelect, 'unique', this.storeInfo.unique || '');
+        this.$set(this.attr.productSelect, 'cart_num', this.storeInfo.min_qty);
+        this.$set(this, 'attrValue', '');
+        this.$set(this.attr.productSelect, 'vip_price', this.storeInfo.vip_price);
+      }
+    },
+    /**
+     * gán thay đổi thuộc tính
+     *
+     */
+    ChangeAttr: function ChangeAttr(res) {
+      var productSelect = this.productValue[res];
+      if (productSelect && productSelect.stock > 0) {
+        this.$set(this.attr.productSelect, 'image', productSelect.image);
+        this.$set(this.attr.productSelect, 'price', productSelect.price);
+        this.$set(this.attr.productSelect, 'stock', productSelect.stock);
+        this.$set(this.attr.productSelect, 'unique', productSelect.unique);
+        this.$set(this.attr.productSelect, 'vip_price', productSelect.vip_price);
+        this.$set(this.attr.productSelect, 'cart_num', this.storeInfo.min_qty);
+        this.$set(this, 'attrValue', res);
+      } else if (productSelect && productSelect.stock == 0) {
+        this.$set(this.attr.productSelect, 'image', productSelect.image);
+        this.$set(this.attr.productSelect, 'price', productSelect.price);
+        this.$set(this.attr.productSelect, 'stock', 0);
+        this.$set(this.attr.productSelect, 'unique', '');
+        this.$set(this.attr.productSelect, 'vip_price', productSelect.vip_price);
+        this.$set(this.attr.productSelect, 'cart_num', 0);
+        this.$set(this, 'attrValue', '');
+      } else {
+        this.$set(this.attr.productSelect, 'image', this.storeInfo.image);
+        this.$set(this.attr.productSelect, 'price', this.storeInfo.price);
+        this.$set(this.attr.productSelect, 'stock', 0);
+        this.$set(this.attr.productSelect, 'unique', '');
+        this.$set(this.attr.productSelect, 'vip_price', this.storeInfo.vip_price);
+        this.$set(this.attr.productSelect, 'cart_num', 0);
+        this.$set(this, 'attrValue', '');
+      }
+    },
+    attrVal: function attrVal(val) {
+      this.$set(this.attr.productAttr[val.indexw], 'index', this.attr.productAttr[val.indexw].attr_values[val.indexn]);
+    },
+    /**
+     * Điền thủ công vào giỏ hàng
+     *
+     */
+    iptCartNum: function iptCartNum(e) {
+      var _this2 = this;
+      // this.$set(this.attr.productSelect, 'cart_num', e);
+      if (e) {
+        var number = this.storeInfo.min_qty;
+        if (Number.isInteger(parseInt(e)) && parseInt(e) >= this.storeInfo.min_qty) {
+          number = parseInt(e);
+        }
+        this.$nextTick(function (e) {
+          _this2.$set(_this2.attr.productSelect, 'cart_num', e < 0 ? _this2.storeInfo.min_qty : number);
+        });
+      }
+    },
+    onLoadFun: function onLoadFun() {},
+    // Danh sách sản phẩm
+    productslist: function productslist() {
+      var _this3 = this;
+      var that = this;
+      if (that.loadend) return;
+      if (that.loading) return;
+      that.loading = true;
+      that.loadTitle = '';
+      (0, _store.getProductslist)({
+        page: that.page,
+        limit: that.limit,
+        type: 1,
+        cid: that.cid,
+        sid: that.sid
+      }).then(function (res) {
+        var list = res.data,
+          loadend = list.length < that.limit;
+        that.tempArr = that.$util.SplitArray(list, that.tempArr);
+        that.$set(that, 'tempArr', that.tempArr);
+        that.loading = false;
+        that.loadend = loadend;
+        that.loadTitle = loadend ? that.$t("Kh\xF4ng c\xF2n n\u1ED9i dung n\u1EEFa~") : that.$t("t\u1EA3i th\xEAm");
+        that.page == 1 && _this3.goTop();
+        that.page = that.page + 1;
+      }).catch(function (err) {
+        that.loading = false, that.loadTitle = that.$t("t\u1EA3i th\xEAm");
+      });
+    },
+    scroll: function scroll(e) {
+      this.old.scrollTop = e.detail.scrollTop;
+    },
+    goTop: function goTop(e) {
+      var _this4 = this;
+      // Giải quyết vấn đề về lớp xem không đồng bộ
+      this.scrollTop = this.old.scrollTop;
+      this.$nextTick(function () {
+        _this4.scrollTop = 0;
+      });
+    },
+    // Thay đổi giỏ hàng thuộc tính duy nhất
+    ChangeCartNumDan: function ChangeCartNumDan(changeValue, index, item) {
+      var num = this.tempArr[index];
+      var stock = this.tempArr[index].stock;
+      this.ChangeCartNum(changeValue, num, stock, 0, item.id);
+    },
+    // Thay đổi giỏ hàng đa thuộc tính
+    ChangeCartNumDuo: function ChangeCartNumDuo(changeValue) {
+      //Nhận các thuộc tính đã thay đổi hiện tại
+      var productSelect = this.productValue[this.attrValue];
+      //nếu không có thuộc tính,Chỉ định giá trị cho khoảng không quảng cáo mặc định của sản phẩm
+      if (productSelect === undefined && !this.attr.productAttr.length) productSelect = this.attr.productSelect;
+      //Không có giá trị thuộc tính, nghĩa là hàng tồn kho là 0; không có phép cộng hoặc phép trừ.；
+      if (productSelect === undefined) return;
+      var stock = productSelect.stock || 0;
+      var num = this.attr.productSelect;
+      this.ChangeCartNum(changeValue, num, stock, 1, this.id);
+    },
+    // Tính năng cộng trừ mua sắm khi thêm vào giỏ hàng；
+    ChangeCartList: function ChangeCartList(changeValue, index) {
+      var list = this.cartData.cartList;
+      var num = list[index];
+      var stock = list[index].trueStock;
+      this.ChangeCartNum(changeValue, num, stock, 0, num.product_id, index, 1);
+      if (!list.length) {
+        this.cartData.iScart = false;
+        this.page = 1;
+        this.loadend = false;
+        this.tempArr = [];
+        this.productslist();
+      }
+    },
+    // Chức năng tính toán cộng trừ giỏ hàng
+    ChangeCartNum: function ChangeCartNum(changeValue, num, stock, isDuo, id, index, cart) {
+      this.$refs.d_goodClass.addIng = false;
+      if (changeValue) {
+        num.cart_num++;
+        if (num.cart_num > stock) {
+          if (isDuo) {
+            this.$set(this.attr.productSelect, 'cart_num', stock ? stock : 1);
+            this.$set(this, 'cart_num', stock ? stock : 1);
+          } else {
+            num.cart_num = stock ? stock : 0;
+            this.$set(this, 'tempArr', this.tempArr);
+            this.$set(this.cartData, 'cartList', this.cartData.cartList);
+          }
+          return this.$util.Tips({
+            title: this.$t("Kh\xF4ng c\xF2n h\xE0ng cho s\u1EA3n ph\u1EA9m n\xE0y")
+          });
+        } else {
+          if (!isDuo) {
+            if (cart) {
+              this.goCat(0, id, 1, 1, num.product_attr_unique, num);
+              this.getTotalPrice();
+            } else {
+              this.goCat(0, id, 1, 0, false, num);
+            }
+          }
+        }
+      } else {
+        num.cart_num--;
+        if (num.cart_num < num.min_qty) {
+          this.cartData.cartList.splice(index, 1);
+          num.cart_num = 0;
+        } else if (num.cart_num == 0) {
+          this.cartData.cartList.splice(index, 1);
+        }
+        if (num.cart_num < 0) {
+          if (isDuo) {
+            this.$set(this.attr.productSelect, 'cart_num', this.storeInfo.min_qty);
+            this.$set(this, 'cart_num', this.storeInfo.min_qty);
+          } else {
+            num.cart_num = 0;
+            this.$set(this, 'tempArr', this.tempArr);
+            this.$set(this.cartData, 'cartList', this.cartData.cartList);
+          }
+        } else {
+          if (!isDuo) {
+            if (cart) {
+              this.goCat(0, id, 0, 1, num.product_attr_unique, num);
+              this.getTotalPrice();
+            } else {
+              this.goCat(0, id, 0, 0, false, num);
+            }
+          }
+        }
+      }
+    },
+    // Thêm nhiều thông số kỹ thuật vào giỏ hàng；
+    goCatNum: function goCatNum() {
+      this.goCat(1, this.id, 1);
+    },
+    /*
+     * thêm vào giỏ hàng
+     */
+    goCat: function goCat(duo, id, type, cart, unique, data) {
+      var that = this;
+      if (duo) {
+        var productSelect = that.productValue[this.attrValue];
+        //Nếu có một thuộc tính,không có sự lựa chọn,Nhắc người dùng lựa chọn
+        if (that.attr.productAttr.length && productSelect === undefined) {
+          return that.$util.Tips({
+            title: that.$t("Kh\xF4ng c\xF2n h\xE0ng cho s\u1EA3n ph\u1EA9m n\xE0y")
+          });
+        }
+        if (that.attr.productSelect.cart_num <= 0) {
+          return that.$util.Tips({
+            title: that.$t("Th\xEAm \xEDt nh\u1EA5t 1 m\u1EE5c")
+          });
+        }
+      }
+      var q = {
+        product_id: id,
+        type: type,
+        unique: duo ? that.attr.productSelect.unique : cart ? unique : ''
+      };
+      data && data.cart_num < data.min_qty ? q.num = data.min_qty : '';
+      if (!that.cartData.iScart) q.num = duo ? that.attr.productSelect.cart_num : this.storeInfo.min_qty;
+      (0, _store.postCartNum)(q).then(function (res) {
+        if (duo) {
+          that.attr.cartAttr = false;
+          that.$util.Tips({
+            title: that.$t("\u0110\xE3 th\xEAm th\xE0nh c\xF4ng")
+          });
+          // that.page = 1;
+          // that.loadend = false;
+          that.tempArr.forEach(function (item, index) {
+            if (item.id == that.id) {
+              var arrtStock = that.attr.productSelect.stock;
+              var objNum = parseInt(item.cart_num) + parseInt(that.attr.productSelect.cart_num);
+              item.cart_num = objNum > arrtStock ? arrtStock : objNum;
+            }
+          });
+          // that.productslist();
+        }
+
+        that.getCartNum();
+        if (!cart) {
+          that.getCartList(1);
+        }
+      }).catch(function (err) {
+        return that.$util.Tips({
+          title: err
+        });
+      });
+    },
+    // Nhấp vào giỏ hàng thuộc tính duy nhất mặc định
+    goCartDan: function goCartDan(item, index) {
+      if (!this.isLogin) {
+        this.getIsLogin();
+      } else {
+        if (!item.cart_button) {
+          (0, _order2.goShopDetail)(item, this.uid).then(function (res) {
+            uni.navigateTo({
+              url: "/pages/goods_details/index?id=".concat(item.id)
+            });
+          });
+          return;
+        }
+        item.cart_num = item.min_qty;
+        this.$set(this, 'tempArr', this.tempArr);
+        this.goCat(0, item.id, 1);
+      }
+    },
+    goCartDuo: function goCartDuo(item) {
+      if (!this.isLogin) {
+        this.getIsLogin();
+      } else {
+        if (!item.cart_button) {
+          (0, _order2.goShopDetail)(item, this.uid).then(function (res) {
+            uni.navigateTo({
+              url: "/pages/goods_details/index?id=".concat(item.id)
+            });
+          });
+          return;
+        }
+        uni.showLoading({
+          title: this.$t("\u0110ang t\u1EA3i")
+        });
+        this.storeName = item.store_name;
+        this.getAttrs(item.id);
+        this.$set(this, 'id', item.id);
+        this.$set(this.attr, 'cartAttr', true);
+      }
+    },
+    getIsLogin: function getIsLogin() {
+      (0, _login.toLogin)();
+    },
+    // Giao diện chi tiết sản phẩm；
+    getAttrs: function getAttrs(id) {
+      var that = this;
+      (0, _store.getAttr)(id, 0).then(function (res) {
+        uni.hideLoading();
+        that.$set(that.attr, 'productAttr', res.data.productAttr);
+        that.$set(that, 'productValue', res.data.productValue);
+        that.$set(that, 'is_vip', res.data.storeInfo.is_vip);
+        that.$set(that, 'storeInfo', res.data.storeInfo);
+        that.DefaultSelect();
+      });
+    },
+    // Đi tới trang chi tiết
+    goDetail: function goDetail(item) {
+      (0, _order2.goShopDetail)(item, this.uid).then(function (res) {
+        uni.navigateTo({
+          url: "/pages/goods_details/index?id=".concat(item.id)
+        });
+      });
+    },
+    openTap: function openTap() {
+      this.iSlong = false;
+    },
+    closeTap: function closeTap() {
+      this.iSlong = true;
+    },
+    getAllCategory: function getAllCategory(type) {
+      var that = this;
+      if (type || !uni.getStorageSync('CAT2_DATA')) {
+        (0, _store.getCategoryList)().then(function (res) {
+          uni.setStorageSync('CAT2_DATA', res.data);
+          var data = res.data;
+          data.forEach(function (item) {
+            item.children.unshift({
+              id: 0,
+              cate_name: that.$t("t\u1EA5t c\u1EA3")
+            });
+          });
+          that.categoryTitle = data[0].cate_name;
+          that.cid = data[0].id;
+          that.sid = 0;
+          that.navActive = 0;
+          that.tabClick = 0;
+          that.categoryList = data;
+          that.page = 1;
+          that.loadend = false;
+          that.tempArr = [];
+          that.categoryErList = res.data[0].children ? res.data[0].children : [];
+          that.productslist();
+        });
+      } else {
+        var data = uni.getStorageSync('CAT2_DATA');
+        data.forEach(function (item) {
+          item.children.unshift({
+            id: 0,
+            cate_name: that.$t("t\u1EA5t c\u1EA3")
+          });
+        });
+        if (!that.cid) {
+          that.categoryTitle = data[0].cate_name;
+          that.cid = data[0].id;
+          that.sid = 0;
+          that.navActive = 0;
+          that.tabClick = 0;
+          that.categoryList = data;
+          that.categoryErList = data[0].children ? data[0].children : [];
+          that.page = 1;
+          that.loadend = false;
+          that.tempArr = [];
+        }
+        that.productslist();
+      }
+    },
+    tapNav: function tapNav(index, item) {
+      var list = this.categoryList[index];
+      this.navActive = index;
+      this.categoryTitle = list.cate_name;
+      this.categoryErList = item.children ? item.children : [];
+      this.tabClick = 0;
+      this.tabLeft = 0;
+      this.cid = list.id;
+      this.sid = 0;
+      this.page = 1;
+      this.loadend = false;
+      this.tempArr = [];
+      this.productslist();
+    },
+    // Nhấp vào thanh điều hướng
+    longClick: function longClick(index) {
+      if (this.categoryErList.length > 3) {
+        this.tabLeft = (index - 1) * (this.isWidth + 6); //Đặt vị trí gạch chân
+      }
+
+      this.tabClick = index; //Đặt điều hướng nào được nhấp vào
+      this.iSlong = true;
+      this.sid = this.categoryErList[index].id;
+      this.page = 1;
+      this.loadend = false;
+      this.tempArr = [];
+      this.productslist();
+    }
+  },
+  onReachBottom: function onReachBottom() {
+    this.productslist();
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 1252:
+/*!*********************************************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/goods_cate/goods_cate2.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_5_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/postcss-loader/src??ref--8-oneOf-1-3!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./goods_cate2.vue?vue&type=style&index=0&lang=scss& */ 1253);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_5_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_5_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_5_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_5_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_8_oneOf_1_5_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_goods_cate2_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ 1253:
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/pages/goods_cate/goods_cate2.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
+
+/***/ })
+
+}]);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/goods_cate/goods_cate2.js.map
 ;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
     'pages/goods_cate/goods_cate2-create-component',
     {
         'pages/goods_cate/goods_cate2-create-component':(function(module, exports, __webpack_require__){
-            __webpack_require__('df3c')['createComponent'](__webpack_require__("01d1"))
+            __webpack_require__('2')['createComponent'](__webpack_require__(1247))
         })
     },
     [['pages/goods_cate/goods_cate2-create-component']]

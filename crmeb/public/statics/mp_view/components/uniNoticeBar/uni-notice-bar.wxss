@@ -1,2 +1,116 @@
-.uni-noticebar.data-v-455820ee{display:flex;width:100%;box-sizing:border-box;flex-direction:row;align-items:center;width:500rpx}.uni-noticebar-close.data-v-455820ee{margin-left:8px;margin-right:5px}.uni-noticebar-icon.data-v-455820ee{margin-right:5px}.uni-noticebar__content-wrapper.data-v-455820ee{flex:1;flex-direction:column;overflow:hidden}.uni-noticebar__content-wrapper--single.data-v-455820ee{line-height:18px}.uni-noticebar__content-wrapper--single.data-v-455820ee,
-.uni-noticebar__content-wrapper--scrollable.data-v-455820ee{flex-direction:row}.uni-noticebar__content-wrapper--scrollable.data-v-455820ee{position:relative;height:18px}.uni-noticebar__content--scrollable.data-v-455820ee{flex:1;display:block;overflow:hidden}.uni-noticebar__content--single.data-v-455820ee{display:flex;flex:none;width:100%;justify-content:center}.uni-noticebar__content-text.data-v-455820ee{font-size:14px;line-height:18px;word-break:break-all}.uni-noticebar__content-text--single.data-v-455820ee{display:block;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.uni-noticebar__content-text--scrollable.data-v-455820ee{position:absolute;display:block;height:18px;line-height:18px;white-space:nowrap;padding-left:100%;-webkit-animation:notice-data-v-455820ee 10s 0s linear infinite both;animation:notice-data-v-455820ee 10s 0s linear infinite both;-webkit-animation-play-state:paused;animation-play-state:paused}.uni-noticebar__more.data-v-455820ee{display:inline-flex;flex-direction:row;flex-wrap:nowrap;align-items:center;padding-left:5px}.uni-noticebar__more-text.data-v-455820ee{font-size:14px}@-webkit-keyframes notice-data-v-455820ee{100%{-webkit-transform:translate3d(-100%,0,0);transform:translate3d(-100%,0,0)}}@keyframes notice-data-v-455820ee{100%{-webkit-transform:translate3d(-100%,0,0);transform:translate3d(-100%,0,0)}}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.uni-noticebar.data-v-dc01ce98 {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  width: 500rpx;
+}
+.uni-noticebar-close.data-v-dc01ce98 {
+  margin-left: 8px;
+  margin-right: 5px;
+}
+.uni-noticebar-icon.data-v-dc01ce98 {
+  margin-right: 5px;
+}
+.uni-noticebar__content-wrapper.data-v-dc01ce98 {
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+.uni-noticebar__content-wrapper--single.data-v-dc01ce98 {
+  line-height: 18px;
+}
+.uni-noticebar__content-wrapper--single.data-v-dc01ce98,
+.uni-noticebar__content-wrapper--scrollable.data-v-dc01ce98 {
+  flex-direction: row;
+}
+.uni-noticebar__content-wrapper--scrollable.data-v-dc01ce98 {
+  position: relative;
+  height: 18px;
+}
+.uni-noticebar__content--scrollable.data-v-dc01ce98 {
+  flex: 1;
+  display: block;
+  overflow: hidden;
+}
+.uni-noticebar__content--single.data-v-dc01ce98 {
+  display: flex;
+  flex: none;
+  width: 100%;
+  justify-content: center;
+}
+.uni-noticebar__content-text.data-v-dc01ce98 {
+  font-size: 14px;
+  line-height: 18px;
+  word-break: break-all;
+}
+.uni-noticebar__content-text--single.data-v-dc01ce98 {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.uni-noticebar__content-text--scrollable.data-v-dc01ce98 {
+  position: absolute;
+  display: block;
+  height: 18px;
+  line-height: 18px;
+  white-space: nowrap;
+  padding-left: 100%;
+  -webkit-animation: notice-data-v-dc01ce98 10s 0s linear infinite both;
+          animation: notice-data-v-dc01ce98 10s 0s linear infinite both;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+.uni-noticebar__more.data-v-dc01ce98 {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-left: 5px;
+}
+.uni-noticebar__more-text.data-v-dc01ce98 {
+  font-size: 14px;
+}
+@-webkit-keyframes notice-data-v-dc01ce98 {
+100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+}
+}
+@keyframes notice-data-v-dc01ce98 {
+100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+}
+}

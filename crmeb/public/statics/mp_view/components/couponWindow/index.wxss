@@ -1,1 +1,191 @@
-.mask.data-v-0d8fc232{z-index:9999}.coupon-window.data-v-0d8fc232{width:572rpx;height:760rpx;position:fixed;top:20%;z-index:10000;left:50%;margin-left:-286rpx;-webkit-transform:translate3d(0,-200%,0);transform:translate3d(0,-200%,0);transition:all .3s cubic-bezier(.25,.5,.5,.9);border-radius:30rpx 30rpx 0 0;overflow-x:hidden}.co-bag.data-v-0d8fc232{width:100%;height:250rpx;z-index:33333;top:-40rpx;position:absolute}.coupon-window.data-v-0d8fc232:after{width:900rpx;height:650rpx;position:absolute;top:0;left:50%;z-index:11111;margin-left:-450rpx;content:"";border-radius:50% 50% 0 0;background:var(--view-theme)}.coupon-window.on.data-v-0d8fc232{-webkit-transform:translateZ(0);transform:translateZ(0)}.coupon-window .couponWinList.data-v-0d8fc232{width:480rpx;margin:157rpx 0 0 50rpx;height:340rpx;overflow-y:scroll}.coupon-window .couponWinList .item.data-v-0d8fc232{width:100%;height:120rpx;background-color:#fff;position:relative;margin-bottom:17rpx;position:relative;z-index:99999}.coupon-window .couponWinList .item .left.data-v-0d8fc232{border-right:1px dashed #ccc}.coupon-window .couponWinList .label.data-v-0d8fc232{width:28rpx;height:64rpx;display:block;position:absolute;top:0;right:12rpx}.coupon-window .couponWinList .item.data-v-0d8fc232::after{content:"";position:absolute;width:18rpx;height:18rpx;border-radius:50%;background-color:var(--view-theme);left:25.5%;bottom:0;margin-bottom:-9rpx}.coupon-window .couponWinList .item.data-v-0d8fc232::before{content:"";position:absolute;width:18rpx;height:18rpx;border-radius:50%;background-color:var(--view-theme);left:25.5%;top:0;margin-top:-9rpx}.coupon-window .couponWinList .item .money.data-v-0d8fc232{width:130rpx;text-align:center;font-size:26rpx;font-weight:700}.coupon-window .couponWinList .item .min_money.data-v-0d8fc232{color:#ccc;font-size:18rpx;text-align:center}.coupon-window .couponWinList .item .money .num.data-v-0d8fc232{font-size:40rpx}.coupon-window .couponWinList .item .text.data-v-0d8fc232{width:349rpx;font-size:22rpx;color:#ccc;padding:0 29rpx;box-sizing:border-box}.coupon-window .couponWinList .item .text .image.data-v-0d8fc232{width:32rpx;height:32rpx;display:inline-block;vertical-align:bottom;margin-right:10rpx}.coupon-window .couponWinList .item .text .name.data-v-0d8fc232{font-size:26rpx;color:var(--view-priceColor);font-weight:700;margin-bottom:9rpx;width:250rpx}.coupon-window .lid.data-v-0d8fc232{background:hsla(0,0%,100%,.2);width:582rpx;height:224rpx;position:fixed;z-index:22222;left:50%;top:0;margin:424rpx 0 0 -296rpx}.coupon-window .lid.data-v-0d8fc232:after{width:920rpx;height:280rpx;position:absolute;top:-100%;left:50%;z-index:22222;margin-left:-460rpx;content:"";border-radius:0 0 50% 50%;background:var(--view-theme)}.coupon-window .lid .bnt.data-v-0d8fc232{font-size:29rpx;width:440rpx;height:80rpx;border-radius:40rpx;background:linear-gradient(90deg,#ffca52,#fe960f);text-align:center;line-height:80rpx;font-weight:700;margin:98rpx auto 0 auto;color:#fff}.coupon-window .lid .iconfont.data-v-0d8fc232{color:#fff;font-size:60rpx;text-align:center;margin-top:87rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.mask.data-v-66177934 {
+  z-index: 9999;
+}
+.coupon-window.data-v-66177934 {
+  width: 572rpx;
+  height: 760rpx;
+  position: fixed;
+  top: 20%;
+  z-index: 10000;
+  left: 50%;
+  margin-left: -286rpx;
+  -webkit-transform: translate3d(0, -200%, 0);
+          transform: translate3d(0, -200%, 0);
+  transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  border-radius: 30rpx 30rpx 0 0;
+  overflow-x: hidden;
+}
+.co-bag.data-v-66177934 {
+  width: 100%;
+  height: 250rpx;
+  z-index: 33333;
+  top: -40rpx;
+  position: absolute;
+}
+.coupon-window.data-v-66177934:after {
+  width: 900rpx;
+  height: 650rpx;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  z-index: 11111;
+  margin-left: -450rpx;
+  content: "";
+  border-radius: 50% 50% 0 0;
+  background: var(--view-theme);
+}
+.coupon-window.on.data-v-66177934 {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.coupon-window .couponWinList.data-v-66177934 {
+  width: 480rpx;
+  margin: 157rpx 0 0 50rpx;
+  height: 340rpx;
+  overflow-y: scroll;
+}
+.coupon-window .couponWinList .item.data-v-66177934 {
+  width: 100%;
+  height: 120rpx;
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 17rpx;
+  position: relative;
+  z-index: 99999;
+}
+.coupon-window .couponWinList .item .left.data-v-66177934 {
+  border-right: 1px dashed #ccc;
+}
+.coupon-window .couponWinList .label.data-v-66177934 {
+  width: 28rpx;
+  height: 64rpx;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 12rpx;
+}
+.coupon-window .couponWinList .item.data-v-66177934::after {
+  content: "";
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background-color: var(--view-theme);
+  left: 25.5%;
+  bottom: 0;
+  margin-bottom: -9rpx;
+}
+.coupon-window .couponWinList .item.data-v-66177934::before {
+  content: "";
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background-color: var(--view-theme);
+  left: 25.5%;
+  top: 0;
+  margin-top: -9rpx;
+}
+.coupon-window .couponWinList .item .money.data-v-66177934 {
+  width: 130rpx;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: bold;
+}
+.coupon-window .couponWinList .item .min_money.data-v-66177934 {
+  color: #ccc;
+  font-size: 18rpx;
+  text-align: center;
+}
+.coupon-window .couponWinList .item .money .num.data-v-66177934 {
+  font-size: 40rpx;
+}
+.coupon-window .couponWinList .item .text.data-v-66177934 {
+  width: 349rpx;
+  font-size: 22rpx;
+  color: #ccc;
+  padding: 0 29rpx;
+  box-sizing: border-box;
+}
+.coupon-window .couponWinList .item .text .image.data-v-66177934 {
+  width: 32rpx;
+  height: 32rpx;
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 10rpx;
+}
+.coupon-window .couponWinList .item .text .name.data-v-66177934 {
+  font-size: 26rpx;
+  color: var(--view-priceColor);
+  font-weight: bold;
+  margin-bottom: 9rpx;
+  width: 250rpx;
+}
+.coupon-window .lid.data-v-66177934 {
+  background: rgba(255, 255, 255, 0.2);
+  width: 582rpx;
+  height: 224rpx;
+  position: fixed;
+  z-index: 22222;
+  left: 50%;
+  top: 0%;
+  margin: 424rpx 0 0 -296rpx;
+}
+.coupon-window .lid.data-v-66177934:after {
+  width: 920rpx;
+  height: 280rpx;
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  z-index: 22222;
+  margin-left: -460rpx;
+  content: "";
+  border-radius: 0 0 50% 50%;
+  background: var(--view-theme);
+}
+.coupon-window .lid .bnt.data-v-66177934 {
+  font-size: 29rpx;
+  width: 440rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background: linear-gradient(90deg, #FFCA52 0%, #FE960F 100%);
+  text-align: center;
+  line-height: 80rpx;
+  font-weight: bold;
+  margin: 98rpx auto 0 auto;
+  color: #fff;
+}
+.coupon-window .lid .iconfont.data-v-66177934 {
+  color: #fff;
+  font-size: 60rpx;
+  text-align: center;
+  margin-top: 87rpx;
+}

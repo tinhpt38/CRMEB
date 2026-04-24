@@ -1,1 +1,78 @@
-uni-radio .uni-radio-input.uni-radio-input-checked, radio .wx-radio-input.wx-radio-input-checked{border:1px solid #2a7efb!important;background-color:#2a7efb!important}checkbox .uni-checkbox-input.uni-checkbox-input-checked, checkbox .wx-checkbox-input.wx-checkbox-input-checked{border:1px solid #2a7efb!important;background-color:#2a7efb!important;color:#fff!important}uni-checkbox .uni-checkbox-input, wx-checkbox .wx-checkbox-input{border-radius:unset!important}.grid-gap-8rpx{grid-gap:8rpx;gap:8rpx}.of0b21{background-color:rgba(0,0,0,.5);border-radius:0 12rpx 0 12rpx}.bb-e{border-bottom:1rpx solid #eee}.icon-a-ic_CompleteSelect{color:#2a7efb}.bg-mer{background-color:#2a7efb}.h-156{height:156rpx}.pt-8{padding-top:8rpx}.px-30{padding:0 30rpx}.footer-box{height:126rpx}.footer-box .w-690{width:690rpx}.ml-48{margin-left:48rpx}.top-2{top:2rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+ uni-radio .uni-radio-input.uni-radio-input-checked, radio .wx-radio-input.wx-radio-input-checked {
+  border: 1px solid #2A7EFB !important;
+  background-color: #2A7EFB !important;
+}
+ checkbox .uni-checkbox-input.uni-checkbox-input-checked, checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border: 1px solid #2A7EFB !important;
+  background-color: #2A7EFB !important;
+  color: #fff !important;
+}
+ uni-checkbox .uni-checkbox-input, wx-checkbox .wx-checkbox-input {
+  border-radius: unset !important;
+}
+.grid-gap-8rpx {
+  grid-gap: 8rpx;
+  gap: 8rpx;
+}
+.of0b21 {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0 12rpx 0 12rpx;
+}
+.bb-e {
+  border-bottom: 1rpx solid #eee;
+}
+.icon-a-ic_CompleteSelect {
+  color: #2A7EFB;
+}
+.bg-mer {
+  background-color: #2A7EFB;
+}
+.h-156 {
+  height: 156rpx;
+}
+.pt-8 {
+  padding-top: 8rpx;
+}
+.px-30 {
+  padding: 0 30rpx;
+}
+.footer-box {
+  height: 126rpx;
+}
+.footer-box .w-690 {
+  width: 690rpx;
+}
+.ml-48 {
+  margin-left: 48rpx;
+}
+.top-2 {
+  top: 2rpx;
+}

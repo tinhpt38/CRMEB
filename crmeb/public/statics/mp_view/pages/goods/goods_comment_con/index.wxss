@@ -1,1 +1,109 @@
-.evaluate-con .score.data-v-63811459{background-color:#fff;border-top:1rpx solid #f5f5f5;font-size:28rpx;color:#282828;padding:48rpx 30rpx 65rpx 30rpx}.evaluate-con .score .item ~ .item.data-v-63811459{margin-top:30rpx}.evaluate-con .score .item .starsList.data-v-63811459{padding:0 35rpx 0 40rpx}.evaluate-con .score .item .starsList .iconfont.data-v-63811459{font-size:40rpx;color:#aaa}.evaluate-con .score .item .starsList .iconfont ~ .iconfont.data-v-63811459{margin-left:20rpx}.evaluate-con .score .item .evaluate.data-v-63811459{color:#aaa;font-size:24rpx}.evaluate-con .score .textarea.data-v-63811459{width:690rpx;background-color:#fafafa;border-radius:10rpx;margin-top:48rpx}.evaluate-con .score .textarea textarea.data-v-63811459{font-size:28rpx;padding:20rpx 8rpx 0 8rpx;width:100%;box-sizing:border-box;height:160rpx}.evaluate-con .score .textarea .placeholder.data-v-63811459{color:#bbb}.evaluate-con .score .textarea .list.data-v-63811459{margin-top:25rpx;padding-left:5rpx}.evaluate-con .score .textarea .list .pictrue.data-v-63811459{width:140rpx;height:140rpx;margin:0 0 35rpx 25rpx;position:relative;font-size:22rpx;color:#bbb}.evaluate-con .score .textarea .list .pictrue.data-v-63811459:nth-last-child(1){border:1rpx solid #ddd;box-sizing:border-box}.evaluate-con .score .textarea .list .pictrue image.data-v-63811459{width:100%;height:100%;border-radius:3rpx}.evaluate-con .score .textarea .list .pictrue .icon-guanbi1.data-v-63811459{font-size:45rpx;position:absolute;top:-20rpx;right:-20rpx}.evaluate-con .score .textarea .list .pictrue .icon-icon25201.data-v-63811459{color:#bfbfbf;font-size:50rpx}.evaluate-con .score .evaluateBnt.data-v-63811459{font-size:30rpx;color:#fff;width:690rpx;height:86rpx;border-radius:43rpx;text-align:center;line-height:86rpx;margin-top:45rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.evaluate-con .score.data-v-703f1ecc {
+  background-color: #fff;
+  border-top: 1rpx solid #f5f5f5;
+  font-size: 28rpx;
+  color: #282828;
+  padding: 48rpx 30rpx 65rpx 30rpx;
+}
+.evaluate-con .score .item ~ .item.data-v-703f1ecc {
+  margin-top: 30rpx;
+}
+.evaluate-con .score .item .starsList.data-v-703f1ecc {
+  padding: 0 35rpx 0 40rpx;
+}
+.evaluate-con .score .item .starsList .iconfont.data-v-703f1ecc {
+  font-size: 40rpx;
+  color: #aaa;
+}
+.evaluate-con .score .item .starsList .iconfont ~ .iconfont.data-v-703f1ecc {
+  margin-left: 20rpx;
+}
+.evaluate-con .score .item .evaluate.data-v-703f1ecc {
+  color: #aaa;
+  font-size: 24rpx;
+}
+.evaluate-con .score .textarea.data-v-703f1ecc {
+  width: 690rpx;
+  background-color: #fafafa;
+  border-radius: 10rpx;
+  margin-top: 48rpx;
+}
+.evaluate-con .score .textarea textarea.data-v-703f1ecc {
+  font-size: 28rpx;
+  padding: 20rpx 8rpx 0 8rpx;
+  width: 100%;
+  box-sizing: border-box;
+  height: 160rpx;
+}
+.evaluate-con .score .textarea .placeholder.data-v-703f1ecc {
+  color: #bbb;
+}
+.evaluate-con .score .textarea .list.data-v-703f1ecc {
+  margin-top: 25rpx;
+  padding-left: 5rpx;
+}
+.evaluate-con .score .textarea .list .pictrue.data-v-703f1ecc {
+  width: 140rpx;
+  height: 140rpx;
+  margin: 0 0 35rpx 25rpx;
+  position: relative;
+  font-size: 22rpx;
+  color: #bbb;
+}
+.evaluate-con .score .textarea .list .pictrue.data-v-703f1ecc:nth-last-child(1) {
+  border: 1rpx solid #ddd;
+  box-sizing: border-box;
+}
+.evaluate-con .score .textarea .list .pictrue image.data-v-703f1ecc {
+  width: 100%;
+  height: 100%;
+  border-radius: 3rpx;
+}
+.evaluate-con .score .textarea .list .pictrue .icon-guanbi1.data-v-703f1ecc {
+  font-size: 45rpx;
+  position: absolute;
+  top: -20rpx;
+  right: -20rpx;
+}
+.evaluate-con .score .textarea .list .pictrue .icon-icon25201.data-v-703f1ecc {
+  color: #bfbfbf;
+  font-size: 50rpx;
+}
+.evaluate-con .score .evaluateBnt.data-v-703f1ecc {
+  font-size: 30rpx;
+  color: #fff;
+  width: 690rpx;
+  height: 86rpx;
+  border-radius: 43rpx;
+  text-align: center;
+  line-height: 86rpx;
+  margin-top: 45rpx;
+}

@@ -1,1 +1,106 @@
-.nav.data-v-339d9c33{position:fixed;top:0;left:0;width:100%;height:106rpx;background-color:#fff;font-size:30rpx;color:#999;z-index:9}.coupon-list .item .money .num.data-v-339d9c33{font-size:48rpx}.coupon-list .item .text .data.data-v-339d9c33{margin-top:10rpx}.coupon-list .item .text.data-v-339d9c33{padding-bottom:12rpx}.nav .acea-row.data-v-339d9c33{border-top:5rpx solid transparent;border-bottom:5rpx solid transparent}.nav .acea-row.on.data-v-339d9c33{border-bottom-color:var(--view-theme);color:#282828}.coupon-list .pic-num.data-v-339d9c33{color:#fff;font-size:24rpx}.coupon-list .item .text .condition.data-v-339d9c33{display:flex;align-items:center}.coupon-list .item .text .condition .title.data-v-339d9c33{font-size:26rpx;font-weight:500;line-height:30rpx}.coupon-list .item .text .condition .name.data-v-339d9c33{font-size:28rpx;font-weight:500}.coupon-list .item .text .condition .pic.data-v-339d9c33{width:30rpx;height:30rpx;display:block;margin-right:10rpx;display:inline-block;vertical-align:middle}.condition .line-title.data-v-339d9c33{width:90rpx;height:40rpx!important;line-height:40rpx;text-align:center;box-sizing:border-box;background:#fff7f7;border:1rpx solid var(--view-theme);opacity:1;border-radius:20rpx;font-size:18rpx!important;color:var(--view-theme);margin-right:12rpx;text-align:center;display:inline-block;vertical-align:middle}.condition .line-title.bg-color-huic.data-v-339d9c33{border-color:#bbb!important;color:#bbb!important;background-color:#f5f5f5!important}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.nav.data-v-67877894 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 106rpx;
+  background-color: #ffffff;
+  font-size: 30rpx;
+  color: #999999;
+  z-index: 9;
+}
+.coupon-list .item .money .num.data-v-67877894 {
+  font-size: 48rpx;
+}
+.coupon-list .item .text .data.data-v-67877894 {
+  margin-top: 10rpx;
+}
+.coupon-list .item .text.data-v-67877894 {
+  padding-bottom: 12rpx;
+}
+.nav .acea-row.data-v-67877894 {
+  border-top: 5rpx solid transparent;
+  border-bottom: 5rpx solid transparent;
+}
+.nav .acea-row.on.data-v-67877894 {
+  border-bottom-color: var(--view-theme);
+  color: #282828;
+}
+.coupon-list .pic-num.data-v-67877894 {
+  color: #ffffff;
+  font-size: 24rpx;
+}
+.coupon-list .item .text .condition.data-v-67877894 {
+  display: flex;
+  align-items: center;
+}
+.coupon-list .item .text .condition .title.data-v-67877894 {
+  font-size: 26rpx;
+  font-weight: 500;
+  line-height: 30rpx;
+}
+.coupon-list .item .text .condition .name.data-v-67877894 {
+  font-size: 28rpx;
+  font-weight: 500;
+  /* 
+  display: flex;
+  align-items: center; */
+}
+.coupon-list .item .text .condition .pic.data-v-67877894 {
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
+  margin-right: 10rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.condition .line-title.data-v-67877894 {
+  width: 90rpx;
+  height: 40rpx !important;
+  line-height: 40rpx;
+  text-align: center;
+  box-sizing: border-box;
+  background: #fff7f7;
+  border: 1rpx solid var(--view-theme);
+  opacity: 1;
+  border-radius: 20rpx;
+  font-size: 18rpx !important;
+  color: var(--view-theme);
+  margin-right: 12rpx;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+}
+.condition .line-title.bg-color-huic.data-v-67877894 {
+  border-color: #bbb !important;
+  color: #bbb !important;
+  background-color: #f5f5f5 !important;
+}

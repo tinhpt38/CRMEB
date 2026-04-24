@@ -1,1 +1,9 @@
-page.data-v-10e8f5d2{background-color:#fff}.content.data-v-10e8f5d2{padding:40rpx 30rpx;line-height:2}
+
+page.data-v-c32d824a {
+	background-color: #fff;
+}
+.content.data-v-c32d824a {
+	padding: 40rpx 30rpx;
+	line-height: 2;
+}
+

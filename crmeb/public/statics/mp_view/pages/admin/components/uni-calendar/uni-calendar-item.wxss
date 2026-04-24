@@ -1,1 +1,87 @@
-.uni-calendar-item__weeks-box.data-v-6eecc035{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}.uni-calendar-item__weeks-box-text.data-v-6eecc035{font-size:14px;color:#333}.uni-calendar-item__weeks-lunar-text.data-v-6eecc035{font-size:12px;color:#333}.uni-calendar-item__weeks-box-item.data-v-6eecc035{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100rpx;height:100rpx}.uni-calendar-item__weeks-box-circle.data-v-6eecc035{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:8px;background-color:#e43d33}.uni-calendar-item--disable.data-v-6eecc035{background-color:hsla(0,0%,97.6%,.3);color:silver}.uni-calendar-item--isDay-text.data-v-6eecc035{color:#007aff}.uni-calendar-item--isDay.data-v-6eecc035{background-color:#007aff;opacity:.8;color:#fff}.uni-calendar-item--extra.data-v-6eecc035{color:#e43d33;opacity:.8}.uni-calendar-item--checked.data-v-6eecc035{background-color:#007aff;color:#fff;opacity:.8}.uni-calendar-item--multiple.data-v-6eecc035{background-color:#007aff;color:#fff;opacity:.8}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.uni-calendar-item__weeks-box.data-v-6eecc381 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.uni-calendar-item__weeks-box-text.data-v-6eecc381 {
+  font-size: 14px;
+  color: #333;
+}
+.uni-calendar-item__weeks-lunar-text.data-v-6eecc381 {
+  font-size: 12px;
+  color: #333;
+}
+.uni-calendar-item__weeks-box-item.data-v-6eecc381 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100rpx;
+  height: 100rpx;
+}
+.uni-calendar-item__weeks-box-circle.data-v-6eecc381 {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background-color: #e43d33;
+}
+.uni-calendar-item--disable.data-v-6eecc381 {
+  background-color: rgba(249, 249, 249, 0.3);
+  color: #c0c0c0;
+}
+.uni-calendar-item--isDay-text.data-v-6eecc381 {
+  color: #007aff;
+}
+.uni-calendar-item--isDay.data-v-6eecc381 {
+  background-color: #007aff;
+  opacity: 0.8;
+  color: #fff;
+}
+.uni-calendar-item--extra.data-v-6eecc381 {
+  color: #e43d33;
+  opacity: 0.8;
+}
+.uni-calendar-item--checked.data-v-6eecc381 {
+  background-color: #007aff;
+  color: #fff;
+  opacity: 0.8;
+}
+.uni-calendar-item--multiple.data-v-6eecc381 {
+  background-color: #007aff;
+  color: #fff;
+  opacity: 0.8;
+}

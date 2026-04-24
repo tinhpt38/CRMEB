@@ -1,1 +1,57 @@
-.marquee-wrap.data-v-303a5a66{width:100%;height:40rpx;border-radius:20px;margin:0 auto;overflow:hidden}.marquee-wrap .marquee-list.data-v-303a5a66{padding:0}.marquee-wrap .marquee-list ._li.data-v-303a5a66{width:100%;height:100%;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;padding:0;list-style:none;line-height:40rpx;text-align:center;color:#fff;font-size:20rpx;font-weight:400}.marquee-wrap .animate-up.data-v-303a5a66{transition:all .5s ease-in-out;-webkit-transform:translateY(-40rpx);transform:translateY(-40rpx)}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.marquee-wrap.data-v-fd80118c {
+  width: 100%;
+  height: 40rpx;
+  border-radius: 20px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.marquee-wrap .marquee-list.data-v-fd80118c {
+  padding: 0;
+}
+.marquee-wrap .marquee-list ._li.data-v-fd80118c {
+  width: 100%;
+  height: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0;
+  list-style: none;
+  line-height: 40rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: 400;
+}
+.marquee-wrap .animate-up.data-v-fd80118c {
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: translateY(-40rpx);
+          transform: translateY(-40rpx);
+}

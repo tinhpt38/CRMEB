@@ -1,1 +1,67 @@
-page{background-color:#fff}.detailed.data-v-0ba926cf{padding:0 30rpx 0 30rpx;background-color:#fff}.detailed .list .item.data-v-0ba926cf{height:122rpx;border-bottom:1px solid #eee}.detailed .list .item .text .name.data-v-0ba926cf{font-size:28rpx;color:#282828}.detailed .list .item .text .data.data-v-0ba926cf{color:#999;font-size:24rpx}.detailed .list .item .num.data-v-0ba926cf{font-size:32rpx;color:#16ac57}.detailed .list .item .on.data-v-0ba926cf{color:#e93323}.empty.data-v-0ba926cf{padding-top:300rpx;font-size:30rpx;text-align:center;color:#999}.empty .image.data-v-0ba926cf{width:414rpx;height:214rpx;margin-bottom:20rpx}
+
+page {
+	background-color: #FFFFFF;
+}
+
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.detailed.data-v-4545580e {
+  padding: 0 30rpx 0 30rpx;
+  background-color: #fff;
+}
+.detailed .list .item.data-v-4545580e {
+  height: 122rpx;
+  border-bottom: 1px solid #EEEEEE;
+}
+.detailed .list .item .text .name.data-v-4545580e {
+  font-size: 28rpx;
+  color: #282828;
+}
+.detailed .list .item .text .data.data-v-4545580e {
+  color: #999;
+  font-size: 24rpx;
+}
+.detailed .list .item .num.data-v-4545580e {
+  font-size: 32rpx;
+  color: #16AC57;
+}
+.detailed .list .item .on.data-v-4545580e {
+  color: #E93323;
+}
+.empty.data-v-4545580e {
+  padding-top: 300rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: #999999;
+}
+.empty .image.data-v-4545580e {
+  width: 414rpx;
+  height: 214rpx;
+  margin-bottom: 20rpx;
+}

@@ -1,9 +1,1075 @@
-require('./common/vendor.js');(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["subpackage/diyComponents/customComponent"],{"0b89":function(t,e,o){"use strict";o.d(e,"b",(function(){return i})),o.d(e,"c",(function(){return n})),o.d(e,"a",(function(){}));var i=function(){var t=this,e=t.$createElement,o=(t._self._c,["article","coupon","goods"].includes(t.selectTypeValue)&&t.dataList.length>0),i=o?t.__get_style([t.getListContainerStyle]):null,n=o?t.__map(t.dataList,(function(e,o){var i=t.__get_orig(e),n=t.__get_style([t.getListItemStyle]),r=t.__get_style([t.getDataWrapperStyle]),a=t.__get_style([t.itemWrapperStyle]),c=t.__map(t.visibleComponents,(function(o,i){var n=t.__get_orig(o),r=t.__get_style([t.getComponentStyle(o.style)]),a="Picture"===o.component?t.__get_style([t.getPictureStyle(o.propValue)]):null,c="Picture"===o.component?t.getPictureUrl(o,e):null,l="Picture"!==o.component&&"Text"===o.component?t.__get_style([t.getTextBgStyle(o.propValue)]):null,s="Picture"!==o.component&&"Text"===o.component?t.__get_style([t.getTextStyle(o.propValue)]):null,u="Picture"!==o.component&&"Text"===o.component?t.getDisplayText(o,e):null,p="Picture"!==o.component&&"Text"!==o.component&&"Icon"===o.component?t.__get_style([t.getIconStyle(o.propValue)]):null,d="Picture"!==o.component&&"Text"!==o.component&&"Icon"!==o.component&&"Line"===o.component?t.__get_style([t.getLineStyle(o.propValue)]):null,g="Picture"!==o.component&&"Text"!==o.component&&"Icon"!==o.component&&"Line"!==o.component&&"Panel"===o.component?t.__get_style([t.getPanelStyle(o.propValue)]):null;return{$orig:n,s4:r,s5:a,m0:c,s6:l,s7:s,m1:u,s8:p,s9:d,s10:g}}));return{$orig:i,s1:n,s2:r,s3:a,l0:c}})):null,r=o?null:t.__get_style([t.getDataWrapperStyle]),a=o?null:t.__get_style([t.itemWrapperStyle]),c=o?null:t.__map(t.visibleComponents,(function(e,o){var i=t.__get_orig(e),n=t.__get_style([t.getComponentStyle(e.style)]),r="Picture"===e.component?t.__get_style([t.getPictureStyle(e.propValue)]):null,a="Picture"===e.component?t.getPictureUrl(e,t.userInfo):null,c="Picture"!==e.component&&"Text"===e.component?t.__get_style([t.getTextBgStyle(e.propValue)]):null,l="Picture"!==e.component&&"Text"===e.component?t.__get_style([t.getTextStyle(e.propValue)]):null,s="Picture"!==e.component&&"Text"===e.component?t.getDisplayText(e,t.userInfo):null,u="Picture"!==e.component&&"Text"!==e.component&&"Icon"===e.component?t.__get_style([t.getIconStyle(e.propValue)]):null,p="Picture"!==e.component&&"Text"!==e.component&&"Icon"!==e.component&&"Line"===e.component?t.__get_style([t.getLineStyle(e.propValue)]):null,d="Picture"!==e.component&&"Text"!==e.component&&"Icon"!==e.component&&"Line"!==e.component&&"Panel"===e.component?t.__get_style([t.getPanelStyle(e.propValue)]):null;return{$orig:i,s13:n,s14:r,m2:a,s15:c,s16:l,m3:s,s17:u,s18:p,s19:d}}));t.$mp.data=Object.assign({},{$root:{g0:o,s0:i,l1:n,s11:r,s12:a,l2:c}})},n=[]},"157f":function(t,e,o){"use strict";(function(t){var i=o("47a9");Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var n=i(o("7ca3")),r=o("b8fd"),a=o("8f59");function c(t,e){var o=Object.keys(t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(t);e&&(i=i.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),o.push.apply(o,i)}return o}function l(t){for(var e=1;e<arguments.length;e++){var o=null!=arguments[e]?arguments[e]:{};e%2?c(Object(o),!0).forEach((function(e){(0,n.default)(t,e,o[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(o)):c(Object(o)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(o,e))}))}return t}var s={name:"customComponent",components:{CommonWrapper:function(){o.e("subpackage/diyComponents/commonWrapper").then(function(){return resolve(o("11450"))}.bind(null,o)).catch(o.oe)}},props:{dataConfig:{type:Object,default:function(){return{}}}},data:function(){return{dataList:[],articleList:[],couponList:[],goodsList:[],userInfo:{}}},computed:l(l({},(0,a.mapGetters)(["isLogin"])),{},{configObj:function(){return this.dataConfig},customComponents:function(){return this.configObj.customComponents||{}},visibleComponents:function(){return this.customComponents&&this.customComponents.list?this.customComponents.list.filter((function(t){return!t.isHidden})):[]},contentScale:function(){var t=this.configObj,e=t.marginConfig,o=t.paddingConfig,i=t.borderConfig,n=t.paddingDataConfig,r=t.borderDataConfig,a=t.marginDataConfig,c=375;if(e&&(e.isAll?c-=(e.valList[1].val||0)+(e.valList[3].val||0):c-=2*(e.val||0)),o&&(o.isAll?c-=(o.valList[1].val||0)+(o.valList[3].val||0):c-=2*(o.val||0)),i&&i.tabVal){var l=2*(i.widthConfig.val||0);c-=l}if(a&&(a.isAll?c-=(a.valList[1].val||0)+(a.valList[3].val||0):c-=2*(a.val||0)),n&&(n.isAll?c-=(n.valList[1].val||0)+(n.valList[3].val||0):c-=2*(n.val||0)),r&&r.tabVal){var s=2*(r.widthConfig.val||0);c-=s}return c/375},currentDisplayMode:function(){return"article"===this.selectTypeValue?this.configObj.articleDisplayMode:"coupon"===this.selectTypeValue?this.configObj.couponDisplayMode:"goods"===this.selectTypeValue?this.configObj.goodsDisplayMode:null},currentColumnStyle:function(){return"article"===this.selectTypeValue?this.configObj.articleColumnStyle:"coupon"===this.selectTypeValue?this.configObj.couponColumnStyle:"goods"===this.selectTypeValue?this.configObj.goodsColumnStyle:null},selectTypeValue:function(){return this.configObj.selectType?this.configObj.selectType.activeValue:"user"},getDataWrapperStyle:function(){var t=this.configObj,e=t.filletDataConfig,o=t.marginDataConfig,i=t.paddingDataConfig,n=t.componentBgDataConfig,r=t.borderDataConfig,a=t.shadowDataConfig,c={};if(e&&(e.type?c.borderRadius="".concat(e.valList[0].val,"px ").concat(e.valList[1].val,"px ").concat(e.valList[3].val,"px ").concat(e.valList[2].val,"px"):c.borderRadius="".concat(e.val,"px")),o&&(o.isAll?(c.marginTop="".concat(o.valList[0].val,"px"),c.marginRight="".concat(o.valList[1].val,"px"),c.marginBottom="".concat(o.valList[2].val,"px"),c.marginLeft="".concat(o.valList[3].val,"px")):c.margin="".concat(o.val,"px")),i&&(i.isAll?(c.paddingTop="".concat(i.valList[0].val,"px"),c.paddingRight="".concat(i.valList[1].val,"px"),c.paddingBottom="".concat(i.valList[2].val,"px"),c.paddingLeft="".concat(i.valList[3].val,"px")):c.padding="".concat(i.val,"px")),n)if(0===n.tabVal){var l=n.colorConfig.color;l&&l.length>0&&(c.background="linear-gradient(".concat(0===n.colorDirection.tabVal?"90deg":1===n.colorDirection.tabVal?"180deg":2===n.colorDirection.tabVal?"135deg":"45deg",", ").concat(l[0].item," 0%, ").concat(l[1]?l[1].item:l[0].item," 100%)"))}else n.imageConfig.url&&(c.backgroundImage="url(".concat(n.imageConfig.url,")"),c.backgroundSize="100% 100%",c.backgroundRepeat="no-repeat");return r&&r.tabVal&&(c.borderStyle=0===r.styleConfig.tabVal?"solid":1===r.styleConfig.tabVal?"dashed":"dotted",c.borderWidth="".concat(r.widthConfig.val,"px"),c.borderColor=r.colorConfig.color[0].item),a&&a.tabVal&&(c.boxShadow="".concat(a.xConfig.val,"px ").concat(a.yConfig.val,"px ").concat(a.blurConfig.val,"px ").concat(a.spreadConfig.val,"px ").concat(a.colorConfig.color[0].item)),c},itemWrapperStyle:function(){var t=this.configObj,e=t.marginConfig,o=t.paddingConfig,i=t.borderConfig,n=t.marginDataConfig,r=t.paddingDataConfig,a=t.borderDataConfig,c=0,l=0,s=0;e&&(c+=e.isAll?e.valList[0].val+e.valList[2].val||0:e.val||0),o&&(l+=o.isAll?o.valList[0].val+o.valList[2].val||0:o.val||0),i&&i.tabVal&&(s+=i.widthConfig.val/2),n&&(c+=n.isAll?n.valList[0].val+n.valList[2].val||0:n.val||0),r&&(l+=r.isAll?r.valList[0].val+r.valList[2].val||0:r.val||0),a&&a.tabVal&&(s+=a.widthConfig.val/2);var u=this.contentScale;this.customComponents.canvasHeight;return{height:this.customComponents.canvasHeight*u*2+"rpx",position:"relative",width:"100%"}},getListContainerStyle:function(){var t;"article"===this.selectTypeValue?(t=this.configObj.articleDisplayMode,this.configObj.articleColumnStyle):"coupon"===this.selectTypeValue?(t=this.configObj.couponDisplayMode,this.configObj.couponColumnStyle):"goods"===this.selectTypeValue&&(t=this.configObj.goodsDisplayMode,this.configObj.goodsColumnStyle);var e={position:"relative",width:"100%"};return t&&1===t.tabVal?(e.display="flex",e.overflowX="auto",e.overflowY="hidden",e.flexWrap="nowrap"):(e.display="flex",e.flexWrap="wrap"),e},getListItemStyle:function(){var t,e;"article"===this.selectTypeValue?(t=this.configObj.articleDisplayMode,e=this.configObj.articleColumnStyle):"coupon"===this.selectTypeValue?(t=this.configObj.couponDisplayMode,e=this.configObj.couponColumnStyle):"goods"===this.selectTypeValue&&(t=this.configObj.goodsDisplayMode,e=this.configObj.goodsColumnStyle);var o={width:"100%"};if(t&&1===t.tabVal)if(o.flexShrink=0,e){var i=e.tabVal+1;o.width="".concat(100/i,"%")}else o.width="400rpx";else if(e){var n=e.tabVal+1;o.width="".concat(100/n,"%")}return o}}),watch:{dataConfig:{handler:function(t){this.fetchData()},deep:!0,immediate:!0}},methods:{fetchData:function(){if("user"===this.selectTypeValue)return this.fetchUserInfo(),void(this.dataList=[]);"article"===this.selectTypeValue?this.fetchArticleData():"coupon"===this.selectTypeValue?this.fetchCouponData():"goods"===this.selectTypeValue&&this.fetchGoodsData()},fetchArticleData:function(){var t=this;if(this.configObj.articleDataSource){var e={limit:this.configObj.articleNum.val,order:this.configObj.articleSort.tabVal,sort:this.configObj.articleSortRule.tabVal};if(0===this.configObj.articleDataSource.tabVal){if(!this.configObj.articleList||!this.configObj.articleList.list)return;if(e.ids=this.configObj.articleList.list.map((function(t){return t.id})).join(","),0===e.ids.length)return void(this.dataList=[])}else e.cid=Array.isArray(this.configObj.articleClass.activeValue)?this.configObj.articleClass.activeValue.join(","):this.configObj.articleClass.activeValue;(0,r.getThemeArticle)(e).then((function(e){t.dataList=e.data}))}},fetchCouponData:function(){var t=this;if(this.configObj.couponDataSource){var e={limit:this.configObj.couponNum.val,order:this.configObj.couponSort.tabVal,sort:this.configObj.couponSortRule.tabVal};if(0===this.configObj.couponDataSource.tabVal){if(!this.configObj.couponList||!this.configObj.couponList.list)return;if(e.ids=this.configObj.couponList.list.map((function(t){return t.id})).join(","),0===e.ids.length)return void(this.dataList=[])}else e.type=this.configObj.couponType.activeValue,e.user_type=this.configObj.couponUserType.activeValue,2!=this.configObj.couponUserType.activeValue&&(e.send_type=this.configObj.couponSendType.activeValue),e.is_min_price=this.configObj.couponThreshold.tabVal,1==e.is_min_price&&(e.min_price=this.configObj.couponThresholdValue.val),this.configObj.couponTime.val&&this.configObj.couponTime.val.length&&(e.start_time=this.configObj.couponTime.val[0],e.end_time=this.configObj.couponTime.val[1]);(0,r.getThemeCoupon)(e).then((function(e){t.dataList=e.data}))}},fetchGoodsData:function(){var t=this;if(this.configObj.goodsDataSource){var e={limit:this.configObj.goodsNum.val,order:this.configObj.goodsSort.tabVal,sort:this.configObj.goodsSortRule.tabVal};if(0===this.configObj.goodsDataSource.tabVal){if(!this.configObj.goodsList||!this.configObj.goodsList.list)return;if(e.ids=this.configObj.goodsList.list.map((function(t){return t.id})).join(","),0===e.ids.length)return void(this.dataList=[])}else e.cate_ids=Array.isArray(this.configObj.goodsClass.activeValue)?this.configObj.goodsClass.activeValue.join(","):this.configObj.goodsClass.activeValue;(0,r.getThemeProduct)(e).then((function(e){t.dataList=e.data}))}},fetchUserInfo:function(){var t=this;(0,r.getThemeUser)().then((function(e){t.userInfo=e.data||{}}))},getWrapperStyle:function(t,e){var o={width:"100%"};if(t&&1===t.tabVal)if(o.flexShrink=0,e){var i=e.tabVal+1;o.width="".concat(100/i,"%")}else o.width="200px";else if(e){var n=e.tabVal+1;o.width="".concat(100/n,"%")}return o},getComponentStyle:function(t){var e=this.contentScale;return{position:"absolute",left:t.left*e*2+"rpx",top:t.top*e*2+"rpx",width:t.width*e*2+"rpx",maxWidth:"100%",height:t.height*e*2+"rpx",zIndex:t.zIndex,transform:"rotate(".concat(t.rotate||0,"deg)")}},getPictureStyle:function(t){var e=0;e=t.isRadiusAll?2*t.borderRadius+"rpx":"".concat(2*t.borderRadiusTopLeft,"rpx ").concat(2*t.borderRadiusTopRight,"rpx ").concat(2*t.borderRadiusBottomRight,"rpx ").concat(2*t.borderRadiusBottomLeft,"rpx");var o={width:"100%",height:"100%",borderRadius:e};return t.showShadow&&(o.boxShadow="".concat(2*t.shadowX,"rpx ").concat(2*t.shadowY,"rpx ").concat(2*t.shadowBlur,"rpx ").concat(2*t.shadowSpread,"rpx ").concat(t.shadowColor)),t.showBorder&&(o.border="".concat(2*t.borderWidth,"rpx ").concat(t.borderStyle," ").concat(t.borderColor)),o},getTextStyle:function(t){var e=this.contentScale,o={width:"100%",fontSize:t.fontSize*e*2+"rpx",color:t.color,lineHeight:t.lineHeight,letterSpacing:(t.letterSpacing||0)*e*2+"rpx",fontWeight:t.fontWeight||"normal",fontStyle:t.fontStyle||"normal",textDecoration:t.textDecoration||"none",textAlign:t.textAlign||"left",boxSizing:"border-box",wordBreak:"break-all"};return 0==t.ellipsis&&(o.whiteSpace="normal"),t.showTextShadow&&(o.textShadow="".concat((t.shadowX||0)*e*2,"rpx ").concat((t.shadowY||0)*e*2,"rpx ").concat((t.shadowBlur||0)*e*2,"rpx ").concat(t.shadowColor||"rgba(0,0,0,0.5)")),o},getTextBgStyle:function(t){var e=this.contentScale,o={height:"100%",padding:"".concat((t.paddingTop||0)*e*2,"rpx ").concat((t.paddingRight||0)*e*2,"rpx ").concat((t.paddingBottom||0)*e*2,"rpx ").concat((t.paddingLeft||0)*e*2,"rpx"),borderWidth:(t.showBorder?t.borderWidth*e*2:0)+"rpx",borderColor:t.borderColor||"transparent",borderStyle:t.borderStyle||"solid"};if(t.bgColor2){var i={horizontal:"90deg",vertical:"180deg","left-diagonal":"135deg","right-diagonal":"45deg"}[t.bgDirection]||"180deg";o.backgroundImage="linear-gradient(".concat(i,", ").concat(t.backgroundColor||"transparent",", ").concat(t.bgColor2,")")}else o.backgroundColor=t.backgroundColor||"transparent";return t.showBorder&&t.borderWidth&&(o.backgroundSize="100% calc(100% + ".concat(t.borderWidth*e*4||0,"rpx)"),o.backgroundPosition="0rpx -".concat(t.borderWidth*e*2||0,"rpx")),t.isRadiusAll?o.borderRadius=(t.borderRadius||0)*e*2+"rpx":o.borderRadius="".concat((t.borderRadiusTopLeft||0)*e*2,"rpx ").concat((t.borderRadiusTopRight||0)*e*2,"rpx ").concat((t.borderRadiusBottomRight||0)*e*2,"rpx ").concat((t.borderRadiusBottomLeft||0)*e*2,"rpx"),o},getIconStyle:function(t){var e=this.contentScale,o={display:"flex",justifyContent:t.iconAlign||"center",alignItems:"center",width:"100%",height:"100%",boxSizing:"border-box",borderWidth:(t.showBorder?t.borderWidth*e*2:0)+"rpx",borderColor:t.borderColor||"transparent",borderStyle:t.borderStyle||"solid",padding:"".concat((t.paddingTop||0)*e*2,"rpx ").concat((t.paddingRight||0)*e*2,"rpx ").concat((t.paddingBottom||0)*e*2,"rpx ").concat((t.paddingLeft||0)*e*2,"rpx")};if(t.bgColor2){var i={horizontal:"90deg",vertical:"180deg","left-diagonal":"135deg","right-diagonal":"45deg"}[t.bgDirection]||"180deg";o.background="linear-gradient(".concat(i,", ").concat(t.backgroundColor||"transparent",", ").concat(t.bgColor2,")")}else o.backgroundColor=t.backgroundColor||"transparent";return t.showBorder&&t.borderWidth&&(o.backgroundSize="100% calc(100% + ".concat(t.borderWidth*e*4||0,"rpx)"),o.backgroundPosition="0rpx -".concat(t.borderWidth*e*2||0,"rpx")),t.isRadiusAll?o.borderRadius=(t.borderRadius||0)*e+"px":o.borderRadius="".concat((t.borderRadiusTopLeft||0)*e,"px ").concat((t.borderRadiusTopRight||0)*e,"px ").concat((t.borderRadiusBottomRight||0)*e,"px ").concat((t.borderRadiusBottomLeft||0)*e,"px"),o},getLineStyle:function(t){var e={};return"vertical"===t.direction?(e.width="0rpx",e.height="100%",e.borderLeft="".concat(2*t.height,"rpx ").concat(t.style," ").concat(t.color)):(e.width="100%",e.height="0rpx",e.borderTop="".concat(2*t.height,"rpx ").concat(t.style," ").concat(t.color)),e},getPanelStyle:function(t){var e=this.contentScale,o=0;o=t.isRadiusAll?2*t.borderRadius+"rpx":"".concat(2*t.borderRadiusTopLeft,"rpx ").concat(2*t.borderRadiusTopRight,"rpx ").concat(2*t.borderRadiusBottomRight,"rpx ").concat(2*t.borderRadiusBottomLeft,"rpx");var i={width:"100%",height:"100%",borderRadius:o,borderWidth:(t.showBorder?t.borderWidth*e:0)+"px",borderColor:t.borderColor||"transparent",borderStyle:t.borderStyle||"solid"};if(t.bgColor2){var n={horizontal:"90deg",vertical:"180deg","left-diagonal":"135deg","right-diagonal":"45deg"}[t.bgDirection]||"180deg";i.backgroundImage="linear-gradient(".concat(n,", ").concat(t.backgroundColor||"transparent",", ").concat(t.bgColor2,")")}else i.backgroundColor=t.backgroundColor||"transparent";return t.showBorder&&t.borderWidth&&(i.backgroundSize="100% calc(100% + ".concat(t.borderWidth*e*4||0,"rpx)"),i.backgroundPosition="0rpx -".concat(t.borderWidth*e*2||0,"rpx")),t.showShadow&&(i.boxShadow="".concat((t.shadowX||0)*e*2,"rpx ").concat((t.shadowY||0)*e*2,"rpx ").concat((t.shadowBlur||0)*e*2,"rpx ").concat((t.shadowSpread||0)*e*2,"rpx ").concat(t.shadowColor||"#000000")),t.showBorder&&(i.border="".concat(2*t.borderWidth,"rpx ").concat(t.borderStyle," ").concat(t.borderColor)),i},getPictureUrl:function(t,e){var o=t.propValue.fieldType;if("user"===this.selectTypeValue&&"image"===o)return this.isLogin?this.userInfo.image||t.propValue.url||"/static/images/f.png":t.propValue.url||"/static/images/f.png";if(e&&o){if("image"===o&&e.image_input)return e.image_input[0]||t.propValue.url;if("image"===o&&e.image)return e.image||t.propValue.url}return t.propValue.url},getDisplayText:function(t,e){var o=t.propValue.fieldType;if("article"===this.selectTypeValue){if("title"===o)return e.title;if("visit"===o)return e.visit;if("add_time"===o)return e.add_time;if("synopsis"===o)return e.synopsis}else if("coupon"===this.selectTypeValue){var i=t.propValue.fieldType;if("coupon_title"===i)return e.coupon_title||e.title;if("coupon_price"===i)return e.coupon_price;if("use_min_price"===i)return e.use_min_price;if("coupon_time"===i)return e.coupon_time;if("type"===i)return 1===e.type?"Phiếu giảm giá danh mục":2===e.type?"phiếu giảm giá hàng hóa":"Phiếu giảm giá phổ quát";if("status"===i)return 1===e.status?"bật lên":"đóng cửa";if("receive_time"===i)return e.receive_time;if("use_time"===i)return e.use_time;if("receive_count"===i)return e.receive_count;if("add_time"===i)return e.add_time}else if("goods"===this.selectTypeValue){if("store_name"===o)return e.store_name;if("id"===o)return e.id;if("image"===o)return e.image;if("store_info"===o)return e.store_info;if("unit_name"===o)return e.unit_name;if("cate_name"===o)return e.cate_name;if("label_name"===o)return e.label_name;if("stock"===o)return e.stock;if("price"===o)return e.price;if("max_price"===o)return e.max_price;if("min_price"===o)return e.min_price;if("ot_price"===o)return e.ot_price;if("max_ot_price"===o)return e.max_ot_price;if("min_ot_price"===o)return e.min_ot_price;if("min_qty"===o)return e.min_qty;if("sales"===o)return e.sales;if("browse"===o)return e.browse;if("add_time"===o)return e.add_time}else if("user"===this.selectTypeValue){if("nickname"===o)return e.nickname;if("uid"===o)return e.uid;if("image"===o)return e.avatar;if("collection_num"===o)return e.collection_num;if("cart_num"===o)return e.cart_num;if("order_num"===o)return e.order_num;if("integral"===o)return e.integral;if("now_money"===o)return e.now_money;if("brokerage_price"===o)return e.brokerage_price;if("unread_msg_num"===o)return e.unread_msg_num;if("mobile"===o)return e.mobile;if("add_time"===o)return e.add_time}return t.propValue.text},goDetail:function(e,o){"detail"===o.propValue.linkType?"goods"===this.selectTypeValue?t.navigateTo({url:"/pages/goods_details/index?id="+e.id}):"coupon"===this.selectTypeValue?this.receiveCoupon(e):"article"===this.selectTypeValue&&t.navigateTo({url:"/pages/extension/news_details/index?id="+e.id}):t.navigateTo({url:o.propValue.link,fail:function(){t.switchTab({url:o.propValue.link})}})},receiveCoupon:function(e){this.isLogin?(0,r.setCouponReceive)(e.id).then((function(){t.showToast({title:"Đã nhận thành công",icon:"success"})})).catch((function(e){t.showToast({title:e,icon:"none"})})):this.$emit("changeLogin")},handleUserClick:function(e){e.propValue.link?"url"===e.propValue.linkType&&t.navigateTo({url:e.propValue.link}):this.isLogin||this.$emit("changeLogin")}}};e.default=s}).call(this,o("df3c")["default"])},5412:function(t,e,o){"use strict";o.r(e);var i=o("157f"),n=o.n(i);for(var r in i)["default"].indexOf(r)<0&&function(t){o.d(e,t,(function(){return i[t]}))}(r);e["default"]=n.a},"6b28":function(t,e,o){},9545:function(t,e,o){"use strict";o.r(e);var i=o("0b89"),n=o("5412");for(var r in n)["default"].indexOf(r)<0&&function(t){o.d(e,t,(function(){return n[t]}))}(r);o("f2b0");var a=o("828b"),c=Object(a["a"])(n["default"],i["b"],i["c"],!1,null,"369477cc",null,!1,i["a"],void 0);e["default"]=c.exports},f2b0:function(t,e,o){"use strict";var i=o("6b28"),n=o.n(i);n.a}}]);
+require('./common/vendor.js');(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["subpackage/diyComponents/customComponent"],{
+
+/***/ 1925:
+/*!***********************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/subpackage/diyComponents/customComponent.vue ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./customComponent.vue?vue&type=template&id=eb3288e8&scoped=true& */ 1926);
+/* harmony import */ var _customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./customComponent.vue?vue&type=script&lang=js& */ 1928);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _customComponent_vue_vue_type_style_index_0_id_eb3288e8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./customComponent.vue?vue&type=style&index=0&id=eb3288e8&scoped=true&lang=css& */ 1930);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 68);
+
+var renderjs
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "eb3288e8",
+  null,
+  false,
+  _customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["components"],
+  renderjs
+)
+
+component.options.__file = "subpackage/diyComponents/customComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1926:
+/*!******************************************************************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/subpackage/diyComponents/customComponent.vue?vue&type=template&id=eb3288e8&scoped=true& ***!
+  \******************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns, recyclableRender, components */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./customComponent.vue?vue&type=template&id=eb3288e8&scoped=true& */ 1927);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["recyclableRender"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "components", function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_template_id_eb3288e8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["components"]; });
+
+
+
+/***/ }),
+
+/***/ 1927:
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/subpackage/diyComponents/customComponent.vue?vue&type=template&id=eb3288e8&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns, recyclableRender, components */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
+var components
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  var g0 =
+    ["article", "coupon", "goods"].includes(_vm.selectTypeValue) &&
+    _vm.dataList.length > 0
+  var s0 = g0 ? _vm.__get_style([_vm.getListContainerStyle]) : null
+  var l1 = g0
+    ? _vm.__map(_vm.dataList, function (dataItem, dataIndex) {
+        var $orig = _vm.__get_orig(dataItem)
+        var s1 = _vm.__get_style([_vm.getListItemStyle])
+        var s2 = _vm.__get_style([_vm.getDataWrapperStyle])
+        var s3 = _vm.__get_style([_vm.itemWrapperStyle])
+        var l0 = _vm.__map(_vm.visibleComponents, function (item, __i0__) {
+          var $orig = _vm.__get_orig(item)
+          var s4 = _vm.__get_style([_vm.getComponentStyle(item.style)])
+          var s5 =
+            item.component === "Picture"
+              ? _vm.__get_style([_vm.getPictureStyle(item.propValue)])
+              : null
+          var m0 =
+            item.component === "Picture"
+              ? _vm.getPictureUrl(item, dataItem)
+              : null
+          var s6 =
+            !(item.component === "Picture") && item.component === "Text"
+              ? _vm.__get_style([_vm.getTextBgStyle(item.propValue)])
+              : null
+          var s7 =
+            !(item.component === "Picture") && item.component === "Text"
+              ? _vm.__get_style([_vm.getTextStyle(item.propValue)])
+              : null
+          var m1 =
+            !(item.component === "Picture") && item.component === "Text"
+              ? _vm.getDisplayText(item, dataItem)
+              : null
+          var s8 =
+            !(item.component === "Picture") &&
+            !(item.component === "Text") &&
+            item.component === "Icon"
+              ? _vm.__get_style([_vm.getIconStyle(item.propValue)])
+              : null
+          var s9 =
+            !(item.component === "Picture") &&
+            !(item.component === "Text") &&
+            !(item.component === "Icon") &&
+            item.component === "Line"
+              ? _vm.__get_style([_vm.getLineStyle(item.propValue)])
+              : null
+          var s10 =
+            !(item.component === "Picture") &&
+            !(item.component === "Text") &&
+            !(item.component === "Icon") &&
+            !(item.component === "Line") &&
+            item.component === "Panel"
+              ? _vm.__get_style([_vm.getPanelStyle(item.propValue)])
+              : null
+          return {
+            $orig: $orig,
+            s4: s4,
+            s5: s5,
+            m0: m0,
+            s6: s6,
+            s7: s7,
+            m1: m1,
+            s8: s8,
+            s9: s9,
+            s10: s10,
+          }
+        })
+        return {
+          $orig: $orig,
+          s1: s1,
+          s2: s2,
+          s3: s3,
+          l0: l0,
+        }
+      })
+    : null
+  var s11 = !g0 ? _vm.__get_style([_vm.getDataWrapperStyle]) : null
+  var s12 = !g0 ? _vm.__get_style([_vm.itemWrapperStyle]) : null
+  var l2 = !g0
+    ? _vm.__map(_vm.visibleComponents, function (item, __i1__) {
+        var $orig = _vm.__get_orig(item)
+        var s13 = _vm.__get_style([_vm.getComponentStyle(item.style)])
+        var s14 =
+          item.component === "Picture"
+            ? _vm.__get_style([_vm.getPictureStyle(item.propValue)])
+            : null
+        var m2 =
+          item.component === "Picture"
+            ? _vm.getPictureUrl(item, _vm.userInfo)
+            : null
+        var s15 =
+          !(item.component === "Picture") && item.component === "Text"
+            ? _vm.__get_style([_vm.getTextBgStyle(item.propValue)])
+            : null
+        var s16 =
+          !(item.component === "Picture") && item.component === "Text"
+            ? _vm.__get_style([_vm.getTextStyle(item.propValue)])
+            : null
+        var m3 =
+          !(item.component === "Picture") && item.component === "Text"
+            ? _vm.getDisplayText(item, _vm.userInfo)
+            : null
+        var s17 =
+          !(item.component === "Picture") &&
+          !(item.component === "Text") &&
+          item.component === "Icon"
+            ? _vm.__get_style([_vm.getIconStyle(item.propValue)])
+            : null
+        var s18 =
+          !(item.component === "Picture") &&
+          !(item.component === "Text") &&
+          !(item.component === "Icon") &&
+          item.component === "Line"
+            ? _vm.__get_style([_vm.getLineStyle(item.propValue)])
+            : null
+        var s19 =
+          !(item.component === "Picture") &&
+          !(item.component === "Text") &&
+          !(item.component === "Icon") &&
+          !(item.component === "Line") &&
+          item.component === "Panel"
+            ? _vm.__get_style([_vm.getPanelStyle(item.propValue)])
+            : null
+        return {
+          $orig: $orig,
+          s13: s13,
+          s14: s14,
+          m2: m2,
+          s15: s15,
+          s16: s16,
+          m3: m3,
+          s17: s17,
+          s18: s18,
+          s19: s19,
+        }
+      })
+    : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+        s0: s0,
+        l1: l1,
+        s11: s11,
+        s12: s12,
+        l2: l2,
+      },
+    }
+  )
+}
+var recyclableRender = false
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ 1928:
+/*!************************************************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/subpackage/diyComponents/customComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/babel-loader/lib!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./customComponent.vue?vue&type=script&lang=js& */ 1929);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_13_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ 1929:
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/subpackage/diyComponents/customComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _api = __webpack_require__(/*! @/api/api.js */ 57);
+var _vuex = __webpack_require__(/*! vuex */ 42);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var CommonWrapper = function CommonWrapper() {
+  __webpack_require__.e(/*! require.ensure | subpackage/diyComponents/commonWrapper */ "subpackage/diyComponents/commonWrapper").then((function () {
+    return resolve(__webpack_require__(/*! ./commonWrapper.vue */ 1965));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
+var _default2 = {
+  name: "customComponent",
+  components: {
+    CommonWrapper: CommonWrapper
+  },
+  props: {
+    dataConfig: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      dataList: [],
+      articleList: [],
+      couponList: [],
+      goodsList: [],
+      userInfo: {}
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0, _vuex.mapGetters)(["isLogin"])), {}, {
+    configObj: function configObj() {
+      return this.dataConfig;
+    },
+    customComponents: function customComponents() {
+      return this.configObj.customComponents || {};
+    },
+    visibleComponents: function visibleComponents() {
+      if (!this.customComponents || !this.customComponents.list) return [];
+      return this.customComponents.list.filter(function (item) {
+        return !item.isHidden;
+      });
+    },
+    contentScale: function contentScale() {
+      var _this$configObj = this.configObj,
+        marginConfig = _this$configObj.marginConfig,
+        paddingConfig = _this$configObj.paddingConfig,
+        borderConfig = _this$configObj.borderConfig,
+        paddingDataConfig = _this$configObj.paddingDataConfig,
+        borderDataConfig = _this$configObj.borderDataConfig,
+        marginDataConfig = _this$configObj.marginDataConfig;
+      var width = 375;
+
+      // Wrapper Margin
+      if (marginConfig) {
+        if (!marginConfig.isAll) {
+          width -= (marginConfig.val || 0) * 2;
+        } else {
+          width -= (marginConfig.valList[1].val || 0) + (marginConfig.valList[3].val || 0);
+        }
+      }
+
+      // Wrapper Padding
+      if (paddingConfig) {
+        if (!paddingConfig.isAll) {
+          width -= (paddingConfig.val || 0) * 2;
+        } else {
+          width -= (paddingConfig.valList[1].val || 0) + (paddingConfig.valList[3].val || 0);
+        }
+      }
+
+      // Wrapper Border
+      if (borderConfig && borderConfig.tabVal) {
+        var borderWidth = (borderConfig.widthConfig.val || 0) * 2;
+        width -= borderWidth;
+      }
+
+      // Data Margin
+      if (marginDataConfig) {
+        if (!marginDataConfig.isAll) {
+          width -= (marginDataConfig.val || 0) * 2;
+        } else {
+          width -= (marginDataConfig.valList[1].val || 0) + (marginDataConfig.valList[3].val || 0);
+        }
+      }
+
+      // Data Padding
+      if (paddingDataConfig) {
+        if (!paddingDataConfig.isAll) {
+          width -= (paddingDataConfig.val || 0) * 2;
+        } else {
+          width -= (paddingDataConfig.valList[1].val || 0) + (paddingDataConfig.valList[3].val || 0);
+        }
+      }
+
+      // Data Border
+      if (borderDataConfig && borderDataConfig.tabVal) {
+        var _borderWidth = (borderDataConfig.widthConfig.val || 0) * 2;
+        width -= _borderWidth;
+      }
+      return width / 375;
+    },
+    currentDisplayMode: function currentDisplayMode() {
+      if (this.selectTypeValue === "article") return this.configObj.articleDisplayMode;
+      if (this.selectTypeValue === "coupon") return this.configObj.couponDisplayMode;
+      if (this.selectTypeValue === "goods") return this.configObj.goodsDisplayMode;
+      return null;
+    },
+    currentColumnStyle: function currentColumnStyle() {
+      if (this.selectTypeValue === "article") return this.configObj.articleColumnStyle;
+      if (this.selectTypeValue === "coupon") return this.configObj.couponColumnStyle;
+      if (this.selectTypeValue === "goods") return this.configObj.goodsColumnStyle;
+      return null;
+    },
+    selectTypeValue: function selectTypeValue() {
+      return this.configObj.selectType ? this.configObj.selectType.activeValue : "user";
+    },
+    // Background Gradient
+    getDataWrapperStyle: function getDataWrapperStyle() {
+      var _this$configObj2 = this.configObj,
+        filletDataConfig = _this$configObj2.filletDataConfig,
+        marginDataConfig = _this$configObj2.marginDataConfig,
+        paddingDataConfig = _this$configObj2.paddingDataConfig,
+        componentBgDataConfig = _this$configObj2.componentBgDataConfig,
+        borderDataConfig = _this$configObj2.borderDataConfig,
+        shadowDataConfig = _this$configObj2.shadowDataConfig;
+      var style = {};
+
+      // Border Radius
+      if (filletDataConfig) {
+        if (filletDataConfig.type) {
+          style.borderRadius = "".concat(filletDataConfig.valList[0].val, "px ").concat(filletDataConfig.valList[1].val, "px ").concat(filletDataConfig.valList[3].val, "px ").concat(filletDataConfig.valList[2].val, "px");
+        } else {
+          style.borderRadius = "".concat(filletDataConfig.val, "px");
+        }
+      }
+
+      // Margin
+      if (marginDataConfig) {
+        if (marginDataConfig.isAll) {
+          style.marginTop = "".concat(marginDataConfig.valList[0].val, "px");
+          style.marginRight = "".concat(marginDataConfig.valList[1].val, "px");
+          style.marginBottom = "".concat(marginDataConfig.valList[2].val, "px");
+          style.marginLeft = "".concat(marginDataConfig.valList[3].val, "px");
+        } else {
+          style.margin = "".concat(marginDataConfig.val, "px");
+        }
+      }
+
+      // Padding
+      if (paddingDataConfig) {
+        if (paddingDataConfig.isAll) {
+          style.paddingTop = "".concat(paddingDataConfig.valList[0].val, "px");
+          style.paddingRight = "".concat(paddingDataConfig.valList[1].val, "px");
+          style.paddingBottom = "".concat(paddingDataConfig.valList[2].val, "px");
+          style.paddingLeft = "".concat(paddingDataConfig.valList[3].val, "px");
+        } else {
+          style.padding = "".concat(paddingDataConfig.val, "px");
+        }
+      }
+
+      // Background
+      if (componentBgDataConfig) {
+        if (componentBgDataConfig.tabVal === 0) {
+          // Color
+          var colorList = componentBgDataConfig.colorConfig.color;
+          if (colorList && colorList.length > 0) {
+            style.background = "linear-gradient(".concat(componentBgDataConfig.colorDirection.tabVal === 0 ? "90deg" : componentBgDataConfig.colorDirection.tabVal === 1 ? "180deg" : componentBgDataConfig.colorDirection.tabVal === 2 ? "135deg" : "45deg", ", ").concat(colorList[0].item, " 0%, ").concat(colorList[1] ? colorList[1].item : colorList[0].item, " 100%)");
+          }
+        } else {
+          // Image
+          if (componentBgDataConfig.imageConfig.url) {
+            style.backgroundImage = "url(".concat(componentBgDataConfig.imageConfig.url, ")");
+            style.backgroundSize = "100% 100%";
+            style.backgroundRepeat = "no-repeat";
+          }
+        }
+      }
+
+      // Border
+      if (borderDataConfig && borderDataConfig.tabVal) {
+        style.borderStyle = borderDataConfig.styleConfig.tabVal === 0 ? "solid" : borderDataConfig.styleConfig.tabVal === 1 ? "dashed" : "dotted";
+        style.borderWidth = "".concat(borderDataConfig.widthConfig.val, "px");
+        style.borderColor = borderDataConfig.colorConfig.color[0].item;
+      }
+
+      // Shadow
+      if (shadowDataConfig && shadowDataConfig.tabVal) {
+        style.boxShadow = "".concat(shadowDataConfig.xConfig.val, "px ").concat(shadowDataConfig.yConfig.val, "px ").concat(shadowDataConfig.blurConfig.val, "px ").concat(shadowDataConfig.spreadConfig.val, "px ").concat(shadowDataConfig.colorConfig.color[0].item);
+      }
+      return style;
+    },
+    itemWrapperStyle: function itemWrapperStyle() {
+      // let bgColorLeft = this.configObj.moduleColor.color[0].item;
+      // let bgColorRight = this.configObj.moduleColor.color[1].item;
+
+      var _this$configObj3 = this.configObj,
+        marginConfig = _this$configObj3.marginConfig,
+        paddingConfig = _this$configObj3.paddingConfig,
+        borderConfig = _this$configObj3.borderConfig,
+        marginDataConfig = _this$configObj3.marginDataConfig,
+        paddingDataConfig = _this$configObj3.paddingDataConfig,
+        borderDataConfig = _this$configObj3.borderDataConfig;
+      var marginHeight = 0;
+      var paddingHeight = 0;
+      var borderWidth = 0;
+
+      // Wrapper Margin
+      if (marginConfig) {
+        marginHeight += marginConfig.isAll ? marginConfig.valList[0].val + marginConfig.valList[2].val || 0 : marginConfig.val || 0;
+      }
+
+      // Wrapper Padding
+      if (paddingConfig) {
+        paddingHeight += paddingConfig.isAll ? paddingConfig.valList[0].val + paddingConfig.valList[2].val || 0 : paddingConfig.val || 0;
+      }
+
+      // Wrapper Border
+      if (borderConfig && borderConfig.tabVal) {
+        borderWidth += borderConfig.widthConfig.val / 2;
+      }
+
+      // Data Margin
+      if (marginDataConfig) {
+        marginHeight += marginDataConfig.isAll ? marginDataConfig.valList[0].val + marginDataConfig.valList[2].val || 0 : marginDataConfig.val || 0;
+      }
+
+      // Data Padding
+      if (paddingDataConfig) {
+        paddingHeight += paddingDataConfig.isAll ? paddingDataConfig.valList[0].val + paddingDataConfig.valList[2].val || 0 : paddingDataConfig.val || 0;
+      }
+
+      // Data Border
+      if (borderDataConfig && borderDataConfig.tabVal) {
+        borderWidth += borderDataConfig.widthConfig.val / 2;
+      }
+      var scale = this.contentScale;
+      var canvasHeight = (this.customComponents.canvasHeight * scale || 0) + borderWidth * scale + marginHeight * scale + paddingHeight * scale;
+      return {
+        height: this.customComponents.canvasHeight * scale * 2 + "rpx",
+        position: "relative",
+        width: "100%"
+        // background: `linear-gradient(90deg,${bgColorLeft || "#fff"} 0%,${
+        //   bgColorRight || "#fff"
+        // } 100%)`,
+      };
+    },
+    // List Styles
+    getListContainerStyle: function getListContainerStyle() {
+      var displayMode, columnStyle;
+      if (this.selectTypeValue === "article") {
+        displayMode = this.configObj.articleDisplayMode;
+        columnStyle = this.configObj.articleColumnStyle;
+      } else if (this.selectTypeValue === "coupon") {
+        displayMode = this.configObj.couponDisplayMode;
+        columnStyle = this.configObj.couponColumnStyle;
+      } else if (this.selectTypeValue === "goods") {
+        displayMode = this.configObj.goodsDisplayMode;
+        columnStyle = this.configObj.goodsColumnStyle;
+      }
+      var style = {
+        position: "relative",
+        width: "100%"
+      };
+      if (displayMode && displayMode.tabVal === 1) {
+        // Horizontal Scroll
+        style.display = "flex";
+        style.overflowX = "auto";
+        style.overflowY = "hidden";
+        style.flexWrap = "nowrap";
+      } else {
+        style.display = "flex";
+        style.flexWrap = "wrap";
+      }
+      return style;
+    },
+    getListItemStyle: function getListItemStyle() {
+      var displayMode, columnStyle;
+      if (this.selectTypeValue === "article") {
+        displayMode = this.configObj.articleDisplayMode;
+        columnStyle = this.configObj.articleColumnStyle;
+      } else if (this.selectTypeValue === "coupon") {
+        displayMode = this.configObj.couponDisplayMode;
+        columnStyle = this.configObj.couponColumnStyle;
+      } else if (this.selectTypeValue === "goods") {
+        displayMode = this.configObj.goodsDisplayMode;
+        columnStyle = this.configObj.goodsColumnStyle;
+      }
+      var style = {
+        width: "100%"
+      };
+      if (displayMode && displayMode.tabVal === 1) {
+        style.flexShrink = 0;
+        if (columnStyle) {
+          var colCount = columnStyle.tabVal + 1;
+          style.width = "".concat(100 / colCount, "%");
+        } else {
+          style.width = "400rpx";
+        }
+      } else {
+        if (columnStyle) {
+          var _colCount = columnStyle.tabVal + 1;
+          style.width = "".concat(100 / _colCount, "%");
+        }
+      }
+      return style;
+    } // Add flex-basis for multi-column layouts to ensure wrapping works correctly if needed,
+    // though width usually suffices.
+  }),
+  watch: {
+    dataConfig: {
+      handler: function handler(val) {
+        this.fetchData();
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  methods: {
+    fetchData: function fetchData() {
+      if (this.selectTypeValue === "user") {
+        this.fetchUserInfo();
+        this.dataList = [];
+        return;
+      }
+      if (this.selectTypeValue === "article") {
+        this.fetchArticleData();
+      } else if (this.selectTypeValue === "coupon") {
+        this.fetchCouponData();
+      } else if (this.selectTypeValue === "goods") {
+        this.fetchGoodsData();
+      }
+    },
+    fetchArticleData: function fetchArticleData() {
+      var _this = this;
+      if (!this.configObj.articleDataSource) return;
+      var params = {
+        limit: this.configObj.articleNum.val,
+        order: this.configObj.articleSort.tabVal,
+        sort: this.configObj.articleSortRule.tabVal
+      };
+      if (this.configObj.articleDataSource.tabVal === 0) {
+        // Specific Data
+        if (!this.configObj.articleList || !this.configObj.articleList.list) return;
+        params.ids = this.configObj.articleList.list.map(function (item) {
+          return item.id;
+        }).join(",");
+        if (params.ids.length === 0) {
+          this.dataList = [];
+          return;
+        }
+      } else {
+        // Filter Data
+        params.cid = Array.isArray(this.configObj.articleClass.activeValue) ? this.configObj.articleClass.activeValue.join(",") : this.configObj.articleClass.activeValue;
+      }
+      (0, _api.getThemeArticle)(params).then(function (res) {
+        _this.dataList = res.data;
+      });
+    },
+    fetchCouponData: function fetchCouponData() {
+      var _this2 = this;
+      if (!this.configObj.couponDataSource) return;
+      var params = {
+        limit: this.configObj.couponNum.val,
+        order: this.configObj.couponSort.tabVal,
+        sort: this.configObj.couponSortRule.tabVal
+      };
+      if (this.configObj.couponDataSource.tabVal === 0) {
+        // Specific Data
+        if (!this.configObj.couponList || !this.configObj.couponList.list) return;
+        params.ids = this.configObj.couponList.list.map(function (item) {
+          return item.id;
+        }).join(",");
+        if (params.ids.length === 0) {
+          this.dataList = [];
+          return;
+        }
+      } else {
+        // Filter Data
+        params.type = this.configObj.couponType.activeValue;
+        params.user_type = this.configObj.couponUserType.activeValue;
+        if (this.configObj.couponUserType.activeValue != 2) {
+          params.send_type = this.configObj.couponSendType.activeValue;
+        }
+        params.is_min_price = this.configObj.couponThreshold.tabVal;
+        if (params.is_min_price == 1) {
+          params.min_price = this.configObj.couponThresholdValue.val;
+        }
+        if (this.configObj.couponTime.val && this.configObj.couponTime.val.length) {
+          params.start_time = this.configObj.couponTime.val[0];
+          params.end_time = this.configObj.couponTime.val[1];
+        }
+      }
+      (0, _api.getThemeCoupon)(params).then(function (res) {
+        _this2.dataList = res.data;
+      });
+    },
+    fetchGoodsData: function fetchGoodsData() {
+      var _this3 = this;
+      if (!this.configObj.goodsDataSource) return;
+      var params = {
+        limit: this.configObj.goodsNum.val,
+        order: this.configObj.goodsSort.tabVal,
+        sort: this.configObj.goodsSortRule.tabVal
+      };
+      if (this.configObj.goodsDataSource.tabVal === 0) {
+        // Specific Data
+        if (!this.configObj.goodsList || !this.configObj.goodsList.list) return;
+        params.ids = this.configObj.goodsList.list.map(function (item) {
+          return item.id;
+        }).join(",");
+        if (params.ids.length === 0) {
+          this.dataList = [];
+          return;
+        }
+      } else {
+        // Filter Data
+        params.cate_ids = Array.isArray(this.configObj.goodsClass.activeValue) ? this.configObj.goodsClass.activeValue.join(",") : this.configObj.goodsClass.activeValue;
+      }
+      (0, _api.getThemeProduct)(params).then(function (res) {
+        _this3.dataList = res.data;
+      });
+    },
+    fetchUserInfo: function fetchUserInfo() {
+      var _this4 = this;
+      (0, _api.getThemeUser)().then(function (res) {
+        _this4.userInfo = res.data || {};
+      });
+    },
+    getWrapperStyle: function getWrapperStyle(displayMode, columnStyle) {
+      var style = {
+        width: "100%"
+      };
+      if (displayMode && displayMode.tabVal === 1) {
+        style.flexShrink = 0;
+        if (columnStyle) {
+          var colCount = columnStyle.tabVal + 1;
+          style.width = "".concat(100 / colCount, "%");
+        } else {
+          style.width = "200px";
+        }
+      } else {
+        if (columnStyle) {
+          var _colCount2 = columnStyle.tabVal + 1;
+          style.width = "".concat(100 / _colCount2, "%");
+        }
+      }
+      return style;
+    },
+    getComponentStyle: function getComponentStyle(style) {
+      var scale = this.contentScale;
+      return {
+        position: "absolute",
+        left: style.left * scale * 2 + "rpx",
+        top: style.top * scale * 2 + "rpx",
+        width: style.width * scale * 2 + "rpx",
+        maxWidth: "100%",
+        height: style.height * scale * 2 + "rpx",
+        zIndex: style.zIndex,
+        transform: "rotate(".concat(style.rotate || 0, "deg)")
+      };
+    },
+    getPictureStyle: function getPictureStyle(propValue) {
+      var borderRadius = 0;
+      if (propValue.isRadiusAll) {
+        borderRadius = propValue.borderRadius * 2 + "rpx";
+      } else {
+        borderRadius = "".concat(propValue.borderRadiusTopLeft * 2, "rpx ").concat(propValue.borderRadiusTopRight * 2, "rpx ").concat(propValue.borderRadiusBottomRight * 2, "rpx ").concat(propValue.borderRadiusBottomLeft * 2, "rpx");
+      }
+      var style = {
+        width: "100%",
+        height: "100%",
+        borderRadius: borderRadius
+      };
+      if (propValue.showShadow) {
+        style.boxShadow = "".concat(propValue.shadowX * 2, "rpx ").concat(propValue.shadowY * 2, "rpx ").concat(propValue.shadowBlur * 2, "rpx ").concat(propValue.shadowSpread * 2, "rpx ").concat(propValue.shadowColor);
+      }
+      if (propValue.showBorder) {
+        style.border = "".concat(propValue.borderWidth * 2, "rpx ").concat(propValue.borderStyle, " ").concat(propValue.borderColor);
+      }
+      return style;
+    },
+    getTextStyle: function getTextStyle(propValue) {
+      var scale = this.contentScale;
+      var style = {
+        width: "100%",
+        fontSize: propValue.fontSize * scale * 2 + "rpx",
+        color: propValue.color,
+        lineHeight: propValue.lineHeight,
+        letterSpacing: (propValue.letterSpacing || 0) * scale * 2 + "rpx",
+        fontWeight: propValue.fontWeight || "normal",
+        fontStyle: propValue.fontStyle || "normal",
+        textDecoration: propValue.textDecoration || "none",
+        textAlign: propValue.textAlign || "left",
+        boxSizing: "border-box",
+        wordBreak: "break-all"
+      };
+      if (propValue.ellipsis == 0) {
+        style.whiteSpace = "normal";
+      }
+      if (propValue.showTextShadow) {
+        style.textShadow = "".concat((propValue.shadowX || 0) * scale * 2, "rpx ").concat((propValue.shadowY || 0) * scale * 2, "rpx ").concat((propValue.shadowBlur || 0) * scale * 2, "rpx ").concat(propValue.shadowColor || "rgba(0,0,0,0.5)");
+      }
+      return style;
+    },
+    getTextBgStyle: function getTextBgStyle(propValue) {
+      var scale = this.contentScale;
+      var style = {
+        height: "100%",
+        padding: "".concat((propValue.paddingTop || 0) * scale * 2, "rpx ").concat((propValue.paddingRight || 0) * scale * 2, "rpx ").concat((propValue.paddingBottom || 0) * scale * 2, "rpx ").concat((propValue.paddingLeft || 0) * scale * 2, "rpx"),
+        borderWidth: (propValue.showBorder ? propValue.borderWidth * scale * 2 : 0) + "rpx",
+        borderColor: propValue.borderColor || "transparent",
+        borderStyle: propValue.borderStyle || "solid"
+      };
+      // Background
+      if (propValue.bgColor2) {
+        var directionMap = {
+          horizontal: "90deg",
+          vertical: "180deg",
+          "left-diagonal": "135deg",
+          "right-diagonal": "45deg"
+        };
+        var deg = directionMap[propValue.bgDirection] || "180deg";
+        style.backgroundImage = "linear-gradient(".concat(deg, ", ").concat(propValue.backgroundColor || "transparent", ", ").concat(propValue.bgColor2, ")");
+      } else {
+        style.backgroundColor = propValue.backgroundColor || "transparent";
+      }
+      if (propValue.showBorder && propValue.borderWidth) {
+        style.backgroundSize = "100% calc(100% + ".concat(propValue.borderWidth * scale * 4 || 0, "rpx)");
+        style.backgroundPosition = "0rpx -".concat(propValue.borderWidth * scale * 2 || 0, "rpx");
+      }
+      // Border Radius
+      if (propValue.isRadiusAll) {
+        style.borderRadius = (propValue.borderRadius || 0) * scale * 2 + "rpx";
+      } else {
+        style.borderRadius = "".concat((propValue.borderRadiusTopLeft || 0) * scale * 2, "rpx ").concat((propValue.borderRadiusTopRight || 0) * scale * 2, "rpx ").concat((propValue.borderRadiusBottomRight || 0) * scale * 2, "rpx ").concat((propValue.borderRadiusBottomLeft || 0) * scale * 2, "rpx");
+      }
+      return style;
+    },
+    getIconStyle: function getIconStyle(propValue) {
+      var scale = this.contentScale;
+      var style = {
+        display: "flex",
+        justifyContent: propValue.iconAlign || "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        boxSizing: "border-box",
+        borderWidth: (propValue.showBorder ? propValue.borderWidth * scale * 2 : 0) + "rpx",
+        borderColor: propValue.borderColor || "transparent",
+        borderStyle: propValue.borderStyle || "solid",
+        padding: "".concat((propValue.paddingTop || 0) * scale * 2, "rpx ").concat((propValue.paddingRight || 0) * scale * 2, "rpx ").concat((propValue.paddingBottom || 0) * scale * 2, "rpx ").concat((propValue.paddingLeft || 0) * scale * 2, "rpx")
+      };
+
+      // Background
+      if (propValue.bgColor2) {
+        var directionMap = {
+          horizontal: "90deg",
+          vertical: "180deg",
+          "left-diagonal": "135deg",
+          "right-diagonal": "45deg"
+        };
+        var deg = directionMap[propValue.bgDirection] || "180deg";
+        style.background = "linear-gradient(".concat(deg, ", ").concat(propValue.backgroundColor || "transparent", ", ").concat(propValue.bgColor2, ")");
+      } else {
+        style.backgroundColor = propValue.backgroundColor || "transparent";
+      }
+      if (propValue.showBorder && propValue.borderWidth) {
+        style.backgroundSize = "100% calc(100% + ".concat(propValue.borderWidth * scale * 4 || 0, "rpx)");
+        style.backgroundPosition = "0rpx -".concat(propValue.borderWidth * scale * 2 || 0, "rpx");
+      }
+      // Border Radius
+      if (propValue.isRadiusAll) {
+        style.borderRadius = (propValue.borderRadius || 0) * scale + "px";
+      } else {
+        style.borderRadius = "".concat((propValue.borderRadiusTopLeft || 0) * scale, "px ").concat((propValue.borderRadiusTopRight || 0) * scale, "px ").concat((propValue.borderRadiusBottomRight || 0) * scale, "px ").concat((propValue.borderRadiusBottomLeft || 0) * scale, "px");
+      }
+      return style;
+    },
+    getLineStyle: function getLineStyle(propValue) {
+      var style = {};
+      if (propValue.direction === "vertical") {
+        style.width = "0rpx";
+        style.height = "100%";
+        style.borderLeft = "".concat(propValue.height * 2, "rpx ").concat(propValue.style, " ").concat(propValue.color);
+      } else {
+        style.width = "100%";
+        style.height = "0rpx";
+        style.borderTop = "".concat(propValue.height * 2, "rpx ").concat(propValue.style, " ").concat(propValue.color);
+      }
+      return style;
+    },
+    getPanelStyle: function getPanelStyle(propValue) {
+      var scale = this.contentScale;
+      var borderRadius = 0;
+      if (propValue.isRadiusAll) {
+        borderRadius = propValue.borderRadius * 2 + "rpx";
+      } else {
+        borderRadius = "".concat(propValue.borderRadiusTopLeft * 2, "rpx ").concat(propValue.borderRadiusTopRight * 2, "rpx ").concat(propValue.borderRadiusBottomRight * 2, "rpx ").concat(propValue.borderRadiusBottomLeft * 2, "rpx");
+      }
+      var style = {
+        width: "100%",
+        height: "100%",
+        borderRadius: borderRadius,
+        borderWidth: (propValue.showBorder ? propValue.borderWidth * scale : 0) + "px",
+        borderColor: propValue.borderColor || "transparent",
+        borderStyle: propValue.borderStyle || "solid"
+      };
+      if (propValue.bgColor2) {
+        var directionMap = {
+          horizontal: "90deg",
+          vertical: "180deg",
+          "left-diagonal": "135deg",
+          "right-diagonal": "45deg"
+        };
+        var deg = directionMap[propValue.bgDirection] || "180deg";
+        style.backgroundImage = "linear-gradient(".concat(deg, ", ").concat(propValue.backgroundColor || "transparent", ", ").concat(propValue.bgColor2, ")");
+      } else {
+        style.backgroundColor = propValue.backgroundColor || "transparent";
+      }
+      if (propValue.showBorder && propValue.borderWidth) {
+        style.backgroundSize = "100% calc(100% + ".concat(propValue.borderWidth * scale * 4 || 0, "rpx)");
+        style.backgroundPosition = "0rpx -".concat(propValue.borderWidth * scale * 2 || 0, "rpx");
+      }
+      if (propValue.showShadow) {
+        style.boxShadow = "".concat((propValue.shadowX || 0) * scale * 2, "rpx ").concat((propValue.shadowY || 0) * scale * 2, "rpx ").concat((propValue.shadowBlur || 0) * scale * 2, "rpx ").concat((propValue.shadowSpread || 0) * scale * 2, "rpx ").concat(propValue.shadowColor || "#000000");
+      }
+      if (propValue.showBorder) {
+        style.border = "".concat(propValue.borderWidth * 2, "rpx ").concat(propValue.borderStyle, " ").concat(propValue.borderColor);
+      }
+      return style;
+    },
+    getPictureUrl: function getPictureUrl(item, dataItem) {
+      var field = item.propValue.fieldType;
+      if (this.selectTypeValue === "user" && field === "image") {
+        if (!this.isLogin) return item.propValue.url || "/static/images/f.png";
+        return this.userInfo.image || item.propValue.url || "/static/images/f.png";
+      }
+      if (dataItem && field) {
+        if (field === "image" && dataItem.image_input) return dataItem.image_input[0] || item.propValue.url;
+        if (field === "image" && dataItem.image) return dataItem.image || item.propValue.url;
+      }
+      return item.propValue.url;
+    },
+    getDisplayText: function getDisplayText(item, dataItem) {
+      var field = item.propValue.fieldType;
+      if (this.selectTypeValue === "article") {
+        // Article mapping
+        if (field === "title") return dataItem.title;
+        if (field === "visit") return dataItem.visit;
+        if (field === "add_time") return dataItem.add_time;
+        if (field === "synopsis") return dataItem.synopsis;
+      } else if (this.selectTypeValue === "coupon") {
+        // Coupon mapping
+        var _field = item.propValue.fieldType;
+        if (_field === "coupon_title") return dataItem.coupon_title || dataItem.title;
+        if (_field === "coupon_price") return dataItem.coupon_price;
+        if (_field === "use_min_price") return dataItem.use_min_price;
+        if (_field === "coupon_time") return dataItem.coupon_time;
+        if (_field === "type") return dataItem.type === 1 ? "Phiếu giảm giá danh mục" : dataItem.type === 2 ? "phiếu giảm giá hàng hóa" : "Phiếu giảm giá phổ quát";
+        if (_field === "status") return dataItem.status === 1 ? "bật lên" : "đóng cửa";
+        if (_field === "receive_time") return dataItem.receive_time;
+        if (_field === "use_time") return dataItem.use_time;
+        if (_field === "receive_count") return dataItem.receive_count;
+        if (_field === "add_time") return dataItem.add_time;
+      } else if (this.selectTypeValue === "goods") {
+        // Goods mapping
+        if (field === "store_name") return dataItem.store_name;
+        if (field === "id") return dataItem.id;
+        if (field === "image") return dataItem.image;
+        if (field === "store_info") return dataItem.store_info;
+        if (field === "unit_name") return dataItem.unit_name;
+        if (field === "cate_name") return dataItem.cate_name;
+        if (field === "label_name") return dataItem.label_name;
+        if (field === "stock") return dataItem.stock;
+        if (field === "price") return dataItem.price;
+        if (field === "max_price") return dataItem.max_price;
+        if (field === "min_price") return dataItem.min_price;
+        if (field === "ot_price") return dataItem.ot_price;
+        if (field === "max_ot_price") return dataItem.max_ot_price;
+        if (field === "min_ot_price") return dataItem.min_ot_price;
+        if (field === "min_qty") return dataItem.min_qty;
+        if (field === "sales") return dataItem.sales;
+        if (field === "browse") return dataItem.browse;
+        if (field === "add_time") return dataItem.add_time;
+      } else if (this.selectTypeValue === "user") {
+        // User mapping
+        if (field === "nickname") return dataItem.nickname;
+        if (field === "uid") return dataItem.uid;
+        if (field === "image") return dataItem.avatar;
+        if (field === "collection_num") return dataItem.collection_num;
+        if (field === "cart_num") return dataItem.cart_num;
+        if (field === "order_num") return dataItem.order_num;
+        if (field === "integral") return dataItem.integral;
+        if (field === "now_money") return dataItem.now_money;
+        if (field === "brokerage_price") return dataItem.brokerage_price;
+        if (field === "unread_msg_num") return dataItem.unread_msg_num;
+        if (field === "mobile") return dataItem.mobile;
+        if (field === "add_time") return dataItem.add_time;
+      }
+      return item.propValue.text;
+    },
+    goDetail: function goDetail(dataItem, item) {
+      if (item.propValue.linkType === "detail") {
+        if (this.selectTypeValue === "goods") {
+          uni.navigateTo({
+            url: "/pages/goods_details/index?id=" + dataItem.id
+          });
+        } else if (this.selectTypeValue === "coupon") {
+          this.receiveCoupon(dataItem);
+        } else if (this.selectTypeValue === "article") {
+          uni.navigateTo({
+            url: "/pages/extension/news_details/index?id=" + dataItem.id
+          });
+        }
+      } else {
+        uni.navigateTo({
+          url: item.propValue.link,
+          fail: function fail() {
+            uni.switchTab({
+              url: item.propValue.link
+            });
+          }
+        });
+      }
+    },
+    receiveCoupon: function receiveCoupon(item) {
+      if (!this.isLogin) {
+        this.$emit("changeLogin");
+        return;
+      }
+      (0, _api.setCouponReceive)(item.id).then(function () {
+        uni.showToast({
+          title: "Đã nhận thành công",
+          icon: "success"
+        });
+      }).catch(function (err) {
+        uni.showToast({
+          title: err,
+          icon: "none"
+        });
+      });
+    },
+    handleUserClick: function handleUserClick(item) {
+      if (item.propValue.link) {
+        if (item.propValue.linkType === "url") {
+          uni.navigateTo({
+            url: item.propValue.link
+          });
+        }
+      } else if (!this.isLogin) {
+        this.$emit("changeLogin"); // Trigger login modal via parent
+      }
+    }
+  }
+};
+exports.default = _default2;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 1930:
+/*!********************************************************************************************************************************************************************!*\
+  !*** /Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/subpackage/diyComponents/customComponent.vue?vue&type=style&index=0&id=eb3288e8&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_style_index_0_id_eb3288e8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/postcss-loader/src??ref--6-oneOf-1-3!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./customComponent.vue?vue&type=style&index=0&id=eb3288e8&scoped=true&lang=css& */ 1931);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_style_index_0_id_eb3288e8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_style_index_0_id_eb3288e8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_style_index_0_id_eb3288e8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_style_index_0_id_eb3288e8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_customComponent_vue_vue_type_style_index_0_id_eb3288e8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ 1931:
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/tinhp/Workspace/Projects/CRMEB/template/uni-app/subpackage/diyComponents/customComponent.vue?vue&type=style&index=0&id=eb3288e8&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
+
+/***/ })
+
+}]);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/subpackage/diyComponents/customComponent.js.map
 ;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
     'subpackage/diyComponents/customComponent-create-component',
     {
         'subpackage/diyComponents/customComponent-create-component':(function(module, exports, __webpack_require__){
-            __webpack_require__('df3c')['createComponent'](__webpack_require__("9545"))
+            __webpack_require__('2')['createComponent'](__webpack_require__(1925))
         })
     },
     [['subpackage/diyComponents/customComponent-create-component']]

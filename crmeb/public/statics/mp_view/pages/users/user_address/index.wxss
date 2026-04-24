@@ -1,1 +1,94 @@
-.fontcolor.data-v-3e6482d6{color:var(--view-theme)}.addAddress .list.data-v-3e6482d6{background-color:#fff}.addAddress .list .item.data-v-3e6482d6{padding:30rpx;border-top:1rpx solid #eee}.addAddress .list .item .name.data-v-3e6482d6{width:195rpx;font-size:30rpx;color:#333}.addAddress .list .item .address.data-v-3e6482d6{flex:1;margin-left:20rpx}.addAddress .list .item input.data-v-3e6482d6{width:475rpx;font-size:30rpx}.addAddress .list .item .placeholder.data-v-3e6482d6{color:#ccc}.addAddress .list .item picker.data-v-3e6482d6{width:475rpx}.addAddress .list .item picker .picker.data-v-3e6482d6{width:410rpx;font-size:30rpx}.addAddress .list .item picker .iconfont.data-v-3e6482d6{font-size:43rpx}.addAddress .default.data-v-3e6482d6{padding:0 30rpx;height:90rpx;background-color:#fff;margin-top:23rpx}.addAddress .default checkbox.data-v-3e6482d6{margin-right:15rpx}.addAddress .keepBnt.data-v-3e6482d6{width:690rpx;height:86rpx;border-radius:50rpx;text-align:center;line-height:86rpx;margin:50rpx auto;font-size:32rpx;color:#fff}.addAddress .wechatAddress.data-v-3e6482d6{width:690rpx;height:86rpx;border-radius:50rpx;text-align:center;line-height:86rpx;margin:0 auto;font-size:32rpx;color:var(--view-theme);border:1px solid var(--view-theme)}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.fontcolor.data-v-1c98413a {
+  color: var(--view-theme);
+}
+.addAddress .list.data-v-1c98413a {
+  background-color: #fff;
+}
+.addAddress .list .item.data-v-1c98413a {
+  padding: 30rpx;
+  border-top: 1rpx solid #eee;
+}
+.addAddress .list .item .name.data-v-1c98413a {
+  width: 195rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+.addAddress .list .item .address.data-v-1c98413a {
+  flex: 1;
+  margin-left: 20rpx;
+}
+.addAddress .list .item input.data-v-1c98413a {
+  width: 475rpx;
+  font-size: 30rpx;
+}
+.addAddress .list .item .placeholder.data-v-1c98413a {
+  color: #ccc;
+}
+.addAddress .list .item picker.data-v-1c98413a {
+  width: 475rpx;
+}
+.addAddress .list .item picker .picker.data-v-1c98413a {
+  width: 410rpx;
+  font-size: 30rpx;
+}
+.addAddress .list .item picker .iconfont.data-v-1c98413a {
+  font-size: 43rpx;
+}
+.addAddress .default.data-v-1c98413a {
+  padding: 0 30rpx;
+  height: 90rpx;
+  background-color: #fff;
+  margin-top: 23rpx;
+}
+.addAddress .default checkbox.data-v-1c98413a {
+  margin-right: 15rpx;
+}
+.addAddress .keepBnt.data-v-1c98413a {
+  width: 690rpx;
+  height: 86rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 86rpx;
+  margin: 50rpx auto;
+  font-size: 32rpx;
+  color: #fff;
+}
+.addAddress .wechatAddress.data-v-1c98413a {
+  width: 690rpx;
+  height: 86rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 86rpx;
+  margin: 0 auto;
+  font-size: 32rpx;
+  color: var(--view-theme);
+  border: 1px solid var(--view-theme);
+}

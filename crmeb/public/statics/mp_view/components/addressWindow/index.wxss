@@ -1,1 +1,105 @@
-.address-window.data-v-4b876c93{background-color:#fff;position:fixed;bottom:0;left:0;width:100%;z-index:1000;-webkit-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0);transition:all .3s cubic-bezier(.25,.5,.5,.9)}.address-window.on.data-v-4b876c93{-webkit-transform:translateZ(0);transform:translateZ(0)}.address-window .title.data-v-4b876c93{font-size:32rpx;font-weight:700;text-align:center;height:123rpx;line-height:123rpx;position:relative}.address-window .title .iconfont.data-v-4b876c93{position:absolute;right:30rpx;color:#8a8a8a;font-size:35rpx}.address-window .list .item.data-v-4b876c93{margin-left:30rpx;padding-right:30rpx;border-bottom:1px solid #eee;height:129rpx;font-size:25rpx;color:#333}.address-window .list .item .iconfont.data-v-4b876c93{font-size:37rpx;color:#2c2c2c}.address-window .list .item .iconfont.icon-complete.data-v-4b876c93{font-size:30rpx;color:#fff}.address-window .list .item .address.data-v-4b876c93{width:560rpx}.address-window .list .item .address .name.data-v-4b876c93{font-size:28rpx;font-weight:700;color:#282828;margin-bottom:4rpx}.address-window .list .item .address .name .phone.data-v-4b876c93{margin-left:18rpx}.address-window .addressBnt.data-v-4b876c93{font-size:30rpx;font-weight:700;color:#fff;width:690rpx;height:86rpx;border-radius:43rpx;text-align:center;line-height:86rpx;margin:85rpx auto}.address-window .pictrue.data-v-4b876c93{width:414rpx;height:336rpx;margin:0 auto}.address-window .pictrue image.data-v-4b876c93{width:100%;height:100%}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.address-window.data-v-9b690cc8 {
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+  transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.address-window.on.data-v-9b690cc8 {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.address-window .title.data-v-9b690cc8 {
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+  height: 123rpx;
+  line-height: 123rpx;
+  position: relative;
+}
+.address-window .title .iconfont.data-v-9b690cc8 {
+  position: absolute;
+  right: 30rpx;
+  color: #8a8a8a;
+  font-size: 35rpx;
+}
+.address-window .list .item.data-v-9b690cc8 {
+  margin-left: 30rpx;
+  padding-right: 30rpx;
+  border-bottom: 1px solid #eee;
+  height: 129rpx;
+  font-size: 25rpx;
+  color: #333;
+}
+.address-window .list .item .iconfont.data-v-9b690cc8 {
+  font-size: 37rpx;
+  color: #2c2c2c;
+}
+.address-window .list .item .iconfont.icon-complete.data-v-9b690cc8 {
+  font-size: 30rpx;
+  color: #fff;
+}
+.address-window .list .item .address.data-v-9b690cc8 {
+  width: 560rpx;
+}
+.address-window .list .item .address .name.data-v-9b690cc8 {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #282828;
+  margin-bottom: 4rpx;
+}
+.address-window .list .item .address .name .phone.data-v-9b690cc8 {
+  margin-left: 18rpx;
+}
+.address-window .addressBnt.data-v-9b690cc8 {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #fff;
+  width: 690rpx;
+  height: 86rpx;
+  border-radius: 43rpx;
+  text-align: center;
+  line-height: 86rpx;
+  margin: 85rpx auto;
+}
+.address-window .pictrue.data-v-9b690cc8 {
+  width: 414rpx;
+  height: 336rpx;
+  margin: 0 auto;
+}
+.address-window .pictrue image.data-v-9b690cc8 {
+  width: 100%;
+  height: 100%;
+}

@@ -1,1 +1,113 @@
-.goodsList{padding:0 30rpx}.goodsList .item{width:100%;box-sizing:border-box;margin-bottom:63rpx}.goodsList .item .pictrue{border-radius:16rpx;position:relative;padding-top:40%}.goodsList .item .pictrue image{border-radius:10rpx;position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.goodsList .item .text{font-size:30rpx;font-family:PingFang SC;font-weight:700;color:#282828;margin:20rpx 0}.goodsList .item .bottom .sales{font-size:22rpx;color:#8e8e8e}.goodsList .item .bottom .sales .money{font-size:42rpx;font-weight:700;margin-right:18rpx}.goodsList .item .bottom .sales .money text{font-size:28rpx}.goodsList .item .bottom .cart{height:56rpx}.goodsList .item .bottom .cart .pictrue{color:var(--view-theme);font-size:46rpx;width:50rpx;height:50rpx;text-align:center;line-height:50rpx}.goodsList .item .bottom .cart .num{font-size:30rpx;color:#282828;font-weight:700;width:80rpx;text-align:center}.goodsList .item .bottom .bnt{padding:0 30rpx;height:56rpx;line-height:56rpx;background:var(--view-theme);border-radius:42rpx;font-size:26rpx;color:#fff;position:relative}.goodsList .item .bottom .bnt.end{background:#cbcbcb}.goodsList .item .bottom .bnt .num{background-color:var(--view-priceColor);min-width:12rpx;color:#fff;border-radius:15px;position:absolute;right:-14rpx;top:-15rpx;font-size:22rpx;padding:0 10rpx;height:34rpx;line-height:34rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.goodsList {
+  padding: 0 30rpx;
+}
+.goodsList .item {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 63rpx;
+}
+.goodsList .item .pictrue {
+  border-radius: 16rpx;
+  position: relative;
+  padding-top: 40%;
+}
+.goodsList .item .pictrue image {
+  border-radius: 10rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.goodsList .item .text {
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #282828;
+  margin: 20rpx 0;
+}
+.goodsList .item .bottom .sales {
+  font-size: 22rpx;
+  color: #8e8e8e;
+}
+.goodsList .item .bottom .sales .money {
+  font-size: 42rpx;
+  font-weight: bold;
+  margin-right: 18rpx;
+}
+.goodsList .item .bottom .sales .money text {
+  font-size: 28rpx;
+}
+.goodsList .item .bottom .cart {
+  height: 56rpx;
+}
+.goodsList .item .bottom .cart .pictrue {
+  color: var(--view-theme);
+  font-size: 46rpx;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+.goodsList .item .bottom .cart .num {
+  font-size: 30rpx;
+  color: #282828;
+  font-weight: bold;
+  width: 80rpx;
+  text-align: center;
+}
+.goodsList .item .bottom .bnt {
+  padding: 0 30rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  background: var(--view-theme);
+  border-radius: 42rpx;
+  font-size: 26rpx;
+  color: #fff;
+  position: relative;
+}
+.goodsList .item .bottom .bnt.end {
+  background: #cbcbcb;
+}
+.goodsList .item .bottom .bnt .num {
+  background-color: var(--view-priceColor);
+  min-width: 12rpx;
+  color: #fff;
+  border-radius: 15px;
+  position: absolute;
+  right: -14rpx;
+  top: -15rpx;
+  font-size: 22rpx;
+  padding: 0 10rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+}

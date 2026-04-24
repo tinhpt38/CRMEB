@@ -1,1 +1,117 @@
-.news-scroll{height:88rpx;padding:0 20rpx;background:#fff}.news-left{margin-right:16rpx}.news-left .text{height:40rpx;padding:0 12rpx;border-radius:8rpx;font-weight:500;font-size:26rpx;line-height:40rpx}.news-left .image{display:block;height:48rpx}.news-scroll .news-center{flex:1;min-width:0;height:36rpx;font-size:26rpx;line-height:36rpx;color:#333}.news-scroll .swiper{height:36rpx}.news-scroll .iconfont{margin-left:16rpx;font-size:24rpx}.news{padding:32rpx 24rpx;background:#fff}.news-top{font-weight:500;font-size:32rpx;line-height:36rpx;color:#333}.news-top .image{display:block;height:36rpx}.news-top .more{font-weight:400;font-size:24rpx;color:#999}.news-top .iconfont{font-size:24rpx}.news-bottom{margin-top:32rpx}.news-bottom .item{font-size:28rpx;line-height:40rpx;color:#282828}.news-bottom .item + .item{margin-top:24rpx}.news-bottom .item:nth-child(1) .number{color:#e93323}.news-bottom .item:nth-child(2) .number{color:#ff7300}.news-bottom .item:nth-child(3) .number{color:#ffc300}.news-bottom .number{width:30rpx;font-family:SemiBold;font-size:30rpx;color:#999}.news-bottom .text{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.news-scroll {
+  height: 88rpx;
+  padding: 0 20rpx;
+  background: #ffffff;
+}
+.news-left {
+  margin-right: 16rpx;
+}
+.news-left .text {
+  height: 40rpx;
+  padding: 0 12rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+  font-size: 26rpx;
+  line-height: 40rpx;
+}
+.news-left .image {
+  display: block;
+  height: 48rpx;
+}
+.news-scroll .news-center {
+  flex: 1;
+  min-width: 0;
+  height: 36rpx;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #333333;
+}
+.news-scroll .swiper {
+  height: 36rpx;
+}
+.news-scroll .iconfont {
+  margin-left: 16rpx;
+  font-size: 24rpx;
+}
+.news {
+  padding: 32rpx 24rpx;
+  background: #ffffff;
+}
+.news-top {
+  font-weight: 500;
+  font-size: 32rpx;
+  line-height: 36rpx;
+  color: #333333;
+}
+.news-top .image {
+  display: block;
+  height: 36rpx;
+}
+.news-top .more {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #999999;
+}
+.news-top .iconfont {
+  font-size: 24rpx;
+}
+.news-bottom {
+  margin-top: 32rpx;
+}
+.news-bottom .item {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #282828;
+}
+.news-bottom .item + .item {
+  margin-top: 24rpx;
+}
+.news-bottom .item:nth-child(1) .number {
+  color: #e93323;
+}
+.news-bottom .item:nth-child(2) .number {
+  color: #ff7300;
+}
+.news-bottom .item:nth-child(3) .number {
+  color: #ffc300;
+}
+.news-bottom .number {
+  width: 30rpx;
+  font-family: SemiBold;
+  font-size: 30rpx;
+  color: #999999;
+}
+.news-bottom .text {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,1 +1,194 @@
-.list.data-v-53286b40{overflow:hidden;padding-top:100rpx}.list .item.data-v-53286b40{background-color:#fff;display:flex;align-items:center;padding:30rpx 30rpx;margin:10rpx 20rpx;border-radius:12rpx;box-shadow:0 0 1px 0 rgba(235,214,214,.75);-webkit-box-shadow:0 0 1px 0 rgba(235,214,214,.75);-moz-box-shadow:0 0 1px 0 rgba(235,214,214,.75)}.list .item ~ .item.data-v-53286b40{border-top:1rpx solid #f5f5f5}.list .item .image.data-v-53286b40{border-radius:50%}.list .image-wrap.data-v-53286b40{width:88rpx;height:88rpx;border-radius:50%;position:relative}.list .image-wrap .no-look.data-v-53286b40{position:absolute;width:18rpx;height:18rpx;border-radius:50%;background-color:#1abb1d;top:0rpx;right:0rpx;z-index:999}.list .image.data-v-53286b40{display:block;width:100%;height:100%}.list .text-wrap.data-v-53286b40{flex:1;min-width:0;margin-left:20rpx}.list .name-wrap.data-v-53286b40{display:flex;align-items:center;font-size:20rpx;color:#ccc}.list .name.data-v-53286b40{flex:1;min-width:0;margin-right:20rpx;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:28rpx;color:#333}.list .info-wrap.data-v-53286b40{display:flex;align-items:center;margin-top:18rpx}.list .info.data-v-53286b40{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:24rpx;color:#999}.list .num.data-v-53286b40{min-width:32rpx;height:32rpx;border-radius:16rpx;margin-left:20rpx;background-color:#e93323;font-size:20rpx;line-height:32rpx;text-align:center;color:#fff}.empty-wrap.data-v-53286b40{font-size:26rpx;text-align:center;color:#999}.empty-wrap .image-wrap.data-v-53286b40{width:414rpx;height:436rpx;padding-top:100rpx;margin:0rpx auto 0}.empty-wrap .image.data-v-53286b40{display:block;width:100%;height:100%}.main.data-v-53286b40{position:relative;min-height:100vh}.top-tabs.data-v-53286b40{position:fixed;width:100%;display:flex;align-items:center;background-color:#fff;font-size:28rpx;border-radius:8rpx;padding:20rpx 0;margin-bottom:10rpx;z-index:1000;transition:all .3s;justify-content:space-between}.top-tabs .read-all.data-v-53286b40{margin-right:24rpx;font-size:24rpx}.tabs.data-v-53286b40{display:flex}.item.data-v-53286b40{display:flex;align-items:center;padding:4rpx 15rpx;margin:0 20rpx;-webkit-animation:Gradient-data-v-53286b40 .3s;animation:Gradient-data-v-53286b40 .3s;border-radius:30rpx;transition:all .4s}.btborder.data-v-53286b40{color:#fff;background-color:var(--view-theme);border-radius:30rpx}@-webkit-keyframes Gradient-data-v-53286b40{0%{background-color:pink}50%{background-position:100% 50%}100%{background-position:0 50%}}@keyframes Gradient-data-v-53286b40{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.list.data-v-730fb130 {
+  overflow: hidden;
+  padding-top: 100rpx;
+}
+.list .item.data-v-730fb130 {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 30rpx 30rpx;
+  margin: 10rpx 20rpx;
+  border-radius: 12rpx;
+  box-shadow: 0px 0px 1px 0px rgba(235, 214, 214, 0.75);
+  -webkit-box-shadow: 0px 0px 1px 0px rgba(235, 214, 214, 0.75);
+  -moz-box-shadow: 0px 0px 1px 0px rgba(235, 214, 214, 0.75);
+}
+.list .item ~ .item.data-v-730fb130 {
+  border-top: 1rpx solid #f5f5f5;
+}
+.list .item .image.data-v-730fb130 {
+  border-radius: 50%;
+}
+.list .image-wrap.data-v-730fb130 {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  position: relative;
+}
+.list .image-wrap .no-look.data-v-730fb130 {
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background-color: #1ABB1D;
+  top: 0rpx;
+  right: 0rpx;
+  z-index: 999;
+}
+.list .image.data-v-730fb130 {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.list .text-wrap.data-v-730fb130 {
+  flex: 1;
+  min-width: 0;
+  margin-left: 20rpx;
+}
+.list .name-wrap.data-v-730fb130 {
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+  color: #ccc;
+}
+.list .name.data-v-730fb130 {
+  flex: 1;
+  min-width: 0;
+  margin-right: 20rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 28rpx;
+  color: #333;
+}
+.list .info-wrap.data-v-730fb130 {
+  display: flex;
+  align-items: center;
+  margin-top: 18rpx;
+}
+.list .info.data-v-730fb130 {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 24rpx;
+  color: #999;
+}
+.list .num.data-v-730fb130 {
+  min-width: 32rpx;
+  height: 32rpx;
+  border-radius: 16rpx;
+  margin-left: 20rpx;
+  background-color: #e93323;
+  font-size: 20rpx;
+  line-height: 32rpx;
+  text-align: center;
+  color: #fff;
+}
+.empty-wrap.data-v-730fb130 {
+  font-size: 26rpx;
+  text-align: center;
+  color: #999;
+}
+.empty-wrap .image-wrap.data-v-730fb130 {
+  width: 414rpx;
+  height: 436rpx;
+  padding-top: 100rpx;
+  margin: 0rpx auto 0;
+}
+.empty-wrap .image.data-v-730fb130 {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.main.data-v-730fb130 {
+  position: relative;
+  min-height: 100vh;
+}
+.top-tabs.data-v-730fb130 {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  font-size: 28rpx;
+  border-radius: 8rpx;
+  padding: 20rpx 0;
+  margin-bottom: 10rpx;
+  z-index: 1000;
+  transition: all 0.3s;
+  justify-content: space-between;
+}
+.top-tabs .read-all.data-v-730fb130 {
+  margin-right: 24rpx;
+  font-size: 24rpx;
+}
+.tabs.data-v-730fb130 {
+  display: flex;
+}
+.item.data-v-730fb130 {
+  display: flex;
+  align-items: center;
+  padding: 4rpx 15rpx;
+  margin: 0 20rpx;
+  -webkit-animation: Gradient-data-v-730fb130 0.3s;
+          animation: Gradient-data-v-730fb130 0.3s;
+  border-radius: 30rpx;
+  transition: all 0.4s;
+}
+.btborder.data-v-730fb130 {
+  color: #fff;
+  background-color: var(--view-theme);
+  border-radius: 30rpx;
+}
+@-webkit-keyframes Gradient-data-v-730fb130 {
+0% {
+    background-color: pink;
+}
+50% {
+    background-position: 100% 50%;
+}
+100% {
+    background-position: 0% 50%;
+}
+}
+@keyframes Gradient-data-v-730fb130 {
+0% {
+    background-position: 0% 50%;
+}
+50% {
+    background-position: 100% 50%;
+}
+100% {
+    background-position: 0% 50%;
+}
+}

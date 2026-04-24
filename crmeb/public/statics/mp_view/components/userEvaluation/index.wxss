@@ -1,1 +1,110 @@
-.vipImg.data-v-6b8d59e2{width:68rpx;height:27rpx}.vipImg image.data-v-6b8d59e2{width:100%;height:100%;margin-left:10rpx}.evaluateWtapper .evaluateItem.data-v-6b8d59e2{background-color:#fff;padding-bottom:25rpx}.evaluateWtapper .evaluateItem ~ .evaluateItem.data-v-6b8d59e2{border-top:1rpx solid #f5f5f5}.evaluateWtapper .evaluateItem .pic-text.data-v-6b8d59e2{font-size:26rpx;color:#282828;height:95rpx;padding:0 30rpx}.evaluateWtapper .evaluateItem .pic-text .pictrue.data-v-6b8d59e2{width:60rpx;height:60rpx;margin-right:20rpx;border-radius:50%}.evaluateWtapper .evaluateItem .pic-text .pictrue image.data-v-6b8d59e2{width:100%;height:100%;border-radius:50%}.evaluateWtapper .evaluateItem .pic-text .name.data-v-6b8d59e2{max-width:450rpx;font-size:30rpx}.evaluateWtapper .evaluateItem .time.data-v-6b8d59e2{font-size:24rpx;color:#82848f;padding:0 30rpx}.evaluateWtapper .evaluateItem .evaluate-infor.data-v-6b8d59e2{font-size:28rpx;color:#282828;margin-top:19rpx;padding:0 30rpx}.evaluateWtapper .evaluateItem .imgList.data-v-6b8d59e2{padding:0 30rpx 0 15rpx;margin-top:25rpx}.evaluateWtapper .evaluateItem .imgList .pictrue.data-v-6b8d59e2{width:156rpx;height:156rpx;margin:0 0 15rpx 15rpx}.evaluateWtapper .evaluateItem .imgList .pictrue image.data-v-6b8d59e2{width:100%;height:100%;background-color:#f7f7f7}.evaluateWtapper .evaluateItem .reply.data-v-6b8d59e2{font-size:26rpx;color:#454545;background-color:#f7f7f7;border-radius:5rpx;margin:20rpx 30rpx 0 30rpx;padding:20rpx;position:relative}.evaluateWtapper .evaluateItem .reply.data-v-6b8d59e2::before{content:"";width:0;height:0;border-left:20rpx solid transparent;border-right:20rpx solid transparent;border-bottom:30rpx solid #f7f7f7;position:absolute;top:-14rpx;left:40rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.vipImg.data-v-52697636 {
+  width: 68rpx;
+  height: 27rpx;
+}
+.vipImg image.data-v-52697636 {
+  width: 100%;
+  height: 100%;
+  margin-left: 10rpx;
+}
+.evaluateWtapper .evaluateItem.data-v-52697636 {
+  background-color: #fff;
+  padding-bottom: 25rpx;
+}
+.evaluateWtapper .evaluateItem ~ .evaluateItem.data-v-52697636 {
+  border-top: 1rpx solid #f5f5f5;
+}
+.evaluateWtapper .evaluateItem .pic-text.data-v-52697636 {
+  font-size: 26rpx;
+  color: #282828;
+  height: 95rpx;
+  padding: 0 30rpx;
+}
+.evaluateWtapper .evaluateItem .pic-text .pictrue.data-v-52697636 {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+}
+.evaluateWtapper .evaluateItem .pic-text .pictrue image.data-v-52697636 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.evaluateWtapper .evaluateItem .pic-text .name.data-v-52697636 {
+  max-width: 450rpx;
+  font-size: 30rpx;
+}
+.evaluateWtapper .evaluateItem .time.data-v-52697636 {
+  font-size: 24rpx;
+  color: #82848f;
+  padding: 0 30rpx;
+}
+.evaluateWtapper .evaluateItem .evaluate-infor.data-v-52697636 {
+  font-size: 28rpx;
+  color: #282828;
+  margin-top: 19rpx;
+  padding: 0 30rpx;
+}
+.evaluateWtapper .evaluateItem .imgList.data-v-52697636 {
+  padding: 0 30rpx 0 15rpx;
+  margin-top: 25rpx;
+}
+.evaluateWtapper .evaluateItem .imgList .pictrue.data-v-52697636 {
+  width: 156rpx;
+  height: 156rpx;
+  margin: 0 0 15rpx 15rpx;
+}
+.evaluateWtapper .evaluateItem .imgList .pictrue image.data-v-52697636 {
+  width: 100%;
+  height: 100%;
+  background-color: #f7f7f7;
+}
+.evaluateWtapper .evaluateItem .reply.data-v-52697636 {
+  font-size: 26rpx;
+  color: #454545;
+  background-color: #f7f7f7;
+  border-radius: 5rpx;
+  margin: 20rpx 30rpx 0 30rpx;
+  padding: 20rpx;
+  position: relative;
+}
+.evaluateWtapper .evaluateItem .reply.data-v-52697636::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 20rpx solid transparent;
+  border-right: 20rpx solid transparent;
+  border-bottom: 30rpx solid #f7f7f7;
+  position: absolute;
+  top: -14rpx;
+  left: 40rpx;
+}

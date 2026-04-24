@@ -1,1 +1,66 @@
-.Regular{font-family:Regular}.bg-cover{background-repeat:no-repeat;background-size:100% 100%}.item ~ .item{margin-top:32rpx}.badge{width:152rpx;height:26rpx;background:linear-gradient(90deg,#ff7931,#e93323);border-radius:20rpx;display:inline-flex;justify-content:center;align-items:center;margin:16rpx 0}.btn-left{width:60%;border-radius:8rpx 0 0 8rpx;background:hsla(0,0%,100%,.9)}.btn-right{width:40%;border-radius:0 8rpx 8rpx 0}.shandian{width:48rpx;height:74rpx;position:absolute;left:60%;top:0;margin-top:-2rpx;margin-left:-22rpx}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.Regular {
+  font-family: "Regular";
+}
+.bg-cover {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.item ~ .item {
+  margin-top: 32rpx;
+}
+.badge {
+  width: 152rpx;
+  height: 26rpx;
+  background: linear-gradient(90deg, #ff7931 0%, #e93323 100%);
+  border-radius: 20rpx;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16rpx 0;
+}
+.btn-left {
+  width: 60%;
+  border-radius: 8rpx 0 0 8rpx;
+  background: rgba(255, 255, 255, 0.9);
+}
+.btn-right {
+  width: 40%;
+  border-radius: 0 8rpx 8rpx 0;
+}
+.shandian {
+  width: 48rpx;
+  height: 74rpx;
+  position: absolute;
+  left: 60%;
+  top: 0;
+  margin-top: -2rpx;
+  margin-left: -22rpx;
+}

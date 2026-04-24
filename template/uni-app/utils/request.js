@@ -21,6 +21,38 @@ import {
 import store from '../store';
 import i18n from './lang.js';
 
+function normalizeAssetDomain(payload) {
+	// #ifdef H5
+	const fromHosts = ['https://demo.crmeb.com', 'http://demo.crmeb.com'];
+	const targetHost = window.location.protocol + '//' + window.location.host;
+
+	const walk = (val) => {
+		if (typeof val === 'string') {
+			let next = val;
+			for (let i = 0; i < fromHosts.length; i++) {
+				if (next.indexOf(fromHosts[i]) > -1) {
+					next = next.replace(new RegExp(fromHosts[i], 'g'), targetHost);
+				}
+			}
+			return next;
+		}
+		if (Array.isArray(val)) return val.map(walk);
+		if (val && typeof val === 'object') {
+			const out = {};
+			Object.keys(val).forEach((k) => {
+				out[k] = walk(val[k]);
+			});
+			return out;
+		}
+		return val;
+	};
+	return walk(payload);
+	// #endif
+	// #ifndef H5
+	return payload;
+	// #endif
+}
+
 /**
  * Gửi yêu cầu
  */
@@ -53,6 +85,9 @@ function baseRequest(url, method, data, {
 			data: data || {},
 			timeout: TIMEOUT,
 			success: (res) => {
+				if (res && res.data) {
+					res.data = normalizeAssetDomain(res.data);
+				}
 				if (noVerify)
 					reslove(res.data, res);
 				else if (res.data.status == 200)

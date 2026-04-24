@@ -1,1 +1,58 @@
-.commission-details .promoterHeader .headerCon .money.data-v-3e14c4ce{font-size:36rpx}.commission-details .promoterHeader .headerCon .money .num.data-v-3e14c4ce{font-family:Guildford Pro}.extract-tag.data-v-3e14c4ce{font-size:24rpx;border-radius:12rpx;padding:4rpx 8rpx;background-color:#16ac57;color:#fff;margin-right:8rpx}.extract-tag.bg-ing.data-v-3e14c4ce{background-color:#ffd600;color:#000}.extract-tag.bg-fail.data-v-3e14c4ce{background-color:#ff4d4f;color:#fff}.sign-record .list .item .listn .itemn .name.data-v-3e14c4ce{width:100%;white-space:break-spaces}.sign-record .list .item .listn .itemn .title.data-v-3e14c4ce{padding-right:30rpx;flex:1}
+@charset "UTF-8";
+/**
+ * Dưới đây là các biến kiểu thường được sử dụng được tích hợp trong uni-app
+ *
+ * Thị trường trình cắm và trình cắm mở rộng chính thức của uni-app（https://ext.dcloud.net.cn）Nhiều plug-in của bên thứ ba trên Internet sử dụng các biến kiểu này
+ * Nếu bạn là nhà phát triển plugin, bạn nên sử dụng tính năng tiền xử lý scss và sử dụng các biến này trực tiếp trong mã plug-in (không cần nhập tệp này) để người dùng có thể phát triển Ứng dụng với phong cách tổng thể nhất quán bằng cách xây dựng các khối xây dựng.
+ *
+ */
+/**
+ * Nếu bạn là Nhà phát triển ứng dụng (người dùng trình cắm), bạn có thể tùy chỉnh chủ đề trình cắm của riêng mình bằng cách sửa đổi các biến này để đạt được các chức năng chủ đề tùy chỉnh
+ *
+ * Nếu dự án của bạn cũng sử dụng tiền xử lý scss, bạn cũng có thể sử dụng trực tiếp các biến sau trong mã scss của mình mà không cần nhập tệp này.
+ */
+/*biến màu*/
+/* Quản lý thương gia */
+/* màu sắc liên quan đến hành vi */
+/* crmebbiến màu */
+/* màu nền */
+/* Màu đường viền */
+/* biến kích thước */
+/* kích thước văn bản */
+/* Kích thước hình ảnh */
+/* Border Radius */
+/* Khoảng cách ngang */
+/* khoảng cách dọc */
+/* Minh bạch */
+/* Cảnh bài viết liên quan */
+/* Quản lý thương gia */
+.commission-details .promoterHeader .headerCon .money.data-v-9de6df8a {
+  font-size: 36rpx;
+}
+.commission-details .promoterHeader .headerCon .money .num.data-v-9de6df8a {
+  font-family: "Guildford Pro";
+}
+.extract-tag.data-v-9de6df8a {
+  font-size: 24rpx;
+  border-radius: 12rpx;
+  padding: 4rpx 8rpx;
+  background-color: #16ac57;
+  color: #fff;
+  margin-right: 8rpx;
+}
+.extract-tag.bg-ing.data-v-9de6df8a {
+  background-color: #ffd600;
+  color: #000;
+}
+.extract-tag.bg-fail.data-v-9de6df8a {
+  background-color: #ff4d4f;
+  color: #fff;
+}
+.sign-record .list .item .listn .itemn .name.data-v-9de6df8a {
+  width: 100%;
+  white-space: break-spaces;
+}
+.sign-record .list .item .listn .itemn .title.data-v-9de6df8a {
+  padding-right: 30rpx;
+  flex: 1;
+}

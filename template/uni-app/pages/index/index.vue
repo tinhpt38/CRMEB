@@ -508,7 +508,7 @@ export default {
         uni.navigateTo({
           url: `/pages/goods/goods_list/index?cid=${data.classPage.id}&title=${data.classPage.name}`,
         });
-      } else if (data.text.val == 'trang đầu') {
+      } else if (["trang đầu", "首页"].includes((data.text && data.text.val) || "")) {
         uni.switchTab({
           url: `/pages/index/index`,
         });
@@ -654,27 +654,92 @@ export default {
       let m = obj.map((key) => data[key]);
       return m;
     },
+    normalizeDiyText(value) {
+      if (typeof value !== "string") return value;
+      const raw = value.trim();
+      if (!raw) return value;
+      // Skip translating URLs/paths/base64 payloads.
+      if (
+        raw.indexOf("http://") === 0 ||
+        raw.indexOf("https://") === 0 ||
+        raw.indexOf("/pages/") === 0 ||
+        raw.indexOf("/uploads/") === 0 ||
+        raw.indexOf("data:image") === 0
+      ) {
+        return value;
+      }
+      const dict = {
+        "首页": "Trang chu",
+        "模板": "Mau",
+        "标题": "Tieu de",
+        "链接": "Lien ket",
+        "文字": "Van ban",
+        "图片": "Hinh anh",
+        "更多": "Them",
+        "请输入": "Vui long nhap",
+        "请输入标题文字": "Vui long nhap tieu de",
+        "请输入右侧按钮": "Vui long nhap nut ben phai",
+        "请输入右侧文字": "Vui long nhap chu ben phai",
+        "请输入标题": "Vui long nhap tieu de",
+        "请输入搜索词": "Nhap tu khoa tim kiem",
+        "商城头条": "Tin noi bat",
+        "商品分类": "Danh muc san pham",
+        "新闻资讯": "Tin tuc",
+        "领优惠券": "Nhan ma giam gia",
+        "浏览记录": "Lich su xem",
+        "积分商城": "Cua hang diem",
+        "疯狂砍价": "San deal gia soc",
+        "低至0元免费拿": "Gia tu 0d",
+        "超值拼团": "Ghep nhom tiet kiem",
+        "限时秒杀": "Flash sale",
+        "签到": "Diem danh",
+        "优惠券": "Ma giam gia",
+        "文章列表": "Danh sach bai viet",
+        "新闻公告": "Thong bao",
+        "导航组": "Nhom dieu huong",
+        "轮播搜索": "Banner tim kiem",
+        "底部导航": "Dieu huong duoi",
+        "商品列表": "Danh sach san pham",
+      };
+      return dict[raw] || value;
+    },
+    localizeDiyPayload(payload) {
+      const walk = (val) => {
+        if (typeof val === "string") return this.normalizeDiyText(val);
+        if (Array.isArray(val)) return val.map((item) => walk(item));
+        if (val && typeof val === "object") {
+          const out = {};
+          Object.keys(val).forEach((k) => {
+            out[k] = walk(val[k]);
+          });
+          return out;
+        }
+        return val;
+      };
+      return walk(payload);
+    },
     setDiyData(data) {
       if (!data) return;
-      this.currentDiyData = data;
+      const normalizedData = this.localizeDiyPayload(data);
+      this.currentDiyData = normalizedData;
       this.errorNetwork = false;
-      if (data.is_bg_color) {
-        this.bgColor = data.color_picker || "";
+      if (normalizedData.is_bg_color) {
+        this.bgColor = normalizedData.color_picker || "";
       }
-      if (data.is_bg_pic) {
-        this.bgPic = data.bg_pic || "";
-        this.bgTabVal = data.bg_tab_val || "";
+      if (normalizedData.is_bg_pic) {
+        this.bgPic = normalizedData.bg_pic || "";
+        this.bgTabVal = normalizedData.bg_tab_val || "";
       }
       this.pageShow = 1;
-      if (data.title) {
+      if (normalizedData.title) {
         uni.setNavigationBarTitle({
-          title: data.title,
+          title: normalizedData.title,
         });
       }
       let temp = [];
       let goodsIndex = [];
       let promotionIndex = [];
-      let lastArr = this.objToArr(data.value);
+      let lastArr = this.objToArr(normalizedData.value);
       lastArr.forEach((item, index, arr) => {
         if (!item) return;
         if (item.name == "pageFoot") {

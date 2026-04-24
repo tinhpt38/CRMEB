@@ -81,23 +81,30 @@ export default {
       };
     },
     titleWrapStyle() {
-      let borderRadius = `${this.dataConfig.fillet.val * 2}rpx`;
-      if (this.dataConfig.fillet.type) {
-        borderRadius = `${this.dataConfig.fillet.valList[0].val * 2}rpx ${
-          this.dataConfig.fillet.valList[1].val * 2
-        }rpx ${this.dataConfig.fillet.valList[3].val * 2}rpx ${
-          this.dataConfig.fillet.valList[2].val * 2
+      const fillet = this.dataConfig.fillet || {};
+      const filletVal = Number(fillet.val || 0);
+      const filletList = Array.isArray(fillet.valList) ? fillet.valList : [];
+      let borderRadius = `${filletVal * 2}rpx`;
+      if (fillet.type && filletList.length >= 4) {
+        borderRadius = `${(filletList[0].val || 0) * 2}rpx ${
+          (filletList[1].val || 0) * 2
+        }rpx ${(filletList[3].val || 0) * 2}rpx ${
+          (filletList[2].val || 0) * 2
         }rpx`;
       }
       return {
         "border-radius": borderRadius,
-        background: `linear-gradient(90deg, ${this.dataConfig.moduleColor.color[0].item} 0%, ${this.dataConfig.moduleColor.color[1].item} 100%)`,
+        background: `linear-gradient(90deg, ${this.getColorItem(
+          this.dataConfig.moduleColor,
+          0,
+          "#FFFFFF"
+        )} 0%, ${this.getColorItem(this.dataConfig.moduleColor, 1, "#FFFFFF")} 100%)`,
       };
     },
     titleStyle() {
       let style = {
-        "font-size": `${this.dataConfig.fontSize.val * 2}rpx`,
-        color: this.dataConfig.themeColor.color[0].item,
+        "font-size": `${((this.dataConfig.fontSize || {}).val || 14) * 2}rpx`,
+        color: this.getColorItem(this.dataConfig.themeColor, 0, "#333333"),
       };
       switch (this.dataConfig.textStyle.tabVal) {
         case 1:
@@ -125,12 +132,24 @@ export default {
     },
     moreStyle() {
       return {
-        "font-size": `${this.dataConfig.buttonText.val * 2}rpx`,
-        color: this.dataConfig.buttonColor.color[0].item,
+        "font-size": `${((this.dataConfig.buttonText || {}).val || 12) * 2}rpx`,
+        color: this.getColorItem(this.dataConfig.buttonColor, 0, "#999999"),
       };
     },
   },
   methods: {
+    getColorItem(colorConfig, idx, fallback) {
+      if (!colorConfig || typeof colorConfig !== "object") return fallback;
+      const list =
+        colorConfig.color ||
+        colorConfig["màu sắc"] ||
+        colorConfig["颜色"] ||
+        [];
+      if (!Array.isArray(list)) return fallback;
+      const item = list[idx];
+      if (!item || typeof item !== "object") return fallback;
+      return item.item || fallback;
+    },
     goLink() {
       this.$util.JumpPath(this.dataConfig.linkConfig.value);
     },

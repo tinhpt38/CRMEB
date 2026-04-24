@@ -5,7 +5,7 @@
     "versionName" : "6.0.0",
     "versionCode" : 600,
     "transformPx" : false,
-    "sassImplementationName" : "node-sass",
+    "sassImplementationName" : "dart-sass",
     /* 5+AppCó liên quan duy nhất */
     "app-plus" : {
         "usingComponents" : true,
@@ -183,7 +183,7 @@
     "quickapp" : {},
     /* Chương trình nhỏ liên quan cụ thể */
     "mp-weixin" : {
-        "appid" : "wx3b82801238ca1b57",
+        "appid" : null,
         "setting" : {
             "urlCheck" : false,
             "minified" : true,
@@ -251,5 +251,3 @@
     "_spaceID" : "679f0930-8f60-425c-9033-8c135f397ea5",
     "lazyCodeLoading" : "requiredComponents"
 }
-/* iosCấu hình gói */
-
