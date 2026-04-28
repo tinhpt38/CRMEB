@@ -19,7 +19,7 @@
 									<p class="textbox">Số đơn hàng：{{ item.order_id }}</p>
 									<p class="attribute mar">thời gian đặt hàng：{{ item.add_time }}</p>
 									<view class="txt">
-										<p class="attribute">Đặt hàng thanh toán thực tế：¥{{ item.pay_price }}</p>
+										<p class="attribute">Thanh toán thực tế：¥{{ item.pay_price }}</p>
 										<p class="orange" v-if="item._status == 12">Xóa nợ một phần</p>
 										<p class="attributes blue" v-if="item._status == 11">Không được viết tắt</p>
 										<slot name="bottom"></slot>

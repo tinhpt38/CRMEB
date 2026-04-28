@@ -266,7 +266,7 @@ class TradeStatisticServices extends BaseServices
         $OrderChain = $this->countRate($OrderMoney, $lastOrderMoney);
         $topData[1] = [
             'title' => 'Số tiền thanh toán sản phẩm',
-            'desc' => 'Trong các điều kiện đã chọn, số tiền thanh toán thực tế của hàng hóa mà người dùng đã mua, bao gồm thanh toán WeChat, thanh toán số dư, thanh toán Alipay và số tiền thanh toán ngoại tuyến (các sản phẩm nhóm được bao gồm sau khi nhóm được thành lập và các đơn đặt hàng thanh toán ngoại tuyến được bao gồm sau khi thanh toán được xác nhận ở chế độ nền)）',
+            'desc' => 'Trong các điều kiện đã chọn, số tiền Thanh toán thực tế của sản phẩm mà người dùng đã mua, bao gồm thanh toán WeChat, thanh toán số dư, thanh toán Alipay và số tiền thanh toán ngoại tuyến (các sản phẩm nhóm được bao gồm sau khi nhóm được thành lập và các đơn đặt hàng thanh toán ngoại tuyến được bao gồm sau khi thanh toán được xác nhận ở chế độ nền)）',
             'total_money' => $OrderMoney,
             'rate' => $OrderChain,
             'value' => $OrderCurve['y'],
@@ -365,7 +365,7 @@ class TradeStatisticServices extends BaseServices
         $OutExtractChain = $this->countRate($outExtractMoney, $lastOutExtractMoney);
         $topData[7] = [
             'title' => 'Số tiền hoa hồng đã trả',
-            'desc' => 'Hoa hồng khuyến mãi được người phụ trợ trả cho người quảng bá sẽ tùy thuộc vào khoản thanh toán thực tế.',
+            'desc' => 'Hoa hồng khuyến mãi được người phụ trợ trả cho người quảng bá sẽ tùy thuộc vào khoản Thanh toán thực tế.',
             'total_money' => $outExtractMoney,
             'rate' => $OutExtractChain,
             'value' => $OutExtractCurve['y'],
@@ -381,7 +381,7 @@ class TradeStatisticServices extends BaseServices
         $orderRefundChain = $this->countRate($outOrderRefund, $lastOutOrderRefund);
         $topData[8] = [
             'title' => 'Số tiền hoàn lại sản phẩm',
-            'desc' => 'Số lượng hàng hóa được người dùng hoàn trả thành công',
+            'desc' => 'Số lượng sản phẩm được người dùng hoàn trả thành công',
             'total_money' => $outOrderRefund,
             'rate' => $orderRefundChain,
             'value' => $outOrderRefundCurve['y'],

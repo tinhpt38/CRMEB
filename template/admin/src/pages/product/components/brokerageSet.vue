@@ -8,7 +8,7 @@
             <el-radio :label="1">Hoa hồng tùy chỉnh</el-radio>
           </el-radio-group>
           <div class="fs-12 tips-info" v-show="formData.is_sub">
-            Khi chuyển sang tỷ lệ mặc định, số tiền hoàn lại được chỉnh sửa trong bảng sẽ bị xóa, vui lòng vận hành thận trọng
+            Khi chuyển sang tỷ lệ mặc định, số tiền hoàn lại được chỉnh sửa trong bảng sẽ bị xóa, vui lòng Thao tác thận trọng
           </div>
         </el-form-item>
         <el-form-item label-width="0">
@@ -20,8 +20,8 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="suk" label="thông số kỹ thuật sản phẩm" min-width="120" align="center"></el-table-column>
-            <el-table-column prop="price" label="giá bán" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="suk" label="Thông số kỹ thuật sản phẩm" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="price" label="Giá bán" min-width="120" align="center"></el-table-column>
             <el-table-column min-width="120" align="center">
               <template slot="header" slot-scope="scope">
                 <span>Giảm giá cấp độ đầu tiên</span>
@@ -47,7 +47,7 @@
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
                       <el-button size="small" @click="closePop">Hủy bỏ</el-button>
-                      <el-button size="small" type="primary" @click="brokerageOneSetUp">xác nhận</el-button>
+                      <el-button size="small" type="primary" @click="brokerageOneSetUp">Xác nhận</el-button>
                     </div>
                   </div>
                   <span class="iconfont iconbianji1" slot="reference"></span>
@@ -100,7 +100,7 @@
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
                       <el-button size="small" @click="closePop">Hủy bỏ</el-button>
-                      <el-button size="small" type="primary" @click="brokerageTwoSetUp">xác nhận</el-button>
+                      <el-button size="small" type="primary" @click="brokerageTwoSetUp">Xác nhận</el-button>
                     </div>
                   </div>
 
@@ -135,7 +135,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="onCancel">Hủy bỏ</el-button>
-        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">xác nhận</el-button>
+        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">Xác nhận</el-button>
       </div>
     </el-dialog>
   </div>

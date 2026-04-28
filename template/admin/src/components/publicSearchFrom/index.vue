@@ -3,7 +3,7 @@
     <el-form ref="orderData" label-width="85px" label-position="right" class="tabform">
       <el-row :gutter="24" v-for="(item, index) in fromList" :key="index">
         <el-col :xl="8" :lg="8" :md="8" :sm="24" :xs="24">
-          <el-form-item :label="item.title + '：'">
+          <el-form-item :label="Item.title + '：'">
             <el-radio-group type="button" v-model="date">
               <el-radio-button :label="itemn.text" v-for="(itemn, indexn) in item.fromTxt" :key="indexn"
                 >{{ itemn.text }}{{ item.num }}</el-radio-button
@@ -27,13 +27,13 @@
       </el-row>
       <el-row :gutter="24" v-if="isExist.existOne">
         <el-col span="10" class="mr">
-          <el-form-item :label="searchFrom.title + '：'" prop="real_name" label-for="real_name">
+          <el-form-item :label="SearchFrom.title + '：'" prop="real_name" label-for="real_name">
             <el-input search enter-button :placeholder="searchFrom.place" element-id="name" />
           </el-form-item>
         </el-col>
         <el-col>
-          <el-button class="mr">Xuất khẩu</el-button>
-          <span class="Refresh">làm cho khỏe lại</span>
+          <el-button class="mr">Xuất file</el-button>
+          <span class="Refresh">Làm cho khỏe lại</span>
         </el-col>
       </el-row>
       <el-row :gutter="24" class="withdrawal" v-if="isExist.existTwo">
@@ -95,7 +95,7 @@ export default {
   },
   data() {
     return {
-      date: 'tất cả',
+      date: 'Tất cả',
       withdrawalTxt: 'Trạng thái rút tiền',
       paymentTxt: 'Phương thức rút tiền',
     };

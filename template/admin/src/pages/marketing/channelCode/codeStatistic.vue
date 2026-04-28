@@ -3,7 +3,7 @@
     <!-- <div class="i-layout-page-header header-title">
       <div class="fl_header">
         <span>
-          <el-button icon="ios-arrow-back" size="small" type="text" v-db-click @click="$router.go(-1)">trở lại</el-button>
+          <el-button icon="ios-arrow-back" size="small" type="text" v-db-click @click="$router.go(-1)">Trở lại</el-button>
         </span>
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
@@ -63,7 +63,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'tuần này', val: 'week' },
           { text: 'tháng này', val: 'month' },

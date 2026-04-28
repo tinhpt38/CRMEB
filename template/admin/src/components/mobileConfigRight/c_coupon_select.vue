@@ -15,7 +15,7 @@
           </div>
         </draggable>
         <div class="add-item" @click="openModal">
-          <el-button class="btn"><span class="iconfont iconaddto"></span>Thêm vào</el-button>
+          <el-button class="btn"><span class="iconfont iconaddto"></span>Thêm mới</el-button>
         </div>
       </div>
     </div>

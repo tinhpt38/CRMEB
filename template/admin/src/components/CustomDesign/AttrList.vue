@@ -70,7 +70,7 @@
           @change="onChange"
         />
         <div v-if="curComponent.component === 'Picture'" class="section-title">Cài đặt hình ảnh</div>
-        <div v-if="curComponent.component === 'Icon'" class="section-title">bộ biểu tượng</div>
+        <div v-if="curComponent.component === 'Icon'" class="section-title">Bộ biểu tượng</div>
         <el-form size="small" label-width="70px" label-position="left">
           <template v-if="curComponent.component === 'Picture'">
             <ConfigRadius :curComponent="curComponent" labelPrefix="hình ảnh" @change="onChange" />
@@ -95,7 +95,7 @@
               @change="onChange"
             />
             <ConfigBackground :curComponent="curComponent" @change="onChange" />
-            <div class="section-title">kiểu góc tròn</div>
+            <div class="section-title">Kiểu góc tròn</div>
             <ConfigRadius :curComponent="curComponent" @change="onChange" />
             <ConfigPadding :curComponent="curComponent" @change="onChange" />
             <ConfigBorder :curComponent="curComponent" @change="onChange" />
@@ -112,7 +112,7 @@
               @change="onChange"
             />
             <ConfigBackground :curComponent="curComponent" @change="onChange" />
-            <div class="section-title">kiểu góc tròn</div>
+            <div class="section-title">Kiểu góc tròn</div>
             <ConfigRadius :curComponent="curComponent" @change="onChange" />
             <ConfigPadding :curComponent="curComponent" @change="onChange" />
             <ConfigBorder :curComponent="curComponent" @change="onChange" />

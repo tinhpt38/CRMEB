@@ -85,7 +85,7 @@
               v-db-click
               @click="handleSubmit2('formInline', current)"
               class="mb20"
-              >nộp</el-button
+              >Nộp</el-button
             >
             <el-button
               v-if="current === 2"
@@ -97,7 +97,7 @@
               class="mb20"
               >Đăng nhập</el-button
             >
-            <el-button long size="large" v-db-click @click="returns('formInline')" class="btn">trở lại </el-button>
+            <el-button long size="large" v-db-click @click="returns('formInline')" class="btn">Trở lại</el-button>
           </el-form-item>
         </el-form>
       </div>

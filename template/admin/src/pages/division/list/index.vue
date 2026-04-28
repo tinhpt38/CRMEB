@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên、UID"
@@ -19,7 +19,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -27,12 +27,12 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-row class="ivu-mt box-wrapper">
         <el-col :xs="24" :sm="24" ref="rightBox">
-          <el-button type="primary" v-db-click @click="groupAdd('0')">Thêm đơn vị kinh doanh</el-button>
+          <el-button type="primary" v-db-click @click="groupAdd('0')">Thêm Đơn vị kinh doanh</el-button>
           <el-tooltip placement="right-start">
             <i class="el-icon-question ml10"></i>
             <div slot="content">
               <div>
-                Mô tả cấp độ đơn vị kinh doanh: đơn vị kinh doanh-đại lý-nhân viên. Đơn vị kinh doanh tương đương với tổng đại lý hoặc đại lý khu vực. Sau khi được đặt làm đơn vị kinh doanh, những người dùng được liên kết sẽ xóa những người quảng bá cấp trên của họ.
+                Mô tả cấp độ Đơn vị kinh doanh: Đơn vị kinh doanh-đại lý-nhân viên. Đơn vị kinh doanh tương đương với tổng đại lý hoặc đại lý khu vực. Sau khi được đặt làm Đơn vị kinh doanh, những người dùng được liên kết sẽ xóa những người quảng bá cấp trên của họ.
               </div>
               <div>
                 Danh tính quản trị viên khi thêm cần đặt vai trò tương ứng trong Cài đặt-Quyền quản lý-Quản lý vai trò. Bộ phận kinh doanh có thể sử dụng tài khoản quản trị viên và mật khẩu đã đặt khi thêm để đăng nhập vào phần phụ trợ.
@@ -48,19 +48,19 @@
             no-formValidate-text="Chưa có dữ liệu"
             no-filtered-formValidate-text="Chưa có kết quả lọc nào"
           >
-            <el-table-column label="người dùngUID" width="100">
+            <el-table-column label="Người dùngUID" width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="hình đại diện" min-width="90">
+            <el-table-column label="Hình đại diện" min-width="90">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.avatar" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="tên" min-width="130">
+            <el-table-column label="Tên" min-width="130">
               <template slot-scope="scope">
                 <div class="acea-row">
                   <div v-text="scope.row.division_name"></div>
@@ -87,7 +87,7 @@
                 <span>{{ scope.row.division_end_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="tình trạng" min-width="130">
+            <el-table-column label="Trạng thái" min-width="130">
               <template slot-scope="scope">
                 <el-switch
                   :active-value="1"
@@ -100,13 +100,13 @@
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="170">
+            <el-table-column label="Thao tác" fixed="right" width="170">
               <template slot-scope="scope">
                 <a v-db-click @click="jump(scope.row.uid)">Xem đại lý</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="groupAdd(scope.row.uid)">biên tập</a>
+                <a v-db-click @click="groupAdd(scope.row.uid)">Chỉnh sửa</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, 'Xóa đơn vị kinh doanh', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa Đơn vị kinh doanh', scope.$index)">Xóa</a>
               </template>
             </el-table-column>
           </el-table>
@@ -132,19 +132,19 @@
         no-formValidate-text="Chưa có dữ liệu"
         no-filtered-formValidate-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="người dùngUID" width="80">
+        <el-table-column label="Người dùngUID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="hình đại diện" min-width="90">
+        <el-table-column label="Hình đại diện" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="tên" min-width="130">
+        <el-table-column label="Tên" min-width="130">
           <template slot-scope="scope">
             <div class="acea-row">
               <div v-text="scope.row.division_name" class="ml10"></div>

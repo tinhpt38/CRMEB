@@ -27,7 +27,7 @@
 					</view>
 					<view class="y_money">{{$t(`￥`)}}{{store_info.ot_price || 0}}</view>
 				</view>
-				<navigator class="label"><text class="span">{{$t(`Xem sản phẩm`)}}</text></navigator>
+				<navigator class="label"><text class="span">{{$t(`Chi tiết sản phẩm`)}}</text></navigator>
 			</navigator>
 			<!-- #ifdef H5 -->
 			<button class="bnt bg-color" hover-class='none' @click="listenerActionSheet"

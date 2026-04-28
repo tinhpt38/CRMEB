@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="thời gian sáng tạo：">
+          <el-form-item label="Thời gian Tạo mới：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -29,11 +29,11 @@
           <el-form-item label="Số đơn hàng：" label-for="title">
             <el-input clearable v-model="pagination.order_id" placeholder="Vui lòng nhập mã đơn hàng" class="form_content_width" />
           </el-form-item>
-          <el-form-item label="tên người dùng：" label-for="title">
+          <el-form-item label="Tên người dùng：" label-for="title">
             <el-input clearable v-model="pagination.name" placeholder="Vui lòng nhập tên người dùng" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="orderSearch">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="orderSearch">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -59,7 +59,7 @@
             <span>{{ scope.row.nickname }} | {{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thanh toán thực tế" min-width="180">
+        <el-table-column label="Thanh toán thực tế" min-width="180">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
@@ -69,7 +69,7 @@
             <span>{{ scope.row.true_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian thanh toán" min-width="180">
+        <el-table-column label="Thời gian thanh toán" min-width="180">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_time }}</span>
           </template>

@@ -866,7 +866,7 @@ export function storeStaffSetShowApi(id, is_show) {
 }
 
 /**
- * @description Cài đặt đơn hàng -- danh sách đơn hàng xóa sổ；
+ * @description Cài đặt đơn hàng -- danh sách đơn hàng xác nhận；
  */
 export function verifyOrderApi(data) {
   return request({

@@ -42,7 +42,7 @@ class SystemTicketServices extends BaseServices
         $field[] = Form::radio('type', 'Lựa chọn nền tảng', $info['type'] ?? 1)
             ->options([['label' => 'Yilianyun', 'value' => 1], ['label' => 'Đám mây ngỗng bay', 'value' => 2]])
             ->appendControl(1, [
-                    Form::input('yly_user_id', 'người dùngID：', $info['yly_user_id'] ?? '')->required('Vui lòng nhập người dùngID')->placeholder('Nhà phát triển đám mây YilianID'),
+                    Form::input('yly_user_id', 'ID khách hàng：', $info['yly_user_id'] ?? '')->required('Vui lòng nhập ID khách hàng')->placeholder('Nhà phát triển đám mây YilianID'),
                     Form::input('yly_app_id', 'ứng dụngID：', $info['yly_app_id'] ?? '')->required('Vui lòng nhập đơn đăng kýID')->placeholder('Ứng dụng YilianID'),
                     Form::input('yly_app_secret', 'phím ứng dụng：', $info['yly_app_secret'] ?? '')->required('Vui lòng nhập mã ứng dụng')->placeholder('Khóa ứng dụng Yilian'),
                     Form::input('yly_sn', 'số thiết bị đầu cuối：', $info['yly_sn'] ?? '')->required('Vui lòng nhập số thiết bị đầu cuối')->placeholder('Số thiết bị đầu cuối máy in Yilianyun, model máy in: Máy in Yilianyun K4 phiên bản không dây'),

@@ -135,7 +135,7 @@
 							});
 						} else
 							return that.$util.Tips({
-								title: that.$t(`Ràng buộc thành công`),
+								title: that.$t(`Liên kết thành công`),
 								icon: 'success'
 							}, {
 								tab: 5,

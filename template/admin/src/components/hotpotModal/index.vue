@@ -30,7 +30,7 @@
               :area-data-index="index"
               :key="'area' + index"
               :link="item.link"
-              :title="item.title"
+              :title="Item.title"
               :type="parseInt(item.type)"
               :area-init.sync="item"
               :parent-width="parentWidth"
@@ -47,7 +47,7 @@
 
           <div v-for="(item, index) in areaData" :key="index" class="form-row">
             <div class="form-item">
-              <span class="num">vùng nóng{{ item.number }}</span>
+              <span class="num">Vùng nóng{{ item.number }}</span>
             </div>
             <div class="form-item label">
               <div>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div slot="footer">
-        <el-button class="mr20" type="primary" @click="saveAreaData"> Hoàn thành </el-button>
+        <el-button class="mr20" type="primary" @click="saveAreaData">Hoàn thành</el-button>
       </div>
     </el-dialog>
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
@@ -275,7 +275,7 @@ export default {
       this.$emit('delAreaData', this.areaData);
       /* Sau khi xóa, mỗi vùng nóng được đánh số lại theo thứ tự. */
       if (this.areaData) {
-        const arr = this.areaData.filter((i) => i.number > index);
+        const arr = this.areaData.filter((i) => I.number > index);
         if (!arr) return;
         arr.forEach((i) => i.number--);
         if (this.areaData[this.areaData.length - 1]) {

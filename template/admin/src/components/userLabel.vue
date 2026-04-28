@@ -7,7 +7,7 @@
         <el-radio-group v-model="label_type">
           <el-radio :label="0">Cài đặt hợp nhất</el-radio>
           <el-radio :label="1">Tăng</el-radio>
-          <el-radio :label="2">giảm bớt</el-radio>
+          <el-radio :label="2">Giảm bớt</el-radio>
         </el-radio-group>
       </div>
       <div class="label-box" v-for="(item, index) in labelList" :key="index">

@@ -173,7 +173,7 @@ class StoreCartServices extends BaseServices
                     /** @var StoreCouponIssueServices $issueCoupon */
                     $issueCoupon = app()->make(StoreCouponIssueServices::class);
                     if (!$issueCoupon->getCount(['id' => $attrInfo['coupon_id'], 'status' => 1, 'is_del' => 0])) {
-                        throw new ApiException('Phiếu giảm giá bạn muốn mua đã hết hạn và không thể mua được');
+                        throw new ApiException('Mã giảm giá bạn muốn mua đã hết hạn và không thể mua được');
                     }
                 }
                 $stockNum = $this->dao->value(['product_id' => $productId, 'product_attr_unique' => $unique, 'uid' => $uid, 'status' => 1], 'cart_num') ?: 0;

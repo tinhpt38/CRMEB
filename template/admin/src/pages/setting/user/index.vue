@@ -8,19 +8,19 @@
         label-width="160px"
         label-position="right"
       >
-        <el-form-item label="hình đại diện：">
+        <el-form-item label="Hình đại diện：">
           <div class="avatar" v-db-click @click="avatarMoadl = true">
             <img v-if="formValidate.head_pic" :src="formValidate.head_pic" alt="" />
             <img v-else src="../../../assets/images/f.png" alt="" />
           </div>
         </el-form-item>
-        <el-form-item label="tài khoản：" prop="">
+        <el-form-item label="Tài khoản：" prop="">
           <el-input type="text" v-model="account" :disabled="true" class="input"></el-input>
         </el-form-item>
         <el-form-item label="Tên：" prop="real_name">
           <el-input type="text" v-model="formValidate.real_name" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="mật khẩu gốc：">
+        <el-form-item label="Mật khẩu gốc：">
           <el-input type="password" v-model="formValidate.pwd" class="input"></el-input>
         </el-form-item>
         <el-form-item label="Mật khẩu mới：">
@@ -30,7 +30,7 @@
           <el-input type="password" v-model="formValidate.conf_pwd" class="input"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">nộp</el-button>
+          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">Nộp</el-button>
         </el-form-item>
       </el-form>
     </el-card>

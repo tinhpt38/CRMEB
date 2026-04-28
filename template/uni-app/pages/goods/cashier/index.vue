@@ -60,7 +60,7 @@
 				datatime: 1676344056,
 				//Phương thức thanh toán
 				cartArr: [{
-						"name": this.$t(`WeChat trả tiền`),
+						"name": this.$t(`Thanh toán WeChat`),
 						"icon": "icon-weixin2",
 						value: 'weixin',
 						title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),

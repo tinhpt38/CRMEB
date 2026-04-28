@@ -64,7 +64,7 @@
 		{
 			"path": "pages/goods_cate/goods_cate",
 			"style": {
-				"navigationBarTitleText": "Phân loại sản phẩm",
+				"navigationBarTitleText": "Danh mục sản phẩm",
 				"app-plus": {
 					// #ifdef APP-PLUS
 					"titleNView": {
@@ -183,7 +183,7 @@
 				}, {
 					"path": "admin_order_detail/index",
 					"style": {
-						"navigationBarTitleText": "Chi tiết đặt hàng",
+						"navigationBarTitleText": "Chi tiết đơn hàng",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -219,7 +219,7 @@
 				}, {
 					"path": "goods_comment_list/index",
 					"style": {
-						"navigationBarTitleText": "đánh giá sản phẩm",
+						"navigationBarTitleText": "Đánh giá sản phẩm",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -316,7 +316,7 @@
 				}, {
 					"path": "order_details/index",
 					"style": {
-						"navigationBarTitleText": "Chi tiết đặt hàng",
+						"navigationBarTitleText": "Chi tiết đơn hàng",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -618,7 +618,7 @@
 				{
 					"path": "user_sgin_list/index",
 					"style": {
-						"navigationBarTitleText": "Bản ghi đăng nhập",
+						"navigationBarTitleText": "Lịch sử đăng nhập nhập",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -723,7 +723,7 @@
 				{
 					"path": "user_spread_money/index",
 					"style": {
-						"navigationBarTitleText": "hồ sơ ủy ban"
+						"navigationBarTitleText": "Lịch sử hoa hồng"
 
 							// #ifdef MP
 							,
@@ -798,7 +798,7 @@
 				}, {
 					"path": "user_distribution_level/index",
 					"style": {
-						"navigationBarTitleText": "Cấp độ phân phối",
+						"navigationBarTitleText": "Cấp bậc Affiliate",
 						"navigationBarBackgroundColor": "#232323"
 							// #ifdef MP || APP-PLUS
 							,
@@ -843,7 +843,7 @@
 				{
 					"path": "user_phone/index",
 					"style": {
-						"navigationBarTitleText": "Ràng buộc điện thoại di động",
+						"navigationBarTitleText": "Liên kết số điện thoại",
 
 						// #ifdef MP
 						// "navigationBarTextStyle": "white",
@@ -894,7 +894,7 @@
 				{
 					"path": "promoter-list/index",
 					"style": {
-						"navigationBarTitleText": "Danh sách nhà quảng bá"
+						"navigationBarTitleText": "Danh sách người giới thiệu"
 							// #ifdef MP
 							,
 						"navigationBarBackgroundColor": "#FFFFFF",
@@ -1058,7 +1058,7 @@
 						// #ifdef MP
 						// "navigationBarTextStyle": "white",
 						// "navigationBarBackgroundColor": "#E93323",
-						"navigationBarTitleText": "Danh sách mặc cả",
+						"navigationBarTitleText": "Lịch sử trả giá",
 						// #endif
 						"app-plus": {
 							// #ifdef APP-PLUS
@@ -1198,7 +1198,7 @@
 				{
 					"path": "bargain/index",
 					"style": {
-						"navigationBarTitleText": "Kỷ lục thương lượng",
+						"navigationBarTitleText": "Lịch sử mặc cả",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -1296,7 +1296,7 @@
 				{
 					"path": "orderDetail/index",
 					"style": {
-						"navigationBarTitleText": "Chi tiết đặt hàng",
+						"navigationBarTitleText": "Chi tiết đơn hàng",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -1309,7 +1309,7 @@
 				{
 					"path": "delivery/index",
 					"style": {
-						"navigationBarTitleText": "Đơn hàng đã được vận chuyển",
+						"navigationBarTitleText": "Đã giao cho ĐVVC",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -1357,7 +1357,7 @@
 				{
 					"path": "goods/specs",
 					"style": {
-						"navigationBarTitleText": "Sửa đổi giá/cổ phiếu",
+						"navigationBarTitleText": "Sửa giá / tồn kho",
 						"navigationBarBackgroundColor": "#F5F5F5",
 						"app-plus": {
 							// #ifdef APP-PLUS
@@ -1378,14 +1378,14 @@
 					"path": "user/list",
 					"style": {
 						"navigationStyle": "custom",
-						"navigationBarTitleText": "Quản lý người dùng"
+						"navigationBarTitleText": "Quản lý khách hàng"
 					}
 				},
 				{
 					"path": "user/index",
 					"style": {
 						"navigationStyle": "custom",
-						"navigationBarTitleText": "Chi tiết người dùng"
+						"navigationBarTitleText": "Chi tiết khách hàng"
 					}
 				},
 				{
@@ -1485,7 +1485,7 @@
 				{
 					"path": "vip_coupon/index",
 					"style": {
-						"navigationBarTitleText": "Phiếu giảm giá thành viên",
+						"navigationBarTitleText": "Mã giảm giá thành viên",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -1566,7 +1566,7 @@
 				{
 					"path": "settled/index",
 					"style": {
-						"navigationBarTitleText": "Ứng dụng phân phối",
+						"navigationBarTitleText": "Đăng ký làm Affiliate",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -1646,7 +1646,7 @@
 				{
 					"path": "integral_order",
 					"style": {
-						"navigationBarTitleText": "Thứ tự điểm",
+						"navigationBarTitleText": "Đơn hàng điểm",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {

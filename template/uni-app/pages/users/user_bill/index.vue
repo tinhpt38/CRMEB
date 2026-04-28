@@ -2,7 +2,7 @@
 	<view :style="colorStyle">
 		<view class='bill-details'>
 			<view class='nav acea-row'>
-				<view class='item' :class='type==0 ? "on":""' @click='changeType(0)'>{{$t(`tất cả`)}}</view>
+				<view class='item' :class='type==0 ? "on":""' @click='changeType(0)'>{{$t(`Tất cả`)}}</view>
 				<view class='item' :class='type==1 ? "on":""' @click='changeType(1)'>{{$t(`Sự tiêu thụ`)}}</view>
 				<view class='item' :class='type==2 ? "on":""' @click='changeType(2)'>{{$t(`nạp tiền`)}}</view>
 			</view>

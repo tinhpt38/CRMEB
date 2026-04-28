@@ -1,9 +1,9 @@
 <template>
-  <el-dialog :visible.sync="modals_son" :title="title" :close-on-click-modal="false" width="900px">
-    <el-button type="primary" id="savefile" class="mr5 mb15" v-db-click @click="savefile">cứu</el-button>
+  <el-dialog :visible.sync="modals_son" :title="Title" :close-on-click-modal="false" width="900px">
+    <el-button type="primary" id="savefile" class="mr5 mb15" v-db-click @click="savefile">Lưu</el-button>
     <el-button id="undo" class="mr5 mb15" v-db-click @click="undofile">Hủy bỏ</el-button>
-    <el-button id="redo" class="mr5 mb15" v-db-click @click="redofile">quay lại</el-button>
-    <el-button id="refresh" class="mb15" v-db-click @click="refreshfile">làm cho khỏe lại</el-button>
+    <el-button id="redo" class="mr5 mb15" v-db-click @click="redofile">Quay lại</el-button>
+    <el-button id="refresh" class="mb15" v-db-click @click="refreshfile">Làm cho khỏe lại</el-button>
     <textarea ref="mycode" class="codesql public_text" v-model="code" style="height: 80vh"></textarea>
   </el-dialog>
 </template>
@@ -115,7 +115,7 @@ export default {
     this.onIsLogin();
   },
   methods: {
-    // cứu
+    // Lưu
     savefile() {
       let data = {
         comment: this.editor.getValue(),

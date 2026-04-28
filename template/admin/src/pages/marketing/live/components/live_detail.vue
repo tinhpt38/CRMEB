@@ -40,7 +40,7 @@
           <span class="info">{{ FormData.type | broadcastType }}</span>
         </div>
         <div class="list sp">
-          <label class="name">kiểu hiển thị：</label>
+          <label class="name">Kiểu hiển thị：</label>
           <span class="info">{{ FormData.screen_type | broadcastDisplayType }}</span>
         </div>
         <div class="list sp image">

@@ -76,7 +76,7 @@ class ArticleCategoryServices extends BaseServices
         $f[] = Form::input('intr', 'Giới thiệu phân loại', $info['intr'] ?? '')->type('textarea')->required();
         $f[] = Form::frameImage('image', 'Hình ảnh rao vặt', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')), $info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->precision(0);
-        $f[] = Form::radio('status', 'tình trạng', $info['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        $f[] = Form::radio('status', 'Trạng thái', $info['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
         return create_form($id ? 'Chỉnh sửa danh mục' :'Thêm danh mục', $f, Url::buildUrl($url), $method);
     }
 

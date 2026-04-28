@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <div class="acea-row row-middle">
               <el-input
                 clearable
@@ -21,7 +21,7 @@
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">tìm kiếm</el-button>
+            <el-button type="primary" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -33,7 +33,7 @@
         </el-col>
       </el-row>
       <el-table ref="table" :data="tabList" class="ivu-mt mt14" v-loading="loading" empty-text="Chưa có dữ liệu">
-        <el-table-column label="số seri" min-width="100">
+        <el-table-column label="Số seri" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
@@ -48,16 +48,16 @@
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="ngôn ngữ liên quan" min-width="100">
+        <el-table-column label="Ngôn ngữ liên quan" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.link_lang }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="100">
+        <el-table-column label="Thao tác" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ khu vực', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ khu vực', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

@@ -96,7 +96,7 @@
 		},
 		onLoad() {
 			uni.setNavigationBarTitle({
-				title: this.$t(`Danh sách nhóm nhóm`)
+				title: this.$t(`Đơn hàng mua chung`)
 			})
 			this.getCombinationList();
 			this.getBannerList();

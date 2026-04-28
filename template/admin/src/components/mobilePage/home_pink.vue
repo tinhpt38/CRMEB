@@ -530,7 +530,7 @@ export default {
         },
         rightBntConfig: {
           title: 'nút bên phải',
-          value: 'Hơn',
+          value: 'Thêm',
           place: 'Vui lòng nhập nút bên phải',
           max: 6,
         },
@@ -568,7 +568,7 @@ export default {
             },
             {
               id: 1,
-              name: 'Thẻ sản phẩm',
+              name: 'Nhãn sản phẩm',
             },
             {
               id: 2,
@@ -743,7 +743,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -932,7 +932,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

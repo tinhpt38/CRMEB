@@ -20,7 +20,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -54,7 +54,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" prop="status" min-width="120">
+        <el-table-column label="Trạng thái" prop="status" min-width="120">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -64,22 +64,22 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="loại" prop="sort" min-width="130">
+        <el-table-column label="Loại" prop="sort" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" width="120" fixed="right">
+        <el-table-column label="Thao tác" width="120" fixed="right">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa bảo vệ')">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa bảo vệ')">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -144,7 +144,7 @@ export default {
           minWidth: 130,
         },
         {
-          title: 'tình trạng',
+          title: 'Trạng thái',
           slot: 'statuss',
           minWidth: 130,
         },
@@ -154,7 +154,7 @@ export default {
           minWidth: 130,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 120,

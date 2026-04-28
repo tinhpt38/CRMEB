@@ -10,12 +10,12 @@
       >
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item label="tình trạng：" label-for="status1">
+            <el-form-item label="Tình trạng：" label-for="status1">
               <el-radio-group v-model="levelFrom.status" type="button" @input="userSearchs(levelFrom.status)">
-                <el-radio-button label="">tất cả</el-radio-button>
+                <el-radio-button label="">Tất cả</el-radio-button>
                 <el-radio-button label="0">Đang chờ xem xét</el-radio-button>
-                <el-radio-button label="1">vượt qua</el-radio-button>
-                <el-radio-button label="2">từ chối</el-radio-button>
+                <el-radio-button label="1">Vượt qua</el-radio-button>
+                <el-radio-button label="2">Từ chối</el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -46,7 +46,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="biệt danh" min-width="130">
+        <el-table-column label="Biệt danh" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
@@ -56,7 +56,7 @@
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="130">
+        <el-table-column label="Trạng thái" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.status }}</span>
           </template>
@@ -66,7 +66,7 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian xem xét" min-width="130">
+        <el-table-column label="Thời gian xem xét" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.up_time }}</span>
           </template>
@@ -76,11 +76,11 @@
             <span>{{ scope.row.remark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="agree(scope.row)">đồng ý</a>
+            <a v-db-click @click="agree(scope.row)">Đồng ý</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="refuse(scope.row)">từ chối</a>
+            <a v-db-click @click="refuse(scope.row)">Từ chối</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="remark(scope.row)">Nhận xét</a>
           </template>

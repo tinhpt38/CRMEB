@@ -289,7 +289,7 @@ export default {
       ],
       orderGoods: [
         {
-          title: "bật lên",
+          title: "Hoạt động",
           key: 1,
         },
         {

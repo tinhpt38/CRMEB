@@ -29,10 +29,10 @@ Route::group(function () {
             Route::get('category/list', 'StoreCategory/index')->option(['real_name' => 'Danh sách danh mục']);
             Route::get('category/:id', 'StoreCategory/read')->option(['real_name' => 'Nhận danh mục']);
             Route::post('category', 'StoreCategory/save')->option(['real_name' => 'Thêm danh mục mới']);
-            Route::put('category/:id', 'StoreCategory/update')->option(['real_name' => 'Sửa đổi phân loại']);
+            Route::put('category/:id', 'StoreCategory/update')->option(['real_name' => 'Sửa danh mục']);
             Route::delete('category/:id', 'StoreCategory/delete')->option(['real_name' => 'Xóa danh mục']);
             Route::put('category/set_show/:id/:is_show', 'StoreCategory/set_show')->option(['real_name' => 'Sửa đổi trạng thái phân loại']);
-        })->option(['mark' => 'category', 'mark_name' => 'Phân loại sản phẩm']);
+        })->option(['mark' => 'category', 'mark_name' => 'Danh mục sản phẩm']);
 
         Route::group(function () {
             //hàng hóa
@@ -42,16 +42,16 @@ Route::group(function () {
             Route::get('product/:id', 'StoreProduct/read')->option(['real_name' => 'Nhận sản phẩm']);
             Route::put('product/set_show/:id/:is_show', 'StoreProduct/set_show')->option(['real_name' => 'Sửa đổi trạng thái sản phẩm']);
             Route::put('product/stock/upload', 'StoreProduct/uploadStock')->option(['real_name' => 'Đồng bộ hóa kho sản phẩm']);
-        })->option(['mark' => 'product', 'mark_name' => 'hàng hóa']);
+        })->option(['mark' => 'product', 'mark_name' => 'sản phẩm']);
 
         Route::group(function () {
             //Đặt hàng
             Route::get('order/list', 'StoreOrder/lst')->name('StoreOrderList')->option(['real_name' => 'danh sách đặt hàng']);
-            Route::get('order/:order_id', 'StoreOrder/read')->name('StoreOrderInfo')->option(['real_name' => 'Chi tiết đặt hàng']);
+            Route::get('order/:order_id', 'StoreOrder/read')->name('StoreOrderInfo')->option(['real_name' => 'Chi tiết đơn hàng']);
             Route::put('order/remark/:order_id', 'StoreOrder/remark')->name('StoreOrderRemark')->option(['real_name' => 'Sửa đổi thông tin nhận xét']);
-            Route::put('order/receive/:order_id', 'StoreOrder/receive')->name('StoreOrderReceive')->option(['real_name' => 'xác nhận đã nhận hàng']);
+            Route::put('order/receive/:order_id', 'StoreOrder/receive')->name('StoreOrderReceive')->option(['real_name' => 'Xác nhận nhận hàng']);
             Route::get('order/express_list', 'StoreOrder/express')->name('StoreOrderExpress')->option(['real_name' => 'Nhận công ty hậu cần']);
-            Route::put('order/delivery/:order_id', 'StoreOrder/delivery')->name('StoreOrderDelivery')->option(['real_name' => 'Đơn hàng đã được vận chuyển']);
+            Route::put('order/delivery/:order_id', 'StoreOrder/delivery')->name('StoreOrderDelivery')->option(['real_name' => 'Đã giao cho ĐVVC']);
             Route::put('order/distribution/:order_id', 'StoreOrder/updateDistribution')->name('StoreOrderDistribution')->option(['real_name' => 'Sửa đổi thông tin vận chuyển']);
             Route::get('order/split_cart_info/:order_id', 'StoreOrder/splitCartInfo')->name('StoreOrderSplitCartInfo')->option(['real_name' => 'Lấy danh sách các mặt hàng có thể chia nhỏ trong một đơn hàng']);
             Route::put('order/split_delivery/:order_id', 'StoreOrder/splitDelivery')->name('StoreOrderSplitDelivery')->option(['real_name' => 'Chia đơn hàng và gửi hàng']);
@@ -75,7 +75,7 @@ Route::group(function () {
             Route::post('coupon', 'StoreCoupon/save')->option(['real_name' => 'Thêm phiếu giảm giá']);
             Route::put('coupon/status/:id/:status', 'StoreCoupon/status')->option(['real_name' => 'Sửa đổi trạng thái phiếu giảm giá']);
             Route::delete('coupon/:id', 'StoreCoupon/delete')->option(['real_name' => 'Xóa phiếu giảm giá']);
-        })->option(['mark' => 'coupon', 'mark_name' => 'Phiếu giảm giá']);
+        })->option(['mark' => 'coupon', 'mark_name' => 'Mã giảm giá']);
 
         Route::group(function () {
             //Cấp độ người dùng
@@ -83,8 +83,8 @@ Route::group(function () {
 
             //người dùng
             Route::get('user/list', 'User/lst')->option(['real_name' => 'Danh sách người dùng']);
-            Route::get('user/info/:uid', 'User/info')->option(['real_name' => 'Chi tiết người dùng']);
-            Route::post('user', 'User/save')->option(['real_name' => 'Thêm người dùng mới']);
+            Route::get('user/info/:uid', 'User/info')->option(['real_name' => 'Chi tiết khách hàng']);
+            Route::post('user', 'User/save')->option(['real_name' => 'Thêm khách hàng mới']);
             Route::put('user/:uid', 'User/update')->option(['real_name' => 'Sửa đổi người dùng']);
             Route::put('user/give_balance/:uid', 'User/giveBalance')->option(['real_name' => 'Số dư quà tặng']);
             Route::put('user/give_point/:uid', 'User/givePoint')->option(['real_name' => 'Tặng điểm']);

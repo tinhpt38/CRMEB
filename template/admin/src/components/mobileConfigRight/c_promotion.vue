@@ -66,7 +66,7 @@
               </div>
               <div v-else>
                 <div class="c_row-item" v-if="item.tabVal == 2">
-                  <el-col class="label" :span="4">thương hiệu</el-col>
+                  <el-col class="label" :span="4">Thương hiệu</el-col>
                   <el-col :span="19" class="slider-box">
                     <el-cascader
                       @change="brandChange"
@@ -82,7 +82,7 @@
                   </el-col>
                 </div>
                 <div class="c_row-item" v-else-if="item.tabVal == 3">
-                  <el-col class="label" :span="4">Phân loại sản phẩm</el-col>
+                  <el-col class="label" :span="4">Danh mục sản phẩm</el-col>
                   <el-col :span="19" class="slider-box">
                     <el-cascader
                       @change="sliderChange"
@@ -98,7 +98,7 @@
                   </el-col>
                 </div>
                 <div class="c_row-item" v-else>
-                  <el-col class="label" :span="4">Thẻ sản phẩm</el-col>
+                  <el-col class="label" :span="4">Nhãn sản phẩm</el-col>
                   <el-col :span="19" class="slider-box">
                     <div
                       class="labelInput acea-row row-between-wrapper"
@@ -121,7 +121,7 @@
                 </div>
                 <div class="c_row-item">
                   <el-col class="label" :span="4">
-                    <span>số lượng sản phẩm</span>
+                    <span>Số lượng sản phẩm</span>
                   </el-col>
                   <el-col :span="19" class="slider-box on">
                     <!-- sliderChange -->
@@ -137,18 +137,18 @@
                 </div>
                 <div class="c_row-item">
                   <el-col class="label" :span="5">
-                    <span>Phân loại sản phẩm</span>
+                    <span>Danh mục sản phẩm</span>
                   </el-col>
                   <el-col class="color-box" :span="19" style="margin-top: 15px">
                     <el-radio-group v-model="item.goodsSort" @input="radioChange()">
                       <el-radio :label="0">
-                        <span>toàn diện</span>
+                        <span>Toàn diện</span>
                       </el-radio>
                       <el-radio :label="1">
                         <span>Doanh số bán hàng</span>
                       </el-radio>
                       <el-radio :label="2">
-                        <span>giá</span>
+                        <span>Giá</span>
                       </el-radio>
                     </el-radio-group>
                   </el-col>
@@ -164,7 +164,7 @@
     </div>
     <div v-if="configData.list">
       <div class="add-btn" @click="addHotTxt">
-        <el-button style="width: 100%; height: 40px">+ Thêm vào</el-button>
+        <el-button style="width: 100%; height: 40px">+ Thêm mới</el-button>
       </div>
     </div>
     <!-- Thẻ sản phẩm -->
@@ -195,7 +195,7 @@
         v-if="modals"
       ></goods-list>
     </el-dialog>
-    <el-dialog :visible.sync="modalPic" width="960px" :title="configData.header ? configData.header : 'Tải ảnh lên'">
+    <el-dialog :visible.sync="modalPic" width="960px" :title="ConfigData.header ? configData.header : 'Tải ảnh lên'">
       <uploadPictures
         :isChoice="isChoice"
         @getPic="getPic"
@@ -267,7 +267,7 @@ export default {
         },
         {
           activeValue: 4,
-          title: 'Thẻ sản phẩm',
+          title: 'Nhãn sản phẩm',
         },
       ],
       brandData: [],

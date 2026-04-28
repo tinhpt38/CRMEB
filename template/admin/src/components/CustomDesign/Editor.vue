@@ -25,7 +25,7 @@
         @end="handleEnd"
         @delete="handleDelete(index)"
         @copy="handleCopy(item)"
-        @move="(type) => handleMove(index, type)"
+        @move="(type) => HandleMove(index, type)"
       >
         <div :style="{ width: '100%', height: '100%' }">
           <!-- Picture -->
@@ -405,7 +405,7 @@ export default {
       // Boundary checks for drop
       if (left < 0) left = 0;
       if (top < 0) top = 0;
-      if (left + compWidth > canvasWidth) left = canvasWidth - compWidth;
+      if (left + compWidth > CanvasWidth) left = canvasWidth - compWidth;
       if (top + compHeight > canvasHeight) top = canvasHeight - compHeight;
 
       // Boundary checks can be added here
@@ -468,9 +468,9 @@ export default {
           // Check overlap
           if (
             left < this.areaStart.x + this.areaWidth &&
-            left + width > this.areaStart.x &&
+            left + width > This.areaStart.x &&
             top < this.areaStart.y + this.areaHeight &&
-            top + height > this.areaStart.y
+            top + height > This.areaStart.y
           ) {
             selectedIds.push(component.id);
           }
@@ -535,7 +535,7 @@ export default {
             pos.height += pos.top;
             pos.top = 0;
           }
-          if (pos.left + pos.width > canvasWidth) {
+          if (pos.left + pos.width > CanvasWidth) {
             const leftChanged = pos.left !== this.curComponent.style.left;
             if (leftChanged) {
               pos.left = canvasWidth - pos.width;
@@ -560,7 +560,7 @@ export default {
           if (rotate === 0) {
             if (pos.left < 0) pos.left = 0;
             if (pos.top < 0) pos.top = 0;
-            if (pos.left + pos.width > canvasWidth) pos.left = canvasWidth - pos.width;
+            if (pos.left + pos.width > CanvasWidth) pos.left = canvasWidth - pos.width;
             if (pos.top + pos.height > canvasHeight) pos.top = canvasHeight - pos.height;
           } else {
             // Rotated boundary check
@@ -579,9 +579,9 @@ export default {
             const maxTop = canvasHeight - (h + boundingHeight) / 2;
 
             if (pos.left < minLeft) pos.left = minLeft;
-            if (pos.left > maxLeft) pos.left = maxLeft;
+            if (pos.left > MaxLeft) pos.left = maxLeft;
             if (pos.top < minTop) pos.top = minTop;
-            if (pos.top > maxTop) pos.top = maxTop;
+            if (pos.top > MaxTop) pos.top = maxTop;
           }
 
           // Recalculate dx/dy after boundary checks
@@ -664,7 +664,7 @@ export default {
         if (!isResize && this.activeComponentIds.length > 1) {
           this.activeComponentIds.forEach((id) => {
             if (id === this.curComponent.id) return;
-            const comp = this.componentData.find((c) => c.id === id);
+            const comp = this.componentData.find((c) => C.id === id);
             if (comp) {
               comp.style.left += dx;
               comp.style.top += dy;

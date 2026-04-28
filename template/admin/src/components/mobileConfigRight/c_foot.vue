@@ -8,12 +8,12 @@
         </div>
         <div class="right-wrapper">
           <div class="acea-row" v-if="navStyle != 1">
-            <div class="title">biểu tượng</div>
+            <div class="title">Biểu tượng</div>
             <div class="img-wrapper">
               <div class="img-item" v-for="(img, j) in item.imgList" @click="modalPicTap(index, j)">
                 <div class="pictrue" v-if="img">
                   <img :src="img" alt="" />
-                  <p class="txt">thay thế</p>
+                  <p class="txt">Thay thế</p>
                 </div>
                 <div class="empty-img" v-else>
                   <span class="iconfont iconjiahao"></span>
@@ -23,13 +23,13 @@
             </div>
           </div>
           <div class="c_row-item" v-if="navStyle != 2">
-            <el-col class="label" :span="4"> tên </el-col>
+            <el-col class="label" :span="4"> Tên </el-col>
             <el-col class="slider-box" :span="20">
               <el-input v-model="item.name" placeholder="Tùy chọn không quá 10 từ" />
             </el-col>
           </div>
           <div class="c_row-item">
-            <el-col class="label" :span="4"> liên kết </el-col>
+            <el-col class="label" :span="4"> Liên kết </el-col>
             <el-col class="slider-box" :span="20">
               <div>
                 <el-input v-model="item.link" placeholder="Tùy chọn không quá 10 từ">
@@ -159,7 +159,7 @@ export default {
         message: 'Bạn có chắc chắn muốn xóa menu này?',
         showCancelButton: true,
         cancelButtonText: 'Hủy bỏ',
-        confirmButtonText: 'xóa bỏ',
+        confirmButtonText: 'Xóa',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })

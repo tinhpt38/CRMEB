@@ -52,10 +52,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="60">
+        <el-table-column label="Thao tác" fixed="right" width="60">
           <template slot-scope="scope">
             <el-button type="text" v-db-click @click="open(scope.row)" v-if="scope.row.isDir">Mở</el-button>
-            <el-button type="text" v-db-click @click="edit(scope.row)" v-else>biên tập</el-button>
+            <el-button type="text" v-db-click @click="edit(scope.row)" v-else>Chỉnh sửa</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -68,7 +68,7 @@
       top="5vh"
       @close="editModalChange"
       append-to-body
-      :title="editorIndex[indexEditor].title"
+      :title="EditorIndex[indexEditor].title"
     >
       <p slot="header" class="diy-header" ref="diyHeader">
         <span>{{ title }}</span>
@@ -83,16 +83,16 @@
       <div style="height: 100%">
         <div class="top-button">
           <el-button type="primary" id="savefile" class="diy-button" v-db-click @click="savefile(indexEditor)"
-            >cứu</el-button
+            >Lưu</el-button
           >
-          <el-button id="refresh" class="diy-button" v-db-click @click="refreshfile">làm cho khỏe lại</el-button>
+          <el-button id="refresh" class="diy-button" v-db-click @click="refreshfile">Làm cho khỏe lại</el-button>
         </div>
         <div class="file-box">
           <div class="show-info">
-            <div class="show-text" :title="navItem.pathname">Mục lục: {{ navItem.pathname }}</div>
+            <div class="show-text" :title="NavItem.pathname">Mục lục: {{ navItem.pathname }}</div>
             <div class="diy-button-list">
               <el-button class="diy-button" v-db-click @click="goBack(true)">Trở về cấp độ trước đó</el-button>
-              <el-button class="diy-button" v-db-click @click="getList(true, true)">làm cho khỏe lại</el-button>
+              <el-button class="diy-button" v-db-click @click="getList(true, true)">Làm cho khỏe lại</el-button>
             </div>
           </div>
           <div class="file-left">
@@ -114,7 +114,7 @@
                   >Tạo tập tin mới</DropdownItem
                 >
                 <DropdownItem v-db-click @click.native="handleContextRename()">Đổi tên</DropdownItem>
-                <DropdownItem v-db-click @click.native="handleContextDelFolder()" style="color: #ed4014">xóa bỏ</DropdownItem>
+                <DropdownItem v-db-click @click.native="handleContextDelFolder()" style="color: #ed4014">Xóa</DropdownItem>
               </template> -->
             </el-tree>
           </div>
@@ -152,7 +152,7 @@
     <div v-show="formShow" class="diy-from">
       <div class="diy-from-header">
         {{ formTitle
-        }}<span :title="contextData ? contextData.pathname : ''">{{ contextData ? contextData.pathname : '' }}</span>
+        }}<span :title="ContextData ? contextData.pathname : ''">{{ contextData ? contextData.pathname : '' }}</span>
       </div>
       <el-form ref="formInline" :model="formFile" :rules="ruleInline" inline>
         <el-form-item prop="filename" class="diy-file">
@@ -388,7 +388,7 @@ export default {
           path: row.pathname,
           fileToken: this.fileToken,
         }),
-      ).then(() => this.getList(true, false));
+      ).then(() => This.getList(true, false));
     },
     /**
      * cứu

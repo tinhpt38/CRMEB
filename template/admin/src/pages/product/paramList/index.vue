@@ -20,7 +20,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -48,16 +48,16 @@
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian sáng tạo" min-width="130">
+        <el-table-column label="Thời gian tạo" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa tham số', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa tham số', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

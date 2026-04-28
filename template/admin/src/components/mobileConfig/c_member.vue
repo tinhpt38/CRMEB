@@ -717,7 +717,7 @@ export default {
         this.$set(data, 'menuConfig', {
           title: 'Cài đặt nội dung hoạt động',
           listStyleName: 'phong cách hiển thị',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           type: 1,
           listStyle: 0,
           maxList: 2,
@@ -787,9 +787,9 @@ export default {
           maxList: 5,
           type: [1, 2, 3],
           list: [
-            { id: 1, name: 'Sự cân bằng' },
-            { id: 2, name: 'tích phân' },
-            { id: 3, name: 'Phiếu giảm giá' },
+            { id: 1, name: 'Số dư' },
+            { id: 2, name: 'điểm thưởng' },
+            { id: 3, name: 'Mã giảm giá' },
             { id: 4, name: 'sưu tầm' },
             { id: 5, name: 'Lịch sử duyệt web' },
           ],
@@ -847,13 +847,13 @@ export default {
           title: 'Nhập nhanh',
           listStyle: 0,
           maxList: 5,
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           list: [
             {
               img: '',
               icon: 'icon-yue',
               info: [
-                { title: 'tiêu đề', value: 'Sự cân bằng', tips: 'Tùy chọn, không quá 4 từ', max: 4 },
+                { title: 'tiêu đề', value: 'Số dư', tips: 'Tùy chọn, không quá 4 từ', max: 4 },
                 { title: 'liên kết', value: '/pages/users/user_money/index', tips: 'Vui lòng nhập liên kết', max: 100 },
               ],
             },
@@ -861,7 +861,7 @@ export default {
               img: '',
               icon: 'icon-jifen',
               info: [
-                { title: 'tiêu đề', value: 'tích phân', tips: 'Tùy chọn, không quá 4 từ', max: 4 },
+                { title: 'tiêu đề', value: 'điểm thưởng', tips: 'Tùy chọn, không quá 4 từ', max: 4 },
                 { title: 'liên kết', value: '/pages/users/user_integral/index', tips: 'Vui lòng nhập liên kết', max: 100 },
               ],
             },
@@ -869,7 +869,7 @@ export default {
               img: '',
               icon: 'icon-youhuiquan',
               info: [
-                { title: 'tiêu đề', value: 'Phiếu giảm giá', tips: 'Tùy chọn, không quá 4 từ', max: 4 },
+                { title: 'tiêu đề', value: 'Mã giảm giá', tips: 'Tùy chọn, không quá 4 từ', max: 4 },
                 { title: 'liên kết', value: '/pages/users/user_coupon/index', tips: 'Vui lòng nhập liên kết', max: 100 },
               ],
             },
@@ -917,7 +917,7 @@ export default {
         this.$set(data, 'rightEntryConfig', {
           title: 'Lối vào bên phải',
           listStyleName: 'phong cách hiển thị',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           type: 1,
           listStyle: -1,
           maxList: 1,
@@ -955,7 +955,7 @@ export default {
         this.$set(data, 'leftMenuConfig', {
           title: 'Nội dung bên trái',
           listStyleName: 'phong cách hiển thị',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           type: 1,
           listStyle: 1,
           maxList: 3,
@@ -968,7 +968,7 @@ export default {
               info: [
                 {
                   title: 'tiêu đề',
-                  value: 'Sự cân bằng',
+                  value: 'Số dư',
                   tips: 'Tùy chọn, không quá 4 từ',
                   max: 4,
                 },
@@ -988,7 +988,7 @@ export default {
               info: [
                 {
                   title: 'tiêu đề',
-                  value: 'tích phân',
+                  value: 'điểm thưởng',
                   tips: 'Tùy chọn, không quá 4 từ',
                   max: 4,
                 },
@@ -1008,7 +1008,7 @@ export default {
               info: [
                 {
                   title: 'tiêu đề',
-                  value: 'Phiếu giảm giá',
+                  value: 'Mã giảm giá',
                   tips: 'Tùy chọn, không quá 4 từ',
                   max: 4,
                 },
@@ -1026,7 +1026,7 @@ export default {
       if (!data.memberConfig) {
         this.$set(data, 'memberConfig', {
           listStyleName: 'phong cách hiển thị',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           type: 1,
           listStyle: -1,
           maxList: 2,
@@ -1071,7 +1071,7 @@ export default {
                 },
                 {
                   title: 'mô tả',
-                  value: 'Phiếu giảm giá phiên bản giới hạn',
+                  value: 'Mã giảm giá phiên bản giới hạn',
                   tips: 'Tùy chọn, không quá 6 từ',
                   max: 6,
                 },
@@ -1137,7 +1137,7 @@ export default {
         this.$set(data, 'ms2RightsList', {
           title: 'biểu tượng vốn chủ sở hữu',
           listStyleName: 'Đề xuất: 40px*40px; kéo phần bằng chuột để điều chỉnh thứ tự hình ảnh',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           type: 1,
           listStyle: -1,
           maxList: 2,
@@ -1245,7 +1245,7 @@ export default {
           title: 'Mô-đun góc tròn',
           type: 0,
           list: [
-            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'Tất cả', icon: 'iconcaozuo-zhengti' },
             { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
           valName: 'Giá trị phi lê',
@@ -1267,7 +1267,7 @@ export default {
           title: 'Nền thành viên được bo tròn góc',
           type: 0,
           list: [
-            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'Tất cả', icon: 'iconcaozuo-zhengti' },
             { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
           valName: 'Giá trị phi lê',

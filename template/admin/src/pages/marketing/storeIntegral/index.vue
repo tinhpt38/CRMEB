@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="thời gian sáng tạo：">
+          <el-form-item label="Thời gian Tạo mới：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -41,7 +41,7 @@
             <el-input placeholder="Vui lòng nhập tên sản phẩm，ID" v-model="tableFrom.store_name" clearable class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -91,7 +91,7 @@
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="phiên bản giới hạn" min-width="60">
+        <el-table-column label="Phiên bản giới hạn" min-width="60">
           <template slot-scope="scope">
             <span>{{ scope.row.quota_show }}</span>
           </template>
@@ -101,17 +101,17 @@
             <span>{{ scope.row.quota }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian sáng tạo" min-width="100">
+        <el-table-column label="Thời gian tạo" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại" min-width="60">
+        <el-table-column label="Loại" min-width="60">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="60">
+        <el-table-column label="Trạng thái" min-width="60">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -124,15 +124,15 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="200">
+        <el-table-column label="Thao tác" fixed="right" width="200">
           <template slot-scope="scope">
             <a v-db-click @click="orderList(scope.row)">Trao đổi hồ sơ</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="copy(scope.row)">sao chép</a>
+            <a v-db-click @click="copy(scope.row)">Sao chép</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa sản phẩm điểm', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa sản phẩm điểm', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

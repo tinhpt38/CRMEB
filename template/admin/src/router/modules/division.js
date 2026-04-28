@@ -31,7 +31,7 @@ export default {
       name: `${pre}division`,
       meta: {
         auth: ['agent-division-index'],
-        title: 'Danh sách đơn vị kinh doanh',
+        title: 'Danh sách Đơn vị kinh doanh',
       },
       component: () => import('@/pages/division/list/index'),
     },
@@ -50,7 +50,7 @@ export default {
       name: `${pre}agent`,
       meta: {
         auth: ['agent-division-statistics'],
-        title: 'Thống kê đơn vị kinh doanh',
+        title: 'Thống kê Đơn vị kinh doanh',
       },
       component: () => import('@/pages/division/agent/statistics'),
     },

@@ -1,10 +1,10 @@
 <template>
-  <el-form-item label="màu nền">
+  <el-form-item label="Màu nền">
     <div style="margin-bottom: 10px">
       <el-radio-group v-model="curComponent.propValue.bgDirection" @change="onChange" size="mini">
         <el-radio label="horizontal">Nằm ngang</el-radio>
-        <el-radio label="vertical">chân dung</el-radio>
-        <el-radio label="left-diagonal">xiên trái</el-radio>
+        <el-radio label="vertical">Chân dung</el-radio>
+        <el-radio label="left-diagonal">Xiên trái</el-radio>
         <el-radio label="right-diagonal">Nghiêng phải</el-radio>
       </el-radio-group>
     </div>
@@ -23,7 +23,7 @@
           curComponent.propValue.backgroundColor = '';
           onChange();
         "
-        >cài lại</span
+        >Đặt lại</span
       >
     </div>
     <div class="row" style="margin-top: 10px">
@@ -40,7 +40,7 @@
           curComponent.propValue.bgColor2 = '';
           onChange();
         "
-        >cài lại</span
+        >Đặt lại</span
       >
     </div>
   </el-form-item>

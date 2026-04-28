@@ -12,7 +12,7 @@
         >
           <el-form-item label="Có hiển thị hay không：">
             <el-select v-model="formValidate.status" clearable @change="search" class="form_content_width">
-              <el-option value="" label="tất cả"></el-option>
+              <el-option value="" label="Tất cả"></el-option>
               <el-option :value="1" label="trình diễn"></el-option>
               <el-option :value="0" label="Không hiển thị"></el-option>
             </el-select>
@@ -26,7 +26,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="search">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="search">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -54,12 +54,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="tên" min-width="130">
+        <el-table-column label="Tên" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="cấp" min-width="130">
+        <el-table-column label="Cấp" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.grade }}</span>
           </template>
@@ -86,7 +86,7 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="tổng số nhiệm vụ" min-width="150">
+        <el-table-column label="Tổng số nhiệm vụ" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.task_total_num }}</span>
           </template>
@@ -132,13 +132,13 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="addTask(scope.row)">nhiệm vụ cấp độ</a>
+            <a v-db-click @click="addTask(scope.row)">Nhiệm vụ cấp độ</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
+            <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -165,7 +165,7 @@
             <el-input v-model="taskData.keyword" placeholder="Vui lòng nhập tên nhiệm vụ" clearable class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="searchTask">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="searchTask">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
         <div>
@@ -188,7 +188,7 @@
                   <span>{{ scope.row.id }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="tên" min-width="130">
+              <el-table-column label="Tên" min-width="130">
                 <template slot-scope="scope">
                   <span>{{ scope.row.name }}</span>
                 </template>
@@ -198,7 +198,7 @@
                   <span>{{ scope.row.type_name }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="số lượng có hạn" min-width="80">
+              <el-table-column label="Số lượng có hạn" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.number }}</span>
                 </template>
@@ -212,24 +212,24 @@
                     v-model="scope.row.status"
                     :value="scope.row.status"
                     @change="onchangeTaskIsShow(scope.row)"
-                    active-text="bật lên"
+                    active-text="Hoạt động"
                     inactive-text="đóng cửa"
                   >
-                    <span slot="open">bật lên</span>
-                    <span slot="close">đóng cửa</span>
+                    <span slot="open">Bật lên</span>
+                    <span slot="close">Đóng cửa</span>
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="loại" min-width="50">
+              <el-table-column label="Loại" min-width="50">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="vận hành" fixed="right" width="170">
+              <el-table-column label="Thao tác" fixed="right" width="170">
                 <template slot-scope="scope">
-                  <a v-db-click @click="editTask(scope.row, 'biên tập')">biên tập</a>
+                  <a v-db-click @click="editTask(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="delTask(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+                  <a v-db-click @click="delTask(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
                 </template>
               </el-table-column>
             </el-table>
@@ -331,7 +331,7 @@ export default {
         {
           minWidth: 120,
           slot: 'action',
-          title: 'vận hành',
+          title: 'Thao tác',
         },
       ],
       columns2: [
@@ -369,7 +369,7 @@ export default {
           fixed: 'right',
           minWidth: 120,
           slot: 'action',
-          title: 'vận hành',
+          title: 'Thao tác',
         },
       ],
       FromData: null,
@@ -606,7 +606,7 @@ export default {
   .search {
     display: flex;
     align-items: center;
-    > div {
+    > Div {
       margin-right: 10px;
     }
   }

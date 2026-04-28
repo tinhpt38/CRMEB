@@ -88,7 +88,7 @@
                 <span class="price" :style="{ fontSize: priceFontSize + 'px' }">¥199.00</span>
               </div>
               <div v-if="item.checkList.includes(1)" class="ot-price-wrap" :style="{ color: sellingPriceColor }">
-                <span class="label">giá bán</span>
+                <span class="label">Giá bán</span>
                 <span class="price">¥299.00</span>
               </div>
               <div v-if="item.checkList.includes(2)" class="vip-price-wrap">
@@ -101,21 +101,21 @@
           <!-- Name Section -->
           <div v-if="item.name === 'name' && item.show" class="name-section">
             <div class="title" :style="{ color: titleColor, fontSize: titleFontSize + 'px' }">
-              Ấm đun nước điện Midea ấm đun nước gia đình công suất nhỏ 0 lớp phủ thực phẩm thép không gỉ 304 hai lớp chống bỏng tất cả thép liền mạch
+              Ấm đun nước điện Midea ấm đun nước gia đình công suất nhỏ 0 lớp phủ thực phẩm thép không gỉ 304 hai lớp chống bỏng Tất cả thép liền mạch
             </div>
           </div>
 
           <!-- Data Section -->
           <div v-if="item.name === 'data' && item.show" class="data-section">
-            <span v-if="item.checkList.includes(0)" :style="{ color: originalPriceColor }">giá gốc: ¥299</span>
-            <span v-if="item.checkList.includes(1)" :style="{ color: stockColor }">trong kho: 1000</span>
+            <span v-if="item.checkList.includes(0)" :style="{ color: originalPriceColor }">Giá gốc: ¥299</span>
+            <span v-if="item.checkList.includes(1)" :style="{ color: stockColor }">Trong kho: 1000</span>
             <span v-if="item.checkList.includes(2)" :style="{ color: salesColor }">Doanh số bán hàng: 1000+</span>
           </div>
 
           <!-- Tags Section -->
           <div v-if="item.name === 'tags' && item.show" class="tags-section">
-            <span class="tag">thẻ hoạt động</span>
-            <span class="tag">Thẻ sản phẩm</span>
+            <span class="tag">Thẻ hoạt động</span>
+            <span class="tag">Nhãn sản phẩm</span>
           </div>
         </div>
 
@@ -125,12 +125,12 @@
             <div class="spec-item selected" :style="{ borderColor: specSelectedBorderColor }">
               <img :src="mockSpecList[0].image" />
               <div class="name" :style="{ color: specSelectedTextColor, background: specSelectedBgColor }">
-                mây xanh
+                Mây xanh
               </div>
             </div>
             <div class="spec-item" v-for="(item, index) in mockSpecList.slice(1)" :key="index">
               <img :src="item.image" />
-              <div class="name" :style="{ color: specUnselectedTextColor }">vịt vàng</div>
+              <div class="name" :style="{ color: specUnselectedTextColor }">Vịt vàng</div>
             </div>
             <div class="total-count" style="margin-left: auto">6sự chi trả<br />Không bắt buộc<span class="iconfont iconyou"></span></div>
           </div>
@@ -435,13 +435,13 @@ export default {
               checkList: [0, 1, 2],
               checkBoxList: [
                 { name: 'giá gốc', value: 0 },
-                { name: 'trong kho', value: 1 },
+                { name: 'Trong kho', value: 1 },
                 { name: 'Doanh số bán hàng', value: 2 },
               ],
             },
             {
               name: 'tags',
-              cname: 'Thẻ sản phẩm',
+              cname: 'Nhãn sản phẩm',
               type: 'radio',
               show: true,
             },
@@ -557,7 +557,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

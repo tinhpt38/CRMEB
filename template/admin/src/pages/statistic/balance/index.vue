@@ -40,8 +40,8 @@
             empty-text="Chưa có dữ liệu"
             highlight-current-row
           >
-            <el-table-column type="index" label="số seri" width="50"> </el-table-column>
-            <el-table-column label="nguồn" min-width="80">
+            <el-table-column type="index" label="Số seri" width="50"> </el-table-column>
+            <el-table-column label="Nguồn" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
@@ -80,8 +80,8 @@
             empty-text="Chưa có dữ liệu"
             highlight-current-row
           >
-            <el-table-column type="index" label="số seri" width="50"> </el-table-column>
-            <el-table-column label="nguồn" min-width="80">
+            <el-table-column type="index" label="Số seri" width="50"> </el-table-column>
+            <el-table-column label="Nguồn" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>

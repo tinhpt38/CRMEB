@@ -1,14 +1,14 @@
 <template>
 	<base-drawer mode="bottom" :visible="visible" background-color="transparent" mask maskClosable @close="closeDrawer">
 		<view class="edit-balance rd-t-40rpx">
-			<view class="title">Ôn lại{{type? 'tích phân' : 'THĂNG BẰNG'}}
+			<view class="title">Sửa{{type? 'điểm thưởng' : 'THĂNG BẰNG'}}
 			  <view class="close acea-row row-center-wrapper" @tap="closeDrawer">
 				  <text class="iconfont icon-iconfontguanbi"></text>
 			  </view>
 			</view>
 			<view class="list">
 				<view class="item acea-row row-between-wrapper">
-					<view>Ôn lại{{type? 'tích phân' : 'THĂNG BẰNG'}}</view>
+					<view>Sửa{{type? 'điểm thưởng' : 'THĂNG BẰNG'}}</view>
 					<view class="acea-row row-middle">
 						<view class="itemn acea-row row-middle" :class="current == index?'on':''" v-for="(item, index) in navList" :key="index" @click="navTap(index)">
 							<text class="iconfont" :class="current == index?'icon-ic_Selected':'icon-ic_unselect'"></text>
@@ -17,7 +17,7 @@
 					</view>
 				</view>
 				<view class="item acea-row row-between-wrapper">
-					<view>{{type? 'tích phân' : 'THĂNG BẰNG'}}</view>
+					<view>{{type? 'điểm thưởng' : 'THĂNG BẰNG'}}</view>
 					<view class="acea-row row-middle">
 						<input type="number" v-model="numeral" :placeholder="type? 'Hãy điền điểm' : 'Vui lòng điền số dư'" placeholder-class="placeholder"/>
 						<text class="iconfont icon-ic_edit"></text>

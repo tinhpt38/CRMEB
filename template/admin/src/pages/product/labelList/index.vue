@@ -26,7 +26,7 @@
                 </el-tooltip>
               </div>
               <span v-if="data.id">
-                <el-dropdown @command="(command) => clickMenu(data, command)">
+                <el-dropdown @command="(command) => ClickMenu(data, command)">
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
@@ -87,7 +87,7 @@
                 <span>{{ scope.row.cate_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="tình trạng" min-width="140">
+            <el-table-column label="Trạng thái" min-width="140">
               <template slot-scope="scope">
                 <el-switch
                   class="defineSwitch"
@@ -97,7 +97,7 @@
                   :value="scope.row.status"
                   @change="onchangeStatus(scope.row)"
                   size="large"
-                  active-text="bật lên"
+                  active-text="Hoạt động"
                   inactive-text="đóng cửa"
                 >
                 </el-switch>
@@ -113,17 +113,17 @@
                   :value="scope.row.is_show"
                   @change="onchangeShow(scope.row)"
                   size="large"
-                  active-text="bật lên"
+                  active-text="Hoạt động"
                   inactive-text="đóng cửa"
                 >
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column fixed="right" label="vận hành" width="100">
+            <el-table-column fixed="right" label="Thao tác" width="100">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row.id)">Ôn lại</a>
+                <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, 'xóa bỏ', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa', scope.$index)">Xóa</a>
               </template>
             </el-table-column>
           </el-table>
@@ -137,7 +137,7 @@
             />
           </div>
         </el-card>
-        <el-dialog :visible.sync="modals" closable :title="isEdit ? 'Chỉnh sửa thẻ' : 'Thêm thẻ'" width="560" @close="cancel">
+        <el-dialog :visible.sync="modals" closable :title="IsEdit ? 'Chỉnh sửa thẻ' : 'Thêm thẻ'" width="560" @close="cancel">
           <div>
             <el-form label-position="right" size="small" ref="form" :rules="rules" :model="form" label-width="100px">
               <el-form-item label="Tên thẻ：" prop="name">
@@ -159,22 +159,22 @@
               <el-form-item label="Cài đặt hiệu ứng：">
                 <el-radio-group v-model="form.type" :true-value="1" :false-value="2">
                   <el-radio :label="1">Tùy chỉnh</el-radio>
-                  <el-radio :label="2">hình ảnh</el-radio>
+                  <el-radio :label="2">Hình ảnh</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="Màu chữ：" v-if="form.type == 1">
                 <el-color-picker v-model="form.font_color" show-alpha></el-color-picker>
                 <p class="tip">Nếu không đặt màu thì sẽ là màu mặc định</p>
               </el-form-item>
-              <el-form-item label="màu nền：" v-if="form.type == 1">
+              <el-form-item label="Màu nền：" v-if="form.type == 1">
                 <el-color-picker v-model="form.bg_color" show-alpha></el-color-picker>
                 <p class="tip">Nếu không đặt màu thì sẽ là màu mặc định</p>
               </el-form-item>
-              <el-form-item label="màu viền：" v-if="form.type == 1">
+              <el-form-item label="Màu viền：" v-if="form.type == 1">
                 <el-color-picker v-model="form.border_color" show-alpha></el-color-picker>
                 <p class="tip">Nếu không đặt màu thì sẽ không có đường viền</p>
               </el-form-item>
-              <el-form-item label="biểu tượng tải lên：" v-if="form.type == 2">
+              <el-form-item label="Biểu tượng tải lên：" v-if="form.type == 2">
                 <div v-if="form.image" class="upload-list">
                   <div class="upload-item">
                     <img :src="form.image" />
@@ -192,13 +192,13 @@
                 ></el-button>
                 <p class="tip">Kích thước đề xuất: 80px*30px, để trống nếu không được tải lên</p>
               </el-form-item>
-              <el-form-item label="loại：">
+              <el-form-item label="Loại：">
                 <el-input-number v-model="form.sort" :min="0" :max="999" class="selWidth"></el-input-number>
               </el-form-item>
               <el-form-item label="Có nên bật không：">
                 <el-switch v-model="form.status" :active-value="1" :inactive-value="0" size="large">
-                  <span slot="open">bật lên</span>
-                  <span slot="close">đóng cửa</span>
+                  <span slot="open">Bật lên</span>
+                  <span slot="close">Đóng cửa</span>
                 </el-switch>
               </el-form-item>
             </el-form>
@@ -372,7 +372,7 @@ export default {
     getLabelLabelAll(key) {
       labelCateListApi().then((res) => {
         let obj = {
-          name: 'tất cả',
+          name: 'Tất cả',
           id: '',
         };
         res.data.unshift(obj);

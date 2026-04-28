@@ -1,0 +1,1787 @@
+{
+  "dryRun": false,
+  "roots": [
+    "template/admin/src",
+    "template/uni-app",
+    "crmeb/app"
+  ],
+  "summary": {
+    "scanned": 1992,
+    "changedFiles": 410,
+    "totalReplacements": 1375
+  },
+  "stats": {
+    "perEntry": {
+      "vận hành": 39,
+      "Phiếu giảm giá": 112,
+      "hàng hóa": 115,
+      "tất cả": 147,
+      "Danh sách mặc cả": 7,
+      "danh sách bán chớp nhoáng": 3,
+      "Danh sách nhóm nhóm": 6,
+      "Phân loại sản phẩm": 68,
+      "Thành viên trả phí": 6,
+      "trong kho": 51,
+      "Thẻ sản phẩm": 16,
+      "Thêm vào": 14,
+      "Hơn": 21,
+      "Thứ tự": 15,
+      "bật lên": 46,
+      "đánh giá sản phẩm": 12,
+      "băng hình": 3,
+      "đơn vị": 61,
+      "sáng tạo": 13,
+      "Gửi phiếu giảm giá": 3,
+      "hàng hóaID": 3,
+      "xóa bỏ": 11,
+      "Quản lý người dùng": 6,
+      "Đơn xin rút tiền": 3,
+      "Quảng cáo mã QR": 2,
+      "Sửa đổi trình quảng bá ưu việt": 3,
+      "Bị loại khỏi chương trình khuyến": 2,
+      "Xóa bỏ": 5,
+      "người dùngID": 6,
+      "Chi tiết người dùng": 5,
+      "Xuất khẩu": 6,
+      "Xem sản phẩm": 2,
+      "Ghi chú đặt hàng": 11,
+      "Thẻ người dùng": 17,
+      "Cấp độ người dùng": 22,
+      "thời gian sáng tạo": 4,
+      "Băng chuyền sản phẩm": 7,
+      "mặt hàng giá hời": 7,
+      "thời gian thanh toán": 7,
+      "thanh toán thực tế": 23,
+      "WeChat trả tiền": 21,
+      "Chi tiết đặt hàng": 10,
+      "Hồ sơ đặt hàng": 3,
+      "Đơn hàng đã được vận chuyển": 7,
+      "tình trạng": 31,
+      "Bộ sưu tập sản phẩm": 6,
+      "người nhận hàng": 25,
+      "Tất cả các đơn đặt hàng": 4,
+      "Thứ tự nhóm": 12,
+      "Đơn hàng flash sale": 5,
+      "lệnh mặc cả": 5,
+      "Đặt hàng trước khi bán": 4,
+      "In biên lai": 2,
+      "In biên lai chuyển phát nhanh": 1,
+      "Nhận số điện thoại": 1,
+      "Thông số sản phẩm": 12,
+      "Chỉnh sửa hàng loạt": 2,
+      "Cài đặt hậu cần": 3,
+      "Chỉnh sửa sản phẩm": 1,
+      "Trạng thái phân loại": 1,
+      "Ràng buộc": 24,
+      "Cấu hình vé": 2,
+      "Thông tin đặt hàng": 2,
+      "Thêm người dùng": 11,
+      "nam giới": 6,
+      "Giao diện bên ngoài": 2,
+      "công cụ phát triển": 1,
+      "Bản ghi đăng": 2,
+      "giữ phiếu giảm giá": 1,
+      "Tình bạn": 1,
+      "Người dùngID": 3,
+      "Nhóm người dùng": 12,
+      "Quản lý nhà phân phối": 2,
+      "Ứng dụng phân phối": 5,
+      "hồ sơ thanh toán": 2,
+      "Dòng vốn": 3,
+      "Kỷ lục nạp tiền": 4,
+      "hồ sơ ủy ban": 2,
+      "Hồ sơ số dư": 2,
+      "Nhóm sản phẩm": 4,
+      "thêm phiếu giảm giá": 6,
+      "Bản ghi bộ sưu tập của người dùng": 1,
+      "Cấu hình bán flash": 1,
+      "Thu ngân đặt hàng": 1,
+      "Đơn hàng sau bán hàng": 5,
+      "Bổ sung sản phẩm": 1,
+      "Bảo vệ sản phẩm": 1,
+      "Danh sách quản trị viên": 1,
+      "Cấp độ phân phối": 12,
+      "Quản lý tin nhắn": 1,
+      "Cài đặt giao thức": 1,
+      "Cấu hình giao diện": 1,
+      "Cấu hình người dùng": 1,
+      "Cấu hình đặt hàng": 1,
+      "bầu trời": 6,
+      "Thông tin hệ thống": 1,
+      "Xóa sổ": 24,
+      "Truy vấn": 3,
+      "tích phân": 26,
+      "Sửa đổi phân loại": 10,
+      "cài lại": 4,
+      "cổ phiếu": 2,
+      "cứu": 2,
+      "biên tập": 12,
+      "xóa sổ": 22,
+      "xác nhận đã nhận hàng": 10,
+      "Ôn lại": 3,
+      "Nhận phòng hàng ngày": 2,
+      "Đơn hàng khuyến mãi": 2,
+      "Quản lý điểm": 2,
+      "Danh sách nhà quảng bá": 1,
+      "Cài đặt phân phối": 1,
+      "Viết đơn đặt hàng": 4,
+      "Quản lý phát sóng trực tiếp": 1,
+      "Lô hàng số lượng lớn": 1,
+      "Kỷ lục tiêu thụ": 1,
+      "Loại lệnh": 2,
+      "Nạp tiền người dùng": 4,
+      "Sự cân bằng": 14,
+      "首页": 1,
+      "分类": 6,
+      "购物车": 1,
+      "Đang chờ xóa sổ": 3,
+      "Thứ tự thông thường": 3,
+      "Xuất khẩu sản phẩm": 5,
+      "Xuất người dùng": 3,
+      "Hồ sơ xóa sổ": 1,
+      "mặt trăng": 1
+    },
+    "perFile": [
+      {
+        "file": "template/admin/src/components/CustomDesign/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/couponList/index.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/components/customerInfo/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/diyComponents/c_goods.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/freightTemplate/city.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/freightTemplate/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/from/from.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/components/goodsList/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/iconFrom/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/linkaddress/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobileConfig/c_custom_component.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/components/mobileConfig/c_member.vue",
+        "count": 6
+      },
+      {
+        "file": "template/admin/src/components/mobileConfig/c_paid_vip.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobileConfig/c_product_info.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobileConfigRight/c_article.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobileConfigRight/c_goods_search.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobileConfigRight/c_hot_word.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobileConfigRight/c_product.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobileConfigRight/c_promotion.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/components/mobileConfigRight/c_swipers_list.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobileConfigRight/c_tab_list.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/banner.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_bargain.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_bottom_menu.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_comb.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_coupon.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_custom_component.vue",
+        "count": 20
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_good_recommend.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_goods_list.vue",
+        "count": 8
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_hotspot.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_member.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_menu.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_new_list.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_news_roll.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_paid_vip.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_pink.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_product.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_product_desc.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_product_info.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_product_service.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_reviews.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_seckill.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_title.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_userInfor.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/home_video.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/nav_bar.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/picture_cube.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/points_mall.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/search_box.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/sign_in.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/wechat_live.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/z_auxiliary_box.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/z_ueditor.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/mobilePage/z_wechat_attention.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/publicSearchFrom/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/searchFrom/searchFrom.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/sendCoupons/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/sortList/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/components/uploadPictures/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/uploadVideo2/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/wangEditor/editor.js",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/i18n/lang/zh-cn.js",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/i18n/lang/zh-tw.js",
+        "count": 6
+      },
+      {
+        "file": "template/admin/src/i18n/pages/home/zh-cn.js",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/i18n/pages/home/zh-tw.js",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/layout/navBars/breadcrumb/userNews.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/agent/agentManage.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/agent/handle/promotersList.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/pages/app/routine/ciUpload/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/app/wechat/reply/keyword.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/app/wechat/user/handle/sendOut.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/app/wechat/user/message.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/cms/article/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/cms/article/relation.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/crud/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/division/list/index.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/finance/balance/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/finance/billingRecords/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/finance/billingRecords/orderDetall.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/finance/capitalFlow/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/finance/commission/handle/commissionDetails.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/finance/components/commissionDetails/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/finance/financialRecords/bill/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/finance/userExtract/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/index/components/gridMenu.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/kefu/appChat/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/mobile/orderList/orderDetail.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/kefu/mobile/user/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/kefu/mobile/user/userLabel.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/components/chatList.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/components/msgWindow.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/components/order_detail.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/components/rightMenu.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/channelCode/channelCodeIndex.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/marketing/channelCode/codeStatistic.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/channelCode/createCode.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/live/creat_live.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/live/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/live/live_goods.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/marketing/lottery/addGoods.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/lottery/create.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/lottery/lotteryList.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/pages/marketing/lottery/recordingList.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/newuser/gift.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/point_record/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeBargain/create.vue",
+        "count": 7
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeBargain/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeBargain/statistics.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCombination/create.vue",
+        "count": 8
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCombination/statistics.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCoupon/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCouponIssue/create.vue",
+        "count": 7
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCouponIssue/index.vue",
+        "count": 7
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegral/create.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegral/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/components/tableFrom.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/components/tableList.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/autoSend.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/orderDetails.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/orderRecord.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/orderRemark.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/orderSend.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/queueList.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storePresell/create.vue",
+        "count": 6
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storePresell/presellList.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeSeckill/create.vue",
+        "count": 7
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeSeckill/createMore.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeSeckill/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeSeckill/list.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeSeckill/statistics.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/marketing/userPoint/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/notify/smsConfig/tableList.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/pages/notify/smsPay/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/order/invoice/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/invoice/orderDetall.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/offline/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/components/tableFrom.vue",
+        "count": 9
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/components/tableList.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/handle/orderAddress.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/handle/orderDetails.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/handle/orderRecord.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/handle/orderRemark.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/handle/orderSend.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/index.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/pages/order/refund/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/product/components/addReply.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/product/components/brokerageSet.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/labelList/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/labelList/paramAdd.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/paramList/paramAdd.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/components/BasicInfo.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/components/LogisticsSetting.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/components/MarketingSetting.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/components/OtherSetting.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/components/SpecStock.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/defaultData.js",
+        "count": 12
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/index.vue",
+        "count": 8
+      },
+      {
+        "file": "template/admin/src/pages/product/productAttr/addAttr.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productClassify/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/product/productList/index.vue",
+        "count": 8
+      },
+      {
+        "file": "template/admin/src/pages/product/productList/tableExpand.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/product/productList/taoBao.vue",
+        "count": 7
+      },
+      {
+        "file": "template/admin/src/pages/product/protectionList/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/setting/cityDada/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/devise/components/uploadPic.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/devise/diyIndex.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/setting/devise/list.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/devise/users.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/setting/devisePage/list.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/freight/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/link/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/membershipLevel/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/setting/shippingTemplates/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/storeService/autoReply.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/storeService/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/storeService/speechcraft.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/setting/systemMenus/components/menusFrom.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/theme/editTheme/components/Sidebar.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/theme/editTheme/components/StyleConfig.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/setting/theme/myTheme/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/setting/ticket/content.vue",
+        "count": 6
+      },
+      {
+        "file": "template/admin/src/pages/setting/ticket/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/statistic/integral/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/statistic/product/components/productInfo.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/statistic/transaction/components/transaction.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/statistic/user/components/userRegion.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/system/backendRouting/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/system/clear/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/system/codeGeneration/list.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/system/maintain/systemCleardata/index.vue",
+        "count": 7
+      },
+      {
+        "file": "template/admin/src/pages/system/maintain/systemLog/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/system/systemMenus/components/menusFrom.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/system/systemMenus/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/user/cancel/handle/task.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/user/grade/card/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/user/label/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/user/level/handle/task.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/user/list/handle/userDetails.vue",
+        "count": 6
+      },
+      {
+        "file": "template/admin/src/pages/user/list/handle/userEdit.vue",
+        "count": 4
+      },
+      {
+        "file": "template/admin/src/pages/user/list/handle/userEditForm.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/pages/user/list/handle/userInfo.vue",
+        "count": 6
+      },
+      {
+        "file": "template/admin/src/pages/user/list/index.vue",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/router/modules/agent.js",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/router/modules/app.js",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/router/modules/division.js",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/router/modules/finance.js",
+        "count": 6
+      },
+      {
+        "file": "template/admin/src/router/modules/frameOut.js",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/router/modules/marketing.js",
+        "count": 8
+      },
+      {
+        "file": "template/admin/src/router/modules/order.js",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/router/modules/product.js",
+        "count": 8
+      },
+      {
+        "file": "template/admin/src/router/modules/setting.js",
+        "count": 10
+      },
+      {
+        "file": "template/admin/src/router/modules/user.js",
+        "count": 5
+      },
+      {
+        "file": "template/admin/src/store/module/fresh.js",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/store/module/goodSelect.js",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/store/module/mobildConfig.js",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/store/module/moren.js",
+        "count": 46
+      },
+      {
+        "file": "template/uni-app/components/countDown/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/components/update/app-update.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/libs/uniApi.js",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/activity/goods_bargain/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/activity/goods_combination/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/activity/goods_combination_details/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/activity/goods_seckill_details/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/activity/presell_details/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/components/footerPage/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/components/splitOrder/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/admin/components/writeOffList/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/admin/components/writeOffSwitching/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/delivery/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/distribution/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/admin/distribution/orderDetail/index.vue",
+        "count": 5
+      },
+      {
+        "file": "template/uni-app/pages/admin/distribution/scanning/detail/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/admin/distribution/scanning/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/admin/goods/addGoods.vue",
+        "count": 8
+      },
+      {
+        "file": "template/uni-app/pages/admin/goods/components/classify/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/admin/goods/components/editPrice/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/admin/goods/components/label/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/goods/index.vue",
+        "count": 8
+      },
+      {
+        "file": "template/uni-app/pages/admin/goods/specs.vue",
+        "count": 4
+      },
+      {
+        "file": "template/uni-app/pages/admin/orderDetail/index.vue",
+        "count": 4
+      },
+      {
+        "file": "template/uni-app/pages/admin/orderList/index.vue",
+        "count": 7
+      },
+      {
+        "file": "template/uni-app/pages/admin/order_cancellation/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/refund/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/refund_order_detail/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/admin/refund_order_list/index.vue",
+        "count": 6
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/components/coupon/index.vue",
+        "count": 5
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/components/editBalance/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/components/filter/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/components/member/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/components/userLable/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/list.vue",
+        "count": 4
+      },
+      {
+        "file": "template/uni-app/pages/annex/applicationRecord/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/annex/vip_paid/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/goods/cashier/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/goods_comment_con/components/userAddress.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/lottery/components/userAddress.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/lottery/grids/record.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/goods/order_confirm/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/order_details/index.vue",
+        "count": 4
+      },
+      {
+        "file": "template/uni-app/pages/goods/order_pay_status/components/userAddress.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods_cate/goods_cate2.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/goods_cate/goods_cate3.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/integral_goods_details.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/integral_order.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/integral_order_details.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/users/auth/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/binding_phone/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/users/message_center/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/users/payment_on_behalf/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_address/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_get_coupon/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/users/user_invoice_order/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/users/user_payment/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/users/user_phone/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_return_list/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_sgin/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_spread_money/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_vip/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/coupon.vue",
+        "count": 4
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/customComponent.vue",
+        "count": 4
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/homeUserInfor.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/productInfo.vue",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/PublicController.php",
+        "count": 14
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/UpgradeController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/agent/AgentLevel.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/diy/DiyPro.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/diy/Theme.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/order/StoreOrder.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemCrud.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemCrontab.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemEvent.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/route/agent.php",
+        "count": 12
+      },
+      {
+        "file": "crmeb/app/adminapi/route/app.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/route/diy.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/adminapi/route/export.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/route/live.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/route/marketing.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/adminapi/route/merchant.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/route/order.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/adminapi/route/product.php",
+        "count": 13
+      },
+      {
+        "file": "crmeb/app/adminapi/route/serve.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/route/setting.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/adminapi/route/statistic.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/adminapi/route/system.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/route/user.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreBargainValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreCombinationValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreIntegralValidate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreSeckillValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreProductReplyValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/serve/ExpressValidata.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/setting/ShippingTemplatesValidate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/setting/SystemConfigValidata.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/LoginController.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/PayController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/PublicController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/admin/StoreOrderController.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/order/StoreOrderController.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/order/StoreOrderRefundController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserSignController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/store/StoreCartController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/wechat/AuthController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/route/pc.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/route/v1.php",
+        "count": 20
+      },
+      {
+        "file": "crmeb/app/api/route/v2.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/common.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/jobs/MiniOrderJob.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/jobs/OrderJob.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/jobs/OutPushJob.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/Order.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/kefuapi/route/route.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/lang/en_us.php",
+        "count": 41
+      },
+      {
+        "file": "crmeb/app/lang/zh_cn.php",
+        "count": 82
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderShippingListener.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/coupon/StoreCoupon.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/model/shipping/ShippingTemplates.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/outapi/controller/Mcp.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/outapi/route/route.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/outapi/validate/StoreCategoryValidate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/advance/StoreAdvanceServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/bargain/StoreBargainServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/combination/StoreCombinationServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponIssueServices.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponService.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/services/activity/integral/StoreIntegralServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/integral/StorePointRecordServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/lottery/LuckLotteryRecordServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/activity/lottery/LuckPrizeServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/activity/seckill/StoreSeckillServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/admin/StoreManageServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/agent/AgentLevelServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/agent/AgentLevelTaskServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/agent/DivisionAgentApplyServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/agent/DivisionServices.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/services/article/ArticleCategoryServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/diy/PageCategoryServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/diy/ThemeServices.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceFeedbackServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceSpeechcraftCateServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/message/MessageSystemServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/message/wechat/MessageServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/order/OtherOrderServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/order/OutStoreOrderRefundServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/OutStoreOrderServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/order/StoreCartServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderComputedServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderDeliveryServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderRefundServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderServices.php",
+        "count": 28
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderWriteOffServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/other/export/ExportServices.php",
+        "count": 53
+      },
+      {
+        "file": "crmeb/app/services/pay/PayServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/pay/RechargeServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/OutStoreProductServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreCategoryServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductProtectionServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductReplyServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductServices.php",
+        "count": 11
+      },
+      {
+        "file": "crmeb/app/services/statistic/CapitalFlowServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/statistic/OrderStatisticServices.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/services/statistic/TradeStatisticServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/statistic/UserStatisticServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/system/AppVersionServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/SystemCrudDataService.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/SystemCrudListServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/system/SystemMenusServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/SystemRouteCateServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/SystemTicketServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/system/admin/SystemAdminServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemConfigServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemConfigTabServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemGroupDataServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemGroupServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/lang/LangTypeServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/system/store/SystemStoreStaffServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/user/LoginServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/user/UserBillServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/user/UserBrokerageServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/UserExtractServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/UserLabelServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/UserLevelServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/user/UserMoneyServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/user/UserRechargeServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/user/UserServices.php",
+        "count": 30
+      },
+      {
+        "file": "crmeb/app/services/user/UserVisitServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/wechat/RoutineServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatReplyServices.php",
+        "count": 2
+      }
+    ]
+  }
+}

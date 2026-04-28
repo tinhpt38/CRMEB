@@ -7,7 +7,7 @@
         class="sysTitle acea-row row-center-wrapper"
         :style="{ height: getHeight.barHeight + 'px' }"
       >
-        <view>Chi tiết người dùng</view>
+        <view>Chi tiết khách hàng</view>
         <text class="iconfont icon-ic_leftarrow" @click="goarrow"></text>
       </view>
     </view>
@@ -159,7 +159,7 @@
       <view class="title">Thông tin tài sản</view>
       <view class="info acea-row">
         <view class="item" @click="balanceTap(1)">
-          <view>tích phân</view>
+          <view>điểm thưởng</view>
           <view class="bottom acea-row row-between-wrapper">
             <view class="num">{{ infoData.integral }}</view>
             <view class="iconfont icon-ic_edit"></view>
@@ -176,7 +176,7 @@
       <view class="info acea-row">
         <view class="item">
           <view class="acea-row row-between-wrapper">
-            <view>Phiếu giảm giá</view>
+            <view>Mã giảm giá</view>
             <view
               class="iconfont icon-ic_rightarrow"
               @click="couponSeeTap"

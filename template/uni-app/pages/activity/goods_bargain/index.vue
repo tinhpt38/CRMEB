@@ -120,7 +120,7 @@ export default {
 		var pages = getCurrentPages();
 		this.returnShow = pages.length === 1 ? false : true;
 		uni.setNavigationBarTitle({
-			title: this.$t(`Danh sách mặc cả`)
+			title: this.$t(`Lịch sử trả giá`)
 		});
 		// #ifdef MP
 		this.navH = app.globalData.navH * 2.5;

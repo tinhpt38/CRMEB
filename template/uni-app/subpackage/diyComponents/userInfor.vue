@@ -63,7 +63,7 @@
               @click.stop="handleMenu(1)"
             >
               <view class="num">{{ diyInfo.integral || 0 }}</view>
-              <view>{{ $t(`tích phân`) }}</view>
+              <view>{{ $t(`điểm thưởng`) }}</view>
             </view>
             <view
               class="item"
@@ -79,7 +79,7 @@
               @click.stop="handleMenu(0)"
             >
               <view class="num">{{ diyInfo.couponCount || 0 }}</view>
-              <view>{{ $t(`Phiếu giảm giá`) }}</view>
+              <view>{{ $t(`Mã giảm giá`) }}</view>
             </view>
             <view
               class="item"
@@ -110,7 +110,7 @@
           @click.stop="handleMenu(1)"
         >
           <view class="num">{{ diyInfo.integral || 0 }}</view>
-          <view>{{ $t(`tích phân`) }}</view>
+          <view>{{ $t(`điểm thưởng`) }}</view>
         </view>
         <view
           v-if="checkType.indexOf(2) != -1"
@@ -126,7 +126,7 @@
           @click.stop="handleMenu(0)"
         >
           <view class="num">{{ diyInfo.coupon_num || 0 }}</view>
-          <view>{{ $t(`Phiếu giảm giá`) }}</view>
+          <view>{{ $t(`Mã giảm giá`) }}</view>
         </view>
         <view
           v-if="checkType.indexOf(4) != -1"

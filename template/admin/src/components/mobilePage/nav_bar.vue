@@ -15,7 +15,7 @@
             color: toneConfig ? textColor : '#333',
           }"
         >
-          trang đầu<span
+          Trang đầu<span
             :style="{
               background: toneConfig
                 ? `linear-gradient(90deg,${decorateColorLeft} 0%,${decorateColorRight} 100%)`
@@ -30,7 +30,7 @@
             color: toneConfig ? textColor2 : colorStyle.theme,
           }"
         >
-          trang đầu<span
+          Trang đầu<span
             :style="{
               borderColor: toneConfig ? decorateColor : colorStyle.theme,
             }"
@@ -46,7 +46,7 @@
               : themeColor,
           }"
         >
-          trang đầu
+          Trang đầu
         </div>
         <div class="item" v-for="(item, index) in navList.slice(0, 20)" :key="index">
           {{ item.text.val }}
@@ -165,7 +165,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -193,7 +193,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -221,7 +221,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -249,7 +249,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -399,7 +399,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

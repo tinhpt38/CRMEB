@@ -10,10 +10,10 @@
           <el-form-item label="Tìm kiếm hoạt động：" label-for="store_name">
             <el-input placeholder="Vui lòng nhập tên sự kiện" v-model="tableFrom.activity_name" clearable class="form_content_width" />
           </el-form-item>
-          <el-form-item label="trạng thái hoạt động：">
+          <el-form-item label="Trạng thái hoạt động：">
             <el-select placeholder="Vui lòng chọn" clearable v-model="tableFrom.status" @change="userSearchs"
               class="form_content_width">
-              <el-option value="1" label="bật lên"></el-option>
+              <el-option value="1" label="Hoạt động"></el-option>
               <el-option value="0" label="đóng cửa"></el-option>
             </el-select>
           </el-form-item>
@@ -28,7 +28,7 @@
               style="width: 250px"></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -37,7 +37,7 @@
       <!-- <el-button v-auth="['marketing-store_seckill-create']" type="primary" v-db-click @click="add"
         >Thêm vật phẩm flash sale</el-button
       > -->
-      <el-button v-auth="['export-storeSeckill']" class="export" v-db-click @click="exports">Xuất khẩu</el-button>
+      <el-button v-auth="['export-storeSeckill']" class="export" v-db-click @click="exports">Xuất file</el-button>
       <el-table :data="tableList" v-loading="loading" highlight-current-row no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào" class="mt14">
         <el-table-column label="ID" width="80">
@@ -76,17 +76,17 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="giá bán" min-width="90">
+        <el-table-column label="Giá bán" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.product_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá bán chớp nhoáng" min-width="90">
+        <el-table-column label="Giá bán chớp nhoáng" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="phiên bản giới hạn" min-width="80">
+        <el-table-column label="Phiên bản giới hạn" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.quota_show }}</span>
           </template>
@@ -96,34 +96,34 @@
             <span>{{ scope.row.quota }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng bán hàng chớp nhoáng" min-width="90">
+        <el-table-column label="Tình trạng bán hàng chớp nhoáng" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.start_name }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Thời gian hoạt động" min-width="190">
           <template slot-scope="scope">
-            <p>bắt đầu：{{ scope.row.start_time}}</p>
+            <p>Bắt đầu：{{ scope.row.start_time}}</p>
             <p>Hoàn thành：{{ scope.row.stop_time}}</p>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="100">
+        <el-table-column label="Trạng thái" min-width="100">
           <template slot-scope="scope">
             <el-switch class="defineSwitch" :active-value="1" :inactive-value="0" v-model="scope.row.status"
-              :value="scope.row.status" @change="onchangeIsShow(scope.row)" size="large" active-text="bật lên"
+              :value="scope.row.status" @change="onchangeIsShow(scope.row)" size="large" active-text="Hoạt động"
               inactive-text="đóng cửa">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="100">
+        <el-table-column label="Thao tác" fixed="right" width="100">
           <template slot-scope="scope">
-            <!-- <a v-if="scope.row.stop_status === 0" v-db-click @click="edit(scope.row)">biên tập</a>
+            <!-- <a v-if="scope.row.stop_status === 0" v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical" v-if="scope.row.stop_status === 0" />
-            <a v-db-click @click="copy(scope.row)">sao chép</a>
+            <a v-db-click @click="copy(scope.row)">Sao chép</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa các mặt hàng flash sale', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa các mặt hàng flash sale', scope.$index)">Xóa</a>
             <el-divider direction="vertical"></el-divider> -->
-            <a v-db-click @click="viewInfo(scope.row)">thống kê</a>
+            <a v-db-click @click="viewInfo(scope.row)">Thống kê</a>
           </template>
         </el-table-column>
       </el-table>
@@ -196,7 +196,7 @@ export default {
           minWidth: 130,
         },
         {
-          title: 'tình trạng bán hàng chớp nhoáng',
+          title: 'Trạng thái bán hàng chớp nhoáng',
           key: 'start_name',
           minWidth: 100,
         },
@@ -206,12 +206,12 @@ export default {
           minWidth: 100,
         },
         {
-          title: 'tình trạng',
+          title: 'Trạng thái',
           slot: 'status',
           minWidth: 100,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 130,

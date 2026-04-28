@@ -35,7 +35,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -57,7 +57,7 @@
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="mệnh giá" min-width="150">
+        <el-table-column label="Mệnh giá" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
@@ -88,7 +88,7 @@
             <i class="el-icon-close" v-else style="color: #ed5565; font-size: 14px" />
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="150">
+        <el-table-column label="Trạng thái" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.status }}</span>
           </template>

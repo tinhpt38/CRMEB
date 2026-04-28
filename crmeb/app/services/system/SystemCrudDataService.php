@@ -153,7 +153,7 @@ class SystemCrudDataService extends BaseServices
         $count = $this->dao->count(['cid' => $cid]);
         $field[] = Form::input('value', 'giá trị', $info['value'] ?? $count)->required();
         $field[] = Form::input('sort', 'loại', $info['sort'] ?? 0)->required();
-        return create_form($id ? 'biên tập' : 'Mới', $field, Url::buildUrl('/system/crud/data_dictionary/info_save/' . $cid . '/' . $id), 'POST');
+        return create_form($id ? 'Sửa' : 'Mới', $field, Url::buildUrl('/system/crud/data_dictionary/info_save/' . $cid . '/' . $id), 'POST');
     }
 
     /**

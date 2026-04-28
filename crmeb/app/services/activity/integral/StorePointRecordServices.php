@@ -45,7 +45,7 @@ class StorePointRecordServices extends BaseServices
             'lottery_use' => 'Tham gia rút thăm và sử dụng điểm',
             'lottery_add' => 'Điểm thưởng khi trúng giải xổ số',
             'order_deduction' => 'Trừ điểm khi đặt hàng',
-            'storeIntegral_use' => 'Đổi điểm lấy hàng hóa',
+            'storeIntegral_use' => 'Đổi điểm lấy sản phẩm',
             'pay_product_integral_back' => 'Điểm hoàn tiền được sử dụng để đặt hàng',
             'sign' => 'Đăng nhập để nhận điểm',
         ];

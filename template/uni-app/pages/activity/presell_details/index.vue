@@ -60,7 +60,7 @@
 						<view v-if="couponList.length" class="coupon acea-row row-between-wrapper" @click="couponTap"
 							style="margin-top: 0rpx;">
 							<view class="hide line1 acea-row">
-								{{$t(`Phiếu giảm giá`)}}：
+								{{$t(`Mã giảm giá`)}}：
 								<template v-for="(item, index) in couponList">
 									<view v-if="index < 2" class="activity" :key="index">
 										{{$t(`Đầy`)}}{{ item.use_min_price }}{{$t(`giảm bớt`)}}{{ item.coupon_price }}</view>
@@ -708,7 +708,7 @@
 							that.skuArr.push(obj);
 						}
 						that.$set(that, "selectSku", that.skuArr[0]);
-						var navList = [that.$t(`hàng hóa`), that.$t(`đánh giá`), that.$t(`Chi tiết`)];
+						var navList = [that.$t(`sản phẩm`), that.$t(`đánh giá`), that.$t(`Chi tiết`)];
 						if (goodArray.length) {
 							navList.splice(2, 0, that.$t(`gợi ý`));
 						}

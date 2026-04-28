@@ -12,7 +12,7 @@
           <el-switch :active-value="1" :inactive-value="0" v-model="agreement.status" size="large"> </el-switch>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="memberAgreementSave">cứu</el-button>
+          <el-button type="primary" v-db-click @click="memberAgreementSave">Lưu</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -66,7 +66,7 @@ export default {
           this.spinShow = false;
         });
     },
-    // cứu
+    // Lưu
     memberAgreementSave() {
       memberAgreementSave(this.id, this.agreement)
         .then((res) => {

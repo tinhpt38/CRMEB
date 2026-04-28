@@ -18,13 +18,13 @@
             </div>
           </div>
           <div class="c_row-item">
-            <el-col class="label" :span="4"> tên </el-col>
+            <el-col class="label" :span="4"> Tên </el-col>
             <el-col :span="19" class="slider-box">
               <el-input v-model="item.name" placeholder="Tùy chọn không quá 10 từ" />
             </el-col>
           </div>
           <div class="c_row-item">
-            <el-col class="label" :span="4"> liên kết </el-col>
+            <el-col class="label" :span="4"> Liên kết </el-col>
             <el-col :span="19" class="slider-box">
               <el-input v-model="item.link" placeholder="Tùy chọn không quá 10 từ" />
             </el-col>
@@ -42,8 +42,7 @@
         style="width: 100%; height: 40px; border-color: var(--prev-color-primary); color: var(--prev-color-primary)"
         v-db-click
         @click="addMenu"
-        >Thêm điều hướng đồ họa
-      </el-button>
+        >Thêm điều hướng đồ họa</el-button>
     </div>
     <div>
       <el-dialog
@@ -142,7 +141,7 @@ export default {
         message: 'Bạn có chắc chắn muốn xóa menu này?',
         showCancelButton: true,
         cancelButtonText: 'Hủy bỏ',
-        confirmButtonText: 'xóa bỏ',
+        confirmButtonText: 'Xóa',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })

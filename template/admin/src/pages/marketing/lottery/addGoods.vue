@@ -1,14 +1,14 @@
 <template>
   <div>
     <el-form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-width="90px">
-      <el-form-item label="phần thưởng：" prop="type">
+      <el-form-item label="Phần thưởng：" prop="type">
         <el-radio-group v-model="formValidate.type">
           <el-radio :label="1">Không thắng</el-radio>
-          <el-radio :label="5">Phiếu giảm giá</el-radio>
-          <el-radio :label="2">tích phân</el-radio>
-          <el-radio :label="6">hàng hóa</el-radio>
-          <el-radio :label="4">phong bì màu đỏ</el-radio>
-          <el-radio :label="3">Sự cân bằng</el-radio>
+          <el-radio :label="5">Mã giảm giá</el-radio>
+          <el-radio :label="2">Điểm thưởng</el-radio>
+          <el-radio :label="6">Hàng hóa</el-radio>
+          <el-radio :label="4">Phong bì màu đỏ</el-radio>
+          <el-radio :label="3">Số dư</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="Tặng phiếu giảm giá：" v-if="formValidate.type == 5">
@@ -17,7 +17,7 @@
             item.title
           }}</el-tag>
         </div>
-        <el-button type="primary" v-db-click @click="addCoupon" v-if="!couponName.length">thêm phiếu giảm giá</el-button>
+        <el-button type="primary" v-db-click @click="addCoupon" v-if="!couponName.length">Thêm phiếu giảm giá</el-button>
       </el-form-item>
       <el-form-item
         :label="[3, 4].includes(formValidate.type) ? 'Thông tin số tiền' : 'Số điểm'"
@@ -42,7 +42,7 @@
           }}
         </div>
       </el-form-item>
-      <el-form-item v-if="formValidate.type == 6" label="hàng hóa：" prop="goods_image">
+      <el-form-item v-if="formValidate.type == 6" label="Hàng hóa：" prop="goods_image">
         <template v-if="formValidate.goods_image">
           <div class="upload-list">
             <img :src="formValidate.goods_image" />
@@ -95,7 +95,7 @@
           style="width: 300px"
         ></el-input-number>
       </el-form-item>
-      <el-form-item label="nhắc nhở：" prop="prompt">
+      <el-form-item label="Nhắc nhở：" prop="prompt">
         <el-input
           v-model="formValidate.prompt"
           :maxlength="15"
@@ -104,7 +104,7 @@
         ></el-input>
       </el-form-item>
       <!-- <el-form-item>
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">Nộp</el-button>
       </el-form-item> -->
     </el-form>
     <!-- Tải ảnh lên-->

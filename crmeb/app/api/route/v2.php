@@ -47,8 +47,8 @@ Route::group('v2', function () {
     Route::group(function () {
 
         Route::post('reset_cart', 'v2.store.StoreCartController/resetCart')->name('resetCart')->option(['real_name' => 'Xóa giỏ hàng', 'mark' => 'cart', 'mark_name' => 'giỏ hàng']);
-        Route::get('new_coupon', 'v2.store.StoreCouponsController/getNewCoupon')->name('getNewCoupon')->option(['real_name' => 'Nhận vé người mới', 'mark' => 'coupons', 'mark_name' => 'Phiếu giảm giá']);//Nhận vé người mới
-        Route::post('order/product_coupon/:orderId', 'v2.store.StoreCouponsController/getOrderProductCoupon')->option(['real_name' => 'Nhận phiếu giảm giá được quản lý theo đơn đặt hàng', 'mark' => 'coupons', 'mark_name' => 'Phiếu giảm giá']);
+        Route::get('new_coupon', 'v2.store.StoreCouponsController/getNewCoupon')->name('getNewCoupon')->option(['real_name' => 'Nhận vé người mới', 'mark' => 'coupons', 'mark_name' => 'Mã giảm giá']);//Nhận vé người mới
+        Route::post('order/product_coupon/:orderId', 'v2.store.StoreCouponsController/getOrderProductCoupon')->option(['real_name' => 'Nhận phiếu giảm giá được quản lý theo đơn đặt hàng', 'mark' => 'coupons', 'mark_name' => 'Mã giảm giá']);
         Route::get('user/service/record', 'v2.user.StoreService/record')->name('userServiceRecord')->option(['real_name' => 'Lịch sử trò chuyện dịch vụ khách hàng', 'parent' => 'user', 'cate_name' => 'dịch vụ khách hàng']);//Lịch sử trò chuyện dịch vụ khách hàng
         Route::get('cart_list', 'v2.store.StoreCartController/getCartList')->option(['real_name' => 'Nhận danh sách giỏ hàng', 'mark' => 'cart', 'mark_name' => 'giỏ hàng']);
         Route::get('get_attr/:id/:type', 'v2.store.StoreProductController/getProductAttr')->option(['real_name' => 'Nhận thông số kỹ thuật sản phẩm', 'mark' => 'cart', 'mark_name' => 'giỏ hàng']);
@@ -56,13 +56,13 @@ Route::group('v2', function () {
 
         Route::group(function () {
             //Đặt hàng hóa đơn ứng dụng
-            Route::post('order/make_up_invoice', 'v2.order.StoreOrderInvoiceController/makeUp')->name('orderMakeUpInvoice')->option(['real_name' => 'Đặt hàng hóa đơn ứng dụng']);
+            Route::post('order/make_up_invoice', 'v2.order.StoreOrderInvoiceController/makeUp')->name('orderMakeUpInvoice')->option(['real_name' => 'Đặt sản phẩm đơn ứng dụng']);
             //Danh sách hóa đơn người dùng
             Route::get('invoice', 'v2.user.UserInvoiceController/invoiceList')->name('userInvoiceLIst')->option(['real_name' => 'Danh sách hóa đơn người dùng']);
             //Chi tiết hóa đơn riêng lẻ
             Route::get('invoice/detail/:id', 'v2.user.UserInvoiceController/invoice')->name('userInvoiceDetail')->option(['real_name' => 'Chi tiết hóa đơn riêng lẻ']);
             //Ôn lại|Thêm hóa đơn
-            Route::post('invoice/save', 'v2.user.UserInvoiceController/saveInvoice')->name('userInvoiceSave')->option(['real_name' => 'Ôn lại|Thêm hóa đơn']);
+            Route::post('invoice/save', 'v2.user.UserInvoiceController/saveInvoice')->name('userInvoiceSave')->option(['real_name' => 'Sửa|Thêm hóa đơn']);
             //Đặt hóa đơn mặc định
             Route::post('invoice/set_default/:id', 'v2.user.UserInvoiceController/setDefaultInvoice')->name('userInvoiceSetDefault')->option(['real_name' => 'Đặt hóa đơn mặc định']);
             //Nhận hóa đơn mặc định
@@ -99,7 +99,7 @@ Route::group('v2', function () {
     //Ủy quyền không thành công,Tiếp tục thực hiện mà không ném ngoại lệ
     Route::group(function () {
         Route::get('user/search_list', 'v2.user.UserSearchController/getUserSeachList')->name('userSearchList')->option(['real_name' => 'Lịch sử tìm kiếm của người dùng']);
-        Route::get('get_today_coupon', 'v2.store.StoreCouponsController/getTodayCoupon')->option(['real_name' => 'Giao diện bật lên phiếu giảm giá mới']);//Giao diện bật lên phiếu giảm giá mới
+        Route::get('get_today_coupon', 'v2.store.StoreCouponsController/getTodayCoupon')->option(['real_name' => 'Giao diện Hoạt động phiếu giảm giá mới']);//Giao diện bật lên phiếu giảm giá mới
         Route::get('subscribe', 'v2.PublicController/subscribe')->name('WechatSubscribe')->option(['real_name' => 'Người dùng tài khoản công cộng WeChat có chú ý không?']);// Người dùng tài khoản công cộng WeChat có chú ý không?
         Route::get('index', 'v2.PublicController/index')->name('index')->option(['real_name' => 'trang đầu']);//trang đầu
         Route::get('coupons', 'v2.store.StoreCouponsController/lst')->name('couponsList')->option(['real_name' => 'Danh sách phiếu giảm giá có sẵn']); //Danh sách phiếu giảm giá có sẵn

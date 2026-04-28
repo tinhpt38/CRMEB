@@ -31,7 +31,7 @@ export default {
       name: `${pre}agentManage`,
       meta: {
         auth: ['agent-agent-manage'],
-        title: 'Quản lý nhà phân phối',
+        title: 'Quản lý Affiliate',
       },
       component: () => import('@/pages/agent/agentManage'),
     },
@@ -40,7 +40,7 @@ export default {
       name: `${pre}agentManage`,
       meta: {
         auth: ['admin-agent-spread-apply'],
-        title: 'Ứng dụng phân phối',
+        title: 'Đăng ký làm Affiliate',
       },
       component: () => import('@/pages/agent/spread/apply'),
     },

@@ -21,7 +21,7 @@
     </el-card>
     <cards-data :cardLists="cardLists" v-if="cardLists.length >= 0"></cards-data>
     <el-card class="ivu-mb-16" :bordered="false" shadow="never">
-      <h4 class="statics-header-title">xu hướng kinh doanh</h4>
+      <h4 class="statics-header-title">Xu hướng kinh doanh</h4>
       <echarts-new :option-data="optionData" :styles="style" height="100%" width="100%" v-if="optionData"></echarts-new>
     </el-card>
     <div class="code-row-bg">
@@ -40,8 +40,8 @@
             empty-text="Chưa có dữ liệu"
             highlight-current-row
           >
-            <el-table-column type="index" label="số seri" width="50"> </el-table-column>
-            <el-table-column label="nguồn" min-width="80">
+            <el-table-column type="index" label="Số seri" width="50"> </el-table-column>
+            <el-table-column label="Nguồn" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
@@ -80,8 +80,8 @@
             empty-text="Chưa có dữ liệu"
             highlight-current-row
           >
-            <el-table-column type="index" label="số seri" width="50"> </el-table-column>
-            <el-table-column label="nguồn" min-width="80">
+            <el-table-column type="index" label="Số seri" width="50"> </el-table-column>
+            <el-table-column label="Nguồn" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>

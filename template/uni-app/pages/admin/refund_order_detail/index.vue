@@ -118,7 +118,7 @@
 								<text class="iconfont icon-pc-jifen"></text>
 							</view>
 							<view class="texts">
-								<view class="line1">[quà tặng]{{giveData.give_integral}}tích phân</view>
+								<view class="line1">[quà tặng]{{giveData.give_integral}}điểm thưởng</view>
 							</view>
 						</view>
 					</view>
@@ -250,11 +250,11 @@
 			<view class="height-add"></view>
 			<view class="footer acea-row row-right row-middle" v-if="goname != 'looks'">
 				<view class="more"></view>
-				<view class="btn cancel" @click="modify('1')">Ghi chú đặt hàng</view>
+				<view class="btn cancel" @click="modify('1')">Ghi chú đơn hàng</view>
 				<view class="btn delivery" v-if="orderInfo.refund_type == 1" @click="modify('2',1)">Xem xét hoàn tiền</view>
 				<view class="btn delivery" v-if="orderInfo.refund_type == 2" @click="modify('2',0)">Xem xét hoàn tiền</view>
 				<view class="btn" v-if="orderInfo.refund_type == 5" @click="goLogistics(orderInfo)">kiểm tra hậu cần</view>
-				<view class="btn delivery" v-if="orderInfo.refund_type == 5" @click="modify('2',1)">xác nhận đã nhận hàng</view>
+				<view class="btn delivery" v-if="orderInfo.refund_type == 5" @click="modify('2',1)">Xác nhận nhận hàng</view>
 			</view>
 			<PriceChange :change="change" :orderInfo="orderInfo" :isRefund="isRefund" @closechange="changeclose" @savePrice="savePrice" :status="status">
 			</PriceChange>

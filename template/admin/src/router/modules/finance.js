@@ -31,7 +31,7 @@ export default {
       name: `${pre}billingRecords`,
       meta: {
         auth: ['finance-billing_records-index'],
-        title: 'hồ sơ thanh toán',
+        title: 'Lịch sử thanh toán',
       },
       component: () => import('@/pages/finance/billingRecords/index'),
     },
@@ -40,7 +40,7 @@ export default {
       name: `${pre}capitalFlow`,
       meta: {
         auth: ['finance-capital_flow-index'],
-        title: 'Dòng vốn',
+        title: 'Dòng tiền',
       },
       component: () => import('@/pages/finance/capitalFlow/index'),
     },
@@ -49,7 +49,7 @@ export default {
       name: `${pre}cashApply`,
       meta: {
         auth: ['finance-user_extract'],
-        title: 'Đơn xin rút tiền',
+        title: 'Yêu cầu rút tiền',
       },
       component: () => import('@/pages/finance/userExtract/index'),
     },
@@ -58,7 +58,7 @@ export default {
       name: `${pre}recharge`,
       meta: {
         auth: ['finance-user-recharge'],
-        title: 'Kỷ lục nạp tiền',
+        title: 'Lịch sử nạp tiền',
       },
       component: () => import('@/pages/finance/financialRecords/recharge'),
     },
@@ -76,7 +76,7 @@ export default {
       name: `${pre}commissionRecord`,
       meta: {
         auth: ['finance-finance-commission'],
-        title: 'hồ sơ ủy ban',
+        title: 'Lịch sử hoa hồng',
       },
       component: () => import('@/pages/finance/commission/index'),
     },
@@ -85,7 +85,7 @@ export default {
       name: `${pre}balance`,
       meta: {
         auth: ['finance-user-balance'],
-        title: 'Hồ sơ số dư',
+        title: 'Biến động số dư',
       },
       component: () => import('@/pages/finance/balance/index'),
     },

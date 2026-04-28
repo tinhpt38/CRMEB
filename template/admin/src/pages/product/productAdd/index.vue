@@ -2,7 +2,7 @@
   <div class="" id="shopp-manager" v-loading="spinShow">
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm'"
+      :title="$route.params.id ? 'Sửa sản phẩm' : 'Thêm sản phẩm'"
       :backUrl="$routeProStr + '/product/product_list'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16" :body-style="{ padding: '0px 20px' }">
@@ -42,7 +42,7 @@
           @addGoodsTag="addGoodsTag"
         ></basic-info>
 
-        <!-- đặc điểm kỹ thuật cổ phiếu-->
+        <!-- Thuộc tính tồn kho-->
         <spec-stock
           ref="specStock"
           v-show="currentTab === '2'"
@@ -175,7 +175,7 @@
             v-db-click
             @click="handleSubmit('formValidate')"
             v-if="$route.params.id || currentTab !== '1'"
-            >cứu</el-button
+            >Lưu</el-button
           >
         </el-form-item>
       </el-form>
@@ -211,15 +211,15 @@
                 </div>
                 <div class="stock-input">
                   <!-- <el-input type="number" v-model="stock" size="large" :min='0' placeholder="Điền số lượng tồn kho">
-                    <span slot="append">miếng</span>
+                    <span slot="append">Miếng</span>
                   </el-input> -->
                   <el-input-number :controls="false" :max="100000" :min="1" :step="1" :precision="0" v-model="stock" />
-                  <span class="pl10">miếng</span>
+                  <span class="pl10">Miếng</span>
                 </div>
               </div>
               <div class="scroll-virtual" v-if="disk_type == 2">
                 <div class="virtual-data mb10" v-for="(item, index) in virtualList" :key="index">
-                  <span class="mr10 virtual-title">số thẻ{{ index + 1 }}：</span>
+                  <span class="mr10 virtual-title">Số thẻ{{ index + 1 }}：</span>
                   <el-input
                     class="mr10"
                     type="text"
@@ -227,7 +227,7 @@
                     style="width: 150px"
                     placeholder="Vui lòng nhập số thẻ(Không bắt buộc)"
                   ></el-input>
-                  <span class="mr10 virtual-title">bạch đậu khấu{{ index + 1 }}：</span>
+                  <span class="mr10 virtual-title">Bạch đậu khấu{{ index + 1 }}：</span>
                   <el-input
                     class="mr10"
                     type="text"
@@ -235,7 +235,7 @@
                     style="width: 150px"
                     placeholder="Vui lòng nhập mật khẩu thẻ"
                   ></el-input>
-                  <span class="deteal-btn" v-db-click @click="removeVirtual(index)">xóa bỏ</span>
+                  <span class="deteal-btn" v-db-click @click="removeVirtual(index)">Xóa</span>
                 </div>
               </div>
               <div class="add-more" v-if="disk_type == 2">
@@ -400,9 +400,9 @@ export default {
       dataLabel: [],
       headTab: [
         { tit: 'Thông tin cơ bản', name: '1' },
-        { tit: 'đặc điểm kỹ thuật cổ phiếu', name: '2' },
+        { tit: 'Thuộc tính tồn kho', name: '2' },
         { tit: 'Chi tiết sản phẩm', name: '3' },
-        { tit: 'Cài đặt hậu cần', name: '4' },
+        { tit: 'Cấu hình vận chuyển', name: '4' },
         { tit: 'Giá thành viên/hoa hồng', name: '5' },
         { tit: 'Cài đặt tiếp thị', name: '6' },
         { tit: 'Các cài đặt khác', name: '7' },
@@ -410,7 +410,7 @@ export default {
       virtual: [
         { tit: 'Hàng thông thường', id: 0, tit2: 'Hậu cần và giao hàng' },
         { tit: 'Thẻ bí mật/đĩa mạng', id: 1, tit2: 'Giao hàng tự động' },
-        { tit: 'Phiếu giảm giá', id: 2, tit2: 'Giao hàng tự động' },
+        { tit: 'Mã giảm giá', id: 2, tit2: 'Giao hàng tự động' },
         { tit: 'hàng ảo', id: 3, tit2: 'giao hàng ảo' },
       ],
       seletVideo: 0, //Chọn loại video
@@ -847,7 +847,7 @@ export default {
     // Lựa chọn kiểu/điền nội dung phán đoán
     virtualbtn(index, type) {
       if (type != 1) {
-        if (this.$route.params.id) return this.$message.error('Chỉnh sửa sản phẩm không hỗ trợ chuyển đổi loại sản phẩm.');
+        if (this.$route.params.id) return this.$message.error('Sửa sản phẩm không hỗ trợ chuyển đổi loại sản phẩm.');
         this.formValidate.is_sub = [];
         let id = this.$route.params.id;
         if (id) {
@@ -866,16 +866,16 @@ export default {
       // Xác định cấu hình tab cho sản phẩm cơ bản và sản phẩm ảo
       const baseHeadTabs = [
         { tit: 'Thông tin cơ bản', name: '1' },
-        { tit: 'đặc điểm kỹ thuật cổ phiếu', name: '2' },
+        { tit: 'Thuộc tính tồn kho', name: '2' },
         { tit: 'Chi tiết sản phẩm', name: '3' },
-        { tit: 'Cài đặt hậu cần', name: '4' },
+        { tit: 'Cấu hình vận chuyển', name: '4' },
         { tit: 'Giá thành viên/hoa hồng', name: '5' },
         { tit: 'Cài đặt tiếp thị', name: '6' },
         { tit: 'Các cài đặt khác', name: '7' },
       ];
       const virtualHeadTabs = [
         { tit: 'Thông tin cơ bản', name: '1' },
-        { tit: 'đặc điểm kỹ thuật cổ phiếu', name: '2' },
+        { tit: 'Thuộc tính tồn kho', name: '2' },
         { tit: 'Chi tiết sản phẩm', name: '3' },
         { tit: 'Giá thành viên/hoa hồng', name: '4' },
         { tit: 'Cài đặt tiếp thị', name: '5' },
@@ -1145,7 +1145,7 @@ export default {
         for (let i = 0; i < this.virtualList.length; i++) {
           const element = this.virtualList[i];
           if (!element.value) {
-            this.$message.error('Vui lòng nhập tất cả mật khẩu thẻ');
+            this.$message.error('Vui lòng nhập Tất cả mật khẩu thẻ');
             return;
           }
         }
@@ -1565,7 +1565,7 @@ export default {
           let spec = this.attrs.map((item) => {
             return {
               value: item.value,
-              detail: item.detail.map((e) => e.value),
+              detail: item.detail.map((e) => E.value),
             };
           });
           let formDynamic = {
@@ -1755,7 +1755,7 @@ export default {
           row.detail[item.value] = value;
 
           // Tìm các mục đặc điểm kỹ thuật hiện có phù hợp
-          const matchedItem = existingItems.find((item) => item.attr_arr && arraysEqual(item.attr_arr, combination));
+          const matchedItem = existingItems.find((item) => Item.attr_arr && arraysEqual(item.attr_arr, combination));
 
           if (matchedItem) {
             Object.assign(row, {
@@ -1956,7 +1956,7 @@ export default {
           let arr = this.formValidate.spec_type === 0 ? this.oneFormValidate : this.manyFormValidate;
           let item = JSON.parse(JSON.stringify(arr));
           if (this.formValidate.spec_type === 1) {
-            if (item.length < 2) return this.$message.warning('Thông số sản phẩm - số lượng thông số kỹ thuật ít nhất là 1');
+            if (item.length < 2) return this.$message.warning('Thuộc tính sản phẩm - số lượng thông số kỹ thuật ít nhất là 1');
             // Xóa mục đầu tiên
             item.shift();
           }
@@ -2032,11 +2032,11 @@ export default {
           } else if (!this.formValidate.cate_id.length) {
             return this.$message.warning('Thông tin sản phẩm-danh mục sản phẩm không được để trống');
           } else if (!this.formValidate.unit_name) {
-            return this.$message.warning('Thông tin sản phẩm-đơn vị sản phẩm không được để trống');
+            return this.$message.warning('Thông tin sản phẩm-Đơn vị sản phẩm không được để trống');
           } else if (!this.formValidate.slider_image.length) {
             return this.$message.warning('Thông tin sản phẩm-hình ảnh băng chuyền sản phẩm không được để trống');
           } else if (!this.formValidate.logistics.length && !this.formValidate.virtual_type) {
-            return this.$message.warning('Cài đặt hậu cần - chọn ít nhất một phương thức hậu cần');
+            return this.$message.warning('Cấu hình vận chuyển - chọn ít nhất một phương thức hậu cần');
           } else if (!this.formValidate.temp_id && this.formValidate.freight == 3) {
             return this.$message.warning('Thông tin sản phẩm-Mẫu cước phí không được để trống');
           }
@@ -2106,7 +2106,7 @@ export default {
     },
     // Xóa nhãn người dùng
     closeLabel(label) {
-      let index = this.dataLabel.indexOf(this.dataLabel.filter((d) => d.id == label.id)[0]);
+      let index = this.dataLabel.indexOf(this.dataLabel.filter((d) => D.id == label.id)[0]);
       this.dataLabel.splice(index, 1);
     },
     // Mở tab Chọn người dùng

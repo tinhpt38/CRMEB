@@ -98,7 +98,7 @@
 			statusBtn(number) {
 				// Sử dụng đối tượng
 				let statusData = {
-					0: this.$t(`biên tập`),
+					0: this.$t(`Sửa`),
 					1: this.$t(`Kiểm tra`),
 					2: this.$t(`Gửi lại`),
 				};

@@ -41,7 +41,7 @@ Route::group('export', function () {
     //Nạp tiền người dùng
     Route::get('userRecharge', 'v1.export.ExportExcel/userRecharge')->option(['real_name' => 'Xuất nạp tiền người dùng']);
     //Viết đơn đặt hàng
-    Route::get('verify_order', 'v1.export.ExportExcel/verifyOrder')->option(['real_name' => 'Viết đơn đặt hàng']);
+    Route::get('verify_order', 'v1.export.ExportExcel/verifyOrder')->option(['real_name' => 'Xác nhận đơn hàng']);
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,

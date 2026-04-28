@@ -233,7 +233,7 @@ class OutStoreOrderServices extends BaseServices
         } elseif ($order['refund_status'] == 3) {
             $order['status_name'] = 'Hoàn tiền một phần (đơn hàng phụ）';
         } elseif ($order['refund_status'] == 4) {
-            $order['status_name'] = 'Tất cả các đơn đặt hàng phụ đang được áp dụng để hoàn lại tiền';
+            $order['status_name'] = 'Tất cả đơn hàng phụ đang được áp dụng để hoàn lại tiền';
         } elseif (!$order['status']) {
             if ($order['pink_id']) {
                 /** @var StorePinkServices $pinkServices */
@@ -247,7 +247,7 @@ class OutStoreOrderServices extends BaseServices
                 if ($order['shipping_type'] === 1) {
                     $order['status_name'] = 'Không được vận chuyển';
                 } else {
-                    $order['status_name'] = 'Đang chờ xóa sổ';
+                    $order['status_name'] = 'Chờ xử lý';
                 }
             }
         } elseif ($order['status'] == 2) {

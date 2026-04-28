@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     :visible.sync="modals"
-    title="Đơn hàng đã được vận chuyển"
+    title="Đã giao cho ĐVVC"
     class="order_box"
     :show-close="true"
     width="1000px"
@@ -18,7 +18,7 @@
         </div>
       </template>
       <div class="copy-box">
-        <span class="copy-btn" @click="onCopyAll">sao chép</span>
+        <span class="copy-btn" @click="onCopyAll">Sao chép</span>
       </div>
     </el-alert>
     <el-form
@@ -32,8 +32,8 @@
     >
       <el-form-item label="Chọn loại：">
         <el-radio-group v-model="formItem.type" @input="changeRadio">
-          <el-radio label="1" v-if="virtual_type !== 3">vận chuyển</el-radio>
-          <el-radio label="2" v-if="virtual_type !== 3">giao hàng</el-radio>
+          <el-radio label="1" v-if="virtual_type !== 3">Vận chuyển</el-radio>
+          <el-radio label="2" v-if="virtual_type !== 3">Giao hàng</el-radio>
           <el-radio label="3">Không cần vận chuyển</el-radio>
         </el-radio-group>
       </el-form-item>
@@ -41,7 +41,7 @@
         <el-radio-group v-model="formItem.express_record_type" @input="changeExpress">
           <el-radio label="1">Nhập số đơn hàng</el-radio>
           <el-radio label="2" v-show="export_open">In biểu mẫu điện tử</el-radio>
-          <el-radio label="3">vận chuyển thương mại</el-radio>
+          <el-radio label="3">Vận chuyển thương mại</el-radio>
         </el-radio-group>
       </el-form-item>
       <template v-if="['2', '3'].includes(formItem.express_record_type) && formItem.type == 1">
@@ -61,7 +61,7 @@
         </el-form-item>
       </template>
       <div>
-        <el-form-item label="công ty chuyển phát nhanh：" v-if="formItem.type == 1">
+        <el-form-item label="Công ty chuyển phát nhanh：" v-if="formItem.type == 1">
           <div class="from-box">
             <el-select
               v-model="formItem.delivery_name"
@@ -123,7 +123,7 @@
             <el-radio-group v-model="formItem.day_type" type="button">
               <el-radio :label="0">Hôm nay</el-radio>
               <el-radio :label="1">Ngày mai</el-radio>
-              <el-radio :label="2">ngày mốt</el-radio>
+              <el-radio :label="2">Ngày mốt</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="Thời gian đón：" v-if="formItem.express_record_type == 3">
@@ -141,7 +141,7 @@
         </template>
       </div>
       <div v-if="formItem.type === '2'">
-        <el-form-item label="người giao hàng：" :prop="formItem.type == '2' ? 'sh_delivery' : ''">
+        <el-form-item label="Người giao hàng：" :prop="formItem.type == '2' ? 'sh_delivery' : ''">
           <el-select
             v-model="formItem.sh_delivery"
             placeholder="Vui lòng chọn người giao hàng"
@@ -178,8 +178,8 @@
             :disabled="orderStatus === 8 || orderStatus === 11"
             @change="changeSplitStatus"
           >
-            <span slot="open">bật lên</span>
-            <span slot="close">đóng cửa</span>
+            <span slot="open">Bật lên</span>
+            <span slot="close">Đóng cửa</span>
           </el-switch>
           <div class="trips">
             <p>Bạn có thể chọn các sản phẩm trong bảng để được vận chuyển riêng. Sau khi giao hàng, một đơn hàng mới sẽ được tạo và không thể rút lại được. Hãy hoạt động một cách thận trọng.！</p>
@@ -206,14 +206,14 @@
                 <div>{{ scope.row.cart_info.productInfo.attrInfo.suk }}</div>
               </template>
             </el-table-column>
-            <el-table-column label="giá" min-width="120">
+            <el-table-column label="Giá" min-width="120">
               <template slot-scope="scope">
                 <div class="product-data">
                   <div>{{ scope.row.cart_info.truePrice }}</div>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="tổng cộng" min-width="120">
+            <el-table-column label="Tổng cộng" min-width="120">
               <template slot-scope="scope">
                 <div>{{ scope.row.cart_num }}</div>
               </template>
@@ -239,7 +239,7 @@
     </el-form>
     <div slot="footer">
       <el-button v-db-click @click="cancel">Hủy bỏ</el-button>
-      <el-button type="primary" v-db-click @click="putSend">nộp</el-button>
+      <el-button type="primary" v-db-click @click="putSend">Nộp</el-button>
     </div>
     <!-- <viewer @inited="inited">
             <img :src="temp.pic" style="display:none" />

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-drawer title="Chi tiết đặt hàng" :size="1000" :visible.sync="modals" wrapperClosable :before-close="handleClose">
+    <el-drawer title="Chi tiết đơn hàng" :size="1000" :visible.sync="modals" wrapperClosable :before-close="handleClose">
       <div v-if="orderDatalist">
         <div class="head">
           <div class="full">
             <img class="order_icon" :src="orderImg" alt="" />
             <div class="text">
-              <div class="title">Thứ tự thông thường</div>
+              <div class="title">Đơn hàng thông thường</div>
               <div>
                 <span class="mr20">Số đơn hàng：{{ orderDatalist.orderInfo.order_id }}</span>
               </div>
@@ -29,11 +29,11 @@
               </div>
             </li>
             <li class="item">
-              <div class="title">thanh toán thực tế</div>
+              <div class="title">Thanh toán thực tế</div>
               <div>¥ {{ orderDatalist.orderInfo.pay_price || '0.0' }}</div>
             </li>
             <li class="item" v-if="orderDatalist.orderInfo.refund_status == 2">
-              <div class="title">hoàn lại tiền thực tế</div>
+              <div class="title">Hoàn lại tiền thực tế</div>
               <div>¥ {{ orderDatalist.orderInfo.refunded_price || '0.0' }}</div>
             </li>
             <li class="item">
@@ -41,13 +41,13 @@
               <div>{{ orderDatalist.orderInfo.pay_type | payType }}</div>
             </li>
             <li class="item">
-              <div class="title">thời gian thanh toán</div>
+              <div class="title">Thời gian thanh toán</div>
               <div>{{ orderDatalist.orderInfo._pay_time }}</div>
             </li>
           </ul>
         </div>
         <el-tabs type="border-card" v-model="activeName" @tab-click="tabClick">
-          <el-tab-pane label="Thông tin đặt hàng" name="detail">
+          <el-tab-pane label="Thông tin đơn hàng" name="detail">
             <div class="section">
               <div class="title">Thông tin người dùng</div>
               <ul class="list">
@@ -56,26 +56,26 @@
                   <div class="value">{{ orderDatalist.userInfo.real_name }}</div>
                 </li>
                 <li class="item">
-                  <div>Ràng buộc điện thoại：</div>
+                  <div>Số điện thoại liên kết：</div>
                   <div class="value">{{ orderDatalist.orderInfo.user_phone || '' }}</div>
                 </li>
               </ul>
             </div>
             <div class="section">
-              <div class="title">Tiếp nhận thông tin</div>
+              <div class="title">Thông tin nhận hàng</div>
               <ul class="list">
                 <!-- <li class="item">
                   <div>Tiếp nhận thông tin：</div>
                   <div class="value">{{ orderDatalist.orderInfo.user_address || '' }}</div>
                 </li> -->
                 <li class="item">
-                  <div>người nhận hàng：</div>
+                  <div>Người nhận hàng：</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.real_name ? orderDatalist.orderInfo.real_name : '-' }}
                   </div>
                 </li>
                 <li class="item">
-                  <div>Nhận số điện thoại：</div>
+                  <div>SĐT người nhận：</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.user_phone ? orderDatalist.orderInfo.user_phone : '-' }}
                   </div>
@@ -89,10 +89,10 @@
               </ul>
             </div>
             <div class="section">
-              <div class="title">Thông tin đặt hàng</div>
+              <div class="title">Thông tin đơn hàng</div>
               <ul class="list">
                 <li class="item">
-                  <div>thời gian sáng tạo：</div>
+                  <div>Thời gian Tạo mới：</div>
                   <div class="value">{{ orderDatalist.orderInfo._add_time }}</div>
                 </li>
                 <li class="item">
@@ -124,7 +124,7 @@
                   <div class="value">{{ orderDatalist.orderInfo.memberPrice || '0.0' }}</div>
                 </li>
                 <li class="item">
-                  <div>thanh toán thực tế：</div>
+                  <div>Thanh toán thực tế：</div>
                   <div class="value">{{ orderDatalist.orderInfo.pay_price || '0.0' }}</div>
                 </li>
               </ul>
@@ -149,7 +149,7 @@
                   <div class="value">{{ orderDatalist.orderInfo.agent_brokerage }} | {{ orderDatalist.orderInfo.agent_id }}</div>
                 </li>
                 <li class="item">
-                  <div>Hoa hồng đơn vị kinh doanh：</div>
+                  <div>Hoa hồng Đơn vị kinh doanh：</div>
                   <div class="value">{{ orderDatalist.orderInfo.division_brokerage }} | {{ orderDatalist.orderInfo.division_id }}</div>
                 </li>
               </ul>
@@ -204,13 +204,13 @@
                   v-if="orderDatalist.orderInfo.invoice.header_type === 2 && orderDatalist.orderInfo.invoice.type === 1"
                 >
                   <div>Loại tiêu đề hóa đơn：</div>
-                  <div class="value">doanh nghiệp</div>
+                  <div class="value">Doanh nghiệp</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 1 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>tên thật：</div>
+                  <div>Tên thật：</div>
                   <div class="value">{{ orderDatalist.orderInfo.invoice.name || '' }}</div>
                 </li>
                 <li
@@ -252,7 +252,7 @@
               </ul>
             </div>
             <div class="section" v-if="orderDatalist.orderInfo.custom_form.length">
-              <div class="title">thông tin biểu mẫu</div>
+              <div class="title">Thông tin biểu mẫu</div>
               <ul class="list">
                 <li
                   class="item"
@@ -274,7 +274,7 @@
               </ul>
             </div>
             <div class="section">
-              <div class="title">Ghi chú đặt hàng</div>
+              <div class="title">Ghi chú đơn hàng</div>
               <ul class="list">
                 <li class="item">
                   <div>{{ orderDatalist.orderInfo.remark ? orderDatalist.orderInfo.remark : '-' }}</div>
@@ -306,7 +306,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="trả giá" min-width="90">
+              <el-table-column label="Trả giá" min-width="90">
                 <template slot-scope="scope">
                   <div class="tab">
                     <div class="line1">
@@ -324,7 +324,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <!-- <el-table-column label="trong kho" min-width="70">
+              <!-- <el-table-column label="Trong kho" min-width="70">
                 <template slot-scope="scope">
                   <div class="tab">
                     <div class="line1">
@@ -335,7 +335,7 @@
               </el-table-column> -->
             </el-table>
           </el-tab-pane>
-          <el-tab-pane label="Hồ sơ đặt hàng" name="orderList">
+          <el-tab-pane label="Lịch sử đơn hàng" name="orderList">
             <el-table class="mt20" :data="recordData" v-loading="loading" empty-text="Chưa có dữ liệu" highlight-current-row>
               <el-table-column label="Đặt hàngID" min-width="100">
                 <template slot-scope="scope">
@@ -431,8 +431,8 @@ export default {
   filters: {
     payType(val) {
       let obj = {
-        yue: 'Sự cân bằng',
-        weixin: 'WeChat trả tiền',
+        yue: 'Số dư',
+        weixin: 'Thanh toán WeChat',
         alipay: 'thanh toán Alipay',
         offline: 'Thanh toán ngoại tuyến',
       };

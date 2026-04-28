@@ -16,7 +16,7 @@
 						<view class="text acea-row row-column-around">
 							<view class="line1" style="width: 100%">{{ item.store_name }}</view>
 							<view class="line1 gray-sty">{{ item.suk }}</view>
-							<view class="line1 gray-sty">{{ $t(`tích phân`) }}:{{ item.total_price }}</view>
+							<view class="line1 gray-sty">{{ $t(`điểm thưởng`) }}:{{ item.total_price }}</view>
 						</view>
 					</view>
 					<view class="bottom acea-row row-between-wrapper">

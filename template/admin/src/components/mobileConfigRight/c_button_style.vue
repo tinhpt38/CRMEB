@@ -11,7 +11,7 @@
     </div>
     <el-dialog
       :visible.sync="modals"
-      title="bộ chọn kiểu"
+      title="Bộ chọn kiểu"
       height="500"
       :width="configData.type == 'signIn' || configData.type == 'ranking' ? '630px' : '910px'"
     >
@@ -33,7 +33,7 @@
             />
             <span class="iconfont icona-zu80222" v-if="current == index"></span>
           </div>
-          <div class="name">phong cách{{ index + 1 }}</div>
+          <div class="name">Phong cách{{ index + 1 }}</div>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">

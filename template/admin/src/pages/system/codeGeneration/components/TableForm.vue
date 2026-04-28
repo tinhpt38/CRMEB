@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-alert closable class="mb14">
-      <template v-slot:title>crudHướng dẫn xây dựng</template>
+      <template v-slot:title>CrudHướng dẫn xây dựng</template>
       <template>
         <p>
           1、Các trường do bảng tạo ra trong cấu hình trường là thông tin của các cột trong bảng.,Ngoài ra, các khóa chính và các trường bị xóa giả không được phép đặt làm cột. Các khóa chính được hiển thị trong danh sách theo mặc định và các trường bị xóa giả không được phép hiển thị.
@@ -12,7 +12,7 @@
       </template>
     </el-alert>
     <div class="df mb14">
-      <el-button class="mr20" type="primary" v-db-click @click="addRow">thêm một hàng</el-button>
+      <el-button class="mr20" type="primary" v-db-click @click="addRow">Thêm một hàng</el-button>
       <el-checkbox class="mr10" v-model="isCreate" @change="addCreate">Thêm và sửa đổi thời gian</el-checkbox>
       <el-checkbox class="mr10" v-model="isDelete" @change="addDelete">Xóa giả</el-checkbox>
     </div>
@@ -33,22 +33,22 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="tên mẫu" min-width="130">
+        <el-table-column label="Tên mẫu" min-width="130">
           <template slot-scope="scope">
             <el-input
               v-model="scope.row.table_name"
               :disabled="disabledInput(scope.$index) && scope.row.field == 'id'"
-              @change="(e) => changeComment(e, scope.$index)"
+              @change="(e) => ChangeComment(e, scope.$index)"
             ></el-input>
           </template>
         </el-table-column>
-        <el-table-column label="loại hình thức" min-width="130">
+        <el-table-column label="Loại hình thức" min-width="130">
           <template slot-scope="scope">
             <el-select
               clearable
               v-model="scope.row.from_type"
               :disabled="disabledInput(scope.$index) && scope.row.field == 'id'"
-              @change="(e) => fromTypeChange(e, scope.$index)"
+              @change="(e) => FromTypeChange(e, scope.$index)"
             >
               <el-option
                 v-for="item in fromTypeList"
@@ -59,7 +59,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="từ điển dữ liệu" min-width="130">
+        <el-table-column label="Từ điển dữ liệu" min-width="130">
           <template slot-scope="scope">
             <div class="table-options" v-if="['select', 'radio', 'checkbox'].includes(scope.row.from_type)">
               <el-select clearable v-model="scope.row.dictionary_id">
@@ -102,7 +102,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="danh sách" width="50">
+        <el-table-column label="Danh sách" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.is_table"
@@ -131,7 +131,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="chiều dài" min-width="80">
+        <el-table-column label="Chiều dài" min-width="80">
           <template slot-scope="scope">
             <el-input
               v-if="scope.row.field_type !== 'enum'"
@@ -150,7 +150,7 @@
             />
           </template>
         </el-table-column>
-        <el-table-column label="giá trị mặc định" min-width="180">
+        <el-table-column label="Giá trị mặc định" min-width="180">
           <template slot-scope="scope">
             <el-input
               class="input-with-select"
@@ -183,7 +183,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="bảng liên kết" min-width="130">
+        <el-table-column label="Bảng liên kết" min-width="130">
           <template slot-scope="scope">
             <el-cascader
               clearable
@@ -195,7 +195,7 @@
             ></el-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="chỉ số" width="50">
+        <el-table-column label="Chỉ số" width="50">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.index"
@@ -203,10 +203,10 @@
             ></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="100">
+        <el-table-column label="Thao tác" fixed="right" width="100">
           <template slot-scope="scope">
             <a v-if="!scope.row.primaryKey && !disabledInput(scope.$index)" v-db-click @click="del(row, scope.$index)"
-              >xóa bỏ</a
+              >Xóa</a
             >
             <span v-else>--</span>
           </template>
@@ -231,7 +231,7 @@
             <el-form-item label="Tên dữ liệu：">
               <el-input class="mr10" v-model="item.label" placeholder="label" style="width: 150px" />
             </el-form-item>
-            <el-form-item label="giá trị dữ liệu：">
+            <el-form-item label="Giá trị dữ liệu：">
               <el-input class="mr10" v-model="item.value" placeholder="value" style="width: 150px" />
             </el-form-item>
             <div style="display: inline-block; margin-bottom: 14px">
@@ -245,7 +245,7 @@
               <i
                 v-if="index > 0"
                 class="el-icon-remove-outline delete"
-                title="xóa bỏ"
+                title="Xóa"
                 v-db-click
                 @click="delOneOptions(index)"
               />
@@ -477,7 +477,7 @@ export default {
     },
     addCreate(status) {
       if (status) {
-        let haveCre = this.tableField.findIndex((e) => e.field === 'create_time');
+        let haveCre = this.tableField.findIndex((e) => E.field === 'create_time');
         let haveUp = this.tableField.findIndex((e) => e.field === 'update_time');
         if (haveCre > 0 || haveUp > 0) {
           this.$nextTick((e) => {

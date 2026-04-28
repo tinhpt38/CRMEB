@@ -4,21 +4,21 @@
 
     <!-- Khoảng cách trái và phải -->
     <div class="config-item">
-      <span class="item-label">đệm trái và phải</span>
+      <span class="item-label">Đệm trái và phải</span>
       <div class="slider-container">
         <el-slider v-model="configData.itemPadding" show-input :min="0"></el-slider>
       </div>
     </div>
     <!-- khoảng cách giữa trên và dưới -->
     <div class="config-item">
-      <span class="item-label">đệm trên và dưới</span>
+      <span class="item-label">Đệm trên và dưới</span>
       <div class="slider-container">
         <el-slider v-model="configData.itemPaddingTop" show-input :min="0"></el-slider>
       </div>
     </div>
     <!-- màu nền -->
     <div class="config-item">
-      <span class="item-label">màu nền</span>
+      <span class="item-label">Màu nền</span>
       <!-- <el-color-picker v-model="configData.itemBgColor" @change="handleChange" size="small"></el-color-picker> -->
       <div class="row slider-container">
         <el-color-picker v-model="configData.itemBgColor" @change="handleChange" show-alpha></el-color-picker>
@@ -34,13 +34,13 @@
             configData.itemBgColor = '#fff';
             handleChange();
           "
-          >cài lại</span
+          >Đặt lại</span
         >
       </div>
     </div>
     <!-- góc tròn -->
     <div class="config-item">
-      <span class="item-label">góc tròn</span>
+      <span class="item-label">Góc tròn</span>
       <div class="slider-container">
         <el-slider v-model="configData.itemRadius" show-input :min="0"></el-slider>
       </div>

@@ -2,7 +2,7 @@
   <div v-loading="spinShow">
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? 'Chỉnh sửa sản phẩm Flash Sale' : 'Thêm vật phẩm flash sale'"
+      :title="$route.params.id ? 'Sửa sản phẩm Flash Sale' : 'Thêm vật phẩm flash sale'"
       :backUrl="$routeProStr + '/marketing/store_seckill/list'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -57,7 +57,7 @@
               </el-col>
 
               <el-col :span="24">
-                <el-form-item label="thời gian bắt đầu：">
+                <el-form-item label="Thời gian bắt đầu：">
                   <div>
                     <el-select v-model="formValidate.time_ids" multiple class="content_width">
                       <el-option
@@ -121,7 +121,7 @@
                       :inactive-value="0"
                       v-model="formValidate.is_commission"
                       size="large"
-                      active-text="bật lên"
+                      active-text="Hoạt động"
                       inactive-text="đóng cửa"
                     >
                     </el-switch>
@@ -130,14 +130,14 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="trạng thái hoạt động：" props="status" label-for="status">
+                <el-form-item label="Trạng thái hoạt động：" props="status" label-for="status">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.status"
                     size="large"
-                    active-text="bật lên"
+                    active-text="Hoạt động"
                     inactive-text="đóng cửa"
                   >
                   </el-switch>
@@ -196,9 +196,9 @@
                         </div>
                       </template>
                     </vxe-column>
-                    <vxe-column field="cost" title="giá thành" min-width="80"></vxe-column>
-                    <vxe-column field="product_price" title="giá bán" min-width="80"></vxe-column>
-                    <vxe-column field="price" title="giá bán chớp nhoáng" min-width="150">
+                    <vxe-column field="cost" title="Giá thành" min-width="80"></vxe-column>
+                    <vxe-column field="product_price" title="Giá bán" min-width="80"></vxe-column>
+                    <vxe-column field="price" title="Giá bán chớp nhoáng" min-width="150">
                       <template v-slot="{ row }">
                         <div v-if="row.parent == 1">——</div>
                         <vxe-input
@@ -212,7 +212,7 @@
                         ></vxe-input>
                       </template>
                     </vxe-column>
-                    <vxe-column field="quota" title="phiên bản giới hạn" min-width="150">
+                    <vxe-column field="quota" title="Phiên bản giới hạn" min-width="150">
                       <template v-slot="{ row }">
                         <div v-if="row.parent == 1">——</div>
                         <vxe-input
@@ -224,7 +224,7 @@
                         ></vxe-input>
                       </template>
                     </vxe-column>
-                    <vxe-column field="stock" title="trong kho" min-width="90"></vxe-column>
+                    <vxe-column field="stock" title="Trong kho" min-width="90"></vxe-column>
                     <vxe-column field="status" title="Có nên bật không" min-width="100">
                       <template v-slot="{ row }">
                         <el-switch v-model="row.status" :active-value="1" :inactive-value="0" size="large">
@@ -233,9 +233,9 @@
                         </el-switch>
                       </template>
                     </vxe-column>
-                    <vxe-column field="date" title="vận hành" min-width="100" fixed="right" align="center">
+                    <vxe-column field="date" title="Thao tác" min-width="100" fixed="right" align="center">
                       <template v-slot="{ row }">
-                        <a @click="del(row, $event)" v-if="row.parent == 1">xóa bỏ</a>
+                        <a @click="del(row, $event)" v-if="row.parent == 1">Xóa</a>
                       </template>
                     </vxe-column>
                   </vxe-table>
@@ -244,7 +244,7 @@
             </el-row>
             <el-col class="mt20" :span="24">
               <el-form-item>
-                <el-button class="submission" v-db-click @click="step" :disabled="current === 0">Bước trước </el-button>
+                <el-button class="submission" v-db-click @click="step" :disabled="current === 0">Bước trước</el-button>
                 <el-button
                   :disabled="submitOpen && current === 1"
                   type="primary"
@@ -284,7 +284,7 @@
         :label-position="labelPosition"
         @submit.native.prevent
       >
-        <el-form-item label="giá bán chớp nhoáng：" prop="price">
+        <el-form-item label="Giá bán chớp nhoáng：" prop="price">
           <el-input
             class="w_input315"
             v-model="formBatch.price"
@@ -295,7 +295,7 @@
             step="1"
           ></el-input>
         </el-form-item>
-        <el-form-item label="phiên bản giới hạn：" prop="quota">
+        <el-form-item label="Phiên bản giới hạn：" prop="quota">
           <el-input
             class="w_input315"
             v-model="formBatch.quota"
@@ -307,7 +307,7 @@
       </el-form>
       <div slot="footer">
         <el-button @click="modalsSet = false">Hủy bỏ</el-button>
-        <el-button type="primary" @click="okBatch">cứu</el-button>
+        <el-button type="primary" @click="okBatch">Lưu</el-button>
       </div>
     </el-dialog>
   </div>
@@ -423,7 +423,7 @@ export default {
             trigger: 'change',
           },
         ],
-        unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
+        unit_name: [{ required: true, message: 'Vui lòng nhập Đơn vị', trigger: 'blur' }],
         price: [
           {
             required: true,
@@ -475,7 +475,7 @@ export default {
         temp_id: [
           {
             required: true,
-            message: 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+            message: 'Vui lòng chọn mẫu vận chuyển sản phẩm',
             trigger: 'change',
             type: 'number',
           },

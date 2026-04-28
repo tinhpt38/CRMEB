@@ -1,11 +1,11 @@
 <template>
   <div class="main">
     <el-alert class="mb20" closable>
-      <template v-slot:title>crudHướng dẫn xây dựng</template>
+      <template v-slot:title>CrudHướng dẫn xây dựng</template>
       <template> Không thể tạo các bảng đi kèm với hệ thống; các bảng đã được tạo có thể tiếp tục được tạo. </template>
     </el-alert>
     <el-form ref="foundation" :model="foundation" :rules="foundationRules" label-width="100px">
-      <el-form-item label="thực đơn：">
+      <el-form-item label="Thực đơn：">
         <el-cascader
           class="form-width"
           v-model="foundation.pid"
@@ -14,7 +14,7 @@
           :props="{ checkStrictly: true, multiple: false, emitPath: false }"
           clearable
         ></el-cascader>
-        <div class="tip">tùy chọn, menu đã chọn sẽ tự động được ghi vào menu này sau khi được chọn thành công.</div>
+        <div class="tip">Tùy chọn, menu đã chọn sẽ tự động được ghi vào menu này sau khi được chọn thành công.</div>
       </el-form-item>
       <el-form-item label="Tên thực đơn：">
         <el-input class="form-width" v-model="foundation.menuName" placeholder="Vui lòng nhập tên thực đơn"></el-input>
@@ -22,11 +22,11 @@
           Menu được tạo là tùy chọn. Nếu không điền, tên menu được tạo sẽ mặc định là tên bảng. Sau khi tạo, các quyền được tạo tự động sẽ được thêm vào menu theo mặc định.
         </div>
       </el-form-item>
-      <el-form-item label="tên mô-đun：" prop="modelName">
+      <el-form-item label="Tên mô-đun：" prop="modelName">
         <el-input class="form-width" v-model="foundation.modelName" placeholder="Vui lòng nhập tên mô-đun"></el-input>
         <div class="tip">Tên mô-đun bằng tiếng Trung hoặc tiếng Anh và được sử dụng trong tiền tố tên giao diện và tiêu đề tiêu đề biểu mẫu.</div>
       </el-form-item>
-      <el-form-item label="tên bảng：" prop="tableName">
+      <el-form-item label="Tên bảng：" prop="tableName">
         <el-input class="form-width" v-model="foundation.tableName" placeholder="Vui lòng nhập tên bảng"></el-input>
         <div class="tip">
           Nó được sử dụng để tạo tên bảng do CRUD chỉ định và không cần mang tiền tố bảng; bảng đã tạo sẽ không được tạo lại; hoặc tập tin tương ứng có thể bị xóa và tạo lại! Các bảng dữ liệu quan trọng trong hệ thống tương ứng sẽ không được phép tạo.！

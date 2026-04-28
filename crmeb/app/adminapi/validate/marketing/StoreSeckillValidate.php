@@ -47,7 +47,7 @@ class StoreSeckillValidate extends Validate
         'product_id.require' => 'Vui lòng chọn sản phẩm',
         'title.require' => 'Vui lòng nhập tên sản phẩm',
         'info.require' => 'Vui lòng điền phần giới thiệu hoạt động',
-        'unit_name.require' => 'Vui lòng điền vào đơn vị',
+        'unit_name.require' => 'Vui lòng điền vào Đơn vị',
         'images.require' => 'Vui lòng chọn hình ảnh băng chuyền sản phẩm',
         'section_time.require' => 'Vui lòng chọn khoảng thời gian sự kiện',
         'num.require' => 'Vui lòng điền giới hạn số lượng mua hàng',
@@ -55,7 +55,7 @@ class StoreSeckillValidate extends Validate
         'once_num.require' => 'Vui lòng điền số lượng mua một lần',
         'once_num.gt' => 'Số lượng mua một lần phải lớn hơn0',
         'time_id.require' => 'Vui lòng chọn khoảng thời gian flash sale',
-        'temp_id.require' => 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+        'temp_id.require' => 'Vui lòng chọn mẫu vận chuyển sản phẩm',
         'description.require' => 'Vui lòng điền thông tin chi tiết sản phẩm',
         'attrs.require' => 'Vui lòng chọn thông số kỹ thuật',
     ];

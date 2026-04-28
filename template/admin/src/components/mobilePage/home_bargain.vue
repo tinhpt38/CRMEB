@@ -207,7 +207,7 @@
                     : themeColor,
                 }"
               >
-                mặc cả
+                Mặc cả
               </div>
             </div>
           </div>
@@ -241,7 +241,7 @@
                 color: toneConfig ? bargainPriceColor : colorStyle.theme,
               }"
             >
-              thấp như<span class="lable">¥</span><span class="num">350.00</span>
+              Thấp như<span class="lable">¥</span><span class="num">350.00</span>
             </div>
             <div
               class="yprice"
@@ -522,7 +522,7 @@ export default {
         },
         rightBntConfig: {
           title: 'nút bên phải',
-          value: 'Hơn',
+          value: 'Thêm',
           place: 'Vui lòng nhập nút bên phải',
           max: 4,
         },
@@ -740,7 +740,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -958,7 +958,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

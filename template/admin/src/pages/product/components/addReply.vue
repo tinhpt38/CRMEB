@@ -7,13 +7,13 @@
     @close="onCancel"
   >
     <el-form :model="formData" label-width="100px" label-position="right">
-      <el-form-item label="hàng hóa：">
+      <el-form-item label="Hàng hóa：">
         <div class="upload-box" v-db-click @click="callGoods">
           <img v-if="goods.id" :src="goods.image" class="image" />
           <i v-else class="el-icon-goods"></i>
         </div>
       </el-form-item>
-      <el-form-item v-if="goods.id" label="Thông số sản phẩm：">
+      <el-form-item v-if="goods.id" label="Thuộc tính sản phẩm：">
         <div class="upload-box" v-db-click @click="callAttr">
           <img v-if="attr.pic" :src="attr.pic" class="image" />
           <i v-else class="el-icon-plus" />
@@ -49,7 +49,7 @@
       <el-form-item label="Điểm sản phẩm：">
         <el-rate v-model="product_score" />
       </el-form-item>
-      <el-form-item label="điểm dịch vụ：">
+      <el-form-item label="Điểm dịch vụ：">
         <el-rate v-model="service_score" />
       </el-form-item>
       <el-form-item label="Xem lại hình ảnh：">
@@ -183,10 +183,10 @@ export default {
         return this.$message.error('Vui lòng điền nội dung bình luận');
       }
       if (!this.product_score) {
-        return this.$message.error('Điểm sản phẩm phải là số nguyên trong khoảng 1-5');
+        return this.$message.error('Điểm sản phẩm phải là số nguyên Trong khoảng 1-5');
       }
       if (!this.service_score) {
-        return this.$message.error('Điểm dịch vụ phải là số nguyên trong khoảng 1-5');
+        return this.$message.error('Điểm dịch vụ phải là số nguyên Trong khoảng 1-5');
       }
       let data = {
         image: {

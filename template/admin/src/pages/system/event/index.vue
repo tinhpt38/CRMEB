@@ -11,17 +11,17 @@
       </el-alert>
       <el-button type="primary" v-db-click @click="addTask" class="mt14">Thêm sự kiện hệ thống</el-button>
       <el-table :data="tableData" v-loading="loading" class="ivu-mt">
-        <el-table-column label="số seri" min-width="100">
+        <el-table-column label="Số seri" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên sự kiện" min-width="150">
+        <el-table-column label="Tên sự kiện" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại sự kiện" min-width="130">
+        <el-table-column label="Loại sự kiện" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.mark_name }}</span>
           </template>
@@ -35,23 +35,23 @@
               v-model="scope.row.is_open"
               size="large"
               @change="handleChange(scope.row)"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian sáng tạo" min-width="130">
+        <el-table-column label="Thời gian tạo" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" width="100">
+        <el-table-column label="Thao tác" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">biên tập</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
             <a v-permission="'seckill'" v-db-click @click="handleDelete(scope.row, 'Xóa sự kiện tùy chỉnh', scope.$index)"
-              >xóa bỏ</a
+              >Xóa</a
             >
           </template>
         </el-table-column>

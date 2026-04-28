@@ -19,7 +19,7 @@ export default {
   name: 'product',
   header: 'product',
   meta: {
-    title: 'hàng hóa',
+    title: 'sản phẩm',
     // ID ủy quyền
     auth: ['admin-store-index'],
   },
@@ -42,7 +42,7 @@ export default {
       path: 'product_classify',
       name: `${pre}productClassify`,
       meta: {
-        title: 'Phân loại sản phẩm',
+        title: 'Danh mục sản phẩm',
         auth: ['admin-store-storeCategory-index'],
       },
       component: () => import('@/pages/product/productClassify'),
@@ -52,7 +52,7 @@ export default {
       name: `${pre}productAdd`,
       meta: {
         auth: ['admin-store-storeProuduct-index'],
-        title: 'Bổ sung sản phẩm',
+        title: 'Nhập kho sản phẩm',
         activeMenu: routePre + '/product/product_list',
       },
       component: () => import('@/pages/product/productAdd'),
@@ -62,7 +62,7 @@ export default {
       name: `${pre}productEvaluate`,
       meta: {
         auth: ['admin-store-storeProuduct-index'],
-        title: 'đánh giá sản phẩm',
+        title: 'Đánh giá sản phẩm',
       },
       component: () => import('@/pages/product/productReply'),
     },
@@ -71,7 +71,7 @@ export default {
       name: `${pre}productAttr`,
       meta: {
         auth: ['admin-store-storeProuduct-index'],
-        title: 'Thông số sản phẩm',
+        title: 'Thuộc tính sản phẩm',
       },
       component: () => import('@/pages/product/productAttr'),
     },
@@ -80,7 +80,7 @@ export default {
       name: `${pre}paramList`,
       meta: {
         auth: ['admin-product-param-list'],
-        title: 'Thông số sản phẩm',
+        title: 'Thuộc tính sản phẩm',
       },
       component: () => import('@/pages/product/paramList'),
     },
@@ -89,7 +89,7 @@ export default {
       name: `${pre}labelList`,
       meta: {
         auth: ['admin-product-label-list'],
-        title: 'Thẻ sản phẩm',
+        title: 'Nhãn sản phẩm',
       },
       component: () => import('@/pages/product/labelList'),
     },
@@ -98,7 +98,7 @@ export default {
       name: `${pre}labelList`,
       meta: {
         auth: ['admin-product-protection-list'],
-        title: 'Bảo vệ sản phẩm',
+        title: 'Bảo hành sản phẩm',
       },
       component: () => import('@/pages/product/protectionList'),
     },

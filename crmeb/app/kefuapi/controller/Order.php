@@ -359,10 +359,10 @@ class Order extends AuthController
             return app('json')->fail('Đơn hàng không tồn tại');
         }
         if (!$orderInfo->verify_code) {
-            return app('json')->fail('Xóa sổ không thành công');
+            return app('json')->fail('Xác nhận không thành công');
         }
         $services->writeOffOrder($orderInfo->verify_code, 1, $orderInfo->uid);
-        return app('json')->success('Xóa sổ thành công');
+        return app('json')->success('Xác nhận thành công');
     }
 
 }

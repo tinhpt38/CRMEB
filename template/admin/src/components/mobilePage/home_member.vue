@@ -478,9 +478,9 @@ export default {
     ...mapState('mobildConfig', ['defaultArray']),
     dataList() {
       let list = [
-        { id: 1, name: 'Sự cân bằng', val: '200' },
-        { id: 3, name: 'Phiếu giảm giá', val: '2888' },
-        { id: 2, name: 'tích phân', val: '3000' },
+        { id: 1, name: 'Số dư', val: '200' },
+        { id: 3, name: 'Mã giảm giá', val: '2888' },
+        { id: 2, name: 'điểm thưởng', val: '3000' },
         { id: 5, name: 'Thu thập vật phẩm', val: '1660' },
         { id: 6, name: 'Lịch sử duyệt web', val: '1660' },
         { id: 8, name: 'Hoa hồng khuyến mại', val: '666' },
@@ -637,7 +637,7 @@ export default {
         },
         menuConfig: {
           title: 'Bạn có thể thêm tối đa 2 ảnh, chiều rộng khuyến nghị40 * 40px',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           listStyleName: 'Nội dung hoạt động',
           type: 1,
           listStyle: 0,
@@ -691,9 +691,9 @@ export default {
           maxList: 5,
           type: [1, 2, 3],
           list: [
-            { id: 1, name: 'Sự cân bằng' },
-            { id: 3, name: 'Phiếu giảm giá' },
-            { id: 2, name: 'tích phân' },
+            { id: 1, name: 'Số dư' },
+            { id: 3, name: 'Mã giảm giá' },
+            { id: 2, name: 'điểm thưởng' },
             { id: 5, name: 'Thu thập vật phẩm' },
             { id: 6, name: 'Lịch sử duyệt web' },
             { id: 8, name: 'Hoa hồng khuyến mại' },
@@ -801,7 +801,7 @@ export default {
           title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'Tất cả', icon: 'iconcaozuo-zhengti' },
             { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
           valName: 'Giá trị phi lê',

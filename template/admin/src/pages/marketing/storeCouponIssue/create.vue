@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id && isEdit ? 'Chỉnh sửa phiếu giảm giá' : 'thêm phiếu giảm giá'"
+      :title="$route.params.id && isEdit ? 'Chỉnh sửa phiếu giảm giá' : 'Tạo mã giảm giá'"
       :backUrl="$routeProStr + '/marketing/store_coupon_issue/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -33,8 +33,8 @@
             <el-radio :label="2">Người dùng thành viên trả phí</el-radio>
           </el-radio-group>
           <div class="tip">
-            Người dùng thông thường: Phiếu giảm giá dành cho tất cả người dùng；<br />
-            Người dùng thành viên trả phí: Phiếu giảm giá mà chỉ thành viên trả phí mới có thể nhận được；
+            Người dùng thông thường: Mã giảm giá dành cho Tất cả người dùng；<br />
+            Người dùng thành viên trả phí: Mã giảm giá mà chỉ thành viên trả phí mới có thể nhận được；
           </div>
         </el-form-item>
         <el-form-item label="Phương thức gửi：" v-show="formData.user_type == 1">
@@ -49,9 +49,9 @@
         </el-form-item>
         <el-form-item label="Loại phiếu giảm giá：">
           <el-radio-group v-model="formData.type" :disabled="isEdit">
-            <el-radio :label="0">Phiếu giảm giá phổ quát</el-radio>
-            <el-radio :label="1">Phiếu giảm giá danh mục</el-radio>
-            <el-radio :label="2">phiếu giảm giá hàng hóa</el-radio>
+            <el-radio :label="0">Mã giảm giá phổ quát</el-radio>
+            <el-radio :label="1">Mã giảm giá danh mục</el-radio>
+            <el-radio :label="2">Mã giảm giá sản phẩm</el-radio>
             <!--                        <el-radio :label="3">Phiếu thành viên</el-radio>-->
           </el-radio-group>
         </el-form-item>
@@ -110,8 +110,8 @@
         </el-form-item>
         <el-form-item label="Thời hạn hiệu lực：">
           <el-radio-group v-model="isCouponTime" :disabled="isEdit">
-            <el-radio :label="1">ngày</el-radio>
-            <el-radio :label="0">khoảng thời gian</el-radio>
+            <el-radio :label="1">Ngày</el-radio>
+            <el-radio :label="0">Khoảng thời gian</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="isCouponTime" label="">
@@ -122,7 +122,7 @@
             :precision="0"
             class="content_width input-number-unit-class"
             :disabled="isEdit"
-            class-unit="bầu trời"
+            class-unit="ngày"
           ></el-input-number>
           <div class="info">Nó sẽ có giá trị bao nhiêu ngày sau khi nhận được?</div>
         </el-form-item>
@@ -164,7 +164,7 @@
         </el-form-item>
         <el-form-item label="Số lượng phiếu phát hành：" v-show="formData.receive_type == 1">
           <el-radio-group v-model="formData.is_permanent" :disabled="isEdit">
-            <el-radio :label="0">phiên bản giới hạn</el-radio>
+            <el-radio :label="0">Phiên bản giới hạn</el-radio>
             <el-radio :label="1">Không giới hạn</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -192,10 +192,10 @@
           ></el-input-number>
           <div class="info">Điền vào số lượng mỗi người dùng có thể nhận được</div>
         </el-form-item>
-        <el-form-item label="tình trạng：">
+        <el-form-item label="Tình trạng：">
           <el-radio-group v-model="formData.status">
-            <el-radio :label="1">bật lên</el-radio>
-            <el-radio :label="0">đóng cửa</el-radio>
+            <el-radio :label="1">Bật lên</el-radio>
+            <el-radio :label="0">Đóng cửa</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item>

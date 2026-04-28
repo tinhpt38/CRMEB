@@ -370,7 +370,7 @@ export function getExpress(id) {
 
 /**
  * @description  Xóa đơn hàng
- * @param {String} param data {String} Nội dung xóa sổ
+ * @param {String} param data {String} Nội dung xác nhận
  */
 export function putWrite(data) {
   return request({

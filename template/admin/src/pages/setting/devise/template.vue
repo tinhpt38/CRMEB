@@ -2,7 +2,7 @@
   <div>
     <div class="i-layout-page-header">
       <router-link :to="{ path: $routeProStr + '/setting/pages/devise' }"
-        ><el-button size="small" class="mr20">trở lại</el-button></router-link
+        ><el-button size="small" class="mr20">Trở lại</el-button></router-link
       >
       <span class="ivu-page-header-title mr20">Thiết kế trang</span>
     </div>

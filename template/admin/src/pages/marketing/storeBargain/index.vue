@@ -31,17 +31,17 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-button v-auth="['marketing-store_bargain-create']" type="primary" v-db-click @click="add"
-        >Thêm mặt hàng giá hời</el-button
+        >Thêm Sản phẩm trả giá</el-button
       >
       <el-button v-auth="['export-storeBargain']" class="export" icon="ios-share-outline" v-db-click @click="exportList"
-        >Xuất khẩu</el-button
+        >Xuất file</el-button
       >
       <el-table
         :data="tableList"
@@ -63,7 +63,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="tên thương lượng" min-width="150">
+        <el-table-column label="Tên thương lượng" min-width="150">
           <template slot-scope="scope">
             <el-tooltip placement="top" :open-delay="600">
               <div slot="content">{{ scope.row.title }}</div>
@@ -76,7 +76,7 @@
             <div>{{ scope.row.price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="giá thấp nhất" min-width="100">
+        <el-table-column label="Giá thấp nhất" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.min_price }}</div>
           </template>
@@ -96,7 +96,7 @@
             <div>{{ scope.row.count_people_success }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="phiên bản giới hạn" min-width="80">
+        <el-table-column label="Phiên bản giới hạn" min-width="80">
           <template slot-scope="scope">
             <div>{{ scope.row.quota_show }}</div>
           </template>
@@ -106,16 +106,16 @@
             <div>{{ scope.row.quota }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="trạng thái hoạt động" min-width="100">
+        <el-table-column label="Trạng thái hoạt động" min-width="100">
           <template slot-scope="scope">
-            <el-tag size="medium" v-show="scope.row.start_name === 'đang tiến hành'">đang tiến hành</el-tag>
+            <el-tag size="medium" v-show="scope.row.start_name === 'đang tiến hành'">Đang tiến hành</el-tag>
             <el-tag size="medium" type="warning" v-show="scope.row.start_name === 'Chưa bắt đầu'">Chưa bắt đầu</el-tag>
-            <el-tag size="medium" type="info" v-show="scope.row.start_name === 'đã kết thúc'">đã kết thúc</el-tag>
+            <el-tag size="medium" type="info" v-show="scope.row.start_name === 'đã kết thúc'">Đã kết thúc</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="Thời gian hoạt động" min-width="180">
           <template slot-scope="scope">
-            <p>bắt đầu：{{ scope.row.start_time }}</p>
+            <p>Bắt đầu：{{ scope.row.start_time }}</p>
             <p>Hoàn thành：{{ scope.row.stop_time }}</p>
           </template>
         </el-table-column>
@@ -135,15 +135,15 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-if="scope.row.stop_status === 0" v-db-click @click="edit(scope.row, 0)">biên tập</a>
+            <a v-if="scope.row.stop_status === 0" v-db-click @click="edit(scope.row, 0)">Chỉnh sửa</a>
             <el-divider v-if="scope.row.stop_status === 0" direction="vertical" />
-            <a v-db-click @click="edit(scope.row, 1)">sao chép</a>
+            <a v-db-click @click="edit(scope.row, 1)">Sao chép</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa các mặt hàng giá hời', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa các Sản phẩm trả giá', scope.$index)">Xóa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="viewInfo(scope.row)">thống kê</a>
+            <a v-db-click @click="viewInfo(scope.row)">Thống kê</a>
           </template>
         </el-table-column>
       </el-table>
@@ -245,7 +245,7 @@ export default {
           minWidth: 130,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 160,

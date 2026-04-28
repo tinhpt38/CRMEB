@@ -16,7 +16,7 @@
 import { mapState, mapMutations } from 'vuex';
 export default {
   name: 'home_video',
-  cname: 'băng hình',
+  cname: 'video',
   configName: 'c_video',
   icon: '#iconzujian-shipin',
   type: 0, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
@@ -59,7 +59,7 @@ export default {
     return {
       // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: 'băng hình',
+        cname: 'video',
         name: 'videos',
         timestamp: this.num,
         isHide: false,
@@ -219,7 +219,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

@@ -213,7 +213,7 @@ export default {
         },
         textConfig: {
           title: 'Văn bản bên phải',
-          value: 'Hơn',
+          value: 'Thêm',
           place: 'Vui lòng nhập văn bản bên phải',
           max: 4,
         },
@@ -454,7 +454,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

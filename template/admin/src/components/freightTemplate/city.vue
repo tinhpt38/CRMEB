@@ -4,7 +4,7 @@
       <el-row :gutter="24">
         <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" class="item">
           <div class="acea-row row-right row-middle">
-            <el-checkbox v-model="iSselect" @change="allCheckbox">Chọn tất cả</el-checkbox>
+            <el-checkbox v-model="iSselect" @change="allCheckbox">Chọn Tất cả</el-checkbox>
             <div class="empty" v-db-click @click="empty">Thông thoáng</div>
           </div>
         </el-col>

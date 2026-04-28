@@ -24,7 +24,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="save">cứu</el-button>
+          <el-button type="primary" v-db-click @click="save">Lưu</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -41,12 +41,12 @@ export default {
       formData: {
         evaluate: '', // Trả tiền cho các đánh giá
         pay: '', // chi trả
-        point: '', // tích phân
+        point: '', // điểm thưởng
       },
       list: {
         evaluate: [], // Trả tiền cho các đánh giá
         pay: [], // chi trả
-        point: [], // tích phân
+        point: [], // điểm thưởng
       },
     };
   },

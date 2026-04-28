@@ -16,17 +16,17 @@
     >
       <div class="type-title">{{ configData.listStyleName || 'Nội dung đồ họa' }}</div>
       <el-radio-group v-if="configData.listStyle != -1" v-model="configData.listStyle" size="small">
-        <el-radio :label="0">hình ảnh</el-radio>
-        <el-radio :label="1">biểu tượng</el-radio>
+        <el-radio :label="0">Hình ảnh</el-radio>
+        <el-radio :label="1">Biểu tượng</el-radio>
       </el-radio-group>
     </div>
     <div class="type-switch" style="margin-bottom: 15px" v-if="configNme == 'assetConfig'">
-      <!-- <span class="type-title">phong cách hiển thị</span> -->
+      <!-- <span class="type-title">Phong cách hiển thị</span> -->
       <el-radio-group v-model="configData.listStyle" size="small">
-        <el-radio v-if="configData.assetMode == 0" :label="2">con số(thượng đẳng)</el-radio>
-        <el-radio v-if="configData.assetMode == 0" :label="3">con số(Bên trái)</el-radio>
-        <el-radio :label="0">hình ảnh</el-radio>
-        <el-radio :label="1">biểu tượng</el-radio>
+        <el-radio v-if="configData.assetMode == 0" :label="2">Con số(thượng đẳng)</el-radio>
+        <el-radio v-if="configData.assetMode == 0" :label="3">Con số(Bên trái)</el-radio>
+        <el-radio :label="0">Hình ảnh</el-radio>
+        <el-radio :label="1">Biểu tượng</el-radio>
       </el-radio-group>
     </div>
     <div class="list-box">
@@ -84,7 +84,7 @@
               </div>
             </div>
             <div class="info-item" v-if="configData.type">
-              <span class="span">tình trạng</span>
+              <span class="span">Trạng thái</span>
               <el-switch v-model="item.show" />
             </div>
           </div>

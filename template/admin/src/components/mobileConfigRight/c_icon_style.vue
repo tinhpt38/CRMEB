@@ -8,7 +8,7 @@
       <div class="color-box">
         <el-color-picker v-model="configData.color.color[0].item" size="small"></el-color-picker>
         <el-input class="input" v-model="configData.color.color[0].item" />
-        <span class="reset" @click="configData.color.color[0].item = configData.color.default[0].item">cài lại</span>
+        <span class="reset" @click="configData.color.color[0].item = configData.color.default[0].item">Đặt lại</span>
       </div>
     </div>
 

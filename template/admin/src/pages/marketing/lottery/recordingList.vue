@@ -9,7 +9,7 @@
           type="text"
           v-db-click
           @click="$router.go(-1)"
-          >trở lại</el-button
+          >Trở lại</el-button
         >
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
@@ -49,7 +49,7 @@
             <el-input clearable placeholder="Vui lòng nhập thông tin người dùng" v-model="tableFrom.keyword" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -85,7 +85,7 @@
             <div>{{ scope.row.add_time }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Tiếp nhận thông tin" min-width="100">
+        <el-table-column label="Thông tin nhận hàng" min-width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.receive_info.name">
               <div>Tên：{{ scope.row.receive_info.name }}</div>
@@ -100,10 +100,10 @@
             <span>{{ scope.row.deliver_info.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
             <a v-db-click @click="deliver(scope.row, 1)" v-if="scope.row.type == 6 && scope.row.is_deliver === 0"
-              >vận chuyển</a
+              >Vận chuyển</a
             >
             <a v-else-if="scope.row.type == 6 && scope.row.is_deliver === 1" v-db-click @click="isDeliver(scope.row)"
               >Thông tin vận chuyển</a
@@ -137,7 +137,7 @@
         :rules="modelType === 1 ? ruleShip : ruleMark"
         label-width="90px"
       >
-        <el-form-item v-if="modelType === 1" label="công ty chuyển phát nhanh：" prop="deliver_name">
+        <el-form-item v-if="modelType === 1" label="Công ty chuyển phát nhanh：" prop="deliver_name">
           <el-select v-model="shipForm.deliver_name" class="w100">
             <el-option v-for="item in locationList" :value="item.value" :key="item.id" :label="item.value"></el-option>
           </el-select>
@@ -154,8 +154,8 @@
         </el-form-item>
         <el-form-item>
           <div class="acea-row row-right">
-            <el-button v-db-click @click="cancel('formValidate')">đóng cửa</el-button>
-            <el-button type="primary" v-db-click @click="ok(modelType === 1 ? 'shipForm' : 'markForm')">nộp</el-button>
+            <el-button v-db-click @click="cancel('formValidate')">Đóng cửa</el-button>
+            <el-button type="primary" v-db-click @click="ok(modelType === 1 ? 'shipForm' : 'markForm')">Nộp</el-button>
           </div>
         </el-form-item>
       </el-form>
@@ -197,13 +197,13 @@ export default {
       ruleMark: ruleMark,
       pickerOptions: this.$timeOptions,
       typeList: [
-        { text: 'tất cả', val: '' },
+        { text: 'Tất cả', val: '' },
         { text: 'Không thắng', val: '1' },
-        { text: 'tích phân', val: '2' },
-        { text: 'Sự cân bằng', val: '3' },
+        { text: 'điểm thưởng', val: '2' },
+        { text: 'Số dư', val: '3' },
         { text: 'phong bì màu đỏ', val: '4' },
-        { text: 'Phiếu giảm giá', val: '5' },
-        { text: 'hàng hóa', val: '6' },
+        { text: 'Mã giảm giá', val: '5' },
+        { text: 'sản phẩm', val: '6' },
       ],
       tableList: [],
       grid: {

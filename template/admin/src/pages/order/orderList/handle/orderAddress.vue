@@ -10,7 +10,7 @@
       :show-close="false"
     >
       <el-form :model="form" :rules="rules" ref="form" label-width="120px" class="demo-ruleForm">
-        <el-form-item label="người nhận hàng" prop="consignee">
+        <el-form-item label="Người nhận hàng" prop="consignee">
           <el-input v-model="form.real_name" autocomplete="off" />
         </el-form-item>
         <el-form-item label="Số điện thoại" prop="mobile">
@@ -49,7 +49,7 @@ export default {
   computed: {
     rules() {
       return {
-        real_name: [{ required: true, message: 'Vui lòng nhập người nhận hàng', trigger: 'blur' }],
+        real_name: [{ required: true, message: 'Vui lòng nhập Người nhận hàng', trigger: 'blur' }],
         user_phone: [{ required: true, message: 'Vui lòng nhập số điện thoại di động', trigger: 'blur' }],
         user_address: [{ required: true, message: 'Vui lòng nhập địa chỉ chi tiết', trigger: 'blur' }],
       };

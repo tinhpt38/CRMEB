@@ -28,7 +28,7 @@
             <el-input clearable v-model="formValidate.key" placeholder="Vui lòng nhập từ khóa" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -75,11 +75,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Trả lời từ khóa', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Trả lời từ khóa', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -93,7 +93,7 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" title="mã QR">
+    <el-dialog :visible.sync="modal" title="Mã QR">
       <div class="acea-row row-around">
         <div class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">
@@ -150,7 +150,7 @@ export default {
           minWidth: 120,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 120,

@@ -13,7 +13,7 @@
           </div>
           <div class="down-wrapper" v-show="isOnLine">
             <div class="item" v-db-click @click="changOnline(1)">
-              <span class="dot green"></span>trực tuyến
+              <span class="dot green"></span>Trực tuyến
               <span class="iconfont iconduihao" v-if="kefuInfo.online"></span>
             </div>
             <div class="item" v-db-click @click="changOnline(0)">
@@ -70,7 +70,7 @@
               <div class="msg line1" v-if="item.message_type == 1">{{ item.message }}</div>
               <div class="msg" v-if="item.message_type == 2">[sự biểu lộ]</div>
               <div class="msg" v-if="item.message_type == 3">[hình ảnh]</div>
-              <div class="msg" v-if="item.message_type == 5">[hàng hóa]</div>
+              <div class="msg" v-if="item.message_type == 5">[sản phẩm]</div>
               <div class="msg" v-if="item.message_type == 6">[Đặt hàng]</div>
             </div>
           </div>
@@ -334,7 +334,7 @@ export default {
 };
 </script>
 <style>
-html,
+Html,
 body {
   font-size: 50px;
 }

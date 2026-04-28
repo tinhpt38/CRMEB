@@ -34,12 +34,12 @@
               @change="selChange"
               class="form_content_width"
             >
-              <el-option value="" label="tất cả"></el-option>
+              <el-option value="" label="Tất cả"></el-option>
               <el-option value="1" label="trả"></el-option>
               <el-option value="0" label="Chưa thanh toán"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Vui lòng nhập biệt hiệu người dùng và số đơn hàng"
@@ -48,21 +48,21 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <cards-data :cardLists="cardLists" v-if="cardLists.length >= 0"></cards-data>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['export-userRecharge']" class="mr" v-db-click @click="exports">Xuất khẩu</el-button>
+      <el-button v-auth="['export-userRecharge']" class="mr" v-db-click @click="exports">Xuất file</el-button>
       <el-table ref="table" :data="tabList" class="mt14" v-loading="loading" empty-text="Chưa có dữ liệu"
         ><el-table-column label="ID" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="hình đại diện" min-width="90">
+        <el-table-column label="Hình đại diện" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar ? scope.row.avatar : require('../../../../assets/images/moren.jpg')" />
@@ -94,12 +94,12 @@
             <span>{{ scope.row._recharge_type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian thanh toán" min-width="130">
+        <el-table-column label="Thời gian thanh toán" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row._pay_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" width="100">
+        <el-table-column label="Thao tác" width="100">
           <template slot-scope="scope">
             <a
               href="javascript:void(0);"
@@ -113,8 +113,8 @@
               href="javascript:void(0);"
               v-if="scope.row.paid === 0"
               v-db-click
-              @click="del(scope.row, 'Kỷ lục nạp tiền này', scope.$index)"
-              >xóa bỏ</a
+              @click="del(scope.row, 'Lịch sử nạp tiền này', scope.$index)"
+              >Xóa</a
             >
             <span class="refund" v-if="scope.row.refund_price > 0">Đã hoàn tiền</span>
           </template>

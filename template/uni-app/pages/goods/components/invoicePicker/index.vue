@@ -32,11 +32,11 @@
 									</view>
 									<navigator v-if="!isOrder" class="navigator"
 										:url="`/pages/users/user_invoice_form/index?from=order_confirm&id=${item.id}&${urlQuery}`"
-										hover-class="none"><text class="iconfont icon-bianji"></text>{{$t(`biên tập`)}}
+										hover-class="none"><text class="iconfont icon-bianji"></text>{{$t(`Sửa`)}}
 									</navigator>
 									<navigator v-else class="navigator"
 										:url="`/pages/users/user_invoice_form/index?from=order_details&id=${item.id}&order_id=${orderId}`"
-										hover-class="none"><text class="iconfont icon-bianji"></text>{{$t(`biên tập`)}}
+										hover-class="none"><text class="iconfont icon-bianji"></text>{{$t(`Sửa`)}}
 									</navigator>
 								</view>
 							</view>

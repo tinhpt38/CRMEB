@@ -1141,7 +1141,7 @@ class SystemConfigServices extends BaseServices
                 break;
         }
         $formbuider[] = $this->builder->number('sort', 'loại', (int)$menu['sort']);
-        $formbuider[] = $this->builder->radio('status', 'tình trạng', $menu['status'])->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        $formbuider[] = $this->builder->radio('status', 'Trạng thái', $menu['status'])->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
         return create_form('Chỉnh sửa trường', $formbuider, $this->url('/setting/config/' . $id), 'PUT');
     }
 
@@ -1217,7 +1217,7 @@ class SystemConfigServices extends BaseServices
                 break;
             case 2://nút radio
                 $form_type = 'radio';
-                $parameter[] = $this->builder->textarea('parameter', 'Thông số cấu hình')->placeholder("Các thông số như:\n1=>nam giới\n2=>nữ giới\n3=>Bảo mật");
+                $parameter[] = $this->builder->textarea('parameter', 'Thông số cấu hình')->placeholder("Các thông số như:\n1=>Nam\n2=>nữ giới\n3=>Bảo mật");
                 $parameter[] = $this->builder->input('value', 'giá trị mặc định');
                 break;
             case 3://Tải tập tin lên
@@ -1258,7 +1258,7 @@ class SystemConfigServices extends BaseServices
             $formbuider = array_merge($formbuider, $parameter);
             $formbuider[] = $this->builder->number('sort', 'loại', 0);
 
-            $formbuider[] = $this->builder->radio('status', 'tình trạng', 1)->options($this->formStatus());
+            $formbuider[] = $this->builder->radio('status', 'Trạng thái', 1)->options($this->formStatus());
         }
         return create_form('Thêm trường', $formbuider, $this->url('/setting/config'), 'POST');
     }

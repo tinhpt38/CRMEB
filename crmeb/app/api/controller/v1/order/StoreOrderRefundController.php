@@ -79,7 +79,7 @@ class StoreOrderRefundController
             return app('json')->fail('Đơn hàng không tồn tại');
         }
         if (!in_array($orderRefund['refund_type'], [1, 2, 4, 5])) {
-            return app('json')->fail('Không thể hủy đơn đăng ký do tình trạng hiện tại');
+            return app('json')->fail('Không thể hủy đơn đăng ký do Trạng thái hiện tại');
         }
         $this->services->update($orderRefund['id'], ['is_cancel' => 1]);
         $this->services->cancelOrderRefundCartInfo((int)$orderRefund['id'], (int)$orderRefund['store_order_id'], $orderRefund);

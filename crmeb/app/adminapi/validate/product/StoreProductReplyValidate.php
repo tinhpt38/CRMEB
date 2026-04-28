@@ -31,8 +31,8 @@ class StoreProductReplyValidate extends Validate
             'comment.require' => 'Vui lòng điền nội dung bình luận',
             'product_score.require' => 'Vui lòng chọn điểm sản phẩm',
             'service_score.require' => 'Vui lòng chọn điểm dịch vụ',
-            'product_score.In' => 'Điểm sản phẩm phải là số nguyên trong khoảng 1-5',
-            'service_score.In' => 'Điểm dịch vụ phải là số nguyên trong khoảng 1-5',
+            'product_score.In' => 'Điểm sản phẩm phải là số nguyên Trong khoảng 1-5',
+            'service_score.In' => 'Điểm dịch vụ phải là số nguyên Trong khoảng 1-5',
         ];
     }
 

@@ -26,7 +26,7 @@
 						<view v-if="item.message_type === 2" class="info" v-html="item.message"></view>
 						<view v-if="item.message_type === 3" class="info">{{$t(`[hình ảnh]`)}}</view>
 						<view v-if="item.message_type === 4" class="info">{{$t(`[tiếng nói]`)}}</view>
-						<view v-if="item.message_type === 5" class="info">{{$t(`[hàng hóa]`)}}</view>
+						<view v-if="item.message_type === 5" class="info">{{$t(`[sản phẩm]`)}}</view>
 						<view v-if="item.message_type === 6" class="info">{{$t(`[Đặt hàng]`)}}</view>
 						<view class="num" v-if="item.mssage_num">{{ item.mssage_num }}</view>
 					</view>
@@ -111,7 +111,7 @@
 					clientY: 0
 				},
 				actions: [{
-						name: 'xóa bỏ',
+						name: 'Xóa',
 						color: '#fff',
 						fontsize: 28, //đơn vịrpx
 						width: 70, //đơn vịpx
@@ -126,7 +126,7 @@
 					},
 				],
 				actionsIsLook: [{
-					name: 'xóa bỏ',
+					name: 'Xóa',
 					color: '#fff',
 					fontsize: 28, //đơn vịrpx
 					width: 70, //đơn vịpx

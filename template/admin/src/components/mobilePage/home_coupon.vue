@@ -65,7 +65,7 @@
             v-for="(item, index) in numberConfig"
             :key="index"
           >
-            <div class="type">Phiếu giảm giá danh mục</div>
+            <div class="type">Mã giảm giá danh mục</div>
             <div
               class="money"
               :style="{
@@ -149,7 +149,7 @@
                 v-if="index < 4"
               >
                 <div class="type">
-                  <div class="typeCon">Phiếu giảm giá phổ quát</div>
+                  <div class="typeCon">Mã giảm giá phổ quát</div>
                 </div>
                 <div
                   class="money"
@@ -210,7 +210,7 @@
               <div class="tips">Áp dụng cho đơn hàng trên 5000</div>
             </div>
             <div class="right acea-row row-center">
-              <div class="rightCon">nhận được</div>
+              <div class="rightCon">Nhận được</div>
             </div>
             <div class="roll"></div>
           </div>
@@ -225,7 +225,7 @@ import { mapState } from 'vuex';
 // import theme from "@/mixins/theme";
 export default {
   name: 'home_coupon',
-  cname: 'Phiếu giảm giá',
+  cname: 'Mã giảm giá',
   configName: 'c_home_coupon',
   icon: '#iconzujian-youhuiquan',
   type: 1, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
@@ -271,7 +271,7 @@ export default {
     return {
       // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: 'Phiếu giảm giá',
+        cname: 'Mã giảm giá',
         name: 'coupon',
         desc: 'Giới thiệu về phiếu giảm giá',
         timestamp: this.num,
@@ -528,7 +528,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

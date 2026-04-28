@@ -16,12 +16,12 @@
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên hiển thị" min-width="120">
+        <el-table-column label="Tên hiển thị" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.show_title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="biểu tượng vốn chủ sở hữu" min-width="120">
+        <el-table-column label="Biểu tượng vốn chủ sở hữu" min-width="120">
           <template slot-scope="scope">
             <div class="image-wrap" v-viewer>
               <img v-lazy="scope.row.image" />
@@ -48,9 +48,9 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -66,10 +66,10 @@
         <el-form-item label="Tên sở thích：" prop="title">
           <el-input v-model.trim="form.title" placeholder="Vui lòng nhập tên lợi ích" disabled class="w100"></el-input>
         </el-form-item>
-        <el-form-item label="tên hiển thị：" prop="show_title">
+        <el-form-item label="Tên hiển thị：" prop="show_title">
           <el-input v-model.trim="form.show_title" placeholder="Vui lòng nhập tên hiển thị" class="w100"></el-input>
         </el-form-item>
-        <el-form-item label="biểu tượng vốn chủ sở hữu：" prop="image">
+        <el-form-item label="Biểu tượng vốn chủ sở hữu：" prop="image">
           <div class="image-group" v-db-click @click="callImage">
             <img v-if="form.image" v-lazy="form.image" />
             <i v-else class="el-icon-picture-outline" style="font-size: 24px"></i>
@@ -98,7 +98,7 @@
         </el-form-item>
         <el-form-item>
           <div class="acea-row row-right">
-            <el-button type="primary" v-db-click @click="formSubmit('form')">nộp</el-button>
+            <el-button type="primary" v-db-click @click="formSubmit('form')">Nộp</el-button>
           </div>
         </el-form-item>
       </el-form>

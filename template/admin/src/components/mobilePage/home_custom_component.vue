@@ -346,8 +346,8 @@ export default {
           list: [
             { activeValue: 'user', title: 'người dùng' },
             { activeValue: 'article', title: 'bài báo' },
-            { activeValue: 'coupon', title: 'Phiếu giảm giá' },
-            { activeValue: 'goods', title: 'hàng hóa' },
+            { activeValue: 'coupon', title: 'Mã giảm giá' },
+            { activeValue: 'goods', title: 'sản phẩm' },
           ],
         },
 
@@ -388,7 +388,7 @@ export default {
         articleSortRule: {
           title: 'Quy tắc sắp xếp',
           tabVal: 0,
-          tabList: [{ name: 'Thứ tự tăng dần' }, { name: 'thứ tự giảm dần' }],
+          tabList: [{ name: 'Đơn hàng tăng dần' }, { name: 'thứ tự giảm dần' }],
         },
 
         // Coupon Config
@@ -414,17 +414,17 @@ export default {
           title: 'Loại phiếu giảm giá',
           activeValue: '',
           list: [
-            { activeValue: '', title: 'tất cả' },
-            { activeValue: '0', title: 'Phiếu giảm giá phổ quát' },
-            { activeValue: '1', title: 'Phiếu giảm giá danh mục' },
-            { activeValue: '2', title: 'phiếu giảm giá hàng hóa' },
+            { activeValue: '', title: 'Tất cả' },
+            { activeValue: '0', title: 'Mã giảm giá phổ quát' },
+            { activeValue: '1', title: 'Mã giảm giá danh mục' },
+            { activeValue: '2', title: 'phiếu giảm giá sản phẩm' },
           ],
         },
         couponUserType: {
           title: 'Loại người dùng',
           activeValue: '',
           list: [
-            { activeValue: '', title: 'tất cả' },
+            { activeValue: '', title: 'Tất cả' },
             { activeValue: '1', title: 'Người dùng thông thường' },
             { activeValue: '2', title: 'Người dùng thành viên' },
           ],
@@ -433,7 +433,7 @@ export default {
           title: 'Phương thức gửi',
           activeValue: '',
           list: [
-            { activeValue: '', title: 'tất cả' },
+            { activeValue: '', title: 'Tất cả' },
             { activeValue: '1', title: 'Thu thập thủ công' },
             { activeValue: '3', title: 'phiếu quà tặng' },
           ],
@@ -462,7 +462,7 @@ export default {
         couponSortRule: {
           title: 'Quy tắc sắp xếp',
           tabVal: 0,
-          tabList: [{ name: 'Thứ tự tăng dần' }, { name: 'thứ tự giảm dần' }],
+          tabList: [{ name: 'Đơn hàng tăng dần' }, { name: 'thứ tự giảm dần' }],
         },
         couponNum: {
           title: 'Hiển thị số lượng',
@@ -492,7 +492,7 @@ export default {
           list: [],
         },
         goodsClass: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           activeValue: '',
           list: [],
         },
@@ -502,14 +502,14 @@ export default {
           min: 1,
         },
         goodsSort: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           tabVal: 0,
           tabList: [{ name: 'Doanh số bán hàng' }, { name: 'giá' }],
         },
         goodsSortRule: {
           title: 'Quy tắc sắp xếp',
           tabVal: 0,
-          tabList: [{ name: 'thứ tự giảm dần' }, { name: 'Thứ tự tăng dần' }],
+          tabList: [{ name: 'thứ tự giảm dần' }, { name: 'Đơn hàng tăng dần' }],
         },
 
         // Common Styles
@@ -570,7 +570,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -814,9 +814,9 @@ export default {
       return config.tabList[config.tabVal] ? config.tabList[config.tabVal].name : '';
     },
     getSelectTitle(config) {
-      if (!config || !config.list) return 'tất cả';
+      if (!config || !config.list) return 'Tất cả';
       const item = config.list.find((item) => item.activeValue == config.activeValue);
-      return item ? item.title : 'tất cả';
+      return item ? item.title : 'Tất cả';
     },
     getContainerStyle(displayMode, columnStyle) {
       const style = {
@@ -1250,8 +1250,8 @@ export default {
           if (field === 'coupon_price') return dataItem.coupon_price;
           if (field === 'use_min_price') return dataItem.use_min_price;
           if (field === 'coupon_time') return dataItem.coupon_time;
-          if (field === 'type') return dataItem.type === 1 ? 'Phiếu giảm giá danh mục' : dataItem.type === 2 ? 'phiếu giảm giá hàng hóa' : 'Phiếu giảm giá phổ quát';
-          if (field === 'status') return dataItem.status === 1 ? 'bật lên' : 'đóng cửa';
+          if (field === 'type') return dataItem.type === 1 ? 'Mã giảm giá danh mục' : dataItem.type === 2 ? 'phiếu giảm giá sản phẩm' : 'Mã giảm giá phổ quát';
+          if (field === 'status') return dataItem.status === 1 ? 'Hoạt động' : 'đóng cửa';
           if (field === 'receive_time') return dataItem.receive_time;
           if (field === 'use_time') return dataItem.use_time;
           if (field === 'receive_count') return dataItem.receive_count;

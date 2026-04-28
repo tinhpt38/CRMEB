@@ -2,19 +2,19 @@
   <div>
     <el-row class="expand-row">
       <el-col :span="6">
-        <span class="expand-key">chuyến thăm đầu tiên：</span>
+        <span class="expand-key">Chuyến thăm đầu tiên：</span>
         <span class="expand-value"> {{ row.add_time | formatDate }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">lượt truy cập gần đây：</span>
+        <span class="expand-key">Lượt truy cập gần đây：</span>
         <span class="expand-value">{{ row.last_time | formatDate }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">số CMND：</span>
+        <span class="expand-key">Số CMND：</span>
         <span class="expand-value">{{ row.card_id }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">tên thật：</span>
+        <span class="expand-key">Tên thật：</span>
         <span class="expand-value">{{ row.real_name }}</span>
       </el-col>
     </el-row>
@@ -28,7 +28,7 @@
         <span class="expand-value">{{ row.birthday }}</span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">người giới thiệu：</span>
+        <span class="expand-key">Người giới thiệu：</span>
         <span class="expand-value">{{ row.spread_uid_nickname }}</span>
       </el-col>
       <el-col :span="6">

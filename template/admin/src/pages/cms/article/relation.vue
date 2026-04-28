@@ -55,8 +55,8 @@
         </el-switch>
       </template>
       <template slot-scope="{ row, index }" slot="action">
-        <a v-db-click @click="edit(row)">biên tập | </a>
-        <a v-db-click @click="del(row, 'Xóa nhiệm vụ')"> xóa bỏ</a>
+        <a v-db-click @click="edit(row)">Biên tập | </a>
+        <a v-db-click @click="del(row, 'Xóa nhiệm vụ')"> Xóa</a>
       </template>
     </el-table>
     <div class="acea-row row-right page">

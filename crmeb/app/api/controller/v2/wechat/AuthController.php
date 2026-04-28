@@ -139,6 +139,6 @@ class AuthController
     {
         if (!$code || !$iv || !$encryptedData) return app('json')->fail('Lỗi tham số');
         $this->services->bindingPhone($code, $iv, $encryptedData);
-        return app('json')->success('Ràng buộc thành công');
+        return app('json')->success('Liên kết thành công');
     }
 }

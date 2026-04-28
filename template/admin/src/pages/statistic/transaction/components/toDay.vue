@@ -47,9 +47,9 @@
             />
             <span class="toDay-title spBlock mb10">Số lượng đơn hàng trong tháng này</span>
             <span class="toDay-number spBlock mb10">{{ statisticsData.right.month[0].now_money }}</span>
-            <span class="toDay-time spBlock">tháng trước：{{ statisticsData.right.month[0].last_money }}</span>
+            <span class="toDay-time spBlock">Tháng trước：{{ statisticsData.right.month[0].last_money }}</span>
             <span class="toDay-time spBlock"
-              >hàng tháng：
+              >Hàng tháng：
               <i class="content-is" :class="Number(statisticsData.right.month[0].rate) >= 0 ? 'up' : 'down'"
                 >{{ Math.floor(statisticsData.right.month[0].rate) }}%</i
               >
@@ -88,9 +88,9 @@
             />
             <span class="toDay-title spBlock mb10">Số người thanh toán tháng này</span>
             <span class="toDay-number spBlock mb10">{{ statisticsData.right.month[1].now_money }}</span>
-            <span class="toDay-time spBlock">tháng trước：{{ statisticsData.right.month[1].last_money }}</span>
+            <span class="toDay-time spBlock">Tháng trước：{{ statisticsData.right.month[1].last_money }}</span>
             <span class="toDay-time spBlock"
-              >hàng tháng：
+              >Hàng tháng：
               <i class="content-is" :class="Number(statisticsData.right.month[1].rate) >= 0 ? 'up' : 'down'"
                 >{{ Math.floor(statisticsData.right.month[1].rate) }}%</i
               >

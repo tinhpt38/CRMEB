@@ -10,7 +10,7 @@
 			</view>
 			<view class='nav acea-row row-middle'>
 				<view class='item' :class='type==0 ? "bg-color":""' @click='changeType(0)'>
-					{{$t(`tất cả`)}}({{replyData.sum_count}})
+					{{$t(`Tất cả`)}}({{replyData.sum_count}})
 				</view>
 				<view class='item' :class='type==1 ? "bg-color":""' @click='changeType(1)'>
 					{{$t(`đánh giá tốt`)}}({{replyData.good_count}})

@@ -66,7 +66,7 @@
             />
           </view>
           <view class="item acea-row row-middle">
-            <view class="name">trong kho</view>
+            <view class="name">Trong kho</view>
             <input
               type="number"
               :disabled="administer"
@@ -81,14 +81,14 @@
     <view class="footer on acea-row row-between-wrapper" v-if="administer">
       <checkbox-group @change="checkboxAllChange">
         <checkbox value="all" :checked="isAllSelect" />
-        <text class="checkAll">Chọn tất cả</text>
+        <text class="checkAll">Chọn Tất cả</text>
       </checkbox-group>
       <view class="acea-row row-middle">
         <view class="bnt acea-row row-center-wrapper" @click="manageTap"
           >Hủy bỏ</view
         >
         <view class="bnt on acea-row row-center-wrapper" @click="batchEdit"
-          >Chỉnh sửa hàng loạt</view
+          >Sửa hàng loạt</view
         >
       </view>
     </view>
@@ -97,7 +97,7 @@
         >Hoạt động hàng loạt</view
       >
       <view class="bnt on acea-row row-center-wrapper" @click="define"
-        >cứu</view
+        >Lưu</view
       >
     </view>
     <edit-price

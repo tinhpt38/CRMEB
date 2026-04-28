@@ -198,7 +198,7 @@ Route::group('system', function () {
                 'create' => 'Nhận biểu mẫu phân loại tạo tuyến đường',
                 'save' => 'Lưu phân loại tuyến đường',
                 'edit' => 'Nhận biểu mẫu phân loại tuyến đường sửa đổi',
-                'update' => 'Sửa đổi phân loại tuyến đường',
+                'update' => 'Sửa danh mục tuyến đường',
                 'delete' => 'Xóa danh mục định tuyến'
             ],
         ]);
@@ -249,7 +249,7 @@ Route::group('system', function () {
         //Nhận chi tiết bảng
         Route::get('crud/association_table/:tableName', 'v1.setting.SystemCrud/getAssociationTableInfo')->option(['real_name' => 'Nhận chi tiết bảng']);
         //xóa bỏCRUD
-        Route::delete('crud/:id', 'v1.setting.SystemCrud/delete')->option(['real_name' => 'xóa bỏCRUD']);
+        Route::delete('crud/:id', 'v1.setting.SystemCrud/delete')->option(['real_name' => 'XóaCRUD']);
         //Kiểm traCRUD
         Route::get('crud/:id', 'v1.setting.SystemCrud/read')->option(['real_name' => 'Kiểm traCRUD']);
         //Nhận danh sách CRUD
@@ -267,7 +267,7 @@ Route::group('system', function () {
         Route::delete('ticket/del/:id', 'v1.system.SystemTicket/ticketDel')->option(['real_name' => 'Xóa in hóa đơn']);
         Route::get('ticket/content/:id', 'v1.system.SystemTicket/ticketContent')->option(['real_name' => 'Nhận chi tiết in hóa đơn']);
         Route::post('ticket/save_content/:id', 'v1.system.SystemTicket/ticketContentSave')->option(['real_name' => 'Lưu chi tiết in hóa đơn']);
-    })->option(['parent' => 'system', 'cate_name' => 'In biên lai']);
+    })->option(['parent' => 'system', 'cate_name' => 'In phiếu giao hàng']);
 
     /** Quản lý tập tin */
     Route::group(function () {

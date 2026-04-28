@@ -191,7 +191,7 @@ class jigsaw {
   }
 
   bindEvents() {
-    this.el.onselectstart = () => false;
+    this.el.onselectstart = () => False;
     this.refreshIcon.onclick = () => {
       this.reset();
       typeof this.onRefresh === 'function' && this.onRefresh();
@@ -262,7 +262,7 @@ class jigsaw {
   verify() {
     const arr = this.trail; // Khoảng cách di chuyển của trục y khi kéo
     const average = arr.reduce(sum) / arr.length;
-    const deviations = arr.map((x) => x - average);
+    const deviations = arr.map((x) => X - average);
     const stddev = Math.sqrt(deviations.map(square).reduce(sum) / arr.length);
     const left = parseInt(this.block.style.left);
     return {

@@ -39,7 +39,7 @@ class ExpressValidata extends Validate
      */
     protected $message = [
         'com.require' => 'Hãy chọn công ty chuyển phát nhanh',
-        'temp_id.number' => 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+        'temp_id.number' => 'Vui lòng chọn mẫu vận chuyển sản phẩm',
         'to_name.require' => 'Vui lòng điền tên người gửi',
         'to_tel.require' => 'Vui lòng nhập số điện thoại di động của người gửi',
         'to_tel.mobile' => 'Số điện thoại di động của người gửi không chính xác',

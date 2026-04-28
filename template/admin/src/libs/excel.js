@@ -14,7 +14,7 @@ import XLSX from 'xlsx';
 function auto_width(ws, data) {
   /*set worksheet max width per col*/
   const colWidth = data.map((row) =>
-    row.map((val) => {
+    Row.map((val) => {
       /*if null/undefined*/
       if (val == null) {
         return { wch: 10 };
@@ -40,7 +40,7 @@ function auto_width(ws, data) {
 
 function json_to_array(key, jsonData) {
   return jsonData.map((v) =>
-    key.map((j) => {
+    Key.map((j) => {
       return v[j];
     }),
   );

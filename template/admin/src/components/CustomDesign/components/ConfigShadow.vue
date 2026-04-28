@@ -2,12 +2,12 @@
   <div>
     <el-form-item label="Cài đặt bóng">
       <el-radio-group v-model="curComponent.propValue.showShadow" @change="onChange">
-        <el-radio :label="false">trốn</el-radio>
-        <el-radio :label="true">trình diễn</el-radio>
+        <el-radio :label="false">Trốn</el-radio>
+        <el-radio :label="true">Trình diễn</el-radio>
       </el-radio-group>
     </el-form-item>
     <template v-if="curComponent.propValue.showShadow">
-      <el-form-item label="màu bóng">
+      <el-form-item label="Màu bóng">
         <div class="row">
           <el-color-picker v-model="curComponent.propValue.shadowColor" @change="onChange" show-alpha></el-color-picker>
           <el-input
@@ -22,7 +22,7 @@
               curComponent.propValue.shadowColor = '#000000';
               onChange();
             "
-            >cài lại</span
+            >Đặt lại</span
           >
         </div>
       </el-form-item>
@@ -62,7 +62,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="bán kính lờ mờ">
+      <el-form-item label="Bán kính lờ mờ">
         <div class="row">
           <el-slider
             v-model="curComponent.propValue.shadowBlur"

@@ -32,13 +32,13 @@
         </el-table-column>
         <el-table-column label="Loại phiếu giảm giá" min-width="100">
           <template slot-scope="scope">
-            <span v-if="scope.row.type === 1">Phiếu giảm giá danh mục</span>
-            <span v-else-if="scope.row.type === 2">phiếu giảm giá hàng hóa</span>
+            <span v-if="scope.row.type === 1">Mã giảm giá danh mục</span>
+            <span v-else-if="scope.row.type === 2">Mã giảm giá sản phẩm</span>
             <span v-else-if="scope.row.type === 3">Phiếu thành viên</span>
-            <span v-else>Phiếu giảm giá phổ quát</span>
+            <span v-else>Mã giảm giá phổ quát</span>
           </template>
         </el-table-column>
-        <el-table-column label="mệnh giá" min-width="100">
+        <el-table-column label="Mệnh giá" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
@@ -52,7 +52,7 @@
           <template slot-scope="scope">
             <span v-if="scope.row.is_permanent">Không giới hạn</span>
             <div v-else>
-              <span class="fa">giải phóng：{{ scope.row.total_count }}</span>
+              <span class="fa">Giải phóng：{{ scope.row.total_count }}</span>
               <span class="sheng ml10">Còn lại：{{ scope.row.remain_count }}</span>
             </div>
           </template>
@@ -65,7 +65,7 @@
             <span v-else>Không giới hạn thời gian</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="100">
+        <el-table-column label="Trạng thái" min-width="100">
           <template slot-scope="scope">
             <el-tag size="medium" v-show="scope.row.status === 1">Bình thường</el-tag>
             <el-tag size="medium" type="danger" v-show="scope.row.status === 0">Chưa bật</el-tag>

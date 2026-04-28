@@ -10,7 +10,7 @@ export default class AlertMenu extends BtnMenu {
     _this = editor;
     // data-titleThuộc tính cho biết mô tả chức năng ngắn gọn của nút khi chuột di chuột qua nút.
     const $elem = E.$(
-      `<div class="w-e-menu" data-title="băng hình">
+      `<div class="w-e-menu" data-title="video">
                 <div class="iconfont iconshipin"></div>
             </div>`,
     );

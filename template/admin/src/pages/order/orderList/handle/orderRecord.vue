@@ -1,5 +1,5 @@
 <template>
-  <el-drawer :visible.sync="modals" title="Hồ sơ đặt hàng" :wrapperClosable="false" :size="700">
+  <el-drawer :visible.sync="modals" title="Lịch sử đơn hàng" :wrapperClosable="false" :size="700">
     <el-card :bordered="false" shadow="never">
       <el-table :data="recordData" v-loading="loading" empty-text="Chưa có dữ liệu" highlight-current-row>
         <el-table-column label="Đặt hàngID" min-width="100">

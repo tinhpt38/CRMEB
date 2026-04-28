@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="thời gian đặt hàng：">
+          <el-form-item label="Thời gian đặt hàng：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -26,7 +26,7 @@
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="loại giao dịch：">
+          <el-form-item label="Loại giao dịch：">
             <el-select
               type="button"
               v-model="formValidate.trading_type"
@@ -57,23 +57,23 @@
             <div>{{ scope.row.relation }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="giờ giao dịch" min-width="100">
+        <el-table-column label="Giờ giao dịch" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.add_time }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="điểm giao dịch" min-width="80">
+        <el-table-column label="Điểm giao dịch" min-width="80">
           <template slot-scope="scope">
             <div v-if="scope.row.pm" class="z-price">+ {{ scope.row.number }}</div>
             <div v-else class="f-price">- {{ scope.row.number }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="người dùng" min-width="80">
+        <el-table-column label="Người dùng" min-width="80">
           <template slot-scope="scope">
             <div>{{ scope.row.nickname }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="loại giao dịch" min-width="100">
+        <el-table-column label="Loại giao dịch" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.type_name }}</div>
           </template>
@@ -140,7 +140,7 @@ export default {
       selectIndexTime: '',
       payment: [
         {
-          title: 'tất cả',
+          title: 'Tất cả',
           value: '',
         },
         {

@@ -31,8 +31,8 @@ export default {
               list: [
                 { activeValue: 'user', title: 'người dùng' },
                 { activeValue: 'article', title: 'bài báo' },
-                { activeValue: 'coupon', title: 'Phiếu giảm giá' },
-                { activeValue: 'goods', title: 'hàng hóa' },
+                { activeValue: 'coupon', title: 'Mã giảm giá' },
+                { activeValue: 'goods', title: 'sản phẩm' },
               ],
             },
             // Article Config
@@ -72,7 +72,7 @@ export default {
             articleSortRule: {
               title: 'Quy tắc sắp xếp',
               tabVal: 0,
-              tabList: [{ name: 'Thứ tự tăng dần' }, { name: 'thứ tự giảm dần' }],
+              tabList: [{ name: 'Đơn hàng tăng dần' }, { name: 'thứ tự giảm dần' }],
             },
 
             // Coupon Config
@@ -98,17 +98,17 @@ export default {
               title: 'Loại phiếu giảm giá',
               activeValue: '',
               list: [
-                { activeValue: '', title: 'tất cả' },
-                { activeValue: '0', title: 'Phiếu giảm giá phổ quát' },
-                { activeValue: '1', title: 'Phiếu giảm giá danh mục' },
-                { activeValue: '2', title: 'phiếu giảm giá hàng hóa' },
+                { activeValue: '', title: 'Tất cả' },
+                { activeValue: '0', title: 'Mã giảm giá phổ quát' },
+                { activeValue: '1', title: 'Mã giảm giá danh mục' },
+                { activeValue: '2', title: 'phiếu giảm giá sản phẩm' },
               ],
             },
             couponSendType: {
               title: 'Phương thức gửi',
               activeValue: '',
               list: [
-                { activeValue: '', title: 'tất cả' },
+                { activeValue: '', title: 'Tất cả' },
                 { activeValue: '1', title: 'Thu thập thủ công' },
                 { activeValue: '3', title: 'phiếu quà tặng' },
               ],
@@ -117,7 +117,7 @@ export default {
               title: 'Loại người dùng',
               activeValue: '',
               list: [
-                { activeValue: '', title: 'tất cả' },
+                { activeValue: '', title: 'Tất cả' },
                 { activeValue: '1', title: 'Người dùng thông thường' },
                 { activeValue: '2', title: 'Người dùng thành viên' },
               ],
@@ -145,7 +145,7 @@ export default {
             couponSortRule: {
               title: 'Quy tắc sắp xếp',
               tabVal: 0,
-              tabList: [{ name: 'Thứ tự tăng dần' }, { name: 'thứ tự giảm dần' }],
+              tabList: [{ name: 'Đơn hàng tăng dần' }, { name: 'thứ tự giảm dần' }],
             },
             couponNum: {
               title: 'Hiển thị số lượng',
@@ -175,7 +175,7 @@ export default {
               list: [],
             },
             goodsClass: {
-              title: 'Phân loại sản phẩm',
+              title: 'Danh mục sản phẩm',
               activeValue: '',
               list: [],
             },
@@ -185,7 +185,7 @@ export default {
               min: 1,
             },
             goodsSort: {
-              title: 'Phân loại sản phẩm',
+              title: 'Danh mục sản phẩm',
               name: 'goodsSort',
               type: 0,
               list: [
@@ -240,8 +240,8 @@ export default {
               list: [
                 { activeValue: 'user', title: 'người dùng' },
                 { activeValue: 'article', title: 'bài báo' },
-                { activeValue: 'coupon', title: 'Phiếu giảm giá' },
-                { activeValue: 'goods', title: 'hàng hóa' },
+                { activeValue: 'coupon', title: 'Mã giảm giá' },
+                { activeValue: 'goods', title: 'sản phẩm' },
               ],
             },
             // Article Config
@@ -289,17 +289,17 @@ export default {
               title: 'Loại phiếu giảm giá',
               activeValue: '',
               list: [
-                { activeValue: '', title: 'tất cả' },
-                { activeValue: '0', title: 'Phiếu giảm giá phổ quát' },
-                { activeValue: '1', title: 'Phiếu giảm giá danh mục' },
-                { activeValue: '2', title: 'phiếu giảm giá hàng hóa' },
+                { activeValue: '', title: 'Tất cả' },
+                { activeValue: '0', title: 'Mã giảm giá phổ quát' },
+                { activeValue: '1', title: 'Mã giảm giá danh mục' },
+                { activeValue: '2', title: 'phiếu giảm giá sản phẩm' },
               ],
             },
             couponSendType: {
               title: 'Phương thức gửi',
               activeValue: '',
               list: [
-                { activeValue: '', title: 'tất cả' },
+                { activeValue: '', title: 'Tất cả' },
                 { activeValue: '1', title: 'Thu thập thủ công' },
                 { activeValue: '3', title: 'phiếu quà tặng' },
               ],
@@ -308,7 +308,7 @@ export default {
               title: 'Loại người dùng',
               activeValue: '',
               list: [
-                { activeValue: '', title: 'tất cả' },
+                { activeValue: '', title: 'Tất cả' },
                 { activeValue: '1', title: 'Người dùng thông thường' },
                 { activeValue: '2', title: 'Người dùng thành viên' },
               ],
@@ -336,7 +336,7 @@ export default {
             couponSortRule: {
               title: 'Quy tắc sắp xếp',
               tabVal: 0,
-              tabList: [{ name: 'Thứ tự tăng dần' }, { name: 'thứ tự giảm dần' }],
+              tabList: [{ name: 'Đơn hàng tăng dần' }, { name: 'thứ tự giảm dần' }],
             },
             couponNum: {
               title: 'Hiển thị số lượng',
@@ -366,7 +366,7 @@ export default {
               list: [],
             },
             goodsClass: {
-              title: 'Phân loại sản phẩm',
+              title: 'Danh mục sản phẩm',
               activeValue: '',
               list: [],
             },
@@ -376,14 +376,14 @@ export default {
               min: 1,
             },
             goodsSort: {
-              title: 'Phân loại sản phẩm',
+              title: 'Danh mục sản phẩm',
               tabVal: 0,
               tabList: [{ name: 'toàn diện' }, { name: 'Doanh số bán hàng' }, { name: 'giá' }],
             },
             goodsSortRule: {
               title: 'Quy tắc sắp xếp',
               tabVal: 0,
-              tabList: [{ name: 'thứ tự giảm dần' }, { name: 'Thứ tự tăng dần' }],
+              tabList: [{ name: 'thứ tự giảm dần' }, { name: 'Đơn hàng tăng dần' }],
             },
 
             // Common Styles
@@ -582,7 +582,7 @@ export default {
                 info: [
                   {
                     title: 'tiêu đề',
-                    value: 'Phân loại sản phẩm',
+                    value: 'Danh mục sản phẩm',
                     maxlength: 5,
                     tips: 'Vui lòng điền tiêu đề',
                   },
@@ -729,7 +729,7 @@ export default {
                 info: [
                   {
                     title: 'tiêu đề',
-                    value: 'Phân loại sản phẩm',
+                    value: 'Danh mục sản phẩm',
                     maxlength: 5,
                     tips: 'Vui lòng điền tiêu đề',
                   },
@@ -1399,7 +1399,7 @@ export default {
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1416,7 +1416,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [
@@ -1470,7 +1470,7 @@ export default {
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1487,7 +1487,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [
@@ -1536,14 +1536,14 @@ export default {
             list: [
               {
                 title: 'Loại sản phẩm',
-                val: 'Danh sách nhóm nhóm',
+                val: 'Đơn hàng mua chung',
                 max: 20,
                 pla: 'Tùy chọn, không quá bốn từ',
               },
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1560,7 +1560,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [
@@ -1607,14 +1607,14 @@ export default {
             list: [
               {
                 title: 'Loại sản phẩm',
-                val: 'Danh sách nhóm nhóm',
+                val: 'Đơn hàng mua chung',
                 max: 20,
                 pla: 'Tùy chọn, không quá bốn từ',
               },
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1631,7 +1631,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [
@@ -1680,14 +1680,14 @@ export default {
             list: [
               {
                 title: 'Loại sản phẩm',
-                val: 'Danh sách mặc cả',
+                val: 'Lịch sử trả giá',
                 max: 20,
                 pla: 'Tùy chọn, không quá bốn từ',
               },
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1704,7 +1704,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [
@@ -1751,14 +1751,14 @@ export default {
             list: [
               {
                 title: 'Loại sản phẩm',
-                val: 'Danh sách mặc cả',
+                val: 'Lịch sử trả giá',
                 max: 20,
                 pla: 'Tùy chọn, không quá bốn từ',
               },
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1775,7 +1775,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [
@@ -1868,7 +1868,7 @@ export default {
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1885,7 +1885,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [
@@ -1976,7 +1976,7 @@ export default {
             ],
           },
           selectConfig: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             activeValue: '',
             list: [
               {
@@ -1993,7 +1993,7 @@ export default {
             val: 6,
           },
           goodsSort: {
-            title: 'Phân loại sản phẩm',
+            title: 'Danh mục sản phẩm',
             name: 'goodsSort',
             type: 0,
             list: [

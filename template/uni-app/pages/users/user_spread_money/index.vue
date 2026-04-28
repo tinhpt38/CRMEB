@@ -150,7 +150,7 @@ export default {
 			this.getRecordListCount();
 		} else if (type == 2) {
 			uni.setNavigationBarTitle({
-				title: 'hồ sơ ủy ban'
+				title: 'Lịch sử hoa hồng'
 			});
 			this.name = 'Chi tiết hoa hồng';
 			this.recordType = 3;

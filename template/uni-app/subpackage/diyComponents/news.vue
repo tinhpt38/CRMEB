@@ -21,7 +21,7 @@
           class="more"
           @click="moreTab(linkConfig)"
           :style="[moreStyle]"
-          >{{ $t(`Hơn`) }}<text class="iconfont icon-ic_rightarrow"></text
+          >{{ $t(`Thêm`) }}<text class="iconfont icon-ic_rightarrow"></text
         ></view>
       </view>
       <view class="news-bottom">

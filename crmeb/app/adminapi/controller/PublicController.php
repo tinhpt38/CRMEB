@@ -106,14 +106,14 @@ class PublicController
         $info['environment'] = [
             ['name' => 'PHPPhiên bản', 'require' => '7.1-7.4', 'value' => phpversion()],
             ['name' => 'MySqlPhiên bản', 'require' => '5.6-8.0', 'value' => Db::query("SELECT VERSION()")[0]['VERSION()']],
-            ['name' => 'MySqli', 'require' => 'bật lên', 'value' => function_exists('mysqli_connect')],
-            ['name' => 'Openssl', 'require' => 'bật lên', 'value' => function_exists('openssl_encrypt')],
-            ['name' => 'Session', 'require' => 'bật lên', 'value' => function_exists('session_start')],
-            ['name' => 'Safe_Mode', 'require' => 'bật lên', 'value' => !ini_get('safe_mode')],
-            ['name' => 'GD', 'require' => 'bật lên', 'value' => !empty($gd_info['GD Version'])],
-            ['name' => 'Curl', 'require' => 'bật lên', 'value' => function_exists('curl_init')],
-            ['name' => 'Bcmath', 'require' => 'bật lên', 'value' => function_exists('bcadd')],
-            ['name' => 'Upload', 'require' => 'bật lên', 'value' => (bool)ini_get('file_uploads')],
+            ['name' => 'MySqli', 'require' => 'Hoạt động', 'value' => function_exists('mysqli_connect')],
+            ['name' => 'Openssl', 'require' => 'Hoạt động', 'value' => function_exists('openssl_encrypt')],
+            ['name' => 'Session', 'require' => 'Hoạt động', 'value' => function_exists('session_start')],
+            ['name' => 'Safe_Mode', 'require' => 'Hoạt động', 'value' => !ini_get('safe_mode')],
+            ['name' => 'GD', 'require' => 'Hoạt động', 'value' => !empty($gd_info['GD Version'])],
+            ['name' => 'Curl', 'require' => 'Hoạt động', 'value' => function_exists('curl_init')],
+            ['name' => 'Bcmath', 'require' => 'Hoạt động', 'value' => function_exists('bcadd')],
+            ['name' => 'Upload', 'require' => 'Hoạt động', 'value' => (bool)ini_get('file_uploads')],
         ];
 
         $info['permissions'] = [
@@ -163,16 +163,16 @@ class PublicController
             };
         
             $info['process'] = [
-                ['name' => 'liên kết dài', 'require' => 'bật lên', 'value' => $checkService('workerman')],
-                ['name' => 'nhiệm vụ theo lịch trình', 'require' => 'bật lên', 'value' => $checkService('timer')],
-                ['name' => 'hàng đợi tin nhắn', 'require' => 'bật lên', 'value' => $checkService('queue')],
+                ['name' => 'liên kết dài', 'require' => 'Hoạt động', 'value' => $checkService('workerman')],
+                ['name' => 'nhiệm vụ theo lịch trình', 'require' => 'Hoạt động', 'value' => $checkService('timer')],
+                ['name' => 'hàng đợi tin nhắn', 'require' => 'Hoạt động', 'value' => $checkService('queue')],
             ];
             
         } else {
             $info['process'] = [
-                ['name' => 'liên kết dài', 'require' => 'bật lên', 'value' => file_exists(root_path('runtime') . 'workerman.pid')],
-                ['name' => 'nhiệm vụ theo lịch trình', 'require' => 'bật lên', 'value' => file_exists(root_path('runtime') . 'timer.pid')],
-                ['name' => 'hàng đợi tin nhắn', 'require' => 'bật lên', 'value' => file_exists(root_path('runtime') . '.queue')],
+                ['name' => 'liên kết dài', 'require' => 'Hoạt động', 'value' => file_exists(root_path('runtime') . 'workerman.pid')],
+                ['name' => 'nhiệm vụ theo lịch trình', 'require' => 'Hoạt động', 'value' => file_exists(root_path('runtime') . 'timer.pid')],
+                ['name' => 'hàng đợi tin nhắn', 'require' => 'Hoạt động', 'value' => file_exists(root_path('runtime') . '.queue')],
             ];
         }
 

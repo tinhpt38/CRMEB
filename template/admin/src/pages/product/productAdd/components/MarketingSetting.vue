@@ -10,7 +10,7 @@
           :max="9999999999"
           placeholder="Vui lòng nhập điểm"
           class="input_width input-number-unit-class"
-          class-unit="tích phân"
+          class-unit="điểm thưởng"
         />
       </el-form-item>
     </el-col>
@@ -25,7 +25,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Thẻ người dùng được liên kết：" prop="label_id">
+      <el-form-item label="Thẻ khách hàng được liên kết：" prop="label_id">
         <div style="display: flex">
           <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
             <div style="width: 90%">
@@ -64,7 +64,7 @@
         <el-switch
           v-model="formValidate.is_limit"
           class="defineSwitch"
-          active-text="bật lên"
+          active-text="Hoạt động"
           inactive-text="đóng cửa"
           :active-value="1"
           :inactive-value="0"
@@ -105,7 +105,7 @@
         <el-switch
           v-model="formValidate.presale"
           class="defineSwitch"
-          active-text="bật lên"
+          active-text="Hoạt động"
           inactive-text="đóng cửa"
           :active-value="1"
           :inactive-value="0"
@@ -134,7 +134,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.presale">
-      <el-form-item label="thời gian vận chuyển：" prop="presale_day">
+      <el-form-item label="Thời gian vận chuyển：" prop="presale_day">
         <div class="acea-row row-middle">
           <span class="mr10">Sau khi sự kiện bán trước kết thúc</span>
           <el-input-number
@@ -143,10 +143,10 @@
             placeholder="Vui lòng nhập thời gian giao hàng"
             :precision="0"
             :min="1"
-            class-unit="bầu trời"
+            class-unit="ngày"
             v-model="formValidate.presale_day"
           />
-          <span class="ml10"> ở trong </span>
+          <span class="ml10"> Ở trong </span>
         </div>
       </el-form-item>
     </el-col>
@@ -213,7 +213,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="loại：">
+      <el-form-item label="Loại：">
         <el-input-number
           :controls="false"
           :min="0"

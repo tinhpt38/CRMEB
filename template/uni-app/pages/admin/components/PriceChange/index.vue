@@ -2,7 +2,7 @@
 	<view>
 		<view class="priceChange" :class="change === true ? 'on' : ''">
 			<view class="priceTitle">
-				{{ status == 0 ? $t(`Thay đổi giá chỉ bằng một cú nhấp chuột`) : status == 1 ? $t(`Ghi chú đặt hàng`) : $t(`Hoàn tiền ngay lập tức`) }}
+				{{ status == 0 ? $t(`Thay đổi giá chỉ bằng một cú nhấp chuột`) : status == 1 ? $t(`Ghi chú đơn hàng`) : $t(`Hoàn tiền ngay lập tức`) }}
 				<span class="iconfont icon-guanbi" @click="close"></span>
 			</view>
 			<view class="listChange" v-if="status == 0 || status == 2">
@@ -19,13 +19,13 @@
 					</view>
 				</view>
 				<view class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 0 && status != 2">
-					<view>{{$t(`thanh toán thực tế`)}}({{$t(`￥`)}})</view>
+					<view>{{$t(`Thanh toán thực tế`)}}({{$t(`￥`)}})</view>
 					<view class="money">
 						<input type="text" v-model="price" :class="focus === true ? 'on' : ''" @focus="priceChange" />
 					</view>
 				</view>
 				<view class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 1 || status == 2">
-					<view>{{$t(`thanh toán thực tế`)}}({{$t(`￥`)}})</view>
+					<view>{{$t(`Thanh toán thực tế`)}}({{$t(`￥`)}})</view>
 					<view class="money">
 						{{ orderInfo.pay_price }}<span class="iconfont icon-suozi"></span>
 					</view>

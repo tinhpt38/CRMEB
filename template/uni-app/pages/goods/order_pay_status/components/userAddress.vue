@@ -368,7 +368,7 @@
 				let that = this,
 					value = e.detail.value;
 				if (!value.name) return that.$util.Tips({
-					title: that.$t(`Vui lòng điền tên người nhận hàng`)
+					title: that.$t(`Vui lòng điền tên Người nhận hàng`)
 				});
 				if (!value.phone) return that.$util.Tips({
 					title: that.$t(`Vui lòng nhập số điện thoại di động`)

@@ -100,7 +100,7 @@ class StoreOrderController
     public function confirm(Request $request, ShippingTemplatesServices $services)
     {
         if (!$services->get(1, ['id'])) {
-            return app('json')->fail('Mẫu vận chuyển hàng hóa mặc định không được định cấu hình và không thể đặt hàng.');
+            return app('json')->fail('Mẫu vận chuyển sản phẩm mặc định không được định cấu hình và không thể đặt hàng.');
         }
         [$cartId, $new, $addressId, $shipping_type, $is_gift] = $request->postMore([
             'cartId',
@@ -258,7 +258,7 @@ class StoreOrderController
         CacheService::set('PAY_LOCK_' . $uni, 'PAY_LOCK', 2);
         if (!$uni) return app('json')->fail('Lỗi tham số');
         $orderInfo = $this->services->get(['order_id' => $uni]);
-        if ($orderInfo->is_cancel == 1 || $orderInfo->is_del == 1 || $orderInfo->is_system_del == 1) return app('json')->fail('Đơn hàng đã vượt quá thời gian thanh toán của hệ thống và không thể thanh toán được. Vui lòng đặt hàng khác.');
+        if ($orderInfo->is_cancel == 1 || $orderInfo->is_del == 1 || $orderInfo->is_system_del == 1) return app('json')->fail('Đơn hàng đã vượt quá Thời gian thanh toán của hệ thống và không thể thanh toán được. Vui lòng đặt hàng khác.');
         $uid = $type == 1 ? (int)$request->uid() : $orderInfo->uid;
         $orderInfo->is_channel = $this->getChennel[$request->getFromType()] ?? ($request->isApp() ? 0 : 1);
         $orderInfo->order_id = $uid != $orderInfo->pay_uid ? app()->make(StoreOrderCreateServices::class)->getNewOrderId('cp') : $uni;
@@ -581,7 +581,7 @@ class StoreOrderController
         if ($replyServices->be(['oid' => $cartInfo['oid'], 'unique' => $unique]))
             return app('json')->fail('Sản phẩm đặt hàng đã được đánh giá');
         $group['comment'] = htmlspecialchars(trim($group['comment']));
-        if ($group['product_score'] < 1) return app('json')->fail('Vui lòng đánh giá sản phẩm');
+        if ($group['product_score'] < 1) return app('json')->fail('Vui lòng Đánh giá sản phẩm');
         else if ($group['service_score'] < 1) return app('json')->fail('Vui lòng đánh giá dịch vụ của người bán');
         if ($cartInfo['cart_info']['combination_id']) $productId = $cartInfo['cart_info']['product_id'];
         else if ($cartInfo['cart_info']['seckill_id']) $productId = $cartInfo['cart_info']['product_id'];

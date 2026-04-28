@@ -133,7 +133,7 @@ export default {
     // Lấy chỉ số dưới của tagsView: dùng để xử lý cuộn ngang khi nhấp vào tagsView
     getTagsRefsIndex(path) {
       if (this.tagsViewList.length > 0) {
-        this.tagsRefsIndex = this.tagsViewList.findIndex((item) => item.path === path);
+        this.tagsRefsIndex = this.tagsViewList.findIndex((item) => Item.path === path);
       }
     },
     // Cuộn con lăn chuột
@@ -193,7 +193,7 @@ export default {
           else beforePrevL = liPrevTag?.offsetLeft - 5;
           if (liIndex === liLength) afterNextL = liLast?.offsetLeft + liLast.offsetWidth + 5;
           else afterNextL = liNextTag?.offsetLeft + liNextTag.offsetWidth + 5;
-          if (afterNextL > scrollL + offsetW) {
+          if (afterNextL > ScrollL + offsetW) {
             scrollRefs.scrollLeft = afterNextL - offsetW;
           } else if (beforePrevL < scrollL) {
             scrollRefs.scrollLeft = beforePrevL;
@@ -258,7 +258,7 @@ export default {
     },
     // Đã thêm tagsView: chưa được đặt thành ẩn (isHide) cũng được thêm vào tagsView
     addTagsView(path, to) {
-      if (this.tagsViewList.some((v) => v.path === path)) return false;
+      if (this.tagsViewList.some((v) => V.path === path)) return false;
       const item = this.tagsViewRoutesList.find((v) => v.path === path);
       if (item.isLink && !item.isIframe) return false;
       item.query = to?.query ? to?.query : this.$route.query;
@@ -344,7 +344,7 @@ export default {
       this.tagsViewRoutesList.map((v) => {
         if (v.meta.isAffix) {
           tagsViewList.push({ ...v });
-          if (tagsViewList.some((v) => v.path === path)) this.$router.push({ path, query: this.$route.query });
+          if (tagsViewList.some((v) => V.path === path)) this.$router.push({ path, query: this.$route.query });
           else this.$router.push({ path: v.path, query: this.$route.query });
         }
       });

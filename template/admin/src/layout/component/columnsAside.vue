@@ -148,7 +148,7 @@ export default {
     // Chức năng đệ quy lọc tuyến đường
     filterRoutesFun(arr) {
       return arr
-        .filter((item) => item.path)
+        .filter((item) => Item.path)
         .map((item) => {
           item = Object.assign({}, item);
           if (item.children) item.children = this.filterRoutesFun(item.children);

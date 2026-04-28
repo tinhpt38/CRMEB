@@ -25,13 +25,13 @@
     </el-row>
     <!-- <el-row class="mb10 content">
       <el-button class="bnt" type="primary" v-db-click @click="save" :loading="loadingExist"
-        >cứu</el-button
+        >Lưu</el-button
       >
     </el-row> -->
 
     <el-card :bordered="false" shadow="never" class="fixed-card" :style="{ left: `${fixBottomWidth}` }">
       <div class="acea-row row-center">
-        <el-button class="bnt" type="primary" v-db-click @click="save" :loading="loadingExist">cứu</el-button>
+        <el-button class="bnt" type="primary" v-db-click @click="save" :loading="loadingExist">Lưu</el-button>
       </div>
     </el-card>
   </div>

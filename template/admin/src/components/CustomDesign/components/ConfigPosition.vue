@@ -1,6 +1,6 @@
 <template>
   <div class="position-settings">
-    <div class="section-title">cài đặt vị trí</div>
+    <div class="section-title">Cài đặt vị trí</div>
     <el-form size="small" label-width="70px" label-position="left">
       <el-form-item label="X điều phối">
         <div class="row">
@@ -38,7 +38,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="góc quay">
+      <el-form-item label="Góc quay">
         <div class="row">
           <el-slider
             v-model="curComponent.style.rotate"

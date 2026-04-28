@@ -7,7 +7,7 @@
 			<radio-group class="radio-group" @change="radioChange" v-if="addressList.length">
 				<view class='item' v-for="(item,index) in addressList" :key="index">
 					<view class='address' @click='goOrder(item.id)'>
-						<view class='consignee'>{{$t(`người nhận hàng`)}}：{{item.real_name}}<text class='phone'>{{item.phone}}</text></view>
+						<view class='consignee'>{{$t(`Người nhận hàng`)}}：{{item.real_name}}<text class='phone'>{{item.phone}}</text></view>
 						<view>{{$t(`Địa chỉ giao hàng`)}}：{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
 					</view>
 					<view class='operation acea-row row-between-wrapper'>
@@ -22,8 +22,8 @@
 						</radio>
 						<!-- #endif -->
 						<view class='acea-row row-middle'>
-							<view @click='editAddress(item.id)'><text class='iconfont icon-bianji'></text>{{$t(`biên tập`)}}</view>
-							<view @click='delAddress(index)'><text class='iconfont icon-shanchu'></text>{{$t(`xóa bỏ`)}}</view>
+							<view @click='editAddress(item.id)'><text class='iconfont icon-bianji'></text>{{$t(`Sửa`)}}</view>
+							<view @click='delAddress(index)'><text class='iconfont icon-shanchu'></text>{{$t(`Xóa`)}}</view>
 						</view>
 					</view>
 				</view>

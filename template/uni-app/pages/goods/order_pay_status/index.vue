@@ -83,7 +83,7 @@
 						</view>
 					</view>
 					<view class="open acea-row row-center-wrapper" @click="openTap" v-if="couponList.length > 2">
-						{{ couponsHidden ? $t(`Hơn`) : $t(`đóng cửa`) }}
+						{{ couponsHidden ? $t(`Thêm`) : $t(`đóng cửa`) }}
 						<text class="iconfont" :class="couponsHidden == true ? 'icon-xiangxia' : 'icon-xiangshang'"></text>
 					</view>
 				</view>

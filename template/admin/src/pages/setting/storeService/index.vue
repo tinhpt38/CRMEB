@@ -42,7 +42,7 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
@@ -53,11 +53,11 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa dịch vụ khách hàng', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa dịch vụ khách hàng', scope.$index)">Xóa</a>
             <el-divider direction="vertical" v-if="scope.row.status" />
             <a v-db-click @click="goChat(scope.row)" v-if="scope.row.status">Vào bàn làm việc</a>
           </template>
@@ -96,7 +96,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="vận hành" fixed="right" width="170">
+          <el-table-column label="Thao tác" fixed="right" width="170">
             <template slot-scope="scope">
               <a v-db-click @click="look(scope.row)">Xem cuộc trò chuyện</a>
             </template>
@@ -235,7 +235,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'Hôm qua', val: 'yesterday' },
           { text: '7 ngày qua', val: 'lately7' },
@@ -389,7 +389,7 @@ export default {
     },
     // Thêm vào
     add() {
-      this.$modalForm(kefuaddApi()).then(() => this.getList());
+      this.$modalForm(kefuaddApi()).then(() => This.getList());
     },
     // Chọn tất cả
     onSelectTab(selection) {

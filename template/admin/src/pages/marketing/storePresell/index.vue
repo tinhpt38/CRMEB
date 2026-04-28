@@ -12,7 +12,7 @@
           <el-col v-bind="grid">
             <el-form-item label="Trạng thái hoạt động trước khi bán：">
               <el-select placeholder="Vui lòng chọn trạng thái hoạt động" v-model="tableFrom.time_type" clearable @change="userSearchs">
-                <el-option value="0" label="tất cả"></el-option>
+                <el-option value="0" label="Tất cả"></el-option>
                 <el-option value="1" label="Chưa bắt đầu"></el-option>
                 <el-option value="2" label="đang diễn ra"></el-option>
                 <el-option value="3" label="đã kết thúc"></el-option>
@@ -22,7 +22,7 @@
           <el-col v-bind="grid">
             <el-form-item label="Trạng thái sản phẩm trước khi bán：">
               <el-select placeholder="Vui lòng chọn trạng thái sản phẩm" v-model="tableFrom.status" clearable @change="userSearchs">
-                <el-option value="" label="tất cả"></el-option>
+                <el-option value="" label="Tất cả"></el-option>
                 <el-option value="1" label="Trên kệ"></el-option>
                 <el-option value="0" label="Đã xóa khỏi kệ"></el-option>
               </el-select>
@@ -56,7 +56,7 @@
               class="export"
               icon="ios-share-outline"
               v-db-click @click="exports"
-              >Xuất khẩu</el-button
+              >Xuất file</el-button
             > -->
           </el-col>
         </el-row>
@@ -85,7 +85,7 @@
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá bán trước" min-width="130">
+        <el-table-column label="Giá bán trước" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
@@ -95,7 +95,7 @@
             <span>{{ scope.row.sales }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="phiên bản giới hạn" min-width="130">
+        <el-table-column label="Phiên bản giới hạn" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.quota_show }}</span>
           </template>
@@ -107,8 +107,8 @@
         </el-table-column>
         <el-table-column label="Thời gian hoạt động" min-width="130">
           <template slot-scope="scope">
-            <div>tăng lên: {{ scope.row.start_time | formatDate }}</div>
-            <div>kết thúc: {{ scope.row.stop_time | formatDate }}</div>
+            <div>Tăng lên: {{ scope.row.start_time | formatDate }}</div>
+            <div>Kết thúc: {{ scope.row.stop_time | formatDate }}</div>
           </template>
         </el-table-column>
         <el-table-column label="Trạng thái trước khi bán" min-width="130">
@@ -127,12 +127,12 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider v-if="scope.row.stop_status === 0" direction="vertical" />
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa các mặt hàng bán trước', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa các mặt hàng bán trước', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

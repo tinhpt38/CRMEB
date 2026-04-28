@@ -292,7 +292,7 @@
               </view>
               <view class="texts">
                 <view class="line1"
-                  >[quà tặng]{{ giveData.give_integral }}tích phân</view
+                  >[quà tặng]{{ giveData.give_integral }}điểm thưởng</view
                 >
               </view>
             </view>
@@ -505,7 +505,7 @@
           >
         </view>
         <view class="actualPay acea-row row-right">
-          thanh toán thực tế
+          Thanh toán thực tế
           <BaseMoney
             :money="orderInfo.pay_price"
             symbolSize="24"
@@ -525,7 +525,7 @@
           Thay đổi giá chỉ bằng một cú nhấp chuột
         </view>
         <!-- types == -1 -->
-        <view class="bnt cancel" @click="modify('1')">Ghi chú đặt hàng</view>
+        <view class="bnt cancel" @click="modify('1')">Ghi chú đơn hàng</view>
         <view
           class="bnt cancel"
           @click="modify('2', 1)"
@@ -713,7 +713,7 @@ export default {
   methods: {
     verify() {
       uni.showModal({
-        title: 'Mẹo vận hành',
+        title: 'Mẹo Thao tác',
         content: 'Bạn có muốn xác nhận việc hủy bỏ lệnh này không?？',
         success: (res) => {
           if (res.confirm) {

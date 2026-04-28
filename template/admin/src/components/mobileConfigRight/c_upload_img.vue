@@ -21,14 +21,14 @@
         v-if="configData.type != 'code' && defaults.name == 'customerService' && defaults.buttonConfig.tabVal == 0"
         class="item"
       >
-        <div class="name">liên kết</div>
+        <div class="name">Liên kết</div>
         <el-input v-model="configData.link" placeholder="Nhập liên kết">
           <i class="el-icon-link" slot="suffix" @click="getLink" />
         </el-input>
       </div>
     </div>
     <div>
-      <el-dialog :visible.sync="modalPic" width="960px" :title="configData.name ? configData.name : 'Tải ảnh lên'">
+      <el-dialog :visible.sync="modalPic" width="960px" :title="ConfigData.name ? configData.name : 'Tải ảnh lên'">
         <uploadPictures
           :isChoice="isChoice"
           @getPic="getPic"

@@ -25,7 +25,7 @@
             <span>{{ scope.row.vip_day === -1 ? 'Vĩnh viễn' : scope.row.vip_day }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá gốc" min-width="90">
+        <el-table-column label="Giá gốc" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.price }}</span>
           </template>
@@ -48,20 +48,20 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="loại" min-width="90">
+        <el-table-column label="Loại" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a href="javascript:" v-db-click @click="editType(scope.row)">biên tập</a>
+            <a href="javascript:" v-db-click @click="editType(scope.row)">Chỉnh sửa</a>
             <!-- <el-divider direction="vertical" v-if="scope.row.type !== 'free' && scope.row.type !== 'ever'" />
             <a
               v-if="scope.row.type !== 'free' && scope.row.type !== 'ever'"
               href="javascript:"
               v-db-click @click="del(scope.row, 'xóa loại', scope.$index)"
-              >xóa bỏ</a
+              >Xóa</a
             > -->
           </template>
         </el-table-column>
@@ -89,7 +89,7 @@ export default {
       loading: false,
       modal: false,
       rowEdit: {},
-      rowModelType: 'biên tập',
+      rowModelType: 'Chỉnh sửa',
       options: {
         form: {
           labelWidth: '100px',
@@ -341,7 +341,7 @@ export default {
           }
         }
       });
-      this.rowModelType = 'biên tập';
+      this.rowModelType = 'Chỉnh sửa';
       this.rowEdit = JSON.parse(JSON.stringify(row));
       this.modal = true;
     },

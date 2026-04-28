@@ -14,7 +14,7 @@
           <el-col :xs="24" :sm="24" :md="24" :lg="14">
             <div class="tables">
               <el-table height="400" :columns="columns1" :data="resdataList">
-                <el-table-column :label="item.title" :min-width="100" v-for="(item, index) in columns1" :key="index">
+                <el-table-column :label="Item.title" :min-width="100" v-for="(item, index) in columns1" :key="index">
                   <template slot-scope="scope">
                     <template v-if="item.key">
                       <div>
@@ -129,8 +129,8 @@ export default {
             trigger: 'item',
             formatter: function (params) {
               return params.data
-                ? `khu vực:${params.name}</br>Người dùng tích lũy: ${params.data.value}</br>Thêm người dùng mới: ${params.data.newNum}</br>Số lượng khách truy cập: ${params.data.visitNum}</br>Số tiền thanh toán: ${params.data.payPrice}`
-                : `khu vực:${params.name}</br>Người dùng tích lũy: 0</br>Thêm người dùng mới: 0</br>Số lượng khách truy cập: 0</br>Số tiền thanh toán: 0`;
+                ? `khu vực:${params.name}</br>Người dùng tích lũy: ${params.data.value}</br>Thêm khách hàng mới: ${params.data.newNum}</br>Số lượng khách truy cập: ${params.data.visitNum}</br>Số tiền thanh toán: ${params.data.payPrice}`
+                : `khu vực:${params.name}</br>Người dùng tích lũy: 0</br>Thêm khách hàng mới: 0</br>Số lượng khách truy cập: 0</br>Số tiền thanh toán: 0`;
             },
           }, // Di chuyển chuột đến hộp nhắc nổi bên trong ảnh
           dataRange: {
@@ -236,7 +236,7 @@ export default {
             legend: {
               orient: 'vertical',
               left: 10,
-              data: ['không rõ', 'nam giới', 'nữ giới'],
+              data: ['không rõ', 'Nam', 'nữ giới'],
             },
             series: [
               {

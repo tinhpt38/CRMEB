@@ -34,7 +34,7 @@
 			</view>
 			<view class="w-full bg--w111-fff rd-16rpx mt-22 px-30">
 				<view class="h-106 flex-between-center bb-e" @click="selectCate">
-					<text class="fs-30 lh-42rpx">Phân loại sản phẩm</text>
+					<text class="fs-30 lh-42rpx">Danh mục sản phẩm</text>
 					<view class="flex-y-center">
 						<text class="fs-30 text--w111-333 pr-12" v-if="setFormData.cate_id.length">Đã chọn</text>
 						<text class="fs-30 text--w111-999 pr-12" v-else>Vui lòng chọn một danh mục</text>
@@ -42,9 +42,9 @@
 					</view>
 				</view>
 				<view class="h-106 flex-between-center bb-e">
-					<text class="fs-30 lh-42rpx">đơn vị</text>
+					<text class="fs-30 lh-42rpx">Đơn vị</text>
 					<view class="flex-1 flex justify-end text-right">
-						<input type="text" maxlength="1" v-model="setFormData.unit_name"  placeholder="Vui lòng điền đơn vị sản phẩm" placeholder-class="text--w111-999 fs-30" class="fs-32 fs-30" />
+						<input type="text" maxlength="1" v-model="setFormData.unit_name"  placeholder="Vui lòng điền Đơn vị sản phẩm" placeholder-class="text--w111-999 fs-30" class="fs-32 fs-30" />
 					</view>
 				</view>
 			</view>
@@ -69,7 +69,7 @@
 					</view>
 				</view>
 				<view class="h-106 flex-between-center bb-e">
-					<text class="fs-30 lh-42rpx">trong kho</text>
+					<text class="fs-30 lh-42rpx">Trong kho</text>
 					<view class="flex-1 flex justify-end text-right">
 						<input type="number" v-model="setFormData.attr.stock" placeholder="Vui lòng nhập hàng tồn kho" placeholder-class=" text--w111-999" class="fs-32" />
 					</view>
@@ -148,7 +148,7 @@
 							<view>
 								<radio value="3" :checked="setFormData.freight == 3" />
 							</view>
-							<view>Mẫu vận chuyển hàng hóa</view>
+							<view>Mẫu vận chuyển sản phẩm</view>
 						</label>
 					</radio-group>
 				</view>
@@ -161,7 +161,7 @@
 					</view>
 					<view class="h-106 flex-between-center"
 						v-if="setFormData.freight == 3">
-						<text class="fs-30 lh-42rpx">Mẫu vận chuyển hàng hóa</text>
+						<text class="fs-30 lh-42rpx">Mẫu vận chuyển sản phẩm</text>
 						<view class="flex-y-center">
 							<picker @change="bindPickerChange" :value="tempIndex" :range="templateList" range-key="name">
 								<view class="fs-30">{{templateList[tempIndex].name || 'Vui lòng chọn'}}
@@ -342,13 +342,13 @@ export default {
 			if(!this.setFormData.store_name) return this.$util.Tips({title: 'Vui lòng nhập tên sản phẩm'});
 			if(!this.setFormData.image) return this.$util.Tips({title: 'Vui lòng tải lên hình ảnh sản phẩm'});
 			if(!this.setFormData.cate_id) return this.$util.Tips({title: 'Vui lòng chọn danh mục sản phẩm'});
-			if(!this.setFormData.unit_name) return this.$util.Tips({title: 'Vui lòng điền đơn vị sản phẩm'});
+			if(!this.setFormData.unit_name) return this.$util.Tips({title: 'Vui lòng điền Đơn vị sản phẩm'});
 			if(!this.setFormData.attr.price) return this.$util.Tips({title: 'Vui lòng điền giá bán sản phẩm'});
 			if(!this.setFormData.attr.cost) return this.$util.Tips({title: 'Vui lòng điền giá thành sản phẩm'});
 			if(!this.setFormData.attr.ot_price) return this.$util.Tips({title: 'Vui lòng điền giá gạch chân của sản phẩm'});
 			if(!this.setFormData.attr.stock) return this.$util.Tips({title: 'Vui lòng điền vào kho sản phẩm'});
 			if(!this.setFormData.logistics.length) return this.$util.Tips({title: 'Vui lòng chọn phương thức vận chuyển'});
-			if(this.setFormData.freight == 3 && this.setFormData.temp_id == 0) return this.$util.Tips({title: 'Vui lòng chọn mẫu vận chuyển hàng hóa'});
+			if(this.setFormData.freight == 3 && this.setFormData.temp_id == 0) return this.$util.Tips({title: 'Vui lòng chọn mẫu vận chuyển sản phẩm'});
 			const html = this.buildEditorImageHtml(this.contentPicture);
 			this.$set(this.setFormData,'content',html);
 			productCreate(this.setFormData).then(res=>{

@@ -69,7 +69,7 @@
 						<div class="xuan" @click="checkAll" v-model="checked">
 							<view class="iconfont" :class="checked?'icon-a-ic_CompleteSelect':'icon-ic_unselect'"></view>
 						</div>
-						<text class='checkAll'>Chọn tất cả</text>
+						<text class='checkAll'>Chọn Tất cả</text>
 					</view>
 				</view>
 				<view>
@@ -81,7 +81,7 @@
 			<view class="box">
 				<view class="small_box">
 					<view class="content">
-						<view class="font">Xóa sổ thành công</view>
+						<view class="font">Xác nhận thành công</view>
 						<view v-if="list.total_num == parseInt(list.writeoff_count)+writeOffNum" class="small_font">Lệnh hiện tại đã bị xóa</view>
 						<view v-else class="small_font">Đơn hàng vẫn còn những hạng mục khác cần được xóa</view>
 					</view>

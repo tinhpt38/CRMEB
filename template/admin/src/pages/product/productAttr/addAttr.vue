@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modal" @closed="onCancel" title="Thông số sản phẩm" width="1000px" v-loading="spinShow">
+  <el-dialog :visible.sync="modal" @closed="onCancel" title="Thuộc tính sản phẩm" width="1000px" v-loading="spinShow">
     <el-form
       ref="formDynamic"
       :model="formDynamic"

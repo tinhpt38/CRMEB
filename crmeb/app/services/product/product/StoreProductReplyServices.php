@@ -63,7 +63,7 @@ class StoreProductReplyServices extends BaseServices
     public function createForm(int $product_id)
     {
         if ($product_id == 0) {
-            $field[] = Form::frameImage('image', 'hàng hóa', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
+            $field[] = Form::frameImage('image', 'sản phẩm', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
         } else {
             $field[] = Form::hidden('product_id', $product_id);
         }

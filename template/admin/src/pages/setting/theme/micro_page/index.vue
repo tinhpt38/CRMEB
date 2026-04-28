@@ -18,15 +18,15 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="số seri" min-width="80" prop="id"></el-table-column>
-        <el-table-column label="tên" min-width="150" prop="title"></el-table-column>
+        <el-table-column label="Số seri" min-width="80" prop="id"></el-table-column>
+        <el-table-column label="Tên" min-width="150" prop="title"></el-table-column>
         <el-table-column label="Thêm thời gian" min-width="150" prop="add_time"></el-table-column>
         <el-table-column label="Thời gian cập nhật" min-width="150" prop="up_time"></el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="150">
+        <el-table-column label="Thao tác" fixed="right" width="150">
           <template slot-scope="scope">
-            <a @click="edit(scope.row)">biên tập</a>
+            <a @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a @click="del(scope.row, 'Xóa vi trang', scope.$index)">xóa bỏ</a>
+            <a @click="del(scope.row, 'Xóa vi trang', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

@@ -506,7 +506,7 @@ class OtherOrderServices extends BaseServices
                 $v['nickname'] = $userInfo[$v['uid']]['nickname'] ?? '';
                 switch ($v['pay_type']) {
                     case "yue":
-                        $v['pay_type'] = "Sự cân bằng";
+                        $v['pay_type'] = "Số dư";
                         break;
                     case "weixin":
                         $v['pay_type'] = "WeChat";
@@ -558,7 +558,7 @@ class OtherOrderServices extends BaseServices
                 $v['overdue_time'] = date('Y-m-d H:i:s', $v['overdue_time']);
                 switch ($v['pay_type']) {
                     case "yue":
-                        $v['pay_type'] = "Sự cân bằng";
+                        $v['pay_type'] = "Số dư";
                         break;
                     case "weixin":
                         $v['pay_type'] = "WeChat";

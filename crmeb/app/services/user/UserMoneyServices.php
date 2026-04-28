@@ -48,14 +48,14 @@ class UserMoneyServices extends BaseServices
         'system_add' => [
             'title' => 'Hệ thống tăng cân bằng',
             'type' => 'system_add',
-            'mark' => 'Hệ thống tăng{%num%}Sự cân bằng',
+            'mark' => 'Hệ thống tăng{%num%}Số dư',
             'status' => 1,
             'pm' => 1
         ],
         'system_sub' => [
             'title' => 'Hệ thống giảm số dư',
             'type' => 'system_sub',
-            'mark' => 'Khấu trừ hệ thống{%num%}Sự cân bằng',
+            'mark' => 'Khấu trừ hệ thống{%num%}Số dư',
             'status' => 1,
             'pm' => 0
         ],
@@ -83,21 +83,21 @@ class UserMoneyServices extends BaseServices
         'lottery_use_money' => [
             'title' => 'Tham gia xổ số để sử dụng số dư của bạn',
             'type' => 'lottery_use',
-            'mark' => 'Tham gia xổ số{%num%}Sự cân bằng',
+            'mark' => 'Tham gia xổ số{%num%}Số dư',
             'status' => 1,
             'pm' => 0
         ],
         'lottery_give_money' => [
             'title' => 'Tiền trúng xổ số và số dư tiền thưởng',
             'type' => 'lottery_add',
-            'mark' => 'trúng thưởng xổ số{%num%}Sự cân bằng',
+            'mark' => 'trúng thưởng xổ số{%num%}Số dư',
             'status' => 1,
             'pm' => 1
         ],
         'register_system_add' => [
             'title' => 'Số dư thưởng đăng ký người dùng mới',
             'type' => 'register_system_add',
-            'mark' => 'Phần thưởng đăng ký người dùng mới{%num%}Sự cân bằng',
+            'mark' => 'Phần thưởng đăng ký người dùng mới{%num%}Số dư',
             'status' => 1,
             'pm' => 1
         ],
@@ -298,7 +298,7 @@ class UserMoneyServices extends BaseServices
      */
     public function getChannel($where)
     {
-        $bing_xdata = ['Hệ thống tăng', 'Nạp tiền người dùng', 'Rút tiền hoa hồng', 'Rút thăm may mắn', 'Hoàn tiền sản phẩm'];
+        $bing_xdata = ['Hệ thống tăng', 'Nạp tiền vào ví', 'Rút tiền hoa hồng', 'Rút thăm may mắn', 'Hoàn tiền sản phẩm'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];
         $data = ['system_add', 'recharge', 'extract', 'lottery_add', 'pay_product_refund'];
         $bing_data = [];

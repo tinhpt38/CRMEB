@@ -20,7 +20,7 @@
                 @click.stop="activityTap"
               >
                 <text class="iconfont icon-ic_sale"></text>
-                {{ $t("Phiếu giảm giá")
+                {{ $t("Mã giảm giá")
                 }}<text
                   class="iconfont icon-you2"
                   :style="{ color: activityColor }"

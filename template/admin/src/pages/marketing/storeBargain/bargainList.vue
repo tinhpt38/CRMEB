@@ -50,7 +50,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="hình đại diện" width="80">
+        <el-table-column label="Hình đại diện" width="80">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
@@ -67,17 +67,17 @@
             <span> {{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="mặt hàng giá hời" min-width="300">
+        <el-table-column label="Mặt hàng giá hời" min-width="300">
           <template slot-scope="scope">
             <span> {{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá thấp nhất" min-width="60">
+        <el-table-column label="Giá thấp nhất" min-width="60">
           <template slot-scope="scope">
             <span> {{ scope.row.bargain_price_min }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá hiện tại" min-width="60">
+        <el-table-column label="Giá hiện tại" min-width="60">
           <template slot-scope="scope">
             <span> {{ scope.row.now_price }}</span>
           </template>
@@ -92,21 +92,21 @@
             <span> {{ scope.row.num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian kết thúc" min-width="150">
+        <el-table-column label="Thời gian kết thúc" min-width="150">
           <template slot-scope="scope">
             <span> {{ scope.row.datatime }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="100">
+        <el-table-column label="Trạng thái" min-width="100">
           <template slot-scope="scope">
-            <el-tag size="medium" type="info" v-show="scope.row.status === 1">đang tiến hành</el-tag>
-            <el-tag size="medium" type="danger" v-show="scope.row.status === 2">thất bại</el-tag>
-            <el-tag size="medium" v-show="scope.row.status === 3">thành công</el-tag>
+            <el-tag size="medium" type="info" v-show="scope.row.status === 1">Đang tiến hành</el-tag>
+            <el-tag size="medium" type="danger" v-show="scope.row.status === 2">Thất bại</el-tag>
+            <el-tag size="medium" v-show="scope.row.status === 3">Thành công</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="100">
+        <el-table-column label="Thao tác" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="Info(scope.row)">kiểm tra chi tiết</a>
+            <a v-db-click @click="Info(scope.row)">Kiểm tra chi tiết</a>
           </template>
         </el-table-column>
       </el-table>
@@ -122,7 +122,7 @@
     </el-card>
 
     <!-- Hộp phương thức chi tiết-->
-    <el-dialog :visible.sync="modals" class="tableBox" title="kiểm tra chi tiết" :close-on-click-modal="false" width="720px">
+    <el-dialog :visible.sync="modals" class="tableBox" title="Kiểm tra chi tiết" :close-on-click-modal="false" width="720px">
       <el-table
         ref="selection"
         :data="tabList3"
@@ -132,7 +132,7 @@
         max-height="600"
         size="small"
       >
-        <el-table-column label="người dùngID" width="80">
+        <el-table-column label="ID người dùng" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>

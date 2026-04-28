@@ -20,7 +20,7 @@ Route::group('marketing', function () {
         //Danh sách phiếu giảm giá đã xuất bản
         Route::get('coupon/released', 'v1.marketing.StoreCouponIssue/index')->option(['real_name' => 'Danh sách phiếu giảm giá đã xuất bản']);
         //thêm phiếu giảm giá
-        Route::post('coupon/save_coupon', 'v1.marketing.StoreCouponIssue/saveCoupon')->option(['real_name' => 'thêm phiếu giảm giá']);
+        Route::post('coupon/save_coupon', 'v1.marketing.StoreCouponIssue/saveCoupon')->option(['real_name' => 'Tạo mã giảm giá']);
         //Sửa đổi trạng thái phiếu giảm giá
         Route::get('coupon/status/:id/:status', 'v1.marketing.StoreCouponIssue/status')->option(['real_name' => 'Sửa đổi trạng thái phiếu giảm giá']);
         //Sao chép phiếu giảm giá bằng một cú nhấp chuột
@@ -38,8 +38,8 @@ Route::group('marketing', function () {
         //Hồ sơ thu thập thành viên
         Route::get('coupon/user', 'v1.marketing.StoreCouponUser/index')->option(['real_name' => 'Hồ sơ thu thập thành viên']);
         //Gửi phiếu giảm giá
-        Route::post('coupon/user/grant', 'v1.marketing.StoreCouponUser/grant')->option(['real_name' => 'Gửi phiếu giảm giá']);
-    })->option(['parent' => 'marketing', 'cate_name' => 'Phiếu giảm giá']);
+        Route::post('coupon/user/grant', 'v1.marketing.StoreCouponUser/grant')->option(['real_name' => 'Tặng mã giảm giá']);
+    })->option(['parent' => 'marketing', 'cate_name' => 'Mã giảm giá']);
 
     /** Hoạt động mặc cả */
     Route::group(function () {
@@ -48,9 +48,9 @@ Route::group('marketing', function () {
         //Chi tiết mặc cả
         Route::get('bargain/:id', 'v1.marketing.StoreBargain/read')->option(['real_name' => 'Chi tiết sản phẩm khuyến mại']);
         //Lưu, thêm hoặc chỉnh sửa giá hời
-        Route::post('bargain/:id', 'v1.marketing.StoreBargain/save')->option(['real_name' => 'Thêm hoặc chỉnh sửa các mặt hàng giá hời']);
+        Route::post('bargain/:id', 'v1.marketing.StoreBargain/save')->option(['real_name' => 'Thêm hoặc chỉnh sửa các Sản phẩm trả giá']);
         //Xóa món hời
-        Route::delete('bargain/:id', 'v1.marketing.StoreBargain/delete')->option(['real_name' => 'Xóa các mặt hàng giá hời']);
+        Route::delete('bargain/:id', 'v1.marketing.StoreBargain/delete')->option(['real_name' => 'Xóa các Sản phẩm trả giá']);
         //Sửa đổi trạng thái thương lượng
         Route::put('bargain/set_status/:id/:status', 'v1.marketing.StoreBargain/set_status')->option(['real_name' => 'Sửa đổi trạng thái mặt hàng mặc cả']);
         //Danh sách mặc cả
@@ -172,11 +172,11 @@ Route::group('marketing', function () {
         //Nhận thông tin hậu cần cho đơn đặt hàng điểm
         Route::get('integral/order/express/:id', 'v1.marketing.integral.StoreIntegralOrder/get_express')->option(['real_name' => 'Nhận thông tin hậu cần cho đơn đặt hàng điểm']);
         //Thứ tự điểm in
-        Route::get('integral/order/print/:id', 'v1.marketing.integral.StoreIntegralOrder/order_print')->option(['real_name' => 'Thứ tự điểm in']);
+        Route::get('integral/order/print/:id', 'v1.marketing.integral.StoreIntegralOrder/order_print')->option(['real_name' => 'Đơn hàng điểm in']);
         //Nhận người giao hàng từ danh sách đặt hàng điểm
         Route::get('integral/order/delivery/list', 'v1.order.DeliveryService/get_delivery_list')->option(['real_name' => 'Nhận người giao hàng từ danh sách đặt hàng điểm']);
         //Thứ tự điểm lấy thông tin cấu hình mặc định của thứ tự khuôn mặt
-        Route::get('integral/order/sheet_info', 'v1.marketing.integral.StoreIntegralOrder/getDeliveryInfo')->option(['real_name' => 'Thứ tự điểm lấy thông tin cấu hình mặc định của thứ tự khuôn mặt']);
+        Route::get('integral/order/sheet_info', 'v1.marketing.integral.StoreIntegralOrder/getDeliveryInfo')->option(['real_name' => 'Đơn hàng điểm lấy thông tin cấu hình mặc định của thứ tự khuôn mặt']);
         //Kỷ lục điểm
         Route::get('point_record', 'v1.marketing.integral.StorePointRecord/pointRecord')->option(['real_name' => 'Danh sách ghi điểm']);
         Route::post('point_record/remark/:id', 'v1.marketing.integral.StorePointRecord/pointRecordRemark')->option(['real_name' => 'Ghi chú danh sách ghi điểm']);
@@ -225,7 +225,7 @@ Route::group('marketing', function () {
         Route::post('sign/save_rewards/:id', 'v1.marketing.SignRewards/saveRewards')->option(['real_name' => 'Lưu phần thưởng đăng nhập']);
         //Xóa phần thưởng đăng nhập
         Route::delete('sign/del_rewards/:id', 'v1.marketing.SignRewards/delRewards')->option(['real_name' => 'Xóa phần thưởng đăng nhập']);
-    })->option(['parent' => 'marketing', 'cate_name' => 'Nhận phòng hàng ngày']);
+    })->option(['parent' => 'marketing', 'cate_name' => 'Điểm danh nhận quà']);
 
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,

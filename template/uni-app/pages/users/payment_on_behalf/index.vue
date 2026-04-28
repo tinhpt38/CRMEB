@@ -107,7 +107,7 @@ export default {
 			resData: {},
 			payMode: [
 				{
-					name: this.$t(`WeChat trả tiền`),
+					name: this.$t(`Thanh toán WeChat`),
 					icon: 'icon-weixinzhifu',
 					value: 'weixin',
 					title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),

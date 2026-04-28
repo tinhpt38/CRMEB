@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modals" scrollable title="Hồ sơ đặt hàng" width="720px" class="order_box">
+  <el-dialog :visible.sync="modals" scrollable title="Lịch sử đơn hàng" width="720px" class="order_box">
     <el-card :bordered="false" shadow="never">
       <el-table :columns="columns" :data="recordData" v-loading="loading" empty-text="Chưa có dữ liệu" highlight-current-row>
         <el-table-column label="Đặt hàngID" width="100">

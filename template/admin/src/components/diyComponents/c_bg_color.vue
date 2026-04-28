@@ -9,7 +9,7 @@
           :key="key"
         >
           <el-color-picker v-model="color.item" @change="changeColor($event, color)"></el-color-picker
-          ><span class="white-space-nowrap" v-db-click @click="resetBgA(color, index, key)">cài lại</span>
+          ><span class="white-space-nowrap" v-db-click @click="resetBgA(color, index, key)">Đặt lại</span>
         </div>
       </el-col>
     </div>

@@ -452,7 +452,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -666,7 +666,7 @@ export default {
         // },
         menuConfig: {
           title: 'Bạn có thể thêm tối đa 1 ảnh, chiều rộng khuyến nghị90 * 90px',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           type: 1,
           listStyle: 0,
           maxList: 100,
@@ -788,7 +788,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

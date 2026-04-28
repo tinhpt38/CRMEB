@@ -49,7 +49,7 @@ export const getUnion = (arr1, arr2) => {
  * @description Xác định xem mảng được truy vấn có ít nhất một phần tử chứa trong mảng đích hay không
  */
 export const hasOneOf = (targetarr, arr) => {
-  return targetarr.some((_) => arr.indexOf(_) > -1);
+  return targetarr.some((_) => Arr.indexOf(_) > -1);
 };
 
 /**
@@ -138,7 +138,7 @@ export const getRelativeTime = (timeStamp) => {
   // Trên 59 phút 59 giây, nhỏ hơn hoặc bằng 23 giờ 59 phút 59 giây
   else if (diff > 3599 && diff <= 86399) resStr = Math.floor(diff / 3600) + 'Giờ' + dirStr;
   // Hơn 23 giờ, 59 phút và 59 giây, nhỏ hơn hoặc bằng 29 ngày, 59 phút và 59 giây
-  else if (diff > 86399 && diff <= 2623859) resStr = Math.floor(diff / 86400) + 'bầu trời' + dirStr;
+  else if (diff > 86399 && diff <= 2623859) resStr = Math.floor(diff / 86400) + 'ngày' + dirStr;
   // Hơn 29 ngày, 59 phút và 59 giây, ít hơn 364 ngày, 23 giờ, 59 phút và 59 giây và dấu thời gian đến sớm hơn dấu thời gian hiện tại
   else if (diff > 2623859 && diff <= 31567859 && IS_EARLY) resStr = getDate(timeStamp);
   else resStr = getDate(timeStamp, 'year');

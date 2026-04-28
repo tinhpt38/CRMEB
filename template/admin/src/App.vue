@@ -99,7 +99,7 @@ export default {
 }
 </style>
 <style lang="scss">
-html,
+Html,
 body {
   width: 100%;
   height: 100%;

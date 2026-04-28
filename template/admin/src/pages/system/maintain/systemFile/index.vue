@@ -5,7 +5,7 @@
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-table ref="selection" :data="tabList" v-loading="loading" empty-text="Chưa có dữ liệu" highlight-current-row>
-        <el-table-column label="kiểu" width="100">
+        <el-table-column label="Kiểu" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
@@ -20,7 +20,7 @@
             <span>{{ scope.row.cthash }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="lần truy cập cuối cùng" min-width="130">
+        <el-table-column label="Lần truy cập cuối cùng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.atime }}</span>
           </template>
@@ -30,7 +30,7 @@
             <span>{{ scope.row.mtime }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian thay đổi lần cuối" min-width="130">
+        <el-table-column label="Thời gian thay đổi lần cuối" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.ctime }}</span>
           </template>

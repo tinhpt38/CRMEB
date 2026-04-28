@@ -2,7 +2,7 @@
   <div>
     <el-drawer
       :visible.sync="modal"
-      :title="formValidate.id ? 'Chỉnh sửa nhiệm vụ theo lịch trình' : 'Thêm một nhiệm vụ theo lịch trình'"
+      :title="FormValidate.id ? 'Chỉnh sửa nhiệm vụ theo lịch trình' : 'Thêm một nhiệm vụ theo lịch trình'"
       size="1000px"
       @closed="initData"
     >
@@ -14,7 +14,7 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="chu kỳ thực hiện：" required>
+        <el-form-item label="Chu kỳ thực hiện：" required>
           <el-row :gutter="14">
             <el-col :span="4">
               <el-select v-model="formValidate.type">
@@ -34,7 +34,7 @@
             <el-col v-if="[8].includes(formValidate.type)" :span="4">
               <div class="input-number-wrapper">
                 <el-input-number :controls="false" v-model="formValidate.month" :max="12" :min="1"></el-input-number>
-                <span class="suffix">mặt trăng</span>
+                <span class="suffix">Tháng</span>
               </div>
             </el-col>
             <el-col v-if="[4, 7, 8].includes(formValidate.type)" :span="4">
@@ -45,7 +45,7 @@
                   :max="formValidate.type === 4 ? 10000 : 31"
                   :min="1"
                 ></el-input-number>
-                <span class="suffix">ngày</span>
+                <span class="suffix">Ngày</span>
               </div>
             </el-col>
             <el-col v-if="[3, 4, 5, 6, 7, 8].includes(formValidate.type)" :span="4">
@@ -56,7 +56,7 @@
                   :max="23"
                   :min="0"
                 ></el-input-number>
-                <span class="suffix">giờ</span>
+                <span class="suffix">Giờ</span>
               </div>
             </el-col>
             <el-col v-if="[2, 3, 4, 5, 6, 7, 8].includes(formValidate.type)" :span="4">
@@ -67,7 +67,7 @@
                   :max="formValidate.type === 2 ? 36000 : 59"
                   :min="0"
                 ></el-input-number>
-                <span class="suffix">điểm</span>
+                <span class="suffix">Điểm</span>
               </div>
             </el-col>
             <el-col v-if="[1, 5, 6, 7].includes(formValidate.type)" :span="4">
@@ -105,7 +105,7 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="mật khẩu phát triển：" v-if="currentTab === '1'">
+        <el-form-item label="Mật khẩu phát triển：" v-if="currentTab === '1'">
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input
@@ -120,8 +120,8 @@
           <el-row :gutter="10">
             <el-col :span="12">
               <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.is_open" size="large">
-                <span slot="open">bật lên</span>
-                <span slot="close">đóng cửa</span>
+                <span slot="open">Bật lên</span>
+                <span slot="close">Đóng cửa</span>
               </el-switch>
             </el-col>
           </el-row>
@@ -129,7 +129,7 @@
       </el-form>
       <span class="dialog-footer">
         <el-button v-db-click @click="modal = false">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit">Nộp</el-button>
       </span>
     </el-drawer>
   </div>
@@ -238,7 +238,7 @@ export default {
             this.trip = `mỗi tháng${nVal.day}tiếng Nhật${nVal.hour}giờ${nVal.minute}điểm${nVal.second}Thực hiện một lần mỗi giây`;
             break;
           case 8:
-            this.trip = `mỗi năm${nVal.month}mặt trăng${nVal.day}tiếng Nhật${nVal.hour}giờ${nVal.minute}điểm${nVal.second}Thực hiện một lần mỗi giây`;
+            this.trip = `mỗi năm${nVal.month}tháng${nVal.day}tiếng Nhật${nVal.hour}giờ${nVal.minute}điểm${nVal.second}Thực hiện một lần mỗi giây`;
             break;
         }
       },
@@ -319,7 +319,7 @@ export default {
       } else {
         this.modal = true;
         this.initEditor(
-          "<?php\n\n//Mã mẫu\n\n//Viết trực tiếp vào cơ sở dữ liệu\n\\think\\facade\\Db::name('cache')->insert(['key' => 'custom_timer_' . rand(), 'result' => rand(), 'expire_time' => 0]);\n\n//Phương thức hệ thống gọi\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_timer_' . rand(), rand());",
+          "<?php\n\n//Mã mẫu\n\n//Viết trực tiếp vào cơ sở dữ liệu\n\\think\\facade\\Db::name('cache')->Insert(['key' => 'custom_timer_' . rand(), 'result' => rand(), 'expire_time' => 0]);\n\n//Phương thức hệ thống gọi\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_timer_' . rand(), rand());",
         );
       }
     },

@@ -89,7 +89,7 @@
             </div>
           </div>
           <div class="info">
-            <div class="title line1" v-if="checkboxInfo.indexOf(0) != -1">tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp</div>
+            <div class="title line1" v-if="checkboxInfo.indexOf(0) != -1">Tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp</div>
             <div class="people" v-if="checkboxInfo.indexOf(1) != -1">
               <img src="@/assets/images/ren.png" alt="" />
               <span>Người dẫn chương trình: Wang Xiaoya</span>
@@ -124,7 +124,7 @@
           </div>
           <div class="info">
             <div class="left">
-              <div class="title line2" v-if="checkboxInfo.indexOf(0) != -1">tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp</div>
+              <div class="title line2" v-if="checkboxInfo.indexOf(0) != -1">Tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp tiêu đề trực tiếp</div>
             </div>
             <div class="goods-wrapper">
               <template v-if="item.goods.length > 0">
@@ -301,7 +301,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -367,7 +367,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

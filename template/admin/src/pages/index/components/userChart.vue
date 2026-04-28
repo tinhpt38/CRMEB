@@ -9,7 +9,7 @@
               size="small"
               style="color: var(--prev-color-primary); background-color: #e6f7ff"
             ></el-avatar>
-            <h4 class="ivu-pl-8">người dùng</h4>
+            <h4 class="ivu-pl-8">Người dùng</h4>
           </div>
           <echarts-from
             ref="userChart"

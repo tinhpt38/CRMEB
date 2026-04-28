@@ -201,7 +201,7 @@
           <checkbox-group @change="checkboxAllChange">
             <checkbox value="all" :checked="!!isAllSelect" />
             <text class="checkAll"
-              >{{ $t(`Chọn tất cả`) }}({{ selectValue.length }})</text
+              >{{ $t(`Chọn Tất cả`) }}({{ selectValue.length }})</text
             >
           </checkbox-group>
         </view>
@@ -209,7 +209,7 @@
           <text class="font-color">{{ $t(`￥`) }}{{ selectCountPrice }}</text>
           <form @submit="subOrder">
             <button class="placeOrder bg-color" formType="submit">
-              {{ $t(`Đặt hàng ngay bây giờ`) }}
+              {{ $t(`Đặt hàng ngay`) }}
             </button>
           </form>
         </view>
@@ -219,7 +219,7 @@
           </form>
           <form @submit="subDel">
             <button class="bnt cart-color" formType="submit">
-              {{ $t(`xóa bỏ`) }}
+              {{ $t(`Xóa`) }}
             </button>
           </form>
         </view>

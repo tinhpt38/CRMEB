@@ -25,7 +25,7 @@
         <!--<el-col :span="24">-->
         <!--<el-form-item label=""  label-for="">-->
         <!--<el-radio-group v-model="artFrom.type">-->
-        <!--<el-radio label="taobao">taobao</el-radio>-->
+        <!--<el-radio label="taobao">Taobao</el-radio>-->
         <!--<el-radio label="tmall">Tmall</el-radio>-->
         <!--<el-radio label="jd">Kinh Đông</el-radio>-->
         <!--<el-radio label="pdd">Pinduoduo</el-radio>-->
@@ -59,7 +59,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="Phân loại sản phẩm：" prop="cate_id">
+              <el-form-item label="Danh mục sản phẩm：" prop="cate_id">
                 <!-- <el-select v-model="formValidate.cate_id" multiple>
                   <el-option v-for="item in treeSelect" :disabled="item.pid === 0" :value="item.id" :key="item.id">{{
                     item.html + item.cate_name
@@ -81,12 +81,12 @@
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="đơn vị：" prop="unit_name" label-for="unit_name">
-                <el-input v-model="formValidate.unit_name" placeholder="Vui lòng nhập đơn vị" />
+              <el-form-item label="Đơn vị：" prop="unit_name" label-for="unit_name">
+                <el-input v-model="formValidate.unit_name" placeholder="Vui lòng nhập Đơn vị" />
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="bán hàng ảo：" label-for="ficti">
+              <el-form-item label="Bán hàng ảo：" label-for="ficti">
                 <el-input-number
                   :controls="false"
                   class="perW100"
@@ -96,7 +96,7 @@
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="tích phân：" label-for="give_integral">
+              <el-form-item label="Điểm thưởng：" label-for="give_integral">
                 <el-input-number
                   :controls="false"
                   class="perW100"
@@ -106,7 +106,7 @@
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="Mẫu vận chuyển hàng hóa：" prop="temp_id">
+              <el-form-item label="Mẫu vận chuyển sản phẩm：" prop="temp_id">
                 <el-select v-model="formValidate.temp_id" clearable>
                   <el-option
                     v-for="(item, index) in templateList"
@@ -132,7 +132,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="Băng chuyền sản phẩm：">
+              <el-form-item label="Ảnh slider sản phẩm：">
                 <div class="acea-row" v-viewer>
                   <div
                     class="lunBox mr15"
@@ -159,7 +159,7 @@
                   <el-form-item>
                     <el-table :data="oneFormBatch" border>
                       <el-table-column
-                        :label="item.title"
+                        :label="Item.title"
                         :min-width="item.minWidth"
                         v-for="(item, index) in columns"
                         :key="index"
@@ -234,9 +234,9 @@
                           </template>
                         </template>
                       </el-table-column>
-                      <el-table-column label="vận hành" fixed="right" width="170">
+                      <el-table-column label="Thao tác" fixed="right" width="170">
                         <template slot-scope="">
-                          <a v-db-click @click="batchAdd">Thêm vào</a>
+                          <a v-db-click @click="batchAdd">Thêm mới</a>
                           <el-divider direction="vertical"></el-divider>
                           <a v-db-click @click="batchDel">Thông thoáng</a>
                         </template>
@@ -247,13 +247,13 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="Thông số sản phẩm：" props="spec_type" label-for="spec_type">
+              <el-form-item label="Thuộc tính sản phẩm：" props="spec_type" label-for="spec_type">
                 <!-- Bảng thông số kỹ thuật đơn-->
                 <el-col :xl="23" :lg="24" :md="24" :sm="24" :xs="24">
                   <el-form-item>
                     <el-table :data="items" border>
                       <el-table-column
-                        :label="item.title"
+                        :label="Item.title"
                         :min-width="item.minWidth"
                         v-for="(item, index) in columns"
                         :key="index"
@@ -327,9 +327,9 @@
                           </template>
                         </template>
                       </el-table-column>
-                      <el-table-column label="vận hành" fixed="right" width="170">
+                      <el-table-column label="Thao tác" fixed="right" width="170">
                         <template slot-scope="scope">
-                          <a v-db-click @click="delAttrTable(scope.$index)">xóa bỏ</a>
+                          <a v-db-click @click="delAttrTable(scope.$index)">Xóa</a>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -354,7 +354,7 @@
                   class="submission"
                   v-db-click
                   @click="handleSubmit('formValidate')"
-                  >nộp</el-button
+                  >Nộp</el-button
                 >
               </el-form-item>
             </el-col>
@@ -428,7 +428,7 @@ export default {
           minWidth: 95,
         },
         {
-          title: 'trong kho',
+          title: 'Trong kho',
           slot: 'stock',
           align: 'center',
           minWidth: 95,
@@ -452,7 +452,7 @@ export default {
           minWidth: 95,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           align: 'center',
           minWidth: 140,
@@ -493,7 +493,7 @@ export default {
         temp_id: [
           {
             required: true,
-            message: 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+            message: 'Vui lòng chọn mẫu vận chuyển sản phẩm',
             trigger: 'change',
             type: 'number',
           },

@@ -253,7 +253,7 @@ class AgentLevelTaskServices extends BaseServices
         $levelServices = app()->make(AgentLevelServices::class);
         $levelInfo = $levelServices->getLevelInfo($level_id);
         if (!$levelInfo) {
-            throw new ApiException('Cấp độ phân phối không tồn tại');
+            throw new ApiException('Cấp bậc Affiliate không tồn tại');
         }
         $taskList = $this->dao->getTaskList(['level_id' => $level_id, 'is_del' => 0, 'status' => 1]);
         if ($taskList) {

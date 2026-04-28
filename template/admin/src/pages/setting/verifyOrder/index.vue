@@ -28,7 +28,7 @@
               clearable
             >
               <el-select v-model="field_key" slot="prepend" style="width: 100px">
-                <el-option value="all" label="tất cả"></el-option>
+                <el-option value="all" label="Tất cả"></el-option>
                 <el-option value="order_id" label="Số đơn hàng"></el-option>
                 <el-option value="uid" label="UID"></el-option>
                 <el-option value="real_name" label="Tên người dùng"></el-option>
@@ -49,9 +49,9 @@
             </el-select>
           </el-form-item>
           <el-form-item label="">
-            <el-button type="primary" v-db-click @click="userSearchs">tìm kiếm</el-button>
-            <el-button v-db-click @click="exports">Xuất khẩu</el-button>
-            <!-- <el-button class="mr15" v-db-click @click="refresh">làm cho khỏe lại</el-button> -->
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
+            <el-button v-db-click @click="exports">Xuất file</el-button>
+            <!-- <el-button class="mr15" v-db-click @click="refresh">Làm cho khỏe lại</el-button> -->
           </el-form-item>
         </el-form>
       </div>
@@ -98,7 +98,7 @@
                     }}</span>
                   </div>
                   <div>
-                    <span>giá：</span>
+                    <span>Giá：</span>
                     <span>¥{{ item.cart_info.truePrice || '--' }}</span>
                   </div>
                   <div>
@@ -111,17 +111,17 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="thanh toán thực tế" min-width="90">
+        <el-table-column label="Thanh toán thực tế" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="người bảo lãnh" min-width="90">
+        <el-table-column label="Người bảo lãnh" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.clerk_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Cửa hàng xóa sổ" min-width="120">
+        <el-table-column label="Cửa hàng xác nhận" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.store_name }}</span>
           </template>
@@ -136,7 +136,7 @@
             <span> {{ scope.row.status_name.status_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian đặt hàng" min-width="150">
+        <el-table-column label="Thời gian đặt hàng" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -260,7 +260,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img {
+Img {
   height: 36px;
   display: block;
 }

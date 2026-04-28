@@ -40,7 +40,7 @@
 			<view>
 				<checkbox-group @change="checkboxAllChange">
 					<checkbox value="all" :checked="!!isAllSelect" />
-					<text class='checkAll'>{{$t(`Chọn tất cả`)}}({{ids.length}})</text>
+					<text class='checkAll'>{{$t(`Chọn Tất cả`)}}({{ids.length}})</text>
 				</checkbox-group>
 			</view>
 			<view class='button acea-row row-middle'>

@@ -136,7 +136,7 @@ class SystemConfigTabServices extends BaseServices
         ]);
         [$menusList, $data2] = app()->make(SystemMenusServices::class)->getFormCascaderMenus((int)($formData['menus_id'] ?? 0));
         $form[] = Form::cascader('menus_id', 'trình đơn ngữ cảnh', $data2)->options($menusList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width'=>'100%']);
-        $form[] = Form::radio('status', 'tình trạng', $formData['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 2, 'label' => 'trốn']]);
+        $form[] = Form::radio('status', 'Trạng thái', $formData['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 2, 'label' => 'trốn']]);
         $form[] = Form::number('sort', 'loại', (int)($formData['sort'] ?? 0))->precision(0)->controls(false);
         return $form;
     }

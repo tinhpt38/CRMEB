@@ -17,7 +17,7 @@
 
     <el-dialog
       :visible.sync="modals"
-      :title="titles"
+      :title="Titles"
       class="paymentFooter"
       :class="type ? '' : 'middleTop'"
       width="900px"
@@ -81,13 +81,13 @@ export default {
             this.titles = 'Danh sách danh mục';
             break;
           case 8:
-            this.titles = 'Danh sách mặc cả';
+            this.titles = 'Lịch sử trả giá';
             break;
           case 2:
-            this.titles = 'danh sách bán chớp nhoáng';
+            this.titles = 'Sản phẩm Flash Sale';
             break;
           case 3:
-            this.titles = 'Danh sách nhóm nhóm';
+            this.titles = 'Đơn hàng mua chung';
             break;
           default:
         }

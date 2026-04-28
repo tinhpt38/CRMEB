@@ -256,10 +256,10 @@ class LuckLotteryRecordServices extends BaseServices
                     break;
                 case 6:
                     if (!$receive_info['name'] || !$receive_info['phone'] || !$receive_info['address']) {
-                        throw new ApiException('Vui lòng nhập thông tin người nhận hàng');
+                        throw new ApiException('Vui lòng nhập thông tin Người nhận hàng');
                     }
                     if (!check_phone($receive_info['phone'])) {
-                        throw new ApiException('Vui lòng nhập đúng số điện thoại người nhận hàng');
+                        throw new ApiException('Vui lòng nhập đúng số điện thoại Người nhận hàng');
                     }
                     break;
             }

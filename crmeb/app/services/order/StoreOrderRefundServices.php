@@ -1168,7 +1168,7 @@ class StoreOrderRefundServices extends BaseServices
         $data['count'] = $count;
         $del_where = ['is_cancel' => 0];
         $data['num'] = [
-            0 => ['name' => 'tất cả', 'num' => $this->dao->count($del_where)],
+            0 => ['name' => 'Tất cả', 'num' => $this->dao->count($del_where)],
             1 => ['name' => 'Chỉ hoàn tiền', 'num' => $this->dao->count($del_where + ['refund_type' => 1])],
             2 => ['name' => 'Trả lại và hoàn tiền', 'num' => $this->dao->count($del_where + ['refund_type' => 2])],
             3 => ['name' => 'Từ chối hoàn tiền', 'num' => $this->dao->count($del_where + ['refund_type' => 3])],
@@ -1251,7 +1251,7 @@ class StoreOrderRefundServices extends BaseServices
 
         switch ($orderInfo['pay_type']) {
             case PayServices::WEIXIN_PAY:
-                $pay_type_name = 'WeChat trả tiền';
+                $pay_type_name = 'Thanh toán WeChat';
                 break;
             case PayServices::YUE_PAY:
                 $pay_type_name = 'thanh toán số dư';

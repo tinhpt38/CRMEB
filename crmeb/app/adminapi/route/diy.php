@@ -22,7 +22,7 @@ Route::group('diy', function () {
     Route::delete('del/:id', 'v1.diy.Diy/del')->option(['real_name' => 'Xóa mẫu DIY']);
     Route::put('set_status/:id', 'v1.diy.Diy/setStatus')->option(['real_name' => 'Sử dụng các mẫu DIY']);
     Route::get('create', 'v1.diy.Diy/create')->option(['real_name' => 'Thêm biểu mẫu']);
-    Route::post('create', 'v1.diy.Diy/save')->option(['real_name' => 'Thêm vàoDIY']);
+    Route::post('create', 'v1.diy.Diy/save')->option(['real_name' => 'Thêm mớiDIY']);
     Route::post('save/[:id]', 'v1.diy.Diy/saveData')->option(['real_name' => 'Thêm mẫu DIY']);
     Route::post('diy_save/[:id]', 'v1.diy.Diy/saveDiyData')->option(['real_name' => 'Thêm mẫu DIY']);
     Route::get('get_url', 'v1.diy.Diy/getUrl')->option(['real_name' => 'Lấy đường dẫn trang front-end']);
@@ -30,7 +30,7 @@ Route::group('diy', function () {
     Route::get('get_product', 'v1.diy.Diy/getProduct')->option(['real_name' => 'Nhận danh sách sản phẩm']);
     Route::get('get_store_status', 'v1.diy.Diy/getStoreStatus')->option(['real_name' => 'Nhận trạng thái mở cửa hàng lấy hàng']);
     Route::get('recovery/:id', 'v1.diy.Diy/Recovery')->option(['real_name' => 'Khôi phục dữ liệu mặc định DIY']);
-    Route::get('get_by_category', 'v1.diy.Diy/getByCategory')->option(['real_name' => 'Nhận tất cả các danh mục phụ']);
+    Route::get('get_by_category', 'v1.diy.Diy/getByCategory')->option(['real_name' => 'Nhận Tất cả các danh mục phụ']);
     Route::get('set_recovery/:id', 'v1.diy.Diy/setRecovery')->option(['real_name' => 'Đặt dữ liệu mặc định DIY']);
     Route::get('get_product_list', 'v1.diy.Diy/getProductList')->option(['real_name' => 'Nhận danh sách sản phẩm']);
     Route::get('get_color_change/:type', 'v1.diy.Diy/getColorChange')->option(['real_name' => 'Nhận cài đặt kiểu']);
@@ -88,8 +88,8 @@ Route::group('theme', function () {
     Route::post('save_title/:id', 'v1.diy.Theme/saveThemeTitle')->option(['real_name' => 'Lưu tên chủ đề và giới thiệu']);
     Route::post('save_image/:id', 'v1.diy.Theme/saveThemeImage')->option(['real_name' => 'Lưu hình ảnh của chủ đề']);
     Route::get('article', 'v1.diy.Theme/getThemeArticleList')->option(['real_name' => 'Thành phần tùy chỉnh-Bài viết']);
-    Route::get('coupon', 'v1.diy.Theme/getThemeCouponList')->option(['real_name' => 'Phiếu giảm giá thành phần tùy chỉnh']);
-    Route::get('product', 'v1.diy.Theme/getThemeProductList')->option(['real_name' => 'Thành phần-hàng hóa tùy chỉnh']);
+    Route::get('coupon', 'v1.diy.Theme/getThemeCouponList')->option(['real_name' => 'Mã giảm giá thành phần tùy chỉnh']);
+    Route::get('product', 'v1.diy.Theme/getThemeProductList')->option(['real_name' => 'Thành phần-sản phẩm tùy chỉnh']);
     Route::delete('del/:id', 'v1.diy.Theme/deleteTheme')->option(['real_name' => 'Xóa chủ đề']);
     Route::get('export/:id', 'v1.diy.Theme/exportTheme')->option(['real_name' => 'Xuất chủ đề']);
     Route::get('export_record/:record_id', 'v1.diy.Theme/getExportRecord')->option(['real_name' => 'Bản ghi xuất chủ đề truy vấn']);

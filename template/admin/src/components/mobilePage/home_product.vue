@@ -127,7 +127,7 @@
               </div>
               <img src="../../assets/images/goods02.png" />
             </div>
-            <div class="sales">đã bán{{ item.sales || 0 }}miếng</div>
+            <div class="sales">Đã bán{{ item.sales || 0 }}miếng</div>
           </div>
           <div
             class="jia"
@@ -551,7 +551,7 @@ export default {
           title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'Tất cả', icon: 'iconcaozuo-zhengti' },
             { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
           valName: 'Giá trị phi lê',

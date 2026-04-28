@@ -420,7 +420,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -494,7 +494,7 @@ export default {
           title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'Tất cả', icon: 'iconcaozuo-zhengti' },
             { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
           valName: 'Giá trị phi lê',

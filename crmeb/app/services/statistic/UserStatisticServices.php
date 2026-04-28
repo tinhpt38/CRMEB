@@ -347,13 +347,13 @@ class UserStatisticServices extends BaseServices
         }
         $data = $series = [];
         foreach ($xAxis as $item) {
-            $data['Thêm người dùng mới theo dõi'][] = $subscribe[$item] ?? 0;
-            $data['Thêm người dùng mới được bỏ chặn'][] = $unSubscribe[$item] ?? 0;
+            $data['Thêm khách hàng mới theo dõi'][] = $subscribe[$item] ?? 0;
+            $data['Thêm khách hàng mới được bỏ chặn'][] = $unSubscribe[$item] ?? 0;
             $data['Người dùng theo dõi tích lũy'][] = $cumulativeSubscribe[$item] ?? 0;
             $data['Tích lũy người dùng được bỏ chặn'][] = $cumulativeUnSubscribe[$item] ?? 0;
         }
-        foreach ($data['Thêm người dùng mới theo dõi'] as $keys => $items) {
-            $data['Người dùng được thêm ròng'][] = $data['Thêm người dùng mới theo dõi'][$keys] - $data['Thêm người dùng mới được bỏ chặn'][$keys];
+        foreach ($data['Thêm khách hàng mới theo dõi'] as $keys => $items) {
+            $data['Người dùng được thêm ròng'][] = $data['Thêm khách hàng mới theo dõi'][$keys] - $data['Thêm khách hàng mới được bỏ chặn'][$keys];
         }
         foreach ($data as $key => $item) {
             $series[] = ['name' => $key, 'value' => $item];
@@ -446,7 +446,7 @@ class UserStatisticServices extends BaseServices
         $data = $wechatUser->getSex($time, $channelType);
         $oneData = [
             ['value' => 0, 'name' => 'không rõ', 'name_key' => 0],
-            ['value' => 0, 'name' => 'nam giới', 'name_key' => 1],
+            ['value' => 0, 'name' => 'Nam', 'name_key' => 1],
             ['value' => 0, 'name' => 'nữ giới', 'name_key' => 2],
         ];
         foreach ($oneData as &$value) {

@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="label-list">
-            <span>Thẻ người dùng</span>
+            <span>Thẻ khách hàng</span>
             <div class="con">
               <div class="label-item" v-for="(item, index) in activeUserInfo.labelNames" :key="index">
                 {{ item }}
@@ -56,11 +56,11 @@
         </div>
         <div class="user-info">
           <div class="item">
-            <span>Cấp độ người dùng</span>
+            <span>Hạng khách hàng</span>
             {{ activeUserInfo.level_name }}
           </div>
           <div class="item">
-            <span>người giới thiệu</span>
+            <span>Người giới thiệu</span>
             {{ activeUserInfo.spread_name }}
           </div>
           <div class="item">
@@ -68,10 +68,10 @@
             {{ activeUserInfo.user_type | typeFilters }}
           </div>
           <div class="item">
-            <span>Sự cân bằng</span>
+            <span>Số dư</span>
             {{ activeUserInfo.now_money }}
           </div>
-          <div class="item"><span>người quảng bá</span>{{ activeUserInfo.is_promoter ? 'Đúng' : 'KHÔNG' }}</div>
+          <div class="item"><span>Người quảng bá</span>{{ activeUserInfo.is_promoter ? 'Đúng' : 'KHÔNG' }}</div>
           <div class="item">
             <span>Sinh nhật</span>
             {{ activeUserInfo.birthday | getDay }}
@@ -144,9 +144,9 @@
                   <span>{{ isOrderHidden ? 'Mở rộng' : 'đóng' }}</span>
                 </div>
                 <div class="order-info">
-                  <div class="info-item"><span>số thứ tự：</span>{{ item.order_id }}</div>
+                  <div class="info-item"><span>Số thứ tự：</span>{{ item.order_id }}</div>
                   <div class="info-item">
-                    <span>{{ item.refund_status == 1 ? 'Thời gian ra mắt' : 'thời gian thanh toán' }}：</span
+                    <span>{{ item.refund_status == 1 ? 'Thời gian ra mắt' : 'Thời gian thanh toán' }}：</span
                     >{{ item.refund_status == 1 ? item.add_time : item._pay_time }}
                   </div>
                   <div class="info-item"><span>Bưu phí：</span>¥ {{ item.pay_postage }}</div>
@@ -159,7 +159,7 @@
                     v-if="item._status._type == 1 && item._status._type != 0 && item.shipping_type != 2"
                     v-db-click
                     @click.stop="openDelivery(item)"
-                    >vận chuyển</el-button
+                    >Vận chuyển</el-button
                   >
                   <el-button
                     class="btn"
@@ -232,12 +232,12 @@
               <div class="info">
                 <div class="name line1">{{ item.store_name }}</div>
                 <div class="sku">
-                  <span>trong kho：{{ item.stock }}</span>
+                  <span>Trong kho：{{ item.stock }}</span>
                   <span>Doanh số bán hàng：{{ item.sales }}</span>
                 </div>
                 <div class="price">
                   <span>¥{{ item.price }}</span>
-                  <div class="push" v-db-click @click.stop="pushGoods(item)">xô</div>
+                  <div class="push" v-db-click @click.stop="pushGoods(item)">Xô</div>
                 </div>
               </div>
             </div>
@@ -247,7 +247,7 @@
       </div>
     </template>
     <!-- Cửa sổ bật lên vận chuyển -->
-    <el-dialog :visible.sync="isDelivery" title="Đơn hàng đã được vận chuyển">
+    <el-dialog :visible.sync="isDelivery" title="Đã giao cho ĐVVC">
       <delivery
         v-if="isDelivery"
         :virtualType="virtual_type"
@@ -368,7 +368,7 @@ export default {
       menuList: [
         {
           key: '',
-          title: 'tất cả',
+          title: 'Tất cả',
         },
         {
           key: 0,

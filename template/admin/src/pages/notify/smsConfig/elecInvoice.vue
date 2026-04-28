@@ -17,8 +17,8 @@
             <el-col v-bind="grid">
               <el-form-item label="Tình trạng hóa đơn điện tử：" prop="name" label-for="name">
                 <el-radio-group v-model="formItem.elec_invoice">
-                  <el-radio :label="1">bật lên</el-radio>
-                  <el-radio :label="0">đóng cửa</el-radio>
+                  <el-radio :label="1">Bật lên</el-radio>
+                  <el-radio :label="0">Đóng cửa</el-radio>
                 </el-radio-group>
                 <div class="tips-info">Có bật hóa đơn điện tử hay không</div>
               </el-form-item>
@@ -30,8 +30,8 @@
                 <el-form-item label="Có tự động lập hóa đơn hay không：" prop="name" label-for="name">
                   <div>
                     <el-radio-group v-model="formItem.auto_invoice">
-                      <el-radio :label="1">bật lên</el-radio>
-                      <el-radio :label="0">đóng cửa</el-radio>
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="0">Đóng cửa</el-radio>
                     </el-radio-group>
                     <div class="tips-info">Có nên bật chức năng lập hóa đơn tự động hay không</div>
                   </div>
@@ -80,7 +80,7 @@
           <el-col :span="24">
             <el-col v-bind="grid">
               <el-form-item>
-                <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">cứu</el-button>
+                <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">Lưu</el-button>
               </el-form-item>
             </el-col>
           </el-col>

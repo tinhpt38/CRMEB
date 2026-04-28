@@ -37,7 +37,7 @@
 							<view class='attr line1' v-if="cartInfo.suk">{{cartInfo.suk}}
 							</view>
 							<view class='money font-color'>
-								{{cartInfo.price}} {{$t(`tích phân`)}}
+								{{cartInfo.price}} {{$t(`điểm thưởng`)}}
 							</view>
 						</view>
 					</view>
@@ -69,7 +69,7 @@
 			<view style='height:120rpx;'></view>
 			<view class='footer acea-row row-between-wrapper'>
 				<view>{{$t(`tổng cộng`)}}：
-					<text class='font-color'>{{resData.total_price || 0}}{{$t(`tích phân`)}}</text>
+					<text class='font-color'>{{resData.total_price || 0}}{{$t(`điểm thưởng`)}}</text>
 				</view>
 				<view class='settlement' style='z-index:100' @tap="goPay">{{$t(`Đổi ngay bây giờ`)}}</view>
 			</view>
@@ -134,7 +134,7 @@
 				textareaStatus: true,
 				//Phương thức thanh toán
 				cartArr: [{
-						"name": this.$t(`WeChat trả tiền`),
+						"name": this.$t(`Thanh toán WeChat`),
 						"icon": "icon-weixin2",
 						value: 'weixin',
 						title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),

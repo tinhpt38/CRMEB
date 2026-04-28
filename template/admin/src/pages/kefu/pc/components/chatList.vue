@@ -44,7 +44,7 @@
             <div class="bd line1">
               <template v-if="item.message_type <= 2">{{ item.message }}</template>
               <template v-if="item.message_type == 3">[hình ảnh]</template>
-              <template v-if="item.message_type == 5">[hàng hóa]</template>
+              <template v-if="item.message_type == 5">[sản phẩm]</template>
               <template v-if="item.message_type == 6">[Đặt hàng]</template>
             </div>
           </div>

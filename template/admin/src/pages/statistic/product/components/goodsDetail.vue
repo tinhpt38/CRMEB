@@ -19,9 +19,9 @@
             </div>
             <div class="name">{{ goodsInfo.productInfo.store_name }}</div>
             <div class="msg">
-              <div class="item">giá gốc:￥{{ goodsInfo.productInfo.ot_price }}</div>
+              <div class="item">Giá gốc:￥{{ goodsInfo.productInfo.ot_price }}</div>
               <div class="item">Doanh số bán hàng:{{ goodsInfo.productInfo.sales }}</div>
-              <div class="item">trong kho:{{ goodsInfo.productInfo.stock }}</div>
+              <div class="item">Trong kho:{{ goodsInfo.productInfo.stock }}</div>
             </div>
           </div>
           <div class="con-box">

@@ -26,9 +26,9 @@
 				<view class="text">
 					<view class="condition">
 						<view class="name line2">
-							<view class="line-title" :class="item.is_use >= item.receive_limit ? 'bg-color-huic' : ''" v-if="item.type === 0">{{ $t(`Phiếu giảm giá phổ quát`) }}</view>
-							<view class="line-title" :class="item.is_use >= item.receive_limit ? 'bg-color-huic' : ''" v-else-if="item.type === 1">{{ $t(`Phiếu giảm giá danh mục`) }}</view>
-							<view class="line-title" :class="item.is_use >= item.receive_limit ? 'bg-color-huic' : ''" v-else>{{ $t(`phiếu giảm giá hàng hóa`) }}</view>
+							<view class="line-title" :class="item.is_use >= item.receive_limit ? 'bg-color-huic' : ''" v-if="item.type === 0">{{ $t(`Mã giảm giá phổ quát`) }}</view>
+							<view class="line-title" :class="item.is_use >= item.receive_limit ? 'bg-color-huic' : ''" v-else-if="item.type === 1">{{ $t(`Mã giảm giá danh mục`) }}</view>
+							<view class="line-title" :class="item.is_use >= item.receive_limit ? 'bg-color-huic' : ''" v-else>{{ $t(`phiếu giảm giá sản phẩm`) }}</view>
 							<image v-if="item.receive_type === 4" class="pic" src="/static/images/fvip.png"></image>
 							<text class="title">{{ $t(item.title) }}</text>
 						</view>
@@ -97,17 +97,17 @@ export default {
 			navList: [
 				{
 					type: 0,
-					name: this.$t(`Phiếu giảm giá phổ quát`),
+					name: this.$t(`Mã giảm giá phổ quát`),
 					count: 0
 				},
 				{
 					type: 1,
-					name: this.$t(`Phiếu giảm giá danh mục`),
+					name: this.$t(`Mã giảm giá danh mục`),
 					count: 0
 				},
 				{
 					type: 2,
-					name: this.$t(`phiếu giảm giá hàng hóa`),
+					name: this.$t(`phiếu giảm giá sản phẩm`),
 					count: 0
 				}
 			],

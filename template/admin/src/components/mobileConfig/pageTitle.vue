@@ -24,7 +24,7 @@
       <el-col class="label" :span="4"> Cài đặt nền </el-col>
       <el-col :span="19" class="slider-box">
         <div class="acea-row row-between row-top color">
-          <el-checkbox v-model="bgColor" @change="bgColorTap">màu nền</el-checkbox>
+          <el-checkbox v-model="bgColor" @change="bgColorTap">Màu nền</el-checkbox>
           <el-color-picker v-model="colorPicker" @change="colorPickerTap" show-alpha />
         </div>
         <div class="acea-row row-between row-top color">

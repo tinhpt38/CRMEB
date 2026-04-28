@@ -22,7 +22,7 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'home_paid_vip',
-  cname: 'Thành viên trả phí',
+  cname: 'Gói thẻ VIP',
   configName: 'c_paid_vip',
   icon: '#iconzujian-fufeihuiyuan',
   type: 3, // 0 Thành phần cơ bản 1 Thành phần tiếp thị 2 Thành phần công cụ
@@ -155,7 +155,7 @@ export default {
       componentBgConfig: null,
       // Nghiêm cấm sửa đổi dữ liệu khởi tạo mặc định
       defaultConfig: {
-        cname: 'Thành viên trả phí',
+        cname: 'Gói thẻ VIP',
         name: 'home_paid_vip',
         timestamp: this.num,
         setUp: {
@@ -329,7 +329,7 @@ export default {
           title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'Tất cả', icon: 'iconcaozuo-zhengti' },
             { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
           valName: 'Giá trị phi lê',

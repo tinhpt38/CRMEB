@@ -84,7 +84,7 @@ class SystemGroupServices extends BaseServices
             $header[$key]['title'] = $item['name'];
         }
         array_unshift($header, ['key' => 'id', 'title' => 'số seri', 'minWidth' => 60]);
-        array_push($header, ['slot' => 'status', 'title' => 'Nó có sẵn không', 'minWidth' => 80], ['key' => 'sort', 'title' => 'loại', 'minWidth' => 80], ['slot' => 'action', 'fixed' => 'right', 'title' => 'vận hành', 'minWidth' => 120]);
+        array_push($header, ['slot' => 'status', 'title' => 'Nó có sẵn không', 'minWidth' => 80], ['key' => 'sort', 'title' => 'loại', 'minWidth' => 80], ['slot' => 'action', 'fixed' => 'right', 'title' => 'Thao tác', 'minWidth' => 120]);
         return compact('header');
     }
 

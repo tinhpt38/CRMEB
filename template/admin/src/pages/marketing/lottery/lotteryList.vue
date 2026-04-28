@@ -24,15 +24,15 @@
             style="width: 250px"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="trạng thái hoạt động：">
+        <el-form-item label="Trạng thái hoạt động：">
           <el-select
             class="form_content_width"
             v-model="tableFrom.start"
             clearable
             @change="userSearchs"
-            placeholder="tất cả"
+            placeholder="Tất cả"
           >
-            <el-option label="tất cả" value="" />
+            <el-option label="Tất cả" value="" />
             <el-option label="Chưa bắt đầu" :value="0" />
             <el-option label="đang tiến hành" :value="1" />
             <el-option label="đã kết thúc" :value="2" />
@@ -44,9 +44,9 @@
             v-model="tableFrom.factor"
             clearable
             @change="userSearchs"
-            placeholder="tất cả"
+            placeholder="Tất cả"
           >
-            <el-option label="tất cả" value="" />
+            <el-option label="Tất cả" value="" />
             <el-option label="Trích xuất điểm" :value="1" />
             <el-option label="Thanh toán đơn hàng" :value="3" />
             <el-option label="Đánh giá đơn hàng" :value="4" />
@@ -58,10 +58,10 @@
             v-model="tableFrom.status"
             clearable
             @change="userSearchs"
-            placeholder="tất cả"
+            placeholder="Tất cả"
           >
-            <el-option label="tất cả" value="" />
-            <el-option label="bật lên" :value="1" />
+            <el-option label="Tất cả" value="" />
+            <el-option label="Hoạt động" :value="1" />
             <el-option label="đóng cửa" :value="2" />
           </el-select>
         </el-form-item>
@@ -75,7 +75,7 @@
             clearable
           />
         </el-form-item>
-        <el-button type="primary" v-db-click @click="userSearchs()">Truy vấn</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs()">Tìm kiếm</el-button>
       </el-form>
     </el-card>
     <el-card class="mt-20" :bordered="false" shadow="never">
@@ -116,7 +116,7 @@
             <span>{{ scope.row.records_wins_num }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="trạng thái hoạt động" min-width="100">
+        <el-table-column label="Trạng thái hoạt động" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.status_name }}</span>
           </template>
@@ -131,7 +131,7 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
@@ -139,22 +139,22 @@
         </el-table-column>
         <el-table-column label="Thời gian hoạt động" min-width="180">
           <template slot-scope="scope">
-            <p>bắt đầu：{{ scope.row.start_time }}</p>
+            <p>Bắt đầu：{{ scope.row.start_time }}</p>
             <p>Hoàn thành：{{ scope.row.end_time }}</p>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" min-width="180" fixed="right">
+        <el-table-column label="Thao tác" min-width="180" fixed="right">
           <template slot-scope="scope">
-            <a @click="edit(scope.row)">biên tập</a>
+            <a @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical" />
             <a @click="openPage(1, scope.row)">Kỷ lục xổ số</a>
             <el-divider direction="vertical" />
             <template>
-              <el-dropdown @command="(command) => changeMenu(scope.row, command, scope.$index)">
-                <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <el-dropdown @command="(command) => ChangeMenu(scope.row, command, scope.$index)">
+                <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
                   <!-- <el-dropdown-item command="1">Chặn người</el-dropdown-item>
-                    <el-dropdown-item command="2">danh sách đen</el-dropdown-item> -->
+                    <el-dropdown-item command="2">Danh sách đen</el-dropdown-item> -->
                   <el-dropdown-item command="3">
                     <span class="copy copy-data" :data-clipboard-text="copyLink(scope.row)">Sao chép liên kết</span>
                   </el-dropdown-item>
@@ -220,7 +220,7 @@ export default {
       fromList: {
         title: 'Chọn thời gian',
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'Hôm qua', val: 'yesterday' },
           { text: '7 ngày qua', val: 'lately7' },
@@ -230,13 +230,13 @@ export default {
         ],
       },
       typeList: [
-        { text: 'tất cả', val: '' },
+        { text: 'Tất cả', val: '' },
         { text: 'Không thắng', val: '1' },
-        { text: 'tích phân', val: '2' },
-        { text: 'Sự cân bằng', val: '3' },
+        { text: 'điểm thưởng', val: '2' },
+        { text: 'Số dư', val: '3' },
         { text: 'phong bì màu đỏ', val: '4' },
-        { text: 'Phiếu giảm giá', val: '5' },
-        { text: 'hàng hóa', val: '6' },
+        { text: 'Mã giảm giá', val: '5' },
+        { text: 'sản phẩm', val: '6' },
       ],
       blackList: [],
       loading2: false,

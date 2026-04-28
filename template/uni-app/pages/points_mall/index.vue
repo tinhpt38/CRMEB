@@ -31,7 +31,7 @@
 					<view class="info">
 						<view class="title line1">{{ item.title }}</view>
 						<view class="price-box">
-							{{ item.price }} {{$t(`tích phân`)}}
+							{{ item.price }} {{$t(`điểm thưởng`)}}
 						</view>
 						<view class="sales">{{item.sales}}{{$t(`Mọi người trao đổi`)}}</view>
 					</view>
@@ -140,7 +140,7 @@
 						url: "/pages/users/user_integral/index"
 					},
 					{
-						title: this.$t(`Nhận phòng hàng ngày`),
+						title: this.$t(`Điểm danh nhận quà`),
 						imgUrl: './static/sign-in.png',
 						url: '/pages/users/user_sgin/index'
 					}, {

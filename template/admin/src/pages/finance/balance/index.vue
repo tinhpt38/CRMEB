@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="thời gian đặt hàng：">
+          <el-form-item label="Thời gian đặt hàng：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -26,7 +26,7 @@
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="loại giao dịch：">
+          <el-form-item label="Loại giao dịch：">
             <el-select clearable v-model="formValidate.trading_type" @change="selChange" class="form_content_width">
               <el-option
                 :label="item"
@@ -51,7 +51,7 @@
             <span>{{ scope.row.relation }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giờ giao dịch" min-width="100">
+        <el-table-column label="Giờ giao dịch" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -62,12 +62,12 @@
             <div v-else class="f-price">- {{ scope.row.number }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="người dùng" min-width="100">
+        <el-table-column label="Người dùng" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại giao dịch" min-width="100">
+        <el-table-column label="Loại giao dịch" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.type_name }}</span>
           </template>
@@ -77,7 +77,7 @@
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="70">
+        <el-table-column label="Thao tác" fixed="right" width="70">
           <template slot-scope="scope">
             <a v-db-click @click="setMark(scope.row)">Nhận xét</a>
           </template>
@@ -134,7 +134,7 @@ export default {
       selectIndexTime: '',
       payment: [
         {
-          title: 'tất cả',
+          title: 'Tất cả',
           value: '',
         },
         {

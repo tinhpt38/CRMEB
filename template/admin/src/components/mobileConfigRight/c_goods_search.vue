@@ -4,7 +4,7 @@
     <el-checkbox-group v-model="configData.type" @change="checkboxChange">
       <div>
         <el-checkbox :label="1">
-          <span>Phân loại sản phẩm</span>
+          <span>Danh mục sản phẩm</span>
         </el-checkbox>
         <el-cascader
           :data="configData.list"

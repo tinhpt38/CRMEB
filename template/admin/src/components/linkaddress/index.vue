@@ -19,7 +19,7 @@
         </div>
         <div class="right_box" v-if="currenType == 'marketing_link' && coupon.length">
           <div>
-            <div class="cont">Phiếu giảm giá</div>
+            <div class="cont">Mã giảm giá</div>
             <div class="Box">
               <div class="cont_box" :class="currenId == item.id ? 'on' : ''" v-for="(item, index) in coupon"
                 :key="index" v-db-click @click="getUrl(item)">
@@ -29,7 +29,7 @@
           </div>
           <div>
             <div v-permission="'seckill'" v-if="basicsList.length">
-              <div class="cont">bán chớp nhoáng</div>
+              <div class="cont">Bán chớp nhoáng</div>
               <div class="Box">
                 <div class="cont_box" :class="currenId == item.id ? 'on' : ''" v-for="(item, index) in basicsList"
                   :key="index" v-db-click @click="getUrl(item)">
@@ -61,7 +61,7 @@
             </div>
           </div>
           <div v-if="integral.length">
-            <div class="cont">tích phân</div>
+            <div class="cont">Điểm thưởng</div>
             <div class="Box">
               <div class="cont_box" :class="currenId == item.id ? 'on' : ''" v-for="(item, index) in integral"
                 :key="index" v-db-click @click="getUrl(item)">
@@ -70,7 +70,7 @@
             </div>
           </div>
           <div v-if="luckDraw.length">
-            <div class="cont">xổ số</div>
+            <div class="cont">Xổ số</div>
             <div class="Box">
               <div class="cont_box" :class="currenId == item.id ? 'on' : ''" v-for="(item, index) in luckDraw"
                 :key="index" v-db-click @click="getUrl(item)">
@@ -149,7 +149,7 @@
                   @change.native="getTemplateRow(scope.row)">&nbsp;</el-radio>
               </template>
             </el-table-column>
-            <el-table-column :label="item.title" :width="item.width" :min-width="item.minWidth" v-for="(item, index) in currenType == 'special'
+            <el-table-column :label="Item.title" :width="item.width" :min-width="item.minWidth" v-for="(item, index) in currenType == 'special'
               ? columns
               : currenType == 'product_category'
                 ? columns7
@@ -212,10 +212,10 @@
         </div>
         <div class="right_box" v-if="currenType == 'custom'">
           <!--<div v-if="!tableList.length || customNum==2">-->
-          <!--<el-button type="primary" v-db-click @click="customList" v-if="tableList.length">danh sách tùy chỉnh</el-button>-->
+          <!--<el-button type="primary" v-db-click @click="customList" v-if="tableList.length">Danh sách tùy chỉnh</el-button>-->
           <div style="width: 340px; margin: 150px 100px 0 120px">
             <el-form ref="customdate" :model="customdate" :rules="ruleValidate" :label-width="100">
-              <!--<el-form-item label="tên liên kết：" prop="name">-->
+              <!--<el-form-item label="Tên liên kết：" prop="name">-->
               <!--<el-input v-model="customdate.name" placeholder="Trung tâm thành viên"></el-input>-->
               <!--</el-form-item>-->
               <!-- <el-form-item label="Đường nhảy：" prop="url">

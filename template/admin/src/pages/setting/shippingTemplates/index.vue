@@ -10,17 +10,17 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="tìm kiếm：" label-for="keyword">
+          <el-form-item label="Tìm kiếm：" label-for="keyword">
             <el-input clearable v-model="levelFrom.name" placeholder="Vui lòng nhập tên mẫu" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="freight">Thêm mẫu vận chuyển hàng hóa</el-button>
+      <el-button type="primary" v-db-click @click="freight">Thêm mẫu vận chuyển sản phẩm</el-button>
       <el-table
         :data="levelLists"
         ref="table"
@@ -50,7 +50,7 @@
             <span>{{ scope.row.appoint }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại" min-width="130">
+        <el-table-column label="Loại" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
@@ -60,11 +60,11 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="100">
+        <el-table-column label="Thao tác" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">Ôn lại</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical" v-if="scope.row.id !== 1" />
-            <a v-db-click @click="del(scope.row, 'Xóa mẫu', index)" v-if="scope.row.id !== 1">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa mẫu', index)" v-if="scope.row.id !== 1">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

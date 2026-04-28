@@ -181,8 +181,8 @@
                 <div class="data" @click="getmoren">Khôi phục mặc định</div> -->
                 <el-button class="data" @click="showTitle">Cài đặt trang</el-button>
                 <el-button class="data" @click="nameModal = true">Lưu mẫu dưới dạng</el-button>
-                <el-button class="data" @click="reast">cài lại</el-button>
-                <el-button v-if="!isMicroPage" class="data" @click="saveCover">lưu làm bìa</el-button>
+                <el-button class="data" @click="reast">Đặt lại</el-button>
+                <el-button v-if="!isMicroPage" class="data" @click="saveCover">Lưu làm bìa</el-button>
               </div>
             </div>
           </div>
@@ -717,7 +717,7 @@ export default {
     // Đối tượng vào mảng
     objToArr(data) {
       let obj = Object.keys(data);
-      let m = obj.map((key) => data[key]);
+      let m = obj.map((key) => Data[key]);
       return m;
     },
     log(evt) {
@@ -1288,8 +1288,8 @@ export default {
       const map = {
         user: 'người dùng',
         article: 'bài báo',
-        coupon: 'Phiếu giảm giá',
-        goods: 'hàng hóa',
+        coupon: 'Mã giảm giá',
+        goods: 'sản phẩm',
       };
       return map[val] || '';
     },

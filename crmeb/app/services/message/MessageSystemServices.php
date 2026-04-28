@@ -100,10 +100,10 @@ class MessageSystemServices extends BaseServices
                 $code = 'Hàng bạn mua đã được thanh toán thành công, số tiền thanh toán{:pay_price}nhân dân tệ, số đơn hàng{:order_id},cảm ơn bạn đã ghé thăm！';
                 break;
             case 'order_take':
-                $code = 'Kính gửi, đơn đặt hàng của bạn{:order_id},hàng hóa{:store_name}Biên nhận đã được xác nhận,cảm ơn bạn đã ghé thăm！';
+                $code = 'Kính gửi, đơn đặt hàng của bạn{:order_id},sản phẩm{:store_name}Biên nhận đã được xác nhận,cảm ơn bạn đã ghé thăm！';
                 break;
             case 'price_revision':
-                $code = 'đơn đặt hàng của bạn{:order_id}，Số tiền thanh toán thực tế đã được sửa đổi thành{:pay_price}';
+                $code = 'đơn đặt hàng của bạn{:order_id}，Số tiền Thanh toán thực tế đã được sửa đổi thành{:pay_price}';
                 break;
             case 'order_refund':
                 $code = 'đơn đặt hàng của bạn{:order_id}Đã đồng ý hoàn tiền,Số tiền hoàn lại{:refund_price}Nhân dân tệ。';

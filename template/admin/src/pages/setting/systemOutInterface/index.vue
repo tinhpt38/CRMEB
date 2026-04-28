@@ -42,7 +42,7 @@
                     <el-dropdown-menu>
                       <el-dropdown-item command="1" v-if="!slotProps.model.method">Giao diện mới</el-dropdown-item>
                       <el-dropdown-item command="2" v-if="!slotProps.model.method">Chỉnh sửa tên danh mục</el-dropdown-item>
-                      <el-dropdown-item command="3">xóa bỏ</el-dropdown-item>
+                      <el-dropdown-item command="3">Xóa</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -76,14 +76,14 @@
               {{ formValidate.name }}
             </div>
             <div>
-              <!-- <el-button type="primary" class="submission mr20" v-db-click @click="debugging()">gỡ lỗi</el-button> -->
+              <!-- <el-button type="primary" class="submission mr20" v-db-click @click="debugging()">Gỡ lỗi</el-button> -->
               <el-button
                 v-if="formValidate.id"
                 type="primary"
                 class="submission mr20"
                 v-db-click
                 @click="isEdit = !isEdit"
-                >{{ isEdit ? 'trở lại' : 'biên tập' }}</el-button
+                >{{ isEdit ? 'trở lại' : 'Chỉnh sửa' }}</el-button
               >
               <el-button
                 v-if="isEdit"
@@ -91,7 +91,7 @@
                 class="submission"
                 v-db-click
                 @click="handleSubmit('formValidate')"
-                >cứu</el-button
+                >Lưu</el-button
               >
             </div>
           </div>
@@ -172,13 +172,13 @@
                     :data="formValidate.request_params"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" width="300" title="tài sản" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" width="300" title="Tài sản" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="kiểu" width="200" :edit-render="{}">
+                    <vxe-column field="type" title="Kiểu" width="200" :edit-render="{}">
                       <template #default="{ row }">
                         <!-- <vxe-select v-if="isEdit" v-model="row.type" type="text" :optionGroups="typeList"></vxe-select> -->
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
@@ -207,13 +207,13 @@
                         <span v-else>{{ row.must == '1' ? 'Đúng' : 'KHÔNG' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="trip" title="minh họa" :edit-render="{}">
+                    <vxe-column field="trip" title="Minh họa" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="vận hành" width="200" v-if="isEdit">
+                    <vxe-column title="Thao tác" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -221,10 +221,10 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'xTable')"
-                          >chèn</vxe-button
+                          >Chèn</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')"
-                          >xóa bỏ</vxe-button
+                          >Xóa</vxe-button
                         >
                       </template>
                     </vxe-column>
@@ -248,13 +248,13 @@
                     :data="formValidate.return_params"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="attribute" title="tài sản" width="300" tree-node :edit-render="{}">
+                    <vxe-column field="attribute" title="Tài sản" width="300" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.attribute" type="text"></vxe-input>
                         <span v-else>{{ row.attribute || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="type" title="kiểu" width="200" :edit-render="{}">
+                    <vxe-column field="type" title="Kiểu" width="200" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-select v-if="isEdit" v-model="row.type" transfer>
                           <vxe-option
@@ -273,13 +273,13 @@
                     >{{ row.must }}
                   </template>
                 </vxe-column> -->
-                    <vxe-column field="trip" title="minh họa" :edit-render="{}">
+                    <vxe-column field="trip" title="Minh họa" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.trip" type="text"></vxe-input>
                         <span v-else>{{ row.trip || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="vận hành" width="200" v-if="isEdit">
+                    <vxe-column title="Thao tác" width="200" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button
                           type="text"
@@ -287,10 +287,10 @@
                           status="primary"
                           v-db-click
                           @click="insertRow(row, 'resTable')"
-                          >chèn</vxe-button
+                          >Chèn</vxe-button
                         >
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'resTable')"
-                          >xóa bỏ</vxe-button
+                          >Xóa</vxe-button
                         >
                       </template>
                     </vxe-column>
@@ -326,7 +326,7 @@
                   />
                   <span v-else class="text-area">{{ formValidate.return_example || '' }}</span>
                 </el-form-item>
-                <el-form-item label="mã lỗi：">
+                <el-form-item label="Mã lỗi：">
                   <vxe-table
                     resizable
                     show-overflow
@@ -340,7 +340,7 @@
                     :data="formValidate.error_code"
                   >
                     <!-- <vxe-column type="checkbox" width="60"></vxe-column> -->
-                    <vxe-column field="code" title="mã lỗi" tree-node :edit-render="{}">
+                    <vxe-column field="code" title="Mã lỗi" tree-node :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.code" type="text"></vxe-input>
                         <span v-else>{{ row.code || '' }}</span>
@@ -352,16 +352,16 @@
                         <span v-else>{{ row.value || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column field="solution" title="giải pháp" :edit-render="{}">
+                    <vxe-column field="solution" title="Giải pháp" :edit-render="{}">
                       <template #default="{ row }">
                         <vxe-input v-if="isEdit" v-model="row.solution" type="text"></vxe-input>
                         <span v-else>{{ row.solution || '' }}</span>
                       </template>
                     </vxe-column>
-                    <vxe-column title="vận hành" v-if="isEdit">
+                    <vxe-column title="Thao tác" v-if="isEdit">
                       <template #default="{ row }">
                         <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'codeTable')"
-                          >xóa bỏ</vxe-button
+                          >Xóa</vxe-button
                         >
                       </template>
                     </vxe-column>
@@ -375,7 +375,7 @@
             <!-- <el-row :gutter="24" >
               <el-col :span="24">
                 <el-form-item>
-                  <el-button type="primary" class="submission" v-db-click @click="handleSubmit('formValidate')">cứu</el-button>
+                  <el-button type="primary" class="submission" v-db-click @click="handleSubmit('formValidate')">Lưu</el-button>
                 </el-form-item>
               </el-col>
             </el-row> -->
@@ -405,7 +405,7 @@
         <el-button type="primary" v-db-click @click="asyncOK">Chắc chắn</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="debuggingModal" :title="formValidate.name" width="1000px">
+    <el-dialog :visible.sync="debuggingModal" :title="FormValidate.name" width="1000px">
       <debugging
         v-if="debuggingModal"
         :formValidate="formValidate"

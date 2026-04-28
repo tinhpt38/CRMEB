@@ -48,7 +48,7 @@ Route::group(function () {
     //Đổi mật khẩu số điện thoại di động
     Route::post('register/reset', 'v1.LoginController/reset')->name('registerReset')->option(['real_name' => 'Đổi mật khẩu số điện thoại di động']);
     // Ràng buộc số điện thoại di động(Ủy quyền im lặng Chưa có thông tin người dùng)
-    Route::post('binding', 'v1.LoginController/binding_phone')->name('bindingPhone')->option(['real_name' => 'Ràng buộc số điện thoại di động']);
+    Route::post('binding', 'v1.LoginController/binding_phone')->name('bindingPhone')->option(['real_name' => 'Liên kết số điện thoại di động']);
     // Thanh toán liên kết sao chép Alipay Không được dùng nữa
 //    Route::get('ali_pay', 'v1.order.StoreOrderController/aliPay')->name('aliPay');
     //Kiểm tra bản quyền
@@ -71,12 +71,12 @@ Route::group(function () {
     Route::get('admin/order/data', 'v1.admin.StoreOrderController/data')->name('adminOrderData')->option(['real_name' => 'Thống kê đặt hàng hàng tháng']);//Thống kê đặt hàng hàng tháng
     Route::get('admin/order/list', 'v1.admin.StoreOrderController/lst')->name('adminOrderList')->option(['real_name' => 'danh sách đặt hàng']);//danh sách đặt hàng
     Route::get('admin/refund_order/list', 'v1.admin.StoreOrderController/refundOrderList')->name('adminOrderRefundList')->option(['real_name' => 'Danh sách đơn hàng hoàn tiền']);//Danh sách đơn hàng hoàn tiền
-    Route::get('admin/order/detail/:orderId', 'v1.admin.StoreOrderController/detail')->name('adminOrderDetail')->option(['real_name' => 'Chi tiết đặt hàng']);//Chi tiết đặt hàng
+    Route::get('admin/order/detail/:orderId', 'v1.admin.StoreOrderController/detail')->name('adminOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng']);//Chi tiết đặt hàng
     Route::get('admin/refund_order/detail/:uni', 'v1.admin.StoreOrderController/refundOrderDetail')->name('RefundOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng hoàn tiền']);//Chi tiết đơn hàng hoàn tiền
     Route::get('admin/order/delivery/gain/:orderId', 'v1.admin.StoreOrderController/delivery_gain')->name('adminOrderDeliveryGain')->option(['real_name' => 'Giao hàngNhận thông tin đơn hàng']);//Giao hàngNhận thông tin đơn hàng
-    Route::post('admin/order/delivery/keep/:id', 'v1.admin.StoreOrderController/delivery_keep')->name('adminOrderDeliveryKeep')->option(['real_name' => 'Đơn hàng đã được vận chuyển']);//Đơn hàng đã được vận chuyển
+    Route::post('admin/order/delivery/keep/:id', 'v1.admin.StoreOrderController/delivery_keep')->name('adminOrderDeliveryKeep')->option(['real_name' => 'Đã giao cho ĐVVC']);//Đơn hàng đã được vận chuyển
     Route::post('admin/order/price', 'v1.admin.StoreOrderController/price')->name('adminOrderPrice')->option(['real_name' => 'Thay đổi giá đặt hàng']);//Thay đổi giá đặt hàng
-    Route::post('admin/order/remark', 'v1.admin.StoreOrderController/remark')->name('adminOrderRemark')->option(['real_name' => 'Ghi chú đặt hàng']);//Ghi chú đặt hàng
+    Route::post('admin/order/remark', 'v1.admin.StoreOrderController/remark')->name('adminOrderRemark')->option(['real_name' => 'Ghi chú đơn hàng']);//Ghi chú đặt hàng
     Route::post('admin/order/agreeExpress', 'v1.admin.StoreOrderController/agreeExpress')->name('adminOrderAgreeExpress')->option(['real_name' => 'Đơn hàng đồng ý trả lại']);//Đơn hàng đồng ý trả lại
     Route::post('admin/refund_order/remark', 'v1.admin.StoreOrderController/refundRemark')->name('refundRemark')->option(['real_name' => 'Ghi chú đơn hàng hoàn tiền']);//Ghi chú đơn hàng hoàn tiền
     Route::get('admin/order/time', 'v1.admin.StoreOrderController/time')->name('adminOrderTime')->option(['real_name' => 'Thống kê thời gian khối lượng giao dịch đặt hàng']);//Thống kê thời gian khối lượng giao dịch đặt hàng
@@ -170,7 +170,7 @@ Route::group(function () {
 
     Route::group(function () { //Bộ sưu tập lớp người dùng
         Route::get('collect/user', 'v1.user.UserCollectController/collect_user')->name('collectUser')->option(['real_name' => 'Danh sách sản phẩm yêu thích']);//Danh sách sản phẩm yêu thích
-        Route::post('collect/add', 'v1.user.UserCollectController/collect_add')->name('collectAdd')->option(['real_name' => 'Thêm vào mục yêu thích']);//Thêm vào mục yêu thích
+        Route::post('collect/add', 'v1.user.UserCollectController/collect_add')->name('collectAdd')->option(['real_name' => 'Thêm mới mục yêu thích']);//Thêm vào mục yêu thích
         Route::post('collect/del', 'v1.user.UserCollectController/collect_del')->name('collectDel')->option(['real_name' => 'Hủy yêu thích']);//Hủy yêu thích
         Route::post('collect/all', 'v1.user.UserCollectController/collect_all')->name('collectAll')->option(['real_name' => 'Thêm mục yêu thích theo đợt']);//Thêm mục yêu thích theo đợt
     })->option(['parent' => 'user', 'cate_name' => 'Người dùng yêu thích']);
@@ -198,12 +198,12 @@ Route::group(function () {
         Route::post('coupon/receive/batch', 'v1.store.StoreCouponsController/receive_batch')->name('couponReceiveBatch')->option(['real_name' => 'Nhận phiếu giảm giá theo đợt']); //Nhận phiếu giảm giá theo đợt
         Route::get('coupons/user/:types', 'v1.store.StoreCouponsController/user')->name('couponsUser')->option(['real_name' => 'Người dùng đã nhận được phiếu giảm giá']);//Người dùng đã nhận được phiếu giảm giá
         Route::get('coupons/order/:price', 'v1.store.StoreCouponsController/order')->name('couponsOrder')->option(['real_name' => 'Danh sách đặt hàng phiếu giảm giá']);//Danh sách đặt hàng phiếu giảm giá
-    })->option(['mark' => 'coupons', 'mark_name' => 'Phiếu giảm giá']);
+    })->option(['mark' => 'coupons', 'mark_name' => 'Mã giảm giá']);
 
     Route::group(function () {
         //Danh mục giỏ hàng
         Route::get('cart/list', 'v1.store.StoreCartController/lst')->name('cartList')->option(['real_name' => 'Danh sách giỏ hàng']); //Danh sách giỏ hàng
-        Route::post('cart/add', 'v1.store.StoreCartController/add')->name('cartAdd')->option(['real_name' => 'Thêm vào giỏ hàng']); //Thêm vào giỏ hàng
+        Route::post('cart/add', 'v1.store.StoreCartController/add')->name('cartAdd')->option(['real_name' => 'Thêm mới giỏ hàng']); //Thêm vào giỏ hàng
         Route::post('cart/del', 'v1.store.StoreCartController/del')->name('cartDel')->option(['real_name' => 'Xóa giỏ hàng']); //Xóa giỏ hàng
         Route::post('order/cancel', 'v1.order.StoreOrderController/cancel')->name('orderCancel')->option(['real_name' => 'Hủy đơn hàng']); //Hủy đơn hàng
         Route::post('cart/num', 'v1.store.StoreCartController/num')->name('cartNum')->option(['real_name' => 'Chỉnh sửa số lượng sản phẩm trong giỏ hàng']); //Giỏ hàng Sửa đổi số lượng sản phẩm
@@ -218,7 +218,7 @@ Route::group(function () {
         Route::post('order/create/:key', 'v1.order.StoreOrderController/create')->name('orderCreate')->middleware(BlockerMiddleware::class)->option(['real_name' => 'Tạo đơn hàng']); //Tạo đơn hàng
         Route::get('order/data', 'v1.order.StoreOrderController/data')->name('orderData')->option(['real_name' => 'Thống kê đơn hàng']); //Thống kê đơn hàng
         Route::get('order/list', 'v1.order.StoreOrderController/lst')->name('orderList')->option(['real_name' => 'danh sách đặt hàng']); //danh sách đặt hàng
-        Route::get('order/detail/:uni/[:cartId]', 'v1.order.StoreOrderController/detail')->name('orderDetail')->option(['real_name' => 'Chi tiết đặt hàng']); //Chi tiết đặt hàng
+        Route::get('order/detail/:uni/[:cartId]', 'v1.order.StoreOrderController/detail')->name('orderDetail')->option(['real_name' => 'Chi tiết đơn hàng']); //Chi tiết đặt hàng
         Route::get('order/refund_detail/:uni/[:cartId]', 'v1.order.StoreOrderController/refund_detail')->name('refundDetail')->option(['real_name' => 'Chi tiết đơn hàng hoàn tiền']); //Chi tiết đơn hàng hoàn tiền
         Route::get('order/refund/reason', 'v1.order.StoreOrderController/refund_reason')->name('orderRefundReason')->middleware(BlockerMiddleware::class)->option(['real_name' => 'Lý do hoàn tiền đơn hàng']); //Lý do hoàn tiền đơn hàng
         Route::post('order/refund/verify', 'v1.order.StoreOrderController/refund_verify')->name('orderRefundVerify')->middleware(BlockerMiddleware::class)->option(['real_name' => 'Đánh giá hoàn tiền đơn hàng']); //Đánh giá hoàn tiền đơn hàng
@@ -247,7 +247,7 @@ Route::group(function () {
         Route::post('bargain/help/count', 'v1.activity.StoreBargainController/help_count')->name('bargainHelpCount')->option(['real_name' => 'Thống kê trợ giúp thương lượng']);//Mặc cả: Mặc cả tổng số người, số lượng còn lại, thanh tiến trình và mức giá đã giảm.
         Route::post('bargain/help/list', 'v1.activity.StoreBargainController/help_list')->name('bargainHelpList')->option(['real_name' => 'Thương lượng Trợ giúp thương lượng']);//Thương lượng Trợ giúp thương lượng
         Route::post('bargain/poster', 'v1.activity.StoreBargainController/poster')->name('bargainPoster')->option(['real_name' => 'áp phích mặc cả']);//áp phích mặc cả
-        Route::get('bargain/user/list', 'v1.activity.StoreBargainController/user_list')->name('bargainUserList')->option(['real_name' => 'Danh sách mặc cả']);//Danh sách mặc cả(Đã tham gia)
+        Route::get('bargain/user/list', 'v1.activity.StoreBargainController/user_list')->name('bargainUserList')->option(['real_name' => 'Lịch sử trả giá']);//Danh sách mặc cả(Đã tham gia)
         Route::post('bargain/user/cancel', 'v1.activity.StoreBargainController/user_cancel')->name('bargainUserCancel')->option(['real_name' => 'Giảm giá Hủy bỏ']);//Giảm giá Hủy bỏ
         Route::get('bargain/poster_info/:bargainId', 'v1.activity.StoreBargainController/posterInfo')->name('posterInfo')->option(['real_name' => 'Chi tiết áp phích giảm giá']);//Chi tiết áp phích giảm giá
     })->option(['parent' => 'activity_nologin', 'cate_name' => 'Mặc cả']);
@@ -265,7 +265,7 @@ Route::group(function () {
     Route::group(function () {
         //Loại hóa đơn
         Route::post('spread/people', 'v1.user.UserController/spread_people')->name('spreadPeople')->option(['real_name' => 'Người dùng được đề xuất']);//Người dùng được đề xuất
-        Route::post('spread/order', 'v1.user.UserBillController/spread_order')->name('spreadOrder')->option(['real_name' => 'Đơn hàng khuyến mãi']);//Đơn hàng khuyến mãi
+        Route::post('spread/order', 'v1.user.UserBillController/spread_order')->name('spreadOrder')->option(['real_name' => 'Đơn hàng Affiliate']);//Đơn hàng khuyến mãi
         Route::get('spread/commission/:type', 'v1.user.UserBillController/spread_commission')->name('spreadCommission')->option(['real_name' => 'Chi tiết hoa hồng khuyến mãi']);//Chi tiết hoa hồng khuyến mãi
         Route::get('spread/count/:type', 'v1.user.UserBillController/spread_count')->name('spreadCount')->option(['real_name' => 'Hoa hồng khuyến mại']);//Hoa hồng khuyến mãi 3/Rút tiền 4 Tổng cộng
         Route::get('spread/banner', 'v1.user.UserBillController/spread_banner')->name('spreadBanner')->option(['real_name' => 'Khuyến mãi và phân phối tạo áp phích mã QR']);//Khuyến mãi và phân phối tạo áp phích mã QR
@@ -278,7 +278,7 @@ Route::group(function () {
     Route::group(function () {
         //Rút tiền
         Route::get('extract/bank', 'v1.user.UserExtractController/bank')->name('extractBank')->option(['real_name' => 'Ngân hàng rút tiền']);//Ngân hàng rút tiền/số tiền rút tối thiểu
-        Route::post('extract/cash', 'v1.user.UserExtractController/cash')->name('extractCash')->option(['real_name' => 'Đơn xin rút tiền']);//Đơn xin rút tiền
+        Route::post('extract/cash', 'v1.user.UserExtractController/cash')->name('extractCash')->option(['real_name' => 'Yêu cầu rút tiền']);//Đơn xin rút tiền
     })->option(['mark' => 'extract', 'mark_name' => 'Rút tiền mặt']);
 
     Route::group(function () {
@@ -326,12 +326,12 @@ Route::group(function () {
         //Đặt hàng tại trung tâm mua sắm Points
         Route::post('store_integral/order/confirm', 'v1.order.StoreIntegralOrderController/confirm')->name('storeIntegralOrderConfirm')->option(['real_name' => 'Xác nhận đơn hàng']); //Xác nhận đơn hàng
         Route::post('store_integral/order/create', 'v1.order.StoreIntegralOrderController/create')->name('storeIntegralOrderCreate')->option(['real_name' => 'Tạo đơn hàng']); //Tạo đơn hàng
-        Route::get('store_integral/order/detail/:uni', 'v1.order.StoreIntegralOrderController/detail')->name('storeIntegralOrderDetail')->option(['real_name' => 'Chi tiết đặt hàng']); //Chi tiết đặt hàng
+        Route::get('store_integral/order/detail/:uni', 'v1.order.StoreIntegralOrderController/detail')->name('storeIntegralOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng']); //Chi tiết đặt hàng
         Route::get('store_integral/order/list', 'v1.order.StoreIntegralOrderController/lst')->name('storeIntegralOrderList')->option(['real_name' => 'danh sách đặt hàng']); //danh sách đặt hàng
         Route::post('store_integral/order/take', 'v1.order.StoreIntegralOrderController/take')->name('storeIntegralOrderTake')->option(['real_name' => 'Biên nhận đơn hàng']); //Biên nhận đơn hàng
         Route::get('store_integral/order/express/:uni', 'v1.order.StoreIntegralOrderController/express')->name('storeIntegralOrderExpress')->option(['real_name' => 'Đặt hàng Xem hậu cần']); //Đặt hàng Xem hậu cần
         Route::post('store_integral/order/del', 'v1.order.StoreIntegralOrderController/del')->name('storeIntegralOrderDel')->option(['real_name' => 'Xóa đơn hàng']); //Xóa đơn hàng
-    })->option(['mark' => 'order_integral', 'mark_name' => 'Thứ tự điểm']);;
+    })->option(['mark' => 'order_integral', 'mark_name' => 'Đơn hàng điểm']);;
 
     Route::group(function () {
         /** Liên quan đến hoàn tiền */
@@ -371,7 +371,7 @@ Route::group(function () {
         /** Ứng dụng phân phối */
         Route::get('user/spread/apply/info', 'v1.user.SpreadApplyController/applyInfo')->name('Thông tin ứng dụng');//Thông tin ứng dụng
         Route::post('user/spread/apply/:id', 'v1.user.SpreadApplyController/applyPromoter')->name('Đăng ký làm nhà phân phối');//Đăng ký làm nhà phân phối
-    })->option(['mark' => 'spread', 'mark_name' => 'Ứng dụng phân phối']);
+    })->option(['mark' => 'spread', 'mark_name' => 'Đăng ký làm Affiliate']);
 
 })->middleware(\app\http\middleware\AllowOriginMiddleware::class)->middleware(\app\api\middleware\StationOpenMiddleware::class)->middleware(\app\api\middleware\AuthTokenMiddleware::class, true);
 //Giao diện trái phép
@@ -389,8 +389,8 @@ Route::group(function () {
         Route::get('theme_version', 'v1.PublicController/themeVersion')->name('themeVersion')->option(['real_name' => 'phiên bản chủ đề']);
         Route::get('theme/user', 'v1.PublicController/themeUser')->name('themeUser')->option(['real_name' => 'Người dùng thành phần tùy chỉnh']);
         Route::get('theme/article', 'v1.PublicController/themeArticle')->name('themeArticle')->option(['real_name' => 'Thành phần tùy chỉnh-Bài viết']);
-        Route::get('theme/coupon', 'v1.PublicController/themeCoupon')->name('themeCoupon')->option(['real_name' => 'Phiếu giảm giá thành phần tùy chỉnh']);
-        Route::get('theme/product', 'v1.PublicController/themeProduct')->name('themeProduct')->option(['real_name' => 'Thành phần-hàng hóa tùy chỉnh']);
+        Route::get('theme/coupon', 'v1.PublicController/themeCoupon')->name('themeCoupon')->option(['real_name' => 'Mã giảm giá thành phần tùy chỉnh']);
+        Route::get('theme/product', 'v1.PublicController/themeProduct')->name('themeProduct')->option(['real_name' => 'Thành phần-sản phẩm tùy chỉnh']);
         Route::get('theme/navigation', 'v1.PublicController/themeNavigation')->name('themeNavigation')->option(['real_name' => 'điều hướng']);
 
     })->option(['mark' => 'index', 'mark_name' => 'Giao diện trang chủ']);
@@ -398,7 +398,7 @@ Route::group(function () {
     Route::group(function () {
         Route::get('search/keyword', 'v1.PublicController/search')->name('searchKeyword')->option(['real_name' => 'Có được từ khóa tìm kiếm phổ biến']);//Có được từ khóa tìm kiếm phổ biến
         //Lớp phân loại sản phẩm
-        Route::get('category', 'v1.store.CategoryController/category')->name('category')->option(['real_name' => 'Phân loại sản phẩm']);
+        Route::get('category', 'v1.store.CategoryController/category')->name('category')->option(['real_name' => 'Danh mục sản phẩm']);
         Route::get('category_version', 'v1.store.CategoryController/getCategoryVersion')->name('getCategoryVersion')->option(['real_name' => 'Phiên bản danh mục sản phẩm']);//Phiên bản danh mục sản phẩm
 
         //Danh mục hàng hóa
@@ -407,12 +407,12 @@ Route::group(function () {
         Route::get('groom/list/:type', 'v1.store.StoreProductController/groom_list')->name('groomList')->option(['real_name' => 'Nhận hình ảnh băng chuyền và sản phẩm gợi ý các loại sản phẩm khác nhau trên trang chủ']);//Nhận hình ảnh băng chuyền và sản phẩm gợi ý các loại sản phẩm khác nhau trên trang chủ
         Route::get('products', 'v1.store.StoreProductController/lst')->name('products')->option(['real_name' => 'Danh sách sản phẩm']);//Danh sách sản phẩm
         Route::get('product/hot', 'v1.store.StoreProductController/product_hot')->name('productHot')->option(['real_name' => 'Được đề xuất cho bạn']);//Được đề xuất cho bạn
-        Route::get('reply/list/:id', 'v1.store.StoreProductController/reply_list')->name('replyList')->option(['real_name' => 'Danh sách đánh giá sản phẩm']);//Danh sách đánh giá sản phẩm
-        Route::get('reply/config/:id', 'v1.store.StoreProductController/reply_config')->name('replyConfig')->option(['real_name' => 'Số lượng đánh giá sản phẩm và xếp hạng tích cực']);//Số lượng đánh giá sản phẩm và xếp hạng tích cực
+        Route::get('reply/list/:id', 'v1.store.StoreProductController/reply_list')->name('replyList')->option(['real_name' => 'Danh sách Đánh giá sản phẩm']);//Danh sách đánh giá sản phẩm
+        Route::get('reply/config/:id', 'v1.store.StoreProductController/reply_config')->name('replyConfig')->option(['real_name' => 'Số lượng Đánh giá sản phẩm và xếp hạng tích cực']);//Số lượng đánh giá sản phẩm và xếp hạng tích cực
         Route::get('advance/list', 'v1.store.StoreProductController/advanceList')->name('advanceList')->option(['real_name' => 'Danh sách sản phẩm trước khi bán']);//Danh sách sản phẩm trước khi bán
         Route::get('product/code/:id', 'v1.store.StoreProductController/code')->name('productCode')->option(['real_name' => 'Mã QR chia sẻ sản phẩm']);//Quảng cáo mã QR chia sẻ sản phẩm
         Route::get('product/real_price/:id/:unique', 'v1.store.StoreProductController/realPrice')->name('realPrice')->option(['real_name' => 'Giá sản phẩm']);//Giá sản phẩm
-    })->option(['mark' => 'product', 'mark_name' => 'hàng hóa']);
+    })->option(['mark' => 'product', 'mark_name' => 'sản phẩm']);
 
     Route::group(function () {
 

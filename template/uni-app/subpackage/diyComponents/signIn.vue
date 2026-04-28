@@ -29,7 +29,7 @@
           </view>
           <view
             >{{ $t(`Đăng nhập liên tục`) }} {{ continuousSignDays || 0
-            }}{{ $t(`bầu trời`) }}</view
+            }}{{ $t(`ngày`) }}</view
           >
         </view>
         <view class="button" :style="[buttonStyle]" @click="goUserSgin">{{

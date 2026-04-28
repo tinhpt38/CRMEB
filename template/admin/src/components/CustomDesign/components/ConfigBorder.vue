@@ -2,15 +2,15 @@
   <div>
     <el-form-item label="Hiển thị viền">
       <el-radio-group v-model="curComponent.propValue.showBorder" @change="onChange">
-        <el-radio :label="false">trốn</el-radio>
-        <el-radio :label="true">trình diễn</el-radio>
+        <el-radio :label="false">Trốn</el-radio>
+        <el-radio :label="true">Trình diễn</el-radio>
       </el-radio-group>
     </el-form-item>
     <template v-if="curComponent.propValue.showBorder">
-      <el-form-item label="phong cách biên giới">
+      <el-form-item label="Phong cách biên giới">
         <el-radio-group v-model="curComponent.propValue.borderStyle" @change="onChange">
-          <el-radio label="solid">đường liền nét</el-radio>
-          <el-radio label="dashed">đường chấm chấm</el-radio>
+          <el-radio label="solid">Đường liền nét</el-radio>
+          <el-radio label="dashed">Đường chấm chấm</el-radio>
           <el-radio label="dotted">Say mê</el-radio>
         </el-radio-group>
       </el-form-item>
@@ -30,7 +30,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="màu viền">
+      <el-form-item label="Màu viền">
         <div class="row">
           <el-color-picker v-model="curComponent.propValue.borderColor" @change="onChange" show-alpha></el-color-picker>
           <el-input
@@ -45,7 +45,7 @@
               curComponent.propValue.borderColor = '#000000';
               onChange();
             "
-            >cài lại</span
+            >Đặt lại</span
           >
         </div>
       </el-form-item>

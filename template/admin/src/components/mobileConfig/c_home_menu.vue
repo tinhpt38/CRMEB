@@ -13,7 +13,7 @@
       ></component>
     </div>
     <rightBtn :activeIndex="activeIndex" :configObj="configObj"></rightBtn>
-    <el-dialog :visible.sync="modals" title="thành phần thiết kế" width="60%">
+    <el-dialog :visible.sync="modals" title="Thành phần thiết kế" width="60%">
       <!-- Placeholder for custom content -->
       <div>Đây là nội dung thành phần thiết kế</div>
     </el-dialog>

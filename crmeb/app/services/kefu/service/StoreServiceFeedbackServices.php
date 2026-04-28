@@ -70,7 +70,7 @@ class StoreServiceFeedbackServices extends BaseServices
             FormBuilder::textarea('make', 'Nhận xét', $feedInfo['make'])->col(22),
         ];
         if (!$feedInfo['status']) {
-            $field[] = FormBuilder::radio('status', 'tình trạng', 0)->setOptions([
+            $field[] = FormBuilder::radio('status', 'Trạng thái', 0)->setOptions([
                 ['label' => 'Đã xử lý', 'value' => 1],
                 ['label' => 'Chưa được xử lý', 'value' => 0]
             ]);

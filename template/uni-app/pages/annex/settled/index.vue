@@ -93,7 +93,7 @@
 						<view class="item">
 							<view class="acea-row row-middle row-between">
 								<!-- <i class="icon iconfont icon-yonghu3"></i> -->
-								<text class="item-name">{{$t(`người dùngID`)}}</text>
+								<text class="item-name">{{$t(`ID khách hàng`)}}</text>
 								<view class="fs-28 text-right">{{ form.uid }}123</view>
 							</view>
 						</view>

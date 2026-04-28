@@ -37,7 +37,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="changeStatus">Truy vấn</el-button>
+          <el-button type="primary" v-db-click @click="changeStatus">Tìm kiếm</el-button>
         </el-form-item>
       </el-form>
       <el-tabs v-model="type" @tab-click="onClickTab">
@@ -52,7 +52,7 @@
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column
-          :label="item.title"
+          :label="Item.title"
           :min-width="item.minWidth || 100"
           v-for="(item, index) in type == 1 ? thead2 : thead"
           :key="index"
@@ -104,7 +104,7 @@ export default {
         },
         {
           type: '1',
-          label: 'Thứ tự hoạt động',
+          label: 'Đơn hàng hoạt động',
         },
       ],
       type: 0,
@@ -157,7 +157,7 @@ export default {
           key: 'add_time',
         },
         {
-          title: 'thời gian thanh toán',
+          title: 'Thời gian thanh toán',
           key: 'pay_time',
         },
       ],

@@ -35,9 +35,9 @@
               <img src="@/assets/images/upgrade.png" class="summary-icon-img" alt="upgrade" />
             </span>
             <div class="summary-title">
-              phiên bản mới được tìm thấy
+              Phiên bản mới được tìm thấy
               <span v-if="upgradeablePackage">
-                v{{ upgradeablePackage.first_version }}.{{ upgradeablePackage.second_version }}.{{
+                V{{ upgradeablePackage.first_version }}.{{ upgradeablePackage.second_version }}.{{
                   upgradeablePackage.third_version
                 }}
               </span>
@@ -59,7 +59,7 @@
               }}
               Cập nhật hướng dẫn
               <span class="release-time" v-if="upgradeablePackage.release_time"
-                >ngày cập nhật：{{ upgradeablePackage.release_time }}</span
+                >Ngày cập nhật：{{ upgradeablePackage.release_time }}</span
               >
             </div>
             <div class="content-desc" v-html="upgradeablePackage.content"></div>
@@ -88,7 +88,7 @@
         <div v-if="downloadStage !== 'idle' && !this.showUpgradeComplete" class="upgrade-section">
           <div class="section-title">
             Tiến độ nâng cấp
-            <el-button type="text" class="ml8" @click="handleRefreshStatus">trạng thái làm mới</el-button>
+            <el-button type="text" class="ml8" @click="handleRefreshStatus">Trạng thái làm mới</el-button>
           </div>
           <!-- Thanh tiến trình hàng đầu (màu xanh đậm） -->
           <el-progress :percentage="downloadProgress" :show-text="false" :stroke-width="10" class="progress-line" />
@@ -133,7 +133,7 @@
                     ? 'status-ok'
                     : 'status-muted'
                 "
-                >hỗ trợ</span
+                >Hỗ trợ</span
               >
             </div>
             <div class="status-item">
@@ -154,7 +154,7 @@
                     ? 'status-ok'
                     : 'status-muted'
                 "
-                >tải về</span
+                >Tải về</span
               >
             </div>
             <div class="status-item">
@@ -203,14 +203,14 @@
             <div v-if="normalizedCheckErrorFiles.length && downloadType === 0" class="mt16">
               <div class="error-files-table-wrap">
                 <el-table :data="normalizedCheckErrorFiles" size="small" class="error-files-table" :max-height="325">
-                  <el-table-column type="index" label="số seri" width="120"></el-table-column>
-                  <el-table-column prop="path" label="đường dẫn tập tin" min-width="360" show-overflow-tooltip></el-table-column>
+                  <el-table-column type="index" label="Số seri" width="120"></el-table-column>
+                  <el-table-column prop="path" label="Đường dẫn tập tin" min-width="360" show-overflow-tooltip></el-table-column>
                 </el-table>
               </div>
             </div>
             <div class="check-error-actions mt10" v-if="downloadType === 0">
               <el-button size="small" type="primary" @click="cancelUpgrade">Hủy nâng cấp</el-button>
-              <el-button size="small" class="ml8" @click="ignoreAndProceed(0)">bỏ qua và thực hiện</el-button>
+              <el-button size="small" class="ml8" @click="ignoreAndProceed(0)">Bỏ qua và thực hiện</el-button>
             </div>
           </template>
           <div v-else class="check-success-box mt16">{{ downloadSteps[0].message || 'Kiểm tra đã hoàn thành' }}</div>
@@ -219,7 +219,7 @@
         <div class="upgrade-section" v-if="downloadType >= 1 && downloadSteps[1].status !== 'loading' && !this.showUpgradeComplete">
           <div class="section-title">
             <span class="step-num">2</span>
-            <span>hỗ trợ</span>
+            <span>Hỗ trợ</span>
           </div>
           <div v-if="downloadSteps[1].status === 'success'" class="check-success-box mt16">
             {{ downloadSteps[1].message || 'Sao lưu cơ sở dữ liệu đã hoàn tất' }}
@@ -232,7 +232,7 @@
             </div>
             <div class="check-error-actions mt10">
               <el-button size="small" type="primary" @click="cancelUpgrade">Hủy nâng cấp</el-button>
-              <el-button size="small" class="ml8" @click="ignoreAndProceed(1)">bỏ qua và thực hiện</el-button>
+              <el-button size="small" class="ml8" @click="ignoreAndProceed(1)">Bỏ qua và thực hiện</el-button>
               <el-button size="small" class="ml8" @click="reExecuteUpgrade">Sao lưu lại</el-button>
             </div>
           </template>
@@ -260,9 +260,9 @@
               <div class="sql-execution-logs">
                 <div class="logs-header">
                   <span>SQLChi tiết thực hiện</span>
-                  <el-tag size="mini" type="success">thành công: {{ sqlSuccessCount }}</el-tag>
-                  <el-tag size="mini" type="danger" v-if="sqlFailedCount > 0">thất bại: {{ sqlFailedCount }}</el-tag>
-                  <el-tag size="mini" type="info" v-if="sqlSkippedCount > 0">nhảy qua: {{ sqlSkippedCount }}</el-tag>
+                  <el-tag size="mini" type="success">Thành công: {{ sqlSuccessCount }}</el-tag>
+                  <el-tag size="mini" type="danger" v-if="sqlFailedCount > 0">Thất bại: {{ sqlFailedCount }}</el-tag>
+                  <el-tag size="mini" type="info" v-if="sqlSkippedCount > 0">Nhảy qua: {{ sqlSkippedCount }}</el-tag>
                 </div>
                 <div class="logs-content">
                   <div
@@ -294,7 +294,7 @@
               <!-- Kết quả nâng cấp -->
               <div class="upgrade-result">
                 <el-alert
-                  :title="sqlFailedCount === 0 ? 'Nâng cấp thành công' : 'Nâng cấp hoàn tất(Có những hạng mục bị lỗi)'"
+                  :title="SqlFailedCount === 0 ? 'Nâng cấp thành công' : 'Nâng cấp hoàn tất(Có những hạng mục bị lỗi)'"
                   :type="sqlFailedCount === 0 ? 'success' : 'warning'"
                   :closable="false"
                   show-icon
@@ -302,7 +302,7 @@
                   <template slot="default">
                     <span>Đã thực hiện thành công: {{ sqlSuccessCount }} dải；</span>
                     <span v-if="sqlFailedCount > 0"> Thực thi không thành công: {{ sqlFailedCount }} dải；</span>
-                    <span v-if="sqlSkippedCount > 0"> nhảy qua: {{ sqlSkippedCount }} dải；</span>
+                    <span v-if="sqlSkippedCount > 0"> Nhảy qua: {{ sqlSkippedCount }} dải；</span>
                   </template>
                 </el-alert>
               </div>
@@ -317,17 +317,17 @@
           <el-table-column prop="title" label="Nâng cấp danh hiệu" min-width="120" show-overflow-tooltip />
           <el-table-column label="Phiên bản" width="100">
             <template slot-scope="scope">
-              v{{ scope.row.first_version }}.{{ scope.row.second_version }}.{{ scope.row.third_version }}
+              V{{ scope.row.first_version }}.{{ scope.row.second_version }}.{{ scope.row.third_version }}
             </template>
           </el-table-column>
           <el-table-column prop="upgrade_time" label="Thời gian nâng cấp" width="200" />
           <el-table-column label="Trạng thái sao lưu" min-width="150">
             <template slot-scope="scope">
               <el-tag size="mini" :type="scope.row.file_status ? 'success' : 'danger'">
-                dự án: {{ scope.row.file_status ? scope.row.package_link : 'không có' }}
+                Dự án: {{ scope.row.file_status ? scope.row.package_link : 'không có' }}
               </el-tag><br/>
               <el-tag size="mini" :type="scope.row.data_status ? 'success' : 'danger'">
-                cơ sở dữ liệu: {{ scope.row.data_status ? scope.row.data_link : 'không có' }}
+                Cơ sở dữ liệu: {{ scope.row.data_status ? scope.row.data_link : 'không có' }}
               </el-tag>
             </template>
           </el-table-column>
@@ -366,7 +366,7 @@
         <div v-html="agreementContent"></div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="agreementVisible = false">không đồng ý</el-button>
+        <el-button @click="agreementVisible = false">Không đồng ý</el-button>
         <el-button type="primary" @click="doStartDownload" :loading="startingDownload">Đồng ý và nâng cấp</el-button>
       </span>
     </el-dialog>
@@ -390,7 +390,7 @@
           >
         </div>
         <el-button type="primary" @click="handleUploadSuccessClose" style="margin-top: 24px; width: 120px"
-          >tôi hiểu rồi</el-button
+          >Tôi hiểu rồi</el-button
         >
       </div>
     </el-dialog>
@@ -707,7 +707,7 @@ export default {
       const stageOrder = ['idle', 'error', 'loading', 'complete', 'success'];
       const currentIndex = stageOrder.indexOf(this.downloadStage);
       const checkIndex = stageOrder.indexOf(stage);
-      return currentIndex > checkIndex;
+      return currentIndex > CheckIndex;
     },
 
     // Nhận biểu tượng bước

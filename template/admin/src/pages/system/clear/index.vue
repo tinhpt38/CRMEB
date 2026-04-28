@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- <div class="acea-row row-center clear_tit">
-      <el-button type="primary" v-db-click @click="clearCache" class="mr20">xóa bộ nhớ đệm</el-button>
-      <el-button type="primary" v-db-click @click="clearlog">xóa nhật ký</el-button>
+      <el-button type="primary" v-db-click @click="clearCache" class="mr20">Xóa bộ nhớ đệm</el-button>
+      <el-button type="primary" v-db-click @click="clearlog">Xóa nhật ký</el-button>
     </div> -->
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-row :gutter="24">
@@ -34,13 +34,13 @@ export default {
       tabList: [
         {
           title: 'xóa bộ nhớ đệm',
-          tlt: 'Xóa tất cả bộ đệm hệ thống',
+          tlt: 'Xóa Tất cả bộ đệm hệ thống',
           typeName: 'primary',
           type: '11',
         },
         {
           title: 'xóa nhật ký',
-          tlt: 'Xóa tất cả các tệp nhật ký hệ thống',
+          tlt: 'Xóa Tất cả các tệp nhật ký hệ thống',
           typeName: 'primary',
           type: 'temp',
         },

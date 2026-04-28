@@ -1,7 +1,7 @@
 <template>
   <div class="goodList">
     <el-form ref="formValidate" :model="formValidate" label-width="auto" label-position="right" inline class="tabform">
-      <el-form-item label="Phân loại sản phẩm：" v-if="!liveStatus">
+      <el-form-item label="Danh mục sản phẩm：" v-if="!liveStatus">
         <el-cascader
           v-model="formValidate.cate_id"
           size="small"
@@ -24,7 +24,7 @@
           v-model="formValidate.store_name"
           class="form_content_width"
         />
-        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">Truy vấn</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">Tìm kiếm</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -46,12 +46,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="hàng hóaID" min-width="90">
+      <el-table-column label="ID sản phẩm" min-width="90">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="hình ảnh" min-width="90">
+      <el-table-column label="Hình ảnh" min-width="90">
         <template slot-scope="scope">
           <div class="tabBox_img" v-viewer>
             <img v-lazy="scope.row.image" />
@@ -63,7 +63,7 @@
           <span>{{ scope.row.store_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Phân loại sản phẩm" min-width="180" show-overflow-tooltip v-if="liveStatus">
+      <el-table-column label="Danh mục sản phẩm" min-width="180" show-overflow-tooltip v-if="liveStatus">
         <template slot-scope="scope">
           <span>{{ scope.row.cate_name }}</span>
         </template>
@@ -77,7 +77,7 @@
         :limit.sync="formValidate.limit"
         @pagination="pageChange"
       />
-      <el-button type="primary" v-db-click @click="ok" v-if="many === 'many' && !diy" class="ml15">nộp</el-button>
+      <el-button type="primary" v-db-click @click="ok" v-if="many === 'many' && !diy" class="ml15">Nộp</el-button>
     </div>
   </div>
 </template>

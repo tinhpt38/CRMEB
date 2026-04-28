@@ -113,7 +113,7 @@ class StoreOrder extends AuthController
         if ($confirm == 0) {
             return app('json')->success('Xác minh thành công', $orderInfo);
         }
-        return app('json')->success('Xóa sổ thành công');
+        return app('json')->success('Xác nhận thành công');
     }
 
     /**
@@ -129,7 +129,7 @@ class StoreOrder extends AuthController
     {
         $orderInfo = $this->services->getOne(['order_id' => $order_id, 'is_del' => 0]);
         if ($orderInfo->shipping_type != 2 && $orderInfo->delivery_type != 'send') {
-            return app('json')->fail('Không tìm thấy lệnh xóa sổ');
+            return app('json')->fail('Không tìm thấy lệnh xác nhận');
         } else {
             if (!$orderInfo->verify_code) {
                 return app('json')->fail('Lỗi tham số');
@@ -138,7 +138,7 @@ class StoreOrder extends AuthController
             if ($orderInfo) {
                 return app('json')->success('Xác minh thành công');
             } else {
-                return app('json')->fail('Xóa sổ không thành công');
+                return app('json')->fail('Xác nhận không thành công');
             }
         }
     }
@@ -960,9 +960,9 @@ class StoreOrder extends AuthController
             ['user_phone', ''],
             ['user_address', '']
         ]);
-        if (!$data['real_name']) return app('json')->fail('Vui lòng điền tên người nhận hàng');
-        if (!$data['user_phone']) return app('json')->fail('Vui lòng điền số điện thoại người nhận hàng');
-        if (!$data['user_address']) return app('json')->fail('Vui lòng điền địa chỉ người nhận hàng');
+        if (!$data['real_name']) return app('json')->fail('Vui lòng điền tên Người nhận hàng');
+        if (!$data['user_phone']) return app('json')->fail('Vui lòng điền số điện thoại Người nhận hàng');
+        if (!$data['user_address']) return app('json')->fail('Vui lòng điền địa chỉ Người nhận hàng');
         $this->services->editAddress($id, $data);
         return app('json')->success('Sửa đổi thành công');
     }

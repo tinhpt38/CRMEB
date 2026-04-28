@@ -73,7 +73,7 @@
                   : themeColor,
               }"
             >
-              68880tích phân
+              68880điểm thưởng
             </div>
           </div>
         </div>
@@ -286,7 +286,7 @@ export default {
         },
         rightBntConfig: {
           title: 'nút bên phải',
-          value: 'Hơn',
+          value: 'Thêm',
           place: 'Vui lòng nhập nút bên phải',
           max: 6,
         },
@@ -405,7 +405,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -447,7 +447,7 @@ export default {
           ],
         },
         goodsUnitPriceColor2: {
-          title: 'đơn vị giá',
+          title: 'Đơn vị giá',
           name: 'goodsUnitPriceColor2',
           default: [
             {
@@ -461,7 +461,7 @@ export default {
           ],
         },
         goodsUnitPriceColor: {
-          title: 'đơn vị giá',
+          title: 'Đơn vị giá',
           name: 'goodsUnitPriceColor',
           default: [
             {
@@ -713,7 +713,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

@@ -13,7 +13,7 @@
           <el-input clearable placeholder="Vui lòng nhập" v-model="formValidate.cate_name" class="form_content_width" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+          <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           <router-link :to="routePre + '/app/wechat/news_category/save/0'">
             <el-button type="primary" class="bnt ml15">Thêm tin nhắn đồ họa</el-button>
           </router-link>
@@ -65,7 +65,7 @@
                     v-show="props.value.new[i].isDel && isShowSend"
                     v-db-click
                     @click="send(props.value, 'gửi', i)"
-                    >xô</el-button
+                    >Xô</el-button
                   >
                 </div>
                 <span class="news_sp">{{ j.title }}</span>

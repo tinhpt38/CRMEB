@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		<div class="chart">
-			<div class="chart-title">{{ $t(`đơn vị`) }}（{{ where.type == 1 ? $t(`Nhân dân tệ.`) : $t(`chia sẻ`) }}）</div>
+			<div class="chart-title">{{ $t(`Đơn vị`) }}（{{ where.type == 1 ? $t(`Nhân dân tệ.`) : $t(`chia sẻ`) }}）</div>
 			<canvas canvas-id="canvasLineA" id="canvasLineA" class="charts" disable-scroll="true" @touchstart="touchLineA" @touchmove="moveLineA" @touchend="touchEndLineA"></canvas>
 		</div>
 		<div class="public-wrapper">

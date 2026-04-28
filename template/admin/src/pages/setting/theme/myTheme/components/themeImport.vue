@@ -29,10 +29,10 @@
         <div class="el-upload__text">{{ fileName }}</div>
         <div class="flex mt12" v-if="fileUrl && !importLoading">
           <div class="active-btn" @click="selectFile">Tải lên lại</div>
-          <div class="active-btn" @click="fileUrl = ''">xóa bỏ</div>
+          <div class="active-btn" @click="fileUrl = ''">Xóa</div>
         </div>
         <div class="el-upload__trip" v-if="importLoading">
-          Khi nhập, bạn có thể đóng cửa sổ bật lên hiện tại và xem kết quả nhập trong danh sách sau.
+          Khi nhập, bạn có thể đóng cửa sổ Hoạt động hiện tại và xem kết quả nhập trong danh sách sau.
           <i class="el-icon-loading"></i>
         </div>
         <el-button v-else class="btn-import" type="primary" size="small" @click="importThemePkg">Nhập ngay</el-button>

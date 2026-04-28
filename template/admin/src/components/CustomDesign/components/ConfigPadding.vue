@@ -1,5 +1,5 @@
 <template>
-  <el-form-item label="phần đệm" class="margin-style-config">
+  <el-form-item label="Phần đệm" class="margin-style-config">
     <div class="c_content">
       <div class="main-setting">
         <el-slider v-model="paddingMainVal" :max="100" show-input @input="handlePaddingMainChange"></el-slider>

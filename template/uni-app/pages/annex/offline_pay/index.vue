@@ -24,7 +24,7 @@
 					</label>
 					<label v-if="wxpay" class="item">
 						<text class="iconfont icon-weixinzhifu"></text>
-						<text class="name">{{ $t(`WeChat trả tiền`) }}</text>
+						<text class="name">{{ $t(`Thanh toán WeChat`) }}</text>
 						<radio value="weixin" :checked="payType === 'weixin'" />
 					</label>
 				</radio-group>

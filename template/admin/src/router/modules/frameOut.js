@@ -92,7 +92,7 @@ export default [
     name: `${pre}order-detail`,
     meta: {
       auth: true,
-      title: 'Chi tiết đặt hàng',
+      title: 'Chi tiết đơn hàng',
       kefu: true,
     },
     component: () => import('@/pages/kefu/mobile/orderList/orderDetail.vue'),

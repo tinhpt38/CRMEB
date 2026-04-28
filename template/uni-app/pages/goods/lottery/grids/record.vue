@@ -106,15 +106,15 @@
 		filters: {
 			typeName(type) {
 				if (type == 2) {
-					return 'tích phân';
+					return 'điểm thưởng';
 				} else if (type == 3) {
 					return 'THĂNG BẰNG';
 				} else if (type == 4) {
 					return 'phong bì màu đỏ';
 				} else if (type == 5) {
-					return 'Phiếu giảm giá';
+					return 'Mã giảm giá';
 				} else if (type == 6) {
-					return 'hàng hóa';
+					return 'sản phẩm';
 				}
 			}
 		},

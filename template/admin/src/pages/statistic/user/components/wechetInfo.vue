@@ -37,7 +37,7 @@
           <span class="sp2" v-if="index === list.length - 1" v-text="item.list.num"></span>
           <span class="sp2" v-else v-text="item.list.num"></span>
           <span class="content-time spBlock"
-            >tăng trưởng hàng tháng：<i class="content-is" :class="Number(item.list.percent) >= 0 ? 'up' : 'down'"
+            >Tăng trưởng hàng tháng：<i class="content-is" :class="Number(item.list.percent) >= 0 ? 'up' : 'down'"
               >{{ Number(item.list.percent).toFixed(2) }}%</i
             ><Icon
               :color="Number(item.list.percent) >= 0 ? '#F5222D' : '#39C15B'"

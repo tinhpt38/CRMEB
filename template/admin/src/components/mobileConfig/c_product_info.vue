@@ -163,13 +163,13 @@ export default {
               checkList: [0, 1, 2],
               checkBoxList: [
                 { name: 'giá gốc', value: 0 },
-                { name: 'trong kho', value: 1 },
+                { name: 'Trong kho', value: 1 },
                 { name: 'Doanh số bán hàng', value: 2 },
               ],
             },
             {
               name: 'tags',
-              cname: 'Thẻ sản phẩm',
+              cname: 'Nhãn sản phẩm',
               type: 'radio',
               show: true,
             },

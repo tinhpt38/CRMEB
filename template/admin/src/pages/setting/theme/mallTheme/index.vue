@@ -3,7 +3,7 @@
     <!-- thanh tiêu đề trên cùng -->
     <div class="page-header">
       <div class="header-left">
-        <span class="page-title">chủ đề hiện tại：{{ title }}</span>
+        <span class="page-title">Chủ đề hiện tại：{{ title }}</span>
         <div class="theme-colors" v-if="themeColors.length">
           <span
             class="color-dot"
@@ -30,16 +30,16 @@
             <div class="card-header">
               <span class="card-title">{{ item.name || 'Chủ đề chưa được đặt tên' }}</span>
               <div class="card-actions">
-                <span class="action-btn" @click="handleEdit(item)">biên tập</span>
+                <span class="action-btn" @click="handleEdit(item)">Chỉnh sửa</span>
                 <el-divider direction="vertical"></el-divider>
                 <span class="action-btn" @click="handleReplace(item, ['home', 'category', 'detail', 'user'][index])"
-                  >thay thế</span
+                  >Thay thế</span
                 >
               </div>
             </div>
             <div class="card-info">
               <div class="theme-name line1">{{ item.themeName }}</div>
-              <div class="last-modified">sửa đổi lần cuối：{{ item.updateTime }}</div>
+              <div class="last-modified">Sửa đổi lần cuối：{{ item.updateTime }}</div>
             </div>
             <div class="card-preview">
               <div class="phone-mockup" :class="{ 'has-image': item.image }">
@@ -164,7 +164,7 @@ export default {
 </script>
 
 <style>
-body .v-modal {
+Body .v-modal {
   background: rgba(0, 0, 0, 0.5) !important;
   opacity: 1 !important;
 }

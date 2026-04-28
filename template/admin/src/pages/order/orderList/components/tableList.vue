@@ -1,16 +1,16 @@
 <template>
   <div>
     <el-tabs v-model="currentTab" @tab-click="onClickTab" v-if="tablists" class="tabs-vi">
-      <el-tab-pane name="null" label="tất cả"></el-tab-pane>
+      <el-tab-pane name="null" label="Tất cả"></el-tab-pane>
       <el-tab-pane
         name="0"
-        :label="orderChartType.un_paid > 0 ? `Được trả tiền(${orderChartType.un_paid})` : `Được trả tiền`"
+        :label="orderChartType.un_paid > 0 ? `Đã thanh toán(${orderChartType.un_paid})` : `Đã thanh toán`"
       ></el-tab-pane>
       <el-tab-pane
         name="1"
         :label="orderChartType.un_send > 0 ? `Đang chờ vận chuyển(${orderChartType.un_send})` : `Đang chờ vận chuyển`"
       ></el-tab-pane>
-      <el-tab-pane name="5" label="Đang chờ xóa sổ"></el-tab-pane>
+      <el-tab-pane name="5" label="Chờ xử lý"></el-tab-pane>
       <el-tab-pane name="2" label="Đang chờ nhận"></el-tab-pane>
       <el-tab-pane name="3" label="Đang chờ đánh giá"></el-tab-pane>
       <el-tab-pane name="4" label="Hoàn thành"></el-tab-pane>
@@ -19,9 +19,9 @@
     </el-tabs>
     <div class="acea-row">
       <el-button v-auth="['order-write']" type="primary" v-db-click @click="writeOff">Xóa đơn hàng</el-button>
-      <el-button v-db-click @click="batchShipmentModal = true">Lô hàng số lượng lớn</el-button>
+      <el-button v-db-click @click="batchShipmentModal = true">Giao hàng loạt</el-button>
       <!-- <el-upload class="mr14" :action="expressUrl" :headers="header" :on-success="upExpress">
-        <el-button class="export" type="primary">Lô hàng số lượng lớn</el-button>
+        <el-button class="export" type="primary">Giao hàng loạt</el-button>
       </el-upload> -->
       <el-button v-auth="['order-dels']" v-db-click @click="delAll">Xóa hàng loạt</el-button>
       <el-button v-auth="['export-storeOrder']" class="export" v-db-click @click="exportList">Xuất đơn hàng</el-button>
@@ -76,7 +76,7 @@
                   }}</span>
                 </div>
                 <div>
-                  <span>trả giá：</span>
+                  <span>Trả giá：</span>
                   <span>¥{{ item.cart_info.truePrice || '--' }}</span>
                 </div>
                 <div>
@@ -94,7 +94,7 @@
           <span class="nickname">{{ scope.row.nickname }} | {{ scope.row.uid }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="thanh toán thực tế" min-width="100">
+      <el-table-column label="Thanh toán thực tế" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.paid ? scope.row.pay_price : 'Chưa thanh toán' }}</span>
         </template>
@@ -104,7 +104,7 @@
           <span>{{ scope.row.pay_type_name || '--' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="thời gian thanh toán" min-width="150">
+      <el-table-column label="Thời gian thanh toán" min-width="150">
         <template slot-scope="scope">
           <span>{{ scope.row._pay_time || '--' }}</span>
         </template>
@@ -133,7 +133,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="vận hành" fixed="right" width="210">
+      <el-table-column label="Thao tác" fixed="right" width="210">
         <template slot-scope="scope">
           <a v-db-click @click="changeMenu(scope.row, '2')">Chi tiết</a>
           <el-divider direction="vertical" />
@@ -187,7 +187,7 @@
           />
           <template>
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)" :transfer="true">
-              <span class="el-dropdown-link"> Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link"> Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   command="1"
@@ -204,7 +204,7 @@
                 <el-dropdown-item command="11" v-show="scope.row._status >= 3 && scope.row.express_dump"
                   >In biểu mẫu điện tử</el-dropdown-item
                 >
-                <el-dropdown-item command="10" v-show="scope.row._status >= 2">In biên lai</el-dropdown-item>
+                <el-dropdown-item command="10" v-show="scope.row._status >= 2">In phiếu giao hàng</el-dropdown-item>
                 <el-dropdown-item command="14" v-show="scope.row.status === 0">Sửa đổi địa chỉ</el-dropdown-item>
                 <el-dropdown-item
                   command="4"
@@ -214,7 +214,7 @@
                       scope.row.use_integral > 0 &&
                       scope.row.use_integral >= scope.row.back_integral)
                   "
-                  >Ghi chú đặt hàng</el-dropdown-item
+                  >Ghi chú đơn hàng</el-dropdown-item
                 >
                 <el-dropdown-item
                   command="5"
@@ -225,7 +225,7 @@
                 <!--                            <el-dropdown-item command="7"  v-show='scope.row._status === 3'>Không hoàn lại tiền</el-dropdown-item>-->
                 <el-dropdown-item command="8" v-show="scope.row._status === 4">Hàng đã nhận</el-dropdown-item>
                 <el-dropdown-item command="9">Xóa đơn hàng</el-dropdown-item>
-                <el-dropdown-item command="12" v-show="scope.row.kuaidi_label">In biên lai chuyển phát nhanh</el-dropdown-item>
+                <el-dropdown-item command="12" v-show="scope.row.kuaidi_label">In mã vận đơn</el-dropdown-item>
                 <el-dropdown-item command="13" v-show="scope.row.paid">In phiếu giao hàng</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -291,7 +291,7 @@
         class="tabform"
         @submit.native.prevent
       >
-        <el-form-item prop="code" label="Mã xóa sổ：">
+        <el-form-item prop="code" label="Mã xác nhận：">
           <el-input
             style="width: 414px"
             type="text"
@@ -307,14 +307,14 @@
     </el-dialog>
     <el-dialog
       :visible.sync="batchShipmentModal"
-      title="Lô hàng số lượng lớn"
+      title="Giao hàng loạt"
       class="paymentFooter"
       :show-close="true"
       width="540px"
       @closed="changeModal"
     >
       <!-- <el-upload :action="expressUrl" :headers="header" :on-success="upExpress">
-        <el-button class="export" type="primary">Lô hàng số lượng lớn</el-button>
+        <el-button class="export" type="primary">Giao hàng loạt</el-button>
       </el-upload> -->
       <el-alert type="warning" :closable="false">
         <p>Bước 1: Xuất hóa đơn</p>
@@ -335,7 +335,7 @@
         :before-upload="beforeUpload"
       >
         <i class="el-icon-upload"></i>
-        <div class="el-upload__text">đơn hàng vận chuyển số lượng lớn,Kéo và thả để tải lên hoặc<em>Bấm để tải lên</em></div>
+        <div class="el-upload__text">Đơn hàng vận chuyển số lượng lớn,Kéo và thả để tải lên hoặc<em>Bấm để tải lên</em></div>
       </el-upload>
     </el-dialog>
     <orderAddress ref="address" :addressData="addressData" @submitSuccess="submitSuccess"></orderAddress>
@@ -810,7 +810,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // Viết đơn đặt hàng
+    // Xác nhận đơn hàng
     bindWrite(row) {
       let self = this;
       this.$msgbox({
@@ -834,7 +834,7 @@ export default {
         })
         .catch(() => {});
     },
-    // Loại lệnh  @on-changeTabs="getChangeTabs"
+    // Loại đơn hàng  @on-changeTabs="getChangeTabs"
     getTabs() {
       this.spinShow = true;
       this.$store
@@ -1004,14 +1004,16 @@ export default {
 }
 
 ::v-deep .tabs-vi .el-tabs__item {
-  height: auto;
-  min-height: 40px;
-  line-height: 1.35;
-  white-space: normal;
-  display: inline-flex;
-  align-items: center;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  height: 40px;
+  line-height: 40px;
+  white-space: nowrap;
+  padding: 0 14px;
+}
+::v-deep .tabs-vi .el-tabs__nav-wrap::after {
+  height: 1px;
+}
+::v-deep .tabs-vi .el-tabs__nav-scroll {
+  overflow-x: auto;
 }
 
 img {

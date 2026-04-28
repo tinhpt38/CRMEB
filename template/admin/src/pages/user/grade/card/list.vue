@@ -8,7 +8,7 @@
       inline
       @submit.native.prevent
     >
-      <el-form-item label="số thẻ：">
+      <el-form-item label="Số thẻ：">
         <el-input v-model="table.card_number" placeholder="Vui lòng nhập số thẻ" class="form_content_width" />
       </el-form-item>
       <el-form-item label="Số điện thoại：">
@@ -21,7 +21,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="formSubmit">Truy vấn</el-button>
+        <el-button type="primary" v-db-click @click="formSubmit">Tìm kiếm</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -32,17 +32,17 @@
       no-userFrom-text="Chưa có dữ liệu"
       no-filtered-userFrom-text="Chưa có kết quả lọc nào"
     >
-      <el-table-column label="số seri" min-width="100">
+      <el-table-column label="Số seri" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="số thẻ" min-width="100">
+      <el-table-column label="Số thẻ" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.card_number }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="mật khẩu" min-width="100">
+      <el-table-column label="Mật khẩu" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.card_password }}</span>
         </template>

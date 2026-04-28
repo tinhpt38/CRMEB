@@ -26,13 +26,13 @@
             <el-input clearable v-model="roleData.keyword" placeholder="Vui lòng nhập tên nút" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="getData">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="getData">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="menusAdd('Thêm quy tắc')">Thêm quy tắc </el-button>
+      <el-button type="primary" v-db-click @click="menusAdd('Thêm quy tắc')">Thêm quy tắc</el-button>
       <vxe-table
         :border="false"
         class="vxeTable mt14"
@@ -47,11 +47,11 @@
       >
         <vxe-table-column field="menu_name" tree-node title="Tên nút" min-width="100"></vxe-table-column>
         <vxe-table-column field="unique_auth" title="Quyền giao diện người dùng" min-width="200"></vxe-table-column>
-        <vxe-table-column field="menu_path" title="lộ trình" min-width="240" tooltip="true">
+        <vxe-table-column field="menu_path" title="Lộ trình" min-width="240" tooltip="true">
           <template v-slot="{ row }">
-            <span v-if="row.auth_type == 1">thực đơn：{{ row.menu_path }}</span>
-            <span v-if="row.auth_type == 3">cái nút</span>
-            <span v-if="row.auth_type == 2">giao diện：[{{ row.methods }}]{{ row.api_url }}</span>
+            <span v-if="row.auth_type == 1">Thực đơn：{{ row.menu_path }}</span>
+            <span v-if="row.auth_type == 3">Cái nút</span>
+            <span v-if="row.auth_type == 2">Giao diện：[{{ row.methods }}]{{ row.api_url }}</span>
           </template>
         </vxe-table-column>
         <vxe-table-column field="flag" title="Trạng thái quy tắc" min-width="120">
@@ -68,7 +68,7 @@
           </template>
         </vxe-table-column>
         <vxe-table-column field="mark" title="Nhận xét" min-width="120"></vxe-table-column>
-        <vxe-table-column field="date" title="vận hành" width="230" fixed="right">
+        <vxe-table-column field="date" title="Thao tác" width="230" fixed="right">
           <template v-slot="{ row }">
             <span>
               <a v-db-click @click="addRoute(row)" v-if="row.auth_type === 1 || row.auth_type === 3">Chọn quyền</a>
@@ -79,9 +79,9 @@
               <!-- <a v-db-click @click="addE(row, 'Thêm quy tắc')" v-else>Thêm quy tắc</a> -->
             </span>
             <el-divider direction="vertical" v-if="row.auth_type === 1 || row.auth_type === 3"></el-divider>
-            <a v-db-click @click="edit(row, 'biên tập')">biên tập</a>
+            <a v-db-click @click="edit(row, 'Chỉnh sửa')">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, 'xóa quy tắc')">xóa bỏ</a>
+            <a v-db-click @click="del(row, 'xóa quy tắc')">Xóa</a>
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -98,7 +98,7 @@
       <div class="search-rule">
         <el-alert>
           <template slot="title">
-            1.Nhiều giao diện có thể được lựa chọn và thêm vào nhiều lần.；<br />2.Thêm tuyến đường theo quy tắc định tuyến, sau đó thêm chúng vào công cụ phát triển->Nhấn Sync trong giao diện quản lý；<br />3.Sau khi đồng bộ xong, bạn có thể chọn giao diện tương ứng tại đây.；
+            1.Nhiều giao diện có thể được lựa chọn và thêm vào nhiều lần.；<br />2.Thêm tuyến đường theo quy tắc định tuyến, sau đó thêm chúng vào Công cụ Dev->Nhấn Sync trong giao diện quản lý；<br />3.Sau khi đồng bộ xong, bạn có thể chọn giao diện tương ứng tại đây.；
           </template>
         </el-alert>
         <el-input
@@ -108,8 +108,8 @@
           clearable
           ref="search"
         />
-        <el-button type="primary" v-db-click @click="searchRules">tìm kiếm</el-button>
-        <el-button v-db-click @click="init">cài lại</el-button>
+        <el-button type="primary" v-db-click @click="searchRules">Tìm kiếm</el-button>
+        <el-button v-db-click @click="init">Đặt lại</el-button>
       </div>
       <div class="route-list">
         <div class="tree">
@@ -136,7 +136,7 @@
           >
             <div>Tên giao diện：{{ item.name }}</div>
             <div>Phương thức yêu cầu：{{ item.method }}</div>
-            <div>địa chỉ giao diện：{{ item.path }}</div>
+            <div>Địa chỉ giao diện：{{ item.path }}</div>
           </div>
         </div>
       </div>

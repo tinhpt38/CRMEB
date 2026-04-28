@@ -44,7 +44,7 @@ class StoreCategoryValidate extends Validate
         'big_pic.max' => 'Độ dài của ảnh phân loại không được vượt quá 200 ký tự.',
         'sort.number' => 'Lỗi loại tham số sắp xếp',
         'sort.egt' => 'Sắp xếp không thể nhỏ hơn0',
-        'is_show.in' => 'Trạng thái phải là số nguyên trong khoảng 0-1',
+        'is_show.in' => 'Trạng thái phải là số nguyên Trong khoảng 0-1',
     ];
 
     protected $scene = [

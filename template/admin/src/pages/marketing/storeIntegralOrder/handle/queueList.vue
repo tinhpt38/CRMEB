@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modal" title="danh sách nhiệm vụ" width="1000px">
+  <el-dialog :visible.sync="modal" title="Danh sách nhiệm vụ" width="1000px">
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-form
         ref="formValidate"
@@ -29,7 +29,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="7">
-            <el-form-item label="kiểu：">
+            <el-form-item label="Kiểu：">
               <el-select v-model="formValidate.type" clearable @change="typeSearchs">
                 <el-option
                   v-for="item in typeList"
@@ -41,7 +41,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="7">
-            <el-form-item label="tình trạng：">
+            <el-form-item label="Tình trạng：">
               <el-select v-model="formValidate.status" clearable @change="statusSearchs">
                 <el-option
                   v-for="item in statusList"
@@ -80,12 +80,12 @@
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="130">
+        <el-table-column label="Trạng thái" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.status_cn }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
             <template v-if="scope.row.is_show_log">
               <a v-db-click @click="deliveryLook(scope.row)">Kiểm tra</a>
@@ -93,9 +93,9 @@
             </template>
             <template>
               <el-dropdown size="small" @command="changeMenu(scope.row, $event)">
-                <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="1">tải về</el-dropdown-item>
+                  <el-dropdown-item command="1">Tải về</el-dropdown-item>
                   <el-dropdown-item command="2">Thực hiện lại</el-dropdown-item>
                   <el-dropdown-item v-if="scope.row.is_stop_button" command="3">Dừng tác vụ</el-dropdown-item>
                   <el-dropdown-item v-if="scope.row.is_error_button" command="4">Xóa nhiệm vụ ngoại lệ</el-dropdown-item>
@@ -118,7 +118,7 @@
     <el-dialog :visible.sync="modal1" width="1000px">
       <el-table height="500" class="mt14" :data="data2" v-loading="loading2">
         <el-table-column
-          :label="item.title"
+          :label="Item.title"
           :min-width="item.minWidth || 100"
           v-for="(item, index) in columns4"
           :key="index"

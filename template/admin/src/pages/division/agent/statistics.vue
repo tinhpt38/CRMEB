@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="phạm vi thời gian：">
+          <el-form-item label="Phạm vi thời gian：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -26,7 +26,7 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -51,19 +51,19 @@
             no-filtered-formValidate-text="Chưa có kết quả lọc nào"
             @sort-change="handleSortChange"
           >
-            <el-table-column label="người dùngUID" width="150">
+            <el-table-column label="Người dùngUID" width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="hình đại diện" min-width="120">
+            <el-table-column label="Hình đại diện" min-width="120">
               <template slot-scope="scope">
                 <div class="tabBox_img" v-viewer>
                   <img v-lazy="scope.row.avatar" />
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="tên" min-width="130">
+            <el-table-column label="Tên" min-width="130">
               <template slot-scope="scope">
                 <div class="acea-row">
                   <div v-text="scope.row.name"></div>

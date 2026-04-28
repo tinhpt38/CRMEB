@@ -38,7 +38,7 @@ use think\facade\Db;
 class StoreCouponIssueServices extends BaseServices
 {
 
-    public $_couponType = [0 => "Phiếu giảm giá phổ quát", 1 => "Phiếu giảm giá danh mục", 2 => 'phiếu giảm giá hàng hóa'];
+    public $_couponType = [0 => "Mã giảm giá phổ quát", 1 => "Mã giảm giá danh mục", 2 => 'phiếu giảm giá sản phẩm'];
 
     /**
      * StoreCouponIssueServices constructor.
@@ -193,7 +193,7 @@ class StoreCouponIssueServices extends BaseServices
     {
         $issueInfo = $this->dao->get($id);
         if (-1 == $issueInfo['status'] || 1 == $issueInfo['is_del']) throw new AdminException('Sửa đổi không thành công');
-        $f = [FormBuilder::radio('status', 'Có nên bật không', $issueInfo['status'])->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]])];
+        $f = [FormBuilder::radio('status', 'Có nên bật không', $issueInfo['status'])->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]])];
         return create_form('Sửa đổi trạng thái', $f, $this->url('/marketing/coupon/released/status/' . $id), 'PUT');
     }
 
@@ -206,7 +206,7 @@ class StoreCouponIssueServices extends BaseServices
     {
         $coupon = $this->dao->get($id);
         if (!$coupon) {
-            throw new AdminException('Phiếu giảm giá không tồn tại');
+            throw new AdminException('Mã giảm giá không tồn tại');
         }
         if ($coupon['receive_type'] != 4) {
             /** @var StoreCouponIssueUserServices $storeCouponIssueUserService */
@@ -398,7 +398,7 @@ class StoreCouponIssueServices extends BaseServices
     public function issueUserCoupon($id, $user, bool $is_receive = false)
     {
         $issueCouponInfo = $this->dao->getInfo((int)$id);
-        if (!$issueCouponInfo) throw new ApiException('Phiếu giảm giá bạn nhận được đã được sử dụng hết hoặc đã hết hạn.');
+        if (!$issueCouponInfo) throw new ApiException('Mã giảm giá bạn nhận được đã được sử dụng hết hoặc đã hết hạn.');
         if ($user->is_money_level <= 0 && $issueCouponInfo['receive_type'] == 4) {
             throw new ApiException('Vui lòng kích hoạt tư cách thành viên trả phí trước để nhận phiếu giảm giá thành viên');
         }
@@ -410,7 +410,7 @@ class StoreCouponIssueServices extends BaseServices
         // Số lượng đã nhận được
         $issueUserCount = $issueUserService->getIssueUserCount($uid, $id);
         if ($issueUserCount >= $issueCouponInfo['receive_limit']) {
-            throw new ApiException('Phiếu giảm giá này không thể được yêu cầu lại');
+            throw new ApiException('Mã giảm giá này không thể được yêu cầu lại');
         }
         $this->transaction(function () use ($issueUserService, $uid, $id, $couponUserService, $issueCouponInfo, $is_receive) {
             $issueUserService->save(['uid' => $uid, 'issue_coupon_id' => $id, 'add_time' => time()]);

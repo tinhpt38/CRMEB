@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? 'Chỉnh sửa sản phẩm điểm' : 'Thêm điểm sản phẩm'"
+      :title="$route.params.id ? 'Sửa sản phẩm điểm' : 'Thêm điểm sản phẩm'"
       :backUrl="$routeProStr + '/marketing/store_integral/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -55,7 +55,7 @@
                 <el-form-item prop="images">
                   <div class="custom-label" slot="label">
                     <div>
-                      <div>Băng chuyền sản phẩm</div>
+                      <div>Ảnh slider sản phẩm</div>
                       <div>(750*750)</div>
                     </div>
                     <div>：</div>
@@ -118,9 +118,9 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="đơn vị：" prop="unit_name" label-for="unit_name">
+                <el-form-item label="Đơn vị：" prop="unit_name" label-for="unit_name">
                   <el-input
-                    placeholder="Vui lòng nhập đơn vị"
+                    placeholder="Vui lòng nhập Đơn vị"
                     element-id="unit_name"
                     v-model="formValidate.unit_name"
                     class="content_width"
@@ -129,7 +129,7 @@
               </el-col>
 
               <el-col :span="24">
-                <el-form-item label="loại：">
+                <el-form-item label="Loại：">
                   <el-input-number
                     :controls="false"
                     placeholder="Vui lòng nhập sắp xếp"
@@ -143,16 +143,16 @@
               <el-col :span="24">
                 <el-form-item label="Tình trạng kệ：" props="is_show" label-for="status">
                   <el-radio-group element-id="is_show" v-model="formValidate.is_show">
-                    <el-radio :label="1" class="radio">bật lên</el-radio>
-                    <el-radio :label="0">đóng cửa</el-radio>
+                    <el-radio :label="1" class="radio">Bật lên</el-radio>
+                    <el-radio :label="0">Đóng cửa</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
               <el-col v-bind="grid2">
                 <el-form-item label="Khuyến nghị phổ biến：" props="is_host" label-for="is_host">
                   <el-radio-group element-id="is_host" v-model="formValidate.is_host">
-                    <el-radio :label="1" class="radio">bật lên</el-radio>
-                    <el-radio :label="0">đóng cửa</el-radio>
+                    <el-radio :label="1" class="radio">Bật lên</el-radio>
+                    <el-radio :label="0">Đóng cửa</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -169,7 +169,7 @@
                   >
                     <el-table-column type="selection" :reserve-selection="true" width="55"> </el-table-column>
                     <el-table-column
-                      :label="item.title"
+                      :label="Item.title"
                       :min-width="item.minWidth"
                       v-for="(item, index) in columns"
                       :key="index"
@@ -222,7 +222,7 @@
             </el-col>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="nội dung：">
+                <el-form-item label="Nội dung：">
                   <WangEditor
                     style="width: 90%"
                     :content="formValidate.description"
@@ -238,8 +238,7 @@
                   v-db-click
                   @click="step"
                   :disabled="($route.params.id && current === 1) || current === 0"
-                  >Bước trước
-                </el-button>
+                  >Bước trước</el-button>
                 <el-button
                   :disabled="submitOpen && current === 2"
                   type="primary"
@@ -382,7 +381,7 @@ export default {
         ],
         title: [{ required: true, message: 'Vui lòng nhập tiêu đề sản phẩm', trigger: 'blur' }],
         info: [{ required: true, message: 'Vui lòng nhập phần giới thiệu hoạt động điểm', trigger: 'blur' }],
-        unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
+        unit_name: [{ required: true, message: 'Vui lòng nhập Đơn vị', trigger: 'blur' }],
         price: [
           {
             required: true,

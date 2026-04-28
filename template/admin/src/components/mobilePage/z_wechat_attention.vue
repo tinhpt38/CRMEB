@@ -11,7 +11,7 @@
         <div class="name">{{ txt }}</div>
       </div>
       <div class="right">
-        <div class="btn" :style="{ borderColor: themeColor, color: themeColor }">tập trung vào</div>
+        <div class="btn" :style="{ borderColor: themeColor, color: themeColor }">Tập trung vào</div>
         <div class="iconfont iconguanbi5"></div>
       </div>
     </div>
@@ -166,7 +166,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

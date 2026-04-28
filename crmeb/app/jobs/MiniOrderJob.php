@@ -70,7 +70,7 @@ class MiniOrderJob extends BaseJobs
                         }
                         if (strpos($item['merchant_trade_no'], 'cz') !== false) {
                             $shipping_list = [
-                                ['item_desc' => 'Nạp tiền người dùng']
+                                ['item_desc' => 'Nạp tiền vào ví']
                             ];
                             $path = '/pages/users/user_bill/index?type=2';
                         }

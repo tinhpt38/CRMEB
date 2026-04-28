@@ -63,7 +63,7 @@ class StoreServiceSpeechcraftCateServices extends CategoryServices
         if (!$cateInfo) {
             throw new AdminException('Danh mục không tồn tại');
         }
-        return create_form('Sửa đổi phân loại', $this->serviceSpeechcraftCateForm($cateInfo->toArray()), $this->url('/app/wechat/speechcraftcate/' . $id), 'PUT');
+        return create_form('Sửa danh mục', $this->serviceSpeechcraftCateForm($cateInfo->toArray()), $this->url('/app/wechat/speechcraftcate/' . $id), 'PUT');
     }
 
 }

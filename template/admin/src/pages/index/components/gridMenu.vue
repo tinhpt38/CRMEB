@@ -6,7 +6,7 @@
           <div class="icon">
             <i class="iconfont iconyonghuguanli" style="color: #0256ff"></i>
           </div>
-          <p>Quản lý người dùng</p>
+          <p>Quản lý khách hàng</p>
         </router-link>
       </el-card>
     </el-col>
@@ -26,7 +26,7 @@
           <div class="icon">
             <i class="iconfont iconshangpin" style="color: #0fc6c2"></i>
           </div>
-          <p>hàng hóa</p>
+          <p>Hàng hóa</p>
         </router-link>
       </el-card>
     </el-col>
@@ -46,7 +46,7 @@
           <div class="icon">
             <i class="iconfont iconduanxinpeizhi" style="color: #f7ba1e"></i>
           </div>
-          <p>cấu hình tin nhắn</p>
+          <p>Cấu hình tin nhắn</p>
         </router-link>
       </el-card>
     </el-col>
@@ -76,7 +76,7 @@
           <div class="icon">
             <i class="iconfont iconyouhuiquan4" style="color: #0fc6c2"></i>
           </div>
-          <p>Phiếu giảm giá</p>
+          <p>Mã giảm giá</p>
         </router-link>
       </el-card>
     </el-col>

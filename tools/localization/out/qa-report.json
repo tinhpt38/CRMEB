@@ -1,0 +1,7176 @@
+{
+  "roots": [
+    "template/admin/src",
+    "template/uni-app",
+    "crmeb/app"
+  ],
+  "summary": {
+    "files": 2000,
+    "filesWithHits": 352,
+    "totalHits": 861,
+    "countByKind": {
+      "han": 209,
+      "suspect": 637,
+      "hon": 15
+    }
+  },
+  "countByTerm": {
+    "bật lên": 128,
+    "Truy vấn": 57,
+    "Xuất khẩu": 37,
+    "hàng hóa": 145,
+    "cứu": 22,
+    "Thứ tự": 15,
+    "biên tập": 88,
+    "Hơn": 15,
+    "Ôn lại": 20,
+    "vận hành": 10,
+    "cài lại": 5,
+    "nam giới": 4,
+    "Đặt hàng ": 36,
+    "Xuất người dùng": 5,
+    "trưởng thành": 2,
+    "cổ phiếu": 3,
+    "băng hình": 4,
+    "Ràng buộc": 17,
+    "bầu trời": 7,
+    "mặt trăng": 2,
+    "tích phân": 20,
+    "người dùngID": 7,
+    "Cứu": 1,
+    "Sự cân bằng": 2,
+    "模板": 1,
+    "标题": 1,
+    "链接": 1,
+    "文字": 1,
+    "图片": 1,
+    "更多": 1,
+    "商城头条": 1,
+    "商品": 2,
+    "新闻资讯": 1,
+    "领优惠券": 1,
+    "浏览记录": 1,
+    "积分商城": 1,
+    "疯狂砍价": 1,
+    "低至 元免费拿": 1,
+    "超值拼团": 1,
+    "限时秒杀": 1,
+    "签到": 1,
+    "优惠券": 1,
+    "文章列表": 1,
+    "新闻公告": 1,
+    "导航组": 1,
+    "轮播搜索": 1,
+    "底部导航": 1,
+    "商品列表": 1,
+    "官方动态": 1,
+    "样式一": 1,
+    "样式二": 1,
+    "显示": 1,
+    "隐藏": 1,
+    "选择风格": 1,
+    "色调": 1,
+    "加粗": 1,
+    "正常": 1,
+    "倾斜": 1,
+    "上传图片": 1,
+    "背景颜色": 1,
+    "背景设置": 1,
+    "背景圆角": 1,
+    "标题图片": 1,
+    "右侧按钮": 1,
+    "按钮字号": 1,
+    "按钮效果": 1,
+    "按钮样式": 1,
+    "按钮颜色": 2,
+    "文字颜色": 1,
+    "分割线": 1,
+    "内容设置": 1,
+    "显示内容": 1,
+    "商品样式": 1,
+    "头部样式": 1,
+    "两列展示": 1,
+    "两列纵向": 1,
+    "单列展示": 1,
+    "三列展示": 1,
+    "左右滑动": 1,
+    "大图展示": 1,
+    "商品数量": 1,
+    "展示信息": 1,
+    "商品标签": 1,
+    "商品排序": 1,
+    "综合": 1,
+    "销量": 1,
+    "价格": 1,
+    "商品销量": 1,
+    "商品评分": 1,
+    "会员价格": 1,
+    "评分颜色": 1,
+    "按钮": 1,
+    "进入商品详情页": 1,
+    "商品加购": 1,
+    "选择方式": 1,
+    "指定商品": 1,
+    "指定": 1,
+    "指示器样式": 1,
+    "指示器位置": 1,
+    "左对齐": 1,
+    "居中对齐": 1,
+    "右对齐": 1,
+    "样式三": 1,
+    "样式四": 1,
+    "横向": 1,
+    "纵向": 1,
+    "左斜": 1,
+    "右斜": 1,
+    "渐变方向": 1,
+    "内边距": 1,
+    "外边距": 1,
+    "边框设置": 1,
+    "边框样式": 1,
+    "实线": 1,
+    "虚线": 1,
+    "点状": 1,
+    "边框粗细": 1,
+    "边框颜色": 1,
+    "阴影设置": 1,
+    "阴影颜色": 1,
+    "模糊半径": 1,
+    "扩展半径": 1,
+    "建议尺寸": 1,
+    "图片尺寸": 1,
+    "填写内容": 1,
+    "设置": 2,
+    "显示时间": 1,
+    "爆款热卖": 1,
+    "秒杀介绍": 1,
+    "商品选项卡": 1,
+    "选中文字": 1,
+    "展示设置": 1,
+    "搜索设置": 1,
+    "搜索热词": 1,
+    "选项卡设置": 1,
+    "图片设置": 1,
+    "标签设置": 1,
+    "指示器设置": 1,
+    "渐变设置": 1,
+    "定位类型": 1,
+    "门店": 1,
+    "用户定位": 1,
+    "搜索框": 1,
+    "滚动至顶部固定": 1,
+    "正常显示": 1,
+    "设置搜索热词显示时间": 1,
+    "滚动时间": 1,
+    "鼠标拖拽版块可调整选项卡顺序": 1,
+    "显示文字": 1,
+    "数据类型": 1,
+    "微页面": 1,
+    "组件背景": 1,
+    "选中样式": 1,
+    "常规样式": 1,
+    "图片圆角": 1,
+    "全部": 1,
+    "单个": 1,
+    "圆角值": 1,
+    "建议": 2,
+    "输入连接": 1,
+    "输入标题": 1,
+    "默认": 1,
+    "顶部固定": 1,
+    "提示文字": 1,
+    "内容间距": 1,
+    "下拉": 1,
+    "添加": 1,
+    "底部背景": 1,
+    "页面上间距": 1,
+    "左右边距": 1,
+    "上边距": 1,
+    "下边距": 1,
+    "展示样式": 1,
+    "固定显示": 1,
+    "分页滑动": 1,
+    "显示行数": 1,
+    "导航样式": 1,
+    "图片 文字": 1,
+    "单行显示": 1,
+    "个": 1,
+    "行": 1,
+    "按钮文字": 1,
+    "标题文字": 1,
+    "标题颜色": 1,
+    "标题字号": 1,
+    "商品名称": 1,
+    "商品价格": 1,
+    "划线价": 1,
+    "已售数量": 1,
+    "按钮背景": 1,
+    "优惠金额": 1,
+    "优惠券背景": 1,
+    "优惠券间距": 1,
+    "是否显示": 1,
+    "列表设置": 1,
+    "商品设置": 1,
+    "通用样式": 1,
+    "头部设置": 1,
+    "标题类型": 1,
+    "背景色": 1,
+    "背景图片": 1,
+    "参与人数": 1,
+    "砍价价格": 1,
+    "拼团价格": 1,
+    "秒杀价格": 1,
+    "秒杀进度": 1,
+    "距离结束": 1,
+    "数字背景": 1,
+    "数字": 1,
+    "新闻标题": 1,
+    "时间日期": 1,
+    "浏览量": 1,
+    "页面间距": 1,
+    "请输入搜索词": 1,
+    "请输入标题文字": 1,
+    "请输入右侧按钮": 1,
+    "请输入右侧文字": 1,
+    "请输入标题": 1,
+    "请输入链接": 1,
+    "请输入 名称": 1,
+    "请输入": 1,
+    "选填": 1,
+    "不超过 个字": 1,
+    "不超过四": 1,
+    "不超过": 1,
+    "跟随主题风格": 1,
+    "自定义": 1,
+    "颜色": 1,
+    "轮播搜索组件": 1
+  },
+  "perFile": [
+    {
+      "file": "template/admin/src/App.vue",
+      "hits": [
+        {
+          "line": 56,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên cấu hình bố cục sẽ mở ra."
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/diy.js",
+      "hits": [
+        {
+          "line": 224,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "* @description Thêm thủ công,Dữ liệu danh sách cửa sổ bật lên"
+        },
+        {
+          "line": 513,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @description Truy vấn bản ghi xuất chủ đề (để bỏ phiếu)"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/export.js",
+      "hits": [
+        {
+          "line": 57,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu di chuyển sản phẩm"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/marketing.js",
+      "hits": [
+        {
+          "line": 27,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* type:Thêm phiếu giảm giá loại 0: chung, 1: danh mục, 2: hàng hóa"
+        },
+        {
+          "line": 477,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* @description Hoạt động thương lượng tại cửa hàng -- Xuất khẩu"
+        },
+        {
+          "line": 488,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* @description Nhóm cửa hàng -- Xuất khẩu"
+        },
+        {
+          "line": 499,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* @description Khuyến mãi chớp nhoáng tại cửa hàng -- Xuất khẩu"
+        },
+        {
+          "line": 532,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* @description Sản phẩm tích điểm -- (Nhiều) cứu"
+        },
+        {
+          "line": 844,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "* Thứ tự nhóm"
+        },
+        {
+          "line": 921,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "* Phần thưởng đăng nhập của biên tập viên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/order.js",
+      "hits": [
+        {
+          "line": 384,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* @description Quản lý đơn hàng -- Xuất khẩu"
+        },
+        {
+          "line": 472,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* @description Đơn hàng Points Mall -- Xuất khẩu"
+        },
+        {
+          "line": 607,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "* Thứ tự id @paramid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/product.js",
+      "hits": [
+        {
+          "line": 359,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* @description Cửa hàng sản phẩm -- Xuất khẩu"
+        },
+        {
+          "line": 598,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @description Dịch vụ bảo lãnh hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/setting.js",
+      "hits": [
+        {
+          "line": 744,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Danh sách"
+        },
+        {
+          "line": 756,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Dữ liệu thành phố"
+        },
+        {
+          "line": 766,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Gửi biểu mẫu sửa đổi；"
+        },
+        {
+          "line": 777,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Gửi biểu mẫu sửa đổi；"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/assets/iconfontYI/iconfontYI.json",
+      "hits": [
+        {
+          "line": 248,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 794,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 878,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 1137,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 1172,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "\"name\": \"Ôn lại\","
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/CustomDesign/index.vue",
+      "hits": [
+        {
+          "line": 107,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "<span class=\"type\">{{ item.type || 'vận hành' }}</span>"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/cropperImg/index.vue",
+      "hits": [
+        {
+          "line": 33,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "<!--Các nút công cụ vận hành phía dưới-->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_bg_color.vue",
+      "hits": [
+        {
+          "line": 68,
+          "kind": "suspect",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_upload_img.vue",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_upload_list.vue",
+      "hits": [
+        {
+          "line": 191,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_upload_video.vue",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/hotpotModal/AreaBox.vue",
+      "hits": [
+        {
+          "line": 89,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "// boxđiểm ban đầu vận hành"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_bg_color.vue",
+      "hits": [
+        {
+          "line": 64,
+          "kind": "suspect",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_goods_label.vue",
+      "hits": [
+        {
+          "line": 107,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_hot_imgs.vue",
+      "hits": [
+        {
+          "line": 144,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_menu_list.vue",
+      "hits": [
+        {
+          "line": 238,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_page_ueditor.vue",
+      "hits": [
+        {
+          "line": 60,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_promotion.vue",
+      "hits": [
+        {
+          "line": 374,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_swipers_list.vue",
+      "hits": [
+        {
+          "line": 162,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_upload_img.vue",
+      "hits": [
+        {
+          "line": 136,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_upload_video.vue",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/newsCategory/index.vue",
+      "hits": [
+        {
+          "line": 233,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/uploadVideo2/index.vue",
+      "hits": [
+        {
+          "line": 256,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Nhập cửa sổ bật lên liên kết -->"
+        },
+        {
+          "line": 364,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "inputModal: false, // Nhập cửa sổ bật lên liên kết"
+        },
+        {
+          "line": 381,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Mở cửa sổ bật lên liên kết đầu vào"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/verifition/Verify/VerifyPoints.vue",
+      "hits": [
+        {
+          "line": 73,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/verifition/Verify/VerifySlide.vue",
+      "hits": [
+        {
+          "line": 88,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/i18n/index.js",
+      "hits": [
+        {
+          "line": 60,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu quốc tế hóa ngôn ngữ"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/layout/navBars/breadcrumb/search.vue",
+      "hits": [
+        {
+          "line": 33,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên tìm kiếm mở ra"
+        },
+        {
+          "line": 42,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên tìm kiếm đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/layout/navBars/breadcrumb/setings.vue",
+      "hits": [
+        {
+          "line": 487,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên cấu hình bố cục sẽ mở ra."
+        },
+        {
+          "line": 491,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Khi đóng cửa sổ bật lên, hãy khởi tạo các biến"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/layout/navBars/breadcrumb/user.vue",
+      "hits": [
+        {
+          "line": 114,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "* Mở cửa sổ bật lên mới"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/libs/tools.js",
+      "hits": [
+        {
+          "line": 136,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "// Hơn 59 giây, nhỏ hơn hoặc bằng 59 phút 59 giây"
+        },
+        {
+          "line": 140,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "// Hơn 23 giờ, 59 phút và 59 giây, nhỏ hơn hoặc bằng 29 ngày, 59 phút và 59 giây"
+        },
+        {
+          "line": 142,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "// Hơn 29 ngày, 59 phút và 59 giây, ít hơn 364 ngày, 23 giờ, 59 phút và 59 giây và dấu thời gian đến sớm hơn dấu thời gian hiện tại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/agent/agentManage.vue",
+      "hits": [
+        {
+          "line": 277,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 292,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 373,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "// Thứ tự danh sách nhà quảng bá"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/agent/spread/apply.vue",
+      "hits": [
+        {
+          "line": 245,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/routine/ciUpload/index.vue",
+      "hits": [
+        {
+          "line": 294,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên hướng dẫn cài đặt thủ công -->"
+        },
+        {
+          "line": 366,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên khóa tải lên -->"
+        },
+        {
+          "line": 440,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Trạng thái bật lên"
+        },
+        {
+          "line": 1545,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        },
+        {
+          "line": 1579,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên hướng dẫn cài đặt"
+        },
+        {
+          "line": 1913,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên tải lên khóa"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/wechat/reply/keyword.vue",
+      "hits": [
+        {
+          "line": 214,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/wechat/user/handle/sendOut.vue",
+      "hits": [
+        {
+          "line": 184,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/wechat/user/tag.vue",
+      "hits": [
+        {
+          "line": 76,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/cms/article/index.vue",
+      "hits": [
+        {
+          "line": 247,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/cms/articleCategory/index.vue",
+      "hits": [
+        {
+          "line": 136,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/crud/index.vue",
+      "hits": [
+        {
+          "line": 350,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/division/agent/applyList.vue",
+      "hits": [
+        {
+          "line": 253,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/division/agent/index.vue",
+      "hits": [
+        {
+          "line": 140,
+          "kind": "suspect",
+          "term": "nam giới",
+          "preview": "<i class=\"el-icon-male mr10\" v-show=\"scope.row.sex === 'nam giới'\" style=\"color: #2db7f5; font-size: 15px\"></i>"
+        },
+        {
+          "line": 297,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/division/list/index.vue",
+      "hits": [
+        {
+          "line": 299,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/commission/index.vue",
+      "hits": [
+        {
+          "line": 125,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/financialRecords/bill/index.vue",
+      "hits": [
+        {
+          "line": 174,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/financialRecords/recharge/index.vue",
+      "hits": [
+        {
+          "line": 274,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/userExtract/index.vue",
+      "hits": [
+        {
+          "line": 395,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/appChat/mobile/index.vue",
+      "hits": [
+        {
+          "line": 67,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        },
+        {
+          "line": 75,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "<!-- Đặt hàng -->"
+        },
+        {
+          "line": 560,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "// Đặt hàng của người dùng"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/components/words.vue",
+      "hits": [
+        {
+          "line": 113,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Chỉnh sửa cửa sổ bật lên  -->"
+        },
+        {
+          "line": 301,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên Thêm từ"
+        },
+        {
+          "line": 309,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên"
+        },
+        {
+          "line": 370,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Mở cửa sổ bật lên nhóm"
+        },
+        {
+          "line": 379,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên nhóm"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/mobile/chat_list.vue",
+      "hits": [
+        {
+          "line": 73,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<div class=\"msg\" v-if=\"item.message_type == 5\">[hàng hóa]</div>"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/mobile/index.vue",
+      "hits": [
+        {
+          "line": 33,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        },
+        {
+          "line": 41,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "<!-- Đặt hàng -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/pc/components/msgWindow.vue",
+      "hits": [
+        {
+          "line": 205,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "maskTitle: '', // Tiêu đề cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/pc/components/rightMenu.vue",
+      "hits": [
+        {
+          "line": 249,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên vận chuyển -->"
+        },
+        {
+          "line": 397,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "isDelivery: false, // Cửa sổ bật lên vận chuyển"
+        },
+        {
+          "line": 398,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "isRemarks: false, // Cửa sổ bật lên nhận xét"
+        },
+        {
+          "line": 399,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "isUserGroup: false, //Cửa sổ bật lên nhóm"
+        },
+        {
+          "line": 531,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "// Đặt hàng Nhập"
+        },
+        {
+          "line": 575,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "// Đặt hàng Tải thêm"
+        },
+        {
+          "line": 617,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// dấu chân hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/pc/index.vue",
+      "hits": [
+        {
+          "line": 40,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        },
+        {
+          "line": 60,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "<!-- Đặt hàng -->"
+        },
+        {
+          "line": 164,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên sản phẩm -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/channelCode/channelCodeIndex.vue",
+      "hits": [
+        {
+          "line": 426,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/channelCode/createCode.vue",
+      "hits": [
+        {
+          "line": 268,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/live/anchor.vue",
+      "hits": [
+        {
+          "line": 100,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/addGoods.vue",
+      "hits": [
+        {
+          "line": 153,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "product_id: 0, //hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/create.vue",
+      "hits": [
+        {
+          "line": 708,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/index.vue",
+      "hits": [
+        {
+          "line": 218,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/lotteryList.vue",
+      "hits": [
+        {
+          "line": 306,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/recharge/index.vue",
+      "hits": [
+        {
+          "line": 525,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/sign/index.vue",
+      "hits": [
+        {
+          "line": 351,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeBargain/create.vue",
+      "hits": [
+        {
+          "line": 411,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 653,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 684,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 722,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "virtual_type: row.virtual_type, //Loại hàng hóa ảo"
+        },
+        {
+          "line": 914,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        },
+        {
+          "line": 921,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chỉ định đường dẫn của trang trong lớp bật lên. Chỉ có các trang được hỗ trợ ở đây. Vui lòng tham khảo Câu hỏi thường gặp để biết đường dẫn. 2"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeBargain/index.vue",
+      "hits": [
+        {
+          "line": 293,
+          "kind": "suspect",
+          "term": "Xuất người dùng",
+          "preview": "// Xuất người dùng"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeCombination/create.vue",
+      "hits": [
+        {
+          "line": 463,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 706,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 750,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 784,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "virtual_type: row.virtual_type, //Loại hàng hóa ảo"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeCombination/index.vue",
+      "hits": [
+        {
+          "line": 212,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 246,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeCoupon/index.vue",
+      "hits": [
+        {
+          "line": 321,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegral/create.vue",
+      "hits": [
+        {
+          "line": 484,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegral/index.vue",
+      "hits": [
+        {
+          "line": 214,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 230,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegralOrder/components/tableFrom.vue",
+      "hits": [
+        {
+          "line": 184,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegralOrder/components/tableList.vue",
+      "hits": [
+        {
+          "line": 220,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 357,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/queueList.vue",
+      "hits": [
+        {
+          "line": 464,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "// Hơn"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storePresell/create.vue",
+      "hits": [
+        {
+          "line": 287,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 533,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 572,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storePresell/index.vue",
+      "hits": [
+        {
+          "line": 209,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 224,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/create.vue",
+      "hits": [
+        {
+          "line": 382,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 608,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 662,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 695,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "virtual_type: row.virtual_type, //Loại hàng hóa ảo"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/createMore.vue",
+      "hits": [
+        {
+          "line": 277,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 616,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 648,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/index.vue",
+      "hits": [
+        {
+          "line": 279,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 309,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/list.vue",
+      "hits": [
+        {
+          "line": 283,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 313,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/userPoint/index.vue",
+      "hits": [
+        {
+          "line": 198,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/notify/smsConfig/tableList.vue",
+      "hits": [
+        {
+          "line": 137,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "<span class=\"wuSp1\">Truy vấn hậu cần không được kích hoạt</span>"
+        },
+        {
+          "line": 138,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "<span class=\"wuSp2\">Bấm vào nút Kích hoạt ngay để sử dụng dịch vụ tra cứu hậu cần～～～</span>"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/invoice/index.vue",
+      "hits": [
+        {
+          "line": 357,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Xác nhận cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/orderList/components/tableFrom.vue",
+      "hits": [
+        {
+          "line": 165,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/orderList/components/tableList.vue",
+      "hits": [
+        {
+          "line": 482,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 694,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 927,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/print/index.vue",
+      "hits": [
+        {
+          "line": 58,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<div class=\"item\"><span class=\"name\">Vận chuyển hàng hóa：</span>{{ orderData.pay_postage }}</div>"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/refund/index.vue",
+      "hits": [
+        {
+          "line": 305,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/labelList/index.vue",
+      "hits": [
+        {
+          "line": 322,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/paramList/index.vue",
+      "hits": [
+        {
+          "line": 171,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productAdd/index.vue",
+      "hits": [
+        {
+          "line": 1051,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Đóng cửa sổ bật lên Taobao và tạo dữ liệu；"
+        },
+        {
+          "line": 1220,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 1288,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chức năng gọi lại cửa sổ bật lên thuộc tính；"
+        },
+        {
+          "line": 2081,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 2102,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productAttr/index.vue",
+      "hits": [
+        {
+          "line": 196,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productClassify/index.vue",
+      "hits": [
+        {
+          "line": 167,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productList/components/goodsImport.vue",
+      "hits": [
+        {
+          "line": 38,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "Khi nhập, bạn có thể đóng cửa sổ bật lên hiện tại và xem kết quả nhập trong danh sách sau."
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productList/index.vue",
+      "hits": [
+        {
+          "line": 193,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": ">Khôi phục hàng hóa</el-dropdown-item"
+        },
+        {
+          "line": 201,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "<el-dropdown-item :command=\"2\">Xuất khẩu sản phẩm</el-dropdown-item>"
+        },
+        {
+          "line": 335,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "@click.native=\"del(scope.row, 'Khôi phục hàng hóa', scope.$index)\""
+        },
+        {
+          "line": 420,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<el-radio :label=\"3\">Mẫu vận chuyển hàng hóa</el-radio>"
+        },
+        {
+          "line": 436,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<el-select v-model=\"batchFormData.temp_id\" clearable placeholder=\"Vui lòng chọn mẫu vận chuyển hàng hóa\" style=\"width: 414px\">"
+        },
+        {
+          "line": 556,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên sản phẩm -->"
+        },
+        {
+          "line": 658,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "templateList: [], // Mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 732,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        },
+        {
+          "line": 913,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        },
+        {
+          "line": 954,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 1177,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên thuộc tính；"
+        },
+        {
+          "line": 1184,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 1227,
+          "kind": "suspect",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productList/taoBao.vue",
+      "hits": [
+        {
+          "line": 776,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/protectionList/index.vue",
+      "hits": [
+        {
+          "line": 187,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/cityDada/index.vue",
+      "hits": [
+        {
+          "line": 144,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/deliveryService/index.vue",
+      "hits": [
+        {
+          "line": 124,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devise/components/uploadPic.vue",
+      "hits": [
+        {
+          "line": 143,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devise/diyIndex.vue",
+      "hits": [
+        {
+          "line": 1270,
+          "kind": "suspect",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devise/list.vue",
+      "hits": [
+        {
+          "line": 420,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devisePage/list.vue",
+      "hits": [
+        {
+          "line": 189,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/freight/index.vue",
+      "hits": [
+        {
+          "line": 232,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/membershipLevel/index.vue",
+      "hits": [
+        {
+          "line": 494,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 501,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/multiLanguage/list.vue",
+      "hits": [
+        {
+          "line": 129,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/shippingTemplates/index.vue",
+      "hits": [
+        {
+          "line": 81,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 138,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 164,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "// Danh sách mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 179,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/storeService/autoReply.vue",
+      "hits": [
+        {
+          "line": 78,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": ":active-text=\"'bật lên'\""
+        },
+        {
+          "line": 211,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/storeService/index.vue",
+      "hits": [
+        {
+          "line": 377,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/storeService/speechcraft.vue",
+      "hits": [
+        {
+          "line": 419,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemAdmin/index.vue",
+      "hits": [
+        {
+          "line": 202,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemMenus/index.vue",
+      "hits": [
+        {
+          "line": 391,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemOutAccount/index.vue",
+      "hits": [
+        {
+          "line": 438,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 469,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemOutInterface/components/MonacoEditor.vue",
+      "hits": [
+        {
+          "line": 52,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "theme: 'vs', // Chủ đề biên tập：vs, hc-black, or vs-dark，Để có thêm lựa chọn, hãy xem trang web chính thức"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemRole/index.vue",
+      "hits": [
+        {
+          "line": 303,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/components/themeSelect/index.vue",
+      "hits": [
+        {
+          "line": 335,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/editTheme/components/Header.vue",
+      "hits": [
+        {
+          "line": 17,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Sửa đổi cửa sổ bật lên thông tin chủ đề -->"
+        },
+        {
+          "line": 18,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "<el-dialog :title=\"`Ôn lại${isMicroPage ? 'chủ đề' : 'chủ đề'}thông tin`\" :visible.sync=\"dialogVisible\" width=\"500px\">"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/editTheme/components/StyleConfig.vue",
+      "hits": [
+        {
+          "line": 70,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên lựa chọn kiểu -->"
+        },
+        {
+          "line": 572,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/mallTheme/index.vue",
+      "hits": [
+        {
+          "line": 67,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Thay đổi cửa sổ bật lên chủ đề -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/myTheme/components/themeImport.vue",
+      "hits": [
+        {
+          "line": 35,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "Khi nhập, bạn có thể đóng cửa sổ bật lên hiện tại và xem kết quả nhập trong danh sách sau."
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/myTheme/index.vue",
+      "hits": [
+        {
+          "line": 98,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Nhập cửa sổ bật lên chủ đề -->"
+        },
+        {
+          "line": 110,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Chọn cửa sổ bật lên chủ đề -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/ticket/content.vue",
+      "hits": [
+        {
+          "line": 95,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/ticket/index.vue",
+      "hits": [
+        {
+          "line": 264,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "//Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/verifyOrder/index.vue",
+      "hits": [
+        {
+          "line": 248,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/statistic/product/components/productInfo.vue",
+      "hits": [
+        {
+          "line": 122,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/statistic/product/components/productRanking.vue",
+      "hits": [
+        {
+          "line": 89,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên sản phẩm -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/statistic/user/index.vue",
+      "hits": [
+        {
+          "line": 89,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/backendRouting/components/MonacoEditor.vue",
+      "hits": [
+        {
+          "line": 52,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "theme: 'vs', // Chủ đề biên tập：vs, hc-black, or vs-dark，Để có thêm lựa chọn, hãy xem trang web chính thức"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/codeGeneration/list.vue",
+      "hits": [
+        {
+          "line": 231,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "indexEditor: 0, //Chỉ mục biên tập hiện tại"
+        },
+        {
+          "line": 350,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 495,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "that.indexEditor = '0'; //Chỉ mục biên tập hiện tại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/configTab/index.vue",
+      "hits": [
+        {
+          "line": 158,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/configTab/list.vue",
+      "hits": [
+        {
+          "line": 74,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<span v-if=\"scope.row.type === 'switch'\">{{ scope.row.value == 1 ? 'bật lên' : 'đóng cửa' }}</span>"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/crossVersionUpgrade/index.vue",
+      "hits": [
+        {
+          "line": 355,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên giao thức nâng cấp -->"
+        },
+        {
+          "line": 376,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<!-- Tải lên cửa sổ bật lên thành công -->"
+        },
+        {
+          "line": 558,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Mở cửa sổ bật lên thỏa thuận"
+        },
+        {
+          "line": 581,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Đầu tiên hãy đóng cửa sổ bật lên giao thức và hiển thị nội dung trang."
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/group/index.vue",
+      "hits": [
+        {
+          "line": 185,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/group/list.vue",
+      "hits": [
+        {
+          "line": 305,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/group/visualization.vue",
+      "hits": [
+        {
+          "line": 949,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/maintain/systemFile/opendir.vue",
+      "hits": [
+        {
+          "line": 210,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "indexEditor: 0, //Chỉ mục biên tập hiện tại"
+        },
+        {
+          "line": 366,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tậpß"
+        },
+        {
+          "line": 394,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu"
+        },
+        {
+          "line": 892,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "that.indexEditor = '0'; //Chỉ mục biên tập hiện tại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/systemMenus/index.vue",
+      "hits": [
+        {
+          "line": 411,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/cancel/handle/task.vue",
+      "hits": [
+        {
+          "line": 185,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/grade/card/index.vue",
+      "hits": [
+        {
+          "line": 251,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn tên hàng loạt"
+        },
+        {
+          "line": 269,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 288,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "// Hơn"
+        },
+        {
+          "line": 305,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên hàng loạt"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/grade/right/index.vue",
+      "hits": [
+        {
+          "line": 200,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 212,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/group/index.vue",
+      "hits": [
+        {
+          "line": 109,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/label/index.vue",
+      "hits": [
+        {
+          "line": 167,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/level/handle/task.vue",
+      "hits": [
+        {
+          "line": 187,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/level/index.vue",
+      "hits": [
+        {
+          "line": 228,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/handle/userEdit.vue",
+      "hits": [
+        {
+          "line": 253,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/handle/userEditForm.vue",
+      "hits": [
+        {
+          "line": 320,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/handle/userInfo.vue",
+      "hits": [
+        {
+          "line": 24,
+          "kind": "suspect",
+          "term": "nam giới",
+          "preview": "<div v-if=\"psInfo.sex\" class=\"value\">{{ psInfo.sex == 1 ? 'nam giới' : 'nữ giới' }}</div>"
+        },
+        {
+          "line": 51,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<div class=\"value\">{{ psInfo.spread_open ? 'bật lên' : 'đóng cửa' }}</div>"
+        },
+        {
+          "line": 55,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "<div class=\"value\">{{ psInfo.status ? 'bật lên' : 'khóa' }}</div>"
+        },
+        {
+          "line": 85,
+          "kind": "suspect",
+          "term": "trưởng thành",
+          "preview": "psInfo.is_ever_level == 1 ? 'thành viên thường trực' : psInfo.overdue_time ? `${psInfo.overdue_time} trưởng thành` : 'Hết hạn'"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/index.vue",
+      "hits": [
+        {
+          "line": 342,
+          "kind": "suspect",
+          "term": "nam giới",
+          "preview": "<i class=\"el-icon-male\" v-show=\"scope.row.sex === 'nam giới'\" style=\"color: #2db7f5; font-size: 15px\"></i>"
+        },
+        {
+          "line": 722,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        },
+        {
+          "line": 925,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 1088,
+          "kind": "suspect",
+          "term": "Xuất người dùng",
+          "preview": "// Xuất người dùng"
+        },
+        {
+          "line": 1145,
+          "kind": "suspect",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        },
+        {
+          "line": 1232,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/router/routers.js",
+      "hits": [
+        {
+          "line": 217,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu sau khi tổ chức lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/styles/font/iconfont.json",
+      "hits": [
+        {
+          "line": 1298,
+          "kind": "suspect",
+          "term": "cổ phiếu",
+          "preview": "\"name\": \"cổ phiếu cảnh báo\","
+        },
+        {
+          "line": 1382,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "\"name\": \"hàng hóa\","
+        },
+        {
+          "line": 2502,
+          "kind": "suspect",
+          "term": "băng hình",
+          "preview": "\"name\": \"băng hình\","
+        },
+        {
+          "line": 3188,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 3265,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập (1)\","
+        },
+        {
+          "line": 3286,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 3384,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập (1)\","
+        },
+        {
+          "line": 3426,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/styles/font/mobile.json",
+      "hits": [
+        {
+          "line": 521,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"ic_biên tập2\","
+        },
+        {
+          "line": 801,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 899,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "\"name\": \"Đặt hàng cùng nhau\","
+        },
+        {
+          "line": 1004,
+          "kind": "suspect",
+          "term": "băng hình",
+          "preview": "\"name\": \"băng hình\","
+        },
+        {
+          "line": 1046,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "\"name\": \"hàng hóa\","
+        },
+        {
+          "line": 1067,
+          "kind": "suspect",
+          "term": "băng hình",
+          "preview": "\"name\": \"băng hình\","
+        },
+        {
+          "line": 1389,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 1480,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "\"name\": \"Thứ tự phân phối\","
+        },
+        {
+          "line": 1949,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 2026,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 2152,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "\"name\": \"Cửa sổ bật lên trợ giúp máy tính dành cho nhiều người bán\","
+        },
+        {
+          "line": 2712,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"s-biên tập\","
+        },
+        {
+          "line": 2866,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 2908,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 3020,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 3174,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 3818,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "\"name\": \"hàng hóa\","
+        },
+        {
+          "line": 3874,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 4245,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "\"name\": \"Ôn lại\","
+        },
+        {
+          "line": 4441,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 4448,
+          "kind": "hon",
+          "term": "Hơn",
+          "preview": "\"name\": \"Hơn\","
+        },
+        {
+          "line": 4518,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        },
+        {
+          "line": 5274,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "\"name\": \"biên tập\","
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/api/api.js",
+      "hits": [
+        {
+          "line": 70,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứuform_id"
+        },
+        {
+          "line": 299,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc số điện thoại di động"
+        },
+        {
+          "line": 309,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc số điện thoại di động"
+        },
+        {
+          "line": 430,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "* Cửa sổ bật lên phiếu giảm giá trang chủ"
+        },
+        {
+          "line": 444,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "* Cửa sổ bật lên phiếu giảm giá người dùng mới"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/api/order.js",
+      "hits": [
+        {
+          "line": 69,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng thông tin sản phẩm"
+        },
+        {
+          "line": 156,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng lại"
+        },
+        {
+          "line": 178,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn thông tin hậu cần đặt hàng"
+        },
+        {
+          "line": 185,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn thông tin hậu cần đặt hàng"
+        },
+        {
+          "line": 297,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Chi tiết đơn hàng hóa đơn"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/api/user.js",
+      "hits": [
+        {
+          "line": 726,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc nhân viên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/components/couponListWindow/index.vue",
+      "hits": [
+        {
+          "line": 6,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "@click=\"setType(2)\">{{$t(`phiếu giảm giá hàng hóa`)}}</view>"
+        },
+        {
+          "line": 33,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "v-else>{{$t(`phiếu giảm giá hàng hóa`)}}</span>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/components/eidtUserModal/index.vue",
+      "hits": [
+        {
+          "line": 47,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "{{$t(`cứu`)}}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/components/jyf-parser/libs/trees.vue",
+      "hits": [
+        {
+          "line": 19,
+          "kind": "suspect",
+          "term": "băng hình",
+          "preview": "<!--băng hình-->"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/components/privacyAgreementPopup/index.vue",
+      "hits": [
+        {
+          "line": 54,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Thỏa thuận quyền riêng tư cần phải bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/components/update/app-update.vue",
+      "hits": [
+        {
+          "line": 54,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "popup_show: false, //Cửa sổ bật lên có được hiển thị hay không"
+        },
+        {
+          "line": 183,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "vm.popup_show = false; //Đóng cửa sổ bật lên nâng cấp"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/libs/routine.js",
+      "hits": [
+        {
+          "line": 107,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "desc: 'Dùng để điền thông tin thành viên', // Khai báo mục đích lấy thông tin cá nhân của người dùng sẽ được hiển thị trong cửa sổ bật lên sau đó. Hãy điền nó m"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/mixins/sharePoster.js",
+      "hits": [
+        {
+          "line": 12,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "getProductCode, // Applet hàng hóa thông thườngcode"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/activity/bargain/index.vue",
+      "hits": [
+        {
+          "line": 13,
+          "kind": "suspect",
+          "term": "bầu trời",
+          "preview": ":day-text=\" $t(`bầu trời`) \" :hour-text=\" $t(`giờ`) \" :minute-text=\" $t(`điểm`) \" :second-text=\" $t(`Thứ hai`)\""
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/activity/goods_bargain_details/index.vue",
+      "hits": [
+        {
+          "line": 596,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chương trình nhỏ đóng cửa sổ bật lên chia sẻ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/activity/goods_combination_details/index.vue",
+      "hits": [
+        {
+          "line": 1185,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Chỉ thêm vào giỏ hàng khi đóng cửa sổ bật lên thuộc tính"
+        },
+        {
+          "line": 1302,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chương trình nhỏ đóng cửa sổ bật lên chia sẻ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/activity/goods_combination_status/index.vue",
+      "hits": [
+        {
+          "line": 344,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chương trình nhỏ đóng cửa sổ bật lên chia sẻ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/activity/goods_seckill_details/index.vue",
+      "hits": [
+        {
+          "line": 1161,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Chỉ thêm vào giỏ hàng khi đóng cửa sổ bật lên thuộc tính"
+        },
+        {
+          "line": 1227,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chương trình nhỏ đóng cửa sổ bật lên chia sẻ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/activity/presell_details/index.vue",
+      "hits": [
+        {
+          "line": 314,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "id: 0, //hàng hóaid"
+        },
+        {
+          "line": 993,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Các thuộc tính được chọn theo mặc định, nhưng cửa sổ bật lên thuộc tính sẽ tự động mở để cho phép người dùng xem các thuộc tính được chọn theo mặc định."
+        },
+        {
+          "line": 999,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Chỉ thêm vào giỏ hàng khi đóng cửa sổ bật lên thuộc tính"
+        },
+        {
+          "line": 1147,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chương trình nhỏ đóng cửa sổ bật lên chia sẻ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/components/ucharts/ucharts.js",
+      "hits": [
+        {
+          "line": 587,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "//Thứ tự màu sắc là mở cửa, đóng cửa, thấp nhất, cao nhất"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/components/uni-calendar/calendar.js",
+      "hits": [
+        {
+          "line": 76,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* 24Bảng tra cứu nhanh thuật ngữ mặt trời"
+        },
+        {
+          "line": 84,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* 1900-2100Bảng tra cứu nhanh 24 ngày tiết khí trong năm"
+        },
+        {
+          "line": 334,
+          "kind": "suspect",
+          "term": "mặt trăng",
+          "preview": "toChinaMonth: function (m) { // mặt trăng => \\u6708"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/components/uni-calendar/uni-calendar.vue",
+      "hits": [
+        {
+          "line": 20,
+          "kind": "suspect",
+          "term": "mặt trăng",
+          "preview": "class=\"uni-calendar__header-text\">{{ (nowDate.year || '') + $t(`Năm`) + (nowDate.month || '') + $t(`mặt trăng`) }}</text>"
+        },
+        {
+          "line": 32,
+          "kind": "suspect",
+          "term": "bầu trời",
+          "preview": "<text class=\"uni-calendar__weeks-day-text\">{{ $t(`bầu trời`) }}</text>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/components/writeOffList/index.vue",
+      "hits": [
+        {
+          "line": 162,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "writeOffNum: 0, //Số lượng hàng hóa bị xóa mỗi lần"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/components/writeOffSwitching/index.vue",
+      "hits": [
+        {
+          "line": 22,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "<p class=\"attribute\">Đặt hàng Thanh toán thực tế：¥{{ item.pay_price }}</p>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/distribution/index.vue",
+      "hits": [
+        {
+          "line": 474,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "/*Đặt hàng trang chủ*/"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/distribution/scanning/detail/index.vue",
+      "hits": [
+        {
+          "line": 314,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "writeOffNum: 0, //Số lượng hàng hóa bị xóa mỗi lần"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/distribution/scanning/index.vue",
+      "hits": [
+        {
+          "line": 38,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "<p class=\"attribute\">Đặt hàng Thanh toán thực tế：¥{{ item.pay_price }}</p>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/order/index.vue",
+      "hits": [
+        {
+          "line": 156,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "/*Đặt hàng trang chủ*/"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/admin/user/components/editBalance/index.vue",
+      "hits": [
+        {
+          "line": 4,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view class=\"title\">Sửa{{type? 'tích phân' : 'THĂNG BẰNG'}}"
+        },
+        {
+          "line": 11,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view>Sửa{{type? 'tích phân' : 'THĂNG BẰNG'}}</view>"
+        },
+        {
+          "line": 20,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view>{{type? 'tích phân' : 'THĂNG BẰNG'}}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/components/verify/verifyPoint/verifyPoint.vue",
+      "hits": [
+        {
+          "line": 54,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/components/verify/verifySlider/index.vue",
+      "hits": [
+        {
+          "line": 64,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/components/verify/verifySlider/verifySlider.vue",
+      "hits": [
+        {
+          "line": 64,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/components/verify/verifySlider/verifySliderPc.vue",
+      "hits": [
+        {
+          "line": 77,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/settled/index.vue",
+      "hits": [
+        {
+          "line": 96,
+          "kind": "suspect",
+          "term": "người dùngID",
+          "preview": "<text class=\"item-name\">{{$t(`người dùngID`)}}</text>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/special/index.vue",
+      "hits": [
+        {
+          "line": 319,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá"
+        },
+        {
+          "line": 334,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá"
+        },
+        {
+          "line": 606,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá"
+        },
+        {
+          "line": 625,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/vip_coupon/index.vue",
+      "hits": [
+        {
+          "line": 16,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<view class=\"line-title\" :class=\"item.is_fail? 'bg-color-huic' : 'bg-color-check'\" v-else>{{$t(`phiếu giảm giá hàng hóa`)}}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/annex/vip_paid/index.vue",
+      "hits": [
+        {
+          "line": 11,
+          "kind": "suspect",
+          "term": "trưởng thành",
+          "preview": "{{ $t(`trưởng thành`) }}"
+        },
+        {
+          "line": 15,
+          "kind": "suspect",
+          "term": "bầu trời",
+          "preview": "{{ $t(`bầu trời.`) }}"
+        },
+        {
+          "line": 62,
+          "kind": "suspect",
+          "term": "bầu trời",
+          "preview": "<view v-if=\"item.type === 'free'\" class=\"info\">{{ $t(`thử`) }}{{ item.vip_day }}{{ $t(`bầu trời`) }}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/extension/customer_list/chat.vue",
+      "hits": [
+        {
+          "line": 105,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        },
+        {
+          "line": 122,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "<!-- Đặt hàng -->"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/components/invoicePicker/index.vue",
+      "hits": [
+        {
+          "line": 35,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "hover-class=\"none\"><text class=\"iconfont icon-bianji\"></text>{{$t(`biên tập`)}}"
+        },
+        {
+          "line": 39,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "hover-class=\"none\"><text class=\"iconfont icon-bianji\"></text>{{$t(`biên tập`)}}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/goods_comment_con/components/lotteryAleart.vue",
+      "hits": [
+        {
+          "line": 55,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Ẩn cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/goods_comment_con/components/userAddress.vue",
+      "hits": [
+        {
+          "line": 394,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Ẩn cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/lottery/components/lotteryAleart.vue",
+      "hits": [
+        {
+          "line": 55,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Ẩn cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/lottery/components/userAddress.vue",
+      "hits": [
+        {
+          "line": 395,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Ẩn cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/order_confirm/index.vue",
+      "hits": [
+        {
+          "line": 27,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "<view class=\"text add-text line1\" v-if=\"shippingType==1\">{{$t(`Đặt hàng trực tuyến và nhận hàng tại cửa hàng`)}}</view>"
+        },
+        {
+          "line": 754,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên địa chỉ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/order_details/index.vue",
+      "hits": [
+        {
+          "line": 691,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "aleartStatus: false, //Cửa sổ bật lên hóa đơn"
+        },
+        {
+          "line": 698,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "is_gift: 0, // 0hàng hóa thông thường || Không ai nhận 1 người mua 2 người nhận"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/order_pay_status/components/giftModal.vue",
+      "hits": [
+        {
+          "line": 139,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Ẩn cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/order_pay_status/components/lotteryAleart.vue",
+      "hits": [
+        {
+          "line": 55,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Ẩn cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods/order_pay_status/components/userAddress.vue",
+      "hits": [
+        {
+          "line": 394,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Ẩn cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/goods_details/index.vue",
+      "hits": [
+        {
+          "line": 352,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "id: 0, //hàng hóaid"
+        },
+        {
+          "line": 1234,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Các thuộc tính được chọn theo mặc định, nhưng cửa sổ bật lên thuộc tính sẽ tự động mở để cho phép người dùng xem các thuộc tính được chọn theo mặc định."
+        },
+        {
+          "line": 1240,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Chỉ thêm vào giỏ hàng khi đóng cửa sổ bật lên thuộc tính"
+        },
+        {
+          "line": 1372,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Chương trình nhỏ đóng cửa sổ bật lên chia sẻ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/index/index.vue",
+      "hits": [
+        {
+          "line": 344,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá"
+        },
+        {
+          "line": 359,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá"
+        },
+        {
+          "line": 593,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá"
+        },
+        {
+          "line": 612,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên phiếu giảm giá đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/order_addcart/order_addcart.vue",
+      "hits": [
+        {
+          "line": 212,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "{{ $t(`Đặt hàng ngay bây giờ`) }}"
+        },
+        {
+          "line": 835,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Hộp xác nhận bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/component/productWindow.vue",
+      "hits": [
+        {
+          "line": 15,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<text class=\"num\">{{ attr.productSelect.price }}{{$t(`tích phân`)}}</text>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/exchange_record.vue",
+      "hits": [
+        {
+          "line": 19,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view class=\"line1 gray-sty\">{{ $t(`tích phân`) }}:{{ item.total_price }}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/index.vue",
+      "hits": [
+        {
+          "line": 34,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "{{ item.price }} {{$t(`tích phân`)}}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/integral_goods_details.vue",
+      "hits": [
+        {
+          "line": 67,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": ">{{ $t(`tích phân`) }}"
+        },
+        {
+          "line": 799,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//Chỉ thêm vào giỏ hàng khi đóng cửa sổ bật lên thuộc tính"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/integral_goods_list.vue",
+      "hits": [
+        {
+          "line": 15,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "{{$t(`tích phân`)}}"
+        },
+        {
+          "line": 36,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "class='num'>{{item.price}}{{$t(`tích phân`)}}</text></view>"
+        },
+        {
+          "line": 39,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "{{$t(`tích phân`)}}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/integral_order.vue",
+      "hits": [
+        {
+          "line": 40,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "{{cartInfo.price}} {{$t(`tích phân`)}}"
+        },
+        {
+          "line": 72,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<text class='font-color'>{{resData.total_price || 0}}{{$t(`tích phân`)}}</text>"
+        },
+        {
+          "line": 348,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên địa chỉ；"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/integral_order_details.vue",
+      "hits": [
+        {
+          "line": 28,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "{{cartInfo.price}}{{$t(`tích phân`)}}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/logistics_details.vue",
+      "hits": [
+        {
+          "line": 11,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view>{{orderInfo.total_price}}{{$t(`tích phân`)}}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/points_mall/user_address.vue",
+      "hits": [
+        {
+          "line": 25,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "<view @click='editAddress(item.id)'><text class='iconfont icon-bianji'></text>{{$t(`biên tập`)}}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/user/index.vue",
+      "hits": [
+        {
+          "line": 400,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "// Ràng buộc điện thoại di động"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/binding_phone/index.vue",
+      "hits": [
+        {
+          "line": 18,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "{{pageType == 1?$t('Ràng buộc số điện thoại di động'):$t('Đăng nhập số điện thoại di động')}}"
+        },
+        {
+          "line": 40,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "{{$t(`${pageType == 1 ? 'Ràng buộc số điện thoại di động' : 'Đăng nhập ngay bây giờ'}`)}}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/components/verify/verifyPoint/verifyPoint.vue",
+      "hits": [
+        {
+          "line": 54,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/components/verify/verifySlider/index.vue",
+      "hits": [
+        {
+          "line": 64,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "//bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/components/verify/verifySlider/verifySliderPc.vue",
+      "hits": [
+        {
+          "line": 77,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/message_center/index.vue",
+      "hits": [
+        {
+          "line": 29,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<view v-if=\"item.message_type === 5\" class=\"info\">{{$t(`[hàng hóa]`)}}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_address_list/index.vue",
+      "hits": [
+        {
+          "line": 26,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "<view @click='editAddress(item.id)'><text class='iconfont icon-bianji'></text>{{$t(`biên tập`)}}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_cancellation/index.vue",
+      "hits": [
+        {
+          "line": 24,
+          "kind": "suspect",
+          "term": "vận hành",
+          "preview": "<view class=\"font2\">{{$t(`Bạn không thể phục hồi sau khi đăng xuất, vui lòng vận hành thận trọng.`)}}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_coupon/index.vue",
+      "hits": [
+        {
+          "line": 30,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "v-else>{{$t(`phiếu giảm giá hàng hóa`)}}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_get_coupon/index.vue",
+      "hits": [
+        {
+          "line": 31,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<view class=\"line-title\" :class=\"item.is_use >= item.receive_limit ? 'bg-color-huic' : ''\" v-else>{{ $t(`phiếu giảm giá hàng hóa`) }}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_invoice_form/index.vue",
+      "hits": [
+        {
+          "line": 65,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "<button class=\"button\" form-type=\"submit\">{{$t(`cứu`)}}</button>"
+        },
+        {
+          "line": 219,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "// cứu"
+        },
+        {
+          "line": 425,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Hiển thị cửa sổ bật lên loại hóa đơn"
+        },
+        {
+          "line": 447,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên hóa đơn"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_invoice_list/index.vue",
+      "hits": [
+        {
+          "line": 57,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "{{ $t(`biên tập`) }}"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_invoice_order/index.vue",
+      "hits": [
+        {
+          "line": 159,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "<view>{{$t(`vận chuyển hàng hóa`)}}：</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_sgin/index.vue",
+      "hits": [
+        {
+          "line": 72,
+          "kind": "suspect",
+          "term": "bầu trời",
+          "preview": "<view class=\"data\">{{ $t(`bầu trời`) }}</view>"
+        },
+        {
+          "line": 99,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view class=\"integral\">{{ $t(`lấy`) }}{{ integral }}{{ $t(`tích phân`) }}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/user_vip/index.vue",
+      "hits": [
+        {
+          "line": 110,
+          "kind": "suspect",
+          "term": "bầu trời",
+          "preview": "<view class=\"info\">{{ $t(`Bạn có thể nhận được điểm kinh nghiệm bằng cách đăng nhập mỗi ngày. Bạn đã đăng nhập`) }}{{ taskInfo.sign_count || '' }}{{ $t(`bầu trờ"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages/users/wechat_login/index.vue",
+      "hits": [
+        {
+          "line": 370,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/pages.json",
+      "hits": [
+        {
+          "line": 846,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "\"navigationBarTitleText\": \"Ràng buộc điện thoại di động\","
+        },
+        {
+          "line": 1360,
+          "kind": "suspect",
+          "term": "cổ phiếu",
+          "preview": "\"navigationBarTitleText\": \"Sửa đổi giá/cổ phiếu\","
+        },
+        {
+          "line": 1649,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "\"navigationBarTitleText\": \"Thứ tự điểm\","
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/subpackage/diyComponents/newVip.vue",
+      "hits": [
+        {
+          "line": 185,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "$t(`phiếu giảm giá hàng hóa`)"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/subpackage/diyComponents/pointsMall.vue",
+      "hits": [
+        {
+          "line": 54,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view class=\"\">{{ $t(`tích phân`) }}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/subpackage/diyComponents/signIn.vue",
+      "hits": [
+        {
+          "line": 32,
+          "kind": "suspect",
+          "term": "bầu trời",
+          "preview": "}}{{ $t(`bầu trời`) }}</view"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/subpackage/diyComponents/userInfor.vue",
+      "hits": [
+        {
+          "line": 66,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view>{{ $t(`tích phân`) }}</view>"
+        },
+        {
+          "line": 113,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "<view>{{ $t(`tích phân`) }}</view>"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/utils/SubscribeMessage.js",
+      "hits": [
+        {
+          "line": 36,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng tin nhắn đăng ký liên quan"
+        }
+      ]
+    },
+    {
+      "file": "template/uni-app/utils/index.js",
+      "hits": [
+        {
+          "line": 17,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc ủy quyền người dùng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/Common.php",
+      "hits": [
+        {
+          "line": 209,
+          "kind": "suspect",
+          "term": "cổ phiếu",
+          "preview": "$data['inventory'] = $storeServices->count(['type' => 5, 'store_stock' => $store_stock]);//cổ phiếu cảnh báo"
+        },
+        {
+          "line": 436,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn danh sách menu tương ứng với nhãn mục cấu hình"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/agent/AgentLevel.php",
+      "hits": [
+        {
+          "line": 148,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "// Kiểm tra xem cấp độ của biên tập viên có tồn tại không"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/agent/Division.php",
+      "hits": [
+        {
+          "line": 75,
+          "kind": "suspect",
+          "term": "người dùngID",
+          "preview": "// Lấy thông số: loại đơn vị kinh doanh, người dùngID"
+        },
+        {
+          "line": 86,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "* Thêm bộ phận biên tập"
+        },
+        {
+          "line": 123,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "* Thêm cơ quan biên tập"
+        },
+        {
+          "line": 295,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu nhân viên"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/diy/DiyPro.php",
+      "hits": [
+        {
+          "line": 117,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "['ids', ''], //hàng hóaID"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/diy/Theme.php",
+      "hits": [
+        {
+          "line": 256,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// 1. Truy vấn thông tin cơ bản của chủ đề và lấy tiêu đề"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/export/ExportExcel.php",
+      "hits": [
+        {
+          "line": 165,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu sản phẩm flash sale"
+        },
+        {
+          "line": 286,
+          "kind": "suspect",
+          "term": "Xuất người dùng",
+          "preview": "* Xuất người dùng WeChat (không được dùng nữa)）"
+        },
+        {
+          "line": 384,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu sản phẩm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/kefu/StoreServiceFeedback.php",
+      "hits": [
+        {
+          "line": 73,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "* Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/marketing/StoreCombination.php",
+      "hits": [
+        {
+          "line": 240,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "* Thứ tự nhóm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/marketing/integral/StoreIntegralOrder.php",
+      "hits": [
+        {
+          "line": 204,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn thông tin hậu cần"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/order/DeliveryService.php",
+      "hits": [
+        {
+          "line": 59,
+          "kind": "suspect",
+          "term": "Cứu",
+          "preview": "* Cứu người giao hàng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/order/StoreOrder.php",
+      "hits": [
+        {
+          "line": 605,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn thông tin hậu cần"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/order/StoreOrderInvoice.php",
+      "hits": [
+        {
+          "line": 59,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn danh sách hóa đơn"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/product/StoreProduct.php",
+      "hits": [
+        {
+          "line": 241,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "['temp_id', 0],//Mẫu vận chuyển hàng hóaid"
+        },
+        {
+          "line": 385,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 495,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu di chuyển sản phẩm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/setting/ShippingTemplates.php",
+      "hits": [
+        {
+          "line": 19,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 38,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Danh sách mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 50,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "* Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/setting/SystemCity.php",
+      "hits": [
+        {
+          "line": 68,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/setting/SystemOutAccount.php",
+      "hits": [
+        {
+          "line": 78,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu"
+        },
+        {
+          "line": 106,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "* Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/controller/v1/statistic/ProductStatistic.php",
+      "hits": [
+        {
+          "line": 37,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* cơ sở hàng hóa"
+        },
+        {
+          "line": 49,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Xu hướng hàng hóa"
+        },
+        {
+          "line": 76,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/route/marketing.php",
+      "hits": [
+        {
+          "line": 90,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "//Thứ tự nhóm"
+        },
+        {
+          "line": 174,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "//Thứ tự điểm in"
+        },
+        {
+          "line": 178,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "//Thứ tự điểm lấy thông tin cấu hình mặc định của thứ tự khuôn mặt"
+        },
+        {
+          "line": 222,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "//Phần thưởng đăng nhập của biên tập viên"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/route/merchant.php",
+      "hits": [
+        {
+          "line": 14,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Các tuyến đường liên quan đến mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/route/order.php",
+      "hits": [
+        {
+          "line": 95,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Chi tiết đơn hàng hóa đơn"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/route/product.php",
+      "hits": [
+        {
+          "line": 38,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "/** hàng hóa */"
+        },
+        {
+          "line": 94,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "//Xuất khẩu di chuyển sản phẩm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/route/setting.php",
+      "hits": [
+        {
+          "line": 262,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "/** Mẫu vận chuyển hàng hóa */"
+        },
+        {
+          "line": 264,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Danh sách mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 266,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Sửa đổi dữ liệu mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/adminapi/route/statistic.php",
+      "hits": [
+        {
+          "line": 39,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//cơ sở hàng hóa"
+        },
+        {
+          "line": 41,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Xu hướng hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/ApiExceptionHandle.php",
+      "hits": [
+        {
+          "line": 58,
+          "kind": "suspect",
+          "term": "người dùngID",
+          "preview": "request()->uid(),                                                                     //người dùngID"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/controller/v1/LoginController.php",
+      "hits": [
+        {
+          "line": 326,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc số điện thoại di động"
+        },
+        {
+          "line": 369,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc số điện thoại di động"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/controller/v1/PublicController.php",
+      "hits": [
+        {
+          "line": 613,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn thông tin bản quyền"
+        },
+        {
+          "line": 1072,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Thành phần-hàng hóa tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/controller/v1/admin/StoreOrderController.php",
+      "hits": [
+        {
+          "line": 51,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng Xem hậu cần"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/controller/v1/order/StoreIntegralOrderController.php",
+      "hits": [
+        {
+          "line": 128,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng Xem hậu cần"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/controller/v1/order/StoreOrderController.php",
+      "hits": [
+        {
+          "line": 206,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng Đặt hàng lại"
+        },
+        {
+          "line": 464,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng Xem hậu cần"
+        },
+        {
+          "line": 809,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng thông tin sản phẩm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/controller/v1/store/StoreProductController.php",
+      "hits": [
+        {
+          "line": 23,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Danh mục hàng hóa"
+        },
+        {
+          "line": 30,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* hàng hóaservices"
+        },
+        {
+          "line": 231,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận giá hàng hóa theo thời gian thực"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/route/v1.php",
+      "hits": [
+        {
+          "line": 50,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "// Ràng buộc số điện thoại di động(Ủy quyền im lặng Chưa có thông tin người dùng)"
+        },
+        {
+          "line": 90,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "Route::get('admin/order/express/:uni/[:type]', 'v1.admin.StoreOrderController/express')->name('orderExpress')->option(['real_name' => 'Đặt hàng Xem hậu cần']); "
+        },
+        {
+          "line": 226,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "Route::get('order/express/:uni/[:type]', 'v1.order.StoreOrderController/express')->name('orderExpress')->option(['real_name' => 'Đặt hàng Xem hậu cần']); //Đặt "
+        },
+        {
+          "line": 228,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "Route::post('order/again', 'v1.order.StoreOrderController/again')->name('orderAgain')->option(['real_name' => 'Đặt hàng lại']); //Đặt hàng Đặt hàng lại"
+        },
+        {
+          "line": 230,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "Route::post('order/product', 'v1.order.StoreOrderController/product')->name('orderProduct')->option(['real_name' => 'Đặt hàng thông tin sản phẩm']); //Đặt hàng "
+        },
+        {
+          "line": 326,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "//Đặt hàng tại trung tâm mua sắm Points"
+        },
+        {
+          "line": 332,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "Route::get('store_integral/order/express/:uni', 'v1.order.StoreIntegralOrderController/express')->name('storeIntegralOrderExpress')->option(['real_name' => 'Đặt"
+        },
+        {
+          "line": 338,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "Route::get('order/refund/cart_info/:id', 'v1.order.StoreOrderController/refundCartInfo')->name('refundCartInfo')->option(['real_name' => 'Đặt hàng danh sách sản"
+        },
+        {
+          "line": 404,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Danh mục hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/route/v2.php",
+      "hits": [
+        {
+          "line": 58,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Đặt hàng hóa đơn ứng dụng"
+        },
+        {
+          "line": 58,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "//Đặt hàng hóa đơn ứng dụng"
+        },
+        {
+          "line": 64,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "//Ôn lại|Thêm hóa đơn"
+        },
+        {
+          "line": 102,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "Route::get('get_today_coupon', 'v2.store.StoreCouponsController/getTodayCoupon')->option(['real_name' => 'Giao diện Hoạt động phiếu giảm giá mới']);//Giao diện "
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/BaseDao.php",
+      "hits": [
+        {
+          "line": 197,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn xem một phần dữ liệu có tồn tại không"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/activity/coupon/StoreCouponIssueDao.php",
+      "hits": [
+        {
+          "line": 96,
+          "kind": "suspect",
+          "term": "người dùngID",
+          "preview": "* @param int $uid người dùngID"
+        },
+        {
+          "line": 322,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "* Nhận danh sách bật lên phiếu giảm giá"
+        },
+        {
+          "line": 362,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Kiểm tra xem có phiếu giảm giá hàng hóa không"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/activity/coupon/StoreCouponUserDao.php",
+      "hits": [
+        {
+          "line": 166,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn các phiếu giảm giá mà người dùng nhận được theo tháng"
+        },
+        {
+          "line": 184,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn dựa trên thời gian"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/activity/seckill/StoreSeckillDao.php",
+      "hits": [
+        {
+          "line": 164,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @param array $ids Truy vấn tất cả nếu trống"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/order/OtherOrderDao.php",
+      "hits": [
+        {
+          "line": 84,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "/**Truy vấn nhóm dựa trên một trường nhất định"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/order/StoreOrderDao.php",
+      "hits": [
+        {
+          "line": 290,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn tổng hợp"
+        },
+        {
+          "line": 633,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Xu hướng hàng hóa"
+        },
+        {
+          "line": 855,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn lệnh hoàn tiền"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/product/product/StoreProductDao.php",
+      "hits": [
+        {
+          "line": 368,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Thành phần-hàng hóa tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/product/product/StoreVisitDao.php",
+      "hits": [
+        {
+          "line": 48,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Xu hướng hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/product/sku/StoreProductAttrDao.php",
+      "hits": [
+        {
+          "line": 45,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứusku"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/service/StoreServiceRecordDao.php",
+      "hits": [
+        {
+          "line": 80,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn người dùng uid gần đây đã trò chuyện với người dùng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/shipping/ShippingTemplatesDao.php",
+      "hits": [
+        {
+          "line": 70,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/shipping/ShippingTemplatesFreeDao.php",
+      "hits": [
+        {
+          "line": 35,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa và nhóm chúng theo các trường được chỉ định"
+        },
+        {
+          "line": 48,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/shipping/ShippingTemplatesNoDeliveryDao.php",
+      "hits": [
+        {
+          "line": 35,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa và nhóm chúng theo các trường được chỉ định"
+        },
+        {
+          "line": 48,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/shipping/ShippingTemplatesRegionDao.php",
+      "hits": [
+        {
+          "line": 35,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa và nhóm chúng theo các trường được chỉ định"
+        },
+        {
+          "line": 48,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 60,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách dữ liệu vận chuyển miễn phí dựa trên id mẫu vận chuyển hàng hóa và id thành phố"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/shipping/SystemCityDao.php",
+      "hits": [
+        {
+          "line": 80,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận lựa chọn thành phố mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/user/UserBillDao.php",
+      "hits": [
+        {
+          "line": 252,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "/**Truy vấn nhóm dựa trên một trường nhất định"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/user/UserExtractDao.php",
+      "hits": [
+        {
+          "line": 91,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "/**Truy vấn nhóm dựa trên một trường nhất định"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/user/UserMoneyDao.php",
+      "hits": [
+        {
+          "line": 85,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn nhóm dựa trên một trường nhất định"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/user/UserRechargeDao.php",
+      "hits": [
+        {
+          "line": 67,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "/**Truy vấn nhóm dựa trên một trường nhất định"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/user/UserWechatUserDao.php",
+      "hits": [
+        {
+          "line": 164,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn khoảng thời gian"
+        },
+        {
+          "line": 183,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn con: Tìm các bản ghi thỏa mãn điều kiện trong bảng store_order"
+        },
+        {
+          "line": 223,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn con: Đếm số lượng bản ghi nạp tiền theo nhóm"
+        },
+        {
+          "line": 356,
+          "kind": "suspect",
+          "term": "nam giới",
+          "preview": "// sex: 1(nam giới), 2(nữ giới), 0(không rõ)"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/event.php",
+      "hits": [
+        {
+          "line": 36,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "'OrderDeliveryListener' => [\\app\\listener\\order\\OrderDeliveryListener::class], //Đặt hàng giao hàng sau sự kiện"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/listener/http/HttpEndListener.php",
+      "hits": [
+        {
+          "line": 52,
+          "kind": "suspect",
+          "term": "người dùngID",
+          "preview": "$uid,                                                                                 //người dùngID"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/listener/order/OrderPaySuccessListener.php",
+      "hits": [
+        {
+          "line": 76,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Tự động phân phối hàng hóa ảo"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/listener/order/OrderShippingListener.php",
+      "hits": [
+        {
+          "line": 34,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "if ($order_type == 'product') {  // Đặt hàng sản phẩm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/order/StoreCart.php",
+      "hits": [
+        {
+          "line": 121,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn giỏ hàng của người dùng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/order/StoreOrder.php",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "* Thứ tự phụ truy vấn liên quan một đến nhiều"
+        },
+        {
+          "line": 559,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn hoạt động 0 bình thường, 1 flash sale, 2 mặc cả, 3 mua theo nhóm, 4 bán trước"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/product/product/StoreProduct.php",
+      "hits": [
+        {
+          "line": 20,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "*  hàng hóaModel"
+        },
+        {
+          "line": 351,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn trong id hiện tại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/shipping/ShippingTemplates.php",
+      "hits": [
+        {
+          "line": 19,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "*  Mẫu vận chuyển hàng hóaModel"
+        },
+        {
+          "line": 73,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Liên kết một-nhiều khu vực vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/shipping/ShippingTemplatesRegion.php",
+      "hits": [
+        {
+          "line": 18,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "*  Vận chuyển hàng hóa khu vựcModel"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/system/SystemMenus.php",
+      "hits": [
+        {
+          "line": 76,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn điều kiện mặc định"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/user/UserBill.php",
+      "hits": [
+        {
+          "line": 126,
+          "kind": "suspect",
+          "term": "Sự cân bằng",
+          "preview": "* kiểu now_money:Sự cân bằng integral:tích phân exp:kinh nghiệm"
+        },
+        {
+          "line": 126,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "* kiểu now_money:Sự cân bằng integral:tích phân exp:kinh nghiệm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/model/wechat/WechatUser.php",
+      "hits": [
+        {
+          "line": 61,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc tài khoản chính thức"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/outapi/OutApiExceptionHandle.php",
+      "hits": [
+        {
+          "line": 57,
+          "kind": "suspect",
+          "term": "người dùngID",
+          "preview": "request()->uid(),                                                                     //người dùngID"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/outapi/controller/Mcp.php",
+      "hits": [
+        {
+          "line": 50,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn thông tin tài khoản"
+        },
+        {
+          "line": 477,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Lọc phân loại: Truy vấn thông qua các bảng liên quan"
+        },
+        {
+          "line": 485,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn sản phẩm thông qua các bảng liên quanID"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/outapi/controller/StoreProduct.php",
+      "hits": [
+        {
+          "line": 88,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu"
+        },
+        {
+          "line": 114,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "['temp_id', 0],//Mẫu vận chuyển hàng hóaid"
+        },
+        {
+          "line": 162,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "['temp_id', 0],//Mẫu vận chuyển hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/outapi/route/route.php",
+      "hits": [
+        {
+          "line": 38,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/BaseServices.php",
+      "hits": [
+        {
+          "line": 30,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @method bool be($map, string $field = '') Truy vấn xem một phần dữ liệu có tồn tại không"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/activity/combination/StoreCombinationServices.php",
+      "hits": [
+        {
+          "line": 507,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Tăng lượng tồn kho của mã hàng hóa thông thường hiện tại,trừ doanh số bán hàng"
+        },
+        {
+          "line": 686,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "* Thứ tự nhóm"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/activity/combination/StorePinkServices.php",
+      "hits": [
+        {
+          "line": 456,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "$pink['pid'] = $v['product_id'];//hàng hóaid"
+        },
+        {
+          "line": 492,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "$pink['pid'] = $v['product_id'];//hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/activity/coupon/StoreCouponService.php",
+      "hits": [
+        {
+          "line": 73,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "case 2://phiếu giảm giá hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/activity/coupon/StoreCouponUserServices.php",
+      "hits": [
+        {
+          "line": 416,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "/**Truy vấn phiếu giảm giá thành viên dựa trên ID"
+        },
+        {
+          "line": 430,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn phiếu giảm giá người dùng dựa trên thời gian"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/activity/integral/StoreIntegralOrderServices.php",
+      "hits": [
+        {
+          "line": 452,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng giao hàng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/activity/live/LiveRoomServices.php",
+      "hits": [
+        {
+          "line": 221,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn liên quan"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/activity/seckill/StoreSeckillServices.php",
+      "hits": [
+        {
+          "line": 865,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//                            throw new AdminException('hàng hóa（' . $product['store_name'] . ' | ' . $sattr['suk'] . '）Giá hoạt động không thể lớn hơn giá gốc'"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/admin/StoreManageServices.php",
+      "hits": [
+        {
+          "line": 494,
+          "kind": "suspect",
+          "term": "Sự cân bằng",
+          "preview": "case 0: // Sự cân bằng"
+        },
+        {
+          "line": 524,
+          "kind": "suspect",
+          "term": "tích phân",
+          "preview": "case 1: // tích phân"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/agent/DivisionServices.php",
+      "hits": [
+        {
+          "line": 238,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "* Thêm cơ quan biên tập"
+        },
+        {
+          "line": 392,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu nhân viên"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/article/ArticleCategoryServices.php",
+      "hits": [
+        {
+          "line": 84,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu"
+        },
+        {
+          "line": 94,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "* Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/article/ArticleContentServices.php",
+      "hits": [
+        {
+          "line": 20,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* @method save(array $data)cứu"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/article/ArticleServices.php",
+      "hits": [
+        {
+          "line": 63,
+          "kind": "suspect",
+          "term": "biên tập",
+          "preview": "* Thêm bài viết biên tập mới"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/diy/ThemeServices.php",
+      "hits": [
+        {
+          "line": 226,
+          "kind": "han",
+          "term": "模板",
+          "preview": "'模板' => 'Mẫu',"
+        },
+        {
+          "line": 227,
+          "kind": "han",
+          "term": "标题",
+          "preview": "'标题' => 'Tiêu đề',"
+        },
+        {
+          "line": 228,
+          "kind": "han",
+          "term": "链接",
+          "preview": "'链接' => 'Liên kết',"
+        },
+        {
+          "line": 229,
+          "kind": "han",
+          "term": "文字",
+          "preview": "'文字' => 'Văn bản',"
+        },
+        {
+          "line": 230,
+          "kind": "han",
+          "term": "图片",
+          "preview": "'图片' => 'Hình ảnh',"
+        },
+        {
+          "line": 231,
+          "kind": "han",
+          "term": "更多",
+          "preview": "'更多' => 'Thêm',"
+        },
+        {
+          "line": 232,
+          "kind": "han",
+          "term": "商城头条",
+          "preview": "'商城头条' => 'Tin nổi bật',"
+        },
+        {
+          "line": 233,
+          "kind": "han",
+          "term": "商品",
+          "preview": "'商品Danh mục' => 'Danh mục sản phẩm',"
+        },
+        {
+          "line": 234,
+          "kind": "han",
+          "term": "新闻资讯",
+          "preview": "'新闻资讯' => 'Tin tức',"
+        },
+        {
+          "line": 235,
+          "kind": "han",
+          "term": "领优惠券",
+          "preview": "'领优惠券' => 'Nhận mã giảm giá',"
+        },
+        {
+          "line": 236,
+          "kind": "han",
+          "term": "浏览记录",
+          "preview": "'浏览记录' => 'Lịch sử xem',"
+        },
+        {
+          "line": 237,
+          "kind": "han",
+          "term": "积分商城",
+          "preview": "'积分商城' => 'Cửa hàng điểm',"
+        },
+        {
+          "line": 238,
+          "kind": "han",
+          "term": "疯狂砍价",
+          "preview": "'疯狂砍价' => 'Săn deal giá sốc',"
+        },
+        {
+          "line": 239,
+          "kind": "han",
+          "term": "低至 元免费拿",
+          "preview": "'低至0元免费拿' => 'Giá từ 0đ',"
+        },
+        {
+          "line": 240,
+          "kind": "han",
+          "term": "超值拼团",
+          "preview": "'超值拼团' => 'Ghép nhóm tiết kiệm',"
+        },
+        {
+          "line": 241,
+          "kind": "han",
+          "term": "限时秒杀",
+          "preview": "'限时秒杀' => 'Flash sale',"
+        },
+        {
+          "line": 242,
+          "kind": "han",
+          "term": "签到",
+          "preview": "'签到' => 'Điểm danh',"
+        },
+        {
+          "line": 243,
+          "kind": "han",
+          "term": "优惠券",
+          "preview": "'优惠券' => 'Mã giảm giá',"
+        },
+        {
+          "line": 244,
+          "kind": "han",
+          "term": "文章列表",
+          "preview": "'文章列表' => 'Danh sách bài viết',"
+        },
+        {
+          "line": 245,
+          "kind": "han",
+          "term": "新闻公告",
+          "preview": "'新闻公告' => 'Thông báo',"
+        },
+        {
+          "line": 246,
+          "kind": "han",
+          "term": "导航组",
+          "preview": "'导航组' => 'Nhóm điều hướng',"
+        },
+        {
+          "line": 247,
+          "kind": "han",
+          "term": "轮播搜索",
+          "preview": "'轮播搜索' => 'Banner tìm kiếm',"
+        },
+        {
+          "line": 248,
+          "kind": "han",
+          "term": "底部导航",
+          "preview": "'底部导航' => 'Điều hướng dưới',"
+        },
+        {
+          "line": 249,
+          "kind": "han",
+          "term": "商品列表",
+          "preview": "'商品列表' => 'Danh sách sản phẩm',"
+        },
+        {
+          "line": 250,
+          "kind": "han",
+          "term": "官方动态",
+          "preview": "'官方动态' => 'Tin chính thức',"
+        },
+        {
+          "line": 251,
+          "kind": "han",
+          "term": "样式一",
+          "preview": "'样式一' => 'Kiểu 1',"
+        },
+        {
+          "line": 252,
+          "kind": "han",
+          "term": "样式二",
+          "preview": "'样式二' => 'Kiểu 2',"
+        },
+        {
+          "line": 253,
+          "kind": "han",
+          "term": "显示",
+          "preview": "'显示' => 'Hiển thị',"
+        },
+        {
+          "line": 254,
+          "kind": "han",
+          "term": "隐藏",
+          "preview": "'隐藏' => 'Ẩn',"
+        },
+        {
+          "line": 255,
+          "kind": "han",
+          "term": "选择风格",
+          "preview": "'选择风格' => 'Chọn kiểu',"
+        },
+        {
+          "line": 256,
+          "kind": "han",
+          "term": "色调",
+          "preview": "'色调' => 'Tông màu',"
+        },
+        {
+          "line": 257,
+          "kind": "han",
+          "term": "加粗",
+          "preview": "'加粗' => 'Đậm',"
+        },
+        {
+          "line": 258,
+          "kind": "han",
+          "term": "正常",
+          "preview": "'正常' => 'Bình thường',"
+        },
+        {
+          "line": 259,
+          "kind": "han",
+          "term": "倾斜",
+          "preview": "'倾斜' => 'Nghiêng',"
+        },
+        {
+          "line": 260,
+          "kind": "han",
+          "term": "上传图片",
+          "preview": "'上传图片' => 'Tải ảnh lên',"
+        },
+        {
+          "line": 261,
+          "kind": "han",
+          "term": "背景颜色",
+          "preview": "'背景颜色' => 'Màu nền',"
+        },
+        {
+          "line": 262,
+          "kind": "han",
+          "term": "背景设置",
+          "preview": "'背景设置' => 'Thiết lập nền',"
+        },
+        {
+          "line": 263,
+          "kind": "han",
+          "term": "背景圆角",
+          "preview": "'背景圆角' => 'Bo góc nền',"
+        },
+        {
+          "line": 264,
+          "kind": "han",
+          "term": "标题图片",
+          "preview": "'标题图片' => 'Ảnh tiêu đề',"
+        },
+        {
+          "line": 265,
+          "kind": "han",
+          "term": "右侧按钮",
+          "preview": "'右侧按钮' => 'Nút bên phải',"
+        },
+        {
+          "line": 266,
+          "kind": "han",
+          "term": "按钮字号",
+          "preview": "'按钮字号' => 'Cỡ chữ nút',"
+        },
+        {
+          "line": 267,
+          "kind": "han",
+          "term": "按钮效果",
+          "preview": "'按钮效果' => 'Hiệu ứng nút',"
+        },
+        {
+          "line": 268,
+          "kind": "han",
+          "term": "按钮样式",
+          "preview": "'按钮样式' => 'Kiểu nút',"
+        },
+        {
+          "line": 269,
+          "kind": "han",
+          "term": "按钮颜色",
+          "preview": "'按钮颜色' => 'Màu nút',"
+        },
+        {
+          "line": 270,
+          "kind": "han",
+          "term": "文字颜色",
+          "preview": "'文字颜色' => 'Màu chữ',"
+        },
+        {
+          "line": 271,
+          "kind": "han",
+          "term": "分割线",
+          "preview": "'分割线' => 'Đường phân cách',"
+        },
+        {
+          "line": 272,
+          "kind": "han",
+          "term": "内容设置",
+          "preview": "'内容设置' => 'Thiết lập nội dung',"
+        },
+        {
+          "line": 273,
+          "kind": "han",
+          "term": "显示内容",
+          "preview": "'显示内容' => 'Nội dung hiển thị',"
+        },
+        {
+          "line": 274,
+          "kind": "han",
+          "term": "商品样式",
+          "preview": "'商品样式' => 'Kiểu sản phẩm',"
+        },
+        {
+          "line": 275,
+          "kind": "han",
+          "term": "头部样式",
+          "preview": "'头部样式' => 'Kiểu đầu trang',"
+        },
+        {
+          "line": 276,
+          "kind": "han",
+          "term": "两列展示",
+          "preview": "'两列展示' => 'Hiển thị 2 cột',"
+        },
+        {
+          "line": 277,
+          "kind": "han",
+          "term": "两列纵向",
+          "preview": "'两列纵向' => '2 cột dọc',"
+        },
+        {
+          "line": 278,
+          "kind": "han",
+          "term": "单列展示",
+          "preview": "'单列展示' => 'Hiển thị 1 cột',"
+        },
+        {
+          "line": 279,
+          "kind": "han",
+          "term": "三列展示",
+          "preview": "'三列展示' => 'Hiển thị 3 cột',"
+        },
+        {
+          "line": 280,
+          "kind": "han",
+          "term": "左右滑动",
+          "preview": "'左右滑动' => 'Vuốt trái phải',"
+        },
+        {
+          "line": 281,
+          "kind": "han",
+          "term": "大图展示",
+          "preview": "'大图展示' => 'Hiển thị ảnh lớn',"
+        },
+        {
+          "line": 282,
+          "kind": "han",
+          "term": "商品数量",
+          "preview": "'商品数量' => 'Số lượng sản phẩm',"
+        },
+        {
+          "line": 283,
+          "kind": "han",
+          "term": "展示信息",
+          "preview": "'展示信息' => 'Thông tin hiển thị',"
+        },
+        {
+          "line": 284,
+          "kind": "han",
+          "term": "商品标签",
+          "preview": "'商品标签' => 'Nhãn sản phẩm',"
+        },
+        {
+          "line": 285,
+          "kind": "han",
+          "term": "商品排序",
+          "preview": "'商品排序' => 'Sắp xếp sản phẩm',"
+        },
+        {
+          "line": 286,
+          "kind": "han",
+          "term": "综合",
+          "preview": "'综合' => 'Tổng hợp',"
+        },
+        {
+          "line": 287,
+          "kind": "han",
+          "term": "销量",
+          "preview": "'销量' => 'Doanh số',"
+        },
+        {
+          "line": 288,
+          "kind": "han",
+          "term": "价格",
+          "preview": "'价格' => 'Giá',"
+        },
+        {
+          "line": 289,
+          "kind": "han",
+          "term": "商品销量",
+          "preview": "'商品销量' => 'Số lượng đã bán',"
+        },
+        {
+          "line": 290,
+          "kind": "han",
+          "term": "商品评分",
+          "preview": "'商品评分' => 'Đánh giá sản phẩm',"
+        },
+        {
+          "line": 291,
+          "kind": "han",
+          "term": "会员价格",
+          "preview": "'会员价格' => 'Giá thành viên',"
+        },
+        {
+          "line": 292,
+          "kind": "han",
+          "term": "评分颜色",
+          "preview": "'评分颜色' => 'Màu đánh giá',"
+        },
+        {
+          "line": 293,
+          "kind": "han",
+          "term": "按钮",
+          "preview": "'Giỏ hàng按钮' => 'Nút giỏ hàng',"
+        },
+        {
+          "line": 294,
+          "kind": "han",
+          "term": "进入商品详情页",
+          "preview": "'进入商品详情页' => 'Vào trang chi tiết sản phẩm',"
+        },
+        {
+          "line": 295,
+          "kind": "han",
+          "term": "商品加购",
+          "preview": "'商品加购' => 'Thêm mới giỏ',"
+        },
+        {
+          "line": 296,
+          "kind": "han",
+          "term": "选择方式",
+          "preview": "'选择方式' => 'Cách chọn',"
+        },
+        {
+          "line": 297,
+          "kind": "han",
+          "term": "指定商品",
+          "preview": "'指定商品' => 'Chỉ định sản phẩm',"
+        },
+        {
+          "line": 298,
+          "kind": "han",
+          "term": "指定",
+          "preview": "'指定Danh mục' => 'Chỉ định danh mục',"
+        },
+        {
+          "line": 299,
+          "kind": "han",
+          "term": "指示器样式",
+          "preview": "'指示器样式' => 'Kiểu chỉ báo',"
+        },
+        {
+          "line": 300,
+          "kind": "han",
+          "term": "指示器位置",
+          "preview": "'指示器位置' => 'Vị trí chỉ báo',"
+        },
+        {
+          "line": 301,
+          "kind": "han",
+          "term": "左对齐",
+          "preview": "'左对齐' => 'Căn trái',"
+        },
+        {
+          "line": 302,
+          "kind": "han",
+          "term": "居中对齐",
+          "preview": "'居中对齐' => 'Căn giữa',"
+        },
+        {
+          "line": 303,
+          "kind": "han",
+          "term": "右对齐",
+          "preview": "'右对齐' => 'Căn phải',"
+        },
+        {
+          "line": 304,
+          "kind": "han",
+          "term": "样式三",
+          "preview": "'样式三' => 'Kiểu 3',"
+        },
+        {
+          "line": 305,
+          "kind": "han",
+          "term": "样式四",
+          "preview": "'样式四' => 'Kiểu 4',"
+        },
+        {
+          "line": 306,
+          "kind": "han",
+          "term": "横向",
+          "preview": "'横向' => 'Ngang',"
+        },
+        {
+          "line": 307,
+          "kind": "han",
+          "term": "纵向",
+          "preview": "'纵向' => 'Dọc',"
+        },
+        {
+          "line": 308,
+          "kind": "han",
+          "term": "左斜",
+          "preview": "'左斜' => 'Nghiêng trái',"
+        },
+        {
+          "line": 309,
+          "kind": "han",
+          "term": "右斜",
+          "preview": "'右斜' => 'Nghiêng phải',"
+        },
+        {
+          "line": 310,
+          "kind": "han",
+          "term": "渐变方向",
+          "preview": "'渐变方向' => 'Hướng chuyển màu',"
+        },
+        {
+          "line": 311,
+          "kind": "han",
+          "term": "内边距",
+          "preview": "'内边距' => 'Khoảng đệm trong',"
+        },
+        {
+          "line": 312,
+          "kind": "han",
+          "term": "外边距",
+          "preview": "'外边距' => 'Khoảng đệm ngoài',"
+        },
+        {
+          "line": 313,
+          "kind": "han",
+          "term": "边框设置",
+          "preview": "'边框设置' => 'Thiết lập viền',"
+        },
+        {
+          "line": 314,
+          "kind": "han",
+          "term": "边框样式",
+          "preview": "'边框样式' => 'Kiểu viền',"
+        },
+        {
+          "line": 315,
+          "kind": "han",
+          "term": "实线",
+          "preview": "'实线' => 'Nét liền',"
+        },
+        {
+          "line": 316,
+          "kind": "han",
+          "term": "虚线",
+          "preview": "'虚线' => 'Nét đứt',"
+        },
+        {
+          "line": 317,
+          "kind": "han",
+          "term": "点状",
+          "preview": "'点状' => 'Chấm',"
+        },
+        {
+          "line": 318,
+          "kind": "han",
+          "term": "边框粗细",
+          "preview": "'边框粗细' => 'Độ dày viền',"
+        },
+        {
+          "line": 319,
+          "kind": "han",
+          "term": "边框颜色",
+          "preview": "'边框颜色' => 'Màu viền',"
+        },
+        {
+          "line": 320,
+          "kind": "han",
+          "term": "阴影设置",
+          "preview": "'阴影设置' => 'Thiết lập bóng',"
+        },
+        {
+          "line": 321,
+          "kind": "han",
+          "term": "阴影颜色",
+          "preview": "'阴影颜色' => 'Màu bóng',"
+        },
+        {
+          "line": 322,
+          "kind": "han",
+          "term": "模糊半径",
+          "preview": "'模糊半径' => 'Bán kính mờ',"
+        },
+        {
+          "line": 323,
+          "kind": "han",
+          "term": "扩展半径",
+          "preview": "'扩展半径' => 'Bán kính mở rộng',"
+        },
+        {
+          "line": 324,
+          "kind": "han",
+          "term": "建议尺寸",
+          "preview": "'建议尺寸' => 'Kích thước gợi ý',"
+        },
+        {
+          "line": 325,
+          "kind": "han",
+          "term": "图片尺寸",
+          "preview": "'图片尺寸' => 'Kích thước ảnh',"
+        },
+        {
+          "line": 326,
+          "kind": "han",
+          "term": "填写内容",
+          "preview": "'填写内容' => 'Nhập nội dung',"
+        },
+        {
+          "line": 327,
+          "kind": "han",
+          "term": "设置",
+          "preview": "'设置' => 'Thiết lập',"
+        },
+        {
+          "line": 328,
+          "kind": "han",
+          "term": "显示时间",
+          "preview": "'显示时间' => 'Thời gian hiển thị',"
+        },
+        {
+          "line": 329,
+          "kind": "han",
+          "term": "爆款热卖",
+          "preview": "'爆款热卖' => 'Bán chạy',"
+        },
+        {
+          "line": 330,
+          "kind": "han",
+          "term": "秒杀介绍",
+          "preview": "'秒杀介绍' => 'Giới thiệu flash sale',"
+        },
+        {
+          "line": 331,
+          "kind": "han",
+          "term": "商品选项卡",
+          "preview": "'商品选项卡' => 'Tab sản phẩm',"
+        },
+        {
+          "line": 332,
+          "kind": "han",
+          "term": "选中文字",
+          "preview": "'选中文字' => 'Chữ được chọn',"
+        },
+        {
+          "line": 339,
+          "kind": "han",
+          "term": "展示设置",
+          "preview": "'展示设置' => 'Thiết lập hiển thị',"
+        },
+        {
+          "line": 340,
+          "kind": "han",
+          "term": "搜索设置",
+          "preview": "'搜索设置' => 'Thiết lập tìm kiếm',"
+        },
+        {
+          "line": 341,
+          "kind": "han",
+          "term": "搜索热词",
+          "preview": "'搜索热词' => 'Từ khóa hot',"
+        },
+        {
+          "line": 342,
+          "kind": "han",
+          "term": "选项卡设置",
+          "preview": "'选项卡设置' => 'Thiết lập tab',"
+        },
+        {
+          "line": 343,
+          "kind": "han",
+          "term": "图片设置",
+          "preview": "'图片设置' => 'Thiết lập hình ảnh',"
+        },
+        {
+          "line": 344,
+          "kind": "han",
+          "term": "标签设置",
+          "preview": "'标签设置' => 'Thiết lập nhãn',"
+        },
+        {
+          "line": 345,
+          "kind": "han",
+          "term": "指示器设置",
+          "preview": "'指示器设置' => 'Thiết lập chỉ báo',"
+        },
+        {
+          "line": 346,
+          "kind": "han",
+          "term": "渐变设置",
+          "preview": "'渐变设置' => 'Thiết lập chuyển màu',"
+        },
+        {
+          "line": 347,
+          "kind": "han",
+          "term": "设置",
+          "preview": "'Danh mục设置' => 'Thiết lập phân loại',"
+        },
+        {
+          "line": 348,
+          "kind": "han",
+          "term": "定位类型",
+          "preview": "'定位类型' => 'Kiểu định vị',"
+        },
+        {
+          "line": 349,
+          "kind": "han",
+          "term": "门店",
+          "preview": "'门店' => 'Cửa hàng',"
+        },
+        {
+          "line": 350,
+          "kind": "han",
+          "term": "用户定位",
+          "preview": "'用户定位' => 'Định vị người dùng',"
+        },
+        {
+          "line": 351,
+          "kind": "han",
+          "term": "搜索框",
+          "preview": "'搜索框' => 'Ô tìm kiếm',"
+        },
+        {
+          "line": 352,
+          "kind": "han",
+          "term": "滚动至顶部固定",
+          "preview": "'滚动至顶部固定' => 'Cuộn lên đầu thì cố định',"
+        },
+        {
+          "line": 353,
+          "kind": "han",
+          "term": "正常显示",
+          "preview": "'正常显示' => 'Hiển thị bình thường',"
+        },
+        {
+          "line": 354,
+          "kind": "han",
+          "term": "设置搜索热词显示时间",
+          "preview": "'设置搜索热词显示时间' => 'Thời gian hiển thị từ khóa hot',"
+        },
+        {
+          "line": 355,
+          "kind": "han",
+          "term": "滚动时间",
+          "preview": "'滚动时间' => 'Thời gian cuộn',"
+        },
+        {
+          "line": 356,
+          "kind": "han",
+          "term": "鼠标拖拽版块可调整选项卡顺序",
+          "preview": "'鼠标拖拽版块可调整选项卡顺序' => 'Kéo thả để sắp xếp thứ tự tab',"
+        },
+        {
+          "line": 357,
+          "kind": "han",
+          "term": "显示文字",
+          "preview": "'显示文字' => 'Chữ hiển thị',"
+        },
+        {
+          "line": 358,
+          "kind": "han",
+          "term": "数据类型",
+          "preview": "'数据类型' => 'Loại dữ liệu',"
+        },
+        {
+          "line": 359,
+          "kind": "han",
+          "term": "微页面",
+          "preview": "'微页面' => 'Vi trang',"
+        },
+        {
+          "line": 360,
+          "kind": "han",
+          "term": "商品",
+          "preview": "'商品Danh mục' => 'Danh mục sản phẩm',"
+        },
+        {
+          "line": 361,
+          "kind": "han",
+          "term": "组件背景",
+          "preview": "'组件背景' => 'Nền thành phần',"
+        },
+        {
+          "line": 362,
+          "kind": "han",
+          "term": "选中样式",
+          "preview": "'选中样式' => 'Kiểu đã chọn',"
+        },
+        {
+          "line": 363,
+          "kind": "han",
+          "term": "常规样式",
+          "preview": "'常规样式' => 'Kiểu thường',"
+        },
+        {
+          "line": 364,
+          "kind": "han",
+          "term": "图片圆角",
+          "preview": "'图片圆角' => 'Bo góc ảnh',"
+        },
+        {
+          "line": 365,
+          "kind": "han",
+          "term": "全部",
+          "preview": "'全部' => 'Tất cả',"
+        },
+        {
+          "line": 366,
+          "kind": "han",
+          "term": "单个",
+          "preview": "'单个' => 'Riêng lẻ',"
+        },
+        {
+          "line": 367,
+          "kind": "han",
+          "term": "圆角值",
+          "preview": "'圆角值' => 'Giá trị bo góc',"
+        },
+        {
+          "line": 368,
+          "kind": "han",
+          "term": "建议",
+          "preview": "'建议：' => 'Gợi ý: ',"
+        },
+        {
+          "line": 369,
+          "kind": "han",
+          "term": "建议",
+          "preview": "'建议:' => 'Gợi ý: ',"
+        },
+        {
+          "line": 370,
+          "kind": "han",
+          "term": "输入连接",
+          "preview": "'输入连接' => 'Nhập liên kết',"
+        },
+        {
+          "line": 371,
+          "kind": "han",
+          "term": "输入标题",
+          "preview": "'输入标题' => 'Nhập tiêu đề',"
+        },
+        {
+          "line": 372,
+          "kind": "han",
+          "term": "默认",
+          "preview": "'默认logo' => 'Logo mặc định',"
+        },
+        {
+          "line": 373,
+          "kind": "han",
+          "term": "顶部固定",
+          "preview": "'顶部固定logo' => 'Logo cố định phía trên',"
+        },
+        {
+          "line": 374,
+          "kind": "han",
+          "term": "提示文字",
+          "preview": "'提示文字' => 'Chữ gợi ý',"
+        },
+        {
+          "line": 375,
+          "kind": "han",
+          "term": "内容间距",
+          "preview": "'内容间距' => 'Khoảng cách nội dung',"
+        },
+        {
+          "line": 376,
+          "kind": "han",
+          "term": "下拉",
+          "preview": "'下拉Danh mục' => 'Danh mục xổ xuống',"
+        },
+        {
+          "line": 377,
+          "kind": "han",
+          "term": "添加",
+          "preview": "'添加' => 'Thêm',"
+        },
+        {
+          "line": 378,
+          "kind": "han",
+          "term": "底部背景",
+          "preview": "'底部背景' => 'Nền phía dưới',"
+        },
+        {
+          "line": 379,
+          "kind": "han",
+          "term": "页面上间距",
+          "preview": "'页面上间距' => 'Khoảng cách trên trang',"
+        },
+        {
+          "line": 380,
+          "kind": "han",
+          "term": "左右边距",
+          "preview": "'左右边距' => 'Khoảng cách trái phải',"
+        },
+        {
+          "line": 381,
+          "kind": "han",
+          "term": "上边距",
+          "preview": "'上边距' => 'Khoảng cách trên',"
+        },
+        {
+          "line": 382,
+          "kind": "han",
+          "term": "下边距",
+          "preview": "'下边距' => 'Khoảng cách dưới',"
+        },
+        {
+          "line": 383,
+          "kind": "han",
+          "term": "展示样式",
+          "preview": "'展示样式' => 'Kiểu hiển thị',"
+        },
+        {
+          "line": 384,
+          "kind": "han",
+          "term": "固定显示",
+          "preview": "'固定显示' => 'Hiển thị cố định',"
+        },
+        {
+          "line": 385,
+          "kind": "han",
+          "term": "分页滑动",
+          "preview": "'分页滑动' => 'Vuốt theo trang',"
+        },
+        {
+          "line": 386,
+          "kind": "han",
+          "term": "显示行数",
+          "preview": "'显示行数' => 'Số hàng hiển thị',"
+        },
+        {
+          "line": 387,
+          "kind": "han",
+          "term": "导航样式",
+          "preview": "'导航样式' => 'Kiểu điều hướng',"
+        },
+        {
+          "line": 388,
+          "kind": "han",
+          "term": "图片 文字",
+          "preview": "'图片+文字' => 'Ảnh + chữ',"
+        },
+        {
+          "line": 389,
+          "kind": "han",
+          "term": "单行显示",
+          "preview": "'单行显示' => 'Hiển thị 1 hàng',"
+        },
+        {
+          "line": 390,
+          "kind": "han",
+          "term": "个",
+          "preview": "'个' => ' mục',"
+        },
+        {
+          "line": 391,
+          "kind": "han",
+          "term": "行",
+          "preview": "'行' => ' hàng',"
+        },
+        {
+          "line": 392,
+          "kind": "han",
+          "term": "按钮颜色",
+          "preview": "'按钮颜色' => 'Màu nút',"
+        },
+        {
+          "line": 393,
+          "kind": "han",
+          "term": "按钮文字",
+          "preview": "'按钮文字' => 'Chữ nút',"
+        },
+        {
+          "line": 394,
+          "kind": "han",
+          "term": "标题文字",
+          "preview": "'标题文字' => 'Chữ tiêu đề',"
+        },
+        {
+          "line": 395,
+          "kind": "han",
+          "term": "标题颜色",
+          "preview": "'标题颜色' => 'Màu tiêu đề',"
+        },
+        {
+          "line": 396,
+          "kind": "han",
+          "term": "标题字号",
+          "preview": "'标题字号' => 'Cỡ chữ tiêu đề',"
+        },
+        {
+          "line": 397,
+          "kind": "han",
+          "term": "商品名称",
+          "preview": "'商品名称' => 'Tên sản phẩm',"
+        },
+        {
+          "line": 398,
+          "kind": "han",
+          "term": "商品价格",
+          "preview": "'商品价格' => 'Giá sản phẩm',"
+        },
+        {
+          "line": 399,
+          "kind": "han",
+          "term": "划线价",
+          "preview": "'划线价' => 'Giá gạch ngang',"
+        },
+        {
+          "line": 400,
+          "kind": "han",
+          "term": "已售数量",
+          "preview": "'已售数量' => 'Đã bán',"
+        },
+        {
+          "line": 401,
+          "kind": "han",
+          "term": "按钮背景",
+          "preview": "'按钮背景' => 'Nền nút',"
+        },
+        {
+          "line": 402,
+          "kind": "han",
+          "term": "优惠金额",
+          "preview": "'优惠金额' => 'Giá trị giảm',"
+        },
+        {
+          "line": 403,
+          "kind": "han",
+          "term": "优惠券背景",
+          "preview": "'优惠券背景' => 'Nền mã giảm giá',"
+        },
+        {
+          "line": 404,
+          "kind": "han",
+          "term": "优惠券间距",
+          "preview": "'优惠券间距' => 'Khoảng cách mã giảm giá',"
+        },
+        {
+          "line": 405,
+          "kind": "han",
+          "term": "是否显示",
+          "preview": "'是否显示' => 'Có hiển thị',"
+        },
+        {
+          "line": 406,
+          "kind": "han",
+          "term": "列表设置",
+          "preview": "'列表设置' => 'Thiết lập danh sách',"
+        },
+        {
+          "line": 407,
+          "kind": "han",
+          "term": "商品设置",
+          "preview": "'商品设置' => 'Thiết lập sản phẩm',"
+        },
+        {
+          "line": 408,
+          "kind": "han",
+          "term": "通用样式",
+          "preview": "'通用样式' => 'Kiểu dùng chung',"
+        },
+        {
+          "line": 409,
+          "kind": "han",
+          "term": "头部设置",
+          "preview": "'头部设置' => 'Thiết lập đầu trang',"
+        },
+        {
+          "line": 410,
+          "kind": "han",
+          "term": "标题类型",
+          "preview": "'标题类型' => 'Kiểu tiêu đề',"
+        },
+        {
+          "line": 411,
+          "kind": "han",
+          "term": "背景色",
+          "preview": "'背景色' => 'Màu nền',"
+        },
+        {
+          "line": 412,
+          "kind": "han",
+          "term": "背景图片",
+          "preview": "'背景图片' => 'Ảnh nền',"
+        },
+        {
+          "line": 413,
+          "kind": "han",
+          "term": "参与人数",
+          "preview": "'参与人数' => 'Số người tham gia',"
+        },
+        {
+          "line": 414,
+          "kind": "han",
+          "term": "砍价价格",
+          "preview": "'砍价价格' => 'Giá mặc cả',"
+        },
+        {
+          "line": 415,
+          "kind": "han",
+          "term": "拼团价格",
+          "preview": "'拼团价格' => 'Giá ghép nhóm',"
+        },
+        {
+          "line": 416,
+          "kind": "han",
+          "term": "秒杀价格",
+          "preview": "'秒杀价格' => 'Giá flash sale',"
+        },
+        {
+          "line": 417,
+          "kind": "han",
+          "term": "秒杀进度",
+          "preview": "'秒杀进度' => 'Tiến độ flash sale',"
+        },
+        {
+          "line": 418,
+          "kind": "han",
+          "term": "距离结束",
+          "preview": "'距离结束' => 'Thời gian còn lại',"
+        },
+        {
+          "line": 419,
+          "kind": "han",
+          "term": "数字背景",
+          "preview": "'数字背景' => 'Nền số',"
+        },
+        {
+          "line": 420,
+          "kind": "han",
+          "term": "数字",
+          "preview": "'数字' => 'Số',"
+        },
+        {
+          "line": 421,
+          "kind": "han",
+          "term": "新闻标题",
+          "preview": "'新闻标题' => 'Tiêu đề tin',"
+        },
+        {
+          "line": 422,
+          "kind": "han",
+          "term": "时间日期",
+          "preview": "'时间日期' => 'Ngày giờ',"
+        },
+        {
+          "line": 423,
+          "kind": "han",
+          "term": "浏览量",
+          "preview": "'浏览量' => 'Lượt xem',"
+        },
+        {
+          "line": 424,
+          "kind": "han",
+          "term": "页面间距",
+          "preview": "'页面间距' => 'Khoảng cách trang',"
+        },
+        {
+          "line": 425,
+          "kind": "han",
+          "term": "请输入搜索词",
+          "preview": "'请输入搜索词' => 'Nhập từ khóa tìm kiếm',"
+        },
+        {
+          "line": 426,
+          "kind": "han",
+          "term": "请输入标题文字",
+          "preview": "'请输入标题文字' => 'Vui lòng nhập tiêu đề',"
+        },
+        {
+          "line": 427,
+          "kind": "han",
+          "term": "请输入右侧按钮",
+          "preview": "'请输入右侧按钮' => 'Vui lòng nhập nút bên phải',"
+        },
+        {
+          "line": 428,
+          "kind": "han",
+          "term": "请输入右侧文字",
+          "preview": "'请输入右侧文字' => 'Vui lòng nhập chữ bên phải',"
+        },
+        {
+          "line": 429,
+          "kind": "han",
+          "term": "请输入标题",
+          "preview": "'请输入标题' => 'Vui lòng nhập tiêu đề',"
+        },
+        {
+          "line": 430,
+          "kind": "han",
+          "term": "请输入链接",
+          "preview": "'请输入链接' => 'Vui lòng nhập liên kết',"
+        },
+        {
+          "line": 431,
+          "kind": "han",
+          "term": "请输入 名称",
+          "preview": "'请输入Danh mục名称' => 'Vui lòng nhập tên danh mục',"
+        },
+        {
+          "line": 432,
+          "kind": "han",
+          "term": "请输入",
+          "preview": "'请输入' => 'Vui lòng nhập',"
+        },
+        {
+          "line": 433,
+          "kind": "han",
+          "term": "选填",
+          "preview": "'选填' => 'Tùy chọn',"
+        },
+        {
+          "line": 434,
+          "kind": "han",
+          "term": "不超过 个字",
+          "preview": "'不超过4个字' => 'Không quá 4 ký tự',"
+        },
+        {
+          "line": 435,
+          "kind": "han",
+          "term": "不超过四",
+          "preview": "'不超过四' => 'Không quá 4',"
+        },
+        {
+          "line": 436,
+          "kind": "han",
+          "term": "不超过",
+          "preview": "'不超过' => 'Không quá',"
+        },
+        {
+          "line": 437,
+          "kind": "han",
+          "term": "跟随主题风格",
+          "preview": "'跟随主题风格' => 'Theo giao diện chủ đề',"
+        },
+        {
+          "line": 438,
+          "kind": "han",
+          "term": "自定义",
+          "preview": "'自定义' => 'Tùy chỉnh',"
+        },
+        {
+          "line": 439,
+          "kind": "han",
+          "term": "颜色",
+          "preview": "'颜色' => 'Màu sắc',"
+        },
+        {
+          "line": 440,
+          "kind": "han",
+          "term": "轮播搜索组件",
+          "preview": "'轮播搜索组件' => 'Thành phần banner tìm kiếm',"
+        },
+        {
+          "line": 757,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn các chủ đề hiện được bật（is_use=1），Và tổng hợp dữ liệu từ các mô-đun liên quan của nó (trang chủ, danh mục, chi tiết, v.v.)."
+        },
+        {
+          "line": 774,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn bản ghi chủ đề hiện đang được sử dụng（is_use = 1）"
+        },
+        {
+          "line": 783,
+          "kind": "suspect",
+          "term": "người dùngID",
+          "preview": "$data['user_data_id'],      // Các chủ đề liên quan đến mô-đun trung tâm người dùngID"
+        },
+        {
+          "line": 901,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn dữ liệu trang chủ của theme hiện đang được sử dụng (chuỗi JSON）"
+        },
+        {
+          "line": 935,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* 1. Truy vấn phân trang - Nhận dữ liệu dựa trên các tham số phân trang của hệ thống"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/kefu/service/StoreServiceRecordServices.php",
+      "hits": [
+        {
+          "line": 23,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @method array|Model|null getLatelyMsgUid(array $where, string $key) Truy vấn người dùng uid gần đây đã trò chuyện với người dùng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/message/notice/RoutineTemplateListService.php",
+      "hits": [
+        {
+          "line": 356,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc mối quan hệ khuyến mãi để gửi tin nhắn nhắc nhở"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/OtherOrderServices.php",
+      "hits": [
+        {
+          "line": 194,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn dữ liệu đơn hàng thẻ thành viên"
+        },
+        {
+          "line": 389,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "* Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/OutStoreOrderServices.php",
+      "hits": [
+        {
+          "line": 28,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @method together(array $where, string $field, string $together = 'sum') Truy vấn tổng hợp"
+        },
+        {
+          "line": 33,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @method getProductTrend($time, $timeType, $field, $str) Xu hướng hàng hóa"
+        },
+        {
+          "line": 225,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "} elseif ($order['status'] == 4 || $order['status'] == 1) { // Hợp nhất logic cho hàng hóa được nhận"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreCartServices.php",
+      "hits": [
+        {
+          "line": 223,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @param int $product_id hàng hóaID"
+        },
+        {
+          "line": 225,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @param string $product_attr_unique hàng hóaSKU"
+        },
+        {
+          "line": 603,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Mẫu vận chuyển hàng hóa không giao hàng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreOrderComputedServices.php",
+      "hits": [
+        {
+          "line": 358,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Tính toán số lượng/trọng lượng/khối lượng và tổng số lượng hàng hóa theo từng mẫu cước theo mẫu cước. Sắp xếp theo thứ tự ưu tiên giảm dần."
+        },
+        {
+          "line": 425,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Mảng vận chuyển hàng hóa vòng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreOrderCreateServices.php",
+      "hits": [
+        {
+          "line": 577,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Tính toán số lượng/trọng lượng/khối lượng và tổng số lượng hàng hóa theo từng mẫu cước theo mẫu cước. Sắp xếp theo thứ tự ưu tiên giảm dần."
+        },
+        {
+          "line": 659,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Đảm bảo rằng trường postage_price của các sản phẩm trong giỏ hàng không có trong tính toán mẫu vận chuyển hàng hóa có giá trị."
+        },
+        {
+          "line": 773,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "case 2://phiếu giảm giá hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreOrderDeliveryServices.php",
+      "hits": [
+        {
+          "line": 175,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng giao hàng"
+        },
+        {
+          "line": 713,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Tự động phân phối hàng hóa ảo"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreOrderInvoiceServices.php",
+      "hits": [
+        {
+          "line": 213,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn hồ sơ thanh toán"
+        },
+        {
+          "line": 215,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "//Thứ tự phụ truy vấn"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreOrderRefundServices.php",
+      "hits": [
+        {
+          "line": 94,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "} else {//Đặt hàng chủ động hoàn tiền"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreOrderServices.php",
+      "hits": [
+        {
+          "line": 58,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @method together(array $where, string $field, string $together = 'sum') Truy vấn tổng hợp"
+        },
+        {
+          "line": 63,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @method getProductTrend($time, $timeType, $field, $str) Xu hướng hàng hóa"
+        },
+        {
+          "line": 2439,
+          "kind": "suspect",
+          "term": "Đặt hàng ",
+          "preview": "* Đặt hàng lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/order/StoreOrderTakeServices.php",
+      "hits": [
+        {
+          "line": 414,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "//Ràng buộc không hợp lệ"
+        },
+        {
+          "line": 478,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "//Ràng buộc không hợp lệ"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/other/export/ExportServices.php",
+      "hits": [
+        {
+          "line": 30,
+          "kind": "suspect",
+          "term": "Xuất người dùng",
+          "preview": "* Xuất người dùng"
+        },
+        {
+          "line": 269,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu sản phẩm"
+        },
+        {
+          "line": 373,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu mặt hàng giá hời"
+        },
+        {
+          "line": 713,
+          "kind": "suspect",
+          "term": "Xuất người dùng",
+          "preview": "* Xuất người dùng WeChat"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/pay/OrderOfflineServices.php",
+      "hits": [
+        {
+          "line": 74,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "// Thứ tự nhóm nhómTạo nhóm nhóm"
+        },
+        {
+          "line": 80,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Tự động phân phối hàng hóa ảo"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/product/product/StoreProductLogServices.php",
+      "hits": [
+        {
+          "line": 24,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @method getProductTrend($time, $timeType, $str) Xu hướng hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/product/product/StoreProductServices.php",
+      "hits": [
+        {
+          "line": 450,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 477,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "$virtual_type = $data['virtual_type']; //Loại hàng hóa ảo"
+        },
+        {
+          "line": 1211,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* cứu"
+        },
+        {
+          "line": 2338,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu di chuyển sản phẩm"
+        },
+        {
+          "line": 2790,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Thành phần-hàng hóa tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/product/product/StoreVisitServices.php",
+      "hits": [
+        {
+          "line": 23,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @method getProductTrend($time, $timeType, $str) Xu hướng hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/shipping/ExpressServices.php",
+      "hits": [
+        {
+          "line": 36,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn hậu cần công ty hậu cầncode"
+        },
+        {
+          "line": 269,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "/** Truy vấn một công ty chuyển phát nhanh"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/shipping/ShippingTemplatesRegionServices.php",
+      "hits": [
+        {
+          "line": 24,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @method getTempRegionList(array $tempIds, array $cityId) Nhận danh sách dữ liệu vận chuyển miễn phí dựa trên id mẫu vận chuyển hàng hóa và id thành phố"
+        },
+        {
+          "line": 96,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận dữ liệu thành phố theo mẫu vận chuyển hàng hóa nhất định"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/shipping/ShippingTemplatesServices.php",
+      "hits": [
+        {
+          "line": 20,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 25,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @method getShippingColumn(array $where, string $field, string $key) Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 41,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Nhận danh sách các mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 57,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Lấy mẫu vận chuyển hàng hóa cần sửa đổi"
+        },
+        {
+          "line": 93,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Lưu hoặc sửa đổi mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/shipping/SystemCityServices.php",
+      "hits": [
+        {
+          "line": 30,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* @method getShippingCity() Nhận dữ liệu thành phố mẫu vận chuyển hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/statistic/ProductStatisticServices.php",
+      "hits": [
+        {
+          "line": 32,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* cơ sở hàng hóa"
+        },
+        {
+          "line": 109,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Xu hướng hàng hóa"
+        },
+        {
+          "line": 133,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "* Xu hướng hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/statistic/TradeStatisticServices.php",
+      "hits": [
+        {
+          "line": 334,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//Thanh toán số dư hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/system/NodeEnvironmentServices.php",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "* nghiên cứu PHP exec() Chức năng này có sẵn không?"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/system/SystemDatabackupServices.php",
+      "hits": [
+        {
+          "line": 120,
+          "kind": "suspect",
+          "term": "Thứ tự",
+          "preview": "krsort($data);//Thứ tự giảm dần theo thời gian"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/system/SystemEventServices.php",
+      "hits": [
+        {
+          "line": 134,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//                    'product_id' => 'hàng hóaid',"
+        },
+        {
+          "line": 143,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//                    'product_id' => 'hàng hóaid',"
+        },
+        {
+          "line": 152,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//                    'product_id' => 'hàng hóaid',"
+        },
+        {
+          "line": 316,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "//                    'product_id' => 'hàng hóaid',"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/system/SystemTicketServices.php",
+      "hits": [
+        {
+          "line": 58,
+          "kind": "suspect",
+          "term": "bật lên",
+          "preview": "$field[] = Form::radio('status', 'Công tắc in', $info['status'] ?? 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);"
+        },
+        {
+          "line": 176,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "$content .= '*************hàng hóa***************';"
+        },
+        {
+          "line": 277,
+          "kind": "suspect",
+          "term": "hàng hóa",
+          "preview": "$content .= '**************hàng hóa**************<BR>';"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/system/UpgradeServices.php",
+      "hits": [
+        {
+          "line": 1416,
+          "kind": "suspect",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/LoginServices.php",
+      "hits": [
+        {
+          "line": 327,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn cơ sở dữ liệu"
+        },
+        {
+          "line": 369,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn cơ sở dữ liệu"
+        },
+        {
+          "line": 393,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "* Ràng buộc số điện thoại di động(Thông tin người dùng im lặng chưa được viết)"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/UserBillStoreOrderServices.php",
+      "hits": [
+        {
+          "line": 38,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @param int $limit $limit Truy vấn số lượng mục"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/UserGroupServices.php",
+      "hits": [
+        {
+          "line": 99,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "* Thêm vào|Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/UserInvoiceServices.php",
+      "hits": [
+        {
+          "line": 129,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "* Thêm vào|Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/UserLevelServices.php",
+      "hits": [
+        {
+          "line": 250,
+          "kind": "suspect",
+          "term": "Ôn lại",
+          "preview": "//Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/UserRechargeServices.php",
+      "hits": [
+        {
+          "line": 33,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* @method be($map, string $field = '') Truy vấn xem một phần dữ liệu có tồn tại không"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/UserServices.php",
+      "hits": [
+        {
+          "line": 675,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn tất cả các cấp thành viên cao hơn thành viên hiện tại"
+        },
+        {
+          "line": 1017,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn tất cả các cấp thành viên cao hơn thành viên hiện tại"
+        },
+        {
+          "line": 1050,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "//Truy vấn cấp độ thành viên hiện được chọn"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/user/UserSpreadServices.php",
+      "hits": [
+        {
+          "line": 61,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn người dùng quảng cáouids"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/wechat/RoutineCIServices.php",
+      "hits": [
+        {
+          "line": 426,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "// nghiên cứu1: AppId Nó đã được cấu hình chưa?"
+        },
+        {
+          "line": 431,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "// nghiên cứu2: Tệp khóa có tồn tại không?"
+        },
+        {
+          "line": 436,
+          "kind": "suspect",
+          "term": "cứu",
+          "preview": "// nghiên cứu3: miniprogram-ci Nó đã được cài đặt trên toàn cầu chưa?"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/wechat/WechatQrcodeServices.php",
+      "hits": [
+        {
+          "line": 267,
+          "kind": "suspect",
+          "term": "Ràng buộc",
+          "preview": "//Ràng buộc thẻ người dùng"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/wechat/WechatReplyServices.php",
+      "hits": [
+        {
+          "line": 182,
+          "kind": "suspect",
+          "term": "Truy vấn",
+          "preview": "* Truy vấn một"
+        }
+      ]
+    }
+  ]
+}

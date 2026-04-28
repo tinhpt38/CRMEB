@@ -44,11 +44,11 @@ Route::group('serve', function () {
     //Nhận hồ sơ ứng dụng
     Route::get('sms/apply_record', 'v1.serve.Sms/applyRecord')->option(['real_name' => 'Nhận hồ sơ ứng dụng thông qua One Number']);
     //Ghi
-    Route::get('record', 'v1.serve.Serve/getRecord')->option(['real_name' => 'Kỷ lục tiêu thụ một số']);
+    Route::get('record', 'v1.serve.Serve/getRecord')->option(['real_name' => 'Lịch sử mua hàng một số']);
     //Có bật tính năng in biểu mẫu điện tử hay không
     Route::get('dump_open', 'v1.serve.Export/dumpIsOpen')->name('dumpIsOpen')->option(['real_name' => 'Số 1 có cho phép in biểu mẫu điện tử không?']);
     //Nhận tất cả các công ty hậu cần
-    Route::get('export_all', 'v1.serve.Export/getExportAll')->option(['real_name' => 'Nhận tất cả các công ty hậu cần với One Number']);
+    Route::get('export_all', 'v1.serve.Export/getExportAll')->option(['real_name' => 'Nhận Tất cả các công ty hậu cần với One Number']);
     //Nhận mẫu công ty hậu cần
     Route::get('export_temp', 'v1.serve.Export/getExportTemp')->option(['real_name' => 'Nhận mẫu công ty hậu cần thông qua One Number']);
     //Thay đổi mật khẩu

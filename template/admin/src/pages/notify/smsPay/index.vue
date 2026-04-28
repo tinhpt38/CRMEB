@@ -3,7 +3,7 @@
     <div class="i-layout-page-header header_top">
       <div class="i-layout-page-header fl_header">
         <router-link :to="{ path: $routeProStr + '/setting/sms/sms_config/index' }"
-          ><el-button size="small" type="text">trở lại</el-button></router-link
+          ><el-button size="small" type="text">Trở lại</el-button></router-link
         >
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title mr20" style="padding: 0">{{ $route.meta.title }}</span>
@@ -12,7 +12,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-tabs v-model="isChecked" @tab-click="onChangeType">
         <el-tab-pane label="Tin nhắn ngắn" name="sms"></el-tab-pane>
-        <el-tab-pane label="Bộ sưu tập sản phẩm" name="copy"></el-tab-pane>
+        <el-tab-pane label="Sản phẩm yêu thích" name="copy"></el-tab-pane>
         <el-tab-pane label="Điều tra hậu cần" name="expr_query"></el-tab-pane>
         <el-tab-pane label="In biểu mẫu điện tử" name="expr_dump"></el-tab-pane>
       </el-tabs>
@@ -71,7 +71,7 @@
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
             <span class="list-goods-list-item-pay"
-              >WeChat trả tiền<i v-if="code.invalid">{{ '  （ Thời gian hết hạn của mã thanh toán：' + code.invalid + ' ）' }}</i></span
+              >Thanh toán WeChat<i v-if="code.invalid">{{ '  （ Thời gian hết hạn của mã thanh toán：' + code.invalid + ' ）' }}</i></span
             >
           </el-col>
         </el-col>
@@ -92,7 +92,7 @@ export default {
   name: 'smsPay',
   data() {
     return {
-      all: { sms: 'Tin nhắn ngắn', copy: 'Bộ sưu tập sản phẩm', expr_query: 'Điều tra hậu cần', expr_dump: 'In biểu mẫu điện tử' },
+      all: { sms: 'Tin nhắn ngắn', copy: 'Sản phẩm yêu thích', expr_query: 'Điều tra hậu cần', expr_dump: 'In biểu mẫu điện tử' },
       isChecked: 'sms',
       numbers: '',
       account: '',

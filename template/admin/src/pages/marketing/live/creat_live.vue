@@ -68,7 +68,7 @@
                     <i class="el-icon-picture-outline" style="font-size: 24px"></i>
                   </div>
                 </div>
-                <div class="desc">kích cỡ：1080*1920px</div>
+                <div class="desc">Kích cỡ：1080*1920px</div>
               </el-form-item>
             </div>
           </el-col>
@@ -81,7 +81,7 @@
                     <i class="el-icon-picture-outline" style="font-size: 24px"></i>
                   </div>
                 </div>
-                <div class="desc">kích cỡ：800*640px</div>
+                <div class="desc">Kích cỡ：800*640px</div>
               </el-form-item>
             </div>
           </el-col>
@@ -119,12 +119,12 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="loại：">
+            <el-form-item label="Loại：">
               <el-input type="number" placeholder="0" v-model="formValidate.sort" class="content_width" />
             </el-form-item>
           </el-col>
           <!-- <el-col :span="24">
-            <el-form-item label="phong cách hiển thị：">
+            <el-form-item label="Phong cách hiển thị：">
               <el-radio-group v-model="formValidate.screen_type">
                 <el-radio :label="item.label" v-for="(item, index) in screen_type" :key="index">
                   <span>{{ item.value }}</span>
@@ -149,7 +149,7 @@
                 :inactive-value="0"
                 v-model="formValidate.close_like"
                 size="large"
-                active-text="bật lên"
+                active-text="Hoạt động"
                 inactive-text="đóng cửa"
               >
               </el-switch>
@@ -163,7 +163,7 @@
                 :inactive-value="0"
                 v-model="formValidate.close_goods"
                 size="large"
-                active-text="bật lên"
+                active-text="Hoạt động"
                 inactive-text="đóng cửa"
               >
               </el-switch>
@@ -177,7 +177,7 @@
                 :inactive-value="0"
                 v-model="formValidate.close_comment"
                 size="large"
-                active-text="bật lên"
+                active-text="Hoạt động"
                 inactive-text="đóng cửa"
               >
               </el-switch>
@@ -192,14 +192,12 @@
               style="margin-left: 120px"
               v-db-click
               @click="handleSubmit('formItem')"
-            >
-              nộp
-            </el-button>
+            >Nộp</el-button>
             <!-- <el-button
               type="primary"
               v-db-click @click="handleSubmit('formItem')"
               style="width: 19%; margin-left: 99px"
-              >nộp</el-button
+              >Nộp</el-button
             > -->
           </el-col>
         </el-row>
@@ -216,7 +214,7 @@
         ></uploadPictures>
       </el-dialog>
     </div>
-    <el-dialog :visible.sync="modal3" title="mã QR">
+    <el-dialog :visible.sync="modal3" title="Mã QR">
       <div class="acea-row row-around">
         <div v-viewer class="QRpic">
           <img src="https://res.wx.qq.com/op_res/9rSix1dhHfK4rR049JL0PHJ7TpOvkuZ3mE0z7Ou_Etvjf-w1J_jVX0rZqeStLfwh" />
@@ -305,7 +303,7 @@ export default {
       ],
       close_like: [
         {
-          value: 'bật lên',
+          value: 'Hoạt động',
           label: 1,
         },
         {
@@ -315,7 +313,7 @@ export default {
       ],
       close_goods: [
         {
-          value: 'bật lên',
+          value: 'Hoạt động',
           label: 1,
         },
         {
@@ -325,7 +323,7 @@ export default {
       ],
       close_comment: [
         {
-          value: 'bật lên',
+          value: 'Hoạt động',
           label: 1,
         },
         {
@@ -397,7 +395,7 @@ export default {
         this.modalPic = false;
       });
     },
-    // cứu
+    // Lưu
     handleSubmit(name) {
       this.loading = true;
       liveAdd(this.formValidate)

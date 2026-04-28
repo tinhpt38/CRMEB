@@ -4,7 +4,7 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="submit">cứu</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="submit">Lưu</el-button>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
       </div>
     </el-card>
     <!--<div class="footer acea-row row-center-wrapper">-->
-    <!--<el-button type="primary" v-db-click @click="submit">cứu</el-button>-->
+    <!--<el-button type="primary" v-db-click @click="submit">Lưu</el-button>-->
     <!--</div>-->
   </div>
 </template>

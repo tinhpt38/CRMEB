@@ -5,17 +5,17 @@
         <div class="section-hd">Thông tin cơ bản</div>
         <div class="section-bd">
           <div class="item">
-            <el-form-item label="người dùngID：">
+            <el-form-item label="ID khách hàng：">
               <el-input class="form-sty" disabled v-model="formItem.uid" placeholder="Vui lòng nhập số"></el-input>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="tên thật：" prop="real_name">
+            <el-form-item label="Tên thật：" prop="real_name">
               <el-input class="form-sty" v-model.trim="formItem.real_name" placeholder="Vui lòng nhập tên thật của bạn"></el-input>
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="số điện thoại：" prop="phone">
+            <el-form-item label="Số điện thoại：" prop="phone">
               <el-input class="form-sty" v-model="formItem.phone" placeholder="Vui lòng nhập số điện thoại di động"></el-input>
             </el-form-item>
           </div>
@@ -33,7 +33,7 @@
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="số CMND：">
+            <el-form-item label="Số CMND：">
               <el-input class="form-sty" v-model.trim="formItem.card_id" placeholder="Vui lòng nhập số ID của bạn"></el-input>
             </el-form-item>
           </div>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="section">
-        <div class="section-hd">mật khẩu</div>
+        <div class="section-hd">Mật khẩu</div>
         <div class="section-bd">
           <div class="item">
             <el-form-item label="Mật khẩu đăng nhập：" prop="pwd">
@@ -73,7 +73,7 @@
         <div class="section-hd">Hồ sơ người dùng</div>
         <div class="section-bd">
           <div class="item">
-            <el-form-item label="Cấp độ người dùng：">
+            <el-form-item label="Hạng khách hàng：">
               <el-select v-model="formItem.level" class="form-sty" clearable>
                 <el-option
                   v-for="(item, index) in infoData.levelInfo"
@@ -85,7 +85,7 @@
             </el-form-item>
           </div>
           <div class="item">
-            <el-form-item label="Nhóm người dùng：">
+            <el-form-item label="Nhóm khách hàng：">
               <el-select v-model="formItem.group_id" class="form-sty" clearable>
                 <el-option
                   v-for="(item, index) in infoData.groupInfo"
@@ -97,7 +97,7 @@
             </el-form-item>
           </div>
           <div class="item lang">
-            <el-form-item label="Thẻ người dùng：">
+            <el-form-item label="Thẻ khách hàng：">
               <div style="display: flex">
                 <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
                   <div style="width: 90%">
@@ -131,8 +131,8 @@
           <div class="item lang" v-if="formItem.spread_open == 1">
             <el-form-item label="Quyền phân phối：">
               <el-radio-group v-model="formItem.is_promoter" class="form-sty">
-                <el-radio :label="1">bật lên</el-radio>
-                <el-radio :label="0">đóng cửa</el-radio>
+                <el-radio :label="1">Bật lên</el-radio>
+                <el-radio :label="0">Đóng cửa</el-radio>
               </el-radio-group>
               <div class="tip">Bật hoặc tắt quyền phân phối của người dùng theo cách thủ công</div>
             </el-form-item>
@@ -140,8 +140,8 @@
           <div class="item lang">
             <el-form-item label="Trạng thái người dùng：">
               <el-radio-group v-model="formItem.status" class="form-sty">
-                <el-radio :label="1">bật lên</el-radio>
-                <el-radio :label="0">khóa</el-radio>
+                <el-radio :label="1">Bật lên</el-radio>
+                <el-radio :label="0">Khóa</el-radio>
               </el-radio-group>
             </el-form-item>
           </div>
@@ -195,7 +195,7 @@ export default {
     },
     gender(value) {
       if (value == 1) {
-        return 'nam giới';
+        return 'Nam';
       } else if (value == 2) {
         return 'nữ giới';
       } else {

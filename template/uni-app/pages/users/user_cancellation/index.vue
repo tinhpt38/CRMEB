@@ -21,7 +21,7 @@
 			<view class="top"></view>
 			<view class="bottom">
 				<view class="font1">{{$t(`Bạn có muốn xác nhận việc đăng xuất không?`)}}</view>
-				<view class="font2">{{$t(`Bạn không thể phục hồi sau khi đăng xuất, vui lòng vận hành thận trọng.`)}}</view>
+				<view class="font2">{{$t(`Bạn không thể phục hồi sau khi đăng xuất, vui lòng Thao tác thận trọng.`)}}</view>
 				<view class="btn">
 					<view class="cancellation-btn btn-sty flex-aj-center" @tap="cancelUser">{{$t(`Đăng xuất`)}}</view>
 					<view class="cancel btn-sty flex-aj-center" @tap="isCancellation = false">

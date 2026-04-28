@@ -164,7 +164,7 @@ class DiyPro extends AuthController
             ['label' => 'Tên người dùng', 'value' => 'nickname'],
             ['label' => 'người dùngid', 'value' => 'uid'],
             ['label' => 'Hình đại diện của người dùng', 'value' => 'image'],
-            ['label' => 'Bộ sưu tập sản phẩm', 'value' => 'collection_num'],
+            ['label' => 'Sản phẩm yêu thích', 'value' => 'collection_num'],
             ['label' => 'Mua thêm sản phẩm', 'value' => 'cart_num'],
             ['label' => 'Tổng số đơn đặt hàng', 'value' => 'order_num'],
             ['label' => 'điểm của tôi', 'value' => 'integral'],
@@ -185,7 +185,7 @@ class DiyPro extends AuthController
 
         $coupon = [
             ['label' => 'Tên phiếu giảm giá', 'value' => 'coupon_title'],
-            ['label' => 'Phiếu giảm giáid', 'value' => 'id'],
+            ['label' => 'Mã giảm giáid', 'value' => 'id'],
             ['label' => 'Loại phiếu giảm giá', 'value' => 'type'],
             ['label' => 'Mệnh giá phiếu giảm giá', 'value' => 'coupon_price'],
             ['label' => 'Trạng thái phiếu giảm giá', 'value' => 'status'],
@@ -198,11 +198,11 @@ class DiyPro extends AuthController
 
         $product = [
             ['label' => 'Tên sản phẩm', 'value' => 'store_name'],
-            ['label' => 'hàng hóaid', 'value' => 'id'],
+            ['label' => 'sản phẩmid', 'value' => 'id'],
             ['label' => 'Hình ảnh sản phẩm', 'value' => 'image'],
             ['label' => 'Giới thiệu sản phẩm', 'value' => 'store_info'],
-            ['label' => 'đơn vị hàng hóa', 'value' => 'unit_name'],
-            ['label' => 'Phân loại sản phẩm', 'value' => 'cate_name'],
+            ['label' => 'Đơn vị sản phẩm', 'value' => 'unit_name'],
+            ['label' => 'Danh mục sản phẩm', 'value' => 'cate_name'],
             ['label' => 'Kiểm kê sản phẩm', 'value' => 'stock'],
             ['label' => 'Giá bán sản phẩm', 'value' => 'price'],
             ['label' => 'Giá bán tối đa của sản phẩm', 'value' => 'max_price'],

@@ -83,8 +83,8 @@
           <p v-html="upgradeAgreement.content"></p>
         </div>
          <span slot="footer" class="dialog-footer">
-          <el-button v-db-click @click="reject">từ chối</el-button>
-          <el-button type="primary" v-db-click @click="agree">đồng ý</el-button>
+          <el-button v-db-click @click="reject">Từ chối</el-button>
+          <el-button type="primary" v-db-click @click="agree">Đồng ý</el-button>
       </span>
     </el-dialog>
     <!-- nâng cấp -->
@@ -109,19 +109,19 @@
           <div class="wait">Đang cập nhật, vui lòng kiên nhẫn chờ đợi～</div>
         </div>
         <div slot="footer">
-          <!-- <div v-if="upgradeProgress.speed == '100.0'"><el-button class="back" type="primary" shape="circle" v-db-click @click="updateModal = false">xác nhận</el-button></div> -->
+          <!-- <div v-if="upgradeProgress.speed == '100.0'"><el-button class="back" type="primary" shape="circle" v-db-click @click="updateModal = false">Xác nhận</el-button></div> -->
         </div>
         <div v-if="upgradeProgress.speed == '100.0'" class="describe">
           <el-progress type="circle" :percentage="100" status="success"></el-progress>
           <div class="success">Nâng cấp thành công</div>
         </div>
         <div v-if="upgradeProgress.speed == '100.0'" slot="footer" class="footer2">
-          <el-button class="confirm" type="primary" shape="circle" v-db-click @click="back()">xác nhận</el-button>
-          <!-- <div><el-button class="back" shape="circle" v-db-click @click="backSure()">trở lại</el-button></div> -->
+          <el-button class="confirm" type="primary" shape="circle" v-db-click @click="back()">Xác nhận</el-button>
+          <!-- <div><el-button class="back" shape="circle" v-db-click @click="backSure()">Trở lại</el-button></div> -->
         </div>
         <span v-if="upgradeProgress.speed == '100.0'" slot="footer" class="dialog-footer">
           <el-button v-db-click @click="cancel">Hủy bỏ</el-button>
-          <el-button type="primary" v-db-click @click="back">xác nhận</el-button>
+          <el-button type="primary" v-db-click @click="back">Xác nhận</el-button>
         </span>
     </el-dialog>
 </div>
@@ -280,7 +280,7 @@ export default {
       this.upgradeableList = res.data;
       let firstVer = res.data[0]
       if(this.$store.state.upgrade.toggleStatus || this.upgradeStatus.force_reminder){
-        const data = res.data.find(item => item.force_reminder === 1)
+        const data = res.data.find(item => Item.force_reminder === 1)
         this.newKey = data.package_key;
         this.forceVersion = data.first_version + '.' + data.second_version + '.' + data.third_version + '.' + data.fourth_version
       }else{
@@ -658,7 +658,7 @@ export default {
   // background: #eee;
 }
 
-.upgrade .contentTime .ivu-collapse > .ivu-collapse-item > .ivu-collapse-header > i {
+.upgrade .contentTime .ivu-collapse > .ivu-collapse-item > .ivu-collapse-header > I {
   color: #BBBBBB !important;
   margin-left: 9px;
 }

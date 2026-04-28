@@ -1344,7 +1344,7 @@
     },
     {
       "icon_id": "37924882",
-      "name": "Đang chờ xóa sổ",
+      "name": "Đang chờ xác nhận",
       "font_class": "daihexiao",
       "unicode": "e731",
       "unicode_decimal": 59185
@@ -1470,7 +1470,7 @@
     },
     {
       "icon_id": "35446051",
-      "name": "Nhân viên thu ngân - Xóa sổ",
+      "name": "Nhân viên thu ngân - Xác nhận",
       "font_class": "shouyintai-hexiao1",
       "unicode": "e709",
       "unicode_decimal": 59145
@@ -2093,7 +2093,7 @@
     },
     {
       "icon_id": "28495815",
-      "name": "pc-tích phân",
+      "name": "pc-điểm thưởng",
       "font_class": "pc-jifen",
       "unicode": "e7e3",
       "unicode_decimal": 59363

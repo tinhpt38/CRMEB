@@ -6,12 +6,12 @@
         <el-tooltip placement="right-start">
           <i class="el-icon-question ml10"></i>
           <div slot="content">
-            <div>doanh thu</div>
+            <div>Doanh thu</div>
             <div>Số tiền thanh toán sản phẩm, số tiền nạp lại, số tiền mua thành viên trả phí, số tiền thu ngân ngoại tuyến</div>
             <br />
             <div>Số tiền thanh toán sản phẩm</div>
             <div>
-              Trong các điều kiện đã chọn, số tiền thanh toán thực tế của hàng hóa mà người dùng đã mua, bao gồm thanh toán WeChat, thanh toán số dư, thanh toán Alipay và số tiền thanh toán ngoại tuyến (các sản phẩm nhóm được bao gồm sau khi nhóm được thành lập và các đơn đặt hàng thanh toán ngoại tuyến được bao gồm sau khi thanh toán được xác nhận ở chế độ nền)）
+              Trong các điều kiện đã chọn, số tiền Thanh toán thực tế của sản phẩm mà người dùng đã mua, bao gồm thanh toán WeChat, thanh toán số dư, thanh toán Alipay và số tiền thanh toán ngoại tuyến (các sản phẩm nhóm được bao gồm sau khi nhóm được thành lập và các đơn đặt hàng thanh toán ngoại tuyến được bao gồm sau khi thanh toán được xác nhận ở chế độ nền)）
             </div>
             <br />
             <div>Mua số tiền thành viên</div>
@@ -30,10 +30,10 @@
             <div>Số tiền thực tế thanh toán bằng số dư khi người dùng đặt hàng</div>
             <br />
             <div>Số tiền thanh toán hoa hồng</div>
-            <div>Hoa hồng khuyến mãi được người phụ trợ trả cho người quảng bá sẽ tùy thuộc vào khoản thanh toán thực tế.</div>
+            <div>Hoa hồng khuyến mãi được người phụ trợ trả cho người quảng bá sẽ tùy thuộc vào khoản Thanh toán thực tế.</div>
             <br />
             <div>Số tiền hoàn lại sản phẩm</div>
-            <div>Số lượng hàng hóa được người dùng hoàn trả thành công</div>
+            <div>Số lượng sản phẩm được người dùng hoàn trả thành công</div>
           </div>
         </el-tooltip>
       </div>
@@ -52,8 +52,8 @@
           style="width: 250px"
           class="mr20"
         ></el-date-picker>
-        <el-button type="primary" v-db-click @click="onSeach">Truy vấn</el-button>
-        <el-button type="primary" v-db-click @click="excel">Xuất khẩu</el-button>
+        <el-button type="primary" v-db-click @click="onSeach">Tìm kiếm</el-button>
+        <el-button type="primary" v-db-click @click="excel">Xuất file</el-button>
       </div>
     </div>
     <div class="acea-row mb20">
@@ -78,7 +78,7 @@
           ></span>
           <span class="sp2" v-else v-text="item.money ? item.money : '0.00'"></span>
           <span class="content-time spBlock"
-            >tăng trưởng hàng tháng：<i class="content-is" :class="Number(item.rate) >= 0 ? 'up' : 'down'">{{ item.rate }}%</i
+            >Tăng trưởng hàng tháng：<i class="content-is" :class="Number(item.rate) >= 0 ? 'up' : 'down'">{{ item.rate }}%</i
             ><i
               :style="{ color: Number(item.rate) >= 0 ? '#F5222D' : '#39C15B' }"
               :class="[Number(item.rate) >= 0 ? 'el-icon-caret-top' : 'el-icon-caret-bottom']"

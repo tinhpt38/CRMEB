@@ -132,7 +132,7 @@ class DivisionAgentApplyServices extends BaseServices
         $field[] = Form::hidden('type', $type);
         $field[] = Form::hidden('id', $id);
         if ($type) {
-            $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
+            $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của Đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
             $field[] = Form::date('division_end_time', 'Thời gian hết hạn', '')->placeholder('Thời gian hết hạn đại lý');
             $field[] = Form::radio('division_status', 'trạng thái đại lý', 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
             $title = 'Đồng ý với ứng dụng';
@@ -174,8 +174,8 @@ class DivisionAgentApplyServices extends BaseServices
                 $userServices = app()->make(UserServices::class);
                 $division_info = $userServices->getUserInfo($applyInfo['division_id'], 'division_end_time,division_percent');
                 if ($applyInfo['division_id'] != 0) {
-                    if ($agentData['division_percent'] > $division_info['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng đơn vị kinh doanh');
-                    if ($agentData['division_end_time'] > $division_info['division_end_time']) throw new AdminException('Thời gian hết hạn của đại lý không được lớn hơn thời gian hết hạn của đơn vị kinh doanh');
+                    if ($agentData['division_percent'] > $division_info['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng Đơn vị kinh doanh');
+                    if ($agentData['division_end_time'] > $division_info['division_end_time']) throw new AdminException('Thời gian hết hạn của đại lý không được lớn hơn thời gian hết hạn của Đơn vị kinh doanh');
                 }
                 $applyInfo->status = 1;
                 $res = $applyInfo->save();

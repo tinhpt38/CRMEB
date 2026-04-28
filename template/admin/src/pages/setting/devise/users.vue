@@ -10,9 +10,9 @@
                   <img src="../../../assets/images/f.png" />
                 </div>
                 <div class="txt">
-                  <div class="name">tên người dùngtên người dùng</div>
+                  <div class="name">Tên người dùngtên người dùng</div>
                   <div class="phone acea-row row-center-wrapper">
-                    Ràng buộc số điện thoại di động<span class="iconfont iconjinru"></span>
+                    Liên kết số điện thoại di động<span class="iconfont iconjinru"></span>
                   </div>
                 </div>
               </div>
@@ -27,7 +27,7 @@
             <div class="center acea-row row-around">
               <div class="item">
                 <div class="num">0.00</div>
-                <div class="font">số dư của tôi</div>
+                <div class="font">Số dư của tôi</div>
               </div>
               <div class="item">
                 <div class="num">65749</div>
@@ -35,7 +35,7 @@
               </div>
               <div class="item">
                 <div class="num">25</div>
-                <div class="font">Phiếu giảm giá</div>
+                <div class="font">Mã giảm giá</div>
               </div>
             </div>
             <div class="bottom acea-row row-between-wrapper" v-if="userData.status == 1">
@@ -62,7 +62,7 @@
           >
             <div class="title acea-row row-between-wrapper">
               <div>Trung tâm đặt hàng</div>
-              <div class="all">Xem tất cả<span class="iconfont iconjinru"></span></div>
+              <div class="all">Xem Tất cả<span class="iconfont iconjinru"></span></div>
             </div>
             <div class="list acea-row row-around">
               <div class="item">
@@ -103,7 +103,7 @@
             @click="currentShow(2)"
           >
             <div class="title acea-row row-between-wrapper" v-if="userData.my_menus_status == 1">
-              <div>dịch vụ của tôi</div>
+              <div>Dịch vụ của tôi</div>
             </div>
             <div class="list acea-row" v-if="userData.my_menus_status == 1">
               <div class="item" v-for="(item, index) in MyMenus" :key="index" v-if="item.pic">
@@ -157,13 +157,13 @@
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.status">
                 <el-radio :label="1">
-                  <span>phong cách1</span>
+                  <span>Phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>phong cách2</span>
+                  <span>Phong cách2</span>
                 </el-radio>
                 <el-radio :label="3">
-                  <span>phong cách3</span>
+                  <span>Phong cách3</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
@@ -173,32 +173,32 @@
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.order_status" @input="orderStyle">
                 <el-radio :label="1">
-                  <span>phong cách1</span>
+                  <span>Phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>phong cách2</span>
+                  <span>Phong cách2</span>
                 </el-radio>
                 <el-radio :label="3">
-                  <span>phong cách3</span>
+                  <span>Phong cách3</span>
                 </el-radio>
                 <el-radio :label="4">
-                  <span>phong cách4</span>
+                  <span>Phong cách4</span>
                 </el-radio>
                 <el-radio :label="5">
-                  <span>phong cách5</span>
+                  <span>Phong cách5</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
           </div>
           <div class="c_row-item" v-if="current == 2">
-            <el-col class="label" :span="4"> dịch vụ của tôi： </el-col>
+            <el-col class="label" :span="4"> Dịch vụ của tôi： </el-col>
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.my_menus_status">
                 <el-radio :label="1">
-                  <span>phong cách1</span>
+                  <span>Phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>phong cách2</span>
+                  <span>Phong cách2</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
@@ -208,10 +208,10 @@
             <el-col :span="20" class="slider-box">
               <el-radio-group v-model="userData.business_status">
                 <el-radio :label="1">
-                  <span>phong cách1</span>
+                  <span>Phong cách1</span>
                 </el-radio>
                 <el-radio :label="2">
-                  <span>phong cách2</span>
+                  <span>Phong cách2</span>
                 </el-radio>
               </el-radio-group>
             </el-col>
@@ -230,7 +230,7 @@
             </el-col>
           </div>
           <div class="c_row-item acea-row row-top" v-if="current == 2">
-            <el-col class="label" :span="4"> dịch vụ của tôi： </el-col>
+            <el-col class="label" :span="4"> Dịch vụ của tôi： </el-col>
             <el-col :span="20" class="slider-box">
               <div class="info">Kích thước khuyên dùng: 86 * 86px, kéo ảnh để điều chỉnh thứ tự hiển thị ảnh.</div>
               <uploadPic :listData="MyMenus" :type="2"></uploadPic>

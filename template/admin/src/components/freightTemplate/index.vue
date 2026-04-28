@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="isTemplate"
-      title="Mẫu vận chuyển hàng hóa"
+      title="Mẫu vận chuyển sản phẩm"
       width="1000px"
       if="isTemplate"
       @on-cancel="cancel"
@@ -22,15 +22,15 @@
               <el-form-item label="Phương thức thanh toán：" props="state" label-for="state">
                 <el-radio-group class="radio" v-model="formData.type" @input="changeRadio" element-id="state">
                   <el-radio :label="1">Theo số lượng mảnh</el-radio>
-                  <el-radio :label="2">theo trọng lượng</el-radio>
-                  <el-radio :label="3">theo khối lượng</el-radio>
+                  <el-radio :label="2">Theo trọng lượng</el-radio>
+                  <el-radio :label="3">Theo khối lượng</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="24">
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
-              <el-form-item class="label" label="Khu vực giao hàng và vận chuyển hàng hóa：" props="state" label-for="state">
+              <el-form-item class="label" label="Khu vực giao hàng và vận chuyển sản phẩm：" props="state" label-for="state">
                 <el-table ref="table" :data="templateList" class="ivu-mt" empty-text="Chưa có dữ liệu" border>
                   <el-table-column label="Khu vực giao hàng" minWidth="100">
                     <template slot-scope="scope">
@@ -38,7 +38,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="formData.type === 2 ? 'Trọng lượng mảnh đầu tiên(KG)' : formData.type === 3 ? 'Khối lượng mảnh đầu tiên(m³)' : 'bài viết đầu tiên'"
+                    :label="FormData.type === 2 ? 'Trọng lượng mảnh đầu tiên(KG)' : formData.type === 3 ? 'Khối lượng mảnh đầu tiên(m³)' : 'bài viết đầu tiên'"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
@@ -51,7 +51,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="formData.type === 2 ? 'Trọng lượng thay thế(KG)' : formData.type === 3 ? 'Khối lượng tiếp tục(m³)' : 'sự tiếp tục'"
+                    :label="FormData.type === 2 ? 'Trọng lượng thay thế(KG)' : formData.type === 3 ? 'Khối lượng tiếp tục(m³)' : 'sự tiếp tục'"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
@@ -63,13 +63,13 @@
                       <el-input type="number" v-model="templateList[scope.$index].continue_price" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="vận hành" fixed="right" width="100">
+                  <el-table-column label="Thao tác" fixed="right" width="100">
                     <template slot-scope="scope">
                       <a
                         v-if="scope.row.regionName !== 'Mặc định trên toàn quốc'"
                         v-db-click
                         @click="delCity(scope.row, 'khu vực giao hàng', scope.$index, 1)"
-                        >xóa bỏ</a
+                        >Xóa</a
                       >
                     </template>
                   </el-table-column>
@@ -86,8 +86,8 @@
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
               <el-form-item label="Miễn phí vận chuyển trên các mặt hàng được chỉ định：" prop="store_name" label-for="store_name">
                 <el-radio-group class="radio" v-model="formData.appoint_check">
-                  <el-radio :label="1">bật lên</el-radio>
-                  <el-radio :label="0">đóng cửa</el-radio>
+                  <el-radio :label="1">Bật lên</el-radio>
+                  <el-radio :label="0">Đóng cửa</el-radio>
                 </el-radio-group>
                 <el-table
                   ref="table"
@@ -103,7 +103,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="formData.type === 2 ? 'Trọng lượng miễn phí vận chuyển' : formData.type === 3 ? 'Khối lượng vận chuyển miễn phí(m³)' : 'Số lượng gói'"
+                    :label="FormData.type === 2 ? 'Trọng lượng miễn phí vận chuyển' : formData.type === 3 ? 'Khối lượng vận chuyển miễn phí(m³)' : 'Số lượng gói'"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
@@ -115,13 +115,13 @@
                       <el-input type="number" v-model="appointList[scope.$index].a_price" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="vận hành" fixed="right" width="100">
+                  <el-table-column label="Thao tác" fixed="right" width="100">
                     <template slot-scope="scope">
                       <a
                         v-if="scope.row.regionName !== 'Mặc định trên toàn quốc'"
                         v-db-click
                         @click="delCity(scope.row, 'khu vực giao hàng', scope.$index, 2)"
-                        >xóa bỏ</a
+                        >Xóa</a
                       >
                     </template>
                   </el-table-column>
@@ -141,8 +141,8 @@
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
               <el-form-item label="Chỉ định không được giao：" prop="store_name" label-for="store_name">
                 <el-radio-group class="radio" v-model="formData.no_delivery_check">
-                  <el-radio :label="1">bật lên</el-radio>
-                  <el-radio :label="0">đóng cửa</el-radio>
+                  <el-radio :label="1">Bật lên</el-radio>
+                  <el-radio :label="0">Đóng cửa</el-radio>
                 </el-radio-group>
                 <el-table
                   ref="table"
@@ -157,13 +157,13 @@
                       <el-input v-model="noDeliveryList[scope.$index].placeName" />
                     </template>
                   </el-table-column>
-                  <el-table-column label="vận hành" fixed="right" width="100">
+                  <el-table-column label="Thao tác" fixed="right" width="100">
                     <template slot-scope="scope">
                       <a
                         v-if="scope.row.regionName !== 'Mặc định trên toàn quốc'"
                         v-db-click
                         @click="delCity(scope.row, 'khu vực giao hàng', scope.$index, 3)"
-                        >xóa bỏ</a
+                        >Xóa</a
                       >
                     </template>
                   </el-table-column>
@@ -178,7 +178,7 @@
           </el-row>
           <el-row :gutter="24">
             <el-col :xl="18" :lg="18" :md="18" :sm="24" :xs="24">
-              <el-form-item label="loại：" prop="store_name" label-for="store_name">
+              <el-form-item label="Loại：" prop="store_name" label-for="store_name">
                 <el-input-number
                   :controls="false"
                   :min="0"

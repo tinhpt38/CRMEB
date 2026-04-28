@@ -44,27 +44,27 @@
         </div>
         <div class="money">
           <div class="x-money">￥{{ item.productInfo.attrInfo.price }}</div>
-          <div class="num">x{{ item.cart_num }}</div>
+          <div class="num">X{{ item.cart_num }}</div>
           <div class="y-money">￥{{ item.productInfo.ot_price }}</div>
         </div>
       </div>
     </div>
     <div class="public-total">
-      chung{{ orderInfo.cart_num }}khoản mục phải trả <span class="money">￥{{ orderInfo.pay_price }}</span> ( Bưu phí ¥{{
+      Chung{{ orderInfo.cart_num }}khoản mục phải trả <span class="money">￥{{ orderInfo.pay_price }}</span> ( Bưu phí ¥{{
         orderInfo.pay_postage
       }}
       )
     </div>
     <div class="wrapper">
       <div class="item acea-row row-between">
-        <div>số thứ tự：</div>
+        <div>Số thứ tự：</div>
         <div class="conter acea-row row-middle row-right">
           {{ orderInfo.order_id }}
-          <span class="copy copy-data" v-db-click @click="copyText(orderInfo.order_id)">sao chép</span>
+          <span class="copy copy-data" v-db-click @click="copyText(orderInfo.order_id)">Sao chép</span>
         </div>
       </div>
       <div class="item acea-row row-between">
-        <div>thời gian thanh toán：</div>
+        <div>Thời gian thanh toán：</div>
         <div class="conter">{{ orderInfo._pay_time }}</div>
       </div>
       <div class="item acea-row row-between">
@@ -94,22 +94,22 @@
         <div class="conter">-￥{{ orderInfo.coupon_price }}</div>
       </div>
       <div class="item acea-row row-between">
-        <div>vận chuyển hàng hóa：</div>
+        <div>Vận chuyển sản phẩm：</div>
         <div class="conter">￥{{ orderInfo.total_postage }}</div>
       </div>
       <div class="actualPay acea-row row-right">
-        thanh toán thực tế：<span class="money font-color-red">￥{{ orderInfo.pay_price }}</span>
+        Thanh toán thực tế：<span class="money font-color-red">￥{{ orderInfo.pay_price }}</span>
       </div>
     </div>
     <div class="wrapper" v-if="orderInfo.deliveryType === 'express'">
       <div class="item acea-row row-between">
         <div>Phương thức giao hàng：</div>
-        <div class="conter" v-if="orderInfo.delivery_type === 'express'">chuyển phát nhanh</div>
-        <div class="conter" v-if="orderInfo.delivery_type === 'send'">giao hàng</div>
+        <div class="conter" v-if="orderInfo.delivery_type === 'express'">Chuyển phát nhanh</div>
+        <div class="conter" v-if="orderInfo.delivery_type === 'send'">Giao hàng</div>
       </div>
       <div class="item acea-row row-between">
-        <div v-if="orderInfo.delivery_type === 'express'">công ty chuyển phát nhanh：</div>
-        <div v-if="orderInfo.delivery_type === 'send'">người giao hàng：</div>
+        <div v-if="orderInfo.delivery_type === 'express'">Công ty chuyển phát nhanh：</div>
+        <div v-if="orderInfo.delivery_type === 'send'">Người giao hàng：</div>
         <div class="conter">{{ orderInfo.deliveryName }}</div>
       </div>
       <div class="item acea-row row-between">
@@ -117,7 +117,7 @@
         <div v-if="orderInfo.delivery_type === 'send'">Số điện thoại người giao hàng：</div>
         <div class="conter">
           {{ orderInfo.delivery_id
-          }}<span class="copy copy-data" v-db-click @click="copyText(orderInfo.delivery_id)">sao chép</span>
+          }}<span class="copy copy-data" v-db-click @click="copyText(orderInfo.delivery_id)">Sao chép</span>
         </div>
       </div>
     </div>
@@ -126,7 +126,7 @@
       <div class="more"></div>
       <div class="bnt cancel" v-db-click @click="modify(0)" v-if="types === 0">Thay đổi giá chỉ bằng một cú nhấp chuột</div>
       <div class="bnt cancel" v-db-click @click="modify(0)" v-if="types === -1">Hoàn tiền ngay lập tức</div>
-      <div class="bnt cancel" v-db-click @click="modify(1)">Ghi chú đặt hàng</div>
+      <div class="bnt cancel" v-db-click @click="modify(1)">Ghi chú đơn hàng</div>
       <div
         class="bnt cancel"
         v-if="orderInfo.pay_type === 'offline' && orderInfo.paid === 0"
@@ -240,7 +240,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-input {
+Input {
   display: block;
   height: 100%;
   background: none;

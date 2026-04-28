@@ -32,7 +32,7 @@
 						<view class="noBnt" v-else-if="!item.attrStatus">{{$t(`Bán hết`)}}</view>
 						<view class="noBnt" v-else-if="!item.status">{{$t(`LOẠI BỎ`)}}</view>
 						<view class="delTxt acea-row row-right" v-if="!item.status || !item.attrStatus"><text
-								@click="oneDel(item.id,index)">{{$t(`xóa bỏ`)}}</text></view>
+								@click="oneDel(item.id,index)">{{$t(`Xóa`)}}</text></view>
 					</view>
 				</view>
 			</view>

@@ -21,7 +21,7 @@
     </Form>
     <div class="acea-row row-right mt20">
       <el-button v-db-click @click="cancel('formValidate')">Hủy bỏ</el-button>
-      <el-button type="primary" v-db-click @click="putRemark('formValidate')">nộp</el-button>
+      <el-button type="primary" v-db-click @click="putRemark('formValidate')">Nộp</el-button>
     </div>
   </el-dialog>
 </template>

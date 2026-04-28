@@ -47,11 +47,11 @@
                             <div class="name line1">
                               {{ item.productInfo.store_name }}
                             </div>
-                            <div class="sku">trong kho：{{ item.productInfo.stock }} Doanh số bán hàng：{{ item.productInfo.sales }}</div>
+                            <div class="sku">Trong kho：{{ item.productInfo.stock }} Doanh số bán hàng：{{ item.productInfo.sales }}</div>
                             <div class="price-box">
                               <div class="num">¥ {{ item.productInfo.price }}</div>
                               <a herf="javascript:;" class="more" v-db-click @click.stop="lookGoods(item)"
-                                >Xem sản phẩm ></a
+                                >Chi tiết sản phẩm ></a
                               >
                             </div>
                           </div>
@@ -69,7 +69,7 @@
                             <div class="name line1">
                               {{ item.orderInfo.order_id }}
                             </div>
-                            <div class="sku">số lượng sản phẩm：{{ item.orderInfo.total_num }}</div>
+                            <div class="sku">Số lượng sản phẩm：{{ item.orderInfo.total_num }}</div>
                             <div class="price-box">
                               <div class="num">¥ {{ item.orderInfo.pay_price }}</div>
                               <a href="javascript:;" class="more" v-db-click @click.stop="lookOrder(item)"
@@ -115,7 +115,7 @@
               <div class="right-wrapper">
                 <div class="icon-item" v-db-click @click.stop="isTransfer = !isTransfer">
                   <span class="iconfont iconzhuanjie"></span>
-                  <span>chuyển khoản</span>
+                  <span>Chuyển khoản</span>
                 </div>
                 <div class="transfer-box" v-if="isTransfer">
                   <transfer @close="msgClose" @transferPeople="transferPeople" :userUid="userActive.to_uid"></transfer>
@@ -142,7 +142,7 @@
               />
               <div class="send-btn">
                 <el-button class="btns" type="primary" :disabled="disabled" v-db-click @click.stop="sendText"
-                  >gửi</el-button
+                  >Gửi</el-button
                 >
               </div>
             </div>
@@ -168,7 +168,7 @@
       </div>
       <!-- Chi tiết đặt hàng -->
       <div v-if="isOrder">
-        <el-dialog :visible.sync="isOrder" title="Thông tin đặt hàng" width="720px" class="none-radius">
+        <el-dialog :visible.sync="isOrder" title="Thông tin đơn hàng" width="720px" class="none-radius">
           <orderDetail :orderId="orderId"></orderDetail>
         </el-dialog>
       </div>
@@ -539,7 +539,7 @@ export default {
     sendText() {
       this.sendMsg(this.chatCon, 1);
       this.chatCon = '';
-      this.$nextTick(() => this.$refs.chatInput.focus());
+      this.$nextTick(() => This.$refs.chatInput.focus());
     },
 
     // Xử lý gửi thống nhất

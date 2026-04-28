@@ -62,7 +62,7 @@
 				</label>
 			</checkbox-group>
 			<view class="button-section">
-				<button class="button" form-type="submit">{{$t(`cứu`)}}</button>
+				<button class="button" form-type="submit">{{$t(`Lưu`)}}</button>
 				<navigator class="navigator" :url="backUrl" hover-class="none">{{$t(`Hủy bỏ`)}}</navigator>
 			</view>
 		</form>

@@ -18,16 +18,16 @@
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="" label="tất cả"></el-option>
+              <el-option value="" label="Tất cả"></el-option>
               <el-option value="1" label="trình diễn"></el-option>
               <el-option value="0" label="Không hiển thị"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：" label-for="keyword">
+          <el-form-item label="Tìm kiếm：" label-for="keyword">
             <el-input class="form_content_width" v-model="levelFrom.keyword" placeholder="Vui lòng nhập tên hoặc mã công ty hậu cần" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -52,12 +52,12 @@
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="mã hóa" min-width="100">
+        <el-table-column label="Mã hóa" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại" min-width="100">
+        <el-table-column label="Loại" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
@@ -75,9 +75,9 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="80">
+        <el-table-column label="Thao tác" fixed="right" width="80">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -142,7 +142,7 @@ export default {
           minWidth: 120,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 120,

@@ -103,7 +103,7 @@
 				uni.getSystemInfo({
 					success: function(res) {
 						vm.platform = res.platform; //ios  or android
-						console.log("Thông tin hệ thống điện thoại di động", vm.platform);
+						console.log("Thông tin Server điện thoại di động", vm.platform);
 					},
 				});
 

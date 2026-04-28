@@ -21,7 +21,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên phòng phát sóng trực tiếp/ID/biệt hiệu của người dẫn chương trình/ID WeChat"
@@ -30,7 +30,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -81,7 +81,7 @@
             <span>{{ scope.row.end_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian sáng tạo" min-width="35">
+        <el-table-column label="Thời gian tạo" min-width="35">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -96,7 +96,7 @@
               :value="scope.row.is_show"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
@@ -107,16 +107,16 @@
             <div>{{ scope.row.live_status | liveReviewStatusFilter }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="loại" min-width="35">
+        <el-table-column label="Loại" min-width="35">
           <template slot-scope="scope">
             <div>{{ scope.row.sort }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
             <a v-db-click @click="detail(scope.row, 'Chi tiết')">Chi tiết</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
             <el-divider direction="vertical" v-if="scope.row.live_status == 102" />
             <a v-if="scope.row.live_status == 102" v-db-click @click="addGoods(scope.row)">Thêm sản phẩm</a>
           </template>
@@ -185,7 +185,7 @@ export default {
       treeData: {
         withdrawal: [
           {
-            title: 'tất cả',
+            title: 'Tất cả',
             value: '',
           },
           {
@@ -209,11 +209,11 @@ export default {
         { key: 'anchor_wechat', minWidth: 35, title: 'Neo tài khoản WeChat' },
         { key: 'start_time', minWidth: 35, title: 'Thời gian bắt đầu phát sóng trực tiếp' },
         { key: 'end_time', minWidth: 35, title: 'Thời gian kết thúc dự kiến' },
-        { key: 'add_time', minWidth: 35, title: 'thời gian sáng tạo' },
+        { key: 'add_time', minWidth: 35, title: 'Thời gian tạo' },
         { slot: 'is_mer_show', title: 'Hiển thị trạng thái', minWidth: 80 },
         { slot: 'status', minWidth: 35, title: 'Trạng thái trực tiếp' },
         { key: 'sort', minWidth: 35, title: 'loại' },
-        { slot: 'action', fixed: 'right', title: 'vận hành', minWidth: 120 },
+        { slot: 'action', fixed: 'right', title: 'Thao tác', minWidth: 120 },
       ],
       tabList: [],
       loading: false,

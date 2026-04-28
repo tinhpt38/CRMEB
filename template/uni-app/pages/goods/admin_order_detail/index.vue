@@ -116,7 +116,7 @@
 				<view>{{$t(`Trừ điểm`)}}：</view>
 				<view class='conter'>-{{$t(`￥`)}}{{parseFloat(orderInfo.deduction_price).toFixed(2)}}</view>
 			</view>
-			<view class='actualPay acea-row row-right'>{{$t(`thanh toán thực tế`)}}：<text
+			<view class='actualPay acea-row row-right'>{{$t(`Thanh toán thực tế`)}}：<text
 					class='money'>{{$t(`￥`)}}{{parseFloat(orderInfo.pay_price).toFixed(2)}}</text></view>
 		</view>
 		<view class="wrapper" v-if="

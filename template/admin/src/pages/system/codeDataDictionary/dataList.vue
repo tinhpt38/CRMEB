@@ -9,7 +9,7 @@
           type="text"
           v-db-click
           @click="$router.go(-1)"
-          >trở lại</el-button
+          >Trở lại</el-button
         >
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title">{{ $route.meta.title }}</span>
@@ -36,16 +36,16 @@
           </template>
         </el-table-column>
         <el-table-column prop="name" label="Tên từ điển" min-width="100"> </el-table-column>
-        <el-table-column prop="value" label="dữ liệu từ điển" min-width="100"> </el-table-column>
-        <el-table-column prop="sort" label="loại" min-width="100"> </el-table-column>
+        <el-table-column prop="value" label="Dữ liệu từ điển" min-width="100"> </el-table-column>
+        <el-table-column prop="sort" label="Loại" min-width="100"> </el-table-column>
         <el-table-column prop="add_time" label="Thêm thời gian" min-width="200"> </el-table-column>
-        <el-table-column fixed="right" label="vận hành" width="200">
+        <el-table-column fixed="right" label="Thao tác" width="200">
           <template slot-scope="scope">
             <a v-db-click @click="addSub(scope.row.id)">Thêm cấp dưới</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="eidtOptions(scope.row.id)">biên tập</a>
+            <a v-db-click @click="eidtOptions(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'xóa bỏ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

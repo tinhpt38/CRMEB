@@ -60,7 +60,7 @@ class UserVisitServices extends BaseServices
             }
             return $this->dao->save($data);
         } catch (\Throwable $e) {
-            Log::error('Bản ghi đăng nhập truy cập lỗi nhật ký, lý do lỗi：' . $e->getMessage());
+            Log::error('Lịch sử đăng nhập nhập truy cập lỗi nhật ký, lý do lỗi：' . $e->getMessage());
         }
     }
 

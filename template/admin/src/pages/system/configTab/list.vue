@@ -30,7 +30,7 @@
             <span>{{ scope.row.info }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="biến trường" min-width="130">
+        <el-table-column label="Biến trường" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.menu_name }}</span>
           </template>
@@ -40,7 +40,7 @@
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá trị" min-width="130">
+        <el-table-column label="Giá trị" min-width="130">
           <template slot-scope="scope">
             <span
               v-if="
@@ -71,7 +71,7 @@
                 </div>
               </div>
             </div>
-            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? 'bật lên' : 'đóng cửa' }}</span>
+            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? 'Hoạt động' : 'đóng cửa' }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Cấu hình/giá trị liên quan" min-width="130">
@@ -100,11 +100,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa danh mục', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa danh mục', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -113,7 +113,7 @@
     <!-- Hình thức mới-->
     <el-dialog
       :visible.sync="modals2"
-      :title="`${rowId ? 'Ôn lại' : 'Thêm vào'}Các trường cấu hình`"
+      :title="`${rowId ? 'Chỉnh sửa' : 'Thêm mới'}Các trường cấu hình`"
       :close-on-click-modal="false"
       :show-close="true"
       width="720px"

@@ -6,7 +6,7 @@
           <el-col v-bind="grid">
             <div class="button acea-row row-middle">
               <el-button type="primary" v-db-click @click="add(0)">Thêm tỉnh</el-button>
-              <el-button v-db-click @click="cleanCache">xóa bộ nhớ đệm</el-button>
+              <el-button v-db-click @click="cleanCache">Xóa bộ nhớ đệm</el-button>
             </div>
           </el-col>
         </el-row>
@@ -18,12 +18,12 @@
         :data="cityLists"
         lazy
       >
-        <el-table-column label="số seri" width="120">
+        <el-table-column label="Số seri" width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên khu vực" min-width="300">
+        <el-table-column label="Tên khu vực" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.label }}</span>
           </template>
@@ -33,13 +33,13 @@
             <span>{{ scope.row.parent_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-if="scope.row.hasOwnProperty('children')" v-db-click @click="add(scope.row.city_id)">Thêm vào</a>
+            <a v-if="scope.row.hasOwnProperty('children')" v-db-click @click="add(scope.row.city_id)">Thêm mới</a>
             <el-divider direction="vertical" v-if="scope.row.hasOwnProperty('children')" />
-            <a v-db-click @click="edit(scope.row.id)">biên tập</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa thành phố', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa thành phố', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -80,7 +80,7 @@ export default {
           minWidth: 300,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 120,

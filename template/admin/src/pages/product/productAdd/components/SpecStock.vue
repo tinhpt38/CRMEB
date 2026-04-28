@@ -1,5 +1,5 @@
 <template>
-  <!-- đặc điểm kỹ thuật cổ phiếu -->
+  <!-- Thuộc tính tồn kho -->
   <el-row :gutter="24">
     <el-col :span="24">
       <el-form-item label="Loại đặc điểm kỹ thuật：" props="spec_type">
@@ -19,7 +19,7 @@
     </el-col>
     <!-- Thông số kỹ thuật -->
     <el-col :span="24" v-if="formValidate.spec_type === 1" class="noForm">
-      <el-form-item label="Thông số sản phẩm：" prop="">
+      <el-form-item label="Thuộc tính sản phẩm：" prop="">
         <div class="specifications">
           <draggable
             group="specifications"
@@ -57,7 +57,7 @@
                     :disabled="!item.add_pic && !canSel"
                     :true-label="1"
                     :false-label="0"
-                    @change="(e) => addPic(e, index)"
+                    @change="(e) => AddPic(e, index)"
                     >Thêm sơ đồ thông số kỹ thuật</el-checkbox
                   >
                   <el-tooltip
@@ -156,7 +156,7 @@
             <el-table-column
               v-for="(item, index) in formValidate.header"
               :key="index"
-              :label="item.title"
+              :label="Item.title"
               :min-width="item.minWidth || '100'"
               :fixed="item.fixed"
             >
@@ -257,7 +257,7 @@
                   </template>
                   <template v-else-if="item.slot === 'selected_spec'"> -- </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="batchAdd">Chỉnh sửa hàng loạt</a>
+                    <a v-db-click @click="batchAdd">Sửa hàng loạt</a>
                     <el-divider direction="vertical"></el-divider>
                     <a v-db-click @click="batchDel">Thông thoáng</a>
                   </template>
@@ -381,7 +381,7 @@
                       v-model="manyFormValidate[scope.$index].is_default_select"
                       :active-value="1"
                       :inactive-value="0"
-                      @change="(e) => changeDefaultSelect(e, scope.$index)"
+                      @change="(e) => ChangeDefaultSelect(e, scope.$index)"
                     />
                   </template>
                   <template v-else-if="item.slot === 'action'">
@@ -406,7 +406,7 @@
     <!-- Bảng thông số kỹ thuật đơn-->
     <div v-if="formValidate.spec_type === 0">
       <el-col :span="24">
-        <el-form-item label="hình ảnh：">
+        <el-form-item label="Hình ảnh：">
           <div class="pictrueBox" v-db-click @click="modalPicTap('dan', 'danTable', 0)">
             <div class="pictrue" v-if="oneFormValidate[0].pic">
               <img v-lazy="oneFormValidate[0].pic" />
@@ -420,7 +420,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="giá bán：">
+        <el-form-item label="Giá bán：">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].price"
@@ -434,7 +434,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="giá thành：">
+        <el-form-item label="Giá thành：">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].cost"
@@ -448,7 +448,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="giá chéo：">
+        <el-form-item label="Giá chéo：">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].ot_price"
@@ -462,7 +462,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="trong kho：">
+        <el-form-item label="Trong kho：">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].stock"
@@ -481,12 +481,12 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="mã vạch：">
+        <el-form-item label="Mã vạch：">
           <el-input v-model.trim="oneFormValidate[0].bar_code_number" class="input_width"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="24" v-if="formValidate.virtual_type == 0">
-        <el-form-item label="cân nặng：">
+        <el-form-item label="Cân nặng：">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].weight"
@@ -498,7 +498,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="âm lượng：" v-if="formValidate.virtual_type == 0">
+        <el-form-item label="Âm lượng：" v-if="formValidate.virtual_type == 0">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].volume"
@@ -512,7 +512,7 @@
 
       <el-col :span="24">
         <el-form-item
-          :label="formValidate.virtual_type == 1 ? 'Thêm mật khẩu thẻ/đĩa mạng：' : 'Chọn phiếu giảm giá：'"
+          :label="FormValidate.virtual_type == 1 ? 'Thêm mật khẩu thẻ/đĩa mạng：' : 'Chọn phiếu giảm giá：'"
           v-if="formValidate.virtual_type == 1 || formValidate.virtual_type == 2"
         >
           <el-button

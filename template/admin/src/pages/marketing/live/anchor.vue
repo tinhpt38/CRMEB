@@ -20,7 +20,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên" min-width="300">
+        <el-table-column label="Tên" min-width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
@@ -35,11 +35,11 @@
             <span>{{ scope.row.wechat }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">Ôn lại</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa mỏ neo', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa mỏ neo', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

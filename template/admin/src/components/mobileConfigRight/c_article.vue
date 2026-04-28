@@ -20,7 +20,7 @@
         </div>
       </draggable>
       <div class="add-btn" @click="modals = true">
-        <el-button class="btn"><span class="iconfont iconaddto"></span>Thêm vào</el-button>
+        <el-button class="btn"><span class="iconfont iconaddto"></span>Thêm mới</el-button>
       </div>
     </div>
 
@@ -59,7 +59,7 @@
               <el-input clearable placeholder="Vui lòng nhập" v-model="artFrom.title" class="form_content_width" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="userSearchs">Truy vấn</el-button>
+              <el-button type="primary" @click="userSearchs">Tìm kiếm</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -76,7 +76,7 @@
         >
           <el-table-column type="selection" width="55"> </el-table-column>
           <el-table-column label="ID" width="80" prop="id"> </el-table-column>
-          <el-table-column label="bài viết hình ảnh" min-width="90">
+          <el-table-column label="Bài viết hình ảnh" min-width="90">
             <template slot-scope="scope">
               <div class="tabBox_img" v-if="scope.row.image_input && scope.row.image_input.length">
                 <img :src="scope.row.image_input[0]" />
@@ -85,7 +85,7 @@
           </el-table-column>
           <el-table-column label="Tên bài viết" min-width="130" prop="title"> </el-table-column>
           <el-table-column label="Phân loại" min-width="130" prop="catename"> </el-table-column>
-          <el-table-column label="thời gian" min-width="130">
+          <el-table-column label="Thời gian" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.add_time | formatDate }}</span>
             </template>
@@ -214,7 +214,7 @@ export default {
       categoryListApi({ status: 1, type: 1 })
         .then((res) => {
           this.treeData = this.formatCategory(res.data);
-          this.treeData.unshift({ id: 0, title: 'tất cả' });
+          this.treeData.unshift({ id: 0, title: 'Tất cả' });
         })
         .catch((res) => {
           this.$message.error(res.msg);

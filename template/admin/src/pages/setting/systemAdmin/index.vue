@@ -10,14 +10,14 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="tình trạng：" label-for="status1">
+          <el-form-item label="Tình trạng：" label-for="status1">
             <el-select v-model="status" placeholder="Vui lòng chọn" @change="userSearchs" clearable class="form_content_width">
-              <el-option value="all" label="tất cả"></el-option>
-              <el-option value="1" label="bật lên"></el-option>
+              <el-option value="all" label="Tất cả"></el-option>
+              <el-option value="1" label="Hoạt động"></el-option>
               <el-option value="0" label="đóng cửa"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：" label-for="status2">
+          <el-form-item label="Tìm kiếm：" label-for="status2">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên hoặc số tài khoản của bạn"
@@ -26,7 +26,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -46,12 +46,12 @@
             <span>{{ scope.row.real_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tài khoản" min-width="130">
+        <el-table-column label="Tài khoản" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.account }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="danh tính" min-width="130">
+        <el-table-column label="Danh tính" min-width="130">
           <template slot-scope="scope">
             <div v-if="scope.row.roles.length !== 0">
               <el-tag v-for="(item, index) in scope.row.roles.split(',')" :key="index">{{ item }}</el-tag>
@@ -63,12 +63,12 @@
             <span>{{ scope.row._last_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="lần đăng nhập cuối cùngip" min-width="130">
+        <el-table-column label="Lần đăng nhập cuối cùngip" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.last_ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="bật lên" min-width="70">
+        <el-table-column label="Hoạt động" min-width="70">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -78,17 +78,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="100">
+        <el-table-column label="Thao tác" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa quản trị viên', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa quản trị viên', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

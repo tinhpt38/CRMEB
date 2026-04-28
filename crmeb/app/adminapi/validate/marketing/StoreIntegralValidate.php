@@ -43,7 +43,7 @@ class StoreIntegralValidate extends Validate
         'product_id.require' => 'Vui lòng chọn sản phẩm',
         'title.require' => 'Vui lòng nhập tên sản phẩm',
         'info.require' => 'Vui lòng điền phần giới thiệu hoạt động',
-        'unit_name.require' => 'Vui lòng điền vào đơn vị',
+        'unit_name.require' => 'Vui lòng điền vào Đơn vị',
         'image.require' => 'Vui lòng chọn hình ảnh băng chuyền sản phẩm',
         'images.require' => 'Vui lòng chọn hình ảnh băng chuyền sản phẩm',
         'description.require' => 'Vui lòng điền thông tin chi tiết sản phẩm',

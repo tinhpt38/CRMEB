@@ -1,7 +1,7 @@
 <template>
   <div class="component-list">
     <el-collapse v-model="activeNames">
-      <el-collapse-item title="thành phần" name="1">
+      <el-collapse-item title="Thành phần" name="1">
         <div class="list-wrapper">
           <div
             v-for="(item, index) in list"

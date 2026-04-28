@@ -400,7 +400,7 @@ class UserExtractServices extends BaseServices
             $f[] = Form::input('bank_address', 'Ngân hàng mở tài khoản', $UserExtract['bank_address']);
         }
         $f[] = Form::input('mark', 'Nhận xét', $UserExtract['mark'])->type('textarea');
-        return create_form('biên tập', $f, Url::buildUrl('/finance/extract/' . $id), 'PUT');
+        return create_form('Sửa', $f, Url::buildUrl('/finance/extract/' . $id), 'PUT');
     }
 
     public function update(int $id, array $data)

@@ -31,7 +31,7 @@
 			</view>
 			<view class="fixed-lb w-full pb-safe" v-if="!showBack">
 				<view class="w-full h-128 px-20 flex-center">
-					<view class="w-full h-80 rd-40rpx flex-center bg-color fs-28 text--w111-fff" @tap="confrimTap">Được trả tiền ngay lập tức</view>
+					<view class="w-full h-80 rd-40rpx flex-center bg-color fs-28 text--w111-fff" @tap="confrimTap">Đã thanh toán ngay lập tức</view>
 				</view>
 			</view>
 		</view>

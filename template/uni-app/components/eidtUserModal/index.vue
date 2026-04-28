@@ -44,7 +44,7 @@
 
 				<view class="bottom">
 					<button class="save" formType="submit" :class="{'open': userInfo.avatar}">
-						{{$t(`cứu`)}}
+						{{$t(`Lưu`)}}
 					</button>
 				</view>
 			</form>

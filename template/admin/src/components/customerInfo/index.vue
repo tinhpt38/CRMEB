@@ -10,7 +10,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -29,7 +29,7 @@
             v-model="currentid"
             :disabled="!!scope.row.is_del"
             :label="scope.row.uid"
-            @input="() => currentidRadio(scope.row)"
+            @input="() => CurrentidRadio(scope.row)"
             >&nbsp;</el-radio
           >
         </template>
@@ -97,7 +97,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'Hôm qua', val: 'yesterday' },
           { text: '7 ngày qua', val: 'lately7' },

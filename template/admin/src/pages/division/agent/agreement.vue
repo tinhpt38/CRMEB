@@ -9,7 +9,7 @@
           <WangEditor :content="agreement.content" @editorContent="getEditorContent"></WangEditor>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="memberAgreementSave">cứu</el-button>
+          <el-button type="primary" v-db-click @click="memberAgreementSave">Lưu</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -59,7 +59,7 @@ export default {
           this.spinShow = false;
         });
     },
-    // cứu
+    // Lưu
     memberAgreementSave() {
       agentAgreementSave(this.agreement)
         .then((res) => {

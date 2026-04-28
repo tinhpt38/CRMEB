@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên、UID"
@@ -19,7 +19,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -28,7 +28,7 @@
       <el-row class="box-wrapper">
         <el-col :xs="24" :sm="24" ref="rightBox">
           <el-tabs v-model="formValidate.status" @tab-click="userSearchs">
-            <el-tab-pane name="all" label="tất cả"></el-tab-pane>
+            <el-tab-pane name="all" label="Tất cả"></el-tab-pane>
             <el-tab-pane v-for="(item, index) in statusList" :key="index" :label="item.status_name" :name="item.id"></el-tab-pane>
           </el-tabs>
           <el-table
@@ -39,12 +39,12 @@
             no-formValidate-text="Chưa có dữ liệu"
             no-filtered-formValidate-text="Chưa có kết quả lọc nào"
           >
-            <el-table-column label="số seri" width="80">
+            <el-table-column label="Số seri" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="người dùngUID" width="80">
+            <el-table-column label="Người dùngUID" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.uid }}</span>
               </template>
@@ -79,13 +79,13 @@
                 <span>{{ scope.row.content }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="170">
+            <el-table-column label="Thao tác" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 1)">đồng ý</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 1)">Đồng ý</a>
                 <el-divider v-if="scope.row.status == 0" direction="vertical" />
-                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 2)">từ chối</a>
+                <a v-if="scope.row.status == 0" v-db-click @click="examine(scope.row.id, scope.row.uid, 2)">Từ chối</a>
                 <el-divider direction="vertical" v-if="scope.row.status == 0" />
-                <a v-db-click @click="del(scope.row, 'Xóa ứng dụng', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa ứng dụng', scope.$index)">Xóa</a>
               </template>
             </el-table-column>
           </el-table>

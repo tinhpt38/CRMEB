@@ -49,7 +49,7 @@ class StoreProductProtectionServices extends BaseServices
         $f[] = Form::frameImage('image', 'biểu tượng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')),$info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->min(0)->precision(0);
         $f[] = Form::radio('status', 'Có hiển thị hay không', (int)($info['status'] ?? 1))->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
-        return create_form($id ? 'An ninh biên tập' : 'Thêm sự đảm bảo', $f, Url::buildUrl('/product/protection/save/' . $id), 'POST');
+        return create_form($id ? 'An ninh Sửa' : 'Thêm sự đảm bảo', $f, Url::buildUrl('/product/protection/save/' . $id), 'POST');
     }
 
     public function protectionSave($id, $data)

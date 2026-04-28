@@ -15,7 +15,7 @@
 		<!-- #endif -->
 		<view class="page-msg">
 			<view class="title">
-				{{pageType == 1?$t('Ràng buộc số điện thoại di động'):$t('Đăng nhập số điện thoại di động')}}
+				{{pageType == 1?$t('Liên kết số điện thoại di động'):$t('Đăng nhập số điện thoại di động')}}
 			</view>
 			<view class="tip">
 				{{pageType == 1?$t('Đăng nhập và đăng ký yêu cầu ràng buộc số điện thoại di động'):$t('Bạn sẽ được đăng ký tự động khi đăng nhập lần đầu tiên.')}}
@@ -105,7 +105,7 @@
 				inAnimation: false,
 				authKey: "",
 				backUrl: "",
-				pageTitle: 'Ràng buộc số điện thoại di động',
+				pageTitle: 'Liên kết số điện thoại di động',
 				configData: Cache.get('BASIC_CONFIG'),
 				canGetPrivacySetting: false,
 			}
@@ -123,7 +123,7 @@
 			this.backUrl = options.backUrl || ''
 			if (options.pageType) {
 				this.pageType = options.pageType || 1
-				this.pageTitle = options.pageType == 1 ? 'Ràng buộc số điện thoại di động' : 'Đăng nhập số điện thoại di động'
+				this.pageTitle = options.pageType == 1 ? 'Liên kết số điện thoại di động' : 'Đăng nhập số điện thoại di động'
 			}
 			let pages = getCurrentPages();
 			let prePage = pages[pages.length - 2];

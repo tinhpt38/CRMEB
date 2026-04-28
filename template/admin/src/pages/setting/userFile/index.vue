@@ -8,7 +8,7 @@
         label-width="160px"
         label-position="right"
       >
-        <el-form-item label="tài khoản：" prop="">
+        <el-form-item label="Tài khoản：" prop="">
           <el-input type="text" v-model="account" :disabled="true" class="input"></el-input>
         </el-form-item>
         <el-form-item label="Mật khẩu mới để quản lý tập tin：" prop="file_pwd">
@@ -18,7 +18,7 @@
           <el-input type="password" v-model="formValidate.conf_file_pwd" class="input"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">nộp</el-button>
+          <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">Nộp</el-button>
         </el-form-item>
       </el-form>
     </el-card>

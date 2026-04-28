@@ -53,17 +53,17 @@
           >
             <el-row :gutter="24">
               <el-col :span="24" class="ml40">
-                <el-form-item label="tiêu đề：" prop="title">
+                <el-form-item label="Tiêu đề：" prop="title">
                   <el-input style="width: 60%" v-model="saveForm.title" type="text" placeholder="Vui lòng nhập tiêu đề bài viết" />
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="ml40">
-                <el-form-item label="tác giả：" prop="author">
+                <el-form-item label="Tác giả：" prop="author">
                   <el-input style="width: 60%" v-model="saveForm.author" type="text" placeholder="Vui lòng nhập tên tác giả" />
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="ml40">
-                <el-form-item label="bản tóm tắt：" prop="synopsis">
+                <el-form-item label="Bản tóm tắt：" prop="synopsis">
                   <el-input style="width: 60%" v-model="saveForm.synopsis" type="textarea" placeholder="Vui lòng nhập tóm tắt" />
                 </el-form-item>
               </el-col>
@@ -78,13 +78,13 @@
                     </div>
                   </div>
                 </el-form-item>
-                <el-form-item label="chữ：" prop="content">
+                <el-form-item label="Chữ：" prop="content">
                   <WangEditor style="width: 90%" :content="content" @editorContent="getEditorContent"></WangEditor>
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="ml40">
                 <el-form-item>
-                  <el-button type="primary" class="submission" v-db-click @click="subFrom('saveForm')">nộp</el-button>
+                  <el-button type="primary" class="submission" v-db-click @click="subFrom('saveForm')">Nộp</el-button>
                 </el-form-item>
               </el-col>
               <el-dialog :visible.sync="modalPic" width="1024px" title="Tải lên hình ảnh bài viết" :close-on-click-modal="false">

@@ -237,7 +237,7 @@
 					this.arrays = res.data.store_info.map(a => a.name);
 					let obj = {
 						id: 0,
-						name: 'tất cả'
+						name: 'Tất cả'
 					}
 					this.array.unshift(obj);
 					this.arrays.unshift(obj.name);
@@ -338,7 +338,7 @@
 					title: 'Vui lòng nhập đúng mã xác minh'
 				});
 				self.$util.Tips({
-					title: 'Truy vấn'
+					title: 'Tìm kiếm'
 				});
 				setTimeout(() => {
 					orderWriteoffInfo(2, {

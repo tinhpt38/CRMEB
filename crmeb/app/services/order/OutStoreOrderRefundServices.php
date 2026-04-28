@@ -285,7 +285,7 @@ class OutStoreOrderRefundServices extends BaseServices
             throw new AdminException('Đơn hàng không tồn tại');
         }
         $refundInfo['order'] = $orderInfo->toArray();
-        return out_push($pushUrl, $refundInfo, 'Đơn hàng sau bán hàng');
+        return out_push($pushUrl, $refundInfo, 'Yêu cầu trả hàng / hoàn tiền');
     }
 
     /**

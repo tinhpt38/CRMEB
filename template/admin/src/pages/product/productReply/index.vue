@@ -10,7 +10,7 @@
           label-position="right"
           @submit.native.prevent
         >
-          <el-form-item label="thời gian bình luận：">
+          <el-form-item label="Thời gian bình luận：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -66,7 +66,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -115,7 +115,7 @@
             <span>{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="điểm" min-width="130">
+        <el-table-column label="Điểm" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.score }}</span>
           </template>
@@ -135,7 +135,7 @@
         </el-table-column>
         <el-table-column label="Xem lại trạng thái" min-width="80">
           <template slot-scope="scope">
-            <el-tag effect="dark" v-if="scope.row.status == 1"> vượt qua </el-tag>
+            <el-tag effect="dark" v-if="scope.row.status == 1"> Vượt qua </el-tag>
             <el-tag effect="dark" type="warning" v-if="scope.row.status == 0"> Đang chờ xem xét </el-tag>
             <el-tag effect="dark" type="danger" v-if="scope.row.status == 2"> Vật bị loại bỏ </el-tag>
           </template>
@@ -145,17 +145,17 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
             <template v-if="scope.row.status == 0">
-              <a class="item" v-db-click @click="adopt(scope.row, 'Tán thành', 1)">vượt qua</a>
+              <a class="item" v-db-click @click="adopt(scope.row, 'Tán thành', 1)">Vượt qua</a>
               <el-divider direction="vertical"></el-divider>
-              <a class="item" v-db-click @click="adopt(scope.row, 'từ chối', 2)">từ chối</a>
+              <a class="item" v-db-click @click="adopt(scope.row, 'từ chối', 2)">Từ chối</a>
               <el-divider direction="vertical"></el-divider>
             </template>
-            <a v-if="scope.row.status != 2" v-db-click @click="reply(scope.row)">hồi đáp</a>
+            <a v-if="scope.row.status != 2" v-db-click @click="reply(scope.row)">Hồi đáp</a>
             <el-divider v-if="scope.row.status != 2" direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa bình luận', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa bình luận', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -204,7 +204,7 @@
             >
           </template>
         </el-table-column>
-        <el-table-column label="hình ảnh" width="120">
+        <el-table-column label="Hình ảnh" width="120">
           <template slot-scope="scope">
             <div class="product-data">
               <img class="image" :src="scope.row.pic" />
@@ -216,7 +216,7 @@
             <span>{{ scope.row.suk }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá bán" min-width="120">
+        <el-table-column label="Giá bán" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.ot_price }}</span>
           </template>
@@ -257,8 +257,8 @@
           <el-col :span="24">
             <el-form-item label="Cài đặt hàng loạt：" prop="status">
               <el-radio-group v-model="batchFormData.status">
-                <el-radio :label="1">vượt qua</el-radio>
-                <el-radio :label="2">từ chối</el-radio>
+                <el-radio :label="1">Vượt qua</el-radio>
+                <el-radio :label="2">Từ chối</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -556,7 +556,7 @@ export default {
     getPicD(pc) {
       let pictureData = [...this.pictureData];
       pictureData = pictureData.concat(pc);
-      pictureData.sort((a, b) => a.att_id - b.att_id);
+      pictureData.sort((a, b) => A.att_id - b.att_id);
       let picture = [];
       for (let i = 0; i < pictureData.length; i++) {
         if (pictureData[i + 1] && pictureData[i].att_id != pictureData[i + 1].att_id) {
@@ -574,7 +574,7 @@ export default {
       this.pictureModal = true;
     },
     removePicture(att_id) {
-      let index = this.pictureData.findIndex((item) => item.att_id === att_id);
+      let index = this.pictureData.findIndex((item) => Item.att_id === att_id);
       this.pictureData.splice(index, 1);
     },
   },

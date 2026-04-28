@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="mt50 ml20">
-      <el-button type="primary" v-db-click @click="uploads">xác nhận</el-button>
+      <el-button type="primary" v-db-click @click="uploads">Xác nhận</el-button>
     </div>
   </div>
 </template>

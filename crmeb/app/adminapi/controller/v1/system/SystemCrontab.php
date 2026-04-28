@@ -89,7 +89,7 @@ class SystemCrontab extends AuthController
             if (config('filesystem.password') !== $data['password']) return app('json')->fail('Mật khẩu sai');
             $adminInfo = $this->request->adminInfo();
             if (!$adminInfo) return app('json')->fail('Hoạt động trái phép');
-            if ($adminInfo['level'] != 0) return app('json')->fail('Chỉ quản trị viên cấp cao mới có thể vận hành các tác vụ theo lịch trình');
+            if ($adminInfo['level'] != 0) return app('json')->fail('Chỉ quản trị viên cấp cao mới có thể Thao tác các tác vụ theo lịch trình');
             if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('Có mã nguy hiểm trong nội dung tùy chỉnh, vui lòng kiểm tra mã');
         }
         $this->services->saveTimer($data);

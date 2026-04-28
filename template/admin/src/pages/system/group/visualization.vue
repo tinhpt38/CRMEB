@@ -4,7 +4,7 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="save">cứu</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="save">Lưu</el-button>
         </div>
       </div>
     </div>
@@ -28,21 +28,21 @@
         <div class="iframe-boxs">
           <div class="moneyBox">
             <div class="box1">
-              <div class="font1">số dư của tôi</div>
+              <div class="font1">Số dư của tôi</div>
               <div>￥ <i class="font2">0.00</i></div>
             </div>
             <div class="moneyBox_content">
               <div class="box2">
                 <div>Nạp tiền tài khoản</div>
-                <div>nhập khẩu hoa hồng</div>
+                <div>Nhập khẩu hoa hồng</div>
               </div>
               <div class="box3">
                 <div v-show="item.status != 0" class="box3_box" v-for="(item, index) in sginList.list" :key="index">
                   <div>{{ item.price }}<i class="font">Nhân dân tệ</i></div>
-                  <div class="font">cho đi:{{ item.give_money }}Nhân dân tệ</div>
+                  <div class="font">Cho đi:{{ item.give_money }}Nhân dân tệ</div>
                 </div>
                 <div class="box3_box">
-                  <div class="other">khác</div>
+                  <div class="other">Khác</div>
                 </div>
               </div>
               <div class="box4">
@@ -141,8 +141,8 @@
           <div class="htmls_box">
             <div class="htmls_top">Thỏa thuận dịch vụ và Chính sách quyền riêng tư</div>
             <div class="htmls_font">
-              <div class="ok">tôi đồng ý</div>
-              <div>không đồng ý</div>
+              <div class="ok">Tôi đồng ý</div>
+              <div>Không đồng ý</div>
             </div>
             <div class="htmls" v-html="formValidate.content"></div>
           </div>
@@ -211,7 +211,7 @@
               no-userFrom-text="Chưa có dữ liệu"
               no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
-              <el-table-column label="số seri" width="80">
+              <el-table-column label="Số seri" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
@@ -240,16 +240,16 @@
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="loại" min-width="80">
+              <el-table-column label="Loại" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="vận hành" fixed="right" width="150">
+              <el-table-column label="Thao tác" fixed="right" width="150">
                 <template slot-scope="scope">
-                  <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
+                  <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+                  <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
                 </template>
               </el-table-column>
             </el-table>
@@ -281,7 +281,7 @@
               no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
               <el-table-column
-                :label="item.title"
+                :label="Item.title"
                 :min-width="item.minWidth"
                 v-for="(item, index) in columns1"
                 :key="index"
@@ -304,9 +304,9 @@
                     </el-switch>
                   </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
+                    <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+                    <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
                   </template>
                 </template>
               </el-table-column>
@@ -406,8 +406,7 @@
                     style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                     v-db-click
                     @click="addBox"
-                    >thêm hình ảnh
-                  </el-button>
+                    >Thêm hình ảnh</el-button>
                 </div>
               </template>
             </div>
@@ -425,14 +424,14 @@
                   <el-form-item label="Quảng cáo màn hình mở:">
                     <el-switch active-value="1" inactive-value="0" v-model="formItem.status" size="large"> </el-switch>
                   </el-form-item>
-                  <el-form-item label="thời gian quảng cáo:">
+                  <el-form-item label="Thời gian quảng cáo:">
                     <el-input
                       v-model.number="formItem.time"
                       type="number"
                       placeholder="Vui lòng nhập thời gian mở quảng cáo"
                       style="width: 150px"
                     ></el-input>
-                    đơn vị(Thứ hai)
+                    Đơn vị(Thứ hai)
                   </el-form-item>
                 </el-form>
               </div>
@@ -488,8 +487,7 @@
                   style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                   v-db-click
                   @click="addBox"
-                  >thêm hình ảnh
-                </el-button>
+                  >Thêm hình ảnh</el-button>
               </div>
             </template>
           </div>

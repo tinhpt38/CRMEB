@@ -5,21 +5,21 @@
         <div class="iframe-boxs">
           <div class="moneyBox">
             <div class="box1">
-              <div class="font1">số dư của tôi</div>
+              <div class="font1">Số dư của tôi</div>
               <div>￥ <i class="font2">0.00</i></div>
             </div>
             <div class="moneyBox_content">
               <div class="box2">
                 <div>Nạp tiền tài khoản</div>
-                <div>nhập khẩu hoa hồng</div>
+                <div>Nhập khẩu hoa hồng</div>
               </div>
               <div class="box3">
                 <div v-show="item.status != 0" class="box3_box" v-for="(item, index) in sginList.list" :key="index">
                   <div>{{ item.price }}<i class="font">Nhân dân tệ</i></div>
-                  <div class="font">cho đi:{{ item.give_money }}Nhân dân tệ</div>
+                  <div class="font">Cho đi:{{ item.give_money }}Nhân dân tệ</div>
                 </div>
                 <div class="box3_box">
-                  <div class="other">khác</div>
+                  <div class="other">Khác</div>
                 </div>
               </div>
               <div class="box4">
@@ -61,7 +61,7 @@
               no-userFrom-text="Chưa có dữ liệu"
               no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
-              <el-table-column :label="item.title" min-width="130" v-for="(item, index) in columns1" :key="index">
+              <el-table-column :label="Item.title" min-width="130" v-for="(item, index) in columns1" :key="index">
                 <template slot-scope="scope">
                   <template v-if="item.key">
                     <div>
@@ -80,9 +80,9 @@
                     </el-switch>
                   </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
+                    <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+                    <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
                   </template>
                 </template>
               </el-table-column>

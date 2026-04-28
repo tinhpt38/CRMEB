@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id && !$route.params.copy ? 'Chỉnh sửa sản phẩm nhóm' : 'Thêm sản phẩm nhóm'"
+      :title="$route.params.id && !$route.params.copy ? 'Sửa sản phẩm nhóm' : 'Thêm sản phẩm nhóm'"
       :backUrl="$routeProStr + '/marketing/store_combination/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -45,7 +45,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="Băng chuyền sản phẩm：" prop="images">
+                <el-form-item label="Ảnh slider sản phẩm：" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -123,7 +123,7 @@
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
                 <el-form-item label="Phương pháp hậu cần：" prop="logistics">
                   <el-checkbox-group v-model="formValidate.logistics">
-                    <el-checkbox label="1">chuyển phát nhanh</el-checkbox>
+                    <el-checkbox label="1">Chuyển phát nhanh</el-checkbox>
                     <el-checkbox label="2">Đến cửa hàng</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
@@ -132,7 +132,7 @@
                 <el-form-item label="Cài đặt phí vận chuyển：" :prop="formValidate.freight != 1 ? 'freight' : ''">
                   <el-radio-group v-model="formValidate.freight">
                     <el-radio :label="2">Bưu phí cố định</el-radio>
-                    <el-radio :label="3">Mẫu vận chuyển hàng hóa</el-radio>
+                    <el-radio :label="3">Mẫu vận chuyển sản phẩm</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -165,7 +165,7 @@
                     <el-select
                       v-model="formValidate.temp_id"
                       clearable
-                      placeholder="Vui lòng chọn mẫu vận chuyển hàng hóa"
+                      placeholder="Vui lòng chọn mẫu vận chuyển sản phẩm"
                       class="content_width"
                     >
                       <el-option
@@ -175,7 +175,7 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <span class="addfont" v-db-click @click="freight">Đã thêm mẫu vận chuyển hàng hóa</span>
+                    <span class="addfont" v-db-click @click="freight">Đã thêm mẫu vận chuyển sản phẩm</span>
                   </div>
                 </el-form-item>
               </el-col>
@@ -232,8 +232,8 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="đơn vị：" prop="unit_name" label-for="unit_name">
-                  <el-input clearable placeholder="Vui lòng nhập đơn vị" v-model="formValidate.unit_name" class="content_width" />
+                <el-form-item label="Đơn vị：" prop="unit_name" label-for="unit_name">
+                  <el-input clearable placeholder="Vui lòng nhập Đơn vị" v-model="formValidate.unit_name" class="content_width" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
@@ -289,7 +289,7 @@
                       class-unit="%"
                     />
                     <div class="grey">
-                      Sau khi nhóm được tập hợp thành công, nếu trưởng nhóm là nhà phân phối thì một khoản hoa hồng nhất định sẽ được trả lại cho trưởng nhóm khi đơn hàng được xác nhận và nhận. Tỷ lệ hoa hồng dựa trên số tiền thanh toán thực tế.0-100%
+                      Sau khi nhóm được tập hợp thành công, nếu trưởng nhóm là nhà phân phối thì một khoản hoa hồng nhất định sẽ được trả lại cho trưởng nhóm khi đơn hàng được xác nhận và nhận. Tỷ lệ hoa hồng dựa trên số tiền Thanh toán thực tế.0-100%
                     </div>
                   </div>
                 </el-form-item>
@@ -303,7 +303,7 @@
                       :inactive-value="0"
                       v-model="formValidate.is_commission"
                       size="large"
-                      active-text="bật lên"
+                      active-text="Hoạt động"
                       inactive-text="đóng cửa"
                     >
                     </el-switch>
@@ -312,7 +312,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="loại：">
+                <el-form-item label="Loại：">
                   <el-input-number
                     :controls="false"
                     placeholder="Vui lòng nhập sắp xếp"
@@ -332,21 +332,21 @@
                     :inactive-value="0"
                     v-model="formValidate.is_host"
                     size="large"
-                    active-text="bật lên"
+                    active-text="Hoạt động"
                     inactive-text="đóng cửa"
                   >
                   </el-switch>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="trạng thái hoạt động：" props="is_show" label-for="is_show">
+                <el-form-item label="Trạng thái hoạt động：" props="is_show" label-for="is_show">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.is_show"
                     size="large"
-                    active-text="bật lên"
+                    active-text="Hoạt động"
                     inactive-text="đóng cửa"
                   >
                   </el-switch>
@@ -363,7 +363,7 @@
                   >
                     <el-table-column type="selection" :reserve-selection="true" width="55"> </el-table-column>
                     <el-table-column
-                      :label="item.title"
+                      :label="Item.title"
                       :min-width="item.minWidth"
                       v-for="(item, index) in columns"
                       :key="index"
@@ -415,7 +415,7 @@
             </el-row>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="nội dung：">
+                <el-form-item label="Nội dung：">
                   <WangEditor
                     style="width: 90%"
                     :content="formValidate.description"
@@ -593,7 +593,7 @@ export default {
             trigger: 'change',
           },
         ],
-        unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
+        unit_name: [{ required: true, message: 'Vui lòng nhập Đơn vị', trigger: 'blur' }],
         price: [
           {
             required: true,
@@ -669,7 +669,7 @@ export default {
         temp_id: [
           {
             required: true,
-            message: 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+            message: 'Vui lòng chọn mẫu vận chuyển sản phẩm',
             trigger: 'change',
             type: 'number',
           },
@@ -889,7 +889,7 @@ export default {
                 if (that.formValidate.attrs[index].quota <= 0) {
                   return that.$message.error('Giới hạn nhóm phải lớn hơn0');
                 }
-                if (this.formValidate.attrs[index].quota > this.formValidate.attrs[index]['stock']) {
+                if (this.formValidate.attrs[index].quota > This.formValidate.attrs[index]['stock']) {
                   return this.$message.error('Giới hạn nhóm không thể vượt quá khoảng không quảng cáo được chỉ định');
                 }
               }

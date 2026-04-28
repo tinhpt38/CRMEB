@@ -91,7 +91,7 @@ Route::group('setting', function () {
                 'create' => 'Nhận biểu mẫu phân loại cấu hình hệ thống',
                 'save' => 'Lưu danh mục cấu hình hệ thống',
                 'edit' => 'Nhận mẫu phân loại cấu hình hệ thống sửa đổi',
-                'update' => 'Sửa đổi phân loại cấu hình hệ thống',
+                'update' => 'Sửa danh mục cấu hình hệ thống',
                 'delete' => 'Xóa danh mục cấu hình hệ thống'
             ],
         ]);
@@ -121,7 +121,7 @@ Route::group('setting', function () {
         //Nhận một giá trị cấu hình duy nhất
         Route::get('config/get_system/:name', 'v1.setting.SystemConfig/get_system')->option(['real_name' => 'Mẫu chỉnh sửa cấu hình cơ bản']);
         //Nhận tất cả thông tin cấu hình theo một danh mục nhất định
-        Route::get('config_list/:tabId', 'v1.setting.SystemConfig/get_config_list')->option(['real_name' => 'Nhận tất cả thông tin cấu hình theo một danh mục nhất định']);
+        Route::get('config_list/:tabId', 'v1.setting.SystemConfig/get_config_list')->option(['real_name' => 'Nhận Tất cả thông tin cấu hình theo một danh mục nhất định']);
     })->option(['parent' => 'setting', 'cate_name' => 'Cấu hình hệ thống']);
 
     /** Dữ liệu kết hợp */
@@ -262,16 +262,16 @@ Route::group('setting', function () {
     /** Mẫu vận chuyển hàng hóa */
     Route::group(function () {
         //Danh sách mẫu vận chuyển hàng hóa
-        Route::get('shipping_templates/list', 'v1.setting.ShippingTemplates/temp_list')->option(['real_name' => 'Danh sách mẫu vận chuyển hàng hóa']);
+        Route::get('shipping_templates/list', 'v1.setting.ShippingTemplates/temp_list')->option(['real_name' => 'Danh sách mẫu vận chuyển sản phẩm']);
         //Sửa đổi dữ liệu mẫu vận chuyển hàng hóa
-        Route::get('shipping_templates/:id/edit', 'v1.setting.ShippingTemplates/edit')->option(['real_name' => 'Sửa đổi dữ liệu mẫu vận chuyển hàng hóa']);
+        Route::get('shipping_templates/:id/edit', 'v1.setting.ShippingTemplates/edit')->option(['real_name' => 'Sửa đổi dữ liệu mẫu vận chuyển sản phẩm']);
         //Lưu những thay đổi mới
-        Route::post('shipping_templates/save/:id', 'v1.setting.ShippingTemplates/save')->option(['real_name' => 'Thêm hoặc sửa đổi mẫu vận chuyển hàng hóa']);
+        Route::post('shipping_templates/save/:id', 'v1.setting.ShippingTemplates/save')->option(['real_name' => 'Thêm hoặc sửa đổi mẫu vận chuyển sản phẩm']);
         //Xóa mẫu vận chuyển
         Route::delete('shipping_templates/del/:id', 'v1.setting.ShippingTemplates/delete')->option(['real_name' => 'Xóa mẫu vận chuyển']);
         //Giao diện dữ liệu thành phố
         Route::get('shipping_templates/city_list', 'v1.setting.ShippingTemplates/city_list')->option(['real_name' => 'Giao diện dữ liệu thành phố']);
-    })->option(['parent' => 'setting', 'cate_name' => 'Mẫu vận chuyển hàng hóa']);
+    })->option(['parent' => 'setting', 'cate_name' => 'Mẫu vận chuyển sản phẩm']);
 
 
     /** Thông báo hệ thống */
@@ -329,7 +329,7 @@ Route::group('setting', function () {
         Route::put('system_out_interface/edit_name', 'v1.setting.SystemOutAccount/editInterfaceName')->option(['real_name' => 'Sửa đổi tên giao diện']);
         //Xóa giao diện
         Route::delete('system_out_interface/del/:id', 'v1.setting.SystemOutAccount/delInterface')->option(['real_name' => 'Xóa giao diện']);
-    })->option(['parent' => 'setting', 'cate_name' => 'Giao diện bên ngoài']);
+    })->option(['parent' => 'setting', 'cate_name' => 'Kết nối API ngoài']);
 
 
     /** đa ngôn ngữ */

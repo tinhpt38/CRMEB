@@ -296,7 +296,7 @@
               <text
                 v-if="item.checkList.includes(1)"
                 :style="{ color: stockColor }"
-                >trong kho: {{ displayInfo.stock }}</text
+                >Trong kho: {{ displayInfo.stock }}</text
               >
               <text
                 v-if="item.checkList.includes(2)"

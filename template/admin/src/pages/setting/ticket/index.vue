@@ -32,7 +32,7 @@
             >
               <el-option v-for="(item, i) in optionsList" :value="item.value" :label="item.label" :key="i"></el-option>
             </el-select>
-            <el-button type="primary" @click="specsSearchs">Truy vấn</el-button>
+            <el-button type="primary" @click="specsSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -59,7 +59,7 @@
             <span>{{ scope.row.print_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="nền tảng" min-width="100">
+        <el-table-column label="Nền tảng" min-width="100">
           <template slot-scope="scope">
             <span v-if="scope.row.type == 1">Yilianyun</span>
             <span v-if="scope.row.type == 2">Đám mây ngỗng bay</span>
@@ -76,7 +76,7 @@
             <span>{{ scope.row.times }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian sáng tạo" min-width="130">
+        <el-table-column label="Thời gian tạo" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -91,19 +91,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a @click="setting(scope.row.id)">thiết kế</a>
+            <a @click="setting(scope.row.id)">Thiết kế</a>
             <el-divider direction="vertical" />
-            <a @click="edit(scope.row.id)">biên tập</a>
+            <a @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical" />
-            <a @click="del(scope.row, 'Xóa máy in', scope.$index)">xóa bỏ</a>
+            <a @click="del(scope.row, 'Xóa máy in', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -139,7 +139,7 @@ export default {
       optionsList: [
         {
           value: '0',
-          label: 'tất cả',
+          label: 'Tất cả',
         },
         {
           value: '1',
@@ -177,7 +177,7 @@ export default {
           width: 200,
         },
         {
-          title: 'thời gian sáng tạo',
+          title: 'Thời gian tạo',
           key: 'add_time',
           width: 200,
         },
@@ -187,7 +187,7 @@ export default {
           width: 200,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           width: 140,

@@ -3,7 +3,7 @@
     <!-- thanh tiêu đề trên cùng -->
     <div class="i-layout-page-header header-title">
       <div class="fl_header">
-        <span class="ivu-page-header-title">chủ đề của tôi</span>
+        <span class="ivu-page-header-title">Chủ đề của tôi</span>
       </div>
     </div>
 
@@ -18,7 +18,7 @@
         </div>
         <div class="right-actions flex">
           <el-input v-model="searchKeyword" placeholder="Vui lòng nhập tên chủ đề" class="search-input m-r-10"> </el-input>
-          <el-button type="primary" @click="getList">tìm kiếm</el-button>
+          <el-button type="primary" @click="getList">Tìm kiếm</el-button>
         </div>
       </div>
 
@@ -39,15 +39,15 @@
                 <div class="tag-row">
                   <span class="theme-tag">{{ item.type }}</span>
                   <span class="action-text" @click="handleExport(item)">
-                    <span class="iconfont iconic_output"></span> Xuất khẩu
+                    <span class="iconfont iconic_output"></span> Xuất file
                   </span>
                   <div v-if="!item.is_use" class="line"></div>
                   <span v-if="!item.is_use" class="action-text" @click="handleDelete(item)">
-                    <span class="iconfont iconshanchu3"></span> xóa bỏ
+                    <span class="iconfont iconshanchu3"></span> Xóa
                   </span>
                 </div>
                 <div class="theme-name-overlay line2">{{ item.title || 'Chủ đề chưa được đặt tên' }}</div>
-                <div class="update-time">thời gian sửa đổi：{{ item.up_time }}</div>
+                <div class="update-time">Thời gian sửa đổi：{{ item.up_time }}</div>
               </div>
 
               <!-- nút dưới cùng -->
@@ -77,7 +77,7 @@
           <div class="card-info">
             <div class="info-top">
               <span class="tag">{{ item.type }}</span>
-              <div class="using-tag" v-if="item.is_use">đang được sử dụng</div>
+              <div class="using-tag" v-if="item.is_use">Đang được sử dụng</div>
             </div>
             <div class="theme-name line1">{{ item.title || 'Chủ đề chưa được đặt tên' }}</div>
           </div>

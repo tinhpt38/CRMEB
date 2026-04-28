@@ -27,7 +27,7 @@
               <img v-lazy="scope.row.image" />
             </div>
             <span class="tabBox_tit"> {{ scope.row.store_name + ' | ' }}{{ scope.row.suk ? scope.row.suk : '' }} </span>
-            <span class="tabBox_pice">{{ 'tích phân' + scope.row.total_price + ' x ' + scope.row.total_num }}</span>
+            <span class="tabBox_pice">{{ 'điểm thưởng' + scope.row.total_price + ' x ' + scope.row.total_num }}</span>
           </div>
         </template>
       </el-table-column>
@@ -41,29 +41,29 @@
           <span>{{ scope.row.status_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="thời gian đặt hàng" min-width="100">
+      <el-table-column label="Thời gian đặt hàng" min-width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.add_time }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="vận hành" fixed="right" width="150">
+      <el-table-column label="Thao tác" fixed="right" width="150">
         <template slot-scope="scope">
           <a v-db-click @click="sendOrder(scope.row)" v-if="scope.row.status === 1">Gửi hàng</a>
           <a v-db-click @click="delivery(scope.row)" v-if="scope.row.status === 2">Thông tin vận chuyển</a>
           <el-divider direction="vertical" v-if="scope.row.status === 1 || scope.row.status === 2" />
           <template>
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)" :transfer="true">
-              <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
 
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="2">Chi tiết đặt hàng</el-dropdown-item>
-                <el-dropdown-item command="3">Hồ sơ đặt hàng</el-dropdown-item>
+                <el-dropdown-item command="2">Chi tiết đơn hàng</el-dropdown-item>
+                <el-dropdown-item command="3">Lịch sử đơn hàng</el-dropdown-item>
                 <el-dropdown-item command="11" v-show="scope.row.status >= 1 && scope.row.express_dump"
                   >In biểu mẫu điện tử</el-dropdown-item
                 >
                 <!-- <el-dropdown-item command="10" v-show="scope.row.status >= 1">In biên lai</el-dropdown-item> -->
                 <!-- <el-dropdown-item name="10" v-show="scope.row._status >= 2">In đơn hàng</el-dropdown-item> -->
-                <el-dropdown-item command="4" v-show="scope.row.status !== 4">Ghi chú đặt hàng</el-dropdown-item>
+                <el-dropdown-item command="4" v-show="scope.row.status !== 4">Ghi chú đơn hàng</el-dropdown-item>
                 <el-dropdown-item command="8" v-show="scope.row.status === 2">Hàng đã nhận</el-dropdown-item>
                 <el-dropdown-item command="9" v-show="scope.row.is_del === 1">Xóa đơn hàng</el-dropdown-item>
               </el-dropdown-menu>
@@ -445,7 +445,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img {
+Img {
   height: 36px;
   display: block;
 }

@@ -1,11 +1,11 @@
 <template>
-  <el-dialog :visible.sync="modals" title="Đơn hàng đã được vận chuyển" width="720px" class="order_box" :show-close="true">
+  <el-dialog :visible.sync="modals" title="Đã giao cho ĐVVC" width="720px" class="order_box" :show-close="true">
     <el-form ref="formItem" :model="formItem" label-width="100px" @submit.native.prevent>
       <el-form-item label="Chọn loại：">
         <el-radio-group v-model="formItem.type" @input="changeRadio">
-          <el-radio label="1">vận chuyển</el-radio>
-          <el-radio label="2">giao hàng</el-radio>
-          <el-radio label="3">ảo</el-radio>
+          <el-radio label="1">Vận chuyển</el-radio>
+          <el-radio label="2">Giao hàng</el-radio>
+          <el-radio label="3">Ảo</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item v-show="formItem.type == '1' && export_open" label="Loại vận chuyển：">
@@ -15,7 +15,7 @@
         </el-radio-group>
       </el-form-item>
       <div v-show="formItem.type === '1'">
-        <el-form-item label="công ty chuyển phát nhanh：">
+        <el-form-item label="Công ty chuyển phát nhanh：">
           <el-select
             v-model="formItem.delivery_name"
             filterable
@@ -67,7 +67,7 @@
         </template>
       </div>
       <div v-show="formItem.type === '2'">
-        <el-form-item label="người giao hàng：">
+        <el-form-item label="Người giao hàng：">
           <el-select
             v-model="formItem.sh_delivery"
             placeholder="Vui lòng chọn người giao hàng"
@@ -97,7 +97,7 @@
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button v-db-click @click="cancel">Hủy bỏ</el-button>
-      <el-button type="primary" v-db-click @click="putSend">nộp</el-button>
+      <el-button type="primary" v-db-click @click="putSend">Nộp</el-button>
     </span>
     <div ref="viewer" v-viewer v-show="temp">
       <img :src="temp.pic" style="display: none" />

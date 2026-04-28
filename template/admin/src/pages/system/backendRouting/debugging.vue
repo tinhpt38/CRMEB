@@ -13,7 +13,7 @@
           </el-select>
         </template>
       </el-input>
-      <el-button class="ml20" type="primary" v-db-click @click="requestData">hỏi</el-button>
+      <el-button class="ml20" type="primary" v-db-click @click="requestData">Hỏi</el-button>
       <el-button v-if="codes" class="ml10 copy-btn" type="success" v-db-click @click="insertCopy()">Sao chép kết quả</el-button>
     </div>
     <div class="params">
@@ -35,7 +35,7 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.query"
         >
-          <vxe-column field="attribute" width="150" title="tài sản" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="150" title="Tài sản" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
@@ -45,7 +45,7 @@
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="kiểu" width="120" :edit-render="{}">
+          <vxe-column field="type" title="Kiểu" width="120" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select
                 v-model="row.type"
@@ -70,12 +70,12 @@
               <span>{{ row.must == '1' ? 'Đúng' : 'KHÔNG' }}</span>
             </template>
           </vxe-column>
-          <vxe-column field="trip" width="150" title="minh họa" :edit-render="{}">
+          <vxe-column field="trip" width="150" title="Minh họa" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.trip" type="text"></vxe-input>
             </template>
           </vxe-column> -->
-          <vxe-column title="vận hành" width="120">
+          <vxe-column title="Thao tác" width="120">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -83,9 +83,9 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'xTable')"
-                >chèn</vxe-button
+                >Chèn</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">xóa bỏ</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'xTable')">Xóa</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
@@ -109,7 +109,7 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.request_body"
         >
-          <vxe-column field="attribute" width="150" title="tài sản" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="150" title="Tài sản" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
@@ -119,7 +119,7 @@
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column field="type" title="kiểu" width="120" :edit-render="{}">
+          <vxe-column field="type" title="Kiểu" width="120" :edit-render="{}">
             <template #default="{ row }">
               <vxe-select
                 v-model="row.type"
@@ -144,12 +144,12 @@
               <span>{{ row.must == '1' ? 'Đúng' : 'KHÔNG' }}</span>
             </template>
           </vxe-column>
-          <vxe-column field="trip" title="minh họa" width="150" :edit-render="{}">
+          <vxe-column field="trip" title="Minh họa" width="150" :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.trip" type="text"></vxe-input>
             </template>
           </vxe-column> -->
-          <vxe-column title="vận hành" width="120">
+          <vxe-column title="Thao tác" width="120">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -157,9 +157,9 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'yTable')"
-                >chèn</vxe-button
+                >Chèn</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'yTable')">xóa bỏ</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'yTable')">Xóa</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>
@@ -184,7 +184,7 @@
           :tree-config="{ transform: true, rowField: 'id', parentField: 'parentId' }"
           :data="interfaceData.headerData"
         >
-          <vxe-column field="attribute" width="300" title="tài sản" tree-node :edit-render="{}">
+          <vxe-column field="attribute" width="300" title="Tài sản" tree-node :edit-render="{}">
             <template #default="{ row }">
               <vxe-input v-model="row.attribute" type="text"></vxe-input>
             </template>
@@ -194,7 +194,7 @@
               <vxe-input v-model="row.value" type="text"></vxe-input>
             </template>
           </vxe-column>
-          <vxe-column title="vận hành" width="100">
+          <vxe-column title="Thao tác" width="100">
             <template #default="{ row }">
               <vxe-button
                 type="text"
@@ -202,9 +202,9 @@
                 status="primary"
                 v-db-click
                 @click="insertRow(row, 'zTable')"
-                >chèn</vxe-button
+                >Chèn</vxe-button
               >
-              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">xóa bỏ</vxe-button>
+              <vxe-button type="text" status="primary" v-db-click @click="removeRow(row, 'zTable')">Xóa</vxe-button>
             </template>
           </vxe-column>
         </vxe-table>

@@ -113,7 +113,7 @@ class CapitalFlowServices extends BaseServices
         $export = $where['export'] ?? 0;
         unset($where['export']);
         [$page, $limit] = $this->getPageValue();
-        $status = ['tất cả', 'Thanh toán đơn hàng', 'Hoàn tiền đơn hàng', 'Lệnh nạp tiền', 'Nạp tiền và hoàn tiền', 'Phong bì đỏ xổ số', 'Rút tiền hoa hồng', 'Mua thành viên', 'Thu ngân ngoại tuyến'];
+        $status = ['Tất cả', 'Thanh toán đơn hàng', 'Hoàn tiền đơn hàng', 'Lệnh nạp tiền', 'Nạp tiền và hoàn tiền', 'Phong bì đỏ xổ số', 'Rút tiền hoa hồng', 'Mua thành viên', 'Thu ngân ngoại tuyến'];
         $list = $this->dao->getList($where, $page, $limit);
         foreach ($list as &$item) {
             $item['add_time'] = date('Y-m-d H:i:s', $item['add_time']);
@@ -123,7 +123,7 @@ class CapitalFlowServices extends BaseServices
         $count = $this->dao->count($where);
         if ($export) {
             $fileKey = ['flow_id', 'order_id', 'nickname', 'phone', 'price', 'trading_type', 'pay_type_name', 'add_time', 'mark'];
-            $header = ['Số giao dịch', 'Đơn hàng liên kết', 'người dùng', 'Điện thoại', 'Số lượng', 'Loại lệnh', 'Hình thức thanh toán', 'giờ giao dịch', 'Nhận xét'];
+            $header = ['Số giao dịch', 'Đơn hàng liên kết', 'người dùng', 'Điện thoại', 'Số lượng', 'Loại đơn hàng', 'Hình thức thanh toán', 'giờ giao dịch', 'Nhận xét'];
             $fileName = 'Xuất hóa đơn' . date('YmdHis') . rand(1000, 9999);
             return compact('list', 'fileKey', 'header', 'fileName');
         } else {
@@ -168,7 +168,7 @@ class CapitalFlowServices extends BaseServices
                     break;
                 case "week" :
                     $item['title'] = "Hóa đơn hàng tuần";
-                    $item['add_time'] = 'KHÔNG.' . $item['day'] . 'tuần(' . date('m', $item['add_time']) . 'mặt trăng)';
+                    $item['add_time'] = 'KHÔNG.' . $item['day'] . 'tuần(' . date('m', $item['add_time']) . 'tháng)';
                     break;
                 case "month" :
                     $item['title'] = "hóa đơn hàng tháng";

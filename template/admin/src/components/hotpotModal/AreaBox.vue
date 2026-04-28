@@ -12,7 +12,7 @@
     @mouseup.left.stop="mouseUp($event)"
   >
     <div class="prompt-text">
-      <div class="prompt-item num">vùng nóng {{ areaInit.number }}</div>
+      <div class="prompt-item num">Vùng nóng {{ areaInit.number }}</div>
       <div class="prompt-item" :style="{ color: isSet ? '#2d8cf0' : '#f00' }">
         {{ isSet ? '(Đã thiết lập)' : '(chưa được đặt)' }}
       </div>

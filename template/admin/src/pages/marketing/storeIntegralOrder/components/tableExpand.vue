@@ -2,7 +2,7 @@
   <div>
     <el-row class="expand-row">
       <el-col :span="8">
-        <span class="expand-key">thời gian đặt hàng：</span>
+        <span class="expand-key">Thời gian đặt hàng：</span>
         <span class="expand-value" v-text="row.add_time"></span>
       </el-col>
       <el-col :span="8">

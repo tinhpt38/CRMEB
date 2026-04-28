@@ -2,7 +2,7 @@
   <div class="page-header">
     <div class="header-left">
       <span v-if="isMicroPage" class="iconfont iconfanhui" @click="backToMicroPage"></span>
-      <span class="label">hiện hành{{ isMicroPage ? 'chủ đề' : 'chủ đề' }}：</span>
+      <span class="label">Hiện hành{{ isMicroPage ? 'chủ đề' : 'chủ đề' }}：</span>
       <span class="theme-name">{{ themeName }}</span>
       <span class="iconfont iconic_edit1 edit-icon" @click="handleEdit"></span>
     </div>
@@ -10,12 +10,12 @@
     <div class="header-right">
       <el-button size="small" icon="el-icon-view" @click="$emit('preview')">Xem trước</el-button>
       <el-button v-if="!isMicroPage" size="small" @click="$emit('save-template')">Lưu chủ đề dưới dạng</el-button>
-      <el-button size="small" @click="$emit('save')">cứu</el-button>
+      <el-button size="small" @click="$emit('save')">Lưu</el-button>
       <el-button type="primary" size="small" @click="$emit('save-close')">Lưu và đóng</el-button>
     </div>
 
     <!-- Sửa đổi cửa sổ bật lên thông tin chủ đề -->
-    <el-dialog :title="`Ôn lại${isMicroPage ? 'chủ đề' : 'chủ đề'}thông tin`" :visible.sync="dialogVisible" width="500px">
+    <el-dialog :title="`Sửa${isMicroPage ? 'chủ đề' : 'chủ đề'}thông tin`" :visible.sync="dialogVisible" width="500px">
       <el-form :model="form" ref="form" label-width="80px">
         <el-form-item :label="`${isMicroPage ? 'chủ đề' : 'chủ đề'}tên：`">
           <el-input

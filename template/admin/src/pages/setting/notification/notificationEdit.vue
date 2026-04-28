@@ -51,15 +51,15 @@
                     </div>
                     <div class="tips-info" v-if="formData.type_n == 3">Bấm vào biểu tượng ở góc dưới bên phải,Chèn biến tùy chỉnh</div>
                   </el-form-item>
-                  <el-form-item label="tình trạng：" prop="is_system">
+                  <el-form-item label="Tình trạng：" prop="is_system">
                     <el-radio-group v-model="formData.is_system">
-                      <el-radio :label="1">bật lên</el-radio>
-                      <el-radio :label="2">đóng cửa</el-radio>
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="2">Đóng cửa</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <div v-if="item.slot === 'is_sms' && !loading">
-                  <el-form-item label="mẫu tin nhắnID：">
+                  <el-form-item label="Mẫu tin nhắnID：">
                     <el-input v-model="formData.sms_id" placeholder="mẫu tin nhắnID" style="width: 500px"></el-input>
                   </el-form-item>
                   <el-form-item label="Nội dung thông báo：">
@@ -93,10 +93,10 @@
                     </div>
                     <div class="tips-info" v-if="formData.type_n == 3">Bấm vào biểu tượng ở góc dưới bên phải,Chèn biến tùy chỉnh</div>
                   </el-form-item>
-                  <el-form-item label="tình trạng：" prop="is_sms">
+                  <el-form-item label="Tình trạng：" prop="is_sms">
                     <el-radio-group v-model="formData.is_sms">
-                      <el-radio :label="1">bật lên</el-radio>
-                      <el-radio :label="2">đóng cửa</el-radio>
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="2">Đóng cửa</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
@@ -109,10 +109,10 @@
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="bản mẫuID：">
+                  <el-form-item label="Bản mẫuID：">
                     <el-input v-model="formData.tempid" placeholder="Vui lòng nhập mẫuID" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="bản mẫu：">
+                  <el-form-item label="Bản mẫu：">
                     <div class="content">
                       <el-input
                         :disabled="formData.type_n !== 3"
@@ -144,17 +144,17 @@
                   </el-form-item>
                   <el-form-item label="Nhảy ứng dụng：" prop="wechat_to_routine">
                     <el-radio-group v-model="formData.wechat_to_routine">
-                      <el-radio :label="1">bật lên</el-radio>
-                      <el-radio :label="0">đóng cửa</el-radio>
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="0">Đóng cửa</el-radio>
                     </el-radio-group>
                     <div class="tips-info">
                       Sau khi mở nó, bấm vào tin nhắn mẫu để chuyển đến trang tương ứng với chương trình mini. Chương trình nhỏ cần được xem xét và khởi chạy trước khi có thể sử dụng.
                     </div>
                   </el-form-item>
-                  <el-form-item label="tình trạng：" prop="is_wechat">
+                  <el-form-item label="Tình trạng：" prop="is_wechat">
                     <el-radio-group v-model="formData.is_wechat">
-                      <el-radio :label="1">bật lên</el-radio>
-                      <el-radio :label="2">đóng cửa</el-radio>
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="2">Đóng cửa</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
@@ -167,10 +167,10 @@
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="bản mẫuID：">
+                  <el-form-item label="Bản mẫuID：">
                     <el-input v-model="formData.tempid" placeholder="Vui lòng nhập mẫuID" style="width: 500px"></el-input>
                   </el-form-item>
-                  <el-form-item label="bản mẫu：">
+                  <el-form-item label="Bản mẫu：">
                     <div class="content">
                       <el-input
                         :disabled="formData.type_n !== 3"
@@ -200,10 +200,10 @@
                       style="width: 500px"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="tình trạng：" prop="is_routine">
+                  <el-form-item label="Tình trạng：" prop="is_routine">
                     <el-radio-group v-model="formData.is_routine">
-                      <el-radio :label="1">bật lên</el-radio>
-                      <el-radio :label="2">đóng cửa</el-radio>
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="2">Đóng cửa</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
@@ -239,20 +239,20 @@
                     </div>
                     <div class="tips-info" v-if="formData.type_n == 3">Bấm vào biểu tượng ở góc dưới bên phải,Chèn biến tùy chỉnh</div>
                   </el-form-item>
-                  <el-form-item label="liên kết robot：">
+                  <el-form-item label="Liên kết robot：">
                     <div class="content">
                       <el-input v-model="formData.url" placeholder="Vui lòng nhập liên kết robot" style="width: 500px"></el-input>
                     </div>
                   </el-form-item>
-                  <el-form-item label="tình trạng：" prop="is_ent_wechat">
+                  <el-form-item label="Tình trạng：" prop="is_ent_wechat">
                     <el-radio-group v-model="formData.is_ent_wechat">
-                      <el-radio :label="1">bật lên</el-radio>
-                      <el-radio :label="2">đóng cửa</el-radio>
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="2">Đóng cửa</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </div>
                 <el-form-item>
-                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">nộp</el-button>
+                  <el-button type="primary" v-db-click @click="handleSubmit('formData')">Nộp</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>

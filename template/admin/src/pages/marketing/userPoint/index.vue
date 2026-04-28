@@ -11,11 +11,11 @@
       >
         <el-row :gutter="24">
           <el-col :xl="6" :lg="10" :md="10" :sm="24" :xs="24">
-            <el-form-item label="tìm kiếm：" label-for="store_name">
+            <el-form-item label="Tìm kiếm：" label-for="store_name">
               <el-input
                 search
                 enter-button
-                placeholder="Vui lòng nhập người dùngID,tiêu đề"
+                placeholder="Vui lòng nhập ID khách hàng,tiêu đề"
                 v-model="tableFrom.nickname"
                 @on-search="userSearchs"
               />
@@ -40,7 +40,7 @@
           </el-col>
           <el-col :xl="4" :lg="4" :md="4" :sm="24" :xs="24">
             <el-button v-auth="['export-userPoint']" class="export" icon="ios-share-outline" v-db-click @click="exports"
-              >Xuất khẩu</el-button
+              >Xuất file</el-button
             >
           </el-col>
         </el-row>
@@ -58,7 +58,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tiêu đề" min-width="130">
+        <el-table-column label="Tiêu đề" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>

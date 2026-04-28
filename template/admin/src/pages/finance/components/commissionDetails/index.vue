@@ -16,10 +16,10 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="searchs">tìm kiếm</el-button>
+        <el-button type="primary" v-db-click @click="searchs">Tìm kiếm</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-db-click @click="reset">cài lại</el-button>
+        <el-button v-db-click @click="reset">Đặt lại</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -40,7 +40,7 @@
           <span>{{ scope.row.order_id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="giờ giao dịch" min-width="130">
+      <el-table-column label="Giờ giao dịch" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.add_time }}</span>
         </template>
@@ -51,12 +51,12 @@
           <div v-if="scope.row.price < 0" class="f-price">{{ scope.row.price }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="người dùng giao dịch" min-width="130">
+      <el-table-column label="Người dùng giao dịch" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.nickname }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="loại giao dịch" min-width="130">
+      <el-table-column label="Loại giao dịch" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.trading_type }}</span>
         </template>
@@ -114,7 +114,7 @@ export default {
       tabList: [],
       payment: [
         {
-          title: 'tất cả',
+          title: 'Tất cả',
           value: '',
         },
         {

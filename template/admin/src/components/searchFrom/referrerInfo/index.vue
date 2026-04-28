@@ -17,10 +17,10 @@
           </div>
           <div class="item acea-row row-middle">
             <div class="name commission ivu-form-item-content">
-              nhiệm vụ：<span>{{ spread.brokerage_pric }}</span>
+              Nhiệm vụ：<span>{{ spread.brokerage_pric }}</span>
             </div>
             <div class="name ivu-form-item-content">
-              tên thật：<span>{{ spread.real_name }}</span>
+              Tên thật：<span>{{ spread.real_name }}</span>
             </div>
           </div>
           <div class="item acea-row row-middle">
@@ -28,7 +28,7 @@
               CMND：<span>{{ spread.card_id }}</span>
             </div>
             <div class="name ivu-form-item-content">
-              số điện thoại：<span>{{ spread.phone }}</span>
+              Số điện thoại：<span>{{ spread.phone }}</span>
             </div>
           </div>
           <div class="item acea-row row-middle">
@@ -36,7 +36,7 @@
               Sinh nhật：<span>{{ spread.birthday }}</span>
             </div>
             <div class="name ivu-form-item-content">
-              tích phân：<span>{{ spread.integral }}</span>
+              Điểm thưởng：<span>{{ spread.integral }}</span>
             </div>
           </div>
           <div class="item acea-row row-middle">

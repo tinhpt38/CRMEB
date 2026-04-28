@@ -25,7 +25,7 @@ export const GoodsTableHead = [
     minWidth: '120px',
   },
   {
-    title: 'trong kho',
+    title: 'Trong kho',
     slot: 'stock',
     align: 'center',
     minWidth: '120px',
@@ -62,7 +62,7 @@ export const GoodsTableHead = [
     minWidth: '100px',
   },
   {
-    title: 'vận hành',
+    title: 'Thao tác',
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -96,7 +96,7 @@ export const VirtualTableHead = [
     minWidth: 120,
   },
   {
-    title: 'trong kho',
+    title: 'Trong kho',
     slot: 'stock',
     align: 'center',
     minWidth: 120,
@@ -121,7 +121,7 @@ export const VirtualTableHead = [
     minWidth: 90,
   },
   {
-    title: 'vận hành',
+    title: 'Thao tác',
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -155,7 +155,7 @@ export const VirtualTableHead2 = [
     minWidth: 120,
   },
   {
-    title: 'trong kho',
+    title: 'Trong kho',
     slot: 'stock',
     align: 'center',
     minWidth: 120,
@@ -174,7 +174,7 @@ export const VirtualTableHead2 = [
     minWidth: 90,
   },
   {
-    title: 'vận hành',
+    title: 'Thao tác',
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -208,7 +208,7 @@ export const columns2 = [
     minWidth: 95,
   },
   {
-    title: 'trong kho',
+    title: 'Trong kho',
     slot: 'stock',
     align: 'center',
     minWidth: 95,
@@ -238,7 +238,7 @@ export const columns2 = [
     minWidth: 95,
   },
   {
-    title: 'vận hành',
+    title: 'Thao tác',
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -272,7 +272,7 @@ export const columns3 = [
     minWidth: 95,
   },
   {
-    title: 'trong kho',
+    title: 'Trong kho',
     slot: 'stock',
     align: 'center',
     minWidth: 95,
@@ -290,7 +290,7 @@ export const columns3 = [
     minWidth: 120,
   },
   {
-    title: 'vận hành',
+    title: 'Thao tác',
     slot: 'action',
     fixed: 'right',
     align: 'center',
@@ -345,7 +345,7 @@ export const RuleValidate = {
       min: '1',
     },
   ],
-  unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
+  unit_name: [{ required: true, message: 'Vui lòng nhập Đơn vị', trigger: 'blur' }],
   slider_image: [
     {
       required: true,
@@ -360,7 +360,7 @@ export const RuleValidate = {
   temp_id: [
     {
       required: true,
-      message: 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+      message: 'Vui lòng chọn mẫu vận chuyển sản phẩm',
       trigger: 'change',
       type: 'number',
     },

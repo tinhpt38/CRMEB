@@ -118,7 +118,7 @@ export function exportmberCardList(id) {
 }
 
 /**
- * @description Xuất lệnh xóa sổ；
+ * @description Xuất lệnh xác nhận；
  */
 export function exportverifyOrderApi(data) {
   return request({

@@ -35,7 +35,7 @@
                 color: styleConfig ? tipsColor : tipsColor2,
               }"
             >
-              khoảng cách kết thúc
+              Khoảng cách kết thúc
             </div>
             <div class="time">
               <span
@@ -168,7 +168,7 @@
                       color: toneConfig ? seckillPriceColor : colorStyle.theme,
                     }"
                   >
-                    giá bán chớp nhoáng<span class="label">¥</span><span class="num">3200.00</span>
+                    Giá bán chớp nhoáng<span class="label">¥</span><span class="num">3200.00</span>
                   </div>
                   <div
                     class="yprice"
@@ -376,7 +376,7 @@
                   }"
                 >
                   <div class="bntCon">
-                    cướp
+                    Cướp
                     <img src="../../assets/images/dian.png" />
                   </div>
                 </div>
@@ -610,7 +610,7 @@ export default {
         },
         rightBntConfig: {
           title: 'nút bên phải',
-          value: 'Hơn',
+          value: 'Thêm',
           place: 'Vui lòng nhập nút bên phải',
           max: 6,
         },
@@ -863,7 +863,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -1100,7 +1100,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

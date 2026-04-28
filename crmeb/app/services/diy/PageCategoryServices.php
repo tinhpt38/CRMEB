@@ -87,8 +87,8 @@ class PageCategoryServices extends BaseServices
         $f[] = Form::input('name', 'Tên danh mục', $info['name'] ?? '')->required();
         $f[] = Form::input('type', 'Kiểu phân loại', $info['type'] ?? '')->required();
         $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->min(0)->precision(0);
-        $f[] = Form::radio('status', 'tình trạng', $info['status'] ?? 1)->options([['label' => 'trình diễn', 'value' => 1], ['label' => 'trốn', 'value' => 0]]);
-        return create_form($cate_id ? 'Sửa đổi phân loại' : 'Thêm danh mục', $f, Url::buildUrl('/diy/link/category/save/' . $cate_id), 'POST');
+        $f[] = Form::radio('status', 'Trạng thái', $info['status'] ?? 1)->options([['label' => 'trình diễn', 'value' => 1], ['label' => 'trốn', 'value' => 0]]);
+        return create_form($cate_id ? 'Sửa danh mục' : 'Thêm danh mục', $f, Url::buildUrl('/diy/link/category/save/' . $cate_id), 'POST');
     }
 
     public function getLinkCategorySave($cate_id, $data)

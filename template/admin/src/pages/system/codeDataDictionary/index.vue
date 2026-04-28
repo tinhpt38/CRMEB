@@ -14,7 +14,7 @@
             <el-input clearable v-model="from.name" placeholder="Vui lòng nhập tên từ điển" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="searchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="searchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -39,19 +39,19 @@
         </el-table-column>
         <el-table-column prop="name" label="Tên từ điển" min-width="100"> </el-table-column>
         <el-table-column prop="mark" label="Nhận dạng dữ liệu" min-width="200"> </el-table-column>
-        <el-table-column prop="level" label="kiểu" min-width="200">
+        <el-table-column prop="level" label="Kiểu" min-width="200">
           <template slot-scope="scope">
             <span>{{ scope.row.level ? 'đa cấp' : 'Cấp 1' }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="add_time" label="Thêm thời gian" min-width="200"> </el-table-column>
-        <el-table-column fixed="right" label="vận hành" width="200">
+        <el-table-column fixed="right" label="Thao tác" width="200">
           <template slot-scope="scope">
-            <a v-db-click @click="eidtOptions(scope.row.id)">biên tập</a>
+            <a v-db-click @click="eidtOptions(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="dataOptions(scope.row.id)">Quản lý dữ liệu</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'xóa bỏ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

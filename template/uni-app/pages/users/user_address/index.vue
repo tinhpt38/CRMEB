@@ -434,7 +434,7 @@
 				let that = this,
 					value = e.detail.value;
 				if (!value.real_name.trim()) return that.$util.Tips({
-					title: that.$t(`Vui lòng điền tên người nhận hàng`)
+					title: that.$t(`Vui lòng điền tên Người nhận hàng`)
 				});
 				if (!value.phone) return that.$util.Tips({
 					title: that.$t(`Vui lòng điền số liên lạc`)

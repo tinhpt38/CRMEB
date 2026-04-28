@@ -53,7 +53,7 @@ export default {
       'getOrderType',
       // 'onChangeChart'
     ]),
-    // Loại lệnh  @on-changeTabs="getChangeTabs"
+    // Loại đơn hàng  @on-changeTabs="getChangeTabs"
     getTabs() {
       this.spinShow = true;
       this.$store

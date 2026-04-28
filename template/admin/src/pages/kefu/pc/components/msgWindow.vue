@@ -37,8 +37,8 @@
               <span class="iconfont iconDot" v-db-click @click.top="bindEdit(item, scope.$index)"></span>
 
               <div class="edit-wrapper" v-show="item.isEdit">
-                <div class="edit-item" v-db-click @click="editSort(item)">biên tập</div>
-                <div class="edit-item" v-db-click @click="delSort(item, 'Xóa danh mục', scope.$index)">xóa bỏ</div>
+                <div class="edit-item" v-db-click @click="editSort(item)">Chỉnh sửa</div>
+                <div class="edit-item" v-db-click @click="delSort(item, 'Xóa danh mục', scope.$index)">Xóa</div>
               </div>
               <div class="edit-bg" v-show="item.isEdit" v-db-click @click.stop="item.isEdit = false"></div>
             </template>
@@ -74,7 +74,7 @@
                   </div>
                   <div class="btns-box">
                     <el-button v-db-click @click.stop="addMsg.isEdit = false">Hủy bỏ</el-button>
-                    <el-button type="primary" v-db-click @click.stop="bindAdd">cứu</el-button>
+                    <el-button type="primary" v-db-click @click.stop="bindAdd">Lưu</el-button>
                   </div>
                 </div>
               </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="btns-box">
                   <el-button v-db-click @click.stop="item.isEdit = false">Hủy bỏ</el-button>
-                  <el-button type="primary" v-db-click @click.stop="updataMsg(item)">cứu</el-button>
+                  <el-button type="primary" v-db-click @click.stop="updataMsg(item)">Lưu</el-button>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@
         </div>
       </div>
     </div>
-    <el-dialog :visible.sync="isAddSort" append-to-body :title="maskTitle" width="304px" class="class-box">
+    <el-dialog :visible.sync="isAddSort" append-to-body :title="MaskTitle" width="304px" class="class-box">
       <div class="item">
         <span>Tên nhóm：</span>
         <el-input v-model="classTitle" placeholder="Tên nhóm" />
@@ -320,7 +320,7 @@ export default {
       }).then((res) => {
         let obj = {
           id: '',
-          name: 'tất cả',
+          name: 'Tất cả',
         };
         res.data.data.forEach((el, index) => {
           el.isEdit = false;

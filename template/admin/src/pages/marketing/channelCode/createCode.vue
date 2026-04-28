@@ -27,7 +27,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Thẻ người dùng：">
+        <el-form-item label="Thẻ khách hàng：">
           <div style="display: flex">
             <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
               <div style="width: 90%">
@@ -67,7 +67,7 @@
               v-model="formData.time"
               placeholder="Vui lòng nhập số ngày"
               class="content_width input-number-unit-class"
-              class-unit="bầu trời"
+              class-unit="ngày"
             ></el-input-number>
           </div>
           <div class="trip">Sau khi mã tạm thời hết hạn, bạn không thể quét mã được nữa.,Số lượng mã QR vĩnh viễn được tạo tối đa là 100.000</div>
@@ -75,8 +75,8 @@
         <el-form-item label="Trả lời nội dung：">
           <el-radio-group v-model="formData.type">
             <el-radio label="text">Nội dung văn bản</el-radio>
-            <el-radio label="voice">tin nhắn thoại</el-radio>
-            <el-radio label="image">tin nhắn hình ảnh</el-radio>
+            <el-radio label="voice">Tin nhắn thoại</el-radio>
+            <el-radio label="image">Tin nhắn hình ảnh</el-radio>
             <el-radio label="news">Tin nhắn đồ họa</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -99,7 +99,7 @@
           </div>
         </el-form-item>
         <el-form-item
-          :label="formData.type === 'image' ? 'Địa chỉ hình ảnh：' : 'địa chỉ giọng nói：'"
+          :label="FormData.type === 'image' ? 'Địa chỉ hình ảnh：' : 'địa chỉ giọng nói：'"
           prop="src"
           v-if="formData.type === 'image' || formData.type === 'voice'"
         >
@@ -124,7 +124,7 @@
               accept="image/*,.mp3"
               :before-upload="beforeUpload"
             >
-              <el-button type="primary">tải lên</el-button>
+              <el-button type="primary">Tải lên</el-button>
             </el-upload>
           </div>
           <span v-show="formData.type === 'image'">Kích thước tệp tối đa là 2Mb, hỗ trợ các định dạng bmp/png/jpeg/jpg/gif</span>

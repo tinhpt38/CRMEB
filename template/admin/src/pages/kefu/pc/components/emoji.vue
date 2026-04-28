@@ -13,7 +13,7 @@
     <ul class="emoji-container">
       <li v-for="(emojiGroup, index) in emojis" style="padding: 0" :key="index" v-if="index === activeIndex">
         <a href="javascript:;" v-for="(emoji, index) in emojiGroup" :key="index" v-db-click @click="selectItem(emoji)">
-          <span class="emoji-item" :title="emoji" :class="'sprite-' + getPureName(emoji)"></span>
+          <span class="emoji-item" :title="Emoji" :class="'sprite-' + getPureName(emoji)"></span>
         </a>
       </li>
     </ul>

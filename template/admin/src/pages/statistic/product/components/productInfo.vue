@@ -7,10 +7,10 @@
           <i class="el-icon-question ml10"></i>
           <div slot="content">
             <div>Lượt xem sản phẩm</div>
-            <div>Trong các điều kiện đã chọn, số lượt truy cập vào tất cả các trang chi tiết sản phẩm. Nhiều lượt truy cập của một người trong thời gian thống kê được tính là nhiều lần.</div>
+            <div>Trong các điều kiện đã chọn, số lượt truy cập vào Tất cả các trang chi tiết sản phẩm. Nhiều lượt truy cập của một người trong thời gian thống kê được tính là nhiều lần.</div>
             <br />
             <div>Số lượng khách truy cập sản phẩm</div>
-            <div>Trong các điều kiện đã chọn, số người truy cập bất kỳ trang chi tiết sản phẩm nào. Một người truy cập nhiều lần trong khoảng thời gian thống kê sẽ chỉ được tính là một.</div>
+            <div>Trong các điều kiện đã chọn, số người truy cập bất kỳ trang chi tiết sản phẩm nào. Một người truy cập nhiều lần Trong khoảng thời gian thống kê sẽ chỉ được tính là một.</div>
             <br />
             <div>Số lượng đã thanh toán</div>
             <div>
@@ -19,7 +19,7 @@
             <br />
             <div>Số tiền thanh toán</div>
             <div>
-              Trong các điều kiện đã chọn, tổng số lượng hàng hóa cho các đơn hàng được thanh toán thành công (các sản phẩm nhóm sẽ được bao gồm sau khi nhóm được thành lập, các đơn hàng thanh toán ngoại tuyến sẽ được bao gồm sau khi thanh toán được xác nhận ở chế độ nền và các đơn hàng hoàn tiền sẽ không bị loại trừ)）
+              Trong các điều kiện đã chọn, tổng số lượng sản phẩm cho các đơn hàng được thanh toán thành công (các sản phẩm nhóm sẽ được bao gồm sau khi nhóm được thành lập, các đơn hàng thanh toán ngoại tuyến sẽ được bao gồm sau khi thanh toán được xác nhận ở chế độ nền và các đơn hàng hoàn tiền sẽ không bị loại trừ)）
             </div>
             <br />
             <div>Số lần hoàn tiền</div>
@@ -45,8 +45,8 @@
           style="width: 250px"
           class="mr20"
         ></el-date-picker>
-        <el-button type="primary" v-db-click @click="onSeach">Truy vấn</el-button>
-        <el-button type="primary" v-db-click @click="excel">Xuất khẩu</el-button>
+        <el-button type="primary" v-db-click @click="onSeach">Tìm kiếm</el-button>
+        <el-button type="primary" v-db-click @click="excel">Xuất file</el-button>
       </div>
     </div>
     <div class="mb20">
@@ -63,7 +63,7 @@
             <span class="sp2" v-if="index === list.length - 1" v-text="item.list.num"></span>
             <span class="sp2" v-else v-text="item.list.num"></span>
             <span class="content-time spBlock"
-              >tăng trưởng hàng tháng：<i class="content-is" :class="Number(item.list.percent) >= 0 ? 'up' : 'down'"
+              >Tăng trưởng hàng tháng：<i class="content-is" :class="Number(item.list.percent) >= 0 ? 'up' : 'down'"
                 >{{ item.list.percent }}%</i
               >
               <i

@@ -12,7 +12,7 @@
 			<view class='nav acea-row row-middle'>
 				<view class='item line1' :class='title ? "font-num":""' @click='set_where(1)'>{{$t(`mặc định`)}}</view>
 				<view class='item' @click='set_where(2)'>
-					{{$t(`tích phân`)}}
+					{{$t(`điểm thưởng`)}}
 					<image v-if="price==1" src='../../static/images/up.png'></image>
 					<image v-else-if="price==2" src='../../static/images/down.png'></image>
 					<image v-else src='../../static/images/horn.png'></image>
@@ -33,10 +33,10 @@
 					<view class='text' :class='is_switch==true?"":"on"'>
 						<view class='name line1'>{{item.title}}</view>
 						<view class='money font-color' :class='is_switch==true?"":"on"'><text
-								class='num'>{{item.price}}{{$t(`tích phân`)}}</text></view>
+								class='num'>{{item.price}}{{$t(`điểm thưởng`)}}</text></view>
 						<view class='vip acea-row row-between-wrapper' :class='is_switch==true?"":"on"'>
 							<view class='vip-money' v-if="item.vip_price && item.vip_price > 0">{{item.vip_price}}
-								{{$t(`tích phân`)}}
+								{{$t(`điểm thưởng`)}}
 								<image src='../../static/images/vip.png'></image>
 							</view>
 							<view class="sales">

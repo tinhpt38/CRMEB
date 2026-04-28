@@ -49,7 +49,7 @@
             <div class="notice-step">1</div>
             <div class="notice-text">
               <strong>Tạo khóa tải lên mã</strong>
-              <p>truy cập <a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">Nền tảng công cộng WeChat</a> → quản lý phát triển → Cài đặt phát triển →
+              <p>Truy cập <a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">Nền tảng công cộng WeChat</a> → quản lý phát triển → Cài đặt phát triển →
                 Tải lên mã chương trình nhỏ → Tạo khóa</p>
             </div>
           </div>
@@ -94,7 +94,7 @@
                 <i class="el-icon-monitor"></i>
               </div>
               <div class="env-info">
-                <span class="env-label">hệ điều hành</span>
+                <span class="env-label">Hệ điều hành</span>
                 <span class="env-value">{{ envStatus.os?.type || '-' }} {{ envStatus.os?.version || '' }}</span>
               </div>
             </div>
@@ -114,7 +114,7 @@
                 <i class="el-icon-box"></i>
               </div>
               <div class="env-info">
-                <span class="env-label">miniprogram-ci</span>
+                <span class="env-label">Miniprogram-ci</span>
                 <span class="env-value" :class="envStatus.miniprogram_ci?.installed ? 'text-success' : 'text-error'">
                   {{ envStatus.miniprogram_ci?.installed ? 'v' + envStatus.miniprogram_ci.version : 'Chưa được cài đặt' }}
                 </span>
@@ -127,8 +127,8 @@
             <i class="el-icon-warning"></i>
             <div class="alert-content">
               <strong>Không thể sử dụng chức năng tải lên chương trình mini</strong>
-              <p>Máy chủ bị vô hiệu hóa <code>exec</code> chức năng. Vui lòng kích hoạt chức năng này trong cấu hình PHP。</p>
-              <p class="alert-hint">Bảng chùa: Cửa hàng phần mềm → PHP → cài đặt → Tắt chức năng → xóa bỏ exec</p>
+              <p>Máy chủ bị vô hiệu hóa <code>Exec</code> Chức năng. Vui lòng kích hoạt chức năng này trong cấu hình PHP。</p>
+              <p class="alert-hint">Bảng chùa: Cửa hàng phần mềm → PHP → cài đặt → Tắt chức năng → Xóa exec</p>
             </div>
           </div>
 
@@ -185,7 +185,7 @@
                 <span class="config-label">Khóa tải lên</span>
                 <div class="config-value">
                   <template v-if="uploadConfig.private_key_exists">
-                    <span class="value-text">được cấu hình</span>
+                    <span class="value-text">Được cấu hình</span>
                     <span class="status-dot success"></span>
                     <button class="link-btn" @click="showKeyUpload = true">Tải lên lại</button>
                   </template>
@@ -225,7 +225,7 @@
           <!-- Tải biểu mẫu lên -->
           <el-form :model="uploadForm" :rules="uploadRules" ref="uploadForm" class="upload-form" label-position="top">
             <div class="form-row">
-              <el-form-item label="số phiên bản" prop="version" class="form-item-half">
+              <el-form-item label="Số phiên bản" prop="version" class="form-item-half">
                 <el-input v-model="uploadForm.version" placeholder="Ví dụ：1.0.0" prefix-icon="el-icon-price-tag">
                 </el-input>
               </el-form-item>
@@ -315,17 +315,17 @@
           <div class="code-block">
             <div class="code-content">
               <span class="code-prompt">$</span>
-              <code>curl -fsSL {{ installGuide.script_url }} | bash</code>
+              <code>Curl -fsSL {{ installGuide.script_url }} | bash</code>
             </div>
             <button class="copy-btn" @click="copyToClipboard(`curl -fsSL ${installGuide.script_url} | bash`)"
-              title="lệnh sao chép">
+              title="Lệnh sao chép">
               <i class="el-icon-document-copy"></i>
-              <span class="copy-text">sao chép</span>
+              <span class="copy-text">Sao chép</span>
             </button>
           </div>
           <div class="section-footer">
             <i class="el-icon-download"></i>
-            <span>hoặc <a :href="installGuide.script_url" target="_blank" rel="noopener">Tải tập tin kịch bản</a> Sau đó thực hiện thủ công</span>
+            <span>Hoặc <a :href="installGuide.script_url" target="_blank" rel="noopener">Tải tập tin kịch bản</a> Sau đó thực hiện thủ công</span>
           </div>
         </div>
 
@@ -351,7 +351,7 @@
               <div class="step-content">
                 <code>{{ step }}</code>
               </div>
-              <button class="step-copy-btn" @click="copyToClipboard(step)" title="sao chép">
+              <button class="step-copy-btn" @click="copyToClipboard(step)" title="Sao chép">
                 <i class="el-icon-document-copy"></i>
               </button>
             </div>
@@ -359,7 +359,7 @@
         </div>
       </div>
       <span slot="footer">
-        <button class="btn btn-secondary" @click="showGuide = false">đóng cửa</button>
+        <button class="btn btn-secondary" @click="showGuide = false">Đóng cửa</button>
       </span>
     </el-dialog>
 
@@ -374,7 +374,7 @@
           <ol class="info-steps">
             <li>Đăng nhập <a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">Nền tảng công cộng WeChat</a></li>
             <li>Nhập quản lý phát triển → Cài đặt phát triển → Tải lên mã chương trình nhỏ</li>
-            <li>nhấp chuột「phát ra」nút để tải xuống tệp tin.key</li>
+            <li>Nhấp chuột「phát ra」nút để tải xuống tệp tin.key</li>
             <li>Mở nó bằng trình soạn thảo văn bản, sao chép và dán toàn bộ nội dung bên dưới</li>
           </ol>
         </div>
@@ -401,7 +401,7 @@
         <button class="btn btn-primary" :class="{ loading: loading.saveKey }" :disabled="loading.saveKey"
           @click="savePrivateKey">
           <i :class="loading.saveKey ? 'el-icon-loading' : 'el-icon-check'"></i>
-          <span>lưu chìa khóa</span>
+          <span>Lưu chìa khóa</span>
         </button>
       </span>
     </el-dialog>
@@ -780,7 +780,7 @@ $transition-slow: 300ms ease;
         }
       }
 
-      >i {
+      >I {
         color: $text-muted;
         transition: transform $transition-normal;
       }

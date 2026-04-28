@@ -58,12 +58,12 @@ Route::group('merchant', function () {
         //Nhận người đứng đầu lệnh xóa nợ
         Route::get('verify_badge', 'v1.merchant.SystemVerifyOrder/getVerifyBadge')->option(['real_name' => 'Nhận người đứng đầu lệnh xóa nợ']);
         //Nhận người đứng đầu lệnh xóa nợ
-        Route::get('verify/spread_info/:uid', 'v1.merchant.SystemVerifyOrder/order_spread_user')->option(['real_name' => 'Thông tin đề xuất lệnh xóa sổ']);
-    })->option(['parent' => 'merchant', 'cate_name' => 'Viết đơn đặt hàng']);
+        Route::get('verify/spread_info/:uid', 'v1.merchant.SystemVerifyOrder/order_spread_user')->option(['real_name' => 'Thông tin đề xuất lệnh xác nhận']);
+    })->option(['parent' => 'merchant', 'cate_name' => 'Xác nhận đơn hàng']);
 
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'merchant', 'mark_name' => 'Xóa sổ cửa hàng']);
+])->option(['mark' => 'merchant', 'mark_name' => 'Xác nhận cửa hàng']);

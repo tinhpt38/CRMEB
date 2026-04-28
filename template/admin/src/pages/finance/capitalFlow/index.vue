@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="thời gian đặt hàng：">
+          <el-form-item label="Thời gian đặt hàng：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -26,7 +26,7 @@
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="loại giao dịch：">
+          <el-form-item label="Loại giao dịch：">
             <el-select v-model="formValidate.status" @change="selChange" class="form_content_width">
               <el-option :label="item" :value="index" v-for="(item, index) in withdrawal" :key="index"></el-option>
             </el-select>
@@ -35,14 +35,14 @@
             <div class="acea-row row-middle">
               <el-input
                 clearable
-                placeholder="Mã đơn hàng/biệt hiệu/điện thoại/người dùngID"
+                placeholder="Mã đơn hàng/biệt hiệu/điện thoại/ID khách hàng"
                 v-model="formValidate.keywords"
                 class="form_content_width"
               />
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -59,7 +59,7 @@
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giờ giao dịch" min-width="130">
+        <el-table-column label="Giờ giao dịch" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -70,7 +70,7 @@
             <div v-if="scope.row.price < 0" class="f-price">{{ scope.row.price }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="người dùng giao dịch" min-width="90">
+        <el-table-column label="Người dùng giao dịch" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
@@ -87,7 +87,7 @@
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
             <a v-db-click @click="setMark(scope.row)">Nhận xét</a>
           </template>
@@ -143,7 +143,7 @@ export default {
       withdrawal: [],
       payment: [
         {
-          title: 'tất cả',
+          title: 'Tất cả',
           value: '',
         },
         {

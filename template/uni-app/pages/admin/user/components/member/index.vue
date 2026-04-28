@@ -26,7 +26,7 @@
           <view class="time">{{ userInfo.svip_over_day }}</view>
         </view>
         <view class="item acea-row row-between-wrapper">
-          <view>Điều chỉnh thời lượng(bầu trời)</view>
+          <view>Điều chỉnh thời lượng(ngày)</view>
           <view class="acea-row row-middle">
             <input
               type="numeric"

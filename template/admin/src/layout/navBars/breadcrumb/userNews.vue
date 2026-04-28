@@ -145,7 +145,7 @@ export default {
           typeName = 'Trả lời bình luận';
           break;
         case 4:
-          typeName = 'Đơn xin rút tiền';
+          typeName = 'Yêu cầu rút tiền';
           break;
         default:
           typeName = 'khác';

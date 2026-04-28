@@ -38,7 +38,7 @@ class ShippingTemplatesValidate extends Validate
      * @var array
      */
     protected $message = [
-        'name.require' => 'Vui lòng điền tên mẫu vận chuyển hàng hóa',
+        'name.require' => 'Vui lòng điền tên mẫu vận chuyển sản phẩm',
         'region_info.array' => 'Thông tin vận chuyển phải là một mảng',
         'appoint_info.array' => 'Thông tin miễn phí vận chuyển phải là một mảng',
         'no_delivery_info.array' => 'Tin nhắn không gửi được phải là một mảng',

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card :bordered="false" shadow="never" class="ivu-mt"> nền từ biểu mẫu </el-card>
+    <el-card :bordered="false" shadow="never" class="ivu-mt"> Nền từ biểu mẫu </el-card>
   </div>
 </template>
 

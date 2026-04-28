@@ -45,7 +45,7 @@ class PayServices
 
     //Phương thức thanh toán
     const PAY_TYPE = [
-        PayServices::WEIXIN_PAY => 'WeChat trả tiền',
+        PayServices::WEIXIN_PAY => 'Thanh toán WeChat',
         PayServices::YUE_PAY => 'thanh toán số dư',
         PayServices::OFFLINE_PAY => 'Thanh toán ngoại tuyến',
         PayServices::ALIAPY_PAY => 'Alipay',

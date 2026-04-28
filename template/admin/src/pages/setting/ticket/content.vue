@@ -1,10 +1,10 @@
 <template>
   <div>
-    <pages-header ref="pageHeader" title="Cấu hình vé" :backUrl="$routeProStr + '/setting/ticket'"></pages-header>
+    <pages-header ref="pageHeader" title="Cài đặt in ấn" :backUrl="$routeProStr + '/setting/ticket'"></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
       <div class="flex justify-between warpper">
         <el-form :model="formItem" label-width="120px">
-          <el-form-item label="đầu nhận：">
+          <el-form-item label="Đầu nhận：">
             <el-checkbox v-model="formItem.header" :true-label="1" :false-label="0">Tên doanh nghiệp</el-checkbox>
           </el-form-item>
           <el-form-item label="Thông tin vận chuyển：">
@@ -20,7 +20,7 @@
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="Thông tin vận chuyển：">
-            <el-checkbox v-model="formItem.freight" :true-label="1" :false-label="0">vận chuyển hàng hóa</el-checkbox>
+            <el-checkbox v-model="formItem.freight" :true-label="1" :false-label="0">Vận chuyển sản phẩm</el-checkbox>
           </el-form-item>
           <el-form-item label="Thông tin giảm giá：">
             <el-checkbox v-model="formItem.preferential" :true-label="1" :false-label="0">Tổng ưu đãi</el-checkbox>
@@ -31,20 +31,20 @@
               <el-checkbox :label="1">Số tiền thực tế nhận được</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="Thông tin đặt hàng khác：">
+          <el-form-item label="Thông tin đơn hàng khác：">
             <el-checkbox-group v-model="formItem.order">
-              <el-checkbox :label="0">số thứ tự</el-checkbox>
-              <el-checkbox :label="1">thời gian đặt hàng</el-checkbox>
-              <el-checkbox :label="2">thời gian thanh toán</el-checkbox>
+              <el-checkbox :label="0">Số thứ tự</el-checkbox>
+              <el-checkbox :label="1">Thời gian đặt hàng</el-checkbox>
+              <el-checkbox :label="2">Thời gian thanh toán</el-checkbox>
               <el-checkbox :label="3">Thời gian in</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="Quảng cáo mã QR：">
+          <el-form-item label="Mã QR giới thiệu：">
             <el-checkbox v-model="formItem.code" :true-label="1" :false-label="0">Chọn liên kết hệ thống</el-checkbox>
             <div v-if="formItem.code" class="link">
               <div class="select-link">
-                liên kết：{{ formItem.code_url }}
-                <span class="change" @click="getLink(index)">{{ formItem.code_url ? 'Ôn lại' : 'chọn' }}</span>
+                Liên kết：{{ formItem.code_url }}
+                <span class="change" @click="getLink(index)">{{ formItem.code_url ? 'Chỉnh sửa' : 'chọn' }}</span>
               </div>
             </div>
           </el-form-item>
@@ -70,11 +70,11 @@
             <div class="delivery btn-line" v-if="formItem.delivery === 1">
               <div class="form-box">
                 <div class="label">Phương thức giao hàng：</div>
-                <div class="content">giao hàng của người bán</div>
+                <div class="content">Giao hàng của người bán</div>
               </div>
               <div class="form-box">
                 <div class="label">Tên khách hàng：</div>
-                <div class="content">Tên người nhận hàng</div>
+                <div class="content">Tên Người nhận hàng</div>
               </div>
               <div class="form-box">
                 <div class="label">Số điện thoại của khách hàng：</div>
@@ -95,17 +95,17 @@
             <!-- hàng hóa -->
             <div v-if="formItem.goods.includes(0)">
               <div class="goods btn-line">
-                <div class="xing">*************************hàng hóa***********************</div>
+                <div class="xing">*************************sản phẩm***********************</div>
                 <div class="flex justify-between">
-                  <span>hàng hóa</span>
-                  <span>đơn giá</span>
+                  <span>Hàng hóa</span>
+                  <span>Đơn giá</span>
                   <span>Số lượng</span>
                   <span>Số lượng</span>
                 </div>
               </div>
               <div class="goods-msg btn-line">
                 <div class="flex justify-between">
-                  <span>hàng hóa1</span>
+                  <span>Hàng hóa1</span>
                   <span>100.0</span>
                   <span>2</span>
                   <span>200.0</span>
@@ -123,7 +123,7 @@
               </div>
               <div class="goods-msg pb-10 pt-10">
                 <div class="flex justify-between">
-                  <span>hàng hóa2</span>
+                  <span>Hàng hóa2</span>
                   <span>100.0</span>
                   <span>2</span>
                   <span>200.0</span>
@@ -167,9 +167,9 @@
             <!-- Thông tin đặt hàng -->
 
             <div class="order pt-10 btn-line" v-if="formItem.order.length > 0">
-              <div v-if="formItem.order.includes(0)">số thứ tự：wx1234567890</div>
-              <div v-if="formItem.order.includes(1)">thời gian đặt hàng：2022/06/18 12:00:00</div>
-              <div v-if="formItem.order.includes(2)">thời gian thanh toán：2022/06/18 12:00:00</div>
+              <div v-if="formItem.order.includes(0)">Số thứ tự：wx1234567890</div>
+              <div v-if="formItem.order.includes(1)">Thời gian đặt hàng：2022/06/18 12:00:00</div>
+              <div v-if="formItem.order.includes(2)">Thời gian thanh toán：2022/06/18 12:00:00</div>
               <div v-if="formItem.order.includes(3)">Thời gian in：2022/06/18 14:20:00</div>
             </div>
             <!-- mã QR -->
@@ -187,7 +187,7 @@
       </div>
     </el-card>
     <el-card :bordered="false" dis-hover class="fixed-card">
-      <el-button type="primary" class="submission" @click="save">cứu</el-button>
+      <el-button type="primary" class="submission" @click="save">Lưu</el-button>
     </el-card>
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
   </div>

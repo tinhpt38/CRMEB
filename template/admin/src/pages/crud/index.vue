@@ -11,7 +11,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item :label="item.name + ':'" v-for="(item, index) in search" :key="index">
+          <el-form-item :label="Item.name + ':'" v-for="(item, index) in search" :key="index">
             <el-input
               v-if="item.type === 'input'"
               v-model="from[item.field]"
@@ -44,10 +44,10 @@
             </el-select>
           </el-form-item>
           <!-- <template v-for="(item, index) in search">
-            <el-form-item :label="item.name + ':'" label-for="name" v-if="item.type === 'input'" :key="index">
+            <el-form-item :label="Item.name + ':'" label-for="name" v-if="item.type === 'input'" :key="index">
               <el-input v-model="from[item.field]" :placeholder="'Vui lòng nhập' + item.name" class="form_content_width"/>
             </el-form-item>
-            <el-form-item :label="item.name + ':'" v-else-if="item.type === 'date-picker'" :key="index">
+            <el-form-item :label="Item.name + ':'" v-else-if="item.type === 'date-picker'" :key="index">
               <el-date-picker
                   :editable="false"
                   clearabl
@@ -62,7 +62,7 @@
               ></el-date-picker>
             </el-form-item>
             <el-form-item
-                :label="item.name + ':'"
+                :label="Item.name + ':'"
                 :label-for="item.field"
                 v-else-if="item.type === 'select'"
                 :key="index"
@@ -79,7 +79,7 @@
             </el-form-item>
           </template> -->
           <el-form-item>
-            <el-button type="primary" v-db-click @click="searchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="searchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -87,7 +87,7 @@
     <el-card shadow="never" class="ivu-mt" :class="search.length ? 'mt16' : ''">
       <el-row>
         <el-col v-bind="grid">
-          <el-button type="primary" v-db-click @click="add">Thêm vào</el-button>
+          <el-button type="primary" v-db-click @click="add">Thêm mới</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -98,7 +98,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns" :key="index">
+        <el-table-column :label="Item.title" :min-width="item.minWidth" v-for="(item, index) in columns" :key="index">
           <template slot-scope="scope">
             <template v-if="item.key">
               <span>{{ scope.row[item.key] }}</span>
@@ -121,9 +121,9 @@
             <template v-else-if="item.slot === 'action'">
               <a v-db-click @click="show(scope.row)">Chi tiết</a>
               <el-divider direction="vertical" />
-              <a v-db-click @click="edit(scope.row)">Ôn lại</a>
+              <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
               <el-divider direction="vertical"></el-divider>
-              <a v-db-click @click="del(scope.row, 'xóa bỏ', scope.$index)">xóa bỏ</a>
+              <a v-db-click @click="del(scope.row, 'Xóa', scope.$index)">Xóa</a>
             </template>
             <template v-else-if="item.from_type === 'switches'">
               <el-switch
@@ -144,8 +144,8 @@
       </div>
     </el-card>
 
-    <el-dialog title="kiểm tra chi tiết" :visible.sync="dialogTableVisible" v-if="dialogTableVisible">
-      <el-descriptions :title="readFields.name">
+    <el-dialog title="Kiểm tra chi tiết" :visible.sync="dialogTableVisible" v-if="dialogTableVisible">
+      <el-descriptions :title="ReadFields.name">
         <el-descriptions-item :label="item.comment" v-for="(item, index) in readFields.all" :key="index">
           <div v-if="item.from_type == 'frameImageOne'">
             <div class="tabBox_img" v-viewer>
@@ -260,7 +260,7 @@ export default {
         });
         this.search = res.data.search;
         res.data.columns.push({
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           width: 100,
@@ -329,7 +329,7 @@ export default {
     // Thêm vào
     add() {
       let url = this.methodApi.create;
-      this.$modalForm(getCreateApi(url)).then(() => this.getList());
+      this.$modalForm(getCreateApi(url)).then(() => This.getList());
     },
     //danh sách
     getList() {
@@ -350,7 +350,7 @@ export default {
     // Ôn lại
     edit(row) {
       let url = this.methodApi.edit.replace('<id>', row[this.curdKey]);
-      this.$modalForm(getEditApi(url)).then(() => this.getList());
+      this.$modalForm(getEditApi(url)).then(() => This.getList());
     },
     // xóa bỏ
     del(row, tit, num) {

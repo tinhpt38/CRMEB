@@ -9,7 +9,7 @@
     <div class="layout-view-bg-white flex layout-view-link">
       <div class="layout-link-warp">
         <i class="layout-link-icon iconfont icon-xingqiu"></i>
-        <div class="layout-link-msg">trang "{{ $t(meta.title) }}" Đã mở trong cửa sổ mới</div>
+        <div class="layout-link-msg">Trang "{{ $t(meta.title) }}" Đã mở trong cửa sổ mới</div>
         <el-button class="mt30" round size="small" v-db-click @click="onGotoFullPage">
           <i class="iconfont icon-lianjie"></i>
           <span>Đi ngay bây giờ</span>

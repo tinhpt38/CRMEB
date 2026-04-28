@@ -26,7 +26,7 @@
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="tìm kiếm：" label-for="status">
+          <el-form-item label="Tìm kiếm：" label-for="status">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên và số điện thoại của bạn、UID"
@@ -35,14 +35,14 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <cards-data :cardLists="cardLists" v-if="cardLists.length >= 0"></cards-data>
     <el-card :bordered="false" shadow="never">
-      <el-button v-auth="['export-userAgent']" class="export" v-db-click @click="exports">Xuất khẩu</el-button>
+      <el-button v-auth="['export-userAgent']" class="export" v-db-click @click="exports">Xuất file</el-button>
       <el-table
         ref="selection"
         :data="tableList"
@@ -66,13 +66,13 @@
         <el-table-column label="Thông tin người dùng" width="150">
           <template slot-scope="scope">
             <div class="name">
-              <div class="item">biệt danh:{{ scope.row.nickname }}</div>
+              <div class="item">Biệt danh:{{ scope.row.nickname }}</div>
               <div class="item">Tên:{{ scope.row.real_name }}</div>
               <div class="item">Điện thoại:{{ scope.row.phone }}</div>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Cấp độ phân phối" min-width="120">
+        <el-table-column label="Cấp bậc Affiliate" min-width="120">
           <template slot-scope="scope">
             <div>{{ scope.row.agentLevel ? scope.row.agentLevel.name : '--' }}</div>
           </template>
@@ -117,19 +117,19 @@
             <div>{{ scope.row.spread_name }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="promoters(scope.row, 'man')">người quảng bá</a>
+            <a v-db-click @click="promoters(scope.row, 'man')">Người quảng bá</a>
             <el-divider direction="vertical"></el-divider>
             <template>
               <el-dropdown size="small" @command="changeMenu(scope.row, $event, scope.$index)" :transfer="true">
-                <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="1">Đơn hàng khuyến mại</el-dropdown-item>
-                  <el-dropdown-item command="2">Quảng cáo mã QR</el-dropdown-item>
-                  <el-dropdown-item command="3">Sửa đổi trình quảng bá ưu việt</el-dropdown-item>
+                  <el-dropdown-item command="2">Mã QR giới thiệu</el-dropdown-item>
+                  <el-dropdown-item command="3">Đổi người giới thiệu</el-dropdown-item>
                   <el-dropdown-item command="4" v-if="scope.row.spread_uid">Rõ ràng các nhà quảng bá vượt trội</el-dropdown-item>
-                  <el-dropdown-item command="5">Bị loại khỏi chương trình khuyến mãi</el-dropdown-item>
+                  <el-dropdown-item command="5">Hủy tư cách Affiliate mãi</el-dropdown-item>
                   <el-dropdown-item command="6">Sửa đổi mức phân phối</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -150,7 +150,7 @@
     <!-- Danh sách nhà quảng bá-->
     <promoters-list ref="promotersLists"></promoters-list>
     <!-- Quảng cáo mã QR-->
-    <el-dialog :visible.sync="modals" title="Quảng cáo mã QR" :close-on-click-modal="false" width="540px">
+    <el-dialog :visible.sync="modals" title="Mã QR giới thiệu" :close-on-click-modal="false" width="540px">
       <div class="acea-row row-around" v-loading="spinShow">
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_src"><img v-lazy="code_src" /></div>
@@ -162,7 +162,7 @@
         </div>
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_h5"><img v-lazy="code_h5" /></div>
-          <span class="QRpic_sp2 mt10" v-db-click @click="getH5">H5Quảng cáo mã QR</span>
+          <span class="QRpic_sp2 mt10" v-db-click @click="getH5">H5Mã QR giới thiệu</span>
         </div>
       </div>
     </el-dialog>
@@ -182,7 +182,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="cancel('formInline')">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="putSend('formInline')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="putSend('formInline')">Nộp</el-button>
       </span>
     </el-dialog>
     <el-dialog :visible.sync="customerShow" title="Vui lòng chọn một người dùng trung tâm mua sắm" :show-close="true" width="1000px">

@@ -3,7 +3,7 @@
     <el-form-item label="Nhảy liên kết">
       <div v-if="['article', 'goods'].includes(type) && showLinkType">
         <el-radio-group v-model="curComponent.propValue.linkType" @change="onChange" style="margin-bottom: 2px">
-          <el-radio label="url">liên kết URL</el-radio>
+          <el-radio label="url">Liên kết URL</el-radio>
           <el-radio label="detail">{{ type === 'article' ? 'Chi tiết bài viết' : 'Chi tiết sản phẩm' }}</el-radio>
         </el-radio-group>
       </div>

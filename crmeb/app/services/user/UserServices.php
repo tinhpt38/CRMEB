@@ -619,7 +619,7 @@ class UserServices extends BaseServices
                     $item['user_type'] = 'APP';
                 } else $item['user_type'] = 'khác';
                 if ($item['sex'] == 1) {
-                    $item['sex'] = 'nam giới';
+                    $item['sex'] = 'Nam';
                 } else if ($item['sex'] == 2) {
                     $item['sex'] = 'nữ giới';
                 } else $item['sex'] = 'Bảo mật';
@@ -682,7 +682,7 @@ class UserServices extends BaseServices
             }
             return $menus;
         };
-        $f[] = Form::select('level', 'Cấp độ người dùng', (int)$user->getData('level'))->setOptions(FormBuilder::setOptions($setOptionLevel))->filterable(true);
+        $f[] = Form::select('level', 'Hạng khách hàng', (int)$user->getData('level'))->setOptions(FormBuilder::setOptions($setOptionLevel))->filterable(true);
         $systemGroupList = app()->make(UserGroupServices::class)->getGroupList();
         $setOptionGroup = function () use ($systemGroupList) {
             $menus = [];
@@ -691,7 +691,7 @@ class UserServices extends BaseServices
             }
             return $menus;
         };
-        $f[] = Form::select('group_id', 'Nhóm người dùng', $user->getData('group_id'))->setOptions(FormBuilder::setOptions($setOptionGroup))->filterable(true);
+        $f[] = Form::select('group_id', 'Nhóm khách hàng', $user->getData('group_id'))->setOptions(FormBuilder::setOptions($setOptionGroup))->filterable(true);
         $systemLabelList = app()->make(UserLabelServices::class)->getLabelList();
         $labels = app()->make(UserLabelRelationServices::class)->getUserLabels($user['uid']);
         $setOptionLabel = function () use ($systemLabelList) {
@@ -701,15 +701,15 @@ class UserServices extends BaseServices
             }
             return $menus;
         };
-        $f[] = Form::select('label_id', 'Thẻ người dùng', $labels)->setOptions(FormBuilder::setOptions($setOptionLabel))->filterable(true)->multiple(true);
+        $f[] = Form::select('label_id', 'Thẻ khách hàng', $labels)->setOptions(FormBuilder::setOptions($setOptionLabel))->filterable(true)->multiple(true);
         $f[] = Form::radio('spread_open', 'Trình độ thăng hạng', $user->getData('spread_open'))->info('Sau khi vô hiệu hóa trình độ khuyến mãi của người dùng, người dùng sẽ không có quyền phân phối theo bất kỳ chế độ phân phối nào.')->options([['value' => 1, 'label' => 'cho phép'], ['value' => 0, 'label' => 'Vô hiệu hóa']]);
         //Mô hình phân phối Renren Distribution
         $storeBrokerageStatus = sys_config('store_brokerage_statu', 1);
         if ($storeBrokerageStatus == 1) {
-            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', $user->getData('is_promoter'))->info('Bật hoặc tắt quyền khuyến mãi của người dùng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'bật lên'], ['value' => 0, 'label' => 'đóng cửa']]);
+            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', $user->getData('is_promoter'))->info('Bật hoặc tắt quyền khuyến mãi của người dùng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
         }
-        $f[] = Form::radio('status', 'Trạng thái người dùng', $user->getData('status'))->options([['value' => 1, 'label' => 'bật lên'], ['value' => 0, 'label' => 'khóa']]);
-        return create_form('biên tập', $f, Url::buildUrl('/user/user/' . $id), 'PUT');
+        $f[] = Form::radio('status', 'Trạng thái người dùng', $user->getData('status'))->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
+        return create_form('Sửa', $f, Url::buildUrl('/user/user/' . $id), 'PUT');
     }
 
     /**
@@ -737,7 +737,7 @@ class UserServices extends BaseServices
             }
             return $menus;
         };
-        $f[] = Form::select('level', 'Cấp độ người dùng', '')->setOptions(FormBuilder::setOptions($setOptionLevel))->filterable(true);
+        $f[] = Form::select('level', 'Hạng khách hàng', '')->setOptions(FormBuilder::setOptions($setOptionLevel))->filterable(true);
         $systemGroupList = app()->make(UserGroupServices::class)->getGroupList();
         $setOptionGroup = function () use ($systemGroupList) {
             $menus = [];
@@ -746,7 +746,7 @@ class UserServices extends BaseServices
             }
             return $menus;
         };
-        $f[] = Form::select('group_id', 'Nhóm người dùng', '')->setOptions(FormBuilder::setOptions($setOptionGroup))->filterable(true);
+        $f[] = Form::select('group_id', 'Nhóm khách hàng', '')->setOptions(FormBuilder::setOptions($setOptionGroup))->filterable(true);
         $systemLabelList = app()->make(UserLabelServices::class)->getLabelList();
         $setOptionLabel = function () use ($systemLabelList) {
             $menus = [];
@@ -755,15 +755,15 @@ class UserServices extends BaseServices
             }
             return $menus;
         };
-        $f[] = Form::select('label_id', 'Thẻ người dùng', '')->setOptions(FormBuilder::setOptions($setOptionLabel))->filterable(true)->multiple(true);
+        $f[] = Form::select('label_id', 'Thẻ khách hàng', '')->setOptions(FormBuilder::setOptions($setOptionLabel))->filterable(true)->multiple(true);
         $f[] = Form::radio('spread_open', 'Trình độ thăng hạng', 1)->info('Sau khi vô hiệu hóa trình độ khuyến mãi của người dùng, người dùng sẽ không có quyền phân phối theo bất kỳ chế độ phân phối nào.')->options([['value' => 1, 'label' => 'cho phép'], ['value' => 0, 'label' => 'Vô hiệu hóa']]);
         //Mô hình phân phối Renren Distribution
         $storeBrokerageStatus = sys_config('store_brokerage_statu', 1);
         if ($storeBrokerageStatus == 1) {
-            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', 0)->info('Bật hoặc tắt quyền khuyến mãi của người dùng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'bật lên'], ['value' => 0, 'label' => 'đóng cửa']]);
+            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', 0)->info('Bật hoặc tắt quyền khuyến mãi của người dùng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
         }
-        $f[] = Form::radio('status', 'Trạng thái người dùng', 1)->options([['value' => 1, 'label' => 'bật lên'], ['value' => 0, 'label' => 'khóa']]);
-        return create_form('Thêm người dùng', $f, $this->url('/user/user'), 'POST');
+        $f[] = Form::radio('status', 'Trạng thái người dùng', 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
+        return create_form('Thêm khách hàng', $f, $this->url('/user/user'), 'POST');
     }
 
     /**
@@ -826,13 +826,13 @@ class UserServices extends BaseServices
                 $edit['integral'] = bcadd($user['integral'], $data['integration'], 2);
                 $integral_data['balance'] = $edit['integral'];
                 $integral_data['title'] = 'Hệ thống cộng điểm';
-                $integral_data['mark'] = $data['mark'] == '' ? 'Hệ thống đã thêm' . floatval($data['integration']) . 'tích phân' : $data['mark'];
+                $integral_data['mark'] = $data['mark'] == '' ? 'Hệ thống đã thêm' . floatval($data['integration']) . 'điểm thưởng' : $data['mark'];
                 $res2 = $userBill->incomeIntegral($user['uid'], 'system_add', $integral_data);
             } else if ($data['integration_status'] == 2) {//giảm bớt
                 $edit['integral'] = bcsub($user['integral'], $data['integration'], 2);
                 $integral_data['balance'] = $edit['integral'];
                 $integral_data['title'] = 'Hệ thống giảm điểm';
-                $integral_data['mark'] = $data['mark'] == '' ? 'Hệ thống đã khấu trừ' . floatval($data['integration']) . 'tích phân' : $data['mark'];
+                $integral_data['mark'] = $data['mark'] == '' ? 'Hệ thống đã khấu trừ' . floatval($data['integration']) . 'điểm thưởng' : $data['mark'];
                 $res2 = $userBill->expendIntegral($user['uid'], 'system_sub', $integral_data);
             }
             event('OutPushListener', ['user_update_push', ['uid' => $id, 'type' => 'point', 'value' => $data['integration_status'] == 2 ? -intval($data['integration']) : $data['integration']]]);
@@ -890,10 +890,10 @@ class UserServices extends BaseServices
         $f = array();
         if ($type == 'money') {
             $f[] = Form::radio('money_status', 'Sửa đổi số dư', 1)->options([['value' => 1, 'label' => 'Tăng'], ['value' => 2, 'label' => 'giảm bớt']]);
-            $f[] = Form::number('money', 'Sự cân bằng', 0)->min(0)->max(999999.99);
+            $f[] = Form::number('money', 'Số dư', 0)->min(0)->max(999999.99);
         } else {
             $f[] = Form::radio('integration_status', 'Sửa đổi điểm', 1)->options([['value' => 1, 'label' => 'Tăng'], ['value' => 2, 'label' => 'giảm bớt']]);
-            $f[] = Form::number('integration', 'tích phân', 0)->min(0)->precision(0)->max(999999);
+            $f[] = Form::number('integration', 'điểm thưởng', 0)->min(0)->precision(0)->max(999999);
         }
         $f[] = Form::input('mark', 'Nhận xét', '')->type('textarea')->required();
         return create_form($type == 'money' ? 'Sửa đổi số dư' : 'Sửa đổi điểm', $f, Url::buildUrl('/user/update_other/' . $id), 'PUT');
@@ -918,7 +918,7 @@ class UserServices extends BaseServices
                 }
                 return $menus;
             };
-            $field[] = Form::select('group_id', 'Nhóm người dùng', $user->getData('group_id') != 0 ? $user->getData('group_id') : '')->setOptions(FormBuilder::setOptions($setOptionUserGroup))->filterable(true);
+            $field[] = Form::select('group_id', 'Nhóm khách hàng', $user->getData('group_id') != 0 ? $user->getData('group_id') : '')->setOptions(FormBuilder::setOptions($setOptionUserGroup))->filterable(true);
         } else {
             $setOptionUserGroup = function () use ($userGroup) {
                 $menus = [];
@@ -927,7 +927,7 @@ class UserServices extends BaseServices
                 }
                 return $menus;
             };
-            $field[] = Form::select('group_id', 'Nhóm người dùng')->setOptions(FormBuilder::setOptions($setOptionUserGroup))->filterable(true);
+            $field[] = Form::select('group_id', 'Nhóm khách hàng')->setOptions(FormBuilder::setOptions($setOptionUserGroup))->filterable(true);
         }
         $field[] = Form::hidden('uids', implode(',', $uids));
         return create_form('Thiết lập nhóm người dùng', $field, Url::buildUrl('/user/save_set_group'), 'PUT');
@@ -970,7 +970,7 @@ class UserServices extends BaseServices
                 }
                 return $menus;
             };
-            $field[] = Form::select('label_id', 'Thẻ người dùng', $lids)->setOptions(FormBuilder::setOptions($setOptionUserLabel))->filterable(true)->multiple(true);
+            $field[] = Form::select('label_id', 'Thẻ khách hàng', $lids)->setOptions(FormBuilder::setOptions($setOptionUserLabel))->filterable(true)->multiple(true);
         } else {
             $setOptionUserLabel = function () use ($userLabel) {
                 $menus = [];
@@ -979,7 +979,7 @@ class UserServices extends BaseServices
                 }
                 return $menus;
             };
-            $field[] = Form::select('label_id', 'Thẻ người dùng')->setOptions(FormBuilder::setOptions($setOptionUserLabel))->filterable(true)->multiple(true);
+            $field[] = Form::select('label_id', 'Thẻ khách hàng')->setOptions(FormBuilder::setOptions($setOptionUserLabel))->filterable(true)->multiple(true);
         }
         $field[] = Form::hidden('uids', implode(',', $uids));
         return create_form('Đặt nhãn người dùng', $field, Url::buildUrl('/user/save_set_label'), 'PUT');
@@ -1025,7 +1025,7 @@ class UserServices extends BaseServices
             }
             return $menus;
         };
-        $field[] = Form::select('level_id', 'Cấp độ người dùng')->setOptions(FormBuilder::setOptions($setOptionlevel))->filterable(true);
+        $field[] = Form::select('level_id', 'Hạng khách hàng')->setOptions(FormBuilder::setOptions($setOptionlevel))->filterable(true);
         return create_form('Cấp độ miễn phí', $field, Url::buildUrl('/user/save_give_level/' . $id), 'PUT');
     }
 
@@ -1086,7 +1086,7 @@ class UserServices extends BaseServices
         $field[] = Form::input('time_diff', 'Thời gian hết hạn', $timeDiff)->readonly(true);
         if ($userInfo['is_ever_level'] == 0) {
             $field[] = Form::input('day_diff', 'Số ngày còn lại', $dayDiff)->readonly(true);
-            $field[] = Form::number('days', 'tăng thời lượng(bầu trời)')->precision(0)->required();
+            $field[] = Form::number('days', 'tăng thời lượng(ngày)')->precision(0)->required();
         }
         return create_form('Thời gian thành viên trả phí miễn phí', $field, Url::buildUrl('/user/save_give_level_time/' . $id), 'PUT');
     }
@@ -1190,14 +1190,14 @@ class UserServices extends BaseServices
         }
         $userInfo = $this->getUserInfo($uid);
         return [
-            ['name' => 'Địa chỉ giao hàng mặc định', 'value' => $address ? 'người nhận hàng:' . $address['real_name'] . 'mã bưu điện:' . $address['post_code'] . ' Số điện thoại của người nhận hàng:' . $address['phone'] . ' Địa chỉ:' . $address['province'] . ' ' . $address['city'] . ' ' . $address['district'] . ' ' . $address['detail'] : ''],
+            ['name' => 'Địa chỉ giao hàng mặc định', 'value' => $address ? 'Người nhận hàng:' . $address['real_name'] . 'mã bưu điện:' . $address['post_code'] . ' Số điện thoại của Người nhận hàng:' . $address['phone'] . ' Địa chỉ:' . $address['province'] . ' ' . $address['city'] . ' ' . $address['district'] . ' ' . $address['detail'] : ''],
             ['name' => 'số điện thoại', 'value' => $userInfo['phone']],
             ['name' => 'Tên', 'value' => ''],
             ['name' => 'Biệt danh WeChat', 'value' => $userInfo['nickname']],
             ['name' => 'hình đại diện', 'value' => $userInfo['avatar']],
             ['name' => 'Thư', 'value' => ''],
             ['name' => 'Sinh nhật', 'value' => ''],
-            ['name' => 'tích phân', 'value' => $userInfo['integral']],
+            ['name' => 'điểm thưởng', 'value' => $userInfo['integral']],
             ['name' => 'Nhà quảng bá cấp cao', 'value' => $userInfo['spread_uid'] ? $this->getUserInfo($userInfo['spread_uid'], ['nickname'])['nickname'] ?? '' : ''],
             ['name' => 'Số dư tài khoản', 'value' => $userInfo['now_money']],
             ['name' => 'tổng thu nhập hoa hồng', 'value' => app()->make(UserBillServices::class)->getBrokerageSum($uid)],
@@ -1221,7 +1221,7 @@ class UserServices extends BaseServices
         $where = ['uid' => $uid, 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
         return [
             [
-                'title' => 'Sự cân bằng',
+                'title' => 'Số dư',
                 'value' => $userInfo['now_money'] ?? 0,
                 'key' => 'Nhân dân tệ',
             ],
@@ -1236,7 +1236,7 @@ class UserServices extends BaseServices
                 'key' => 'Nhân dân tệ',
             ],
             [
-                'title' => 'tích phân',
+                'title' => 'điểm thưởng',
                 'value' => $userInfo['integral'] ?? 0,
                 'key' => '',
             ],
@@ -1727,7 +1727,7 @@ class UserServices extends BaseServices
             } else if ($userInfo->is_agent) {
                 return 'Bạn là một đại lý,Không thể bị ràng buộc trở thành nhân viên của người khác';
             } else if (app()->make(LoginServices::class)->updateUserInfo(['code' => $agent_id, 'is_staff' => 1], $userInfo, false)) {
-                return 'Ràng buộc nhân viên cửa hàng thành công!';
+                return 'Liên kết nhân viên cửa hàng thành công!';
             }
         }
         if ($spreadUid == 0) return 'Không bị ràng buộc';
@@ -2308,7 +2308,7 @@ class UserServices extends BaseServices
             $edit['integral'] = bcadd($user['integral'], $reward_integral, 2);
             $integral_data['balance'] = $edit['integral'];
             $integral_data['title'] = 'Đăng ký người dùng mới tăng điểm';
-            $integral_data['mark'] = 'Số lượt đăng ký người dùng mới tăng lên' . floatval($reward_integral) . 'tích phân';
+            $integral_data['mark'] = 'Số lượt đăng ký người dùng mới tăng lên' . floatval($reward_integral) . 'điểm thưởng';
             $res2 = $userBill->incomeIntegral($user['uid'], 'system_add', $integral_data);
         } else {
             $res2 = true;

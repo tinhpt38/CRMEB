@@ -23,12 +23,12 @@
               </div>
             </div>
             <div class="con-item" v-if="configData.type">
-              <span>tình trạng</span>
+              <span>Trạng thái</span>
               <el-switch v-model="item.show" />
             </div>
             <div class="con-item" v-if="item.link">
               <span>{{ item.link.title }}</span>
-              <el-select v-model="item.link.activeVal" style="" @change="(e) => sliderChange(index, e)">
+              <el-select v-model="item.link.activeVal" style="" @change="(e) => SliderChange(index, e)">
                 <el-option
                   v-for="(item, j) in item.link.optiops"
                   :value="item.value"
@@ -46,7 +46,7 @@
     </div>
     <div v-if="configData.list">
       <div class="add-btn" @click="addHotTxt" v-if="configData.list.length < configData.max">
-        <el-button class="btn" type="primary" ghost> <span class="iconfont iconjiahao"></span>Thêm vào </el-button>
+        <el-button class="btn" type="primary" ghost> <span class="iconfont iconjiahao"></span>Thêm mới </el-button>
       </div>
     </div>
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>

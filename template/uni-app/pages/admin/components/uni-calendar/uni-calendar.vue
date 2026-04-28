@@ -17,7 +17,7 @@
 					<view class="uni-calendar__header-btn uni-calendar--left"></view>
 				</view>
 				<text
-					class="uni-calendar__header-text">{{ (nowDate.year || '') + $t(`Năm`) + (nowDate.month || '') + $t(`mặt trăng`) }}</text>
+					class="uni-calendar__header-text">{{ (nowDate.year || '') + $t(`Năm`) + (nowDate.month || '') + $t(`tháng`) }}</text>
 				<view class="uni-calendar__header-btn-box" @click="next">
 					<view class="uni-calendar__header-btn uni-calendar--right"></view>
 				</view>
@@ -29,7 +29,7 @@
 				</view>
 				<view class="uni-calendar__weeks">
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">{{ $t(`bầu trời`) }}</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t(`ngày`) }}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
 						<text class="uni-calendar__weeks-day-text">{{ $t(`một`) }}</text>

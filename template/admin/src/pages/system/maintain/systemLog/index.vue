@@ -10,7 +10,7 @@
           inline
           class="tabform"
         >
-          <el-form-item :label="fromList.title + '：'">
+          <el-form-item :label="FromList.title + '：'">
             <el-date-picker
               clearable
               :editable="false"
@@ -24,7 +24,7 @@
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="tên：">
+          <el-form-item label="Tên：">
             <el-select v-model="formValidate.admin_id" clearable @change="userSearchs" class="form_content_width">
               <el-option
                 :value="item.id"
@@ -34,7 +34,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="liên kết：">
+          <el-form-item label="Liên kết：">
             <el-input
               placeholder="Vui lòng nhập liên kết"
               v-model="formValidate.path"
@@ -46,7 +46,7 @@
             <el-input placeholder="Vui lòng nhậpIP" v-model="formValidate.ip" clearable class="form_content_width"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="userSearch" v-db-click @click="userSearchs">tìm kiếm</el-button>
+            <el-button type="primary" class="userSearch" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -63,22 +63,22 @@
             <span>{{ scope.row.admin_id + ' / ' + scope.row.admin_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" min-width="100">
+        <el-table-column label="Thao tác" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.path_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="liên kết" min-width="100">
+        <el-table-column label="Liên kết" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.path }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hànhip" min-width="100">
+        <el-table-column label="Vận hànhip" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="kiểu" min-width="100">
+        <el-table-column label="Kiểu" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.type }}</span>
           </template>
@@ -122,7 +122,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'Hôm qua', val: 'yesterday' },
           { text: '7 ngày qua', val: 'lately7' },

@@ -2,7 +2,7 @@
     <base-drawer mode="bottom" :visible="visible" background-color="transparent" mask maskClosable @close="closeDrawer">
         <view class="classify rd-t-40rpx">
             <view class="title">
-                Sửa đổi phân loại
+                Sửa danh mục
                 <view class="close acea-row row-center-wrapper" @tap="closeDrawer">
                     <text class="iconfont icon-iconfontguanbi"></text>
                 </view>
@@ -77,7 +77,7 @@
                 <emptyPage title="Chưa có phân loại～" src="/statics/images/empty-box.png"></emptyPage>
             </view>
             <view class="footer acea-row row-between-wrapper">
-                <view class="bnt acea-row row-center-wrapper" @tap="reset">cài lại</view>
+                <view class="bnt acea-row row-center-wrapper" @tap="reset">Đặt lại</view>
                 <view class="bnt on acea-row row-center-wrapper" @tap="define">Chắc chắn</view>
             </view>
         </view>

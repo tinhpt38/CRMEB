@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-dialog :visible.sync="modals" :z-index="100" title="Gửi phiếu giảm giá" :close-on-click-modal="false" width="1000px">
+    <el-dialog :visible.sync="modals" :z-index="100" title="Tặng mã giảm giá" :close-on-click-modal="false" width="1000px">
       <div class="acea-row">
         <span class="sp">Tên phiếu giảm giá：</span
         ><el-input clearable v-model="page.coupon_title" placeholder="Vui lòng nhập tên phiếu giảm giá" class="form_content_width" />
-        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">Truy vấn</el-button>
+        <el-button type="primary" v-db-click @click="userSearchs" class="ml15">Tìm kiếm</el-button>
       </div>
       <el-table
         :data="couponList"
@@ -36,9 +36,9 @@
             <div v-else>{{ scope.row.use_time }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="90">
+        <el-table-column label="Thao tác" fixed="right" width="90">
           <template slot-scope="scope">
-            <a v-db-click @click="sendGrant(scope.row, 'Gửi phiếu giảm giá', index)">gửi</a>
+            <a v-db-click @click="sendGrant(scope.row, 'Tặng mã giảm giá', index)">Gửi</a>
           </template>
         </el-table-column>
       </el-table>

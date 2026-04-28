@@ -54,11 +54,11 @@
 						<view class="acea-row row-right item-ft">
 							<view class="btn" @click="editInvoice(item.id)">
 								<text class="iconfont icon-bianji"></text>
-								{{ $t(`biên tập`) }}
+								{{ $t(`Sửa`) }}
 							</view>
 							<view class="btn" @click="deleteInvoice(item.id)">
 								<text class="iconfont icon-shanchu"></text>
-								{{ $t(`xóa bỏ`) }}
+								{{ $t(`Xóa`) }}
 							</view>
 						</view>
 					</view>

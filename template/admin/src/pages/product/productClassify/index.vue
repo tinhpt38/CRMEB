@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form ref="artFrom" :model="artFrom" inline label-width="80px" label-position="right" @submit.native.prevent>
-          <el-form-item label="Phân loại sản phẩm：" prop="pid" label-for="pid">
+          <el-form-item label="Danh mục sản phẩm：" prop="pid" label-for="pid">
             <el-select
               v-model="artFrom.pid"
               placeholder="Vui lòng chọn danh mục sản phẩm"
@@ -16,7 +16,7 @@
               }}</el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Trạng thái phân loại：" label-for="is_show">
+          <el-form-item label="Trạng thái danh mục：" label-for="is_show">
             <el-select
               v-model="artFrom.is_show"
               placeholder="Vui lòng chọn trạng thái phân loại"
@@ -24,7 +24,7 @@
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="1" label="bật lên"></el-option>
+              <el-option value="1" label="Hoạt động"></el-option>
               <el-option value="0" label="đóng cửa"></el-option>
             </el-select>
           </el-form-item>
@@ -32,7 +32,7 @@
             <el-input clearable placeholder="Vui lòng nhập tên danh mục" v-model="artFrom.cate_name" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -58,8 +58,8 @@
             </div>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="sort" title="loại" min-width="100" tooltip="true"></vxe-table-column>
-        <vxe-table-column field="is_show" title="tình trạng" min-width="120">
+        <vxe-table-column field="sort" title="Loại" min-width="100" tooltip="true"></vxe-table-column>
+        <vxe-table-column field="is_show" title="Trạng thái" min-width="120">
           <template v-slot="{ row }">
             <el-switch
               class="defineSwitch"
@@ -69,17 +69,17 @@
               :value="row.is_show"
               @change="onchangeIsShow(row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="date" title="vận hành" width="120" fixed="right">
+        <vxe-table-column field="date" title="Thao tác" width="120" fixed="right">
           <template v-slot="{ row, index }">
-            <a v-db-click @click="edit(row)">biên tập</a>
+            <a v-db-click @click="edit(row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, 'Xóa danh mục sản phẩm', index)">xóa bỏ</a>
+            <a v-db-click @click="del(row, 'Xóa danh mục sản phẩm', index)">Xóa</a>
           </template>
         </vxe-table-column>
       </vxe-table>

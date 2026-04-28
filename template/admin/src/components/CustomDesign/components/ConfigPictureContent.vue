@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form-item label="hình ảnh">
+    <el-form-item label="Hình ảnh">
       <div class="upload-box" @click="modalPicTap">
         <img :src="curComponent.propValue.url" v-if="curComponent.propValue.url" class="img" />
         <div v-else class="upload-icon"><i class="el-icon-plus"></i></div>

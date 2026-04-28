@@ -4,7 +4,7 @@
       <!-- Header -->
       <div class="header">
         <div class="left">
-          <span class="title" :style="{ color: titleColor }">đánh giá</span>
+          <span class="title" :style="{ color: titleColor }">Đánh giá</span>
           <span class="count" :style="{ color: countColor }" v-if="checkList.includes(0)">(2.3k)</span>
         </div>
         <div class="right" v-if="checkList.includes(1)">
@@ -273,7 +273,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

@@ -78,7 +78,7 @@ class UserSignController
         }
         $uid = (int)$request->uid();
         $integral = $this->services->sign($uid);
-        return app('json')->success('Đăng nhập để nhận{:integral}tích phân', ['integral' => $integral], ['integral' => $integral]);
+        return app('json')->success('Đăng nhập để nhận{:integral}điểm thưởng', ['integral' => $integral], ['integral' => $integral]);
     }
 
     /**

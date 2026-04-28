@@ -55,7 +55,7 @@
 					</view>
 					<!-- #ifdef MP -->
 					<view class='item acea-row row-between-wrapper'>
-						<view>{{$t(`Cài đặt quyền`)}}</view>
+						<view>{{$t(`Cài đặt phân quyền`)}}</view>
 						<view class="input" @click="Setting">
 							{{$t(`Bấm để quản lý`)}}<text class="iconfont icon-xiangyou"></text>
 						</view>

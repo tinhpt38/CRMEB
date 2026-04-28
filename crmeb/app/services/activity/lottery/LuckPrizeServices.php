@@ -31,13 +31,13 @@ class LuckPrizeServices extends BaseServices
      */
     public $prize_type = [
         '1' => 'Không thắng',
-        '2' => 'tích phân',
-        '3' => 'Sự cân bằng',
+        '2' => 'điểm thưởng',
+        '3' => 'Số dư',
         '4' => 'phong bì màu đỏ',
-        '5' => 'Phiếu giảm giá',
+        '5' => 'Mã giảm giá',
         '6' => 'Sản phẩm trang web',
         '7' => 'Cấp độ kinh nghiệm',
-        '8' => 'Cấp độ người dùng',
+        '8' => 'Hạng khách hàng',
         '9' => 'svipngày'
     ];
 
@@ -98,10 +98,10 @@ class LuckPrizeServices extends BaseServices
             $msg = '';
             switch ($data['type']) {
                 case 2:
-                    $msg = 'tích phân';
+                    $msg = 'điểm thưởng';
                     break;
                 case 3:
-                    $msg = 'Sự cân bằng';
+                    $msg = 'Số dư';
                     break;
                 case 4:
                     $msg = 'phong bì màu đỏ';

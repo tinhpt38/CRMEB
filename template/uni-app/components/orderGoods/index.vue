@@ -69,7 +69,7 @@
 					<view class="rig-btn" v-if="status_type === 2 && index === cartInfo.length - 1 || !split">
 						<view v-if="delivery_type === 'express'" class="logistics" @click.stop="logistics(orderId)">{{$t(`kiểm tra hậu cần`)}}
 						</view>
-						<view class="logistics sure" v-if="status_type === 2" @click.stop="confirmOrder(orderId)">{{$t(`xác nhận đã nhận hàng`)}}
+						<view class="logistics sure" v-if="status_type === 2" @click.stop="confirmOrder(orderId)">{{$t(`Xác nhận nhận hàng`)}}
 						</view>
 					</view>
 				</view>

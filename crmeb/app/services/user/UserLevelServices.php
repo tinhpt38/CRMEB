@@ -124,7 +124,7 @@ class UserLevelServices extends BaseServices
         if (!$vipinfo) {
             $vipinfo = $systemLevelServices->getLevel($level_id);
             if (!$vipinfo) {
-                throw new AdminException('Cấp độ người dùng không tồn tại');
+                throw new AdminException('Hạng khách hàng không tồn tại');
             }
         }
         /** @var  $user */
@@ -250,7 +250,7 @@ class UserLevelServices extends BaseServices
         //Ôn lại
         if ($id) {
             if (($levelOne && $levelOne['id'] != $id) || ($levelThree && $levelThree['id'] != $id)) {
-                throw new AdminException('Cấp độ người dùng bạn đặt đã được phát hiện. Mức độ này không thể lặp lại.');
+                throw new AdminException('Hạng khách hàng bạn đặt đã được phát hiện. Mức độ này không thể lặp lại.');
             }
             if ($levelTwo && $levelTwo['id'] != $id) {
                 throw new AdminException('Chúng tôi đã phát hiện thấy rằng bạn đã đặt giá trị trải nghiệm cho cấp độ người dùng này. Giá trị kinh nghiệm không thể lặp lại.');
@@ -261,7 +261,7 @@ class UserLevelServices extends BaseServices
             return true;
         } else {
             if ($levelOne || $levelThree) {
-                throw new AdminException('Cấp độ người dùng bạn đặt đã được phát hiện. Mức độ này không thể lặp lại.');
+                throw new AdminException('Hạng khách hàng bạn đặt đã được phát hiện. Mức độ này không thể lặp lại.');
             }
             if ($levelTwo) {
                 throw new AdminException('Chúng tôi đã phát hiện thấy rằng bạn đã đặt giá trị trải nghiệm cho cấp độ người dùng này. Giá trị kinh nghiệm không thể lặp lại.');

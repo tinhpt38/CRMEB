@@ -2,7 +2,7 @@
   <view>
     <!-- #ifdef MP || APP -->
     <NavBar
-      titleText="Chi tiết đặt hàng"
+      titleText="Chi tiết đơn hàng"
       :iconColor="iconColor"
       :textColor="iconColor"
       :isScrolling="isScrolling"
@@ -147,7 +147,7 @@
               </view>
               <view class="texts">
                 <view class="line1"
-                  >[quà tặng]{{ giveData.give_integral }}tích phân</view
+                  >[quà tặng]{{ giveData.give_integral }}điểm thưởng</view
                 >
               </view>
             </view>
@@ -170,7 +170,7 @@
           <view class="conter">{{ payType }}</view>
         </view>
         <view class="item acea-row row-between">
-          <view>thời gian thanh toán</view>
+          <view>Thời gian thanh toán</view>
           <view class="conter">{{ orderInfo._pay_time }}</view>
         </view>
         <view class="item acea-row row-between">
@@ -210,7 +210,7 @@
           v-if="orderInfo.pay_postage > 0"
           class="item acea-row row-between"
         >
-          <view>vận chuyển hàng hóa：</view>
+          <view>vận chuyển sản phẩm：</view>
           <view class="conter">￥{{ orderInfo.pay_postage }}</view>
         </view>
         <view
@@ -239,7 +239,7 @@
           >
         </view>
         <view class="actualPay acea-row row-right">
-          thanh toán thực tế：
+          Thanh toán thực tế：
           <!-- <span class="money">￥{{ orderInfo.pay_price }}</span> -->
           <baseMoney
             :money="orderInfo.pay_price"

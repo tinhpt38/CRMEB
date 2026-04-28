@@ -9,7 +9,7 @@
           :label-position="labelPosition"
           @submit.native.prevent
         >
-          <el-form-item label="thời gian sáng tạo：">
+          <el-form-item label="Thời gian Tạo mới：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -50,12 +50,12 @@
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="tiêu đề" min-width="130">
+          <el-table-column label="Tiêu đề" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.title }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="ngày" min-width="130">
+          <el-table-column label="Ngày" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.add_time }}</span>
             </template>
@@ -75,11 +75,11 @@
               <span>￥{{ scope.row.entry_price }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="vận hành" fixed="right" width="170">
+          <el-table-column label="Thao tác" fixed="right" width="170">
             <template slot-scope="scope">
               <a v-db-click @click="Info(scope.row)">Chi tiết hóa đơn</a>
               <el-divider direction="vertical"></el-divider>
-              <a v-db-click @click="download(scope.row)">tải về</a>
+              <a v-db-click @click="download(scope.row)">Tải về</a>
             </template>
           </el-table-column>
         </el-table>

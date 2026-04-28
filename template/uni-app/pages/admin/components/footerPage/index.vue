@@ -39,7 +39,7 @@
 						pagePath: "/pages/admin/goods/index",
 						iconPath: require("../../static/footer2-1.png"),
 						selectedIconPath: require("../../static/footer2-2.png"),
-						text: "hàng hóa"
+						text: "sản phẩm"
 					},
 					{
 						pagePath: "/pages/admin/orderList/index",

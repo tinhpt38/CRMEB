@@ -9,6 +9,7 @@ import VueI18n from 'vue-i18n';
 import zhcnLocale from 'element-ui/lib/locale/lang/zh-CN';
 import enLocale from 'element-ui/lib/locale/lang/en';
 import zhtwLocale from 'element-ui/lib/locale/lang/zh-TW';
+import viLocale from 'element-ui/lib/locale/lang/vi';
 import store from '@/store/index.js';
 
 import nextZhcn from '@/i18n/lang/zh-cn.js';
@@ -53,6 +54,14 @@ const messages = {
       ...nextZhtw,
       ...pagesHomeZhtw,
       ...pagesLoginZhtw,
+    },
+  },
+  vi: {
+    ...viLocale,
+    message: {
+      ...nextZhcn,
+      ...pagesHomeZhcn,
+      ...pagesLoginZhcn,
     },
   },
 };

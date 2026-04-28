@@ -37,7 +37,7 @@ use crmeb\exceptions\AdminException;
  */
 class OutStoreProductServices extends BaseServices
 {
-    protected $productType = ['Hàng thông thường', 'Sản phẩm thẻ', 'Phiếu giảm giá', 'hàng ảo'];
+    protected $productType = ['Hàng thông thường', 'Sản phẩm thẻ', 'Mã giảm giá', 'hàng ảo'];
 
     public function __construct(StoreProductDao $dao)
     {
@@ -403,7 +403,7 @@ class OutStoreProductServices extends BaseServices
         }
 
         if (!$productInfo['unit_name']) {
-            throw new AdminException('Vui lòng điền vào đơn vị');
+            throw new AdminException('Vui lòng điền vào Đơn vị');
         }
 
         if (!$productInfo['cate_id']) {

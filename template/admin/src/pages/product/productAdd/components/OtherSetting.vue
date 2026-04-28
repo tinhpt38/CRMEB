@@ -67,7 +67,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Thông số sản phẩm：">
+      <el-form-item label="Thuộc tính sản phẩm：">
         <el-select
           v-model="paramsType"
           clearable
@@ -92,9 +92,9 @@
                 <el-input v-model="scope.row.value"></el-input>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="80">
+            <el-table-column label="Thao tác" fixed="right" width="80">
               <template slot-scope="scope">
-                <a class="submission mr15" v-db-click @click="deleteRow(scope.$index)">xóa bỏ</a>
+                <a class="submission mr15" v-db-click @click="deleteRow(scope.$index)">Xóa</a>
               </template>
             </el-table-column>
           </el-table>
@@ -112,8 +112,8 @@
     <el-col :span="24">
       <el-form-item label="Biểu mẫu tùy chỉnh：">
         <el-switch :active-value="1" :inactive-value="0" v-model="innerCustomBtn" size="large">
-          <span slot="open">bật lên</span>
-          <span slot="close">đóng cửa</span>
+          <span slot="open">Bật lên</span>
+          <span slot="close">Đóng cửa</span>
         </el-switch>
         <div class="addCustom_content" v-if="customBtn">
           <div v-for="(item, index) in formValidate.custom_form" :key="index" class="custom_box">
@@ -133,7 +133,7 @@
               ></el-option>
             </el-select>
             <el-checkbox v-model="item.status">Yêu cầu</el-checkbox>
-            <div class="addfont" v-db-click @click="delcustom(index)">xóa bỏ</div>
+            <div class="addfont" v-db-click @click="delcustom(index)">Xóa</div>
           </div>
         </div>
         <div class="addCustomBox" v-show="customBtn">

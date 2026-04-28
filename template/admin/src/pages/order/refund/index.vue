@@ -16,7 +16,7 @@
               clearable
               class="form_content_width"
               @change="selectChange2"
-              placeholder="tất cả"
+              placeholder="Tất cả"
             >
               <el-option v-for="(item, index) in num" :value="index" :key="index" :label="item.name">{{
                 item.name
@@ -43,7 +43,7 @@
             <el-input clearable v-model="pagination.order_id" placeholder="Vui lòng nhập mã đơn hàng" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="orderSearch">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="orderSearch">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -101,7 +101,7 @@
                     }}</span>
                   </div>
                   <div>
-                    <span>giá：</span>
+                    <span>Giá：</span>
                     <span>¥{{ item.cart_info.truePrice || '--' }}</span>
                   </div>
                   <div>
@@ -119,7 +119,7 @@
             <span class="cup hover-pimary" @click="userDetail(scope.row, '2')">{{ scope.row.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thanh toán thực tế" min-width="70">
+        <el-table-column label="Thanh toán thực tế" min-width="70">
           <template slot-scope="scope">
             <span>{{ scope.row.pay_price }}</span>
           </template>
@@ -135,7 +135,7 @@
             <div v-else-if="scope.row.refund_type == 2">Trả lại và hoàn tiền</div>
             <div v-else-if="scope.row.refund_type == 3">
               <div>Từ chối hoàn tiền</div>
-              <div class="c-red">lý do：{{ scope.row.refuse_reason }}</div>
+              <div class="c-red">Lý do：{{ scope.row.refuse_reason }}</div>
             </div>
             <div v-else-if="scope.row.refund_type == 4">Hàng chờ trả lại</div>
             <div v-else-if="scope.row.refund_type == 5">
@@ -160,10 +160,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="vận hành" width="120">
+        <el-table-column fixed="right" label="Thao tác" width="120">
           <template slot-scope="scope">
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)">
-              <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   command="1"
@@ -171,7 +171,7 @@
                   v-show="scope.row._status === 1 && scope.row.paid === 0 && scope.row.pay_type === 'offline'"
                   >Thanh toán ngay</el-dropdown-item
                 >
-                <el-dropdown-item command="2">Chi tiết đặt hàng</el-dropdown-item>
+                <el-dropdown-item command="2">Chi tiết đơn hàng</el-dropdown-item>
                 <el-dropdown-item
                   command="4"
                   v-show="
@@ -186,7 +186,7 @@
                   command="5"
                   v-show="
                     [1, 2, 5].includes(scope.row.refund_type) &&
-                    (parseFloat(scope.row.pay_price) > parseFloat(scope.row.refunded_price) || scope.row.pay_price == 0)
+                    (parseFloat(scope.row.pay_price) > ParseFloat(scope.row.refunded_price) || scope.row.pay_price == 0)
                   "
                   >{{ scope.row.refund_type == 2 ? 'Đồng ý quay lại' : 'Hoàn tiền ngay lập tức' }}</el-dropdown-item
                 >

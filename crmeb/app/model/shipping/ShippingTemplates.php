@@ -54,7 +54,7 @@ class ShippingTemplates extends BaseModel
      */
     public function getAppointAttr($value)
     {
-        $status = [1 => 'bật lên', 0 => 'đóng cửa'];
+        $status = [1 => 'Hoạt động', 0 => 'đóng cửa'];
         return $status[$value];
     }
 

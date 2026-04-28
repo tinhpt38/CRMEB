@@ -28,7 +28,7 @@ export default {
       name: `${pre}combinalist`,
       meta: {
         auth: ['marketing-store_combination'],
-        title: 'Nhóm sản phẩm',
+        title: 'Sản phẩm mua chung',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/storeCombination/index'),
@@ -38,7 +38,7 @@ export default {
       name: `${pre}combinaList`,
       meta: {
         auth: ['marketing-store_combination-combina_list'],
-        title: 'Danh sách nhóm nhóm',
+        title: 'Đơn hàng mua chung',
       },
       component: () => import('@/pages/marketing/storeCombination/combinaList'),
     },
@@ -85,7 +85,7 @@ export default {
       name: `${pre}storeCouponCreate`,
       meta: {
         auth: ['marketing-store_coupon_issue-create'],
-        title: 'thêm phiếu giảm giá',
+        title: 'Tạo mã giảm giá',
         activeMenu: routePre + '/marketing/store_coupon_issue/index',
       },
       component: () => import('@/pages/marketing/storeCouponIssue/create'),
@@ -95,7 +95,7 @@ export default {
       name: `${pre}storeCouponUser`,
       meta: {
         auth: ['marketing-store_coupon_user'],
-        title: 'Bản ghi bộ sưu tập của người dùng',
+        title: 'Sản phẩm được lưu',
       },
       component: () => import('@/pages/marketing/storeCouponUser/index'),
     },
@@ -113,7 +113,7 @@ export default {
       name: `${pre}storeBargain`,
       meta: {
         auth: ['marketing-store_bargain'],
-        title: 'mặt hàng giá hời',
+        title: 'Sản phẩm trả giá',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/storeBargain/index'),
@@ -123,7 +123,7 @@ export default {
       name: `${pre}bargainList`,
       meta: {
         auth: ['marketing-store_bargain-bargain_list'],
-        title: 'Danh sách mặc cả',
+        title: 'Lịch sử trả giá',
       },
       component: () => import('@/pages/marketing/storeBargain/bargainList'),
     },
@@ -161,7 +161,7 @@ export default {
       name: `${pre}storeSeckillData`,
       meta: {
         auth: ['marketing-store_seckill-data'],
-        title: 'Cấu hình bán flash',
+        title: 'Cấu hình Flash Sale',
       },
       component: () => import('@/pages/system/group/list'),
     },
@@ -189,7 +189,7 @@ export default {
       path: 'store_seckill/list',
       name: `${pre}marketing-store_seckill-list`,
       meta: {
-        title: 'danh sách bán chớp nhoáng',
+        title: 'Sản phẩm Flash Sale',
       },
       component: () => import('@/pages/marketing/storeSeckill/list'),
     },

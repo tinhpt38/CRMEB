@@ -3,13 +3,13 @@
 		<view class='coupon-list-window' :class='coupon.coupon==true?"on":""'>
 			<view v-if="coupon.count" class="nav acea-row row-around">
 				<view v-if="coupon.count[2]" :class="['acea-row', 'row-middle', coupon.type === 2 ? 'on' : '']"
-					@click="setType(2)">{{$t(`phiếu giảm giá hàng hóa`)}}</view>
+					@click="setType(2)">{{$t(`phiếu giảm giá sản phẩm`)}}</view>
 				<view v-if="coupon.count[1]" :class="['acea-row', 'row-middle', coupon.type === 1 ? 'on' : '']"
-					@click="setType(1)">{{$t(`Phiếu giảm giá danh mục`)}}</view>
+					@click="setType(1)">{{$t(`Mã giảm giá danh mục`)}}</view>
 				<view v-if="coupon.count[0]" :class="['acea-row', 'row-middle', coupon.type === 0 ? 'on' : '']"
-					@click="setType(0)">{{$t(`Phiếu giảm giá phổ quát`)}}</view>
+					@click="setType(0)">{{$t(`Mã giảm giá phổ quát`)}}</view>
 			</view>
-			<view class='title' v-else>{{$t(`Phiếu giảm giá`)}}<text class='iconfont icon-guanbi' @click='close'></text></view>
+			<view class='title' v-else>{{$t(`Mã giảm giá`)}}<text class='iconfont icon-guanbi' @click='close'></text></view>
 			<view v-if="coupon.count" class="occupy"></view>
 			<view class='coupon-list' v-if="coupon.list.length">
 				<view class='item acea-row row-center-wrapper' v-for="(item,index) in coupon.list"
@@ -26,11 +26,11 @@
 					<view class='text'>
 						<view class='condition line2' :class="coupon.count?'':'order'">
 							<span class='line-title' :class='item.is_use >= item.receive_limit && coupon.count?"gray":""'
-								v-if='item.type===0'>{{$t(`Phiếu giảm giá phổ quát`)}}</span>
+								v-if='item.type===0'>{{$t(`Mã giảm giá phổ quát`)}}</span>
 							<span class='line-title' :class='item.is_use >= item.receive_limit && coupon.count?"gray":""'
-								v-else-if='item.type===1'>{{$t(`Phiếu giảm giá danh mục`)}}</span>
+								v-else-if='item.type===1'>{{$t(`Mã giảm giá danh mục`)}}</span>
 							<span class='line-title' :class='item.is_use >= item.receive_limit && coupon.count?"gray":""'
-								v-else>{{$t(`phiếu giảm giá hàng hóa`)}}</span>
+								v-else>{{$t(`phiếu giảm giá sản phẩm`)}}</span>
 							<image src='../../static/images/fvip.png' class="pic" v-if="item.receive_type===4"></image>
 							<span class='name'>{{$t(item.title)}}</span>
 						</view>

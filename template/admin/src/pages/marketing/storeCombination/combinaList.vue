@@ -51,7 +51,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="hình đại diện" min-width="90">
+        <el-table-column label="Hình đại diện" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
@@ -68,7 +68,7 @@
             <span> {{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Nhóm sản phẩm" min-width="180">
+        <el-table-column label="Sản phẩm mua chung" min-width="180">
           <template slot-scope="scope">
             <span> {{ scope.row.title + ' / ' + scope.row.cid }}</span>
           </template>
@@ -83,21 +83,21 @@
             <span> {{ scope.row.count_people }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian kết thúc" min-width="120">
+        <el-table-column label="Thời gian kết thúc" min-width="120">
           <template slot-scope="scope">
             <span> {{ scope.row.stop_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="120">
+        <el-table-column label="Trạng thái" min-width="120">
           <template slot-scope="scope">
-            <el-tag type="info" v-show="scope.row.status === 1">đang tiến hành</el-tag>
+            <el-tag type="info" v-show="scope.row.status === 1">Đang tiến hành</el-tag>
             <el-tag v-show="scope.row.status === 2">Hoàn thành</el-tag>
             <el-tag type="warning" v-show="scope.row.status === 3">Chưa hoàn thành</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="150">
+        <el-table-column label="Thao tác" fixed="right" width="150">
           <template slot-scope="scope">
-            <a v-db-click @click="Info(scope.row)">kiểm tra chi tiết</a>
+            <a v-db-click @click="Info(scope.row)">Kiểm tra chi tiết</a>
             <el-divider v-if="scope.row.status === 1" direction="vertical"></el-divider>
             <a v-if="scope.row.status === 1" v-db-click @click="joinCombination(scope.row)">Lập nhóm ngay</a>
           </template>
@@ -115,7 +115,7 @@
     </el-card>
 
     <!-- Hộp phương thức chi tiết-->
-    <el-dialog :visible.sync="modals" class="tableBox" title="kiểm tra chi tiết" :close-on-click-modal="false" width="720px">
+    <el-dialog :visible.sync="modals" class="tableBox" title="Kiểm tra chi tiết" :close-on-click-modal="false" width="720px">
       <el-table
         ref="selection"
         :data="tabList3"
@@ -142,7 +142,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="số thứ tự" min-width="100">
+        <el-table-column label="Số thứ tự" min-width="100">
           <template slot-scope="scope">
             <span> {{ scope.row.order_id }}</span>
           </template>

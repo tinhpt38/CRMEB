@@ -63,7 +63,7 @@ class StoreOrderDeliveryServices extends BaseServices
             throw new AdminException('Đơn đặt hàng đã được chuyển đi. Vui lòng không lặp lại thao tác.');
         }
         if ($orderInfo->shipping_type == 2) {
-            throw new AdminException('Đơn đặt hàng xóa sổ không thể được vận chuyển');
+            throw new AdminException('Đơn đặt hàng xác nhận không thể được vận chuyển');
         }
         if (isset($orderInfo['pinkStatus']) && $orderInfo['pinkStatus'] != 2) {
             throw new AdminException('Nhóm không thể được vận chuyển cho đến khi nhóm được hoàn thành.');
@@ -392,7 +392,7 @@ class StoreOrderDeliveryServices extends BaseServices
             throw new AdminException('Đơn hàng đã bị xóa,Không thể vận chuyển');
         }
         if ($orderInfo->shipping_type == 2) {
-            throw new AdminException('Đơn đặt hàng xóa sổ không thể được vận chuyển');
+            throw new AdminException('Đơn đặt hàng xác nhận không thể được vận chuyển');
         }
         if (isset($orderInfo['pinkStatus']) && $orderInfo['pinkStatus'] != 2) {
             throw new AdminException('Nhóm không thể được vận chuyển cho đến khi nhóm được hoàn thành.');
@@ -786,11 +786,11 @@ class StoreOrderDeliveryServices extends BaseServices
             if ($issueService->setCoupon($coupon, [$orderInfo['uid']])) {
                 /** @var StoreOrderServices $orderService */
                 $orderService = app()->make(StoreOrderServices::class);
-                $orderService->update(['id' => $orderInfo['id']], ['status' => 1, 'delivery_type' => 'fictitious', 'virtual_info' => $coupon_id, 'remark' => 'Phiếu giảm giá đã được phát hành tự động']);
+                $orderService->update(['id' => $orderInfo['id']], ['status' => 1, 'delivery_type' => 'fictitious', 'virtual_info' => $coupon_id, 'remark' => 'Mã giảm giá đã được phát hành tự động']);
                 $this->SystemSend($orderInfo['uid'], [
                     'mark' => 'virtual_info',
                     'title' => 'Mua phiếu giảm giá và phát hành chúng',
-                    'content' => 'Phiếu giảm giá bạn mua đã được thanh toán thành công, số tiền thanh toán' . $orderInfo['pay_price'] . 'nhân dân tệ, số đơn hàng' . $orderInfo['order_id'] . 'Vui lòng kiểm tra các phiếu giảm giá trong trung tâm cá nhân,cảm ơn bạn đã ghé thăm！'
+                    'content' => 'Mã giảm giá bạn mua đã được thanh toán thành công, số tiền thanh toán' . $orderInfo['pay_price'] . 'nhân dân tệ, số đơn hàng' . $orderInfo['order_id'] . 'Vui lòng kiểm tra các phiếu giảm giá trong trung tâm cá nhân,cảm ơn bạn đã ghé thăm！'
                 ]);
             } else {
                 throw new ApiException('Bạn đã có phiếu giảm giá này, vui lòng không mua lại');
@@ -798,7 +798,7 @@ class StoreOrderDeliveryServices extends BaseServices
             $statusService->save([
                 'oid' => $orderInfo['id'],
                 'change_type' => 'delivery_fictitious',
-                'change_message' => 'Phiếu giảm giá được tự động vận chuyển',
+                'change_message' => 'Mã giảm giá được tự động vận chuyển',
                 'change_time' => time()
             ]);
         }
@@ -806,7 +806,7 @@ class StoreOrderDeliveryServices extends BaseServices
             MiniOrderJob::dispatchSecs(10, 'doJob', [
                 $orderInfo['order_id'],
                 3,
-                [['item_desc' => $orderInfo['virtual_type'] == 1 ? 'Giao hàng tự động bí mật thẻ' : 'Phiếu giảm giá được tự động vận chuyển']],
+                [['item_desc' => $orderInfo['virtual_type'] == 1 ? 'Giao hàng tự động bí mật thẻ' : 'Mã giảm giá được tự động vận chuyển']],
                 app()->make(WechatUserServices::class)->uidToOpenid($orderInfo['uid'], 'routine'),
                 'pages/goods/order_details/index?order_id=' . $orderInfo['order_id']
             ]);

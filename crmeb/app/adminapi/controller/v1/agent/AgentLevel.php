@@ -146,7 +146,7 @@ class AgentLevel extends AuthController
             return app('json')->fail('Tỷ lệ giảm giá của cấp độ thứ hai không được lớn hơn tỷ lệ giảm giá của cấp độ thứ nhất.');
         }
         // Kiểm tra xem cấp độ của biên tập viên có tồn tại không
-        if (!$levelInfo = $this->services->getLevelInfo((int)$id)) return app('json')->fail('Cấp độ biên tập viên không tồn tại');
+        if (!$levelInfo = $this->services->getLevelInfo((int)$id)) return app('json')->fail('Cấp độ Sửa viên không tồn tại');
         // Kiểm tra xem các cấp độ có bị trùng lặp không
         $grade = $this->services->get(['grade' => $data['grade'], 'is_del' => 0]);
         if ($grade && $grade['id'] != $id) {

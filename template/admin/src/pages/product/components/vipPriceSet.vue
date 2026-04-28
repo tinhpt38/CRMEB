@@ -7,7 +7,7 @@
             v-model="formData.vip_product"
             :active-value="1"
             :inactive-value="0"
-            active-text="bật lên"
+            active-text="Hoạt động"
             inactive-text="đóng cửa"
             size="large"
             class="defineSwitch"
@@ -26,7 +26,7 @@
             v-model="formData.is_vip"
             :active-value="1"
             :inactive-value="0"
-            active-text="bật lên"
+            active-text="Hoạt động"
             inactive-text="đóng cửa"
             size="large"
             class="defineSwitch"
@@ -43,8 +43,8 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="suk" label="thông số kỹ thuật sản phẩm" min-width="120" align="center"></el-table-column>
-            <el-table-column prop="price" label="giá bán" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="suk" label="Thông số kỹ thuật sản phẩm" min-width="120" align="center"></el-table-column>
+            <el-table-column prop="price" label="Giá bán" min-width="120" align="center"></el-table-column>
             <el-table-column min-width="140" align="center" v-if="formData.is_vip == 1">
               <template slot="header" slot-scope="scope">
                 <span>Giá thành viên trả phí</span>
@@ -60,11 +60,11 @@
                     <el-radio-group v-model="vipSetType">
                       <el-radio :label="0">Chỉ định giá</el-radio>
                       <el-radio :label="1">Giảm giá</el-radio>
-                      <el-radio :label="2">giảm tiền mặt</el-radio>
+                      <el-radio :label="2">Giảm tiền mặt</el-radio>
                     </el-radio-group>
                   </div>
                   <div class="mt10 mb10 acea-row row-middle">
-                    <span class="mr5" v-show="vipSetType == 2">giảm bớt</span>
+                    <span class="mr5" v-show="vipSetType == 2">Giảm bớt</span>
                     <el-input type="number" class="popover-input" v-model="vipSetNum">
                       <template slot="suffix">
                         <span v-show="vipSetType == 0">Nhân dân tệ</span>
@@ -73,7 +73,7 @@
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
                       <el-button size="small" @click="closeVipSet">Hủy bỏ</el-button>
-                      <el-button size="small" type="primary" class="ml-14" @click="vipSetConfirm">xác nhận</el-button>
+                      <el-button size="small" type="primary" class="ml-14" @click="vipSetConfirm">Xác nhận</el-button>
                     </div>
                   </div>
                   <span class="iconfont iconbianji1" slot="reference" @click.stop="vipSetPopoverPopver = true"></span>
@@ -96,7 +96,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="onCancel">Hủy bỏ</el-button>
-        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">xác nhận</el-button>
+        <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">Xác nhận</el-button>
       </div>
     </el-dialog>
   </div>

@@ -15,16 +15,16 @@
               <el-form-item label="Tìm kiếm người dùng：" label-for="nickname">
                 <el-input v-model="userFrom.nickname" placeholder="Vui lòng nhập người dùng" clearable class="form_content_width">
                   <el-select v-model="field_key" slot="prepend" class="field-key-select">
-                    <el-option value="all" label="tất cả"></el-option>
+                    <el-option value="all" label="Tất cả"></el-option>
                     <el-option value="uid" label="UID"></el-option>
                     <el-option value="phone" label="Số điện thoại"></el-option>
                     <el-option value="nickname" label="Biệt hiệu của người dùng"></el-option>
                   </el-select>
                 </el-input>
               </el-form-item>
-              <el-form-item label="Cấp độ người dùng：" label-for="level">
+              <el-form-item label="Hạng khách hàng：" label-for="level">
                 <el-select v-model="level" placeholder="Vui lòng chọn cấp độ người dùng" clearable class="form_content_width">
-                  <el-option value="all" label="tất cả">tất cả</el-option>
+                  <el-option value="all" label="Tất cả">Tất cả</el-option>
                   <el-option
                     :value="item.id"
                     v-for="(item, index) in levelList"
@@ -33,9 +33,9 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Nhóm người dùng：">
+              <el-form-item label="Nhóm khách hàng：">
                 <el-select v-model="group_id" placeholder="Vui lòng chọn nhóm người dùng" clearable class="form_content_width">
-                  <el-option value="all" label="tất cả"></el-option>
+                  <el-option value="all" label="Tất cả"></el-option>
                   <el-option
                     :value="item.id"
                     v-for="(item, index) in groupList"
@@ -46,11 +46,11 @@
               </el-form-item>
             </div>
             <el-form-item class="search-form-sub">
-              <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
-              <el-button class="ResetSearch" v-db-click @click="reset('userFrom')">cài lại</el-button>
+              <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
+              <el-button class="ResetSearch" v-db-click @click="reset('userFrom')">Đặt lại</el-button>
               <a class="ivu-ml-8 font12 ml10" v-db-click @click="collapse = !collapse">
                 <template v-if="!collapse"> Mở rộng <i class="el-icon-arrow-down" /> </template>
-                <template v-else> đóng <i class="el-icon-arrow-up" /> </template>
+                <template v-else> Đóng <i class="el-icon-arrow-up" /> </template>
               </a>
             </el-form-item>
           </div>
@@ -59,16 +59,16 @@
               <el-form-item label="Tìm kiếm người dùng：" label-for="nickname">
                 <el-input v-model="userFrom.nickname" placeholder="Vui lòng nhập người dùng" clearable class="form_content_width">
                   <el-select v-model="field_key" slot="prepend" class="field-key-select">
-                    <el-option value="all" label="tất cả"></el-option>
+                    <el-option value="all" label="Tất cả"></el-option>
                     <el-option value="uid" label="UID"></el-option>
                     <el-option value="phone" label="Số điện thoại"></el-option>
                     <el-option value="nickname" label="Biệt hiệu của người dùng"></el-option>
                   </el-select>
                 </el-input>
               </el-form-item>
-              <el-form-item label="Cấp độ người dùng：" label-for="level">
+              <el-form-item label="Hạng khách hàng：" label-for="level">
                 <el-select v-model="level" placeholder="Vui lòng chọn cấp độ người dùng" clearable class="form_content_width">
-                  <el-option value="all" label="tất cả">tất cả</el-option>
+                  <el-option value="all" label="Tất cả">Tất cả</el-option>
                   <el-option
                     :value="item.id"
                     v-for="(item, index) in levelList"
@@ -77,9 +77,9 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Nhóm người dùng：">
+              <el-form-item label="Nhóm khách hàng：">
                 <el-select v-model="group_id" placeholder="Vui lòng chọn nhóm người dùng" clearable class="form_content_width">
-                  <el-option value="all" label="tất cả"></el-option>
+                  <el-option value="all" label="Tất cả"></el-option>
                   <el-option
                     :value="item.id"
                     v-for="(item, index) in groupList"
@@ -88,9 +88,9 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Cấp độ phân phối：">
+              <el-form-item label="Cấp bậc Affiliate：">
                 <el-select v-model="agent_level" placeholder="Vui lòng chọn mức phân phối" clearable class="form_content_width">
-                  <el-option value="all" label="tất cả"></el-option>
+                  <el-option value="all" label="Tất cả"></el-option>
                   <el-option
                     :value="item.grade"
                     v-for="(item, index) in membershipList"
@@ -99,7 +99,7 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Thẻ người dùng：" label-for="label_id">
+              <el-form-item label="Thẻ khách hàng：" label-for="label_id">
                 <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openSelectLabel">
                   <div style="width: 222px">
                     <div v-if="selectDataLabel.length">
@@ -114,14 +114,14 @@
               </el-form-item>
               <el-form-item label="ID người dùng：">
                 <el-select v-model="userFrom.is_promoter" placeholder="Vui lòng chọn" clearable class="form_content_width">
-                  <el-option value="" label="tất cả"></el-option>
+                  <el-option value="" label="Tất cả"></el-option>
                   <el-option value="1" label="người quảng bá"></el-option>
                   <el-option value="0" label="Người dùng thông thường"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Thành viên trả phí：" label-for="isMember">
+              <el-form-item label="Gói thẻ VIP：" label-for="isMember">
                 <el-select v-model="userFrom.isMember" placeholder="Vui lòng chọn" clearable class="form_content_width">
-                  <el-option value="" label="tất cả"></el-option>
+                  <el-option value="" label="Tất cả"></el-option>
                   <el-option value="1" label="Đúng"></el-option>
                   <el-option value="0" label="KHÔNG"></el-option>
                 </el-select>
@@ -156,13 +156,13 @@
                   class="form_range_content_width"
                 />
               </el-form-item>
-              <el-form-item label="lần tiêu thụ cuối cùng：" label-for="before_pay_time">
+              <el-form-item label="Lần tiêu thụ cuối cùng：" label-for="before_pay_time">
                 <el-date-picker
                   clearable
                   v-model="before_pay_time"
                   type="daterange"
                   :editable="false"
-                  @change="(e) => onchangeTime(e, 'before_pay_time')"
+                  @change="(e) => OnchangeTime(e, 'before_pay_time')"
                   format="yyyy/MM/dd"
                   value-format="yyyy/MM/dd"
                   start-placeholder="ngày bắt đầu"
@@ -216,21 +216,21 @@
                   class="form_range_content_width"
                 />
               </el-form-item>
-              <el-form-item label="trạng thái truy cập：" label-for="user_time_type">
+              <el-form-item label="Trạng thái truy cập：" label-for="user_time_type">
                 <el-select v-model="user_time_type" placeholder="Vui lòng chọn trạng thái truy cập" clearable class="form_content_width">
-                  <el-option value="" label="tất cả"></el-option>
-                  <el-option value="visitno" label="Không ghé thăm trong khoảng thời gian"></el-option>
-                  <el-option value="visit" label="Đã truy cập trong khoảng thời gian"></el-option>
+                  <el-option value="" label="Tất cả"></el-option>
+                  <el-option value="visitno" label="Không ghé thăm Trong khoảng thời gian"></el-option>
+                  <el-option value="visit" label="Đã truy cập Trong khoảng thời gian"></el-option>
                   <el-option value="add_time" label="chuyến thăm đầu tiên"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="thời gian truy cập：" label-for="user_time" v-if="user_time_type">
+              <el-form-item label="Thời gian truy cập：" label-for="user_time" v-if="user_time_type">
                 <el-date-picker
                   clearable
                   v-model="timeVal"
                   type="daterange"
                   :editable="false"
-                  @change="(e) => onchangeTime(e, 'user_time')"
+                  @change="(e) => OnchangeTime(e, 'user_time')"
                   format="yyyy/MM/dd"
                   value-format="yyyy/MM/dd"
                   start-placeholder="ngày bắt đầu"
@@ -239,7 +239,7 @@
                   class="date-range-vi"
                 ></el-date-picker>
               </el-form-item>
-              <!-- <el-form-item label="khu vực：" label-for="country">
+              <!-- <el-form-item label="Khu vực：" label-for="country">
                 <el-select
                   v-model="userFrom.country"
                   placeholder="Vui lòng chọn một quốc gia"
@@ -251,7 +251,7 @@
                   <el-option value="abroad" label="nước ngoài"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="tỉnh：" v-if="userFrom.country === 'domestic'">
+              <el-form-item label="Tỉnh：" v-if="userFrom.country === 'domestic'">
                 <el-cascader
                   :options="addresData"
                   :value="address"
@@ -264,11 +264,11 @@
             </div>
 
             <el-form-item class="search-form-sub">
-              <el-button type="primary" label="default" v-db-click @click="userSearchs">tìm kiếm</el-button>
-              <el-button class="ResetSearch" v-db-click @click="reset('userFrom')">cài lại</el-button>
+              <el-button type="primary" label="default" v-db-click @click="userSearchs">Tìm kiếm</el-button>
+              <el-button class="ResetSearch" v-db-click @click="reset('userFrom')">Đặt lại</el-button>
               <a class="ivu-ml-8 font12 ml10" v-db-click @click="collapse = !collapse">
                 <template v-if="!collapse"> Mở rộng <i class="el-icon-arrow-down" /> </template>
-                <template v-else> đóng <i class="el-icon-arrow-up" /> </template>
+                <template v-else> Đóng <i class="el-icon-arrow-up" /> </template>
               </a>
             </el-form-item>
           </div>
@@ -282,28 +282,26 @@
       <el-row :gutter="24" justify="space-between">
         <el-col :span="24">
           <el-button v-auth="['admin-user-save']" type="primary" v-db-click @click="edit({ uid: 0 })"
-            >Thêm người dùng</el-button
+            >Thêm khách hàng</el-button
           >
-          <el-button v-auth="['admin-user-coupon']" v-db-click @click="onSend">Gửi phiếu giảm giá</el-button>
+          <el-button v-auth="['admin-user-coupon']" v-db-click @click="onSend">Tặng mã giảm giá</el-button>
           <el-button
             v-auth="['admin-wechat-news']"
             class="greens mr10"
             v-db-click
             @click="onSendPic"
             v-if="userFrom.user_type === 'wechat'"
-          >
-            Gửi tin nhắn đồ họa
-          </el-button>
-          <el-button v-auth="['admin-user-group_set']" v-db-click @click="setGroup">Thành lập nhóm theo đợt</el-button>
-          <el-button v-auth="['admin-user-set_label']" v-db-click @click="setLabel">Đặt nhãn theo lô</el-button>
-          <el-button class="mr10" v-db-click @click="exportList">Xuất khẩu</el-button>
+          >Gửi tin nhắn đồ họa</el-button>
+          <el-button v-auth="['admin-user-group_set']" v-db-click @click="setGroup">Phân nhóm hàng loạt</el-button>
+          <el-button v-auth="['admin-user-set_label']" v-db-click @click="setLabel">Gắn nhãn hàng loạt</el-button>
+          <el-button class="mr10" v-db-click @click="exportList">Xuất file</el-button>
 
           <!-- <el-button v-auth="['admin-user-synchro']" class="mr20" v-db-click @click="synchro">Đồng bộ hóa người dùng tài khoản công cộng</el-button> -->
         </el-col>
         <el-col :span="24" class="userAlert" v-if="selectionList.length">
           <el-alert show-icon>
             <template slot="title">
-              Đã chọn<i class="userI"> {{ selectionList.length }} </i>mục
+              Đã chọn<i class="userI"> {{ selectionList.length }} </i>Mục
             </template>
           </el-alert>
         </el-col>
@@ -326,12 +324,12 @@
           </template>
         </el-table-column>
         <el-table-column type="selection" :selectable="isSel" width="55"> </el-table-column>
-        <el-table-column label="người dùngID" min-width="80">
+        <el-table-column label="ID người dùng" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="hình đại diện" min-width="60">
+        <el-table-column label="Hình đại diện" min-width="60">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
@@ -341,19 +339,19 @@
         <el-table-column label="Tên" min-width="150">
           <template slot-scope="scope">
             <div class="acea-row">
-              <i class="el-icon-male" v-show="scope.row.sex === 'nam giới'" style="color: #2db7f5; font-size: 15px"></i>
+              <i class="el-icon-male" v-show="scope.row.sex === 'Nam'" style="color: #2db7f5; font-size: 15px"></i>
               <i class="el-icon-female" v-show="scope.row.sex === 'nữ giới'" style="color: #ed4014; font-size: 15px"></i>
               <div v-text="scope.row.nickname" class=""></div>
             </div>
             <div v-if="scope.row.is_del == 1" style="color: red">Người dùng đã đăng xuất</div>
           </template>
         </el-table-column>
-        <el-table-column label="Thành viên trả phí" min-width="90">
+        <el-table-column label="Gói thẻ VIP" min-width="90">
           <template slot-scope="scope">
             <div>{{ scope.row.isMember ? 'Đúng' : 'KHÔNG' }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Cấp độ người dùng" min-width="90">
+        <el-table-column label="Hạng khách hàng" min-width="90">
           <template slot-scope="scope">
             <div>{{ scope.row.level }}</div>
           </template>
@@ -363,7 +361,7 @@
             <div>{{ scope.row.group_id }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Cấp độ phân phối" min-width="100">
+        <el-table-column label="Cấp bậc Affiliate" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.agent_level_name }}</div>
           </template>
@@ -383,28 +381,28 @@
             <div>{{ scope.row.spread_uid_nickname }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Sự cân bằng" prop="now_money" min-width="100" :sortable="true">
+        <el-table-column label="Số dư" prop="now_money" min-width="100" :sortable="true">
           <template slot-scope="scope">
             <div>{{ scope.row.now_money }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
             <template v-if="scope.row.is_del != 1">
               <a v-db-click @click="userDetail(scope.row)">Chi tiết</a>
 
               <el-divider direction="vertical"></el-divider>
               <el-dropdown size="small" @command="changeMenu(scope.row, $event, scope.$index)" :transfer="true">
-                <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
-                  <!-- <el-dropdown-item command="1">biên tập</el-dropdown-item> -->
+                  <!-- <el-dropdown-item command="1">Chỉnh sửa</el-dropdown-item> -->
                   <el-dropdown-item command="2">Sửa đổi số dư</el-dropdown-item>
                   <el-dropdown-item command="8">Sửa đổi điểm</el-dropdown-item>
                   <el-dropdown-item command="3">Quà tặng thành viên</el-dropdown-item>
-                  <!--                                <el-dropdown-item command="4" v-if="row.vip_name">mức độ rõ ràng</el-dropdown-item>-->
+                  <!--                                <el-dropdown-item command="4" v-if="row.vip_name">Mức độ rõ ràng</el-dropdown-item>-->
                   <el-dropdown-item command="5">Thiết lập nhóm</el-dropdown-item>
                   <el-dropdown-item command="6">Đặt nhãn</el-dropdown-item>
-                  <el-dropdown-item command="7">Sửa đổi trình quảng bá ưu việt</el-dropdown-item>
+                  <el-dropdown-item command="7">Đổi người giới thiệu</el-dropdown-item>
                   <el-dropdown-item command="99" v-if="scope.row.spread_uid">Rõ ràng các nhà quảng bá vượt trội</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -460,7 +458,7 @@
       </el-form>
       <div class="acea-row row-right mt20">
         <el-button v-db-click @click="cancel('formInline')">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="putSend('formInline')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="putSend('formInline')">Nộp</el-button>
       </div>
     </el-dialog>
     <el-dialog :visible.sync="customerShow" title="Vui lòng chọn một người dùng trung tâm mua sắm" :show-close="true" width="1000px">
@@ -488,7 +486,7 @@
         <userEdit ref="userEdit" v-if="modals" :userData="userData"></userEdit>
         <div class="fix_footer acea-row row-center">
           <el-button v-db-click @click="modals = false">Hủy bỏ</el-button>
-          <el-button type="primary" v-db-click @click="setUser">nộp</el-button>
+          <el-button type="primary" v-db-click @click="setUser">Nộp</el-button>
         </div>
       </div>
     </el-drawer>
@@ -582,7 +580,7 @@ export default {
       pickerOptions: this.$timeOptions,
       collapse: false,
       headeNum: [
-        { type: '', name: 'tất cả' },
+        { type: '', name: 'Tất cả' },
         { type: 'wechat', name: 'Tài khoản công khai WeChat' },
         { type: 'routine', name: 'Ứng dụng WeChat' },
         { type: 'h5', name: 'H5' },
@@ -1198,7 +1196,7 @@ export default {
     },
     // Nhận mẫu cân bằng điểm
     getOtherFrom(id, type) {
-      this.$modalForm(editOtherApi(id, type)).then(() => this.getList(1));
+      this.$modalForm(editOtherApi(id, type)).then(() => This.getList(1));
     },
     // Sửa đổi trạng thái
     onchangeIsShow(row) {

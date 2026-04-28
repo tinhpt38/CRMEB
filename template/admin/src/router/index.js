@@ -21,7 +21,7 @@ Vue.use(Router);
 // gỡ rối `element ui` Xảy ra lỗi khi bấm liên tục vào menu trên thanh điều hướng
 const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch((err) => err);
+  return originalPush.call(this, location).catch((err) => Err);
 };
 
 const originalReplace = Router.prototype.replace;
@@ -100,7 +100,7 @@ export function editRouterFun(to, from) {
     let route = to.matched[1].path.split(':')[0];
     store.state.menus.oneLvRoutes.map((e) => {
       if (route.indexOf(e.path) != -1) {
-        to.meta.title = `${to.params.id ? e.title + 'ID: ' + to.params.id : 'Thêm vào' + e.title}`;
+        to.meta.title = `${to.params.id ? e.title + 'ID: ' + to.params.id : 'Thêm mới' + e.title}`;
       }
     });
   }

@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="modals"
-      :title="listTitle === 'man' ? 'Thống kê danh sách các nhà quảng bá' : 'Đơn hàng khuyến mại'"
+      :title="ListTitle === 'man' ? 'Thống kê danh sách các nhà quảng bá' : 'Đơn hàng khuyến mại'"
       :close-on-click-modal="false"
       width="1000px"
       @closed="onCancel"
@@ -39,7 +39,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：" v-if="listTitle === 'man'">
+          <el-form-item label="Tìm kiếm：" v-if="listTitle === 'man'">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên và số điện thoại của bạn、UID"
@@ -56,7 +56,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -74,7 +74,7 @@
               <span>{{ scope.row.uid }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="hình đại diện" min-width="90">
+          <el-table-column label="Hình đại diện" min-width="90">
             <template slot-scope="scope">
               <div class="tabBox_img" v-viewer>
                 <img v-lazy="scope.row.avatar ? scope.row.avatar : require('../../../assets/images/moren.jpg')" />
@@ -101,7 +101,7 @@
               <span>{{ scope.row.order_count }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="thời gian ràng buộc" min-width="130">
+          <el-table-column label="Thời gian ràng buộc" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.spread_time | formatDate }}</span>
             </template>
@@ -118,7 +118,7 @@
               <span>{{ scope.row.user_info }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="thời gian" min-width="130">
+          <el-table-column label="Thời gian" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row._add_time }}</span>
             </template>
@@ -128,7 +128,7 @@
               <span>{{ scope.row.brokerage_price || 0 }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="Số tiền giảm giá của đơn vị kinh doanh" min-width="130" v-if="rowsList.division_type == 1">
+          <el-table-column label="Số tiền giảm giá của Đơn vị kinh doanh" min-width="130" v-if="rowsList.division_type == 1">
             <template slot-scope="scope">
               <span>{{ scope.row.division_brokerage || 0 }}</span>
             </template>
@@ -185,7 +185,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'Hôm qua', val: 'yesterday' },
           { text: '7 ngày qua', val: 'lately7' },
@@ -194,14 +194,14 @@ export default {
           { text: 'năm nay', val: 'year' },
         ],
         fromTxt2: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Người quảng bá cấp độ đầu tiên', val: 1 },
           { text: 'Nhà quảng bá cấp hai', val: 2 },
         ],
         fromTxt3: [
-          { text: 'tất cả', val: '' },
-          { text: 'Thứ tự quảng bá cấp độ đầu tiên', val: 1 },
-          { text: 'Thứ tự quảng cáo thứ cấp', val: 2 },
+          { text: 'Tất cả', val: '' },
+          { text: 'Đơn hàng quảng bá cấp độ đầu tiên', val: 1 },
+          { text: 'Đơn hàng quảng cáo thứ cấp', val: 2 },
           { text: 'Lệnh khuyến mãi của bộ phận kinh doanh', val: 3 },
           { text: 'Lệnh khuyến mãi đại lý', val: 4 },
         ],

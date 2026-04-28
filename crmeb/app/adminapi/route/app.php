@@ -124,7 +124,7 @@ Route::group('app', function () {
                 'create' => 'Nhận mẫu phân loại kỹ năng dịch vụ khách hàng',
                 'save' => 'Lưu danh mục kỹ năng dịch vụ khách hàng',
                 'edit' => 'Lấy biểu mẫu sửa đổi phân loại từ vựng dịch vụ khách hàng',
-                'update' => 'Sửa đổi phân loại kỹ năng nói dịch vụ khách hàng',
+                'update' => 'Sửa danh mục kỹ năng nói dịch vụ khách hàng',
                 'delete' => 'Xóa danh mục kỹ năng dịch vụ khách hàng'
             ]
         ]);

@@ -7,7 +7,7 @@
         class="sysTitle acea-row row-center-wrapper"
         :style="{ height: getHeight.barHeight + 'px' }"
       >
-        <view>Quản lý người dùng</view>
+        <view>Quản lý khách hàng</view>
         <text class="iconfont icon-ic_leftarrow" @click="goarrow"></text>
       </view>
     </view>
@@ -94,7 +94,7 @@
               <view class="phone">{{ item.phone }}</view>
               <view class="info acea-row row-middle">
                 <view
-                  >tích phân：<text>{{ item.integral }}</text></view
+                  >điểm thưởng：<text>{{ item.integral }}</text></view
                 >
                 <view
                   >THĂNG BẰNG：<text>{{ item.now_money }}</text></view
@@ -128,7 +128,7 @@
           activeBackgroundColor="#2A7EFB"
           activeBorderColor="#2A7EFB"
         />
-        <text class="checkAll">Chọn tất cả({{ getIds().length }})</text>
+        <text class="checkAll">Chọn Tất cả({{ getIds().length }})</text>
       </checkbox-group>
       <view class="acea-row row-middle">
         <view class="bnt acea-row row-center-wrapper">
@@ -144,7 +144,7 @@
           >Thêm thẻ</view
         >
         <view class="bnt acea-row row-center-wrapper" @click="sendCoupon"
-          >Gửi phiếu giảm giá</view
+          >Tặng mã giảm giá</view
         >
       </view>
     </view>

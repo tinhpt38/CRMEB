@@ -4,8 +4,8 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right" v-if="cardShow == 1 || cardShow == 2">
-          <el-button class="bnt" type="primary" v-db-click @click="submit" :loading="loadingExist">cứu</el-button>
-          <el-button v-if="cardShow == 1" class="bnt ml20" v-db-click @click="reast">cài lại</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="submit" :loading="loadingExist">Lưu</el-button>
+          <el-button v-if="cardShow == 1" class="bnt ml20" v-db-click @click="reast">Đặt lại</el-button>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
             no-userFrom-text="Chưa có dữ liệu"
             no-filtered-userFrom-text="Chưa có kết quả lọc nào"
           >
-            <el-table-column label="trangID" width="80">
+            <el-table-column label="TrangID" width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.id }}</span>
               </template>
@@ -52,9 +52,9 @@
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="loại mẫu" min-width="130">
+            <el-table-column label="Loại mẫu" min-width="130">
               <template slot-scope="scope">
-                <el-tag type="success" size="medium" v-if="scope.row.status == 1">trang đầu</el-tag>
+                <el-tag type="success" size="medium" v-if="scope.row.status == 1">Trang đầu</el-tag>
                 <el-tag type="info" size="medium" v-else class="mr10">Trang chủ đề</el-tag>
               </template>
             </el-table-column>
@@ -68,7 +68,7 @@
                 <span>{{ scope.row.update_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="210">
+            <el-table-column label="Thao tác" fixed="right" width="210">
               <template slot-scope="scope">
                 <div
                   style="display: inline-block"
@@ -84,9 +84,9 @@
                       scope.row.template_name || 'moren'
                     }`"
                   >
-                    biên tập</a
+                    Biên tập</a
                   >
-                  <a v-else class="target">biên tập</a>
+                  <a v-else class="target">Chỉnh sửa</a>
                 </div>
                 <el-divider
                   direction="vertical"
@@ -94,7 +94,7 @@
                 />
 
                 <div style="display: inline-block" v-if="scope.row.id != 1 && scope.row.status != 1">
-                  <a v-db-click @click="del(scope.row, 'Xóa mẫu này', scope.$index)">xóa bỏ</a>
+                  <a v-db-click @click="del(scope.row, 'Xóa mẫu này', scope.$index)">Xóa</a>
                 </div>
                 <el-divider
                   direction="vertical"
@@ -152,7 +152,7 @@
         </el-card>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">Nộp</el-button>
       </span>
     </el-dialog>
     <el-dialog :visible.sync="modal" width="540px" title="Xem trước">
@@ -203,7 +203,7 @@ export default {
           id: 1,
         },
         {
-          name: 'Phân loại sản phẩm',
+          name: 'Danh mục sản phẩm',
           id: 2,
         },
         {
@@ -445,7 +445,7 @@ export default {
     // xóa bỏ
     del(row) {
       let delfromData = {
-        title: 'xóa bỏ',
+        title: 'Xóa',
         num: 2000,
         url: 'diy/del/' + row.id,
         method: 'DELETE',

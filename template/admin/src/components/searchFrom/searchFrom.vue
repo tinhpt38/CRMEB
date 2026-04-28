@@ -20,7 +20,7 @@
         </el-col>
         <el-col :span="24" class="ivu-text-left">
           <el-col v-bind="grid">
-            <el-form-item label="thời gian sáng tạo：">
+            <el-form-item label="Thời gian Tạo mới：">
               <el-radio-group v-model="DataList.data" type="button" @input="timeChange(DataList.data)">
                 <el-radio-button label="today">Hôm nay</el-radio-button>
                 <el-radio-button label="yesterday">Hôm qua</el-radio-button>
@@ -45,13 +45,13 @@
           </el-col>
         </el-col>
         <el-col :span="24" class="ivu-text-left" v-if="$route.path === routePro + '/echarts/trade/order'">
-          <el-form-item label="Loại lệnh：">
+          <el-form-item label="Loại đơn hàng：">
             <el-radio-group v-model="currentTab" type="button" @input="onClickTab(currentTab)">
-              <el-radio-button label="">tất cả</el-radio-button>
-              <el-radio-button label="1">bình thường</el-radio-button>
+              <el-radio-button label="">Tất cả</el-radio-button>
+              <el-radio-button label="1">Bình thường</el-radio-button>
               <el-radio-button v-permission="'combination'" label="2">Chia sẻ nhóm</el-radio-button>
               <el-radio-button v-permission="'bargain'" label="3">Mặc cả</el-radio-button>
-              <el-radio-button v-permission="'seckill'" label="4">bán chớp nhoáng</el-radio-button>
+              <el-radio-button v-permission="'seckill'" label="4">Bán chớp nhoáng</el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-col>

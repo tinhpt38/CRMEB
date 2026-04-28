@@ -51,7 +51,7 @@
 					</view>
 					<view class="item-btn">
 						<view class="change" @click="changeData(item)">{{ $t(`Sửa đổi tỷ lệ hoa hồng`) }}</view>
-						<view class="clear" @click="clear(item, index)">{{ $t(`xóa bỏ`) }}</view>
+						<view class="clear" @click="clear(item, index)">{{ $t(`Xóa`) }}</view>
 					</view>
 				</block>
 			</view>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card :bordered="false" shadow="never" class="save_from ivu-mt">
-      <el-button type="primary" v-db-click @click="add">{{ 'Thêm vào' + $route.meta.title }}</el-button>
+      <el-button type="primary" v-db-click @click="add">{{ 'Thêm mới' + $route.meta.title }}</el-button>
       <el-table
         :data="tabList"
         ref="table"
@@ -16,7 +16,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên thẻ" min-width="130">
+        <el-table-column label="Tên thẻ" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
@@ -26,11 +26,11 @@
             <span>{{ scope.row.count }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa thẻ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa thẻ', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

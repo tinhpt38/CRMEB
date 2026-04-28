@@ -21,7 +21,7 @@
       <!--  Vận chuyển được điền thủ công  -->
       <div v-if="formValidate.gender == 1 && formValidate.shipStatus == 1" :key="'test1'">
         <el-form-item
-          label="công ty chuyển phát nhanh："
+          label="Công ty chuyển phát nhanh："
           prop="logisticsCode"
           class="form-item"
           label-position="right"
@@ -54,7 +54,7 @@
       <!--  In biểu mẫu điện tử  -->
       <div v-if="formValidate.gender == 1 && formValidate.shipStatus == 2" :key="'test2'">
         <el-form-item
-          label="công ty chuyển phát nhanh："
+          label="Công ty chuyển phát nhanh："
           prop="logisticsCode"
           class="form-item"
           label-position="right"
@@ -137,7 +137,7 @@
         </el-form-item>
       </div>
       <div class="mask-footer">
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">Nộp</el-button>
         <el-button v-db-click @click="close">Hủy bỏ</el-button>
       </div>
     </el-form>

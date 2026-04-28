@@ -58,7 +58,7 @@ class OrderShippingListener implements ListenerInterface
             } else if ($order_type == 'recharge') {  // Lệnh nạp tiền
                 if ($order['recharge_type'] == 'weixin') {
                     $delivery_type = 3;
-                    $item_desc = 'Nạp tiền người dùng' . $order['price'];
+                    $item_desc = 'Nạp tiền vào ví' . $order['price'];
                     $out_trade_no = $order['order_id'];
                     $pay_uid = $order['uid'];
                     $secs = 10;

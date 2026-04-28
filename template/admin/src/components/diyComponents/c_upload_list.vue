@@ -69,8 +69,7 @@
           style="width: 100%; height: 40px; border-color: var(--prev-color-primary); color: var(--prev-color-primary)"
           v-db-click
           @click="addBox"
-          >thêm hình ảnh
-        </el-button>
+          >Thêm hình ảnh</el-button>
       </div>
     </template>
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>

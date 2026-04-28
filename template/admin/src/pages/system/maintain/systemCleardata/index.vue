@@ -57,7 +57,7 @@ export default {
       tabList: [
         {
           title: 'Thay đổi tên miền',
-          tlt: 'Thay thế tất cả tên miền hình ảnh được tải lên cục bộ',
+          tlt: 'Thay thế Tất cả tên miền hình ảnh được tải lên cục bộ',
           typeName: 'primary',
           type: '11',
         },
@@ -81,19 +81,19 @@ export default {
         },
         {
           title: 'Xóa dữ liệu cửa hàng',
-          tlt: 'Xóa tất cả dữ liệu trung tâm mua sắm và tiến hành thận trọng',
+          tlt: 'Xóa Tất cả dữ liệu trung tâm mua sắm và tiến hành thận trọng',
           typeName: 'error',
           type: 'store',
         },
         {
           title: 'Xóa danh mục sản phẩm',
-          tlt: 'Tất cả các danh mục sản phẩm sẽ bị xóa, vui lòng vận hành thận trọng',
+          tlt: 'Tất cả các danh mục sản phẩm sẽ bị xóa, vui lòng Thao tác thận trọng',
           typeName: 'error',
           type: 'category',
         },
         {
           title: 'Xóa dữ liệu đơn hàng',
-          tlt: 'Xóa tất cả dữ liệu đặt hàng của người dùng, vận hành thận trọng',
+          tlt: 'Xóa Tất cả dữ liệu đặt hàng của người dùng, Thao tác thận trọng',
           typeName: 'error',
           type: 'order',
         },
@@ -116,8 +116,8 @@ export default {
           type: 'article',
         },
         {
-          title: 'Xóa tất cả tệp đính kèm',
-          tlt: 'Xóa tất cả các tệp đính kèm do người dùng tạo và tải lên trong nền,Tiến hành thận trọng',
+          title: 'Xóa Tất cả tệp đính kèm',
+          tlt: 'Xóa Tất cả các tệp đính kèm do người dùng tạo và tải lên trong nền,Tiến hành thận trọng',
           typeName: 'error',
           type: 'attachment',
         },

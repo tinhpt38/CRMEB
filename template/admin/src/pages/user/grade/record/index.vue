@@ -36,7 +36,7 @@
               style="width: 250px"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên người dùng để tìm kiếm"
@@ -45,7 +45,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -64,12 +64,12 @@
             <span>{{ scope.row.order_id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên người dùng" min-width="80">
+        <el-table-column label="Tên người dùng" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.user.nickname }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="số điện thoại" min-width="80">
+        <el-table-column label="Số điện thoại" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.user.phone || '--' }}</span>
           </template>
@@ -154,7 +154,7 @@ export default {
         },
         {
           val: 'yue',
-          label: 'Sự cân bằng',
+          label: 'Số dư',
         },
         {
           val: 'weixin',

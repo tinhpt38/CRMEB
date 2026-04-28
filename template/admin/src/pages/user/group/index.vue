@@ -25,11 +25,11 @@
             <span>{{ scope.row.group_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="vận hành" width="100">
+        <el-table-column fixed="right" label="Thao tác" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">Ôn lại</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa nhóm', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa nhóm', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

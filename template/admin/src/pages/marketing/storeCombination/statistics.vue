@@ -29,7 +29,7 @@
             <el-option value="4" label="giao dịch đã hoàn tất"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="tìm kiếm：" label-for="title">
+        <el-form-item label="Tìm kiếm：" label-for="title">
           <el-input
             v-model="pagination.real_name"
             :placeholder="type == 1 ? 'Vui lòng nhập người dùng|Số đơn hàng|UID' : 'Vui lòng nhập tên người dùng|UID'"
@@ -38,7 +38,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-db-click @click="searchList">Truy vấn</el-button>
+          <el-button type="primary" v-db-click @click="searchList">Tìm kiếm</el-button>
         </el-form-item>
       </el-form>
       <el-tabs v-model="type" @tab-click="onClickTab">
@@ -53,7 +53,7 @@
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column
-          :label="item.title"
+          :label="Item.title"
           :min-width="item.minWidth"
           v-for="(item, index) in type == 1 ? thead2 : thead"
           :key="index"
@@ -73,12 +73,12 @@
               <span> {{ scope.row.count_people + ' / ' + scope.row.people }}</span>
             </template>
             <template v-else-if="item.slot === 'status'">
-              <el-tag type="info" v-show="scope.row.status === 1">đang tiến hành</el-tag>
-              <el-tag type="danger" v-show="scope.row.status === 3">thất bại</el-tag>
-              <el-tag v-show="scope.row.status === 2">thành công</el-tag>
+              <el-tag type="info" v-show="scope.row.status === 1">Đang tiến hành</el-tag>
+              <el-tag type="danger" v-show="scope.row.status === 3">Thất bại</el-tag>
+              <el-tag v-show="scope.row.status === 2">Thành công</el-tag>
             </template>
             <template v-else-if="item.slot === 'action'">
-              <a v-db-click @click="Info(scope.row)">kiểm tra chi tiết</a>
+              <a v-db-click @click="Info(scope.row)">Kiểm tra chi tiết</a>
             </template>
           </template>
         </el-table-column>
@@ -94,7 +94,7 @@
       </div>
     </el-card>
     <!-- Hộp phương thức chi tiết-->
-    <el-dialog :visible.sync="modals" class="tableBox" title="kiểm tra chi tiết" :close-on-click-modal="false" width="750px">
+    <el-dialog :visible.sync="modals" class="tableBox" title="Kiểm tra chi tiết" :close-on-click-modal="false" width="750px">
       <el-table
         ref="selection"
         :data="tabList3"
@@ -121,7 +121,7 @@
             <span> {{ scope.row.nickname + ' / ' + scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="số thứ tự" min-width="130">
+        <el-table-column label="Số thứ tự" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.order_id }}</span>
           </template>
@@ -175,7 +175,7 @@ export default {
         },
         {
           type: '1',
-          label: 'Thứ tự hoạt động',
+          label: 'Đơn hàng hoạt động',
         },
       ],
       currentTab: 0,
@@ -206,7 +206,7 @@ export default {
           slot: 'status',
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
         },
       ],
@@ -236,7 +236,7 @@ export default {
           key: 'add_time',
         },
         {
-          title: 'thời gian thanh toán',
+          title: 'Thời gian thanh toán',
           key: 'pay_time',
         },
       ],

@@ -43,7 +43,7 @@
               icon="md-add"
               v-db-click
               @click="add"
-              >thêm phiếu giảm giá</el-button
+              >Thêm phiếu giảm giá</el-button
             >
           </el-col>
         </el-row>
@@ -72,7 +72,7 @@
             <span>{{ scope.row.type }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="mệnh giá" min-width="130">
+        <el-table-column label="Mệnh giá" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
@@ -82,12 +82,12 @@
             <span>{{ scope.row.use_min_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Thời hạn hiệu lực(bầu trời)" min-width="130">
+        <el-table-column label="Thời hạn hiệu lực(ngày)" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại" min-width="130">
+        <el-table-column label="Loại" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
@@ -103,7 +103,7 @@
             <span> {{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
             <a v-db-click @click="couponInvalid(scope.row, 'Sửa đổi phiếu giảm giá', index)" v-if="scope.row.status">Không hợp lệ ngay lập tức</a>
             <el-divider direction="vertical" v-if="scope.row.status" />
@@ -112,10 +112,10 @@
               @click="couponSend(scope.row)"
               v-if="scope.row.status"
               v-auth="['admin-marketing-store_coupon-push']"
-              >giải phóng</a
+              >Giải phóng</a
             >
             <el-divider direction="vertical" v-if="scope.row.status" />
-            <a v-db-click @click="couponDel(scope.row, 'Xóa phiếu giảm giá', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="couponDel(scope.row, 'Xóa phiếu giảm giá', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -187,7 +187,7 @@ export default {
           minWidth: 100,
         },
         {
-          title: 'Thời hạn hiệu lực(bầu trời)',
+          title: 'Thời hạn hiệu lực(ngày)',
           key: 'coupon_time',
           minWidth: 120,
         },
@@ -207,7 +207,7 @@ export default {
           minWidth: 150,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 170,

@@ -11,11 +11,11 @@
     </div>
     <div class="user-list">
       <div class="acea-row item bgt">
-        <span class="sp1">Thẻ người dùng</span>
+        <span class="sp1">Thẻ khách hàng</span>
         <div class="labelBox" v-if="activeUserInfo.labelNames.length">
           <span class="label" v-for="(item, index) in activeUserInfo.labelNames" :key="index">{{ item }}</span>
         </div>
-        <span v-else class="labelBox">không có</span>
+        <span v-else class="labelBox">Không có</span>
         <span class="iconfontYI icon-up" v-db-click @click="onShowLabel"></span>
       </div>
       <div class="acea-row item bgt">
@@ -31,7 +31,7 @@
           v-db-click
           @click="showName"
         ></span>
-        <span v-else v-db-click @click="showName">không có</span>
+        <span v-else v-db-click @click="showName">Không có</span>
         <vue-pickers
           :data="groupList"
           v-if="groupList.length"
@@ -45,7 +45,7 @@
     </div>
     <div class="user-list">
       <div class="acea-row item bgt">
-        <span class="sp1">Cấp độ người dùng</span>
+        <span class="sp1">Hạng khách hàng</span>
         <span class="sp2" v-text="activeUserInfo.level_name ? activeUserInfo.level_name : 'không có'"></span>
       </div>
       <div class="acea-row item bgt">
@@ -53,11 +53,11 @@
         <span class="sp2">{{ activeUserInfo.user_type | userType }}</span>
       </div>
       <div class="acea-row item bgt">
-        <span class="sp1">Sự cân bằng</span>
+        <span class="sp1">Số dư</span>
         <span class="sp2" v-text="activeUserInfo.now_money || 'không có'"></span>
       </div>
       <div class="acea-row item bgt">
-        <span class="sp1">người quảng bá</span>
+        <span class="sp1">Người quảng bá</span>
         <span class="sp2" v-text="activeUserInfo.is_promoter === 1 ? 'Đúng' : 'KHÔNG'"></span>
       </div>
       <div class="acea-row item">

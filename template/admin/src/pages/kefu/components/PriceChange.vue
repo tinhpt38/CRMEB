@@ -2,7 +2,7 @@
   <div>
     <div class="priceChange" :class="change === true ? 'on' : ''">
       <div class="priceTitle">
-        {{ status === 0 ? (orderInfo.refund_status === 1 ? 'Hoàn tiền ngay lập tức' : 'Thay đổi giá chỉ bằng một cú nhấp chuột') : 'Ghi chú đặt hàng' }}
+        {{ status === 0 ? (orderInfo.refund_status === 1 ? 'Hoàn tiền ngay lập tức' : 'Thay đổi giá chỉ bằng một cú nhấp chuột') : 'Ghi chú đơn hàng' }}
         <span class="iconfontYI icon-guanbi" v-db-click @click="close"></span>
       </div>
       <div class="listChange" v-if="status === 0">
@@ -11,17 +11,17 @@
           <div class="money">{{ orderInfo.total_price }}<span class="iconfontYI icon-suozi"></span></div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 0">
-          <div>bưu phí gốc(¥)</div>
+          <div>Bưu phí gốc(¥)</div>
           <div class="money">{{ orderInfo.pay_postage }}<span class="iconfontYI icon-suozi"></span></div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 0">
-          <div>thanh toán thực tế(¥)</div>
+          <div>Thanh toán thực tế(¥)</div>
           <div class="money">
             <input type="text" v-model="price" :class="focus === true ? 'on' : ''" @focus="priceChange" />
           </div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 1">
-          <div>thanh toán thực tế(¥)</div>
+          <div>Thanh toán thực tế(¥)</div>
           <div class="money">{{ orderInfo.pay_price }}<span class="iconfontYI icon-suozi"></span></div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 1">
@@ -185,7 +185,7 @@ export default {
 };
 </script>
 <style scoped>
-input {
+Input {
   display: block;
   height: 100%;
   background: none;

@@ -148,7 +148,7 @@
           class="coupon"
           v-if="dataConfig.checkboxInfo.type.includes(1) && couponList.length"
         >
-          <view class="title">{{ $t(`Phiếu giảm giá độc quyền`) }}</view>
+          <view class="title">{{ $t(`Mã giảm giá độc quyền`) }}</view>
           <view class="content acea-row" :style="[couponContentStyle]">
             <scroll-view scroll-x="true">
               <view class="list acea-row">
@@ -179,15 +179,15 @@
                   >
                     <view class="name" :style="[couponTypeStyle]">
                       <text v-if="item.coupon_type == 1">{{
-                        $t(`Phiếu giảm giá danh mục`)
+                        $t(`Mã giảm giá danh mục`)
                       }}</text>
                       <text v-else-if="item.coupon_type == 2">{{
-                        $t(`phiếu giảm giá hàng hóa`)
+                        $t(`phiếu giảm giá sản phẩm`)
                       }}</text>
                       <text v-else-if="item.coupon_type == 3">{{
-                        $t(`Phiếu giảm giá thương hiệu`)
+                        $t(`Mã giảm giá thương hiệu`)
                       }}</text>
-                      <text v-else>{{ $t(`Phiếu giảm giá phổ quát`) }}</text>
+                      <text v-else>{{ $t(`Mã giảm giá phổ quát`) }}</text>
                     </view>
                     <view v-if="item.use_min_price" class="info"
                       >{{ $t(`Đầy`) }}{{ item.use_min_price
@@ -202,7 +202,7 @@
               <view class="money"
                 >{{ $t(`¥`) }}<text class="number">{{ totalPrice }}</text></view
               >
-              <view class="info">{{ $t(`Phiếu giảm giá độc quyền cho người mới`) }}</view>
+              <view class="info">{{ $t(`Mã giảm giá độc quyền cho người mới`) }}</view>
               <view class="button" :style="[buttonStyle]" @click="goUser">{{
                 $t(`Nhận nó với một cú nhấp chuột`)
               }}</view>

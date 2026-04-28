@@ -34,7 +34,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="hình đại diện" min-width="90">
+        <el-table-column label="Hình đại diện" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.avatar" />
@@ -61,7 +61,7 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="150">
+        <el-table-column label="Trạng thái" min-width="150">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -71,17 +71,17 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row.id, scope.row.status)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">biên tập</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa người đánh giá', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa người đánh giá', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

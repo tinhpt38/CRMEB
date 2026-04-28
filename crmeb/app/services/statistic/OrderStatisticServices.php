@@ -157,7 +157,7 @@ class OrderStatisticServices extends BaseServices
         /** @var StoreOrderServices $orderService */
         $orderService = app()->make(StoreOrderServices::class);
 
-        $bing_xdata = ['Thứ tự thông thường', 'Đơn hàng flash sale', 'lệnh mặc cả', 'Thứ tự nhóm', 'Đặt hàng trước khi bán'];
+        $bing_xdata = ['Đơn hàng thông thường', 'Đơn hàng Flash Sale', 'Đơn hàng mặc cả', 'Đơn hàng mua chung', 'Đơn đặt trước'];
         $model_checkbox = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];
         $bing_data = [];

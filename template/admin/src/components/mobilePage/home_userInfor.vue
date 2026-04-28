@@ -41,19 +41,19 @@
       <div class="right acea-row row-bottom">
         <div class="item" v-if="checkType.slice(0, 3).indexOf(1) != -1">
           <div class="num">20</div>
-          <div>tích phân</div>
+          <div>Điểm thưởng</div>
         </div>
         <div class="item" v-if="checkType.slice(0, 3).indexOf(2) != -1">
           <div class="num">200</div>
-          <div>Sự cân bằng</div>
+          <div>Số dư</div>
         </div>
         <div class="item" v-if="checkType.slice(0, 3).indexOf(0) != -1">
           <div class="num">2</div>
-          <div>Phiếu giảm giá</div>
+          <div>Mã giảm giá</div>
         </div>
         <div class="item" v-if="checkType.slice(0, 3).indexOf(4) != -1">
           <div class="num">80</div>
-          <div>sưu tầm</div>
+          <div>Sưu tầm</div>
         </div>
         <div class="item" v-if="checkType.slice(0, 3).indexOf(5) != -1">
           <div class="num">80</div>
@@ -103,16 +103,16 @@
       </div>
       <div class="list acea-row row-around">
         <div class="item" v-if="checkType.indexOf(1) != -1">
-          <div>tích phân<span class="num">20000</span></div>
+          <div>Điểm thưởng<span class="num">20000</span></div>
         </div>
         <div class="item" v-if="checkType.indexOf(2) != -1">
-          <div>Sự cân bằng<span class="num">200</span></div>
+          <div>Số dư<span class="num">200</span></div>
         </div>
         <div class="item" v-if="checkType.indexOf(0) != -1">
-          <div>Phiếu giảm giá<span class="num">2</span></div>
+          <div>Mã giảm giá<span class="num">2</span></div>
         </div>
         <div class="item" v-if="checkType.indexOf(4) != -1">
-          <div>sưu tầm<span class="num">80</span></div>
+          <div>Sưu tầm<span class="num">80</span></div>
         </div>
         <div class="item" v-if="checkType.indexOf(5) != -1">
           <div>Duyệt qua<span class="num">80</span></div>
@@ -266,11 +266,11 @@ export default {
           list: [
             {
               id: 1,
-              name: 'tích phân',
+              name: 'điểm thưởng',
             },
             {
               id: 2,
-              name: 'Sự cân bằng',
+              name: 'Số dư',
             },
             {
               id: 4,
@@ -278,7 +278,7 @@ export default {
             },
             {
               id: 0,
-              name: 'Phiếu giảm giá',
+              name: 'Mã giảm giá',
             },
             {
               id: 5,
@@ -394,7 +394,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

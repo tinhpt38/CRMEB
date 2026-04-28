@@ -13,7 +13,7 @@
       </div>
       <div style="text-align: center" v-if="rCom.length">
         <el-button type="primary" style="width: 100%; margin: 0 auto; height: 40px" v-db-click @click="saveConfig"
-          >cứu</el-button
+          >Lưu</el-button
         >
       </div>
     </div>

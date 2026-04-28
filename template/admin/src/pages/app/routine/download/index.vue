@@ -198,7 +198,7 @@ export default {
   font-size: 16px;
   font-weight: bold;
 }
-.content-box > span {
+.content-box > Span {
   color: #f5222d;
   font-size: 20px;
 }

@@ -58,7 +58,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Biệt danh/tên/tài khoản Alipay/số thẻ ngân hàng của WeChat"
@@ -67,7 +67,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -75,7 +75,7 @@
     <cards-data :cardLists="cardLists" v-if="extractStatistics"></cards-data>
     <el-card :bordered="false" shadow="never">
       <router-link :to="$routeProStr + '/finance/finance/commission'">
-        <el-button type="primary">hồ sơ ủy ban</el-button>
+        <el-button type="primary">Hồ sơ ủy ban</el-button>
       </router-link>
       <el-table ref="table" :data="tabList" v-loading="loading" empty-text="Chưa có dữ liệu" class="mt14">
         <el-table-column label="ID" width="80">
@@ -87,7 +87,7 @@
           <template slot-scope="scope">
             <div>
               Biệt hiệu của người dùng: {{ scope.row.nickname }} <br />
-              người dùngid:{{ scope.row.uid }}
+              Người dùngid:{{ scope.row.uid }}
             </div>
           </template>
         </el-table-column>
@@ -114,7 +114,7 @@
               <div class="item">Địa chỉ tài khoản ngân hàng:{{ scope.row.bank_address }}</div>
             </div>
             <div class="type" v-if="scope.row.extract_type === 'weixin'">
-              <div class="item">biệt danh:{{ scope.row.nickname }}</div>
+              <div class="item">Biệt danh:{{ scope.row.nickname }}</div>
               <div class="item">ID WeChat:{{ scope.row.wechat }}</div>
             </div>
             <div class="type" v-if="scope.row.extract_type === 'alipay'">
@@ -160,13 +160,13 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope" v-if="scope.row.status == 0">
-            <a href="javascript:void(0);" v-db-click @click="edit(scope.row)">biên tập</a>
+            <a href="javascript:void(0);" v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a class="item" v-db-click @click="adopt(scope.row, 'Tán thành', index)">vượt qua</a>
+            <a class="item" v-db-click @click="adopt(scope.row, 'Tán thành', index)">Vượt qua</a>
             <el-divider direction="vertical"></el-divider>
-            <a class="item" v-db-click @click="invalid(scope.row)">từ chối</a>
+            <a class="item" v-db-click @click="invalid(scope.row)">Từ chối</a>
           </template>
         </el-table-column>
       </el-table>
@@ -226,7 +226,7 @@ export default {
       treeData: {
         withdrawal: [
           {
-            title: 'tất cả',
+            title: 'Tất cả',
             value: '',
           },
           {
@@ -244,7 +244,7 @@ export default {
         ],
         payment: [
           {
-            title: 'tất cả',
+            title: 'Tất cả',
             value: '',
           },
           {

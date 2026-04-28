@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <el-drawer :visible.sync="modals" title="Chi tiết người dùng" :wrapperClosable="false" :size="1100" @closed="draChange">
+    <el-drawer :visible.sync="modals" title="Chi tiết khách hàng" :wrapperClosable="false" :size="1100" @closed="draChange">
       <div class="acea-row head">
         <div class="avatar mr15"><img :src="psInfo.avatar" /></div>
         <div class="dashboard-workplace-header-tip">
@@ -12,9 +12,9 @@
           </div>
         </div>
         <div class="edit-btn" v-if="!this.psInfo.is_del">
-          <el-button v-if="!isEdit" type="primary" v-db-click @click="edit">biên tập</el-button>
+          <el-button v-if="!isEdit" type="primary" v-db-click @click="edit">Chỉnh sửa</el-button>
           <el-button v-if="isEdit" v-db-click @click="edit">Hủy bỏ</el-button>
-          <el-button v-if="isEdit" type="primary" v-db-click @click="editSave">cứu</el-button>
+          <el-button v-if="isEdit" type="primary" v-db-click @click="editSave">Lưu</el-button>
         </div>
       </div>
       <el-row justify="space-between" class="mt14">
@@ -35,7 +35,7 @@
                   no-userFrom-text="Chưa có dữ liệu"
                   no-filtered-userFrom-text="Chưa có kết quả lọc nào"
                 >
-                  <el-table-column :label="item.title" min-width="120" v-for="(item, index) in columns" :key="index">
+                  <el-table-column :label="Item.title" min-width="120" v-for="(item, index) in columns" :key="index">
                     <template slot-scope="scope">
                       <template v-if="item.key">
                         <div>
@@ -85,12 +85,12 @@ export default {
       isEdit: false,
       theme2: 'light',
       list: [
-        { val: 'order', label: 'Kỷ lục tiêu thụ' },
+        { val: 'order', label: 'Lịch sử mua hàng' },
         { val: 'integral', label: 'Chi tiết điểm' },
-        { val: 'sign', label: 'Bản ghi đăng nhập' },
-        { val: 'coupon', label: 'giữ phiếu giảm giá' },
+        { val: 'sign', label: 'Lịch sử đăng nhập nhập' },
+        { val: 'coupon', label: 'Mã giảm giá' },
         { val: 'balance_change', label: 'Thay đổi số dư' },
-        { val: 'spread', label: 'Tình bạn' },
+        { val: 'spread', label: 'Người giới thiệu' },
       ],
       modals: false,
       spinShow: false,
@@ -174,7 +174,7 @@ export default {
                     minWidth: 160,
                   },
                   {
-                    title: 'người nhận hàng',
+                    title: 'Người nhận hàng',
                     key: 'real_name',
                     minWidth: 100,
                   },
@@ -261,7 +261,7 @@ export default {
                     minWidth: 120,
                   },
                   {
-                    title: 'Thời hạn hiệu lực(bầu trời)',
+                    title: 'Thời hạn hiệu lực(ngày)',
                     key: 'coupon_time',
                     minWidth: 120,
                   },
@@ -290,7 +290,7 @@ export default {
                     minWidth: 120,
                   },
                   {
-                    title: 'thời gian sáng tạo',
+                    title: 'Thời gian tạo',
                     key: 'add_time',
                     minWidth: 120,
                   },

@@ -41,7 +41,7 @@ export default {
       name: `${pre}tag`,
       meta: {
         auth: ['wechat-wechat-user-tag'],
-        title: 'Thẻ người dùng',
+        title: 'Thẻ khách hàng',
       },
       component: () => import('@/pages/app/wechat/user/tag'),
     },
@@ -50,7 +50,7 @@ export default {
       name: `${pre}group`,
       meta: {
         auth: ['wechat-wechat-user-group'],
-        title: 'Nhóm người dùng',
+        title: 'Nhóm khách hàng',
       },
       component: () => import('@/pages/app/wechat/user/tag'),
     },

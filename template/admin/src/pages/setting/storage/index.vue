@@ -40,15 +40,15 @@
             <p v-if="currentTab == 7">
               Hướng dẫn kích hoạt Tianyi Cloud COS: <a href="https://doc.crmeb.com/single/v5/8524" target="_blank">Xem ngay</a>
             </p>
-            <p>Bước 1: Thêm <b>không gian lưu trữ</b> (tên không được trùng).</p>
-            <p>Bước 2: Bật <b>trạng thái sử dụng</b>.</p>
+            <p>Bước 1: Thêm <b>Không gian lưu trữ</b> (tên không được trùng).</p>
+            <p>Bước 2: Bật <b>Trạng thái sử dụng</b>.</p>
             <template v-if="currentTab == 2">
-              <p>Bước 3 (bắt buộc): Chọn chỉnh sửa <b>thao tác tên miền</b> trong danh sách cloud storage.</p>
-              <p>Bước 4 (bắt buộc): Mở <b>cấu hình CNAME</b>, sao chép giá trị record và cấu hình trên nền tảng DNS tương ứng.</p>
+              <p>Bước 3 (bắt buộc): Chọn chỉnh sửa <b>Thao tác tên miền</b> Trong danh sách cloud storage.</p>
+              <p>Bước 4 (bắt buộc): Mở <b>Cấu hình CNAME</b>, sao chép giá trị record và cấu hình trên nền tảng DNS tương ứng.</p>
             </template>
             <template v-else>
-              <p>Bước 3 (tùy chọn): Chọn chỉnh sửa <b>thao tác tên miền</b> trong danh sách cloud storage.</p>
-              <p>Bước 4 (tùy chọn): Mở <b>cấu hình CNAME</b>, sao chép giá trị record và cấu hình trên nền tảng DNS tương ứng.</p>
+              <p>Bước 3 (tùy chọn): Chọn chỉnh sửa <b>Thao tác tên miền</b> Trong danh sách cloud storage.</p>
+              <p>Bước 4 (tùy chọn): Mở <b>Cấu hình CNAME</b>, sao chép giá trị record và cấu hình trên nền tảng DNS tương ứng.</p>
             </template>
           </template>
         </el-alert>
@@ -109,7 +109,7 @@
                       v-model="formValidate.thumb_big_width"
                       placeholder="Nhập chiều rộng"
                     >
-                      <span slot="append">px</span>
+                      <span slot="append">Px</span>
                     </el-input>
                   </el-form-item>
                   <el-form-item label="Cao:">
@@ -119,7 +119,7 @@
                       v-model="formValidate.thumb_big_height"
                       placeholder="Nhập chiều cao"
                     >
-                      <span slot="append">px</span>
+                      <span slot="append">Px</span>
                     </el-input>
                   </el-form-item>
                 </div>
@@ -139,7 +139,7 @@
                       v-model="formValidate.thumb_mid_width"
                       placeholder="Nhập chiều rộng"
                     >
-                      <span slot="append">px</span>
+                      <span slot="append">Px</span>
                     </el-input>
                   </el-form-item>
                   <el-form-item label="Cao:">
@@ -149,7 +149,7 @@
                       v-model="formValidate.thumb_mid_height"
                       placeholder="Nhập chiều cao"
                     >
-                      <span slot="append">px</span>
+                      <span slot="append">Px</span>
                     </el-input>
                   </el-form-item>
                 </div>
@@ -169,7 +169,7 @@
                       v-model="formValidate.thumb_small_width"
                       placeholder="Nhập chiều rộng"
                     >
-                      <span slot="append">px</span>
+                      <span slot="append">Px</span>
                     </el-input>
                   </el-form-item>
                   <el-form-item label="Cao:">
@@ -179,7 +179,7 @@
                       v-model="formValidate.thumb_small_height"
                       placeholder="Nhập chiều cao"
                     >
-                      <span slot="append">px</span>
+                      <span slot="append">Px</span>
                     </el-input>
                   </el-form-item>
                 </div>
@@ -262,7 +262,7 @@
                         placeholder="Nhập độ lệch trục X watermark"
                         style="width: 240px"
                       >
-                        <span slot="append">px</span>
+                        <span slot="append">Px</span>
                       </el-input>
                     </el-form-item>
                     <el-form-item class="contentIput" label="Lệch trục Y:" label-width="130px" prop="mail">
@@ -273,7 +273,7 @@
                         placeholder="Nhập độ lệch trục Y watermark"
                         style="width: 240px"
                       >
-                        <span slot="append">px</span>
+                        <span slot="append">Px</span>
                       </el-input>
                     </el-form-item>
                   </div>
@@ -332,7 +332,7 @@
                         v-model="formValidate.watermark_x"
                         placeholder="Nhập độ lệch trục X watermark"
                       >
-                        <span slot="append">px</span>
+                        <span slot="append">Px</span>
                       </el-input>
                     </el-form-item>
                   </div>
@@ -343,7 +343,7 @@
                       v-model="formValidate.watermark_y"
                       placeholder="Nhập độ lệch trục Y watermark"
                     >
-                      <span slot="append">px</span>
+                      <span slot="append">Px</span>
                     </el-input>
                   </el-form-item>
                 </div>

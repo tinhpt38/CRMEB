@@ -23,11 +23,11 @@
 					<view class='condition'>
 						<view class="name line2">
 							<view class="line-title" :class="item._type === 0 ? 'bg-color-huic' : 'bg-color-check'"
-								v-if="item.applicable_type === 0">{{$t(`Phiếu giảm giá phổ quát`)}}</view>
+								v-if="item.applicable_type === 0">{{$t(`Mã giảm giá phổ quát`)}}</view>
 							<view class="line-title" :class="item._type === 0 ? 'bg-color-huic' : 'bg-color-check'"
-								v-else-if="item.applicable_type === 1">{{$t(`Phiếu giảm giá danh mục`)}}</view>
+								v-else-if="item.applicable_type === 1">{{$t(`Mã giảm giá danh mục`)}}</view>
 							<view class="line-title" :class="item._type === 0 ? 'bg-color-huic' : 'bg-color-check'"
-								v-else>{{$t(`phiếu giảm giá hàng hóa`)}}</view>
+								v-else>{{$t(`phiếu giảm giá sản phẩm`)}}</view>
 							<image src="../../../static/images/fvip.png" class="pic" v-if="item.receive_type===4">
 							</image>
 							{{$t(item.coupon_title)}}

@@ -12,9 +12,9 @@
 					</view>
 					<view class="money font-color">
 						<view class="acea-row row-middle">
-							<text class="num">{{ attr.productSelect.price }}{{$t(`tích phân`)}}</text>
+							<text class="num">{{ attr.productSelect.price }}{{$t(`điểm thưởng`)}}</text>
 						</view>
-						<text class="stock" v-if='isShow'>{{$t(`trong kho`)}}: {{ attr.productSelect.stock }}</text>
+						<text class="stock" v-if='isShow'>{{$t(`Trong kho`)}}: {{ attr.productSelect.stock }}</text>
 						<text class='stock' v-if="limitNum">{{$t(`Còn lại`)}}: {{attr.productSelect.quota}}</text>
 					</view>
 				</view>

@@ -453,9 +453,9 @@ class LoginServices extends BaseServices
         }
         $data['phone'] = $phone;
         if ($this->dao->update($userInfo['uid'], $data, 'uid') || $userInfo->phone == $phone)
-            return ['msg' => 'Ràng buộc thành công', 'data' => []];
+            return ['msg' => 'Liên kết thành công', 'data' => []];
         else
-            throw new ApiException('Ràng buộc không thành công');
+            throw new ApiException('Liên kết không thành công');
     }
 
     /**

@@ -18,7 +18,7 @@
             </el-form-item>
           </el-col>
           <el-col :xl="6" :lg="12" :md="13" :sm="12" :xs="24">
-            <el-form-item label="phạm vi thời gian：" class="tab_data">
+            <el-form-item label="Phạm vi thời gian：" class="tab_data">
               <el-date-picker
                 clearable
                 :editable="false"
@@ -47,19 +47,19 @@
           </el-col>
           <el-col :span="6">
             <el-form-item>
-              <el-button type="primary" v-db-click @click="userSearchs">tìm kiếm</el-button>
-              <el-button v-auth="['export-userFinance']" class="export" v-db-click @click="exports">Xuất khẩu </el-button>
+              <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
+              <el-button v-auth="['export-userFinance']" class="export" v-db-click @click="exports">Xuất file</el-button>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <el-table ref="table" highlight-current-row :data="tabList" v-loading="loading" empty-text="Chưa có dữ liệu">
-        <el-table-column label="người dùngID" width="80">
+        <el-table-column label="ID người dùng" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="biệt danh" min-width="130">
+        <el-table-column label="Biệt danh" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
@@ -71,7 +71,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="kiểu" min-width="130">
+        <el-table-column label="Kiểu" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
@@ -81,7 +81,7 @@
             <span>{{ scope.row.mark }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian sáng tạo" min-width="130">
+        <el-table-column label="Thời gian tạo" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>

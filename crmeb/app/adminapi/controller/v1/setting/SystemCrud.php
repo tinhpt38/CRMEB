@@ -717,7 +717,7 @@ class SystemCrud extends AuthController
     {
         $info = $this->services->get(['table_name' => $tableName]);
         if (!$info) {
-            return app('json')->fail('crudTruy vấn chi tiết không thành công');
+            return app('json')->fail('crudTìm kiếm chi tiết không thành công');
         }
 
         $routeList = app()->make(SystemMenusServices::class)->getColumn([

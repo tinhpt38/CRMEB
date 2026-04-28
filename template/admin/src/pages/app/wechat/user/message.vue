@@ -42,21 +42,21 @@
               <el-col :xl="7" :lg="10" :md="12" :sm="24" :xs="24">
                 <el-form-item label="Tên hoạt động：">
                   <el-select v-model="formValidate.type" style="width: 90%" clearable>
-                    <el-option :value="1" label="nam giới"></el-option>
+                    <el-option :value="1" label="Nam"></el-option>
                     <el-option :value="2" label="nữ giới"></el-option>
                     <el-option :value="0" label="Bảo mật"></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :xl="7" :lg="10" :md="12" :sm="24" :xs="24">
-                <el-form-item label="người dùng điều hành：">
+                <el-form-item label="Người dùng điều hành：">
                   <el-input placeholder="Vui lòng nhập tên người dùng" v-model="formValidate.nickname" style="width: 90%"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :xl="3" :lg="4" :md="12" :sm="24" :xs="24" class="btn_box">
                 <el-form-item>
                   <el-button type="primary" label="default" class="userSearch" v-db-click @click="userSearchs"
-                    >tìm kiếm</el-button
+                    >Tìm kiếm</el-button
                   >
                 </el-form-item>
               </el-col>
@@ -70,7 +70,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="người dùng điều hành" min-width="130">
+        <el-table-column label="Người dùng điều hành" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>
@@ -125,7 +125,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'Hôm qua', val: 'yesterday' },
           { text: '7 ngày qua', val: 'lately7' },

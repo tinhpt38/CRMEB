@@ -99,7 +99,7 @@ class MessageServices extends BaseServices
                             } else if ($userInfo->is_agent) {
                                 $response = 'Bạn là một đại lý,Không thể bị ràng buộc trở thành nhân viên của người khác';
                             } else if ($loginService->updateUserInfo(['code' => $spreadUid, 'is_staff' => 1], $userInfo, $is_new)) {
-                                $response = 'Ràng buộc nhân viên cửa hàng thành công!';
+                                $response = 'Liên kết nhân viên cửa hàng thành công!';
                             }
                             break;
                         case 'wechatqrcode':
@@ -279,7 +279,7 @@ class MessageServices extends BaseServices
                             } else if ($userInfo->is_agent) {
                                 $response = 'Bạn là một đại lý,Không thể bị ràng buộc trở thành nhân viên của người khác';
                             } else if ($loginService->updateUserInfo(['code' => $spreadUid, 'is_staff' => 1], $userInfo, $is_new)) {
-                                $response = 'Ràng buộc nhân viên cửa hàng thành công!';
+                                $response = 'Liên kết nhân viên cửa hàng thành công!';
                             }
                             break;
                         case 'wechatqrcode':

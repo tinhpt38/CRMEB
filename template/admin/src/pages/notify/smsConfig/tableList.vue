@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never">
       <el-tabs v-model="isChecked" @tab-click="onChangeType">
         <el-tab-pane label="Tin nhắn ngắn" name="1"></el-tab-pane>
-        <el-tab-pane label="Bộ sưu tập sản phẩm" name="4"></el-tab-pane>
+        <el-tab-pane label="Sản phẩm yêu thích" name="4"></el-tab-pane>
         <el-tab-pane label="Điều tra hậu cần" name="3"></el-tab-pane>
         <el-tab-pane label="In biểu mẫu điện tử" name="2"></el-tab-pane>
       </el-tabs>
@@ -11,16 +11,16 @@
       <div class="note" v-if="isChecked === '1' && sms.open === 1">
         <div class="acea-row row-between-wrapper">
           <div>
-            <span>trạng thái tin nhắn：</span>
+            <span>Trạng thái tin nhắn：</span>
             <el-radio-group type="button" v-model="tableFrom.type" @input="selectChange(tableFrom.type)">
-              <el-radio-button label="">tất cả</el-radio-button>
-              <el-radio-button label="1">thành công</el-radio-button>
-              <el-radio-button label="2">thất bại</el-radio-button>
+              <el-radio-button label="">Tất cả</el-radio-button>
+              <el-radio-button label="1">Thành công</el-radio-button>
+              <el-radio-button label="2">Thất bại</el-radio-button>
               <el-radio-button label="0">Đang gửi</el-radio-button>
             </el-radio-group>
           </div>
           <div>
-            <el-button type="primary" v-db-click @click="shortMes">mẫu tin nhắn</el-button>
+            <el-button type="primary" v-db-click @click="shortMes">Mẫu tin nhắn</el-button>
             <el-button style="margin-left: 20px" v-db-click @click="editSign">Sửa đổi chữ ký</el-button>
           </div>
         </div>
@@ -52,7 +52,7 @@
               <span>{{ scope.row.add_time }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="mã trạng thái" min-width="130">
+          <el-table-column label="Mã trạng thái" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row._resultcode }}</span>
             </template>
@@ -85,7 +85,7 @@
           class="mt14"
         >
           <el-table-column
-            :label="item.title"
+            :label="Item.title"
             :min-width="item.minWidth"
             v-for="(item, index) in columns2"
             :key="index"
@@ -134,8 +134,8 @@
             <span class="wuSp2">Nhấn nút Kích hoạt ngay để sử dụng dịch vụ nhận sản phẩm～～～</span>
           </span>
           <span v-if="isChecked === '3'">
-            <span class="wuSp1">Truy vấn hậu cần không được kích hoạt</span>
-            <span class="wuSp2">Bấm vào nút Kích hoạt ngay để sử dụng dịch vụ tra cứu hậu cần～～～</span>
+            <span class="wuSp1">Tìm kiếm hậu cần không được kích hoạt</span>
+            <span class="wuSp2">Bấm vào nút Kích hoạt ngay để sử dụng dịch vụ tra Lưu hậu cần～～～</span>
           </span>
           <span v-if="isChecked === '2'">
             <span class="wuSp1">In biểu mẫu điện tử không được kích hoạt.</span>
@@ -572,7 +572,7 @@ export default {
                   minWidth: 120,
                 },
                 {
-                  title: 'người nhận hàng',
+                  title: 'Người nhận hàng',
                   key: 'to_name',
                   minWidth: 120,
                 },
@@ -587,7 +587,7 @@ export default {
                   minWidth: 120,
                 },
                 {
-                  title: 'tình trạng',
+                  title: 'Trạng thái',
                   key: '_resultcode',
                   minWidth: 100,
                 },
@@ -611,7 +611,7 @@ export default {
                   minWidth: 120,
                 },
                 {
-                  title: 'tình trạng',
+                  title: 'Trạng thái',
                   key: '_resultcode',
                   minWidth: 120,
                 },
@@ -719,7 +719,7 @@ export default {
     // Mở cái khác
     openOther() {
       this.$msgbox({
-        title: 'Bộ sưu tập sản phẩm có được bật không?',
+        title: 'Sản phẩm yêu thích có được bật không?',
         message: 'Bạn có chắc chắn muốn bật bộ sưu tập sản phẩm không?？',
         showCancelButton: true,
         cancelButtonText: 'Hủy bỏ',

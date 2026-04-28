@@ -4,7 +4,7 @@
 			<view class="header bg-color">
 				<view class="picTxt acea-row row-between-wrapper">
 					<view class="text">
-						<view class="name">{{ $t(`Thông tin đặt hàng`) }}</view>
+						<view class="name">{{ $t(`Thông tin đơn hàng`) }}</view>
 						<view><text class="mr-40">{{ $t(`lệnh tiêu thụ`) }}：{{ orderData.order_count || 0 }} một </text>{{ $t(`tổng mức tiêu thụ`) }}：{{ $t(`￥`) }}{{ orderData.sum_price || 0 }}</view>
 					</view>
 					<view class="pictrue">
@@ -14,7 +14,7 @@
 			</view>
 			<view class="nav acea-row row-around">
 				<view class="item" :class="orderStatus == 9 ? 'on' : ''" @click="statusClick(9)">
-					<view>{{ $t(`tất cả`) }}</view>
+					<view>{{ $t(`Tất cả`) }}</view>
 					<view class="num">{{ orderData.order_count || 0 }}</view>
 				</view>
 				<view class="item" :class="orderStatus == 0 ? 'on' : ''" @click="statusClick(0)">

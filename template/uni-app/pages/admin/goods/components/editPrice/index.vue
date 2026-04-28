@@ -9,7 +9,7 @@
   >
     <view class="edit-price rd-t-40rpx" v-if="goodsInfo.attr_value">
       <view class="title"
-        >Sửa đổi giá/cổ phiếu
+        >Sửa đổi giá/tồn kho
         <view class="close acea-row row-center-wrapper" @tap="closeDrawer">
           <text class="iconfont icon-iconfontguanbi"></text>
         </view>
@@ -43,7 +43,7 @@
           />
         </view>
         <view class="item acea-row row-between-wrapper">
-          <view>trong kho</view>
+          <view>Trong kho</view>
           <input
             type="number"
             :placeholder="'Vui lòng điền vào kho' + tips"
@@ -59,7 +59,7 @@
         >Chắc chắn</view
       >
       <view v-else class="bnt acea-row row-center-wrapper" @tap="define"
-        >cứu</view
+        >Lưu</view
       >
     </view>
   </base-drawer>

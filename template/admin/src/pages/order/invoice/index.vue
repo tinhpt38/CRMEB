@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="thời gian sáng tạo：">
+          <el-form-item label="Thời gian Tạo mới：">
             <el-date-picker
               clearable
               v-model="timeVal"
@@ -26,10 +26,10 @@
               class="mr20"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="tìm kiếm：" prop="real_name" label-for="real_name">
+          <el-form-item label="Tìm kiếm：" prop="real_name" label-for="real_name">
             <el-input clearable v-model="orderData.real_name" placeholder="Vui lòng nhập" class="form_content_width">
               <el-select v-model="orderData.field_key" slot="prepend" style="width: 100px">
-                <el-option value="all" label="tất cả"></el-option>
+                <el-option value="all" label="Tất cả"></el-option>
                 <el-option value="order_id" label="Số đơn hàng"></el-option>
                 <el-option value="uid" label="UID"></el-option>
                 <el-option value="real_name" label="Tên người dùng"></el-option>
@@ -38,7 +38,7 @@
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="orderSearch">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="orderSearch">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -76,11 +76,11 @@
         </el-table-column>
         <el-table-column label="Loại tiêu đề hóa đơn" min-width="130">
           <template slot-scope="scope">
-            <div v-if="scope.row.header_type === 1">riêng tư</div>
-            <div v-else>doanh nghiệp</div>
+            <div v-if="scope.row.header_type === 1">Riêng tư</div>
+            <div v-else>Doanh nghiệp</div>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian đặt hàng" min-width="130">
+        <el-table-column label="Thời gian đặt hàng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -100,7 +100,7 @@
             <div v-else-if="scope.row.status === -2">Đã hoàn tiền</div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="300">
+        <el-table-column label="Thao tác" fixed="right" width="300">
           <template slot-scope="scope">
             <template v-if="tablists.elec_invoice && tablists.elec_invoice == 1">
               <a
@@ -141,9 +141,9 @@
               >
               <el-divider v-if="scope.row.is_invoice !== 1 && scope.row.refund_status == 0" direction="vertical" />
             </template>
-            <a v-if="scope.row.status != -2" v-db-click @click="edit(scope.row)">vận hành</a>
+            <a v-if="scope.row.status != -2" v-db-click @click="edit(scope.row)">Thao tác</a>
             <el-divider v-if="scope.row.status != -2" direction="vertical" />
-            <a v-db-click @click="orderInfo(scope.row.id)">Thông tin đặt hàng</a>
+            <a v-db-click @click="orderInfo(scope.row.id)">Thông tin đơn hàng</a>
           </template>
         </el-table-column>
       </el-table>
@@ -174,9 +174,9 @@
             </el-row>
           </div>
           <div class="list">
-            <div class="title row">thông tin liên lạc</div>
+            <div class="title row">Thông tin liên lạc</div>
             <el-row class="row">
-              <el-col :span="12">tên thật: {{ invoiceDetails.name }}</el-col>
+              <el-col :span="12">Tên thật: {{ invoiceDetails.name }}</el-col>
               <el-col :span="12">Số liên lạc: {{ invoiceDetails.drawer_phone }}</el-col>
             </el-row>
             <el-row class="row">
@@ -201,9 +201,9 @@
             </el-row>
           </div>
           <div class="list">
-            <div class="title row">thông tin liên lạc</div>
+            <div class="title row">Thông tin liên lạc</div>
             <el-row class="row">
-              <el-col :span="12">tên thật: {{ invoiceDetails.name }}</el-col>
+              <el-col :span="12">Tên thật: {{ invoiceDetails.name }}</el-col>
               <el-col :span="12">Số liên lạc: {{ invoiceDetails.user_phone }}</el-col>
             </el-row>
             <el-row class="row">
@@ -231,7 +231,7 @@
                 >Ngân hàng tiền gửi: <span class="info">{{ invoiceDetails.bank }}</span></el-col
               >
               <el-col :span="12"
-                >số tài khoản ngân hàng: <span class="info">{{ invoiceDetails.card_number }}</span></el-col
+                >Số tài khoản ngân hàng: <span class="info">{{ invoiceDetails.card_number }}</span></el-col
               >
             </el-row>
             <el-row class="row">
@@ -240,9 +240,9 @@
             </el-row>
           </div>
           <div class="list">
-            <div class="title row">thông tin liên lạc</div>
+            <div class="title row">Thông tin liên lạc</div>
             <el-row class="row">
-              <el-col :span="12">tên thật: {{ invoiceDetails.real_name }}</el-col>
+              <el-col :span="12">Tên thật: {{ invoiceDetails.real_name }}</el-col>
               <el-col :span="12">Số liên lạc: {{ invoiceDetails.user_phone }}</el-col>
             </el-row>
             <el-row class="row">
@@ -259,7 +259,7 @@
         <el-form-item label="Số hóa đơn：" v-if="formInline.is_invoice === 1">
           <el-input v-model="formInline.invoice_number" placeholder="Vui lòng nhập số hóa đơn"></el-input>
         </el-form-item>
-        <el-form-item label="nhận xét hóa đơn：" v-if="formInline.is_invoice === 1">
+        <el-form-item label="Nhận xét hóa đơn：" v-if="formInline.is_invoice === 1">
           <el-input
             v-model="formInline.remark"
             value="Nhận xét"
@@ -273,7 +273,7 @@
         </div>
       </el-form>
     </el-dialog>
-    <el-dialog :visible.sync="orderShow" title="Chi tiết đặt hàng" class="order_box" width="720px">
+    <el-dialog :visible.sync="orderShow" title="Chi tiết đơn hàng" class="order_box" width="720px">
       <orderDetall :orderId="orderId" @detall="detall" v-if="orderShow"></orderDetall>
     </el-dialog>
     <el-dialog

@@ -942,11 +942,11 @@ export default {
         if (field === "coupon_time") return dataItem.coupon_time;
         if (field === "type")
           return dataItem.type === 1
-            ? "Phiếu giảm giá danh mục"
+            ? "Mã giảm giá danh mục"
             : dataItem.type === 2
-              ? "phiếu giảm giá hàng hóa"
-              : "Phiếu giảm giá phổ quát";
-        if (field === "status") return dataItem.status === 1 ? "bật lên" : "đóng cửa";
+              ? "phiếu giảm giá sản phẩm"
+              : "Mã giảm giá phổ quát";
+        if (field === "status") return dataItem.status === 1 ? "Hoạt động" : "đóng cửa";
         if (field === "receive_time") return dataItem.receive_time;
         if (field === "use_time") return dataItem.use_time;
         if (field === "receive_count") return dataItem.receive_count;

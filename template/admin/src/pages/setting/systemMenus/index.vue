@@ -14,11 +14,11 @@
             <el-input clearable v-model="roleData.keyword" placeholder="Vui lòng nhập tên nút" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="getData">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="getData">Tìm kiếm</el-button>
           </el-form-item>
           <!-- <el-row >
             <el-col v-bind="grid">
-              <el-button type="primary" v-db-click @click="menusAdd('Thêm quy tắc')">Thêm quy tắc </el-button>
+              <el-button type="primary" v-db-click @click="menusAdd('Thêm quy tắc')">Thêm quy tắc</el-button>
             </el-col>
           </el-row> -->
         </el-form>
@@ -38,14 +38,14 @@
         row-id="id"
       >
         <vxe-table-column field="menu_name" tree-node title="Tên nút" min-width="100"></vxe-table-column>
-        <vxe-table-column field="menu_path" title="kiểu" min-width="240" tooltip="true">
+        <vxe-table-column field="menu_path" title="Kiểu" min-width="240" tooltip="true">
           <template v-slot="{ row }">
-            <span v-if="row.auth_type == 1">thực đơn：{{ row.menu_path }}</span>
-            <span v-if="row.auth_type == 3">cái nút</span>
+            <span v-if="row.auth_type == 1">Thực đơn：{{ row.menu_path }}</span>
+            <span v-if="row.auth_type == 3">Cái nút</span>
             <span v-if="row.auth_type == 2">Quyền dữ liệu</span>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="sort" title="loại" width="150"></vxe-table-column>
+        <vxe-table-column field="sort" title="Loại" width="150"></vxe-table-column>
         <vxe-table-column field="flag" title="Có hiển thị hay không" width="150">
           <template v-slot="{ row }">
             <el-switch
@@ -59,9 +59,9 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="date" title="vận hành" align="center" width="150" fixed="right">
+        <vxe-table-column field="date" title="Thao tác" align="center" width="150" fixed="right">
           <template v-slot="{ row }">
-            <a v-db-click @click="edit(row, 'biên tập')">biên tập</a>
+            <a v-db-click @click="edit(row, 'Chỉnh sửa')">Chỉnh sửa</a>
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -89,8 +89,8 @@
           @on-enter="searchRules"
           @on-clear="searchRules"
         />
-        <el-button type="primary" v-db-click @click="searchRules">tìm kiếm</el-button>
-        <el-button v-db-click @click="init">cài lại</el-button>
+        <el-button type="primary" v-db-click @click="searchRules">Tìm kiếm</el-button>
+        <el-button v-db-click @click="init">Đặt lại</el-button>
       </div>
       <div class="route-list">
         <div class="tree">
@@ -117,7 +117,7 @@
           >
             <div>Tên giao diện：{{ item.name }}</div>
             <div>Phương thức yêu cầu：{{ item.method }}</div>
-            <div>địa chỉ giao diện：{{ item.path }}</div>
+            <div>Địa chỉ giao diện：{{ item.path }}</div>
           </div>
         </div>
       </div>

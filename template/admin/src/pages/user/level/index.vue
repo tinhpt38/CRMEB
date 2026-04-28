@@ -10,7 +10,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item label="trạng thái cấp độ：" label-for="status1">
+          <el-form-item label="Trạng thái cấp độ：" label-for="status1">
             <el-select
               v-model="levelFrom.is_show"
               placeholder="Vui lòng chọn"
@@ -27,7 +27,7 @@
             <el-input clearable v-model="levelFrom.title" placeholder="Vui lòng nhập tên cấp độ" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -48,7 +48,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="biểu tượng cấp độ" min-width="100">
+        <el-table-column label="Biểu tượng cấp độ" min-width="100">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.icon" />
@@ -67,12 +67,12 @@
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="cấp" min-width="120">
+        <el-table-column label="Cấp" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.grade }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tận hưởng giảm giá" min-width="100">
+        <el-table-column label="Tận hưởng giảm giá" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.discount }}</span>
           </template>
@@ -95,11 +95,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="vận hành" width="100">
+        <el-table-column fixed="right" label="Thao tác" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'xóa cấp độ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'xóa cấp độ', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

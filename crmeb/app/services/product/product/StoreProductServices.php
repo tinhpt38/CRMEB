@@ -96,7 +96,7 @@ class StoreProductServices extends BaseServices
         $recycle = $this->dao->getCount($where + ['type' => 6]);
         return [
             ['type' => 1, 'name' => 'Mặt hàng để bán', 'count' => $onsale],
-            ['type' => 2, 'name' => 'Các mặt hàng trong kho', 'count' => $forsale],
+            ['type' => 2, 'name' => 'Các mặt hàng Trong kho', 'count' => $forsale],
             ['type' => 4, 'name' => 'Các mặt hàng đã bán hết', 'count' => $outofstock],
             ['type' => 5, 'name' => 'Cảnh báo mặt hàng tồn kho', 'count' => $policeforce],
             ['type' => 6, 'name' => 'Các mục trong thùng rác', 'count' => $recycle]
@@ -568,7 +568,7 @@ class StoreProductServices extends BaseServices
         $header[] = ['title' => 'giá bán', 'slot' => 'price', 'align' => 'center', 'minWidth' => 120];
         $header[] = ['title' => 'giá thành', 'slot' => 'cost', 'align' => 'center', 'minWidth' => 140];
         $header[] = ['title' => 'giá chéo', 'slot' => 'ot_price', 'align' => 'center', 'minWidth' => 140];
-        $header[] = ['title' => 'trong kho', 'slot' => 'stock', 'align' => 'center', 'minWidth' => 140];
+        $header[] = ['title' => 'Trong kho', 'slot' => 'stock', 'align' => 'center', 'minWidth' => 140];
         $header[] = ['title' => 'Mã sản phẩm', 'slot' => 'bar_code', 'align' => 'center', 'minWidth' => 140];
         $header[] = ['title' => 'mã vạch', 'slot' => 'bar_code_number', 'align' => 'center', 'minWidth' => 140];
         if ($is_virtual) {
@@ -581,7 +581,7 @@ class StoreProductServices extends BaseServices
             $header[] = ['title' => 'cân nặng(KG)', 'slot' => 'weight', 'align' => 'center', 'minWidth' => 140];
             $header[] = ['title' => 'âm lượng(m³)', 'slot' => 'volume', 'align' => 'center', 'minWidth' => 140];
         }
-        $header[] = ['title' => 'vận hành', 'slot' => 'action', 'align' => 'center', 'minWidth' => 70];
+        $header[] = ['title' => 'Thao tác', 'slot' => 'action', 'align' => 'center', 'minWidth' => 70];
         return ['attr' => $attr, 'value' => $valueNew, 'header' => $header];
     }
 
@@ -1156,7 +1156,7 @@ class StoreProductServices extends BaseServices
             $header[] = ['title' => 'giá thành', 'key' => 'cost', 'align' => 'center', 'minWidth' => 80];
             $header[] = ['title' => 'giá chéo', 'key' => 'ot_price', 'align' => 'center', 'minWidth' => 80];
         }
-        $header[] = ['title' => 'trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'Trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'phiên bản giới hạn', 'slot' => 'quota', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'cân nặng(KG)', 'key' => 'weight', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'âm lượng(m³)', 'key' => 'volume', 'align' => 'center', 'minWidth' => 80];
@@ -2364,9 +2364,9 @@ class StoreProductServices extends BaseServices
             'Số mặt hàng',
             'Tên sản phẩm',
             'Loại sản phẩm',
-            'Phân loại sản phẩm(Cấp 1)',
-            'Phân loại sản phẩm(Cấp 2)',
-            'đơn vị hàng hóa',
+            'Danh mục sản phẩm(Cấp 1)',
+            'Danh mục sản phẩm(Cấp 2)',
+            'Đơn vị sản phẩm',
             'Hình ảnh sản phẩm',
             'Video sản phẩm',
             'Chi tiết sản phẩm',
@@ -2380,7 +2380,7 @@ class StoreProductServices extends BaseServices
             'giá bán',
             'giá chéo',
             'giá thành',
-            'trong kho',
+            'Trong kho',
             'cân nặng',
             'âm lượng',
             'Mã sản phẩm',
@@ -2391,7 +2391,7 @@ class StoreProductServices extends BaseServices
             'Mua và nhận điểm'
         ];
         $filename = 'Dữ liệu di chuyển sản phẩm_' . date('YmdHis', time());
-        $virtualType = ['Hàng thông thường', 'Thẻ bí mật/đĩa mạng', 'Phiếu giảm giá', 'hàng ảo'];
+        $virtualType = ['Hàng thông thường', 'Thẻ bí mật/đĩa mạng', 'Mã giảm giá', 'hàng ảo'];
         $export = $fileKey = [];
         if (!empty($productList)) {
             $productList = array_column($productList, null, 'id');
@@ -2481,7 +2481,7 @@ class StoreProductServices extends BaseServices
         }
         $productCateServices = app()->make(StoreCategoryServices::class);
         $productData = $issetProductArr = [];
-        $virtualType = ['Hàng thông thường' => 0, 'Thẻ bí mật/đĩa mạng' => 1, 'Phiếu giảm giá' => 2, 'hàng ảo' => 3];
+        $virtualType = ['Hàng thông thường' => 0, 'Thẻ bí mật/đĩa mạng' => 1, 'Mã giảm giá' => 2, 'hàng ảo' => 3];
         $productAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         $barCodeArr = array_unique($productAttrValueServices->getColumn(['type' => 0], 'bar_code', 'id'));
         $barCodeNumberArr = array_unique($productAttrValueServices->getColumn(['type' => 0], 'bar_code_number', 'id'));

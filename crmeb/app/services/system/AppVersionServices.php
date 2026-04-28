@@ -67,7 +67,7 @@ class AppVersionServices extends BaseServices
             'class' => 'tips-info',
             'domProps' => ['innerHTML' => 'Điền vào liên kết tải xuống. Đối với Android, đó là địa chỉ url của gói nén. Bấm để nâng cấp, gói nén sẽ tự động được tải xuống và thay thế để cài đặt, ví dụ: tên miền/xxx.zip; đối với iOS, đó là địa chỉ liên kết của cửa hàng ứng dụng, chẳng hạn sẽ chuyển thẳng đến AppStore.：itms-apps://itunes.apple.com/cn/app/id1234567890']
         ]);
-        $field[] = Form::radio('is_force', 'lực lượng', $info['is_force'] ?? 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $field[] = Form::radio('is_force', 'lực lượng', $info['is_force'] ?? 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
         $field[] = Form::radio('is_new', 'Đây có phải là cái mới nhất không', $info['is_new'] ?? 1)->options([['label' => 'Đúng', 'value' => 1], ['label' => 'KHÔNG', 'value' => 0]]);
         return create_form('Thông tin phiên bản', $field, Url::buildUrl('/system/version_save'), 'POST');
 

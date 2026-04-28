@@ -26,7 +26,7 @@
                 </el-tooltip>
               </div>
               <span v-show="data.id !== '' && data.id !== 0">
-                <el-dropdown @command="(command) => clickMenu(data, command)">
+                <el-dropdown @command="(command) => ClickMenu(data, command)">
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
@@ -67,7 +67,7 @@
                 <span>{{ scope.row.cate_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="tiêu đề" min-width="120">
+            <el-table-column label="Tiêu đề" min-width="120">
               <template slot-scope="scope">
                 <el-tooltip placement="top" :open-delay="600">
                   <div slot="content">{{ scope.row.title }}</div>
@@ -83,7 +83,7 @@
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="loại" min-width="120">
+            <el-table-column label="Loại" min-width="120">
               <template slot-scope="scope">
                 <span>{{ scope.row.sort }}</span>
               </template>
@@ -93,11 +93,11 @@
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="170">
+            <el-table-column label="Thao tác" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row)">biên tập</a>
+                <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, 'Xóa dịch vụ khách hàng', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa dịch vụ khách hàng', scope.$index)">Xóa</a>
               </template>
             </el-table-column>
           </el-table>
@@ -183,7 +183,7 @@ export default {
           slot: 'headimgurl',
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
         },
       ],
@@ -218,7 +218,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'Hôm qua', val: 'yesterday' },
           { text: '7 ngày qua', val: 'lately7' },
@@ -252,7 +252,7 @@ export default {
       speechcraftcate().then((res) => {
         let data = res.data.data;
         let obj = {
-          name: 'tất cả',
+          name: 'Tất cả',
           id: '',
         };
         data.unshift(obj);
@@ -418,7 +418,7 @@ export default {
     },
     // biên tập
     edit(row) {
-      this.$modalForm(speechcraftEdit(row.id)).then(() => this.getList());
+      this.$modalForm(speechcraftEdit(row.id)).then(() => This.getList());
     },
     // Thêm vào
     add() {

@@ -11,7 +11,7 @@
 import { tableDelApi } from '@/api/common';
 export function modalSure(delfromData) {
   return new Promise((resolve, reject) => {
-    let content = `<p>chắc chắn${delfromData.title}?？</p>`;
+    let content = `<p>Chắc chắn${delfromData.title}?？</p>`;
     if (!delfromData.info) {
       delfromData.info = '';
     }

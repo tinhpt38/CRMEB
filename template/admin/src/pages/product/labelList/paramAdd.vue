@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modal" @closed="onCancel" title="Thông số sản phẩm" width="1000px" v-loading="spinShow">
+  <el-dialog :visible.sync="modal" @closed="onCancel" title="Thuộc tính sản phẩm" width="1000px" v-loading="spinShow">
     <el-form
       ref="formDynamic"
       :model="formDynamic"
@@ -18,7 +18,7 @@
         </el-col>
         <el-col :span="24">
           <el-col :span="8">
-            <el-form-item label="loại：" prop="rule_name">
+            <el-form-item label="Loại：" prop="rule_name">
               <el-input type="number" placeholder="Vui lòng nhập sắp xếp" :maxlength="20" v-model.trim="formDynamic.sort" />
             </el-form-item>
           </el-col>
@@ -45,9 +45,9 @@
                   </template>
                 </el-table-column>
 
-                <el-table-column label="vận hành" fixed="right" width="80">
+                <el-table-column label="Thao tác" fixed="right" width="80">
                   <template slot-scope="scope">
-                    <a class="submission mr15" v-db-click @click="deleteRow(scope.$index)">xóa bỏ</a>
+                    <a class="submission mr15" v-db-click @click="deleteRow(scope.$index)">Xóa</a>
                   </template>
                 </el-table-column>
               </el-table>

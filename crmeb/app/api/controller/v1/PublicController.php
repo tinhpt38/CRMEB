@@ -193,7 +193,7 @@ class PublicController
                 continue;
             }
             if ($value['url'] == '/pages/users/user_spread_user/index' && $auth['/pages/annex/settled/index']) {
-                $value['name'] = 'Ứng dụng phân phối';
+                $value['name'] = 'Đăng ký làm Affiliate';
                 $value['url'] = '/pages/annex/settled/index';
             }
             if (isset($auth[$value['url']]) && !$auth[$value['url']]) {
@@ -957,7 +957,7 @@ class PublicController
                             }
 
                             if ($menuDataItem['info'][1]['value'] == '/pages/users/user_spread_user/index' && $brokerageOpen && sys_config('store_brokerage_statu') == 1 && !$userIsPromoter) {
-                                $menuDataItem['info'][0]['value'] = 'Ứng dụng phân phối';
+                                $menuDataItem['info'][0]['value'] = 'Đăng ký làm Affiliate';
                                 $menuDataItem['info'][1]['value'] = '/pages/annex/settled/index';
                                 $menuDataItem['show'] = true;
                             }

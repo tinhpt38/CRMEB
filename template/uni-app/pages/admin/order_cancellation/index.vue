@@ -104,7 +104,7 @@ export default {
 					title: this.$t(`Vui lòng nhập đúng mã xác minh`)
 				});
 			self.$util.Tips({
-				title: this.$t(`Truy vấn`)
+				title: this.$t(`Tìm kiếm`)
 			});
 			setTimeout(() => {
 				orderVerific(this.verify_code, 0)

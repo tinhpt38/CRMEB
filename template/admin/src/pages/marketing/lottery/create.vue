@@ -9,10 +9,10 @@
           type="text"
           v-db-click
           @click="$router.go(-1)"
-          >trở lại</el-button
+          >Trở lại</el-button
         >
         <el-divider direction="vertical"></el-divider>
-        <span class="ivu-page-header-title">{{ $route.query.lottery_id ? 'biên tập' : 'Mới' }}rút thăm trúng thưởng</span>
+        <span class="ivu-page-header-title">{{ $route.query.lottery_id ? 'Chỉnh sửa' : 'Mới' }}rút thăm trúng thưởng</span>
       </div>
     </div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: '0 20px 20px' }">
@@ -165,7 +165,7 @@
                       v-model="formValidate.lottery_num"
                       class="content_width"
                     />
-                    <div class="ml10 grey">hạng hai</div>
+                    <div class="ml10 grey">Hạng hai</div>
                   </div>
                 </el-form-item>
               </el-col>
@@ -186,7 +186,7 @@
                       v-model="formValidate.spread_num"
                       class="content_width"
                     />
-                    <div class="ml10 grey">hạng hai</div>
+                    <div class="ml10 grey">Hạng hai</div>
                   </div>
                 </el-form-item>
               </el-col>
@@ -195,7 +195,7 @@
                 v-if="formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4"
               >
                 <el-form-item
-                  :label="formValidate.factor == 1 ? 'Xổ số tiêu tốn điểm：' : 'Số lần rút thăm：'"
+                  :label="FormValidate.factor == 1 ? 'Xổ số tiêu tốn điểm：' : 'Số lần rút thăm：'"
                   :prop="
                     formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4 ? 'factor_num' : ''
                   "
@@ -213,7 +213,7 @@
                       class="content_width"
                     >
                     </el-input-number>
-                    <!-- <div class="ml10 grey" v-if="formValidate.factor !== 1">hạng hai</div> -->
+                    <!-- <div class="ml10 grey" v-if="formValidate.factor !== 1">Hạng hai</div> -->
                   </div>
                 </el-form-item>
               </el-col>
@@ -229,8 +229,8 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="số seri" type="index" width="50"> </el-table-column>
-                    <el-table-column label="hình ảnh" min-width="80">
+                    <el-table-column label="Số seri" type="index" width="50"> </el-table-column>
+                    <el-table-column label="Hình ảnh" min-width="80">
                       <template slot-scope="scope">
                         <div
                           class="acea-row scope.row-middle scope.row-center-wrapper"
@@ -246,17 +246,17 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="tên" min-width="80">
+                    <el-table-column label="Tên" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.name }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="phần thưởng" min-width="80">
+                    <el-table-column label="Phần thưởng" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.type | typeName }}</div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="nhắc nhở" min-width="80">
+                    <el-table-column label="Nhắc nhở" min-width="80">
                       <template slot-scope="scope">
                         <div>{{ scope.row.prompt }}</div>
                       </template>
@@ -285,9 +285,9 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column label="vận hành" fixed="right" width="80">
+                    <el-table-column label="Thao tác" fixed="right" width="80">
                       <template slot-scope="scope">
-                        <a class="submission mr15" v-db-click @click="editGoods(scope.$index)">biên tập</a>
+                        <a class="submission mr15" v-db-click @click="editGoods(scope.$index)">Chỉnh sửa</a>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -352,7 +352,7 @@
                   :inactive-value="0"
                   v-model="formValidate.is_all_record"
                   size="large"
-                  active-text="bật lên"
+                  active-text="Hoạt động"
                   inactive-text="đóng cửa"
                 >
                 </el-switch>
@@ -369,7 +369,7 @@
                   :inactive-value="0"
                   v-model="formValidate.is_personal_record"
                   size="large"
-                  active-text="bật lên"
+                  active-text="Hoạt động"
                   inactive-text="đóng cửa"
                 >
                 </el-switch>
@@ -386,7 +386,7 @@
                   :inactive-value="0"
                   v-model="formValidate.is_content"
                   size="large"
-                  active-text="bật lên"
+                  active-text="Hoạt động"
                   inactive-text="đóng cửa"
                 >
                 </el-switch>
@@ -404,21 +404,21 @@
                   @editorContent="getEditorContent"
                 ></WangEditor>
               </el-form-item>
-              <el-form-item label="trạng thái hoạt động：" prop="status" label-for="status">
+              <el-form-item label="Trạng thái hoạt động：" prop="status" label-for="status">
                 <el-switch
                   class="defineSwitch"
                   :active-value="1"
                   :inactive-value="0"
                   v-model="formValidate.status"
                   size="large"
-                  active-text="bật lên"
+                  active-text="Hoạt động"
                   inactive-text="đóng cửa"
                 >
                 </el-switch>
               </el-form-item>
             </div>
             <el-form-item>
-              <el-button type="primary" :loading="submitOpen" v-db-click @click="next('formValidate')">nộp</el-button>
+              <el-button type="primary" :loading="submitOpen" v-db-click @click="next('formValidate')">Nộp</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -430,11 +430,11 @@
       <uploadPictures :isChoice="isChoice" @getPic="getPic" v-if="modalPic"></uploadPictures>
     </el-dialog>
     <!-- Tải ảnh lên-->
-    <el-dialog :visible.sync="addGoodsModel" width="720px" :title="title" :close-on-click-modal="false">
+    <el-dialog :visible.sync="addGoodsModel" width="720px" :title="Title" :close-on-click-modal="false">
       <addGoods ref="addGoodsForm" v-if="addGoodsModel" @addGoodsData="addGoodsData" :editData="editData"></addGoods>
       <div class="acea-row row-right mt20">
         <el-button v-db-click @click="addGoodsModel = false">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="submitAddGoods">nộp</el-button>
+        <el-button type="primary" v-db-click @click="submitAddGoods">Nộp</el-button>
       </div>
     </el-dialog>
     <!-- Thẻ người dùng -->
@@ -527,7 +527,7 @@ export default {
       templateList: [
         { id: -1, name: 'Không hạn chế về loại thành viên' },
         { id: 0, name: 'Thành viên không trả tiền' },
-        { id: 1, name: 'Thành viên trả phí' },
+        { id: 1, name: 'Gói thẻ VIP' },
       ],
       specsData: [
         {
@@ -624,7 +624,7 @@ export default {
         name: '', //Tên hoạt động
         desc: '', //Mô tả hoạt động
         image: '', //Hình nền sự kiện
-        factor: '1', //Loại xổ số：1:tích phân 2:Số dư 3: Thanh toán đơn hàng thành công 4:Đánh giá đơn hàng',5:tập trung vào
+        factor: '1', //Loại xổ số：1:điểm thưởng 2:Số dư 3: Thanh toán đơn hàng thành công 4:Đánh giá đơn hàng',5:tập trung vào
         factor_num: 1, //Lấy số điều kiện để quay số
         attends_user: 1, //Người dùng tham gia 1: Tất cả 2: Một số
         user_level: [], //Cấp độ người dùng tham gia
@@ -658,15 +658,15 @@ export default {
       if (type == 1) {
         return 'Không thắng';
       } else if (type == 2) {
-        return 'tích phân';
+        return 'điểm thưởng';
       } else if (type == 3) {
-        return 'Sự cân bằng';
+        return 'Số dư';
       } else if (type == 4) {
         return 'phong bì màu đỏ';
       } else if (type == 5) {
-        return 'Phiếu giảm giá';
+        return 'Mã giảm giá';
       } else if (type == 6) {
-        return 'hàng hóa';
+        return 'sản phẩm';
       }
     },
   },
@@ -759,7 +759,7 @@ export default {
               name: '', //Tên hoạt động
               desc: '', //Mô tả hoạt động
               image: '', //Hình nền sự kiện
-              factor: e.toString(), //Loại xổ số：1:tích phân 2:Số dư 3: Thanh toán đơn hàng thành công 4:Đánh giá đơn hàng',5:tập trung vào
+              factor: e.toString(), //Loại xổ số：1:điểm thưởng 2:Số dư 3: Thanh toán đơn hàng thành công 4:Đánh giá đơn hàng',5:tập trung vào
               factor_num: 1, //Lấy số điều kiện để quay số
               attends_user: 1, //Người dùng tham gia 1: Tất cả 2: Một số
               user_level: [], //Cấp độ người dùng tham gia
@@ -1023,7 +1023,7 @@ export default {
     },
     setSort() {
       // refNó phải phù hợp với giới thiệu trên bảng
-      const el = this.$refs.selection.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0];
+      const el = this.$refs.selection.$el.querySelectorAll('.el-table__body-wrapper > Table > tbody')[0];
       this.sortable = Sortable.create(el, {
         ghostClass: 'sortable-ghost',
         handle: '.handle',

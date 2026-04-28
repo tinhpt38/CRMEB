@@ -37,7 +37,7 @@ export default {
     },
     dayText: {
       type: String,
-      default: "bầu trời",
+      default: "ngày",
     },
     hourText: {
       type: String,

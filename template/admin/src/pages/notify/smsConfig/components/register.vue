@@ -50,7 +50,7 @@
           </el-form-item>
           <el-form-item class="maxInpt">
             <el-button type="primary" long size="large" v-db-click @click="handleSubmit('formInline')" class="btn"
-              >đăng ký</el-button
+              >Đăng ký</el-button
             >
           </el-form-item>
         </el-form>

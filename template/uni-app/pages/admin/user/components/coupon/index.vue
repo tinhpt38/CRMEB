@@ -1,7 +1,7 @@
 <template>
 	<base-drawer mode="bottom" :visible="visible" background-color="transparent" mask maskClosable @close="closeDrawer">
 		<view class="coupon rd-t-40rpx">
-			<view class="title">Phiếu giảm giá
+			<view class="title">Mã giảm giá
 			  <view class="close acea-row row-center-wrapper" @tap="closeDrawer">
 				  <text class="iconfont icon-iconfontguanbi"></text>
 			  </view>
@@ -20,10 +20,10 @@
 						</view>
 						<view class="text">
 							<view class="name line1">{{item.coupon_title}}</view>
-							<view class="type" v-if="item.type === 0">Phiếu giảm giá phổ quát</view>
-							<view class="type" v-if="item.type === 1">Danh mục Phiếu giảm giá</view>
-							<view class="type" v-if="item.type === 2">Phiếu giảm giá sản phẩm</view>
-							<view class="time" v-if="item.coupon_time">Thời hạn hiệu lực：{{item.coupon_time}}bầu trời</view>
+							<view class="type" v-if="item.type === 0">Mã giảm giá phổ quát</view>
+							<view class="type" v-if="item.type === 1">Danh mục Mã giảm giá</view>
+							<view class="type" v-if="item.type === 2">Mã giảm giá sản phẩm</view>
+							<view class="time" v-if="item.coupon_time">Thời hạn hiệu lực：{{item.coupon_time}}ngày</view>
 							<view class="time" v-else>Thời hạn hiệu lực：{{ item.start_use_time | dateFormat }}{{ item.start_use_time ? '-' : '' }}{{ item.end_use_time | dateFormat }}</view>
 						</view>
 						<view v-if="num !=2" class="bnt acea-row row-center-wrapper" @click="send(item)">gửi</view>

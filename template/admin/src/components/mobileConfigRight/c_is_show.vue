@@ -12,7 +12,7 @@
         :active-value="1"
         :inactive-value="0"
         v-model="configData.val"
-        active-text="bật lên"
+        active-text="Hoạt động"
         inactive-text="đóng cửa"
       >
       </el-switch>

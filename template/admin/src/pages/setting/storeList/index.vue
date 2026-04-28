@@ -19,7 +19,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -96,12 +96,12 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">biên tập</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-if="scope.row.is_del == 0" v-db-click @click="del(scope.row, 'Xóa điểm đón', scope.$index)">xóa bỏ</a>
-            <a v-else v-db-click @click="del(scope.row, 'Khôi phục điểm đón', scope.$index)">hồi phục</a>
+            <a v-if="scope.row.is_del == 0" v-db-click @click="del(scope.row, 'Xóa điểm đón', scope.$index)">Xóa</a>
+            <a v-else v-db-click @click="del(scope.row, 'Khôi phục điểm đón', scope.$index)">Hồi phục</a>
           </template>
         </el-table-column>
       </el-table>

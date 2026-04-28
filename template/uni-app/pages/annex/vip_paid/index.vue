@@ -8,11 +8,11 @@
 					<view v-if="userInfo.is_ever_level">{{ $t(`Thành viên SVIP thường trực`) }}</view>
 					<view v-else-if="userInfo.is_money_level">
 						{{ $t(`SVIPthành viên`) }} {{ userInfo.overdue_time | dateFormat }}
-						{{ $t(`trưởng thành`) }}
+						{{ $t(`Hết hạn`) }}
 					</view>
 					<view v-else>
 						{{ $t(`bạn và`) }} {{ userInfo.shop_name || '' }} {{ $t(`Số trung tâm mua sắm`) }} {{ userInfo.register_days || '' }}
-						{{ $t(`bầu trời.`) }}
+						{{ $t(`ngày.`) }}
 					</view>
 				</view>
 			</view>
@@ -59,7 +59,7 @@
 						{{ $t(`￥`) }}
 						<text class="num">{{ item.pre_price | moneyFormat }}</text>
 					</view>
-					<view v-if="item.type === 'free'" class="info">{{ $t(`thử`) }}{{ item.vip_day }}{{ $t(`bầu trời`) }}</view>
+					<view v-if="item.type === 'free'" class="info">{{ $t(`thử`) }}{{ item.vip_day }}{{ $t(`ngày`) }}</view>
 					<view v-else class="old">{{ $t(`￥`) }}{{ item.price | moneyFormat }}</view>
 				</view>
 			</scroll-view>
@@ -77,7 +77,7 @@
 		</view>
 		<view v-if="memberCoupons.length" class="coupon-section">
 			<view class="section-hd acea-row row-between-wrapper">
-				<view class="title">{{ $t(`Phiếu giảm giá thành viên`) }}</view>
+				<view class="title">{{ $t(`Mã giảm giá thành viên`) }}</view>
 				<navigator class="link" url="/pages/annex/vip_coupon/index">
 					{{ $t(`Xem thêm`) }}
 					<text class="iconfont icon-xiangyou"></text>
@@ -173,10 +173,10 @@ export default {
 			pay_order_id: '',
 			payMode: [
 				{
-					name: this.$t(`WeChat trả tiền`),
+					name: this.$t(`Thanh toán WeChat`),
 					icon: 'icon-weixinzhifu',
 					value: 'weixin',
-					title: this.$t(`WeChat trả tiền`),
+					title: this.$t(`Thanh toán WeChat`),
 					payStatus: true
 				},
 				{

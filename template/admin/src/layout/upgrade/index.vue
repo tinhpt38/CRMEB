@@ -11,7 +11,7 @@
       <div class="upgrade-title">
         <div class="upgrade-title-warp">
           <span class="upgrade-title-warp-txt">{{ $t('message.upgrade.title') }}</span>
-          <span class="upgrade-title-warp-version">v{{ version }}</span>
+          <span class="upgrade-title-warp-version">V{{ version }}</span>
         </div>
       </div>
       <div class="upgrade-content">

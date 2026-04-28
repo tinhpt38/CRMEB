@@ -2,7 +2,7 @@
   <div class="pos-order-list" ref="container">
     <div class="head-box">
       <div class="nav acea-row row-around row-middle">
-        <div class="item" :class="where.type === '' ? 'on' : ''" v-db-click @click="changeStatus('')">tất cả</div>
+        <div class="item" :class="where.type === '' ? 'on' : ''" v-db-click @click="changeStatus('')">Tất cả</div>
         <div class="item" :class="where.type === 0 ? 'on' : ''" v-db-click @click="changeStatus(0)">Chưa thanh toán</div>
         <div class="item" :class="where.type === 1 ? 'on' : ''" v-db-click @click="changeStatus(1)">Không được vận chuyển</div>
         <div class="item" :class="where.type === -1 ? 'on' : ''" v-db-click @click="changeStatus(-1)">Đang hoàn tiền</div>
@@ -21,7 +21,7 @@
           <div class="item" v-for="(item, index) in list" :key="index">
             <div class="order-num acea-row row-middle" v-db-click @click="toDetail(item)">
               Số đơn hàng：{{ item.order_id }}
-              <span class="time">thời gian đặt hàng：{{ item._add_time }}</span>
+              <span class="time">Thời gian đặt hàng：{{ item._add_time }}</span>
             </div>
             <template if="item.productList && item.productList.length">
               <div class="pos-order-goods" v-for="(val, key) in item.cartInfo" :key="key">
@@ -41,7 +41,7 @@
                   </div>
                   <div class="money">
                     <div class="x-money">￥{{ val.productInfo.attrInfo.price }}</div>
-                    <div class="num">x{{ val.cart_num }}</div>
+                    <div class="num">X{{ val.cart_num }}</div>
                     <div class="y-money">
                       <!--￥{{ val.info.productInfo.attrInfo.otPrice }}-->
                     </div>
@@ -50,7 +50,7 @@
               </div>
             </template>
             <div class="public-total">
-              chung{{ item.total_num }}khoản mục phải trả <span class="money">￥{{ item.pay_price }}</span> ( Bưu phí ¥{{
+              Chung{{ item.total_num }}khoản mục phải trả <span class="money">￥{{ item.pay_price }}</span> ( Bưu phí ¥{{
                 item.pay_postage
               }}
               )
@@ -60,14 +60,14 @@
                 <!--            <div class="iconfontYI icon-gengduo" v-db-click @click="more(index)"></div>-->
                 <!--            <div class="order" v-show="current === index">-->
                 <!--              <div class="items">-->
-                <!--                {{ where.status > 0 ? "xóa bỏ" : "Hủy bỏ" }}Đặt hàng-->
+                <!--                {{ where.status > 0 ? "Xóa" : "Hủy bỏ" }}Đặt hàng-->
                 <!--              </div>-->
                 <!--              <div class="arrow"></div>-->
                 <!--            </div>-->
               </div>
               <div class="acea-row row-middle">
                 <div class="bnt" v-db-click @click="modify(item, 0)" v-if="item.paid === 0">Thay đổi giá chỉ bằng một cú nhấp chuột</div>
-                <div class="bnt" v-db-click @click="modify(item, 1)">Ghi chú đặt hàng</div>
+                <div class="bnt" v-db-click @click="modify(item, 1)">Ghi chú đơn hàng</div>
                 <div
                   class="bnt"
                   v-db-click

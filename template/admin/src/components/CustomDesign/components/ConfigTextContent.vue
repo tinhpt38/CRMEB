@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form-item label="tiêu đề văn bản">
+    <el-form-item label="Tiêu đề văn bản">
       <el-input v-model="curComponent.propValue.text" placeholder="Vui lòng điền văn bản" @change="onChange"></el-input>
     </el-form-item>
     <ConfigLink

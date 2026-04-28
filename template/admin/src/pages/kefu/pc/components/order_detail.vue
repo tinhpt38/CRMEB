@@ -1,11 +1,11 @@
 <template>
   <div class="order_detail" v-if="orderDetail.userInfo">
     <div class="msg-box">
-      <div class="box-title">Tiếp nhận thông tin</div>
+      <div class="box-title">Thông tin nhận hàng</div>
       <div class="msg-wrapper">
         <div class="msg-item">
           <div class="item"><span>Biệt hiệu của người dùng：</span>{{ orderDetail.userInfo.nickname }}</div>
-          <div class="item"><span>người nhận hàng：</span>{{ orderDetail.orderInfo.real_name }}</div>
+          <div class="item"><span>Người nhận hàng：</span>{{ orderDetail.orderInfo.real_name }}</div>
         </div>
         <div class="msg-item">
           <div class="item"><span>Số liên lạc：</span>{{ orderDetail.orderInfo.user_phone }}</div>
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="msg-box" style="border: none">
-      <div class="box-title">Thông tin đặt hàng</div>
+      <div class="box-title">Thông tin đơn hàng</div>
       <div class="msg-wrapper">
         <div class="msg-item">
           <div class="item"><span>Đặt hàngID：</span>{{ orderDetail.orderInfo.order_id }}</div>
@@ -34,12 +34,12 @@
           <div class="item"><span>Số tiền phiếu giảm giá：</span>{{ orderDetail.orderInfo.coupon_price }}</div>
         </div>
         <div class="msg-item">
-          <div class="item"><span>thanh toán thực tế：</span>{{ orderDetail.orderInfo.pay_price }}</div>
-          <div class="item"><span>thời gian sáng tạo：</span>{{ orderDetail.orderInfo.add_time }}</div>
+          <div class="item"><span>Thanh toán thực tế：</span>{{ orderDetail.orderInfo.pay_price }}</div>
+          <div class="item"><span>Thời gian Tạo mới：</span>{{ orderDetail.orderInfo.add_time }}</div>
         </div>
         <div class="msg-item">
           <div class="item"><span>Phương thức thanh toán：</span>{{ orderDetail.orderInfo._status._payType }}</div>
-          <div class="item"><span>người quảng bá：</span>{{ orderDetail.userInfo.spread_name }}</div>
+          <div class="item"><span>Người quảng bá：</span>{{ orderDetail.userInfo.spread_name }}</div>
         </div>
         <div class="msg-item">
           <div class="item"><span>Nhận xét của người bán：</span>{{ orderDetail.orderInfo.remark }}</div>
@@ -48,7 +48,7 @@
     </div>
     <div class="goods-box">
       <el-table :data="orderList">
-        <el-table-column label="hàng hóaID" width="80">
+        <el-table-column label="ID sản phẩm" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.productInfo.id }}</span>
           </template>
@@ -61,7 +61,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Phân loại sản phẩm" min-width="130">
+        <el-table-column label="Danh mục sản phẩm" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.class_name }}</span>
           </template>
@@ -71,7 +71,7 @@
             <span>{{ scope.row.productInfo.attrInfo.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="số lượng sản phẩm" min-width="130">
+        <el-table-column label="Số lượng sản phẩm" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.cart_num }}</span>
           </template>

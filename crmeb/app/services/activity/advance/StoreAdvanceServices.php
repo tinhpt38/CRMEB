@@ -186,7 +186,7 @@ class StoreAdvanceServices extends BaseServices
         $header[] = ['title' => 'giá bán trước', 'key' => 'price', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'giá thành', 'key' => 'cost', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'giá chéo', 'key' => 'ot_price', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => 'trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'Trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'phiên bản giới hạn', 'key' => 'quota', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'cân nặng(KG)', 'key' => 'weight', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'âm lượng(m³)', 'key' => 'volume', 'align' => 'center', 'minWidth' => 80];

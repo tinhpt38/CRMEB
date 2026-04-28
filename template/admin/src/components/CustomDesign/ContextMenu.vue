@@ -3,12 +3,12 @@
     <ul>
       <template v-if="curComponent">
         <template v-if="!curComponent.isLock">
-          <li @click="handleAction('copy')">sao chép</li>
-          <li @click="handleAction('delete')">xóa bỏ</li>
-          <li @click="handleAction('lock')">khóa</li>
+          <li @click="handleAction('copy')">Sao chép</li>
+          <li @click="handleAction('delete')">Xóa</li>
+          <li @click="handleAction('lock')">Khóa</li>
           <li class="divider"></li>
-          <li @click="handleAction('top')">ghim lên trên</li>
-          <li @click="handleAction('bottom')">đáy</li>
+          <li @click="handleAction('top')">Ghim lên trên</li>
+          <li @click="handleAction('bottom')">Đáy</li>
           <li @click="handleAction('up')">Tăng một cấp</li>
           <li @click="handleAction('down')">Di chuyển xuống một cấp</li>
         </template>

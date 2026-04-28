@@ -68,8 +68,8 @@ class SystemCrudListServices extends BaseServices
         $field[] = Form::input('name', 'Tên từ điển', $info['name'] ?? '')->required();
         $field[] = Form::input('mark', 'ID từ điển', $info['mark'] ?? '')->required();
         $field[] = Form::radio('level', 'Hệ thống phân cấp', $info['level'] ?? 0)->options([['value' => 1, 'label' => 'đa cấp'], ['value' => 0, 'label' => 'Cấp 1']]);
-        $field[] = Form::radio('status', 'tình trạng', $info['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
-        return create_form($id ? 'biên tập' : 'Mới', $field, Url::buildUrl('/system/crud/data_dictionary_list/save/' . $id), 'POST');
+        $field[] = Form::radio('status', 'Trạng thái', $info['status'] ?? 1)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        return create_form($id ? 'Sửa' : 'Mới', $field, Url::buildUrl('/system/crud/data_dictionary_list/save/' . $id), 'POST');
     }
 
     /**

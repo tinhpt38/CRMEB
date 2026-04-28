@@ -1,0 +1,384 @@
+{
+  "dryRun": false,
+  "roots": [
+    "template/admin/src",
+    "template/uni-app",
+    "crmeb/app"
+  ],
+  "summary": {
+    "scanned": 1992,
+    "changedFiles": 81,
+    "totalReplacements": 135
+  },
+  "stats": {
+    "perEntry": {
+      "vận hành": 2,
+      "Gửi phiếu giảm giá": 1,
+      "nam giới": 2,
+      "đơn vị": 2,
+      "Kỷ lục nạp tiền": 2,
+      "Ghi chú đặt hàng": 3,
+      "thời gian thanh toán": 1,
+      "mặt hàng giá hời": 3,
+      "Chỉnh sửa sản phẩm": 5,
+      "thêm phiếu giảm giá": 1,
+      "Được trả tiền": 2,
+      "hàng hóa": 7,
+      "bật lên": 4,
+      "Ôn lại": 1,
+      "Phiếu giảm giá": 20,
+      "trưởng thành": 2,
+      "xóa bỏ": 7,
+      "cứu": 2,
+      "xác nhận đã nhận hàng": 3,
+      "trong kho": 3,
+      "bầu trời": 5,
+      "Xem sản phẩm": 2,
+      "Hơn": 6,
+      "thanh toán thực tế": 4,
+      "mặt trăng": 1,
+      "tích phân": 16,
+      "WeChat trả tiền": 1,
+      "người dùngID": 1,
+      "biên tập": 5,
+      "tất cả": 7,
+      "xóa sổ": 1,
+      "người nhận hàng": 3,
+      "Thông tin đặt hàng": 1,
+      "Ràng buộc": 1,
+      "Nhận số điện thoại": 1,
+      "Cài đặt quyền": 1,
+      "hồ sơ thanh toán": 1,
+      "Kỷ lục tiêu thụ": 1,
+      "Cấp độ phân phối": 1,
+      "Đơn hàng khuyến mãi": 1,
+      "Quản lý điểm": 2
+    },
+    "perFile": [
+      {
+        "file": "template/admin/src/components/CustomDesign/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/sendCoupons/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/division/agent/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/division/list/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/finance/financialRecords/recharge/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/components/PriceChange.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/components/rightMenu.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeBargain/create.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeBargain/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCombination/create.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCouponIssue/create.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegral/create.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeSeckill/create.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeSeckill/createMore.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/components/tableList.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productList/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/storeService/autoReply.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/theme/editTheme/components/Header.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/system/configTab/list.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/user/list/handle/userDetails.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/user/list/handle/userInfo.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/user/list/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/components/cartList/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/components/couponListWindow/index.vue",
+        "count": 7
+      },
+      {
+        "file": "template/uni-app/components/eidtUserModal/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/components/orderGoods/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/components/productWindow/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/activity/bargain/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/activity/goods_bargain_details/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/activity/presell_details/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/components/PriceChange/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/admin/components/uni-calendar/uni-calendar.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/admin/statistics/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/admin/user/components/editBalance/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/annex/offline_pay/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/annex/settled/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/annex/vip_coupon/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/annex/vip_paid/index.vue",
+        "count": 4
+      },
+      {
+        "file": "template/uni-app/pages/extension/news_details/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/admin_order_detail/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/components/invoicePicker/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/goods/components/splitOrder/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/goods_comment_list/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/order_confirm/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/goods/order_details/index.vue",
+        "count": 5
+      },
+      {
+        "file": "template/uni-app/pages/goods/order_list/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/goods/order_pay_status/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/order_addcart/order_addcart.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/component/productWindow.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/exchange_record.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/integral_goods_details.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/integral_goods_list.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/integral_order.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/integral_order_details.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/logistics_details.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/points_mall/user_address.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/users/binding_phone/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/components/login_mobile/routine_phone.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/message_center/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/promoter-order/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/staff_list/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_address_list/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/users/user_bill/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_cancellation/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_coupon/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/users/user_goods_collection/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_info/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_invoice_form/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_invoice_list/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/users/user_money/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/users/user_spread_user/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/users/visit_list/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/homeProductService.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/newVip.vue",
+        "count": 6
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/news.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/pointsMall.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/signIn.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/userInfor.vue",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/UpgradeController.php",
+        "count": 2
+      }
+    ]
+  }
+}

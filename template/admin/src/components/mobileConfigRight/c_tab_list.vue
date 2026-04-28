@@ -63,7 +63,7 @@
     </div>
     <div v-if="configData.list">
       <div class="add-btn" @click="addHotTxt" v-if="configData.list.length < configData.max">
-        <el-button class="btn" type="primary" ghost> <span class="iconfont iconjiahao"></span>Thêm vào </el-button>
+        <el-button class="btn" type="primary" ghost> <span class="iconfont iconjiahao"></span>Thêm mới </el-button>
       </div>
     </div>
     <!-- <linkaddress

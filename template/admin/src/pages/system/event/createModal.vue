@@ -2,19 +2,19 @@
   <div>
     <el-drawer
       :visible.sync="modal"
-      :title="formValidate.id ? 'Chỉnh sửa sự kiện' : 'Thêm sự kiện'"
+      :title="FormValidate.id ? 'Chỉnh sửa sự kiện' : 'Thêm sự kiện'"
       size="1000px"
       @closed="initData"
     >
       <el-form v-if="modal" class="pb-20" ref="formValidate" :model="formValidate" label-width="97px" label-colon>
-        <el-form-item label="tên sự kiện：" required>
+        <el-form-item label="Tên sự kiện：" required>
           <el-row :gutter="16">
             <el-col :span="20">
               <el-input v-model="formValidate.name" placeholder="Vui lòng nhập tên sự kiện"></el-input>
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="loại sự kiện：" required>
+        <el-form-item label="Loại sự kiện：" required>
           <el-row :gutter="16">
             <el-col :span="20">
               <el-select v-model="formValidate.mark" @change="taskChange">
@@ -70,7 +70,7 @@
           </el-row>
         </el-form-item>
 
-        <el-form-item label="mật khẩu phát triển：" required>
+        <el-form-item label="Mật khẩu phát triển：" required>
           <el-row :gutter="10">
             <el-col :span="24">
               <el-input v-model="formValidate.password" type="password" placeholder="Vui lòng nhập mật khẩu phát triển hệ thống. Mật khẩu phát triển có thể được sửa đổi trong crmeb/config/filesystem.phppassword"></el-input>
@@ -81,8 +81,8 @@
           <el-row :gutter="10">
             <el-col :span="12">
               <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.is_open" size="large">
-                <span slot="open">bật lên</span>
-                <span slot="close">đóng cửa</span>
+                <span slot="open">Bật lên</span>
+                <span slot="close">Đóng cửa</span>
               </el-switch>
             </el-col>
           </el-row>
@@ -90,7 +90,7 @@
       </el-form>
       <span class="dialog-footer">
         <el-button v-db-click @click="modal = false">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit">Nộp</el-button>
       </span>
     </el-drawer>
   </div>
@@ -191,7 +191,7 @@ export default {
       if (!id) {
         this.modal = true;
         this.initEditor(
-          "<?php\n\n//Mã mẫu\n//Ví dụ sử dụng tham số  $data['uid']\n\n//Viết trực tiếp vào cơ sở dữ liệu\n\\think\\facade\\Db::name('cache')->insert(['key' => 'custom_event_' . rand(), 'result' => $data['nickname'] . rand(), 'expire_time' => 0]);\n\n//Phương thức hệ thống gọi\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_event_' . rand(), $data['nickname']);",
+          "<?php\n\n//Mã mẫu\n//Ví dụ sử dụng tham số  $data['uid']\n\n//Viết trực tiếp vào cơ sở dữ liệu\n\\think\\facade\\Db::name('cache')->Insert(['key' => 'custom_event_' . rand(), 'result' => $data['nickname'] . rand(), 'expire_time' => 0]);\n\n//Phương thức hệ thống gọi\napp()->make(\\app\\services\\other\\CacheServices::class)->setDbCache('custom_event_' . rand(), $data['nickname']);",
         );
         return;
       }

@@ -353,7 +353,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -381,7 +381,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -409,7 +409,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -437,7 +437,7 @@ export default {
                     name: 'Trang vi mô',
                   },
                   {
-                    name: 'Phân loại sản phẩm',
+                    name: 'Danh mục sản phẩm',
                   },
                 ],
               },
@@ -552,7 +552,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -567,7 +567,7 @@ export default {
         },
         swiperConfig: {
           title: 'Khuyến nghị: Kích thước ảnh là 702*320px; kéo chuột để điều chỉnh thứ tự các hình ảnh.',
-          bnt: 'Thêm vào',
+          bnt: 'Thêm mới',
           maxList: 10,
           list: [
             {

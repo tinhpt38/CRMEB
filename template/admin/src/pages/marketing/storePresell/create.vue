@@ -3,7 +3,7 @@
     <div class="i-layout-page-header">
       <div class="i-layout-page-header">
         <router-link :to="{ path: $routeProStr + '/marketing/presell/index' }">
-          <el-button icon="ios-arrow-back" size="small" class="mr20">trở lại </el-button>
+          <el-button icon="ios-arrow-back" size="small" class="mr20">Trở lại</el-button>
         </router-link>
         <span
           class="ivu-page-header-title mr20"
@@ -51,7 +51,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="Băng chuyền sản phẩm：" prop="images">
+                <el-form-item label="Ảnh slider sản phẩm：" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -124,7 +124,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="thời gian vận chuyển：" prop="deliver_time">
+                <el-form-item label="Thời gian vận chuyển：" prop="deliver_time">
                   <div class="acea-row row-middle">
                     <span class="mr10">Sau khi sự kiện bán trước kết thúc</span>
                     <el-input-number
@@ -134,13 +134,13 @@
                       :min="1"
                       v-model="formValidate.deliver_time"
                     />
-                    <span class="ml10"> Trong bầu trời </span>
+                    <span class="ml10"> Trong ngày </span>
                     <div class="ml10 grey"></div>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="Mẫu vận chuyển hàng hóa：" prop="temp_id">
+                <el-form-item label="Mẫu vận chuyển sản phẩm：" prop="temp_id">
                   <div class="acea-row row-middle">
                     <el-select v-model="formValidate.temp_id" class="perW20">
                       <el-option
@@ -150,7 +150,7 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <div class="ml10 col" v-db-click @click="freight">Thêm mẫu vận chuyển hàng hóa</div>
+                    <div class="ml10 col" v-db-click @click="freight">Thêm mẫu vận chuyển sản phẩm</div>
                   </div>
                 </el-form-item>
               </el-col>
@@ -173,9 +173,9 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="đơn vị：" prop="unit_name" label-for="unit_name">
+                <el-form-item label="Đơn vị：" prop="unit_name" label-for="unit_name">
                   <el-input
-                    placeholder="Vui lòng nhập đơn vị"
+                    placeholder="Vui lòng nhập Đơn vị"
                     element-id="unit_name"
                     v-model="formValidate.unit_name"
                     class="perW20"
@@ -183,7 +183,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="loại：">
+                <el-form-item label="Loại：">
                   <el-input-number
                     :controls="false"
                     placeholder="Vui lòng nhập sắp xếp"
@@ -195,7 +195,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="trạng thái hoạt động：" props="status" label-for="status">
+                <el-form-item label="Trạng thái hoạt động：" props="status" label-for="status">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
@@ -213,7 +213,7 @@
                   <el-table :data="specsData" @selection-change="changeCheckbox">
                     <el-table-column type="selection" width="55"> </el-table-column>
                     <el-table-column
-                      :label="item.title"
+                      :label="Item.title"
                       :min-width="item.minWidth"
                       v-for="(item, index) in columns"
                       :key="index"
@@ -240,7 +240,7 @@
             </el-row>
             <el-row v-show="current === 2">
               <el-col :span="24">
-                <el-form-item label="nội dung：">
+                <el-form-item label="Nội dung：">
                   <WangEditor
                     style="width: 90%"
                     :content="formValidate.description"
@@ -255,8 +255,7 @@
                 v-db-click
                 @click="step"
                 :disabled="($route.params.id && current === 1) || current === 0"
-                >Bước trước
-              </el-button>
+                >Bước trước</el-button>
               <el-button
                 type="primary"
                 :disabled="submitOpen && current === 2"
@@ -417,7 +416,7 @@ export default {
         //     trigger: "change",
         //   },
         // ],
-        unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
+        unit_name: [{ required: true, message: 'Vui lòng nhập Đơn vị', trigger: 'blur' }],
         price: [
           {
             required: true,
@@ -501,7 +500,7 @@ export default {
         temp_id: [
           {
             required: true,
-            message: 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+            message: 'Vui lòng chọn mẫu vận chuyển sản phẩm',
             trigger: 'change',
             type: 'number',
           },
@@ -694,7 +693,7 @@ export default {
                 if (that.formValidate.attrs[index].quota <= 0) {
                   return that.$message.error('Giới hạn trước khi bán phải lớn hơn0');
                 }
-                if (this.formValidate.attrs[index].quota > this.formValidate.attrs[index]['stock']) {
+                if (this.formValidate.attrs[index].quota > This.formValidate.attrs[index]['stock']) {
                   return this.$message.error('Giới hạn trước khi bán không thể vượt quá số lượng hàng tồn kho đặc điểm kỹ thuật');
                 }
               }

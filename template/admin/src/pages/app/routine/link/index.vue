@@ -13,12 +13,12 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="số seri" width="80">
+        <el-table-column label="Số seri" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên" width="180">
+        <el-table-column label="Tên" width="180">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
@@ -31,13 +31,13 @@
         <el-table-column label="Liên kết hệ thống(Chỉnh sửa không thay đổi)" min-width="200">
           <template slot-scope="scope">
             <span>{{ scope.row.http_url }}</span>
-            <a class="ml10" v-db-click @click="onCopy(scope.row.http_url)">sao chép</a>
+            <a class="ml10" v-db-click @click="onCopy(scope.row.http_url)">Sao chép</a>
           </template>
         </el-table-column>
-        <el-table-column label="liên kết WeChat(Chỉnh sửa thay đổi)" min-width="200">
+        <el-table-column label="Liên kết WeChat(Chỉnh sửa thay đổi)" min-width="200">
           <template slot-scope="scope">
             <span>{{ scope.row.url }}</span>
-            <a class="ml10" v-db-click @click="onCopy(scope.row.url)">sao chép</a>
+            <a class="ml10" v-db-click @click="onCopy(scope.row.url)">Sao chép</a>
           </template>
         </el-table-column>
         <el-table-column label="Thêm thời gian" min-width="130">
@@ -50,11 +50,11 @@
             <span>{{ scope.row.expire_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa liên kết', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa liên kết', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

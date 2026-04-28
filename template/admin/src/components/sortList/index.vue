@@ -3,7 +3,7 @@
     <el-form ref="formValidate" :model="formValidate" label-width="120px" label-position="right" class="tabform">
       <el-row :gutter="24">
         <el-col v-bind="grid">
-          <el-form-item label="Phân loại sản phẩm：" label-for="pid">
+          <el-form-item label="Danh mục sản phẩm：" label-for="pid">
             <el-select v-model="formValidate.pid" style="width: 230px" clearable @change="userSearchs">
               <el-option v-for="item in treeSelect" :value="item.id" :key="item.id" :label="item.cate_name"></el-option>
             </el-select>
@@ -32,19 +32,19 @@
       @select="selectionGood"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column label="hàng hóaID" width="80">
+      <el-table-column label="ID sản phẩm" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="hình ảnh" min-width="90">
+      <el-table-column label="Hình ảnh" min-width="90">
         <template slot-scope="scope">
           <div class="tabBox_img" v-viewer>
             <img v-lazy="scope.row.pic" />
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="Phân loại sản phẩm" min-width="130">
+      <el-table-column label="Danh mục sản phẩm" min-width="130">
         <template slot-scope="scope">
           <span>{{ scope.row.cate_name }}</span>
         </template>
@@ -83,7 +83,7 @@ export default {
           align: 'center',
         },
         {
-          title: 'hàng hóaID',
+          title: 'ID sản phẩm',
           key: 'id',
         },
         {
@@ -91,7 +91,7 @@ export default {
           slot: 'image',
         },
         {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           key: 'cate_name',
           minWidth: 150,
         },

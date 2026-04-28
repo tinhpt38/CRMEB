@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :visible.sync="modals" width="720px" :title="titleFrom" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modals" width="720px" :title="TitleFrom" :close-on-click-modal="false">
       <el-form
         ref="formValidate"
         :model="formValidate"
@@ -15,7 +15,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="trường dữ liệu：" prop="config_name">
+            <el-form-item label="Trường dữ liệu：" prop="config_name">
               <el-input v-model="formValidate.config_name" placeholder="Vui lòng nhập trường dữ liệu" style="width: 90%"></el-input>
             </el-form-item>
           </el-col>
@@ -25,10 +25,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="kiểu dữ liệu：" prop="cate_id">
+            <el-form-item label="Kiểu dữ liệu：" prop="cate_id">
               <el-radio-group v-model="formValidate.cate_id">
-                <el-radio :label="0">mặc định</el-radio>
-                <el-radio :label="1">dữ liệu</el-radio>
+                <el-radio :label="0">Mặc định</el-radio>
+                <el-radio :label="1">Dữ liệu</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -59,11 +59,11 @@
                 label-width="0"
               >
                 <el-select placeholder="Loại trường" v-model="item.type.value">
-                  <el-option value="input">hộp văn bản</el-option>
-                  <el-option value="textarea">hộp văn bản nhiều dòng</el-option>
-                  <el-option value="radio">nút radio</el-option>
-                  <el-option value="checkbox">hộp kiểm</el-option>
-                  <el-option value="select">lựa chọn thả xuống</el-option>
+                  <el-option value="input">Hộp văn bản</el-option>
+                  <el-option value="textarea">Hộp văn bản nhiều dòng</el-option>
+                  <el-option value="radio">Nút radio</el-option>
+                  <el-option value="checkbox">Hộp kiểm</el-option>
+                  <el-option value="select">Lựa chọn thả xuống</el-option>
                   <el-option value="upload">Hình ảnh đơn</el-option>
                   <el-option value="uploads">Nhiều hình ảnh</el-option>
                 </el-select>

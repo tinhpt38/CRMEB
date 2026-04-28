@@ -22,7 +22,7 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'c_paid_vip',
-  cname: 'Thành viên trả phí',
+  cname: 'Gói thẻ VIP',
   componentsName: 'home_paid_vip',
   components: {
     ...toolCom,
@@ -192,7 +192,7 @@ export default {
           title: 'Nền bo tròn các góc',
           type: 0,
           list: [
-            { val: 'tất cả', icon: 'iconcaozuo-zhengti' },
+            { val: 'Tất cả', icon: 'iconcaozuo-zhengti' },
             { val: 'đơn', icon: 'iconcaozuo-bianjiao' },
           ],
           valName: 'Giá trị phi lê',

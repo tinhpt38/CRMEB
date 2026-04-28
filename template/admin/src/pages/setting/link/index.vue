@@ -32,13 +32,13 @@
                       </el-tooltip>
                     </div>
                     <span>
-                      <el-dropdown @command="(command) => clickMenu(data, command)">
+                      <el-dropdown @command="(command) => ClickMenu(data, command)">
                         <i class="el-icon-more el-icon--right"></i>
                         <template slot="dropdown">
                           <el-dropdown-menu>
                             <el-dropdown-item v-if="data.pid == 1" command="1">Thêm danh mục mới</el-dropdown-item>
                             <el-dropdown-item v-if="data.id" command="2">Chỉnh sửa danh mục</el-dropdown-item>
-                            <el-dropdown-item v-if="data.id" command="3">xóa bỏ</el-dropdown-item>
+                            <el-dropdown-item v-if="data.id" command="3">Xóa</el-dropdown-item>
                           </el-dropdown-menu>
                         </template>
                       </el-dropdown>
@@ -65,7 +65,7 @@
                 <span>{{ scope.row.id }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="tên" width="150">
+            <el-table-column label="Tên" width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
@@ -89,11 +89,11 @@
                 <span>{{ scope.row.add_time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="90">
+            <el-table-column label="Thao tác" fixed="right" width="90">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row)">biên tập</a>
+                <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, 'Xóa liên kết', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa liên kết', scope.$index)">Xóa</a>
               </template>
             </el-table-column>
           </el-table>
@@ -110,20 +110,20 @@
       </div>
     </div>
     <el-dialog
-      title="liên kết"
+      title="Liên kết"
       :visible.sync="dialogVisible"
       width="40%"
       :before-close="handleClose"
       :close-on-click-modal="false"
     >
       <el-form :model="linkForm" ref="linkForm" label-width="80px">
-        <el-form-item label="tên:" prop="name">
+        <el-form-item label="Tên:" prop="name">
           <el-input v-model="linkForm.name" placeholder="Vui lòng nhập tên"></el-input>
         </el-form-item>
         <el-form-item label="Nhảy liên kết:" prop="url">
           <el-input v-model="linkForm.url" placeholder="Vui lòng nhập liên kết nhảy"></el-input>
         </el-form-item>
-        <el-form-item label="loại:" prop="url">
+        <el-form-item label="Loại:" prop="url">
           <el-input v-model="linkForm.sort" placeholder="Vui lòng nhập sắp xếp"></el-input>
         </el-form-item>
         <el-form-item label="Có nên bật không:" prop="url">
@@ -324,7 +324,7 @@ export default {
     remove(data, tit) {
       this.tits = tit;
       let delfromData = {
-        title: 'xóa bỏ [ ' + data.title + ' ] ' + 'Phân loại',
+        title: 'Xóa [ ' + data.title + ' ] ' + 'Phân loại',
         url: `diy/link/category/del/${data.id}`,
         method: 'DELETE',
         ids: '',

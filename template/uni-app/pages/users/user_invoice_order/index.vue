@@ -94,7 +94,7 @@
 			<!-- Chi tiết đơn hàng hoàn tiền -->
 			<view class='wrapper' v-if="isGoodsReturn">
 				<view class='item acea-row row-between'>
-					<view>{{$t(`người nhận hàng`)}}：</view>
+					<view>{{$t(`Người nhận hàng`)}}：</view>
 					<view class='conter'>{{orderInfo.real_name}}</view>
 				</view>
 				<view class='item acea-row row-between'>
@@ -774,8 +774,8 @@
 			confirmOrder: function() {
 				let that = this;
 				uni.showModal({
-					title: this.$t(`xác nhận đã nhận hàng`),
-					content: this.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng xác nhận đã nhận hàng trước khi xác nhận đã nhận.`),
+					title: this.$t(`Xác nhận nhận hàng`),
+					content: this.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng Xác nhận nhận hàng trước khi xác nhận đã nhận.`),
 					success: function(res) {
 						if (res.confirm) {
 							orderTake(that.order_id).then(res => {

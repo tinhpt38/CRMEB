@@ -30,13 +30,13 @@ Route::group('user', function () {
             ]
         ]);
         //Thêm người dùng lưu
-        Route::post('user/save', 'v1.user.User/save_info')->option(['real_name' => 'Thêm người dùng']);
+        Route::post('user/save', 'v1.user.User/save_info')->option(['real_name' => 'Thêm khách hàng']);
         //Đồng bộ hóa người dùng WeChat
         Route::get('user/syncUsers', 'v1.user.User/syncWechatUsers')->option(['real_name' => 'Đồng bộ hóa người dùng WeChat']);
         //Thông tin người dùng
         Route::get('user/user_save_info/:uid', 'v1.user.User/userSaveInfo')->option(['real_name' => 'Thêm thông tin khi chỉnh sửa thông tin người dùng']);
         //Cấp độ thành viên miễn phí
-        Route::get('give_level/:id', 'v1.user.User/give_level')->option(['real_name' => 'Cấp độ người dùng miễn phí']);
+        Route::get('give_level/:id', 'v1.user.User/give_level')->option(['real_name' => 'Hạng khách hàng miễn phí']);
         //Triển khai cấp độ thành viên miễn phí
         Route::put('save_give_level/:id', 'v1.user.User/save_give_level')->option(['real_name' => 'Triển khai cấp độ người dùng miễn phí']);
         //Thời gian thành viên trả phí miễn phí
@@ -91,7 +91,7 @@ Route::group('user', function () {
         Route::post('user_level/save_task', 'v1.user.UserLevel/save_task')->option(['real_name' => 'Lưu hoặc sửa đổi nhiệm vụ cấp người dùng']);
         //Xóa tác vụ
         Route::delete('user_level/delete_task/:id', 'v1.user.UserLevel/delete_task')->option(['real_name' => 'Xóa nhiệm vụ cấp người dùng']);
-    })->option(['parent' => 'user', 'cate_name' => 'Cấp độ người dùng']);
+    })->option(['parent' => 'user', 'cate_name' => 'Hạng khách hàng']);
 
     /** Nhóm người dùng */
     Route::group(function () {
@@ -103,7 +103,7 @@ Route::group('user', function () {
         Route::post('user_group/save', 'v1.user.UserGroup/save')->option(['real_name' => 'Lưu dữ liệu biểu mẫu được nhóm']);
         //Xóa dữ liệu được nhóm
         Route::delete('user_group/del/:id', 'v1.user.UserGroup/delete')->option(['real_name' => 'Xóa dữ liệu nhóm người dùng']);
-    })->option(['parent' => 'user', 'cate_name' => 'Nhóm người dùng']);
+    })->option(['parent' => 'user', 'cate_name' => 'Nhóm khách hàng']);
 
     /** Thẻ người dùng */
     Route::group(function () {
@@ -128,14 +128,14 @@ Route::group('user', function () {
                 'create' => 'Nhận mẫu phân loại thẻ',
                 'save' => 'Lưu danh mục thẻ',
                 'edit' => 'Nhận mẫu phân loại nhãn sửa đổi',
-                'update' => 'Sửa đổi phân loại nhãn',
+                'update' => 'Sửa danh mục nhãn',
                 'delete' => 'Xóa danh mục thẻ'
             ]
         ]);
-        Route::get('user_label_cate/all', 'v1.user.UserLabelCate/getAll')->option(['real_name' => 'Nhận tất cả các danh mục thẻ người dùng']);
+        Route::get('user_label_cate/all', 'v1.user.UserLabelCate/getAll')->option(['real_name' => 'Nhận Tất cả các danh mục thẻ người dùng']);
         //Danh sách cây thẻ người dùng (danh mục)
         Route::get('user_tree_label', 'v1.user.UserLabel/tree_list')->option(['real_name' => 'Danh sách cây thẻ người dùng (danh mục)']);
-    })->option(['parent' => 'user', 'cate_name' => 'Thẻ người dùng']);
+    })->option(['parent' => 'user', 'cate_name' => 'Thẻ khách hàng']);
 
     /** Thành viên trả phí */
     Route::group(function () {
@@ -169,7 +169,7 @@ Route::group('user', function () {
         Route::post('member_agreement/save/:id', 'v1.user.member.MemberCardBatch/save_member_agreement')->option(['real_name' => 'Thỏa thuận thành viên']);
         //Nhận thỏa thuận thành viên
         Route::get('member/agreement', 'v1.user.member.MemberCardBatch/getAgreement')->option(['real_name' => 'Nhận thỏa thuận thành viên']);
-    })->option(['parent' => 'user', 'cate_name' => 'Thành viên trả phí']);
+    })->option(['parent' => 'user', 'cate_name' => 'Gói thẻ VIP']);
 
 
     /** Đăng xuất người dùng */
@@ -191,4 +191,4 @@ Route::group('user', function () {
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'user', 'mark_name' => 'Quản lý người dùng']);
+])->option(['mark' => 'user', 'mark_name' => 'Quản lý khách hàng']);

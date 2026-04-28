@@ -70,7 +70,7 @@ export const getMenuByRouter = (list, access) => {
 export const getBreadCrumbList = (route, homeRoute) => {
   let homeItem = { ...homeRoute, icon: homeRoute.meta?.icon };
   let routeMetched = route.matched;
-  if (routeMetched.some((item) => item.name === homeRoute.name)) return [homeItem];
+  if (routeMetched.some((item) => Item.name === homeRoute.name)) return [homeItem];
   let res = routeMetched
     .filter((item) => {
       return item.meta === undefined || !item.meta.hideInBread;
@@ -163,7 +163,7 @@ export const getHomeRoute = (routers, homeName = 'home') => {
 export const getNewTagList = (list, newRoute) => {
   const { name, path, meta } = newRoute;
   let newList = [...list];
-  if (newList.findIndex((item) => item.path === path) >= 0) return newList;
+  if (newList.findIndex((item) => Item.path === path) >= 0) return newList;
   else newList.push({ name, path, meta });
   return newList;
 };
@@ -312,7 +312,7 @@ export const findNodeUpperByClasses = (ele, classes) => {
   let parentNode = ele.parentNode;
   if (parentNode) {
     let classList = parentNode.classList;
-    if (classList && classes.every((className) => classList.contains(className))) {
+    if (classList && classes.every((className) => ClassList.contains(className))) {
       return parentNode;
     } else {
       return findNodeUpperByClasses(parentNode, classes);
@@ -390,7 +390,7 @@ export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
       return;
     }
 
-    let d = start + step > end ? end : start + step;
+    let d = start + step > End ? end : start + step;
     if (start > end) {
       d = start - step < end ? end : start - step;
     }

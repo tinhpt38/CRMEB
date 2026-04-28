@@ -3,7 +3,7 @@
     <!--    <div class="i-layout-page-header header-title">-->
     <!--      <div class="fl_header">-->
     <!--        <router-link v-if="$route.params.id != 49" :to="{ path: $routeProStr + '/system/config/system_group/index' }"-->
-    <!--          ><el-button size="small" type="text">trở lại</el-button></router-link-->
+    <!--          ><el-button size="small" type="text">Trở lại</el-button></router-link-->
     <!--        >-->
     <!--        <el-divider direction="vertical" v-if="$route.params.id != 49" />-->
     <!--        <span class="ivu-page-header-title mr20" style="padding: 0" v-text="$route.meta.title"></span>-->
@@ -46,7 +46,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns1" :key="index">
+        <el-table-column :label="Item.title" :min-width="item.minWidth" v-for="(item, index) in columns1" :key="index">
           <template slot-scope="scope">
             <template v-if="item.key">
               <div v-if="item.type !== 'img'">
@@ -70,9 +70,9 @@
               </el-switch>
             </template>
             <template v-else-if="item.slot === 'action'">
-              <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
+              <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
               <el-divider direction="vertical"></el-divider>
-              <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+              <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
             </template>
           </template>
         </el-table-column>

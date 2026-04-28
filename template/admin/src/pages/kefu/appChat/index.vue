@@ -45,7 +45,7 @@
                             {{ item.productInfo.store_name }}
                           </div>
                           <div class="attr">
-                            <span>trong kho：{{ item.productInfo.stock }}</span>
+                            <span>Trong kho：{{ item.productInfo.stock }}</span>
                             <span
                               >Doanh số bán hàng：{{
                                 parseInt(item.productInfo.sales) +
@@ -56,7 +56,7 @@
                           <div class="group">
                             <div class="money">￥{{ item.productInfo.price }}</div>
                             <span style="cursor: pointer" v-db-click @click.stop="onLook(item.productInfo.id)"
-                              >Xem sản phẩm ></span
+                              >Chi tiết sản phẩm ></span
                             >
                           </div>
                         </div>
@@ -68,7 +68,7 @@
                           </div>
                           <div class="intro">
                             <div class="name">Đặt hàngID：{{ item.orderInfo.order_id }}</div>
-                            <div class="attr">số lượng sản phẩm：{{ itm.cart_num }}</div>
+                            <div class="attr">Số lượng sản phẩm：{{ itm.cart_num }}</div>
                             <div class="group">
                               <div class="money">￥{{ itm.productInfo.price }}</div>
                               <nuxt-link
@@ -92,10 +92,10 @@
           <div class="editor">
             <div class="editor-hd">
               <div>
-                <button class="emoji-btn" title="sự biểu lộ" v-db-click @click.stop="emojiSwitch">
+                <button class="emoji-btn" title="Sự biểu lộ" v-db-click @click.stop="emojiSwitch">
                   <span class="iconfont iconbiaoqing1"></span>
                 </button>
-                <button title="hình ảnh" v-if="kufuToken">
+                <button title="Hình ảnh" v-if="kufuToken">
                   <el-upload
                     :show-file-list="false"
                     :action="uploadAction"
@@ -131,7 +131,7 @@
               <textarea v-model="chatCont" placeholder="Vui lòng nhập nội dung văn bản" @keydown.enter="ctrlEnter"></textarea>
             </div>
             <div class="editor-ft">
-              <button :disabled="!chatCont" v-db-click @click.stop="sendMessage">gửi</button>
+              <button :disabled="!chatCont" v-db-click @click.stop="sendMessage">Gửi</button>
             </div>
           </div>
         </div>
@@ -700,7 +700,7 @@ li {
             .content {
               text-align: right;
 
-              > div {
+              > Div {
                 text-align: left;
               }
             }

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="modals" title="nhiệm vụ cấp độ" :close-on-click-modal="false" width="1000px" @closed="handleReset">
+  <el-dialog :visible.sync="modals" title="Nhiệm vụ cấp độ" :close-on-click-modal="false" width="1000px" @closed="handleReset">
     <el-form
       ref="levelFrom"
       :model="levelFrom"
@@ -30,7 +30,7 @@
       <el-col :span="24" class="userAlert">
         <el-alert type="info" show-icon closable>
           <template slot="title">
-            Thêm nhiệm vụ cấp độ,trong loại nhiệm vụ{$num}Nó sẽ được tự động thay thế bằng số lượng giới hạn + tên tác vụ tạo đơn vị được hệ thống đặt trước
+            Thêm nhiệm vụ cấp độ,trong loại nhiệm vụ{$num}Nó sẽ được tự động thay thế bằng số lượng giới hạn + tên tác vụ tạo Đơn vị được hệ thống đặt trước
           </template>
         </el-alert>
       </el-col>
@@ -71,7 +71,7 @@
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="phải đạt được" min-width="100">
+      <el-table-column label="Phải đạt được" min-width="100">
         <template slot-scope="scope">
           <el-switch
             :active-value="1"
@@ -80,7 +80,7 @@
             :value="scope.row.is_must"
             size="large"
             @change="onchangeIsMust(scope.row)"
-            active-text="tất cả"
+            active-text="Tất cả"
             inactive-text="một"
           >
           </el-switch>
@@ -91,11 +91,11 @@
           <span>{{ scope.row.illustrate }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="vận hành" fixed="right" width="170">
+      <el-table-column label="Thao tác" fixed="right" width="170">
         <template slot-scope="scope">
-          <a v-db-click @click="edit(scope.row)">biên tập | </a>
+          <a v-db-click @click="edit(scope.row)">Biên tập | </a>
           <el-divider direction="vertical"></el-divider>
-          <a v-db-click @click="del(scope.row, 'Xóa nhiệm vụ cấp độ', index)"> xóa bỏ</a>
+          <a v-db-click @click="del(scope.row, 'Xóa nhiệm vụ cấp độ', index)"> Xóa</a>
         </template>
       </el-table-column>
     </el-table>

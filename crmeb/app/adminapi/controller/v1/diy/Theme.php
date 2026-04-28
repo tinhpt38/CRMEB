@@ -285,7 +285,7 @@ class Theme extends AuthController
         // 6. Đẩy nhiệm vụ đóng gói vào hàng đợi
         ThemeExportJob::dispatch('export', [$info, $recordId]);
 
-        return app('json')->success('Đang xuất, vui lòng không vận hành trang！', ['record_id' => $recordId]);
+        return app('json')->success('Đang xuất, vui lòng không Thao tác trang！', ['record_id' => $recordId]);
     }
 
     /**

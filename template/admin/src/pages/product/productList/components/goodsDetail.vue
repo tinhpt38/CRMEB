@@ -23,8 +23,8 @@
             </div>
             <div class="name">{{ goodsInfo.productInfo.store_name }}</div>
             <div class="msg">
-              <div class="item">giá gốc:￥{{ goodsInfo.productInfo.ot_price }}</div>
-              <div class="item">trong kho:{{ goodsInfo.productInfo.stock }}{{ goodsInfo.productInfo.unit_name }}</div>
+              <div class="item">Giá gốc:￥{{ goodsInfo.productInfo.ot_price }}</div>
+              <div class="item">Trong kho:{{ goodsInfo.productInfo.stock }}{{ goodsInfo.productInfo.unit_name }}</div>
               <div class="item">
                 Doanh số bán hàng:{{ goodsInfo.productInfo.sales + goodsInfo.productInfo.ficti
                 }}{{ goodsInfo.productInfo.unit_name }}

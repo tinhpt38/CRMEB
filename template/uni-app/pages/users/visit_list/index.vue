@@ -45,11 +45,11 @@
 			<view class="footer acea-row row-between-wrapper" v-if="isShowChecked">
 				<checkbox-group @change="checkboxAllChange">
 					<checkbox value="all" :checked="isAllSelect" />
-					<text class='checkAll'>{{$t(`Chọn tất cả`)}}</text>
+					<text class='checkAll'>{{$t(`Chọn Tất cả`)}}</text>
 				</checkbox-group>
 				<view class="acea-row row-middle">
 					<view class="bnt acea-row row-center-wrapper" @click="collect">{{$t(`sưu tầm`)}}</view>
-					<view class="bnt on acea-row row-center-wrapper" @click="del">{{$t(`xóa bỏ`)}}</view>
+					<view class="bnt on acea-row row-center-wrapper" @click="del">{{$t(`Xóa`)}}</view>
 				</view>
 			</view>
 		</view>

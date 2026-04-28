@@ -4,7 +4,7 @@
       <div class="title">{{ item.name }}</div>
       <div class="txt"><span>Địa chỉ：</span>{{ item.url }}</div>
       <div class="txt" v-if="item.parameter">
-        <p><span>tham số：</span></p>
+        <p><span>Tham số：</span></p>
         <span>{{ item.parameter }}</span>
         <!--<span v-for="(val, key, index) in item.parameter">{{key+"="+val}}<i style="font-style: normal">&</i></span>-->
       </div>
@@ -12,8 +12,8 @@
         Ví dụ：{{ item.example }}
         <!--<el-button size="small" style="margin-left: 10px" v-clipboard:copy="item.example"-->
         <!--v-clipboard:success="onCopy"-->
-        <!--v-clipboard:error="onError">sao chép</el-button>-->
-        <span class="copy copy-data" v-db-click @click="onCopy(item.example)">sao chép</span>
+        <!--v-clipboard:error="onError">Sao chép</el-button>-->
+        <span class="copy copy-data" v-db-click @click="onCopy(item.example)">Sao chép</span>
       </div>
     </div>
   </div>

@@ -36,7 +36,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -48,7 +48,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="biệt danh" min-width="130">
+        <el-table-column label="Biệt danh" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.rela_name }}</span>
           </template>
@@ -58,26 +58,26 @@
             <span>{{ scope.row.phone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="nội dung" min-width="130">
+        <el-table-column label="Nội dung" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="130">
+        <el-table-column label="Trạng thái" min-width="130">
           <template slot-scope="scope">
             <div>{{ scope.row.status === 1 ? 'Đã xử lý' : 'Chưa được xử lý' }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian" min-width="130">
+        <el-table-column label="Thời gian" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
             <a v-db-click @click="remarks(scope.row.id)">{{ scope.row.status === 1 ? 'Nhận xét' : 'đối phó với' }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa phản hồi', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa phản hồi', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

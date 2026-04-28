@@ -4,15 +4,15 @@
       <div class="section-hd">Thông tin cơ bản</div>
       <div class="section-bd">
         <div class="item">
-          <div>người dùngID：</div>
+          <div>ID khách hàng：</div>
           <div class="value">{{ psInfo.uid }}</div>
         </div>
         <div class="item">
-          <div>tên thật：</div>
+          <div>Tên thật：</div>
           <div class="value">{{ psInfo.real_name || '-' }}</div>
         </div>
         <div class="item">
-          <div>số điện thoại：</div>
+          <div>Số điện thoại：</div>
           <div class="value">{{ psInfo.phone || '-' }}</div>
         </div>
         <div class="item">
@@ -20,12 +20,12 @@
           <div class="value">{{ psInfo.birthday | timeFormat('birthday') }}</div>
         </div>
         <!-- <div class="item">
-          <div>giới tính：</div>
+          <div>Giới tính：</div>
           <div v-if="psInfo.sex" class="value">{{ psInfo.sex == 1 ? 'nam giới' : 'nữ giới' }}</div>
           <div v-else class="value">Bảo mật</div>
         </div> -->
         <div class="item">
-          <div>số CMND：</div>
+          <div>Số CMND：</div>
           <div class="value">{{ psInfo.card_id || '-' }}</div>
         </div>
         <div class="item">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="section">
-      <div class="section-hd">mật khẩu</div>
+      <div class="section-hd">Mật khẩu</div>
       <div class="section-bd">
         <div class="item">
           <div>Mật khẩu đăng nhập：</div>
@@ -48,26 +48,26 @@
       <div class="section-bd">
         <div class="item">
           <div>Trình độ thăng hạng：</div>
-          <div class="value">{{ psInfo.spread_open ? 'bật lên' : 'đóng cửa' }}</div>
+          <div class="value">{{ psInfo.spread_open ? 'Hoạt động' : 'đóng cửa' }}</div>
         </div>
         <div class="item">
           <div>Trạng thái người dùng：</div>
-          <div class="value">{{ psInfo.status ? 'bật lên' : 'khóa' }}</div>
+          <div class="value">{{ psInfo.status ? 'Hoạt động' : 'khóa' }}</div>
         </div>
         <div class="item">
-          <div>Cấp độ người dùng：</div>
+          <div>Hạng khách hàng：</div>
           <div class="value">{{ psInfo.vip_name || '-' }}</div>
         </div>
         <div class="item">
-          <div>Thẻ người dùng：</div>
+          <div>Thẻ khách hàng：</div>
           <div class="value">{{ psInfo.label_list || '-' }}</div>
         </div>
         <div class="item">
-          <div>Nhóm người dùng：</div>
+          <div>Nhóm khách hàng：</div>
           <div class="value">{{ psInfo.group_name || '-' }}</div>
         </div>
         <div class="item">
-          <div>người quảng bá：</div>
+          <div>Người quảng bá：</div>
           <div class="value">{{ psInfo.spread_uid_nickname || '-' }}</div>
         </div>
         <div class="item">
@@ -79,10 +79,10 @@
           <div class="value">{{ psInfo.last_time | timeFormat }}</div>
         </div>
         <div v-if="psInfo.is_money_level" class="item">
-          <div>Thành viên trả phí：</div>
+          <div>Gói thẻ VIP：</div>
           <div class="value">
             {{
-              psInfo.is_ever_level == 1 ? 'thành viên thường trực' : psInfo.overdue_time ? `${psInfo.overdue_time} trưởng thành` : 'Hết hạn'
+              psInfo.is_ever_level == 1 ? 'thành viên thường trực' : psInfo.overdue_time ? `${psInfo.overdue_time} Hết hạn` : 'Hết hạn'
             }}
           </div>
         </div>
@@ -118,7 +118,7 @@ export default {
     },
     gender(value) {
       if (value == 1) {
-        return 'nam giới';
+        return 'Nam';
       } else if (value == 2) {
         return 'nữ giới';
       } else {

@@ -83,7 +83,7 @@ export function hideLoading() {
 		throw new Error('Xử lý không thành công');
 	}
 }
-export function Modal(title = 'gợi ý', content = 'Đây là một cửa sổ bật lên phương thức!', obj = {
+export function Modal(title = 'gợi ý', content = 'Đây là một cửa sổ Hoạt động phương thức!', obj = {
 	showCancel: true,
 	cancelText: 'Hủy bỏ',
 	confirmText: 'Chắc chắn'

@@ -197,8 +197,8 @@ class UserRechargeServices extends BaseServices
         }
         $f = array();
         $f[] = Form::input('order_id', 'Số đơn hàng hoàn tiền', $UserRecharge->getData('order_id'))->disabled(true);
-        $f[] = Form::radio('refund_price', 'tình trạng', 1)->options([['label' => 'hiệu trưởng(Trừ đi số dư quà tặng)', 'value' => 1], ['label' => 'Chỉ có hiệu trưởng', 'value' => 0]]);
-        return create_form('biên tập', $f, Url::buildUrl('/finance/recharge/' . $id), 'PUT');
+        $f[] = Form::radio('refund_price', 'Trạng thái', 1)->options([['label' => 'hiệu trưởng(Trừ đi số dư quà tặng)', 'value' => 1], ['label' => 'Chỉ có hiệu trưởng', 'value' => 0]]);
+        return create_form('Sửa', $f, Url::buildUrl('/finance/recharge/' . $id), 'PUT');
     }
 
     /**

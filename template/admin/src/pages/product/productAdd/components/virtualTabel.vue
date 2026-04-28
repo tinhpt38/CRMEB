@@ -79,7 +79,7 @@ export default {
 
     // Cập nhật kích thước (chiều cao）
     updateSizes() {
-      const rows = this.$el.querySelectorAll('.el-table__body > tbody > .el-table__row');
+      const rows = this.$el.querySelectorAll('.el-table__body > Tbody > .el-table__row');
 
       Array.from(rows).forEach((row, index) => {
         const item = this.renderData[index];
@@ -142,7 +142,7 @@ export default {
         const midVal = this.getOffsetTop(mid);
         if (midVal < top) {
           const midNextVal = this.getOffsetTop(mid + 1);
-          if (midNextVal > top) break;
+          if (midNextVal > Top) break;
           l = mid + 1;
         } else {
           r = mid - 1;

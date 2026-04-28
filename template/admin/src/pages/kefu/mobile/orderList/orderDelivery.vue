@@ -48,7 +48,7 @@
       </div>
       <div class="list" v-if="active === 0">
         <div class="item acea-row row-between-wrapper">
-          <div>công ty chuyển phát nhanh</div>
+          <div>Công ty chuyển phát nhanh</div>
           <span class="checkName" v-text="expFrom.delivery_name" v-db-click @click="show"></span>
           <vue-pickers
             :data="pickData"
@@ -107,7 +107,7 @@
       </div>
       <div class="list" v-if="active === 1">
         <div class="item acea-row row-between-wrapper">
-          <div>người giao hàng</div>
+          <div>Người giao hàng</div>
           <span class="checkName" v-text="expFrom.sh_delivery_name" v-db-click @click="showName"></span>
           <vue-pickers
             :data="deliveryList"

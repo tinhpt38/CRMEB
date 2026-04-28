@@ -63,7 +63,7 @@ class StoreOrderWriteOffServices extends BaseServices
             throw new ApiException('Đơn đặt hàng đã được xóa');
         }
         if (!$orderInfo['verify_code'] || ($orderInfo->shipping_type != 2 && $orderInfo->delivery_type != 'send')) {
-            throw new ApiException('Lệnh này không thể được xóa bỏ');
+            throw new ApiException('Lệnh này không thể được Xóa');
         }
         /** @var StoreOrderRefundServices $storeOrderRefundServices */
         $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
@@ -131,14 +131,14 @@ class StoreOrderWriteOffServices extends BaseServices
             $storeOrderTask = app()->make(StoreOrderTakeServices::class);
             $re = $storeOrderTask->storeProductOrderUserTakeDelivery($orderInfo);
             if (!$re) {
-                throw new ApiException('Xóa sổ không thành công');
+                throw new ApiException('Xác nhận không thành công');
             }
             if ($orderInfo['shipping_type'] == 2) {
                 event('OrderShippingListener', ['product', $orderInfo, 4, '', '']);
             }
             return $orderInfo->toArray();
         } else {
-            throw new ApiException('Xóa sổ không thành công');
+            throw new ApiException('Xác nhận không thành công');
         }
     }
 }

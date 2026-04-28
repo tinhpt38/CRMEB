@@ -64,7 +64,7 @@
               <view class="money font-color">
                 <image src="./static/my-point.png" mode=""></image>
                 <text class="num" v-text="storeInfo.price || 0"></text
-                >{{ $t(`tích phân`) }}
+                >{{ $t(`điểm thưởng`) }}
               </view>
               <view></view>
             </view>
@@ -248,7 +248,7 @@ export default {
       reply: [], //Danh sách bình luận
       replyChance: 0,
       navH: "",
-      navList: [this.$t(`hàng hóa`), this.$t(`Chi tiết`)],
+      navList: [this.$t(`sản phẩm`), this.$t(`Chi tiết`)],
       opacity: 0,
       scrollY: 0,
       topArr: [],

@@ -37,7 +37,7 @@
 										<view><text class='name'>{{$t(`thời gian đặt hàng`)}}：</text>{{child.time}}</view>
 										<view class="more" v-if="child.children && child.children.length"
 											@click="open(child)">
-											{{child.open?$t(`đóng`):$t(`Hơn`)}}
+											{{child.open?$t(`đóng`):$t(`Thêm`)}}
 											<text class="iconfont"
 												:class="child.open?'icon-xiangshang':'icon-xiangxia'"></text>
 										</view>

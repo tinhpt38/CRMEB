@@ -19,7 +19,7 @@
           end-placeholder="ngày kết thúc"
           class="mr20"
         ></el-date-picker>
-        <el-button type="primary" class="mr20" v-db-click @click="getList">Truy vấn</el-button>
+        <el-button type="primary" class="mr20" v-db-click @click="getList">Tìm kiếm</el-button>
       </div>
     </div>
     <el-table ref="selection" :data="tabList" v-loading="loading" empty-text="Chưa có dữ liệu" highlight-current-row>

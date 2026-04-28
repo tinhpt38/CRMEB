@@ -10,7 +10,7 @@
 						<div class="text acea-row row-column-around">
 							<div class="line1" style="width: 100%;">{{ item.title }}</div>
 							<count-down :justify-left="'justify-content:left'" :is-day="true" :tip-text="$t(`Đếm ngược`) "
-								:day-text=" $t(`bầu trời`) " :hour-text=" $t(`giờ`) " :minute-text=" $t(`điểm`) " :second-text=" $t(`Thứ hai`)"
+								:day-text=" $t(`ngày`) " :hour-text=" $t(`giờ`) " :minute-text=" $t(`điểm`) " :second-text=" $t(`Thứ hai`)"
 								:datatime="item.datatime" v-if="item.status === 1"></count-down>
 							<div class="successTxt font-num" v-else-if="item.status === 3">{{$t(`Thương lượng thành công`)}}</div>
 							<div class="endTxt" v-else>{{$t(`Sự kiện đã kết thúc`)}}</div>

@@ -223,7 +223,7 @@ class SystemGroupDataServices extends BaseServices
             }
         }
         $f[] = Form::number('sort', 'loại', (int)($groupData["sort"] ?? 1))->precision(0);
-        $f[] = Form::radio('status', 'tình trạng', (int)($groupData["status"] ?? 1))->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
+        $f[] = Form::radio('status', 'Trạng thái', (int)($groupData["status"] ?? 1))->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
         return $f;
     }
 

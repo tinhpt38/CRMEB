@@ -1,0 +1,171 @@
+{
+  "dryRun": false,
+  "roots": [
+    "template/admin/src",
+    "template/uni-app",
+    "crmeb/app"
+  ],
+  "summary": {
+    "scanned": 1992,
+    "changedFiles": 30,
+    "totalReplacements": 62
+  },
+  "stats": {
+    "perEntry": {
+      "Phân loại sản phẩm": 7,
+      "Cấp độ phân phối": 3,
+      "Quảng cáo mã QR": 2,
+      "đơn vị": 2,
+      "hàng hóa": 6,
+      "Ghi chú đặt hàng": 2,
+      "Thẻ người dùng": 4,
+      "Cấp độ người dùng": 3,
+      "Đơn hàng đã được vận chuyển": 1,
+      "Nhóm sản phẩm": 1,
+      "Truy vấn": 1,
+      "cứu": 1,
+      "Chi tiết đặt hàng": 1,
+      "Hồ sơ đặt hàng": 1,
+      "Thông số sản phẩm": 2,
+      "bật lên": 2,
+      "Bộ sưu tập sản phẩm": 1,
+      "Chỉnh sửa hàng loạt": 1,
+      "Cài đặt hậu cần": 1,
+      "Xuất khẩu sản phẩm": 1,
+      "tất cả": 1,
+      "Nhóm người dùng": 1,
+      "Thành viên trả phí": 2,
+      "trong kho": 2,
+      "Thêm người dùng": 1,
+      "Gửi phiếu giảm giá": 1,
+      "Phiếu giảm giá": 3,
+      "người nhận hàng": 1,
+      "bầu trời": 2,
+      "tích phân": 2,
+      "Được trả tiền": 1,
+      "Quản lý điểm": 2
+    },
+    "perFile": [
+      {
+        "file": "template/admin/src/components/goodsList/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/components/sortList/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/agent/agentManage.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/agent/handle/promotersList.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/division/agent/applyList.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/finance/billingRecords/orderDetall.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/mobile/chat_list.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/mobile/orderList/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/components/order_detail.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/kefu/pc/components/rightMenu.vue",
+        "count": 3
+      },
+      {
+        "file": "template/admin/src/pages/marketing/channelCode/channelCodeIndex.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/marketing/storeCombination/combinaList.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/notify/smsConfig/tableList.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/order/invoice/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/invoice/orderDetall.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/handle/orderDetails.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/order/print/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/product/productList/components/goodsImport.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productList/index.vue",
+        "count": 10
+      },
+      {
+        "file": "template/admin/src/pages/product/productList/taoBao.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/theme/myTheme/components/themeImport.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/system/systemMenus/components/menusFrom.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/user/list/index.vue",
+        "count": 12
+      },
+      {
+        "file": "template/uni-app/pages/users/user_get_coupon/index.vue",
+        "count": 3
+      },
+      {
+        "file": "template/uni-app/pages/users/user_invoice_order/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_sgin/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/uni-app/pages/users/user_spread_money/receiving.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/pages/users/user_vip/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/uni-app/subpackage/diyComponents/userInfor.vue",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/UpgradeController.php",
+        "count": 2
+      }
+    ]
+  }
+}

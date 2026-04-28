@@ -161,7 +161,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -181,7 +181,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -483,8 +483,8 @@ export default {
           list: [
             { activeValue: 'user', title: 'người dùng' },
             { activeValue: 'article', title: 'bài báo' },
-            { activeValue: 'coupon', title: 'Phiếu giảm giá' },
-            { activeValue: 'goods', title: 'hàng hóa' },
+            { activeValue: 'coupon', title: 'Mã giảm giá' },
+            { activeValue: 'goods', title: 'sản phẩm' },
           ],
         });
       }

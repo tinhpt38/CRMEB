@@ -45,11 +45,11 @@
             </view>
 
             <text class="stock" v-if="isShow && !type"
-              >{{ $t(`trong kho`) }}
+              >{{ $t(`Trong kho`) }}
               {{ attr.productSelect.stock || 0 + unitName }}</text
             >
             <text class="stock" v-if="limitNum && type"
-              >{{ $t(`trong kho`) }}
+              >{{ $t(`Trong kho`) }}
               {{ attr.productSelect.quota || 0 + unitName }}</text
             >
             <text class="stock" v-if="minQty > 1 && is_virtual"

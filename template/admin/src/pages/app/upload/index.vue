@@ -27,7 +27,7 @@
       </div>
 
       <div class="footer">
-        <div v-if="imgList.length">chung{{ imgList.length }}/{{ limit }}mở，{{ (allSize / 1000000).toFixed(2) }} M</div>
+        <div v-if="imgList.length">Chung{{ imgList.length }}/{{ limit }}mở，{{ (allSize / 1000000).toFixed(2) }} M</div>
         <div v-else></div>
         <div class="upload-btn">
           <div v-if="imgList.length < limit" class="btn" v-db-click @click="selectImgs">
@@ -214,7 +214,7 @@ export default {
   padding-top: 31.3%;
   aspect-ratio: 1 / 1;
 }
-::v-deep .el-upload-list--picture-card .el-upload-list__item > div {
+::v-deep .el-upload-list--picture-card .el-upload-list__item > Div {
   // position: relative;
   width: 100%;
   height: 100%;

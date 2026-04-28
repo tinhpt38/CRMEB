@@ -35,7 +35,7 @@
               <p class="textbox">Số đơn hàng：{{ item.order_id }}</p>
               <p class="attribute">thời gian đặt hàng：{{ item.add_time }}</p>
               <view class="txt">
-                <p class="attribute">Đặt hàng thanh toán thực tế：¥{{ item.pay_price }}</p>
+                <p class="attribute">Thanh toán thực tế：¥{{ item.pay_price }}</p>
               </view>
             </view>
           </view>
@@ -45,7 +45,7 @@
     <view class="mask" v-if="popupShow" @click="closePopup"></view>
     <view class="popup acea-row row-column on" v-if="popupShow">
       <view class="popup-hd">
-        Xóa sổ sản phẩm
+        Xác nhận sản phẩm
         <view class="btn" @click="closePopup">
           <text class="iconfont icon-ic_close"></text>
         </view>
@@ -62,7 +62,7 @@
       <view class="boxs">
         <view class="small_box">
           <view class="content">
-            <view class="font">Xóa sổ thành công</view>
+            <view class="font">Xác nhận thành công</view>
             <view v-if="isAll" class="small_font">Lệnh hiện tại đã bị xóa</view>
             <view v-else class="small_font">Đơn hàng vẫn còn những hạng mục khác cần được xóa</view>
           </view>

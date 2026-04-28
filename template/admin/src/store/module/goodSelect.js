@@ -94,7 +94,7 @@ export default {
               info: [
                 {
                   title: 'tiêu đề',
-                  value: 'Phân loại sản phẩm',
+                  value: 'Danh mục sản phẩm',
                   maxlength: 5,
                   tips: 'Vui lòng điền tiêu đề',
                 },
@@ -247,7 +247,7 @@ export default {
           ],
         },
         selectConfig: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           activeValue: '',
           list: [
             {
@@ -264,7 +264,7 @@ export default {
           val: 6,
         },
         goodsSort: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           name: 'goodsSort',
           type: 0,
           list: [

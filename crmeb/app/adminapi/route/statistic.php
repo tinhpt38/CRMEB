@@ -39,7 +39,7 @@ Route::group('statistic', function () {
         //cơ sở hàng hóa
         Route::get('product/get_basic', 'v1.statistic.ProductStatistic/getBasic')->option(['real_name' => 'Thống kê sản phẩm cơ bản']);
         //Xu hướng hàng hóa
-        Route::get('product/get_trend', 'v1.statistic.ProductStatistic/getTrend')->option(['real_name' => 'Xu hướng hàng hóa']);
+        Route::get('product/get_trend', 'v1.statistic.ProductStatistic/getTrend')->option(['real_name' => 'Xu hướng sản phẩm']);
         //Xếp hạng sản phẩm
         Route::get('product/get_product_ranking', 'v1.statistic.ProductStatistic/getProductRanking')->option(['real_name' => 'Xếp hạng sản phẩm']);
         //Xuất dữ liệu sản phẩm
@@ -62,15 +62,15 @@ Route::group('statistic', function () {
         //Nguồn đặt hàng
         Route::get('order/get_channel', 'v1.statistic.OrderStatistic/getChannel')->option(['real_name' => 'Nguồn đặt hàng']);
         //Loại lệnh
-        Route::get('order/get_type', 'v1.statistic.OrderStatistic/getType')->option(['real_name' => 'Loại lệnh']);
+        Route::get('order/get_type', 'v1.statistic.OrderStatistic/getType')->option(['real_name' => 'Loại đơn hàng']);
     })->option(['parent' => 'statistic', 'cate_name' => 'Thống kê đơn hàng']);
 
     /** Dòng vốn */
     Route::group(function () {
-        Route::get('flow/get_list', 'v1.statistic.FlowStatistic/getFlowList')->option(['real_name' => 'Dòng vốn']);
+        Route::get('flow/get_list', 'v1.statistic.FlowStatistic/getFlowList')->option(['real_name' => 'Dòng tiền']);
         Route::post('flow/set_mark/:id', 'v1.statistic.FlowStatistic/setMark')->option(['real_name' => 'Đặt ghi chú']);
-        Route::get('flow/get_record', 'v1.statistic.FlowStatistic/getFlowRecord')->option(['real_name' => 'hồ sơ thanh toán']);
-    })->option(['parent' => 'statistic', 'cate_name' => 'Dòng vốn']);
+        Route::get('flow/get_record', 'v1.statistic.FlowStatistic/getFlowRecord')->option(['real_name' => 'Lịch sử thanh toán']);
+    })->option(['parent' => 'statistic', 'cate_name' => 'Dòng tiền']);
 
     /** Thống kê số dư */
     Route::group(function () {

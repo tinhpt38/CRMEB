@@ -4,13 +4,13 @@
       class="section-title flex justify-between"
       style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px"
     >
-      <span style="font-size: 14px; font-weight: bold; color: #333">cài đặt vị trí</span>
+      <span style="font-size: 14px; font-weight: bold; color: #333">Cài đặt vị trí</span>
     </div>
 
     <el-form size="small" label-width="70px" label-position="left">
       <el-form-item label="Căn chỉnh">
         <div class="alignment-bar">
-          <div class="bar-item" @click="alignComponents('left')" title="căn trái">
+          <div class="bar-item" @click="alignComponents('left')" title="Căn trái">
             <span class="iconfont iconzuoduiqi1"></span>
           </div>
           <div class="bar-item-divider"></div>
@@ -22,7 +22,7 @@
             <span class="iconfont iconyouduiqi1"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('top')" title="căn chỉnh trên cùng">
+          <div class="bar-item" @click="alignComponents('top')" title="Căn chỉnh trên cùng">
             <span class="iconfont icondingduiqi"></span>
           </div>
           <div class="bar-item-divider"></div>
@@ -30,7 +30,7 @@
             <span class="iconfont iconshuipingjuzhong"></span>
           </div>
           <div class="bar-item-divider"></div>
-          <div class="bar-item" @click="alignComponents('bottom')" title="căn dưới">
+          <div class="bar-item" @click="alignComponents('bottom')" title="Căn dưới">
             <span class="iconfont icondiduiqi"></span>
           </div>
           <div class="bar-item-divider"></div>

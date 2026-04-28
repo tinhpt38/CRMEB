@@ -3,14 +3,14 @@
     <el-dialog
       :visible.sync="modals"
       width="540px"
-      :title="titleFrom"
+      :title="TitleFrom"
       :close-on-click-modal="false"
       @closed="handleClose"
     >
       <el-form ref="formValidate" :model="formValidate" label-width="80px" @submit.native.prevent>
         <el-row :gutter="24">
           <el-col v-bind="grid">
-            <el-form-item label="kiểu：">
+            <el-form-item label="Kiểu：">
               <el-radio-group v-model="formValidate.auth_type" @input="changeAuthType">
                 <el-radio :label="item.value" v-for="(item, i) in optionsRadio" :key="i">
                   <span>{{ item.label }}</span>
@@ -61,7 +61,7 @@
             </el-form-item>
           </el-col>
           <el-col v-bind="grid" v-if="authType == 2">
-            <el-form-item label="địa chỉ giao diện：" prop="api_url">
+            <el-form-item label="Địa chỉ giao diện：" prop="api_url">
               <el-input v-model="formValidate.api_url" placeholder="Vui lòng nhập địa chỉ giao diện" @change="changeUnique"> </el-input>
             </el-form-item>
           </el-col>
@@ -71,7 +71,7 @@
             </el-form-item>
           </el-col>
           <el-col v-bind="grid" v-if="authType != 2">
-            <el-form-item label="biểu tượng：">
+            <el-form-item label="Biểu tượng：">
               <el-input v-model="formValidate.icon" placeholder="Vui lòng chọn một biểu tượng và nhấp vào biểu tượng bên phải">
                 <el-button slot="append" icon="el-icon-picture-outline" v-db-click @click="iconClick"></el-button>
               </el-input>
@@ -83,12 +83,12 @@
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="loại：">
+            <el-form-item label="Loại：">
               <el-input type="number" v-model="formValidate.sort" placeholder="Vui lòng nhập sắp xếp" number></el-input>
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="tình trạng：">
+            <el-form-item label="Tình trạng：">
               <el-radio-group v-model="formValidate.is_show" @input="changeShow">
                 <el-radio :label="item.value" v-for="(item, i) in isShowRadio" :key="i">
                   <span>{{ item.label }}</span>
@@ -100,13 +100,13 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="handleReset">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">Nộp</el-button>
       </span>
     </el-dialog>
     <el-dialog :visible.sync="modal12" width="720px" title="Lựa chọn biểu tượng">
       <el-input
         v-model="iconVal"
-        placeholder="Nhập từ khóa tìm kiếm,Lưu ý rằng tất cả đều bằng tiếng Anh"
+        placeholder="Nhập từ khóa tìm kiếm,Lưu ý rằng Tất cả đều bằng tiếng Anh"
         clearable
         style="width: 300px"
         @change="upIcon(iconVal)"
@@ -116,7 +116,7 @@
         <div class="scollhide">
           <div class="iconlist">
             <ul class="list-inline">
-              <li class="icons-item" v-for="(item, i) in iconVal ? searchData : list" :key="i" :title="item">
+              <li class="icons-item" v-for="(item, i) in iconVal ? searchData : list" :key="i" :title="Item">
                 <i :class="'el-icon-' + item" class="f-s-24" v-db-click @click="iconChange(item)"></i>
               </li>
             </ul>
@@ -134,8 +134,8 @@
           style="width: 300px"
           ref="search"
         />
-        <el-button type="primary" v-db-click @click="searchRules">tìm kiếm</el-button>
-        <el-button v-db-click @click="init">cài lại</el-button>
+        <el-button type="primary" v-db-click @click="searchRules">Tìm kiếm</el-button>
+        <el-button v-db-click @click="init">Đặt lại</el-button>
       </div>
       <div class="rule">
         <div
@@ -149,7 +149,7 @@
         >
           <div>Tên giao diện：{{ item.real_name }}</div>
           <div>Phương thức yêu cầu：{{ item.method }}</div>
-          <div>địa chỉ giao diện：{{ item.rule }}</div>
+          <div>Địa chỉ giao diện：{{ item.rule }}</div>
         </div>
       </div>
     </el-dialog>
@@ -197,7 +197,7 @@ export default {
       formValidate: {},
       searchData: [],
       isShowRadio: [
-        { value: 1, label: 'bật lên' },
+        { value: 1, label: 'Hoạt động' },
         { value: 0, label: 'đóng cửa' },
       ],
     };

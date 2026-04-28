@@ -257,7 +257,7 @@ class RoutineServices extends BaseServices
         }
         $res = $userServices->update(['uid' => $uid], ['phone' => $userInfo['purePhoneNumber']]);
         if ($res) return true;
-        throw new ApiException('Ràng buộc không thành công');
+        throw new ApiException('Liên kết không thành công');
     }
 
     /**

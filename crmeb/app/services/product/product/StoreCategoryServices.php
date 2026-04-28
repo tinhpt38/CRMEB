@@ -166,7 +166,7 @@ class StoreCategoryServices extends BaseServices
         $f[] = Form::frameImage('pic', 'Biểu tượng danh mục(180*180)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'pic')), $info['pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $f[] = Form::frameImage('big_pic', 'Phân loại hình ảnh lớn(468*340)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'big_pic')), $info['big_pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->min(0)->precision(0);
-        $f[] = Form::radio('is_show', 'tình trạng', $info['is_show'] ?? 1)->options([['label' => 'trình diễn', 'value' => 1], ['label' => 'trốn', 'value' => 0]]);
+        $f[] = Form::radio('is_show', 'Trạng thái', $info['is_show'] ?? 1)->options([['label' => 'trình diễn', 'value' => 1], ['label' => 'trốn', 'value' => 0]]);
         return $f;
     }
 

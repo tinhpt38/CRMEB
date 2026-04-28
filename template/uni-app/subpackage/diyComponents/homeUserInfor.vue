@@ -1080,13 +1080,13 @@ export default {
     dataList() {
       let list = [
         { id: 1, name: "THĂNG BẰNG", key: "money" },
-        { id: 3, name: "Phiếu giảm giá", key: "coupon" },
-        { id: 2, name: "tích phân", key: "integral" },
+        { id: 3, name: "Mã giảm giá", key: "coupon" },
+        { id: 2, name: "điểm thưởng", key: "integral" },
         { id: 5, name: "Thu thập vật phẩm", key: "collection" },
         { id: 6, name: "Lịch sử duyệt web", key: "visit" },
         { id: 8, name: "Hoa hồng khuyến mại", key: "brokerage" },
         { id: 9, name: "người quảng bá", key: "spreadCount" },
-        { id: 10, name: "Đơn hàng khuyến mãi", key: "spreadOrderCount" },
+        { id: 10, name: "Đơn hàng Affiliate", key: "spreadOrderCount" },
       ];
       return list
         .filter((item) => this.checkType.indexOf(item.id) != -1)

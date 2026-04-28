@@ -862,7 +862,7 @@ export default {
           data.forEach((item) => {
             item.children.unshift({
               id: 0,
-              cate_name: that.$t(`tất cả`),
+              cate_name: that.$t(`Tất cả`),
             });
           });
           that.categoryTitle = data[0].cate_name;
@@ -884,7 +884,7 @@ export default {
         data.forEach((item) => {
           item.children.unshift({
             id: 0,
-            cate_name: that.$t(`tất cả`),
+            cate_name: that.$t(`Tất cả`),
           });
         });
         if (!that.cid) {

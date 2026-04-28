@@ -14,7 +14,7 @@
     <div slot="title" v-if="!showDetail" class="dialog-header">
       <div class="dialog-header-tabs">
         <div class="tabs">
-          <span class="title">chủ đề của tôi</span>
+          <span class="title">Chủ đề của tôi</span>
           <img class="theme-in" src="https://www.crmeb.com/static/images/zhutishichang.png" alt="" @click="toTheme" />
         </div>
       </div>
@@ -81,16 +81,16 @@
                   </div>
                   <div class="tag" v-if="theme.page_type == 'micro'">Trang chủ đề</div>
                 </div>
-                <div class="theme-time">thời gian sửa đổi：{{ theme.up_time }}</div>
+                <div class="theme-time">Thời gian sửa đổi：{{ theme.up_time }}</div>
 
                 <div class="theme-hover-actions">
-                  <div class="button default" @click="viewThemeDetail(theme)">kiểm tra chi tiết</div>
+                  <div class="button default" @click="viewThemeDetail(theme)">Kiểm tra chi tiết</div>
                   <div class="button primary" @click="selectTheme(theme)">Sử dụng chủ đề</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="acea-row row-right page" v-if="total > limit">
+          <div class="acea-row row-right page" v-if="total > Limit">
             <pagination
               v-if="total"
               :total="total"
@@ -108,7 +108,7 @@
     <div class="detail-content" v-else>
       <div class="detail-header">
         <div class="flex">
-          <div class="back-btn" @click="showDetail = false"><i class="el-icon-arrow-left"></i> trở lại</div>
+          <div class="back-btn" @click="showDetail = false"><i class="el-icon-arrow-left"></i> Trở lại</div>
           <div class="detail-title">Chi tiết chủ đề</div>
         </div>
         <i class="el-icon-close" @click="handleClose"></i>

@@ -33,11 +33,11 @@ Route::group('order', function () {
     //Sửa đổi thứ tự
     Route::put('update/:id', 'v1.order.StoreOrder/update')->name('StoreOrderUpdate')->option(['real_name' => 'Sửa đổi thứ tự']);
     //xác nhận đã nhận hàng
-    Route::put('take/:id', 'v1.order.StoreOrder/take_delivery')->name('StoreOrderTakeDelivery')->option(['real_name' => 'xác nhận đã nhận hàng']);
+    Route::put('take/:id', 'v1.order.StoreOrder/take_delivery')->name('StoreOrderTakeDelivery')->option(['real_name' => 'Xác nhận nhận hàng']);
     //Lô hàng số lượng lớn
-    Route::get('delivery/import_express', 'v1.order.StoreOrder/importExpress')->name('importExpress')->option(['real_name' => 'Lô hàng số lượng lớn']);
+    Route::get('delivery/import_express', 'v1.order.StoreOrder/importExpress')->name('importExpress')->option(['real_name' => 'Giao hàng loạt']);
     //Gửi hàng
-    Route::put('delivery/:id', 'v1.order.StoreOrder/update_delivery')->name('StoreOrderUpdateDelivery')->option(['real_name' => 'Đơn hàng đã được vận chuyển']);
+    Route::put('delivery/:id', 'v1.order.StoreOrder/update_delivery')->name('StoreOrderUpdateDelivery')->option(['real_name' => 'Đã giao cho ĐVVC']);
     //Nhận số tiền vận chuyển từ người bán
     Route::post('price', 'v1.order.StoreOrder/getPrice')->name('getPrice')->option(['real_name' => 'Nhận số tiền vận chuyển từ người bán']);
     //Lấy danh sách các mặt hàng có thể chia nhỏ trong một đơn hàng
@@ -57,7 +57,7 @@ Route::group('order', function () {
     //Nhận công ty hậu cần
     Route::get('express_list', 'v1.order.StoreOrder/express')->name('StoreOrdeRexpressList')->option(['real_name' => 'Nhận công ty hậu cần']);
     //Chi tiết đặt hàng
-    Route::get('info/:id', 'v1.order.StoreOrder/order_info')->name('StoreOrderorInfo')->option(['real_name' => 'Chi tiết đặt hàng']);
+    Route::get('info/:id', 'v1.order.StoreOrder/order_info')->name('StoreOrderorInfo')->option(['real_name' => 'Chi tiết đơn hàng']);
     //Nhận mẫu thông tin vận chuyển
     Route::get('distribution/:id', 'v1.order.StoreOrder/distribution')->name('StoreOrderorDistribution')->option(['real_name' => 'Nhận mẫu thông tin vận chuyển']);
     //Sửa đổi thông tin vận chuyển
@@ -93,7 +93,7 @@ Route::group('order', function () {
     //Đặt trạng thái hóa đơn
     Route::post('invoice/set/:id', 'v1.order.StoreOrderInvoice/set_invoice')->name('StoreOrderorInvoiceSet')->option(['real_name' => 'Đặt trạng thái hóa đơn']);
     //Chi tiết đơn hàng hóa đơn
-    Route::get('invoice_order_info/:id', 'v1.order.StoreOrderInvoice/orderInfo')->name('StoreOrderorInvoiceOrderInfo')->option(['real_name' => 'Chi tiết đơn hàng hóa đơn']);
+    Route::get('invoice_order_info/:id', 'v1.order.StoreOrderInvoice/orderInfo')->name('StoreOrderorInvoiceOrderInfo')->option(['real_name' => 'Chi tiết đơn sản phẩm đơn']);
     //Lấy địa chỉ iframe của trang phát hành hóa đơn
     Route::get('invoice_issuance_url/:id', 'v1.order.StoreOrderInvoice/invoiceIssuanceUrl')->name('invoiceIssuanceUrl')->option(['real_name' => 'Lấy địa chỉ iframe của trang phát hành hóa đơn']);
     //Lưu thông tin hóa đơn

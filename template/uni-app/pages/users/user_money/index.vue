@@ -42,16 +42,16 @@
 				<view class='nav acea-row row-middle'>
 					<navigator class='item' hover-class='none' url='/pages/users/user_bill/index'>
 						<view class='iconfont icon-s-zhangdanjilu'></view>
-						<view>{{$t(`hồ sơ thanh toán`)}}</view>
+						<view>{{$t(`Lịch sử thanh toán`)}}</view>
 					</navigator>
 					<navigator class='item' hover-class='none' url='/pages/users/user_bill/index?type=1'>
 						<view class='iconfont icon-s-xiaofeijilu'></view>
-						<view>{{$t(`Kỷ lục tiêu thụ`)}}</view>
+						<view>{{$t(`Lịch sử mua hàng`)}}</view>
 					</navigator>
 					<navigator class='item' hover-class='none' url='/pages/users/user_bill/index?type=2'
 						v-if="recharge_switch">
 						<view class='iconfont icon-s-chongzhijilu'></view>
-						<view>{{$t(`Kỷ lục nạp tiền`)}}</view>
+						<view>{{$t(`Lịch sử nạp tiền`)}}</view>
 					</navigator>
 					<navigator class='item' hover-class='none' url='/pages/users/user_integral/index'>
 						<view class='iconfont icon-jifenzhongxin'></view>

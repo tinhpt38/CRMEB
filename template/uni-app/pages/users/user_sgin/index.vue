@@ -16,7 +16,7 @@
 					<view class="text">
 						<text>Đăng nhập liên tục</text>
 						<text class="num">{{ continuousSignDays }}</text>
-						<text>bầu trời</text>
+						<text>ngày</text>
 					</view>
 					<view class="tip" v-if="signRemindSwitch == 1">
 						<text class="mr16">Lời nhắc đăng ký</text>
@@ -69,7 +69,7 @@
 					<view class="item">{{ signCount[1] || 0 }}</view>
 					<view class="item">{{ signCount[2] || 0 }}</view>
 					<view class="item">{{ signCount[3] || 0 }}</view>
-					<view class="data">{{ $t(`bầu trời`) }}</view>
+					<view class="data">{{ $t(`ngày`) }}</view>
 				</view>
 				<view class="tip2" v-if="nextCumulativeDays > 0">
 					<img :src="`${imgHost}/statics/images/sgin_icon_4.png`" alt="" />
@@ -96,7 +96,7 @@
 						<image src="../static/signH.png"></image>
 					</view>
 					<view class="state">{{ $t(`Đăng nhập thành công`) }}</view>
-					<view class="integral">{{ $t(`lấy`) }}{{ integral }}{{ $t(`tích phân`) }}</view>
+					<view class="integral">{{ $t(`lấy`) }}{{ integral }}{{ $t(`điểm thưởng`) }}</view>
 					<view class="signTipBnt" @click="close">{{ $t(`ĐƯỢC RỒI`) }}</view>
 				</view>
 			</view>

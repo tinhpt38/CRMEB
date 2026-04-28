@@ -42,7 +42,7 @@
           no-userFrom-text="Chưa có dữ liệu"
           no-filtered-userFrom-text="Chưa có kết quả lọc nào"
         >
-          <el-table-column label="hàng hóaID" width="80">
+          <el-table-column label="ID sản phẩm" width="80">
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
@@ -60,14 +60,14 @@
               <span>{{ scope.row.price }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="trong kho" min-width="130">
+          <el-table-column label="Trong kho" min-width="130">
             <template slot-scope="scope">
               <span>{{ scope.row.stock }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="vận hành" fixed="right" width="80">
+          <el-table-column label="Thao tác" fixed="right" width="80">
             <template slot-scope="scope">
-              <a v-db-click @click="del(scope.row, scope.$index)">xóa bỏ</a>
+              <a v-db-click @click="del(scope.row, scope.$index)">Xóa</a>
             </template>
           </el-table-column>
         </el-table>
@@ -80,7 +80,7 @@
             @click="bindSub"
             :disabled="disabled"
             :loading="loadings"
-            >nộp</el-button
+            >Nộp</el-button
           >
         </div>
       </div>

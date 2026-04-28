@@ -10,7 +10,7 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="tình trạng：" label-for="status">
+          <el-form-item label="Tình trạng：" label-for="status">
             <el-select
               v-model="formValidate.status"
               placeholder="Vui lòng chọn"
@@ -31,13 +31,13 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" v-loading="spinShow">
-      <el-button v-auth="['setting-system_role-add']" type="primary" v-db-click @click="add('Thêm vào')"
+      <el-button v-auth="['setting-system_role-add']" type="primary" v-db-click @click="add('Thêm mới')"
         >Thêm danh tính</el-button
       >
       <el-table
@@ -64,7 +64,7 @@
             <span class="line1">{{ scope.row.rules }}</span>
           </template>
         </el-table-column> -->
-        <el-table-column label="tình trạng" min-width="120">
+        <el-table-column label="Trạng thái" min-width="120">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -80,11 +80,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="150">
+        <el-table-column label="Thao tác" fixed="right" width="150">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
+            <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'xóa bỏ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -120,8 +120,8 @@
         </el-form-item>
         <el-form-item label="Có nên bật không：" prop="status">
           <el-radio-group v-model="formInline.status">
-            <el-radio :label="1">bật lên</el-radio>
-            <el-radio :label="0">đóng cửa</el-radio>
+            <el-radio :label="1">Bật lên</el-radio>
+            <el-radio :label="0">Đóng cửa</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="Quyền：">
@@ -148,7 +148,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="onCancel">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formInline')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formInline')">Nộp</el-button>
       </span>
     </el-dialog>
   </div>

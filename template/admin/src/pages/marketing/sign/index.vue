@@ -39,7 +39,7 @@
               no-userFrom-text="Chưa có dữ liệu"
               no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
-              <el-table-column label="số seri" width="80">
+              <el-table-column label="Số seri" width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.id }}</span>
                 </template>
@@ -68,16 +68,16 @@
                   </el-switch>
                 </template>
               </el-table-column>
-              <el-table-column label="loại" min-width="80">
+              <el-table-column label="Loại" min-width="80">
                 <template slot-scope="scope">
                   <span>{{ scope.row.sort }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="vận hành" fixed="right" width="150">
+              <el-table-column label="Thao tác" fixed="right" width="150">
                 <template slot-scope="scope">
-                  <a v-db-click @click="edit(scope.row, 'biên tập')">biên tập</a>
+                  <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chỉnh sửa</a>
                   <el-divider direction="vertical"></el-divider>
-                  <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+                  <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
                 </template>
               </el-table-column>
             </el-table>

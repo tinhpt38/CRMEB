@@ -2,7 +2,7 @@
   <div class="iconBox">
     <el-input
       v-model="iconVal"
-      placeholder="Nhập từ khóa tìm kiếm,Lưu ý rằng tất cả đều bằng tiếng Anh"
+      placeholder="Nhập từ khóa tìm kiếm,Lưu ý rằng Tất cả đều bằng tiếng Anh"
       clearable
       style="width: 300px"
       @change="upIcon(iconVal)"

@@ -419,7 +419,7 @@ class UserBrokerageServices extends BaseServices
                     } elseif ($extract_type == 'bank') {
                         $item['extract_type'] = 'thẻ ngân hàng';
                     } else {
-                        $item['extract_type'] = 'Sự cân bằng';
+                        $item['extract_type'] = 'Số dư';
                     }
                     $item['state'] = $userExtract[$item['link_id']]['state'] ?? '';
                     $item['fail_msg'] = $userExtract[$item['link_id']]['fail_msg'] ?? '';

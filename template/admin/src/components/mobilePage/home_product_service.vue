@@ -30,15 +30,15 @@
       </div>
       <!-- chọn -->
       <div class="item" v-if="checkList.includes(1)">
-        <div class="label" :style="{ color: titleColor }">chọn</div>
+        <div class="label" :style="{ color: titleColor }">Chọn</div>
         <div class="content">
-          <span :style="{ color: contentColor }">đen,80ml</span>
+          <span :style="{ color: contentColor }">Đen,80ml</span>
           <span class="iconfont iconyou" :style="{ color: contentColor }"></span>
         </div>
       </div>
       <!-- tham số -->
       <div class="item" v-if="checkList.includes(2)">
-        <div class="label" :style="{ color: titleColor }">tham số</div>
+        <div class="label" :style="{ color: titleColor }">Tham số</div>
         <div class="content">
           <span :style="{ color: contentColor }">Giảm 85% · Vải polyester</span>
           <span class="iconfont iconyou" :style="{ color: contentColor }"></span>
@@ -238,7 +238,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -364,7 +364,7 @@ export default {
       overflow: hidden; // Prevent overflow
 
       // Make sure text truncates if too long
-      > span:first-child {
+      > Span:first-child {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

@@ -1,18 +1,18 @@
 <template>
   <div v-if="orderDatalist">
-    <el-dialog :visible.sync="modals" title="Thông tin đặt hàng" width="720px" class="order_box">
+    <el-dialog :visible.sync="modals" title="Thông tin đơn hàng" width="720px" class="order_box">
       <el-card :bordered="false" shadow="never" class="i-table-no-border">
-        <div class="ivu-description-list-title">Tiếp nhận thông tin</div>
+        <div class="ivu-description-list-title">Thông tin nhận hàng</div>
         <el-row class="mb10">
           <el-col :span="12">Biệt hiệu của người dùng：{{ orderDatalist.userInfo.nickname }}</el-col>
-          <el-col :span="12">người nhận hàng：{{ orderDatalist.orderInfo.real_name }}</el-col>
+          <el-col :span="12">Người nhận hàng：{{ orderDatalist.orderInfo.real_name }}</el-col>
         </el-row>
         <el-row class="mb10">
           <el-col :span="12">Số liên lạc：{{ orderDatalist.orderInfo.user_phone }}</el-col>
           <el-col :span="12">Địa chỉ giao hàng：{{ orderDatalist.orderInfo.user_address }}</el-col>
         </el-row>
         <el-divider></el-divider>
-        <div class="ivu-description-list-title">Thông tin đặt hàng</div>
+        <div class="ivu-description-list-title">Thông tin đơn hàng</div>
         <el-row class="mb10">
           <el-col :span="12">Đặt hàngID：{{ orderDatalist.orderInfo.order_id }}</el-col>
           <el-col :span="12" class="fontColor1">Trạng thái đơn hàng：{{ orderDatalist.orderInfo.status_name }}</el-col>
@@ -28,7 +28,7 @@
           <el-col :span="12">Tổng điểm sản phẩm：{{ orderDatalist.orderInfo.total_price }}</el-col>
         </el-row>
         <el-row class="mb10">
-          <el-col :span="12" class="mb10">thời gian sáng tạo：{{ orderDatalist.orderInfo.add_time }}</el-col>
+          <el-col :span="12" class="mb10">Thời gian Tạo mới：{{ orderDatalist.orderInfo.add_time }}</el-col>
           <el-col :span="12" class="mb10" v-if="orderDatalist.orderInfo.remark"
             >Nhận xét của người bán：{{ orderDatalist.orderInfo.remark }}</el-col
           >
@@ -40,7 +40,7 @@
           <el-divider></el-divider>
           <div class="ivu-description-list-title">Thông tin hậu cần</div>
           <el-row class="mb10">
-            <el-col :span="12">công ty chuyển phát nhanh：{{ orderDatalist.orderInfo.delivery_name }}</el-col>
+            <el-col :span="12">Công ty chuyển phát nhanh：{{ orderDatalist.orderInfo.delivery_name }}</el-col>
             <el-col :span="12"
               >Số theo dõi nhanh：{{ orderDatalist.orderInfo.delivery_id }}
               <a size="small" v-db-click @click="openLogistics">Điều tra hậu cần</a></el-col

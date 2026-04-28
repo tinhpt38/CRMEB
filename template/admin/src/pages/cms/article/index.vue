@@ -26,7 +26,7 @@
             <el-input clearable placeholder="Vui lòng nhập" v-model="artFrom.title" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -49,7 +49,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="bài viết hình ảnh" min-width="90">
+        <el-table-column label="Bài viết hình ảnh" min-width="90">
           <template slot-scope="scope">
             <div v-if="scope.row.image_input.length !== 0" v-viewer>
               <div class="tabBox_img" v-for="(item, index) in scope.row.image_input" :key="index">
@@ -76,20 +76,20 @@
             <span>{{ scope.row.visit }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian" min-width="130">
+        <el-table-column label="Thời gian" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time | formatDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="300">
+        <el-table-column label="Thao tác" fixed="right" width="300">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="artRelation(scope.row, 'Tách rời', index)">{{
               scope.row.product_id === 0 ? 'sự kết hợp' : 'Tách rời'
             }}</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa bài viết', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa bài viết', scope.$index)">Xóa</a>
             <el-divider direction="vertical"></el-divider>
             <el-dropdown size="small" @command="onCopy(scope.row, $event)" :transfer="true">
               <span class="el-dropdown-link">Sao chép liên kết<i class="el-icon-arrow-down el-icon--right"></i></span>
@@ -230,7 +230,7 @@ export default {
           this.treeData = data;
           let obj = {
             id: 0,
-            title: 'tất cả',
+            title: 'Tất cả',
           };
           this.treeData.unshift(obj);
         })

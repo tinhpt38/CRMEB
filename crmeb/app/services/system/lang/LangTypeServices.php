@@ -61,8 +61,8 @@ class LangTypeServices extends BaseServices
             $options[] = ['value' => $item['code'], 'label' => $item['name'] . ' [ ' . $item['code'] . ' ]'];
         }
         $field[] = Form::select('file_name', 'định danh ngôn ngữ', $info['file_name'] ?? '')->setOptions(Form::setOptions($options))->filterable(1);
-        $field[] = Form::radio('is_default', 'Đây có phải là mặc định không', $info['is_default'] ?? 0)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
-        $field[] = Form::radio('status', 'tình trạng', $info['status'] ?? 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $field[] = Form::radio('is_default', 'Đây có phải là mặc định không', $info['is_default'] ?? 0)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $field[] = Form::radio('status', 'Trạng thái', $info['status'] ?? 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
         return create_form($id ? 'Sửa đổi loại ngôn ngữ' : 'Thêm loại ngôn ngữ mới', $field, Url::buildUrl('/setting/lang_type/save/' . $id), 'POST');
     }
 

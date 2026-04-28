@@ -6,11 +6,11 @@
         <span class="expand-value" v-text="row.total_price"></span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">thời gian đặt hàng：</span>
+        <span class="expand-key">Thời gian đặt hàng：</span>
         <span class="expand-value" v-text="row.add_time"></span>
       </el-col>
       <el-col :span="6">
-        <span class="expand-key">người quảng bá：</span>
+        <span class="expand-key">Người quảng bá：</span>
         <span class="expand-value" v-text="row.spread_nickname ? row.spread_nickname : 'không có'"></span>
       </el-col>
       <el-col :span="6">
@@ -32,7 +32,7 @@
         <span class="expand-value" v-text="row.verify_code ? row.store_name : 'không có'"></span>
       </el-col>
       <el-col :span="6" v-if="row.shipping_type == 2">
-        <span class="expand-key">Mã xóa sổ：</span>
+        <span class="expand-key">Mã xác nhận：</span>
         <span class="expand-value" v-text="row.verify_code ? row.verify_code : 'không có'"></span>
       </el-col>
     </el-row>

@@ -82,7 +82,7 @@
                 <view class="name line1">{{ item.store_name }}</view>
                 <view class="info">
                   <text>Doanh số bán hàng: {{ item.sales }}</text>
-                  <text>trong kho: {{ item.stock }}</text>
+                  <text>Trong kho: {{ item.stock }}</text>
                 </view>
                 <baseMoney
                   :money="item.price"
@@ -103,7 +103,7 @@
               <view
                 class="bnt on acea-row row-center-wrapper"
                 @tap="openDrawer(item)"
-                >biên tập</view
+                >Sửa</view
               >
             </view>
           </view>
@@ -128,14 +128,14 @@
           activeBackgroundColor="#2A7EFB"
           activeBorderColor="#2A7EFB"
         />
-        <text class="checkAll">Chọn tất cả({{ getIds().length }})</text>
+        <text class="checkAll">Chọn Tất cả({{ getIds().length }})</text>
       </checkbox-group>
       <view class="acea-row row-middle">
         <view class="bnt acea-row row-center-wrapper" @click="editLabels"
           >Thêm thẻ</view
         >
         <view class="bnt acea-row row-center-wrapper" @click="editClass"
-          >Sửa đổi phân loại</view
+          >Sửa danh mục</view
         >
         <view
           class="bnt acea-row row-center-wrapper"
@@ -217,7 +217,7 @@ export default {
       getHeight: this.$util.getWXStatusHeight(),
       navList: [
         {
-          name: "tất cả",
+          name: "Tất cả",
           type: "",
         },
         {
@@ -239,13 +239,13 @@ export default {
       ],
       editList: [
         {
-          name: "Sửa đổi giá/cổ phiếu",
+          name: "Sửa đổi giá/tồn kho",
         },
         {
-          name: "Phân loại sản phẩm",
+          name: "Danh mục sản phẩm",
         },
         {
-          name: "Thẻ sản phẩm",
+          name: "Nhãn sản phẩm",
         },
       ],
       current: 0,

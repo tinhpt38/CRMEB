@@ -2,7 +2,7 @@
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" v-loading="spinShow">
       <el-button type="primary" v-db-click @click="groupAdd()" class="mr20">Thêm chức năng</el-button>
-      <!-- <el-button type="success" v-db-click @click="buildCode()" class="mr20">đăng lại</el-button> -->
+      <!-- <el-button type="success" v-db-click @click="buildCode()" class="mr20">Đăng lại</el-button> -->
       <el-table
         :data="tabList"
         ref="table"
@@ -22,7 +22,7 @@
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên bảng" min-width="130">
+        <el-table-column label="Tên bảng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.table_name }}</span>
           </template>
@@ -37,15 +37,15 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="200">
+        <el-table-column label="Thao tác" fixed="right" width="200">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, 'biên tập')">Xem mã</a>
+            <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Xem mã</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="editItem(scope.row)">biên tập</a>
+            <a v-db-click @click="editItem(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="downLoad(scope.row)">tải về</a>
+            <a v-db-click @click="downLoad(scope.row)">Tải về</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'xóa bỏ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -72,7 +72,7 @@
         <span>{{ title }}</span>
       </p>
       <div class="file" style="height: 100%">
-        <el-button class="save" type="primary" v-db-click @click="pwdModal = true">cứu</el-button>
+        <el-button class="save" type="primary" v-db-click @click="pwdModal = true">Lưu</el-button>
 
         <div class="file-box">
           <div class="file-fix"></div>
@@ -115,7 +115,7 @@
               </el-tab-pane>
               <!-- <el-tab-pane label="Quản lý người dùng" name="first">Quản lý người dùng</el-tab-pane>
               <el-tab-pane label="Quản lý cấu hình" name="second">Quản lý cấu hình</el-tab-pane>
-              <el-tab-pane label="quản lý vai trò" name="third">quản lý vai trò</el-tab-pane>
+              <el-tab-pane label="quản lý vai trò" name="third">Quản lý vai trò</el-tab-pane>
               <el-tab-pane label="Bồi thường nhiệm vụ theo lịch trình" name="fourth">Bồi thường nhiệm vụ theo lịch trình</el-tab-pane> -->
             </el-tabs>
           </div>
@@ -124,7 +124,7 @@
     </el-drawer>
     <el-dialog
       :visible.sync="buildModals"
-      title="phần cuối"
+      title="Phần cuối"
       :show-close="true"
       :close-on-click-modal="false"
       width="720px"
@@ -217,7 +217,7 @@ export default {
           minWidth: 130,
         },
         {
-          title: 'vận hành',
+          title: 'Thao tác',
           slot: 'action',
           fixed: 'right',
           minWidth: 150,

@@ -148,7 +148,7 @@
 						location.href = this.url;
 					} else {
 						return that.$util.Tips({
-							title: this.$t(`Ràng buộc thành công`),
+							title: this.$t(`Liên kết thành công`),
 							icon: 'success'
 						}, {
 							tab: 4,

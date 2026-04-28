@@ -271,8 +271,8 @@ class StoreOrderController
         if ($order['paid']) {
             return app('json')->fail('Đơn hàng đã thanh toán');
         }
-        if ($price === '') return app('json')->fail('Vui lòng điền số tiền thanh toán thực tế');
-        if ($price < 0) return app('json')->fail('Số tiền thanh toán thực tế không được nhỏ hơn 0 nhân dân tệ');
+        if ($price === '') return app('json')->fail('Vui lòng điền số tiền Thanh toán thực tế');
+        if ($price < 0) return app('json')->fail('Số tiền Thanh toán thực tế không được nhỏ hơn 0 nhân dân tệ');
         if ($order['pay_price'] == $price) return app('json')->success('Sửa đổi thành công', ['order_id' => $order_id]);
         $order_id = $services->updateOrder($order['id'], ['total_price' => $order['total_price'], 'pay_price' => $price]);
         return app('json')->success('Sửa đổi thành công', ['order_id' => $order_id]);
@@ -548,13 +548,13 @@ class StoreOrderController
             ['is_confirm', 0],
             ['auth', 0],
         ], true);
-        if (!$verifyCode) return app('json')->fail('Vui lòng nhập mã xóa sổ hoặc quét mã QR xóa sổ');
+        if (!$verifyCode) return app('json')->fail('Vui lòng nhập mã xác nhận hoặc quét mã QR xác nhận');
         $uid = $request->uid();
         $orderInfo = $services->writeOffOrder($verifyCode, (int)$isConfirm, $uid, $auth);
         if ($isConfirm == 0) {
             return app('json')->success($orderInfo);
         }
-        return app('json')->success('Xóa sổ thành công');
+        return app('json')->success('Xác nhận thành công');
     }
 
     /**

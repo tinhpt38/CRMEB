@@ -1,7 +1,7 @@
 <template>
   <div class="pb-50">
     <el-form ref="formItem" :rules="ruleValidate" :model="formItem" label-width="100px" @submit.native.prevent>
-      <el-form-item label="người dùngID：" v-if="formItem.uid">
+      <el-form-item label="ID khách hàng：" v-if="formItem.uid">
         <el-input
           class="form-sty"
           disabled
@@ -10,7 +10,7 @@
           style="width: 80%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="tên thật：" prop="real_name">
+      <el-form-item label="Tên thật：" prop="real_name">
         <el-input
           class="form-sty"
           v-model.trim="formItem.real_name"
@@ -18,7 +18,7 @@
           style="width: 80%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="số điện thoại：" prop="phone">
+      <el-form-item label="Số điện thoại：" prop="phone">
         <el-input class="form-sty" v-model="formItem.phone" placeholder="Vui lòng nhập số điện thoại di động" style="width: 80%"></el-input>
       </el-form-item>
       <el-form-item label="Sinh nhật：">
@@ -33,7 +33,7 @@
           value-format="yyyy-MM-dd"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item label="số CMND：">
+      <el-form-item label="Số CMND：">
         <el-input
           class="form-sty"
           v-model.trim="formItem.card_id"
@@ -66,7 +66,7 @@
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="Cấp độ người dùng：">
+      <el-form-item label="Hạng khách hàng：">
         <el-select v-model="formItem.level" class="form-sty" clearable>
           <el-option
             v-for="(item, index) in infoData.levelInfo"
@@ -76,7 +76,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="Nhóm người dùng：">
+      <el-form-item label="Nhóm khách hàng：">
         <el-select v-model="formItem.group_id" class="form-sty" clearable>
           <el-option
             v-for="(item, index) in infoData.groupInfo"
@@ -86,7 +86,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="Thẻ người dùng：">
+      <el-form-item label="Thẻ khách hàng：">
         <!-- <el-select v-model="formItem.label_id">
           <el-option
             v-for="(item, index) in infoData.labelInfo"
@@ -124,15 +124,15 @@
       </el-form-item>
       <el-form-item label="Quyền phân phối：" v-if="formItem.spread_open == 1">
         <el-radio-group v-model="formItem.is_promoter" class="form-sty">
-          <el-radio :label="1">bật lên</el-radio>
-          <el-radio :label="0">đóng cửa</el-radio>
+          <el-radio :label="1">Bật lên</el-radio>
+          <el-radio :label="0">Đóng cửa</el-radio>
         </el-radio-group>
         <div class="tip">Bật hoặc tắt quyền phân phối của người dùng theo cách thủ công</div>
       </el-form-item>
       <el-form-item label="Trạng thái người dùng：">
         <el-radio-group v-model="formItem.status" class="form-sty">
-          <el-radio :label="1">bật lên</el-radio>
-          <el-radio :label="0">khóa</el-radio>
+          <el-radio :label="1">Bật lên</el-radio>
+          <el-radio :label="0">Khóa</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>

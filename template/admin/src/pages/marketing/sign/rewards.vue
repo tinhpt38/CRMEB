@@ -16,21 +16,21 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="kiểu" min-width="80">
+        <el-table-column label="Kiểu" min-width="80">
           <template slot-scope="scope">
             <span>{{
               scope.row.type == 0 ? `Đăng nhập liên tục${scope.row.days}phần thưởng ngày` : `Số lượt đăng ký tích lũy${scope.row.days}phần thưởng ngày`
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="ngày" min-width="80">
+        <el-table-column label="Ngày" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.days }} (bầu trời)</span>
+            <span>{{ scope.row.days }} (ngày)</span>
           </template>
         </el-table-column>
-        <el-table-column label="điểm thưởng" min-width="80">
+        <el-table-column label="Điểm thưởng" min-width="80">
           <template slot-scope="scope">
-            <span>{{ scope.row.point }} (tích phân)</span>
+            <span>{{ scope.row.point }} (điểm thưởng)</span>
           </template>
         </el-table-column>
         <el-table-column label="Kinh nghiệm thưởng" min-width="80">
@@ -38,11 +38,11 @@
             <span>{{ scope.row.exp }} (kinh nghiệm)</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="100">
+        <el-table-column label="Thao tác" fixed="right" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

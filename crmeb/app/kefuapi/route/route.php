@@ -34,8 +34,8 @@ Route::group(function () {
     Route::group('user', function () {
 
         Route::get('record', 'User/recordList')->name('recordList')->option(['real_name' => 'Người dùng đã trò chuyện với dịch vụ khách hàng']);//Người dùng đã trò chuyện với dịch vụ khách hàng
-        Route::get('info/:uid', 'User/userInfo')->name('getUserInfo')->option(['real_name' => 'Chi tiết người dùng']);//Chi tiết người dùng
-        Route::get('label/:uid', 'User/getUserLabel')->name('getUserLabel')->option(['real_name' => 'Thẻ người dùng']);//Thẻ người dùng
+        Route::get('info/:uid', 'User/userInfo')->name('getUserInfo')->option(['real_name' => 'Chi tiết khách hàng']);//Chi tiết người dùng
+        Route::get('label/:uid', 'User/getUserLabel')->name('getUserLabel')->option(['real_name' => 'Thẻ khách hàng']);//Thẻ người dùng
         Route::put('label/:uid', 'User/setUserLabel')->name('setUserLabel')->option(['real_name' => 'Đặt nhãn người dùng']);//Đặt nhãn người dùng
         Route::get('group', 'User/getUserGroup')->name('getUserGroup')->option(['real_name' => 'Nhận nhóm người dùng']);//Đăng xuất
         Route::put('group/:uid/:id', 'User/setUserGroup')->name('setUserGroup')->option(['real_name' => 'Thiết lập nhóm người dùng']);//Đăng xuất
@@ -47,12 +47,12 @@ Route::group(function () {
     Route::group('order', function () {
 
         Route::get('list/:uid', 'Order/getUserOrderList')->name('getUserOrderList')->option(['real_name' => 'danh sách đặt hàng']);//danh sách đặt hàng
-        Route::post('delivery/:id', 'Order/delivery_keep')->name('orderDeliveryKeep')->option(['real_name' => 'Đơn hàng đã được vận chuyển']);//Đơn hàng đã được vận chuyển
+        Route::post('delivery/:id', 'Order/delivery_keep')->name('orderDeliveryKeep')->option(['real_name' => 'Đã giao cho ĐVVC']);//Đơn hàng đã được vận chuyển
         Route::put('update/:id', 'Order/update')->name('orderUpdate')->option(['real_name' => 'Sửa đổi đơn hàng']);//Sửa đổi đơn hàng
         Route::post('refund', 'Order/refund')->name('orderRefund')->option(['real_name' => 'Hoàn tiền đơn hàng']);//Hoàn tiền đơn hàng
         Route::get('refund_form/:id', 'Order/refundForm')->name('orderRefund')->option(['real_name' => 'Hoàn tiền đơn hàng']);//Hoàn tiền đơn hàng
         Route::get('edit/:id', 'Order/edit')->name('orderEdit')->option(['real_name' => 'Hoàn tiền đơn hàng']);//Hoàn tiền đơn hàng
-        Route::post('remark', 'Order/remark')->name('remark')->option(['real_name' => 'Ghi chú đặt hàng']);//Ghi chú đặt hàng
+        Route::post('remark', 'Order/remark')->name('remark')->option(['real_name' => 'Ghi chú đơn hàng']);//Ghi chú đặt hàng
         Route::get('info/:id', 'Order/orderInfo')->name('orderInfo')->option(['real_name' => 'Nhận chi tiết đơn hàng']);//Nhận chi tiết đơn hàng
         Route::get('export', 'Order/export')->name('export')->option(['real_name' => 'Nhận chi tiết đơn hàng']);//Nhận chi tiết đơn hàng
         Route::get('temp', 'Order/getExportTemp')->name('getExportTemp')->option(['real_name' => 'Nhận mẫu công ty hậu cần']);//Nhận mẫu công ty hậu cần
@@ -71,7 +71,7 @@ Route::group(function () {
         Route::get('info/:id', 'Product/getProductInfo')->name('getProductInfo')->option(['real_name' => 'Chi tiết sản phẩm']);//Chi tiết sản phẩm
 
     })->middleware(KefuAuthTokenMiddleware::class)
-        ->option(['mark' => 'service', 'mark_name' => 'hàng hóa']);
+        ->option(['mark' => 'service', 'mark_name' => 'sản phẩm']);
 
     Route::group('service', function () {
 

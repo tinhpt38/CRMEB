@@ -4,18 +4,18 @@
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div>
         <div style="float: right">
-          <el-button class="bnt" type="primary" v-db-click @click="save">cứu</el-button>
+          <el-button class="bnt" type="primary" v-db-click @click="save">Lưu</el-button>
         </div>
       </div>
     </div> -->
     <pages-header ref="pageHeader" :title="$route.meta.title">
-      <el-button class="bnt" type="primary" v-db-click @click="save">cứu</el-button>
+      <el-button class="bnt" type="primary" v-db-click @click="save">Lưu</el-button>
     </pages-header>
     <el-card :bordered="false" shadow="never" class="h100 mt16">
       <el-row class="box-wrapper">
         <el-col :xs="24" :sm="24" :md="6" :lg="3">
           <div class="left_box">
-            <div class="left_cont" :class="pageId == 1 ? 'on' : ''" v-db-click @click="menu(1)">trang webLOGO</div>
+            <div class="left_cont" :class="pageId == 1 ? 'on' : ''" v-db-click @click="menu(1)">Trang webLOGO</div>
             <div
               class="left_cont"
               :class="pageId == 'pc_home_banner' ? 'on' : ''"
@@ -27,7 +27,7 @@
             <div class="left_cont" :class="pageId == 3 ? 'on' : ''" v-db-click @click="menu(3)">Quảng cáo trang dịch vụ khách hàng</div>
             <div class="left_cont" :class="pageId == 4 ? 'on' : ''" v-db-click @click="menu(4)">Cấu hình menu trên cùng</div>
             <div class="left_cont" :class="pageId == 5 ? 'on' : ''" v-db-click @click="menu(5)">Cấu hình liên kết thân thiện</div>
-            <div class="left_cont" :class="pageId == 6 ? 'on' : ''" v-db-click @click="menu(6)">về chúng tôi</div>
+            <div class="left_cont" :class="pageId == 6 ? 'on' : ''" v-db-click @click="menu(6)">Về chúng tôi</div>
           </div>
         </el-col>
         <div style="display: flex; width: 83%">
@@ -127,8 +127,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addBox"
-                        >thêm hình ảnh
-                      </el-button>
+                        >Thêm hình ảnh</el-button>
                     </div>
                   </template>
                 </div>
@@ -239,8 +238,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addMenu"
-                        >Thêm thực đơn
-                      </el-button>
+                        >Thêm thực đơn</el-button>
                     </div>
                   </template>
                 </div>
@@ -268,7 +266,7 @@
                         </div>
                         <div class="info">
                           <div class="info-item">
-                            <span>tên liên kết：</span>
+                            <span>Tên liên kết：</span>
                             <div class="input-box">
                               <el-input v-model="item.title" placeholder="Vui lòng điền tên" />
                             </div>
@@ -292,8 +290,7 @@
                         style="width: 100px; height: 35px; background-color: var(--prev-color-primary); color: #ffffff"
                         v-db-click
                         @click="addLink"
-                        >Thêm liên kết
-                      </el-button>
+                        >Thêm liên kết</el-button>
                     </div>
                   </template>
                 </div>
@@ -318,7 +315,7 @@
       </el-row>
     </el-card>
     <!-- <div class="save">
-			<el-button type="primary" v-db-click @click="save" >cứu</el-button>
+			<el-button type="primary" v-db-click @click="save" >Lưu</el-button>
 		</div> -->
     <linkaddress ref="linkaddres" @linkUrl="linkUrl"></linkaddress>
   </div>

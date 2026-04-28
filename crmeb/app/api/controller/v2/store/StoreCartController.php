@@ -75,6 +75,6 @@ class StoreCartController
         if (!$product_id || !is_numeric($product_id)) return app('json')->fail('Lỗi tham số');
         $res = $cartService->setCartNum($request->uid(), $product_id, $num, $unique, $type);
         if ($res) return app('json')->success('Đã thêm vào giỏ hàng thành công!');
-        return app('json')->fail('Thêm vào giỏ hàng không thành công!');
+        return app('json')->fail('Thêm mới giỏ hàng không thành công!');
     }
 }

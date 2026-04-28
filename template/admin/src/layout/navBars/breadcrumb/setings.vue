@@ -194,9 +194,9 @@
               size="mini"
               @change="setLocalThemeConfig"
             >
-              <el-radio-button label="tags-style-one">thẻ</el-radio-button>
+              <el-radio-button label="tags-style-one">Thẻ</el-radio-button>
               <el-radio-button label="tags-style-four">Thông minh</el-radio-button>
-              <el-radio-button label="tags-style-five">trơn</el-radio-button>
+              <el-radio-button label="tags-style-five">Trơn</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -205,9 +205,9 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-radio-group v-model="getThemeConfig.animation" size="mini" @input="setLocalThemeConfig">
               <el-radio-button label="slide-left">Vuốt sang trái</el-radio-button>
-              <el-radio-button label="opacitys">trong suốt</el-radio-button>
+              <el-radio-button label="opacitys">Trong suốt</el-radio-button>
               <el-radio-button label="slide-right">Vuốt sang phải</el-radio-button>
-              <el-radio-button label="no-transition">không có</el-radio-button>
+              <el-radio-button label="no-transition">Không có</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -218,8 +218,8 @@
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveColumnsAsideStyle') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-radio-group v-model="getThemeConfig.columnsAsideStyle" size="mini" @input="setLocalThemeConfig">
-              <el-radio-button label="columns-round">góc tròn</el-radio-button>
-              <el-radio-button label="columns-card">thẻ</el-radio-button>
+              <el-radio-button label="columns-round">Góc tròn</el-radio-button>
+              <el-radio-button label="columns-card">Thẻ</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -230,8 +230,8 @@
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveColumnsAsideLayout') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-radio-group v-model="getThemeConfig.columnsAsideLayout" size="mini" @input="setLocalThemeConfig">
-              <el-radio-button label="columns-horizontal">mức độ</el-radio-button>
-              <el-radio-button label="columns-vertical">thẳng đứng</el-radio-button>
+              <el-radio-button label="columns-horizontal">Mức độ</el-radio-button>
+              <el-radio-button label="columns-vertical">Thẳng đứng</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -554,7 +554,7 @@ export default {
 };
 </script>
 <style>
-body .v-modal {
+Body .v-modal {
   background-color: rgba(0, 0, 0, 0.1);
 }
 </style>

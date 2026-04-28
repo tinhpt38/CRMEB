@@ -232,7 +232,7 @@ class StoreIntegralServices extends BaseServices
         }
         $header[] = ['title' => 'hình ảnh', 'slot' => 'pic', 'align' => 'center', 'minWidth' => 120];
         $header[] = ['title' => 'Đổi điểm', 'slot' => 'price', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => 'trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'Trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'Số lượng trao đổi', 'slot' => 'quota', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'cân nặng(KG)', 'key' => 'weight', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'âm lượng(m³)', 'key' => 'volume', 'align' => 'center', 'minWidth' => 80];

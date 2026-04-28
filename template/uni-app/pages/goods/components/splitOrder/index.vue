@@ -3,7 +3,7 @@
 		<view class="all" v-if="select_all">
 			<checkbox-group @change="checkboxAllChange">
 				<checkbox value="all" :checked="isAllSelect" />
-				<text class='checkAll'>{{$t(`Chọn tất cả`)}}</text>
+				<text class='checkAll'>{{$t(`Chọn Tất cả`)}}</text>
 			</checkbox-group>
 		</view>
 		<checkbox-group @change="checkboxChange">

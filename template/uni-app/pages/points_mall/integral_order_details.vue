@@ -25,7 +25,7 @@
 							<view class='attr line1'>{{cartInfo.suk}}
 							</view>
 							<view class='money font-num'>
-								{{cartInfo.price}}{{$t(`tích phân`)}}
+								{{cartInfo.price}}{{$t(`điểm thưởng`)}}
 							</view>
 						</view>
 					</view>
@@ -56,7 +56,7 @@
 					<view class='conter'>{{cartInfo.total_price}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.mark">
-					<view>{{$t(`Ghi chú đặt hàng`)}}：</view>
+					<view>{{$t(`Ghi chú đơn hàng`)}}：</view>
 					<view class='conter'>{{cartInfo.mark}}</view>
 				</view>
 				<view class='item acea-row row-between' v-if="cartInfo.remark">
@@ -100,7 +100,7 @@
 					v-if="cartInfo.delivery_id && cartInfo.delivery_type === 'express'"
 					:url="'/pages/points_mall/logistics_details?order_id='+ cartInfo.order_id">{{$t(`kiểm tra hậu cần`)}}
 				</navigator>
-				<view class='bnt bg-color' v-if="cartInfo.status==2" @tap='confirmOrder'>{{$t(`xác nhận đã nhận hàng`)}}</view>
+				<view class='bnt bg-color' v-if="cartInfo.status==2" @tap='confirmOrder'>{{$t(`Xác nhận nhận hàng`)}}</view>
 			</view>
 		</view>
 		<!-- #ifndef MP -->
@@ -157,7 +157,7 @@
 				status: {}, //Trạng thái nút đặt hàng dưới cùng
 				isClose: false,
 				payMode: [{
-						name: this.$t(`WeChat trả tiền`),
+						name: this.$t(`Thanh toán WeChat`),
 						icon: "icon-weixinzhifu",
 						value: 'weixin',
 						title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),
@@ -416,8 +416,8 @@
 			confirmOrder: function() {
 				let that = this;
 				uni.showModal({
-					title: this.$t(`xác nhận đã nhận hàng`),
-					content: this.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng xác nhận đã nhận hàng trước khi xác nhận đã nhận.`),
+					title: this.$t(`Xác nhận nhận hàng`),
+					content: this.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng Xác nhận nhận hàng trước khi xác nhận đã nhận.`),
 					success: (res) => {
 						if (res.confirm) {
 							orderTake({

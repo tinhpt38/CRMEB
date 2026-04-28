@@ -26,7 +26,7 @@
                 </el-tooltip>
               </div>
               <span v-if="data.id">
-                <el-dropdown @command="(command) => clickMenu(data, command)">
+                <el-dropdown @command="(command) => ClickMenu(data, command)">
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
@@ -52,7 +52,7 @@
             <el-col :span="6">
               <div class="flex">
                 <el-input class="mr10" v-model="tableFrom.name" search placeholder="Vui lòng nhập tên mã kênh"> </el-input>
-                <el-button type="primary" v-db-click @click="userSearchs">tìm kiếm</el-button>
+                <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
               </div>
             </el-col>
           </el-row>
@@ -85,14 +85,14 @@
                 <span>{{ scope.row.y_follow }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="Thẻ người dùng" min-width="80">
+            <el-table-column label="Thẻ khách hàng" min-width="80">
               <template slot-scope="scope">
                 <el-tag class="label-name" v-for="(item, index) in scope.row.label_name" :key="index">{{
                   item
                 }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="thời gian" min-width="80">
+            <el-table-column label="Thời gian" min-width="80">
               <template slot-scope="scope">
                 <span v-if="scope.row.stop === 0"> Vĩnh viễn </span>
                 <span v-if="scope.row.stop === 1">
@@ -110,7 +110,7 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="tình trạng" min-width="80">
+            <el-table-column label="Trạng thái" min-width="80">
               <template slot-scope="scope">
                 <el-switch
                   class="defineSwitch"
@@ -121,23 +121,23 @@
                   :disabled="scope.row.lottery_status == 2 ? true : false"
                   @change="onchangeIsShow(scope.row)"
                   size="large"
-                  active-text="bật lên"
+                  active-text="Hoạt động"
                   inactive-text="đóng cửa"
                 >
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="170">
+            <el-table-column label="Thao tác" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row)">biên tập</a>
+                <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, 'Xóa mã QR', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa mã QR', scope.$index)">Xóa</a>
                 <el-divider direction="vertical"></el-divider>
                 <el-dropdown size="small" @command="changeMenu(scope.row, $event)" :transfer="true">
-                  <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                  <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="1">tải về</el-dropdown-item>
-                    <el-dropdown-item command="2">thống kê</el-dropdown-item>
+                    <el-dropdown-item command="1">Tải về</el-dropdown-item>
+                    <el-dropdown-item command="2">Thống kê</el-dropdown-item>
                     <el-dropdown-item command="3">Danh sách người dùng</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
@@ -350,7 +350,7 @@ export default {
       wechatQrcodeTree().then((res) => {
         let data = res.data.data;
         let obj = {
-          cate_name: 'tất cả',
+          cate_name: 'Tất cả',
           id: '',
         };
         data.unshift(obj);

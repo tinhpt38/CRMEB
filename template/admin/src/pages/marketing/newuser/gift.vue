@@ -35,7 +35,7 @@
             <el-button v-db-click @click="addCoupon">Chọn phiếu giảm giá</el-button>
           </el-form-item>
           <el-form-item label="">
-            <el-button type="primary" v-db-click @click="submitForm">xác nhận</el-button>
+            <el-button type="primary" v-db-click @click="submitForm">Xác nhận</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -72,7 +72,7 @@ export default {
         item.title =
           item.use_min_price !== '0.00'
             ? `${item.title} | Đầy${item.use_min_price}trừ nhân dân tệ ${item.coupon_price}Nhân dân tệ`
-            : `${item.title} | ${item.coupon_price}Phiếu giảm giá nhân dân tệ không có ngưỡng`;
+            : `${item.title} | ${item.coupon_price}Mã giảm giá nhân dân tệ không có ngưỡng`;
         delete item.use_min_price;
         delete item.coupon_price;
         const key = JSON.stringify(item); // Tạo khóa duy nhất bằng JSON.stringify

@@ -23,7 +23,7 @@
 		<view class="footer acea-row row-middle">
 			<view class="all acea-row row-middle" v-if="isSplit" @click="allChange">
 				<text class="iconfont" :class="isAll ?'icon-a-ic_CompleteSelect' :'icon-ic_unselect'"></text>
-				Chọn tất cả
+				Chọn Tất cả
 			</view>
 			<view class="btn-box">
 				<view class="btn" :style="{ width: isSplit?'auto':'100%'}" @click="openRefund">

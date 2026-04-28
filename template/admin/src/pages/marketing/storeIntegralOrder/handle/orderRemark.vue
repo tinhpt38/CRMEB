@@ -8,14 +8,14 @@
           :rows="8"
           show-word-limit
           type="textarea"
-          placeholder="Ghi chú đặt hàng"
+          placeholder="Ghi chú đơn hàng"
           style="width: 100%"
         />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button v-db-click @click="cancel('formValidate')">Hủy bỏ</el-button>
-      <el-button type="primary" v-db-click @click="putRemark('formValidate')">nộp</el-button>
+      <el-button type="primary" v-db-click @click="putRemark('formValidate')">Nộp</el-button>
     </span>
   </el-dialog>
 </template>

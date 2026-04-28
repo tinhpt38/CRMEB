@@ -9,7 +9,7 @@
 							<image class="avatar" :src="userInfo.avatar" mode=""></image>
 							<view class="nickname line1">{{userInfo.nickname}}</view>
 							<view v-if="userInfo.is_agent_level" class="level line1" @click="jumbPath">
-								<text>{{userInfo.agent_level_name?$t(userInfo.agent_level_name):$t(`Cấp độ phân phối`)}}</text>
+								<text>{{userInfo.agent_level_name?$t(userInfo.agent_level_name):$t(`Cấp bậc Affiliate`)}}</text>
 								<text v-if="userInfo.is_agent_level" class='iconfont icon-xiangyou'></text>
 							</view>
 						</view>
@@ -67,7 +67,7 @@
 				<navigator v-if="userInfo.division_open && (userInfo.is_agent || userInfo.is_division)" url='/pages/users/promoter-order/index?type=1' hover-class="none"
 					class='item acea-row row-center-wrapper row-column'>
 					<text class='iconfont icon-dingdan'></text>
-					<view>{{userInfo.is_division?$t(`Đơn vị kinh doanh`):$t(`đại lý`)}}{{$t(`Đơn hàng khuyến mãi`)}}</view>
+					<view>{{userInfo.is_division?$t(`Đơn vị kinh doanh`):$t(`đại lý`)}}{{$t(`Đơn hàng Affiliate`)}}</view>
 				</navigator>
 				<navigator url='/pages/users/promoter_rank/index' hover-class="none"
 					class='item acea-row row-center-wrapper row-column'>

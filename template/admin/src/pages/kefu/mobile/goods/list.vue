@@ -31,13 +31,13 @@
           <div class="info">
             <div class="title line2 mb15">{{ item.store_name }}</div>
             <div class="num">
-              <span class="mr15">trong kho {{ item.stock }}</span>
+              <span class="mr15">Trong kho {{ item.stock }}</span>
               <span>Doanh số bán hàng {{ item.sales }}</span>
             </div>
           </div>
           <div class="right">
             <div class="price">￥{{ item.price }}</div>
-            <div class="btn" v-db-click @click="bingGoods(item)">xô</div>
+            <div class="btn" v-db-click @click="bingGoods(item)">Xô</div>
           </div>
         </div>
         <div class="slot-load" slot="load-deactive"></div>
@@ -160,7 +160,7 @@ export default {
 };
 </script>
 <style>
-page {
+Page {
   height: 100%;
 }
 </style>

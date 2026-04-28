@@ -11,9 +11,9 @@
 				<view class='text'>
 					<view class='condition'>
 						<view class="name line2">
-							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-if="item.applicable_type === 0">{{$t(`Phiếu giảm giá phổ quát`)}}</view>
-							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else-if="item.applicable_type === 1">{{$t(`Phiếu giảm giá danh mục`)}}</view>
-							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else>{{$t(`phiếu giảm giá hàng hóa`)}}</view>
+							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-if="item.applicable_type === 0">{{$t(`Mã giảm giá phổ quát`)}}</view>
+							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else-if="item.applicable_type === 1">{{$t(`Mã giảm giá danh mục`)}}</view>
+							<view class="line-title" :class="item.is_fail? 'bg-color-huic' : 'bg-color-check'" v-else>{{$t(`phiếu giảm giá sản phẩm`)}}</view>
 							<text>{{item.coupon_title}}</text>
 						</view>
 					</view>

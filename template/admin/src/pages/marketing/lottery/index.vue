@@ -25,7 +25,7 @@
             </el-form-item>
           </el-col>
           <el-col>
-            <el-form-item label="trạng thái hoạt động：" clearable>
+            <el-form-item label="Trạng thái hoạt động：" clearable>
               <el-select
                 style="width: 200px"
                 v-model="tableFrom.start_status"
@@ -110,7 +110,7 @@
             <span>{{ scope.row.lottery_win }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="trạng thái hoạt động" min-width="130">
+        <el-table-column label="Trạng thái hoạt động" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.status_name }}</span>
           </template>
@@ -134,22 +134,22 @@
         </el-table-column>
         <el-table-column label="Thời gian hoạt động" min-width="130">
           <template slot-scope="scope">
-            <div>tăng lên：{{ scope.row.start_time || '--' }}</div>
-            <div>kết thúc：{{ scope.row.end_time || '--' }}</div>
+            <div>Tăng lên：{{ scope.row.start_time || '--' }}</div>
+            <div>Kết thúc：{{ scope.row.end_time || '--' }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="trạng thái hoạt động" min-width="130">
+        <el-table-column label="Trạng thái hoạt động" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.status_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa xổ số', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa xổ số', scope.$index)">Xóa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="copy(scope.row)">sao chép</a>
+            <a v-db-click @click="copy(scope.row)">Sao chép</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="getRecording(scope.row)">Kỷ lục xổ số</a>
           </template>

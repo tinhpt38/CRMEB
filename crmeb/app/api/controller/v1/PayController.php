@@ -69,7 +69,7 @@ class PayController
         $config = [
             [
                 'icon' => 'icon-weixinzhifu',
-                'name' => 'WeChat trả tiền',
+                'name' => 'Thanh toán WeChat',
                 'value' => 'weixin',
                 'title' => 'Sử dụng Thanh toán nhanh WeChat',
                 'number' => null,

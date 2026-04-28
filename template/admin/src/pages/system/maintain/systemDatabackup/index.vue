@@ -6,9 +6,9 @@
           <!--          <el-card :bordered="false" shadow="never" class="tableBox">-->
           <div class="mb10">
             <!--              <span class="ivu-pl-8 mr10">Danh sách bảng cơ sở dữ liệu</span>-->
-            <el-button v-db-click @click="getBackup">hỗ trợ</el-button>
+            <el-button v-db-click @click="getBackup">Hỗ trợ</el-button>
             <el-button v-db-click @click="getOptimize">Bảng tối ưu hóa</el-button>
-            <el-button v-db-click @click="getRepair">bàn sửa chữa</el-button>
+            <el-button v-db-click @click="getRepair">Bàn sửa chữa</el-button>
             <el-button v-db-click @click="exportData(1)">Xuất tập tin</el-button>
           </div>
           <el-table
@@ -21,7 +21,7 @@
             class="mt14"
           >
             <el-table-column type="selection" width="55"> </el-table-column>
-            <el-table-column label="tên bảng" min-width="100">
+            <el-table-column label="Tên bảng" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
@@ -36,12 +36,12 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="kiểu" min-width="100">
+            <el-table-column label="Kiểu" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.engine }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="kích cỡ" min-width="100">
+            <el-table-column label="Kích cỡ" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.data_length }}</span>
               </template>
@@ -56,7 +56,7 @@
                 <span>{{ scope.row.rows }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="70">
+            <el-table-column label="Thao tác" fixed="right" width="70">
               <template slot-scope="scope">
                 <a v-db-click @click="Info(scope.row)">Chi tiết</a>
               </template>
@@ -83,12 +83,12 @@
                   <span>{{ scope.row.COLUMN_NAME }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="kiểu dữ liệu" min-width="100">
+              <el-table-column label="Kiểu dữ liệu" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_TYPE }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="giá trị mặc định" min-width="100">
+              <el-table-column label="Giá trị mặc định" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.COLUMN_DEFAULT }}</span>
                 </template>
@@ -98,7 +98,7 @@
                   <span>{{ scope.row.IS_NULLABLE }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="tự động tăng" min-width="100">
+              <el-table-column label="Tự động tăng" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.EXTRA }}</span>
                 </template>
@@ -135,33 +135,33 @@
                 <span>{{ scope.row.filename }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="part" min-width="100">
+            <el-table-column label="Part" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.part }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="kích cỡ" min-width="100">
+            <el-table-column label="Kích cỡ" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.size }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="compress" min-width="100">
+            <el-table-column label="Compress" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.compress }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="thời gian" min-width="100">
+            <el-table-column label="Thời gian" min-width="100">
               <template slot-scope="scope">
                 <span>{{ scope.row.backtime }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="140">
+            <el-table-column label="Thao tác" fixed="right" width="140">
               <template slot-scope="scope">
-                <a v-db-click @click="ImportFile(scope.row)">nhập khẩu</a>
+                <a v-db-click @click="ImportFile(scope.row)">Nhập khẩu</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, 'Xóa bản sao lưu này', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa bản sao lưu này', scope.$index)">Xóa</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="download(scope.row)">tải về</a>
+                <a v-db-click @click="download(scope.row)">Tải về</a>
               </template>
             </el-table-column>
           </el-table>
@@ -310,7 +310,7 @@ export default {
     exportData() {
       const columns = this.columns.slice(1, 7);
       this.$refs.selection.exportCsv({
-        filename: 'Xuất khẩu',
+        filename: 'Xuất file',
         columns: columns,
         data: this.tabList2,
       });

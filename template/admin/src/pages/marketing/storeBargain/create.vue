@@ -2,7 +2,7 @@
   <div>
     <pages-header
       ref="pageHeader"
-      :title="$route.params.id ? 'Chỉnh sửa mặt hàng giá hời' : 'Thêm mặt hàng giá hời'"
+      :title="$route.params.id ? 'Chỉnh sửa Sản phẩm trả giá' : 'Thêm Sản phẩm trả giá'"
       :backUrl="$routeProStr + '/marketing/store_bargain/index'"
     ></pages-header>
     <el-card :bordered="false" shadow="never" class="mt16">
@@ -45,7 +45,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="Băng chuyền sản phẩm：" prop="images">
+                <el-form-item label="Ảnh slider sản phẩm：" prop="images">
                   <div class="acea-row">
                     <div
                       class="pictrue"
@@ -122,7 +122,7 @@
               <el-col :span="24" v-if="formValidate.virtual_type == 0">
                 <el-form-item label="Phương pháp hậu cần：" prop="logistics">
                   <el-checkbox-group v-model="formValidate.logistics">
-                    <el-checkbox label="1">chuyển phát nhanh</el-checkbox>
+                    <el-checkbox label="1">Chuyển phát nhanh</el-checkbox>
                     <el-checkbox label="2">Đến cửa hàng</el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
@@ -131,7 +131,7 @@
                 <el-form-item label="Cài đặt phí vận chuyển：" :prop="formValidate.freight != 1 ? 'freight' : ''">
                   <el-radio-group v-model="formValidate.freight">
                     <el-radio :label="2">Bưu phí cố định</el-radio>
-                    <el-radio :label="3">Mẫu vận chuyển hàng hóa</el-radio>
+                    <el-radio :label="3">Mẫu vận chuyển sản phẩm</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -158,7 +158,7 @@
                     <el-select
                       v-model="formValidate.temp_id"
                       clearable
-                      placeholder="Vui lòng chọn mẫu vận chuyển hàng hóa"
+                      placeholder="Vui lòng chọn mẫu vận chuyển sản phẩm"
                       class="content_width"
                     >
                       <el-option
@@ -168,7 +168,7 @@
                         :label="item.name"
                       ></el-option>
                     </el-select>
-                    <span class="addfont" v-db-click @click="freight">Đã thêm mẫu vận chuyển hàng hóa</span>
+                    <span class="addfont" v-db-click @click="freight">Đã thêm mẫu vận chuyển sản phẩm</span>
                   </div>
                 </el-form-item>
               </el-col>
@@ -210,9 +210,9 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="đơn vị：" prop="unit_name" label-for="unit_name">
+                <el-form-item label="Đơn vị：" prop="unit_name" label-for="unit_name">
                   <el-input
-                    placeholder="Vui lòng nhập đơn vị"
+                    placeholder="Vui lòng nhập Đơn vị"
                     element-id="unit_name"
                     v-model="formValidate.unit_name"
                     class="content_width"
@@ -237,7 +237,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="loại：">
+                <el-form-item label="Loại：">
                   <el-input-number
                     :controls="false"
                     placeholder="Vui lòng nhập sắp xếp"
@@ -259,7 +259,7 @@
                       :inactive-value="0"
                       v-model="formValidate.is_commission"
                       size="large"
-                      active-text="bật lên"
+                      active-text="Hoạt động"
                       inactive-text="đóng cửa"
                     >
                     </el-switch>
@@ -268,14 +268,14 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="trạng thái hoạt động：" props="status" label-for="status">
+                <el-form-item label="Trạng thái hoạt động：" props="status" label-for="status">
                   <el-switch
                     class="defineSwitch"
                     :active-value="1"
                     :inactive-value="0"
                     v-model="formValidate.status"
                     size="large"
-                    active-text="bật lên"
+                    active-text="Hoạt động"
                     inactive-text="đóng cửa"
                   >
                   </el-switch>
@@ -292,7 +292,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      :label="item.title"
+                      :label="Item.title"
                       :min-width="item.minWidth"
                       v-for="(item, index) in columns"
                       :key="index"
@@ -353,7 +353,7 @@
               </el-col>
             </el-row>
             <div v-if="current === 2">
-              <el-form-item label="nội dung：">
+              <el-form-item label="Nội dung：">
                 <WangEditor
                   style="width: 90%"
                   :content="formValidate.description"
@@ -362,7 +362,7 @@
               </el-form-item>
             </div>
             <div v-if="current === 3">
-              <el-form-item label="luật lệ：">
+              <el-form-item label="Luật lệ：">
                 <WangEditor
                   style="width: 90%"
                   :content="formValidate.rule"
@@ -546,7 +546,7 @@ export default {
             trigger: 'change',
           },
         ],
-        unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
+        unit_name: [{ required: true, message: 'Vui lòng nhập Đơn vị', trigger: 'blur' }],
         price: [
           {
             required: true,
@@ -612,7 +612,7 @@ export default {
         temp_id: [
           {
             required: true,
-            message: 'Vui lòng chọn mẫu vận chuyển hàng hóa',
+            message: 'Vui lòng chọn mẫu vận chuyển sản phẩm',
             trigger: 'change',
             type: 'number',
           },
@@ -826,7 +826,7 @@ export default {
               if (this.formValidate.attrs[0].quota <= 0) {
                 return this.$message.error('Giới hạn thương lượng phải lớn hơn0');
               }
-              if (this.formValidate.attrs[0].quota > this.formValidate.attrs[0]['stock']) {
+              if (this.formValidate.attrs[0].quota > This.formValidate.attrs[0]['stock']) {
                 return this.$message.error('Giới hạn thương lượng không thể vượt quá hàng tồn kho đặc điểm kỹ thuật');
               }
             }

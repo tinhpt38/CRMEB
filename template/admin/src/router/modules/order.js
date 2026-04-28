@@ -37,7 +37,7 @@ export default {
       name: `${pre}offline`,
       meta: {
         auth: ['admin-order-offline'],
-        title: 'Thu ngân đặt hàng',
+        title: 'Đơn hàng POS',
       },
       component: () => import('@/pages/order/offline/index'),
     },
@@ -46,7 +46,7 @@ export default {
       name: `${pre}refund`,
       meta: {
         auth: ['admin-order-refund'],
-        title: 'Đơn hàng sau bán hàng',
+        title: 'Yêu cầu trả hàng / hoàn tiền',
       },
       component: () => import('@/pages/order/refund/index'),
     },

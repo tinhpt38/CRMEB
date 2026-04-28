@@ -28,9 +28,9 @@
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="0" label="Phiếu giảm giá phổ quát"></el-option>
-              <el-option value="1" label="Phiếu giảm giá danh mục"></el-option>
-              <el-option value="2" label="phiếu giảm giá hàng hóa"></el-option>
+              <el-option value="0" label="Mã giảm giá phổ quát"></el-option>
+              <el-option value="1" label="Mã giảm giá danh mục"></el-option>
+              <el-option value="2" label="phiếu giảm giá sản phẩm"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Nó có hợp lệ không?：" label-for="status">
@@ -53,20 +53,20 @@
               @change="userSearchs"
               class="form_content_width"
             >
-              <el-option value="all" label="tất cả"></el-option>
+              <el-option value="all" label="Tất cả"></el-option>
               <el-option value="1" label="Bộ sưu tập người dùng"></el-option>
               <el-option value="2" label="Quà tặng hệ thống"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-button v-auth="['admin-marketing-store_coupon-add']" type="primary" icon="md-add" v-db-click @click="add"
-        >thêm phiếu giảm giá</el-button
+        >Thêm phiếu giảm giá</el-button
       >
       <el-table
         :data="tableList"
@@ -89,13 +89,13 @@
         </el-table-column>
         <el-table-column label="Loại phiếu giảm giá" min-width="80">
           <template slot-scope="scope">
-            <span v-if="scope.row.type === 1">Phiếu giảm giá danh mục</span>
-            <span v-else-if="scope.row.type === 2">phiếu giảm giá hàng hóa</span>
+            <span v-if="scope.row.type === 1">Mã giảm giá danh mục</span>
+            <span v-else-if="scope.row.type === 2">Mã giảm giá sản phẩm</span>
             <span v-else-if="scope.row.type === 3">Phiếu thành viên</span>
-            <span v-else>Phiếu giảm giá phổ quát</span>
+            <span v-else>Mã giảm giá phổ quát</span>
           </template>
         </el-table-column>
-        <el-table-column label="mệnh giá" min-width="100">
+        <el-table-column label="Mệnh giá" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.coupon_price }}</span>
           </template>
@@ -114,20 +114,20 @@
             <span v-else>Không giới hạn thời gian</span>
           </template>
         </el-table-column>
-        <el-table-column label="thời gian sử dụng" min-width="100">
+        <el-table-column label="Thời gian sử dụng" min-width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.start_use_time">
               {{ scope.row.start_use_time | formatDate }} -
               {{ scope.row.end_use_time | formatDate }}
             </div>
-            <div v-else>{{ scope.row.coupon_time }}bầu trời</div>
+            <div v-else>{{ scope.row.coupon_time }}ngày</div>
           </template>
         </el-table-column>
         <el-table-column label="Số lượng phát hành" min-width="100">
           <template slot-scope="scope">
             <span v-if="scope.row.is_permanent">Không giới hạn</span>
             <div v-else>
-              <span class="fa">giải phóng：{{ scope.row.total_count }}</span>
+              <span class="fa">Giải phóng：{{ scope.row.total_count }}</span>
               <span class="sheng">Còn lại：{{ scope.row.remain_count }}</span>
             </div>
           </template>
@@ -145,15 +145,15 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="200">
+        <el-table-column label="Thao tác" fixed="right" width="200">
           <template slot-scope="scope">
             <a v-db-click @click="receive(scope.row)">Nhận hồ sơ</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="copy(scope.row)">sao chép</a>
+            <a v-db-click @click="copy(scope.row)">Sao chép</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="couponDel(scope.row, 'Xóa phiếu giảm giá đã đăng', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="couponDel(scope.row, 'Xóa phiếu giảm giá đã đăng', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -183,7 +183,7 @@
             <span>{{ scope.row.uid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tên người dùng" min-width="150">
+        <el-table-column label="Tên người dùng" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.nickname }}</span>
           </template>

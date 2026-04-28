@@ -12,7 +12,7 @@
         >
           <el-form-item label="Có hiển thị hay không：" label-for="status">
             <el-select v-model="status" placeholder="Vui lòng chọn" clearable @change="userSearchs" class="form_content_width">
-              <el-option value="all" label="tất cả"></el-option>
+              <el-option value="all" label="Tất cả"></el-option>
               <el-option value="1" label="trình diễn"></el-option>
               <el-option value="0" label="Không hiển thị"></el-option>
             </el-select>
@@ -21,7 +21,7 @@
             <el-input clearable placeholder="Vui lòng nhập tên danh mục" v-model="formValidate.title" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -50,7 +50,7 @@
             <div v-else>--</div>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="status" title="tình trạng" min-width="120">
+        <vxe-table-column field="status" title="Trạng thái" min-width="120">
           <template v-slot="{ row }">
             <el-switch
               :active-value="1"
@@ -63,11 +63,11 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="date" title="vận hành" width="160" fixed="right">
+        <vxe-table-column field="date" title="Thao tác" width="160" fixed="right">
           <template v-slot="{ row }">
-            <a v-db-click @click="edit(row)">biên tập</a>
+            <a v-db-click @click="edit(row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, 'Xóa danh mục bài viết')">xóa bỏ</a>
+            <a v-db-click @click="del(row, 'Xóa danh mục bài viết')">Xóa</a>
             <el-divider direction="vertical"></el-divider>
             <a v-db-click @click="lookUp(row)">Xem bài viết</a>
           </template>

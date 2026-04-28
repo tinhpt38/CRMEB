@@ -36,7 +36,7 @@ class ExportServices extends BaseServices
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
         $data = $userServices->index($where)['list'];
-        $header = ['người dùngID', 'biệt danh', 'tên thật', 'giới tính', 'Điện thoại', 'Cấp độ người dùng', 'Nhóm người dùng', 'Thẻ người dùng', 'Loại người dùng', 'Số dư người dùng', 'Lần đăng nhập cuối cùng', 'Thời gian đăng ký', 'Có nên đăng xuất không'];
+        $header = ['ID khách hàng', 'biệt danh', 'tên thật', 'giới tính', 'Điện thoại', 'Hạng khách hàng', 'Nhóm khách hàng', 'Thẻ khách hàng', 'Loại người dùng', 'Số dư người dùng', 'Lần đăng nhập cuối cùng', 'Thời gian đăng ký', 'Có nên đăng xuất không'];
         $filename = 'Danh sách người dùng_' . date('YmdHis', time());
         $export = $fileKey = [];
         if (!empty($data)) {
@@ -77,7 +77,7 @@ class ExportServices extends BaseServices
      */
     public function exportOrderList($where)
     {
-        $header = ['Số đơn hàng', 'Tên người nhận hàng', 'Số điện thoại của người nhận hàng', 'Địa chỉ giao hàng', 'Tên sản phẩm', 'Đặc điểm kỹ thuật', 'Số lượng', 'giá', 'tổng giá', 'thanh toán thực tế', 'Trạng thái thanh toán', 'thời gian thanh toán', 'Trạng thái đơn hàng', 'thời gian đặt hàng', 'Nhận xét của người dùng', 'Nhận xét của người bán', 'thông tin biểu mẫu'];
+        $header = ['Số đơn hàng', 'Tên Người nhận hàng', 'Số điện thoại của Người nhận hàng', 'Địa chỉ giao hàng', 'Tên sản phẩm', 'Đặc điểm kỹ thuật', 'Số lượng', 'giá', 'tổng giá', 'Thanh toán thực tế', 'Trạng thái thanh toán', 'Thời gian thanh toán', 'Trạng thái đơn hàng', 'thời gian đặt hàng', 'Nhận xét của người dùng', 'Nhận xét của người bán', 'thông tin biểu mẫu'];
         $filename = 'danh sách đặt hàng_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreOrderServices $orderServices */
@@ -89,7 +89,7 @@ class ExportServices extends BaseServices
                 if ($item['paid'] == 1) {
                     switch ($item['pay_type']) {
                         case 'weixin':
-                            $item['pay_type_name'] = 'WeChat trả tiền';
+                            $item['pay_type_name'] = 'Thanh toán WeChat';
                             break;
                         case 'yue':
                             $item['pay_type_name'] = 'thanh toán số dư';
@@ -216,7 +216,7 @@ class ExportServices extends BaseServices
      */
     public function exportOrderDeliveryList()
     {
-        $header = ['Đặt hàngID', 'Số đơn hàng', 'Tên thể hiện', 'Mã nhanh', 'Số theo dõi nhanh', 'Tên người nhận hàng', 'Số điện thoại của người nhận hàng', 'Địa chỉ giao hàng', 'Thông tin sản phẩm', 'thanh toán thực tế', 'Nhận xét của người dùng'];
+        $header = ['Đặt hàngID', 'Số đơn hàng', 'Tên thể hiện', 'Mã nhanh', 'Số theo dõi nhanh', 'Tên Người nhận hàng', 'Số điện thoại của Người nhận hàng', 'Địa chỉ giao hàng', 'Thông tin sản phẩm', 'Thanh toán thực tế', 'Nhận xét của người dùng'];
         $filename = 'Hóa đơn_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreOrderServices $orderServices */
@@ -288,14 +288,14 @@ class ExportServices extends BaseServices
         $productList = $productServices->dao->getList($where, $page, $limit);
         $header = [
             'Số mặt hàng',
-            'Tên sản phẩm', 'Loại sản phẩm', 'Phân loại sản phẩm(Cấp 1)', 'Phân loại sản phẩm(Cấp 2)', 'đơn vị hàng hóa',
+            'Tên sản phẩm', 'Loại sản phẩm', 'Danh mục sản phẩm(Cấp 1)', 'Danh mục sản phẩm(Cấp 2)', 'Đơn vị sản phẩm',
             'Số lượng bán', 'Số lượng mua tối thiểu',
-            'Loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'trong kho', 'cân nặng', 'âm lượng', 'Mã sản phẩm', 'mã vạch',
+            'Loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'Trong kho', 'cân nặng', 'âm lượng', 'Mã sản phẩm', 'mã vạch',
             'Giới thiệu sản phẩm', 'Từ khóa sản phẩm', 'Mật khẩu sản phẩm',
             'Mua và nhận điểm'
         ];
-        $filename = 'Xuất khẩu sản phẩm_' . date('YmdHis', time());
-        $virtualType = ['Hàng thông thường', 'Thẻ bí mật/đĩa mạng', 'Phiếu giảm giá', 'hàng ảo'];
+        $filename = 'Xuất file sản phẩm_' . date('YmdHis', time());
+        $virtualType = ['Hàng thông thường', 'Thẻ bí mật/đĩa mạng', 'Mã giảm giá', 'hàng ảo'];
         $export = $fileKey = [];
         if (!empty($productList)) {
             $productList = array_column($productList, null, 'id');
@@ -380,7 +380,7 @@ class ExportServices extends BaseServices
     public function exportBargainList($where)
     {
         $header = ['tên thương lượng', 'giá khởi điểm', 'giá thấp nhất', 'Số lượng người tham gia', 'số lượng thành công', 'hàng còn lại', 'trạng thái hoạt động', 'Thời gian hoạt động', 'Thêm thời gian'];
-        $filename = 'Danh sách mặc cả_' . date('YmdHis', time());
+        $filename = 'Lịch sử trả giá_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreBargainServices $bargainServices */
         $bargainServices = app()->make(StoreBargainServices::class);
@@ -417,7 +417,7 @@ class ExportServices extends BaseServices
     public function exportCombinationList($where)
     {
         $header = ['Tên nhóm', 'Giá nhóm', 'giá gốc', 'Số người trong nhóm', 'Số lượng người tham gia', 'Số lượng nhóm', 'hàng còn lại', 'trạng thái hoạt động', 'Thời gian hoạt động', 'Thêm thời gian'];
-        $filename = 'Danh sách nhóm nhóm_' . date('YmdHis', time());
+        $filename = 'Đơn hàng mua chung_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreCombinationServices $combinationServices */
         $combinationServices = app()->make(StoreCombinationServices::class);
@@ -458,7 +458,7 @@ class ExportServices extends BaseServices
     public function exportSeckillList($where)
     {
         $header = ['tên bán flash', 'giá bán chớp nhoáng', 'giá gốc', 'hàng còn lại', 'trạng thái hoạt động', 'Thời gian hoạt động', 'Thêm thời gian'];
-        $filename = 'danh sách bán chớp nhoáng_' . date('YmdHis', time());
+        $filename = 'Sản phẩm Flash Sale_' . date('YmdHis', time());
         $export = $fileKey = [];
         /** @var StoreSeckillServices $seckillServices */
         $seckillServices = app()->make(StoreSeckillServices::class);
@@ -583,7 +583,7 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['thành viênID', 'biệt danh', 'Số tiền/Điểm', 'kiểu', 'Nhận xét', 'thời gian sáng tạo'];
+        $header = ['thành viênID', 'biệt danh', 'Số tiền/Điểm', 'kiểu', 'Nhận xét', 'Thời gian tạo'];
         $title = ['Giám sát quỹ', 'Giám sát quỹ', date('Y-m-d H:i:s', time())];
         $filename = 'Giám sát quỹ_' . date('YmdHis', time());
         $suffix = 'xlsx';
@@ -669,9 +669,9 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['Biệt hiệu/Tên', 'Số đơn hàng', 'Số tiền nạp', 'Có nên trả tiền không', 'Loại nạp tiền', 'thời gian thanh toán', 'Có hoàn lại tiền không'];
-        $title = ['Kỷ lục nạp tiền', 'Kỷ lục nạp tiền' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
-        $filename = 'Kỷ lục nạp tiền_' . date('YmdHis', time());
+        $header = ['Biệt hiệu/Tên', 'Số đơn hàng', 'Số tiền nạp', 'Có nên trả tiền không', 'Loại nạp tiền', 'Thời gian thanh toán', 'Có hoàn lại tiền không'];
+        $title = ['Lịch sử nạp tiền', 'Lịch sử nạp tiền' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Lịch sử nạp tiền_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -727,8 +727,8 @@ class ExportServices extends BaseServices
             }
         }
         $header = ['tên', 'giới tính', 'khu vực', 'Có nên theo dõi tài khoản công khai hay không'];
-        $title = ['Xuất người dùng WeChat', 'Xuất người dùng WeChat' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
-        $filename = 'Xuất người dùng WeChat_' . date('YmdHis', time());
+        $title = ['Xuất file khách hàng WeChat', 'Xuất file khách hàng WeChat' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất file khách hàng WeChat_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -775,7 +775,7 @@ class ExportServices extends BaseServices
                     $item['info'],
                     '￥' . $item['price'],
                     $item['bargain_num'],
-                    $item['status'] ? 'bật lên' : 'đóng cửa',
+                    $item['status'] ? 'Hoạt động' : 'đóng cửa',
                     empty($item['start_time']) ? '' : date('Y-m-d H:i:s', (int)$item['start_time']),
                     empty($item['stop_time']) ? '' : date('Y-m-d H:i:s', (int)$item['stop_time']),
                     $item['sales'],
@@ -785,8 +785,8 @@ class ExportServices extends BaseServices
             }
         }
         $header = ['Tên hoạt động mặc cả', 'Giới thiệu về hoạt động thương lượng', 'Số tiền mặc cả', 'Số lần người dùng mặc cả mỗi lần', 'Tình trạng thương lượng', 'Thời gian mở cửa giao dịch', 'Thời gian kết thúc thương lượng', 'Doanh số bán hàng', 'phiên bản giới hạn', 'Thêm thời gian'];
-        $title = ['Xuất khẩu mặt hàng giá hời', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
-        $filename = 'Xuất khẩu mặt hàng giá hời_' . date('YmdHis', time());
+        $title = ['Xuất file Sản phẩm trả giá', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất file Sản phẩm trả giá_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -811,14 +811,14 @@ class ExportServices extends BaseServices
                     $item['count_people_all'],
                     $item['count_people_pink'],
                     $item['sales'] ?? 0,
-                    $item['is_show'] ? 'bật lên' : 'đóng cửa',
+                    $item['is_show'] ? 'Hoạt động' : 'đóng cửa',
                     empty($item['stop_time']) ? '' : date('Y/m/d H:i:s', (int)$item['stop_time'])
                 ];
             }
         }
         $header = ['số seri', 'Tên nhóm', 'giá gốc', 'Giá nhóm', 'phiên bản giới hạn', 'Số người trong nhóm', 'Số lượng người tham gia', 'Số lượng nhóm', 'Doanh số bán hàng', 'Tình trạng sản phẩm', 'thời gian kết thúc'];
-        $title = ['Nhóm sản phẩm xuất khẩu', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
-        $filename = 'Nhóm sản phẩm xuất khẩu_' . date('YmdHis', time());
+        $title = ['Sản phẩm mua chung xuất khẩu', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Sản phẩm mua chung xuất khẩu_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -853,13 +853,13 @@ class ExportServices extends BaseServices
                     $item['sales'],
                     $item['start_name'],
                     $item['stop_time'] ? date('Y-m-d H:i:s', $item['stop_time']) : '/',
-                    $item['status'] ? 'bật lên' : 'đóng cửa',
+                    $item['status'] ? 'Hoạt động' : 'đóng cửa',
                 ];
             }
         }
-        $header = ['số seri', 'Tiêu đề sự kiện', 'Giới thiệu hoạt động', 'giá gốc', 'giá bán chớp nhoáng', 'phiên bản giới hạn', 'Doanh số bán hàng', 'tình trạng bán hàng chớp nhoáng', 'thời gian kết thúc', 'tình trạng'];
-        $title = ['Xuất khẩu sản phẩm flash sale', ' ', ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
-        $filename = 'Xuất khẩu sản phẩm flash sale_' . date('YmdHis', time());
+        $header = ['số seri', 'Tiêu đề sự kiện', 'Giới thiệu hoạt động', 'giá gốc', 'giá bán chớp nhoáng', 'phiên bản giới hạn', 'Doanh số bán hàng', 'Trạng thái bán hàng chớp nhoáng', 'thời gian kết thúc', 'Trạng thái'];
+        $title = ['Xuất file sản phẩm flash sale', ' ', ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất file sản phẩm flash sale_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -885,9 +885,9 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['Tên sản phẩm', 'Giới thiệu sản phẩm', 'Phân loại sản phẩm', 'giá', 'trong kho', 'Doanh số bán hàng', 'Lượt xem'];
-        $title = ['Xuất khẩu sản phẩm', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
-        $filename = 'Xuất khẩu sản phẩm_' . date('YmdHis', time());
+        $header = ['Tên sản phẩm', 'Giới thiệu sản phẩm', 'Danh mục sản phẩm', 'giá', 'Trong kho', 'Doanh số bán hàng', 'Lượt xem'];
+        $title = ['Xuất file sản phẩm', 'Thông tin sản phẩm' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Xuất file sản phẩm_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);
@@ -908,11 +908,11 @@ class ExportServices extends BaseServices
                     $item['phone'],
                     $item['address'] . '' . $item['detailed_address'],
                     $item['day_time'],
-                    $item['is_show'] ? 'bật lên' : 'đóng cửa'
+                    $item['is_show'] ? 'Hoạt động' : 'đóng cửa'
                 ];
             }
         }
-        $header = ['Tên điểm đón', 'Điểm đón', 'Địa chỉ', 'Giờ làm việc', 'tình trạng'];
+        $header = ['Tên điểm đón', 'Điểm đón', 'Địa chỉ', 'Giờ làm việc', 'Trạng thái'];
         $title = ['Xuất điểm đón', 'Thông tin điểm đón' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
         $filename = 'Xuất điểm đón_' . date('YmdHis', time());
         $suffix = 'xlsx';
@@ -1051,9 +1051,9 @@ class ExportServices extends BaseServices
                 ];
             }
         }
-        $header = ['Số đơn hàng', 'Thông tin người dùng', 'Thông tin sản phẩm', 'Số tiền thanh toán', 'người bảo lãnh', 'Cửa hàng xóa sổ', 'Trạng thái thanh toán', 'Trạng thái đơn hàng', 'thời gian đặt hàng'];
-        $title = ['Xuất hồ sơ xóa sổ', 'Xuất hồ sơ xóa sổ' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
-        $filename = 'Hồ sơ xóa sổ_' . date('YmdHis', time());
+        $header = ['Số đơn hàng', 'Thông tin người dùng', 'Thông tin sản phẩm', 'Số tiền thanh toán', 'người bảo lãnh', 'Cửa hàng xác nhận', 'Trạng thái thanh toán', 'Trạng thái đơn hàng', 'thời gian đặt hàng'];
+        $title = ['Xuất hồ sơ xác nhận', 'Xuất hồ sơ xác nhận' . time(), ' Thời gian thế hệ：' . date('Y-m-d H:i:s', time())];
+        $filename = 'Hồ sơ xác nhận_' . date('YmdHis', time());
         $suffix = 'xlsx';
         $is_save = true;
         return $this->export($header, $title, $export, $filename, $suffix, $is_save);

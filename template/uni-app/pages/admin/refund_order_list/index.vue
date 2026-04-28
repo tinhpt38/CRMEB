@@ -1,7 +1,7 @@
 <template>
 	<view class="pos-order-list" ref="container">
 		<!-- #ifdef MP || APP-PLUS -->
-		<NavBar titleText="Đơn hàng sau bán hàng" bagColor="#F5F5F5" :iconColor="iconColor" :textColor="iconColor" :isScrolling="isScrolling" showBack></NavBar>
+		<NavBar titleText="Yêu cầu trả hàng / hoàn tiền" bagColor="#F5F5F5" :iconColor="iconColor" :textColor="iconColor" :isScrolling="isScrolling" showBack></NavBar>
 		<!-- #endif -->
 		<view class="searchCon acea-row">
 			<view class="search acea-row row-middle">
@@ -94,7 +94,7 @@
 					</view>
 					<view v-else></view>
 					<view class="acea-row row-middle">
-						<view class="btn" @click="modify(item, 1)">Ghi chú đặt hàng</view>
+						<view class="btn" @click="modify(item, 1)">Ghi chú đơn hàng</view>
 						<view class="btn on" @click="modify(item,'2',1)" v-if="item.refund_type == 1">
 							Xem xét hoàn tiền
 						</view>
@@ -102,7 +102,7 @@
 							Xem xét hoàn tiền
 						</view>
 						<view class="btn" v-if="item.refund_type == 5" @click="goLogistics(item)">kiểm tra hậu cần</view>
-						<view class="btn on" v-if="item.refund_type == 5" @click="modify(item, 2, 1)">xác nhận đã nhận hàng</view>
+						<view class="btn on" v-if="item.refund_type == 5" @click="modify(item, 2, 1)">Xác nhận nhận hàng</view>
 					</view>
 				</view>
 			</view>
@@ -186,7 +186,7 @@ import home from '@/components/home';
 				imgHost: HTTP_REQUEST_URL,
 				dateSelected: '',
 				dateList: [{
-						label: 'tất cả',
+						label: 'Tất cả',
 						val: '',
 					},
 					{
@@ -199,11 +199,11 @@ import home from '@/components/home';
 					},
 				],
 				payList: [{
-						label: 'tất cả',
+						label: 'Tất cả',
 						val: '',
 					},
 					{
-						label: 'WeChat trả tiền',
+						label: 'Thanh toán WeChat',
 						val: '1'
 					},
 					{

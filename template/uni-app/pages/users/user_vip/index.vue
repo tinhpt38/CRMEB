@@ -107,7 +107,7 @@
 								{{ $t(`Đăng nhập`) }}
 								<text class="mark">{{ $t(`có sẵn`) }}{{ taskInfo.sign || '' }}{{ $t(`kinh nghiệm`) }}</text>
 							</view>
-							<view class="info">{{ $t(`Bạn có thể nhận được điểm kinh nghiệm bằng cách đăng nhập mỗi ngày. Bạn đã đăng nhập`) }}{{ taskInfo.sign_count || '' }}{{ $t(`bầu trời`) }}</view>
+							<view class="info">{{ $t(`Bạn có thể nhận được điểm kinh nghiệm bằng cách đăng nhập mỗi ngày. Bạn đã đăng nhập`) }}{{ taskInfo.sign_count || '' }}{{ $t(`ngày`) }}</view>
 						</view>
 						<navigator class="link" url="/pages/users/user_sgin/index" hover-class="none">{{ $t(`Đi và đăng nhập`) }}</navigator>
 					</view>
@@ -198,7 +198,7 @@ export default {
 					number: 0
 				},
 				{
-					real_name: this.$t(`Phiếu giảm giá`),
+					real_name: this.$t(`Mã giảm giá`),
 					number: 0
 				}
 			],
@@ -269,7 +269,7 @@ export default {
 						number: res.data.orderStatusSum
 					},
 					{
-						real_name: this.$t(`Phiếu giảm giá`),
+						real_name: this.$t(`Mã giảm giá`),
 						number: res.data.couponCount
 					}
 				];

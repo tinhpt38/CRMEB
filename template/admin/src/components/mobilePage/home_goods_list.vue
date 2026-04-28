@@ -72,14 +72,14 @@
                     :style="{
                       color: toneConfig ? soldNumColor : '#999999',
                     }"
-                    >đã bán{{ item.sales || 0 }}miếng</span
+                    >Đã bán{{ item.sales || 0 }}miếng</span
                   >
                   <span
                     v-if="checkboxInfo.indexOf(4) != -1"
                     :style="{
                       color: toneConfig ? scoreColor : '#999999',
                     }"
-                    >điểm {{ item.star || 0 }}</span
+                    >Điểm {{ item.star || 0 }}</span
                   >
                 </div>
               </div>
@@ -189,7 +189,7 @@
                     color: toneConfig ? soldNumColor : '#999999',
                   }"
                 >
-                  <span>đã bán{{ item.sales || 0 }}miếng</span>
+                  <span>Đã bán{{ item.sales || 0 }}miếng</span>
                 </div>
               </div>
               <div
@@ -284,7 +284,7 @@
                     color: toneConfig ? soldNumColor : '#999999',
                   }"
                 >
-                  <span>đã bán{{ item.sales || 0 }}miếng</span>
+                  <span>Đã bán{{ item.sales || 0 }}miếng</span>
                 </div>
               </div>
               <div v-if="!cartConfig">
@@ -614,7 +614,7 @@ export default {
             },
             {
               activeValue: 4,
-              title: 'Thẻ sản phẩm',
+              title: 'Nhãn sản phẩm',
             },
           ],
         },
@@ -623,7 +623,7 @@ export default {
           list: [],
         },
         goodsSort: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           tabVal: 1,
           tabList: [
             {
@@ -643,7 +643,7 @@ export default {
           min: 1,
         },
         classList: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           classVal: [],
         },
         checkboxInfo: {
@@ -657,7 +657,7 @@ export default {
             },
             {
               id: 1,
-              name: 'Thẻ sản phẩm',
+              name: 'Nhãn sản phẩm',
             },
             {
               id: 2,
@@ -669,7 +669,7 @@ export default {
             },
             {
               id: 4,
-              name: 'đánh giá sản phẩm',
+              name: 'Đánh giá sản phẩm',
             },
             {
               id: 5,
@@ -710,7 +710,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -888,7 +888,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {
@@ -986,7 +986,7 @@ export default {
           },
         },
         goodsLabel: {
-          title: 'Thẻ sản phẩm',
+          title: 'Nhãn sản phẩm',
           activeValue: [],
           list: [],
         },

@@ -35,7 +35,7 @@
           </el-form-item>
         </el-form>
         <div class="page-account-other">
-          <span v-db-click @click="changePassword">quên mật khẩu |</span>
+          <span v-db-click @click="changePassword">Quên mật khẩu |</span>
           <span v-db-click @click="changeReg"> Đăng ký tài khoản</span>
         </div>
       </div>

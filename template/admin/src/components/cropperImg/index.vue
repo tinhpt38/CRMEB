@@ -41,10 +41,10 @@
             @change="selectImg($event)"
           />
           <el-button size="mini" type="danger" plain icon="el-icon-zoom-in" v-db-click @click="changeScale(1)"
-            >phóng to</el-button
+            >Phóng to</el-button
           >
           <el-button size="mini" type="danger" plain icon="el-icon-zoom-out" v-db-click @click="changeScale(-1)"
-            >thu nhỏ</el-button
+            >Thu nhỏ</el-button
           >
           <el-button size="mini" type="danger" plain v-db-click @click="rotateLeft">↺ Xoay trái</el-button>
           <el-button size="mini" type="danger" plain v-db-click @click="rotateRight">↻ Xoay phải</el-button>

@@ -506,7 +506,7 @@ export default {
       reply: [], //Danh sách bình luận
       replyChance: 0,
       navH: "",
-      navList: [this.$t(`hàng hóa`), this.$t(`đánh giá`), this.$t(`Chi tiết`)],
+      navList: [this.$t(`sản phẩm`), this.$t(`đánh giá`), this.$t(`Chi tiết`)],
       opacity: 0,
       scrollY: 0,
       topArr: [],
@@ -732,7 +732,7 @@ export default {
             that.skuArr.push(obj);
           }
           this.$set(this, "selectSku", that.skuArr[0]);
-          var navList = [that.$t(`hàng hóa`), that.$t(`Chi tiết`)];
+          var navList = [that.$t(`sản phẩm`), that.$t(`Chi tiết`)];
           if (res.data.replyCount) {
             navList.splice(1, 0, that.$t(`đánh giá`));
           }

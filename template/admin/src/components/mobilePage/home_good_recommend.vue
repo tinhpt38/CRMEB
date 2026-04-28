@@ -80,14 +80,14 @@
                   :style="{
                     color: toneConfig ? soldNumColor : '#999999',
                   }"
-                  >đã bán{{ item.sales || 0 }}miếng</span
+                  >Đã bán{{ item.sales || 0 }}miếng</span
                 >
                 <span
                   v-if="checkboxInfo.indexOf(4) != -1"
                   :style="{
                     color: toneConfig ? scoreColor : '#999999',
                   }"
-                  >điểm {{ item.star || 0 }}</span
+                  >Điểm {{ item.star || 0 }}</span
                 >
               </div>
             </div>
@@ -188,7 +188,7 @@
                   color: toneConfig ? soldNumColor : '#999999',
                 }"
               >
-                <span>đã bán{{ item.sales || 0 }}miếng</span>
+                <span>Đã bán{{ item.sales || 0 }}miếng</span>
               </div>
             </div>
             <div
@@ -406,11 +406,11 @@ export default {
           list: [
             { activeValue: 1, title: 'sản phẩm được chỉ định' },
             { activeValue: 3, title: 'Chỉ định danh mục' },
-            { activeValue: 4, title: 'Thẻ sản phẩm' },
+            { activeValue: 4, title: 'Nhãn sản phẩm' },
           ],
         },
         goodsSort: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           tabVal: 1,
           tabList: [{ name: 'toàn diện' }, { name: 'Doanh số bán hàng' }, { name: 'giá' }],
         },
@@ -420,11 +420,11 @@ export default {
           min: 1,
         },
         classList: {
-          title: 'Phân loại sản phẩm',
+          title: 'Danh mục sản phẩm',
           classVal: [],
         },
         goodsLabel: {
-          title: 'Thẻ sản phẩm',
+          title: 'Nhãn sản phẩm',
           activeValue: [],
           list: [],
         },
@@ -637,7 +637,7 @@ export default {
           type: 0,
           list: [
             {
-              val: 'tất cả',
+              val: 'Tất cả',
               icon: 'iconcaozuo-zhengti',
             },
             {

@@ -13,7 +13,7 @@
             <el-input clearable v-model="gradeFrom.title" placeholder="Vui lòng nhập tên lô" class="form_content_width" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -29,7 +29,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="số seri" width="100">
+        <el-table-column label="Số seri" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
@@ -82,14 +82,14 @@
             <span>{{ scope.row.add_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
             <el-dropdown size="small" @command="changeMenu(scope.row, $event, scope.$index)" :transfer="true">
-              <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="1">Chỉnh sửa tên lô</el-dropdown-item>
                 <el-dropdown-item command="2">Xem danh sách thẻ</el-dropdown-item>
-                <el-dropdown-item command="3">Xuất khẩu</el-dropdown-item>
+                <el-dropdown-item command="3">Xuất file</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -105,7 +105,7 @@
         />
       </div>
     </el-card>
-    <el-dialog :visible.sync="modal" width="540px" :title="`${formValidate.id ? 'biên tập' : 'Thêm vào'}lô`">
+    <el-dialog :visible.sync="modal" width="540px" :title="`${formValidate.id ? 'Chỉnh sửa' : 'Thêm mới'}lô`">
       <!-- <form-create v-model="fapi" :rule="rule" @submit="onSubmit"></form-create> -->
       <el-form ref="formValidate" :model="formValidate" label-width="80px" @submit.native.prevent>
         <el-form-item label="Tên lô：">
@@ -141,8 +141,8 @@
           </el-form-item>
           <el-form-item label="Có nên kích hoạt không：">
             <el-radio-group element-id="status" v-model="formValidate.status">
-              <el-radio :label="1" class="radio">kích hoạt</el-radio>
-              <el-radio :label="0">đông cứng</el-radio>
+              <el-radio :label="1" class="radio">Kích hoạt</el-radio>
+              <el-radio :label="0">Đông cứng</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="Nhận xét：">
@@ -152,13 +152,13 @@
       </el-form>
       <div class="acea-row row-right">
         <el-button v-db-click @click="modal = false">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="onSubmit()">nộp</el-button>
+        <el-button type="primary" v-db-click @click="onSubmit()">Nộp</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="cardModal" title="danh sách thẻ" width="1000px">
+    <el-dialog :visible.sync="cardModal" title="Danh sách thẻ" width="1000px">
       <cardList v-if="cardModal" :id="id"></cardList>
     </el-dialog>
-    <el-dialog :visible.sync="modal3" title="mã QR" width="540px">
+    <el-dialog :visible.sync="modal3" title="Mã QR" width="540px">
       <div v-if="qrcode" class="acea-row row-around">
         <div v-if="qrcode && qrcode.wechat_img" class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">

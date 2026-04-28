@@ -19,7 +19,7 @@
           <div class="title">Thông tin bài viết</div>
         </div>
         <div class="grid_box">
-          <el-form-item label="tiêu đề：" prop="title" label-for="title">
+          <el-form-item label="Tiêu đề：" prop="title" label-for="title">
             <el-input
               v-model="formValidate.title"
               placeholder="Vui lòng nhập"
@@ -28,7 +28,7 @@
               show-word-limit
             />
           </el-form-item>
-          <el-form-item label="tác giả：" prop="author" label-for="author">
+          <el-form-item label="Tác giả：" prop="author" label-for="author">
             <el-input
               v-model="formValidate.author"
               placeholder="Vui lòng nhập"
@@ -85,9 +85,9 @@
           <!--                        </el-form-item>-->
           <!--                    </el-col>-->
           <el-col :span="24">
-            <el-form-item label="bannertrình diễn：" label-for="is_banner">
+            <el-form-item label="Bannertrình diễn：" label-for="is_banner">
               <el-radio-group v-model="formValidate.is_banner" element-id="is_banner">
-                <el-radio :label="1" class="radio">trình diễn</el-radio>
+                <el-radio :label="1" class="radio">Trình diễn</el-radio>
                 <el-radio :label="0">Không hiển thị</el-radio>
               </el-radio-group>
             </el-form-item>
@@ -95,14 +95,14 @@
           <el-col :span="24">
             <el-form-item label="Bài viết phổ biến：" label-for="is_hot">
               <el-radio-group v-model="formValidate.is_hot" element-id="is_hot">
-                <el-radio :label="1" class="radio">trình diễn</el-radio>
+                <el-radio :label="1" class="radio">Trình diễn</el-radio>
                 <el-radio :label="0">Không hiển thị</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="">
-              <el-button type="primary" class="submission" v-db-click @click="onsubmit('formValidate')">nộp</el-button>
+              <el-button type="primary" class="submission" v-db-click @click="onsubmit('formValidate')">Nộp</el-button>
             </el-form-item>
           </el-col>
         </el-row>

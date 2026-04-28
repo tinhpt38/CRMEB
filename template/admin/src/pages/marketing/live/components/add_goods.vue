@@ -17,7 +17,7 @@
         <i class="el-icon-picture-outline" style="font-size: 24px"></i>
       </div>
     </div>
-    <el-button type="primary" style="width: 100%" v-db-click @click="bindSub">nộp</el-button>
+    <el-button type="primary" style="width: 100%" v-db-click @click="bindSub">Nộp</el-button>
     <el-dialog :visible.sync="modals" title="Danh sách sản phẩm" class="paymentFooter" width="1000px">
       <goods-list
         ref="goodslist"

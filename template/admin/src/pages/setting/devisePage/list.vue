@@ -15,7 +15,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="trangID" width="90">
+        <el-table-column label="TrangID" width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
@@ -40,19 +40,19 @@
             <span>{{ scope.row.update_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
             <div style="display: inline-block" v-if="scope.row.status != 1">
               <a v-db-click @click="setStatus(scope.row, index)">Đặt làm trang chủ</a>
             </div>
             <el-divider direction="vertical" v-if="scope.row.status != 1" />
             <div style="display: inline-block" v-if="scope.row.status || scope.row.type">
-              <a v-db-click @click="edit(scope.row)">biên tập</a>
+              <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             </div>
             <el-divider direction="vertical" v-if="scope.row.status || scope.row.type" />
             <template>
               <el-dropdown size="small" @command="changeMenu(scope.row, index, $event)" :transfer="true">
-                <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+                <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="1" v-show="!scope.row.type">Đặt dữ liệu mặc định</el-dropdown-item>
                   <el-dropdown-item command="2" v-show="!scope.row.type">Khôi phục dữ liệu mặc định</el-dropdown-item>
@@ -95,7 +95,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="cancel">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formItem')">Nộp</el-button>
       </span>
     </el-dialog>
   </div>

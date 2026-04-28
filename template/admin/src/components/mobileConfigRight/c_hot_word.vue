@@ -16,7 +16,7 @@
         </div>
       </draggable>
       <div class="add-btn" @click="addHotTxt" v-if="configData.list.length < 20">
-        <el-button class="btn" type="primary" ghost> <span class="iconfont iconjiahao"></span>Thêm vào </el-button>
+        <el-button class="btn" type="primary" ghost> <span class="iconfont iconjiahao"></span>Thêm mới </el-button>
       </div>
     </div>
   </div>

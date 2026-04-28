@@ -4,8 +4,8 @@
     <el-col :span="24">
       <el-form-item label="Dành riêng cho thành viên trả phí：">
         <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.vip_product" size="large">
-          <span slot="open">bật lên</span>
-          <span slot="close">đóng cửa</span>
+          <span slot="open">Bật lên</span>
+          <span slot="close">Đóng cửa</span>
         </el-switch>
       </el-form-item>
     </el-col>
@@ -31,7 +31,7 @@
       <el-form-item label="Thuộc tính sản phẩm：" v-if="formValidate.spec_type === 0">
         <el-table :data="oneFormValidate">
           <el-table-column
-            :label="item.title"
+            :label="Item.title"
             :min-width="item.minWidth"
             v-for="(item, index) in columnsInstall"
             :key="index"
@@ -179,7 +179,7 @@
           ></el-input-number>
         </span>
         <span class="brokerage" v-if="formValidate.is_sub.indexOf(0) > -1">
-          giảm giá thành viên：<el-input-number
+          Giảm giá thành viên：<el-input-number
             :controls="false"
             placeholder="Vui lòng nhập tỷ lệ chiết khấu"
             :min="0"
@@ -199,7 +199,7 @@
       >
         <el-table :data="manyFormValidate.slice(1)">
           <el-table-column
-            :label="item.title"
+            :label="Item.title"
             :min-width="item.minWidth"
             v-for="(item, index) in columnsInstal2"
             :key="index"

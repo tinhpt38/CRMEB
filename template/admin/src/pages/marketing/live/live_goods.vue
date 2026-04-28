@@ -21,7 +21,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Vui lòng nhập tên sản phẩm/ID"
@@ -30,22 +30,20 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="selChange">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
       <el-button v-auth="['setting-system_menus-add']" type="primary" v-db-click @click="menusAdd('Thêm phòng phát sóng trực tiếp')"
-        >Thêm sản phẩm
-      </el-button>
+        >Thêm sản phẩm</el-button>
       <!-- <el-button
         v-auth="['setting-system_menus-add']"
         type="success"
         v-db-click @click="syncGoods"
         style="margin-left: 20px"
-        >Đồng bộ hóa sản phẩm
-      </el-button> -->
+        >Đồng bộ hóa sản phẩm</el-button> -->
       <el-table
         :data="tabList"
         ref="table"
@@ -55,7 +53,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="hàng hóaID" width="80">
+        <el-table-column label="ID sản phẩm" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.product_id }}</span>
           </template>
@@ -75,12 +73,12 @@
             <span>{{ scope.row.price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="giá gốc" min-width="80">
+        <el-table-column label="Giá gốc" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.cost_price }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="trong kho" min-width="80">
+        <el-table-column label="Trong kho" min-width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.product.stock }}</span>
           </template>
@@ -107,11 +105,11 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, 'biên tập')">Chi tiết</a>
+            <a v-db-click @click="edit(scope.row, 'Chỉnh sửa')">Chi tiết</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa tin nhắn này', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -159,7 +157,7 @@ export default {
       treeData: {
         withdrawal: [
           {
-            title: 'tất cả',
+            title: 'Tất cả',
             value: '',
           },
           {
@@ -177,15 +175,15 @@ export default {
         ],
       },
       columns1: [
-        { key: 'product_id', title: 'hàng hóaID', minWidth: 35 },
+        { key: 'product_id', title: 'ID sản phẩm', minWidth: 35 },
         { slot: 'name', minWidth: 35, title: 'Tên sản phẩm' },
         { key: 'price', minWidth: 35, title: 'Giá phát sóng trực tiếp' },
         { slot: 'cost_price', minWidth: 35, title: 'giá gốc' },
-        { slot: 'stock', minWidth: 35, title: 'trong kho' },
+        { slot: 'stock', minWidth: 35, title: 'Trong kho' },
         { slot: 'status', minWidth: 35, title: 'Xem lại trạng thái' },
         { slot: 'is_mer_show', title: 'Có hiển thị hay không', minWidth: 80 },
         // {"key": "sort", "title": "loại", "minWidth": 35},
-        { slot: 'action', fixed: 'right', title: 'vận hành', minWidth: 120 },
+        { slot: 'action', fixed: 'right', title: 'Thao tác', minWidth: 120 },
       ],
       tabList: [],
       loading: false,

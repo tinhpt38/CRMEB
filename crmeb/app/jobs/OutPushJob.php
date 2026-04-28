@@ -87,7 +87,7 @@ class OutPushJob extends BaseJobs
     public function refundCreate(int $oid, string $pushUrl, int $step = 0): bool
     {
         if ($step > 2) {
-            Log::error('Đơn hàng sau bán hàng' . $oid . 'Đẩy không thành công');
+            Log::error('Yêu cầu trả hàng / hoàn tiền' . $oid . 'Đẩy không thành công');
             return true;
         }
 
@@ -98,7 +98,7 @@ class OutPushJob extends BaseJobs
                 OutPushJob::dispatchSecs(($step + 1) * 5, 'refundCreate', [$oid, $pushUrl, $step + 1]);
             }
         } catch (\Exception $e) {
-            Log::error('Đơn hàng sau bán hàng' . $oid . 'Đẩy không thành công,Lý do thất bại:' . $e->getMessage());
+            Log::error('Yêu cầu trả hàng / hoàn tiền' . $oid . 'Đẩy không thành công,Lý do thất bại:' . $e->getMessage());
             OutPushJob::dispatchSecs(($step + 1) * 5, 'refundCreate', [$oid, $pushUrl, $step + 1]);
         }
         return true;

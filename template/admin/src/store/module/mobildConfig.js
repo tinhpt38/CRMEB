@@ -68,7 +68,7 @@ const bottomMenu = {
   },
   menuConfig: {
     title: 'Bạn có thể thêm tối đa 1 ảnh, chiều rộng khuyến nghị90 * 90px',
-    bnt: 'Thêm vào',
+    bnt: 'Thêm mới',
     type: 1,
     listStyle: 0,
     maxList: 100,
@@ -225,7 +225,7 @@ const bottomMenu = {
     type: 0,
     list: [
       {
-        val: 'tất cả',
+        val: 'Tất cả',
         icon: 'iconcaozuo-zhengti',
       },
       {
@@ -243,7 +243,7 @@ const bottomMenu = {
     type: 0,
     list: [
       {
-        val: 'tất cả',
+        val: 'Tất cả',
         icon: 'iconcaozuo-zhengti',
       },
       {
@@ -359,7 +359,7 @@ export default {
         type: 0,
         list: [
           {
-            val: 'tất cả',
+            val: 'Tất cả',
             icon: 'iconcaozuo-zhengti',
           },
           {
@@ -472,7 +472,7 @@ export default {
       let newObj = {};
       function objToArr(data) {
         let obj = Object.keys(data);
-        let m = obj.map((key) => data[key]);
+        let m = obj.map((key) => Data[key]);
         return m;
       }
       function swapArray(arr, index1, index2) {

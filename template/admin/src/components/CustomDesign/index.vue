@@ -3,12 +3,12 @@
     <!-- Toolbar -->
     <div class="header">
       <div class="left">
-        <span class="close-btn" @click="$emit('close')"><i class="icon el-icon-arrow-left"></i>trở lại</span>
-        <span class="title">thành phần thiết kế</span>
+        <span class="close-btn" @click="$emit('close')"><i class="icon el-icon-arrow-left"></i>Trở lại</span>
+        <span class="title">Thành phần thiết kế</span>
       </div>
       <div class="center"></div>
       <div class="right">
-        <el-button size="small" @click="save(false)">cứu</el-button>
+        <el-button size="small" @click="save(false)">Lưu</el-button>
         <el-button type="primary" size="small" @click="save(true)">Lưu Đóng</el-button>
       </div>
     </div>
@@ -19,7 +19,7 @@
         <ComponentList />
 
         <div class="height-setting">
-          <div class="label">chiều cao nội dung</div>
+          <div class="label">Chiều cao nội dung</div>
           <div class="control">
             <el-slider
               v-model="canvasHeight"
@@ -104,7 +104,7 @@
               :class="{ active: index === snapshotIndex }"
               @click="handleHistorySelect(index)"
             >
-              <span class="type">{{ item.type || 'vận hành' }}</span>
+              <span class="type">{{ item.type || 'Thao tác' }}</span>
               <div class="right-info">
                 <span class="time">{{ item.time }}</span>
                 <span class="iconfont icon-check" v-if="index === snapshotIndex">
@@ -116,10 +116,10 @@
           </div>
         </div>
         <div class="component-actions" v-if="curComponent" :style="actionBarStyle">
-          <div class="action-item" title="xóa bỏ" @click="deleteComponent(curComponentIndex)">
+          <div class="action-item" title="Xóa" @click="deleteComponent(curComponentIndex)">
             <span class="iconfont iconshanchu3"></span>
           </div>
-          <div class="action-item" title="sao chép" @click="copyComponent(curComponent)">
+          <div class="action-item" title="Sao chép" @click="copyComponent(curComponent)">
             <i class="el-icon-document-copy"></i>
           </div>
           <div
@@ -141,7 +141,7 @@
           <div
             class="action-item"
             :class="{ disabled: isTop }"
-            title="ghim lên trên"
+            title="Ghim lên trên"
             @click="moveComponent({ index: curComponentIndex, type: 'top' })"
           >
             <span class="iconfont iconzhiding"></span>
@@ -149,7 +149,7 @@
           <div
             class="action-item"
             :class="{ disabled: isBottom }"
-            title="đáy"
+            title="Đáy"
             @click="moveComponent({ index: curComponentIndex, type: 'bottom' })"
           >
             <span class="iconfont iconzhidi"></span>
@@ -335,7 +335,7 @@ export default {
       const s = date.getSeconds().toString().padStart(2, '0');
       return `${h}:${m}:${s}`;
     },
-    recordSnapshot(type = 'vận hành') {
+    recordSnapshot(type = 'Thao tác') {
       // Thực hiện hoàn tác và làm lại đơn giản
       this.snapshotIndex++;
       this.snapshotData[this.snapshotIndex] = {
@@ -351,7 +351,7 @@ export default {
 
       // Limit to 15 records
       const limit = 15;
-      if (this.snapshotData.length > limit) {
+      if (this.snapshotData.length > Limit) {
         const diff = this.snapshotData.length - limit;
         this.snapshotData.splice(0, diff);
         this.snapshotIndex -= diff;

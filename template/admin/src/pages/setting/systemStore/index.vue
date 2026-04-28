@@ -52,7 +52,7 @@
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="Thời hạn xóa sổ：" label-for="valid_time">
+              <el-form-item label="Thời hạn xác nhận：" label-for="valid_time">
                 <el-date-picker
                   clearable
                   :editable="false"
@@ -86,7 +86,7 @@
           </el-col>
           <el-col :span="24">
             <el-col v-bind="grid">
-              <el-form-item label="cửa hànglogo：" prop="image">
+              <el-form-item label="Cửa hànglogo：" prop="image">
                 <div class="picBox" v-db-click @click="modalPicTap('Lựa chọn duy nhất')">
                   <div class="pictrue" v-if="formItem.image"><img v-lazy="formItem.image" /></div>
                   <div class="upLoad acea-row row-center-wrapper" v-else>
@@ -111,7 +111,7 @@
         </el-row>
         <el-row>
           <el-col v-bind="grid">
-            <el-button type="primary" class="ml20" v-db-click @click="handleSubmit('formItem')">nộp</el-button>
+            <el-button type="primary" class="ml20" v-db-click @click="handleSubmit('formItem')">Nộp</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -199,7 +199,7 @@ export default {
           {
             required: true,
             type: 'array',
-            message: 'Vui lòng chọn thời hạn xóa sổ',
+            message: 'Vui lòng chọn thời hạn xác nhận',
             trigger: 'change',
             fields: {
               0: { type: 'date', required: true, message: 'Vui lòng chọn phạm vi năm' },
@@ -332,7 +332,7 @@ export default {
       this.formItem.address = selectedData.map((o) => o.label);
       //  this.formItem.address2 = selectedData.map(o => o.value);
     },
-    // Thời hạn xóa sổ
+    // Thời hạn xác nhận
     onchangeDate(e) {
       this.formItem.valid_time = e;
     },

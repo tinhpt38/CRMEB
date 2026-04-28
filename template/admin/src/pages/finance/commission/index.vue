@@ -3,22 +3,22 @@
     <el-card :bordered="false" shadow="never" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form ref="formValidate" :label-width="labelWidth" label-position="right" inline @submit.native.prevent>
-          <el-form-item label="biệt danh/ID：">
+          <el-form-item label="Biệt danh/ID：">
             <el-input placeholder="Vui lòng nhập" v-model="formValidate.nickname" clearable class="form_content_width" />
           </el-form-item>
-          <el-form-item label="phạm vi hoa hồng：" class="tab_data">
+          <el-form-item label="Phạm vi hoa hồng：" class="tab_data">
             <el-input-number :controls="false" :min="0" class="mr10" v-model="formValidate.price_min" />
-            <span class="mr10">một</span>
+            <span class="mr10">Một</span>
             <el-input-number :controls="false" :min="0" v-model="formValidate.price_max" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="mt16">
-      <el-button v-auth="['export-userCommission']" class="export" v-db-click @click="exports">Xuất khẩu</el-button>
+      <el-button v-auth="['export-userCommission']" class="export" v-db-click @click="exports">Xuất file</el-button>
       <el-table
         ref="table"
         :data="tabList"

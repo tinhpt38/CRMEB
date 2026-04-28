@@ -37,18 +37,18 @@
     </el-col>
 
     <el-col :span="24">
-      <el-form-item label="đơn vị：" prop="unit_name">
+      <el-form-item label="Đơn vị：" prop="unit_name">
         <el-input
           class="input_width"
           v-model="formValidate.unit_name"
-          placeholder="Vui lòng nhập đơn vị"
+          placeholder="Vui lòng nhập Đơn vị"
           maxlength="5"
           show-word-limit
         />
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Băng chuyền sản phẩm：" prop="slider_image">
+      <el-form-item label="Ảnh slider sản phẩm：" prop="slider_image">
         <div class="acea-row">
           <div
             class="pictrue"
@@ -80,7 +80,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24" id="selectvideo">
-      <el-form-item label="thêm video：" prop="video_link">
+      <el-form-item label="Thêm video：" prop="video_link">
         <div v-if="!formValidate.video_link" class="videbox" @click="addVideo">
           <i class="el-icon-video-camera"></i>
         </div>
@@ -96,7 +96,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Phân loại sản phẩm：" prop="cate_id">
+      <el-form-item label="Danh mục sản phẩm：" prop="cate_id">
         <el-cascader
           class="content_width"
           v-model="formValidate.cate_id"
@@ -110,7 +110,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Thẻ sản phẩm：">
+      <el-form-item label="Nhãn sản phẩm：">
         <div class="flex">
           <useLabel
             v-if="tileLabelList.length"

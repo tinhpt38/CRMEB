@@ -184,7 +184,7 @@ class Mcp extends AuthController
                 'inputSchema' => [
                     'type' => 'object',
                     'properties' => [
-                        'id' => ['type' => 'number', 'description' => 'hàng hóaID'],
+                        'id' => ['type' => 'number', 'description' => 'ID sản phẩm'],
                     ],
                     'required' => ['id'],
                 ],
@@ -280,7 +280,7 @@ class Mcp extends AuthController
                 'inputSchema' => [
                     'type' => 'object',
                     'properties' => [
-                        'uid' => ['type' => 'number', 'description' => 'người dùngID'],
+                        'uid' => ['type' => 'number', 'description' => 'ID khách hàng'],
                     ],
                     'required' => ['uid'],
                 ],

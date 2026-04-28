@@ -6,7 +6,7 @@
       <div class="emptyBox" v-else>750*Không giới hạn chiều cao</div>
     </div>
     <div class="uploadImg">
-      <div class="name">hình ảnh</div>
+      <div class="name">Hình ảnh</div>
       <div class="picTxt">
         <div class="box" @click="modalPicTap('Lựa chọn duy nhất')">
           <div class="pictrue acea-row row-center-wrapper" v-if="configData.url">

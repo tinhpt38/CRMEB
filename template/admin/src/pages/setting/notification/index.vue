@@ -52,7 +52,7 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại thông báo" min-width="130">
+        <el-table-column label="Loại thông báo" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
@@ -95,7 +95,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="gửi tin nhắn văn bản" min-width="130">
+        <el-table-column label="Gửi tin nhắn văn bản" min-width="130">
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.is_sms !== 0"
@@ -141,14 +141,14 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" :width="currentTab == 3 ? 130 : 70">
+        <el-table-column label="Thao tác" fixed="right" :width="currentTab == 3 ? 130 : 70">
           <template slot-scope="scope">
-            <a class="setting btn" v-db-click @click="setting(scope.row)">cài đặt</a>
+            <a class="setting btn" v-db-click @click="setting(scope.row)">Cài đặt</a>
             <template v-if="currentTab == 3">
               <el-divider direction="vertical"></el-divider>
-              <a class="setting btn" v-db-click @click="notificationForm(scope.row.id)">biên tập</a>
+              <a class="setting btn" v-db-click @click="notificationForm(scope.row.id)">Chỉnh sửa</a>
               <el-divider direction="vertical"></el-divider>
-              <a class="setting btn" v-db-click @click="del(scope.row, 'xóa bỏ', scope.$index)">xóa bỏ</a>
+              <a class="setting btn" v-db-click @click="del(scope.row, 'Xóa', scope.$index)">Xóa</a>
             </template>
           </template>
         </el-table-column>

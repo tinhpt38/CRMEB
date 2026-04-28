@@ -80,16 +80,16 @@
           style="margin-top: 1px; display: inline-block"
         >
           <img src="../static/tool-01.png" mode="" />
-          <div>hình ảnh</div>
+          <div>Hình ảnh</div>
         </el-upload>
       </div>
       <div class="tool-item" v-db-click @click="goTransfer">
         <img src="../static/tool-02.png" mode="" />
-        <div>chuyển khoản</div>
+        <div>Chuyển khoản</div>
       </div>
       <div class="tool-item" v-db-click @click="goAdminOrder">
         <img src="../static/tool-03.png" mode="" />
-        <div>lệnh giao dịch</div>
+        <div>Lệnh giao dịch</div>
       </div>
       <div class="tool-item" v-db-click @click="goodsInfo">
         <img src="../static/tool-04.png" mode="" />
@@ -576,7 +576,7 @@ export default {
 };
 </script>
 <style>
-html,
+Html,
 body {
   font-size: 50px;
 }

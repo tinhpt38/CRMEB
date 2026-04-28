@@ -41,7 +41,7 @@ export default {
       name: `${pre}systemAdmin`,
       meta: {
         auth: ['setting-system-list'],
-        title: 'Danh sách quản trị viên',
+        title: 'Tài khoản quản trị',
       },
       component: () => import('@/pages/setting/systemAdmin/index'),
     },
@@ -85,7 +85,7 @@ export default {
       name: `${pre}membershipLevel`,
       meta: {
         ...meta,
-        title: 'Cấp độ phân phối',
+        title: 'Cấp bậc Affiliate',
       },
       component: () => import('@/pages/setting/membershipLevel/index'),
     },
@@ -103,7 +103,7 @@ export default {
       name: `${pre}notification`,
       meta: {
         auth: ['setting-notification'],
-        title: 'Quản lý tin nhắn',
+        title: 'Quản lý thông báo',
       },
       component: () => import('@/pages/setting/notification/index'),
     },
@@ -347,7 +347,7 @@ export default {
       name: `${pre}templates`,
       meta: {
         auth: ['setting-shipping-templates'],
-        title: 'Mẫu vận chuyển hàng hóa',
+        title: 'Mẫu vận chuyển sản phẩm',
       },
       component: () => import('@/pages/setting/shippingTemplates/index'),
     },
@@ -374,7 +374,7 @@ export default {
       name: `${pre}order`,
       meta: {
         auth: ['setting-merchant-system-verify-order'],
-        title: 'Viết đơn đặt hàng',
+        title: 'Xác nhận đơn hàng',
       },
       component: () => import('@/pages/setting/verifyOrder/index'),
     },
@@ -436,7 +436,7 @@ export default {
       name: `${pre}cate`,
       meta: {
         auth: ['admin-setting-pages-cate'],
-        title: 'Phân loại sản phẩm',
+        title: 'Danh mục sản phẩm',
       },
       component: () => import('@/pages/setting/devise/list'),
     },
@@ -645,7 +645,7 @@ export default {
       name: `${pre}notification`,
       meta: {
         auth: ['setting-agreement'],
-        title: 'Cài đặt giao thức',
+        title: 'Điều khoản & chính sách',
       },
       component: () => import('@/pages/setting/agreement/index'),
     },
@@ -654,7 +654,7 @@ export default {
       name: `${pre}other_print`,
       meta: {
         auth: ['setting-other-out'],
-        title: 'Cấu hình giao diện bên ngoài',
+        title: 'Cài đặt giao diện bên ngoài',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -753,7 +753,7 @@ export default {
       name: `${pre}user_config`,
       meta: {
         ...meta,
-        title: 'Cấu hình người dùng',
+        title: 'Cài đặt khách hàng',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -762,7 +762,7 @@ export default {
       name: `${pre}order_config`,
       meta: {
         ...meta,
-        title: 'Cấu hình đặt hàng',
+        title: 'Cấu hình đơn hàng',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -791,7 +791,7 @@ export default {
       meta: {
         ...meta,
         auth: ['admin-setting-ticket-content'],
-        title: 'Cấu hình vé',
+        title: 'Cài đặt in ấn',
         activeMenu: routePre + '/setting/ticket',
       },
       component: () => import('@/pages/setting/ticket/content'),

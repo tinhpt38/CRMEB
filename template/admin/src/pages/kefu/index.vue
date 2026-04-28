@@ -23,8 +23,7 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" size="large" v-db-click @click="handleSubmit('formInline')" class="btn"
-                  >Đăng nhập
-                </el-button>
+                  >Đăng nhập</el-button>
               </el-form-item>
             </el-form>
             <div class="qh_box" v-if="!isMobile" v-db-click @click="bindScan">

@@ -24,7 +24,7 @@
           <template slot-scope="scope">
             <div class="acea-scope.row scope.row-middle">
               <span>{{ scope.row.language_name }}</span>
-              <el-tag class="ml10" color="default" v-if="scope.row.is_default">mặc định</el-tag>
+              <el-tag class="ml10" color="default" v-if="scope.row.is_default">Mặc định</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -33,7 +33,7 @@
             <span>{{ scope.row.file_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="150">
+        <el-table-column label="Trạng thái" min-width="150">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -43,17 +43,17 @@
               :value="scope.row.status"
               @change="changeSwitch(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="170">
+        <el-table-column label="Thao tác" fixed="right" width="170">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row, 'ngôn ngữ soạn thảo', index)">biên tập</a>
+            <a v-db-click @click="edit(scope.row, 'ngôn ngữ soạn thảo', index)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

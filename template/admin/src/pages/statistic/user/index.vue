@@ -11,7 +11,7 @@
               @change="changeTxt"
               class="form_content_width"
             >
-              <el-option value="all" label="tất cả"></el-option>
+              <el-option value="all" label="Tất cả"></el-option>
               <el-option value="wechat" label="Tài khoản chính thức"></el-option>
               <el-option value="routine" label="Chương trình nhỏ"></el-option>
               <el-option value="h5" label="H5"></el-option>
@@ -36,10 +36,10 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-db-click @click="handleSubmit('formInline')">Truy vấn</el-button>
+            <el-button type="primary" v-db-click @click="handleSubmit('formInline')">Tìm kiếm</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button v-db-click @click="excel">Xuất khẩu</el-button>
+            <el-button v-db-click @click="excel">Xuất file</el-button>
           </el-form-item>
         </el-form>
       </div>

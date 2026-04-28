@@ -360,9 +360,9 @@ class LoginController
         $re = $this->services->bindind_phone($phone, $key);
         if ($re) {
             CacheService::delete('code_' . $phone);
-            return app('json')->success('Ràng buộc thành công', $re);
+            return app('json')->success('Liên kết thành công', $re);
         } else
-            return app('json')->fail('Ràng buộc không thành công');
+            return app('json')->fail('Liên kết không thành công');
     }
 
     /**
@@ -400,9 +400,9 @@ class LoginController
         $re = $this->services->userBindindPhone($uid, $phone, $step);
         if ($re) {
             CacheService::delete('code_' . $phone);
-            return app('json')->success($re['msg'] ?? 'Ràng buộc thành công', $re['data'] ?? []);
+            return app('json')->success($re['msg'] ?? 'Liên kết thành công', $re['data'] ?? []);
         } else
-            return app('json')->fail('Ràng buộc không thành công');
+            return app('json')->fail('Liên kết không thành công');
     }
 
     public function update_binding_phone(Request $request)

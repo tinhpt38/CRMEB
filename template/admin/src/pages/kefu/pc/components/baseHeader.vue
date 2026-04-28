@@ -19,10 +19,10 @@
 
           <div class="online-down" v-show="isOnline">
             <div class="item" v-db-click @click.stop="changeOnline(1)">
-              <span class="iconfont iconduihao" v-if="online"></span><i class="green"></i>trực tuyến
+              <span class="iconfont iconduihao" v-if="online"></span><i class="green"></i>Trực tuyến
             </div>
             <div class="item" v-db-click @click.stop="changeOnline(0)">
-              <span class="iconfont iconduihao" v-if="!online"></span><i></i>ngoại tuyến
+              <span class="iconfont iconduihao" v-if="!online"></span><i></i>Ngoại tuyến
             </div>
           </div>
         </div>

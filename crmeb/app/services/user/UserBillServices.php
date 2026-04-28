@@ -45,7 +45,7 @@ class UserBillServices extends BaseServices
             'title' => 'Tích điểm khi mua sản phẩm',
             'category' => 'integral',
             'type' => 'product_gain',
-            'mark' => 'Quà tặng miễn phí khi mua hàng{%num%}tích phân',
+            'mark' => 'Quà tặng miễn phí khi mua hàng{%num%}điểm thưởng',
             'status' => 1,
             'pm' => 1
         ],
@@ -53,7 +53,7 @@ class UserBillServices extends BaseServices
             'title' => 'Nhận điểm thưởng khi đặt hàng',
             'category' => 'integral',
             'type' => 'gain',
-            'mark' => 'Miễn phí khi đặt hàng{%num%}tích phân',
+            'mark' => 'Miễn phí khi đặt hàng{%num%}điểm thưởng',
             'status' => 1,
             'pm' => 1
         ],
@@ -181,7 +181,7 @@ class UserBillServices extends BaseServices
             'title' => 'Tham gia rút thăm và sử dụng điểm',
             'category' => 'integral',
             'type' => 'lottery_use',
-            'mark' => 'Tham gia xổ số{%num%}tích phân',
+            'mark' => 'Tham gia xổ số{%num%}điểm thưởng',
             'status' => 1,
             'pm' => 0
         ],
@@ -189,7 +189,7 @@ class UserBillServices extends BaseServices
             'title' => 'Điểm thưởng khi trúng giải xổ số',
             'category' => 'integral',
             'type' => 'lottery_add',
-            'mark' => 'trúng thưởng xổ số{%num%}tích phân',
+            'mark' => 'trúng thưởng xổ số{%num%}điểm thưởng',
             'status' => 1,
             'pm' => 1
         ],
@@ -197,7 +197,7 @@ class UserBillServices extends BaseServices
             'title' => 'Tham gia xổ số để sử dụng số dư của bạn',
             'category' => 'now_money',
             'type' => 'lottery_use',
-            'mark' => 'Tham gia xổ số{%num%}Sự cân bằng',
+            'mark' => 'Tham gia xổ số{%num%}Số dư',
             'status' => 1,
             'pm' => 0
         ],
@@ -205,15 +205,15 @@ class UserBillServices extends BaseServices
             'title' => 'Tiền trúng xổ số và số dư tiền thưởng',
             'category' => 'now_money',
             'type' => 'lottery_add',
-            'mark' => 'trúng thưởng xổ số{%num%}Sự cân bằng',
+            'mark' => 'trúng thưởng xổ số{%num%}Số dư',
             'status' => 1,
             'pm' => 1
         ],
         'storeIntegral_use_integral' => [
-            'title' => 'Đổi điểm lấy hàng hóa',
+            'title' => 'Đổi điểm lấy sản phẩm',
             'category' => 'integral',
             'type' => 'storeIntegral_use',
-            'mark' => 'Sử dụng điểm để đổi sản phẩm trong trung tâm mua sắm{%num%}tích phân',
+            'mark' => 'Sử dụng điểm để đổi sản phẩm trong trung tâm mua sắm{%num%}điểm thưởng',
             'status' => 1,
             'pm' => 0
         ],

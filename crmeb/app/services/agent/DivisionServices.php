@@ -107,7 +107,7 @@ class DivisionServices extends BaseServices
         }
         $field = [];
         $title = 'Đơn vị kinh doanh';
-        $field[] = Form::input('division_name', 'Tên đơn vị kinh doanh', $userInfo['division_name'] ?? '')->required('Vui lòng nhập tên phòng kinh doanh');
+        $field[] = Form::input('division_name', 'Tên Đơn vị kinh doanh', $userInfo['division_name'] ?? '')->required('Vui lòng nhập tên phòng kinh doanh');
         if ($uid) {
             $field[] = Form::hidden('uid', $uid);
         } else {
@@ -142,7 +142,7 @@ class DivisionServices extends BaseServices
             $userInfo = $userServices->getUserInfo($data['uid'], 'is_division,is_agent,is_staff');
             if (!$userInfo) throw new AdminException('Người dùng không tồn tại');
             if ($userInfo['is_division']) throw new AdminException('Người dùng này là bộ phận kinh doanh, vui lòng không thêm nhiều lần');
-            if ($userInfo['is_agent']) throw new AdminException('Người dùng này là đại lý và không thể được thêm làm đơn vị kinh doanh');
+            if ($userInfo['is_agent']) throw new AdminException('Người dùng này là đại lý và không thể được thêm làm Đơn vị kinh doanh');
             if ($userInfo['is_staff']) throw new AdminException('Người dùng này là nhân viên cấp dưới và không thể được thêm làm bộ phận kinh doanh');
         }
         $uid = $data['uid'];
@@ -262,7 +262,7 @@ class DivisionServices extends BaseServices
             $field[] = Form::frameImage('image', 'Người dùng được liên kết', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
             $field[] = Form::hidden('edit', 0);
         }
-        $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', $userInfo['division_percent'] ?? '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
+        $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', $userInfo['division_percent'] ?? '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của Đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
         $field[] = Form::date('division_end_time', 'Thời gian hết hạn', ($userInfo['division_end_time'] ?? '') != 0 ? date('Y-m-d H:i:s', $userInfo['division_end_time']) : '')->placeholder('Thời gian hết hạn đại lý');
         $field[] = Form::radio('division_status', 'trạng thái đại lý', $userInfo['division_status'] ?? 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
         return create_form('đại lý', $field, Route::buildUrl('/agent/division/agent/save'), 'POST');
@@ -299,8 +299,8 @@ class DivisionServices extends BaseServices
         ];
         $division_info = $userServices->getUserInfo($data['division_id'], 'division_end_time,division_percent');
         if ($division_info) {
-            if ($agentData['division_percent'] > $division_info['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng đơn vị kinh doanh');
-            if ($agentData['division_end_time'] > $division_info['division_end_time']) throw new AdminException('Thời gian hết hạn của đại lý không được lớn hơn thời gian hết hạn của đơn vị kinh doanh');
+            if ($agentData['division_percent'] > $division_info['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng Đơn vị kinh doanh');
+            if ($agentData['division_end_time'] > $division_info['division_end_time']) throw new AdminException('Thời gian hết hạn của đại lý không được lớn hơn thời gian hết hạn của Đơn vị kinh doanh');
         }
         $res = $userServices->update($uid, $agentData);
         if ($res) return true;
@@ -424,7 +424,7 @@ class DivisionServices extends BaseServices
             'division_end_time' => $agentInfo['division_end_time'],
             'is_promoter' => 1
         ];
-        if ($staffData['division_percent'] > $agentInfo['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng đơn vị kinh doanh');
+        if ($staffData['division_percent'] > $agentInfo['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng Đơn vị kinh doanh');
         if ($userInfo['agent_id'] != 0 && $userInfo['agent_id'] != $agentInfo['agent_id']) {
             $userServices->update(['staff_id' => $userInfo['uid'], 'spread_uid' => $userInfo['uid']], ['spread_uid' => $agentInfo['agent_id'], 'staff_id' => 0]);
             $userServices->getSearch(['staff_id' => $userInfo['uid'], 'not_spread_uid' => $userInfo['uid']])->update(['staff_id' => 0]);
@@ -483,7 +483,7 @@ class DivisionServices extends BaseServices
             $userServices->update(['staff_id' => $userInfo['uid'], 'not_spread_uid' => $userInfo['uid']], ['staff_id' => 0]);
         }
         $res = $userServices->update($uid, $staffData);
-        if ($res) return 'Ràng buộc nhân viên thành công';
+        if ($res) return 'Liên kết nhân viên thành công';
         return 'Không thể ràng buộc nhân viên';
     }
 

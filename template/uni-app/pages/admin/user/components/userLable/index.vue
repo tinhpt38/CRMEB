@@ -31,7 +31,7 @@
 				<emptyPage title="Chưa có thẻ nào～" src="/statics/images/empty-box.png"></emptyPage>
 			</view>
 			<view class="footer acea-row row-between-wrapper">
-				<view class="bnt acea-row row-center-wrapper" @tap="reset">cài lại</view>
+				<view class="bnt acea-row row-center-wrapper" @tap="reset">Đặt lại</view>
 				<view class="bnt on acea-row row-center-wrapper" @tap="define">Chắc chắn</view>
 			</view>
 		</view>

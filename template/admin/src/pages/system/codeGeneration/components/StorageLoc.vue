@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-alert closable class="mb20">
-      <template v-slot:title>crudTạo mô tả vị trí tệp</template>
+      <template v-slot:title>CrudTạo mô tả vị trí tệp</template>
       <template>
         <p>1、Vị trí của tệp được tạo không thể được sửa đổi nhiều nhất có thể. Bạn có thể tự di chuyển nó sau khi tạo.</p>
         <p>2、Vị trí tệp được tạo sẽ không chứa đường dẫn tuyệt đối của tệp nhưng sẽ mang đường dẫn tuyệt đối được đặt trước khi tạo tệp.</p>

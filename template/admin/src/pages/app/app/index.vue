@@ -3,7 +3,7 @@
     <div class="i-layout-page-header header-title">
       <span class="ivu-page-header-title mr20">{{ $route.meta.title }}</span>
       <div style="float: right">
-        <el-button class="bnt" type="primary" v-db-click @click="onsubmit('formValidate')">cứu</el-button>
+        <el-button class="bnt" type="primary" v-db-click @click="onsubmit('formValidate')">Lưu</el-button>
       </div>
     </div>
     <div class="box-wrapper">
@@ -13,8 +13,8 @@
           <div class="htmls_box">
             <div class="htmls_top">Thỏa thuận dịch vụ và Chính sách quyền riêng tư</div>
             <div class="htmls_font">
-              <div class="ok">tôi đồng ý</div>
-              <div>không đồng ý</div>
+              <div class="ok">Tôi đồng ý</div>
+              <div>Không đồng ý</div>
             </div>
             <div class="htmls" v-html="content"></div>
           </div>

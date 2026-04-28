@@ -26,7 +26,7 @@
                 </el-tooltip>
               </div>
               <span v-if="data.id">
-                <el-dropdown @command="(command) => clickMenu(data, command)">
+                <el-dropdown @command="(command) => ClickMenu(data, command)">
                   <i class="el-icon-more el-icon--right"></i>
                   <template slot="dropdown">
                     <el-dropdown-menu>
@@ -72,11 +72,11 @@
                 <span>{{ scope.row.cate_name }}</span>
               </template>
             </el-table-column>
-            <el-table-column fixed="right" label="vận hành" width="100">
+            <el-table-column fixed="right" label="Thao tác" width="100">
               <template slot-scope="scope">
-                <a v-db-click @click="edit(scope.row.id)">Ôn lại</a>
+                <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
                 <el-divider direction="vertical"></el-divider>
-                <a v-db-click @click="del(scope.row, 'Xóa danh mục', scope.$index)">xóa bỏ</a>
+                <a v-db-click @click="del(scope.row, 'Xóa danh mục', scope.$index)">Xóa</a>
               </template>
             </el-table-column>
           </el-table>
@@ -191,7 +191,7 @@ export default {
     getUserLabelAll(key) {
       userLabelAll().then((res) => {
         let obj = {
-          name: 'tất cả',
+          name: 'Tất cả',
           id: '',
         };
         res.data.unshift(obj);

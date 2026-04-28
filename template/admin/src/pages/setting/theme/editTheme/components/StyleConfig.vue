@@ -11,7 +11,7 @@
       <div class="config-body">
         <div class="">
           <div class="config-item">
-            <div class="label">màu chủ đề</div>
+            <div class="label">Màu chủ đề</div>
             <div class="color-picker-row">
               <el-color-picker v-model="themeColor"></el-color-picker>
               <span class="color-value">{{ themeColor }}</span>
@@ -19,7 +19,7 @@
           </div>
 
           <div class="config-item">
-            <div class="label">màu gradient</div>
+            <div class="label">Màu gradient</div>
             <div class="color-picker-row">
               <el-color-picker v-model="gradientColor"></el-color-picker>
               <span class="color-value">{{ gradientColor }}</span>
@@ -27,7 +27,7 @@
           </div>
 
           <div class="config-item">
-            <div class="label">màu thứ cấp</div>
+            <div class="label">Màu thứ cấp</div>
             <div class="color-picker-row">
               <el-color-picker v-model="subColor"></el-color-picker>
               <span class="color-value">{{ subColor }}</span>
@@ -59,7 +59,7 @@
               alt="preview"
             />
             <div v-if="i == 0" class="buy-btn">
-              <div class="btn btn-outline" :style="{ background: subColor }">thêm vào giỏ hàng</div>
+              <div class="btn btn-outline" :style="{ background: subColor }">Thêm mới giỏ hàng</div>
               <div class="btn btn-primary" :style="{ background: themeColor }">Mua nó ngay bây giờ</div>
             </div>
           </div>
@@ -83,7 +83,7 @@
       <div slot="title" v-if="!showDetail" class="dialog-header">
         <div class="dialog-header-tabs">
           <div class="tabs">
-            <span class="title">chủ đề của tôi</span>
+            <span class="title">Chủ đề của tôi</span>
             <img
               class="title-icon"
               src="https://www.crmeb.com/static/images/zhutishichang.png"
@@ -96,9 +96,9 @@
       </div>
       <div v-else class="detail-header" slot="title">
         <div class="left-action">
-          <div class="back-btn" @click="backToStyleList"><i class="el-icon-arrow-left"></i> trở lại</div>
+          <div class="back-btn" @click="backToStyleList"><i class="el-icon-arrow-left"></i> Trở lại</div>
           <div class="vertical-line"></div>
-          <span class="detail-title">chi tiết phong cách</span>
+          <span class="detail-title">Chi tiết phong cách</span>
         </div>
       </div>
 
@@ -138,8 +138,8 @@
                       </div>
                     </div>
                     <div class="hover-actions">
-                      <el-button plain size="small" @click="viewStyleDetail(item)">kiểm tra chi tiết</el-button>
-                      <el-button type="primary" size="small" @click="handleStyleSelect(item)">phong cách sử dụng</el-button>
+                      <el-button plain size="small" @click="viewStyleDetail(item)">Kiểm tra chi tiết</el-button>
+                      <el-button type="primary" size="small" @click="handleStyleSelect(item)">Phong cách sử dụng</el-button>
                     </div>
                   </div>
                 </div>
@@ -173,7 +173,7 @@
                       alt="preview"
                     />
                     <div v-if="i == 0" class="buy-btn">
-                      <div class="btn btn-outline" :style="{ background: selectedStyle.subColor }">thêm vào giỏ hàng</div>
+                      <div class="btn btn-outline" :style="{ background: selectedStyle.subColor }">Thêm mới giỏ hàng</div>
                       <div class="btn btn-primary" :style="{ background: selectedStyle.themeColor }">Mua nó ngay bây giờ</div>
                     </div>
                   </div>

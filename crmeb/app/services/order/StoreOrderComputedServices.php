@@ -36,7 +36,7 @@ class StoreOrderComputedServices extends BaseServices
      * Hình thức thanh toán
      * @var string[]
      */
-    public $payType = ['weixin' => 'WeChat trả tiền', 'yue' => 'thanh toán số dư', 'offline' => 'Thanh toán ngoại tuyến', 'pc' => 'pc'];
+    public $payType = ['weixin' => 'Thanh toán WeChat', 'yue' => 'thanh toán số dư', 'offline' => 'Thanh toán ngoại tuyến', 'pc' => 'pc'];
 
     /**
      * thông số bổ sung
@@ -157,7 +157,7 @@ class StoreOrderComputedServices extends BaseServices
             $couponServices = app()->make(StoreCouponUserServices::class);
             $couponInfo = $couponServices->getOne([['id', '=', $couponId], ['uid', '=', $uid], ['is_fail', '=', 0], ['status', '=', 0], ['start_time', '<', time()], ['end_time', '>', time()]], '*', ['issue']);
             if (!$couponInfo) {
-                throw new ApiException('Phiếu giảm giá đã chọn không hợp lệ');
+                throw new ApiException('Mã giảm giá đã chọn không hợp lệ');
             }
             $type = $couponInfo['applicable_type'] ?? 0;
             $flag = false;

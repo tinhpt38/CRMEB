@@ -2,7 +2,7 @@
   <div>
     <div class="labelChange" :class="change === true ? 'on' : ''">
       <div class="priceTitle cor32">
-        Thẻ người dùng
+        Thẻ khách hàng
         <span class="iconfontYI icon-guanbi" v-db-click @click="close"></span>
       </div>
       <div class="label-wrapper">

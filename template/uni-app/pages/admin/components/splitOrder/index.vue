@@ -4,7 +4,7 @@
 		<view class="all" v-if="select_all">
 			<checkbox-group @change="checkboxAllChange">
 				<checkbox value="all" :checked="isAllSelect" />
-				<text class='checkAll'>Chọn tất cả</text>
+				<text class='checkAll'>Chọn Tất cả</text>
 			</checkbox-group>
 		</view>
 		<checkbox-group @change="checkboxChange">
@@ -30,7 +30,7 @@
 							<view class='infor line1'>
 								tài sản：{{item.cart_info.productInfo.attrInfo.suk || 'mặc định'}}</view>
 							<view class="acea-row row-middle money-section">
-								thanh toán thực tế：<view class='money'>¥{{item.cart_info.sum_true_price}}</view>
+								Thanh toán thực tế：<view class='money'>¥{{item.cart_info.sum_true_price}}</view>
 							</view>
 						</view>
 						<view class='carnum acea-row row-center-wrapper'>

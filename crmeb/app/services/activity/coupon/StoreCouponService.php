@@ -71,7 +71,7 @@ class StoreCouponService extends BaseServices
                 $f[] = Form::select('category_id', 'Chọn danh mục')->setOptions(Form::setOptions($options))->filterable(1)->col(12);
                 break;
             case 2://phiếu giảm giá hàng hóa
-                $f[] = Form::frameImages('image', 'hàng hóa', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image', 'type' => 'many')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['srcKey' => 'image', 'footer' => false]);
+                $f[] = Form::frameImages('image', 'sản phẩm', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image', 'type' => 'many')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['srcKey' => 'image', 'footer' => false]);
                 $f[] = Form::hidden('product_id', '');
                 break;
         }
@@ -79,9 +79,9 @@ class StoreCouponService extends BaseServices
         $f[] = Form::number('use_min_price', 'Phiếu chi tiêu tối thiểu', 0)->min(0);
         $f[] = Form::number('coupon_time', 'Thời hạn hiệu lực của phiếu giảm giá', 0)->min(0);
         $f[] = Form::number('sort', 'loại')->value(0)->precision(0);
-        $f[] = Form::radio('status', 'tình trạng', 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $f[] = Form::radio('status', 'Trạng thái', 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
         $f[] = Form::hidden('type', $type);
-        return create_form('thêm phiếu giảm giá', $f, Url::buildUrl('/marketing/coupon/save'), 'POST');
+        return create_form('Tạo mã giảm giá', $f, Url::buildUrl('/marketing/coupon/save'), 'POST');
     }
 
     /**
@@ -96,16 +96,16 @@ class StoreCouponService extends BaseServices
     public function createIssue(int $id)
     {
         $res = $this->dao->getOne(['id' => $id, 'status' => 1, 'is_del' => 0]);
-        if (!$res) throw new AdminException('Phiếu giảm giá được công bố đã hết hạn hoặc không tồn tại!');
+        if (!$res) throw new AdminException('Mã giảm giá được công bố đã hết hạn hoặc không tồn tại!');
         $f = [];
         $f[] = Form::input('id', 'phiếu giảm giáID', $id)->disabled(1);
         $f[] = Form::input('coupon_title', 'Tên phiếu giảm giá', $res['title'])->disabled(1);
         $f[] = Form::dateTimeRange('range_date', 'Thời gian thu thập')->placeholder('Để trống để có giá trị vĩnh viễn');
         $f[] = Form::radio('is_permanent', 'Nó có bị giới hạn không?', 1)->options([['label' => 'Không giới hạn', 'value' => 1], ['label' => 'phiên bản giới hạn', 'value' => 0]]);
         $f[] = Form::number('count', 'Số lượng phát hành', 0)->min(0)->placeholder('Để trống hoặc điền vào0,không giới hạn');
-        $f[] = Form::radio('is_type', 'Loại phiếu giảm giá', 0)->options([['label' => 'Phiếu giảm giá thông thường', 'value' => 0], ['label' => 'phiếu quà tặng', 'value' => 1], ['label' => 'Phiếu quà tặng người mới', 'value' => 2]]);
+        $f[] = Form::radio('is_type', 'Loại phiếu giảm giá', 0)->options([['label' => 'Mã giảm giá thông thường', 'value' => 0], ['label' => 'phiếu quà tặng', 'value' => 1], ['label' => 'Phiếu quà tặng người mới', 'value' => 2]]);
         $f[] = Form::number('full_reduction', 'Toàn bộ số tiền quà tặng', 0)->min(0)->placeholder('Số tiền chi tiêu tối thiểu để nhận phiếu giảm giá');
-        $f[] = Form::radio('status', 'tình trạng', 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $f[] = Form::radio('status', 'Trạng thái', 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
         return create_form('Đăng phiếu giảm giá', $f, $this->url('/marketing/coupon/issue/' . $id), 'POST');
     }
 
@@ -136,7 +136,7 @@ class StoreCouponService extends BaseServices
         if ($_id != $id) throw new AdminException('Thao tác không thành công,thông tin bất cân xứng');
         if (!$count) $count = 0;
         $couponInfo = $this->dao->getOne(['id' => $id, 'status' => 1, 'is_del' => 0]);
-        if (!$couponInfo) throw new AdminException('Phiếu giảm giá được công bố đã hết hạn hoặc không tồn tại!');
+        if (!$couponInfo) throw new AdminException('Mã giảm giá được công bố đã hết hạn hoặc không tồn tại!');
         if (count($rangeTime) != 2) throw new AdminException('Vui lòng chọn khoảng thời gian chính xác');
         list($startTime, $endTime) = $rangeTime;
         if (!$startTime) $startTime = 0;

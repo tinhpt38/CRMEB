@@ -4,7 +4,7 @@
       <el-form ref="formValidate" :model="formValidate" class="tabform" @submit.native.prevent>
         <el-row :gutter="24">
           <el-col :span="24">
-            <el-form-item label="thời gian đặt hàng：">
+            <el-form-item label="Thời gian đặt hàng：">
               <el-radio-group
                 v-model="formValidate.data"
                 type="button"
@@ -80,7 +80,7 @@ export default {
         title: 'Chọn thời gian',
         custom: true,
         fromTxt: [
-          { text: 'tất cả', val: '' },
+          { text: 'Tất cả', val: '' },
           { text: 'Hôm nay', val: 'today' },
           { text: 'tuần này', val: 'week' },
           { text: 'tháng này', val: 'month' },

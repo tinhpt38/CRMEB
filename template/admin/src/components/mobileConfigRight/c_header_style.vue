@@ -33,7 +33,7 @@
             configData.leftColor = '#fff';
             handleChange();
           "
-          >cài lại</span
+          >Đặt lại</span
         >
       </div>
     </div>
@@ -75,7 +75,7 @@
             configData.rightColor = '#fff';
             handleChange();
           "
-          >cài lại</span
+          >Đặt lại</span
         >
       </div>
     </div>
@@ -89,7 +89,7 @@
     </div>
     <!-- lề trên -->
     <div class="config-item">
-      <span class="item-label">lề trên</span>
+      <span class="item-label">Lề trên</span>
       <div class="slider-container">
         <el-slider v-model="configData.topPadding" show-input :min="0"></el-slider>
       </div>
@@ -97,7 +97,7 @@
 
     <!-- lề dưới -->
     <div class="config-item">
-      <span class="item-label">lề dưới</span>
+      <span class="item-label">Lề dưới</span>
       <div class="slider-container">
         <el-slider v-model="configData.bottomPadding" show-input :min="0"></el-slider>
       </div>
@@ -105,7 +105,7 @@
 
     <!-- lề trái và lề phải -->
     <div class="config-item">
-      <span class="item-label">lề trái và lề phải</span>
+      <span class="item-label">Lề trái và lề phải</span>
       <div class="slider-container">
         <el-slider v-model="configData.leftRightPadding" show-input :min="0"></el-slider>
       </div>

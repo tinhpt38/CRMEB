@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="section-title">Cài đặt văn bản</div>
-    <el-form-item label="dạng văn bản">
+    <el-form-item label="Dạng văn bản">
       <el-checkbox-group v-model="textShape" size="small">
         <el-checkbox label="bold">In đậm</el-checkbox>
-        <el-checkbox label="italic">nghiêng</el-checkbox>
+        <el-checkbox label="italic">Nghiêng</el-checkbox>
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="Sửa đổi văn bản">
       <el-radio-group v-model="curComponent.propValue.textDecoration" size="small" @change="onChange">
-        <el-radio label="none">không có</el-radio>
-        <el-radio label="underline">gạch chân</el-radio>
-        <el-radio label="line-through">gạch ngang</el-radio>
+        <el-radio label="none">Không có</el-radio>
+        <el-radio label="underline">Gạch chân</el-radio>
+        <el-radio label="line-through">Gạch ngang</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="Căn chỉnh">
@@ -21,7 +21,7 @@
         <el-radio-button label="end"><span class="iconfont iconyouduiqi"></span></el-radio-button>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="màu văn bản">
+    <el-form-item label="Màu văn bản">
       <div class="row">
         <el-color-picker
           class="m-r-10"
@@ -36,7 +36,7 @@
             curComponent.propValue.color = '#000000';
             onChange();
           "
-          >cài lại</span
+          >Đặt lại</span
         >
       </div>
     </el-form-item>
@@ -58,7 +58,7 @@
         ></el-input-number>
       </div>
     </el-form-item>
-    <el-form-item label="khoảng cách dòng">
+    <el-form-item label="Khoảng cách dòng">
       <div class="row">
         <el-slider
           v-model="curComponent.propValue.lineHeight"
@@ -80,16 +80,16 @@
     </el-form-item>
     <el-form-item label="Chiều cao hàng bị bỏ qua">
       <el-radio-group v-model="curComponent.propValue.ellipsis" @change="onChange">
-        <el-radio :label="0">không có giới hạn</el-radio>
-        <el-radio :label="1">một dòng</el-radio>
-        <el-radio :label="2">hai dòng</el-radio>
-        <el-radio :label="3">ba dòng</el-radio>
+        <el-radio :label="0">Không có giới hạn</el-radio>
+        <el-radio :label="1">Một dòng</el-radio>
+        <el-radio :label="2">Hai dòng</el-radio>
+        <el-radio :label="3">Ba dòng</el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="bóng văn bản">
+    <el-form-item label="Bóng văn bản">
       <el-radio-group v-model="curComponent.propValue.showTextShadow" @change="onChange">
-        <el-radio :label="false">trốn</el-radio>
-        <el-radio :label="true">trình diễn</el-radio>
+        <el-radio :label="false">Trốn</el-radio>
+        <el-radio :label="true">Trình diễn</el-radio>
       </el-radio-group>
     </el-form-item>
     <template v-if="curComponent.propValue.showTextShadow">
@@ -133,7 +133,7 @@
           />
         </div>
       </el-form-item>
-      <el-form-item label="bán kính lờ mờ">
+      <el-form-item label="Bán kính lờ mờ">
         <div class="row">
           <el-slider
             v-model="curComponent.propValue.shadowBlur"
@@ -153,7 +153,7 @@
           />
         </div>
       </el-form-item>
-      <el-form-item label="màu bóng">
+      <el-form-item label="Màu bóng">
         <div class="row">
           <el-color-picker class="m-r-10" v-model="curComponent.propValue.shadowColor" @change="onChange" show-alpha />
           <el-input v-model="curComponent.propValue.shadowColor" @change="onChange" />
@@ -163,7 +163,7 @@
               curComponent.propValue.shadowColor = 'rgba(0,0,0,0.5)';
               onChange();
             "
-            >cài lại</span
+            >Đặt lại</span
           >
         </div>
       </el-form-item>

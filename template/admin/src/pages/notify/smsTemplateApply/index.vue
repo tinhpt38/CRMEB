@@ -3,7 +3,7 @@
     <div class="i-layout-page-header header_top">
       <div class="i-layout-page-header fl_header">
         <router-link :to="{ path: $routeProStr + '/setting/sms/sms_config/index' }"
-          ><el-button size="small" type="text">trở lại</el-button></router-link
+          ><el-button size="small" type="text">Trở lại</el-button></router-link
         >
         <el-divider direction="vertical"></el-divider>
         <span class="ivu-page-header-title mr20" style="padding: 0">{{ $route.meta.title }}</span>
@@ -19,16 +19,16 @@
       >
         <el-row :gutter="24" v-if="$route.path === $routeProStr + '/setting/sms/sms_template_apply/index'">
           <!--                    <el-col v-bind="grid">-->
-          <!--                        <el-form-item label="loại mẫu：">-->
+          <!--                        <el-form-item label="Loại mẫu：">-->
           <!--                            <el-select v-model="levelFrom.type" placeholder="Vui lòng chọn" clearable  @change="userSearchs">-->
           <!--                                <el-option value="1">Mã xác minh</el-option>-->
-          <!--                                <el-option value="2">thông báo</el-option>-->
-          <!--                                <el-option value="3">khuyến mãi</el-option>-->
+          <!--                                <el-option value="2">Thông báo</el-option>-->
+          <!--                                <el-option value="3">Khuyến mãi</el-option>-->
           <!--                            </el-select>-->
           <!--                        </el-form-item>-->
           <!--                    </el-col>-->
           <!--                    <el-col v-bind="grid">-->
-          <!--                        <el-form-item label="trạng thái mẫu：">-->
+          <!--                        <el-form-item label="Trạng thái mẫu：">-->
           <!--                            <el-select v-model="levelFrom.status" placeholder="Vui lòng chọn" clearable  @change="userSearchs">-->
           <!--                                <el-option value="1">Có sẵn</el-option>-->
           <!--                                <el-option value="0">Không có sẵn</el-option>-->
@@ -63,7 +63,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns" :key="index">
+        <el-table-column :label="Item.title" :min-width="item.minWidth" v-for="(item, index) in columns" :key="index">
           <template slot-scope="scope">
             <template v-if="item.key">
               <div>
@@ -79,7 +79,7 @@
                 item.slot === 'is_have' && $route.path === $routeProStr + '/setting/sms/sms_template_apply/commons'
               "
             >
-              <span v-show="scope.row.status === 1">có</span>
+              <span v-show="scope.row.status === 1">Có</span>
               <span v-show="scope.row.status === 0">KHÔNG</span>
             </template>
           </template>

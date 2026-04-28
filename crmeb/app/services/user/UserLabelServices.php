@@ -91,7 +91,7 @@ class UserLabelServices extends BaseServices
         $field = array();
         /** @var UserLabelCateServices $service */
         $service = app()->make(UserLabelCateServices::class);
-        $options[] = ['value' => 0, 'label' => 'tất cả'];
+        $options[] = ['value' => 0, 'label' => 'Tất cả'];
         foreach ($service->getLabelCateAll() as $item) {
             $options[] = ['value' => $item['id'], 'label' => $item['name']];
         }

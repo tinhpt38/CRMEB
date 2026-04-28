@@ -117,7 +117,7 @@
 				</view>
 				<!-- <view class="writeOff" v-if="orderInfo.shipping_type == 2 && orderInfo.paid"> -->
 				<view class="writeOff" v-if="orderInfo.verify_code && orderInfo.paid == 1">
-					<view class="title">{{ $t(`Thông tin xóa sổ`) }}</view>
+					<view class="title">{{ $t(`Thông tin xác nhận`) }}</view>
 					<view class="grayBg">
 						<view class="written" v-if="orderInfo.status == 2">
 							<image src="../static/written.png"></image>
@@ -352,7 +352,7 @@
 			<!-- Chi tiết đơn hàng hoàn tiền -->
 			<view class="wrapper" v-if="isGoodsReturn && orderInfo.cartInfo[0].productInfo.virtual_type != 3 && (is_gift == 0 || is_gift == 1)">
 				<view class="item acea-row row-between">
-					<view>{{ $t(`người nhận hàng`) }}：</view>
+					<view>{{ $t(`Người nhận hàng`) }}：</view>
 					<view class="conter">{{ orderInfo.real_name }}</view>
 				</view>
 				<view class="item acea-row row-between">
@@ -441,7 +441,7 @@
 					<view class="conter">-{{ $t(`￥`) }}{{ parseFloat(orderInfo.deduction_price).toFixed(2) }}</view>
 				</view>
 				<view class="actualPay acea-row row-right" v-if="!orderInfo.help_info.help_status">
-					{{ $t(`thanh toán thực tế`) }}：
+					{{ $t(`Thanh toán thực tế`) }}：
 					<text class="money font-color">{{ $t(`￥`) }}{{ parseFloat(orderInfo.pay_price).toFixed(2) }}</text>
 				</view>
 				<view class="actualPay acea-row row-right" v-else>
@@ -458,7 +458,7 @@
 			<view style="height: 120rpx"></view>
 			<view class="footer acea-row row-right row-middle" v-if="isGoodsReturn == false || status.type == 9 || orderInfo.refund_type || orderInfo.is_apply_refund">
 				<view class="more" v-if="(invoice_func || invoiceData) && orderInfo.paid && !orderInfo.refund_status" @click="more">
-					{{ $t(`Hơn`) }}
+					{{ $t(`Thêm`) }}
 					<span class="iconfont icon-xiangshang"></span>
 				</view>
 				<view class="" v-else></view>
@@ -490,7 +490,7 @@
 						{{ $t(`Xem chia sẻ nhóm`) }}
 					</view>
 					<view class="bnt bg-color" v-if="status.class_status == 3 && !split.length" @click="confirmOrder()">
-						{{ $t(`xác nhận đã nhận hàng`) }}
+						{{ $t(`Xác nhận nhận hàng`) }}
 					</view>
 					<view class="bnt bg-color" v-if="orderInfo.paid == 1 && !is_gift && isReturn != 1" @tap="goOrderConfirm">{{ $t(`mua lại`) }}</view>
 					<view class="bnt bg-color" v-if="orderInfo.paid == 1 && is_gift != 0 && orderInfo.gift_uid == 0" @tap="giftModalShow = true">{{ $t(`Gửi cho bạn bè`) }}</view>
@@ -637,7 +637,7 @@ export default {
 			giftModalShow: false,
 			payMode: [
 				{
-					name: this.$t(`WeChat trả tiền`),
+					name: this.$t(`Thanh toán WeChat`),
 					icon: 'icon-weixinzhifu',
 					value: 'weixin',
 					title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),
@@ -982,7 +982,7 @@ export default {
 					if (res.data.pid && res.data.pid == -1) {
 						that.$util.Tips(
 							{
-								title: this.$t(`Thông tin đặt hàng không tồn tại`)
+								title: this.$t(`Thông tin đơn hàng không tồn tại`)
 							},
 							'/pages/goods/order_list/index'
 						);
@@ -1309,8 +1309,8 @@ export default {
 		defaultTake(orderId) {
 			let that = this;
 			uni.showModal({
-				title: that.$t(`xác nhận đã nhận hàng`),
-				content: that.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng xác nhận đã nhận hàng trước khi xác nhận đã nhận.`),
+				title: that.$t(`Xác nhận nhận hàng`),
+				content: that.$t(`Để bảo vệ quyền và lợi ích của bạn, vui lòng Xác nhận nhận hàng trước khi xác nhận đã nhận.`),
 				success: (res) => {
 					if (res.confirm) {
 						orderTake(orderId ? orderId : that.order_id)

@@ -3,7 +3,7 @@
     <el-card v-for="(value, key, index) in tableList" :key="index" :bordered="false" shadow="never" class="ivu-mt mb16">
       <div class="head acea-row row-between-wrapper">{{ key | headText }}</div>
       <el-table ref="table" :data="tableList[key]" empty-text="Chưa có dữ liệu">
-        <el-table-column :label="key == 'permissions' ? 'tập tin/thư mục' : 'môi trường'" minWidth="180">
+        <el-table-column :label="Key == 'permissions' ? 'tập tin/thư mục' : 'môi trường'" minWidth="180">
           <template slot-scope="scope">{{ scope.row.name }} </template>
         </el-table-column>
         <el-table-column label="Yêu cầu" minWidth="180">
@@ -15,7 +15,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" width="180">
+        <el-table-column label="Trạng thái" width="180">
           <template slot-scope="scope">
             <span v-if="typeof scope.row.value === 'boolean'">
               <i v-if="scope.row.value === true" class="el-icon-check"></i>
@@ -27,7 +27,7 @@
       </el-table>
     </el-card>
 
-    <el-dialog :visible.sync="isTemplate" title="ủy quyền thương mại" width="550px" @closed="cancel">
+    <el-dialog :visible.sync="isTemplate" title="Ủy quyền thương mại" width="550px" @closed="cancel">
       <iframe width="100%" height="780" :src="iframeUrl" frameborder="0"></iframe>
     </el-dialog>
     <el-dialog :visible.sync="modalCopyright" title="Thông tin bản quyền" width="550px">
@@ -50,7 +50,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button v-db-click @click="modalCopyright = false">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="saveCopyRight">cứu</el-button>
+        <el-button type="primary" v-db-click @click="saveCopyRight">Lưu</el-button>
       </span>
     </el-dialog>
     <el-dialog :visible.sync="modalPic" width="1024px" title="Tải lên hình ảnh được ủy quyền" :close-on-click-modal="false">

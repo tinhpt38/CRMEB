@@ -205,11 +205,11 @@ class OrderJob extends BaseJobs
                                 $description .= 'mặt hàng flash sale：' . $seckillServices->value(['id' => $order['seckill_id']], 'title');
                                 $image = $seckillServices->value(['id' => $order['seckill_id']], 'image');
                             } else if (isset($order['combination_id']) && $order['combination_id'] > 0) {
-                                $description .= 'Nhóm sản phẩm：' . $pinkServices->value(['id' => $order['combination_id']], 'title');
+                                $description .= 'Sản phẩm mua chung：' . $pinkServices->value(['id' => $order['combination_id']], 'title');
                                 $image = $pinkServices->value(['id' => $order['combination_id']], 'image');
                             } else if (isset($order['bargain_id']) && $order['bargain_id'] > 0) {
                                 $title = $bargainServices->value(['id' => $order['bargain_id']], 'title');
-                                $description .= 'mặt hàng giá hời：' . $title;
+                                $description .= 'Sản phẩm trả giá：' . $title;
                                 $image = $bargainServices->value(['id' => $order['bargain_id']], 'image');
                             } else {
                                 $productIds = $cartInfoServices->getCartIdsProduct($order['id']);

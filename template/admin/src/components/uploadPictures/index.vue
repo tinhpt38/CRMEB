@@ -36,13 +36,13 @@
                     </el-tooltip>
                   </div>
                   <span>
-                    <el-dropdown @command="(command) => clickMenu(data, command)">
+                    <el-dropdown @command="(command) => ClickMenu(data, command)">
                       <i class="el-icon-more el-icon--right"></i>
                       <template slot="dropdown">
                         <el-dropdown-menu>
                           <el-dropdown-item command="1">Thêm danh mục mới</el-dropdown-item>
                           <el-dropdown-item v-if="data.id" command="2">Chỉnh sửa danh mục</el-dropdown-item>
-                          <el-dropdown-item v-if="data.id" command="3">xóa bỏ</el-dropdown-item>
+                          <el-dropdown-item v-if="data.id" command="3">Xóa</el-dropdown-item>
                         </el-dropdown-menu>
                       </template>
                     </el-dropdown>
@@ -144,7 +144,7 @@
                   <el-input size="small" type="text" v-model="item.real_name" v-else @blur="bindTxt(item)" />
                   <div class="operate-height">
                     <span class="operate mr10" v-db-click @click="editPicList(item.att_id)" v-if="item.isShowEdit"
-                      >xóa bỏ</span
+                      >Xóa</span
                     >
                     <span class="operate mr10" v-db-click @click="item.isEdit = !item.isEdit" v-if="item.isShowEdit"
                       >Đổi tên</span
@@ -190,9 +190,9 @@
                 <span>{{ scope.row.time }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="vận hành" fixed="right" width="170">
+            <el-table-column label="Thao tác" fixed="right" width="170">
               <template slot-scope="scope">
-                <a v-db-click @click="editPicList(scope.row.att_id)">xóa bỏ</a>
+                <a v-db-click @click="editPicList(scope.row.att_id)">Xóa</a>
                 <el-divider direction="vertical"></el-divider>
                 <a v-db-click @click="scope.row.isEdit = !scope.row.isEdit">{{
                   scope.row.isEdit ? 'Chắc chắn' : 'Đổi tên'
@@ -349,7 +349,7 @@ export default {
         message: 'Bạn có chắc chắn muốn xóa menu này?',
         showCancelButton: true,
         cancelButtonText: 'Hủy bỏ',
-        confirmButtonText: 'xóa bỏ',
+        confirmButtonText: 'Xóa',
         iconClass: 'el-icon-warning',
         confirmButtonClass: 'btn-custom-cancel',
       })
@@ -512,7 +512,7 @@ export default {
     remove(data, tit) {
       this.tits = tit;
       let delfromData = {
-        title: 'xóa bỏ [ ' + data.title + ' ] ' + 'Phân loại',
+        title: 'Xóa [ ' + data.title + ' ] ' + 'Phân loại',
         url: `file/category/${data.id}`,
         method: 'DELETE',
         ids: '',

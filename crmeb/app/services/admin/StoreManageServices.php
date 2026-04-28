@@ -529,13 +529,13 @@ class StoreManageServices extends BaseServices
                     $edit['integral'] = bcadd($userInfo['integral'], $data['number'], 2);
                     $integral_data['balance'] = $edit['integral'];
                     $integral_data['title'] = 'Hệ thống cộng điểm';
-                    $integral_data['mark'] = 'Hệ thống đã thêm' . floatval($data['number']) . 'tích phân';
+                    $integral_data['mark'] = 'Hệ thống đã thêm' . floatval($data['number']) . 'điểm thưởng';
                     $userBill->incomeIntegral($uid, 'system_add', $integral_data);
                 } else { //giảm bớt
                     $edit['integral'] = bcsub($userInfo['integral'], $data['number'], 2);
                     $integral_data['balance'] = $edit['integral'];
                     $integral_data['title'] = 'Hệ thống giảm điểm';
-                    $integral_data['mark'] = 'Hệ thống đã khấu trừ' . floatval($data['number']) . 'tích phân';
+                    $integral_data['mark'] = 'Hệ thống đã khấu trừ' . floatval($data['number']) . 'điểm thưởng';
                     $userBill->expendIntegral($uid, 'system_sub', $integral_data);
                 }
                 $userServices->update($uid, $edit);
@@ -551,7 +551,7 @@ class StoreManageServices extends BaseServices
                 $issueService = app()->make(StoreCouponIssueServices::class);
                 $coupon = $issueService->get($data['coupon_id']);
                 if (!$coupon) {
-                    throw new ApiException('Phiếu giảm giá không tồn tại');
+                    throw new ApiException('Mã giảm giá không tồn tại');
                 } else {
                     $coupon = $coupon->toArray();
                 }

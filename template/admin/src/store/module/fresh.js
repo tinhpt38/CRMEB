@@ -124,7 +124,7 @@ export default {
               info: [
                 {
                   title: 'tiêu đề',
-                  value: 'Phân loại sản phẩm',
+                  value: 'Danh mục sản phẩm',
                   maxlength: 5,
                   tips: 'Vui lòng điền tiêu đề',
                 },
@@ -294,7 +294,7 @@ export default {
               info: [
                 {
                   title: 'tiêu đề',
-                  value: 'Phân loại sản phẩm',
+                  value: 'Danh mục sản phẩm',
                   maxlength: 5,
                   tips: 'Vui lòng điền tiêu đề',
                 },

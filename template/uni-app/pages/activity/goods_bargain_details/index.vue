@@ -33,7 +33,7 @@
 					<view class="pictrue">
 						<image :src="bargainInfo.image"></image>
 						<view class="bargain_view" v-if="bargainInfo.product_is_show">
-							{{ $t(`Xem sản phẩm`) }}
+							{{ $t(`Chi tiết sản phẩm`) }}
 							<text class="iconfont icon-jiantou iconfonts"></text>
 						</view>
 					</view>
@@ -129,7 +129,7 @@
 						</view>
 					</block>
 					<view class="open acea-row row-center-wrapper" @click="openTap" v-if="bargainUserHelpList.length > 3">
-						{{ couponsHidden ? $t(`Hơn`) : $t(`đóng cửa`) }}
+						{{ couponsHidden ? $t(`Thêm`) : $t(`đóng cửa`) }}
 						<text class="iconfont" :class="couponsHidden == true ? 'icon-xiangxia' : 'icon-xiangshang'"></text>
 					</view>
 				</view>

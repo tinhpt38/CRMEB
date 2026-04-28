@@ -117,10 +117,10 @@
 				rechargeAttention: [],
 				pay_close: false,
 				payMode: [{
-						name: this.$t(`WeChat trả tiền`),
+						name: this.$t(`Thanh toán WeChat`),
 						icon: 'icon-weixinzhifu',
 						value: 'weixin',
-						title: this.$t(`WeChat trả tiền`),
+						title: this.$t(`Thanh toán WeChat`),
 						payStatus: true
 					},
 					// #ifdef H5 ||APP-PLUS

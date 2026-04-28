@@ -74,9 +74,9 @@
                         />
                       </div>
                     </el-form-item>
-                    <el-form-item label="trạng thái tin nhắn：">
+                    <el-form-item label="Trạng thái tin nhắn：">
                       <el-radio-group v-model="formValidate.status">
-                        <el-radio :label="1">cho phép</el-radio>
+                        <el-radio :label="1">Cho phép</el-radio>
                         <el-radio :label="0">Vô hiệu hóa</el-radio>
                       </el-radio-group>
                     </el-form-item>
@@ -107,7 +107,7 @@
                     </el-form-item>
 
                     <el-form-item
-                      :label="formValidate.type === 'image' ? 'Địa chỉ hình ảnh：' : 'địa chỉ giọng nói：'"
+                      :label="FormValidate.type === 'image' ? 'Địa chỉ hình ảnh：' : 'địa chỉ giọng nói：'"
                       prop="src"
                       v-if="formValidate.type === 'image' || formValidate.type === 'voice'"
                     >
@@ -132,7 +132,7 @@
                           class="mr20"
                           style="margin-top: 1px"
                         >
-                          <el-button type="primary">tải lên</el-button>
+                          <el-button type="primary">Tải lên</el-button>
                         </el-upload>
                       </div>
                       <span v-show="formValidate.type === 'image'">Kích thước tệp tối đa là 2Mb, hỗ trợ các định dạng bmp/png/jpeg/jpg/gif</span>
@@ -140,15 +140,14 @@
                     </el-form-item>
                     <el-form-item>
                       <el-button type="primary" class="mr20" v-db-click @click="submenus('formValidate')"
-                        >Lưu và xuất bản
-                      </el-button>
+                        >Lưu và xuất bản</el-button>
                     </el-form-item>
                   </el-form>
                 </div>
               </el-col>
               <!-- <el-col :span="24">
                 <div class="acea-row row-center">
-                  <el-button type="primary" class="mr20" v-db-click @click="submenus('formValidate')">Lưu và xuất bản </el-button>
+                  <el-button type="primary" class="mr20" v-db-click @click="submenus('formValidate')">Lưu và xuất bản</el-button>
                 </div>
               </el-col> -->
             </el-col>
@@ -367,7 +366,7 @@ export default {
     handleMaxSize(file) {
       this.$message.warning('Vui lòng tải lên các tập tin trong vòng 2M');
     },
-    // cứu
+    // Lưu
     submenus(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {

@@ -13,7 +13,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button type="primary" v-db-click @click="putRemark('formValidate')">nộp</el-button>
+      <el-button type="primary" v-db-click @click="putRemark('formValidate')">Nộp</el-button>
       <el-button v-db-click @click="cancel('formValidate')">Hủy bỏ</el-button>
     </div>
   </el-dialog>

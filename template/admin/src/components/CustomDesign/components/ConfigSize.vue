@@ -2,7 +2,7 @@
   <div>
     <!-- <div class="section-title">Cài đặt vùng chứa</div> -->
     <div class="size-container">
-      <el-form-item :label="labelPrefix + 'chiều rộng'" class="size-item">
+      <el-form-item :label="LabelPrefix + 'chiều rộng'" class="size-item">
         <div class="row">
           <el-slider
             v-model="curComponent.style.width"
@@ -27,7 +27,7 @@
           <span class="iconfont iconsuodingbili"></span>
         </div>
       </div>
-      <el-form-item :label="labelPrefix + 'cao'" class="size-item">
+      <el-form-item :label="LabelPrefix + 'cao'" class="size-item">
         <div class="row">
           <el-slider
             v-model="curComponent.style.height"

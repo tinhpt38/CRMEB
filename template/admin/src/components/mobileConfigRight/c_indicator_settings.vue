@@ -4,7 +4,7 @@
     <div class="box-content">
       <!-- Indicator Style -->
       <div class="box-item">
-        <span class="label">phong cách chỉ báo</span>
+        <span class="label">Phong cách chỉ báo</span>
         <div class="input-box">
           <el-radio-group v-model="configData.tabVal">
             <el-radio :label="index" v-for="(item, index) in configData.tabList" :key="index">
@@ -16,7 +16,7 @@
 
       <!-- Indicator Position -->
       <div class="box-item" v-if="configData.tabVal !== 0">
-        <span class="label">vị trí chỉ báo</span>
+        <span class="label">Vị trí chỉ báo</span>
         <div class="input-box">
           <el-radio-group v-model="configData.positionVal">
             <el-radio :label="index" v-for="(item, index) in configData.positionList" :key="index">

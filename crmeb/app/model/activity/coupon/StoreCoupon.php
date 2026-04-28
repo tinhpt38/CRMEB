@@ -40,7 +40,7 @@ class StoreCoupon extends BaseModel
      * Loại phiếu giảm giá
      * @var string[]
      */
-    protected $couponType = [0 => 'Phiếu giảm giá phổ quát', 1 => 'Phiếu giảm giá danh mục', 2 => 'phiếu giảm giá hàng hóa'];
+    protected $couponType = [0 => 'Mã giảm giá phổ quát', 1 => 'Mã giảm giá danh mục', 2 => 'phiếu giảm giá sản phẩm'];
 
     /**
      * liên kết một-nhiều

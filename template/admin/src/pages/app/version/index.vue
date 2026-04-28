@@ -3,7 +3,7 @@
     <el-card :bordered="false" shadow="never" class="ivu-mt">
       <el-row class="mb20">
         <el-col :span="24">
-          <el-button type="primary" v-db-click @click="add" class="mr10">phiên bản phát hành</el-button>
+          <el-button type="primary" v-db-click @click="add" class="mr10">Phiên bản phát hành</el-button>
         </el-col>
       </el-row>
       <el-table
@@ -13,7 +13,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column label="số phiên bản" width="80">
+        <el-table-column label="Số phiên bản" width="80">
           <template slot-scope="scope">
             <el-tooltip
               effect="light"
@@ -27,7 +27,7 @@
             {{ scope.row.version }}
           </template>
         </el-table-column>
-        <el-table-column label="loại nền tảng" min-width="90">
+        <el-table-column label="Loại nền tảng" min-width="90">
           <template slot-scope="scope">
             <div>
               <span>{{ scope.row.platform === 1 ? 'Android' : 'quả táo' }}</span>
@@ -44,7 +44,7 @@
             <span>{{ scope.row.is_force === 1 ? 'lực lượng' : 'Không bắt buộc' }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="ngày phát hành" min-width="130">
+        <el-table-column label="Ngày phát hành" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.add_time }}</span>
           </template>
@@ -54,11 +54,11 @@
             <span>{{ scope.row.url }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="120">
+        <el-table-column label="Thao tác" fixed="right" width="120">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'xóa phiên bản', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'xóa phiên bản', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>

@@ -1,7 +1,7 @@
 <template>
   <div class="mobile-page">
     <div v-if="isUpdate">
-      <!-- <div class="title">cách trình bày</div>
+      <!-- <div class="title">Cách trình bày</div>
             <div class="tip">Chọn vùng bố trí và thêm hình ảnh bên dưới. Nên thêm hình ảnh có cùng tỷ lệ.</div> -->
       <div class="advert">
         <div
@@ -413,7 +413,7 @@ export default {
           //Xác định xem vị trí viền bên phải của phần tử div có lớn hơn điểm bắt đầu bên trái của div di động không
           this.rect.offsetLeft < this.lis[i].offsetLeft + this.lis[i].offsetWidth &&
           //Xác định xem vị trí của đường viền dưới của phần tử div có lớn hơn điểm bắt đầu trên của div di động không
-          this.lis[i].offsetTop + this.lis[i].offsetHeight > this.rect.offsetTop &&
+          this.lis[i].offsetTop + this.lis[i].offsetHeight > This.rect.offsetTop &&
           // Xác định xem vị trí viền bên trái của phần tử div có nhỏ hơn điểm bắt đầu bên phải của div di động không
           this.rect.offsetLeft + this.rect.offsetWidth > this.lis[i].offsetLeft &&
           // Xác định xem vị trí của đường viền trên của phần tử div có nhỏ hơn điểm bắt đầu dưới của div di động không
@@ -462,7 +462,7 @@ export default {
     getMax(arr) {
       let max = arr[0];
       for (let i = 1; i < arr.length; i++) {
-        if (arr[i] > max) {
+        if (arr[i] > Max) {
           max = arr[i];
         }
       }
@@ -502,13 +502,13 @@ export default {
           // }
 
           // // B part
-          // if (this.mouseX2 > this.downX && this.mouseY2 < this.downY) {
+          // if (this.mouseX2 > This.downX && this.mouseY2 < this.downY) {
           //   this.rect.style.left = this.downX;
           //   this.rect.style.top = this.mouseY2;
           // }
 
           // // C part
-          // if (this.mouseX2 < this.downX && this.mouseY2 > this.downY) {
+          // if (this.mouseX2 < this.downX && this.mouseY2 > This.downY) {
           //   this.rect.style.left = this.mouseX2;
           //   this.rect.style.top = this.downY;
           // }

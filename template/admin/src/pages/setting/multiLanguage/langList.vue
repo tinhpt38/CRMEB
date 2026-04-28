@@ -13,7 +13,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="loại ngôn ngữ：">
+          <el-form-item label="Loại ngôn ngữ：">
             <el-select v-model="formValidate.type_id" clearable @change="selChange" class="form_content_width">
               <el-option
                 v-for="(item, index) in langType.langType"
@@ -23,7 +23,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="tìm kiếm：">
+          <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
               placeholder="Vui lòng nhập nhận xét ngôn ngữ"
@@ -32,7 +32,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="userSearch" v-db-click @click="selChange">tìm kiếm</el-button>
+            <el-button type="primary" class="userSearch" v-db-click @click="selChange">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -43,7 +43,7 @@
         Thêm ngôn ngữ trang. Sau khi bổ sung xong, mã trạng thái sẽ là văn bản tiếng Trung, có thể sử dụng được trên các trang di động. $t(`xxxx`)，jsđược sử dụng trong tập tin this.t(`xxxx`) Hoặc sử dụng
         that.t(`xxxx`) Thực hiện chuyển đổi ngôn ngữ<br />
         <br />
-        <p class="alert_title">ngôn ngữ giao diện</p>
+        <p class="alert_title">Ngôn ngữ giao diện</p>
         Thêm ngôn ngữ giao diện. Sau khi việc cộng hoàn tất, mã trạng thái sẽ là một số có 6 chữ số. Khi giao diện trả về thông tin nhắc nhở, mã lỗi tương ứng có thể được trả về trực tiếp để thực hiện chuyển đổi ngôn ngữ.
       </template>
     </el-alert>
@@ -54,12 +54,12 @@
         </el-col>
       </el-row>
       <el-table ref="table" :data="tabList" class="ivu-mt" v-loading="loading" empty-text="Chưa có dữ liệu">
-        <el-table-column label="số seri" width="80">
+        <el-table-column label="Số seri" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="câu gốc" min-width="260" show-overflow-tooltip>
+        <el-table-column label="Câu gốc" min-width="260" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.remarks }}</span>
           </template>
@@ -69,21 +69,21 @@
             <span>{{ scope.row.lang_explain }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="mã trạng thái/văn bản(Tham chiếu cuộc gọi giao diện/trang)" min-width="280" show-overflow-tooltip>
+        <el-table-column label="Mã trạng thái/văn bản(Tham chiếu cuộc gọi giao diện/trang)" min-width="280" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại ngôn ngữ" min-width="160" show-overflow-tooltip>
+        <el-table-column label="Loại ngôn ngữ" min-width="160" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.language_name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="190">
+        <el-table-column label="Thao tác" fixed="right" width="190">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa ngôn ngữ', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -115,12 +115,12 @@
             search
             @on-search="translate"
           >
-            <el-button type="primary" slot="append" v-db-click @click="translate">dịch</el-button>
+            <el-button type="primary" slot="append" v-db-click @click="translate">Dịch</el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="remark" class="mb20">
           <el-table ref="langTable" v-loading="traTabLoading" :data="langFormData.list" empty-text="Chưa có dữ liệu">
-            <el-table-column label="loại ngôn ngữ" width="140">
+            <el-table-column label="Loại ngôn ngữ" width="140">
               <template slot-scope="scope">
                 <span> {{ scope.row.language_name }}</span>
               </template>

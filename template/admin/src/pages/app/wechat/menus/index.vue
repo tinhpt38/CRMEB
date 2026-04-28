@@ -70,7 +70,7 @@
                           </el-form-item>
                         </div>
                         <div v-if="formValidate.type === 'miniprogram'">
-                          <el-form-item label="appid" prop="appid">
+                          <el-form-item label="Appid" prop="appid">
                             <el-input v-model="formValidate.appid" placeholder="Vui lòng điền vàoappid" class="spwidth"></el-input>
                           </el-form-item>
                           <el-form-item label="Đường dẫn chương trình nhỏ" prop="pagepath">
@@ -103,7 +103,7 @@
                 </el-tab-pane>
               </el-tabs>
               <el-col :span="24" v-if="isTrue">
-                <el-button size="small" type="danger" v-db-click @click="deltMenus">xóa bỏ</el-button>
+                <el-button size="small" type="danger" v-db-click @click="deltMenus">Xóa</el-button>
                 <el-button type="primary" v-db-click @click="submenus('formValidate')">Lưu và xuất bản</el-button>
               </el-col>
             </el-col>

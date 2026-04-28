@@ -20,7 +20,7 @@
             height="32rpx"
           ></easy-loadimage>
           <view class="more" :style="[buttonStyle]" @click="goPointsMall">
-            <text>{{ $t(`Hơn`) }}</text>
+            <text>{{ $t(`Thêm`) }}</text>
             <text
               class="iconfont icon-ic_rightarrow"
               :style="[buttonStyle]"
@@ -51,7 +51,7 @@
                   :style="[priceBoxStyle]"
                 >
                   <view class="point">{{ item.price }}</view>
-                  <view class="">{{ $t(`tích phân`) }}</view>
+                  <view class="">{{ $t(`điểm thưởng`) }}</view>
                 </view>
               </view>
             </scroll-view>

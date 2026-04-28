@@ -14,15 +14,15 @@
                 />
               </el-form-item>
               <el-form-item label="Loại sản phẩm：">
-                <el-select v-model="artFrom.virtual_type" clearable placeholder="tất cả" class="form_content_width">
-                  <el-option label="tất cả" value="" />
+                <el-select v-model="artFrom.virtual_type" clearable placeholder="Tất cả" class="form_content_width">
+                  <el-option label="Tất cả" value="" />
                   <el-option label="Hàng thông thường" value="0" />
                   <el-option label="Sản phẩm thẻ" value="1" />
                   <el-option label="Sản phẩm phiếu giảm giá" value="2" />
                   <el-option label="hàng ảo" value="3" />
                 </el-select>
               </el-form-item>
-              <el-form-item label="Phân loại sản phẩm：" label-for="pid">
+              <el-form-item label="Danh mục sản phẩm：" label-for="pid">
                 <el-cascader
                   v-model="artFrom.cate_id"
                   size="small"
@@ -33,14 +33,14 @@
                 ></el-cascader>
               </el-form-item>
               <el-form-item label="Phương thức giao hàng：">
-                <el-select v-model="artFrom.logistics" clearable placeholder="tất cả" class="form_content_width">
-                  <el-option label="tất cả" value="" />
+                <el-select v-model="artFrom.logistics" clearable placeholder="Tất cả" class="form_content_width">
+                  <el-option label="Tất cả" value="" />
                   <el-option label="chuyển phát nhanh" value="1" />
                   <el-option label="Nhận tại cửa hàng" value="2" />
                 </el-select>
               </el-form-item>
               <template v-if="collapse">
-                <el-form-item label="Thẻ sản phẩm：" label-for="store_name">
+                <el-form-item label="Nhãn sản phẩm：" label-for="store_name">
                   <div class="labelInput acea-row row-between-wrapper form_content_width" @click="openStoreLabel">
                     <div style="width: 90%">
                       <div v-if="storeLabelList.length">
@@ -58,23 +58,23 @@
                     <div class="iconfont iconxiayi"></div>
                   </div>
                 </el-form-item>
-                <el-form-item label="Thông số sản phẩm：">
-                  <el-select v-model="artFrom.spec_type" clearable placeholder="tất cả" class="form_content_width">
-                    <el-option label="tất cả" value="" />
+                <el-form-item label="Thuộc tính sản phẩm：">
+                  <el-select v-model="artFrom.spec_type" clearable placeholder="Tất cả" class="form_content_width">
+                    <el-option label="Tất cả" value="" />
                     <el-option label="Đặc điểm kỹ thuật đơn" value="0" />
                     <el-option label="Nhiều thông số kỹ thuật" value="1" />
                   </el-select>
                 </el-form-item>
                 <el-form-item label="Chỉ thành viên：">
-                  <el-select v-model="artFrom.vip_product" clearable placeholder="tất cả" class="form_content_width">
-                    <el-option label="tất cả" value="" />
+                  <el-select v-model="artFrom.vip_product" clearable placeholder="Tất cả" class="form_content_width">
+                    <el-option label="Tất cả" value="" />
                     <el-option label="KHÔNG" value="0" />
                     <el-option label="Đúng" value="1" />
                   </el-select>
                 </el-form-item>
                 <el-form-item label="Nó có phải là một món quà?：">
-                  <el-select v-model="artFrom.is_gift" clearable placeholder="tất cả" class="form_content_width">
-                    <el-option label="tất cả" value="" />
+                  <el-select v-model="artFrom.is_gift" clearable placeholder="Tất cả" class="form_content_width">
+                    <el-option label="Tất cả" value="" />
                     <el-option label="KHÔNG" value="0" />
                     <el-option label="Đúng" value="1" />
                   </el-select>
@@ -95,7 +95,7 @@
                     :picker-options="pickerOptions"
                   ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="trong kho：" label-for="store_name">
+                <el-form-item label="Trong kho：" label-for="store_name">
                   <el-input
                     clearable
                     placeholder="giá trị tối thiểu"
@@ -110,7 +110,7 @@
                     class="form_range_content_width"
                   />
                 </el-form-item>
-                <el-form-item label="giá：" label-for="store_name">
+                <el-form-item label="Giá：" label-for="store_name">
                   <el-input
                     clearable
                     placeholder="giá trị tối thiểu"
@@ -143,11 +143,11 @@
               </template>
             </div>
             <div class="search-form-sub">
-              <el-button type="primary" v-db-click @click="userSearchs">Truy vấn</el-button>
-              <el-button class="ResetSearch" v-db-click @click="reset">cài lại</el-button>
+              <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
+              <el-button class="ResetSearch" v-db-click @click="reset">Đặt lại</el-button>
               <a class="ivu-ml-8 font12 ml10" v-db-click @click="collapse = !collapse">
                 <template v-if="!collapse"> Mở rộng <i class="el-icon-arrow-down" /> </template>
-                <template v-else> đóng <i class="el-icon-arrow-up" /> </template>
+                <template v-else> Đóng <i class="el-icon-arrow-up" /> </template>
               </a>
             </div>
           </div>
@@ -168,16 +168,16 @@
           ><el-button type="primary" class="mr14">Thêm sản phẩm</el-button></router-link
         >
         <el-button v-auth="['product-crawl-save']" type="success" class="mr14" v-db-click @click="onCopy"
-          >Bộ sưu tập sản phẩm</el-button
+          >Sản phẩm yêu thích</el-button
         >
         <el-dropdown class="bnt mr14" @command="batchSelect">
-          <el-button>Chỉnh sửa hàng loạt<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <el-button>Sửa hàng loạt<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :command="1">Phân loại sản phẩm</el-dropdown-item>
-            <el-dropdown-item :command="2">Cài đặt hậu cần</el-dropdown-item>
+            <el-dropdown-item :command="1">Danh mục sản phẩm</el-dropdown-item>
+            <el-dropdown-item :command="2">Cấu hình vận chuyển</el-dropdown-item>
             <el-dropdown-item :command="3">Mua và nhận điểm</el-dropdown-item>
             <el-dropdown-item :command="4">Mua và nhận phiếu giảm giá</el-dropdown-item>
-            <el-dropdown-item :command="5">Thẻ người dùng được liên kết</el-dropdown-item>
+            <el-dropdown-item :command="5">Thẻ khách hàng được liên kết</el-dropdown-item>
             <el-dropdown-item :command="6">Hoạt động được đề xuất</el-dropdown-item>
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type === '1'" :command="7"
               >Xóa hàng loạt</el-dropdown-item
@@ -190,7 +190,7 @@
               >Di chuyển vào thùng rác</el-dropdown-item
             >
             <el-dropdown-item v-auth="['product-product-product_show']" v-if="artFrom.type == '6'" :command="12"
-              >Khôi phục hàng hóa</el-dropdown-item
+              >Khôi phục sản phẩm</el-dropdown-item
             >
           </el-dropdown-menu>
         </el-dropdown>
@@ -198,7 +198,7 @@
           <el-button>Di chuyển sản phẩm<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item :command="1">Nhập khẩu sản phẩm</el-dropdown-item>
-            <el-dropdown-item :command="2">Xuất khẩu sản phẩm</el-dropdown-item>
+            <el-dropdown-item :command="2">Xuất file sản phẩm</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <el-button v-auth="['export-storeProduct']" class="export" v-db-click @click="onExports(0)">Xuất dữ liệu</el-button>
@@ -219,7 +219,7 @@
           </template>
         </el-table-column>
         <el-table-column type="selection" width="60" :reserve-selection="true"> </el-table-column>
-        <el-table-column label="hàng hóaID" min-width="90">
+        <el-table-column label="ID sản phẩm" min-width="90">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
@@ -263,7 +263,7 @@
               @click="activityDetail(scope.row, 2)"
               effect="dark"
             >
-              bán chớp nhoáng
+              Bán chớp nhoáng
             </el-tag>
           </template>
         </el-table-column>
@@ -282,17 +282,17 @@
             <span>{{ scope.row.sales }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="trong kho" min-width="100">
+        <el-table-column label="Trong kho" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.stock }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="loại" min-width="100">
+        <el-table-column label="Loại" min-width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="100">
+        <el-table-column label="Trạng thái" min-width="100">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -309,14 +309,14 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" minWidth="100">
+        <el-table-column label="Thao tác" fixed="right" minWidth="100">
           <template slot-scope="scope">
             <!-- <a v-db-click @click="look(scope.row)">Kiểm tra</a>
             <el-divider direction="vertical"></el-divider> -->
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
             <el-dropdown size="small">
-              <span class="el-dropdown-link">Hơn<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link">Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   <router-link :to="{ path: $routeProStr + '/product/product_reply/' + scope.row.id }"
@@ -332,8 +332,8 @@
                 <el-dropdown-item
                   v-if="artFrom.type === '6'"
                   v-db-click
-                  @click.native="del(scope.row, 'Khôi phục hàng hóa', scope.$index)"
-                  >Khôi phục hàng hóa</el-dropdown-item
+                  @click.native="del(scope.row, 'Khôi phục sản phẩm', scope.$index)"
+                  >Khôi phục sản phẩm</el-dropdown-item
                 >
                 <el-dropdown-item
                   v-if="artFrom.type === '6'"
@@ -390,7 +390,7 @@
         <el-row :gutter="24">
           <el-col :span="24" v-if="batchType == 1">
             <!--            <el-divider content-position="left">Cài đặt cơ bản</el-divider>-->
-            <el-form-item label="Phân loại sản phẩm：" prop="cate_id">
+            <el-form-item label="Danh mục sản phẩm：" prop="cate_id">
               <!-- <el-select v-model="batchFormData.cate_id" placeholder="Vui lòng chọn danh mục sản phẩm" multiple class="perW20">
                 <el-option v-for="item in treeSelect" :disabled="item.pid === 0" :value="item.id" :key="item.id">{{
                   item.html + item.cate_name
@@ -409,15 +409,15 @@
           <el-col :span="24" v-if="batchType == 2">
             <el-form-item label="Phương pháp hậu cần：" prop="logistics">
               <el-checkbox-group v-model="batchFormData.logistics" @change="logisticsBtn">
-                <el-checkbox label="1">chuyển phát nhanh</el-checkbox>
+                <el-checkbox label="1">Chuyển phát nhanh</el-checkbox>
                 <el-checkbox label="2">Đến cửa hàng</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
             <el-form-item label="Cài đặt phí vận chuyển：">
               <el-radio-group v-model="batchFormData.freight">
-                <!-- <el-radio :label="1">miễn phí vận chuyển</el-radio> -->
+                <!-- <el-radio :label="1">Miễn phí vận chuyển</el-radio> -->
                 <el-radio :label="2">Bưu phí cố định</el-radio>
-                <el-radio :label="3">Mẫu vận chuyển hàng hóa</el-radio>
+                <el-radio :label="3">Mẫu vận chuyển sản phẩm</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="" v-if="batchFormData.freight == 2">
@@ -433,7 +433,7 @@
             </el-form-item>
             <el-form-item label="" v-if="batchFormData.freight == 3" prop="temp_id">
               <div class="acea-row">
-                <el-select v-model="batchFormData.temp_id" clearable placeholder="Vui lòng chọn mẫu vận chuyển hàng hóa" style="width: 414px">
+                <el-select v-model="batchFormData.temp_id" clearable placeholder="Vui lòng chọn mẫu vận chuyển sản phẩm" style="width: 414px">
                   <el-option
                     v-for="(item, index) in templateList"
                     :value="item.id"
@@ -462,9 +462,9 @@
                   item.title
                 }}</el-tag>
               </div>
-              <el-button type="primary" v-db-click @click="addCoupon">thêm phiếu giảm giá</el-button>
+              <el-button type="primary" v-db-click @click="addCoupon">Thêm phiếu giảm giá</el-button>
             </el-form-item>
-            <el-form-item label="thẻ liên quan：" prop="label_id" v-if="batchType == 5">
+            <el-form-item label="Thẻ liên quan：" prop="label_id" v-if="batchType == 5">
               <div class="acea-row label_width">
                 <div class="labelInput acea-row row-between-wrapper" v-db-click @click="openLabel">
                   <div style="width: auto">
@@ -499,7 +499,7 @@
               <el-switch
                 v-model="batchFormData.is_gift"
                 class="defineSwitch"
-                active-text="bật lên"
+                active-text="Hoạt động"
                 inactive-text="đóng cửa"
                 :active-value="1"
                 :inactive-value="0"
@@ -508,7 +508,7 @@
               </el-switch>
               <div class="tips-info">Sau khi bật tính năng tặng quà, menu dưới cùng của chi tiết sản phẩm trên thiết bị đầu cuối di động sẽ hiển thị nút tặng quà.</div>
             </el-form-item>
-            <el-form-item v-if="batchFormData.is_gift" label="phụ phí quà tặng：">
+            <el-form-item v-if="batchFormData.is_gift" label="Phụ phí quà tặng：">
               <el-input-number
                 :controls="false"
                 :min="0"
@@ -849,7 +849,7 @@ export default {
         this.batchType = type;
         this.tagShow = true;
       } else if (type === 11) {
-        this.batchGoodsSetting('Di chuyển tất cả vào thùng rác', 1);
+        this.batchGoodsSetting('Di chuyển Tất cả vào thùng rác', 1);
       } else if (type === 12) {
         this.batchGoodsSetting('Khôi phục các mục đã chọn', 2);
       } else {
@@ -1164,11 +1164,11 @@ export default {
     },
     // Xuất dữ liệu；
     exportData: function () {
-      let th = ['Tên sản phẩm', 'Giới thiệu sản phẩm', 'Phân loại sản phẩm', 'giá', 'trong kho', 'Doanh số bán hàng', 'Số lượng người thu gom'];
+      let th = ['Tên sản phẩm', 'Giới thiệu sản phẩm', 'Danh mục sản phẩm', 'giá', 'Trong kho', 'Doanh số bán hàng', 'Số lượng người thu gom'];
       let filterVal = ['store_name', 'store_info', 'cate_name', 'price', 'stock', 'sales', 'collect'];
       this.where.page = 'nopage';
       getGoods(this.where).then((res) => {
-        let data = res.data.map((v) => filterVal.map((k) => v[k]));
+        let data = res.data.map((v) => FilterVal.map((k) => v[k]));
         let fileTime = Date.parse(new Date());
         let [fileName, fileType, sheetName] = ['Dữ liệu người bán_' + fileTime, 'xlsx', 'Dữ liệu người bán'];
         toExcel({ th, data, fileName, fileType, sheetName });

@@ -1,6 +1,6 @@
 <template>
   <div class="icon-style-settings">
-    <el-form-item label="màu biểu tượng">
+    <el-form-item label="Màu biểu tượng">
       <div class="row">
         <el-color-picker v-model="curComponent.propValue.color" @change="onChange" show-alpha></el-color-picker>
         <el-input
@@ -15,11 +15,11 @@
             curComponent.propValue.color = '#000000';
             onChange();
           "
-          >cài lại</span
+          >Đặt lại</span
         >
       </div>
     </el-form-item>
-    <el-form-item label="kích thước biểu tượng">
+    <el-form-item label="Kích thước biểu tượng">
       <div class="row">
         <el-slider
           v-model="curComponent.propValue.size"
@@ -44,7 +44,7 @@
         <el-radio-button label="flex-end"><span class="iconfont iconyouduiqi"></span></el-radio-button>
       </el-radio-group>
     </el-form-item>
-    <!-- <el-form-item label="góc quay">
+    <!-- <el-form-item label="Góc quay">
       <div class="row">
         <el-slider
           v-model="curComponent.style.rotate"

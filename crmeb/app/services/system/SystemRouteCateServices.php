@@ -107,6 +107,6 @@ class SystemRouteCateServices extends BaseServices
             FormBuilder::hidden('app_name', $appName)
         ];
 
-        return create_form($id ? 'Sửa đổi phân loại' : 'Thêm danh mục', $rule, $url, $id ? 'PUT' : 'POST');
+        return create_form($id ? 'Sửa danh mục' : 'Thêm danh mục', $rule, $url, $id ? 'PUT' : 'POST');
     }
 }

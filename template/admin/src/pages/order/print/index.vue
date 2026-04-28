@@ -6,7 +6,7 @@
         <div class="left acea-row row-middle">
           <!-- <div class="picture" :id="'qrCodeUrl' + index"></div> -->
           <div class="info">
-            <div><span class="name">người nhận hàng：</span>{{ orderData.user_name }}</div>
+            <div><span class="name">Người nhận hàng：</span>{{ orderData.user_name }}</div>
             <div><span class="name">Địa chỉ giao hàng：</span>{{ orderData.user_address }}</div>
             <div>
               <span class="name">Số điện thoại：</span><span>{{ orderData.user_phone }}</span>
@@ -14,8 +14,8 @@
           </div>
         </div>
         <div class="info">
-          <div><span class="name">số thứ tự：</span>{{ orderData.order_id }}</div>
-          <div><span class="name">thời gian thanh toán：</span>{{ orderData.pay_time }}</div>
+          <div><span class="name">Số thứ tự：</span>{{ orderData.order_id }}</div>
+          <div><span class="name">Thời gian thanh toán：</span>{{ orderData.pay_time }}</div>
           <div><span class="name">Phương thức thanh toán：</span>{{ orderData.pay_type }}</div>
         </div>
       </div>
@@ -31,12 +31,12 @@
               <span class="nickname">{{ scope.row.name }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="Thông số sản phẩm" minWidth="150">
+          <el-table-column label="Thuộc tính sản phẩm" minWidth="150">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.sku }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="đơn giá" width="80">
+          <el-table-column label="Đơn giá" width="80">
             <template slot-scope="scope">
               <span class="nickname">{{ scope.row.price }}</span>
             </template>
@@ -55,9 +55,9 @@
       </div>
       <div class="bottom acea-row row-between-wrapper">
         <div class="acea-row row-middle">
-          <div class="item"><span class="name">vận chuyển hàng hóa：</span>{{ orderData.pay_postage }}</div>
-          <div class="item"><span class="name">giảm giá：</span>{{ orderData.coupon_price }}</div>
-          <div class="item"><span class="name">giảm giá thành viên：</span>{{ orderData.vip_price }}</div>
+          <div class="item"><span class="name">Vận chuyển sản phẩm：</span>{{ orderData.pay_postage }}</div>
+          <div class="item"><span class="name">Giảm giá：</span>{{ orderData.coupon_price }}</div>
+          <div class="item"><span class="name">Giảm giá thành viên：</span>{{ orderData.vip_price }}</div>
           <div class="item"><span class="name">Trừ điểm：</span>{{ orderData.deduction_price }}</div>
         </div>
         <div class="pricePay">Số tiền thực trả：{{ orderData.pay_price }}</div>

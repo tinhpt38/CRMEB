@@ -151,7 +151,7 @@
                 "
               ></view>
             </div>
-            <text class="checkAll">Chọn tất cả</text>
+            <text class="checkAll">Chọn Tất cả</text>
           </view>
         </view>
         <view>
@@ -166,7 +166,7 @@
         <view class="small_box">
           <!-- <image src="../../../static/decorate.png" mode=""></image> -->
           <view class="content">
-            <view class="font">Xóa sổ thành công</view>
+            <view class="font">Xác nhận thành công</view>
             <view
               v-if="
                 list.total_num == parseInt(list.writeoff_count) + writeOffNum

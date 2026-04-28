@@ -33,7 +33,7 @@ export default {
       name: `${pre}list`,
       meta: {
         auth: ['admin-user-user-index'],
-        title: 'Quản lý người dùng',
+        title: 'Quản lý khách hàng',
       },
       component: () => import('@/pages/user/list/index'),
     },
@@ -43,7 +43,7 @@ export default {
       meta: {
         auth: ['user-user-level'],
         footer: true,
-        title: 'Cấp độ người dùng',
+        title: 'Hạng khách hàng',
       },
       component: () => import('@/pages/user/level/index'),
     },
@@ -53,7 +53,7 @@ export default {
       meta: {
         auth: ['user-user-group'],
         footer: true,
-        title: 'Nhóm người dùng',
+        title: 'Nhóm khách hàng',
       },
       component: () => import('@/pages/user/group/index'),
     },
@@ -63,7 +63,7 @@ export default {
       meta: {
         auth: ['user-user-label'],
         footer: true,
-        title: 'Thẻ người dùng',
+        title: 'Thẻ khách hàng',
       },
       component: () => import('@/pages/user/label/index'),
     },
@@ -73,7 +73,7 @@ export default {
       meta: {
         auth: ['user-user-cancel'],
         footer: true,
-        title: 'Thẻ người dùng',
+        title: 'Thẻ khách hàng',
       },
       component: () => import('@/pages/user/cancel/index'),
     },

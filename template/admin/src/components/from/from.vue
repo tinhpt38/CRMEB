@@ -5,9 +5,9 @@
         <div class="radio acea-row row-middle" v-if="FromData.action === '/marketing/coupon/save.html'">
           <div class="name ivu-form-item-content">Loại phiếu giảm giá</div>
           <el-radio-group v-model="type" @input="couponsType">
-            <el-radio :label="0">Phiếu giảm giá phổ quát</el-radio>
-            <el-radio :label="1">Phiếu giảm giá danh mục</el-radio>
-            <el-radio :label="2">phiếu giảm giá hàng hóa</el-radio>
+            <el-radio :label="0">Mã giảm giá phổ quát</el-radio>
+            <el-radio :label="1">Mã giảm giá danh mục</el-radio>
+            <el-radio :label="2">Mã giảm giá sản phẩm</el-radio>
           </el-radio-group>
         </div>
       </template>

@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="isTemplate"
-      :title="formItem.id ? 'Chỉnh sửa điểm đón' : 'Thêm điểm đón'"
+      :title="FormItem.id ? 'Chỉnh sửa điểm đón' : 'Thêm điểm đón'"
       width="720px"
       @closed="cancel"
       append-to-body
@@ -59,8 +59,8 @@
             </el-col>
             <!--<el-col :span="24">-->
             <!--<el-col v-bind="grid">-->
-            <!--<el-form-item label="Thời hạn xóa sổ：" label-for="valid_time">-->
-            <!--<DatePicker @change="onchangeDate" :value="formItem.valid_time" v-model="formItem.valid_time" format="yyyy/MM/dd" type="daterange" split-panels placeholder="Vui lòng chọn thời hạn xóa sổ" ></DatePicker>-->
+            <!--<el-form-item label="Thời hạn xác nhận：" label-for="valid_time">-->
+            <!--<DatePicker @change="onchangeDate" :value="formItem.valid_time" v-model="formItem.valid_time" format="yyyy/MM/dd" type="daterange" split-panels placeholder="Vui lòng chọn thời hạn xác nhận" ></DatePicker>-->
             <!--</el-form-item>-->
             <!--</el-col>-->
             <!--</el-col>-->
@@ -126,7 +126,7 @@
           <!-- <el-row>
               <div class="btn">
                 <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">{{
-                  formItem.id ? 'Ôn lại' : 'nộp'
+                  formItem.id ? 'Chỉnh sửa' : 'nộp'
                 }}</el-button>
               </div>
             </el-row> -->
@@ -135,7 +135,7 @@
         <el-dialog
           :visible.sync="modalPic"
           width="1024px"
-          :title="modalTitle"
+          :title="ModalTitle"
           :close-on-click-modal="false"
           append-to-body
         >
@@ -150,7 +150,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">{{
-          formItem.id ? 'Ôn lại' : 'nộp'
+          formItem.id ? 'Chỉnh sửa' : 'nộp'
         }}</el-button>
       </span>
     </el-dialog>
@@ -238,7 +238,7 @@ export default {
           {
             required: true,
             type: 'array',
-            message: 'Vui lòng chọn thời hạn xóa sổ',
+            message: 'Vui lòng chọn thời hạn xác nhận',
             trigger: 'change',
             fields: {
               0: { type: 'date', required: true, message: 'Vui lòng chọn phạm vi năm' },
@@ -382,7 +382,7 @@ export default {
       this.formItem.address = selectedData.map((o) => o.label);
       //  this.formItem.address2 = selectedData.map(o => o.value);
     },
-    // Thời hạn xóa sổ
+    // Thời hạn xác nhận
     onchangeDate(e) {
       this.formItem.valid_time = e;
     },

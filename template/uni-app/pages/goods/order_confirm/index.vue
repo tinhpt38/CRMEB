@@ -24,7 +24,7 @@
 							{{shippingType==0?'Trung tâm giao hàng':'Nhận tại cửa hàng'}}
 						</view>
 						<view class="text add-text line1" v-if="shippingType==0">{{$t(`Nền tảng cung cấp cho bạn dịch vụ giao hàng`)}}</view>
-						<view class="text add-text line1" v-if="shippingType==1">{{$t(`Đặt hàng trực tuyến và nhận hàng tại cửa hàng`)}}</view>
+						<view class="text add-text line1" v-if="shippingType==1">{{$t(`Đặt hàng online và nhận hàng tại cửa hàng`)}}</view>
 					</view>
 
 					<view class="text">{{shippingType == 0 ? $t('Chuyển đổi địa chỉ') : $t('Chuyển đổi cửa hàng')}} <text class='iconfont icon-jiantou'></text>
@@ -108,7 +108,7 @@
 			<view class='wrapper' v-if="!is_gift || is_gift == 1">
 				<view class='item acea-row row-between-wrapper' @tap='couponTap'
 					v-if="!pinkId && !BargainId && !combinationId && !seckillId&& !noCoupon && !discountId && !advanceId">
-					<view>{{$t(`Phiếu giảm giá`)}}</view>
+					<view>{{$t(`Mã giảm giá`)}}</view>
 					<view class='discount'>
 						{{couponTitle}}
 						<text class='iconfont icon-jiantou'></text>
@@ -373,7 +373,7 @@
 				textareaStatus: true,
 				//Phương thức thanh toán
 				cartArr: [{
-						"name": this.$t(`WeChat trả tiền`),
+						"name": this.$t(`Thanh toán WeChat`),
 						"icon": "icon-weixin2",
 						value: 'weixin',
 						title: this.$t(`Sử dụng Thanh toán nhanh WeChat`),

@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <el-dialog :visible.sync="modals" title="Chi tiết người dùng" :close-on-click-modal="false" width="720px">
+    <el-dialog :visible.sync="modals" title="Chi tiết khách hàng" :close-on-click-modal="false" width="720px">
       <div class="" v-loading="spinShow">
         <div class="dashboard-workplace-header-tip">
           <div class="dashboard-workplace-header-tip-desc">
@@ -8,9 +8,9 @@
             <span class="dashboard-workplace-header-tip-desc-sp"
               >Nhà quảng bá cấp cao：{{ detailsData.spread_name ? detailsData.spread_name : 'không có' }}</span
             >
-            <span class="dashboard-workplace-header-tip-desc-sp">tổng thu nhập hoa hồng：{{ detailsData.number }}</span>
+            <span class="dashboard-workplace-header-tip-desc-sp">Tổng thu nhập hoa hồng：{{ detailsData.number }}</span>
             <span class="dashboard-workplace-header-tip-desc-sp">Số dư người dùng：{{ detailsData.now_money }}</span>
-            <span class="dashboard-workplace-header-tip-desc-sp">thời gian sáng tạo：{{ detailsData.add_time }}</span>
+            <span class="dashboard-workplace-header-tip-desc-sp">Thời gian Tạo mới：{{ detailsData.add_time }}</span>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <!--                        </el-form-item>-->
           <!--                    </el-col>-->
           <el-col :span="12">
-            <el-form-item label="phạm vi thời gian：" class="tab_data">
+            <el-form-item label="Phạm vi thời gian：" class="tab_data">
               <el-date-picker
                 clearable
                 :editable="false"
@@ -45,7 +45,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary" v-db-click @click="userSearchs">tìm kiếm</el-button>
+            <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -57,12 +57,12 @@
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
         class="table"
       >
-        <el-table-column label="số tiền hoa hồng" min-width="130">
+        <el-table-column label="Số tiền hoa hồng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.number }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="có được thời gian" min-width="130">
+        <el-table-column label="Có được thời gian" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row._add_time }}</span>
           </template>

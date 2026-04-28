@@ -14,7 +14,7 @@
       </el-form-item>
       <div class="mask-footer">
         <el-button v-db-click @click="close">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">nộp</el-button>
+        <el-button type="primary" v-db-click @click="handleSubmit('formValidate')">Nộp</el-button>
       </div>
     </el-form>
   </div>

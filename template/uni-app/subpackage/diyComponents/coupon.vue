@@ -253,10 +253,10 @@ export default {
   filters: {
     typeFilter(val) {
       let obj = {
-        0: "Phiếu giảm giá phổ quát",
-        1: "Phiếu giảm giá danh mục",
-        2: "phiếu giảm giá hàng hóa",
-        3: "Phiếu giảm giá thương hiệu",
+        0: "Mã giảm giá phổ quát",
+        1: "Mã giảm giá danh mục",
+        2: "phiếu giảm giá sản phẩm",
+        3: "Mã giảm giá thương hiệu",
       };
       return obj[val];
     },

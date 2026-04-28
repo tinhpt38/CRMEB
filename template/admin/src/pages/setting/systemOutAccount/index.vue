@@ -4,7 +4,7 @@
       <el-alert type="warning" :closable="false" class="alert-info">
         <template slot="title">
           Nhận giao diện truy cập Token:<br />
-          hỏi URL: /outapi/access_token Phương thức yêu cầu: POST Thông số yêu cầu: appidvà dữ liệu trả về của ứng dụng: access_token: mã thông báo truy cập
+          Hỏi URL: /outapi/access_token Phương thức yêu cầu: POST Thông số yêu cầu: appidvà dữ liệu trả về của ứng dụng: access_token: mã thông báo truy cập
           exp_time: Thời gian hết hạn mã thông báo auth_info: Thông tin ủy quyền<br />
           Sử dụng Token thu được để truy cập vào giao diện bên ngoài:<br />
           Thêm trường Ủy quyền trong tiêu đề yêu cầu HTTP. Giá trị trường là Bearer access_token(Lưu ý rằng có một khoảng trống sau Bearer)
@@ -31,17 +31,17 @@
         v-loading="loading"
         highlight-current-row
       >
-        <el-table-column label="số seri" width="80">
+        <el-table-column label="Số seri" width="80">
           <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tài khoản" min-width="130">
+        <el-table-column label="Tài khoản" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.appid }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="mô tả" min-width="130">
+        <el-table-column label="Mô tả" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
@@ -56,12 +56,12 @@
             <span>{{ scope.row.last_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="lần đăng nhập cuối cùngip" min-width="130">
+        <el-table-column label="Lần đăng nhập cuối cùngip" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.ip }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="tình trạng" min-width="130">
+        <el-table-column label="Trạng thái" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -71,19 +71,19 @@
               :value="scope.row.status"
               @change="onchangeIsShow(scope.row)"
               size="large"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" fixed="right" width="140">
+        <el-table-column label="Thao tác" fixed="right" width="140">
           <template slot-scope="scope">
-            <a v-db-click @click="setUp(scope.row)">cài đặt</a>
+            <a v-db-click @click="setUp(scope.row)">Cài đặt</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(scope.row)">biên tập</a>
+            <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa tài khoản', scope.$index)">xóa bỏ</a>
+            <a v-db-click @click="del(scope.row, 'Xóa tài khoản', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -99,7 +99,7 @@
     </el-card>
     <el-dialog
       :visible.sync="modals"
-      :title="type == 0 ? 'Thêm tài khoản' : 'Chỉnh sửa tài khoản'"
+      :title="Type == 0 ? 'Thêm tài khoản' : 'Chỉnh sửa tài khoản'"
       :close-on-click-modal="false"
       :show-close="true"
       width="720px"
@@ -111,18 +111,18 @@
         label-width="80px"
         label-position="right"
       >
-        <el-form-item label="tài khoản：" prop="appid">
+        <el-form-item label="Tài khoản：" prop="appid">
           <div style="display: flex">
             <el-input type="text" v-model="modalsdate.appid" :disabled="type != 0"></el-input>
           </div>
         </el-form-item>
-        <el-form-item label="mật khẩu：" prop="appsecret">
+        <el-form-item label="Mật khẩu：" prop="appsecret">
           <div style="display: flex">
             <el-input type="text" v-model="modalsdate.appsecret" class="input"></el-input>
-            <el-button type="primary" v-db-click @click="reset" class="reset">ngẫu nhiên</el-button>
+            <el-button type="primary" v-db-click @click="reset" class="reset">Ngẫu nhiên</el-button>
           </div>
         </el-form-item>
-        <el-form-item label="mô tả：" prop="title">
+        <el-form-item label="Mô tả：" prop="title">
           <div style="display: flex">
             <el-input type="textarea" v-model="modalsdate.title"></el-input>
           </div>
@@ -171,16 +171,16 @@
         label-width="155px"
         label-position="right"
       >
-        <el-form-item label="công tắc đẩy：" prop="switch">
+        <el-form-item label="Công tắc đẩy：" prop="switch">
           <el-switch v-model="settingData.push_open" :active-value="1" :inactive-value="0" />
         </el-form-item>
-        <el-form-item label="đẩy tài khoản：" prop="push_account">
+        <el-form-item label="Đẩy tài khoản：" prop="push_account">
           <div class="form-content">
             <el-input type="text" v-model="settingData.push_account" placeholder="Vui lòng nhập tài khoản đẩy"></el-input>
             <span class="tips-info">Tài khoản chấp nhận bên đẩy để nhận mã thông báo</span>
           </div>
         </el-form-item>
-        <el-form-item label="đẩy mật khẩu：" prop="push_password">
+        <el-form-item label="Đẩy mật khẩu：" prop="push_password">
           <div class="form-content">
             <el-input type="text" v-model="settingData.push_password" placeholder="Vui lòng nhập mật khẩu đẩy"></el-input>
             <span class="tips-info">Bên nhận nhận được mật khẩu của mã thông báo</span>
@@ -190,7 +190,7 @@
           <div class="form-content">
             <div class="input-button">
               <el-input type="text" v-model="settingData.push_token_url" placeholder="Vui lòng nhập để nhận giao diện TOKEN"></el-input>
-              <el-button class="ml10" type="primary" v-db-click @click="textOutUrl(settingData.id)">liên kết kiểm tra</el-button>
+              <el-button class="ml10" type="primary" v-db-click @click="textOutUrl(settingData.id)">Liên kết kiểm tra</el-button>
             </div>
             <span class="tips-info"
               >Bên đẩy nhận được địa chỉ URL của mã thông báo, phương thức POST, chuyển vào Push_account và Push_password, đồng thời trả về mã thông báo và thời gian hiệu lực.time(Thứ hai)</span

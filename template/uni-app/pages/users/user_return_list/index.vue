@@ -91,7 +91,7 @@
 				isShowAuth: false, //Có ẩn ủy quyền hay không
 				tabsList: [{
 					key: 0,
-					name: this.$t(`tất cả`)
+					name: this.$t(`Tất cả`)
 				},
 				{
 					key: 1,

@@ -55,7 +55,7 @@
     <template v-if="listData">
       <div class="add-btn" v-if="type == 2 || (type == 5 && listData.length < 5)">
         <el-button type="primary" ghost style="width: 100px; color: #fff; font-size: 13px" v-db-click @click="addBox"
-          >Thêm vào{{ type == 5 ? 'quảng cáo' : 'Phục vụ' }}</el-button
+          >Thêm mới{{ type == 5 ? 'quảng cáo' : 'Phục vụ' }}</el-button
         >
       </div>
     </template>

@@ -5,17 +5,17 @@
       <el-form-item label="Hướng đường">
         <el-radio-group v-model="curComponent.propValue.direction" @change="handleLineDirectionChange">
           <el-radio label="horizontal">Nằm ngang</el-radio>
-          <el-radio label="vertical">thẳng đứng</el-radio>
+          <el-radio label="vertical">Thẳng đứng</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="kiểu đường">
+      <el-form-item label="Kiểu đường">
         <el-radio-group v-model="curComponent.propValue.style" @change="onChange">
-          <el-radio label="solid">đường liền nét</el-radio>
-          <el-radio label="dashed">đường chấm chấm</el-radio>
-          <el-radio label="dotted">đường chấm chấm</el-radio>
+          <el-radio label="solid">Đường liền nét</el-radio>
+          <el-radio label="dashed">Đường chấm chấm</el-radio>
+          <el-radio label="dotted">Đường chấm chấm</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="chiều dài dòng">
+      <el-form-item label="Chiều dài dòng">
         <div class="row">
           <el-slider
             v-model="lineLength"
@@ -33,7 +33,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="độ dày đường">
+      <el-form-item label="Độ dày đường">
         <div class="row">
           <el-slider
             v-model="lineThickness"
@@ -51,7 +51,7 @@
           ></el-input-number>
         </div>
       </el-form-item>
-      <el-form-item label="màu đường">
+      <el-form-item label="Màu đường">
         <div class="row">
           <el-color-picker v-model="curComponent.propValue.color" @change="onChange"></el-color-picker>
           <el-input
@@ -66,7 +66,7 @@
               curComponent.propValue.color = '#000000';
               onChange();
             "
-            >cài lại</el-button
+            >Đặt lại</el-button
           >
         </div>
       </el-form-item>

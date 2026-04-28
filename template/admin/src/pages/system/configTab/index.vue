@@ -55,7 +55,7 @@
         <vxe-table-column field="id" title="ID" tooltip width="85"></vxe-table-column>
         <vxe-table-column field="title" tree-node title="Tên danh mục" min-width="150"></vxe-table-column>
         <vxe-table-column field="eng_title" title="Trường phân loại" min-width="150"></vxe-table-column>
-        <vxe-table-column field="statuss" title="tình trạng" width="250">
+        <vxe-table-column field="statuss" title="Trạng thái" width="250">
           <template v-slot="{ row }">
             <el-switch
               :active-value="1"
@@ -68,13 +68,13 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="action" title="vận hành" width="160" fixed="right">
+        <vxe-table-column field="action" title="Thao tác" width="160" fixed="right">
           <template v-slot="{ row, index }">
             <a v-db-click @click="goList(row)">Danh sách cấu hình</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="edit(row)">biên tập</a>
+            <a v-db-click @click="edit(row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, 'Xóa danh mục', index)">xóa bỏ</a>
+            <a v-db-click @click="del(row, 'Xóa danh mục', index)">Xóa</a>
           </template>
         </vxe-table-column>
       </vxe-table>

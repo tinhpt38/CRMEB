@@ -16,13 +16,13 @@
           @change="selectChange2"
           class="form_content_width"
         >
-          <el-option value="" label="tất cả"></el-option>
+          <el-option value="" label="Tất cả"></el-option>
           <el-option value="1" label="Không được vận chuyển"></el-option>
           <el-option value="2" label="Đang chờ nhận"></el-option>
           <el-option value="3" label="giao dịch đã hoàn tất"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="thời gian sáng tạo：">
+      <el-form-item label="Thời gian Tạo mới：">
         <el-date-picker
           clearable
           v-model="timeVal"
@@ -40,7 +40,7 @@
       <el-form-item label="Tìm kiếm đơn hàng：" prop="real_name" label-for="real_name">
         <el-input clearable v-model="orderData.real_name" placeholder="Vui lòng nhập" class="form_content_width">
           <el-select v-model="orderData.field_key" slot="prepend" style="width: 100px">
-            <el-option value="all" label="tất cả"></el-option>
+            <el-option value="all" label="Tất cả"></el-option>
             <el-option value="order_id" label="Số đơn hàng"></el-option>
             <el-option value="uid" label="UID"></el-option>
             <el-option value="real_name" label="Tên người dùng"></el-option>
@@ -50,7 +50,7 @@
         </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-db-click @click="orderSearch">Truy vấn</el-button>
+        <el-button type="primary" v-db-click @click="orderSearch">Tìm kiếm</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -98,8 +98,8 @@ export default {
       modals2: false,
       timeVal: [],
       payList: [
-        { label: 'tất cả', val: '' },
-        { label: 'WeChat trả tiền', val: '1' },
+        { label: 'Tất cả', val: '' },
+        { label: 'Thanh toán WeChat', val: '1' },
         { label: 'thanh toán Alipay', val: '4' },
         { label: 'thanh toán số dư', val: '2' },
         { label: 'Thanh toán ngoại tuyến', val: '3' },
@@ -384,7 +384,7 @@ export default {
     },
     // Tự động hủy vận chuyển số lượng lớn
     autoModalOk() {
-      if (this.isAll == 'tất cả' || this.formSelection.length) {
+      if (this.isAll == 'Tất cả' || this.formSelection.length) {
         this.$refs.send.modals = true;
         this.$refs.send.getList();
         this.$refs.send.getDeliveryList();

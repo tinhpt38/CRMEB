@@ -10,7 +10,7 @@
 /**
  * @description Hướng dẫn xác thực
  * Khi người dùng hiện tại không được cấp quyền, thành phần sẽ bị xóa
- * Các trường hợp sử dụng：<Tag v-auth="['admin']">text</Tag>
+ * Các trường hợp sử dụng：<Tag v-auth="['admin']">Text</Tag>
  * */
 import store from '@/store';
 import { includeArray } from '@/libs/auth';

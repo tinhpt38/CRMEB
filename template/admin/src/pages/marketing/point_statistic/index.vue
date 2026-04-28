@@ -41,7 +41,7 @@
             highlight-current-row
           >
             <el-table-column type="index" width="60"> </el-table-column>
-            <el-table-column label="nguồn" min-width="80">
+            <el-table-column label="Nguồn" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
@@ -81,7 +81,7 @@
             highlight-current-row
           >
             <el-table-column type="index" width="60"> </el-table-column>
-            <el-table-column label="nguồn" min-width="80">
+            <el-table-column label="Nguồn" min-width="80">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>

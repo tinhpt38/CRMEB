@@ -8,7 +8,7 @@
 				<view class="txt">{{$t(`Nhận ủy quyền số điện thoại di động`)}}</view>
 			</view>
 			<button class="sub_btn" open-type="getPhoneNumber"
-				@getphonenumber="getphonenumber">{{$t(`Nhận số điện thoại di động`)}}</button>
+				@getphonenumber="getphonenumber">{{$t(`SĐT người nhận di động`)}}</button>
 		</view>
 	</view>
 </template>

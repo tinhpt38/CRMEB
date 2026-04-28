@@ -97,7 +97,7 @@ Vue.prototype.$moment = moment;
 VueClipboard.config.copyText = true;
 
 // Đăng ký plugin
-Vue.use(Element, { i18n: (key, value) => i18n.t(key, value), size: 'small' });
+Vue.use(Element, { i18n: (key, value) => I18n.t(key, value), size: 'small' });
 Vue.use(formCreate);
 Vue.use(VueCodeMirror);
 Vue.use(VueDND);
@@ -212,7 +212,7 @@ fetch(`${settings.apiBaseURL}/custom_admin_js`)
       const doc = parser.parseFromString(content, 'text/html');
       const scripts = doc.querySelectorAll('script');
 
-      externalScripts = Array.from(scripts).filter((script) => script.src);
+      externalScripts = Array.from(scripts).filter((script) => Script.src);
       inlineScripts = Array.from(scripts).filter((script) => !script.src);
     } else {
       // Trường hợp 2: Không có<script>thẻ, được xử lý trực tiếp dưới dạng tập lệnh nội tuyến

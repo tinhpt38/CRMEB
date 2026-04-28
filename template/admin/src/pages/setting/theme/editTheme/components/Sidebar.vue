@@ -2,7 +2,7 @@
   <div class="sidebar-container" :class="{ collapsed }">
     <div class="back-btn" @click="goBack">
       <i class="el-icon-arrow-left"></i>
-      <span v-if="!collapsed">trở lại</span>
+      <span v-if="!collapsed">Trở lại</span>
     </div>
 
     <div class="menu-list">
@@ -47,7 +47,7 @@ export default {
     return {
       menuList: [
         { key: 'home', name: 'Trang chủ trung tâm mua sắm', icon: 'iconic_home' },
-        { key: 'category', name: 'Phân loại sản phẩm', icon: 'icona-ic_Picturearrangement' },
+        { key: 'category', name: 'Danh mục sản phẩm', icon: 'icona-ic_Picturearrangement' },
         { key: 'detail', name: 'Chi tiết sản phẩm', icon: 'iconic_commodity' },
         { key: 'user', name: 'Trung tâm cá nhân', icon: 'icona-ic_user1' },
         { key: 'theme', name: 'phong cách trung tâm mua sắm', icon: 'iconic_zhuti' },
@@ -60,7 +60,7 @@ export default {
       let type = this.$route.query.type;
       if (this.unsaved) {
         this.$confirm('Bạn có chắc chắn muốn rời khỏi trang này? Những thay đổi của bạn có thể không được lưu。', 'gợi ý', {
-          confirmButtonText: 'cứu',
+          confirmButtonText: 'Lưu',
           cancelButtonText: 'Đừng lưu',
           type: 'warning',
           distinguishCancelAndClose: true,
@@ -83,7 +83,7 @@ export default {
     goBack() {
       let type = this.$route.query.type;
       this.$confirm('Bạn có chắc chắn muốn rời khỏi trang này? Những thay đổi của bạn có thể không được lưu。', 'gợi ý', {
-        confirmButtonText: 'cứu',
+        confirmButtonText: 'Lưu',
         cancelButtonText: 'từ bỏ',
         type: 'warning',
         distinguishCancelAndClose: true,

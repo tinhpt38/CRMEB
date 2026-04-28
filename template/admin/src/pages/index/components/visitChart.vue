@@ -15,9 +15,9 @@
               </el-col>
               <el-col :span="16" class="ivu-text-right">
                 <el-radio-group v-model="visitDate" type="button" class="ivu-mr-8" @input="handleChangeVisitType">
-                  <el-radio-button label="thirtyday">30bầu trời</el-radio-button>
-                  <el-radio-button label="week">tuần</el-radio-button>
-                  <el-radio-button label="month">mặt trăng</el-radio-button>
+                  <el-radio-button label="thirtyday">30 ngày</el-radio-button>
+                  <el-radio-button label="week">Tuần</el-radio-button>
+                  <el-radio-button label="month">Tháng</el-radio-button>
                   <el-radio-button label="year">Năm</el-radio-button>
                 </el-radio-group>
               </el-col>

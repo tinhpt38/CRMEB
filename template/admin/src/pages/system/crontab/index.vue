@@ -25,7 +25,7 @@
         >Thêm một nhiệm vụ theo lịch trình</el-button
       >
       <el-table :data="tableData" v-loading="loading" class="ivu-mt">
-        <el-table-column label="tiêu đề" min-width="150">
+        <el-table-column label="Tiêu đề" min-width="150">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
@@ -35,7 +35,7 @@
             <span>{{ scope.row.content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="chu kỳ thực hiện" min-width="130">
+        <el-table-column label="Chu kỳ thực hiện" min-width="130">
           <template slot-scope="scope">
             <span>{{ taskTrip(scope.row) }}</span>
           </template>
@@ -49,22 +49,22 @@
               v-model="scope.row.is_open"
               size="large"
               @change="handleChange(scope.row)"
-              active-text="bật lên"
+              active-text="Hoạt động"
               inactive-text="đóng cửa"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="vận hành" width="100">
+        <el-table-column label="Thao tác" width="100">
           <template slot-scope="scope">
-            <a v-db-click @click="edit(scope.row.id)">biên tập</a>
+            <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical" v-if="currentTab === '1'"></el-divider>
             <a
               v-if="currentTab === '1'"
               v-permission="'seckill'"
               v-db-click
               @click="handleDelete(scope.row, 'Xóa nhiệm vụ đã lên lịch', scope.$index)"
-              >xóa bỏ</a
+              >Xóa</a
             >
           </template>
         </el-table-column>
@@ -121,7 +121,7 @@ export default {
         case 7:
           return `mỗi tháng${row.day}tiếng Nhật${row.hour}giờ${row.minute}điểm${row.second}Thực hiện một lần mỗi giây`;
         case 8:
-          return `mỗi năm${row.month}mặt trăng${row.day}tiếng Nhật${row.hour}giờ${row.minute}điểm${row.second}Thực hiện một lần mỗi giây`;
+          return `mỗi năm${row.month}tháng${row.day}tiếng Nhật${row.hour}giờ${row.minute}điểm${row.second}Thực hiện một lần mỗi giây`;
       }
     },
     // danh sách

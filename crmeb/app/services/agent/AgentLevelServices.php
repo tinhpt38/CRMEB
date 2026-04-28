@@ -328,7 +328,7 @@ class AgentLevelServices extends BaseServices
             return $menus;
         };
         $field[] = Form::hidden('uid', $uid);
-        $field[] = Form::select('id', 'Cấp độ phân phối', $userInfo['agent_level'] != 0 ? $userInfo['agent_level'] : '')->setOptions(Form::setOptions($setOptionLabel))->filterable(true);
+        $field[] = Form::select('id', 'Cấp bậc Affiliate', $userInfo['agent_level'] != 0 ? $userInfo['agent_level'] : '')->setOptions(Form::setOptions($setOptionLabel))->filterable(true);
         return create_form('Sửa đổi mức phân phối', $field, Url::buildUrl('/agent/give_level'), 'post');
     }
 
@@ -351,7 +351,7 @@ class AgentLevelServices extends BaseServices
         }
         $levelInfo = $this->getLevelInfo($id, 'id');
         if (!$levelInfo) {
-            throw new AdminException('Cấp độ phân phối không tồn tại');
+            throw new AdminException('Cấp bậc Affiliate không tồn tại');
         }
         if ($userServices->update($uid, ['agent_level' => $id]) === false) {
             throw new AdminException('Quà tặng không thành công');
@@ -369,7 +369,7 @@ class AgentLevelServices extends BaseServices
         // Nhận thông tin về mức phân phối được chỉ định
         $levelInfo = $this->getLevelInfo($id);
         // Xây dựng hộp nhập số lượng nhiệm vụ
-        $field[] = Form::input('task_num', 'Số lượng nhiệm vụ đã hoàn thành', $levelInfo['task_num'])->maxlength(8)->col(24)->info('Theo mặc định, tất cả các nâng cấp đều được hoàn thành và có thể đặt số lượng nhiệm vụ nâng cấp.');
+        $field[] = Form::input('task_num', 'Số lượng nhiệm vụ đã hoàn thành', $levelInfo['task_num'])->maxlength(8)->col(24)->info('Theo mặc định, Tất cả các nâng cấp đều được hoàn thành và có thể đặt số lượng nhiệm vụ nâng cấp.');
         // Tạo biểu mẫu và trả về chuỗi HTML
         return create_form('Đặt số lượng nhiệm vụ đã hoàn thành', $field, Url::buildUrl('/agent/set_task_num/' . $id), 'post');
     }
@@ -384,7 +384,7 @@ class AgentLevelServices extends BaseServices
     public function setTaskNum($id, $data)
     {
         // Xác định xem mức độ phân phối có tồn tại hay không
-        if (!$id) throw new AdminException('Cấp độ phân phối không tồn tại');
+        if (!$id) throw new AdminException('Cấp bậc Affiliate không tồn tại');
         // Xác định xem số lượng nhiệm vụ có trống không
         if (!$data['task_num']) throw new AdminException('Vui lòng nhập số lượng nhiệm vụ');
         // Lấy số lượng nhiệm vụ hiện có ở cấp độ phân phối hiện tại

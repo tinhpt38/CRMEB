@@ -93,7 +93,7 @@
                   @change="handleChange"
                 ></el-cascader>
               </el-form-item>
-              <el-form-item label="mã QR：" prop="region">
+              <el-form-item label="Mã QR：" prop="region">
                 <div class="code" ref="qrCodeUrl"></div>
                 <div class="trip">Quét mã QR để tải ảnh nhanh lên điện thoại di động của bạn</div>
                 <div class="trip-small">Nên sử dụng trình duyệt di động</div>

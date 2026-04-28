@@ -326,7 +326,7 @@ class StoreOrderServices extends BaseServices
                 $status['_class'] = 'state-sqtk';
             } else if ($order['refund_status'] == 4) {
                 $status['_type'] = -1;
-                $status['_title'] = 'Tất cả các đơn đặt hàng phụ đã được áp dụng để hoàn lại tiền.';
+                $status['_title'] = 'Tất cả đơn hàng phụ đã được áp dụng để hoàn lại tiền.';
                 $status['_msg'] = 'Chia lô hàng, hoàn lại toàn bộ số tiền';
                 $status['_class'] = 'state-sqtk';
             } else if (!$order['status']) {
@@ -341,7 +341,7 @@ class StoreOrderServices extends BaseServices
                     } else {
                         $status['_type'] = 1;
                         $status['_title'] = 'Không được vận chuyển';
-                        $status['_msg'] = 'Người bán chưa vận chuyển hàng hóa,Vui lòng chờ';
+                        $status['_msg'] = 'Người bán chưa vận chuyển sản phẩm,Vui lòng chờ';
                         $status['_class'] = 'state-nfh';
                     }
                 } else {
@@ -351,13 +351,13 @@ class StoreOrderServices extends BaseServices
                         if ($order['advance_id']) {
                             $status['_msg'] = date('Y-m-d', $order['cartInfo'][0]['productInfo']['presale_end_time']) . 'Sau khi đợt bán trước kết thúc' . $order['cartInfo'][0]['productInfo']['presale_day'] . 'Giao hàng trong ngày,Vui lòng chờ';
                         } else {
-                            $status['_msg'] = 'Người bán chưa vận chuyển hàng hóa,Vui lòng chờ';
+                            $status['_msg'] = 'Người bán chưa vận chuyển sản phẩm,Vui lòng chờ';
                         }
                         $status['_class'] = 'state-nfh';
                     } elseif ($order['shipping_type'] === 2) {
                         $status['_type'] = 1;
-                        $status['_title'] = 'Đang chờ xóa sổ';
-                        $status['_msg'] = 'Đang chờ xóa sổ,Vui lòng đến điểm xác minh để xác minh';
+                        $status['_title'] = 'Chờ xử lý';
+                        $status['_msg'] = 'Chờ xử lý,Vui lòng đến điểm xác minh để xác minh';
                         $status['_class'] = 'state-nfh';
                     } else {
                         $status['_type'] = 1;
@@ -495,47 +495,47 @@ class StoreOrderServices extends BaseServices
             if (($item['pink_id'] || $item['combination_id']) && isset($item['pinkStatus'])) {
                 switch ($item['pinkStatus']) {
                     case 1:
-                        $item['pink_name'] = '[Thứ tự nhóm]đang tiến hành';
+                        $item['pink_name'] = '[Đơn hàng mua chung]đang tiến hành';
                         $item['color'] = '#f00';
                         break;
                     case 2:
-                        $item['pink_name'] = '[Thứ tự nhóm]Hoàn thành';
+                        $item['pink_name'] = '[Đơn hàng mua chung]Hoàn thành';
                         $item['color'] = '#00f';
                         break;
                     case 3:
-                        $item['pink_name'] = '[Thứ tự nhóm]Chưa hoàn thành';
+                        $item['pink_name'] = '[Đơn hàng mua chung]Chưa hoàn thành';
                         $item['color'] = '#f0f';
                         break;
                     default:
-                        $item['pink_name'] = '[Thứ tự nhóm]Lệnh lịch sử';
+                        $item['pink_name'] = '[Đơn hàng mua chung]Lệnh lịch sử';
                         $item['color'] = '#FF7D00';
                         break;
                 }
             } elseif ($item['combination_id']) {
-                $item['pink_name'] = '[Thứ tự nhóm]';
+                $item['pink_name'] = '[Đơn hàng mua chung]';
                 $item['color'] = '#FF7D00';
             } elseif ($item['seckill_id']) {
-                $item['pink_name'] = '[Đơn hàng flash sale]';
+                $item['pink_name'] = '[Đơn hàng Flash Sale]';
                 $item['color'] = '#3491FA';
             } elseif ($item['bargain_id']) {
-                $item['pink_name'] = '[lệnh mặc cả]';
+                $item['pink_name'] = '[Đơn hàng mặc cả]';
                 $item['color'] = '#F7BA1E';
             } elseif ($item['advance_id']) {
-                $item['pink_name'] = '[Đặt hàng trước khi bán]';
+                $item['pink_name'] = '[Đơn đặt trước]';
                 $item['color'] = '#B27FEB';
             } else {
                 if ($item['shipping_type'] == 1) {
-                    $item['pink_name'] = '[Thứ tự thông thường]';
+                    $item['pink_name'] = '[Đơn hàng thông thường]';
                     $item['color'] = '#333';
                 } else if ($item['shipping_type'] == 2) {
-                    $item['pink_name'] = '[Viết đơn đặt hàng]';
+                    $item['pink_name'] = '[Xác nhận đơn hàng]';
                     $item['color'] = '#8956E8';
                 }
             }
             if ($item['paid'] == 1) {
                 switch ($item['pay_type']) {
                     case PayServices::WEIXIN_PAY:
-                        $item['pay_type_name'] = 'WeChat trả tiền';
+                        $item['pay_type_name'] = 'Thanh toán WeChat';
                         break;
                     case PayServices::YUE_PAY:
                         $item['pay_type_name'] = 'thanh toán số dư';
@@ -805,7 +805,7 @@ HTML;
         $f[] = Form::input('order_id', 'số thứ tự', $product->getData('order_id'))->disabled(true);
         $f[] = Form::hidden('total_price', (float)$product->getData('total_price'));
         $f[] = Form::hidden('pay_postage', (float)$product->getData('pay_postage') ?: 0);
-        $f[] = Form::number('pay_price', 'số tiền thanh toán thực tế', (float)$product->getData('pay_price'))->min(0);
+        $f[] = Form::number('pay_price', 'số tiền Thanh toán thực tế', (float)$product->getData('pay_price'))->min(0);
         $f[] = Form::number('gain_integral', 'Tặng điểm', (float)$product->getData('gain_integral') ?: 0)->min(0);
         return create_form('Sửa đổi thứ tự', $f, $this->url('/order/update/' . $id), 'PUT');
     }
@@ -852,7 +852,7 @@ HTML;
                     'oid' => $id,
                     'change_type' => 'order_edit',
                     'change_time' => time(),
-                    'change_message' => 'Sửa đổi tổng giá của sản phẩm thành：' . $data['total_price'] . ' số tiền thanh toán thực tế' . $data['pay_price']
+                    'change_message' => 'Sửa đổi tổng giá của sản phẩm thành：' . $data['total_price'] . ' số tiền Thanh toán thực tế' . $data['pay_price']
                 ]);
             if (isset($data['gain_integral'])) {
                 $res = $res && $services->save([
@@ -1595,7 +1595,7 @@ HTML;
         $info[0]['title'] = 'việc bán hàng';
         $info[1]['title'] = 'Lượt truy cập của người dùng';
         $info[2]['title'] = 'Số lượng đặt hàng';
-        $info[3]['title'] = 'Thêm người dùng mới';
+        $info[3]['title'] = 'Thêm khách hàng mới';
         $info[0]['total_name'] = 'doanh số tháng này';
         $info[1]['total_name'] = 'Lượt truy cập trong tháng này';
         $info[2]['total_name'] = 'Số lượng đặt hàng trong tháng này';
@@ -2147,34 +2147,34 @@ HTML;
                 $pinkStatus = $pinkService->value(['order_id_key' => $item['id']], 'status');
                 switch ($pinkStatus) {
                     case 1:
-                        $item['pink_name'] = '[Thứ tự nhóm]đang tiến hành';
+                        $item['pink_name'] = '[Đơn hàng mua chung]đang tiến hành';
                         $item['color'] = '#f00';
                         break;
                     case 2:
-                        $item['pink_name'] = '[Thứ tự nhóm]Hoàn thành';
+                        $item['pink_name'] = '[Đơn hàng mua chung]Hoàn thành';
                         $item['color'] = '#00f';
                         break;
                     case 3:
-                        $item['pink_name'] = '[Thứ tự nhóm]Chưa hoàn thành';
+                        $item['pink_name'] = '[Đơn hàng mua chung]Chưa hoàn thành';
                         $item['color'] = '#f0f';
                         break;
                     default:
-                        $item['pink_name'] = '[Thứ tự nhóm]Lệnh lịch sử';
+                        $item['pink_name'] = '[Đơn hàng mua chung]Lệnh lịch sử';
                         $item['color'] = '#457856';
                         break;
                 }
             } elseif ($item['seckill_id']) {
-                $item['pink_name'] = '[Đơn hàng flash sale]';
+                $item['pink_name'] = '[Đơn hàng Flash Sale]';
                 $item['color'] = '#32c5e9';
             } elseif ($item['bargain_id']) {
-                $item['pink_name'] = '[lệnh mặc cả]';
+                $item['pink_name'] = '[Đơn hàng mặc cả]';
                 $item['color'] = '#12c5e9';
             } else {
                 if ($item['shipping_type'] == 1) {
-                    $item['pink_name'] = '[Thứ tự thông thường]';
+                    $item['pink_name'] = '[Đơn hàng thông thường]';
                     $item['color'] = '#895612';
                 } else if ($item['shipping_type'] == 2) {
-                    $item['pink_name'] = '[Viết đơn đặt hàng]';
+                    $item['pink_name'] = '[Xác nhận đơn hàng]';
                     $item['color'] = '#8956E8';
                 }
             }
@@ -2303,7 +2303,7 @@ HTML;
         $data = $this->dao->getRefundList($where, $page, $limit);
         if ($data['list']) $data['list'] = $this->tidyOrderList($data['list']);
         $data['num'] = [
-            0 => ['name' => 'tất cả', 'num' => $this->dao->count(['refund_type' => 0, 'is_system_del' => 0])],
+            0 => ['name' => 'Tất cả', 'num' => $this->dao->count(['refund_type' => 0, 'is_system_del' => 0])],
             1 => ['name' => 'Chỉ hoàn tiền', 'num' => $this->dao->count(['refund_type' => 1, 'is_system_del' => 0])],
             2 => ['name' => 'Trả lại và hoàn tiền', 'num' => $this->dao->count(['refund_type' => 2, 'is_system_del' => 0])],
             3 => ['name' => 'Từ chối hoàn tiền', 'num' => $this->dao->count(['refund_type' => 3, 'is_system_del' => 0])],

@@ -1029,7 +1029,7 @@
     },
     {
       "icon_id": "32858092",
-      "name": "Đang chờ xóa sổ",
+      "name": "Đang chờ xác nhận",
       "font_class": "daihexiao",
       "unicode": "e825",
       "unicode_decimal": 59429
@@ -1078,7 +1078,7 @@
     },
     {
       "icon_id": "32616169",
-      "name": "Mã xóa sổ",
+      "name": "Mã xác nhận",
       "font_class": "hexiaoma",
       "unicode": "e81c",
       "unicode_decimal": 59420
@@ -1113,7 +1113,7 @@
     },
     {
       "icon_id": "32506034",
-      "name": "Sự cân bằng",
+      "name": "Số dư",
       "font_class": "yue2",
       "unicode": "e8b0",
       "unicode_decimal": 59568
@@ -1442,7 +1442,7 @@
     },
     {
       "icon_id": "29123219",
-      "name": "tích phân",
+      "name": "điểm thưởng",
       "font_class": "jifen",
       "unicode": "e7f3",
       "unicode_decimal": 59379
@@ -1554,7 +1554,7 @@
     },
     {
       "icon_id": "28495815",
-      "name": "pc-tích phân",
+      "name": "pc-điểm thưởng",
       "font_class": "pc-jifen",
       "unicode": "e7e3",
       "unicode_decimal": 59363
@@ -3094,7 +3094,7 @@
     },
     {
       "icon_id": "17580359",
-      "name": "Sự cân bằng",
+      "name": "Số dư",
       "font_class": "yue1",
       "unicode": "e6dc",
       "unicode_decimal": 59100
@@ -3472,7 +3472,7 @@
     },
     {
       "icon_id": "17178966",
-      "name": "Sự cân bằng",
+      "name": "Số dư",
       "font_class": "yue",
       "unicode": "e699",
       "unicode_decimal": 59033
