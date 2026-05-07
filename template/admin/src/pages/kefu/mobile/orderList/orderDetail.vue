@@ -43,14 +43,14 @@
           </div>
         </div>
         <div class="money">
-          <div class="x-money">￥{{ item.productInfo.attrInfo.price }}</div>
+          <div class="x-money">đ{{ item.productInfo.attrInfo.price }}</div>
           <div class="num">X{{ item.cart_num }}</div>
-          <div class="y-money">￥{{ item.productInfo.ot_price }}</div>
+          <div class="y-money">đ{{ item.productInfo.ot_price }}</div>
         </div>
       </div>
     </div>
     <div class="public-total">
-      Chung{{ orderInfo.cart_num }}khoản mục phải trả <span class="money">￥{{ orderInfo.pay_price }}</span> ( Bưu phí ¥{{
+      Chung{{ orderInfo.cart_num }}khoản mục phải trả <span class="money">đ{{ orderInfo.pay_price }}</span> ( Bưu phí đ{{
         orderInfo.pay_postage
       }}
       )
@@ -87,18 +87,18 @@
     <div class="wrapper">
       <div class="item acea-row row-between">
         <div>Số tiền thanh toán：</div>
-        <div class="conter">￥{{ orderInfo.total_price }}</div>
+        <div class="conter">đ{{ orderInfo.total_price }}</div>
       </div>
       <div class="item acea-row row-between">
         <div>Khấu trừ phiếu giảm giá：</div>
-        <div class="conter">-￥{{ orderInfo.coupon_price }}</div>
+        <div class="conter">-đ{{ orderInfo.coupon_price }}</div>
       </div>
       <div class="item acea-row row-between">
         <div>Vận chuyển sản phẩm：</div>
-        <div class="conter">￥{{ orderInfo.total_postage }}</div>
+        <div class="conter">đ{{ orderInfo.total_postage }}</div>
       </div>
       <div class="actualPay acea-row row-right">
-        Thanh toán thực tế：<span class="money font-color-red">￥{{ orderInfo.pay_price }}</span>
+        Thanh toán thực tế：<span class="money font-color-red">đ{{ orderInfo.pay_price }}</span>
       </div>
     </div>
     <div class="wrapper" v-if="orderInfo.deliveryType === 'express'">

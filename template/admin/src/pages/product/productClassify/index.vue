@@ -2,7 +2,7 @@
   <div class="article-manager">
     <el-card :bordered="false" shadow="never" class="ivu-mt" :body-style="{ padding: 0 }">
       <div class="padding-add">
-        <el-form ref="artFrom" :model="artFrom" inline label-width="80px" label-position="right" @submit.native.prevent>
+        <el-form ref="artFrom" :model="artFrom" inline label-width="80px" label-position="top" @submit.native.prevent>
           <el-form-item label="Danh mục sản phẩm：" prop="pid" label-for="pid">
             <el-select
               v-model="artFrom.pid"
@@ -25,13 +25,13 @@
               class="form_content_width"
             >
               <el-option value="1" label="Hoạt động"></el-option>
-              <el-option value="0" label="đóng cửa"></el-option>
+              <el-option value="0" label="Tắt"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Tên danh mục：" label-for="status2">
             <el-input clearable placeholder="Vui lòng nhập tên danh mục" v-model="artFrom.cate_name" class="form_content_width" />
           </el-form-item>
-          <el-form-item>
+          <el-form-item label="Hành động">
             <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
           </el-form-item>
         </el-form>
@@ -70,7 +70,7 @@
               @change="onchangeIsShow(row)"
               size="large"
               active-text="Hoạt động"
-              inactive-text="đóng cửa"
+              inactive-text="Tắt"
             >
             </el-switch>
           </template>

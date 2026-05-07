@@ -27,12 +27,14 @@ class StoreProductReplyValidate extends Validate
         $this->message = [
             'product_id.require' => 'Vui lòng chọn sản phẩm',
             'avatar.require' => 'Vui lòng chọn hình đại diện của người dùng',
-            'nickname.require' => 'Vui lòng điền tên người dùng',
-            'comment.require' => 'Vui lòng điền nội dung bình luận',
+            'nickname.require' => 'Vui lòng nhập tên người dùng',
+            'nickname.max' => 'Tên người dùng không được vượt quá 32 ký tự',
+            'comment.require' => 'Vui lòng nhập nội dung bình luận',
+            'comment.max' => 'Nội dung bình luận không được vượt quá 500 ký tự',
             'product_score.require' => 'Vui lòng chọn điểm sản phẩm',
             'service_score.require' => 'Vui lòng chọn điểm dịch vụ',
-            'product_score.In' => 'Điểm sản phẩm phải là số nguyên Trong khoảng 1-5',
-            'service_score.In' => 'Điểm dịch vụ phải là số nguyên Trong khoảng 1-5',
+            'product_score.in' => 'Điểm sản phẩm phải là số nguyên trong khoảng 1-5',
+            'service_score.in' => 'Điểm dịch vụ phải là số nguyên trong khoảng 1-5',
         ];
     }
 
@@ -45,10 +47,10 @@ class StoreProductReplyValidate extends Validate
     protected $rule = [
         'product_id' => 'require',
         'avatar' => 'require',
-        'nickname' => 'require',
-        'comment' => 'require',
-        'product_score' => ['require','In:1,2,3,4,5'],
-        'service_score' => ['require','In:1,2,3,4,5'],
+        'nickname' => 'require|max:32',
+        'comment' => 'require|max:500',
+        'product_score' => ['require', 'in:1,2,3,4,5'],
+        'service_score' => ['require', 'in:1,2,3,4,5'],
     ];
 
     protected $scene = [

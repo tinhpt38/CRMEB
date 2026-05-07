@@ -75,7 +75,7 @@ export default {
     },
     confirm() {
       if (this.specsVal === '') {
-        this.$message.error('Vui lòng điền tên thông số kỹ thuật');
+        this.$message.error('Vui lòng điền tên thuộc tính');
       } else {
         this.specs.push(this.specsVal);
         this.attrList.push({

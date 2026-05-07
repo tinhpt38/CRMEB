@@ -7,7 +7,7 @@
     @close="onCancel"
   >
     <el-form :model="formData" label-width="100px" label-position="right">
-      <el-form-item label="Hàng hóa：">
+      <el-form-item label="Sản phẩm：">
         <div class="upload-box" v-db-click @click="callGoods">
           <img v-if="goods.id" :src="goods.image" class="image" />
           <i v-else class="el-icon-goods"></i>
@@ -32,17 +32,17 @@
           v-model="formData.nickname"
           placeholder="Vui lòng nhập tên người dùng"
           class="w100"
-          maxlength="20"
+          maxlength="50"
           show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item label="Xem lại văn bản：">
+      <el-form-item label="Nội dung đánh giá：">
         <el-input
           v-model="formData.comment"
           type="textarea"
           placeholder="Vui lòng nhập nội dung đánh giá"
           class="w100"
-          maxlength="200"
+          maxlength="1000"
           show-word-limit
         ></el-input>
       </el-form-item>
@@ -52,7 +52,7 @@
       <el-form-item label="Điểm dịch vụ：">
         <el-rate v-model="service_score" />
       </el-form-item>
-      <el-form-item label="Xem lại hình ảnh：">
+      <el-form-item label="Ảnh đánh giá：">
         <div class="df-aic">
           <div v-for="item in picture" :key="item.att_id" class="upload-box">
             <img :src="item.att_dir" class="image" />
@@ -77,8 +77,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="onCancel">Hủy bỏ</el-button>
-      <el-button type="primary" v-db-click @click="onOk">Chắc chắn</el-button>
+      <el-button v-db-click @click="onCancel">Hủy</el-button>
+      <el-button type="primary" v-db-click @click="onOk">Xác nhận</el-button>
     </span>
   </el-dialog>
 </template>
@@ -171,7 +171,7 @@ export default {
         return this.$message.error('Vui lòng chọn sản phẩm');
       }
       if (!this.attr.pic) {
-        return this.$message.error('Vui lòng chọn thông số kỹ thuật sản phẩm');
+        return this.$message.error('Vui lòng chọn thuộc tính sản phẩm');
       }
       if (!this.avatar.att_dir) {
         return this.$message.error('Vui lòng chọn hình đại diện của người dùng');
@@ -183,10 +183,10 @@ export default {
         return this.$message.error('Vui lòng điền nội dung bình luận');
       }
       if (!this.product_score) {
-        return this.$message.error('Điểm sản phẩm phải là số nguyên Trong khoảng 1-5');
+        return this.$message.error('Điểm sản phẩm phải là số nguyên trong khoảng 1-5');
       }
       if (!this.service_score) {
-        return this.$message.error('Điểm dịch vụ phải là số nguyên Trong khoảng 1-5');
+        return this.$message.error('Điểm dịch vụ phải là số nguyên trong khoảng 1-5');
       }
       let data = {
         image: {

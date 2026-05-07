@@ -12,7 +12,7 @@
         <el-col :span="24">
           <el-col :span="8">
             <el-form-item label="Tên mẫu：" prop="rule_name">
-              <el-input placeholder="Vui lòng nhập tên mẫu" :maxlength="20" v-model.trim="formDynamic.name" />
+              <el-input placeholder="Vui lòng nhập tên mẫu" :maxlength="80" v-model.trim="formDynamic.name" />
             </el-form-item>
           </el-col>
         </el-col>
@@ -65,9 +65,9 @@
       </el-row>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="onClose">Hủy bỏ</el-button>
+      <el-button v-db-click @click="onClose">Hủy</el-button>
       <el-button type="primary" :loading="modal_loading" v-db-click @click="handleSubmit('formDynamic')"
-        >Chắc chắn</el-button
+        >Xác nhận</el-button
       >
     </span>
   </el-dialog>

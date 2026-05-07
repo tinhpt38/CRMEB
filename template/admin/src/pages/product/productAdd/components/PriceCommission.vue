@@ -4,8 +4,8 @@
     <el-col :span="24">
       <el-form-item label="Dành riêng cho thành viên trả phí：">
         <el-switch :active-value="1" :inactive-value="0" v-model="formValidate.vip_product" size="large">
-          <span slot="open">Bật lên</span>
-          <span slot="close">Đóng cửa</span>
+          <span slot="open">Bật</span>
+          <span slot="close">Tắt</span>
         </el-switch>
       </el-form-item>
     </el-col>
@@ -31,7 +31,7 @@
       <el-form-item label="Thuộc tính sản phẩm：" v-if="formValidate.spec_type === 0">
         <el-table :data="oneFormValidate">
           <el-table-column
-            :label="Item.title"
+            :label="item.title"
             :min-width="item.minWidth"
             v-for="(item, index) in columnsInstall"
             :key="index"
@@ -103,7 +103,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="Nhân dân tệ"
+                  class-unit="đ"
                 ></el-input-number>
               </template>
               <template v-else-if="item.slot === 'brokerage_two'">
@@ -113,7 +113,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="Nhân dân tệ"
+                  class-unit="đ"
                 ></el-input-number>
               </template>
               <template v-else-if="item.slot === 'vip_price'">
@@ -123,7 +123,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="Nhân dân tệ"
+                  class-unit="đ"
                   @input="changeVipPrice(0, 'oneFormValidate')"
                 ></el-input-number>
               </template>
@@ -150,7 +150,7 @@
             :controls="false"
             placeholder="Vui lòng nhập giảm giá cấp đầu tiên"
             class="columnsBox input_width input-number-unit-class"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
             :value="manyBrokerage"
             @input="(val) => $emit('update:manyBrokerage', val)"
           >
@@ -160,7 +160,7 @@
             :controls="false"
             placeholder="Vui lòng nhập giảm giá cấp hai"
             class="columnsBox input_width input-number-unit-class"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
             :value="manyBrokerageTwo"
             @input="(val) => $emit('update:manyBrokerageTwo', val)"
           ></el-input-number>
@@ -172,7 +172,7 @@
             :min="0"
             :max="9999999999"
             class="columnsBox input_width input-number-unit-class"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
             :value="manyVipPrice"
             @input="(val) => $emit('update:manyVipPrice', val)"
             @focus="$emit('update:manyVipDiscount', undefined)"
@@ -199,7 +199,7 @@
       >
         <el-table :data="manyFormValidate.slice(1)">
           <el-table-column
-            :label="Item.title"
+            :label="item.title"
             :min-width="item.minWidth"
             v-for="(item, index) in columnsInstal2"
             :key="index"
@@ -274,7 +274,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="Nhân dân tệ"
+                  class-unit="đ"
                   @input="
                     (val) => {
                       const newData = [...manyFormValidate];
@@ -291,7 +291,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="Nhân dân tệ"
+                  class-unit="đ"
                   @input="
                     (val) => {
                       const newData = [...manyFormValidate];
@@ -308,7 +308,7 @@
                   :min="0"
                   :max="9999999999"
                   class="priceBox input-number-unit-class"
-                  class-unit="Nhân dân tệ"
+                  class-unit="đ"
                   @input="
                     (val) => {
                       const newData = [...manyFormValidate];

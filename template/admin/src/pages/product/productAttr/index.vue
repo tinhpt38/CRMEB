@@ -11,11 +11,11 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="Tìm kiếm thông số kỹ thuật：">
+          <el-form-item label="Tìm kiếm thuộc tính：">
             <el-input
               clearable
               v-model="artFrom.rule_name"
-              placeholder="Vui lòng nhập tên thông số kỹ thuật"
+              placeholder="Vui lòng nhập tên thuộc tính"
               class="form_content_width"
             ></el-input>
           </el-form-item>
@@ -26,8 +26,8 @@
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt mt16">
-      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">Thêm thông số kỹ thuật sản phẩm</el-button>
-      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, 'Xóa thông số kỹ thuật theo lô')"
+      <el-button v-auth="['product-rule-save']" type="primary" v-db-click @click="addAttr">Thêm thuộc tính sản phẩm</el-button>
+      <el-button v-auth="['product-product-rule-delete']" v-db-click @click="del(null, 'Xóa thuộc tính theo lô')"
         >Xóa hàng loạt</el-button
       >
       <el-table
@@ -70,7 +70,7 @@
           <template slot-scope="scope">
             <a v-db-click @click="edit(scope.row)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(scope.row, 'Xóa thông số kỹ thuật', scope.$index)">Xóa</a>
+            <a v-db-click @click="del(scope.row, 'Xóa thuộc tính', scope.$index)">Xóa</a>
           </template>
         </el-table-column>
       </el-table>
@@ -164,8 +164,8 @@ export default {
     // xóa bỏ
     del(row, tit) {
       let data = {};
-      if (tit === 'Xóa thông số kỹ thuật theo lô') {
-        if (this.selectedIds.size === 0) return this.$message.warning('Vui lòng chọn thông số kỹ thuật cần xóa！');
+      if (tit === 'Xóa thuộc tính theo lô') {
+        if (this.selectedIds.size === 0) return this.$message.warning('Vui lòng chọn thuộc tính cần xóa!');
         data = {
           ids: this.ids,
         };

@@ -30,7 +30,7 @@
           class="content_width"
           v-model="formValidate.store_name"
           placeholder="Vui lòng nhập tên sản phẩm"
-          maxlength="80"
+          maxlength="150"
           show-word-limit
         />
       </el-form-item>
@@ -41,8 +41,8 @@
         <el-input
           class="input_width"
           v-model="formValidate.unit_name"
-          placeholder="Vui lòng nhập Đơn vị"
-          maxlength="5"
+          placeholder="Vui lòng nhập đơn vị"
+          maxlength="20"
           show-word-limit
         />
       </el-form-item>
@@ -86,13 +86,13 @@
         </div>
         <div class="box-video-style" v-if="formValidate.video_link">
           <video style="width: 100%; height: 100%" :src="formValidate.video_link" controls="controls">
-            Trình duyệt của bạn không hỗ trợ thẻ video。
+            Trình duyệt của bạn không hỗ trợ video.
           </video>
           <div class="mark"></div>
           <i class="el-icon-delete iconv" v-db-click @click="delVideo"></i>
         </div>
         <Progress class="progress" :percent="progress" :stroke-width="5" v-if="upload.videoIng" />
-        <div class="tips-info">Thời lượng đề xuất：9～30giây, tỷ lệ khung hình video16:9</div>
+        <div class="tips-info">Thời lượng đề xuất: 9-30 giây, tỷ lệ khung hình 16:9.</div>
       </el-form-item>
     </el-col>
     <el-col :span="24">

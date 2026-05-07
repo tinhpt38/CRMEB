@@ -32,6 +32,9 @@ use think\facade\Route as Url;
  */
 class StoreCategoryServices extends BaseServices
 {
+    /** @var int Tên danh mục tối đa */
+    protected const MAX_CATE_NAME_LENGTH = 32;
+
     public function __construct(StoreCategoryDao $dao)
     {
         $this->dao = $dao;
@@ -158,15 +161,15 @@ class StoreCategoryServices extends BaseServices
     public function form($info = [])
     {
         if (isset($info['pid'])) {
-            $f[] = Form::select('pid', 'Phân loại cao cấp', (int)($info['pid'] ?? ''))->setOptions($this->menus($info['pid']))->filterable(1);
+            $f[] = Form::select('pid', 'Danh mục cha', (int)($info['pid'] ?? ''))->setOptions($this->menus($info['pid']))->filterable(1);
         } else {
-            $f[] = Form::select('pid', 'Phân loại cao cấp', (int)($info['pid'] ?? ''))->setOptions($this->menus())->filterable(1);
+            $f[] = Form::select('pid', 'Danh mục cha', (int)($info['pid'] ?? ''))->setOptions($this->menus())->filterable(1);
         }
-        $f[] = Form::input('cate_name', 'Tên danh mục', $info['cate_name'] ?? '')->maxlength(8)->required();
-        $f[] = Form::frameImage('pic', 'Biểu tượng danh mục(180*180)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'pic')), $info['pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $f[] = Form::frameImage('big_pic', 'Phân loại hình ảnh lớn(468*340)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'big_pic')), $info['big_pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->min(0)->precision(0);
-        $f[] = Form::radio('is_show', 'Trạng thái', $info['is_show'] ?? 1)->options([['label' => 'trình diễn', 'value' => 1], ['label' => 'trốn', 'value' => 0]]);
+        $f[] = Form::input('cate_name', 'Tên danh mục', $info['cate_name'] ?? '')->maxlength(self::MAX_CATE_NAME_LENGTH)->required();
+        $f[] = Form::frameImage('pic', 'Biểu tượng danh mục (180*180)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'pic')), $info['pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $f[] = Form::frameImage('big_pic', 'Ảnh danh mục lớn (468*340)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'big_pic')), $info['big_pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $f[] = Form::number('sort', 'Thứ tự', (int)($info['sort'] ?? 0))->min(0)->precision(0);
+        $f[] = Form::radio('is_show', 'Trạng thái', $info['is_show'] ?? 1)->options([['label' => 'Hiển thị', 'value' => 1], ['label' => 'Ẩn', 'value' => 0]]);
         return $f;
     }
 
@@ -178,7 +181,7 @@ class StoreCategoryServices extends BaseServices
     public function menus($pid = '')
     {
         $list = $this->dao->getMenus(['pid' => 0]);
-        $menus = [['value' => 0, 'label' => 'danh mục hàng đầu']];
+        $menus = [['value' => 0, 'label' => 'Danh mục gốc']];
         if ($pid === 0) return $menus;
 //        if ($pid != '') $menus = [];
         foreach ($list as $menu) {
@@ -199,6 +202,9 @@ class StoreCategoryServices extends BaseServices
     {
         if (!$data['cate_name']) {
             throw new AdminException('Vui lòng điền tên danh mục');
+        }
+        if (mb_strlen((string)$data['cate_name']) > self::MAX_CATE_NAME_LENGTH) {
+            throw new AdminException('Tên danh mục không được vượt quá ' . self::MAX_CATE_NAME_LENGTH . ' ký tự');
         }
 
         if ($this->dao->getOne(['cate_name' => $data['cate_name'], 'pid' => $data['pid']])) {
@@ -234,6 +240,9 @@ class StoreCategoryServices extends BaseServices
     {
         if (!$data['cate_name']) {
             throw new AdminException('Vui lòng điền tên danh mục');
+        }
+        if (mb_strlen((string)$data['cate_name']) > self::MAX_CATE_NAME_LENGTH) {
+            throw new AdminException('Tên danh mục không được vượt quá ' . self::MAX_CATE_NAME_LENGTH . ' ký tự');
         }
 
         $parent = $this->dao->getOne(['id' => $data['pid']]);

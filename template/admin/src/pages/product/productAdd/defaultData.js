@@ -1,25 +1,25 @@
 // Xuất dữ liệu TableHead
 export const GoodsTableHead = [
   {
-    title: 'hình ảnh',
+    title: 'Hình ảnh',
     slot: 'pic',
     align: 'center',
     minWidth: '80px',
   },
   {
-    title: 'giá bán',
+    title: 'Giá bán',
     slot: 'price',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: 'giá thành',
+    title: 'Giá thành',
     slot: 'cost',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: 'giá chéo',
+    title: 'Giá niêm yết',
     slot: 'ot_price',
     align: 'center',
     minWidth: '120px',
@@ -37,19 +37,19 @@ export const GoodsTableHead = [
     minWidth: '120px',
   },
   {
-    title: 'mã vạch',
+    title: 'Mã vạch',
     slot: 'bar_code_number',
     align: 'center',
     minWidth: '120px',
   },
   {
-    title: 'cân nặng（KG）',
+    title: 'Cân nặng (kg)',
     slot: 'weight',
     align: 'center',
     minWidth: '95px',
   },
   {
-    title: 'âm lượng(m³)',
+    title: 'Thể tích (m3)',
     slot: 'volume',
     align: 'center',
     minWidth: '95px',
@@ -72,25 +72,25 @@ export const GoodsTableHead = [
 //   Phiếu giảm giá hàng ảo-Thẻ mã
 export const VirtualTableHead = [
   {
-    title: 'hình ảnh',
+    title: 'Hình ảnh',
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: 'giá bán',
+    title: 'Giá bán',
     slot: 'price',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: 'giá thành',
+    title: 'Giá thành',
     slot: 'cost',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: 'giá gốc',
+    title: 'Giá niêm yết',
     slot: 'ot_price',
     align: 'center',
     minWidth: 120,
@@ -108,7 +108,7 @@ export const VirtualTableHead = [
     minWidth: 120,
   },
   {
-    title: 'hàng ảo',
+    title: 'Nội dung hàng ảo',
     slot: 'fictitious',
     align: 'center',
     minWidth: 120,
@@ -131,25 +131,25 @@ export const VirtualTableHead = [
 //   hàng ảo
 export const VirtualTableHead2 = [
   {
-    title: 'hình ảnh',
+    title: 'Hình ảnh',
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: 'giá bán',
+    title: 'Giá bán',
     slot: 'price',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: 'giá thành',
+    title: 'Giá thành',
     slot: 'cost',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: 'giá gốc',
+    title: 'Giá niêm yết',
     slot: 'ot_price',
     align: 'center',
     minWidth: 120,
@@ -184,25 +184,25 @@ export const VirtualTableHead2 = [
 
 export const columns2 = [
   {
-    title: 'hình ảnh',
+    title: 'Hình ảnh',
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: 'giá bán',
+    title: 'Giá bán',
     slot: 'price',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: 'giá thành',
+    title: 'Giá thành',
     slot: 'cost',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: 'giá chéo',
+    title: 'Giá niêm yết',
     slot: 'ot_price',
     align: 'center',
     minWidth: 95,
@@ -220,19 +220,19 @@ export const columns2 = [
     minWidth: 120,
   },
   {
-    title: 'mã vạch',
+    title: 'Mã vạch',
     slot: 'bar_code_number',
     align: 'center',
     minWidth: 120,
   },
   {
-    title: 'cân nặng（KG）',
+    title: 'Cân nặng (kg)',
     slot: 'weight',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: 'âm lượng(m³)',
+    title: 'Thể tích (m3)',
     slot: 'volume',
     align: 'center',
     minWidth: 95,
@@ -248,25 +248,25 @@ export const columns2 = [
 
 export const columns3 = [
   {
-    title: 'hình ảnh',
+    title: 'Hình ảnh',
     slot: 'pic',
     align: 'center',
     minWidth: 80,
   },
   {
-    title: 'giá bán',
+    title: 'Giá bán',
     slot: 'price',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: 'giá thành',
+    title: 'Giá thành',
     slot: 'cost',
     align: 'center',
     minWidth: 95,
   },
   {
-    title: 'giá gốc',
+    title: 'Giá niêm yết',
     slot: 'ot_price',
     align: 'center',
     minWidth: 95,
@@ -284,7 +284,7 @@ export const columns3 = [
     minWidth: 120,
   },
   {
-    title: 'mã vạch',
+    title: 'Mã vạch',
     slot: 'bar_code_number',
     align: 'center',
     minWidth: 120,
@@ -302,23 +302,23 @@ export const columns3 = [
 export const CustomList = [
   {
     value: 'text',
-    label: 'hộp văn bản',
+    label: 'Văn bản',
   },
   {
     value: 'number',
-    label: 'con số',
+    label: 'Số',
   },
   {
     value: 'email',
-    label: 'thư',
+    label: 'Email',
   },
   {
     value: 'data',
-    label: 'ngày',
+    label: 'Ngày',
   },
   {
     value: 'time',
-    label: 'thời gian',
+    label: 'Thời gian',
   },
   {
     value: 'id',
@@ -330,7 +330,7 @@ export const CustomList = [
   },
   {
     value: 'img',
-    label: 'hình ảnh',
+    label: 'Hình ảnh',
   },
 ];
 
@@ -345,7 +345,7 @@ export const RuleValidate = {
       min: '1',
     },
   ],
-  unit_name: [{ required: true, message: 'Vui lòng nhập Đơn vị', trigger: 'blur' }],
+  unit_name: [{ required: true, message: 'Vui lòng nhập đơn vị', trigger: 'blur' }],
   slider_image: [
     {
       required: true,
@@ -354,9 +354,9 @@ export const RuleValidate = {
       trigger: 'change',
     },
   ],
-  spec_type: [{ required: true, message: 'Vui lòng chọn thông số kỹ thuật sản phẩm', trigger: 'change' }],
+  spec_type: [{ required: true, message: 'Vui lòng chọn loại thuộc tính sản phẩm', trigger: 'change' }],
   is_virtual: [{ required: true, message: 'Vui lòng chọn loại sản phẩm', trigger: 'change' }],
-  selectRule: [{ required: true, message: 'Vui lòng chọn thuộc tính đặc tả sản phẩm', trigger: 'change' }],
+  selectRule: [{ required: true, message: 'Vui lòng chọn mẫu thuộc tính sản phẩm', trigger: 'change' }],
   temp_id: [
     {
       required: true,

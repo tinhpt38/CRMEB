@@ -35,7 +35,7 @@
           <div class="active-btn" @click="fileUrl = ''">Xóa</div>
         </div>
         <div class="el-upload__trip" v-if="importLoading">
-          Khi nhập, bạn có thể đóng cửa sổ Hoạt động hiện tại và xem kết quả nhập trong danh sách sau.
+          Trong lúc nhập, bạn có thể đóng cửa sổ này và xem kết quả trong danh sách sau.
           <i class="el-icon-loading"></i>
         </div>
         <el-button v-else class="btn-import" type="primary" size="small" @click="importGoods">Nhập ngay</el-button>
@@ -43,8 +43,8 @@
       <div v-show="fileUrl && importStatus" class="file-info">
         <img class="el-upload-dragger__icon mb20" :src="statusImage" alt="" />
         <div class="el-upload__text">
-          Tổng nhập khẩu {{ resultData.all }} một, thành công {{ resultData.success }} một, thất bại {{ resultData.fail }} nhảy qua
-          {{ resultData.jump }} cá nhân
+          Tổng cộng {{ resultData.all }} bản ghi, thành công {{ resultData.success }}, thất bại {{ resultData.fail }}, bỏ qua
+          {{ resultData.jump }} bản ghi.
         </div>
         <div class="el-upload__trip" v-if="resultData.fail > 0">
           Bạn có thể tải xuống dữ liệu bị lỗi, sửa đổi và sau đó nhập lại <span class="active-btn" @click="downloadFailData">Tải xuống dữ liệu không thành công</span>

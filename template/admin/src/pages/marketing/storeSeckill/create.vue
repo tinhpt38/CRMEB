@@ -137,7 +137,7 @@
                       v-model="formValidate.postage"
                       placeholder="Vui lòng nhập số tiền"
                       class="content_width input-number-unit-class"
-                      class-unit="Nhân dân tệ"
+                      class-unit="đ"
                     />
                   </div>
                 </el-form-item>

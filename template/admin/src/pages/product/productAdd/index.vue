@@ -16,6 +16,7 @@
         :model="formValidate"
         :label-width="labelWidth"
         :label-position="labelPosition"
+        :style="{ '--product-add-label-width': labelWidth || '0px' }"
         @submit.native.prevent
       >
         <!-- Thông tin cơ bản-->
@@ -227,7 +228,7 @@
                     style="width: 150px"
                     placeholder="Vui lòng nhập số thẻ(Không bắt buộc)"
                   ></el-input>
-                  <span class="mr10 virtual-title">Bạch đậu khấu{{ index + 1 }}：</span>
+                  <span class="mr10 virtual-title">Mật khẩu {{ index + 1 }}：</span>
                   <el-input
                     class="mr10"
                     type="text"
@@ -239,7 +240,7 @@
                 </div>
               </div>
               <div class="add-more" v-if="disk_type == 2">
-                <el-button class="h-33" type="primary" v-db-click @click="handleAdd">Mới</el-button>
+                <el-button class="h-33" type="primary" v-db-click @click="handleAdd">Thêm mới</el-button>
                 <el-upload
                   class="ml10"
                   :action="cardUrl"
@@ -255,8 +256,8 @@
           </el-form>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button v-db-click @click="closeVirtual">Hủy bỏ</el-button>
-          <el-button type="primary" v-db-click @click="upVirtual">Chắc chắn</el-button>
+          <el-button v-db-click @click="closeVirtual">Hủy</el-button>
+          <el-button type="primary" v-db-click @click="upVirtual">Xác nhận</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -280,7 +281,7 @@
       :visible.sync="modals"
       @closed="cancel"
       class="Box"
-      title="Sao chép Taobao, Tmall, JD.com và Suning、1688"
+      title="Nhập dữ liệu từ Taobao, Tmall, JD, Suning, 1688"
       :close-on-click-modal="false"
       width="720px"
     >
@@ -411,7 +412,7 @@ export default {
         { tit: 'Hàng thông thường', id: 0, tit2: 'Hậu cần và giao hàng' },
         { tit: 'Thẻ bí mật/đĩa mạng', id: 1, tit2: 'Giao hàng tự động' },
         { tit: 'Mã giảm giá', id: 2, tit2: 'Giao hàng tự động' },
-        { tit: 'hàng ảo', id: 3, tit2: 'giao hàng ảo' },
+        { tit: 'Hàng ảo', id: 3, tit2: 'Giao hàng ảo' },
       ],
       seletVideo: 0, //Chọn loại video
       customBtn: 0, //Chuyển đổi tin nhắn tùy chỉnh
@@ -611,13 +612,13 @@ export default {
       couponNames: [],
       rakeBack: [
         {
-          title: 'Giảm giá cấp độ đầu tiên(Nhân dân tệ)',
+          title: 'Hoa hồng cấp 1 (đ)',
           slot: 'brokerage',
           align: 'center',
           width: 95,
         },
         {
-          title: 'Giảm giá cấp hai(Nhân dân tệ)',
+          title: 'Hoa hồng cấp 2 (đ)',
           slot: 'brokerage_two',
           align: 'center',
           width: 95,
@@ -651,12 +652,18 @@ export default {
       protectionList: [], // Bảo đảm dịch vụ
       labelList: [],
       tileLabelList: [],
+      viewportWidth: typeof window !== 'undefined' ? window.innerWidth : 1440,
     };
   },
   computed: {
     ...mapState('media', ['isMobile']),
     labelWidth() {
-      return this.isMobile ? undefined : '120px';
+      if (this.isMobile) return undefined;
+      if (this.viewportWidth >= 1800) return '220px';
+      if (this.viewportWidth >= 1440) return '200px';
+      if (this.viewportWidth >= 1280) return '180px';
+      if (this.viewportWidth >= 1024) return '160px';
+      return '140px';
     },
     labelPosition() {
       return this.isMobile ? 'top' : 'right';
@@ -686,6 +693,8 @@ export default {
     this.getToken();
   },
   async mounted() {
+    this.updateViewportWidth();
+    window.addEventListener('resize', this.updateViewportWidth);
     if (this.$route.params.id !== '0' && this.$route.params.id) {
       await this.getInfo();
     } else if (this.$route.params.id === '0') {
@@ -709,6 +718,9 @@ export default {
     this.getProtectionList();
   },
   methods: {
+    updateViewportWidth() {
+      this.viewportWidth = window.innerWidth;
+    },
     getProductCache() {
       productCache()
         .then((res) => {
@@ -1481,9 +1493,9 @@ export default {
         }
       }
       if (isHas) {
-        this.$confirm('Bạn có thể đồng thời sửa đổi hình ảnh với các thông số kỹ thuật bên dưới. Bạn có chắc chắn muốn thay thế nó không?？', 'gợi ý', {
-          confirmButtonText: 'thay thế',
-          cancelButtonText: 'Chưa',
+        this.$confirm('Bạn đang thay đổi ảnh cho nhiều biến thể thuộc tính. Bạn có muốn thay thế toàn bộ không?', 'Xác nhận', {
+          confirmButtonText: 'Thay thế',
+          cancelButtonText: 'Không',
           type: 'warning',
         })
           .then(() => {
@@ -1558,14 +1570,14 @@ export default {
     },
     handleSaveAsTemplate() {
       this.$prompt('', 'Vui lòng nhập tên mẫu', {
-        confirmButtonText: 'Chắc chắn',
-        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Xác nhận',
+        cancelButtonText: 'Hủy',
       })
         .then(({ value }) => {
           let spec = this.attrs.map((item) => {
             return {
               value: item.value,
-              detail: item.detail.map((e) => E.value),
+              detail: item.detail.map((e) => e.value),
             };
           });
           let formDynamic = {
@@ -1755,7 +1767,7 @@ export default {
           row.detail[item.value] = value;
 
           // Tìm các mục đặc điểm kỹ thuật hiện có phù hợp
-          const matchedItem = existingItems.find((item) => Item.attr_arr && arraysEqual(item.attr_arr, combination));
+          const matchedItem = existingItems.find((item) => item.attr_arr && arraysEqual(item.attr_arr, combination));
 
           if (matchedItem) {
             Object.assign(row, {
@@ -1826,7 +1838,7 @@ export default {
         // Việc xác định liệu có
         var isExist = this.attrs[idx].detail.some((item) => item.value === num);
         if (isExist) {
-          this.$message.error('Giá trị đặc tả đã tồn tại');
+          this.$message.error('Giá trị thuộc tính đã tồn tại');
           return;
         }
         this.attrs[idx].detail.push({ value: num, pic: '' });
@@ -1956,7 +1968,7 @@ export default {
           let arr = this.formValidate.spec_type === 0 ? this.oneFormValidate : this.manyFormValidate;
           let item = JSON.parse(JSON.stringify(arr));
           if (this.formValidate.spec_type === 1) {
-            if (item.length < 2) return this.$message.warning('Thuộc tính sản phẩm - số lượng thông số kỹ thuật ít nhất là 1');
+            if (item.length < 2) return this.$message.warning('Thuộc tính sản phẩm: cần ít nhất 1 thuộc tính');
             // Xóa mục đầu tiên
             item.shift();
           }
@@ -1968,25 +1980,25 @@ export default {
           if (this.formValidate.is_sub[0] === 1) {
             for (let i = 0; i < item.length; i++) {
               if (item[i].brokerage === null || item[i].brokerage_two === null) {
-                return this.$message.error('Cài đặt tiếp thị - giảm giá cấp một và cấp hai không được để trống');
+                return this.$message.error('Cài đặt tiếp thị: hoa hồng cấp 1 và cấp 2 không được để trống');
               }
             }
           } else {
             for (let i = 0; i < item.length; i++) {
               if (item[i].vip_price === null) {
-                return this.$message.error('Cài đặt tiếp thị-giá thành viên không được để trống');
+                return this.$message.error('Cài đặt tiếp thị: giá thành viên không được để trống');
               }
             }
           }
           if (this.formValidate.is_sub.length === 2) {
             for (let i = 0; i < item.length; i++) {
               if (item[i].brokerage === null || item[i].brokerage_two === null || item[i].vip_price === null) {
-                return this.$message.error('Cài đặt tiếp thị - giảm giá cấp một và cấp hai cũng như giá thành viên không được để trống');
+                return this.$message.error('Cài đặt tiếp thị: hoa hồng cấp 1, cấp 2 và giá thành viên không được để trống');
               }
             }
           }
           if (this.formValidate.freight == 3 && !this.formValidate.temp_id) {
-            return this.$message.warning('Thông tin sản phẩm-Mẫu cước phí không được để trống');
+            return this.$message.warning('Thông tin sản phẩm: mẫu cước phí không được để trống');
           }
           let activeIds = [];
           this.dataLabel.forEach((item) => {
@@ -2028,17 +2040,17 @@ export default {
             });
         } else {
           if (!this.formValidate.store_name) {
-            return this.$message.warning('Thông tin sản phẩm-tên sản phẩm không được để trống');
+            return this.$message.warning('Thông tin sản phẩm: tên sản phẩm không được để trống');
           } else if (!this.formValidate.cate_id.length) {
-            return this.$message.warning('Thông tin sản phẩm-danh mục sản phẩm không được để trống');
+            return this.$message.warning('Thông tin sản phẩm: danh mục sản phẩm không được để trống');
           } else if (!this.formValidate.unit_name) {
-            return this.$message.warning('Thông tin sản phẩm-Đơn vị sản phẩm không được để trống');
+            return this.$message.warning('Thông tin sản phẩm: đơn vị sản phẩm không được để trống');
           } else if (!this.formValidate.slider_image.length) {
-            return this.$message.warning('Thông tin sản phẩm-hình ảnh băng chuyền sản phẩm không được để trống');
+            return this.$message.warning('Thông tin sản phẩm: ảnh slider không được để trống');
           } else if (!this.formValidate.logistics.length && !this.formValidate.virtual_type) {
             return this.$message.warning('Cấu hình vận chuyển - chọn ít nhất một phương thức hậu cần');
           } else if (!this.formValidate.temp_id && this.formValidate.freight == 3) {
-            return this.$message.warning('Thông tin sản phẩm-Mẫu cước phí không được để trống');
+            return this.$message.warning('Thông tin sản phẩm: mẫu cước phí không được để trống');
           }
         }
       });
@@ -2106,7 +2118,7 @@ export default {
     },
     // Xóa nhãn người dùng
     closeLabel(label) {
-      let index = this.dataLabel.indexOf(this.dataLabel.filter((d) => D.id == label.id)[0]);
+      let index = this.dataLabel.indexOf(this.dataLabel.filter((d) => d.id == label.id)[0]);
       this.dataLabel.splice(index, 1);
     },
     // Mở tab Chọn người dùng
@@ -2133,6 +2145,9 @@ export default {
       });
       this.formValidate.activity = marketing;
     },
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.updateViewportWidth);
   },
 };
 </script>

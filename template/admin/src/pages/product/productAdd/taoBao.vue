@@ -21,7 +21,7 @@
     >
       <el-form-item label="Địa chỉ liên kết：">
         <el-input clearable v-model="soure_link" placeholder="Vui lòng nhập địa chỉ liên kết" class="numPut" />
-        <el-button type="primary" class="ml15" v-db-click @click="add">Chắc chắn</el-button>
+        <el-button type="primary" class="ml15" v-db-click @click="add">Xác nhận</el-button>
       </el-form-item>
     </el-form>
   </div>

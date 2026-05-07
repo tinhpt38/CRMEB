@@ -7,10 +7,10 @@
           class="content_width"
           v-model.trim="formValidate.keyword"
           placeholder="Vui lòng nhập từ khóa sản phẩm"
-          maxlength="100"
+          maxlength="180"
           show-word-limit
         />
-        <div class="tips-info">PCTối ưu hóa SEO toàn diện và tìm kiếm sản phẩm dựa trên từ khóa</div>
+        <div class="tips-info">Dùng để tối ưu SEO và hỗ trợ tìm kiếm sản phẩm trên website.</div>
       </el-form-item>
     </el-col>
     <el-col :span="24">
@@ -21,27 +21,27 @@
           type="textarea"
           :rows="3"
           placeholder="Vui lòng nhập giới thiệu sản phẩm"
-          maxlength="100"
+          maxlength="300"
           show-word-limit
         />
-        <div class="tips-info">Các sản phẩm chia sẻ tài khoản công khai và sử dụng tối ưu hóa SEO phía PC</div>
+        <div class="tips-info">Thông tin ngắn gọn hiển thị khi chia sẻ sản phẩm và hỗ trợ SEO.</div>
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Mật khẩu sản phẩm：">
+      <el-form-item label="Mã lệnh sản phẩm：">
         <el-input
           v-model.trim="formValidate.command_word"
-          placeholder="Vui lòng nhập mật khẩu sản phẩm"
+          placeholder="Vui lòng nhập mã lệnh sản phẩm"
           type="textarea"
           :rows="3"
           class="content_width"
         />
-        <div class="tips-info">Điền và lưu mật khẩu sản phẩm trên các nền tảng khác và tự động sao chép chúng khi nhập chi tiết sản phẩm trên thiết bị đầu cuối di động.</div>
+        <div class="tips-info">Mã này dùng để nhận diện/sao chép sản phẩm khi đồng bộ từ nền tảng khác.</div>
       </el-form-item>
     </el-col>
 
     <el-col :span="24">
-      <el-form-item label="Hình ảnh gợi ý sản phẩm：">
+      <el-form-item label="Ảnh gợi ý sản phẩm：">
         <div class="pictrueBox" v-db-click @click="modalPicTap('dan', 'recommend_image')">
           <div class="pictrue" v-if="formValidate.recommend_image">
             <img v-lazy="formValidate.recommend_image" />
@@ -51,7 +51,7 @@
             <el-input v-model.trim="formValidate.recommend_image" style="display: none"></el-input>
             <i class="el-icon-picture-outline" style="font-size: 24px"></i>
           </div>
-          <div class="tips-info">Hình ảnh hình chữ nhật hiển thị ở kiểu danh mục di động 2, tỷ lệ được đề xuất：5:2</div>
+          <div class="tips-info">Ảnh chữ nhật dùng cho kiểu danh mục di động 2, tỷ lệ khuyến nghị 5:2.</div>
         </div>
       </el-form-item>
     </el-col>
@@ -63,7 +63,7 @@
           }}</el-checkbox>
         </el-checkbox-group>
         <el-button v-else type="primary" v-db-click @click="addProtection">Thêm sự đảm bảo</el-button>
-        <div class="tips-info">Thông tin đảm bảo dịch vụ được hiển thị trong chi tiết sản phẩm, có nhiều lựa chọn</div>
+        <div class="tips-info">Thông tin bảo đảm dịch vụ sẽ hiển thị trong chi tiết sản phẩm.</div>
       </el-form-item>
     </el-col>
     <el-col :span="24">
@@ -112,16 +112,16 @@
     <el-col :span="24">
       <el-form-item label="Biểu mẫu tùy chỉnh：">
         <el-switch :active-value="1" :inactive-value="0" v-model="innerCustomBtn" size="large">
-          <span slot="open">Bật lên</span>
-          <span slot="close">Đóng cửa</span>
+          <span slot="open">Bật</span>
+          <span slot="close">Tắt</span>
         </el-switch>
         <div class="addCustom_content" v-if="customBtn">
           <div v-for="(item, index) in formValidate.custom_form" :key="index" class="custom_box">
             <el-input
               v-model.trim="item.title"
-              :placeholder="'tiêu đề biểu mẫu' + (index + 1)"
+              :placeholder="'Tiêu đề biểu mẫu ' + (index + 1)"
               style="width: 150px; margin-right: 10px"
-              maxlength="10"
+              maxlength="40"
               show-word-limit
             />
             <el-select v-model="item.label" style="width: 200px; margin-left: 6px; margin-right: 10px">
@@ -138,7 +138,7 @@
         </div>
         <div class="addCustomBox" v-show="customBtn">
           <div class="btn" v-db-click @click="addcustom">+ Thêm biểu mẫu</div>
-          <div class="tips-info">Người dùng có thể thiết lập tối đa 10 thông tin khi đặt hàng. Không thể thêm sản phẩm có biểu mẫu tùy chỉnh vào giỏ hàng.</div>
+          <div class="tips-info">Có thể tạo tối đa 10 trường thông tin. Sản phẩm có biểu mẫu tùy chỉnh sẽ không thêm vào giỏ hàng.</div>
         </div>
       </el-form-item>
     </el-col>

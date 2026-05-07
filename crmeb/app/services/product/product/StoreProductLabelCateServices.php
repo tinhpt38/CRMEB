@@ -18,6 +18,9 @@ use think\facade\Route as Url;
 
 class StoreProductLabelCateServices extends BaseServices
 {
+    /** @var int Tên danh mục tối đa */
+    protected const MAX_LABEL_CATE_NAME_LENGTH = 32;
+
     public function __construct(StoreProductLabelCateDao $dao)
     {
         $this->dao = $dao;
@@ -35,13 +38,19 @@ class StoreProductLabelCateServices extends BaseServices
     public function labelCateForm($id = 0)
     {
         $info = $id ? $this->dao->get($id) : [];
-        $f[] = Form::input('name', 'Tên danh mục', $info['name'] ?? '')->maxlength(8)->required();
-        $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->min(0)->precision(0);
+        $f[] = Form::input('name', 'Tên danh mục', $info['name'] ?? '')->maxlength(self::MAX_LABEL_CATE_NAME_LENGTH)->required();
+        $f[] = Form::number('sort', 'Thứ tự', (int)($info['sort'] ?? 0))->min(0)->precision(0);
         return create_form($id ? 'Chỉnh sửa danh mục' : 'Thêm danh mục', $f, Url::buildUrl('/product/label_cate/save/' . $id), 'POST');
     }
 
     public function labelCateSave($id, $data)
     {
+        if (empty($data['name'])) {
+            throw new AdminException('Vui lòng nhập tên danh mục');
+        }
+        if (mb_strlen((string)$data['name']) > self::MAX_LABEL_CATE_NAME_LENGTH) {
+            throw new AdminException('Tên danh mục không được vượt quá ' . self::MAX_LABEL_CATE_NAME_LENGTH . ' ký tự');
+        }
         if ($id) {
             $this->dao->update($id, $data);
         } else {

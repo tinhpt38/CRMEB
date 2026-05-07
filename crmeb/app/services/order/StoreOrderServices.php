@@ -745,7 +745,7 @@ HTML;
             ],
             [
                 'name' => 'Số tiền đặt hàng',
-                'field' => 'Nhân dân tệ',
+                'field' => 'đ',
                 'count' => $price['pay_price'],
                 'className' => 'md-pricetags',
                 'col' => 6
@@ -759,7 +759,7 @@ HTML;
             ],
             [
                 'name' => 'Số tiền thanh toán hôm nay',
-                'field' => 'Nhân dân tệ',
+                'field' => 'đ',
                 'count' => $price['today_pay_price'],
                 'className' => 'ios-cash',
                 'col' => 6
@@ -1540,7 +1540,7 @@ HTML;
             'today' => $today_sales,
             'yesterday' => $yesterday_sales,
             'today_ratio' => $sales_today_ratio,
-            'total' => $total_sales . 'Nhân dân tệ',
+            'total' => $total_sales . 'đ',
             'date' => 'Hôm nay'
         ];
         //TODO:Lượt truy cập của người dùng

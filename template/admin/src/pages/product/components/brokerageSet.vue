@@ -42,11 +42,11 @@
                   <div class="mt10 mb10 acea-row">
                     <el-input type="number" class="popover-input" v-model="brokerage" @input="brokerageReplace">
                       <template slot="suffix">
-                        <span>{{ brokerageSetType ? '%' : 'Nhân dân tệ' }}</span>
+                        <span>{{ brokerageSetType ? '%' : 'đ' }}</span>
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
-                      <el-button size="small" @click="closePop">Hủy bỏ</el-button>
+                      <el-button size="small" @click="closePop">Hủy</el-button>
                       <el-button size="small" type="primary" @click="brokerageOneSetUp">Xác nhận</el-button>
                     </div>
                   </div>
@@ -60,7 +60,7 @@
                   :disabled="formData.is_sub == 0"
                 >
                   <template slot="suffix">
-                    <span>{{ formData.is_sub ? 'Nhân dân tệ' : '%' }}</span>
+                    <span>{{ formData.is_sub ? 'đ' : '%' }}</span>
                   </template>
                 </el-input>
                 <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">Giảm giá cấp độ đầu tiên：{{ (scope.row.price * store_brokerage_ratio).toFixed(2) }}</div> -->
@@ -95,11 +95,11 @@
                   <div class="mt10 mb10 acea-row">
                     <el-input type="number" class="popover-input" v-model="brokerage_two">
                       <template slot="suffix">
-                        <span>{{ brokerageSetType ? '%' : 'Nhân dân tệ' }}</span>
+                        <span>{{ brokerageSetType ? '%' : 'đ' }}</span>
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
-                      <el-button size="small" @click="closePop">Hủy bỏ</el-button>
+                      <el-button size="small" @click="closePop">Hủy</el-button>
                       <el-button size="small" type="primary" @click="brokerageTwoSetUp">Xác nhận</el-button>
                     </div>
                   </div>
@@ -115,7 +115,7 @@
                   :disabled="formData.is_sub == 0"
                 >
                   <template slot="suffix">
-                    <span>{{ formData.is_sub ? 'Nhân dân tệ' : '%' }}</span>
+                    <span>{{ formData.is_sub ? 'đ' : '%' }}</span>
                   </template>
                 </el-input>
                 <!-- <div class="flex-x-center" v-show="formData.is_sub == 0">Giảm giá cấp hai：{{ (scope.row.price * store_brokerage_two).toFixed(2) }}</div> -->
@@ -134,7 +134,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="onCancel">Hủy bỏ</el-button>
+        <el-button @click="onCancel">Hủy</el-button>
         <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">Xác nhận</el-button>
       </div>
     </el-dialog>
