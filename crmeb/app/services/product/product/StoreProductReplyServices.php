@@ -68,15 +68,27 @@ class StoreProductReplyServices extends BaseServices
     public function createForm(int $product_id)
     {
         if ($product_id == 0) {
-            $field[] = Form::frameImage('image', 'Sản phẩm', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
+            $field[] = Form::frameImage('image', 'Sản phẩm', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image')))
+                ->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false])
+                ->required('Vui lòng chọn sản phẩm');
         } else {
             $field[] = Form::hidden('product_id', $product_id);
         }
-        $field[] = Form::frameImage('avatar', 'Hình đại diện của người dùng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'avatar')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $field[] = Form::input('nickname', 'Tên người dùng')->maxlength(self::MAX_REPLY_NICKNAME_LENGTH)->col(24);
-        $field[] = Form::input('comment', 'Nội dung đánh giá')->maxlength(self::MAX_REPLY_COMMENT_LENGTH)->type('textarea');
-        $field[] = Form::rate('product_score', 'Điểm sản phẩm', 0)->allowHalf(false);
-        $field[] = Form::rate('service_score', 'Điểm dịch vụ', 0)->allowHalf(false);
+        $field[] = Form::frameImage('avatar', 'Hình đại diện của người dùng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'avatar')))
+            ->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false])
+            ->required('Vui lòng chọn hình đại diện người dùng');
+        $field[] = Form::input('nickname', 'Tên người dùng')
+            ->maxlength(self::MAX_REPLY_NICKNAME_LENGTH)
+            ->placeholder('Vui lòng nhập tên người dùng')
+            ->required('Vui lòng nhập tên người dùng')
+            ->col(24);
+        $field[] = Form::input('comment', 'Nội dung đánh giá')
+            ->maxlength(self::MAX_REPLY_COMMENT_LENGTH)
+            ->placeholder('Vui lòng nhập nội dung đánh giá')
+            ->required('Vui lòng nhập nội dung đánh giá')
+            ->type('textarea');
+        $field[] = Form::rate('product_score', 'Điểm sản phẩm', 0)->allowHalf(false)->required('Vui lòng chọn điểm sản phẩm');
+        $field[] = Form::rate('service_score', 'Điểm dịch vụ', 0)->allowHalf(false)->required('Vui lòng chọn điểm dịch vụ');
         $field[] = Form::frameImages('pics', 'Hình ảnh đánh giá', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'pics', 'type' => 'many', 'maxLength' => 8)))->maxLength(8)->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['closeBtn' => false, 'okBtn' => false, 'footer' => false]);
         $field[] = Form::dateTime('add_time', 'Thời gian đánh giá', '')->placeholder('Vui lòng chọn thời gian đánh giá (để trống sẽ lấy thời gian hiện tại)')->style(['width' => '300px']);
         return create_form('Thêm bình luận ảo', $field, Url::buildUrl('/product/reply/save_fictitious_reply'), 'POST');

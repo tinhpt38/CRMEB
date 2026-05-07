@@ -89,11 +89,11 @@ class StoreProductReply extends AuthController
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
      */
-    public function fictitious_reply()
+    public function fictitious_reply($product_id = 0)
     {
-        list($product_id) = $this->request->postMore([
-            ['product_id', 0],
-        ], true);
+        if (!$product_id) {
+            $product_id = (int)$this->request->param('product_id', 0);
+        }
         return app('json')->success($this->services->createForm($product_id));
     }
 
@@ -135,7 +135,7 @@ class StoreProductReply extends AuthController
     public function set_status($id, $status)
     {
         $this->services->update($id, ['status' => $status]);
-        return app('json')->success($status == 1 ? 'Tán thành' : 'từ chối thành công');
+        return app('json')->success($status == 1 ? 'Duyệt thành công' : 'Từ chối thành công');
     }
 
     /**
@@ -152,6 +152,6 @@ class StoreProductReply extends AuthController
             ['status', 0]
         ], true);
         $this->services->batchUpdate($ids, ['status' => $status]);
-        return app('json')->success($status == 1 ? 'Tán thành' : 'từ chối thành công');
+        return app('json')->success($status == 1 ? 'Duyệt thành công' : 'Từ chối thành công');
     }
 }

@@ -165,7 +165,10 @@ class StoreCategoryServices extends BaseServices
         } else {
             $f[] = Form::select('pid', 'Danh mục cha', (int)($info['pid'] ?? ''))->setOptions($this->menus())->filterable(1);
         }
-        $f[] = Form::input('cate_name', 'Tên danh mục', $info['cate_name'] ?? '')->maxlength(self::MAX_CATE_NAME_LENGTH)->required();
+        $f[] = Form::input('cate_name', 'Tên danh mục', $info['cate_name'] ?? '')
+            ->maxlength(self::MAX_CATE_NAME_LENGTH)
+            ->placeholder('Vui lòng nhập tên danh mục')
+            ->required('Vui lòng nhập tên danh mục');
         $f[] = Form::frameImage('pic', 'Biểu tượng danh mục (180*180)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'pic')), $info['pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $f[] = Form::frameImage('big_pic', 'Ảnh danh mục lớn (468*340)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'big_pic')), $info['big_pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $f[] = Form::number('sort', 'Thứ tự', (int)($info['sort'] ?? 0))->min(0)->precision(0);

@@ -626,7 +626,7 @@ class StoreProductServices extends BaseServices
             $data['limit_num'] = 0;
         } else {
             if (!in_array($data['limit_type'], [1, 2])) throw new AdminException('Vui lòng chọn loại hạn chế mua hàng');
-            if ($data['limit_num'] <= 0) throw new AdminException('Số lượng giới hạn mua hàng không thể ít hơn1');
+            if ($data['limit_num'] <= 0) throw new AdminException('Số lượng giới hạn mua hàng phải lớn hơn 0');
         }
         $data['is_virtual'] = in_array($data['virtual_type'], [1, 2]) > 0 ? 1 : 0;
         $data['logistics'] = implode(',', $data['logistics']);
@@ -654,7 +654,7 @@ class StoreProductServices extends BaseServices
             if (isset($item['detail'])) {
                 foreach ($item['detail'] as $detail_k => $detail_v) {
                     if (preg_match('/[=;]/', $detail_k) === 1 || preg_match('/[=;]/', $detail_v) === 1) {
-                        throw new AdminException('Không thể bao gồm thông số kỹ thuật và giá trị thông số kỹ thuật=hoặc;biểu tượng');
+                        throw new AdminException('Tên thuộc tính và giá trị thuộc tính không được chứa ký tự =, ; hoặc dấu phẩy');
                     }
                 }
             }
@@ -896,7 +896,7 @@ class StoreProductServices extends BaseServices
                 throw new AdminException('Vui lòng điền đúng giá thành sản phẩm');
             }
             if ($validate && (!isset($value['pic']) || empty($value['pic']))) {
-                throw new AdminException('Vui lòng đặt hình ảnh đặc điểm kỹ thuật');
+                throw new AdminException('Vui lòng chọn hình ảnh thuộc tính');
             }
             foreach ($value['detail'] as $attrName => $attrValue) {
                 //Nếu có khoảng trắng trong attrName, khóa đặc tả này sẽ xuất hiện hai lần.
@@ -904,10 +904,10 @@ class StoreProductServices extends BaseServices
                 $attrName = trim($attrName);
                 $attrValue = trim($attrValue);
                 if (!in_array($attrName, $attrNameList, true)) {
-                    throw new AdminException('{:name}Thông số kỹ thuật không tồn tại', ['name' => $attrName]);
+                    throw new AdminException('Thuộc tính {:name} không tồn tại', ['name' => $attrName]);
                 }
                 if (!in_array($attrValue, array_column($attrValueList, 'value'), true)) {
-                    throw new AdminException('{:name}Tài sản không tồn tại', ['name' => $attrValue]);
+                    throw new AdminException('Giá trị thuộc tính {:name} không tồn tại', ['name' => $attrValue]);
                 }
                 if (empty($attrName)) {
                     throw new AdminException('Vui lòng nhập đúng thuộc tính');
@@ -1180,7 +1180,7 @@ class StoreProductServices extends BaseServices
                 if ($return) {
                     return false;
                 } else {
-                    throw new AdminException('Sự tham gia của sản phẩm vào hoạt động bán hàng chớp nhoáng đã được bật và thao tác này không thể thực hiện được.');
+                    throw new AdminException('Sản phẩm đang tham gia hoạt động flash sale, không thể thực hiện thao tác này.');
                 }
             }
             /** @var StoreBargainServices $storeBargainService */
@@ -1190,7 +1190,7 @@ class StoreProductServices extends BaseServices
                 if ($return) {
                     return false;
                 } else {
-                    throw new AdminException('Sản phẩm đang tham gia hoạt động thương lượng và không thể thực hiện thao tác này.');
+                    throw new AdminException('Sản phẩm đang tham gia hoạt động mặc cả, không thể thực hiện thao tác này.');
                 }
             }
             /** @var StoreCombinationServices $storeCombinationService */
@@ -1200,7 +1200,7 @@ class StoreProductServices extends BaseServices
                 if ($return) {
                     return false;
                 } else {
-                    throw new AdminException('Sự tham gia của sản phẩm vào hoạt động mua nhóm đã được bật và thao tác này không thể thực hiện được.');
+                    throw new AdminException('Sản phẩm đang tham gia hoạt động mua nhóm, không thể thực hiện thao tác này.');
                 }
             }
         }
@@ -2477,7 +2477,7 @@ class StoreProductServices extends BaseServices
         }
         $importData = app()->make(FileService::class)->readExcel($file, 'product', 1, ucfirst($suffix));
         if (!$importData) {
-            throw new AdminException('Dữ liệu nhập trống');
+            throw new AdminException('Dữ liệu import trống');
         }
         $productCateServices = app()->make(StoreCategoryServices::class);
         $productData = $issetProductArr = [];

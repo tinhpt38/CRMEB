@@ -121,6 +121,7 @@ class StoreCategory extends AuthController
             ['sort', 0],
             ['is_show', 0]
         ]);
+        $this->validate($data, \app\adminapi\validate\product\StoreCategoryValidate::class, 'save');
         $this->service->createData($data);
         return app('json')->success('Đã lưu thành công');
     }
@@ -154,6 +155,7 @@ class StoreCategory extends AuthController
             ['sort', 0],
             ['is_show', 0]
         ]);
+        $this->validate($data, \app\adminapi\validate\product\StoreCategoryValidate::class, 'update');
 
         $this->service->editData($id, $data);
         return app('json')->success('Sửa đổi thành công');
