@@ -128,6 +128,8 @@ export default {
           read: 0,
         });
       });
+    }).catch(() => {
+      // WebSocket admin (Workerman) không bắt buộc khi dev hoặc khi server chưa bật — tránh Uncaught (in promise)
     });
   },
   filters: {

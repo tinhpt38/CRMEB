@@ -31,7 +31,7 @@
     </div>
     <div class="layout-navbars-breadcrumb-user-icon" v-db-click @click="onScreenfullClick">
       <i
-        :title="IsScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
+        :title="isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
         :class="!isScreenfull ? 'el-icon-full-screen' : 'el-icon-crop'"
       ></i>
     </div>
