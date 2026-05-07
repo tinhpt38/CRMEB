@@ -13,7 +13,7 @@
 
 import { navigateTo } from 'zmp-ui';
 
-// ─── Cấu hình ────────────────────────────────────────────────────────────────
+// ─── Cấu hình ─────────────────────────────────────────szalo───────────────────────
 
 /** URL gốc của backend CRMEB - thay bằng domain thực tế của bạn */
 const BASE_URL = 'https://your-crmeb-domain.com/api';

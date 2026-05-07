@@ -164,5 +164,14 @@ export default {
       },
       component: () => import('@/pages/app/app/index'),
     },
+    {
+      path: 'zalo/config',
+      name: `${pre}zaloConfig`,
+      meta: {
+        auth: ['app-zalo-config'],
+        title: 'Cấu hình Zalo Mini App',
+      },
+      component: () => import('@/pages/app/zalo/index'),
+    },
   ],
 };

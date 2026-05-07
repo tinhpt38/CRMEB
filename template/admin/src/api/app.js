@@ -507,3 +507,37 @@ export function routineSchemeDel(id) {
     method: 'delete',
   });
 }
+
+// ─── Zalo Mini App ──────────────────────────────────────────────────────────
+
+/**
+ * @description Zalo - Lấy cấu hình xác thực
+ */
+export function getZaloConfig() {
+  return request({
+    url: 'app/zalo/config',
+    method: 'GET',
+  });
+}
+
+/**
+ * @description Zalo - Lưu cấu hình xác thực
+ * @param {Object} data - {zalo_login_open, zalo_app_id, zalo_app_secret, zalo_callback_domain, zalo_bind_phone}
+ */
+export function saveZaloConfig(data) {
+  return request({
+    url: 'app/zalo/config',
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * @description Zalo - Kiểm tra kết nối API với App ID và Secret đã cấu hình
+ */
+export function testZaloConnection() {
+  return request({
+    url: 'app/zalo/test_connection',
+    method: 'GET',
+  });
+}

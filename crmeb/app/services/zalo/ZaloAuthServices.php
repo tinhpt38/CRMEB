@@ -174,12 +174,19 @@ class ZaloAuthServices extends BaseServices
      */
     private function fetchZaloUserInfo(string $accessToken): array
     {
-        $url = self::ZALO_GRAPH_API
-            . '?access_token=' . urlencode($accessToken)
-            . '&fields=id,name,picture';
+        $appSecret      = (string)sys_config('zalo_app_secret', '');
+        $appsecretProof = hash_hmac('sha256', $accessToken, $appSecret);
 
+        // access_token + appsecret_proof bắt buộc trong header từ 01/01/2024
         try {
-            $response = HttpService::getRequest($url);
+            $response = HttpService::getRequest(
+                self::ZALO_GRAPH_API,
+                ['fields' => 'id,name,picture'],
+                [
+                    'access_token: '    . $accessToken,
+                    'appsecret_proof: ' . $appsecretProof,
+                ]
+            );
         } catch (\Throwable $e) {
             Log::error('[ZaloAuth] Lỗi kết nối Zalo API: ' . $e->getMessage());
             throw new ApiException('Không thể kết nối Zalo API, vui lòng thử lại');

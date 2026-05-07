@@ -164,6 +164,19 @@ Route::group('app', function () {
 
     })->option(['parent' => 'app', 'cate_name' => 'Dịch vụ khách hàng liên quan']);
 
+    /** Zalo Mini App */
+    Route::group(function () {
+        // Lấy cấu hình Zalo hiện tại
+        Route::get('zalo/config', 'v1.application.zalo.ZaloConfig/getConfig')
+            ->option(['real_name' => 'Zalo - Lấy cấu hình xác thực']);
+        // Lưu cấu hình Zalo
+        Route::post('zalo/config', 'v1.application.zalo.ZaloConfig/saveConfig')
+            ->option(['real_name' => 'Zalo - Lưu cấu hình xác thực']);
+        // Test kết nối Zalo API
+        Route::get('zalo/test_connection', 'v1.application.zalo.ZaloConfig/testConnection')
+            ->option(['real_name' => 'Zalo - Kiểm tra kết nối API']);
+    })->option(['parent' => 'app', 'cate_name' => 'Zalo Mini App']);
+
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
