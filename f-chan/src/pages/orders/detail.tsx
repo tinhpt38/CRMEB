@@ -8,7 +8,7 @@ import { OrderSummarySkeleton } from "@/components/skeleton";
 
 function OrderDetailPage() {
   const { id } = useParams();
-  const orderId = Number(id);
+  const orderId = String(id ?? "");
 
   const orderLoadable = useAtomValue(loadable(orderDetailState(orderId)));
 

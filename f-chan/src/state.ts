@@ -33,7 +33,22 @@ import CONFIG from "./config";
 import { getConfig } from "./utils/template";
 import { CrmebApiClient } from "./utils/crmeb/client";
 import { getCrmebToken, setCrmebToken } from "./utils/crmeb/token";
-import { isCrmebFeatureEnabled } from "./utils/featureFlags";
+
+/**
+ * Resolve a CRMEB image path to an absolute URL.
+ * CRMEB thường trả về đường dẫn tương đối như `/uploads/attach/xxx.jpg`.
+ * Hàm này ghép domain từ apiUrl nếu URL chưa phải tuyệt đối.
+ */
+function resolveImageUrl(url: string | undefined | null, apiUrl: string): string {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  try {
+    const origin = new URL(apiUrl).origin;
+    return `${origin}${url.startsWith("/") ? "" : "/"}${url}`;
+  } catch {
+    return url;
+  }
+}
 
 export const userInfoKeyState = atom(0);
 
@@ -126,20 +141,10 @@ export const phoneState = atom(async () => {
   let phone = "";
   try {
     const { token } = await getPhoneNumber({});
-    // Phía tích hợp làm theo hướng dẫn tại https://mini.zalo.me/documents/api/getPhoneNumber/ để chuyển đổi token thành số điện thoại người dùng ở server.
-    // phone = await decodeToken(token);
-
-    // Các bước bên dưới để demo chức năng, phía tích hợp có thể bỏ đi sau.
-    toast(
-      "Đã lấy được token chứa số điện thoại người dùng. Phía tích hợp cần decode token này ở server. Giả lập số điện thoại 0912345678...",
-      {
-        icon: "ℹ",
-        duration: 10000,
-      }
-    );
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    phone = "0912345678";
-    // End demo
+    // Gọi API server để decode token thành số điện thoại thực.
+    // Tham khảo: https://mini.zalo.me/documents/api/getPhoneNumber/
+    // phone = await decodePhoneToken(token);
+    void token;
   } catch (error) {
     console.warn(error);
   }
@@ -148,22 +153,27 @@ export const phoneState = atom(async () => {
 
 export const bannersState = atom(() =>
   (async () => {
-    const catalogEnabled = isCrmebFeatureEnabled("catalog");
     const apiUrl = getConfig((config) => config.template.apiUrl);
-    if (!catalogEnabled)
-      return await requestWithFallback<string[]>("/banners", []);
-
     try {
       const client = new CrmebApiClient({
         apiBaseUrl: apiUrl,
         getToken: () => getCrmebToken(),
       });
 
-      // Public endpoint: carousel/home content
-      const res = await client.get<{ list?: Array<any> }>("/home/products");
-      const list = res?.list ?? [];
-      return list
-        .map((item) => String(item?.image ?? item?.recommend_image ?? ""))
+      // CRMEB home index returns banner array: { banner: [{ pic, link }] }
+      const res = await client.get<Record<string, any>>("/index");
+      const bannerList: Array<any> = res?.banner ?? res?.banner_info ?? [];
+      if (bannerList.length) {
+        return bannerList
+          .map((b) => resolveImageUrl(b?.pic ?? b?.image ?? b?.url, apiUrl))
+          .filter(Boolean);
+      }
+
+      // Fallback: use first few product images as visual placeholder
+      const products = await client.get<Array<any>>("/products");
+      return (products ?? [])
+        .slice(0, 5)
+        .map((p) => resolveImageUrl(p?.recommend_image ?? p?.image, apiUrl))
         .filter(Boolean);
     } catch (error) {
       console.warn("Failed to load banners from CRMEB:", error);
@@ -177,11 +187,7 @@ export const tabsState = atom(["Tất cả", "Nam", "Nữ", "Trẻ em"]);
 export const selectedTabIndexState = atom(0);
 
 export const categoriesState = atom(async () => {
-  const catalogEnabled = isCrmebFeatureEnabled("catalog");
   const apiUrl = getConfig((config) => config.template.apiUrl);
-  if (!catalogEnabled)
-    return await requestWithFallback<Category[]>("/categories", []);
-
   try {
     const client = new CrmebApiClient({
       apiBaseUrl: apiUrl,
@@ -192,7 +198,7 @@ export const categoriesState = atom(async () => {
     return (raw ?? []).map((c) => ({
       id: Number(c?.id ?? 0),
       name: String(c?.cate_name ?? c?.name ?? ""),
-      image: String(c?.pic ?? c?.image ?? ""),
+      image: resolveImageUrl(c?.pic ?? c?.image, apiUrl),
     }));
   } catch (error) {
     console.warn("Failed to load categories from CRMEB:", error);
@@ -207,19 +213,7 @@ export const categoriesStateUpwrapped = unwrap(
 
 export const productsState = atom(async (get) => {
   const categories = await get(categoriesState);
-  const catalogEnabled = isCrmebFeatureEnabled("catalog");
   const apiUrl = getConfig((config) => config.template.apiUrl);
-  if (!catalogEnabled) {
-    const products = await requestWithFallback<(Product & { categoryId: number })[]>(
-      "/products",
-      []
-    );
-    return products.map((product) => ({
-      ...product,
-      category: categories.find((category) => category.id === product.categoryId)!,
-    }));
-  }
-
   try {
     const client = new CrmebApiClient({
       apiBaseUrl: apiUrl,
@@ -227,34 +221,45 @@ export const productsState = atom(async (get) => {
     });
 
     const rawProducts = await client.get<Array<any>>("/products");
-    return (rawProducts ?? []).map((p) => {
-      const categoryId = Number(
-        String(p?.cate_id ?? p?.categoryId ?? 0).split(",")[0]
-      );
+      return (rawProducts ?? []).map((p) => {
+        const categoryId = Number(
+          String(p?.cate_id ?? p?.categoryId ?? 0).split(",")[0]
+        );
 
-      const category =
-        categories.find((c) => c.id === categoryId) ?? {
-          id: categoryId,
-          name: "",
-          image: "",
-        };
+        const category =
+          categories.find((c) => c.id === categoryId) ?? {
+            id: categoryId,
+            name: "",
+            image: "",
+          };
 
-      const originalPriceRaw = p?.ot_price;
-      const originalPrice = originalPriceRaw
-        ? Number(originalPriceRaw)
-        : undefined;
+        const originalPriceRaw = p?.ot_price;
+        const originalPrice = originalPriceRaw
+          ? Number(originalPriceRaw)
+          : undefined;
 
-      return {
-        id: Number(p?.id ?? 0),
-        name: String(p?.store_name ?? p?.name ?? ""),
-        price: Number(p?.price ?? 0),
-        originalPrice,
-        image: String(p?.image ?? p?.recommend_image ?? ""),
-        categoryId,
-        category,
-        detail: undefined,
-      } as Product & { categoryId: number };
-    });
+        const sliderRaw = p?.slider_image;
+        const rawSliderList: string[] = Array.isArray(sliderRaw)
+          ? sliderRaw.map(String).filter(Boolean)
+          : typeof sliderRaw === "string" && sliderRaw
+            ? sliderRaw.split(",").map((s) => s.trim()).filter(Boolean)
+            : [];
+        const images: string[] | undefined = rawSliderList.length
+          ? rawSliderList.map((s) => resolveImageUrl(s, apiUrl))
+          : undefined;
+
+        return {
+          id: Number(p?.id ?? 0),
+          name: String(p?.store_name ?? p?.name ?? ""),
+          price: Number(p?.price ?? 0),
+          originalPrice,
+          image: resolveImageUrl(p?.image ?? p?.recommend_image, apiUrl),
+          images,
+          categoryId,
+          category,
+          detail: undefined,
+        } as Product & { categoryId: number };
+      });
   } catch (error) {
     console.warn("Failed to load products from CRMEB:", error);
     return [];
@@ -269,6 +274,67 @@ export const productState = atomFamily((id: number) =>
   atom(async (get) => {
     const products = await get(productsState);
     return products.find((product) => product.id === id);
+  })
+);
+
+/**
+ * Fetch full product detail from CRMEB `GET /product/detail/:id/0`.
+ * Returns the list-level Product enriched with `detail` (HTML) and `images`.
+ * Falls back to the list-level entry when CRMEB integration is disabled or the
+ * call fails.
+ */
+export const productDetailState = atomFamily((id: number) =>
+  atom(async (get) => {
+  const apiUrl = getConfig((config) => config.template.apiUrl);
+
+  // Base product from the list (provides category, price, etc.)
+  const base = await get(productState(id));
+
+  if (!apiUrl) return base;
+
+    try {
+      const client = new CrmebApiClient({
+        apiBaseUrl: apiUrl,
+        getToken: () => getCrmebToken(),
+      });
+
+      // CRMEB: GET /product/detail/:id/:type  (type 0 = normal)
+      const raw = await client.get<Record<string, any>>(
+        `/product/detail/${id}/0`
+      );
+
+      if (!raw) return base;
+
+      const sliderRaw = raw.slider_image;
+      const rawSliderList: string[] = Array.isArray(sliderRaw)
+        ? sliderRaw.map(String).filter(Boolean)
+        : typeof sliderRaw === "string" && sliderRaw
+          ? sliderRaw.split(",").map((s: string) => s.trim()).filter(Boolean)
+          : [];
+      const images: string[] | undefined = rawSliderList.length
+        ? rawSliderList.map((s) => resolveImageUrl(s, apiUrl))
+        : base?.images;
+
+      const originalPriceRaw = raw.ot_price ?? raw.origin_price;
+      const originalPrice = originalPriceRaw
+        ? Number(originalPriceRaw)
+        : base?.originalPrice;
+
+      return {
+        ...(base ?? {}),
+        id: Number(raw.id ?? id),
+        name: String(raw.store_name ?? raw.name ?? base?.name ?? ""),
+        price: Number(raw.price ?? base?.price ?? 0),
+        originalPrice,
+        image: resolveImageUrl(raw.image ?? base?.image, apiUrl),
+        images,
+        detail: String(raw.description ?? raw.detail ?? base?.detail ?? ""),
+        category: base?.category ?? { id: 0, name: "", image: "" },
+      } as Product;
+    } catch (error) {
+      console.warn("Failed to load product detail from CRMEB:", error);
+      return base;
+    }
   })
 );
 
@@ -292,7 +358,6 @@ export const keywordState = atom("");
 export const searchResultState = atom(async (get) => {
   const keyword = get(keywordState);
   const products = await get(productsState);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   return products.filter((product) =>
     product.name.toLowerCase().includes(keyword.toLowerCase())
   );
@@ -300,7 +365,6 @@ export const searchResultState = atom(async (get) => {
 
 export const productsByCategoryState = atomFamily((id: String) =>
   atom(async (get) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     const products = await get(productsState);
     return products.filter((product) => String(product.categoryId) === id);
   })
@@ -310,23 +374,10 @@ export const stationsState = atom(async () => {
   let location: Location | undefined;
   try {
     const { token } = await getLocation({});
-    // Phía tích hợp làm theo hướng dẫn tại https://mini.zalo.me/documents/api/getLocation/ để chuyển đổi token thành thông tin vị trí người dùng ở server.
-    // location = await decodeToken(token);
-
-    // Các bước bên dưới để demo chức năng, phía tích hợp có thể bỏ đi sau.
-    toast(
-      "Đã lấy được token chứa thông tin vị trí người dùng. Phía tích hợp cần decode token này ở server. Giả lập vị trí tại VNG Campus...",
-      {
-        icon: "ℹ",
-        duration: 10000,
-      }
-    );
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    location = {
-      lat: 10.773756,
-      lng: 106.689247,
-    };
-    // End demo
+    // Gọi API server để decode token thành tọa độ thực.
+    // Tham khảo: https://mini.zalo.me/documents/api/getLocation/
+    // location = await decodeLocationToken(token);
+    void token;
   } catch (error) {
     console.warn(error);
   }
@@ -389,7 +440,7 @@ function parseCrmebDate(value: unknown): Date {
   return Number.isNaN(d.getTime()) ? new Date() : d;
 }
 
-function mapCrmebCartToCartItem(cart: any): Cart[number] {
+function mapCrmebCartToCartItem(cart: any, apiUrl: string): Cart[number] {
   const productInfo = cart?.productInfo ?? cart?.product ?? {};
   const categoryId = Number(String(productInfo?.cate_id ?? 0).split(",")[0] ?? 0);
   const originalPriceRaw = productInfo?.ot_price ?? productInfo?.origin_price;
@@ -400,7 +451,7 @@ function mapCrmebCartToCartItem(cart: any): Cart[number] {
       name: String(productInfo?.store_name ?? productInfo?.name ?? ""),
       price: Number(cart?.truePrice ?? cart?.price ?? productInfo?.truePrice ?? productInfo?.price ?? 0),
       originalPrice: originalPriceRaw ? Number(originalPriceRaw) : undefined,
-      image: String(productInfo?.image ?? ""),
+      image: resolveImageUrl(productInfo?.image, apiUrl),
       category: {
         id: categoryId,
         name: "",
@@ -412,9 +463,9 @@ function mapCrmebCartToCartItem(cart: any): Cart[number] {
   };
 }
 
-function mapCrmebOrderToFchanOrder(raw: any): Order {
+function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
   const itemsRaw = raw?.cartInfo ?? raw?.cart_info ?? [];
-  const items = (Array.isArray(itemsRaw) ? itemsRaw : []).map(mapCrmebCartToCartItem);
+  const items = (Array.isArray(itemsRaw) ? itemsRaw : []).map((cart) => mapCrmebCartToCartItem(cart, apiUrl));
 
   const shippingType = Number(raw?.shipping_type ?? 1);
   const delivery: Delivery =
@@ -422,10 +473,10 @@ function mapCrmebOrderToFchanOrder(raw: any): Order {
       ? { type: "pickup", stationId: 0 }
       : {
           type: "shipping",
-          alias: "",
-          address: "",
-          name: "",
-          phone: "",
+          alias: String(raw?.real_name ?? ""),
+          address: String(raw?.user_address ?? ""),
+          name: String(raw?.real_name ?? ""),
+          phone: String(raw?.user_phone ?? ""),
         };
 
   const total =
@@ -435,7 +486,7 @@ function mapCrmebOrderToFchanOrder(raw: any): Order {
   const note = String(raw?.remark ?? raw?.note ?? "");
 
   return {
-    id: Number(raw?.id ?? raw?.order_id ?? 0),
+    id: String(raw?.order_id ?? raw?.id ?? raw?.uni ?? ""),
     status: toOrderStatusFromCrmeb(raw),
     paymentStatus: toPaymentStatusFromCrmeb(raw),
     createdAt: parseCrmebDate(raw?._add_time ?? raw?.add_time ?? raw?.create_time),
@@ -449,13 +500,7 @@ function mapCrmebOrderToFchanOrder(raw: any): Order {
 
 export const ordersState = atomFamily((status: OrderStatus) =>
   atomWithRefresh(async () => {
-    const ordersEnabled = isCrmebFeatureEnabled("orders");
     const apiUrl = getConfig((config) => config.template.apiUrl);
-    if (!ordersEnabled) {
-      const allMockOrders = await requestWithFallback<Order[]>("/orders", []);
-      return allMockOrders.filter((order) => order.status === status);
-    }
-
     try {
       const client = new CrmebApiClient({
         apiBaseUrl: apiUrl,
@@ -463,7 +508,7 @@ export const ordersState = atomFamily((status: OrderStatus) =>
       });
 
       const rawOrders = await client.get<Array<any>>("/order/list");
-      const mapped = (rawOrders ?? []).map(mapCrmebOrderToFchanOrder);
+      const mapped = (rawOrders ?? []).map((o) => mapCrmebOrderToFchanOrder(o, apiUrl));
       return mapped.filter((order) => order.status === status);
     } catch (error) {
       console.warn("Failed to load orders from CRMEB:", error);
@@ -472,22 +517,18 @@ export const ordersState = atomFamily((status: OrderStatus) =>
   })
 );
 
-export const orderDetailState = atomFamily((orderId: number) =>
+export const orderDetailState = atomFamily((orderId: string) =>
   atom(async () => {
-    const ordersEnabled = isCrmebFeatureEnabled("orders");
-    const apiUrl = getConfig((config) => config.template.apiUrl);
-    if (!ordersEnabled) {
-      const allMockOrders = await requestWithFallback<Order[]>("/orders", []);
-      return allMockOrders.find((order) => order.id === orderId);
-    }
+    if (!orderId) return undefined;
 
+    const apiUrl = getConfig((config) => config.template.apiUrl);
     const client = new CrmebApiClient({
       apiBaseUrl: apiUrl,
       getToken: () => getCrmebToken(),
     });
 
     const raw = await client.get<any>(`/order/detail/${orderId}`);
-    return mapCrmebOrderToFchanOrder(raw);
+    return mapCrmebOrderToFchanOrder(raw, apiUrl);
   })
 );
 

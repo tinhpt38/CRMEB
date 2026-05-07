@@ -13,6 +13,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   image: string;
+  images?: string[];
   category: Category;
   detail?: string;
   sizes?: Size[];
@@ -65,7 +66,7 @@ export type OrderStatus = "pending" | "shipping" | "completed";
 export type PaymentStatus = "pending" | "success" | "failed";
 
 export interface Order {
-  id: number;
+  id: string;
   status: OrderStatus;
   paymentStatus: PaymentStatus;
   createdAt: Date;

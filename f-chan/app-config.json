@@ -14,7 +14,7 @@
   "listAsyncJS": [],
   "template": {
     "name": "zaui-market",
-    "apiUrl": "",
+    "apiUrl": "https://crmeb.local:7890/api",
     "features": {
       "catalog": true,
       "orders": true,

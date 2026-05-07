@@ -12,11 +12,10 @@ import {
 } from "@/state";
 import { Product } from "@/types";
 import { getConfig } from "@/utils/template";
-import { authorize, createOrder, openChat } from "zmp-sdk/apis";
+import { authorize, openChat } from "zmp-sdk/apis";
 import { useAtomCallback } from "jotai/utils";
 import { CrmebApiClient } from "@/utils/crmeb/client";
 import { getCrmebToken } from "@/utils/crmeb/token";
-import { isCrmebFeatureEnabled } from "@/utils/featureFlags";
 
 export function useRealHeight(
   element: MutableRefObject<HTMLDivElement | null>,
@@ -180,30 +179,9 @@ export function useCheckout() {
       const userInfo = await requestInfo();
       if (!userInfo) throw new Error("Missing user info");
 
-      const checkoutEnabled = isCrmebFeatureEnabled("checkout");
       const apiUrl = getConfig((config) => config.template.apiUrl);
-      // Nếu chưa bật CRMEB checkout (hoặc chưa cấu hình apiUrl), fallback về demo Zalo template.
-      if (!checkoutEnabled || !apiUrl) {
-        await createOrder({
-          amount: totalAmount,
-          desc: "Thanh toán đơn hàng",
-          item: cart.map((item) => ({
-            id: item.product.id,
-            name: item.product.name,
-            price: item.product.price,
-            quantity: item.quantity,
-          })),
-        });
-
-        setCart([]);
-        refreshPendingOrders();
-        refreshShippingOrders();
-        refreshCompletedOrders();
-        navigate("/orders", { viewTransition: true });
-        toast.success("Thanh toán thành công. Cảm ơn bạn đã mua hàng!", {
-          icon: "🎉",
-          duration: 5000,
-        });
+      if (!apiUrl) {
+        toast.error("Chưa cấu hình apiUrl. Vui lòng kiểm tra app-config.json.");
         return;
       }
 

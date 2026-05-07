@@ -2,23 +2,14 @@ import { getConfig } from "./template";
 
 const API_URL = getConfig((config) => config.template.apiUrl);
 
-const mockUrls = import.meta.glob<{ default: string }>("../mock/*.json", {
-  query: "url",
-  eager: true,
-});
-
 export async function request<T>(
   path: string,
   options?: RequestInit
 ): Promise<T> {
-  const url = API_URL
-    ? `${API_URL}${path}`
-    : mockUrls[`../mock${path}.json`]?.default;
-
   if (!API_URL) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    throw new Error(`Missing apiUrl. Cannot fetch ${path}.`);
   }
-  const response = await fetch(url, options);
+  const response = await fetch(`${API_URL}${path}`, options);
   return response.json() as T;
 }
 
