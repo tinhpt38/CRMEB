@@ -40,6 +40,23 @@ class CategoryController
             ['pid', 0],
         ]);
         $category = $this->services->getCategory($where);
+
+        // Đảm bảo pic luôn là URL tuyệt đối (tương thích Zalo Mini App & các client không có domain)
+        $category = array_map(function ($item) {
+            if (!empty($item['pic'])) {
+                $item['pic'] = set_file_url($item['pic']);
+            }
+            if (!empty($item['children']) && is_array($item['children'])) {
+                $item['children'] = array_map(function ($child) {
+                    if (!empty($child['pic'])) {
+                        $child['pic'] = set_file_url($child['pic']);
+                    }
+                    return $child;
+                }, $item['children']);
+            }
+            return $item;
+        }, (array)$category);
+
         return app('json')->success($category);
     }
 

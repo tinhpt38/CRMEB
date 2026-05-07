@@ -108,6 +108,17 @@ class PublicController
     }
 
     /**
+     * Lấy danh sách banner trang chủ (dành cho Zalo Mini App và các client nhẹ)
+     * Dữ liệu được cấu hình tại admin: /setting/system_visualization_data (routine_home_banner)
+     * @return mixed
+     */
+    public function homeBanner()
+    {
+        $banner = sys_data('routine_home_banner') ?: [];
+        return app('json')->success(compact('banner'));
+    }
+
+    /**
      * Nhận cấu hình chia sẻ
      * @return mixed
      */

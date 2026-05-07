@@ -99,7 +99,25 @@ class StoreProductController
         $type = 'big';
         $field = ['image', 'recommend_image'];
         $list = $this->services->getGoodsList($where, (int)$request->uid());
-        return app('json')->success(get_thumb_water($list, $type, $field));
+        $list = get_thumb_water($list, $type, $field);
+
+        // Khi image_thumb_status tắt, get_thumb_water trả về list gốc (đường dẫn tương đối).
+        // Đảm bảo image/recommend_image luôn là URL tuyệt đối cho Zalo Mini App.
+        if (!sys_config('image_thumb_status', 0) && is_array($list)) {
+            foreach ($list as &$item) {
+                foreach (['image', 'recommend_image', 'slider_image'] as $imgField) {
+                    if (empty($item[$imgField])) continue;
+                    if (is_array($item[$imgField])) {
+                        $item[$imgField] = array_map('set_file_url', $item[$imgField]);
+                    } else {
+                        $item[$imgField] = set_file_url($item[$imgField]);
+                    }
+                }
+            }
+            unset($item);
+        }
+
+        return app('json')->success($list);
     }
 
     /**

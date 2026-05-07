@@ -1,3 +1,9 @@
+export interface Banner {
+  pic: string;
+  /** Link điều hướng khi nhấn banner. Có thể là URL web hoặc path nội bộ CRMEB. */
+  link?: string;
+}
+
 export interface UserInfo {
   id: string;
   name: string;

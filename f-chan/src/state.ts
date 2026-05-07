@@ -7,6 +7,7 @@ import {
   unwrap,
 } from "jotai/utils";
 import {
+  Banner,
   Cart,
   Category,
   Delivery,
@@ -160,21 +161,31 @@ export const bannersState = atom(() =>
         getToken: () => getCrmebToken(),
       });
 
-      // CRMEB home index returns banner array: { banner: [{ pic, link }] }
-      const res = await client.get<Record<string, any>>("/index");
-      const bannerList: Array<any> = res?.banner ?? res?.banner_info ?? [];
+      // Gọi endpoint chuyên biệt cho banner - dữ liệu cấu hình tại
+      // Admin → Cài đặt → Cấu hình dữ liệu (routine_home_banner)
+      // Backend: GET /api/home/banner → v1.PublicController::homeBanner
+      const res = await client.get<Record<string, any>>("/home/banner");
+      const bannerList: Array<any> = res?.banner ?? [];
       if (bannerList.length) {
         return bannerList
-          .map((b) => resolveImageUrl(b?.pic ?? b?.image ?? b?.url, apiUrl))
-          .filter(Boolean);
+          .map((b): Banner | null => {
+            const pic = resolveImageUrl(b?.pic ?? b?.image ?? b?.url, apiUrl);
+            if (!pic) return null;
+            return { pic, link: b?.link ?? b?.url2 ?? "" };
+          })
+          .filter((b): b is Banner => b !== null);
       }
 
-      // Fallback: use first few product images as visual placeholder
+      // Fallback: dùng ảnh sản phẩm đầu tiên nếu chưa có banner nào được cấu hình
       const products = await client.get<Array<any>>("/products");
       return (products ?? [])
         .slice(0, 5)
-        .map((p) => resolveImageUrl(p?.recommend_image ?? p?.image, apiUrl))
-        .filter(Boolean);
+        .map((p): Banner | null => {
+          const pic = resolveImageUrl(p?.recommend_image ?? p?.image, apiUrl);
+          if (!pic) return null;
+          return { pic, link: "" };
+        })
+        .filter((b): b is Banner => b !== null);
     } catch (error) {
       console.warn("Failed to load banners from CRMEB:", error);
       return [];

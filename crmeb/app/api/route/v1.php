@@ -380,6 +380,7 @@ Route::group(function () {
         Route::get('menu/user', 'v1.PublicController/menu_user')->name('menuUser')->option(['real_name' => 'Menu trung tâm cá nhân']);//Menu trung tâm cá nhân
         //Lớp công khai
         Route::get('index', 'v1.PublicController/index')->name('index')->option(['real_name' => 'trang đầu']);//trang đầu
+        Route::get('home/banner', 'v1.PublicController/homeBanner')->name('homeBanner')->option(['real_name' => 'Banner trang chủ (Zalo Mini App)']);//Banner trang chủ - dữ liệu từ routine_home_banner
         Route::get('site_config', 'v1.PublicController/getSiteConfig')->name('getSiteConfig')->option(['real_name' => 'Nhận cấu hình trang web']);//Nhận cấu hình trang web
         //Giao diện tự làm
         Route::get('diy/get_diy/[:id]', 'v1.PublicController/getDiy');
