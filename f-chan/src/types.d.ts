@@ -46,9 +46,28 @@ export interface Location {
 
 export interface ShippingAddress {
   alias: string;
+  /** Tỉnh / Thành phố — bắt buộc khi lưu lên CRMEB */
+  province: string;
+  /** Quận / Huyện */
+  city: string;
+  /** Phường / Xã */
+  district: string;
+  /** Số nhà, tên đường (chi tiết) */
   address: string;
   name: string;
   phone: string;
+}
+
+/** Địa chỉ lưu trên server CRMEB (từ GET /address/list) */
+export interface CrmebAddress {
+  id: number;
+  real_name: string;
+  phone: string;
+  province: string;
+  city: string;
+  district: string;
+  detail: string;
+  is_default: number;
 }
 
 export interface Station {

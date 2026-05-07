@@ -13,6 +13,7 @@ import ShippingAddressPage from "./pages/cart/shipping-address";
 import StationsPage from "./pages/cart/stations";
 import OrderDetailPage from "./pages/orders/detail";
 import ProfileEditorPage from "./pages/profile/editor";
+import BindPhonePage from "./pages/profile/bind-phone";
 
 const router = createBrowserRouter(
   [
@@ -88,6 +89,15 @@ const router = createBrowserRouter(
           element: <ProfileEditorPage />,
           handle: {
             title: "Thông tin tài khoản",
+            noFooter: true,
+            noFloatingCart: true,
+          },
+        },
+        {
+          path: "/profile/bind-phone",
+          element: <BindPhonePage />,
+          handle: {
+            title: "Gắn số điện thoại",
             noFooter: true,
             noFloatingCart: true,
           },

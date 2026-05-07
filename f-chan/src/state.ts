@@ -10,6 +10,7 @@ import {
   Banner,
   Cart,
   Category,
+  CrmebAddress,
   Delivery,
   Location,
   Order,
@@ -546,4 +547,66 @@ export const orderDetailState = atomFamily((orderId: string) =>
 export const deliveryModeState = atomWithStorage<Delivery["type"]>(
   CONFIG.STORAGE_KEYS.DELIVERY,
   "shipping"
+);
+
+// ---------------------------------------------------------------------------
+// Địa chỉ CRMEB — danh sách, lựa chọn, địa chỉ hiển thị
+// ---------------------------------------------------------------------------
+
+function mapCrmebAddress(a: any): CrmebAddress {
+  return {
+    id: Number(a?.id ?? 0),
+    real_name: String(a?.real_name ?? ""),
+    phone: String(a?.phone ?? ""),
+    province: String(a?.province ?? ""),
+    city: String(a?.city ?? ""),
+    district: String(a?.district ?? ""),
+    detail: String(a?.detail ?? ""),
+    is_default: Number(a?.is_default ?? 0),
+  };
+}
+
+/**
+ * Danh sách địa chỉ của user trên CRMEB.
+ * atomWithRefresh → gọi refreshAddresses() để reload sau khi thêm/sửa.
+ */
+export const crmebAddressesState = atomWithRefresh(async () => {
+  const apiUrl = getConfig((config) => config.template.apiUrl);
+  const token = getCrmebToken();
+  if (!apiUrl || !token) return [] as CrmebAddress[];
+  try {
+    const client = new CrmebApiClient({
+      apiBaseUrl: apiUrl,
+      getToken: () => token,
+    });
+    const raw = await client.get<Array<any>>("/address/list");
+    return (raw ?? []).map(mapCrmebAddress);
+  } catch {
+    return [] as CrmebAddress[];
+  }
+});
+
+/** ID địa chỉ đang được chọn (persist qua localStorage) */
+export const selectedCrmebAddressIdState = atomWithStorage<number | null>(
+  CONFIG.STORAGE_KEYS.CRMEB_ADDRESS_ID,
+  null
+);
+
+/**
+ * Địa chỉ đang được chọn.
+ * Ưu tiên: selectedId → is_default → phần tử đầu tiên → null
+ */
+export const selectedCrmebAddressState = atom(async (get) => {
+  const addresses = await get(crmebAddressesState);
+  if (!addresses.length) return null;
+  const selectedId = get(selectedCrmebAddressIdState);
+  if (selectedId !== null) {
+    const found = addresses.find((a) => a.id === selectedId);
+    if (found) return found;
+  }
+  return addresses.find((a) => a.is_default === 1) ?? addresses[0] ?? null;
+});
+
+export const loadableSelectedCrmebAddressState = loadable(
+  selectedCrmebAddressState
 );

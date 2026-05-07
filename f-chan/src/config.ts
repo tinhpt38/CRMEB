@@ -5,6 +5,8 @@ const CONFIG = {
     CRMEB_TOKEN: "crmebToken",
     DELIVERY: "delivery",
     SHIPPING_ADDRESS: "shippingAddress",
+    // ID địa chỉ đang được chọn (từ CRMEB /address/list)
+    CRMEB_ADDRESS_ID: "crmebAddressId",
   },
 };
 

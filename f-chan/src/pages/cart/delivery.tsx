@@ -12,17 +12,27 @@ import {
 } from "@/components/vectors";
 import {
   deliveryModeState,
+  loadableSelectedCrmebAddressState,
   selectedStationState,
-  shippingAddressState,
 } from "@/state";
 import { useAtom, useAtomValue } from "jotai";
 import { Suspense } from "react";
 import DeliverySummary from "./delivery-summary";
 
 function ShippingAddressSummary() {
-  const shippingAddress = useAtomValue(shippingAddressState);
+  const loadable = useAtomValue(loadableSelectedCrmebAddressState);
 
-  if (!shippingAddress) {
+  if (loadable.state === "loading") {
+    return (
+      <div className="h-16 flex items-center justify-center text-subtitle text-xs">
+        Đang tải địa chỉ…
+      </div>
+    );
+  }
+
+  const address = loadable.state === "hasData" ? loadable.data : null;
+
+  if (!address) {
     return (
       <TransitionLink
         className="flex flex-col space-y-2 justify-center items-center p-4 w-full"
@@ -37,12 +47,16 @@ function ShippingAddressSummary() {
     );
   }
 
+  const fullAddress = [address.detail, address.district, address.city, address.province]
+    .filter(Boolean)
+    .join(", ");
+
   return (
     <DeliverySummary
       icon={<LocationMarkerLineIcon />}
       title="Địa chỉ nhận hàng"
-      subtitle={shippingAddress.alias}
-      description={shippingAddress.address}
+      subtitle={`${address.real_name} • ${address.phone}`}
+      description={fullAddress}
       linkTo="/shipping-address"
     />
   );

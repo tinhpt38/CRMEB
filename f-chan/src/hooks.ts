@@ -5,8 +5,10 @@ import { UIMatch, useMatches, useNavigate } from "react-router-dom";
 import {
   cartState,
   cartTotalState,
+  crmebAddressesState,
   deliveryModeState,
   ordersState,
+  selectedCrmebAddressState,
   userInfoKeyState,
   userInfoState,
 } from "@/state";
@@ -15,7 +17,7 @@ import { getConfig } from "@/utils/template";
 import { authorize, openChat } from "zmp-sdk/apis";
 import { useAtomCallback } from "jotai/utils";
 import { CrmebApiClient } from "@/utils/crmeb/client";
-import { getCrmebToken } from "@/utils/crmeb/token";
+import { getCrmebToken, setCrmebToken } from "@/utils/crmeb/token";
 
 export function useRealHeight(
   element: MutableRefObject<HTMLDivElement | null>,
@@ -107,6 +109,44 @@ export function useCustomerSupport() {
     });
 }
 
+/**
+ * Gắn số điện thoại vào tài khoản Zalo đang đăng nhập (SMS OTP).
+ *
+ * Bước 1 – sendOtp(phone): gọi POST /register/verify → gửi OTP qua SMS.
+ * Bước 2 – verifyAndBind(phone, otp): gọi POST /zalo/bind_phone → lưu phone vào CRMEB.
+ *           Trả về true nếu thành công, ném lỗi nếu thất bại.
+ */
+export function useBindPhone() {
+  const apiUrl = getConfig((config) => config.template.apiUrl);
+  const setUserInfoKey = useSetAtom(userInfoKeyState);
+
+  const sendOtp = async (phone: string) => {
+    if (!apiUrl) throw new Error("Chưa cấu hình apiUrl");
+    const client = new CrmebApiClient({
+      apiBaseUrl: apiUrl,
+      getToken: () => null,
+    });
+    await client.post("/register/verify", { phone });
+  };
+
+  const verifyAndBind = async (phone: string, otp: string) => {
+    if (!apiUrl) throw new Error("Chưa cấu hình apiUrl");
+    const token = getCrmebToken();
+    if (!token) throw new Error("Chưa đăng nhập CRMEB");
+    const client = new CrmebApiClient({
+      apiBaseUrl: apiUrl,
+      getToken: () => token,
+    });
+    await client.post("/zalo/bind_phone", { phone, captcha: otp });
+
+    // Xóa userInfo cache để state.userInfoState đọc lại phone mới từ server
+    localStorage.removeItem("userInfo");
+    setUserInfoKey((k) => k + 1);
+  };
+
+  return { sendOtp, verifyAndBind };
+}
+
 export function useToBeImplemented() {
   return () =>
     toast("Chức năng dành cho các bên tích hợp phát triển...", {
@@ -123,8 +163,13 @@ export function useCheckout() {
   const refreshPendingOrders = useSetAtom(ordersState("pending"));
   const refreshShippingOrders = useSetAtom(ordersState("shipping"));
   const refreshCompletedOrders = useSetAtom(ordersState("completed"));
+  const refreshAddresses = useSetAtom(crmebAddressesState);
 
   const deliveryMode = useAtomValue(deliveryModeState);
+
+  const getSelectedAddress = useAtomCallback(async (get) =>
+    get(selectedCrmebAddressState)
+  );
 
   const handleCrmebPayment = async (args: {
     payInfo: any;
@@ -190,6 +235,16 @@ export function useCheckout() {
         getToken: () => getCrmebToken(),
       });
 
+      // Lấy địa chỉ đang được chọn từ CRMEB
+      const selectedAddress = await getSelectedAddress();
+      const addressId = selectedAddress?.id ?? 0;
+
+      if (!addressId) {
+        toast.error("Vui lòng thêm địa chỉ nhận hàng trước khi đặt hàng.");
+        navigate("/shipping-address", { viewTransition: true });
+        return;
+      }
+
       // 1) local cart -> server cart
       const cartIdList: string[] = [];
       for (const item of cart) {
@@ -218,7 +273,7 @@ export function useCheckout() {
       const confirmData = await client.post<any>("/order/confirm", {
         cartId,
         new: 1,
-        addressId: 0,
+        addressId,
         shipping_type: 1,
         is_gift: 0,
       });
@@ -227,9 +282,9 @@ export function useCheckout() {
 
       // 3) computed
       await client.post<any>(`/order/computed/${orderKey}`, {
-        addressId: 0,
+        addressId,
         couponId: 0,
-        payType: "",
+        payType: "yue",
         useIntegral: 0,
         mark: "",
         combinationId: 0,
@@ -244,9 +299,9 @@ export function useCheckout() {
       const createData = await client.post<any>(
         `/order/create/${orderKey}`,
         {
-          addressId: 0,
+          addressId,
           couponId: 0,
-          payType: "",
+          payType: "yue",
           useIntegral: 0,
           mark: "",
           combinationId: 0,
@@ -254,8 +309,8 @@ export function useCheckout() {
           seckill_id: 0,
           bargainId: 0,
           shipping_type: 1,
-          real_name: userInfo.name,
-          phone: userInfo.phone,
+          real_name: selectedAddress?.real_name || userInfo.name,
+          phone: selectedAddress?.phone || userInfo.phone,
           store_id: 0,
           news: 0,
           new: 1,
@@ -270,10 +325,10 @@ export function useCheckout() {
       const orderId = createData?.orderId ?? createData?.order_id;
       if (!orderId) throw new Error("Missing orderId from /order/create");
 
-      // 5) pay
+      // 5) pay bằng số dư (yue)
       const payInfo = await client.post<any>("/order/pay", {
         uni: orderId,
-        paytype: "weixin",
+        paytype: "yue",
         quitUrl: "",
         type: 0,
       });
@@ -287,11 +342,12 @@ export function useCheckout() {
       return;
     }
 
-    // Refresh orders after the payment step.
+    // Refresh orders + addresses after the payment step.
     setCart([]);
     refreshPendingOrders();
     refreshShippingOrders();
     refreshCompletedOrders();
+    refreshAddresses();
     navigate("/orders", { viewTransition: true });
   };
 }
