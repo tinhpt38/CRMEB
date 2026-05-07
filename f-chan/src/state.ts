@@ -171,9 +171,9 @@ export const bannersState = atom(() =>
         return bannerList
           .map((b): Banner | null => {
             // Dùng || (không phải ??) vì CRMEB có thể trả về empty string ""
-            const pic = resolveImageUrl(b?.pic || b?.image || b?.url, apiUrl);
+            // routine_home_bast_banner trả về field "img"; các group khác dùng "pic"/"image"/"url"
+            const pic = resolveImageUrl(b?.img || b?.pic || b?.image || b?.url, apiUrl);
             if (!pic) return null;
-            // CRMEB dùng trường "url" cho link điều hướng
             return { pic, link: b?.link || b?.url || b?.url2 || "" };
           })
           .filter((b): b is Banner => b !== null);
