@@ -30,15 +30,15 @@ class StoreOrderValidate extends Validate
     ];
 
     protected $message = [
-        'order_id.require'      => 'Số đơn đặt hàng phải tồn tại',
-        'order_id.length'       => 'Số đơn hàng sai',
+        'order_id.require'      => 'Vui lòng nhập mã đơn hàng',
+        'order_id.length'       => 'Mã đơn hàng không hợp lệ',
         'order_id.alphaNum'     => 'Mã đơn hàng phải là chữ cái và số',
-        'total_price.require'   => 'Số tiền đặt hàng phải được điền vào',
-        'total_price.float'    => 'Số tiền đặt hàng phải là một con số',
-        'pay_price.require'     => 'Số tiền đặt hàng phải được điền vào',
-        'pay_price.float'      => 'Số tiền đặt hàng phải là một con số',
-        'pay_postage.require'   => 'Bưu phí đặt hàng phải được điền vào',
-        'pay_postage.float'    => 'Bưu phí đặt hàng phải là một con số',
+        'total_price.require'   => 'Vui lòng nhập tổng tiền đơn hàng',
+        'total_price.float'    => 'Tổng tiền đơn hàng phải là số',
+        'pay_price.require'     => 'Vui lòng nhập số tiền thanh toán',
+        'pay_price.float'      => 'Số tiền thanh toán phải là số',
+        'pay_postage.require'   => 'Vui lòng nhập phí vận chuyển',
+        'pay_postage.float'    => 'Phí vận chuyển phải là số',
         'gain_integral.float'  => 'Điểm quà tặng phải là số',
     ];
 

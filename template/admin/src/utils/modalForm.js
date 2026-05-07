@@ -17,7 +17,7 @@ export default function modalForm(formRequestPromise, config = {}) {
         if (!data.config.form) data.config.form = {};
         if (!data.config.formData) data.config.formData = {};
         data.config.formData = { ...data.config.formData, ...config.formData };
-        data.config.form.labelWidth = '105px';
+        data.config.form.labelWidth = '120px';
         data.config.global = {
           upload: {
             props: {
@@ -43,12 +43,14 @@ export default function modalForm(formRequestPromise, config = {}) {
         };
         data = Vue.observable(data);
         data.rules.forEach((e) => {
-          e.title += '：';
+          if (typeof e.title === 'string' && e.title && !e.title.trim().endsWith(':')) {
+            e.title += ':';
+          }
         });
         this.$msgbox({
           title: data.title,
           showCancelButton: true,
-          customClass: config.class || 'modal-form',
+          customClass: ['modal-form', config.class].filter(Boolean).join(' '),
           mask: false,
           closeOnClickModal: false,
           message: h('div', { class: 'common-form-create', key: uniqueId() }, [

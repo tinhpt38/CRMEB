@@ -2,13 +2,13 @@
   <!-- Thuộc tính tồn kho -->
   <el-row :gutter="24">
     <el-col :span="24">
-      <el-form-item label="Loại đặc điểm kỹ thuật：" props="spec_type">
+      <el-form-item label="Loại thuộc tính：" props="spec_type">
         <el-radio-group v-model="formValidate.spec_type" @input="changeSpec">
-          <el-radio :label="0" class="radio">Đặc điểm kỹ thuật đơn</el-radio>
-          <el-radio :label="1">Nhiều thông số kỹ thuật</el-radio>
+          <el-radio :label="0" class="radio">Một thuộc tính</el-radio>
+          <el-radio :label="1">Nhiều thuộc tính</el-radio>
         </el-radio-group>
         <el-dropdown v-if="formValidate.spec_type == 1" class="ml20" @command="confirm" trigger="hover">
-          <span class="el-dropdown-link"> Chọn mẫu đặc tả<i class="el-icon-arrow-down el-icon--right"></i> </span>
+          <span class="el-dropdown-link"> Chọn mẫu thuộc tính<i class="el-icon-arrow-down el-icon--right"></i> </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-for="(item, index) in ruleList" :key="index" :command="item.rule_name">{{
               item.rule_name
@@ -44,11 +44,11 @@
                 <div class="specifications-item-name mb18">
                   <el-input
                     v-model="item.value"
-                    placeholder="Tên đặc điểm kỹ thuật"
+                    placeholder="Tên thuộc tính"
                     @change="attrChangeValue(index, item.value)"
                     @focus="handleFocus(item.value)"
                     class="specifications-item-name-input"
-                    maxlength="30"
+                    maxlength="60"
                     show-word-limit
                   ></el-input>
                   <el-checkbox
@@ -58,12 +58,12 @@
                     :true-label="1"
                     :false-label="0"
                     @change="(e) => AddPic(e, index)"
-                    >Thêm sơ đồ thông số kỹ thuật</el-checkbox
+                    >Thêm ảnh theo thuộc tính</el-checkbox
                   >
                   <el-tooltip
                     class="item"
                     effect="dark"
-                    content="Thêm hình ảnh thông số kỹ thuật, Chỉ hỗ trợ mở một(Kích thước đề xuất:800*800)"
+                    content="Thêm ảnh cho thuộc tính, chỉ hỗ trợ một nhóm ảnh (kích thước đề xuất 800x800)"
                     placement="right"
                   >
                     <i class="el-icon-info"></i>
@@ -83,10 +83,10 @@
                       <el-input
                         style="width: 120px"
                         v-model="det.value"
-                        placeholder="Giá trị đặc điểm kỹ thuật"
+                        placeholder="Giá trị thuộc tính"
                         @change="attrDetailChangeValue(det.value, index)"
                         @focus="handleFocus(det.value)"
-                        maxlength="30"
+                        maxlength="60"
                         @blur="handleBlur()"
                       >
                         <template slot="prefix">
@@ -111,22 +111,22 @@
                     >
                       <el-input
                         :ref="'inputRef_' + index"
-                        placeholder="Vui lòng nhập giá trị thông số kỹ thuật"
+                        placeholder="Vui lòng nhập giá trị thuộc tính"
                         v-model="formDynamic.attrsVal"
                         @keyup.enter.native="createAttr(formDynamic.attrsVal, index)"
                         @blur="createAttr(formDynamic.attrsVal, index)"
-                        maxlength="30"
+                        maxlength="60"
                         show-word-limit
                       >
                       </el-input>
-                      <div class="addfont" slot="reference" type="text" v-db-click>Thêm giá trị đặc tả</div>
+                      <div class="addfont" slot="reference" type="text" v-db-click>Thêm giá trị thuộc tính</div>
                     </el-popover>
                   </draggable>
                 </div>
               </div>
             </div>
           </draggable>
-          <el-button v-if="attrs.length < 4" v-db-click @click="handleAddRole()">Thêm thông số kỹ thuật mới</el-button>
+          <el-button v-if="attrs.length < 4" v-db-click @click="handleAddRole()">Thêm nhóm thuộc tính</el-button>
           <el-button v-if="attrs.length >= 1" type="text" v-db-click @click="handleSaveAsTemplate()"
             >Lưu dưới dạng mẫu</el-button
           >
@@ -156,7 +156,7 @@
             <el-table-column
               v-for="(item, index) in formValidate.header"
               :key="index"
-              :label="Item.title"
+              :label="item.title"
               :min-width="item.minWidth || '100'"
               :fixed="item.fixed"
             >
@@ -257,9 +257,9 @@
                   </template>
                   <template v-else-if="item.slot === 'selected_spec'"> -- </template>
                   <template v-else-if="item.slot === 'action'">
-                    <a v-db-click @click="batchAdd">Sửa hàng loạt</a>
+                    <a v-db-click @click="batchAdd">Áp dụng hàng loạt</a>
                     <el-divider direction="vertical"></el-divider>
-                    <a v-db-click @click="batchDel">Thông thoáng</a>
+                    <a v-db-click @click="batchDel">Xóa dữ liệu hàng loạt</a>
                   </template>
                 </template>
                 <template v-else>
@@ -388,8 +388,8 @@
                     <el-switch
                       class="defineSwitch"
                       v-model="manyFormValidate[scope.$index].is_show"
-                      active-text="trình diễn"
-                      inactive-text="trốn"
+                      active-text="Hiển thị"
+                      inactive-text="Ẩn"
                       :active-value="1"
                       :inactive-value="0"
                       @change="changeDefaultShow(scope.$index)"
@@ -429,7 +429,7 @@
             :max="9999999999"
             class="input_width input-number-unit-class"
             :active-change="false"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
           ></el-input-number>
         </el-form-item>
       </el-col>
@@ -443,12 +443,12 @@
             :precision="2"
             :active-change="false"
             class="input_width input-number-unit-class"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
           ></el-input-number>
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="Giá chéo：">
+        <el-form-item label="Giá niêm yết：">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].ot_price"
@@ -457,7 +457,7 @@
             :precision="2"
             :active-change="false"
             class="input_width input-number-unit-class"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
           ></el-input-number>
         </el-form-item>
       </el-col>
@@ -471,7 +471,7 @@
             :disabled="formValidate.virtual_type == 1"
             :precision="0"
             class="input_width input-number-unit-class"
-            :class-unit="formValidate.unit_name || 'miếng'"
+            :class-unit="formValidate.unit_name || 'sản phẩm'"
           ></el-input-number>
         </el-form-item>
       </el-col>
@@ -512,7 +512,7 @@
 
       <el-col :span="24">
         <el-form-item
-          :label="FormValidate.virtual_type == 1 ? 'Thêm mật khẩu thẻ/đĩa mạng：' : 'Chọn phiếu giảm giá：'"
+          :label="formValidate.virtual_type == 1 ? 'Thiết lập mã thẻ/đĩa mạng：' : 'Chọn phiếu giảm giá：'"
           v-if="formValidate.virtual_type == 1 || formValidate.virtual_type == 2"
         >
           <el-button

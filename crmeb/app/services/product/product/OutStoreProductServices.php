@@ -73,7 +73,7 @@ class OutStoreProductServices extends BaseServices
             $data['limit_num'] = 0;
         } else {
             if (!in_array($data['limit_type'], [1, 2])) throw new AdminException('Vui lòng chọn loại hạn chế mua hàng');
-            if ($data['limit_num'] <= 0) throw new AdminException('Số lượng giới hạn mua hàng không thể ít hơn1');
+            if ($data['limit_num'] <= 0) throw new AdminException('Số lượng giới hạn mua hàng phải lớn hơn 0');
         }
 
         // Bưu phí cố định 0 có nghĩa là miễn phí vận chuyển

@@ -142,7 +142,7 @@ export default {
         const midVal = this.getOffsetTop(mid);
         if (midVal < top) {
           const midNextVal = this.getOffsetTop(mid + 1);
-          if (midNextVal > Top) break;
+          if (midNextVal > top) break;
           l = mid + 1;
         } else {
           r = mid - 1;

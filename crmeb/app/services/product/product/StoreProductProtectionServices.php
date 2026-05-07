@@ -18,6 +18,9 @@ use think\facade\Route as Url;
 
 class StoreProductProtectionServices extends BaseServices
 {
+    /** @var int Tiêu đề tối đa */
+    protected const MAX_PROTECTION_TITLE_LENGTH = 32;
+
     public function __construct(StoreProductProtectionDao $dao)
     {
         $this->dao = $dao;
@@ -44,16 +47,27 @@ class StoreProductProtectionServices extends BaseServices
     public function protectionForm($id)
     {
         $info = $id ? $this->dao->get($id) : [];
-        $f[] = Form::input('title', 'Tên bìa', $info['title'] ?? '')->maxlength(8)->required();
-        $f[] = Form::textarea('content', 'Nội dung bảo vệ', $info['content'] ?? '')->required();
-        $f[] = Form::frameImage('image', 'biểu tượng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')),$info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $f[] = Form::number('sort', 'loại', (int)($info['sort'] ?? 0))->min(0)->precision(0);
-        $f[] = Form::radio('status', 'Có hiển thị hay không', (int)($info['status'] ?? 1))->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
-        return create_form($id ? 'An ninh Sửa' : 'Thêm sự đảm bảo', $f, Url::buildUrl('/product/protection/save/' . $id), 'POST');
+        $f[] = Form::input('title', 'Tên mục bảo vệ', $info['title'] ?? '')
+            ->maxlength(self::MAX_PROTECTION_TITLE_LENGTH)
+            ->placeholder('Vui lòng nhập tên mục bảo vệ')
+            ->required('Vui lòng nhập tên mục bảo vệ');
+        $f[] = Form::textarea('content', 'Nội dung bảo vệ', $info['content'] ?? '')
+            ->placeholder('Vui lòng nhập nội dung bảo vệ')
+            ->required('Vui lòng nhập nội dung bảo vệ');
+        $f[] = Form::frameImage('image', 'Biểu tượng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')),$info['image'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $f[] = Form::number('sort', 'Thứ tự', (int)($info['sort'] ?? 0))->min(0)->precision(0);
+        $f[] = Form::radio('status', 'Trạng thái hiển thị', (int)($info['status'] ?? 1))->options([['value' => 1, 'label' => 'Hiển thị'], ['value' => 0, 'label' => 'Ẩn']]);
+        return create_form($id ? 'Chỉnh sửa mục bảo vệ' : 'Thêm mục bảo vệ', $f, Url::buildUrl('/product/protection/save/' . $id), 'POST');
     }
 
     public function protectionSave($id, $data)
     {
+        if (empty($data['title'])) {
+            throw new AdminException('Vui lòng nhập tên mục bảo vệ');
+        }
+        if (mb_strlen((string)$data['title']) > self::MAX_PROTECTION_TITLE_LENGTH) {
+            throw new AdminException('Tên mục bảo vệ không được vượt quá ' . self::MAX_PROTECTION_TITLE_LENGTH . ' ký tự');
+        }
         if ($id) {
             $this->dao->update($id, $data);
         } else {

@@ -240,7 +240,7 @@ class StoreOrderRefundServices extends BaseServices
             $statusService->save([
                 'oid' => $splitOrderInfo['id'],
                 'change_type' => 'refund_price',
-                'change_message' => 'Hoàn tiền cho người dùng：' . $refundData['refund_price'] . 'Nhân dân tệ',
+                'change_message' => 'Hoàn tiền cho người dùng: ' . $refundData['refund_price'] . 'đ',
                 'change_time' => time()
             ]);
             $this->storeOrderServices->update($splitOrderInfo['id'], [
@@ -616,7 +616,7 @@ class StoreOrderRefundServices extends BaseServices
         $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'refund_price',
-            'change_message' => 'Hoàn tiền cho người dùng：' . $refund_price . 'Nhân dân tệ',
+            'change_message' => 'Hoàn tiền cho người dùng: ' . $refund_price . 'đ',
             'change_time' => time()
         ]);
 

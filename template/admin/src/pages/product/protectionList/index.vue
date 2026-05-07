@@ -65,7 +65,7 @@
               @change="onchangeIsShow(scope.row)"
               size="large"
               active-text="Hoạt động"
-              inactive-text="đóng cửa"
+              inactive-text="Tắt"
             >
             </el-switch>
           </template>

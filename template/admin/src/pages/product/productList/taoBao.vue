@@ -38,7 +38,7 @@
           <el-form-item label="Địa chỉ liên kết：">
             <el-input
               search
-              enter-button="Chắc chắn"
+              enter-button="Xác nhận"
               v-model="soure_link"
               placeholder="Vui lòng nhập địa chỉ liên kết"
               class="numPut"
@@ -86,7 +86,7 @@
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="Bán hàng ảo：" label-for="ficti">
+              <el-form-item label="Doanh số ảo：" label-for="ficti">
                 <el-input-number
                   :controls="false"
                   class="perW100"
@@ -106,7 +106,7 @@
               </el-form-item>
             </el-col>
             <el-col v-bind="grid">
-              <el-form-item label="Mẫu vận chuyển sản phẩm：" prop="temp_id">
+              <el-form-item label="Mẫu vận chuyển：" prop="temp_id">
                 <el-select v-model="formValidate.temp_id" clearable>
                   <el-option
                     v-for="(item, index) in templateList"

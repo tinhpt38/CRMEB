@@ -40,17 +40,17 @@
                     </div>
                   </div>
                   <div class="money">
-                    <div class="x-money">￥{{ val.productInfo.attrInfo.price }}</div>
+                    <div class="x-money">đ{{ val.productInfo.attrInfo.price }}</div>
                     <div class="num">X{{ val.cart_num }}</div>
                     <div class="y-money">
-                      <!--￥{{ val.info.productInfo.attrInfo.otPrice }}-->
+                      <!--đ{{ val.info.productInfo.attrInfo.otPrice }}-->
                     </div>
                   </div>
                 </div>
               </div>
             </template>
             <div class="public-total">
-              Chung{{ item.total_num }}khoản mục phải trả <span class="money">￥{{ item.pay_price }}</span> ( Bưu phí ¥{{
+              Chung{{ item.total_num }}khoản mục phải trả <span class="money">đ{{ item.pay_price }}</span> ( Bưu phí đ{{
                 item.pay_postage
               }}
               )

@@ -19,7 +19,7 @@
                   <el-option label="Hàng thông thường" value="0" />
                   <el-option label="Sản phẩm thẻ" value="1" />
                   <el-option label="Sản phẩm phiếu giảm giá" value="2" />
-                  <el-option label="hàng ảo" value="3" />
+                  <el-option label="Hàng ảo" value="3" />
                 </el-select>
               </el-form-item>
               <el-form-item label="Danh mục sản phẩm：" label-for="pid">
@@ -35,7 +35,7 @@
               <el-form-item label="Phương thức giao hàng：">
                 <el-select v-model="artFrom.logistics" clearable placeholder="Tất cả" class="form_content_width">
                   <el-option label="Tất cả" value="" />
-                  <el-option label="chuyển phát nhanh" value="1" />
+                  <el-option label="Chuyển phát nhanh" value="1" />
                   <el-option label="Nhận tại cửa hàng" value="2" />
                 </el-select>
               </el-form-item>
@@ -61,22 +61,22 @@
                 <el-form-item label="Thuộc tính sản phẩm：">
                   <el-select v-model="artFrom.spec_type" clearable placeholder="Tất cả" class="form_content_width">
                     <el-option label="Tất cả" value="" />
-                    <el-option label="Đặc điểm kỹ thuật đơn" value="0" />
-                    <el-option label="Nhiều thông số kỹ thuật" value="1" />
+                    <el-option label="Một thuộc tính" value="0" />
+                    <el-option label="Nhiều thuộc tính" value="1" />
                   </el-select>
                 </el-form-item>
                 <el-form-item label="Chỉ thành viên：">
                   <el-select v-model="artFrom.vip_product" clearable placeholder="Tất cả" class="form_content_width">
                     <el-option label="Tất cả" value="" />
-                    <el-option label="KHÔNG" value="0" />
-                    <el-option label="Đúng" value="1" />
+                    <el-option label="Không" value="0" />
+                    <el-option label="Có" value="1" />
                   </el-select>
                 </el-form-item>
                 <el-form-item label="Nó có phải là một món quà?：">
                   <el-select v-model="artFrom.is_gift" clearable placeholder="Tất cả" class="form_content_width">
                     <el-option label="Tất cả" value="" />
-                    <el-option label="KHÔNG" value="0" />
-                    <el-option label="Đúng" value="1" />
+                    <el-option label="Không" value="0" />
+                    <el-option label="Có" value="1" />
                   </el-select>
                 </el-form-item>
 
@@ -90,22 +90,22 @@
                     @change="onchangeTime"
                     format="yyyy/MM/dd"
                     value-format="yyyy/MM/dd"
-                    start-placeholder="ngày bắt đầu"
-                    end-placeholder="ngày kết thúc"
+                    start-placeholder="Ngày bắt đầu"
+                    end-placeholder="Ngày kết thúc"
                     :picker-options="pickerOptions"
                   ></el-date-picker>
                 </el-form-item>
                 <el-form-item label="Trong kho：" label-for="store_name">
                   <el-input
                     clearable
-                    placeholder="giá trị tối thiểu"
+                    placeholder="Tối thiểu"
                     v-model="artFrom.stock_s[0]"
                     class="form_range_content_width"
                   />
                   ~
                   <el-input
                     clearable
-                    placeholder="giá trị tối đa"
+                    placeholder="Tối đa"
                     v-model="artFrom.stock_s[1]"
                     class="form_range_content_width"
                   />
@@ -113,14 +113,14 @@
                 <el-form-item label="Giá：" label-for="store_name">
                   <el-input
                     clearable
-                    placeholder="giá trị tối thiểu"
+                    placeholder="Tối thiểu"
                     v-model="artFrom.price_s[0]"
                     class="form_range_content_width"
                   />
                   ~
                   <el-input
                     clearable
-                    placeholder="giá trị tối đa"
+                    placeholder="Tối đa"
                     v-model="artFrom.price_s[1]"
                     class="form_range_content_width"
                   />
@@ -128,14 +128,14 @@
                 <el-form-item label="Doanh số bán hàng：" label-for="store_name">
                   <el-input
                     clearable
-                    placeholder="giá trị tối thiểu"
+                    placeholder="Tối thiểu"
                     v-model="artFrom.sales_s[0]"
                     class="form_range_content_width"
                   />
                   ~
                   <el-input
                     clearable
-                    placeholder="giá trị tối đa"
+                    placeholder="Tối đa"
                     v-model="artFrom.sales_s[1]"
                     class="form_range_content_width"
                   />
@@ -364,7 +364,7 @@
     <el-dialog
       :visible.sync="modals"
       class="Box"
-      title="Sao chép Taobao, Tmall, JD.com và Suning、1688"
+      title="Nhập dữ liệu từ Taobao, Tmall, JD, Suning, 1688"
       :close-on-click-modal="false"
       width="720px"
     >
@@ -416,8 +416,8 @@
             <el-form-item label="Cài đặt phí vận chuyển：">
               <el-radio-group v-model="batchFormData.freight">
                 <!-- <el-radio :label="1">Miễn phí vận chuyển</el-radio> -->
-                <el-radio :label="2">Bưu phí cố định</el-radio>
-                <el-radio :label="3">Mẫu vận chuyển sản phẩm</el-radio>
+                <el-radio :label="2">Phí vận chuyển cố định</el-radio>
+                <el-radio :label="3">Theo mẫu vận chuyển</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="" v-if="batchFormData.freight == 2">
@@ -462,7 +462,7 @@
                   item.title
                 }}</el-tag>
               </div>
-              <el-button type="primary" v-db-click @click="addCoupon">Thêm phiếu giảm giá</el-button>
+                <el-button type="primary" v-db-click @click="addCoupon">Chọn phiếu giảm giá</el-button>
             </el-form-item>
             <el-form-item label="Thẻ liên quan：" prop="label_id" v-if="batchType == 5">
               <div class="acea-row label_width">
@@ -500,7 +500,7 @@
                 v-model="batchFormData.is_gift"
                 class="defineSwitch"
                 active-text="Hoạt động"
-                inactive-text="đóng cửa"
+                inactive-text="Tắt"
                 :active-value="1"
                 :inactive-value="0"
                 size="large"
@@ -516,7 +516,7 @@
                 v-model="batchFormData.gift_price"
                 placeholder="phụ phí quà tặng"
                 class="input-number-unit-class"
-                class-unit="Nhân dân tệ"
+                class-unit="đ"
               />
               <div class="tips-info">Khi đặt hàng quà tặng, mặc định sẽ không có phí vận chuyển cho đơn hàng. Khoản phí này có thể được sử dụng để trang trải các chi phí bổ sung như vận chuyển sản phẩm và đóng gói sản phẩm.</div>
             </el-form-item>
@@ -524,8 +524,8 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="clearBatchData">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="batchSub">Chắc chắn</el-button>
+        <el-button v-db-click @click="clearBatchData">Hủy</el-button>
+        <el-button type="primary" v-db-click @click="batchSub">Xác nhận</el-button>
       </span>
     </el-dialog>
     <!-- Thẻ sản phẩm -->

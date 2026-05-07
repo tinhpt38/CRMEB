@@ -272,9 +272,15 @@
   ::v-deep .ivu-form-item-label {
     float: none !important;
     display: inline-block !important;
-    margin-left: 120px !important;
+    margin-left: var(--product-add-label-width, 160px) !important;
     width: auto !important;
   }
+}
+
+#shopp-manager ::v-deep .el-form-item__label {
+  white-space: normal;
+  line-height: 18px;
+  word-break: break-word;
 }
 .video-icon {
   background-image: url('https://cdn.oss.9gt.net/prov1.1/1/icons.png');

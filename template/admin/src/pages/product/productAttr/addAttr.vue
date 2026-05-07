@@ -12,8 +12,8 @@
       <el-row :gutter="24">
         <el-col :span="24">
           <el-col :span="8">
-            <el-form-item label="Tên mẫu đặc điểm kỹ thuật：" prop="rule_name">
-              <el-input placeholder="Vui lòng nhập tên tiêu đề" :maxlength="20" v-model.trim="formDynamic.rule_name" />
+            <el-form-item label="Tên mẫu thuộc tính：" prop="rule_name">
+              <el-input placeholder="Vui lòng nhập tên mẫu" :maxlength="60" v-model.trim="formDynamic.rule_name" />
             </el-form-item>
           </el-col>
         </el-col>
@@ -31,9 +31,9 @@
                     <div class="specifications-item-name mb18">
                       <el-input
                         v-model="item.value"
-                        placeholder="Tên đặc điểm kỹ thuật"
+                        placeholder="Tên thuộc tính"
                         class="specifications-item-name-input"
-                        maxlength="30"
+                        maxlength="60"
                         show-word-limit
                       ></el-input>
                     </div>
@@ -45,8 +45,8 @@
                           <el-input
                             style="width: 120px"
                             v-model="item.detail[indexn]"
-                            placeholder="Giá trị đặc điểm kỹ thuật"
-                            maxlength="30"
+                            placeholder="Giá trị thuộc tính"
+                            maxlength="60"
                           >
                             <template slot="prefix">
                               <span class="iconfont icondrag2"></span>
@@ -62,31 +62,31 @@
                         >
                           <el-input
                             :ref="'inputRef_' + index"
-                            placeholder="Vui lòng nhập giá trị thông số kỹ thuật"
+                            placeholder="Vui lòng nhập giá trị thuộc tính"
                             v-model="item.detail.attrsVal"
                             @keyup.enter.native="createAttr(item.detail.attrsVal, index)"
                             @blur="createAttr(item.detail.attrsVal, index)"
-                            maxlength="30"
+                            maxlength="60"
                             show-word-limit
                           >
                           </el-input>
-                          <div class="addfont" slot="reference" type="text" v-db-click>Thêm giá trị đặc tả</div>
+                          <div class="addfont" slot="reference" type="text" v-db-click>Thêm giá trị thuộc tính</div>
                         </el-popover>
                       </draggable>
                     </div>
                   </div>
                 </div>
               </draggable>
-              <el-button v-if="formDynamic.spec.length < 4" v-db-click @click="handleAddRole()">Thêm thông số kỹ thuật mới</el-button>
+              <el-button v-if="formDynamic.spec.length < 4" v-db-click @click="handleAddRole()">Thêm nhóm thuộc tính</el-button>
             </div>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button v-db-click @click="onClose">Hủy bỏ</el-button>
+      <el-button v-db-click @click="onClose">Hủy</el-button>
       <el-button type="primary" :loading="modal_loading" v-db-click @click="handleSubmit('formDynamic')"
-        >Chắc chắn</el-button
+        >Xác nhận</el-button
       >
     </span>
   </el-dialog>
@@ -115,7 +115,7 @@ export default {
       modal: false,
       index: 1,
       rules: {
-        rule_name: [{ required: true, message: 'Vui lòng nhập tên thông số kỹ thuật', trigger: 'blur' }],
+        rule_name: [{ required: true, message: 'Vui lòng nhập tên thuộc tính', trigger: 'blur' }],
       },
       formDynamic: {
         rule_name: '',
@@ -182,7 +182,7 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           if (this.formDynamic.spec.length === 0) {
-            return this.$message.warning('Vui lòng thêm ít nhất một thông số kỹ thuật của sản phẩm！');
+            return this.$message.warning('Vui lòng thêm ít nhất một thuộc tính sản phẩm.');
           }
           this.modal_loading = true;
           setTimeout(() => {
@@ -246,7 +246,7 @@ export default {
         this.attrsVal = '';
         this.isBtn = false;
       } else {
-        this.$message.warning('Vui lòng thêm tên thông số kỹ thuật hoặc giá trị thông số kỹ thuật');
+        this.$message.warning('Vui lòng thêm tên thuộc tính hoặc giá trị thuộc tính.');
       }
     },
     // Thêm thuộc tính

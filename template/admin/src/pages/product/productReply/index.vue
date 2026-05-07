@@ -23,7 +23,7 @@
               :picker-options="pickerOptions"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="Xem lại trạng thái：">
+          <el-form-item label="Trạng thái đánh giá：">
             <el-select
               v-model="formValidate.is_reply"
               placeholder="Vui lòng chọn"
@@ -35,7 +35,7 @@
               <el-option value="0" label="Không trả lời"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Xem lại trạng thái：">
+          <el-form-item label="Trạng thái đánh giá：">
             <el-select
               v-model="formValidate.status"
               placeholder="Vui lòng chọn"
@@ -120,7 +120,7 @@
             <span>{{ scope.row.score }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Xem lại nội dung" min-width="130">
+        <el-table-column label="Nội dung đánh giá" min-width="130">
           <template slot-scope="scope">
             <div class="mb5 content_font">{{ scope.row.comment }}</div>
             <div v-viewer class="pictrue mr10" v-for="(item, index) in scope.row.pics || []" :key="index">
@@ -133,7 +133,7 @@
             <span>{{ scope.row.merchant_reply_content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Xem lại trạng thái" min-width="80">
+        <el-table-column label="Trạng thái đánh giá" min-width="80">
           <template slot-scope="scope">
             <el-tag effect="dark" v-if="scope.row.status == 1"> Vượt qua </el-tag>
             <el-tag effect="dark" type="warning" v-if="scope.row.status == 0"> Đang chờ xem xét </el-tag>
@@ -176,8 +176,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="cancels">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="oks">Chắc chắn</el-button>
+        <el-button @click="cancels">Hủy</el-button>
+        <el-button type="primary" v-db-click @click="oks">Xác nhận</el-button>
       </div>
     </el-dialog>
     <addReply
@@ -195,7 +195,7 @@
     <el-dialog :visible.sync="goodsModal" title="Chọn sản phẩm" width="1000px">
       <goodsList v-if="replyModal" @getProductId="getProductId"></goodsList>
     </el-dialog>
-    <el-dialog :visible.sync="attrModal" title="Chọn thông số kỹ thuật sản phẩm" width="1000px">
+    <el-dialog :visible.sync="attrModal" title="Chọn thuộc tính sản phẩm" width="1000px">
       <el-table ref="table" :row-key="getRowKey" :data="goodsData.attrs" height="500">
         <el-table-column label="" width="70">
           <template slot-scope="scope">
@@ -241,7 +241,7 @@
     <el-dialog
       :visible.sync="batchModal"
       class="batch-box"
-      title="Xem lại cài đặt hàng loạt"
+      title="Cài đặt đánh giá hàng loạt"
       :show-close="true"
       :close-on-click-modal="false"
       width="540px"
@@ -265,8 +265,8 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button v-db-click @click="batchModal = false">Hủy bỏ</el-button>
-        <el-button type="primary" v-db-click @click="batchSub">Chắc chắn</el-button>
+        <el-button v-db-click @click="batchModal = false">Hủy</el-button>
+        <el-button type="primary" v-db-click @click="batchSub">Xác nhận</el-button>
       </span>
     </el-dialog>
   </div>

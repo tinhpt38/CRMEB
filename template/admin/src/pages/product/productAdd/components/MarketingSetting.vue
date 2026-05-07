@@ -55,7 +55,7 @@
           v-model="formValidate.min_qty"
           placeholder="Vui lòng nhập số lượng mua tối thiểu"
           class="input_width input-number-unit-class"
-          :class-unit="formValidate.unit_name || 'miếng'"
+          :class-unit="formValidate.unit_name || 'sản phẩm'"
         />
       </el-form-item>
     </el-col>
@@ -65,7 +65,7 @@
           v-model="formValidate.is_limit"
           class="defineSwitch"
           active-text="Hoạt động"
-          inactive-text="đóng cửa"
+          inactive-text="Tắt"
           :active-value="1"
           :inactive-value="0"
           size="large"
@@ -76,10 +76,10 @@
     <el-col :span="24">
       <el-form-item label="Loại hạn chế mua hàng：" v-if="formValidate.is_limit">
         <el-radio-group v-model="formValidate.limit_type">
-          <el-radio :label="1">Giới hạn mua một lần</el-radio>
-          <el-radio :label="2">Giới hạn mua một lần</el-radio>
+          <el-radio :label="1">Giới hạn theo mỗi đơn</el-radio>
+          <el-radio :label="2">Giới hạn theo mỗi người dùng</el-radio>
         </el-radio-group>
-        <div class="tips-info">Giới hạn mua một lần là giới hạn số lượng mua tối đa cho mỗi đơn hàng và giới hạn mua một lần là giới hạn tổng số lượng mà một người dùng có thể mua.</div>
+        <div class="tips-info">Giới hạn theo mỗi đơn là số lượng tối đa trong một đơn hàng; giới hạn theo mỗi người dùng là tổng số lượng tối đa một người được mua.</div>
       </el-form-item>
     </el-col>
     <el-col :span="24" v-if="formValidate.is_limit">
@@ -92,7 +92,7 @@
             :min="1"
             v-model="formValidate.limit_num"
             class="input_width input-number-unit-class"
-            :class-unit="formValidate.unit_name || 'miếng'"
+            :class-unit="formValidate.unit_name || 'sản phẩm'"
           />
         </div>
       </el-form-item>
@@ -106,7 +106,7 @@
           v-model="formValidate.presale"
           class="defineSwitch"
           active-text="Hoạt động"
-          inactive-text="đóng cửa"
+          inactive-text="Tắt"
           :active-value="1"
           :inactive-value="0"
           size="large"
@@ -146,7 +146,7 @@
             class-unit="ngày"
             v-model="formValidate.presale_day"
           />
-          <span class="ml10"> Ở trong </span>
+          <span class="ml10"> để giao hàng </span>
         </div>
       </el-form-item>
     </el-col>
@@ -158,8 +158,8 @@
         <el-checkbox-group v-model="formValidate.recommend">
           <el-checkbox label="is_hot">Mặt hàng bán chạy</el-checkbox>
           <el-checkbox label="is_best">Sản phẩm được đề xuất</el-checkbox>
-          <el-checkbox label="is_new">Sản phẩm mới đầu tiên</el-checkbox>
-          <el-checkbox label="is_good">Sản phẩm được đề xuất</el-checkbox>
+          <el-checkbox label="is_new">Sản phẩm mới</el-checkbox>
+          <el-checkbox label="is_good">Sản phẩm nổi bật</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
     </el-col>
@@ -184,7 +184,7 @@
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Sản phẩm được khuyên dùng chất lượng cao：">
+      <el-form-item label="Sản phẩm đề xuất：">
         <div class="picBox">
           <div class="pictrue" v-for="(item, index) in formValidate.recommend_list" :key="index">
             <img v-lazy="item.image" />
@@ -208,12 +208,12 @@
           v-model="formValidate.ficti"
           placeholder="Vui lòng nhập doanh số bán hàng ảo"
           class="input_width input-number-unit-class"
-          :class-unit="formValidate.unit_name || 'miếng'"
+          :class-unit="formValidate.unit_name || 'sản phẩm'"
         />
       </el-form-item>
     </el-col>
     <el-col :span="24">
-      <el-form-item label="Loại：">
+      <el-form-item label="Thứ tự hiển thị：">
         <el-input-number
           :controls="false"
           :min="0"

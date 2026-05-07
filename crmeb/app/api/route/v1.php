@@ -571,6 +571,29 @@ Route::group(function () {
     ->middleware(\app\api\middleware\StationOpenMiddleware::class)
     ->middleware(\app\api\middleware\AuthTokenMiddleware::class, false);
 
+// ==========================================================================
+// Zalo Mini App — Giao diện công khai (không cần đăng nhập CRMEB)
+// ==========================================================================
+Route::group(function () {
+    // Đăng nhập bằng Zalo access_token, nhận về JWT của CRMEB
+    Route::post('zalo/auth', 'v1.zalo.ZaloAuthController/auth')
+        ->option(['real_name' => 'Zalo Mini App - Đăng nhập']);
+})->middleware(\app\http\middleware\AllowOriginMiddleware::class)
+    ->middleware(\app\api\middleware\StationOpenMiddleware::class)
+    ->option(['mark' => 'zalo_public', 'mark_name' => 'Zalo - Giao diện công khai']);
+
+// ==========================================================================
+// Zalo Mini App — Giao diện yêu cầu đăng nhập (cần Bearer token)
+// ==========================================================================
+Route::group(function () {
+    // Gắn số điện thoại sau khi đăng nhập Zalo
+    Route::post('zalo/bind_phone', 'v1.zalo.ZaloAuthController/bindPhone')
+        ->option(['real_name' => 'Zalo Mini App - Gắn số điện thoại']);
+})->middleware(\app\http\middleware\AllowOriginMiddleware::class)
+    ->middleware(\app\api\middleware\StationOpenMiddleware::class)
+    ->middleware(\app\api\middleware\AuthTokenMiddleware::class, true)
+    ->option(['mark' => 'zalo_auth', 'mark_name' => 'Zalo - Giao diện yêu cầu đăng nhập']);
+
 Route::miss(function () {
     if (app()->request->isOptions()) {
         $header = Config::get('cookie.header');

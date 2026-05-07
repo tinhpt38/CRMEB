@@ -18,7 +18,7 @@ function getHeaderName(to, menuList) {
       path: menu.path,
       header: headerName,
     });
-    menus.forEach((item) => AllMenus.push(item));
+    menus.forEach((item) => allMenus.push(item));
   });
   const currentMenu = allMenus.find((item) => {
     let path = to.meta && to.meta.activeMenu ? to.meta.activeMenu : to.path;

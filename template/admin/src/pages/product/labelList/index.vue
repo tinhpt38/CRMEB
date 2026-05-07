@@ -98,7 +98,7 @@
                   @change="onchangeStatus(scope.row)"
                   size="large"
                   active-text="Hoạt động"
-                  inactive-text="đóng cửa"
+                  inactive-text="Tắt"
                 >
                 </el-switch>
               </template>
@@ -114,7 +114,7 @@
                   @change="onchangeShow(scope.row)"
                   size="large"
                   active-text="Hoạt động"
-                  inactive-text="đóng cửa"
+                  inactive-text="Tắt"
                 >
                 </el-switch>
               </template>
@@ -197,15 +197,15 @@
               </el-form-item>
               <el-form-item label="Có nên bật không：">
                 <el-switch v-model="form.status" :active-value="1" :inactive-value="0" size="large">
-                  <span slot="open">Bật lên</span>
-                  <span slot="close">Đóng cửa</span>
+                  <span slot="open">Bật</span>
+                  <span slot="close">Tắt</span>
                 </el-switch>
               </el-form-item>
             </el-form>
           </div>
           <span slot="footer" class="dialog-footer">
-            <el-button @click="cancel">Hủy bỏ</el-button>
-            <el-button type="primary" v-db-click @click="addWordsConfirm">Chắc chắn</el-button>
+            <el-button @click="cancel">Hủy</el-button>
+            <el-button type="primary" v-db-click @click="addWordsConfirm">Xác nhận</el-button>
           </span>
         </el-dialog>
       </el-col>
@@ -275,7 +275,7 @@ export default {
       rules: {
         name: [
           { required: true, message: 'Vui lòng nhập tên nhãn', trigger: 'blur' },
-          { min: 2, max: 6, message: 'Độ dài từ 2 đến 6 ký tự', trigger: 'blur' },
+          { min: 2, max: 30, message: 'Độ dài từ 2 đến 30 ký tự', trigger: 'blur' },
         ],
         cate_id: [{ required: true, message: 'Vui lòng chọn một nhóm' }],
       },

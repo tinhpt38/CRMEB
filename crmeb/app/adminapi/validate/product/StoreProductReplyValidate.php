@@ -26,13 +26,20 @@ class StoreProductReplyValidate extends Validate
          */
         $this->message = [
             'product_id.require' => 'Vui lòng chọn sản phẩm',
+            'product_id.integer' => 'Sản phẩm không hợp lệ',
+            'product_id.gt' => 'Sản phẩm không hợp lệ',
             'avatar.require' => 'Vui lòng chọn hình đại diện của người dùng',
-            'nickname.require' => 'Vui lòng điền tên người dùng',
-            'comment.require' => 'Vui lòng điền nội dung bình luận',
+            'avatar.max' => 'Đường dẫn hình đại diện quá dài',
+            'nickname.require' => 'Vui lòng nhập tên người dùng',
+            'nickname.max' => 'Tên người dùng không được vượt quá 32 ký tự',
+            'comment.require' => 'Vui lòng nhập nội dung đánh giá',
+            'comment.max' => 'Nội dung đánh giá không được vượt quá 500 ký tự',
+            'pics.array' => 'Danh sách hình ảnh đánh giá không hợp lệ',
+            'add_time.dateFormat' => 'Thời gian đánh giá không đúng định dạng',
             'product_score.require' => 'Vui lòng chọn điểm sản phẩm',
             'service_score.require' => 'Vui lòng chọn điểm dịch vụ',
-            'product_score.In' => 'Điểm sản phẩm phải là số nguyên Trong khoảng 1-5',
-            'service_score.In' => 'Điểm dịch vụ phải là số nguyên Trong khoảng 1-5',
+            'product_score.in' => 'Điểm sản phẩm phải là số nguyên trong khoảng 1-5',
+            'service_score.in' => 'Điểm dịch vụ phải là số nguyên trong khoảng 1-5',
         ];
     }
 
@@ -43,12 +50,14 @@ class StoreProductReplyValidate extends Validate
      * @var array
      */
     protected $rule = [
-        'product_id' => 'require',
-        'avatar' => 'require',
-        'nickname' => 'require',
-        'comment' => 'require',
-        'product_score' => ['require','In:1,2,3,4,5'],
-        'service_score' => ['require','In:1,2,3,4,5'],
+        'product_id' => 'require|integer|gt:0',
+        'avatar' => 'require|max:255',
+        'nickname' => 'require|max:32',
+        'comment' => 'require|max:500',
+        'pics' => 'array',
+        'add_time' => 'dateFormat:Y-m-d H:i:s',
+        'product_score' => ['require', 'in:1,2,3,4,5'],
+        'service_score' => ['require', 'in:1,2,3,4,5'],
     ];
 
     protected $scene = [

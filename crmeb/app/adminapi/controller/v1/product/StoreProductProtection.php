@@ -53,6 +53,7 @@ class StoreProductProtection extends AuthController
             ['sort', 0],
             ['status', 0]
         ]);
+        $this->validate($data, \app\adminapi\validate\product\StoreProductProtectionValidate::class, 'save');
         $this->services->protectionSave($id, $data);
         return app('json')->success('Đã lưu thành công');
     }

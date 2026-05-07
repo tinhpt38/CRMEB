@@ -8,7 +8,7 @@
             :active-value="1"
             :inactive-value="0"
             active-text="Hoạt động"
-            inactive-text="đóng cửa"
+            inactive-text="Tắt"
             size="large"
             class="defineSwitch"
           >
@@ -27,7 +27,7 @@
             :active-value="1"
             :inactive-value="0"
             active-text="Hoạt động"
-            inactive-text="đóng cửa"
+            inactive-text="Tắt"
             size="large"
             class="defineSwitch"
             @change="changeVip"
@@ -67,12 +67,12 @@
                     <span class="mr5" v-show="vipSetType == 2">Giảm bớt</span>
                     <el-input type="number" class="popover-input" v-model="vipSetNum">
                       <template slot="suffix">
-                        <span v-show="vipSetType == 0">Nhân dân tệ</span>
+                        <span v-show="vipSetType == 0">đ</span>
                         <span v-show="vipSetType == 1">%</span>
                       </template>
                     </el-input>
                     <div class="acea-row row-right row-middle ml14">
-                      <el-button size="small" @click="closeVipSet">Hủy bỏ</el-button>
+                      <el-button size="small" @click="closeVipSet">Hủy</el-button>
                       <el-button size="small" type="primary" class="ml-14" @click="vipSetConfirm">Xác nhận</el-button>
                     </div>
                   </div>
@@ -82,7 +82,7 @@
               <template slot-scope="scope">
                 <el-input type="number" v-model="scope.row.vip_price" @change="vipRowReplace(scope.row)">
                   <template slot="suffix">
-                    <span>Nhân dân tệ</span>
+                    <span>đ</span>
                   </template>
                 </el-input>
                 <div class="flex-x-center red" v-show="scope.row.vip_price == 0">Giá thành viên không có sẵn0</div>
@@ -95,7 +95,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="onCancel">Hủy bỏ</el-button>
+        <el-button @click="onCancel">Hủy</el-button>
         <el-button type="primary" @click="submitForm" :disabled="disabled" class="ml-14">Xác nhận</el-button>
       </div>
     </el-dialog>

@@ -23,7 +23,7 @@
             :max="9999999999"
             v-model="formData.coupon_price"
             class="content_width input-number-unit-class"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
             :disabled="isEdit"
           ></el-input-number>
         </el-form-item>
@@ -104,7 +104,7 @@
             v-model="formData.use_min_price"
             class="content_width input-number-unit-class"
             :disabled="isEdit"
-            class-unit="Nhân dân tệ"
+            class-unit="đ"
           ></el-input-number>
           <div class="info">Điền số tiền tiêu thụ tối thiểu cho phiếu giảm giá</div>
         </el-form-item>

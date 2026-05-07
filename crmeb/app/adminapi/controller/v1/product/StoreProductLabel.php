@@ -47,6 +47,7 @@ class StoreProductLabel extends AuthController
             ['name', ''],
             ['sort', 0],
         ]);
+        $this->validate($data, \app\adminapi\validate\product\StoreProductLabelValidate::class, 'save_cate');
         $this->labelCateServices->labelCateSave($id, $data);
         return app('json')->success('Đã lưu thành công');
     }
@@ -91,6 +92,7 @@ class StoreProductLabel extends AuthController
             ['status', 1],
             ['is_show', 1],
         ]);
+        $this->validate($data, \app\adminapi\validate\product\StoreProductLabelValidate::class, 'save_label');
         $this->labelServices->labelSave($data);
         return app('json')->success('Đã lưu thành công');
     }
