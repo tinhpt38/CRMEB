@@ -115,6 +115,15 @@ class PublicController
     public function homeBanner()
     {
         $banner = sys_data('routine_home_banner') ?: [];
+
+        // Đảm bảo pic luôn là URL tuyệt đối (tương thích Zalo Mini App)
+        $banner = array_map(function ($item) {
+            if (!empty($item['pic'])) {
+                $item['pic'] = set_file_url($item['pic']);
+            }
+            return $item;
+        }, $banner);
+
         return app('json')->success(compact('banner'));
     }
 

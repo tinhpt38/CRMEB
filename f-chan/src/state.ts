@@ -170,19 +170,22 @@ export const bannersState = atom(() =>
       if (bannerList.length) {
         return bannerList
           .map((b): Banner | null => {
-            const pic = resolveImageUrl(b?.pic ?? b?.image ?? b?.url, apiUrl);
+            // Dùng || (không phải ??) vì CRMEB có thể trả về empty string ""
+            const pic = resolveImageUrl(b?.pic || b?.image || b?.url, apiUrl);
             if (!pic) return null;
-            return { pic, link: b?.link ?? b?.url2 ?? "" };
+            // CRMEB dùng trường "url" cho link điều hướng
+            return { pic, link: b?.link || b?.url || b?.url2 || "" };
           })
           .filter((b): b is Banner => b !== null);
       }
 
       // Fallback: dùng ảnh sản phẩm đầu tiên nếu chưa có banner nào được cấu hình
       const products = await client.get<Array<any>>("/products");
-      return (products ?? [])
+      return (Array.isArray(products) ? products : [])
         .slice(0, 5)
         .map((p): Banner | null => {
-          const pic = resolveImageUrl(p?.recommend_image ?? p?.image, apiUrl);
+          // recommend_image thường là "" (empty string) → || để fallback đúng
+          const pic = resolveImageUrl(p?.image || p?.recommend_image, apiUrl);
           if (!pic) return null;
           return { pic, link: "" };
         })
@@ -265,7 +268,7 @@ export const productsState = atom(async (get) => {
           name: String(p?.store_name ?? p?.name ?? ""),
           price: Number(p?.price ?? 0),
           originalPrice,
-          image: resolveImageUrl(p?.image ?? p?.recommend_image, apiUrl),
+          image: resolveImageUrl(p?.image || p?.recommend_image, apiUrl),
           images,
           categoryId,
           category,
@@ -338,7 +341,7 @@ export const productDetailState = atomFamily((id: number) =>
         name: String(raw.store_name ?? raw.name ?? base?.name ?? ""),
         price: Number(raw.price ?? base?.price ?? 0),
         originalPrice,
-        image: resolveImageUrl(raw.image ?? base?.image, apiUrl),
+        image: resolveImageUrl(raw.image || base?.image, apiUrl),
         images,
         detail: String(raw.description ?? raw.detail ?? base?.detail ?? ""),
         category: base?.category ?? { id: 0, name: "", image: "" },
