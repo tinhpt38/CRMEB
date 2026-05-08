@@ -609,7 +609,7 @@ export default {
     },
     returnTap() {
       this.$msgbox({
-        title: 'Lời khuyên tử tế',
+        title: 'Thông báo',
         message: 'Bạn có chắc chắn muốn rời khỏi trang này? Những thay đổi của bạn có thể không được lưu。',
         showCancelButton: true,
         cancelButtonText: 'Hủy bỏ',

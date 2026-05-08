@@ -10,10 +10,10 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="Tìm kiếm điểm đón：">
+          <el-form-item label="Tìm kiếm cửa hàng:">
             <el-input
               clearable
-              placeholder="Vui lòng nhập tên điểm đón,Điện thoại"
+              placeholder="Vui lòng nhập tên cửa hàng hoặc số điện thoại"
               v-model="artFrom.keywords"
               class="form_content_width"
             />
@@ -35,7 +35,7 @@
       <el-row v-auth="['setting-merchant-system_store-save']">
         <el-col v-bind="grid">
           <el-button v-auth="['setting-merchant-system_store-save']" type="primary" v-db-click @click="add"
-            >Thêm điểm đón</el-button
+            >Thêm cửa hàng</el-button
           >
         </el-col>
       </el-row>
@@ -53,19 +53,19 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Hình ảnh điểm đón" min-width="90">
+        <el-table-column label="Hình ảnh cửa hàng" min-width="90">
           <template slot-scope="scope">
             <div class="tabBox_img" v-viewer>
               <img v-lazy="scope.row.image" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Tên điểm đón" min-width="130">
+        <el-table-column label="Tên cửa hàng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Số điện thoại điểm đón" min-width="130">
+        <el-table-column label="Số điện thoại cửa hàng" min-width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.phone }}</span>
           </template>
@@ -80,7 +80,7 @@
             <span>{{ scope.row.day_time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Có hiển thị hay không" min-width="130">
+        <el-table-column label="Trạng thái hiển thị" min-width="130">
           <template slot-scope="scope">
             <el-switch
               class="defineSwitch"
@@ -90,8 +90,8 @@
               :value="scope.row.is_show"
               @change="onchangeIsShow(scope.row.id, scope.row.is_show)"
               size="large"
-              active-text="trình diễn"
-              inactive-text="trốn"
+              active-text="Hiển thị"
+              inactive-text="Ẩn"
             >
             </el-switch>
           </template>
@@ -100,8 +100,8 @@
           <template slot-scope="scope">
             <a v-db-click @click="edit(scope.row.id)">Chỉnh sửa</a>
             <el-divider direction="vertical"></el-divider>
-            <a v-if="scope.row.is_del == 0" v-db-click @click="del(scope.row, 'Xóa điểm đón', scope.$index)">Xóa</a>
-            <a v-else v-db-click @click="del(scope.row, 'Khôi phục điểm đón', scope.$index)">Hồi phục</a>
+            <a v-if="scope.row.is_del == 0" v-db-click @click="del(scope.row, 'Xóa cửa hàng', scope.$index)">Xóa</a>
+            <a v-else v-db-click @click="del(scope.row, 'Khôi phục cửa hàng', scope.$index)">Khôi phục</a>
           </template>
         </el-table-column>
       </el-table>
@@ -166,12 +166,22 @@ export default {
     this.getList();
   },
   methods: {
+    normalizeHeaderCount(count = {}) {
+      const show = count.show || {};
+      const hide = count.hide || {};
+      const recycle = count.recycle || {};
+      return {
+        show: { ...show, name: 'Hiển thị' },
+        hide: { ...hide, name: 'Ẩn' },
+        recycle: { ...recycle, name: 'Thùng rác' },
+      };
+    },
     // Nhận thông tin tiêu đề biểu mẫu；
     storeHeade() {
       let that = this;
       storeGetHeaderApi()
         .then((res) => {
-          that.headeNum = res.data.count;
+          that.headeNum = that.normalizeHeaderCount(res.data.count);
         })
         .catch((res) => {
           this.$message.error(res.msg);
@@ -220,7 +230,7 @@ export default {
           this.$message.error(res.msg);
         });
     },
-    // Thêm điểm đón；
+    // Thêm cửa hàng
     add() {
       this.$refs.template.isTemplate = true;
     },

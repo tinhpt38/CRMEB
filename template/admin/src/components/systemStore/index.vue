@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="isTemplate"
-      :title="FormItem.id ? 'Chỉnh sửa điểm đón' : 'Thêm điểm đón'"
+      :title="formItem.id ? 'Chỉnh sửa cửa hàng' : 'Thêm cửa hàng'"
       width="720px"
       @closed="cancel"
       append-to-body
@@ -19,28 +19,28 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Tên điểm đón：" prop="name" label-for="name">
-                  <el-input v-model="formItem.name" placeholder="Vui lòng nhập tên điểm đón" />
+                <el-form-item label="Tên cửa hàng:" prop="name" label-for="name">
+                  <el-input v-model="formItem.name" placeholder="Vui lòng nhập tên cửa hàng" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Giới thiệu điểm đón：" label-for="introduction">
-                  <el-input v-model="formItem.introduction" placeholder="Vui lòng nhập giới thiệu điểm đón" />
+                <el-form-item label="Giới thiệu cửa hàng:" label-for="introduction">
+                  <el-input v-model="formItem.introduction" placeholder="Vui lòng nhập mô tả cửa hàng" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Số điện thoại điểm đón：" label-for="phone" prop="phone">
-                  <el-input v-model="formItem.phone" placeholder="Vui lòng nhập số điện thoại điểm đón：" />
+                <el-form-item label="Số điện thoại cửa hàng:" label-for="phone" prop="phone">
+                  <el-input v-model="formItem.phone" placeholder="Vui lòng nhập số điện thoại cửa hàng" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Địa chỉ điểm đón：" label-for="address" prop="address">
+                <el-form-item label="Địa chỉ cửa hàng:" label-for="address" prop="address">
                   <el-cascader
                     :options="addresData"
                     v-model="formItem.address"
@@ -52,7 +52,7 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Địa chỉ chi tiết：" label-for="detailed_address" prop="detailed_address">
+                <el-form-item label="Địa chỉ chi tiết:" label-for="detailed_address" prop="detailed_address">
                   <el-input v-model="formItem.detailed_address" placeholder="Vui lòng nhập địa chỉ chi tiết" />
                 </el-form-item>
               </el-col>
@@ -66,7 +66,7 @@
             <!--</el-col>-->
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Điểm đón đã mở：" label-for="day_time" prop="day_time">
+                <el-form-item label="Giờ mở cửa:" label-for="day_time" prop="day_time">
                   <el-time-picker
                     is-range
                     @change="onchangeTime"
@@ -74,8 +74,8 @@
                     format="HH:mm:ss"
                     value-format="HH:mm:ss"
                     range-separator="-"
-                    start-placeholder="thời gian bắt đầu"
-                    end-placeholder="thời gian kết thúc"
+                    start-placeholder="Giờ bắt đầu"
+                    end-placeholder="Giờ kết thúc"
                     placeholder="Chọn phạm vi thời gian"
                     style="width: 100%"
                   ></el-time-picker>
@@ -84,7 +84,7 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Điểm đónlogo：" prop="image">
+                <el-form-item label="Logo cửa hàng:" prop="image">
                   <div class="picBox" v-db-click @click="modalPicTap('Lựa chọn duy nhất', 'logo')">
                     <div class="pictrue" v-if="formItem.image">
                       <img v-lazy="formItem.image" />
@@ -98,7 +98,7 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Hình ảnh lớn về điểm đón：" prop="oblong_image">
+                <el-form-item label="Ảnh banner cửa hàng:" prop="oblong_image">
                   <div class="picBox" v-db-click @click="modalPicTap('Lựa chọn duy nhất', 'oblong')">
                     <div class="pictrue" v-if="formItem.oblong_image">
                       <img v-lazy="formItem.oblong_image" />
@@ -112,12 +112,12 @@
             </el-col>
             <el-col :span="24">
               <el-col v-bind="grid">
-                <el-form-item label="Vĩ độ và kinh độ：" label-for="status2" prop="latlng">
+                <el-form-item label="Tọa độ (vĩ độ, kinh độ):" label-for="status2" prop="latlng">
                   <el-tooltip>
-                    <el-input v-model="formItem.latlng" style="width: 100%" placeholder="Vui lòng tìm vị trí">
-                      <el-button type="primary" slot="append" v-db-click @click="onSearch">Tìm vị trí</el-button>
+                    <el-input v-model="formItem.latlng" style="width: 100%" placeholder="Vui lòng chọn vị trí">
+                      <el-button type="primary" slot="append" v-db-click @click="onSearch">Chọn vị trí</el-button>
                     </el-input>
-                    <div slot="content">Hãy nhấn Find a location để chọn địa điểm</div>
+                    <div slot="content">Nhấn "Chọn vị trí" để chọn địa điểm trên bản đồ</div>
                   </el-tooltip>
                 </el-form-item>
               </el-col>
@@ -135,7 +135,7 @@
         <el-dialog
           :visible.sync="modalPic"
           width="1024px"
-          :title="ModalTitle"
+          :title="modalTitle"
           :close-on-click-modal="false"
           append-to-body
         >
@@ -150,13 +150,13 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" long v-db-click @click="handleSubmit('formItem')">{{
-          formItem.id ? 'Chỉnh sửa' : 'nộp'
+          formItem.id ? 'Cập nhật' : 'Thêm mới'
         }}</el-button>
       </span>
     </el-dialog>
     <el-dialog
       :visible.sync="modalMap"
-      title="Vui lòng chọn một địa chỉ"
+      title="Vui lòng chọn địa chỉ"
       append-to-body
       :close-on-click-modal="false"
       width="720px"
@@ -179,21 +179,21 @@ export default {
   data() {
     const validatePhone = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('Vui lòng điền số điện thoại của bạn'));
+        return callback(new Error('Vui lòng nhập số điện thoại cửa hàng'));
       } else {
         callback();
       }
     };
     const validateUpload = (rule, value, callback) => {
       if (!this.formItem.image) {
-        callback(new Error('Vui lòng tải lên điểm đónlogo'));
+        callback(new Error('Vui lòng tải lên logo cửa hàng'));
       } else {
         callback();
       }
     };
     const oblongImageUpload = (rule, value, callback) => {
       if (!this.formItem.oblong_image) {
-        callback(new Error('Vui lòng tải lên một hình ảnh lớn của điểm đón'));
+        callback(new Error('Vui lòng tải lên ảnh banner cửa hàng'));
       } else {
         callback();
       }
@@ -217,19 +217,19 @@ export default {
         id: 0,
       },
       ruleValidate: {
-        name: [{ required: true, message: 'Vui lòng nhập tên điểm đón', trigger: 'blur' }],
+        name: [{ required: true, message: 'Vui lòng nhập tên cửa hàng', trigger: 'blur' }],
         mail: [
           {
             required: true,
-            message: 'Mailbox cannot be empty',
+            message: 'Vui lòng nhập email',
             trigger: 'blur',
           },
-          { type: 'email', message: 'Incorrect email format', trigger: 'blur' },
+          { type: 'email', message: 'Định dạng email không hợp lệ', trigger: 'blur' },
         ],
         address: [
           {
             required: true,
-            message: 'Vui lòng chọn địa chỉ điểm đón',
+            message: 'Vui lòng chọn địa chỉ cửa hàng',
             type: 'array',
             trigger: 'change',
           },
@@ -250,7 +250,7 @@ export default {
           {
             required: true,
             type: 'array',
-            message: 'Vui lòng chọn giờ mở cửa điểm đón',
+            message: 'Vui lòng chọn giờ mở cửa',
             trigger: 'change',
           },
         ],
@@ -294,10 +294,10 @@ export default {
     window.addEventListener(
       'message',
       function (event) {
-        // Nhận thông tin vị trí. Sau khi người dùng chọn và xác nhận điểm vị trí, thành phần chọn điểm sẽ kích hoạt sự kiện và trả về thông tin vị trí của người dùng.
+        // Nhận thông tin vị trí từ bộ chọn bản đồ.
         var loc = event.data;
         if (loc && loc.module === 'locationPicker') {
-          // Để ngăn các ứng dụng khác đăng thông tin lên trang này, bạn cần xác định xem mô-đun có'locationPicker'
+          // Chỉ xử lý dữ liệu gửi từ locationPicker.
           window.parent.selectAdderss(loc);
         }
       },
@@ -339,7 +339,7 @@ export default {
       this.formItem.latlng = data.latlng.lat + ',' + data.latlng.lng;
       this.modalMap = false;
     },
-    // keygiá trị
+    // Lấy key bản đồ
     getKey() {},
     // Chi tiết
     getInfo(id) {
@@ -361,7 +361,7 @@ export default {
     },
     // Chọn ảnh
     modalPicTap(tit, picTit) {
-      this.modalTitle = picTit == 'oblong' ? 'Hình ảnh lớn về điểm đón' : 'Điểm đónLOGO';
+      this.modalTitle = picTit == 'oblong' ? 'Ảnh banner cửa hàng' : 'Logo cửa hàng';
       this.modalPic = true;
       this.picTit = picTit;
     },
@@ -405,7 +405,7 @@ export default {
         this.modalMap = true;
       }
     },
-    // nộp
+    // Lưu cửa hàng
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {

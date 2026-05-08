@@ -439,6 +439,26 @@ export const productsByCategoryState = atomFamily((id: String) =>
   })
 );
 
+function mapCrmebStoreToStation(raw: any, apiUrl: string): Station {
+  const lat = Number(raw?.latitude ?? 0);
+  const lng = Number(raw?.longitude ?? 0);
+  const fullAddress = [raw?.address, raw?.detailed_address]
+    .map((v) => String(v ?? "").trim())
+    .filter(Boolean)
+    .join(", ");
+
+  return {
+    id: Number(raw?.id ?? 0),
+    name: String(raw?.name ?? ""),
+    image: resolveImageUrl(raw?.image || raw?.oblong_image, apiUrl),
+    address: fullAddress,
+    location: {
+      lat: Number.isFinite(lat) ? lat : 0,
+      lng: Number.isFinite(lng) ? lng : 0,
+    },
+  };
+}
+
 export const stationsState = atom(async () => {
   let location: Location | undefined;
   try {
@@ -451,7 +471,33 @@ export const stationsState = atom(async () => {
     console.warn(error);
   }
 
-  const stations = await requestWithFallback<Station[]>("/stations", []);
+  const apiUrl = getConfig((config) => config.template.apiUrl);
+  let stations: Station[] = [];
+
+  if (apiUrl) {
+    try {
+      const client = new CrmebApiClient({
+        apiBaseUrl: apiUrl,
+        getToken: () => getCrmebToken(),
+      });
+
+      // CRMEB: GET /store_list -> { list: Store[], tengxun_map_key: string }
+      const raw = await client.get<Record<string, any>>("/store_list");
+      const list = Array.isArray(raw?.list?.list)
+        ? raw.list.list
+        : Array.isArray(raw?.list)
+          ? raw.list
+          : [];
+      stations = list.map((item) => mapCrmebStoreToStation(item, apiUrl));
+    } catch (error) {
+      console.warn("Failed to load stores from CRMEB:", error);
+    }
+  }
+
+  if (!stations.length) {
+    stations = await requestWithFallback<Station[]>("/stations", []);
+  }
+
   const stationsWithDistance = stations.map((station) => ({
     ...station,
     distance: location
@@ -471,11 +517,20 @@ export const stationsState = atom(async () => {
 
 export const selectedStationIndexState = atom(0);
 
+export const firstStationState = atom(async (get) => {
+  const stations = await get(stationsState);
+  return stations[0] ?? null;
+});
+
+export const loadableFirstStationState = loadable(firstStationState);
+
 export const selectedStationState = atom(async (get) => {
   const index = get(selectedStationIndexState);
   const stations = await get(stationsState);
   return stations[index];
 });
+
+export const loadableSelectedStationState = loadable(selectedStationState);
 
 export const shippingAddressState = atomWithStorage<
   ShippingAddress | undefined

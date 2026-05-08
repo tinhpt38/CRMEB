@@ -198,7 +198,7 @@ export default {
           try {
             if (data.queue === false) {
               this.$notify.warning({
-                title: 'Lời khuyên tử tế',
+                title: 'Thông báo',
                 dangerouslyUseHTMLString: true,
                 message:
                   '[Hàng đợi tin nhắn] của bạn chưa được bật. Nếu nó không được bật, các tác vụ không đồng bộ sẽ không thể được thực thi. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
@@ -208,7 +208,7 @@ export default {
             if (data.timer === false) {
               setTimeout(() => {
                 this.$notify.warning({
-                  title: 'Lời khuyên tử tế',
+                  title: 'Thông báo',
                   dangerouslyUseHTMLString: true,
                   message:
                     '[Nhiệm vụ theo lịch trình] của bạn chưa được bật. Nếu nó không được bật, các tác vụ như tự động nhận hàng, tự động hủy đơn hàng mà không thanh toán, tự động khen ngợi đơn hàng và hoàn tiền khi đến hạn mua hàng theo nhóm sẽ không thể thực hiện được bình thường. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
@@ -259,7 +259,7 @@ export default {
           if (!isNotice) {
             isNotice = true;
             this.$notify.warning({
-              title: 'Lời khuyên tử tế',
+              title: 'Thông báo',
               message:
                 '[Kết nối dài] của bạn chưa được bật. Việc không bật nó sẽ khiến dịch vụ khách hàng mặc định của hệ thống không khả dụng.,Không thể nhận được thông báo đơn hàng phụ trợ. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
               dangerouslyUseHTMLString: true,

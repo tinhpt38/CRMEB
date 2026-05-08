@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="system-menus-page">
     <el-card :bordered="false" shadow="never" class="ivu-mb-16" :body-style="{ padding: 0 }">
       <div class="padding-add">
         <el-form
@@ -9,30 +9,40 @@
           :label-position="labelPosition"
           @submit.native.prevent
           inline
+          class="filter-form"
         >
-          <el-form-item label="Trạng thái quy tắc：">
+          <el-form-item label="Trạng thái hiển thị:">
             <el-select
               v-model="roleData.is_show"
-              placeholder="Vui lòng chọn"
+              placeholder="Tất cả"
               clearable
               @change="getData"
-              class="form_content_width"
+              class="form_content_width filter-item"
             >
-              <el-option value="1" label="trình diễn"></el-option>
-              <el-option value="0" label="Không hiển thị"></el-option>
+              <el-option value="1" label="Hiển thị"></el-option>
+              <el-option value="0" label="Ẩn"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Tên nút：" prop="status2" label-for="status2">
-            <el-input clearable v-model="roleData.keyword" placeholder="Vui lòng nhập tên nút" class="form_content_width" />
+          <el-form-item label="Tên nút:" prop="status2" label-for="status2">
+            <el-input
+              clearable
+              v-model="roleData.keyword"
+              placeholder="Nhập tên nút hoặc quyền"
+              class="form_content_width filter-item"
+              @keyup.enter.native="getData"
+            />
           </el-form-item>
-          <el-form-item>
+          <el-form-item class="filter-actions">
             <el-button type="primary" v-db-click @click="getData">Tìm kiếm</el-button>
+            <el-button v-db-click @click="resetFilter">Đặt lại</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="menusAdd('Thêm quy tắc')">Thêm quy tắc</el-button>
+      <div class="table-toolbar">
+        <el-button type="primary" icon="el-icon-plus" v-db-click @click="menusAdd('Thêm quy tắc')">Thêm quy tắc</el-button>
+      </div>
       <vxe-table
         :border="false"
         class="vxeTable mt14"
@@ -44,17 +54,18 @@
         :tree-config="tabconfig"
         :data="tableData"
         row-id="id"
+        show-overflow
       >
-        <vxe-table-column field="menu_name" tree-node title="Tên nút" min-width="100"></vxe-table-column>
-        <vxe-table-column field="unique_auth" title="Quyền giao diện người dùng" min-width="200"></vxe-table-column>
+        <vxe-table-column field="menu_name" tree-node title="Tên nút" min-width="220"></vxe-table-column>
+        <vxe-table-column field="unique_auth" title="Quyền giao diện" min-width="220"></vxe-table-column>
         <vxe-table-column field="menu_path" title="Lộ trình" min-width="240" tooltip="true">
           <template v-slot="{ row }">
-            <span v-if="row.auth_type == 1">Thực đơn：{{ row.menu_path }}</span>
-            <span v-if="row.auth_type == 3">Cái nút</span>
-            <span v-if="row.auth_type == 2">Giao diện：[{{ row.methods }}]{{ row.api_url }}</span>
+            <span v-if="row.auth_type == 1">Menu: {{ row.menu_path }}</span>
+            <span v-else-if="row.auth_type == 3">Nút chức năng</span>
+            <span v-else-if="row.auth_type == 2">API: [{{ row.methods }}] {{ row.api_url }}</span>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="flag" title="Trạng thái quy tắc" min-width="120">
+        <vxe-table-column field="flag" title="Trạng thái" min-width="120">
           <template v-slot="{ row }">
             <el-switch
               :active-value="1"
@@ -67,21 +78,35 @@
             </el-switch>
           </template>
         </vxe-table-column>
-        <vxe-table-column field="mark" title="Nhận xét" min-width="120"></vxe-table-column>
-        <vxe-table-column field="date" title="Thao tác" width="230" fixed="right">
+        <vxe-table-column field="mark" title="Ghi chú" min-width="160"></vxe-table-column>
+        <vxe-table-column field="date" title="Thao tác" width="260" fixed="right">
           <template v-slot="{ row }">
-            <span>
-              <a v-db-click @click="addRoute(row)" v-if="row.auth_type === 1 || row.auth_type === 3">Chọn quyền</a>
-              <el-divider direction="vertical" v-if="row.auth_type === 1 || row.auth_type === 3" />
-              <a v-db-click @click="addE(row, 'Thêm menu con')" v-if="row.auth_type === 1 || row.auth_type === 3"
-                >Thêm cấp dưới</a
-              >
-              <!-- <a v-db-click @click="addE(row, 'Thêm quy tắc')" v-else>Thêm quy tắc</a> -->
-            </span>
-            <el-divider direction="vertical" v-if="row.auth_type === 1 || row.auth_type === 3"></el-divider>
-            <a v-db-click @click="edit(row, 'Chỉnh sửa')">Chỉnh sửa</a>
-            <el-divider direction="vertical"></el-divider>
-            <a v-db-click @click="del(row, 'xóa quy tắc')">Xóa</a>
+            <div class="table-actions">
+              <div class="action-row">
+                <el-button
+                  v-db-click
+                  type="text"
+                  class="action-btn"
+                  @click="addRoute(row)"
+                  v-if="row.auth_type === 1 || row.auth_type === 3"
+                >
+                  Chọn quyền
+                </el-button>
+                <el-button
+                  v-db-click
+                  type="text"
+                  class="action-btn"
+                  @click="addE(row, 'Thêm menu con')"
+                  v-if="row.auth_type === 1 || row.auth_type === 3"
+                >
+                  Thêm cấp dưới
+                </el-button>
+              </div>
+              <div class="action-row">
+                <el-button v-db-click type="text" class="action-btn" @click="edit(row, 'Chỉnh sửa')">Chỉnh sửa</el-button>
+                <el-button v-db-click type="text" class="action-btn danger-text" @click="del(row, 'xóa quy tắc')">Xóa</el-button>
+              </div>
+            </div>
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -98,7 +123,9 @@
       <div class="search-rule">
         <el-alert>
           <template slot="title">
-            1.Nhiều giao diện có thể được lựa chọn và thêm vào nhiều lần.；<br />2.Thêm tuyến đường theo quy tắc định tuyến, sau đó thêm chúng vào Công cụ Dev->Nhấn Sync trong giao diện quản lý；<br />3.Sau khi đồng bộ xong, bạn có thể chọn giao diện tương ứng tại đây.；
+            1. Có thể chọn nhiều API cùng lúc để gán quyền.<br />
+            2. Nếu chưa thấy API mới, hãy đồng bộ route ở DevTool trước.<br />
+            3. Sau khi đồng bộ thành công, quay lại đây để chọn quyền tương ứng.
           </template>
         </el-alert>
         <el-input
@@ -232,6 +259,13 @@ export default {
     this.getData();
   },
   methods: {
+    resetFilter() {
+      this.roleData = {
+        is_show: '',
+        keyword: '',
+      };
+      this.getData();
+    },
     init() {
       this.searchRule = '';
       this.searchRules();
@@ -496,9 +530,63 @@ export default {
   > .vxe-table--header-wrapper {
     background: #fff !important;
   }
+  ::v-deep .vxe-header--column {
+    background-color: #f6f9ff;
+    font-weight: 600;
+    color: #303133;
+  }
+  ::v-deep .vxe-body--row {
+    height: 54px;
+  }
   .icon {
     font-size: 20px;
   }
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-item {
+  min-width: 220px;
+}
+
+.filter-actions {
+  margin-bottom: 0;
+}
+
+.table-toolbar {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.table-actions {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2px;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  min-height: 18px;
+  white-space: nowrap;
+  gap: 0;
+}
+
+.action-btn {
+  margin: 0 !important;
+  padding: 0 4px !important;
+  line-height: 1.2;
+  min-height: auto;
+}
+
+.danger-text {
+  color: #f56c6c;
 }
 
 .rule {
