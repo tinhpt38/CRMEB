@@ -11,6 +11,9 @@ namespace app\services\zalo;
 use app\dao\wechat\WechatUserDao;
 use app\services\BaseServices;
 use app\services\user\LoginServices;
+use app\services\user\UserLabelCateServices;
+use app\services\user\UserLabelRelationServices;
+use app\services\user\UserLabelServices;
 use app\services\user\UserServices;
 use crmeb\exceptions\ApiException;
 use crmeb\services\HttpService;
@@ -39,6 +42,8 @@ class ZaloAuthServices extends BaseServices
 
     /** user_type lưu trong eb_wechat_user */
     const USER_TYPE = 'zalo';
+    const DEFAULT_SOURCE = 'fchan';
+    const SOURCE_LABEL_CATE_NAME = 'Nguồn đăng nhập miniapp';
 
     public function __construct(WechatUserDao $dao)
     {
@@ -54,59 +59,36 @@ class ZaloAuthServices extends BaseServices
      *
      * @param string $accessToken   access_token lấy từ Zalo Mini App SDK
      * @param int    $spread        UID người giới thiệu (tuỳ chọn)
+     * @param string $source        Nguồn đăng nhập (ví dụ: fchan)
+     * @param string $phone         Số điện thoại đã xác thực từ luồng tích hợp
      * @return array{token:string, expires_time:int, userInfo:array}
      * @throws ApiException
      */
-    public function authLogin(string $accessToken, int $spread = 0): array
+    public function authLogin(string $accessToken, int $spread = 0, string $source = self::DEFAULT_SOURCE, string $phone = ''): array
     {
         $zaloUser = $this->fetchZaloUserInfo($accessToken);
-        $openid   = $zaloUser['openid'];
-
-        // Tìm liên kết đã có trong eb_wechat_user
-        $wechatUser = $this->dao->getOne([
-            'openid'    => $openid,
-            'user_type' => self::USER_TYPE,
-        ]);
+        $openid = $zaloUser['openid'];
+        $source = $this->normalizeSource($source);
+        $phone = $this->normalizePhone($phone);
 
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
+        $user = $this->resolveUserByPhoneOrMapping($phone, $openid);
 
-        if ($wechatUser) {
-            $user = $userServices->get((int)$wechatUser['uid']);
-            if (!$user) {
-                throw new ApiException('Dữ liệu người dùng bị lỗi, vui lòng liên hệ hỗ trợ');
-            }
-            if (!$user['status']) {
+        if ($user) {
+            if (!(int)$user['status']) {
                 throw new ApiException('Tài khoản bị khóa, vui lòng liên hệ quản trị viên');
             }
-
-            // Cập nhật nickname / avatar mỗi lần đăng nhập
-            $userServices->update((int)$user['uid'], [
-                'nickname'  => $zaloUser['nickname'],
-                'avatar'    => $zaloUser['avatar'],
-                'last_time' => time(),
-                'last_ip'   => app('request')->ip(),
-            ], 'uid');
-
-            // Cập nhật thông tin liên kết
-            $this->dao->update($wechatUser['id'], [
-                'nickname'   => $zaloUser['nickname'],
-                'headimgurl' => $zaloUser['avatar'],
-            ]);
+            $this->limitedUpdateExistingUser((int)$user['uid'], $zaloUser);
+            if ($phone !== '' && empty($user['phone'])) {
+                $userServices->update((int)$user['uid'], ['phone' => $phone], 'uid');
+            }
         } else {
-            // Chưa có → tạo mới user CRMEB
-            $user = $this->createZaloUser($zaloUser, $spread);
-
-            // Lưu liên kết social vào eb_wechat_user
-            $this->dao->save([
-                'uid'        => $user->uid,
-                'openid'     => $openid,
-                'user_type'  => self::USER_TYPE,
-                'nickname'   => $zaloUser['nickname'],
-                'headimgurl' => $zaloUser['avatar'],
-                'add_time'   => time(),
-            ]);
+            $user = $this->createZaloUser($zaloUser, $spread, $phone);
         }
+        $this->syncZaloMapping((int)$user['uid'], $zaloUser);
+        $this->attachSourceTag((int)$user['uid'], $source);
+        $user = $userServices->get((int)$user['uid']);
 
         /** @var LoginServices $loginServices */
         $loginServices = app()->make(LoginServices::class);
@@ -118,10 +100,11 @@ class ZaloAuthServices extends BaseServices
         return [
             'token'        => $token['token'],
             'expires_time' => $token['params']['exp'],
+            'source'       => $source,
             'userInfo'     => [
                 'uid'       => $user['uid'],
-                'nickname'  => $zaloUser['nickname'],
-                'avatar'    => $zaloUser['avatar'],
+                'nickname'  => $user['nickname'] ?? $zaloUser['nickname'],
+                'avatar'    => $user['avatar'] ?? $zaloUser['avatar'],
                 'phone'     => $user['phone'] ?? '',
                 'user_type' => self::USER_TYPE,
             ],
@@ -220,17 +203,17 @@ class ZaloAuthServices extends BaseServices
      * @return object  Bản ghi eb_user vừa tạo
      * @throws ApiException
      */
-    private function createZaloUser(array $zaloUser, int $spread): object
+    private function createZaloUser(array $zaloUser, int $spread, string $phone = ''): object
     {
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
 
         $data = [
-            'account'   => 'zalo_' . $zaloUser['openid'],
+            'account'   => $phone ?: ('zalo_' . $zaloUser['openid']),
             'pwd'       => md5(uniqid('zalo_', true)),
             'nickname'  => $zaloUser['nickname'],
             'avatar'    => $zaloUser['avatar'],
-            'phone'     => '',
+            'phone'     => $phone,
             'user_type' => self::USER_TYPE,
             'add_time'  => time(),
             'add_ip'    => app('request')->ip(),
@@ -262,7 +245,7 @@ class ZaloAuthServices extends BaseServices
         event('CustomEventListener', ['user_register', [
             'uid'       => $user->uid,
             'nickname'  => $data['nickname'],
-            'phone'     => '',
+            'phone'     => $data['phone'] ?: '',
             'add_time'  => date('Y-m-d H:i:s'),
             'user_type' => self::USER_TYPE,
         ]]);
@@ -282,5 +265,150 @@ class ZaloAuthServices extends BaseServices
         }
 
         return $user;
+    }
+
+    /**
+     * Ưu tiên tra theo phone trong eb_user, sau đó fallback mapping social.
+     * @param string $phone
+     * @param string $openid
+     * @return array|\think\Model|null
+     */
+    private function resolveUserByPhoneOrMapping(string $phone, string $openid)
+    {
+        /** @var UserServices $userServices */
+        $userServices = app()->make(UserServices::class);
+        if ($phone !== '') {
+            $user = $userServices->getOne(['phone' => $phone, 'is_del' => 0]);
+            if ($user) return $user;
+        }
+
+        $wechatUser = $this->dao->getOne([
+            'openid' => $openid,
+            'user_type' => self::USER_TYPE,
+        ]);
+        if ($wechatUser) {
+            return $userServices->getOne(['uid' => (int)$wechatUser['uid'], 'is_del' => 0]);
+        }
+        return null;
+    }
+
+    /**
+     * Cập nhật giới hạn cho user trùng số điện thoại.
+     */
+    private function limitedUpdateExistingUser(int $uid, array $zaloUser): void
+    {
+        /** @var UserServices $userServices */
+        $userServices = app()->make(UserServices::class);
+        $currentUser = $userServices->get($uid);
+        if (!$currentUser) {
+            throw new ApiException('Người dùng không tồn tại');
+        }
+
+        $updateData = [
+            'last_time' => time(),
+            'last_ip' => app('request')->ip(),
+        ];
+        if (empty($currentUser['nickname']) && !empty($zaloUser['nickname'])) {
+            $updateData['nickname'] = $zaloUser['nickname'];
+        }
+        if (empty($currentUser['avatar']) && !empty($zaloUser['avatar'])) {
+            $updateData['avatar'] = $zaloUser['avatar'];
+        }
+        $userServices->update($uid, $updateData, 'uid');
+    }
+
+    /**
+     * Đồng bộ mapping zalo trong eb_wechat_user theo uid hiện tại.
+     */
+    private function syncZaloMapping(int $uid, array $zaloUser): void
+    {
+        $wechatUser = $this->dao->getOne([
+            'openid' => $zaloUser['openid'],
+            'user_type' => self::USER_TYPE,
+        ]);
+        $syncData = [
+            'uid' => $uid,
+            'nickname' => $zaloUser['nickname'],
+            'headimgurl' => $zaloUser['avatar'],
+        ];
+
+        if ($wechatUser) {
+            $this->dao->update((int)$wechatUser['id'], $syncData);
+        } else {
+            $this->dao->save($syncData + [
+                'openid' => $zaloUser['openid'],
+                'user_type' => self::USER_TYPE,
+                'add_time' => time(),
+            ]);
+        }
+    }
+
+    /**
+     * Gắn tag nguồn đăng nhập cho user.
+     */
+    private function attachSourceTag(int $uid, string $source): void
+    {
+        /** @var UserLabelServices $labelServices */
+        $labelServices = app()->make(UserLabelServices::class);
+        /** @var UserLabelRelationServices $relationServices */
+        $relationServices = app()->make(UserLabelRelationServices::class);
+
+        $labelCateId = $this->getOrCreateSourceLabelCateId();
+        $labelName = 'source:' . $source;
+        $labelId = (int)$labelServices->value(['label_name' => $labelName, 'label_cate' => $labelCateId], 'id');
+        if (!$labelId) {
+            $labelServices->save([
+                'label_name' => $labelName,
+                'label_cate' => $labelCateId,
+            ]);
+            $labelId = (int)$labelServices->value(['label_name' => $labelName, 'label_cate' => $labelCateId], 'id');
+        }
+        if (!$labelId) return;
+
+        $currentLabelIds = array_map('intval', $relationServices->getUserLabels($uid));
+        if (in_array($labelId, $currentLabelIds, true)) {
+            return;
+        }
+        $relationServices->setUserLabel([$uid], [$labelId], 1);
+    }
+
+    /**
+     * Lấy hoặc tạo category chứa source label.
+     */
+    private function getOrCreateSourceLabelCateId(): int
+    {
+        /** @var UserLabelCateServices $cateServices */
+        $cateServices = app()->make(UserLabelCateServices::class);
+        $cateId = (int)$cateServices->value(['type' => 0, 'name' => self::SOURCE_LABEL_CATE_NAME], 'id');
+        if ($cateId) return $cateId;
+
+        $cateServices->save([
+            'type' => 0,
+            'name' => self::SOURCE_LABEL_CATE_NAME,
+            'sort' => 0,
+        ]);
+        return (int)$cateServices->value(['type' => 0, 'name' => self::SOURCE_LABEL_CATE_NAME], 'id');
+    }
+
+    /**
+     * Chuẩn hóa số điện thoại đầu vào.
+     */
+    private function normalizePhone(string $phone): string
+    {
+        $phone = trim($phone);
+        if ($phone === '') return '';
+        $digits = preg_replace('/\D+/', '', $phone);
+        if (!$digits) return '';
+        return strlen($digits) >= 8 ? $digits : '';
+    }
+
+    /**
+     * Chuẩn hóa source để lưu tag.
+     */
+    private function normalizeSource(string $source): string
+    {
+        $source = strtolower(trim($source));
+        $source = preg_replace('/[^a-z0-9_\-]/', '', $source);
+        return $source ?: self::DEFAULT_SOURCE;
     }
 }

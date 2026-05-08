@@ -41,6 +41,8 @@ class ZaloAuthController
      * Request (POST /api/zalo/auth):
      *   access_token  string  required  - Token lấy từ Zalo Mini App SDK (za.getAccessToken)
      *   spread        int     optional  - UID người giới thiệu
+     *   source        string  optional  - Nguồn đăng nhập (ví dụ: fchan)
+     *   phone         string  optional  - Số điện thoại đã xác thực từ client/luồng tích hợp
      *
      * Response 200:
      *   token         string  - JWT dùng cho các request sau
@@ -52,16 +54,23 @@ class ZaloAuthController
      */
     public function auth(Request $request)
     {
-        [$accessToken, $spread] = $request->postMore([
+        [$accessToken, $spread, $source, $phone] = $request->postMore([
             ['access_token', ''],
             ['spread', 0],
+            ['source', 'fchan'],
+            ['phone', ''],
         ], true);
 
         if (empty($accessToken)) {
             return app('json')->fail('Thiếu access_token từ Zalo');
         }
 
-        $result = $this->services->authLogin(trim($accessToken), (int)$spread);
+        $result = $this->services->authLogin(
+            trim($accessToken),
+            (int)$spread,
+            trim((string)$source),
+            trim((string)$phone)
+        );
         return app('json')->success('Đăng nhập thành công', $result);
     }
 

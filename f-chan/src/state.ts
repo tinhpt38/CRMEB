@@ -111,7 +111,10 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
       token: string;
       expires_time: number;
       userInfo: any;
-    }>("/zalo/auth", { access_token: accessToken });
+    }>("/zalo/auth", {
+      access_token: accessToken,
+      source: "fchan",
+    });
 
     if (result?.token) setCrmebToken(result.token);
 
