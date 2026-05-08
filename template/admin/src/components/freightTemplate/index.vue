@@ -38,7 +38,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="FormData.type === 2 ? 'Trọng lượng mảnh đầu tiên(KG)' : formData.type === 3 ? 'Khối lượng mảnh đầu tiên(m³)' : 'bài viết đầu tiên'"
+                    :label="formData.type === 2 ? 'Trọng lượng mảnh đầu tiên(KG)' : formData.type === 3 ? 'Khối lượng mảnh đầu tiên(m³)' : 'bài viết đầu tiên'"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
@@ -51,7 +51,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="FormData.type === 2 ? 'Trọng lượng thay thế(KG)' : formData.type === 3 ? 'Khối lượng tiếp tục(m³)' : 'sự tiếp tục'"
+                    :label="formData.type === 2 ? 'Trọng lượng thay thế(KG)' : formData.type === 3 ? 'Khối lượng tiếp tục(m³)' : 'sự tiếp tục'"
                     minWidth="100"
                   >
                     <template slot-scope="scope">
@@ -103,7 +103,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="FormData.type === 2 ? 'Trọng lượng miễn phí vận chuyển' : formData.type === 3 ? 'Khối lượng vận chuyển miễn phí(m³)' : 'Số lượng gói'"
+                    :label="formData.type === 2 ? 'Trọng lượng miễn phí vận chuyển' : formData.type === 3 ? 'Khối lượng vận chuyển miễn phí(m³)' : 'Số lượng gói'"
                     minWidth="100"
                   >
                     <template slot-scope="scope">

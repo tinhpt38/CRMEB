@@ -195,7 +195,7 @@ export default {
   },
   components: { menusFrom, formCreate: formCreate.$form() },
   computed: {
-    ...mapState('admin/layout', ['isMobile']),
+    ...mapState('media', ['isMobile']),
     labelWidth() {
       return this.isMobile ? undefined : '80px';
     },

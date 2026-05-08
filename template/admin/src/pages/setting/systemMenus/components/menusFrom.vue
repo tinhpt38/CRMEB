@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :visible.sync="modals" width="540px" :title="TitleFrom" :close-on-click-modal="false" @closed="visible">
+    <el-dialog :visible.sync="modals" width="540px" :title="titleFrom" :close-on-click-modal="false" @closed="visible">
       <el-form ref="formValidate" :model="formValidate" label-width="80px" @submit.native.prevent>
         <el-row :gutter="24">
           <el-col v-bind="grid">
@@ -66,7 +66,7 @@
         <div class="scollhide">
           <div class="iconlist">
             <ul class="list-inline">
-              <li class="icons-item" v-for="(item, i) in iconVal ? searchData : list" :key="i" :title="Item">
+              <li class="icons-item" v-for="(item, i) in iconVal ? searchData : list" :key="i" :title="item">
                 <i :class="'el-icon-' + item" class="f-s-24" v-db-click @click="iconChange(item)"></i>
               </li>
             </ul>

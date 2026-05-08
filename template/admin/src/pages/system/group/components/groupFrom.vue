@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :visible.sync="modals" width="720px" :title="TitleFrom" :close-on-click-modal="false">
+    <el-dialog :visible.sync="modals" width="720px" :title="titleFrom" :close-on-click-modal="false">
       <el-form
         ref="formValidate"
         :model="formValidate"

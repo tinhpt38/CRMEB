@@ -3,7 +3,7 @@
     <el-dialog
       :visible.sync="modals"
       width="540px"
-      :title="TitleFrom"
+      :title="titleFrom"
       :close-on-click-modal="false"
       @closed="handleClose"
     >
@@ -116,7 +116,7 @@
         <div class="scollhide">
           <div class="iconlist">
             <ul class="list-inline">
-              <li class="icons-item" v-for="(item, i) in iconVal ? searchData : list" :key="i" :title="Item">
+              <li class="icons-item" v-for="(item, i) in iconVal ? searchData : list" :key="i" :title="item">
                 <i :class="'el-icon-' + item" class="f-s-24" v-db-click @click="iconChange(item)"></i>
               </li>
             </ul>
