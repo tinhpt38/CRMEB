@@ -87,7 +87,12 @@ class ZaloAuthServices extends BaseServices
             $user = $this->createZaloUser($zaloUser, $spread, $phone);
         }
         $this->syncZaloMapping((int)$user['uid'], $zaloUser);
-        $this->attachSourceTag((int)$user['uid'], $source);
+        try {
+            $this->attachSourceTag((int)$user['uid'], $source);
+        } catch (\Throwable $e) {
+            // Tag nguồn không quan trọng với flow login — ghi log rồi bỏ qua.
+            Log::warning('[ZaloAuth] attachSourceTag failed: ' . $e->getMessage());
+        }
         $user = $userServices->get((int)$user['uid']);
 
         /** @var LoginServices $loginServices */
@@ -109,6 +114,60 @@ class ZaloAuthServices extends BaseServices
                 'user_type' => self::USER_TYPE,
             ],
         ];
+    }
+
+    /**
+     * Lấy số điện thoại từ phone_token (Zalo getPhoneNumber flow)
+     *
+     * Endpoint: GET https://graph.zalo.me/v2.0/me?fields=number&code={phone_token}
+     * Headers: access_token, secret_key
+     * Response: {"data":{"number":"849..."},"error":0,"message":"Success"}
+     *
+     * @param string $accessToken  access_token từ Zalo Mini App SDK
+     * @param string $phoneToken   token từ getPhoneNumber()
+     * @return string  Số điện thoại đã chuẩn hoá (vd: "0901234567")
+     * @throws ApiException
+     */
+    public function fetchPhoneFromToken(string $accessToken, string $phoneToken): string
+    {
+        $secretKey = (string)sys_config('zalo_app_secret', '');
+        if ($secretKey === '') {
+            throw new ApiException('Chưa cấu hình Zalo App Secret. Vui lòng vào Admin → Cài đặt → Zalo và điền zalo_app_secret.');
+        }
+
+        try {
+            $response = HttpService::getRequest(
+                self::ZALO_GRAPH_API,
+                ['fields' => 'number', 'code' => $phoneToken],
+                [
+                    'access_token: ' . $accessToken,
+                    'secret_key: '   . $secretKey,
+                ]
+            );
+        } catch (\Throwable $e) {
+            Log::error('[ZaloAuth] fetchPhoneFromToken – lỗi kết nối: ' . $e->getMessage());
+            throw new ApiException('Không thể kết nối Zalo API để lấy số điện thoại');
+        }
+
+        if (!$response) {
+            throw new ApiException('Zalo API không trả về dữ liệu số điện thoại');
+        }
+
+        $data = json_decode($response, true);
+        Log::info('[ZaloAuth] fetchPhoneFromToken response: ' . json_encode($data));
+
+        if (!isset($data['data']['number']) || (int)($data['error'] ?? -1) !== 0) {
+            $errMsg = $data['message'] ?? 'Không lấy được số điện thoại từ Zalo';
+            Log::error('[ZaloAuth] fetchPhoneFromToken error: ' . $errMsg);
+            throw new ApiException($errMsg);
+        }
+
+        // Zalo trả về dạng "849xxxxxxxx" (quốc tế) → chuẩn hoá về "09xxxxxxxx"
+        $raw = preg_replace('/\D+/', '', (string)$data['data']['number']);
+        if (str_starts_with($raw, '84') && strlen($raw) >= 10) {
+            $raw = '0' . substr($raw, 2);
+        }
+        return $raw;
     }
 
     /**
@@ -157,18 +216,21 @@ class ZaloAuthServices extends BaseServices
      */
     private function fetchZaloUserInfo(string $accessToken): array
     {
-        $appSecret      = (string)sys_config('zalo_app_secret', '');
-        $appsecretProof = hash_hmac('sha256', $accessToken, $appSecret);
+        $appSecret = (string)sys_config('zalo_app_secret', '');
 
-        // access_token + appsecret_proof bắt buộc trong header từ 01/01/2024
+        // Zalo Graph API v2.0: access_token và appsecret_proof truyền qua header;
+        // fields truyền qua query param.
+        // appsecret_proof chỉ thêm khi zalo_app_secret đã được cấu hình trong admin.
+        $headers = ['access_token: ' . $accessToken];
+        if ($appSecret !== '') {
+            $headers[] = 'appsecret_proof: ' . hash_hmac('sha256', $accessToken, $appSecret);
+        }
+
         try {
             $response = HttpService::getRequest(
                 self::ZALO_GRAPH_API,
                 ['fields' => 'id,name,picture'],
-                [
-                    'access_token: '    . $accessToken,
-                    'appsecret_proof: ' . $appsecretProof,
-                ]
+                $headers
             );
         } catch (\Throwable $e) {
             Log::error('[ZaloAuth] Lỗi kết nối Zalo API: ' . $e->getMessage());
@@ -180,15 +242,17 @@ class ZaloAuthServices extends BaseServices
         }
 
         $data = json_decode($response, true);
+        Log::info('[ZaloAuth] Zalo Graph API response: ' . json_encode($data));
 
         $hasId = isset($data['id']) && (string)$data['id'] !== '';
         $errorCode = $data['error'] ?? null;
         $hasBizError = $errorCode !== null && (int)$errorCode !== 0;
 
         if (!$hasId || $hasBizError) {
-            $errMsg = $data['message']
-                ?? ($data['error']['message'] ?? 'Access token Zalo không hợp lệ hoặc đã hết hạn');
-            Log::error('[ZaloAuth] Lỗi từ Zalo API: ' . $errMsg . ' | Token: ' . substr($accessToken, 0, 10) . '...');
+            $errMsg = is_array($data['error'])
+                ? ($data['error']['message'] ?? 'Access token Zalo không hợp lệ hoặc đã hết hạn')
+                : ($data['message'] ?? 'Access token Zalo không hợp lệ hoặc đã hết hạn');
+            Log::error('[ZaloAuth] Lỗi từ Zalo API: ' . $errMsg . ' | Raw: ' . json_encode($data) . ' | Token: ' . substr($accessToken, 0, 10) . '...');
             throw new ApiException($errMsg);
         }
 
@@ -361,7 +425,7 @@ class ZaloAuthServices extends BaseServices
         $labelName = 'source:' . $source;
         $labelId = (int)$labelServices->value(['label_name' => $labelName, 'label_cate' => $labelCateId], 'id');
         if (!$labelId) {
-            $labelServices->save([
+            $labelServices->save(0, [
                 'label_name' => $labelName,
                 'label_cate' => $labelCateId,
             ]);

@@ -10,6 +10,7 @@ import {
   Banner,
   Cart,
   Category,
+  CityNode,
   CrmebAddress,
   Delivery,
   Location,
@@ -94,88 +95,93 @@ export const userInfoKeyState = atom(0);
 
 export const userInfoState = atom<Promise<UserInfo | undefined>>(
   async (get) => {
-  get(userInfoKeyState);
+    get(userInfoKeyState);
 
-  // Nếu người dùng đã chỉnh sửa thông tin tài khoản trước đó, sử dụng thông tin đã lưu trữ
-  const savedUserInfo = localStorage.getItem(CONFIG.STORAGE_KEYS.USER_INFO);
-  // Phía tích hợp có thể thay đổi logic này thành fetch từ server
-  // const savedUserInfo = await fetchUserInfo({ token: await getAccessToken() });
-  if (savedUserInfo) {
-    return JSON.parse(savedUserInfo);
-  }
-
-  const {
-    authSetting: {
-      "scope.userInfo": grantedUserInfo,
-      "scope.userPhonenumber": grantedPhoneNumber,
-    },
-  } = await getSetting({});
-  const isDev = !window.ZJSBridge;
-  const apiUrl = getConfig((config) => config.template.apiUrl);
-
-  // Dev (or missing config) keeps existing demo behavior to avoid hard-blocking UI.
-  if (!apiUrl || isDev) {
-    if (grantedUserInfo || isDev) {
-      const { userInfo } = await getUserInfo({});
-      const phone =
-        grantedPhoneNumber || isDev
-          ? await get(phoneState)
-          : "";
-      return {
-        id: userInfo.id,
-        name: userInfo.name,
-        avatar: userInfo.avatar,
-        phone,
-        email: "",
-        address: "",
-      };
+    // Kiểm tra cache trước — lần login trước đã lưu vào localStorage.
+    const savedUserInfo = localStorage.getItem(CONFIG.STORAGE_KEYS.USER_INFO);
+    if (savedUserInfo) {
+      try {
+        return JSON.parse(savedUserInfo) as UserInfo;
+      } catch {
+        localStorage.removeItem(CONFIG.STORAGE_KEYS.USER_INFO);
+      }
     }
+
+    const isDev = !window.ZJSBridge;
+    const apiUrl = getConfig((config) => config.template.apiUrl);
+
+    // Nhánh CRMEB: dùng Zalo access_token để tạo/đăng nhập tài khoản CRMEB.
+    // Không gọi getSetting ở đây để tránh block khi user chưa cấp quyền scope.userInfo.
+    if (apiUrl && !isDev) {
+      try {
+        const accessToken = await getAccessToken();
+        const client = new CrmebApiClient({
+          apiBaseUrl: apiUrl,
+          getToken: () => getCrmebToken(),
+        });
+
+        const result = await client.post<{
+          token: string;
+          expires_time: number;
+          userInfo: any;
+        }>("/zalo/auth", {
+          access_token: accessToken,
+          source: "fchan",
+        });
+
+        if (result?.token) setCrmebToken(result.token);
+
+        const crmUser = result?.userInfo ?? {};
+        const mapped: UserInfo = {
+          id: String(crmUser.uid ?? crmUser.id ?? ""),
+          name: String(crmUser.nickname ?? crmUser.name ?? ""),
+          avatar: String(crmUser.avatar ?? ""),
+          phone: String(crmUser.phone ?? ""),
+          email: "",
+          address: "",
+        };
+
+        localStorage.setItem(
+          CONFIG.STORAGE_KEYS.USER_INFO,
+          JSON.stringify(mapped)
+        );
+
+        return mapped;
+      } catch (error) {
+        console.warn("CRMEB Zalo login failed:", error);
+        return undefined;
+      }
+    }
+
+    // Nhánh dev / không có apiUrl: dùng Zalo SDK trực tiếp.
+    try {
+      const {
+        authSetting: {
+          "scope.userInfo": grantedUserInfo,
+          "scope.userPhonenumber": grantedPhoneNumber,
+        },
+      } = await getSetting({});
+
+      if (grantedUserInfo || isDev) {
+        const { userInfo } = await getUserInfo({});
+        const phone =
+          grantedPhoneNumber || isDev ? await get(phoneState) : "";
+        return {
+          id: userInfo.id,
+          name: userInfo.name,
+          avatar: userInfo.avatar,
+          phone,
+          email: "",
+          address: "",
+        };
+      }
+    } catch {
+      // getSetting/getUserInfo có thể fail trong một số môi trường — bỏ qua.
+    }
+
     return undefined;
   }
-
-  // Integration path: login against CRMEB via Zalo access_token -> store CRMEB JWT.
-  // Không ép quyền scope.userInfo ở bước này: chỉ cần người dùng đã đăng nhập Zalo
-  // là có thể lấy access_token để định danh/tạo tài khoản CRMEB kiểu "zalo".
-
-  try {
-    const accessToken = await getAccessToken();
-    const client = new CrmebApiClient({
-      apiBaseUrl: apiUrl,
-      getToken: () => getCrmebToken(),
-    });
-
-    const result = await client.post<{
-      token: string;
-      expires_time: number;
-      userInfo: any;
-    }>("/zalo/auth", {
-      access_token: accessToken,
-      source: "fchan",
-    });
-
-    if (result?.token) setCrmebToken(result.token);
-
-    const crmUser = result?.userInfo ?? {};
-    const mapped: UserInfo = {
-      id: String(crmUser.uid ?? crmUser.id ?? ""),
-      name: String(crmUser.nickname ?? crmUser.name ?? ""),
-      avatar: String(crmUser.avatar ?? ""),
-      phone: String(crmUser.phone ?? ""),
-      email: "",
-      address: "",
-    };
-
-    localStorage.setItem(
-      CONFIG.STORAGE_KEYS.USER_INFO,
-      JSON.stringify(mapped)
-    );
-
-    return mapped;
-  } catch (error) {
-    console.warn("CRMEB Zalo login failed:", error);
-    return undefined;
-  }
-});
+);
 
 export const loadableUserInfoState = loadable(userInfoState);
 
@@ -734,3 +740,30 @@ export const selectedCrmebAddressState = atom(async (get) => {
 export const loadableSelectedCrmebAddressState = loadable(
   selectedCrmebAddressState
 );
+
+// ---------------------------------------------------------------------------
+// Dữ liệu tỉnh/thành từ CRMEB — dùng cho form chọn địa chỉ
+// ---------------------------------------------------------------------------
+
+/**
+ * Tải cây tỉnh/huyện từ GET /city_list.
+ * Không cần auth — endpoint public.
+ * Cache tự nhiên nhờ atom (không refresh trong session).
+ */
+export const cityListState = atom<Promise<CityNode[]>>(async () => {
+  const apiUrl = getConfig((config) => config.template.apiUrl);
+  if (!apiUrl) return [];
+  try {
+    const client = new CrmebApiClient({
+      apiBaseUrl: apiUrl,
+      getToken: () => getCrmebToken(),
+    });
+    const raw = await client.get<CityNode[]>("/city_list");
+    return Array.isArray(raw) ? raw : [];
+  } catch (error) {
+    console.warn("Failed to load city list:", error);
+    return [];
+  }
+});
+
+export const loadableCityListState = loadable(cityListState);

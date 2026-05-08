@@ -183,21 +183,20 @@ class UserAddressServices extends BaseServices
         }
 
         if ($addressInfo['type'] == 1 && !$addressInfo['id']) {
+            // Cố tra city_id từ SystemCity, nhưng không bắt buộc —
+            // địa chỉ Việt Nam thường không có trong bảng gốc Trung Quốc.
             $city = $addressInfo['address']['city'];
             /** @var SystemCityServices $systemCity */
             $systemCity = app()->make(SystemCityServices::class);
             $cityInfo = $systemCity->getOne([['name', '=', $city], ['parent_id', '<>', 0]]);
-            if ($cityInfo && $cityInfo['city_id']) {
-                $addressInfo['address']['city_id'] = $cityInfo['city_id'];
-            } else {
+            if (!$cityInfo) {
                 $cityInfo = $systemCity->getOne([['name', 'like', "%$city%"], ['parent_id', '<>', 0]]);
-                if (!$cityInfo) {
-                    throw new ApiException('Lỗi định dạng địa chỉ giao hàng');
-                }
-                $addressInfo['address']['city_id'] = $cityInfo['city_id'];
             }
+            $addressInfo['address']['city_id'] = $cityInfo['city_id'] ?? 0;
         }
-        if (!isset($addressInfo['address']['city_id']) || $addressInfo['address']['city_id'] == 0) throw new ApiException('Thêm không thành công');
+        if (!isset($addressInfo['address']['city_id'])) {
+            $addressInfo['address']['city_id'] = 0;
+        }
         $addressInfo['province'] = $addressInfo['address']['province'];
         $addressInfo['city'] = $addressInfo['address']['city'];
         $addressInfo['city_id'] = $addressInfo['address']['city_id'] ?? 0;

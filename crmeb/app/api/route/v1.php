@@ -590,9 +590,12 @@ Route::group(function () {
     // Gửi OTP để gắn số điện thoại (sau khi đã đăng nhập Zalo/CRMEB)
     Route::post('zalo/send_bind_otp', 'v1.zalo.ZaloAuthController/sendBindOtp')
         ->option(['real_name' => 'Zalo Mini App - Gửi OTP gắn số điện thoại']);
-    // Gắn số điện thoại sau khi đăng nhập Zalo
+    // Gắn số điện thoại sau khi đăng nhập Zalo (OTP flow)
     Route::post('zalo/bind_phone', 'v1.zalo.ZaloAuthController/bindPhone')
         ->option(['real_name' => 'Zalo Mini App - Gắn số điện thoại']);
+    // Gắn số điện thoại trực tiếp từ Zalo (không cần OTP — Zalo đã verify)
+    Route::post('zalo/bind_phone_direct', 'v1.zalo.ZaloAuthController/bindPhoneDirect')
+        ->option(['real_name' => 'Zalo Mini App - Gắn số điện thoại trực tiếp']);
 })->middleware(\app\http\middleware\AllowOriginMiddleware::class)
     ->middleware(\app\api\middleware\StationOpenMiddleware::class)
     ->middleware(\app\api\middleware\AuthTokenMiddleware::class, true)

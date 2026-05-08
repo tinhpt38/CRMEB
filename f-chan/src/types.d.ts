@@ -1,3 +1,13 @@
+/** Node trong cây dữ liệu tỉnh/thành từ GET /city_list */
+export interface CityNode {
+  /** ID vùng */
+  v: number;
+  /** Tên vùng */
+  n: string;
+  /** Cấp con (Quận/Huyện hoặc Phường/Xã) */
+  c: CityNode[];
+}
+
 export interface Banner {
   pic: string;
   /** Link điều hướng khi nhấn banner. Có thể là URL web hoặc path nội bộ CRMEB. */

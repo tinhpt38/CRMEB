@@ -1,17 +1,135 @@
 import {
   crmebAddressesState,
+  loadableCityListState,
   loadableSelectedCrmebAddressState,
   selectedCrmebAddressIdState,
 } from "@/state";
-import { CrmebAddress } from "@/types";
+import { CityNode, CrmebAddress } from "@/types";
 import { CrmebApiClient } from "@/utils/crmeb/client";
 import { getCrmebToken } from "@/utils/crmeb/token";
 import { getConfig } from "@/utils/template";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Button, Icon, Input } from "zmp-ui";
+import { Button, Icon, Input, Sheet } from "zmp-ui";
+
+// ---------------------------------------------------------------------------
+// SearchableSelect — bottom sheet với ô tìm kiếm
+// ---------------------------------------------------------------------------
+
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface SearchableSelectProps {
+  label: React.ReactNode;
+  placeholder?: string;
+  value: string;
+  options: SelectOption[];
+  onChange: (value: string) => void;
+  disabled?: boolean;
+}
+
+function SearchableSelect({
+  label,
+  placeholder = "Chọn…",
+  value,
+  options,
+  onChange,
+  disabled = false,
+}: SearchableSelectProps) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(
+    () =>
+      options.filter((o) =>
+        o.label.toLowerCase().includes(query.toLowerCase())
+      ),
+    [options, query]
+  );
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    setQuery("");
+  }, []);
+
+  const handleSelect = useCallback(
+    (opt: SelectOption) => {
+      onChange(opt.value);
+      handleClose();
+    },
+    [onChange, handleClose]
+  );
+
+  const displayLabel = options.find((o) => o.value === value)?.label ?? "";
+
+  return (
+    <>
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => !disabled && setOpen(true)}
+        className={`w-full flex items-center justify-between rounded-lg border px-3 py-2.5 text-sm transition-colors ${
+          disabled
+            ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+            : "bg-white border-gray-300 text-title active:border-primary"
+        }`}
+      >
+        <span className="flex flex-col items-start gap-0.5 text-left">
+          <span className="text-xs text-subtitle">{label}</span>
+          <span className={displayLabel ? "text-title" : "text-gray-400"}>
+            {displayLabel || placeholder}
+          </span>
+        </span>
+        <Icon icon="zi-chevron-down" size={18} className="text-subtitle flex-shrink-0" />
+      </button>
+
+      <Sheet
+        visible={open}
+        onClose={handleClose}
+        title={typeof label === "string" ? label : undefined}
+        maskClosable
+      >
+        <div className="px-4 pb-4 flex flex-col" style={{ maxHeight: "70vh" }}>
+          <div className="py-3">
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Tìm kiếm…"
+              clearable
+              className="w-full"
+            />
+          </div>
+          <div className="overflow-y-auto flex-1 divide-y divide-gray-100">
+            {filtered.length === 0 && (
+              <p className="py-4 text-center text-sm text-subtitle">
+                Không có kết quả
+              </p>
+            )}
+            {filtered.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => handleSelect(opt)}
+                className={`w-full text-left px-2 py-3 text-sm transition-colors active:bg-gray-50 ${
+                  opt.value === value ? "text-primary font-medium" : "text-title"
+                }`}
+              >
+                {opt.label}
+                {opt.value === value && (
+                  <Icon icon="zi-check" size={16} className="ml-2 inline text-primary" />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </Sheet>
+    </>
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Form thêm / sửa địa chỉ
@@ -28,17 +146,43 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
   const refreshAddresses = useSetAtom(crmebAddressesState);
   const setSelectedId = useSetAtom(selectedCrmebAddressIdState);
 
+  // Địa chỉ
+  const cityListLoadable = useAtomValue(loadableCityListState);
+  const cityList: CityNode[] =
+    cityListLoadable.state === "hasData" ? cityListLoadable.data : [];
+
+  const [province, setProvince] = useState(initial?.province ?? "");
+  const [district, setDistrict] = useState(initial?.district ?? "");
+
+  // Các option tỉnh/thành
+  const provinceOptions: SelectOption[] = useMemo(
+    () => cityList.map((p) => ({ value: p.n, label: p.n })),
+    [cityList]
+  );
+
+  // Phường/xã phụ thuộc tỉnh được chọn (cấp 2 trong city_list)
+  const districtOptions: SelectOption[] = useMemo(() => {
+    const found = cityList.find((p) => p.n === province);
+    if (!found) return [];
+    return found.c.map((d) => ({ value: d.n, label: d.n }));
+  }, [cityList, province]);
+
+  const handleProvinceChange = useCallback((val: string) => {
+    setProvince(val);
+    setDistrict("");
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const province = (fd.get("province") as string)?.trim();
-    const city = (fd.get("city") as string)?.trim();
-    const district = (fd.get("district") as string)?.trim();
-    const detail = (fd.get("detail") as string)?.trim();
     const real_name = (fd.get("real_name") as string)?.trim();
     const phone = (fd.get("phone") as string)?.trim();
+    const detail = (fd.get("detail") as string)?.trim();
+    const districtVal = districtOptions.length
+      ? district
+      : (fd.get("district_text") as string)?.trim();
 
-    if (!province || !city || !district || !detail || !real_name || !phone) {
+    if (!province || !districtVal || !detail || !real_name || !phone) {
       toast.error("Vui lòng điền đầy đủ thông tin");
       return;
     }
@@ -54,19 +198,18 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
     try {
       const client = new CrmebApiClient({ apiBaseUrl: apiUrl, getToken: () => token });
       const payload = {
-        address: { province, city, district },
+        address: { province, city: province, district: districtVal },
         real_name,
         post_code: "",
         phone,
         detail,
         is_default: initial ? initial.is_default : true,
         id: initial?.id ?? 0,
-        type: 1, // type=1 bỏ qua kiểm tra city_id
+        type: 1,
       };
 
       const res = await client.post<any>("/address/edit", payload);
 
-      // Nếu là địa chỉ mới, CRMEB trả về object địa chỉ trong data
       if (!initial && res?.id) {
         setSelectedId(Number(res.id));
       }
@@ -102,27 +245,38 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
         </div>
 
         <div className="bg-section p-4 mt-2 grid gap-4">
-          <Input
-            name="province"
-            label={<>Tỉnh / Thành phố <span className="text-danger">*</span></>}
-            placeholder="TP. Hồ Chí Minh"
-            required
-            defaultValue={initial?.province}
-          />
-          <Input
-            name="city"
-            label={<>Quận / Huyện <span className="text-danger">*</span></>}
-            placeholder="Quận 7"
-            required
-            defaultValue={initial?.city}
-          />
-          <Input
-            name="district"
-            label={<>Phường / Xã <span className="text-danger">*</span></>}
-            placeholder="Tân Thuận Đông"
-            required
-            defaultValue={initial?.district}
-          />
+          {cityListLoadable.state === "loading" ? (
+            <p className="text-sm text-subtitle py-2">Đang tải danh sách tỉnh/thành…</p>
+          ) : (
+            <>
+              <SearchableSelect
+                label="Tỉnh / Thành phố"
+                placeholder="Chọn tỉnh/thành phố"
+                value={province}
+                options={provinceOptions}
+                onChange={handleProvinceChange}
+              />
+              {districtOptions.length > 0 ? (
+                <SearchableSelect
+                  label="Phường / Xã"
+                  placeholder={province ? "Chọn phường/xã" : "Chọn tỉnh/thành trước"}
+                  value={district}
+                  options={districtOptions}
+                  onChange={setDistrict}
+                  disabled={!province}
+                />
+              ) : (
+                <Input
+                  name="district_text"
+                  label={<>Phường / Xã <span className="text-danger">*</span></>}
+                  placeholder="Tên phường/xã"
+                  required
+                  defaultValue={initial?.district}
+                />
+              )}
+            </>
+          )}
+
           <Input
             name="detail"
             label={<>Số nhà, tên đường <span className="text-danger">*</span></>}
@@ -157,7 +311,6 @@ function AddressList() {
   const navigate = useNavigate();
   const refreshAddresses = useSetAtom(crmebAddressesState);
 
-  // Khi đang loading lần đầu
   if (loadable.state === "loading" && !addresses.length) {
     return (
       <div className="flex justify-center items-center p-8 text-subtitle text-sm">
@@ -206,8 +359,8 @@ function AddressList() {
         )}
 
         {addresses.map((addr) => {
-          const isSelected = selectedId === addr.id ||
-            (selectedId === null && addr.is_default === 1);
+          const isSelected =
+            selectedId === addr.id || (selectedId === null && addr.is_default === 1);
           return (
             <div
               key={addr.id}

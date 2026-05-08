@@ -14,10 +14,11 @@ import {
 } from "@/state";
 import { Product } from "@/types";
 import { getConfig } from "@/utils/template";
-import { authorize, openChat } from "zmp-sdk/apis";
+import { authorize, getAccessToken, getPhoneNumber, openChat } from "zmp-sdk/apis";
 import { useAtomCallback } from "jotai/utils";
 import { CrmebApiClient } from "@/utils/crmeb/client";
 import { getCrmebToken, setCrmebToken } from "@/utils/crmeb/token";
+import CONFIG from "@/config";
 
 export function useRealHeight(
   element: MutableRefObject<HTMLDivElement | null>,
@@ -53,11 +54,17 @@ export function useRequestInformation() {
   return async () => {
     const userInfo = await getStoredUserInfo();
     if (!userInfo) {
-      await authorize({
-        // Theo khuyến nghị Zalo Mini App: chỉ xin quyền khi thực sự cần.
-        // Luồng đăng nhập chỉ cần scope.userInfo; số điện thoại xử lý ở flow riêng.
-        scopes: ["scope.userInfo"],
-      }).then(refreshPermissions);
+      const apiUrl = getConfig((c) => c.template.apiUrl);
+      const isDev = !window.ZJSBridge;
+
+      if (apiUrl && !isDev) {
+        // Nhánh CRMEB: không cần authorize() — getAccessToken() không yêu cầu
+        // permission grant. Chỉ cần retry userInfoState (gọi lại /zalo/auth).
+        refreshPermissions();
+      } else {
+        // Nhánh dev / Zalo SDK thuần: xin quyền scope.userInfo rồi mới refresh.
+        await authorize({ scopes: ["scope.userInfo"] }).then(refreshPermissions);
+      }
       return await getStoredUserInfo();
     }
     return userInfo;
@@ -112,43 +119,49 @@ export function useCustomerSupport() {
 }
 
 /**
- * Gắn số điện thoại vào tài khoản Zalo đang đăng nhập (SMS OTP).
+ * Gắn số điện thoại từ Zalo (không cần SMS OTP).
  *
- * Bước 1 – sendOtp(phone): gọi POST /register/verify → gửi OTP qua SMS.
- * Bước 2 – verifyAndBind(phone, otp): gọi POST /zalo/bind_phone → lưu phone vào CRMEB.
- *           Trả về true nếu thành công, ném lỗi nếu thất bại.
+ * Luồng:
+ *  1. getAccessToken() + getPhoneNumber() từ Zalo SDK
+ *  2. Gửi cả hai token lên POST /zalo/bind_phone_direct
+ *  3. Backend decode phone_token → lấy số thực → lưu vào CRMEB
  */
 export function useBindPhone() {
   const apiUrl = getConfig((config) => config.template.apiUrl);
   const setUserInfoKey = useSetAtom(userInfoKeyState);
 
-  const sendOtp = async (phone: string) => {
+  const bindFromZalo = async () => {
     if (!apiUrl) throw new Error("Chưa cấu hình apiUrl");
-    const token = getCrmebToken();
-    if (!token) throw new Error("Chưa đăng nhập CRMEB");
+    const crmebToken = getCrmebToken();
+    if (!crmebToken) throw new Error("Chưa đăng nhập CRMEB");
+
+    const [{ token: phoneToken }, accessToken] = await Promise.all([
+      getPhoneNumber({}),
+      getAccessToken(),
+    ]);
+
     const client = new CrmebApiClient({
       apiBaseUrl: apiUrl,
-      getToken: () => token,
+      getToken: () => crmebToken,
     });
-    await client.post("/zalo/send_bind_otp", { phone });
-  };
-
-  const verifyAndBind = async (phone: string, otp: string) => {
-    if (!apiUrl) throw new Error("Chưa cấu hình apiUrl");
-    const token = getCrmebToken();
-    if (!token) throw new Error("Chưa đăng nhập CRMEB");
-    const client = new CrmebApiClient({
-      apiBaseUrl: apiUrl,
-      getToken: () => token,
+    const res = await client.post<{ phone?: string }>("/zalo/bind_phone_direct", {
+      access_token: accessToken,
+      phone_token: phoneToken,
     });
-    await client.post("/zalo/bind_phone", { phone, captcha: otp });
 
-    // Xóa userInfo cache để state.userInfoState đọc lại phone mới từ server
-    localStorage.removeItem("userInfo");
+    // Cập nhật userInfo cache với phone mới
+    const saved = localStorage.getItem(CONFIG.STORAGE_KEYS.USER_INFO);
+    if (saved) {
+      try {
+        const info = JSON.parse(saved);
+        info.phone = res?.phone ?? info.phone;
+        localStorage.setItem(CONFIG.STORAGE_KEYS.USER_INFO, JSON.stringify(info));
+      } catch { /* ignore */ }
+    }
     setUserInfoKey((k) => k + 1);
   };
 
-  return { sendOtp, verifyAndBind };
+  return { bindFromZalo };
 }
 
 export function useToBeImplemented() {

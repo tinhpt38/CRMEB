@@ -116,6 +116,57 @@ class ZaloAuthController
     }
 
     /**
+     * Gắn số điện thoại trực tiếp từ Zalo (không cần SMS OTP)
+     *
+     * Luồng:
+     *  1. Mini App gọi getPhoneNumber() → nhận phone_token
+     *  2. Mini App gọi getAccessToken()  → nhận access_token
+     *  3. POST /api/zalo/bind_phone_direct {access_token, phone_token}
+     *  4. Backend decode phone_token qua Zalo Graph API → lấy số thực → gắn vào tài khoản
+     *
+     * Zalo đã xác thực số điện thoại → không cần thêm SMS OTP phía server.
+     *
+     * Request (POST /api/zalo/bind_phone_direct):
+     *   access_token string required  - từ getAccessToken()
+     *   phone_token  string required  - từ getPhoneNumber()
+     *
+     * Header: Authorization: Bearer {crmeb_token}
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function bindPhoneDirect(Request $request)
+    {
+        [$accessToken, $phoneToken] = $request->postMore([
+            ['access_token', ''],
+            ['phone_token', ''],
+        ], true);
+
+        if (empty($accessToken) || empty($phoneToken)) {
+            return app('json')->fail('Thiếu access_token hoặc phone_token');
+        }
+
+        try {
+            $phone = $this->services->fetchPhoneFromToken(trim($accessToken), trim($phoneToken));
+        } catch (\crmeb\exceptions\ApiException $e) {
+            return app('json')->fail($e->getMessage());
+        } catch (\Throwable $e) {
+            return app('json')->fail('Không lấy được số điện thoại từ Zalo');
+        }
+
+        try {
+            validate(RegisterValidates::class)->scene('code')->check(['phone' => $phone]);
+        } catch (ValidateException $e) {
+            return app('json')->fail($e->getError());
+        }
+
+        $uid = (int)$request->uid();
+        $this->services->bindPhone($uid, $phone);
+
+        return app('json')->success('Gắn số điện thoại thành công', ['phone' => $phone]);
+    }
+
+    /**
      * Gửi OTP để gắn số điện thoại sau đăng nhập Zalo
      *
      * Khác với /register/verify:
