@@ -1,5 +1,5 @@
 <template>
-  <div class="ivu-global-footer i-copyright" v-if="isShow">
+  <!-- <div class="ivu-global-footer i-copyright" v-if="isShow">
     <div class="ivu-global-footer-links" v-if="!copyright">
       <a :href="item.href" target="_blank" v-for="(item, index) in links" :key="index">{{ item.title }}</a>
     </div>
@@ -8,7 +8,13 @@
       Copyright © 2014-2025
       <a href="https://www.crmeb.com" target="_blank">{{ version }}</a>
     </div>
-  </div>
+  </div> -->
+
+  <div>
+    Hỗ trợ: Facebook <a href="https://www.facebook.com/1.BrianP/" target="_blank">Phan Trung Tính</a>
+       Email: <a href="mailto:admin@crmeb.com">tinhp.wk@gmail.com</a>
+       Zalo: <a href="https://zalo.me/0379080" target="_blank">0379080580</a>
+    </div>
 </template>
 <script>
 import { getCrmebCopyRight } from '@/api/system';
