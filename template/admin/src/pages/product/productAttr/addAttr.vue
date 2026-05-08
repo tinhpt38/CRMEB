@@ -13,7 +13,7 @@
         <el-col :span="24">
           <el-col :span="8">
             <el-form-item label="Tên mẫu thuộc tính：" prop="rule_name">
-              <el-input placeholder="Vui lòng nhập tên mẫu" :maxlength="60" v-model.trim="formDynamic.rule_name" />
+              <el-input placeholder="Vui lòng nhập tên mẫu" :maxlength="60" v-model="formDynamic.rule_name" />
             </el-form-item>
           </el-col>
         </el-col>

@@ -64,10 +64,10 @@
         <el-input v-model="form.status" style="display: none"></el-input>
         <el-input v-model="form.right_type" style="display: none"></el-input>
         <el-form-item label="Tên sở thích：" prop="title">
-          <el-input v-model.trim="form.title" placeholder="Vui lòng nhập tên lợi ích" disabled class="w100"></el-input>
+          <el-input v-model="form.title" placeholder="Vui lòng nhập tên lợi ích" disabled class="w100"></el-input>
         </el-form-item>
         <el-form-item label="Tên hiển thị：" prop="show_title">
-          <el-input v-model.trim="form.show_title" placeholder="Vui lòng nhập tên hiển thị" class="w100"></el-input>
+          <el-input v-model="form.show_title" placeholder="Vui lòng nhập tên hiển thị" class="w100"></el-input>
         </el-form-item>
         <el-form-item label="Biểu tượng vốn chủ sở hữu：" prop="image">
           <div class="image-group" v-db-click @click="callImage">
@@ -78,7 +78,7 @@
         </el-form-item>
         <el-form-item label="Giới thiệu về quyền và lợi ích：" prop="show_title">
           <el-input
-            v-model.trim="form.explain"
+            v-model="form.explain"
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 10 }"
             placeholder="Vui lòng nhập phần giới thiệu lợi ích"

@@ -121,7 +121,7 @@
             clearable
             :editable="false"
             type="datetimerange"
-            format="yyyy-MM-dd HH:mm"
+            format="dd/MM/yyyy HH:mm"
             value-format="yyyy-MM-dd HH:mm"
             range-separator="-"
             start-placeholder="ngày bắt đầu"

@@ -24,7 +24,7 @@
           </el-form-item> -->
           <el-form-item label="Thời gian hoạt động：">
             <el-date-picker clearable v-model="timeVal" type="daterange" :editable="false" @change="onchangeTime"
-              format="yyyy/MM/dd" value-format="yyyy/MM/dd" start-placeholder="ngày bắt đầu" end-placeholder="ngày kết thúc"
+              format="dd/MM/yyyy" value-format="yyyy-MM-dd" start-placeholder="ngày bắt đầu" end-placeholder="ngày kết thúc"
               style="width: 250px"></el-date-picker>
           </el-form-item>
           <el-form-item>

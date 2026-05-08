@@ -38,7 +38,7 @@
           type="daterange"
           placement="bottom-end"
           v-model="configData.specifyDate"
-          format="yyyy/MM/dd"
+          format="dd/MM/yyyy"
           placeholder="Vui lòng chọn"
           style="margin-top: 6px"
           v-else-if="configData.tabData == 1 && configData.tabVal == 0 && configData.type == 'daterange'"

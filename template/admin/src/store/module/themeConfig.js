@@ -98,8 +98,8 @@ const themeConfigModule = {
       globalViceTitle: '',
       // Mô tả trang web (văn bản ở đầu trang đăng nhập）
       globalViceDes: 'vue2',
-      // Ngôn ngữ ban đầu mặc định, giá trị tùy chọn"<zh-cn|en|zh-tw>"，mặc định zh-cn
-      globalI18n: 'zh-cn',
+      // Ngôn ngữ ban đầu mặc định, giá trị tùy chọn"<zh-cn|en|zh-tw|vi>"，mặc định vi
+      globalI18n: 'vi',
       // Kích thước thành phần toàn cầu mặc định, giá trị tùy chọn"<|medium|small|mini>"，mặc định ''
       globalComponentSize: '',
     },

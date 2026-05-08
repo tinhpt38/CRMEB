@@ -23,8 +23,8 @@
                 clearable
                 :editable="false"
                 @change="onchangeTime"
-                format="yyyy/MM/dd"
-                value-format="yyyy/MM/dd"
+                format="dd/MM/yyyy"
+                value-format="yyyy-MM-dd"
                 type="daterange"
                 range-separator="-"
                 start-placeholder="ngày bắt đầu"

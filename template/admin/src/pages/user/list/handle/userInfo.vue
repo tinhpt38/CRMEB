@@ -47,12 +47,12 @@
       <div class="section-hd">Hồ sơ người dùng</div>
       <div class="section-bd">
         <div class="item">
-          <div>Trình độ thăng hạng：</div>
-          <div class="value">{{ psInfo.spread_open ? 'Hoạt động' : 'đóng cửa' }}</div>
+          <div>Cộng tác viên：</div>
+          <div class="value">{{ psInfo.spread_open ? 'Bật' : 'Tắt' }}</div>
         </div>
         <div class="item">
           <div>Trạng thái người dùng：</div>
-          <div class="value">{{ psInfo.status ? 'Hoạt động' : 'khóa' }}</div>
+          <div class="value">{{ psInfo.status ? 'Hoạt động' : 'Khóa' }}</div>
         </div>
         <div class="item">
           <div>Hạng khách hàng：</div>
@@ -67,7 +67,7 @@
           <div class="value">{{ psInfo.group_name || '-' }}</div>
         </div>
         <div class="item">
-          <div>Người quảng bá：</div>
+          <div>Người giới thiệu：</div>
           <div class="value">{{ psInfo.spread_uid_nickname || '-' }}</div>
         </div>
         <div class="item">
@@ -82,7 +82,7 @@
           <div>Gói thẻ VIP：</div>
           <div class="value">
             {{
-              psInfo.is_ever_level == 1 ? 'thành viên thường trực' : psInfo.overdue_time ? `${psInfo.overdue_time} Hết hạn` : 'Hết hạn'
+              psInfo.is_ever_level == 1 ? 'Thành viên vĩnh viễn' : psInfo.overdue_time ? `${psInfo.overdue_time} Hết hạn` : 'Hết hạn'
             }}
           </div>
         </div>
@@ -120,9 +120,9 @@ export default {
       if (value == 1) {
         return 'Nam';
       } else if (value == 2) {
-        return 'nữ giới';
+        return 'Nữ';
       } else {
-        return 'không rõ';
+        return 'Không xác định';
       }
     },
   },

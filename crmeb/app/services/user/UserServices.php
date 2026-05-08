@@ -602,40 +602,48 @@ class UserServices extends BaseServices
                         $item['addres'] = $item['country'] . $item['province'] . $item['city'];
                     }
                 }
-                $item['status'] = ($item['status'] == 1) ? 'Bình thường' : 'cấm';
+                $item['status'] = ((int)$item['status'] === 1) ? 'Hoạt động' : 'Đã khóa';
                 $item['birthday'] = $item['birthday'] ? date('Y-m-d', (int)$item['birthday']) : '';
                 $item['extract_count_price'] = $userExtract[$item['uid']] ?? 0;//Rút tiền tích lũy
                 $item['spread_uid_nickname'] = $item['spread_uid'] ? ($spread_names[$item['spread_uid']] ?? '') . '(' . $item['spread_uid'] . ')' : 'không có';
                 //Loại người dùng
                 if ($item['user_type'] == 'routine') {
-                    $item['user_type'] = 'Chương trình nhỏ';
+                    $item['user_type'] = 'Mini App';
                 } else if ($item['user_type'] == 'wechat') {
-                    $item['user_type'] = 'Tài khoản chính thức';
+                    $item['user_type'] = 'OA WeChat';
                 } else if ($item['user_type'] == 'h5') {
                     $item['user_type'] = 'H5';
                 } else if ($item['user_type'] == 'pc') {
                     $item['user_type'] = 'PC';
                 } else if ($item['user_type'] == 'app' || $item['user_type'] == 'apple') {
-                    $item['user_type'] = 'APP';
-                } else $item['user_type'] = 'khác';
+                    $item['user_type'] = 'Ứng dụng';
+                } else if ($item['user_type'] == 'facebook') {
+                    $item['user_type'] = 'Facebook';
+                } else if ($item['user_type'] == 'zalo') {
+                    $item['user_type'] = 'Zalo';
+                } else if ($item['user_type'] == 'tiktok') {
+                    $item['user_type'] = 'TikTok';
+                } else if ($item['user_type'] == 'shopee' || $item['user_type'] == 'shoppe') {
+                    $item['user_type'] = 'Shopee';
+                } else $item['user_type'] = 'Khác';
                 if ($item['sex'] == 1) {
                     $item['sex'] = 'Nam';
                 } else if ($item['sex'] == 2) {
-                    $item['sex'] = 'nữ giới';
-                } else $item['sex'] = 'Bảo mật';
+                    $item['sex'] = 'Nữ';
+                } else $item['sex'] = 'Không xác định';
                 //Tên cấp độ
-                $item['level'] = $levelName[$item['level']] ?? 'không có';
+                $item['level'] = $levelName[$item['level']] ?? 'Chưa có';
                 //Tên nhóm
-                $item['group_id'] = $userGroup[$item['group_id']] ?? 'không có';
+                $item['group_id'] = $userGroup[$item['group_id']] ?? 'Chưa có';
                 //Cấp độ người dùng
                 $item['vip_name'] = false;
                 $levelInfo = $userLevel[$item['uid']] ?? null;
                 if ($levelInfo) {
                     if ($levelInfo && ($levelInfo['is_forever'] || time() < $levelInfo['valid_time'])) {
-                        $item['vip_name'] = $item['level'] != 'không có' ? $item['level'] : false;
+                        $item['vip_name'] = $item['level'] != 'Chưa có' ? $item['level'] : false;
                     }
                 }
-                $item['agent_level_name'] = $agentLevel[$item['agent_level']] ?? 'không có';
+                $item['agent_level_name'] = $agentLevel[$item['agent_level']] ?? 'Chưa có';
                 $item['labels'] = $userlabel[$item['uid']] ?? '';
                 $item['isMember'] = $item['is_money_level'] > 0 ? 1 : 0;
                 $item['svip_over_day'] = $item['overdue_time'] ? ceil(($item['overdue_time'] - time()) / 86400) : '';

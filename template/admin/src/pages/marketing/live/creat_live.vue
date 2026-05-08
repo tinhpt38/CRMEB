@@ -106,7 +106,7 @@
               <el-date-picker
                 clearable
                 type="datetimerange"
-                format="yyyy-MM-dd HH:mm"
+                format="dd/MM/yyyy HH:mm"
                 placeholder="Vui lòng chọn thời gian phát sóng trực tiếp"
                 class="content_width"
                 v-model="timeVal"

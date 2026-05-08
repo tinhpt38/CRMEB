@@ -24,6 +24,15 @@ class User extends AuthController
      * @var UserServices
      */
     protected $services;
+
+    /**
+     * Validate phone number by Vietnam format.
+     * Accepts 0xxxxxxxxx or +84xxxxxxxxx.
+     */
+    protected function isValidVnPhone(string $phone): bool
+    {
+        return (bool)preg_match('/^(0|\+84)(3|5|7|8|9)\d{8}$/', $phone);
+    }
     
     /**
      * user constructor.
@@ -124,20 +133,28 @@ class User extends AuthController
             ['status', 0]
         ]);
         if (!$data['real_name']) {
-            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
+            return app('json')->fail('Vui lòng nhập họ và tên');
+        }
+        $data['real_name'] = trim((string)$data['real_name']);
+        if (mb_strlen($data['real_name']) < 2 || mb_strlen($data['real_name']) > 50) {
+            return app('json')->fail('Họ và tên phải từ 2 đến 50 ký tự');
         }
         if (!$data['phone']) {
-            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
+            return app('json')->fail('Vui lòng nhập số điện thoại');
         }
-        if (!check_phone($data['phone'])) {
-            return app('json')->fail('Lỗi định dạng số điện thoại di động');
+        $data['phone'] = trim((string)$data['phone']);
+        if (!$this->isValidVnPhone($data['phone'])) {
+            return app('json')->fail('Số điện thoại không đúng định dạng Việt Nam');
         }
         if ($this->services->count(['phone' => $data['phone'], 'is_del' => 0])) {
-            return app('json')->fail('Số điện thoại di động đã tồn tại');
+            return app('json')->fail('Số điện thoại đã tồn tại');
         }
         $data['nickname'] = $data['real_name'];
         if ($data['card_id']) {
-            if (!check_card($data['card_id'])) return app('json')->fail('Vui lòng nhập đúng CMND');
+            $data['card_id'] = trim((string)$data['card_id']);
+            if (!preg_match('/^\d{9}$|^\d{12}$/', $data['card_id'])) {
+                return app('json')->fail('CMND/CCCD chỉ gồm 9 hoặc 12 chữ số');
+            }
         }
         if (!$data['pwd']) {
             return app('json')->fail('Vui lòng nhập mật khẩu');
@@ -150,6 +167,12 @@ class User extends AuthController
         }
         if (strlen($data['pwd']) < 6 || strlen($data['pwd']) > 32) {
             return app('json')->fail('Mật khẩu tài khoản phải từ 6 đến 32 ký tự');
+        }
+        if ($data['addres'] && mb_strlen((string)$data['addres']) > 255) {
+            return app('json')->fail('Địa chỉ không được vượt quá 255 ký tự');
+        }
+        if ($data['mark'] && mb_strlen((string)$data['mark']) > 255) {
+            return app('json')->fail('Ghi chú không được vượt quá 255 ký tự');
         }
         $data['pwd'] = md5($data['pwd']);
         unset($data['true_pwd']);
@@ -408,19 +431,25 @@ class User extends AuthController
         ]);
         if (!$id) return app('json')->fail('Lỗi tham số');
         if (!$data['real_name']) {
-            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
+            return app('json')->fail('Vui lòng nhập họ và tên');
+        }
+        $data['real_name'] = trim((string)$data['real_name']);
+        if (mb_strlen($data['real_name']) < 2 || mb_strlen($data['real_name']) > 50) {
+            return app('json')->fail('Họ và tên phải từ 2 đến 50 ký tự');
         }
         if (!$data['phone']) {
-            return app('json')->fail('Vui lòng điền tên và số điện thoại của bạn');
+            return app('json')->fail('Vui lòng nhập số điện thoại');
         }
+        $data['phone'] = trim((string)$data['phone']);
         if ($data['phone']) {
-            if (!preg_match("/^1[3456789]\d{9}$/", $data['phone'])) return app('json')->fail('Lỗi định dạng số điện thoại di động');
+            if (!$this->isValidVnPhone($data['phone'])) return app('json')->fail('Số điện thoại không đúng định dạng Việt Nam');
         }
         if ($this->services->count(['phone' => $data['phone'], 'is_del' => 0, 'not_uid' => $id])) {
-            return app('json')->fail('Số điện thoại di động đã tồn tại');
+            return app('json')->fail('Số điện thoại đã tồn tại');
         }
         if ($data['card_id']) {
-            if (!check_card($data['card_id'])) return app('json')->fail('Vui lòng nhập đúng CMND');
+            $data['card_id'] = trim((string)$data['card_id']);
+            if (!preg_match('/^\d{9}$|^\d{12}$/', $data['card_id'])) return app('json')->fail('CMND/CCCD chỉ gồm 9 hoặc 12 chữ số');
         }
         if ($data['pwd']) {
             if (!$data['true_pwd']) {
@@ -435,6 +464,12 @@ class User extends AuthController
             $data['pwd'] = md5($data['pwd']);
         } else {
             unset($data['pwd']);
+        }
+        if ($data['addres'] && mb_strlen((string)$data['addres']) > 255) {
+            return app('json')->fail('Địa chỉ không được vượt quá 255 ký tự');
+        }
+        if ($data['mark'] && mb_strlen((string)$data['mark']) > 255) {
+            return app('json')->fail('Ghi chú không được vượt quá 255 ký tự');
         }
         unset($data['true_pwd']);
         $data['adminId'] = $this->adminId;

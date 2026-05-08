@@ -18,7 +18,7 @@
                     <el-option value="all" label="Tất cả"></el-option>
                     <el-option value="uid" label="UID"></el-option>
                     <el-option value="phone" label="Số điện thoại"></el-option>
-                    <el-option value="nickname" label="Biệt hiệu của người dùng"></el-option>
+                    <el-option value="nickname" label="Tên người dùng"></el-option>
                   </el-select>
                 </el-input>
               </el-form-item>
@@ -88,7 +88,7 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Cấp bậc Affiliate：">
+              <el-form-item label="Cấp bậc cộng tác viên：">
                 <el-select v-model="agent_level" placeholder="Vui lòng chọn mức phân phối" clearable class="form_content_width">
                   <el-option value="all" label="Tất cả"></el-option>
                   <el-option
@@ -112,18 +112,18 @@
                   <div class="ivu-icon ivu-icon-ios-arrow-down"></div>
                 </div>
               </el-form-item>
-              <el-form-item label="ID người dùng：">
+              <el-form-item label="Loại tài khoản：">
                 <el-select v-model="userFrom.is_promoter" placeholder="Vui lòng chọn" clearable class="form_content_width">
                   <el-option value="" label="Tất cả"></el-option>
-                  <el-option value="1" label="người quảng bá"></el-option>
-                  <el-option value="0" label="Người dùng thông thường"></el-option>
+                  <el-option value="1" label="Cộng tác viên"></el-option>
+                  <el-option value="0" label="Người dùng thường"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="Gói thẻ VIP：" label-for="isMember">
                 <el-select v-model="userFrom.isMember" placeholder="Vui lòng chọn" clearable class="form_content_width">
                   <el-option value="" label="Tất cả"></el-option>
-                  <el-option value="1" label="Đúng"></el-option>
-                  <el-option value="0" label="KHÔNG"></el-option>
+                  <el-option value="1" label="Có"></el-option>
+                  <el-option value="0" label="Không"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="Số dư giá trị được lưu trữ：" label-for="balance">
@@ -163,8 +163,8 @@
                   type="daterange"
                   :editable="false"
                   @change="(e) => OnchangeTime(e, 'before_pay_time')"
-                  format="yyyy/MM/dd"
-                  value-format="yyyy/MM/dd"
+                  format="dd/MM/yyyy"
+                  value-format="yyyy-MM-dd"
                   start-placeholder="ngày bắt đầu"
                   end-placeholder="ngày kết thúc"
                   :picker-options="pickerOptions"
@@ -231,8 +231,8 @@
                   type="daterange"
                   :editable="false"
                   @change="(e) => OnchangeTime(e, 'user_time')"
-                  format="yyyy/MM/dd"
-                  value-format="yyyy/MM/dd"
+                  format="dd/MM/yyyy"
+                  value-format="yyyy-MM-dd"
                   start-placeholder="ngày bắt đầu"
                   end-placeholder="ngày kết thúc"
                   :picker-options="pickerOptions"
@@ -291,7 +291,7 @@
             v-db-click
             @click="onSendPic"
             v-if="userFrom.user_type === 'wechat'"
-          >Gửi tin nhắn đồ họa</el-button>
+          >Gửi tin nhắn hình ảnh</el-button>
           <el-button v-auth="['admin-user-group_set']" v-db-click @click="setGroup">Phân nhóm hàng loạt</el-button>
           <el-button v-auth="['admin-user-set_label']" v-db-click @click="setLabel">Gắn nhãn hàng loạt</el-button>
           <el-button class="mr10" v-db-click @click="exportList">Xuất file</el-button>
@@ -340,15 +340,15 @@
           <template slot-scope="scope">
             <div class="acea-row">
               <i class="el-icon-male" v-show="scope.row.sex === 'Nam'" style="color: #2db7f5; font-size: 15px"></i>
-              <i class="el-icon-female" v-show="scope.row.sex === 'nữ giới'" style="color: #ed4014; font-size: 15px"></i>
+              <i class="el-icon-female" v-show="scope.row.sex === 'Nữ'" style="color: #ed4014; font-size: 15px"></i>
               <div v-text="scope.row.nickname" class=""></div>
             </div>
-            <div v-if="scope.row.is_del == 1" style="color: red">Người dùng đã đăng xuất</div>
+            <div v-if="scope.row.is_del == 1" style="color: red">Người dùng đã hủy tài khoản</div>
           </template>
         </el-table-column>
         <el-table-column label="Gói thẻ VIP" min-width="90">
           <template slot-scope="scope">
-            <div>{{ scope.row.isMember ? 'Đúng' : 'KHÔNG' }}</div>
+            <div>{{ scope.row.isMember ? 'Có' : 'Không' }}</div>
           </template>
         </el-table-column>
         <el-table-column label="Hạng khách hàng" min-width="90">
@@ -361,7 +361,7 @@
             <div>{{ scope.row.group_id }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Cấp bậc Affiliate" min-width="100">
+        <el-table-column label="Cấp bậc cộng tác viên" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.agent_level_name }}</div>
           </template>
@@ -376,7 +376,7 @@
             <div>{{ scope.row.user_type }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Người dùng cấp cao" min-width="100">
+        <el-table-column label="Người giới thiệu" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.spread_uid_nickname }}</div>
           </template>
@@ -398,12 +398,12 @@
                   <!-- <el-dropdown-item command="1">Chỉnh sửa</el-dropdown-item> -->
                   <el-dropdown-item command="2">Sửa đổi số dư</el-dropdown-item>
                   <el-dropdown-item command="8">Sửa đổi điểm</el-dropdown-item>
-                  <el-dropdown-item command="3">Quà tặng thành viên</el-dropdown-item>
+                  <el-dropdown-item command="3">Tặng gói thành viên</el-dropdown-item>
                   <!--                                <el-dropdown-item command="4" v-if="row.vip_name">Mức độ rõ ràng</el-dropdown-item>-->
                   <el-dropdown-item command="5">Thiết lập nhóm</el-dropdown-item>
                   <el-dropdown-item command="6">Đặt nhãn</el-dropdown-item>
                   <el-dropdown-item command="7">Đổi người giới thiệu</el-dropdown-item>
-                  <el-dropdown-item command="99" v-if="scope.row.spread_uid">Rõ ràng các nhà quảng bá vượt trội</el-dropdown-item>
+                  <el-dropdown-item command="99" v-if="scope.row.spread_uid">Xóa người giới thiệu</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </template>
@@ -430,7 +430,7 @@
     <send-from ref="sends" :userIds="ids.toString()"></send-from>
     <!-- Chi tiết thành viên-->
     <user-details ref="userDetails"></user-details>
-    <!--Gửi tin nhắn đồ họa -->
+    <!-- Gửi tin nhắn hình ảnh -->
     <el-dialog :visible.sync="modal13" title="Gửi tin nhắn" width="1200px" class="modelBox">
       <news-category
         v-if="modal13"
@@ -442,10 +442,10 @@
         :maxCols="maxCols"
       ></news-category>
     </el-dialog>
-    <!--Sửa đổi người quảng bá-->
-    <el-dialog :visible.sync="promoterShow" title="Sửa đổi người quảng bá" width="540px" :show-close="true">
+    <!-- Sửa đổi người giới thiệu -->
+    <el-dialog :visible.sync="promoterShow" title="Sửa đổi người giới thiệu" width="540px" :show-close="true">
       <el-form ref="formInline" :model="formInline" label-width="100px" @submit.native.prevent>
-        <el-form-item v-if="formInline" label="Chọn người quảng bá：" prop="image">
+        <el-form-item v-if="formInline" label="Chọn người giới thiệu：" prop="image">
           <div class="picBox" v-db-click @click="customer">
             <div class="pictrue" v-if="formInline.image">
               <img v-lazy="formInline.image" />
@@ -461,7 +461,7 @@
         <el-button type="primary" v-db-click @click="putSend('formInline')">Nộp</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="customerShow" title="Vui lòng chọn một người dùng trung tâm mua sắm" :show-close="true" width="1000px">
+    <el-dialog :visible.sync="customerShow" title="Vui lòng chọn người dùng" :show-close="true" width="1000px">
       <customerInfo v-if="customerShow" @imageObject="imageObject"></customerInfo>
     </el-dialog>
     <el-dialog :visible.sync="labelShow" append-to-body title="Vui lòng chọn nhãn người dùng" width="540px" :show-close="true">
@@ -581,11 +581,15 @@ export default {
       collapse: false,
       headeNum: [
         { type: '', name: 'Tất cả' },
-        { type: 'wechat', name: 'Tài khoản công khai WeChat' },
-        { type: 'routine', name: 'Ứng dụng WeChat' },
+        { type: 'wechat', name: 'OA WeChat' },
+        { type: 'routine', name: 'Mini App' },
         { type: 'h5', name: 'H5' },
         { type: 'pc', name: 'PC' },
-        { type: 'app', name: 'APP' },
+        { type: 'app', name: 'Ứng dụng' },
+        { type: 'facebook', name: 'Facebook' },
+        { type: 'zalo', name: 'Zalo' },
+        { type: 'tiktok', name: 'TikTok' },
+        { type: 'shopee', name: 'Shopee' },
       ],
       address: [],
       addresData: [],

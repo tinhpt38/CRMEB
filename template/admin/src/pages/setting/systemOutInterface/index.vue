@@ -113,7 +113,7 @@
                     class="perW20"
                     type="text"
                     :rows="4"
-                    v-model.trim="formValidate.name"
+                    v-model="formValidate.name"
                     placeholder="Vui lòng nhập"
                   />
                   <span v-else>{{ formValidate.name || '' }}</span>
@@ -137,7 +137,7 @@
                     class="perW20"
                     type="textarea"
                     :rows="4"
-                    v-model.trim="formValidate.describe"
+                    v-model="formValidate.describe"
                     placeholder="Vui lòng nhập"
                   />
                   <span v-else class="text-area">{{ formValidate.describe || '' }}</span>

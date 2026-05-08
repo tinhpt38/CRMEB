@@ -20,9 +20,9 @@
                 clearable
                 @change="onchangeTime"
                 v-model="timeVal"
-                format="yyyy/MM/dd"
+                format="dd/MM/yyyy"
                 type="daterange"
-                value-format="yyyy/MM/dd"
+                value-format="yyyy-MM-dd"
                 range-separator="-"
                 start-placeholder="ngày bắt đầu"
                 end-placeholder="ngày kết thúc"

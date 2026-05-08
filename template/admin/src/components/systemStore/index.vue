@@ -60,7 +60,7 @@
             <!--<el-col :span="24">-->
             <!--<el-col v-bind="grid">-->
             <!--<el-form-item label="Thời hạn xác nhận：" label-for="valid_time">-->
-            <!--<DatePicker @change="onchangeDate" :value="formItem.valid_time" v-model="formItem.valid_time" format="yyyy/MM/dd" type="daterange" split-panels placeholder="Vui lòng chọn thời hạn xác nhận" ></DatePicker>-->
+            <!--<DatePicker @change="onchangeDate" :value="formItem.valid_time" v-model="formItem.valid_time" format="dd/MM/yyyy" type="daterange" split-panels placeholder="Vui lòng chọn thời hạn xác nhận" ></DatePicker>-->
             <!--</el-form-item>-->
             <!--</el-col>-->
             <!--</el-col>-->

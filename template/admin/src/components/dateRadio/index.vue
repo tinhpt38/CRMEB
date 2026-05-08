@@ -14,7 +14,7 @@ export default {
     formatDate(time) {
       if (time !== 0) {
         let date = new Date(time);
-        return formatDate(date, 'yyyy/MM/dd');
+        return formatDate(date, 'dd/MM/yyyy');
       }
     },
   },

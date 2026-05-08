@@ -5,7 +5,7 @@
       <el-form-item label="Từ khóa sản phẩm：">
         <el-input
           class="content_width"
-          v-model.trim="formValidate.keyword"
+          v-model="formValidate.keyword"
           placeholder="Vui lòng nhập từ khóa sản phẩm"
           maxlength="180"
           show-word-limit
@@ -17,7 +17,7 @@
       <el-form-item label="Giới thiệu sản phẩm：">
         <el-input
           class="content_width"
-          v-model.trim="formValidate.store_info"
+          v-model="formValidate.store_info"
           type="textarea"
           :rows="3"
           placeholder="Vui lòng nhập giới thiệu sản phẩm"
@@ -30,7 +30,7 @@
     <el-col :span="24">
       <el-form-item label="Mã lệnh sản phẩm：">
         <el-input
-          v-model.trim="formValidate.command_word"
+          v-model="formValidate.command_word"
           placeholder="Vui lòng nhập mã lệnh sản phẩm"
           type="textarea"
           :rows="3"
@@ -118,7 +118,7 @@
         <div class="addCustom_content" v-if="customBtn">
           <div v-for="(item, index) in formValidate.custom_form" :key="index" class="custom_box">
             <el-input
-              v-model.trim="item.title"
+              v-model="item.title"
               :placeholder="'Tiêu đề biểu mẫu ' + (index + 1)"
               style="width: 150px; margin-right: 10px"
               maxlength="40"

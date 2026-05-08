@@ -28,7 +28,7 @@
                 :editable="false"
                 @change="onchangeTime"
                 v-model="timeVal"
-                format="yyyy/MM/dd"
+                format="dd/MM/yyyy"
                 type="daterange"
                 value-format="yyyy-MM-dd"
                 range-separator="-"

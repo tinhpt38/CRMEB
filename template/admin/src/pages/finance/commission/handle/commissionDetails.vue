@@ -35,7 +35,7 @@
                 clearable
                 :editable="false"
                 @change="onchangeTime"
-                format="yyyy-MM-dd"
+                format="dd/MM/yyyy"
                 value-format="yyyy-MM-dd"
                 type="daterange"
                 start-placeholder="ngày bắt đầu"

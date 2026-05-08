@@ -25,9 +25,9 @@
               clearabl
               @change="searchs"
               v-model="from[item.field]"
-              format="yyyy/MM/dd"
+              format="dd/MM/yyyy"
               type="daterange"
-              value-format="yyyy/MM/dd"
+              value-format="yyyy-MM-dd"
               start-placeholder="ngày bắt đầu"
               end-placeholder="ngày kết thúc"
               style="width: 250px"
@@ -53,9 +53,9 @@
                   clearabl
                   @change="searchs"
                   v-model="from[item.field]"
-                  format="yyyy/MM/dd"
+                  format="dd/MM/yyyy"
                   type="daterange"
-                  value-format="yyyy/MM/dd"
+                  value-format="yyyy-MM-dd"
                   start-placeholder="ngày bắt đầu"
                   end-placeholder="ngày kết thúc"
                   style="width: 250px"

@@ -470,8 +470,11 @@ export default {
         if (this.$store.state.themeConfig.themeConfig.isInvert) this.onAddFilterChange('invert');
         // chế độ tối
         if (this.$store.state.themeConfig.themeConfig.isIsDark) this.onAddDarkChange();
-        // quốc tế hóa ngôn ngữ
-        if (Local.get('themeConfigPrev')) this.$i18n.locale = Local.get('themeConfigPrev').globalI18n;
+        // quốc tế hóa ngôn ngữ — nếu locale cũ là zh-cn (mặc định Trung Quốc) thì chuyển về vi
+        if (Local.get('themeConfigPrev')) {
+          const storedLocale = Local.get('themeConfigPrev').globalI18n;
+          this.$i18n.locale = storedLocale === 'zh-cn' ? 'vi' : (storedLocale || 'vi');
+        }
       });
     },
     // Cấu hình bố trí cửa hàng

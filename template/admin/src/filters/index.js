@@ -46,13 +46,13 @@ export function liveStatusFilter(value) {
  */
 export function formatDate(data) {
   let date = new Date(data);
-  let YY = date.getFullYear() + '-';
-  let MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-  let DD = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+  let DD = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '/';
+  let MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '/';
+  let YY = date.getFullYear();
   let hh = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
   let mm = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
   let ss = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-  return YY + MM + DD + ' ' + hh + mm + ss;
+  return DD + MM + YY + ' ' + hh + mm + ss;
 }
 
 /**

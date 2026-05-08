@@ -42,7 +42,7 @@
                       clearable
                       :editable="false"
                       type="daterange"
-                      format="yyyy-MM-dd"
+                      format="dd/MM/yyyy"
                       value-format="yyyy-MM-dd"
                       range-separator="-"
                       start-placeholder="ngày bắt đầu"

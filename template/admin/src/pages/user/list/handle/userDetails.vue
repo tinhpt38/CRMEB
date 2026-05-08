@@ -35,7 +35,7 @@
                   no-userFrom-text="Chưa có dữ liệu"
                   no-filtered-userFrom-text="Chưa có kết quả lọc nào"
                 >
-                  <el-table-column :label="Item.title" min-width="120" v-for="(item, index) in columns" :key="index">
+                  <el-table-column :label="item.title" min-width="120" v-for="(item, index) in columns" :key="index">
                     <template slot-scope="scope">
                       <template v-if="item.key">
                         <div>
@@ -87,7 +87,7 @@ export default {
       list: [
         { val: 'order', label: 'Lịch sử mua hàng' },
         { val: 'integral', label: 'Chi tiết điểm' },
-        { val: 'sign', label: 'Lịch sử đăng nhập nhập' },
+        { val: 'sign', label: 'Lịch sử điểm danh' },
         { val: 'coupon', label: 'Mã giảm giá' },
         { val: 'balance_change', label: 'Thay đổi số dư' },
         { val: 'spread', label: 'Người giới thiệu' },
@@ -149,7 +149,7 @@ export default {
       this.activeName = tab.name;
       this.changeType();
     },
-    // tabTùy chọn
+    // Tùy chọn tab
     changeType() {
       this.loading = true;
       this.userFrom.type = this.activeName;
@@ -169,7 +169,7 @@ export default {
               case 'order':
                 this.columns = [
                   {
-                    title: 'Đặt hàngID',
+                    title: 'Mã đơn hàng',
                     key: 'order_id',
                     minWidth: 160,
                   },
@@ -179,7 +179,7 @@ export default {
                     minWidth: 100,
                   },
                   {
-                    title: 'số lượng sản phẩm',
+                    title: 'Số lượng sản phẩm',
                     key: 'total_num',
                     minWidth: 90,
                   },
@@ -189,7 +189,7 @@ export default {
                     minWidth: 120,
                   },
                   {
-                    title: 'thời gian hoàn thành giao dịch',
+                    title: 'Thời gian thanh toán',
                     key: 'pay_time',
                     minWidth: 120,
                   },
@@ -203,7 +203,7 @@ export default {
                     minWidth: 120,
                   },
                   {
-                    title: 'thay đổi điểm',
+                    title: 'Biến động điểm',
                     slot: 'number',
                     minWidth: 120,
                   },
@@ -213,7 +213,7 @@ export default {
                     minWidth: 120,
                   },
                   {
-                    title: 'ngày',
+                    title: 'Thời gian',
                     key: 'add_time',
                     minWidth: 120,
                   },
@@ -227,17 +227,17 @@ export default {
               case 'sign':
                 this.columns = [
                   {
-                    title: 'hoạt động',
+                    title: 'Nội dung',
                     key: 'title',
                     minWidth: 120,
                   },
                   {
-                    title: 'nhận được điểm',
+                    title: 'Điểm nhận được',
                     key: 'number',
                     minWidth: 120,
                   },
                   {
-                    title: 'Giờ nhận phòng',
+                    title: 'Thời gian nhận',
                     key: 'add_time',
                     minWidth: 120,
                   },
@@ -256,7 +256,7 @@ export default {
                     minWidth: 120,
                   },
                   {
-                    title: 'mệnh giá',
+                    title: 'Giá trị',
                     key: 'coupon_price',
                     minWidth: 120,
                   },
@@ -275,7 +275,7 @@ export default {
               case 'balance_change':
                 this.columns = [
                   {
-                    title: 'hoạt động',
+                    title: 'Nội dung',
                     key: 'title',
                     minWidth: 120,
                   },
@@ -309,17 +309,17 @@ export default {
                     minWidth: 120,
                   },
                   {
-                    title: 'biệt danh',
+                    title: 'Tên hiển thị',
                     key: 'nickname',
                     minWidth: 120,
                   },
                   {
-                    title: 'cấp',
+                    title: 'Cấp',
                     key: 'type',
                     minWidth: 120,
                   },
                   {
-                    title: 'thời gian tham gia',
+                    title: 'Thời gian tham gia',
                     key: 'add_time',
                     minWidth: 120,
                   },

@@ -34,7 +34,8 @@
               <el-date-picker
                 :editable="false"
                 v-model="value2"
-                value-format="yyyy/MM/dd"
+                value-format="yyyy-MM-dd"
+            format="dd/MM/yyyy"
                 type="daterange"
                 range-separator="-"
                 start-placeholder="ngày bắt đầu"

@@ -11,7 +11,8 @@
           range-separator="-"
           start-placeholder="ngày bắt đầu"
           end-placeholder="ngày kết thúc"
-          value-format="yyyy/MM/dd"
+          value-format="yyyy-MM-dd"
+            format="dd/MM/yyyy"
           size="mini"
           style="width: 100%"
         >
