@@ -181,7 +181,11 @@ class ZaloAuthServices extends BaseServices
 
         $data = json_decode($response, true);
 
-        if (!isset($data['id']) || isset($data['error'])) {
+        $hasId = isset($data['id']) && (string)$data['id'] !== '';
+        $errorCode = $data['error'] ?? null;
+        $hasBizError = $errorCode !== null && (int)$errorCode !== 0;
+
+        if (!$hasId || $hasBizError) {
             $errMsg = $data['message']
                 ?? ($data['error']['message'] ?? 'Access token Zalo không hợp lệ hoặc đã hết hạn');
             Log::error('[ZaloAuth] Lỗi từ Zalo API: ' . $errMsg . ' | Token: ' . substr($accessToken, 0, 10) . '...');

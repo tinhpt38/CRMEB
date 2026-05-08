@@ -11,6 +11,7 @@ namespace app\api\controller\v1\zalo;
 use app\Request;
 use app\services\zalo\ZaloAuthServices;
 use app\services\message\notice\SmsService;
+use app\services\user\LoginServices;
 use crmeb\services\CacheService;
 use app\api\validate\user\RegisterValidates;
 use think\exception\ValidateException;
@@ -112,5 +113,68 @@ class ZaloAuthController
         CacheService::delete('code_' . $phone);
 
         return app('json')->success('Gắn số điện thoại thành công');
+    }
+
+    /**
+     * Gửi OTP để gắn số điện thoại sau đăng nhập Zalo
+     *
+     * Khác với /register/verify:
+     * - Không yêu cầu key/captcha slider phía web.
+     * - Chỉ dùng cho user đã có token CRMEB (đã đăng nhập).
+     *
+     * Request (POST /api/zalo/send_bind_otp):
+     *   phone string required
+     *
+     * @param Request $request
+     * @param SmsService $smsService
+     * @param LoginServices $loginServices
+     * @return mixed
+     */
+    public function sendBindOtp(Request $request, SmsService $smsService, LoginServices $loginServices)
+    {
+        [$phone] = $request->postMore([
+            ['phone', ''],
+        ], true);
+
+        try {
+            validate(RegisterValidates::class)->scene('code')->check(['phone' => $phone]);
+        } catch (ValidateException $e) {
+            return app('json')->fail($e->getError());
+        }
+
+        // Giới hạn gửi giống luồng register/verify để tránh spam.
+        $maxMinuteCountKey = 'sms.minute.' . $phone . date('YmdHi');
+        $minuteCount = (int)(CacheService::get($maxMinuteCountKey) ?? 0);
+        $maxMinuteCount = (int)Config::get('sms.maxMinuteCount', 5);
+        if ($minuteCount > $maxMinuteCount) {
+            return app('json')->fail('Số tin nhắn tối đa được gửi mỗi phút từ cùng một số điện thoại di động' . $maxMinuteCount . 'dải');
+        }
+
+        $maxPhoneCountKey = 'sms.phone.' . $phone . '.' . date('Ymd');
+        $phoneCount = (int)(CacheService::get($maxPhoneCountKey) ?? 0);
+        $maxPhoneCount = (int)Config::get('sms.maxPhoneCount', 20);
+        if ($phoneCount > $maxPhoneCount) {
+            return app('json')->fail('Số lượng tin nhắn tối đa được gửi đến cùng một số điện thoại di động mỗi ngày' . $maxPhoneCount . 'dải');
+        }
+
+        $maxIpCountKey = 'sms.ip.' . app()->request->ip() . '.' . date('Ymd');
+        $ipCount = (int)(CacheService::get($maxIpCountKey) ?? 0);
+        $maxIpCount = (int)Config::get('sms.maxIpCount', 50);
+        if ($ipCount > $maxIpCount) {
+            return app('json')->fail('Cùng một IP có thể gửi nhiều nhất mỗi ngày' . $maxIpCount . 'dải');
+        }
+
+        $time = (int)sys_config('verify_expire_time', 1);
+        $smsCode = $loginServices->verify($smsService, $phone, '', $time);
+        if (!$smsCode) {
+            return app('json')->fail('Không gửi được mã xác minh');
+        }
+
+        CacheService::set('code_' . $phone, $smsCode, $time * 60);
+        CacheService::set($maxMinuteCountKey, $minuteCount + 1, 61);
+        CacheService::set($maxPhoneCountKey, $phoneCount + 1, 86401);
+        CacheService::set($maxIpCountKey, $ipCount + 1, 86401);
+
+        return app('json')->success('Mã xác minh đã được gửi thành công');
     }
 }

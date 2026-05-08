@@ -587,6 +587,9 @@ Route::group(function () {
 // Zalo Mini App — Giao diện yêu cầu đăng nhập (cần Bearer token)
 // ==========================================================================
 Route::group(function () {
+    // Gửi OTP để gắn số điện thoại (sau khi đã đăng nhập Zalo/CRMEB)
+    Route::post('zalo/send_bind_otp', 'v1.zalo.ZaloAuthController/sendBindOtp')
+        ->option(['real_name' => 'Zalo Mini App - Gửi OTP gắn số điện thoại']);
     // Gắn số điện thoại sau khi đăng nhập Zalo
     Route::post('zalo/bind_phone', 'v1.zalo.ZaloAuthController/bindPhone')
         ->option(['real_name' => 'Zalo Mini App - Gắn số điện thoại']);

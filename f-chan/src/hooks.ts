@@ -54,7 +54,9 @@ export function useRequestInformation() {
     const userInfo = await getStoredUserInfo();
     if (!userInfo) {
       await authorize({
-        scopes: ["scope.userInfo", "scope.userPhonenumber"],
+        // Theo khuyến nghị Zalo Mini App: chỉ xin quyền khi thực sự cần.
+        // Luồng đăng nhập chỉ cần scope.userInfo; số điện thoại xử lý ở flow riêng.
+        scopes: ["scope.userInfo"],
       }).then(refreshPermissions);
       return await getStoredUserInfo();
     }
@@ -122,11 +124,13 @@ export function useBindPhone() {
 
   const sendOtp = async (phone: string) => {
     if (!apiUrl) throw new Error("Chưa cấu hình apiUrl");
+    const token = getCrmebToken();
+    if (!token) throw new Error("Chưa đăng nhập CRMEB");
     const client = new CrmebApiClient({
       apiBaseUrl: apiUrl,
-      getToken: () => null,
+      getToken: () => token,
     });
-    await client.post("/register/verify", { phone });
+    await client.post("/zalo/send_bind_otp", { phone });
   };
 
   const verifyAndBind = async (phone: string, otp: string) => {

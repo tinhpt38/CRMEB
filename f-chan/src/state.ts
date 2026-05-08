@@ -134,9 +134,8 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
   }
 
   // Integration path: login against CRMEB via Zalo access_token -> store CRMEB JWT.
-  if (!grantedUserInfo && !isDev) {
-    return undefined;
-  }
+  // Không ép quyền scope.userInfo ở bước này: chỉ cần người dùng đã đăng nhập Zalo
+  // là có thể lấy access_token để định danh/tạo tài khoản CRMEB kiểu "zalo".
 
   try {
     const accessToken = await getAccessToken();
