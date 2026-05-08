@@ -14,7 +14,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class CreateDomainRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * 域名。一次只能提交一个域名。域名请在工信部完成备案。
+     * 域名。一次只能Lưu一个域名。域名请在工信部完成备案。
      *
      * Generated from protobuf field <code>string Domain = 1;</code>
      */
@@ -39,7 +39,7 @@ class CreateDomainRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $Domain
-     *           域名。一次只能提交一个域名。域名请在工信部完成备案。
+     *           域名。一次只能Lưu一个域名。域名请在工信部完成备案。
      *     @type string $Type
      *           域名类型，包含两种类型。<li>push：推流域名；<li>pull-flv：拉流域名，包含RTMP、FLV、HLS格式。
      *     @type string $Region
@@ -52,7 +52,7 @@ class CreateDomainRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * 域名。一次只能提交一个域名。域名请在工信部完成备案。
+     * 域名。一次只能Lưu一个域名。域名请在工信部完成备案。
      *
      * Generated from protobuf field <code>string Domain = 1;</code>
      * @return string
@@ -63,7 +63,7 @@ class CreateDomainRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * 域名。一次只能提交一个域名。域名请在工信部完成备案。
+     * 域名。一次只能Lưu一个域名。域名请在工信部完成备案。
      *
      * Generated from protobuf field <code>string Domain = 1;</code>
      * @param string $var

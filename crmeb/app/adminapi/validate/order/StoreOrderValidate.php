@@ -22,11 +22,11 @@ class StoreOrderValidate extends Validate
 
     protected $rule = [
         'order_id'      => ['require','length'=>'1,32','alphaNum'],
-        'total_price'   => ['require','float'],
-        'total_postage' => ['require','float'],
-        'pay_price'     => ['require','float'],
-        'pay_postage'   => ['require','float'],
-        'gain_integral' => ['float'],
+        'total_price'   => ['require', 'float', 'egt:0'],
+        'total_postage' => ['require', 'float', 'egt:0'],
+        'pay_price'     => ['require', 'float', 'egt:0'],
+        'pay_postage'   => ['require', 'float', 'egt:0'],
+        'gain_integral' => ['float', 'egt:0'],
     ];
 
     protected $message = [
@@ -35,11 +35,18 @@ class StoreOrderValidate extends Validate
         'order_id.alphaNum'     => 'Mã đơn hàng phải là chữ cái và số',
         'total_price.require'   => 'Vui lòng nhập tổng tiền đơn hàng',
         'total_price.float'    => 'Tổng tiền đơn hàng phải là số',
+        'total_price.egt'      => 'Tổng tiền đơn hàng phải lớn hơn hoặc bằng 0',
+        'total_postage.require' => 'Vui lòng nhập tổng phí vận chuyển',
+        'total_postage.float'   => 'Tổng phí vận chuyển phải là số',
+        'total_postage.egt'     => 'Tổng phí vận chuyển phải lớn hơn hoặc bằng 0',
         'pay_price.require'     => 'Vui lòng nhập số tiền thanh toán',
-        'pay_price.float'      => 'Số tiền thanh toán phải là số',
+        'pay_price.float'       => 'Số tiền thanh toán phải là số',
+        'pay_price.egt'         => 'Số tiền thanh toán phải lớn hơn hoặc bằng 0',
         'pay_postage.require'   => 'Vui lòng nhập phí vận chuyển',
-        'pay_postage.float'    => 'Phí vận chuyển phải là số',
-        'gain_integral.float'  => 'Điểm quà tặng phải là số',
+        'pay_postage.float'     => 'Phí vận chuyển phải là số',
+        'pay_postage.egt'       => 'Phí vận chuyển phải lớn hơn hoặc bằng 0',
+        'gain_integral.float'   => 'Điểm quà tặng phải là số',
+        'gain_integral.egt'     => 'Điểm quà tặng phải lớn hơn hoặc bằng 0',
     ];
 
     protected $scene = [

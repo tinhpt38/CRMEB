@@ -62,9 +62,9 @@
 
                 $f.submitBtnProps({loading: false, disabled: false});
                 if (status && res.code === 200) {
-                    vm.$Message.success(res.msg || '表单提交成功');
+                    vm.$Message.success(res.msg || '表单Lưu成功');
                 } else {
-                    vm.$Message.error(res.msg || '表单提交失败');
+                    vm.$Message.error(res.msg || '表单Lưu失败');
                 }
             });
         };

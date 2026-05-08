@@ -93,9 +93,9 @@
 					</view>
 				</view>
 				<view class="h-106 flex-between-center bb-e" v-show="isMore">
-					<text class="fs-30 lh-42rpx">âm lượng</text>
+					<text class="fs-30 lh-42rpx">Dung tích</text>
 					<view class="flex-1 flex justify-end text-right">
-						<input type="number" v-model="setFormData.attr.volume" placeholder="Vui lòng nhập âm lượng" placeholder-class=" text--w111-999" class="fs-32" />
+						<input type="number" v-model="setFormData.attr.volume" placeholder="Vui lòng nhập Dung tích" placeholder-class=" text--w111-999" class="fs-32" />
 					</view>
 				</view>
 				<view class="h-106 flex-center text--w111-666" @tap="toggleMore">

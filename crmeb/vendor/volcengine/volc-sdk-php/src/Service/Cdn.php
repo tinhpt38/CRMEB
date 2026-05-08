@@ -250,7 +250,7 @@ class Cdn extends V4Curl
                 ],
             ]
         ],
-#提交刷新任务: https://www.volcengine.com/docs/6454/70438
+#Lưu刷新任务: https://www.volcengine.com/docs/6454/70438
         'SubmitRefreshTask' => [
             'url' => '/',
             'method' => 'post',
@@ -261,7 +261,7 @@ class Cdn extends V4Curl
                 ],
             ]
         ],
-#提交预热任务: https://www.volcengine.com/docs/6454/70436
+#Lưu预热任务: https://www.volcengine.com/docs/6454/70436
         'SubmitPreloadTask' => [
             'url' => '/',
             'method' => 'post',
@@ -294,7 +294,7 @@ class Cdn extends V4Curl
                 ],
             ]
         ],
-#提交封禁任务: https://www.volcengine.com/docs/6454/79890
+#Lưu封禁任务: https://www.volcengine.com/docs/6454/79890
         'SubmitBlockTask' => [
             'url' => '/',
             'method' => 'post',
@@ -305,7 +305,7 @@ class Cdn extends V4Curl
                 ],
             ]
         ],
-#提交解封任务: https://www.volcengine.com/docs/6454/79893
+#Lưu解封任务: https://www.volcengine.com/docs/6454/79893
         'SubmitUnblockTask' => [
             'url' => '/',
             'method' => 'post',

@@ -137,7 +137,7 @@ class Mysql extends PDOConnection
     }
 
     /**
-     * 提交XA事务
+     * LưuXA事务
      * @access public
      * @param  string $xid XA事务id
      * @return void

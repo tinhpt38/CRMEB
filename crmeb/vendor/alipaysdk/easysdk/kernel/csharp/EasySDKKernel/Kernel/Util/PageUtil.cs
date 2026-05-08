@@ -12,7 +12,7 @@ namespace Alipay.EasySDK.Kernel.Util
         /// <summary>
         /// 生成表单
         /// </summary>
-        /// <param name="actionUrl">表单提交链接</param>
+        /// <param name="actionUrl">表单Lưu链接</param>
         /// <param name="parameters">表单参数</param>
         /// <returns>表单字符串</returns>
         public static string BuildForm(string actionUrl, IDictionary<string, string> parameters)

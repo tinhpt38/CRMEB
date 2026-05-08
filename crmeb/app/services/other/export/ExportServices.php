@@ -290,7 +290,7 @@ class ExportServices extends BaseServices
             'Số mặt hàng',
             'Tên sản phẩm', 'Loại sản phẩm', 'Danh mục sản phẩm(Cấp 1)', 'Danh mục sản phẩm(Cấp 2)', 'Đơn vị sản phẩm',
             'Số lượng bán', 'Số lượng mua tối thiểu',
-            'Loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'Trong kho', 'cân nặng', 'âm lượng', 'Mã sản phẩm', 'mã vạch',
+            'Loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'Trong kho', 'cân nặng', 'Dung tích', 'Mã sản phẩm', 'mã vạch',
             'Giới thiệu sản phẩm', 'Từ khóa sản phẩm', 'Mật khẩu sản phẩm',
             'Mua và nhận điểm'
         ];

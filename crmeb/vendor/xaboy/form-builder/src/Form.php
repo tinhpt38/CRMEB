@@ -259,7 +259,7 @@ class Form
     }
 
     /**
-     * 提交按钮显示状态
+     * Lưu按钮显示状态
      *
      * @param $isShow
      * @return $this

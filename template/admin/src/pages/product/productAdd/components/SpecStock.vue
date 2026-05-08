@@ -498,7 +498,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="Âm lượng：" v-if="formValidate.virtual_type == 0">
+        <el-form-item label="Dung tích：" v-if="formValidate.virtual_type == 0">
           <el-input-number
             :controls="false"
             v-model="oneFormValidate[0].volume"

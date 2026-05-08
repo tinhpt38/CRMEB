@@ -446,7 +446,7 @@ export default {
           minWidth: 95,
         },
         {
-          title: 'âm lượng(m³)',
+          title: 'Dung tích(m³)',
           slot: 'volume',
           align: 'center',
           minWidth: 95,

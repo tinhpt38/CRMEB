@@ -167,7 +167,7 @@ interface ConnectionInterface
     public function startTrans();
 
     /**
-     * 用于非自动提交状态下面的查询提交
+     * 用于非自动Lưu状态下面的查询Lưu
      * @access public
      * @return void
      */

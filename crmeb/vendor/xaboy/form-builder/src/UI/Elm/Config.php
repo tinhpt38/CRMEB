@@ -94,7 +94,7 @@ class Config implements ConfigInterface
     }
 
     /**
-     * 提交按钮样式和布局配置
+     * Lưu按钮样式和布局配置
      *
      * @param Button|array|bool $btn
      * @return $this

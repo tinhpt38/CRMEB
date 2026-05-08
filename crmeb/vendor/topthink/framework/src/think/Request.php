@@ -1961,7 +1961,7 @@ class Request implements ArrayAccess
 
         // Header验证
         if ($this->header('X-CSRF-TOKEN') && $this->session->get($token) === $this->header('X-CSRF-TOKEN')) {
-            // 防止重复提交
+            // 防止重复Lưu
             $this->session->delete($token); // 验证完成销毁session
             return true;
         }
@@ -1972,7 +1972,7 @@ class Request implements ArrayAccess
 
         // 令牌验证
         if (isset($data[$token]) && $this->session->get($token) === $data[$token]) {
-            // 防止重复提交
+            // 防止重复Lưu
             $this->session->delete($token); // 验证完成销毁session
             return true;
         }

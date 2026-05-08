@@ -971,7 +971,7 @@ abstract class PDOConnection extends Connection
                     $count += $this->pdoExecute($query, $sql, $query->getBind());
                 }
 
-                // 提交事务
+                // Lưu事务
                 $this->commit();
             } catch (\Exception | \Throwable $e) {
                 $this->rollback();
@@ -1418,7 +1418,7 @@ abstract class PDOConnection extends Connection
     }
 
     /**
-     * 用于非自动提交状态下面的查询提交
+     * 用于非自动Lưu状态下面的查询Lưu
      * @access public
      * @return void
      * @throws PDOException
@@ -1504,7 +1504,7 @@ abstract class PDOConnection extends Connection
             foreach ($sqlArray as $sql) {
                 $this->pdoExecute($query, $sql, $bind);
             }
-            // 提交事务
+            // Lưu事务
             $this->commit();
         } catch (\Exception $e) {
             $this->rollback();
@@ -1727,7 +1727,7 @@ abstract class PDOConnection extends Connection
     {}
 
     /**
-     * 提交XA事务
+     * LưuXA事务
      * @access public
      * @param  string $xid XA事务id
      * @return void

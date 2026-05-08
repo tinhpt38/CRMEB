@@ -17,7 +17,7 @@ public class PageUtil {
     /**
      * 生成表单
      *
-     * @param actionUrl  表单提交链接
+     * @param actionUrl  表单Lưu链接
      * @param parameters 表单参数
      * @return 表单字符串
      */

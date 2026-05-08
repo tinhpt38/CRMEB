@@ -579,7 +579,7 @@ class StoreProductServices extends BaseServices
             }
         } else {
             $header[] = ['title' => 'cân nặng(KG)', 'slot' => 'weight', 'align' => 'center', 'minWidth' => 140];
-            $header[] = ['title' => 'âm lượng(m³)', 'slot' => 'volume', 'align' => 'center', 'minWidth' => 140];
+            $header[] = ['title' => 'Dung tích(m³)', 'slot' => 'volume', 'align' => 'center', 'minWidth' => 140];
         }
         $header[] = ['title' => 'Thao tác', 'slot' => 'action', 'align' => 'center', 'minWidth' => 70];
         return ['attr' => $attr, 'value' => $valueNew, 'header' => $header];
@@ -1159,7 +1159,7 @@ class StoreProductServices extends BaseServices
         $header[] = ['title' => 'Trong kho', 'key' => 'stock', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'phiên bản giới hạn', 'slot' => 'quota', 'type' => 1, 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'cân nặng(KG)', 'key' => 'weight', 'align' => 'center', 'minWidth' => 80];
-        $header[] = ['title' => 'âm lượng(m³)', 'key' => 'volume', 'align' => 'center', 'minWidth' => 80];
+        $header[] = ['title' => 'Dung tích(m³)', 'key' => 'volume', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'Mã sản phẩm', 'key' => 'bar_code', 'align' => 'center', 'minWidth' => 80];
         $header[] = ['title' => 'mã vạch', 'key' => 'bar_code_number', 'align' => 'center', 'minWidth' => 80];
         return ['items' => $attr, 'attrs' => $valueNew, 'header' => $header];
@@ -2382,7 +2382,7 @@ class StoreProductServices extends BaseServices
             'giá thành',
             'Trong kho',
             'cân nặng',
-            'âm lượng',
+            'Dung tích',
             'Mã sản phẩm',
             'mã vạch',
             'Giới thiệu sản phẩm',

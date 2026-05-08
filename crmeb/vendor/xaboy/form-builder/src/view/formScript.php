@@ -39,7 +39,7 @@
                     }
                 }
             },
-            //表单提交事件
+            //表单Lưu事件
             onSubmit: function (formData) {
                 $f.submitStatus({loading: true});
                 $.ajax({
@@ -51,16 +51,16 @@
                         if (res.code == 200) {
                             vm.$Message.success(res.msg);
                             callback && callback(0, res, $f, formData);
-                            //TODO 表单提交成功!
+                            //TODO 表单Lưu成功!
                         } else {
-                            vm.$Message.error(res.msg || '表单提交失败');
+                            vm.$Message.error(res.msg || '表单Lưu失败');
                             $f.btn.finish();
                             callback && callback(1, res, $f, formData);
-                            //TODO 表单提交失败
+                            //TODO 表单Lưu失败
                         }
                     },
                     error: function () {
-                        vm.$Message.error('表单提交失败');
+                        vm.$Message.error('表单Lưu失败');
                         $f.btn.finish();
                     }
                 });

@@ -1046,7 +1046,7 @@ class FileService
                             'Tên sản phẩm', 'Loại sản phẩm', 'Phân loại sản phẩm(Cấp 1)', 'Phân loại sản phẩm(Cấp 2)', 'đơn vị hàng hóa',
                             'Hình ảnh sản phẩm', 'Video sản phẩm', 'Chi tiết sản phẩm',
                             'Số lượng bán', 'Số lượng mua tối thiểu',
-                            'Loại đặc điểm kỹ thuật', 'Giá trị loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'Sự kết hợp giá trị đặc điểm kỹ thuật', 'hình ảnh đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'trong kho', 'cân nặng', 'âm lượng', 'Mã sản phẩm', 'mã vạch',
+                            'Loại đặc điểm kỹ thuật', 'Giá trị loại đặc điểm kỹ thuật', 'Tên đặc điểm kỹ thuật', 'Sự kết hợp giá trị đặc điểm kỹ thuật', 'hình ảnh đặc điểm kỹ thuật', 'giá bán', 'giá chéo', 'giá thành', 'trong kho', 'cân nặng', 'Dung tích', 'Mã sản phẩm', 'mã vạch',
                             'Giới thiệu sản phẩm', 'Từ khóa sản phẩm', 'Mật khẩu sản phẩm',
                             'Mua và nhận điểm'
                         ];
