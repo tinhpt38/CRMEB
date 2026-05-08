@@ -74,7 +74,7 @@ class SystemCityServices extends BaseServices
     public function getSonCityList($pid = 0)
     {
         $list = $this->dao->getCityList(['parent_id' => $pid], 'id,city_id,level,name');
-        $parent_name = $pid ? $this->dao->value(['city_id' => $pid], 'name') : 'Trung Quốc';
+        $parent_name = $pid ? $this->dao->value(['city_id' => $pid], 'name') : 'Việt Nam';
         $is_add = $pid == 0 || $this->dao->value(['city_id' => $pid], 'parent_id') == 0 ? 1 : 0;
         $arr = [];
         if ($list) {
@@ -131,13 +131,13 @@ class SystemCityServices extends BaseServices
             throw new AdminException('Dữ liệu không tồn tại');
         }
         $info = $info->toArray();
-        $info['parent_name'] = $this->dao->value(['city_id' => $info['parent_id']], 'name') ?: 'Trung Quốc';
+        $info['parent_name'] = $this->dao->value(['city_id' => $info['parent_id']], 'name') ?: 'Việt Nam';
         $field[] = Form::hidden('id', $info['id']);
         $field[] = Form::hidden('level', $info['level']);
         $field[] = Form::hidden('parent_id', $info['parent_id']);
         $field[] = Form::input('parent_name', 'Tên cấp trên', $info['parent_name'])->readonly(true);
         $field[] = Form::input('name', 'tên', $info['name'])->required('Vui lòng điền tên thành phố');
-        $field[] = Form::input('merger_name', 'hợp nhất tên', $info['merger_name'])->placeholder('Định dạng:Thiểm Tây,Tây An,Chùa Ngỗng Hoang')->required('Vui lòng điền tên hợp nhất');
+        $field[] = Form::input('merger_name', 'hợp nhất tên', $info['merger_name'])->placeholder('Định dạng: Hà Nội, Hồ Chí Minh, Đà Nẵng')->required('Vui lòng điền tên hợp nhất');
         return create_form('Sửa đổi thành phố', $field, $this->url('/setting/city/save'));
     }
 

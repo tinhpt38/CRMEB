@@ -91,7 +91,7 @@ Vue.component('pagesHeader', pagesHeader);
 Vue.component('common_wrapper', common_wrapper);
 
 // Định cấu hình thư viện của bên thứ ba
-moment.locale('zh-cn');
+moment.locale('vi');
 Vue.prototype.$moment = moment;
 
 VueClipboard.config.copyText = true;
