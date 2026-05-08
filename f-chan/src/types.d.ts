@@ -22,8 +22,12 @@ export interface Product {
   images?: string[];
   category: Category;
   detail?: string;
-  sizes?: Size[];
-  colors?: Color[];
+  attributes?: ProductAttribute[];
+}
+
+export interface ProductAttribute {
+  name: string;
+  values: string[];
 }
 
 export interface Category {

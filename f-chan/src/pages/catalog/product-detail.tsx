@@ -10,6 +10,7 @@ import { useAddToCart } from "@/hooks";
 import { Button } from "zmp-ui";
 import Section from "@/components/section";
 import { ProductItemSkeleton } from "@/components/skeleton";
+import Carousel from "@/components/carousel";
 
 function ProductDetailSkeleton() {
   return (
@@ -53,17 +54,17 @@ function ProductImages({
   }
 
   return (
-    <div className="w-full overflow-x-auto flex snap-x snap-mandatory space-x-2 rounded-lg">
-      {gallery.map((src, i) => (
+    <Carousel
+      slides={gallery.map((src, i) => (
         <img
           key={i}
           src={src}
           alt={`${name} ${i + 1}`}
-          className="flex-none w-full aspect-square object-cover rounded-lg bg-skeleton snap-start"
+          className="w-full aspect-square object-cover rounded-lg bg-skeleton"
           style={i === 0 ? { viewTransitionName: `product-image-${id}` } : {}}
         />
       ))}
-    </div>
+    />
   );
 }
 
@@ -75,6 +76,10 @@ function ProductDetailContent() {
   const { addToCart } = useAddToCart(product);
 
   if (!product) return null;
+
+  const hasAttributes = Array.isArray(product.attributes) && product.attributes.length > 0;
+  const detailText = (product.detail ?? "").trim();
+  const hasHtmlDetail = detailText.includes("<");
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -107,20 +112,42 @@ function ProductDetailContent() {
           </div>
           <ShareButton product={product} />
         </div>
-        {product.detail && (
-          <>
-            <div className="bg-background h-2 w-full" />
-            <Section title="Mô tả sản phẩm">
-              {product.detail.includes("<") ? (
+        <>
+          <div className="bg-background h-2 w-full" />
+          <Section title="Mô tả sản phẩm">
+            {detailText ? (
+              hasHtmlDetail ? (
                 <div
                   className="text-sm text-subtitle p-4 pt-2 prose prose-sm max-w-none"
-                  dangerouslySetInnerHTML={{ __html: product.detail }}
+                  dangerouslySetInnerHTML={{ __html: detailText }}
                 />
               ) : (
                 <div className="text-sm whitespace-pre-wrap text-subtitle p-4 pt-2">
-                  {product.detail}
+                  {detailText}
                 </div>
-              )}
+              )
+            ) : (
+              <div className="text-sm text-subtitle p-4 pt-2">
+                Đang cập nhật mô tả sản phẩm.
+              </div>
+            )}
+          </Section>
+        </>
+        {hasAttributes && (
+          <>
+            <div className="bg-background h-2 w-full" />
+            <Section title="Thuộc tính sản phẩm">
+              <div className="px-4 py-2 space-y-2">
+                {product.attributes?.map((attribute) => (
+                  <div
+                    key={attribute.name}
+                    className="flex items-start gap-2 text-sm"
+                  >
+                    <div className="text-subtitle min-w-24">{attribute.name}:</div>
+                    <div className="text-body">{attribute.values.join(", ")}</div>
+                  </div>
+                ))}
+              </div>
             </Section>
           </>
         )}

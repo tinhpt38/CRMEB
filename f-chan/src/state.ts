@@ -16,6 +16,7 @@ import {
   Order,
   OrderStatus,
   Product,
+  ProductAttribute,
   ShippingAddress,
   Station,
   UserInfo,
@@ -50,6 +51,43 @@ function resolveImageUrl(url: string | undefined | null, apiUrl: string): string
   } catch {
     return url;
   }
+}
+
+function normalizeProductAttributes(raw: Record<string, any>): ProductAttribute[] {
+  const fromProductAttr = Array.isArray(raw?.productAttr) ? raw.productAttr : [];
+  const attrsFromProductAttr = fromProductAttr
+    .map((attr: any) => {
+      const name = String(attr?.attr_name ?? attr?.name ?? "").trim();
+      const valuesFromText = String(attr?.attr_values ?? attr?.values ?? "")
+        .split(",")
+        .map((value) => value.trim())
+        .filter(Boolean);
+      const valuesFromArray = Array.isArray(attr?.attr_value)
+        ? attr.attr_value
+            .map((item: any) =>
+              String(item?.attr ?? item?.value ?? item?.label ?? "").trim()
+            )
+            .filter(Boolean)
+        : [];
+      const values = valuesFromArray.length ? valuesFromArray : valuesFromText;
+      if (!name || !values.length) return null;
+      return { name, values };
+    })
+    .filter((attr: ProductAttribute | null): attr is ProductAttribute => attr !== null);
+
+  if (attrsFromProductAttr.length) return attrsFromProductAttr;
+
+  const fromAttrInfo = raw?.attrInfo;
+  if (!fromAttrInfo || typeof fromAttrInfo !== "object") return [];
+
+  return Object.entries(fromAttrInfo)
+    .map(([name, value]) => {
+      const safeName = String(name).trim();
+      const safeValue = String(value ?? "").trim();
+      if (!safeName || !safeValue) return null;
+      return { name: safeName, values: [safeValue] };
+    })
+    .filter((attr: ProductAttribute | null): attr is ProductAttribute => attr !== null);
 }
 
 export const userInfoKeyState = atom(0);
@@ -275,7 +313,8 @@ export const productsState = atom(async (get) => {
           images,
           categoryId,
           category,
-          detail: undefined,
+          detail: String(p?.store_info ?? p?.description ?? ""),
+          attributes: [],
         } as Product & { categoryId: number };
       });
   } catch (error) {
@@ -322,8 +361,10 @@ export const productDetailState = atomFamily((id: number) =>
       );
 
       if (!raw) return base;
+      const detailPayload =
+        raw?.storeInfo && typeof raw.storeInfo === "object" ? raw.storeInfo : raw;
 
-      const sliderRaw = raw.slider_image;
+      const sliderRaw = detailPayload.slider_image;
       const rawSliderList: string[] = Array.isArray(sliderRaw)
         ? sliderRaw.map(String).filter(Boolean)
         : typeof sliderRaw === "string" && sliderRaw
@@ -333,20 +374,30 @@ export const productDetailState = atomFamily((id: number) =>
         ? rawSliderList.map((s) => resolveImageUrl(s, apiUrl))
         : base?.images;
 
-      const originalPriceRaw = raw.ot_price ?? raw.origin_price;
+      const originalPriceRaw = detailPayload.ot_price ?? detailPayload.origin_price;
       const originalPrice = originalPriceRaw
         ? Number(originalPriceRaw)
         : base?.originalPrice;
 
       return {
         ...(base ?? {}),
-        id: Number(raw.id ?? id),
-        name: String(raw.store_name ?? raw.name ?? base?.name ?? ""),
-        price: Number(raw.price ?? base?.price ?? 0),
+        id: Number(detailPayload.id ?? id),
+        name: String(
+          detailPayload.store_name ?? detailPayload.name ?? base?.name ?? ""
+        ),
+        price: Number(detailPayload.price ?? base?.price ?? 0),
         originalPrice,
-        image: resolveImageUrl(raw.image || base?.image, apiUrl),
+        image: resolveImageUrl(detailPayload.image || base?.image, apiUrl),
         images,
-        detail: String(raw.description ?? raw.detail ?? base?.detail ?? ""),
+        detail: String(
+          detailPayload.description ??
+            detailPayload.content ??
+            detailPayload.store_info ??
+            detailPayload.detail ??
+            base?.detail ??
+            ""
+        ),
+        attributes: normalizeProductAttributes(raw),
         category: base?.category ?? { id: 0, name: "", image: "" },
       } as Product;
     } catch (error) {
