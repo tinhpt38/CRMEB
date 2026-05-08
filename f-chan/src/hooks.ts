@@ -171,6 +171,31 @@ export function useCheckout() {
     get(selectedCrmebAddressState)
   );
 
+  const extractCartId = (payload: any): string | null => {
+    const raw =
+      payload?.cartId ??
+      payload?.id ??
+      payload?.result?.cartId ??
+      payload?.result?.id;
+    if (raw === undefined || raw === null) return null;
+    return String(raw);
+  };
+
+  const extractOrderKey = (payload: any): string => {
+    return String(payload?.orderKey ?? payload?.result?.orderKey ?? "");
+  };
+
+  const extractOrderId = (payload: any): string => {
+    return String(
+      payload?.orderId ??
+        payload?.order_id ??
+        payload?.result?.orderId ??
+        payload?.result?.order_id ??
+        payload?.result?.id ??
+        ""
+    );
+  };
+
   const handleCrmebPayment = async (args: {
     payInfo: any;
     client: CrmebApiClient;
@@ -248,7 +273,7 @@ export function useCheckout() {
       // 1) local cart -> server cart
       const cartIdList: string[] = [];
       for (const item of cart) {
-        const res = await client.post<{ cartId: any }>("/cart/add", {
+        const res = await client.post<any>("/cart/add", {
           productId: item.product.id,
           cartNum: item.quantity,
           uniqueId: "",
@@ -261,9 +286,8 @@ export function useCheckout() {
           pinkId: 0,
         });
 
-        if (res?.cartId !== undefined && res?.cartId !== null) {
-          cartIdList.push(String(res.cartId));
-        }
+        const cartId = extractCartId(res);
+        if (cartId) cartIdList.push(cartId);
       }
 
       if (!cartIdList.length) throw new Error("Cart sync failed");
@@ -277,7 +301,7 @@ export function useCheckout() {
         shipping_type: 1,
         is_gift: 0,
       });
-      const orderKey = confirmData?.orderKey;
+      const orderKey = extractOrderKey(confirmData);
       if (!orderKey) throw new Error("Missing orderKey from /order/confirm");
 
       // 3) computed
@@ -322,7 +346,7 @@ export function useCheckout() {
         }
       );
 
-      const orderId = createData?.orderId ?? createData?.order_id;
+      const orderId = extractOrderId(createData);
       if (!orderId) throw new Error("Missing orderId from /order/create");
 
       // 5) pay bằng số dư (yue)

@@ -598,6 +598,9 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
       : {
           type: "shipping",
           alias: String(raw?.real_name ?? ""),
+          province: String(raw?.user_province ?? raw?.province ?? ""),
+          city: String(raw?.user_city ?? raw?.city ?? ""),
+          district: String(raw?.user_district ?? raw?.district ?? ""),
           address: String(raw?.user_address ?? ""),
           name: String(raw?.real_name ?? ""),
           phone: String(raw?.user_phone ?? ""),
@@ -622,6 +625,13 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
   };
 }
 
+function extractCrmebOrderList(raw: any): any[] {
+  if (Array.isArray(raw)) return raw;
+  if (Array.isArray(raw?.list)) return raw.list;
+  if (Array.isArray(raw?.list?.list)) return raw.list.list;
+  return [];
+}
+
 export const ordersState = atomFamily((status: OrderStatus) =>
   atomWithRefresh(async () => {
     const apiUrl = getConfig((config) => config.template.apiUrl);
@@ -631,8 +641,10 @@ export const ordersState = atomFamily((status: OrderStatus) =>
         getToken: () => getCrmebToken(),
       });
 
-      const rawOrders = await client.get<Array<any>>("/order/list");
-      const mapped = (rawOrders ?? []).map((o) => mapCrmebOrderToFchanOrder(o, apiUrl));
+      const rawOrders = await client.get<any>("/order/list");
+      const mapped = extractCrmebOrderList(rawOrders).map((o) =>
+        mapCrmebOrderToFchanOrder(o, apiUrl)
+      );
       return mapped.filter((order) => order.status === status);
     } catch (error) {
       console.warn("Failed to load orders from CRMEB:", error);
@@ -652,7 +664,8 @@ export const orderDetailState = atomFamily((orderId: string) =>
     });
 
     const raw = await client.get<any>(`/order/detail/${orderId}`);
-    return mapCrmebOrderToFchanOrder(raw, apiUrl);
+    const payload = raw?.orderInfo && typeof raw.orderInfo === "object" ? raw.orderInfo : raw;
+    return mapCrmebOrderToFchanOrder(payload, apiUrl);
   })
 );
 
