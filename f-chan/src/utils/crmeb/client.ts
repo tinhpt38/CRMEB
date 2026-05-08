@@ -36,6 +36,15 @@ function joinUrl(baseUrl: string, path: string) {
   return `${cleanBase}${cleanPath}`;
 }
 
+function isNgrokUrl(url: string) {
+  try {
+    const host = new URL(url).hostname;
+    return host.endsWith(".ngrok-free.app") || host.endsWith(".ngrok.app");
+  } catch {
+    return false;
+  }
+}
+
 export class CrmebApiClient {
   private getToken: CrmebTokenGetter;
   private apiBaseUrl?: string;
@@ -52,10 +61,16 @@ export class CrmebApiClient {
 
   private async buildHeaders(extra?: Record<string, string>) {
     const token = await this.getToken();
+    const apiBaseUrl = this.getApiBaseUrl() || "";
     const headers: Record<string, string> = {
       Accept: "application/json",
       ...(extra ?? {}),
     };
+
+    // ngrok free returns an interstitial HTML page unless this header is present.
+    if (apiBaseUrl && isNgrokUrl(apiBaseUrl)) {
+      headers["ngrok-skip-browser-warning"] = "true";
+    }
 
     if (token) {
       const value = `Bearer ${token}`;
@@ -129,7 +144,22 @@ export class CrmebApiClient {
       signal: args.signal,
     });
 
-    const rawJson = await res.json().catch(() => null);
+    let rawJson: unknown = null;
+    try {
+      rawJson = await res.json();
+    } catch {
+      const rawText = await res.text().catch(() => "");
+      throw new CrmebClientError(
+        "CRMEB response is not JSON",
+        { status: "INVALID_JSON", msg: "CRMEB response is not JSON" },
+        {
+          status: res.status,
+          statusText: res.statusText,
+          contentType: res.headers.get("content-type") || "",
+          bodySnippet: rawText.slice(0, 500),
+        }
+      );
+    }
     return this.handleResponse<T>(res, rawJson);
   }
 
