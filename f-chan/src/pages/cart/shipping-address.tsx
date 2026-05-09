@@ -324,6 +324,10 @@ function AddressList() {
   const navigate = useNavigate();
   const refreshAddresses = useSetAtom(crmebAddressesState);
 
+  useEffect(() => {
+    refreshAddresses();
+  }, [refreshAddresses]);
+
   if (loadable.state === "loading" && !addresses.length) {
     return (
       <div className="flex justify-center items-center p-8 text-subtitle text-sm">

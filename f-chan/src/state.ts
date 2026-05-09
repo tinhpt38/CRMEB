@@ -104,22 +104,30 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
       return undefined;
     }
 
-    // Kiểm tra cache trước — lần login trước đã lưu vào localStorage.
+    const isDev = !window.ZJSBridge;
+    const apiUrl = getConfig((config) => config.template.apiUrl);
+    const useCrmebLive = Boolean(apiUrl && !isDev);
+
+    // Cache local chỉ dùng cho môi trường dev hoặc không cấu hình CRMEB.
+    // Khi Mini App chạy CRMEB thật: luôn đồng bộ `/zalo/auth` + `/userinfo` + địa chỉ để
+    // tài khoản đã có trên CRMEB (web/H5) được điền đúng vào app — tránh giữ bản LS cũ.
+    let fallbackFromStorage: UserInfo | undefined;
     const savedUserInfo = localStorage.getItem(CONFIG.STORAGE_KEYS.USER_INFO);
     if (savedUserInfo) {
       try {
-        return JSON.parse(savedUserInfo) as UserInfo;
+        const parsed = JSON.parse(savedUserInfo) as UserInfo;
+        if (!useCrmebLive) {
+          return parsed;
+        }
+        fallbackFromStorage = parsed;
       } catch {
         localStorage.removeItem(CONFIG.STORAGE_KEYS.USER_INFO);
       }
     }
 
-    const isDev = !window.ZJSBridge;
-    const apiUrl = getConfig((config) => config.template.apiUrl);
-
     // Nhánh CRMEB: dùng Zalo access_token để tạo/đăng nhập tài khoản CRMEB.
     // Không gọi getSetting ở đây để tránh block khi user chưa cấp quyền scope.userInfo.
-    if (apiUrl && !isDev) {
+    if (useCrmebLive) {
       try {
         const accessToken = await getAccessToken();
         const client = new CrmebApiClient({
@@ -167,6 +175,7 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
         return mapped;
       } catch (error) {
         console.warn("CRMEB Zalo login failed:", error);
+        if (fallbackFromStorage) return fallbackFromStorage;
         return undefined;
       }
     }
@@ -561,18 +570,31 @@ export const shippingAddressState = atomWithStorage<
 >(CONFIG.STORAGE_KEYS.SHIPPING_ADDRESS, undefined);
 
 function toOrderStatusFromCrmeb(raw: any): OrderStatus {
+  // Dùng `_status._type` từ CRMEB tidyOrder (nguồn tin cậy nhất).
+  // Bảng mapping theo docs/order-flow-vietnam-mapping.md:
+  //   -2 = Đã hoàn tiền          → Lịch sử
+  //   -1 = Đang hoàn tiền        → Lịch sử (đơn đã qua giao hàng, đang xử lý hoàn)
+  //    0 = Chờ thanh toán        → Đang xử lý
+  //    1 = Đang xử lý (paid)     → Đang xử lý
+  //    2 = Đang giao             → Đang giao
+  //    3 = Đã nhận/chờ đánh giá  → Lịch sử  (admin xác nhận giao thành công)
+  //    4 = Hoàn tất / Đã hủy     → Lịch sử
+  //    9 = Chờ đối soát CK/COD   → Đang xử lý
   const type = raw?._status?._type;
-  if (type === -2) return "completed";
-  if (type === -1) return "shipping";
-  if (type === 4) return "completed";
-  if (type === 3 || type === 2) return "shipping";
-  if (type === 1) return "pending";
-  if (type === 0 || type === 9) return "pending";
+  if (typeof type === "number") {
+    if (type === 2) return "shipping";
+    if (type === 1 || type === 0 || type === 9) return "pending";
+    // type 3, 4, -1, -2 và bất kỳ trạng thái kết thúc khác → Lịch sử
+    return "completed";
+  }
 
+  // Fallback khi API không trả _status (gọi trực tiếp từ /order/list cũ).
+  // status CRMEB: 0=xử lý, 1=đang giao, 2=đã nhận/chờ đánh giá, 3=hoàn tất, 4=split
   const numeric = raw?.status;
   if (numeric === 0) return "pending";
-  if (numeric === 1 || numeric === 2) return "shipping";
-  if (numeric === 3 || numeric === 4) return "completed";
+  if (numeric === 1) return "shipping";
+  // status 2 (đã nhận), 3 (hoàn tất), 4 (split xong) → Lịch sử
+  if (numeric === 2 || numeric === 3 || numeric === 4) return "completed";
 
   return "pending";
 }
@@ -594,6 +616,7 @@ function mapCrmebCartToCartItem(cart: any, apiUrl: string): Cart[number] {
   const productInfo = cart?.productInfo ?? cart?.product ?? {};
   const categoryId = Number(String(productInfo?.cate_id ?? 0).split(",")[0] ?? 0);
   const originalPriceRaw = productInfo?.ot_price ?? productInfo?.origin_price;
+  const unique = String(cart?.unique ?? "").trim() || undefined;
 
   return {
     product: {
@@ -610,6 +633,7 @@ function mapCrmebCartToCartItem(cart: any, apiUrl: string): Cart[number] {
       detail: undefined,
     },
     quantity: Number(cart?.cart_num ?? cart?.quantity ?? 0),
+    ...(unique ? { unique } : {}),
   };
 }
 
@@ -662,6 +686,17 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
         ? Number(stopRaw)
         : undefined;
 
+  // Mã vận đơn và nhà vận chuyển — có trong /order/detail/:uni
+  const deliveryId = String(raw?.delivery_id ?? "").trim() || undefined;
+  const deliveryName = String(raw?.delivery_name ?? "").trim() || undefined;
+  const deliveryType = String(raw?.delivery_type ?? "").trim() || undefined;
+
+  // ID nội bộ DB (số nguyên) — khác với order_id (string hiển thị); dùng cho /order/refund/apply/:id
+  const dbId = raw?.id && !Number.isNaN(Number(raw.id)) ? Number(raw.id) : undefined;
+
+  // _is_back = CRMEB cho phép hoàn tiền / trả hàng với đơn này
+  const isBack = st._is_back === true || st._is_back === 1;
+
   return {
     id: String(raw?.order_id ?? raw?.id ?? raw?.uni ?? ""),
     status: toOrderStatusFromCrmeb(raw),
@@ -682,6 +717,11 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
     ...(stopTime !== undefined && Number.isFinite(stopTime) && stopTime > 0
       ? { stopTime }
       : {}),
+    ...(deliveryId ? { deliveryId } : {}),
+    ...(deliveryName ? { deliveryName } : {}),
+    ...(deliveryType ? { deliveryType } : {}),
+    ...(dbId ? { dbId } : {}),
+    isBack,
   };
 }
 
@@ -762,8 +802,10 @@ function mapCrmebAddress(a: any): CrmebAddress {
 /**
  * Danh sách địa chỉ của user trên CRMEB.
  * atomWithRefresh → gọi refreshAddresses() để reload sau khi thêm/sửa.
+ * Đọc `userInfoKeyState` để danh sách địa chỉ được tính lại khi login/bind phone/logout (cùng key với user).
  */
-export const crmebAddressesState = atomWithRefresh(async () => {
+export const crmebAddressesState = atomWithRefresh(async (get) => {
+  get(userInfoKeyState);
   const apiUrl = getConfig((config) => config.template.apiUrl);
   const token = getCrmebToken();
   if (!apiUrl || !token) return [] as CrmebAddress[];

@@ -320,7 +320,7 @@ export default {
       name: `${pre}freight`,
       meta: {
         auth: ['setting-freight-express'],
-        title: 'Công ty hậu cần',
+        title: 'Công ty giao nhận',
       },
       component: () => import('@/pages/setting/freight/index'),
     },

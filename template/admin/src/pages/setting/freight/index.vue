@@ -10,21 +10,25 @@
           @submit.native.prevent
           inline
         >
-          <el-form-item label="Có hiển thị hay không：">
+          <el-form-item label="Hiển thị">
             <el-select
               v-model="levelFrom.is_show"
-              placeholder="Vui lòng chọn"
+              placeholder="Chọn trạng thái"
               clearable
               @change="userSearchs"
               class="form_content_width"
             >
               <el-option value="" label="Tất cả"></el-option>
-              <el-option value="1" label="trình diễn"></el-option>
-              <el-option value="0" label="Không hiển thị"></el-option>
+              <el-option value="1" label="Đang hiển thị"></el-option>
+              <el-option value="0" label="Đang ẩn"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Tìm kiếm：" label-for="keyword">
-            <el-input class="form_content_width" v-model="levelFrom.keyword" placeholder="Vui lòng nhập tên hoặc mã công ty hậu cần" />
+          <el-form-item label="Tìm kiếm" label-for="keyword">
+            <el-input
+              class="form_content_width"
+              v-model="levelFrom.keyword"
+              placeholder="Tên hoặc mã công ty giao nhận"
+            />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" v-db-click @click="userSearchs">Tìm kiếm</el-button>
@@ -33,7 +37,8 @@
       </div>
     </el-card>
     <el-card :bordered="false" shadow="never" class="ivu-mt">
-      <el-button type="primary" v-db-click @click="syncExpress">Công ty Logistics đồng bộ</el-button>
+      <el-button type="primary" v-db-click @click="add">Thêm công ty giao nhận</el-button>
+      <el-button v-db-click @click="syncExpress">Đồng bộ danh sách từ nền tảng</el-button>
       <el-table
         :data="levelLists"
         ref="table"
@@ -47,22 +52,22 @@
             <span>{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Tên công ty hậu cần" min-width="100">
+        <el-table-column label="Tên công ty" min-width="140">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Mã hóa" min-width="100">
+        <el-table-column label="Mã đơn vị" min-width="120">
           <template slot-scope="scope">
             <span>{{ scope.row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Loại" min-width="100">
+        <el-table-column label="Thứ tự" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.sort }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Có hiển thị hay không" min-width="100">
+        <el-table-column label="Hiển thị" min-width="110">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -103,51 +108,10 @@ import {
   freightSyncExpressApi,
 } from '@/api/setting';
 export default {
-  name: 'user_level',
+  name: 'setting_freight_express',
   data() {
     return {
-      grid: {
-        xl: 7,
-        lg: 7,
-        md: 12,
-        sm: 24,
-        xs: 24,
-      },
       loading: false,
-      columns1: [
-        {
-          title: 'ID',
-          key: 'id',
-          width: 80,
-        },
-        {
-          title: 'Tên công ty hậu cần',
-          key: 'name',
-          minWidth: 100,
-        },
-        {
-          title: 'mã hóa',
-          key: 'code',
-          minWidth: 120,
-        },
-        {
-          title: 'loại',
-          key: 'sort',
-          sortable: true,
-          minWidth: 100,
-        },
-        {
-          title: 'Có hiển thị hay không',
-          slot: 'is_shows',
-          minWidth: 120,
-        },
-        {
-          title: 'Thao tác',
-          slot: 'action',
-          fixed: 'right',
-          minWidth: 120,
-        },
-      ],
       levelFrom: {
         keyword: '',
         is_show: '',
@@ -165,7 +129,7 @@ export default {
   computed: {
     ...mapState('media', ['isMobile']),
     labelWidth() {
-      return this.isMobile ? undefined : '80px';
+      return this.isMobile ? undefined : '100px';
     },
     labelPosition() {
       return this.isMobile ? 'top' : 'right';

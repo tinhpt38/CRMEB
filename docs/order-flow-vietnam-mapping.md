@@ -8,16 +8,16 @@
 
 `_status._type` dùng cho ảnh `order_details_images` và logic tab đơn trên f-chan — **không đổi ý nghĩa số**:
 
-| `_type` | Ý nghĩa kỹ thuật |
-|---------|------------------|
-| `-2` | Đã hoàn tiền |
-| `-1` | Đang xử lý hoàn tiền / đổi trả |
-| `0` | Chờ thanh toán (online / chưa hoàn tất thanh toán tức thì) |
-| `1` | Đang xử lý / chờ giao (đã thanh toán hoặc COD đã chốt luồng `paid`, chưa nhận hàng — gồm chờ shop gửi, giao một phần split) |
-| `2` | Đang giao — chờ khách nhận xác nhận |
-| `3` | Đã nhận — chờ đánh giá |
-| `4` | Hoàn tất **hoặc** đã hủy (đơn hủy vẫn dùng `4` như CRMEB gốc) |
-| `9` | Thanh toán hoãn / chờ đối soát: `vn_bank`, `vn_cod`, hoặc `offline` (chưa `paid`) |
+| `_type` | Ý nghĩa kỹ thuật | Tab f-chan |
+|---------|------------------|-----------|
+| `-2` | Đã hoàn tiền | Lịch sử |
+| `-1` | Đang xử lý hoàn tiền / đổi trả | Lịch sử |
+| `0` | Chờ thanh toán (online / chưa hoàn tất) | Đang xử lý |
+| `1` | Đang xử lý / chờ giao (đã thanh toán hoặc COD đã chốt `paid`) | Đang xử lý |
+| `2` | Đang giao — chờ khách nhận xác nhận | Đang giao |
+| `3` | Đã nhận — chờ đánh giá (admin xác nhận giao thành công) | **Lịch sử** |
+| `4` | Hoàn tất **hoặc** đã hủy | Lịch sử |
+| `9` | Thanh toán hoãn / chờ đối soát: `vn_bank`, `vn_cod`, `offline` | Đang xử lý |
 
 ## Truth-table → nhãn hiển thị (`_title` / §2.2)
 

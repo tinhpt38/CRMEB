@@ -70,9 +70,26 @@ class Express extends AuthController
             'code',
             ['sort', 0],
             ['is_show', 0]]);
-        if (!$data['name']) return app('json')->fail('Vui lòng nhập tên công ty');
+        if (!$data['name']) {
+            return app('json')->fail('Vui lòng nhập tên công ty giao nhận');
+        }
+        $code = trim((string)$data['code']);
+        if ($code === '') {
+            return app('json')->fail('Vui lòng nhập mã đơn vị vận chuyển');
+        }
+        $data['code'] = $code;
+        if ($this->services->be(['code' => $data['code']])) {
+            return app('json')->fail('Mã đơn vị đã tồn tại, vui lòng dùng mã khác');
+        }
+        $data['partner_id'] = 0;
+        $data['partner_key'] = 0;
+        $data['net'] = 0;
+        $data['check_man'] = 0;
+        $data['partner_name'] = 0;
+        $data['is_code'] = 0;
+        $data['status'] = 1;
         $this->services->save($data);
-        return app('json')->success('Thêm công ty thành công');
+        return app('json')->success('Đã thêm công ty giao nhận');
     }
 
     /**

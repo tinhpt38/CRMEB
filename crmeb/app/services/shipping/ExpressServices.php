@@ -86,14 +86,34 @@ class ExpressServices extends BaseServices
      */
     public function createExpressForm(array $formData = [])
     {
-        if (isset($formData['partner_id']) && $formData['partner_id'] == 1) $field[] = Form::input('account', 'tài khoản hàng tháng', $formData['account'] ?? '');
-        if (isset($formData['partner_key']) && $formData['partner_key'] == 1) $field[] = Form::input('key', 'Mật khẩu quyết toán hàng tháng', $formData['key'] ?? '');
-        if (isset($formData['net']) && $formData['net'] == 1) $field[] = Form::input('net_name', 'Điểm đón', $formData['net_name'] ?? '')->required();
-        if (isset($formData['check_man']) && $formData['check_man'] == 1) $field[] = Form::input('courier_name', 'Tên hãng vận chuyển chuyển phát nhanh', $formData['courier_name'] ?? '')->required();
-        if (isset($formData['partner_name']) && $formData['partner_name'] == 1) $field[] = Form::input('customer_name', 'Tên tài khoản khách hàng', $formData['customer_name'] ?? '')->required();
-        if (isset($formData['is_code']) && $formData['is_code'] == 1) $field[] = Form::input('code_name', 'Số mang biểu mẫu điện tử', $formData['code_name'] ?? '')->required();
-        $field[] = Form::number('sort', 'loại', (int)($formData['sort'] ?? 0))->precision(0);
-        $field[] = Form::radio('is_show', 'Có bật hay không', $formData['is_show'] ?? 1)->options([['value' => 0, 'label' => 'trốn'], ['value' => 1, 'label' => 'cho phép']]);
+        $field = [];
+        if (!isset($formData['id'])) {
+            $field[] = Form::input('name', 'Tên công ty giao nhận', $formData['name'] ?? '')->required();
+            $field[] = Form::input('code', 'Mã đơn vị (duy nhất)', $formData['code'] ?? '')
+                ->placeholder('Ví dụ: GHN, GHTK, vn_post…')
+                ->required();
+        }
+        if (isset($formData['partner_id']) && $formData['partner_id'] == 1) {
+            $field[] = Form::input('account', 'Tài khoản đối soát', $formData['account'] ?? '');
+        }
+        if (isset($formData['partner_key']) && $formData['partner_key'] == 1) {
+            $field[] = Form::input('key', 'Mật khẩu đối soát', $formData['key'] ?? '');
+        }
+        if (isset($formData['net']) && $formData['net'] == 1) {
+            $field[] = Form::input('net_name', 'Điểm lấy hàng / chi nhánh', $formData['net_name'] ?? '')->required();
+        }
+        if (isset($formData['check_man']) && $formData['check_man'] == 1) {
+            $field[] = Form::input('courier_name', 'Tên nhân viên giao hàng', $formData['courier_name'] ?? '')->required();
+        }
+        if (isset($formData['partner_name']) && $formData['partner_name'] == 1) {
+            $field[] = Form::input('customer_name', 'Tài khoản khách hàng (đối tác)', $formData['customer_name'] ?? '')->required();
+        }
+        if (isset($formData['is_code']) && $formData['is_code'] == 1) {
+            $field[] = Form::input('code_name', 'Số hiệu trên vận đơn điện tử', $formData['code_name'] ?? '')->required();
+        }
+        $field[] = Form::number('sort', 'Thứ tự sắp xếp', (int)($formData['sort'] ?? 0))->precision(0);
+        $field[] = Form::radio('is_show', 'Hiển thị', $formData['is_show'] ?? 1)
+            ->options([['value' => 0, 'label' => 'Ẩn'], ['value' => 1, 'label' => 'Hiển thị']]);
         return $field;
     }
 
@@ -104,7 +124,7 @@ class ExpressServices extends BaseServices
      */
     public function createForm()
     {
-        return create_form('Thêm công ty hậu cần', $this->createExpressForm(), $this->url('/freight/express'));
+        return create_form('Thêm công ty giao nhận', $this->createExpressForm(), $this->url('/freight/express'));
     }
 
     /**
@@ -119,7 +139,7 @@ class ExpressServices extends BaseServices
         if (!$express) {
             throw new AdminException('Dữ liệu không tồn tại');
         }
-        return create_form('Chỉnh sửa Công ty Logistics', $this->createExpressForm($express->toArray()), $this->url('/freight/express/' . $id), 'PUT');
+        return create_form('Chỉnh sửa công ty giao nhận', $this->createExpressForm($express->toArray()), $this->url('/freight/express/' . $id), 'PUT');
     }
 
     /**

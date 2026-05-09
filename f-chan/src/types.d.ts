@@ -49,6 +49,8 @@ export interface Category {
 export interface CartItem {
   product: Product;
   quantity: number;
+  /** unique key từ CRMEB cartInfo — dùng cho POST /order/comment */
+  unique?: string;
 }
 
 export type Cart = CartItem[];
@@ -130,6 +132,16 @@ export interface Order {
   crmebStatusType?: number;
   /** Unix timestamp — hết hạn giữ đơn thanh toán (`stop_time`) */
   stopTime?: number;
+  /** ID nội bộ DB (số nguyên) — dùng cho POST /order/refund/apply/:id */
+  dbId?: number;
+  /** Mã vận đơn (`delivery_id`) */
+  deliveryId?: string;
+  /** Tên nhà vận chuyển (`delivery_name`) */
+  deliveryName?: string;
+  /** Loại giao hàng CRMEB: send | express | split */
+  deliveryType?: string;
+  /** Cho phép hoàn tiền / trả hàng (`_status._is_back`) */
+  isBack?: boolean;
 }
 
 /**
