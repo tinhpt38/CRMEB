@@ -35,8 +35,9 @@ function ProfileEditorPage() {
         <Input
           name="phone"
           label="Số điện thoại"
-          required
+          placeholder="Lấy tự động từ Zalo"
           defaultValue={userInfo?.phone}
+          readOnly={!!userInfo?.phone}
         />
         <Input
           name="email"

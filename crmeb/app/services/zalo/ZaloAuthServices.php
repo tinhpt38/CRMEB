@@ -120,7 +120,9 @@ class ZaloAuthServices extends BaseServices
      * Lấy số điện thoại từ phone_token (Zalo getPhoneNumber flow)
      *
      * Endpoint: GET https://graph.zalo.me/v2.0/me?fields=number&code={phone_token}
-     * Headers: access_token, secret_key
+     * Headers (từ 01/01/2024 Zalo yêu cầu appsecret_proof thay vì secret_key raw):
+     *   access_token:    {user_access_token}
+     *   appsecret_proof: HMAC-SHA256(access_token, app_secret)
      * Response: {"data":{"number":"849..."},"error":0,"message":"Success"}
      *
      * @param string $accessToken  access_token từ Zalo Mini App SDK
@@ -135,13 +137,17 @@ class ZaloAuthServices extends BaseServices
             throw new ApiException('Chưa cấu hình Zalo App Secret. Vui lòng vào Admin → Cài đặt → Zalo và điền zalo_app_secret.');
         }
 
+        // Zalo Graph API yêu cầu appsecret_proof (HMAC-SHA256) từ 01/01/2024,
+        // không còn chấp nhận secret_key dạng raw — nhất quán với fetchZaloUserInfo.
+        $appsecretProof = hash_hmac('sha256', $accessToken, $secretKey);
+
         try {
             $response = HttpService::getRequest(
                 self::ZALO_GRAPH_API,
                 ['fields' => 'number', 'code' => $phoneToken],
                 [
-                    'access_token: ' . $accessToken,
-                    'secret_key: '   . $secretKey,
+                    'access_token: '    . $accessToken,
+                    'appsecret_proof: ' . $appsecretProof,
                 ]
             );
         } catch (\Throwable $e) {
@@ -156,14 +162,22 @@ class ZaloAuthServices extends BaseServices
         $data = json_decode($response, true);
         Log::info('[ZaloAuth] fetchPhoneFromToken response: ' . json_encode($data));
 
-        if (!isset($data['data']['number']) || (int)($data['error'] ?? -1) !== 0) {
-            $errMsg = $data['message'] ?? 'Không lấy được số điện thoại từ Zalo';
-            Log::error('[ZaloAuth] fetchPhoneFromToken error: ' . $errMsg);
+        $errorCode = (int)($data['error'] ?? -1);
+        $phoneNumber = (string)($data['data']['number'] ?? '');
+        if ($errorCode !== 0) {
+            $errMsg = (string)($data['message'] ?? 'Không lấy được số điện thoại từ Zalo');
+            Log::error('[ZaloAuth] fetchPhoneFromToken error: ' . $errMsg . ' | Raw: ' . json_encode($data));
             throw new ApiException($errMsg);
+        }
+        if ($phoneNumber === '') {
+            Log::error('[ZaloAuth] fetchPhoneFromToken missing number | Raw: ' . json_encode($data));
+            throw new ApiException(
+                'Zalo chưa trả số điện thoại. Vui lòng cấp quyền số điện thoại (scope.userPhonenumber) trên Mini App và thử lại.'
+            );
         }
 
         // Zalo trả về dạng "849xxxxxxxx" (quốc tế) → chuẩn hoá về "09xxxxxxxx"
-        $raw = preg_replace('/\D+/', '', (string)$data['data']['number']);
+        $raw = preg_replace('/\D+/', '', $phoneNumber);
         if (str_starts_with($raw, '84') && strlen($raw) >= 10) {
             $raw = '0' . substr($raw, 2);
         }
