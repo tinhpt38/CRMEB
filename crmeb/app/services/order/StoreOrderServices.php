@@ -193,6 +193,17 @@ class StoreOrderServices extends BaseServices
     }
 
     /**
+     * Định dạng thời điểm giao/nhận cho `_status._msg` (unix timestamp).
+     */
+    protected function formatOrderStatusTime(int $timestamp): string
+    {
+        if ($timestamp <= 0) {
+            return '';
+        }
+        return date('d/m/Y H:i', $timestamp);
+    }
+
+    /**
      * Định dạng dữ liệu chi tiết đơn hàng
      * @param $order
      * @param bool $detail Bạn có cần đặt hàng chi tiết sản phẩm?
@@ -238,77 +249,98 @@ class StoreOrderServices extends BaseServices
             $status['_msg'] = 'Bạn đã hủy đơn đặt hàng của mình,Cảm ơn bạn đã sử dụng';
             $status['_class'] = 'nobuy';
         } else {
-            if (!$order['paid'] && $order['pay_type'] == 'offline' && !$order['status'] >= 2) {
-                $status['_type'] = 9;
-                $status['_title'] = 'Thanh toán ngoại tuyến,Chưa thanh toán';
-                $status['_msg'] = 'Đang chờ xử lý của người bán,Vui lòng chờ';
-                $status['_class'] = 'nobuy';
-            } else if (!$order['paid']) {
-                $status['_type'] = 0;
-                $status['_title'] = 'Chưa thanh toán';
-                //Hệ thống cài đặt trước khoảng thời gian hủy đơn hàng
-                $keyValue = ['order_cancel_time', 'order_activity_time', 'order_bargain_time', 'order_seckill_time', 'order_pink_time'];
-                //Nhận cấu hình
-                $systemValue = SystemConfigService::more($keyValue);
-                //Định dạng dữ liệu
-                $systemValue = Arr::setValeTime($keyValue, is_array($systemValue) ? $systemValue : []);
-                if ($order['pink_id'] || $order['combination_id']) {
-                    $order_pink_time = $systemValue['order_pink_time'] ?: $systemValue['order_activity_time'];
-                    $time = $order['add_time'] + $order_pink_time * 3600;
-                    $status['_msg'] = 'Xin vui lòng' . date('m-d H:i:s', $time) . 'Hoàn tất thanh toán trước!';
-                } else if ($order['seckill_id']) {
-                    $order_seckill_time = $systemValue['order_seckill_time'] ?: $systemValue['order_activity_time'];
-                    $time = $order['add_time'] + $order_seckill_time * 3600;
-                    $status['_msg'] = 'Xin vui lòng' . date('m-d H:i:s', $time) . 'Hoàn tất thanh toán trước!';
-                } else if ($order['bargain_id']) {
-                    $order_bargain_time = $systemValue['order_bargain_time'] ?: $systemValue['order_activity_time'];
-                    $time = $order['add_time'] + $order_bargain_time * 3600;
-                    $status['_msg'] = 'Xin vui lòng' . date('m-d H:i:s', $time) . 'Hoàn tất thanh toán trước!';
+            if (!$order['paid']) {
+                $payType = (string)($order['pay_type'] ?? '');
+                if ($payType === PayServices::VN_BANK) {
+                    $status['_type'] = 9;
+                    $status['_title'] = 'Chờ xác nhận chuyển khoản';
+                    $status['_msg'] = 'Vui lòng chuyển khoản theo hướng dẫn. Shop sẽ xác nhận sau khi nhận được tiền.';
+                    $status['_class'] = 'nobuy';
+                } elseif ($payType === PayServices::VN_COD) {
+                    $status['_type'] = 9;
+                    $status['_title'] = 'Đặt hàng thành công (COD)';
+                    $status['_msg'] = 'Đơn hàng đã được ghi nhận. Bạn thanh toán khi nhận hàng.';
+                    $status['_class'] = 'nobuy';
+                } elseif ($payType === PayServices::OFFLINE_PAY && (int)$order['status'] < 2) {
+                    $status['_type'] = 9;
+                    $status['_title'] = 'Chờ xác nhận thanh toán';
+                    $status['_msg'] = 'Đang chờ cửa hàng xác nhận thanh toán ngoại tuyến.';
+                    $status['_class'] = 'nobuy';
                 } else {
-                    $time = $order['add_time'] + $systemValue['order_cancel_time'] * 3600;
-                    $status['_msg'] = 'Xin vui lòng' . date('m-d H:i:s', (int)$time) . 'Hoàn tất thanh toán trước!';
+                    $status['_type'] = 0;
+                    $status['_title'] = 'Chờ thanh toán';
+                    //Hệ thống cài đặt trước khoảng thời gian hủy đơn hàng
+                    $keyValue = ['order_cancel_time', 'order_activity_time', 'order_bargain_time', 'order_seckill_time', 'order_pink_time'];
+                    //Nhận cấu hình
+                    $systemValue = SystemConfigService::more($keyValue);
+                    //Định dạng dữ liệu
+                    $systemValue = Arr::setValeTime($keyValue, is_array($systemValue) ? $systemValue : []);
+                    if ($order['pink_id'] || $order['combination_id']) {
+                        $order_pink_time = $systemValue['order_pink_time'] ?: $systemValue['order_activity_time'];
+                        $time = $order['add_time'] + $order_pink_time * 3600;
+                        $status['_msg'] = 'Vui lòng hoàn tất thanh toán trước ' . date('d/m/Y H:i', (int)$time) . '.';
+                    } else if ($order['seckill_id']) {
+                        $order_seckill_time = $systemValue['order_seckill_time'] ?: $systemValue['order_activity_time'];
+                        $time = $order['add_time'] + $order_seckill_time * 3600;
+                        $status['_msg'] = 'Vui lòng hoàn tất thanh toán trước ' . date('d/m/Y H:i', (int)$time) . '.';
+                    } else if ($order['bargain_id']) {
+                        $order_bargain_time = $systemValue['order_bargain_time'] ?: $systemValue['order_activity_time'];
+                        $time = $order['add_time'] + $order_bargain_time * 3600;
+                        $status['_msg'] = 'Vui lòng hoàn tất thanh toán trước ' . date('d/m/Y H:i', (int)$time) . '.';
+                    } else {
+                        $time = $order['add_time'] + $systemValue['order_cancel_time'] * 3600;
+                        $status['_msg'] = 'Vui lòng hoàn tất thanh toán trước ' . date('d/m/Y H:i', (int)$time) . '.';
+                    }
+                    $status['_class'] = 'nobuy';
                 }
-                $status['_class'] = 'nobuy';
             } else if ($order['status'] == 4) {
                 if ($order['delivery_type'] == 'send') {//TODO giao hàng
                     $status['_type'] = 1;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery'], 'change_time')) . 'Nhà cung cấp dịch vụ đã giao hàng';
+                    $status['_title'] = 'Đang giao hàng';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Shop đã bàn giao đơn vị giao hàng.';
                     $status['_class'] = 'state-ysh';
                 } elseif ($order['delivery_type'] == 'express') {//TODO  vận chuyển
                     $status['_type'] = 1;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_goods'], 'change_time')) . 'Nhà cung cấp dịch vụ đã chuyển hàng';
+                    $status['_title'] = 'Đang giao hàng';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_goods'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Đơn vị vận chuyển đã lấy hàng.';
                     $status['_class'] = 'state-ysh';
                 } elseif ($order['delivery_type'] == 'split') {//Chia lô hàng
                     $status['_type'] = 1;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_part_split'], 'change_time')) . 'Nhà cung cấp dịch vụ đã chia nhiều gói hàng để giao hàng';
+                    $status['_title'] = 'Đang giao hàng (chia lô)';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_part_split'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Một phần kiện hàng đã được gửi.';
                     $status['_class'] = 'state-ysh';
                 } else {
                     $status['_type'] = 1;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_fictitious'], 'change_time')) . 'Nhà cung cấp dịch vụ đã giao hàng ảo';
+                    $status['_title'] = 'Đang xử lý';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_fictitious'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Đơn hàng ảo đã được kích hoạt.';
                     $status['_class'] = 'state-ysh';
                 }
             } else if ($order['refund_status'] == 1) {
                 if (in_array($order['refund_type'], [0, 1, 2])) {
                     $status['_type'] = -1;
-                    $status['_title'] = 'Nộp đơn xin hoàn tiền';
-                    $status['_msg'] = 'Người bán đang được xem xét,Vui lòng chờ';
+                    $status['_title'] = 'Đang hoàn tiền';
+                    $status['_msg'] = 'Shop đang xử lý yêu cầu hoàn tiền / đổi trả của bạn.';
                     $status['_class'] = 'state-sqtk';
                 } elseif ($order['refund_type'] == 4) {
                     $status['_type'] = -1;
-                    $status['_title'] = 'Nộp đơn xin hoàn tiền';
-                    $status['_msg'] = 'Người bán đồng ý hoàn tiền,Vui lòng điền số đơn hàng trả lại';
+                    $status['_title'] = 'Đang hoàn tiền';
+                    $status['_msg'] = 'Shop đã đồng ý. Vui lòng gửi trả hàng và điền mã vận đơn.';
                     $status['_class'] = 'state-sqtk';
                     $status['refund_name'] = sys_config('refund_name', '');
                     $status['refund_phone'] = sys_config('refund_phone', '');
                     $status['refund_address'] = sys_config('refund_address', '');
                 } elseif ($order['refund_type'] == 5) {
                     $status['_type'] = -1;
-                    $status['_title'] = 'Nộp đơn xin hoàn tiền';
-                    $status['_msg'] = 'Chờ người bán nhận hàng';
+                    $status['_title'] = 'Đang hoàn tiền';
+                    $status['_msg'] = 'Đã gửi hàng trả. Shop đang chờ nhận.';
                     $status['_class'] = 'state-sqtk';
                     $status['refund_name'] = sys_config('refund_name', '');
                     $status['refund_phone'] = sys_config('refund_phone', '');
@@ -317,17 +349,17 @@ class StoreOrderServices extends BaseServices
             } else if ($order['refund_status'] == 2 || $order['refund_type'] == 6) {
                 $status['_type'] = -2;
                 $status['_title'] = 'Đã hoàn tiền';
-                $status['_msg'] = 'Bạn đã được hoàn lại tiền,cảm ơn sự hỗ trợ của bạn';
+                $status['_msg'] = 'Đơn hàng đã được hoàn tiền. Cảm ơn bạn đã mua sắm!';
                 $status['_class'] = 'state-sqtk';
             } else if ($order['refund_status'] == 3) {
                 $status['_type'] = -1;
-                $status['_title'] = 'Hoàn tiền một phần (đơn hàng phụ）';
-                $status['_msg'] = 'Chia lô hàng, hoàn lại một phần';
+                $status['_title'] = 'Đang hoàn tiền (một phần)';
+                $status['_msg'] = 'Đơn chia lô: đã hoàn một phần tiền.';
                 $status['_class'] = 'state-sqtk';
             } else if ($order['refund_status'] == 4) {
                 $status['_type'] = -1;
-                $status['_title'] = 'Tất cả đơn hàng phụ đã được áp dụng để hoàn lại tiền.';
-                $status['_msg'] = 'Chia lô hàng, hoàn lại toàn bộ số tiền';
+                $status['_title'] = 'Đang hoàn tiền';
+                $status['_msg'] = 'Đơn chia lô: các kiện phụ đang trong quy trình hoàn.';
                 $status['_class'] = 'state-sqtk';
             } else if (!$order['status']) {
                 if ($order['pink_id']) {
@@ -340,63 +372,71 @@ class StoreOrderServices extends BaseServices
                         $status['_class'] = 'state-nfh';
                     } else {
                         $status['_type'] = 1;
-                        $status['_title'] = 'Không được vận chuyển';
-                        $status['_msg'] = 'Người bán chưa vận chuyển sản phẩm,Vui lòng chờ';
+                        $status['_title'] = 'Đang xử lý';
+                        $status['_msg'] = 'Đơn mua chung đã đủ người. Shop đang chuẩn bị hàng.';
                         $status['_class'] = 'state-nfh';
                     }
                 } else {
                     if ($order['shipping_type'] === 1) {
                         $status['_type'] = 1;
-                        $status['_title'] = 'Không được vận chuyển';
+                        $status['_title'] = 'Đang xử lý';
                         if ($order['advance_id']) {
-                            $status['_msg'] = date('Y-m-d', $order['cartInfo'][0]['productInfo']['presale_end_time']) . 'Sau khi đợt bán trước kết thúc' . $order['cartInfo'][0]['productInfo']['presale_day'] . 'Giao hàng trong ngày,Vui lòng chờ';
+                            $status['_msg'] = 'Đặt trước: sau ' . date('d/m/Y', (int)$order['cartInfo'][0]['productInfo']['presale_end_time']) . ', shop giao trong ' . ($order['cartInfo'][0]['productInfo']['presale_day'] ?? '') . ' ngày.';
                         } else {
-                            $status['_msg'] = 'Người bán chưa vận chuyển sản phẩm,Vui lòng chờ';
+                            $status['_msg'] = 'Shop đang chuẩn bị và gói hàng.';
                         }
                         $status['_class'] = 'state-nfh';
                     } elseif ($order['shipping_type'] === 2) {
                         $status['_type'] = 1;
-                        $status['_title'] = 'Chờ xử lý';
-                        $status['_msg'] = 'Chờ xử lý,Vui lòng đến điểm xác minh để xác minh';
+                        $status['_title'] = 'Đang xử lý';
+                        $status['_msg'] = 'Đơn nhận tại cửa hàng — chờ xác nhận.';
                         $status['_class'] = 'state-nfh';
                     } else {
                         $status['_type'] = 1;
-                        $status['_title'] = 'Sẽ được thu thập';
-                        $status['_msg'] = 'Đang chờ thu thập, chuyển quà cho bạn bè!';
+                        $status['_title'] = 'Đang xử lý';
+                        $status['_msg'] = 'Đang chờ gửi quà.';
                         $status['_class'] = 'state-nfh';
                     }
                 }
             } else if ($order['status'] == 1) {
                 if ($order['delivery_type'] == 'send') {//TODO giao hàng
                     $status['_type'] = 2;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery'], 'change_time')) . 'Nhà cung cấp dịch vụ đã giao hàng';
+                    $status['_title'] = 'Chờ nhận hàng';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Đơn đang được giao tới bạn. Kiểm tra đơn hàng và nhấn "Đã nhận" khi nhận đủ hàng.';
                     $status['_class'] = 'state-ysh';
                 } elseif ($order['delivery_type'] == 'express') {//TODO  vận chuyển
                     $status['_type'] = 2;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_goods'], 'change_time')) . 'Nhà cung cấp dịch vụ đã chuyển hàng';
+                    $status['_title'] = 'Chờ nhận hàng';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_goods'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Đơn đang được giao tới bạn. Kiểm tra đơn hàng và nhấn "Đã nhận" khi nhận đủ hàng.';
                     $status['_class'] = 'state-ysh';
                 } elseif ($order['delivery_type'] == 'split') {//Chia lô hàng
                     $status['_type'] = 2;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_split'], 'change_time')) . 'Nhà cung cấp dịch vụ đã chia nhiều gói hàng để giao hàng';
+                    $status['_title'] = 'Chờ nhận hàng';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_split'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Đơn chia nhiều kiện — chờ nhận đủ.';
                     $status['_class'] = 'state-ysh';
                 } else {
                     $status['_type'] = 2;
-                    $status['_title'] = 'Đang chờ nhận';
-                    $status['_msg'] = date('mTháng d ngày H giờ tôi phút', $statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_fictitious'], 'change_time')) . 'Nhà cung cấp dịch vụ đã giao hàng ảo';
+                    $status['_title'] = 'Chờ nhận hàng';
+                    $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery_fictitious'], 'change_time');
+                    $fmt = $this->formatOrderStatusTime($ts);
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Hàng đã gửi (đơn ảo). Kiểm tra và xác nhận.';
                     $status['_class'] = 'state-ysh';
                 }
             } else if ($order['status'] == 2) {
                 $status['_type'] = 3;
-                $status['_title'] = 'Đang chờ đánh giá';
-                $status['_msg'] = 'Hàng đã nhận,Hãy đi và đánh giá nó ngay bây giờ';
+                $status['_title'] = 'Chờ đánh giá';
+                $status['_msg'] = 'Bạn đã nhận hàng. Hãy đánh giá sản phẩm.';
                 $status['_class'] = 'state-ypj';
             } else if ($order['status'] == 3) {
                 $status['_type'] = 4;
-                $status['_title'] = 'giao dịch đã hoàn tất';
-                $status['_msg'] = 'giao dịch đã hoàn tất,cảm ơn sự hỗ trợ của bạn';
+                $status['_title'] = 'Hoàn tất';
+                $status['_msg'] = 'Đơn hàng đã hoàn tất. Cảm ơn bạn!';
                 $status['_class'] = 'state-ytk';
             }
         }

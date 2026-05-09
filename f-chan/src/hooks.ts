@@ -460,6 +460,18 @@ export function useCheckout() {
       });
 
       await handleCrmebPayment({ payInfo, client, uni: orderId, payType });
+
+      if (payType === "vn_bank") {
+        toast.success(
+          "Đã tạo đơn. Vui lòng chuyển khoản theo hướng dẫn và chờ shop xác nhận."
+        );
+      } else if (payType === "vn_cod") {
+        toast.success("Đặt hàng thành công. Bạn thanh toán khi nhận hàng.");
+      } else if (payType === "offline") {
+        toast.success("Đã tạo đơn. Đang chờ cửa hàng xác nhận thanh toán.");
+      } else {
+        toast.success("Đặt hàng thành công.");
+      }
     } catch (error) {
       console.warn(error);
       toast.error(

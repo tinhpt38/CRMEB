@@ -574,14 +574,11 @@ export default {
       }
       return this.statusNum;
     },
+    /** Đơn chưa ghi nhận tiền — `_type` 0 (chờ TT online) hoặc 9 (COD / CK / offline chờ xác nhận) */
     isUnpaidStage() {
-      return (
-        this.paidNum === 0 &&
-        (this.orderStatusCode === 0 ||
-          this.orderStatusCode === 1 ||
-          this.statusNum === 0 ||
-          this.statusTitle.includes('Chưa thanh toán'))
-      );
+      if (this.paidNum !== 0 || this.isDelNum === 1 || this.isCancelNum === 1) return false;
+      const code = Number(this.orderStatusCode);
+      return code === 0 || code === 9;
     },
     canConfirmPayment() {
       return (

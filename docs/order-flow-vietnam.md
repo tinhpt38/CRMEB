@@ -135,15 +135,13 @@ Admin có thể thêm cột “trạng thái vận hành” chi tiết hơn (so�
 
 ---
 
-## 7. Mapping nội bộ CRMEB (làm việc tiếp)
+## 7. Mapping nội bộ CRMEB
 
-Khi implement, bổ sung bảng ánh xạ cụ thể:
+Bảng truth-table, checklist QA và backlog giai đoạn 4: **[order-flow-vietnam-mapping.md](./order-flow-vietnam-mapping.md)** (phiên bản mapping ghi trong file đó).
 
-| Hiển thị (§2.2) | Điều kiện `paid`, `status`, `refund_status`, `pay_type`, `is_cancel`, … |
-|-----------------|---------------------------------------------------------------------------|
-| (điền khi dev) | (điền khi dev) |
+**Client triển khai UX:** Mini App **f-chan** (`f-chan/src/…`). Không dùng `template/uni-app` trong rollout flow VN này.
 
-Gợi ý chỗ chỉnh trong codebase: `StoreOrderServices` (ví dụ `tidyOrder` / `_status`), trang cashier UniApp, `order_details`, màn chi tiết admin `orderDetails.vue`.
+**Code chỉnh chính:** `StoreOrderServices::tidyOrder`, `OutStoreOrderServices` (`status_name`), filter admin đơn hàng, `orderDetails.vue`, và mapper đơn trong `f-chan/src/state.ts`.
 
 ---
 
@@ -152,6 +150,7 @@ Gợi ý chỗ chỉnh trong codebase: `StoreOrderServices` (ví dụ `tidyOrder
 | Ngày | Người | Ghi chú |
 |------|-------|---------|
 | 2026-05-09 | — | Khởi tạo bản nháp flow VN + tham chiếu WooCommerce |
+| 2026-05-09 | — | §7 trỏ `order-flow-vietnam-mapping.md`; client f-chan |
 
 ---
 

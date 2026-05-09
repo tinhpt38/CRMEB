@@ -118,6 +118,7 @@ export default {
         { label: 'Thanh toán ngoại tuyến', val: '3' },
         { label: 'Thanh toán khi nhận hàng (COD)', val: '5' },
         { label: 'Chuyển khoản / VietQR', val: '6' },
+        { label: 'CK/VietQR — chưa đối soát', val: '7' },
       ],
       pickerOptions: timeOptions,
     };

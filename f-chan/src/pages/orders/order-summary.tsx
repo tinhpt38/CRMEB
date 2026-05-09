@@ -5,29 +5,35 @@ import { formatPrice } from "@/utils/format";
 import CollapsibleOrderItems from "./collapsible-order-items";
 import { useNavigate } from "react-router-dom";
 
+function statusChip(order: Order): string {
+  if (order.statusTitle) return order.statusTitle;
+  return (
+    {
+      pending: "Đang xử lý",
+      success: "Đã thanh toán",
+      failed: "Thanh toán thất bại",
+    }[order.paymentStatus] ?? ""
+  );
+}
+
 function OrderSummary(props: { order: Order; full?: boolean }) {
   const navigate = useNavigate();
+  const chip = statusChip(props.order);
   return (
     <Section
       title={
         <div className="w-full flex justify-between items-center space-x-2 font-normal">
-          <span className="text-xs truncate">
-            Thời gian nhận: Từ 16h, 20/1/2025
+          <span className="text-xs truncate text-subtitle">
+            {props.order.id ? `#${props.order.id}` : ""}
           </span>
           <span
-            className={`text-xs ${
+            className={`text-xs shrink-0 ${
               props.order.paymentStatus === "failed"
                 ? "text-danger"
                 : "text-primary"
             }`}
           >
-            {
-              {
-                pending: "Chờ xác nhận",
-                success: "Đã thanh toán",
-                failed: "Thanh toán thất bại",
-              }[props.order.paymentStatus]
-            }
+            {chip}
           </span>
         </div>
       }

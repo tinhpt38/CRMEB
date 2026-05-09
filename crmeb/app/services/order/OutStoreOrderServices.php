@@ -215,48 +215,69 @@ class OutStoreOrderServices extends BaseServices
 //        } else if ($order['status'] == 3) {
 //            $order['status_name'] = 'giao dịch đã hoàn tất';
 //        }
-        // Xử lý tình trạng chưa thanh toán
+        // Hiển thị status_name (đồng bộ tinh thần StoreOrderServices::tidyOrder — flow VN)
+        $payType = (string)($order['pay_type'] ?? '');
         if (!$order['paid']) {
-            if ($order['pay_type'] == 'offline') {
-                $order['status_name'] = 'Thanh toán ngoại tuyến,Chưa thanh toán';
-            } else {
-                $order['status_name'] = 'Chưa thanh toán';
+            switch ($payType) {
+                case PayServices::VN_BANK:
+                    $order['status_name'] = 'Chờ xác nhận chuyển khoản';
+                    break;
+                case PayServices::VN_COD:
+                    $order['status_name'] = 'Đặt hàng thành công (COD)';
+                    break;
+                case PayServices::OFFLINE_PAY:
+                    $order['status_name'] = ((int)$order['status'] < 2)
+                        ? 'Chờ xác nhận thanh toán'
+                        : 'Chờ thanh toán';
+                    break;
+                default:
+                    $order['status_name'] = 'Chờ thanh toán';
+                    break;
             }
-        } elseif ($order['status'] == 4 || $order['status'] == 1) { // Hợp nhất logic cho hàng hóa được nhận
-            $order['status_name'] = 'Đang chờ nhận';
         } elseif ($order['refund_status'] == 1) {
-            if (in_array($order['refund_type'], [0, 1, 2, 4, 5])) {
-                $order['status_name'] = 'Nộp đơn xin hoàn tiền';
+            if (in_array($order['refund_type'], [0, 1, 2])) {
+                $order['status_name'] = 'Đang hoàn tiền';
+            } elseif ($order['refund_type'] == 4) {
+                $order['status_name'] = 'Đang hoàn tiền — chờ gửi trả hàng';
+            } elseif ($order['refund_type'] == 5) {
+                $order['status_name'] = 'Đang hoàn tiền — chờ shop nhận hàng trả';
+            } else {
+                $order['status_name'] = 'Đang hoàn tiền';
             }
-        } elseif ($order['refund_status'] == 2 || $order['refund_type'] == 6) {
+        } elseif ($order['refund_status'] == 2 || (isset($order['refund_type']) && $order['refund_type'] == 6)) {
             $order['status_name'] = 'Đã hoàn tiền';
         } elseif ($order['refund_status'] == 3) {
-            $order['status_name'] = 'Hoàn tiền một phần (đơn hàng phụ）';
+            $order['status_name'] = 'Đang hoàn tiền (một phần)';
         } elseif ($order['refund_status'] == 4) {
-            $order['status_name'] = 'Tất cả đơn hàng phụ đang được áp dụng để hoàn lại tiền';
-        } elseif (!$order['status']) {
+            $order['status_name'] = 'Đang hoàn tiền (đơn chia lô)';
+        } elseif ((int)$order['status'] === 4) {
+            $order['status_name'] = 'Đang giao hàng';
+        } elseif (!(int)$order['status']) {
             if ($order['pink_id']) {
                 /** @var StorePinkServices $pinkServices */
                 $pinkServices = app()->make(StorePinkServices::class);
                 if ($pinkServices->getCount(['id' => $order['pink_id'], 'status' => 1])) {
-                    $order['status_name'] = 'Tham gia nhóm';
+                    $order['status_name'] = 'Tham gia nhóm mua chung';
                 } else {
-                    $order['status_name'] = 'Không được vận chuyển';
+                    $order['status_name'] = 'Đang xử lý';
                 }
             } else {
                 if ($order['shipping_type'] === 1) {
-                    $order['status_name'] = 'Không được vận chuyển';
+                    $order['status_name'] = 'Đang xử lý';
+                } elseif ($order['shipping_type'] === 2) {
+                    $order['status_name'] = 'Chờ xử lý tại cửa hàng';
                 } else {
-                    $order['status_name'] = 'Chờ xử lý';
+                    $order['status_name'] = 'Đang xử lý';
                 }
             }
-        } elseif ($order['status'] == 2) {
-            $order['status_name'] = 'Đang chờ đánh giá';
-        } elseif ($order['status'] == 3) {
-            $order['status_name'] = 'giao dịch đã hoàn tất';
+        } elseif ((int)$order['status'] === 1) {
+            $order['status_name'] = 'Chờ nhận hàng';
+        } elseif ((int)$order['status'] === 2) {
+            $order['status_name'] = 'Chờ đánh giá';
+        } elseif ((int)$order['status'] === 3) {
+            $order['status_name'] = 'Hoàn tất';
         } else {
-            // Xử lý trạng thái không xác định
-            $order['status_name'] = 'trạng thái không xác định';
+            $order['status_name'] = 'Không xác định';
         }
         unset($order['pink_id'], $order['refund_type']);
         return $order;

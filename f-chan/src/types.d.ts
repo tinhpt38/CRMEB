@@ -120,6 +120,16 @@ export interface Order {
   payTypeName?: string;
   /** Hướng dẫn CK/VietQR (cấu hình cửa hàng) khi đơn dùng vn_bank */
   bankPayGuide?: string;
+  /** URL ảnh QR CK (CRMEB `vn_bank_pay_qr_image`) */
+  bankPayQrUrl?: string;
+  /** `_status._title` từ CRMEB */
+  statusTitle?: string;
+  /** `_status._msg` */
+  statusMessage?: string;
+  /** `_status._type` — khớp ảnh trạng thái / logic tab */
+  crmebStatusType?: number;
+  /** Unix timestamp — hết hạn giữ đơn thanh toán (`stop_time`) */
+  stopTime?: number;
 }
 
 /**

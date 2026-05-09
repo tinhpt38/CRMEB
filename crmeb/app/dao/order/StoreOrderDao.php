@@ -167,6 +167,10 @@ class StoreOrderDao extends BaseDao
                 case 6:
                     $query->where('pay_type', 'vn_bank');
                     break;
+                /** CK/VietQR chưa đối soát (preset admin — flow VN) */
+                case 7:
+                    $query->where('pay_type', 'vn_bank')->where('paid', 0)->where('is_cancel', 0);
+                    break;
             }
         })->when($realName && $fieldKey && in_array($fieldKey, $this->withField), function ($query) use ($where, $realName, $fieldKey) {
             if ($fieldKey !== 'title') {

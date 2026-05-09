@@ -562,11 +562,13 @@ export const shippingAddressState = atomWithStorage<
 
 function toOrderStatusFromCrmeb(raw: any): OrderStatus {
   const type = raw?._status?._type;
-  if (type === 1) return "pending";
-  if (type === 2 || type === 3) return "shipping";
+  if (type === -2) return "completed";
+  if (type === -1) return "shipping";
   if (type === 4) return "completed";
+  if (type === 3 || type === 2) return "shipping";
+  if (type === 1) return "pending";
+  if (type === 0 || type === 9) return "pending";
 
-  // Fallbacks (sometimes response might provide numeric order status)
   const numeric = raw?.status;
   if (numeric === 0) return "pending";
   if (numeric === 1 || numeric === 2) return "shipping";
@@ -642,6 +644,23 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
       : "";
   const payTypeName = statusPay || String(raw?.pay_type_name ?? "").trim();
   const bankPayGuide = String(raw?.vn_bank_pay_guide ?? "").trim();
+  const bankQrRaw = String(raw?.vn_bank_pay_qr_image ?? "").trim();
+  const bankPayQrUrl = bankQrRaw ? resolveImageUrl(bankQrRaw, apiUrl) : "";
+  const st = raw?._status && typeof raw._status === "object" ? raw._status : {};
+  const statusTitle = String(st._title ?? "").trim();
+  const statusMessage = String(st._msg ?? "").trim();
+  const crmebStatusTypeRaw = st._type;
+  const crmebStatusTypeNum =
+    typeof crmebStatusTypeRaw === "number"
+      ? crmebStatusTypeRaw
+      : Number(crmebStatusTypeRaw);
+  const stopRaw = raw?.stop_time;
+  const stopTime =
+    typeof stopRaw === "number"
+      ? stopRaw
+      : stopRaw
+        ? Number(stopRaw)
+        : undefined;
 
   return {
     id: String(raw?.order_id ?? raw?.id ?? raw?.uni ?? ""),
@@ -656,6 +675,13 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
     ...(payType ? { payType } : {}),
     ...(payTypeName ? { payTypeName } : {}),
     ...(bankPayGuide ? { bankPayGuide } : {}),
+    ...(bankPayQrUrl ? { bankPayQrUrl } : {}),
+    ...(statusTitle ? { statusTitle } : {}),
+    ...(statusMessage ? { statusMessage } : {}),
+    ...(Number.isFinite(crmebStatusTypeNum) ? { crmebStatusType: crmebStatusTypeNum } : {}),
+    ...(stopTime !== undefined && Number.isFinite(stopTime) && stopTime > 0
+      ? { stopTime }
+      : {}),
   };
 }
 

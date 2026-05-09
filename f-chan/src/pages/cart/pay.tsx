@@ -106,6 +106,10 @@ export default function Pay() {
           Thanh toán
         </Button>
       </div>
+      <p className="text-[11px] text-subtitle leading-snug">
+        COD: thanh toán khi nhận hàng. CK/VietQR: chuyển khoản và chờ shop đối soát.
+        Ngoại tuyến: cửa hàng xác nhận thủ công.
+      </p>
       <div className="space-y-1">
         <div className="text-xs text-subtitle">Phương thức thanh toán</div>
         <div className="grid grid-cols-3 gap-2">
