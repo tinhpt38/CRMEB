@@ -288,8 +288,29 @@ Route::group('setting', function () {
         Route::get('notification/info', 'v1.setting.SystemNotification/info')->option(['real_name' => 'Nhận dữ liệu thông báo duy nhất']);
         //Lưu cài đặt thông báo
         Route::post('notification/save', 'v1.setting.SystemNotification/save')->option(['real_name' => 'Lưu cài đặt thông báo']);
+        //Gửi thử thông báo Telegram
+        Route::post('notification/test_telegram', 'v1.setting.SystemNotification/testTelegram')->option(['real_name' => 'Gửi thử thông báo Telegram']);
         //Sửa đổi trạng thái tin nhắn
         Route::put('notification/set_status/:type/:status/:id', 'v1.setting.SystemNotification/set_status')->option(['real_name' => 'Sửa đổi trạng thái tin nhắn']);
+
+        //Danh sách kênh Telegram để chọn trong từng thông báo
+        Route::get('notification/telegram_channels', 'v1.setting.NoticeChannel/telegramOptions')->option(['real_name' => 'Danh sách kênh Telegram']);
+    })->option(['parent' => 'setting', 'cate_name' => 'Thông báo hệ thống']);
+
+    /** Kênh thông báo tập trung */
+    Route::group(function () {
+        //Danh sách kênh
+        Route::get('notice_channel/index', 'v1.setting.NoticeChannel/index')->option(['real_name' => 'Danh sách kênh thông báo']);
+        //Thêm kênh
+        Route::post('notice_channel/save', 'v1.setting.NoticeChannel/save')->option(['real_name' => 'Thêm kênh thông báo']);
+        //Sửa kênh
+        Route::post('notice_channel/update/:id', 'v1.setting.NoticeChannel/update')->option(['real_name' => 'Sửa kênh thông báo']);
+        //Chuyển trạng thái
+        Route::put('notice_channel/set_status/:id/:status', 'v1.setting.NoticeChannel/setStatus')->option(['real_name' => 'Sửa trạng thái kênh']);
+        //Xóa kênh
+        Route::delete('notice_channel/delete/:id', 'v1.setting.NoticeChannel/delete')->option(['real_name' => 'Xóa kênh thông báo']);
+        //Gửi thử Telegram
+        Route::post('notice_channel/test_telegram', 'v1.setting.NoticeChannel/testTelegram')->option(['real_name' => 'Gửi thử Telegram kênh']);
     })->option(['parent' => 'setting', 'cate_name' => 'Thông báo hệ thống']);
 
     /** Thỏa thuận bản quyền */

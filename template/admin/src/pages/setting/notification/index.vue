@@ -24,6 +24,7 @@
       <el-row class="mb14" v-if="currentTab == 3">
         <el-col>
           <el-button type="primary" v-db-click @click="notificationForm(0)">Thêm thông báo</el-button>
+          <el-button type="primary" plain v-db-click @click="goChannelPage">Kênh thông báo</el-button>
         </el-col>
       </el-row>
       <el-alert v-if="currentTab == 1" type="warning" :closable="false">
@@ -120,6 +121,22 @@
               :value="scope.row.is_ent_wechat"
               @change="changeSwitch($event, scope.row, 'is_ent_wechat')"
               size="large"
+            >
+            </el-switch>
+            <div v-else>-</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="Telegram" min-width="130" v-if="currentTab != 1">
+          <template slot-scope="scope">
+            <el-switch
+              v-if="scope.row.is_telegram !== 0"
+              :active-value="1"
+              :inactive-value="2"
+              v-model="scope.row.is_telegram"
+              :value="scope.row.is_telegram"
+              @change="changeSwitch($event, scope.row, 'is_telegram')"
+              size="large"
+              :disabled="scope.row.is_telegram == 0"
             >
             </el-switch>
             <div v-else>-</div>
@@ -227,6 +244,11 @@ export default {
     setting(row) {
       this.$router.push({
         path: this.$routeProStr + '/setting/notification/notificationEdit?id=' + row.id,
+      });
+    },
+    goChannelPage() {
+      this.$router.push({
+        path: this.$routeProStr + '/setting/notification/channel',
       });
     },
     getData(keys, row, item) {

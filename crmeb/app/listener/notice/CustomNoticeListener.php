@@ -34,6 +34,7 @@ class CustomNoticeListener implements ListenerInterface
             if ($item['is_wechat'] == 1) $this->sendWechat($uid, $item, $infoData);
             if ($item['is_routine'] == 1) $this->sendRoutine($uid, $item, $infoData);
             if ($item['is_ent_wechat'] == 1) $this->sendEntWechat($uid, $item, $infoData);
+            if (($item['is_telegram'] ?? 0) == 1) $this->sendTelegram($item, $infoData);
         }
     }
 
@@ -162,6 +163,31 @@ class CustomNoticeListener implements ListenerInterface
             ]));
         } catch (\Throwable $e) {
             Log::error('Không gửi được tin nhắn nhóm doanh nghiệp,Lý do thất bại:' . $e->getMessage());
+        }
+    }
+
+    public function sendTelegram($noticeData, $infoData)
+    {
+        try {
+            $botToken = trim((string)($noticeData['telegram_bot_token'] ?? ''));
+            $chatId = trim((string)($noticeData['telegram_chat_id'] ?? ''));
+            $str = (string)($noticeData['telegram_text'] ?? '');
+            if ($botToken === '' || $chatId === '' || $str === '') {
+                return true;
+            }
+            preg_match_all('/\{(\w+)\}/', $str, $matches);
+            $sendData = $matches[1];
+            foreach ($sendData as $sendItem) {
+                $str = str_replace("{" . $sendItem . "}", (string)($infoData[$sendItem] ?? ''), $str);
+            }
+            HttpService::postRequest('https://api.telegram.org/bot' . $botToken . '/sendMessage', [
+                'chat_id' => $chatId,
+                'text' => $str,
+                'parse_mode' => 'HTML',
+                'disable_web_page_preview' => true,
+            ]);
+        } catch (\Throwable $e) {
+            Log::error('Không gửi được Telegram,Lý do thất bại:' . $e->getMessage());
         }
     }
 }

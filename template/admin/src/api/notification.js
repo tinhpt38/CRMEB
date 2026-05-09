@@ -64,3 +64,25 @@ export function notificationForm(id) {
     method: 'get',
   });
 }
+
+/**
+ * @description Gửi thử thông báo Telegram
+ * @param {Object} data
+ */
+export function testTelegramNotification(data) {
+  return request({
+    url: `setting/notification/test_telegram`,
+    method: 'post',
+    data,
+  });
+}
+
+/**
+ * @description Danh sách kênh Telegram đang hoạt động
+ */
+export function getTelegramChannels() {
+  return request({
+    url: `setting/notification/telegram_channels`,
+    method: 'get',
+  });
+}

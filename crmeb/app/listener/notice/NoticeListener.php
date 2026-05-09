@@ -18,6 +18,7 @@ use app\services\message\notice\{
     RoutineTemplateListService,
     SmsService,
     SystemMsgService,
+    TelegramService,
     WechatTemplateListService
 };
 use app\services\order\StoreOrderCartInfoServices;
@@ -83,7 +84,8 @@ class NoticeListener implements ListenerInterface
             'Routine' => app()->make(RoutineTemplateListService::class),
             'SysMsg' => app()->make(SystemMsgService::class),
             'WeWork' => app()->make(EnterpriseWechatService::class),
-            'Sms' => app()->make(SmsService::class)
+            'Sms' => app()->make(SmsService::class),
+            'Telegram' => app()->make(TelegramService::class)
         ];
     }
 
@@ -117,6 +119,7 @@ class NoticeListener implements ListenerInterface
                 $this->getNoticeService('Wechat')->setEvent($mark);     //tin nhắn mẫu
                 $this->getNoticeService('Routine')->setEvent($mark);    //Đăng ký nhận tin tức
                 $this->getNoticeService('WeWork')->setEvent($mark);     //Tin nhắn WeChat doanh nghiệp
+                $this->getNoticeService('Telegram')->setEvent($mark);   //Tin nhắn Telegram
                 if (isset($this->eventMethods[$mark])) {
                     $method = $this->eventMethods[$mark];
                     call_user_func([$this, $method], $data);
@@ -592,6 +595,13 @@ class NoticeListener implements ListenerInterface
         $this->getNoticeService('Wechat')->sendAdminOrder($order['order_id'], $storeName, $title, $status, $link);
         //Thông báo WeChat doanh nghiệp
         $this->getNoticeService('WeWork')->weComSend(['order_id' => $order['order_id']]);
+        //Thông báo Telegram cho nội bộ
+        $this->getNoticeService('Telegram')->send([
+            'order_id' => $order['order_id'],
+            'pay_price' => $order['pay_price'] ?? '',
+            'real_name' => $order['real_name'] ?? '',
+            'user_phone' => $order['user_phone'] ?? '',
+        ]);
         return true;
     }
 
@@ -623,6 +633,13 @@ class NoticeListener implements ListenerInterface
         $this->getNoticeService('Wechat')->sendAdminOrder($order['order_id'], $storeName, $title, $status, $link);
         //Thông báo WeChat doanh nghiệp
         $this->getNoticeService('WeWork')->weComSend(['storeTitle' => $storeTitle, 'order_id' => $order['order_id']]);
+        //Thông báo Telegram cho nội bộ
+        $this->getNoticeService('Telegram')->send([
+            'order_id' => $order['order_id'],
+            'storeTitle' => $storeTitle,
+            'real_name' => $order['real_name'] ?? '',
+            'user_phone' => $order['user_phone'] ?? '',
+        ]);
         return true;
     }
 
@@ -653,6 +670,14 @@ class NoticeListener implements ListenerInterface
         $this->getNoticeService('Wechat')->sendAdminOrder($order['refund_no'], $storeName, $title, $status, $link);
         //Thông báo WeChat doanh nghiệp
         $this->getNoticeService('WeWork')->weComSend(['order_id' => $order['order_id']]);
+        //Thông báo Telegram cho nội bộ
+        $this->getNoticeService('Telegram')->send([
+            'order_id' => $order['order_id'],
+            'refund_no' => $order['refund_no'] ?? '',
+            'refund_price' => $order['refund_price'] ?? '',
+            'real_name' => $order['real_name'] ?? '',
+            'user_phone' => $order['user_phone'] ?? '',
+        ]);
         return true;
     }
 

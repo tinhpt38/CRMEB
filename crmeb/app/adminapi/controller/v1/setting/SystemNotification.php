@@ -130,12 +130,17 @@ class SystemNotification extends AuthController
             ['is_routine', 0],
             ['is_sms', 0],
             ['is_ent_wechat', 0],
+            ['is_telegram', 0],
             ['system_title', ''],
             ['system_text', ''],
             ['tempid', ''],
             ['tempkey', ''],
             ['content', ''],
             ['ent_wechat_text', ''],
+            ['telegram_bot_token', ''],
+            ['telegram_chat_id', ''],
+            ['telegram_text', ''],
+            ['notice_channel_id', 0],
             ['url', ''],
             ['wechat_id', ''],
             ['routine_id', ''],
@@ -175,5 +180,21 @@ class SystemNotification extends AuthController
         $res = $this->services->getOneNotce(['id' => $id]);
         CacheService::clear();
         return app('json')->success('Thiết lập thành công');
+    }
+
+    /**
+     * Gửi thử thông báo Telegram.
+     * @return mixed
+     */
+    public function testTelegram()
+    {
+        $data = $this->request->postMore([
+            ['id', 0],
+            ['telegram_bot_token', ''],
+            ['telegram_chat_id', ''],
+            ['telegram_text', ''],
+        ]);
+        $this->services->testTelegram($data);
+        return app('json')->success('Đã gửi thử Telegram');
     }
 }

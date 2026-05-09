@@ -251,6 +251,81 @@
                     </el-radio-group>
                   </el-form-item>
                 </div>
+                <div v-else-if="item.slot === 'is_telegram' && !loading">
+                  <el-form-item label="Kênh Telegram：" prop="notice_channel_id">
+                    <el-select v-model="formData.notice_channel_id" placeholder="Vui lòng chọn kênh" style="width: 500px">
+                      <el-option
+                        v-for="channel in telegramChannels"
+                        :key="channel.id"
+                        :label="`${channel.name} (${channel.channel_key})`"
+                        :value="channel.id"
+                      />
+                    </el-select>
+                    <div class="tips-info">Kênh được quản lý tập trung trong trang Kênh thông báo.</div>
+                  </el-form-item>
+                  <el-form-item label="Bot Token：">
+                    <el-input
+                      v-model="formData.telegram_bot_token"
+                      placeholder="Vui lòng nhập Telegram Bot Token"
+                      style="width: 500px"
+                    ></el-input>
+                  </el-form-item>
+                  <el-form-item label="Chat ID：">
+                    <el-input
+                      v-model="formData.telegram_chat_id"
+                      placeholder="Vui lòng nhập Chat ID hoặc Group ID"
+                      style="width: 500px"
+                    ></el-input>
+                  </el-form-item>
+                  <el-form-item label="Nội dung thông báo：">
+                    <div class="content">
+                      <el-input
+                        id="telegram_text"
+                        v-model="formData.telegram_text"
+                        type="textarea"
+                        :autosize="{ minRows: 5, maxRows: 8 }"
+                        placeholder="Vui lòng nhập nội dung thông báo, ví dụ: Đơn hàng mới #{order_id}"
+                        style="width: 500px"
+                      ></el-input>
+                      <div class="value-list" v-if="formData.type_n == 3">
+                        <el-popover placement="right" width="200" trigger="click">
+                          <div class="variable">
+                            <div
+                              class="item"
+                              v-db-click
+                              @click="changeValue(i.value, 'telegram_text')"
+                              v-for="(i, index) in formData.custom_variable"
+                              :key="index"
+                            >
+                              {{ i.label }}
+                            </div>
+                          </div>
+
+                          <i class="el-icon-link" slot="reference"></i>
+                        </el-popover>
+                      </div>
+                    </div>
+                    <div class="tips-info">
+                      Hỗ trợ biến dạng {order_id}, {pay_price}, {real_name}, {user_phone} theo từng kịch bản.
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="Tình trạng：" prop="is_telegram">
+                    <el-radio-group v-model="formData.is_telegram">
+                      <el-radio :label="1">Bật lên</el-radio>
+                      <el-radio :label="2">Đóng cửa</el-radio>
+                    </el-radio-group>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button
+                      type="warning"
+                      :loading="testTelegramLoading"
+                      v-db-click
+                      @click="handleTestTelegram"
+                    >
+                      Gửi thử Telegram
+                    </el-button>
+                  </el-form-item>
+                </div>
                 <el-form-item>
                   <el-button type="primary" v-db-click @click="handleSubmit('formData')">Nộp</el-button>
                 </el-form-item>
@@ -264,7 +339,7 @@
 </template>
 
 <script>
-import { getNotificationInfo, getNotificationSave } from '@/api/notification.js';
+import { getNotificationInfo, getNotificationSave, testTelegramNotification, getTelegramChannels } from '@/api/notification.js';
 import keysList from './components/keysList.vue';
 export default {
   components: { keysList },
@@ -290,6 +365,10 @@ export default {
         {
           title: 'WeChat doanh nghiệp',
           slot: 'is_ent_wechat',
+        },
+        {
+          title: 'Telegram',
+          slot: 'is_telegram',
         },
       ],
       tabsList: [],
@@ -321,13 +400,21 @@ export default {
         ],
       },
       keyList: [],
+      testTelegramLoading: false,
+      telegramChannels: [],
     };
   },
   created() {
     this.id = this.$route.query.id;
+    this.getTelegramChannels();
     this.getData(this.id, this.tagName, 1);
   },
   methods: {
+    getTelegramChannels() {
+      getTelegramChannels().then((res) => {
+        this.telegramChannels = res.data || [];
+      });
+    },
     handleContentChange(e) {
       if (this.formData.type_n == 3) {
         const regex = /{{(.*?)\./g;
@@ -386,6 +473,28 @@ export default {
         })
         .catch((err) => {
           this.$message.error(err);
+        });
+    },
+    handleTestTelegram() {
+      if (!this.formData.telegram_bot_token || !this.formData.telegram_chat_id || !this.formData.telegram_text) {
+        this.$message.warning('Vui lòng nhập Bot Token, Chat ID và nội dung trước khi gửi thử');
+        return;
+      }
+      this.testTelegramLoading = true;
+      testTelegramNotification({
+        id: this.formData.id,
+        telegram_bot_token: this.formData.telegram_bot_token,
+        telegram_chat_id: this.formData.telegram_chat_id,
+        telegram_text: this.formData.telegram_text,
+      })
+        .then((res) => {
+          this.$message.success(res.msg || 'Đã gửi thử Telegram');
+        })
+        .catch((err) => {
+          this.$message.error(err.msg || 'Gửi thử Telegram thất bại');
+        })
+        .finally(() => {
+          this.testTelegramLoading = false;
         });
     },
     handleReset(name) {

@@ -118,6 +118,15 @@ export default {
       component: () => import('@/pages/setting/notification/notificationEdit'),
     },
     {
+      path: 'notification/channel',
+      name: `${pre}notificationChannel`,
+      meta: {
+        auth: ['setting-notification'],
+        title: 'Kênh thông báo',
+      },
+      component: () => import('@/pages/setting/notification/channel'),
+    },
+    {
       path: 'system_config_logistics/:type?/:tab_id?',
       name: `${pre}logistics`,
       meta: {

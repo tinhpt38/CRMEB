@@ -12,10 +12,12 @@ declare (strict_types=1);
 
 namespace app\services\message;
 
+use app\dao\system\NoticeEventChannelDao;
 use app\dao\system\SystemNotificationDao;
 use app\services\BaseServices;
 use crmeb\exceptions\AdminException;
 use crmeb\services\FormBuilder as Form;
+use crmeb\services\HttpService;
 use think\facade\Route as Url;
 
 /**
@@ -331,7 +333,7 @@ class SystemNotificationServices extends BaseServices
         } else {
             $data['type'] = 3;
             $data['title'] = $data['name'];
-            $data['is_system'] = $data['is_wechat'] = $data['is_routine'] = $data['is_sms'] = $data['is_ent_wechat'] = 2;
+            $data['is_system'] = $data['is_wechat'] = $data['is_routine'] = $data['is_sms'] = $data['is_ent_wechat'] = $data['is_telegram'] = 2;
             $data['add_time'] = time();
             $res = $this->dao->save($data);
         }
@@ -376,10 +378,16 @@ class SystemNotificationServices extends BaseServices
             case 'is_ent_wechat':
                 $info['content'] = $info['ent_wechat_text'];
                 break;
+            case 'is_telegram':
+                $info['content'] = $info['telegram_text'] ?? '';
+                $eventChannelDao = app()->make(NoticeEventChannelDao::class);
+                $channelId = $eventChannelDao->getActiveTelegramChannelIdByEvent((string)$info['mark']);
+                $info['notice_channel_id'] = $channelId;
+                break;
         }
         if ($info['type'] == 3) {
             $info['custom_variable'] = $this->messageData[$info['custom_trigger']];
-            if (in_array($type, ['is_system', 'is_sms', 'is_ent_wechat'])) {
+            if (in_array($type, ['is_system', 'is_sms', 'is_ent_wechat', 'is_telegram'])) {
                 foreach ($info['custom_variable'] as &$item) {
                     $item['value'] = '{' . $item['value'] . '}';
                 }
@@ -452,6 +460,35 @@ class SystemNotificationServices extends BaseServices
                 $update['url'] = $data['url'];
                 $res = $this->dao->update((int)$id, $update);
                 break;
+            case 'is_telegram':
+                $update['name'] = $data['name'];
+                $update['title'] = $data['title'];
+                $update['is_telegram'] = $data['is_telegram'];
+                $update['telegram_bot_token'] = $data['telegram_bot_token'] ?? '';
+                $update['telegram_chat_id'] = $data['telegram_chat_id'] ?? '';
+                $update['telegram_text'] = $data['telegram_text'] ?? '';
+                $res = $this->dao->update((int)$id, $update);
+                $channelId = (int)($data['notice_channel_id'] ?? 0);
+                if ($channelId > 0) {
+                    $eventMark = (string)$info['mark'];
+                    $eventChannelDao = app()->make(NoticeEventChannelDao::class);
+                    $row = $eventChannelDao->getOneByEventAndChannel($eventMark, $channelId);
+                    $saveData = [
+                        'event_mark' => $eventMark,
+                        'channel_id' => $channelId,
+                        'enabled' => (int)$data['is_telegram'] === 1 ? 1 : 0,
+                        'priority' => 10,
+                        'template_text' => (string)($data['telegram_text'] ?? ''),
+                    ];
+                    if ($row) {
+                        $eventChannelDao->update((int)$row->id, $saveData);
+                    } else {
+                        $saveData['add_time'] = time();
+                        $saveData['update_time'] = time();
+                        $eventChannelDao->save($saveData);
+                    }
+                }
+                break;
         }
         return $res;
     }
@@ -483,5 +520,55 @@ class SystemNotificationServices extends BaseServices
     public function getTempKey($type)
     {
         return $this->dao->getTempKey($type);
+    }
+
+    /**
+     * Gửi thử tin nhắn Telegram.
+     * @param array $data
+     * @return bool
+     */
+    public function testTelegram(array $data): bool
+    {
+        $botToken = trim((string)($data['telegram_bot_token'] ?? ''));
+        $chatId = trim((string)($data['telegram_chat_id'] ?? ''));
+        $text = trim((string)($data['telegram_text'] ?? ''));
+        $id = (int)($data['id'] ?? 0);
+
+        if (($botToken === '' || $chatId === '' || $text === '') && $id > 0) {
+            $notice = $this->dao->get($id);
+            if ($notice) {
+                $notice = $notice->toArray();
+                if ($botToken === '') $botToken = trim((string)($notice['telegram_bot_token'] ?? ''));
+                if ($chatId === '') $chatId = trim((string)($notice['telegram_chat_id'] ?? ''));
+                if ($text === '') $text = trim((string)($notice['telegram_text'] ?? ''));
+            }
+        }
+
+        if ($botToken === '' || $chatId === '' || $text === '') {
+            throw new AdminException('Vui lòng nhập đủ Bot Token, Chat ID và nội dung Telegram');
+        }
+
+        $testData = [
+            'order_id' => 'TEST-' . date('YmdHis'),
+            'pay_price' => '0',
+            'refund_no' => 'REFUND-TEST',
+            'refund_price' => '0',
+            'real_name' => 'Khach test',
+            'user_phone' => '0900000000',
+            'storeTitle' => 'San pham test',
+        ];
+
+        foreach ($testData as $key => $value) {
+            $text = str_replace('{' . $key . '}', (string)$value, $text);
+        }
+
+        HttpService::postRequest('https://api.telegram.org/bot' . $botToken . '/sendMessage', [
+            'chat_id' => $chatId,
+            'text' => $text,
+            'parse_mode' => 'HTML',
+            'disable_web_page_preview' => true,
+        ]);
+
+        return true;
     }
 }
