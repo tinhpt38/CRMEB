@@ -9,7 +9,7 @@
         inline
         @submit.native.prevent
       >
-        <el-form-item label="Loại đơn hàng：">
+        <el-form-item label="Loại đơn hàng:">
           <el-select v-model="orderData.status" clearable @change="selectChange2" placeholder="Tất cả">
             <el-option label="Tất cả đơn hàng" value="" />
             <el-option label="Đơn hàng thông thường" value="1" />
@@ -19,7 +19,7 @@
             <el-option label="Đơn đặt trước" value="5" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Phương thức thanh toán：">
+        <el-form-item label="Phương thức thanh toán:">
           <el-select
             v-model="orderData.pay_type"
             clearable
@@ -30,7 +30,7 @@
             <el-option v-for="item in payList" :value="item.val" :label="item.label" :key="item.id" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Thời gian Tạo mới：">
+        <el-form-item label="Thời gian tạo:">
           <el-date-picker
             clearable
             v-model="timeVal"
@@ -44,7 +44,7 @@
             style="width: 250px"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="Tìm kiếm đơn hàng：" prop="real_name" label-for="real_name">
+        <el-form-item label="Tìm kiếm đơn hàng:" prop="real_name" label-for="real_name">
           <el-input clearable v-model="orderData.real_name" placeholder="Vui lòng nhập" class="form_content_width">
             <el-select v-model="orderData.field_key" slot="prepend" style="width: 100px">
               <el-option value="all" label="Tất cả"></el-option>
@@ -113,9 +113,11 @@ export default {
       payList: [
         { label: 'Tất cả', val: '' },
         { label: 'Thanh toán WeChat', val: '1' },
-        { label: 'thanh toán Alipay', val: '4' },
-        { label: 'thanh toán số dư', val: '2' },
+        { label: 'Thanh toán Alipay', val: '4' },
+        { label: 'Thanh toán số dư', val: '2' },
         { label: 'Thanh toán ngoại tuyến', val: '3' },
+        { label: 'Thanh toán khi nhận hàng (COD)', val: '5' },
+        { label: 'Chuyển khoản / VietQR', val: '6' },
       ],
       pickerOptions: timeOptions,
     };

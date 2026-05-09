@@ -114,10 +114,16 @@ export interface Order {
   delivery: Delivery;
   total: number;
   note: string;
+  /** Mã pay_type từ CRMEB (vn_cod, vn_bank, offline, …) */
+  payType?: string;
+  /** Nhãn hiển thị từ CRMEB (`_status._payType`) */
+  payTypeName?: string;
+  /** Hướng dẫn CK/VietQR (cấu hình cửa hàng) khi đơn dùng vn_bank */
+  bankPayGuide?: string;
 }
 
 /**
- * Phương thức thanh toán hiển thị ở màn checkout.
- * `payType` thực tế vẫn map qua luồng offline của CRMEB.
+ * Phương thức thanh toán ở màn đặt hàng f-chan — map sang CRMEB:
+ * cod → vn_cod, bank_transfer → vn_bank, other → offline.
  */
 export type CheckoutPaymentMethod = "cod" | "bank_transfer" | "other";

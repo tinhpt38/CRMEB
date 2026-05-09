@@ -283,11 +283,10 @@ export function useCheckout() {
     );
   };
 
-  const resolveCrmebPayType = (): "offline" => {
-    // CRMEB hiện luồng Mini App đang dùng `offline` cho các phương thức
-    // COD/chuyển khoản/thỏa thuận thủ công.
-    void checkoutPaymentMethod;
-    return "offline";
+  const resolveCrmebPayType = (): string => {
+    if (checkoutPaymentMethod === "bank_transfer") return "vn_bank";
+    if (checkoutPaymentMethod === "other") return "offline";
+    return "vn_cod";
   };
 
   const resolveCheckoutMark = (): string => {
@@ -331,10 +330,10 @@ export function useCheckout() {
     }
 
     // 3) Last resort: offline.
-    toast("Đang fallback thanh toán ngoại tuyến (offline)...", { icon: "ℹ" });
+    toast("Đang thử lại xác nhận thanh toán đơn hàng...", { icon: "ℹ" });
     await client.post<any>("/order/pay", {
       uni,
-      paytype: "offline",
+      paytype: payType,
       quitUrl: "",
       type: 0,
     });

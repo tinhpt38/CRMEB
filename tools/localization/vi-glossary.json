@@ -209,7 +209,16 @@
     { "bad": "分类", "good": "Danh mục", "contexts": ["theme"] },
     { "bad": "购物车", "good": "Giỏ hàng", "contexts": ["theme"] },
     { "bad": "我的", "good": "Cá nhân", "contexts": ["theme"] },
-    { "bad": "首页", "good": "Trang chủ", "contexts": ["theme"] }
+    { "bad": "首页", "good": "Trang chủ", "contexts": ["theme"] },
+
+    { "bad": "Cấu hình thanh toán trung tâm mua sắm", "good": "Cấu hình thanh toán cửa hàng", "contexts": ["setting"] },
+    { "bad": "WeChat trả tiền", "good": "Thanh toán WeChat", "contexts": ["setting"] },
+    { "bad": "thanh toán số dư", "good": "Thanh toán bằng số dư", "contexts": ["setting"] },
+    { "bad": "thanh toán Tonglian", "good": "Thanh toán Tonglian", "contexts": ["setting"] },
+    { "bad": "thanh toán TonglianAppid", "good": "App ID Tonglian", "contexts": ["setting"] },
+    { "bad": "V3chi trảKey", "good": "Khóa API thanh toán V3", "contexts": ["setting"] },
+    { "bad": "V3Chìa khóa thanh toán", "good": "Khóa API thanh toán phiên bản V3 (WeChat Pay).", "contexts": ["setting"] },
+    { "bad": "ứng dụng thanh toánAppid", "good": "App ID ứng dụng Alipay", "contexts": ["setting"] }
   ],
   "menuEntriesExact": [
     { "bad": "hàng hóa", "good": "Sản phẩm" },

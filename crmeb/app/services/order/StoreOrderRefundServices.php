@@ -269,7 +269,7 @@ class StoreOrderRefundServices extends BaseServices
             $userInfo = $userServices->get($splitOrderInfo['uid']);
             $splitOrderInfo['nickname'] = $userInfo['nickname'];
             $splitOrderInfo['phone'] = $userInfo['phone'];
-            if (in_array($orderInfo['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline'])) {
+            if (in_array($orderInfo['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline', PayServices::VN_COD, PayServices::VN_BANK], true)) {
                 $capitalFlowServices->setFlow($splitOrderInfo, 'refund');
             }
 
@@ -627,7 +627,7 @@ class StoreOrderRefundServices extends BaseServices
         $userInfo = $userServices->get($order['uid']);
         $order['nickname'] = $userInfo['nickname'];
         $order['phone'] = $userInfo['phone'];
-        if (in_array($order['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline'])) {
+        if (in_array($order['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline', PayServices::VN_COD, PayServices::VN_BANK], true)) {
             $order['refund_price'] = $refund_price;
             $capitalFlowServices->setFlow($order, 'refund');
         }
@@ -1264,6 +1264,12 @@ class StoreOrderRefundServices extends BaseServices
                 break;
             case PayServices::ALLIN_PAY:
                 $pay_type_name = 'thanh toán Tonglian';
+                break;
+            case PayServices::VN_COD:
+                $pay_type_name = PayServices::PAY_TYPE[PayServices::VN_COD];
+                break;
+            case PayServices::VN_BANK:
+                $pay_type_name = PayServices::PAY_TYPE[PayServices::VN_BANK];
                 break;
             default:
                 $pay_type_name = 'Các khoản thanh toán khác';

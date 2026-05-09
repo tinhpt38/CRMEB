@@ -247,27 +247,30 @@ export default {
       }
     },
     checkSocket() {
-      getWorkermanUrl().then((res) => {
-        const url = res.data.admin;
-        let isNotice = false;
-        const socket = new window.WebSocket(url);
-        socket.onopen = () => {
-          isNotice = true;
-          socket.close();
-        };
-        socket.onerror = socket.onclose = () => {
-          if (!isNotice) {
+      getWorkermanUrl()
+        .then((res) => {
+          const url = res?.data?.admin;
+          if (!url) return;
+          let isNotice = false;
+          const socket = new window.WebSocket(url);
+          socket.onopen = () => {
             isNotice = true;
-            this.$notify.warning({
-              title: 'Thông báo',
-              message:
-                '[Kết nối dài] của bạn chưa được bật. Việc không bật nó sẽ khiến dịch vụ khách hàng mặc định của hệ thống không khả dụng.,Không thể nhận được thông báo đơn hàng phụ trợ. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
-              dangerouslyUseHTMLString: true,
-              duration: 30000,
-            });
-          }
-        };
-      });
+            socket.close();
+          };
+          socket.onerror = socket.onclose = () => {
+            if (!isNotice) {
+              isNotice = true;
+              this.$notify.warning({
+                title: 'Thông báo',
+                message:
+                  '[Kết nối dài] của bạn chưa được bật. Việc không bật nó sẽ khiến dịch vụ khách hàng mặc định của hệ thống không khả dụng.,Không thể nhận được thông báo đơn hàng phụ trợ. Hãy thực hiện lệnh để kích hoạt nó càng sớm càng tốt！！<a href="https://doc.crmeb.com/single/v54/13667" target="_blank">Bấm vào để xem cách mở nó</a>',
+                dangerouslyUseHTMLString: true,
+                duration: 30000,
+              });
+            }
+          };
+        })
+        .catch(() => {});
     },
     getExpiresTime(expiresTime) {
       const nowTimeNum = Math.round(Date.now() / 1000);

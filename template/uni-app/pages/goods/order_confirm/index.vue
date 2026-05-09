@@ -399,6 +399,20 @@
 						value: 'offline',
 						title: this.$t(`Sử dụng thanh toán ngoại tuyến`),
 						payStatus: 2,
+					},
+					{
+						"name": this.$t(`COD (thanh toán khi nhận)`),
+						"icon": "icon-daifukuan",
+						value: 'vn_cod',
+						title: this.$t(`Thanh toán tiền mặt khi nhận hàng`),
+						payStatus: 2,
+					},
+					{
+						"name": this.$t(`Chuyển khoản / VietQR`),
+						"icon": "icon-yinhangqia",
+						value: 'vn_bank',
+						title: this.$t(`Chuyển khoản theo hướng dẫn cửa hàng`),
+						payStatus: 2,
 					}, {
 						"name": this.$t(`Bạn bè trả tiền thay mặt`),
 						"icon": "icon-haoyoudaizhifu",
@@ -1000,8 +1014,18 @@
 					} else {
 						that.cartArr[3].payStatus = 1
 					}
+					if (res.data.deduction || res.data.vn_cod_pay_status != 1 || (res.data.virtual_type > 0)) {
+						that.cartArr[4].payStatus = 0
+					} else {
+						that.cartArr[4].payStatus = 1
+					}
+					if (res.data.deduction || res.data.vn_bank_pay_status != 1) {
+						that.cartArr[5].payStatus = 0
+					} else {
+						that.cartArr[5].payStatus = 1
+					}
 					//Thanh toán cho bạn bè có được kích hoạt không?
-					that.cartArr[4].payStatus = res.data.friend_pay_status || 0;
+					that.cartArr[6].payStatus = res.data.friend_pay_status || 0;
 					// that.$set(that, 'cartArr', that.cartArr);
 					that.$set(that, 'ChangePrice', that.totalPrice);
 					that.getBargainId();
@@ -1268,6 +1292,7 @@
 					// #endif
 				};
 				if (that.is_gift) data.is_gift = that.is_gift
+				data.payType = that.payType || '';
 				if (data.payType == 'yue' && parseFloat(that.userInfo.now_money) < parseFloat(that.totalPrice))
 					return that.$util.Tips({
 						title: that.$t(`Số dư không đủ`)

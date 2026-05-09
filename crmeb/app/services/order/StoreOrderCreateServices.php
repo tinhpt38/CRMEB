@@ -31,6 +31,7 @@ use app\dao\order\StoreOrderDao;
 use app\services\user\UserServices;
 use app\services\user\UserBillServices;
 use app\services\user\UserAddressServices;
+use app\services\pay\PayServices;
 use app\services\activity\bargain\StoreBargainServices;
 use app\services\activity\seckill\StoreSeckillServices;
 use app\services\system\store\SystemStoreServices;
@@ -171,6 +172,13 @@ class StoreOrderCreateServices extends BaseServices
         //Xác minh hóa đơn trước khi đặt hàng
         if ($invoice_id) {
             app()->make(UserInvoiceServices::class)->checkInvoice((int)$invoice_id, $uid);
+        }
+
+        if (!$storeOrderServices->checkPaytype($payType)) {
+            throw new ApiException('Phương thức thanh toán không khả dụng hoặc đã tắt');
+        }
+        if ($payType === PayServices::VN_COD && $virtual_type > 0) {
+            throw new ApiException('Sản phẩm ảo không áp dụng thanh toán COD');
         }
 
         /** @var StoreOrderComputedServices $computedServices */

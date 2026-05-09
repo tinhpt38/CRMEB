@@ -15,6 +15,13 @@ import Vue from 'vue';
 const vm = new Vue();
 let wsAdminSocketUrl = getCookies('WS_ADMIN_URL') || '';
 let wsKefuSocketUrl = getCookies('WS_CHAT_URL') || '';
+const createEmptySocket = () => ({
+  send() {
+    return Promise.resolve({ status: false });
+  },
+  $on() {},
+  $off() {},
+});
 
 class wsSocket {
   constructor(opt) {
@@ -94,31 +101,45 @@ class wsSocket {
 }
 
 function createSocket(key) {
-  getWorkermanUrl().then((res) => {
-    wsAdminSocketUrl = res.data.admin;
-    wsKefuSocketUrl = res.data.chat;
-    setCookies('WS_ADMIN_URL', res.data.admin);
-    setCookies('WS_CHAT_URL', res.data.chat);
-  });
-  return new Promise((resolve, reject) => {
-    const ws = new wsSocket({
-      key,
-      open() {
-        resolve(ws);
-        vm.$emit('socket_open', key);
-      },
-      error(e) {
-        reject(e);
-      },
-      message(res) {
-        const { type, data = {} } = JSON.parse(res.data);
-        vm.$emit(type, data);
-      },
-      close(e) {
-        vm.$emit('close', { e, key });
-      },
-    });
-  });
+  return getWorkermanUrl()
+    .then((res) => {
+      wsAdminSocketUrl = res.data.admin || wsAdminSocketUrl;
+      wsKefuSocketUrl = res.data.chat || wsKefuSocketUrl;
+      wsAdminSocketUrl && setCookies('WS_ADMIN_URL', wsAdminSocketUrl);
+      wsKefuSocketUrl && setCookies('WS_CHAT_URL', wsKefuSocketUrl);
+    })
+    .catch(() => {
+      // Dùng URL cache local nếu API lấy workerman lỗi.
+    })
+    .then(
+      () =>
+        new Promise((resolve) => {
+          const ws = new wsSocket({
+            key,
+            open() {
+              resolve(ws);
+              vm.$emit('socket_open', key);
+            },
+            error(e) {
+              // Tránh Promise reject toàn cục làm vỡ trang khi WS không khả dụng.
+              vm.$emit('socket_error', { e, key });
+              resolve(createEmptySocket());
+            },
+            message(res) {
+              try {
+                const { type, data = {} } = JSON.parse(res.data);
+                vm.$emit(type, data);
+              } catch (e) {
+                vm.$emit('socket_parse_error', { e, key, raw: res.data });
+              }
+            },
+            close(e) {
+              vm.$emit('close', { e, key });
+            },
+          });
+          if (!ws.ws) resolve(createEmptySocket());
+        })
+    );
 }
 
 export const adminSocket = createSocket(1);

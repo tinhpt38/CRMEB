@@ -764,6 +764,10 @@ class PublicController
         $data['pay_weixin_open'] = sys_config('pay_weixin_open') != '0'; //WeChat có được bật không?
         $data['yue_pay_status'] = sys_config('yue_pay_status') == 1 && sys_config('balance_func_status') != 0; //Cân bằng có được kích hoạt không?
         $data['offline_pay_status'] = sys_config('offline_pay_status') == 1; //Có bật ngoại tuyến hay không
+        $data['vn_cod_pay_status'] = sys_config('vn_cod_pay_status') == 1;
+        $data['vn_bank_pay_status'] = sys_config('vn_bank_pay_status') == 1;
+        $data['vn_bank_pay_guide'] = (string)sys_config('vn_bank_pay_guide', '');
+        $data['vn_bank_pay_qr_image'] = (string)sys_config('vn_bank_pay_qr_image', '');
         $data['friend_pay_status'] = sys_config('friend_pay_status') == 1; //Cho dù bạn bè có được bật hay không
         $data['wechat_auth_switch'] = (int)in_array(1, sys_config('routine_auth_type')); //Công tắc đăng nhập WeChat
         $data['phone_auth_switch'] = (int)in_array(2, sys_config('routine_auth_type')); //Công tắc đăng nhập số điện thoại di động

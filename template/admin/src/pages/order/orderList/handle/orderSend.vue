@@ -169,7 +169,7 @@
         </el-form-item>
       </div>
       <div v-if="total_num > 1">
-        <el-form-item label="Vận chuyển theo đơn đặt hàng riêng biệt：">
+        <el-form-item label="Vận chuyển tách đơn:">
           <el-switch
             :active-value="1"
             :inactive-value="0"
@@ -182,7 +182,8 @@
             <span slot="close">Đóng cửa</span>
           </el-switch>
           <div class="trips">
-            <p>Bạn có thể chọn các sản phẩm trong bảng để được vận chuyển riêng. Sau khi giao hàng, một đơn hàng mới sẽ được tạo và không thể rút lại được. Hãy hoạt động một cách thận trọng.！</p>
+            <p>Bạn có thể chọn từng dòng để giao một phần. Sau khi giao, hệ thống sẽ tách thành đơn mới và không thể hoàn tác.</p>
+            <p v-if="splitSwitch && manyFormValidate.length">Đã chọn {{ splitSelectedCount }} sản phẩm, tổng số lượng giao {{ splitSelectedQty }}.</p>
           </div>
           <el-table
             v-if="splitSwitch && manyFormValidate.length"
@@ -239,7 +240,7 @@
     </el-form>
     <div slot="footer">
       <el-button v-db-click @click="cancel">Hủy bỏ</el-button>
-      <el-button type="primary" v-db-click @click="putSend">Nộp</el-button>
+      <el-button type="primary" v-db-click @click="putSend">Xác nhận giao hàng</el-button>
     </div>
     <!-- <viewer @inited="inited">
             <img :src="temp.pic" style="display:none" />
@@ -315,6 +316,14 @@ export default {
   watch: {
     virtual_type(val) {
       if (this.virtual_type == 3) this.formItem.type = '3';
+    },
+  },
+  computed: {
+    splitSelectedCount() {
+      return this.selectData.length;
+    },
+    splitSelectedQty() {
+      return this.selectData.reduce((sum, item) => sum + Number(item.num || item.surplus_num || 0), 0);
     },
   },
   mounted() {
@@ -528,6 +537,9 @@ export default {
             cart_num: v.num || v.surplus_num,
           });
         });
+        if (!data.datas.cart_ids.length) {
+          return this.$message.error('Vui lòng chọn ít nhất 1 sản phẩm để giao/tách đơn.');
+        }
         splitDelivery(data)
           .then((res) => {
             this.modals = false;

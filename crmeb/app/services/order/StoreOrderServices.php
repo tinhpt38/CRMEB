@@ -442,6 +442,10 @@ class StoreOrderServices extends BaseServices
             if ($order['advance_id']) $order['type'] = 4;
         }
         $order['offlinePayStatus'] = (int)sys_config('offline_pay_status') ?? (int)2;
+        $order['vn_cod_pay_status'] = (int)sys_config('vn_cod_pay_status', 2);
+        $order['vn_bank_pay_status'] = (int)sys_config('vn_bank_pay_status', 2);
+        $order['vn_bank_pay_guide'] = (string)sys_config('vn_bank_pay_guide', '');
+        $order['vn_bank_pay_qr_image'] = (string)sys_config('vn_bank_pay_qr_image', '');
         $log = $statusServices->getColumn(['oid' => $order['id']], 'change_time', 'change_type');
         if (isset($log['delivery'])) {
             $delivery = date('Y-m-d', $log['delivery']);
@@ -549,14 +553,22 @@ class StoreOrderServices extends BaseServices
                     case PayServices::ALLIN_PAY:
                         $item['pay_type_name'] = 'thanh toán Tonglian';
                         break;
+                    case PayServices::VN_COD:
+                        $item['pay_type_name'] = PayServices::PAY_TYPE[PayServices::VN_COD];
+                        break;
+                    case PayServices::VN_BANK:
+                        $item['pay_type_name'] = PayServices::PAY_TYPE[PayServices::VN_BANK];
+                        break;
                     default:
                         $item['pay_type_name'] = 'Các khoản thanh toán khác';
                         break;
                 }
             } else {
                 switch ($item['pay_type']) {
-                    case 'offline':
-                        $item['pay_type_name'] = 'Thanh toán ngoại tuyến';
+                    case PayServices::OFFLINE_PAY:
+                    case PayServices::VN_COD:
+                    case PayServices::VN_BANK:
+                        $item['pay_type_name'] = PayServices::PAY_TYPE[$item['pay_type']] ?? '';
                         $item['pay_type_info'] = 1;
                         break;
                     default:
@@ -1758,6 +1770,10 @@ HTML;
         $data['userInfo'] = $user;
         $data['integralRatio'] = $other['integralRatio'];
         $data['offline_pay_status'] = (int)sys_config('offline_pay_status') ?? (int)2;
+        $data['vn_cod_pay_status'] = (int)sys_config('vn_cod_pay_status', 2);
+        $data['vn_bank_pay_status'] = (int)sys_config('vn_bank_pay_status', 2);
+        $data['vn_bank_pay_guide'] = (string)sys_config('vn_bank_pay_guide', '');
+        $data['vn_bank_pay_qr_image'] = (string)sys_config('vn_bank_pay_qr_image', '');
         $data['yue_pay_status'] = (int)sys_config('balance_func_status') && (int)sys_config('yue_pay_status') == 1 ? (int)1 : (int)2;//Thanh toán số dư 1 tặng 2
         $data['pay_weixin_open'] = sys_config('pay_weixin_open', '0') != '0';//WeChat Trả 1 Bật 0 Tắt
         $data['friend_pay_status'] = (int)sys_config('friend_pay_status') ?? 0;//Bạn bè thanh toán thay mặt 1 Trên 0 Tắt
@@ -1890,22 +1906,43 @@ HTML;
                 break;
             case PayServices::ALLIN_PAY:
                 $res = sys_config('allin_pay_status') == 1;
+                break;
+            case PayServices::VN_COD:
+                $res = (int)sys_config('vn_cod_pay_status', 2) === 1;
+                break;
+            case PayServices::VN_BANK:
+                $res = (int)sys_config('vn_bank_pay_status', 2) === 1;
+                break;
         }
         return $res;
     }
 
 
     /**
-     * Thay đổi phương thức thanh toán thành thanh toán ngoại tuyến
+     * Gán đơn hàng cho các phương thức không cổng (offline / COD / chuyển khoản VN).
+     * Giữ đơn unpaid để cửa hàng đối soát hoặc thu tiền khi giao.
+     *
      * @param string $orderId
+     * @param string $payType offline|vn_cod|vn_bank
      * @return bool|\crmeb\basic\BaseModel
      */
-    public function setOrderTypePayOffline(string $orderId)
+    public function setOrderTypePayOffline(string $orderId, string $payType = PayServices::OFFLINE_PAY)
     {
+        $allowDeferred = [
+            PayServices::OFFLINE_PAY,
+            PayServices::VN_COD,
+            PayServices::VN_BANK,
+        ];
+        if (!in_array($payType, $allowDeferred, true)) {
+            $payType = PayServices::OFFLINE_PAY;
+        }
         if (($count = strpos($orderId, '_')) !== false) {
             $orderId = substr($orderId, $count + 1);
         }
-        if (sys_config('offline_postage', 0) == 1) {
+        $waivePostage = sys_config('offline_postage', 0) == 1
+            && in_array($payType, [PayServices::OFFLINE_PAY, PayServices::VN_BANK], true);
+
+        if ($waivePostage) {
             $orderInfo = $this->dao->get(['order_id' => $orderId]);
             $cartInfoService = app()->make(StoreOrderCartInfoServices::class);
             $cartInfo = $cartInfoService->getColumn(['oid' => $orderInfo['id']], 'cart_info', 'id');
@@ -1915,12 +1952,12 @@ HTML;
                 $cartInfoService->update(['id' => $key], ['cart_info' => json_encode($item_arr)]);
             }
             return $this->dao->update($orderId, [
-                'pay_type' => 'offline',
+                'pay_type' => $payType,
                 'pay_price' => bcsub((string)$orderInfo['pay_price'], (string)$orderInfo['pay_postage'], 2),
                 'pay_postage' => 0
             ], 'order_id');
         }
-        return $this->dao->update($orderId, ['pay_type' => 'offline'], 'order_id');
+        return $this->dao->update($orderId, ['pay_type' => $payType], 'order_id');
     }
 
     /**
@@ -2795,6 +2832,10 @@ HTML;
             'ali_pay_status' => sys_config('ali_pay_status', '0') != '0',
             'wechat_pay_status' => sys_config('pay_weixin_open', '0') != '0',
             'offline_pay_status' => (int)sys_config('offline_pay_status') == 1,
+            'vn_cod_pay_status' => (int)sys_config('vn_cod_pay_status', 2) === 1,
+            'vn_bank_pay_status' => (int)sys_config('vn_bank_pay_status', 2) === 1,
+            'vn_bank_pay_guide' => (string)sys_config('vn_bank_pay_guide', ''),
+            'vn_bank_pay_qr_image' => (string)sys_config('vn_bank_pay_qr_image', ''),
             'friend_pay_status' => (int)sys_config('friend_pay_status') == 1,
             'yue_pay_status' => (int)sys_config('balance_func_status') && (int)sys_config('yue_pay_status') == 1,
         ];

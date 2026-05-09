@@ -4,6 +4,16 @@ import { Icon, List } from "zmp-ui";
 import DeliverySummary from "../cart/delivery-summary";
 
 function OrderInfo(props: { order: Order }) {
+  const payLabel =
+    props.order.payTypeName ||
+    (props.order.payType === "vn_cod"
+      ? "Thanh toán khi nhận hàng (COD)"
+      : props.order.payType === "vn_bank"
+        ? "Chuyển khoản ngân hàng / VietQR"
+        : props.order.payType === "offline"
+          ? "Thanh toán ngoại tuyến"
+          : props.order.payType || "");
+
   return (
     <List noSpacing className="bg-section rounded-lg">
       {props.order.delivery.type === "pickup" ? (
@@ -21,6 +31,18 @@ function OrderInfo(props: { order: Order }) {
           description={props.order.delivery.address}
         />
       )}
+      {payLabel ? (
+        <List.Item prefix={<Icon icon="zi-check" />} title="Phương thức thanh toán">
+          <span className="text-xs text-inactive">{payLabel}</span>
+        </List.Item>
+      ) : null}
+      {props.order.payType === "vn_bank" && props.order.bankPayGuide ? (
+        <List.Item prefix={<Icon icon="zi-note" />} title="Hướng dẫn chuyển khoản">
+          <span className="text-xs text-inactive whitespace-pre-wrap break-words">
+            {props.order.bankPayGuide}
+          </span>
+        </List.Item>
+      ) : null}
       {props.order.note && (
         <List.Item prefix={<Icon icon="zi-note" />} title="Ghi chú">
           <span className="text-xs text-inactive">{props.order.note}</span>

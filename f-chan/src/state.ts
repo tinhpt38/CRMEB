@@ -635,6 +635,13 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
 
   // `note` isn't clearly named in CRMEB responses; keep it safe.
   const note = String(raw?.remark ?? raw?.note ?? "");
+  const payType = String(raw?.pay_type ?? "").trim();
+  const statusPay =
+    raw?._status && typeof raw._status === "object"
+      ? String(raw._status._payType ?? "").trim()
+      : "";
+  const payTypeName = statusPay || String(raw?.pay_type_name ?? "").trim();
+  const bankPayGuide = String(raw?.vn_bank_pay_guide ?? "").trim();
 
   return {
     id: String(raw?.order_id ?? raw?.id ?? raw?.uni ?? ""),
@@ -646,6 +653,9 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
     delivery,
     total,
     note,
+    ...(payType ? { payType } : {}),
+    ...(payTypeName ? { payTypeName } : {}),
+    ...(bankPayGuide ? { bankPayGuide } : {}),
   };
 }
 

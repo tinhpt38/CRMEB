@@ -17,6 +17,7 @@ use app\services\activity\bargain\StoreBargainServices;
 use app\services\activity\combination\StoreCombinationServices;
 use app\services\activity\combination\StorePinkServices;
 use app\services\activity\seckill\StoreSeckillServices;
+use app\services\pay\PayServices;
 use app\services\BaseServices;
 use app\services\user\member\MemberCardServices;
 use app\services\user\UserBillServices;
@@ -653,7 +654,7 @@ class StoreOrderTakeServices extends BaseServices
             }
             if ($order['paid'] == 1 && $order['status'] == 1) {
                 $data['status'] = 2;
-            } else if ($order['pay_type'] == 'offline') {
+            } else if (in_array($order['pay_type'], [PayServices::OFFLINE_PAY, PayServices::VN_COD, PayServices::VN_BANK], true)) {
                 $data['status'] = 2;
             } else {
                 continue;

@@ -43,6 +43,12 @@ class PayServices
     //chuyển khoản ngân hàng
     const BANK = 'bank';
 
+    /** Thanh toán khi nhận hàng (COD) — thị trường Việt Nam */
+    const VN_COD = 'vn_cod';
+
+    /** Chuyển khoản ngân hàng / VietQR — xác nhận thủ công */
+    const VN_BANK = 'vn_bank';
+
     //Phương thức thanh toán
     const PAY_TYPE = [
         PayServices::WEIXIN_PAY => 'Thanh toán WeChat',
@@ -52,6 +58,8 @@ class PayServices
         PayServices::FRIEND => 'Bạn bè trả tiền thay mặt',
         PayServices::ALLIN_PAY => 'thanh toán Tonglian',
         PayServices::BANK => 'chuyển khoản ngân hàng',
+        PayServices::VN_COD => 'Thanh toán khi nhận hàng (COD)',
+        PayServices::VN_BANK => 'Chuyển khoản ngân hàng / VietQR',
     ];
 
     /**

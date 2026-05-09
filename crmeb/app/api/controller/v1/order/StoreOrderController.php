@@ -298,7 +298,12 @@ class StoreOrderController
                         return app('json')->status('pay_error', $pay);
                 }
             case PayServices::OFFLINE_PAY:
-                if ($this->services->setOrderTypePayOffline($order['order_id'])) {
+            case PayServices::VN_COD:
+            case PayServices::VN_BANK:
+                if (!$this->services->checkPaytype($paytype)) {
+                    return app('json')->fail('Phương thức thanh toán không khả dụng');
+                }
+                if ($this->services->setOrderTypePayOffline($order['order_id'], $paytype)) {
                     event('NoticeListener', [$order->toArray(), 'admin_pay_success_code']);
                     return app('json')->status('success', 'Đơn hàng được tạo thành công');
                 } else {

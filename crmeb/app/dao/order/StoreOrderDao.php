@@ -161,6 +161,12 @@ class StoreOrderDao extends BaseDao
                 case 4:
                     $query->where('pay_type', 'alipay');
                     break;
+                case 5:
+                    $query->where('pay_type', 'vn_cod');
+                    break;
+                case 6:
+                    $query->where('pay_type', 'vn_bank');
+                    break;
             }
         })->when($realName && $fieldKey && in_array($fieldKey, $this->withField), function ($query) use ($where, $realName, $fieldKey) {
             if ($fieldKey !== 'title') {

@@ -2,13 +2,14 @@
   <div>
     <el-drawer title="Chi tiết đơn hàng" :size="1000" :visible.sync="modals" wrapperClosable :before-close="handleClose">
       <div v-if="orderDatalist">
+        
         <div class="head">
           <div class="full">
             <img class="order_icon" :src="orderImg" alt="" />
             <div class="text">
               <div class="title">Đơn hàng thông thường</div>
               <div>
-                <span class="mr20">Số đơn hàng：{{ orderDatalist.orderInfo.order_id }}</span>
+                <span class="mr20">Số đơn hàng: {{ orderDatalist.orderInfo.order_id }}</span>
               </div>
             </div>
           </div>
@@ -30,15 +31,21 @@
             </li>
             <li class="item">
               <div class="title">Thanh toán thực tế</div>
-              <div>¥ {{ orderDatalist.orderInfo.pay_price || '0.0' }}</div>
+              <div>{{ formatVnd(orderDatalist.orderInfo.pay_price) }}</div>
             </li>
             <li class="item" v-if="orderDatalist.orderInfo.refund_status == 2">
               <div class="title">Hoàn lại tiền thực tế</div>
-              <div>¥ {{ orderDatalist.orderInfo.refunded_price || '0.0' }}</div>
+              <div>{{ formatVnd(orderDatalist.orderInfo.refunded_price) }}</div>
             </li>
             <li class="item">
               <div class="title">Phương thức thanh toán</div>
-              <div>{{ orderDatalist.orderInfo.pay_type | payType }}</div>
+              <div>
+                {{
+                  orderDatalist.orderInfo._status && orderDatalist.orderInfo._status._payType
+                    ? orderDatalist.orderInfo._status._payType
+                    : payTypeLabel(orderDatalist.orderInfo.pay_type)
+                }}
+              </div>
             </li>
             <li class="item">
               <div class="title">Thời gian thanh toán</div>
@@ -46,17 +53,100 @@
             </li>
           </ul>
         </div>
+        <div class="detail-actions">
+          <span class="action-title">Điều chỉnh trạng thái đơn hàng:</span>
+          <el-tag size="mini" type="warning" v-if="isCodUnpaid">Đơn COD chưa thu tiền</el-tag>
+          <el-tag size="mini" type="warning" v-if="isBankUnpaid">Đơn chuyển khoản chưa xác nhận</el-tag>
+          <el-tag size="mini" type="success" v-if="isOfflinePaid">Đã xác nhận thanh toán thủ công</el-tag>
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            v-if="isCodUnpaid"
+            @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)"
+          >Xác nhận đã thu COD</el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            v-if="isBankUnpaid"
+            @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)"
+          >Xác nhận đã nhận chuyển khoản</el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            v-if="canConfirmPayment"
+            @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)"
+          >Xác nhận thanh toán</el-button>
+          <el-button
+            size="mini"
+            v-if="canEditOrder"
+            @click="$emit('detail-action', 'edit_order', orderDatalist.orderInfo)"
+          >Chỉnh sửa đơn hàng</el-button>
+          <el-button
+            size="mini"
+            v-if="canSendOrder"
+            @click="$emit('detail-action', 'send_order', orderDatalist.orderInfo)"
+          >Gửi hàng / tách đơn giao</el-button>
+          <el-button
+            size="mini"
+            v-if="canViewDelivery"
+            @click="$emit('detail-action', 'delivery_info', orderDatalist.orderInfo)"
+          >Thông tin vận chuyển</el-button>
+          <el-button
+            size="mini"
+            v-if="canTakeDelivery"
+            @click="$emit('detail-action', 'take_delivery', orderDatalist.orderInfo)"
+          >Xác nhận đã nhận</el-button>
+          <el-button
+            size="mini"
+            v-if="canRefund"
+            @click="$emit('detail-action', 'refund_order', orderDatalist.orderInfo)"
+          >Hoàn tiền</el-button>
+          <el-button
+            size="mini"
+            v-if="canEditAddress"
+            @click="$emit('detail-action', 'edit_address', orderDatalist.orderInfo)"
+          >Sửa địa chỉ</el-button>
+          <el-button
+            size="mini"
+            v-if="canRemark"
+            @click="$emit('detail-action', 'remark_order', orderDatalist.orderInfo)"
+          >Ghi chú</el-button>
+          <el-button
+            size="mini"
+            v-if="canPrintOrder"
+            @click="$emit('detail-action', 'print_order', orderDatalist.orderInfo)"
+          >In đơn hàng</el-button>
+          <el-button
+            size="mini"
+            v-if="canPrintDelivery"
+            @click="$emit('detail-action', 'print_delivery', orderDatalist.orderInfo)"
+          >In phiếu giao hàng</el-button>
+          <el-button
+            size="mini"
+            v-if="canPrintExpress"
+            @click="$emit('detail-action', 'print_express', orderDatalist.orderInfo)"
+          >In mã vận đơn</el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            v-if="canConfirmPickup"
+            @click="$emit('detail-action', 'confirm_pickup', orderDatalist.orderInfo)"
+          >Xác nhận nhận tại quầy</el-button>
+        </div>
         <el-tabs type="border-card" v-model="activeName" @tab-click="tabClick">
           <el-tab-pane label="Thông tin đơn hàng" name="detail">
             <div class="section">
               <div class="title">Thông tin người dùng</div>
               <ul class="list">
                 <li class="item">
-                  <div>Tên người dùng：</div>
+                  <div>Tên người dùng:</div>
                   <div class="value">{{ orderDatalist.userInfo.real_name }}</div>
                 </li>
                 <li class="item">
-                  <div>Số điện thoại liên kết：</div>
+                  <div>Số điện thoại liên kết:</div>
                   <div class="value">{{ orderDatalist.orderInfo.user_phone || '' }}</div>
                 </li>
               </ul>
@@ -69,19 +159,19 @@
                   <div class="value">{{ orderDatalist.orderInfo.user_address || '' }}</div>
                 </li> -->
                 <li class="item">
-                  <div>Người nhận hàng：</div>
+                  <div>Người nhận hàng:</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.real_name ? orderDatalist.orderInfo.real_name : '-' }}
                   </div>
                 </li>
                 <li class="item">
-                  <div>SĐT người nhận：</div>
+                  <div>SĐT người nhận:</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.user_phone ? orderDatalist.orderInfo.user_phone : '-' }}
                   </div>
                 </li>
                 <li class="item">
-                  <div>Địa chỉ giao hàng：</div>
+                  <div>Địa chỉ giao hàng:</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.user_address ? orderDatalist.orderInfo.user_address : '-' }}
                   </div>
@@ -92,39 +182,39 @@
               <div class="title">Thông tin đơn hàng</div>
               <ul class="list">
                 <li class="item">
-                  <div>Thời gian Tạo mới：</div>
+                  <div>Thời gian tạo:</div>
                   <div class="value">{{ orderDatalist.orderInfo._add_time }}</div>
                 </li>
                 <li class="item">
-                  <div>Tổng số mặt hàng：</div>
+                  <div>Tổng số mặt hàng:</div>
                   <div class="value">{{ orderDatalist.orderInfo.total_num }}</div>
                 </li>
                 <li class="item">
-                  <div>Tổng giá sản phẩm：</div>
+                  <div>Tổng giá sản phẩm:</div>
                   <div class="value">{{ orderDatalist.orderInfo.total_price }}</div>
                 </li>
                 <li class="item">
-                  <div>Số tiền phiếu giảm giá：</div>
+                  <div>Số tiền phiếu giảm giá:</div>
                   <div class="value">{{ orderDatalist.orderInfo.coupon_price }}</div>
                 </li>
                 <li class="item">
-                  <div>Trừ điểm：</div>
+                  <div>Trừ điểm:</div>
                   <div class="value">{{ orderDatalist.orderInfo.deduction_price || '0.0' }}</div>
                 </li>
                 <li class="item">
-                  <div>Bưu phí giao hàng：</div>
+                  <div>Phí vận chuyển:</div>
                   <div class="value">{{ orderDatalist.orderInfo.pay_postage }}</div>
                 </li>
                 <li class="item">
-                  <div>Giảm giá ở cấp độ người dùng：</div>
+                  <div>Giảm giá cấp độ người dùng:</div>
                   <div class="value">{{ orderDatalist.orderInfo.levelPrice || '0.0' }}</div>
                 </li>
                 <li class="item">
-                  <div>Lợi ích thành viên trả phí：</div>
+                  <div>Ưu đãi thành viên trả phí:</div>
                   <div class="value">{{ orderDatalist.orderInfo.memberPrice || '0.0' }}</div>
                 </li>
                 <li class="item">
-                  <div>Thanh toán thực tế：</div>
+                  <div>Thanh toán thực tế:</div>
                   <div class="value">{{ orderDatalist.orderInfo.pay_price || '0.0' }}</div>
                 </li>
               </ul>
@@ -133,44 +223,44 @@
               <div class="title">Thông tin giảm giá(Số lượng｜người dùngUID)</div>
               <ul class="list">
                 <li class="item">
-                  <div>Hoa hồng cấp đầu tiên：</div>
+                  <div>Hoa hồng cấp 1:</div>
                   <div class="value">{{ orderDatalist.orderInfo.one_brokerage }} | {{ orderDatalist.orderInfo.spread_uid }}</div>
                 </li>
                 <li class="item">
-                  <div>Hoa hồng cấp hai：</div>
+                  <div>Hoa hồng cấp 2:</div>
                   <div class="value">{{ orderDatalist.orderInfo.two_brokerage }} | {{ orderDatalist.orderInfo.spread_two_uid }}</div>
                 </li>
                 <li class="item">
-                  <div>Giảm giá nhân viên：</div>
+                  <div>Hoa hồng nhân viên:</div>
                   <div class="value">{{ orderDatalist.orderInfo.staff_brokerage }} | {{ orderDatalist.orderInfo.staff_id }}</div>
                 </li>
                 <li class="item">
-                  <div>Hoa hồng đại lý：</div>
+                  <div>Hoa hồng đại lý:</div>
                   <div class="value">{{ orderDatalist.orderInfo.agent_brokerage }} | {{ orderDatalist.orderInfo.agent_id }}</div>
                 </li>
                 <li class="item">
-                  <div>Hoa hồng Đơn vị kinh doanh：</div>
+                  <div>Hoa hồng đơn vị kinh doanh:</div>
                   <div class="value">{{ orderDatalist.orderInfo.division_brokerage }} | {{ orderDatalist.orderInfo.division_id }}</div>
                 </li>
               </ul>
             </div>
             <div class="section" v-if="orderDatalist.orderInfo.delivery_name">
               <div class="title">
-                {{ orderDatalist.orderInfo.delivery_type == 'express' ? 'Thông tin hậu cần' : 'Thông tin người giao hàng' }}
+                {{ orderDatalist.orderInfo.delivery_type == 'express' ? 'Thông tin vận chuyển' : 'Thông tin người giao hàng' }}
               </div>
               <ul class="list">
                 <li class="item">
-                  <div>{{ orderDatalist.orderInfo.delivery_type == 'express' ? 'Công ty hậu cần：' : 'Tên người giao hàng：' }}</div>
+                  <div>{{ orderDatalist.orderInfo.delivery_type == 'express' ? 'Đơn vị vận chuyển:' : 'Tên người giao hàng:' }}</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.delivery_name ? orderDatalist.orderInfo.delivery_name : '-' }}
                   </div>
                 </li>
                 <li class="item">
-                  <div>{{ orderDatalist.orderInfo.delivery_type == 'express' ? 'Số đơn hàng hậu cần：' : 'Số điện thoại người giao hàng：' }}</div>
+                  <div>{{ orderDatalist.orderInfo.delivery_type == 'express' ? 'Mã vận đơn:' : 'Số điện thoại người giao hàng:' }}</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.delivery_id }}
                     <a v-if="orderDatalist.orderInfo.delivery_type == 'express'" v-db-click @click="openLogistics"
-                      >Điều tra hậu cần</a
+                      >Theo dõi vận đơn</a
                     >
                   </div>
                 </li>
@@ -180,7 +270,7 @@
               <div class="title">Thông tin hóa đơn</div>
               <ul class="list">
                 <li class="item">
-                  <div>Tiêu đề hóa đơn：</div>
+                  <div>Tiêu đề hóa đơn:</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.invoice.name }}
                   </div>
@@ -189,56 +279,56 @@
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 2 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Mã số thuế doanh nghiệp：</div>
+                  <div>Mã số thuế doanh nghiệp:</div>
                   <div class="value">{{ orderDatalist.orderInfo.invoice.duty_number }}</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 2 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Loại hóa đơn：</div>
+                  <div>Loại hóa đơn:</div>
                   <div class="value">Hóa đơn điện tử thông thường</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 2 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Loại tiêu đề hóa đơn：</div>
+                  <div>Loại tiêu đề hóa đơn:</div>
                   <div class="value">Doanh nghiệp</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 1 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Tên thật：</div>
+                  <div>Tên thật:</div>
                   <div class="value">{{ orderDatalist.orderInfo.invoice.name || '' }}</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 1 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Số liên lạc：</div>
+                  <div>Số liên lạc:</div>
                   <div class="value">{{ orderDatalist.orderInfo.invoice.drawer_phone || '' }}</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 2 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Số liên lạc：</div>
+                  <div>Số liên lạc:</div>
                   <div class="value">{{ orderDatalist.orderInfo.invoice.user_phone || '' }}</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 2 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Email liên hệ：</div>
+                  <div>Email liên hệ:</div>
                   <div class="value">{{ orderDatalist.orderInfo.invoice.email || '' }}</div>
                 </li>
                 <li
                   class="item"
                   v-if="orderDatalist.orderInfo.invoice.header_type === 2 && orderDatalist.orderInfo.invoice.type === 1"
                 >
-                  <div>Trạng thái lập hoá đơn：</div>
+                  <div>Trạng thái lập hoá đơn:</div>
                   <div class="value">{{ orderDatalist.orderInfo.invoice.is_invoice ? 'Đã lập hoá đơn' : 'Không được lập hoá đơn' }}</div>
                 </li>
               </ul>
@@ -262,10 +352,10 @@
                   :key="index"
                 >
                   <template v-if="item.label !== 'img'">
-                    <div>{{ item.title }}：{{ item.value }}</div>
+                    <div>{{ item.title }}: {{ item.value }}</div>
                   </template>
                   <template v-else>
-                    <div>{{ item.title }}：</div>
+                    <div>{{ item.title }}:</div>
                     <div v-for="(img, i) in item.value" :key="i" class="img">
                       <img v-viewer :src="img" alt="" />
                     </div>
@@ -277,7 +367,15 @@
               <div class="title">Ghi chú đơn hàng</div>
               <ul class="list">
                 <li class="item">
-                  <div>{{ orderDatalist.orderInfo.remark ? orderDatalist.orderInfo.remark : '-' }}</div>
+                  <div>{{ normalRemark || '-' }}</div>
+                </li>
+              </ul>
+            </div>
+            <div class="section" v-if="codReconcileLogs.length">
+              <div class="title">Lịch sử đối soát COD</div>
+              <ul class="list cod-list">
+                <li class="item cod-item" v-for="(log, idx) in codReconcileLogs" :key="idx">
+                  <div>{{ log }}</div>
                 </li>
               </ul>
             </div>
@@ -300,17 +398,17 @@
                     <div>
                       <div class="line">{{ scope.row.productInfo.store_name }}</div>
                       <div class="line1 gary">
-                        Đặc điểm kỹ thuật：{{ scope.row.productInfo.attrInfo ? scope.row.productInfo.attrInfo.suk : 'mặc định' }}
+                        Đặc điểm kỹ thuật: {{ scope.row.productInfo.attrInfo ? scope.row.productInfo.attrInfo.suk : 'Mặc định' }}
                       </div>
                     </div>
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="Trả giá" min-width="90">
+              <el-table-column label="Đơn giá" min-width="90">
                 <template slot-scope="scope">
                   <div class="tab">
                     <div class="line1">
-                      {{ scope.row.truePrice }}
+                      {{ formatVnd(scope.row.truePrice) }}
                     </div>
                   </div>
                 </template>
@@ -342,7 +440,7 @@
                   <span>{{ scope.row.oid }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="Hồ sơ hoạt động" min-width="100">
+              <el-table-column label="Lịch sử thao tác" min-width="100">
                 <template slot-scope="scope">
                   <span>{{ scope.row.change_message }}</span>
                 </template>
@@ -357,14 +455,14 @@
         </el-tabs>
       </div>
     </el-drawer>
-    <el-drawer :visible.sync="modal2" scrollable title="Điều tra hậu cần" width="350px" class="order_box2">
+    <el-drawer :visible.sync="modal2" scrollable title="Theo dõi vận đơn" width="350px" class="order_box2">
       <div class="logistics acea-row row-top" v-if="orderDatalist">
         <div class="logistics_img">
           <img src="../../../../assets/images/expressi.jpg" />
         </div>
         <div class="logistics_cent">
-          <span>Công ty hậu cần：{{ orderDatalist.orderInfo.delivery_name }}</span>
-          <span>Số đơn hàng hậu cần：{{ orderDatalist.orderInfo.delivery_id }}</span>
+          <span>Đơn vị vận chuyển: {{ orderDatalist.orderInfo.delivery_name }}</span>
+          <span>Mã vận đơn: {{ orderDatalist.orderInfo.delivery_id }}</span>
         </div>
       </div>
       <div class="acea-row row-column-around trees-coadd">
@@ -428,18 +526,167 @@ export default {
       }
     },
   },
-  filters: {
-    payType(val) {
-      let obj = {
-        yue: 'Số dư',
-        weixin: 'Thanh toán WeChat',
-        alipay: 'thanh toán Alipay',
-        offline: 'Thanh toán ngoại tuyến',
-      };
-      return obj[val] ?? 'những cách khác';
+  computed: {
+    info() {
+      return (this.orderDatalist && this.orderDatalist.orderInfo) || {};
+    },
+    paidNum() {
+      const val = Number(this.info.paid);
+      return Number.isNaN(val) ? 0 : val;
+    },
+    isDelNum() {
+      const val = Number(this.info.is_del);
+      return Number.isNaN(val) ? 0 : val;
+    },
+    isCancelNum() {
+      const val = Number(this.info.is_cancel);
+      return Number.isNaN(val) ? 0 : val;
+    },
+    statusNum() {
+      const val = Number(this.info.status);
+      return Number.isNaN(val) ? -1 : val;
+    },
+    shippingTypeNum() {
+      const val = Number(this.info.shipping_type);
+      return Number.isNaN(val) ? 0 : val;
+    },
+    refundStatusNum() {
+      const val = Number(this.info.refund_status);
+      return Number.isNaN(val) ? -1 : val;
+    },
+    statusTitle() {
+      const title = this.info?._status?._title;
+      return typeof title === 'string' ? title.trim() : '';
+    },
+    payTypeNormalized() {
+      const raw = String(this.info.pay_type || '').toLowerCase();
+      if (raw === 'cod' || raw === 'vn-cod') return 'vn_cod';
+      if (raw === 'bank' || raw === 'vn-bank') return 'vn_bank';
+      return raw;
+    },
+    orderStatusCode() {
+      const status = this.info._status;
+      if (typeof status === 'number') return status;
+      if (status && typeof status === 'object') {
+        const maybeCode = status._status ?? status._type ?? status.status ?? status.code ?? status.type;
+        const parsed = Number(maybeCode);
+        if (!Number.isNaN(parsed)) return parsed;
+      }
+      return this.statusNum;
+    },
+    isUnpaidStage() {
+      return (
+        this.paidNum === 0 &&
+        (this.orderStatusCode === 0 ||
+          this.orderStatusCode === 1 ||
+          this.statusNum === 0 ||
+          this.statusTitle.includes('Chưa thanh toán'))
+      );
+    },
+    canConfirmPayment() {
+      return (
+        this.isUnpaidStage &&
+        ['offline', 'vn_cod', 'vn_bank'].includes(this.payTypeNormalized) &&
+        this.isDelNum !== 1 &&
+        this.isCancelNum !== 1
+      );
+    },
+    isCodUnpaid() {
+      return this.isUnpaidStage && this.payTypeNormalized === 'vn_cod';
+    },
+    isBankUnpaid() {
+      return this.isUnpaidStage && this.payTypeNormalized === 'vn_bank';
+    },
+    isOfflinePaid() {
+      return ['offline', 'vn_cod', 'vn_bank'].includes(this.payTypeNormalized) && this.paidNum === 1;
+    },
+    canEditOrder() {
+      return this.paidNum === 0 && this.isDelNum !== 1 && this.isCancelNum !== 1;
+    },
+    canSendOrder() {
+      return (
+        (this.statusNum === 4 || this.orderStatusCode === 2 || this.orderStatusCode === 8) &&
+        this.shippingTypeNum === 1 &&
+        (this.info.pinkStatus === null || this.info.pinkStatus === 2) &&
+        this.isDelNum !== 1 &&
+        this.isCancelNum !== 1 &&
+        !(this.info.refund || []).length
+      );
+    },
+    canViewDelivery() {
+      return this.orderStatusCode === 4 && !(this.info.split || []).length;
+    },
+    canTakeDelivery() {
+      return this.orderStatusCode === 4;
+    },
+    canRefund() {
+      return this.paidNum === 1 && this.refundStatusNum === 0 && !(this.info.refund || []).length;
+    },
+    canEditAddress() {
+      return this.statusNum === 0;
+    },
+    canRemark() {
+      return (
+        this.orderStatusCode !== 1 ||
+        (this.orderStatusCode === 3 &&
+          this.info.use_integral > 0 &&
+          this.info.use_integral >= this.info.back_integral)
+      );
+    },
+    canPrintOrder() {
+      return this.orderStatusCode >= 2;
+    },
+    canPrintDelivery() {
+      return this.paidNum === 1;
+    },
+    canPrintExpress() {
+      return !!this.info.kuaidi_label;
+    },
+    canConfirmPickup() {
+      return (
+        this.shippingTypeNum === 2 &&
+        this.statusNum === 0 &&
+        this.paidNum === 1 &&
+        this.refundStatusNum === 0
+      );
+    },
+    codReconcileLogs() {
+      const remark = String(this.info.remark || '');
+      if (!remark) return [];
+      return remark
+        .split('\n')
+        .map((line) => line.trim())
+        .filter((line) => line.startsWith('[COD]'));
+    },
+    normalRemark() {
+      const remark = String(this.info.remark || '');
+      if (!remark) return '';
+      const lines = remark
+        .split('\n')
+        .map((line) => line.trim())
+        .filter((line) => line && !line.startsWith('[COD]'));
+      return lines.join('\n');
     },
   },
   methods: {
+    formatVnd(value) {
+      const num = Number(value || 0);
+      if (Number.isNaN(num)) return '--';
+      return `${num.toLocaleString('vi-VN')} đ`;
+    },
+    payTypeLabel(val) {
+      let obj = {
+        yue: 'Số dư',
+        weixin: 'Thanh toán WeChat',
+        alipay: 'Thanh toán Alipay',
+        offline: 'Thanh toán ngoại tuyến',
+        vn_cod: 'Thanh toán khi nhận hàng (COD)',
+        cod: 'Thanh toán khi nhận hàng (COD)',
+        vn_bank: 'Chuyển khoản ngân hàng / VietQR',
+        bank: 'Chuyển khoản ngân hàng / VietQR',
+      };
+      return obj[String(val || '').toLowerCase()] ?? 'Phương thức khác';
+    },
     openLogistics() {
       this.getOrderData();
     },
@@ -527,8 +774,9 @@ export default {
   }
   .list {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 20px;
-    overflow: hidden;
+    overflow: visible;
     list-style: none;
     padding: 0;
     .item {
@@ -565,6 +813,30 @@ export default {
     }
   }
 }
+
+.detail-version-tip {
+  margin: 0 30px 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #ecf5ff;
+  color: #409eff;
+  font-size: 13px;
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 30px 16px;
+}
+
+.detail-actions .action-title {
+  color: #606266;
+  font-size: 13px;
+  margin-right: 6px;
+}
+
 .section {
   padding: 25px 0;
   border-bottom: 1px dashed #eeeeee;
@@ -617,6 +889,18 @@ export default {
       height: 80px;
     }
   }
+}
+
+.cod-list {
+  display: block !important;
+}
+
+.cod-item {
+  width: 100% !important;
+  line-height: 1.6 !important;
+  border-left: 3px solid #67c23a;
+  padding-left: 10px;
+  margin-bottom: 8px;
 }
 .tab {
   display: flex;

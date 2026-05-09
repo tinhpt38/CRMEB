@@ -117,6 +117,12 @@ class StoreOrderComputedServices extends BaseServices
             [$payPrice, $deductionPrice, $usedIntegral, $SurplusIntegral] = $this->useIntegral($useIntegral, $userInfo, $payPrice, $other);
         }
 
+        if ($payType === PayServices::VN_COD || $payType === PayServices::VN_BANK) {
+            if (!app()->make(StoreOrderServices::class)->checkPaytype($payType)) {
+                throw new ApiException('Phương thức thanh toán không khả dụng');
+            }
+        }
+
         //Tính toán bưu phí
         [$payPrice, $payPostage, $storePostageDiscount, $storeFreePostage, $isStoreFreePostage] = $this->computedPayPostage($shippingType, $payType, $cartInfo, $addr, $payPrice, $postage, $other, $userInfo, $is_gift);
 
@@ -289,8 +295,10 @@ class StoreOrderComputedServices extends BaseServices
                 $store_self_mention = sys_config('store_self_mention') ?? 0;
                 if (!$store_self_mention) $shipping_type = 1;
             }
-            //Nhận tại cửa hàng || （Thanh toán ngoại tuyến && Giao hàng miễn phí cho thanh toán ngoại tuyến) Không thanh toán bưu phí
-            if ($shipping_type === 2 || ($payType == 'offline' && ((isset($other['offlinePostage']) && $other['offlinePostage']) || sys_config('offline_postage')) == 1)) {
+            //Nhận tại cửa hàng || (offline hoặc CK VN + cấu hình miễn phí ship) — COD luôn tính phí ship như bình thường
+            $offlinePostageCfg = ((isset($other['offlinePostage']) && $other['offlinePostage']) || sys_config('offline_postage')) == 1;
+            $deferWaivePostage = $offlinePostageCfg && in_array($payType, [PayServices::OFFLINE_PAY, PayServices::VN_BANK], true);
+            if ($shipping_type === 2 || $deferWaivePostage) {
                 $payPostage = 0;
             } else {
                 if (!$postage || !isset($postage['storePostage']) || !isset($postage['storePostageDiscount'])) {

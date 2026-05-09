@@ -4,7 +4,7 @@
       <el-tab-pane name="null" label="Tất cả"></el-tab-pane>
       <el-tab-pane
         name="0"
-        :label="orderChartType.un_paid > 0 ? `Đã thanh toán(${orderChartType.un_paid})` : `Đã thanh toán`"
+        :label="orderChartType.un_paid > 0 ? `Chờ thanh toán (${orderChartType.un_paid})` : `Chờ thanh toán`"
       ></el-tab-pane>
       <el-tab-pane
         name="1"
@@ -50,7 +50,7 @@
           <span v-if="scope.row.is_cancel === 1 && scope.row.is_del === 0" style="color: #ed4014; display: block"
             >Người dùng đã hủy</span
           >
-          <span v-if="scope.row.refund_type === 6" style="color: #ed4014; display: block">Đơn hàng đã được hoàn lại</span>
+          <span v-if="scope.row.refund_type === 6" style="color: #ed4014; display: block">Đơn hàng đã hoàn trả</span>
         </template>
       </el-table-column>
       <el-table-column label="Thông tin sản phẩm" min-width="280">
@@ -66,21 +66,21 @@
             <el-tooltip placement="top" :open-delay="300">
               <div slot="content">
                 <div>
-                  <span>Tên sản phẩm：</span>
+                  <span>Tên sản phẩm:</span>
                   <span>{{ item.cart_info.productInfo.store_name || '--' }}</span>
                 </div>
                 <div>
-                  <span>Tên đặc điểm kỹ thuật：</span>
+                  <span>Tên đặc điểm kỹ thuật:</span>
                   <span>{{
                     item.cart_info.productInfo.attrInfo ? item.cart_info.productInfo.attrInfo.suk : '---'
                   }}</span>
                 </div>
                 <div>
-                  <span>Trả giá：</span>
-                  <span>¥{{ item.cart_info.truePrice || '--' }}</span>
+                  <span>Đơn giá:</span>
+                  <span>{{ formatVnd(item.cart_info.truePrice) }}</span>
                 </div>
                 <div>
-                  <span>Số lượng mua：</span>
+                  <span>Số lượng mua:</span>
                   <span>{{ item.cart_info.cart_num || '--' }}</span>
                 </div>
               </div>
@@ -96,7 +96,7 @@
       </el-table-column>
       <el-table-column label="Thanh toán thực tế" min-width="100">
         <template slot-scope="scope">
-          <span>{{ scope.row.paid ? scope.row.pay_price : 'Chưa thanh toán' }}</span>
+          <span>{{ scope.row.paid ? formatVnd(scope.row.pay_price) : 'Chưa thanh toán' }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Phương thức thanh toán" min-width="100">
@@ -174,7 +174,7 @@
               scope.row.paid == 1 &&
               scope.row.refund_status === 0
             "
-            >Viết tắt ngay lập tức</a
+            >Xác nhận nhận tại quầy</a
           >
           <el-divider
             direction="vertical"
@@ -187,18 +187,18 @@
           />
           <template>
             <el-dropdown size="small" @command="changeMenu(scope.row, $event)" :transfer="true">
-              <span class="el-dropdown-link"> Thêm<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <span class="el-dropdown-link"> Thao tác<i class="el-icon-arrow-down el-icon--right"></i> </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   command="1"
                   v-show="
                     scope.row._status === 1 &&
                     scope.row.paid === 0 &&
-                    scope.row.pay_type === 'offline' &&
+                    ['offline', 'vn_cod', 'vn_bank'].includes(scope.row.pay_type) &&
                     scope.row.is_del !== 1 &&
                     scope.row.is_cancel !== 1
                   "
-                  >Xác nhận thanh toán</el-dropdown-item
+                  >Xác nhận thanh toán thủ công</el-dropdown-item
                 >
                 <el-dropdown-item v-show="scope.row._status === 1 && scope.row.is_del !== 1 && scope.row.is_cancel !== 1" command="15">Chỉnh sửa đơn hàng</el-dropdown-item>
                 <el-dropdown-item command="11" v-show="scope.row._status >= 3 && scope.row.express_dump"
@@ -239,7 +239,12 @@
     <!-- Chỉnh sửa Hoàn tiền Điểm hoàn tiền Không hoàn tiền-->
     <edit-from ref="edits" :FromData="FromData" @submitFail="submitFail"></edit-from>
     <!-- Chi tiết -->
-    <details-from ref="details" :orderDatalist="orderDatalist" :orderId="orderId"></details-from>
+    <details-from
+      ref="details"
+      :orderDatalist="orderDatalist"
+      :orderId="orderId"
+      @detail-action="handleDetailAction"
+    ></details-from>
     <!-- Nhận xét -->
     <order-remark ref="remarks" :orderId="orderId" @submitFail="submitFail"></order-remark>
     <!-- Hủy lô hàng -->
@@ -291,7 +296,7 @@
         class="tabform"
         @submit.native.prevent
       >
-        <el-form-item prop="code" label="Mã xác nhận：">
+        <el-form-item prop="code" label="Mã xác nhận:">
           <el-input
             style="width: 414px"
             type="text"
@@ -301,7 +306,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button type="primary" v-db-click @click="ok('writeOffFrom')">Viết tắt ngay lập tức</el-button>
+          <el-button type="primary" v-db-click @click="ok('writeOffFrom')">Xác nhận</el-button>
         <el-button v-db-click @click="del('writeOffFrom')">Hủy bỏ</el-button>
       </div>
     </el-dialog>
@@ -335,10 +340,43 @@
         :before-upload="beforeUpload"
       >
         <i class="el-icon-upload"></i>
-        <div class="el-upload__text">Đơn hàng vận chuyển số lượng lớn,Kéo và thả để tải lên hoặc<em>Bấm để tải lên</em></div>
+        <div class="el-upload__text">Tải tệp giao hàng loạt: kéo thả hoặc <em>bấm để tải lên</em></div>
       </el-upload>
     </el-dialog>
     <orderAddress ref="address" :addressData="addressData" @submitSuccess="submitSuccess"></orderAddress>
+    <el-dialog
+      :visible.sync="codReconcileModal"
+      title="Đối soát COD"
+      width="560px"
+      :close-on-click-modal="false"
+      @closed="resetCodReconcile"
+    >
+      <el-form label-width="140px" :model="codReconcileForm">
+        <el-form-item label="Đơn hàng">
+          <span>{{ codReconcileForm.orderId || '--' }}</span>
+        </el-form-item>
+        <el-form-item label="Người thu tiền" required>
+          <el-input v-model="codReconcileForm.collector" placeholder="Nhập tên người thu tiền COD" maxlength="30" />
+        </el-form-item>
+        <el-form-item label="Mã biên nhận">
+          <el-input v-model="codReconcileForm.receiptNo" placeholder="Nhập mã biên nhận (nếu có)" maxlength="64" />
+        </el-form-item>
+        <el-form-item label="Ghi chú đối soát">
+          <el-input
+            v-model="codReconcileForm.note"
+            type="textarea"
+            :rows="3"
+            placeholder="Nội dung đối soát COD"
+            maxlength="200"
+            show-word-limit
+          />
+        </el-form-item>
+      </el-form>
+      <span slot="footer">
+        <el-button @click="codReconcileModal = false">Hủy</el-button>
+        <el-button type="primary" @click="submitCodReconcile">Lưu & xác nhận đã thu COD</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -356,6 +394,7 @@ import {
   writeUpdate,
   shipmentCancelOrder,
   putWrite,
+  putRemarkData,
   importExpress,
   editAddress,
 } from '@/api/order';
@@ -445,6 +484,15 @@ export default {
       },
       modals2: false,
       addressData: {},
+      codReconcileModal: false,
+      codReconcileSubmitting: false,
+      codReconcileRow: null,
+      codReconcileForm: {
+        orderId: '',
+        collector: '',
+        receiptNo: '',
+        note: '',
+      },
     };
   },
   computed: {
@@ -475,6 +523,100 @@ export default {
   },
   methods: {
     ...mapMutations('order', ['getOrderStatus', 'onChangeTabs', 'getIsDel', 'getisDelIdListl']),
+    formatVnd(value) {
+      const num = Number(value || 0);
+      if (Number.isNaN(num)) return '--';
+      return `${num.toLocaleString('vi-VN')} đ`;
+    },
+    openCodReconcile(row) {
+      this.codReconcileRow = row;
+      this.codReconcileForm.orderId = row.order_id || '';
+      this.codReconcileForm.collector = '';
+      this.codReconcileForm.receiptNo = '';
+      this.codReconcileForm.note = '';
+      this.codReconcileModal = true;
+    },
+    resetCodReconcile() {
+      this.codReconcileRow = null;
+      this.codReconcileSubmitting = false;
+      this.codReconcileForm = {
+        orderId: '',
+        collector: '',
+        receiptNo: '',
+        note: '',
+      };
+    },
+    async submitCodReconcile() {
+      if (!this.codReconcileRow) return;
+      if (!this.codReconcileForm.collector.trim()) {
+        this.$message.error('Vui lòng nhập người thu tiền.');
+        return;
+      }
+      if (this.codReconcileSubmitting) return;
+      this.codReconcileSubmitting = true;
+      const now = new Date().toLocaleString('vi-VN');
+      const receipt = this.codReconcileForm.receiptNo ? ` | Biên nhận: ${this.codReconcileForm.receiptNo}` : '';
+      const note = this.codReconcileForm.note ? ` | Ghi chú: ${this.codReconcileForm.note}` : '';
+      const codLog = `[COD] Đối soát lúc ${now} | Người thu: ${this.codReconcileForm.collector}${receipt}${note}`;
+      const currentRemark = (this.codReconcileRow.remark || '').trim();
+      const mergedRemark = currentRemark ? `${currentRemark}\n${codLog}` : codLog;
+      try {
+        await putRemarkData({ id: this.codReconcileRow.id, remark: mergedRemark });
+        this.changeMenu(this.codReconcileRow, '1');
+        this.codReconcileModal = false;
+      } catch (err) {
+        this.$message.error(err.msg || 'Không thể lưu đối soát COD');
+      } finally {
+        this.codReconcileSubmitting = false;
+      }
+    },
+    handleDetailAction(action, row) {
+      if (!row || !row.id) return;
+      switch (action) {
+        case 'confirm_payment':
+          if (row.pay_type === 'vn_cod') {
+            this.openCodReconcile(row);
+          } else {
+            this.changeMenu(row, '1');
+          }
+          break;
+        case 'edit_order':
+          this.changeMenu(row, '15');
+          break;
+        case 'send_order':
+          this.sendOrder(row);
+          break;
+        case 'delivery_info':
+          this.delivery(row);
+          break;
+        case 'take_delivery':
+          this.changeMenu(row, '8');
+          break;
+        case 'refund_order':
+          this.changeMenu(row, '5');
+          break;
+        case 'edit_address':
+          this.changeMenu(row, '14');
+          break;
+        case 'remark_order':
+          this.changeMenu(row, '4');
+          break;
+        case 'print_order':
+          this.changeMenu(row, '10');
+          break;
+        case 'print_express':
+          this.changeMenu(row, '12');
+          break;
+        case 'print_delivery':
+          this.changeMenu(row, '13');
+          break;
+        case 'confirm_pickup':
+          this.bindWrite(row);
+          break;
+        default:
+          break;
+      }
+    },
     batchShipment() {},
     beforeUpload(file) {
       return isFileUpload(file);
@@ -619,7 +761,7 @@ export default {
       printJS({
         printable: url,
         type: 'image',
-        documentTitle: 'Thể hiện thông tin',
+        documentTitle: 'Thông tin vận đơn',
         style: `img{
           width: 100%;
           height: 476px;
@@ -707,7 +849,7 @@ export default {
             this.$message.error(res.msg);
           });
       } else {
-        this.$message.error('Đơn hàng bạn chọn có đơn hàng chưa được người dùng xóa và đơn hàng chưa được người dùng xóa không thể xóa được.！');
+        this.$message.error('Danh sách chọn có đơn chưa bị người dùng xóa, không thể xóa hàng loạt.');
       }
     },
     // Nhận dữ liệu biểu mẫu chỉnh sửa
@@ -814,8 +956,8 @@ export default {
     bindWrite(row) {
       let self = this;
       this.$msgbox({
-        title: 'gợi ý',
-        message: 'Bạn có chắc chắn muốn xóa đơn đặt hàng này không?？',
+        title: 'Xác nhận',
+        message: 'Bạn có chắc chắn muốn xác nhận nhận tại quầy cho đơn này không?',
         showCancelButton: true,
         cancelButtonText: 'Hủy bỏ',
         confirmButtonText: 'Chắc chắn',
@@ -858,7 +1000,7 @@ export default {
     // Xóa hàng loạt
     delAll() {
       if (this.delIdList.length === 0) {
-        this.$message.error('Hãy chọn thứ tự xóa trước！');
+        this.$message.error('Vui lòng chọn đơn hàng trước khi xóa.');
       } else {
         if (this.isDels) {
           let idss = {
@@ -879,7 +1021,7 @@ export default {
               this.$message.error(res.msg);
             });
         } else {
-          this.$message.error('Đơn hàng bạn chọn có đơn hàng chưa được người dùng xóa và đơn hàng chưa được người dùng xóa không thể xóa được.！');
+          this.$message.error('Danh sách chọn có đơn chưa bị người dùng xóa, không thể xóa hàng loạt.');
         }
       }
     },
@@ -962,7 +1104,7 @@ export default {
     // Xóa đơn hàng
     ok(name) {
       if (!this.writeOffFrom.code) {
-        this.$message.warning('Vui lòng xác minh đơn hàng trước！');
+        this.$message.warning('Vui lòng nhập mã xác nhận trước.');
       } else {
         this.writeOffFrom.confirm = 1;
         putWrite(this.writeOffFrom)

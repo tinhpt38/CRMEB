@@ -635,8 +635,8 @@ export default {
       path: 'other_config/pay/:type?/:tab_id?',
       name: `${pre}other_pay`,
       meta: {
-        auth: ['setting-other-sms'],
-        title: 'Cấu hình thanh toán trung tâm mua sắm',
+        auth: ['setting-other-pay'],
+        title: 'Cấu hình thanh toán cửa hàng',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },

@@ -86,7 +86,8 @@ class StoreOrderSuccessServices extends BaseServices
             $resPink = $pinkServices->createPink($orderServices->tidyOrder($orderInfo, true));//Tạo chuyến tham quan theo nhóm
         }
         //Lưu vào bộ nhớ đệm số lần rút thăm ngoại trừ thanh toán ngoại tuyến
-        if (isset($orderInfo['pay_type']) && $orderInfo['pay_type'] != 'offline') {
+        $deferPayTypes = [PayServices::OFFLINE_PAY, PayServices::VN_COD, PayServices::VN_BANK];
+        if (isset($orderInfo['pay_type']) && !in_array($orderInfo['pay_type'], $deferPayTypes, true)) {
             /** @var LuckLotteryServices $luckLotteryServices */
             $luckLotteryServices = app()->make(LuckLotteryServices::class);
             $luckLotteryServices->setCacheLotteryNum((int)$orderInfo['uid'], 'order');

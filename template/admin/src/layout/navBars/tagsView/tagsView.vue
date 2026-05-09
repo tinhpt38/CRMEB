@@ -75,6 +75,7 @@ export default {
         { id: 3, txt: 'message.tagsView.closeAll', affix: false, icon: 'el-icon-folder-delete' },
       ],
       scrollTagIcon: false,
+      resizeHandler: null,
     };
   },
   computed: {
@@ -103,18 +104,23 @@ export default {
     if (!this.$store.state.app.tagNavList.length) {
       this.getTagsViewRoutes();
     }
-    if (this.$refs.tagsViews?.offsetWidth < this.$refs.scrollbarRef.$refs.wrap.scrollWidth) {
-      this.scrollTagIcon = true;
-    }
-    window.addEventListener('resize', () => {
-      if (this.$refs.tagsViews?.offsetWidth < this.$refs.scrollbarRef.$refs.wrap.scrollWidth) {
-        this.scrollTagIcon = true;
-      } else {
-        this.scrollTagIcon = false;
-      }
-    });
+    this.syncScrollIcon();
+    this.resizeHandler = () => this.syncScrollIcon();
+    window.addEventListener('resize', this.resizeHandler);
   },
   methods: {
+    getScrollWrap() {
+      return this.$refs?.scrollbarRef?.$refs?.wrap || null;
+    },
+    syncScrollIcon() {
+      const wrap = this.getScrollWrap();
+      const tagsViews = this.$refs?.tagsViews;
+      if (!wrap || !tagsViews) {
+        this.scrollTagIcon = false;
+        return;
+      }
+      this.scrollTagIcon = tagsViews.offsetWidth < wrap.scrollWidth;
+    },
     ...mapMutations(['setBreadCrumb', 'setTagNavList', 'addTag', 'setLocal', 'setHomeRoute', 'closeTag']),
     clickDropdown(e) {
       let data = { id: e, path: this.$route.path };
@@ -138,15 +144,19 @@ export default {
     },
     // Cuộn con lăn chuột
     onHandleScroll(e) {
-      this.$refs.scrollbarRef.$refs.wrap.scrollLeft += e.wheelDelta / 4;
+      const wrap = this.getScrollWrap();
+      if (!wrap) return;
+      wrap.scrollLeft += e.wheelDelta / 4;
     },
     scrollTag(production) {
-      let scrollRefs = this.$refs.scrollbarRef.$refs.wrap.scrollWidth;
-      let scrollLeft = this.$refs.scrollbarRef.$refs.wrap.scrollLeft;
+      const wrap = this.getScrollWrap();
+      if (!wrap) return;
+      let scrollRefs = wrap.scrollWidth;
+      let scrollLeft = wrap.scrollLeft;
       if (production === 'left') {
-        this.$refs.scrollbarRef.$refs.wrap.scrollLeft = scrollLeft - 300 <= 0 ? 0 : scrollLeft - 300;
+        wrap.scrollLeft = scrollLeft - 300 <= 0 ? 0 : scrollLeft - 300;
       } else {
-        this.$refs.scrollbarRef.$refs.wrap.scrollLeft = scrollLeft + 300 >= scrollRefs ? scrollRefs : scrollLeft + 300;
+        wrap.scrollLeft = scrollLeft + 300 >= scrollRefs ? scrollRefs : scrollLeft + 300;
       }
     },
     // tagsView Cuộn ngang
@@ -166,7 +176,8 @@ export default {
         // cuối cùng li
         let liLast = tagsRefs[tagsRefs.length - 1];
         // Giá trị hiện tại của thanh cuộn
-        let scrollRefs = this.$refs.scrollbarRef.$refs.wrap;
+        let scrollRefs = this.getScrollWrap();
+        if (!scrollRefs) return false;
         // Chiều rộng cuộn thanh cuộn hiện tại
         let scrollS = scrollRefs.scrollWidth;
         // Chiều rộng bù trừ thanh cuộn hiện tại
@@ -205,7 +216,7 @@ export default {
     },
     // Cập nhật hiển thị thanh cuộn
     updateScrollbar() {
-      this.$refs.scrollbarRef.update();
+      this.$refs?.scrollbarRef?.update && this.$refs.scrollbarRef.update();
     },
     // Tìm kiếm đệ quy thông tin thành phần theo đường dẫn hiện tại
     filterCurrentMenu(arr, currentPath, callback) {
@@ -295,11 +306,7 @@ export default {
     },
     refreshIcon() {
       this.$nextTick((e) => {
-        if (this.$refs.tagsViews?.offsetWidth < this.$refs.scrollbarRef.$refs.wrap.scrollWidth) {
-          this.scrollTagIcon = true;
-        } else {
-          this.scrollTagIcon = false;
-        }
+        this.syncScrollIcon();
       });
     },
     // 1、làm mới hiện tại tagsView：
@@ -367,6 +374,7 @@ export default {
   destroyed() {
     // Hủy giám sát cuộc gọi đối với những trang không thuộc trang này（fun/tagsView）
     this.bus.$off('onCurrentContextmenuClick');
+    this.resizeHandler && window.removeEventListener('resize', this.resizeHandler);
   },
 };
 </script>

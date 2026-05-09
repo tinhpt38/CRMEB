@@ -100,6 +100,22 @@ class PayController
                 'payStatus' => (int)sys_config('offline_pay_status', 0) === 1,
             ],
             [
+                'icon' => 'icon-daifukuan',
+                'name' => 'COD (thanh toán khi nhận)',
+                'value' => 'vn_cod',
+                'title' => 'Thanh toán tiền mặt khi nhận hàng',
+                'number' => null,
+                'payStatus' => (int)sys_config('vn_cod_pay_status', 2) === 1,
+            ],
+            [
+                'icon' => 'icon-yinhangqia',
+                'name' => 'Chuyển khoản / VietQR',
+                'value' => 'vn_bank',
+                'title' => 'Chuyển khoản theo hướng dẫn cửa hàng',
+                'number' => null,
+                'payStatus' => (int)sys_config('vn_bank_pay_status', 2) === 1,
+            ],
+            [
                 'icon' => 'icon-haoyoudaizhifu',
                 'name' => 'Bạn bè trả tiền thay mặt',
                 'value' => 'friend',

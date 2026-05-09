@@ -29,13 +29,16 @@
 				</view>
 				<view class="iconfont" :class="active==index?'icon-xuanzhong11 font-num':'icon-weixuan'"></view>
 			</view>
+			<view class="vn-bank-guide" v-if="vnBankGuide && paytype === 'vn_bank'">
+				<view class="guide-title">{{$t(`Thông tin chuyển khoản`)}}</view>
+				<text class="guide-text">{{ vnBankGuide }}</text>
+			</view>
 		</view>
 		<view class="btn">
 			<view class="button acea-row row-center-wrapper" @click='goPay(number, paytype)'>{{$t(`Xác nhận thanh toán`)}}</view>
 			<view class="wait-pay" @click="waitPay">{{$t(`Chưa thanh toán`)}}</view>
 		</view>
 		<view v-show="false" v-html="formContent"></view>
-	</view>
 	</view>
 </template>
 
@@ -86,6 +89,20 @@
 						value: 'offline',
 						title: this.$t(`Sử dụng thanh toán ngoại tuyến`),
 						payStatus: 2,
+					},
+					{
+						"name": this.$t(`COD (thanh toán khi nhận)`),
+						"icon": "icon-daifukuan",
+						value: 'vn_cod',
+						title: this.$t(`Thanh toán tiền mặt khi nhận hàng`),
+						payStatus: 2,
+					},
+					{
+						"name": this.$t(`Chuyển khoản / VietQR`),
+						"icon": "icon-yinhangqia",
+						value: 'vn_bank',
+						title: this.$t(`Chuyển khoản theo hướng dẫn cửa hàng`),
+						payStatus: 2,
 					}, {
 						"name": this.$t(`Bạn bè trả tiền thay mặt`),
 						"icon": "icon-haoyoudaizhifu",
@@ -95,6 +112,8 @@
 					}
 				],
 				orderId: 0,
+				paytype: '',
+				vnBankGuide: '',
 				fromType: '',
 				active: 0,
 				payPrice: 0,
@@ -196,8 +215,10 @@
 					} else {
 						this.cartArr[3].payStatus = 0
 					}
+					this.cartArr[4].payStatus = res.data.vn_cod_pay_status ? 1 : 0
+					this.cartArr[5].payStatus = res.data.vn_bank_pay_status ? 1 : 0
 					//Thanh toán cho bạn bè có được kích hoạt không?
-					this.cartArr[4].payStatus = res.data.friend_pay_status || 0;
+					this.cartArr[6].payStatus = res.data.friend_pay_status ? 1 : 0;
 					this.getCashierOrder()
 				}).catch(err => {
 					uni.hideLoading();
@@ -214,6 +235,7 @@
 					this.payPrice = this.payPriceShow = res.data.pay_price
 					this.payPostage = res.data.pay_postage
 					this.offlinePostage = res.data.offline_postage
+					this.vnBankGuide = res.data.vn_bank_pay_guide || ''
 					this.invalidTime = res.data.invalid_time
 					this.cartArr[2].number = res.data.now_money;
 					this.number = Number(res.data.now_money) || 0;
@@ -232,7 +254,7 @@
 				this.paytype = paytype;
 				this.number = number;
 				if (this.offlinePostage) {
-					if (paytype == 'offline') {
+					if (paytype == 'offline' || paytype == 'vn_bank') {
 						this.payPriceShow = this.$util.$h.Sub(this.payPrice, this.payPostage);
 					} else {
 						this.payPriceShow = this.payPrice;
@@ -758,6 +780,23 @@
 
 		.icon-haoyoudaizhifu {
 			color: #F34C3E !important;
+		}
+
+		.vn-bank-guide {
+			margin: 24rpx 30rpx 0;
+			padding: 24rpx;
+			background: #f8f8f8;
+			border-radius: 12rpx;
+			font-size: 26rpx;
+			color: #333;
+			line-height: 1.6;
+			white-space: pre-wrap;
+			word-break: break-word;
+		}
+
+		.vn-bank-guide .guide-title {
+			font-weight: bold;
+			margin-bottom: 12rpx;
 		}
 
 		.btn {

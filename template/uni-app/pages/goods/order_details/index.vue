@@ -661,6 +661,20 @@ export default {
 					payStatus: true
 				},
 				{
+					name: this.$t(`COD (thanh toán khi nhận)`),
+					icon: 'icon-daifukuan',
+					value: 'vn_cod',
+					title: this.$t(`Thanh toán tiền mặt khi nhận hàng`),
+					payStatus: true
+				},
+				{
+					name: this.$t(`Chuyển khoản / VietQR`),
+					icon: 'icon-yinhangqia',
+					value: 'vn_bank',
+					title: this.$t(`Chuyển khoản theo hướng dẫn cửa hàng`),
+					payStatus: true
+				},
+				{
 					name: this.$t(`Bạn bè trả tiền thay mặt`),
 					icon: 'icon-haoyoudaizhifu',
 					value: 'friend',
@@ -1076,6 +1090,13 @@ export default {
 						}
 						if (item.value == 'allinpay') {
 							item.payStatus = res.data.pay_allin_open == 1 ? true : false;
+						}
+						if (item.value == 'vn_cod') {
+							item.payStatus =
+								res.data.vn_cod_pay_status == 1 && Number(res.data.virtual_type || 0) === 0;
+						}
+						if (item.value == 'vn_bank') {
+							item.payStatus = res.data.vn_bank_pay_status == 1 ? true : false;
 						}
 					});
 

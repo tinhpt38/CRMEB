@@ -13,7 +13,13 @@ return [
     //Chế độ thanh toán mặc định
     'default' => 'wechat_pay',
     //Phương thức thanh toán
-    'payType' => ['weixin' => 'WeChat trả tiền', 'yue' => 'thanh toán số dư', 'offline' => 'Thanh toán ngoại tuyến'],
+    'payType' => [
+        'weixin' => 'WeChat trả tiền',
+        'yue' => 'thanh toán số dư',
+        'offline' => 'Thanh toán ngoại tuyến',
+        'vn_cod' => 'Thanh toán khi nhận hàng (COD)',
+        'vn_bank' => 'Chuyển khoản ngân hàng / VietQR',
+    ],
     //Phương thức rút tiền
     'extractType' => ['alipay', 'bank', 'weixin'],
     //Phương thức giao hàng
