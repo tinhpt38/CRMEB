@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { UIMatch, useMatches, useNavigate } from "react-router-dom";
 import {
   cartState,
-  cartTotalState,
+  checkoutPaymentMethodState,
   crmebAddressesState,
   deliveryModeState,
   ordersState,
@@ -17,7 +17,8 @@ import { getConfig } from "@/utils/template";
 import { authorize, getAccessToken, getPhoneNumber, openChat } from "zmp-sdk/apis";
 import { useAtomCallback } from "jotai/utils";
 import { CrmebApiClient } from "@/utils/crmeb/client";
-import { getCrmebToken, setCrmebToken } from "@/utils/crmeb/token";
+import { clearCrmebToken, getCrmebToken, setCrmebToken } from "@/utils/crmeb/token";
+import { setSessionLoggedOut } from "@/utils/session";
 import CONFIG from "@/config";
 
 export function useRealHeight(
@@ -49,24 +50,78 @@ export function useRequestInformation() {
     return userInfo;
   });
   const setInfoKey = useSetAtom(userInfoKeyState);
+  const refreshAddresses = useSetAtom(crmebAddressesState);
   const refreshPermissions = () => setInfoKey((key) => key + 1);
 
   return async () => {
-    const userInfo = await getStoredUserInfo();
-    if (!userInfo) {
-      const apiUrl = getConfig((c) => c.template.apiUrl);
-      const isDev = !window.ZJSBridge;
+    let userInfo = await getStoredUserInfo();
+    const apiUrl = getConfig((c) => c.template.apiUrl);
+    const isDev = !window.ZJSBridge;
 
+    let triggeredLoginRefresh = false;
+    if (!userInfo) {
+      triggeredLoginRefresh = true;
       if (apiUrl && !isDev) {
-        // Nhánh CRMEB: không cần authorize() — getAccessToken() không yêu cầu
-        // permission grant. Chỉ cần retry userInfoState (gọi lại /zalo/auth).
+        try {
+          await authorize({
+            scopes: ["scope.userInfo", "scope.userPhonenumber"],
+          });
+        } catch (e) {
+          console.warn("Zalo authorize (CRMEB login):", e);
+        }
+        setSessionLoggedOut(false);
         refreshPermissions();
       } else {
-        // Nhánh dev / Zalo SDK thuần: xin quyền scope.userInfo rồi mới refresh.
-        await authorize({ scopes: ["scope.userInfo"] }).then(refreshPermissions);
+        await authorize({
+          scopes: ["scope.userInfo", "scope.userPhonenumber"],
+        }).then(() => {
+          setSessionLoggedOut(false);
+          refreshPermissions();
+        });
       }
-      return await getStoredUserInfo();
+      userInfo = await getStoredUserInfo();
     }
+
+    if (triggeredLoginRefresh && userInfo && apiUrl && !isDev) {
+      refreshAddresses();
+    }
+
+    // Khi bấm "Đăng ký hội viên", nếu đã login CRMEB nhưng chưa có phone thì
+    // xin quyền getPhoneNumber luôn để bind trực tiếp, không cần OTP.
+    if (userInfo && apiUrl && !isDev && !userInfo.phone) {
+      try {
+        const crmebToken = getCrmebToken();
+        if (crmebToken) {
+          const [{ token: phoneToken }, accessToken] = await Promise.all([
+            getPhoneNumber({}),
+            getAccessToken(),
+          ]);
+
+          const client = new CrmebApiClient({
+            apiBaseUrl: apiUrl,
+            getToken: () => crmebToken,
+          });
+          const bindRes = await client.post<{ phone?: string }>(
+            "/zalo/bind_phone_direct",
+            { access_token: accessToken, phone_token: phoneToken }
+          );
+
+          if (bindRes?.phone) {
+            const merged = { ...userInfo, phone: bindRes.phone };
+            localStorage.setItem(
+              CONFIG.STORAGE_KEYS.USER_INFO,
+              JSON.stringify(merged)
+            );
+            userInfo = merged;
+          }
+          refreshPermissions();
+        }
+      } catch (error) {
+        // Người dùng có thể từ chối cấp quyền phone; vẫn cho login bình thường.
+        console.warn("Bind phone from register failed:", error);
+      }
+    }
+
     return userInfo;
   };
 }
@@ -171,8 +226,22 @@ export function useToBeImplemented() {
     });
 }
 
+export function useLogout() {
+  const setUserInfoKey = useSetAtom(userInfoKeyState);
+  const refreshAddresses = useSetAtom(crmebAddressesState);
+
+  return () => {
+    setSessionLoggedOut(true);
+    clearCrmebToken();
+    localStorage.removeItem(CONFIG.STORAGE_KEYS.USER_INFO);
+    localStorage.removeItem(CONFIG.STORAGE_KEYS.CRMEB_ADDRESS_ID);
+    setUserInfoKey((k) => k + 1);
+    refreshAddresses();
+    toast.success("Đã đăng xuất");
+  };
+}
+
 export function useCheckout() {
-  const { totalAmount } = useAtomValue(cartTotalState);
   const [cart, setCart] = useAtom(cartState);
   const requestInfo = useRequestInformation();
   const navigate = useNavigate();
@@ -183,6 +252,7 @@ export function useCheckout() {
   const refreshAddresses = useSetAtom(crmebAddressesState);
 
   const deliveryMode = useAtomValue(deliveryModeState);
+  const checkoutPaymentMethod = useAtomValue(checkoutPaymentMethodState);
 
   const getSelectedAddress = useAtomCallback(async (get) =>
     get(selectedCrmebAddressState)
@@ -213,12 +283,26 @@ export function useCheckout() {
     );
   };
 
+  const resolveCrmebPayType = (): "offline" => {
+    // CRMEB hiện luồng Mini App đang dùng `offline` cho các phương thức
+    // COD/chuyển khoản/thỏa thuận thủ công.
+    void checkoutPaymentMethod;
+    return "offline";
+  };
+
+  const resolveCheckoutMark = (): string => {
+    if (checkoutPaymentMethod === "bank_transfer") return "PAY_METHOD:BANK_TRANSFER";
+    if (checkoutPaymentMethod === "other") return "PAY_METHOD:OTHER";
+    return "PAY_METHOD:COD";
+  };
+
   const handleCrmebPayment = async (args: {
     payInfo: any;
     client: CrmebApiClient;
     uni: string | number;
+    payType: string;
   }) => {
-    const { payInfo, client, uni } = args;
+    const { payInfo, client, uni, payType } = args;
 
     // 1) If CRMEB provides a direct payment URL, open it.
     const payUrl = payInfo?.pay_url;
@@ -228,21 +312,21 @@ export function useCheckout() {
     }
 
     // 2) If CRMEB returns `jsConfig` (WeChat/JS config), current MVP
-    // does not bridge it into Zalo checkout. Fallback to `yue`.
+    // does not bridge it into Zalo checkout. Fallback to selected paytype.
     if (payInfo?.jsConfig) {
-      toast("CRMEB trả jsConfig (WeChat). Fallback thanh toán số dư (yue)...", {
+      toast("CRMEB trả jsConfig (WeChat). Fallback sang phương thức đã chọn...", {
         icon: "ℹ",
       });
       try {
         await client.post<any>("/order/pay", {
           uni,
-          paytype: "yue",
+          paytype: payType,
           quitUrl: "",
           type: 0,
         });
         return;
       } catch (e) {
-        console.warn("Fallback yue payment failed:", e);
+        console.warn("Fallback selected payment failed:", e);
       }
     }
 
@@ -322,12 +406,14 @@ export function useCheckout() {
       if (!orderKey) throw new Error("Missing orderKey from /order/confirm");
 
       // 3) computed
+      const payType = resolveCrmebPayType();
+      const mark = resolveCheckoutMark();
       await client.post<any>(`/order/computed/${orderKey}`, {
         addressId,
         couponId: 0,
-        payType: "yue",
+        payType,
         useIntegral: 0,
-        mark: "",
+        mark,
         combinationId: 0,
         pinkId: 0,
         seckill_id: 0,
@@ -342,9 +428,9 @@ export function useCheckout() {
         {
           addressId,
           couponId: 0,
-          payType: "yue",
+          payType,
           useIntegral: 0,
-          mark: "",
+          mark,
           combinationId: 0,
           pinkId: 0,
           seckill_id: 0,
@@ -366,15 +452,15 @@ export function useCheckout() {
       const orderId = extractOrderId(createData);
       if (!orderId) throw new Error("Missing orderId from /order/create");
 
-      // 5) pay bằng số dư (yue)
+      // 5) pay theo phương thức đã chọn (CRMEB side: offline flow)
       const payInfo = await client.post<any>("/order/pay", {
         uni: orderId,
-        paytype: "yue",
+        paytype: payType,
         quitUrl: "",
         type: 0,
       });
 
-      await handleCrmebPayment({ payInfo, client, uni: orderId });
+      await handleCrmebPayment({ payInfo, client, uni: orderId, payType });
     } catch (error) {
       console.warn(error);
       toast.error(

@@ -2,6 +2,7 @@ import {
   crmebAddressesState,
   loadableCityListState,
   loadableSelectedCrmebAddressState,
+  loadableUserInfoState,
   selectedCrmebAddressIdState,
 } from "@/state";
 import { CityNode, CrmebAddress } from "@/types";
@@ -9,7 +10,7 @@ import { CrmebApiClient } from "@/utils/crmeb/client";
 import { getCrmebToken } from "@/utils/crmeb/token";
 import { getConfig } from "@/utils/template";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Button, Icon, Input, Sheet } from "zmp-ui";
@@ -145,6 +146,7 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
   const [saving, setSaving] = useState(false);
   const refreshAddresses = useSetAtom(crmebAddressesState);
   const setSelectedId = useSetAtom(selectedCrmebAddressIdState);
+  const userInfoLoadable = useAtomValue(loadableUserInfoState);
 
   // Địa chỉ
   const cityListLoadable = useAtomValue(loadableCityListState);
@@ -153,6 +155,15 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
 
   const [province, setProvince] = useState(initial?.province ?? "");
   const [district, setDistrict] = useState(initial?.district ?? "");
+  const [realName, setRealName] = useState(initial?.real_name ?? "");
+  const [phone, setPhone] = useState(initial?.phone ?? "");
+
+  useEffect(() => {
+    if (initial) return;
+    if (userInfoLoadable.state !== "hasData" || !userInfoLoadable.data) return;
+    if (!realName) setRealName(userInfoLoadable.data.name ?? "");
+    if (!phone) setPhone(userInfoLoadable.data.phone ?? "");
+  }, [initial, userInfoLoadable, realName, phone]);
 
   // Các option tỉnh/thành
   const provinceOptions: SelectOption[] = useMemo(
@@ -175,14 +186,14 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const real_name = (fd.get("real_name") as string)?.trim();
-    const phone = (fd.get("phone") as string)?.trim();
+    const real_name = realName.trim();
+    const phoneValue = phone.trim();
     const detail = (fd.get("detail") as string)?.trim();
     const districtVal = districtOptions.length
       ? district
       : (fd.get("district_text") as string)?.trim();
 
-    if (!province || !districtVal || !detail || !real_name || !phone) {
+    if (!province || !districtVal || !detail || !real_name || !phoneValue) {
       toast.error("Vui lòng điền đầy đủ thông tin");
       return;
     }
@@ -201,7 +212,7 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
         address: { province, city: province, district: districtVal },
         real_name,
         post_code: "",
-        phone,
+        phone: phoneValue,
         detail,
         is_default: initial ? initial.is_default : true,
         id: initial?.id ?? 0,
@@ -233,14 +244,16 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
             label="Họ tên người nhận"
             placeholder="Nguyễn Văn A"
             required
-            defaultValue={initial?.real_name}
+            value={realName}
+            onChange={(e) => setRealName(e.target.value)}
           />
           <Input
             name="phone"
             label="Số điện thoại"
             placeholder="0901234567"
             required
-            defaultValue={initial?.phone}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </div>
 

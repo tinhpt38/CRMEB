@@ -16,6 +16,7 @@ import {
   Location,
   Order,
   OrderStatus,
+  CheckoutPaymentMethod,
   Product,
   ProductAttribute,
   ShippingAddress,
@@ -37,6 +38,8 @@ import CONFIG from "./config";
 import { getConfig } from "./utils/template";
 import { CrmebApiClient } from "./utils/crmeb/client";
 import { getCrmebToken, setCrmebToken } from "./utils/crmeb/token";
+import { enrichUserInfoFromCrmebRecords } from "./utils/crmeb/userProfile";
+import { isSessionLoggedOut, setSessionLoggedOut } from "./utils/session";
 
 /**
  * Resolve a CRMEB image path to an absolute URL.
@@ -97,6 +100,10 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
   async (get) => {
     get(userInfoKeyState);
 
+    if (isSessionLoggedOut()) {
+      return undefined;
+    }
+
     // Kiểm tra cache trước — lần login trước đã lưu vào localStorage.
     const savedUserInfo = localStorage.getItem(CONFIG.STORAGE_KEYS.USER_INFO);
     if (savedUserInfo) {
@@ -130,9 +137,10 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
         });
 
         if (result?.token) setCrmebToken(result.token);
+        setSessionLoggedOut(false);
 
         const crmUser = result?.userInfo ?? {};
-        const mapped: UserInfo = {
+        let mapped: UserInfo = {
           id: String(crmUser.uid ?? crmUser.id ?? ""),
           name: String(crmUser.nickname ?? crmUser.name ?? ""),
           avatar: String(crmUser.avatar ?? ""),
@@ -140,6 +148,16 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
           email: "",
           address: "",
         };
+
+        try {
+          const [profile, addressPayload] = await Promise.all([
+            client.get<Record<string, unknown>>("/userinfo"),
+            client.get<unknown>("/address/list").catch(() => []),
+          ]);
+          mapped = enrichUserInfoFromCrmebRecords(mapped, profile, addressPayload);
+        } catch (enrichErr) {
+          console.warn("CRMEB enrich user profile failed:", enrichErr);
+        }
 
         localStorage.setItem(
           CONFIG.STORAGE_KEYS.USER_INFO,
@@ -166,6 +184,7 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
         const { userInfo } = await getUserInfo({});
         const phone =
           grantedPhoneNumber || isDev ? await get(phoneState) : "";
+        setSessionLoggedOut(false);
         return {
           id: userInfo.id,
           name: userInfo.name,
@@ -677,6 +696,14 @@ export const orderDetailState = atomFamily((orderId: string) =>
 export const deliveryModeState = atomWithStorage<Delivery["type"]>(
   CONFIG.STORAGE_KEYS.DELIVERY,
   "shipping"
+);
+
+/**
+ * Phương thức thanh toán người dùng chọn tại checkout.
+ */
+export const checkoutPaymentMethodState = atomWithStorage<CheckoutPaymentMethod>(
+  "checkout_payment_method",
+  "cod"
 );
 
 // ---------------------------------------------------------------------------

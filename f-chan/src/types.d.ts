@@ -115,3 +115,9 @@ export interface Order {
   total: number;
   note: string;
 }
+
+/**
+ * Phương thức thanh toán hiển thị ở màn checkout.
+ * `payType` thực tế vẫn map qua luồng offline của CRMEB.
+ */
+export type CheckoutPaymentMethod = "cod" | "bank_transfer" | "other";
