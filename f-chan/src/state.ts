@@ -25,6 +25,7 @@ import {
 } from "@/types";
 import { requestWithFallback } from "@/utils/request";
 import {
+  authorize,
   getAccessToken,
   getLocation,
   getPhoneNumber,
@@ -129,6 +130,15 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
     // Không gọi getSetting ở đây để tránh block khi user chưa cấp quyền scope.userInfo.
     if (useCrmebLive) {
       try {
+        // Zalo SDK ≥2.35: token mặc định chỉ đủ lấy user id; phải xin scope.userInfo
+        // *trước* getAccessToken thì Graph /me mới trả name/picture (tránh Zalo_xxxxxx).
+        if (!isDev) {
+          try {
+            await authorize({ scopes: ["scope.userInfo"] });
+          } catch (e) {
+            console.warn("Zalo authorize scope.userInfo (trước CRMEB /zalo/auth):", e);
+          }
+        }
         const accessToken = await getAccessToken();
         const client = new CrmebApiClient({
           apiBaseUrl: apiUrl,

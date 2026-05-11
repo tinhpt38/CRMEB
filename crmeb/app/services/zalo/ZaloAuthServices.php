@@ -377,6 +377,26 @@ class ZaloAuthServices extends BaseServices
     /**
      * Cập nhật giới hạn cho user trùng số điện thoại.
      */
+    /**
+     * Nickname fallback do Graph /me không có name (chưa xin scope.userInfo) — cho phép ghi đè khi đã có tên thật.
+     */
+    private function isZaloPlaceholderNickname(string $nickname): bool
+    {
+        $nickname = trim($nickname);
+
+        return $nickname !== '' && (bool)preg_match('/^Zalo_\d{4,}$/', $nickname);
+    }
+
+    /**
+     * Avatar mặc định CRMEB — nên cập nhật khi Zalo đã trả ảnh thật.
+     */
+    private function isLikelyDefaultAvatar(string $avatar): bool
+    {
+        $avatar = trim($avatar);
+
+        return $avatar === '' || strpos($avatar, 'default_avatar') !== false;
+    }
+
     private function limitedUpdateExistingUser(int $uid, array $zaloUser): void
     {
         /** @var UserServices $userServices */
@@ -390,11 +410,21 @@ class ZaloAuthServices extends BaseServices
             'last_time' => time(),
             'last_ip' => app('request')->ip(),
         ];
-        if (empty($currentUser['nickname']) && !empty($zaloUser['nickname'])) {
-            $updateData['nickname'] = $zaloUser['nickname'];
+        $currentNick = (string)($currentUser['nickname'] ?? '');
+        $zaloNick = (string)($zaloUser['nickname'] ?? '');
+        $nickEmpty = $currentNick === '';
+        $nickPlaceholder = $this->isZaloPlaceholderNickname($currentNick);
+        $zaloNickUsable = $zaloNick !== '' && !$this->isZaloPlaceholderNickname($zaloNick);
+        if ($zaloNickUsable && ($nickEmpty || $nickPlaceholder)) {
+            $updateData['nickname'] = $zaloNick;
         }
-        if (empty($currentUser['avatar']) && !empty($zaloUser['avatar'])) {
-            $updateData['avatar'] = $zaloUser['avatar'];
+
+        $currentAvatar = (string)($currentUser['avatar'] ?? '');
+        $zaloAvatar = (string)($zaloUser['avatar'] ?? '');
+        if ($zaloAvatar !== '' && ($this->isLikelyDefaultAvatar($currentAvatar) || $currentAvatar === '')) {
+            $updateData['avatar'] = $zaloAvatar;
+        } elseif (empty($currentUser['avatar']) && $zaloAvatar !== '') {
+            $updateData['avatar'] = $zaloAvatar;
         }
         $userServices->update($uid, $updateData, 'uid');
     }

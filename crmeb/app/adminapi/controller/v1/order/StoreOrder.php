@@ -963,4 +963,50 @@ class StoreOrder extends AuthController
         $this->services->editAddress($id, $data);
         return app('json')->success('Sửa đổi thành công');
     }
+
+    /**
+     * Danh sách lý do hủy đơn (admin)
+     */
+    public function cancel_reasons()
+    {
+        $list = [];
+        foreach (StoreOrderServices::adminCancelReasonLabels() as $key => $label) {
+            $list[] = ['key' => $key, 'label' => $label];
+        }
+        return app('json')->success($list);
+    }
+
+    /**
+     * Hủy đơn (admin, chưa thanh toán) kèm lý do
+     */
+    public function admin_cancel($id)
+    {
+        if (!$id) {
+            return app('json')->fail('Lỗi tham số');
+        }
+        [$reasonKey, $customReason] = $this->request->postMore([
+            ['reason_key', ''],
+            ['custom_reason', ''],
+        ], true);
+        $this->services->adminCancelOrder((int)$id, trim((string)$reasonKey), trim((string)$customReason));
+        return app('json')->success('Đã hủy đơn hàng');
+    }
+
+    /**
+     * Sửa số lượng dòng chi tiết đơn (admin, chưa thanh toán)
+     */
+    public function admin_update_cart_num($id)
+    {
+        if (!$id) {
+            return app('json')->fail('Lỗi tham số');
+        }
+        [$items] = $this->request->postMore([
+            ['items', []],
+        ], true);
+        if (!is_array($items)) {
+            return app('json')->fail('Dữ liệu items không hợp lệ');
+        }
+        $data = $this->services->adminUpdateCartQuantities((int)$id, $items);
+        return app('json')->success('Đã cập nhật số lượng', $data);
+    }
 }

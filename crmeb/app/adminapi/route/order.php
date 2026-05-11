@@ -134,6 +134,12 @@ Route::group('order', function () {
     Route::get('order_dump/:order_id', 'v1.order.StoreOrder/order_dump')->option(['real_name' => 'Thêm thao tác in biểu mẫu điện tử']);
     //Sửa đổi địa chỉ giao hàng cho các đơn hàng chưa được vận chuyển
     Route::post('edit_address/:id', 'v1.order.StoreOrder/editAddress')->option(['real_name' => 'Sửa đổi địa chỉ giao hàng cho các đơn hàng chưa được vận chuyển']);
+    //Lý do hủy đơn (mẫu admin)
+    Route::get('cancel_reasons', 'v1.order.StoreOrder/cancel_reasons')->option(['real_name' => 'Danh sách lý do hủy đơn admin']);
+    //Hủy đơn admin (chưa thanh toán)
+    Route::post('admin_cancel/:id', 'v1.order.StoreOrder/admin_cancel')->option(['real_name' => 'Hủy đơn hàng (admin)']);
+    //Sửa số lượng chi tiết đơn (admin, chưa thanh toán)
+    Route::post('admin_update_cart_num/:id', 'v1.order.StoreOrder/admin_update_cart_num')->option(['real_name' => 'Sửa số lượng dòng đơn hàng (admin)']);
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,

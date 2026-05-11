@@ -14,12 +14,39 @@ import {
 } from "@/state";
 import { Product } from "@/types";
 import { getConfig } from "@/utils/template";
-import { authorize, getAccessToken, getPhoneNumber, openChat } from "zmp-sdk/apis";
+import {
+  authorize,
+  getAccessToken,
+  getPhoneNumber,
+  getSetting,
+  openChat,
+} from "zmp-sdk/apis";
 import { useAtomCallback } from "jotai/utils";
 import { CrmebApiClient } from "@/utils/crmeb/client";
 import { clearCrmebToken, getCrmebToken, setCrmebToken } from "@/utils/crmeb/token";
 import { setSessionLoggedOut } from "@/utils/session";
 import CONFIG from "@/config";
+
+/**
+ * Xin quyền Zalo cho luồng đăng nhập: luôn xin `scope.userInfo` trước.
+ * `scope.userPhonenumber` gọi tách — nếu Zalo chưa duyệt quyền ở cấp Mini App
+ * thì gộp chung một lần authorize có thể fail toàn bộ và không lấy được user.
+ */
+async function authorizeZaloForLogin(): Promise<void> {
+  try {
+    await authorize({ scopes: ["scope.userInfo"] });
+  } catch (e) {
+    console.warn("Zalo authorize scope.userInfo:", e);
+  }
+  try {
+    await authorize({ scopes: ["scope.userPhonenumber"] });
+  } catch (e) {
+    console.warn(
+      "Zalo authorize scope.userPhonenumber (tuỳ chọn, có thể chưa được Zalo cấp quyền app):",
+      e
+    );
+  }
+}
 
 export function useRealHeight(
   element: MutableRefObject<HTMLDivElement | null>,
@@ -61,24 +88,9 @@ export function useRequestInformation() {
     let triggeredLoginRefresh = false;
     if (!userInfo) {
       triggeredLoginRefresh = true;
-      if (apiUrl && !isDev) {
-        try {
-          await authorize({
-            scopes: ["scope.userInfo", "scope.userPhonenumber"],
-          });
-        } catch (e) {
-          console.warn("Zalo authorize (CRMEB login):", e);
-        }
-        setSessionLoggedOut(false);
-        refreshPermissions();
-      } else {
-        await authorize({
-          scopes: ["scope.userInfo", "scope.userPhonenumber"],
-        }).then(() => {
-          setSessionLoggedOut(false);
-          refreshPermissions();
-        });
-      }
+      await authorizeZaloForLogin();
+      setSessionLoggedOut(false);
+      refreshPermissions();
       userInfo = await getStoredUserInfo();
     }
 
@@ -87,11 +99,24 @@ export function useRequestInformation() {
     }
 
     // Khi bấm "Đăng ký hội viên", nếu đã login CRMEB nhưng chưa có phone thì
-    // xin quyền getPhoneNumber luôn để bind trực tiếp, không cần OTP.
+    // thử bind qua getPhoneNumber — chỉ gọi SDK khi setting cho thấy đã cấp quyền,
+    // tránh popup/lỗi Zalo khi app chưa được duyệt scope.userPhonenumber.
     if (userInfo && apiUrl && !isDev && !userInfo.phone) {
       try {
         const crmebToken = getCrmebToken();
         if (crmebToken) {
+          let phoneScopeOk = false;
+          try {
+            const { authSetting } = await getSetting({});
+            phoneScopeOk =
+              authSetting?.["scope.userPhonenumber"] === true;
+          } catch {
+            phoneScopeOk = false;
+          }
+          if (!phoneScopeOk) {
+            return userInfo;
+          }
+
           const [{ token: phoneToken }, accessToken] = await Promise.all([
             getPhoneNumber({}),
             getAccessToken(),

@@ -13,6 +13,9 @@ namespace app\services\order;
 
 use app\dao\order\StoreOrderDao;
 use app\jobs\AutoCommentJob;
+use app\services\activity\advance\StoreAdvanceServices;
+use app\services\activity\bargain\StoreBargainServices;
+use app\services\activity\combination\StoreCombinationServices;
 use app\services\activity\combination\StorePinkServices;
 use app\services\activity\coupon\StoreCouponUserServices;
 use app\services\activity\seckill\StoreSeckillServices;
@@ -3192,5 +3195,286 @@ HTML;
             'user_address' => $data['user_address'],
         ]);
         return true;
+    }
+
+    /**
+     * Nhãn lý do hủy đơn (admin) — key cố định cho form
+     */
+    public static function adminCancelReasonLabels(): array
+    {
+        return [
+            'customer_change' => 'Khách đổi ý / không mua nữa',
+            'wrong_product' => 'Đặt nhầm sản phẩm hoặc số lượng',
+            'duplicate_order' => 'Đặt trùng đơn hàng',
+            'out_of_stock' => 'Hết hàng / không đủ tồn kho',
+            'cannot_deliver' => 'Không giao được đến địa chỉ',
+            'payment_issue' => 'Không nhận được thanh toán',
+            'other' => 'Khác (nhập nội dung bên dưới)',
+        ];
+    }
+
+    /**
+     * @throws AdminException
+     */
+    public function adminBuildCancelMessage(string $reasonKey, string $customReason = ''): string
+    {
+        $labels = self::adminCancelReasonLabels();
+        if (!isset($labels[$reasonKey])) {
+            throw new AdminException('Lý do hủy không hợp lệ');
+        }
+        if ($reasonKey === 'other') {
+            $customReason = trim($customReason);
+            if ($customReason === '') {
+                throw new AdminException('Vui lòng nhập nội dung hủy đơn');
+            }
+            if (mb_strlen($customReason) > 500) {
+                throw new AdminException('Nội dung hủy tối đa 500 ký tự');
+            }
+            return $customReason;
+        }
+        return $labels[$reasonKey];
+    }
+
+    /**
+     * Hủy đơn từ admin (chỉ đơn chưa thanh toán), ghi lý do vào mark + lịch sử đơn
+     * @throws AdminException
+     */
+    public function adminCancelOrder(int $id, string $reasonKey, string $customReason = ''): bool
+    {
+        $message = $this->adminBuildCancelMessage($reasonKey, $customReason);
+        $orderModel = $this->dao->getOne(['id' => $id, 'is_del' => 0]);
+        if (!$orderModel) {
+            throw new AdminException('Đơn hàng không tồn tại');
+        }
+        if ((int)$orderModel['pid'] !== 0) {
+            throw new AdminException('Không hủy đơn con sau tách kiện tại đây');
+        }
+        if ((int)$orderModel['is_cancel'] === 1) {
+            throw new AdminException('Đơn hàng đã bị hủy');
+        }
+        if ((int)$orderModel['paid'] === 1) {
+            throw new AdminException('Đơn đã thanh toán — vui lòng dùng hoàn tiền / sau bán hàng');
+        }
+        if ((int)$orderModel['refund_status'] !== 0) {
+            throw new AdminException('Đơn hàng đang trong quy trình hoàn tiền');
+        }
+        /** @var StoreOrderRefundServices $refundServices */
+        $refundServices = app()->make(StoreOrderRefundServices::class);
+        $markLine = '[Hủy đơn admin] ' . $message . ' — ' . date('Y-m-d H:i:s');
+        $uid = (int)$orderModel['uid'];
+        $orderIdStr = (string)$orderModel['order_id'];
+        $this->transaction(function () use ($refundServices, $orderModel, $markLine, $message, $id) {
+            $res = $refundServices->integralAndCouponBack($orderModel, 'cancel') && $refundServices->regressionStock($orderModel);
+            $orderModel->is_cancel = 1;
+            $oldMark = (string)($orderModel->getData('mark') ?? '');
+            $orderModel->mark = trim($oldMark === '' ? $markLine : $oldMark . "\n" . $markLine);
+            if (!($res && $orderModel->save())) {
+                throw new AdminException('Hủy đơn không thành công');
+            }
+            /** @var StoreOrderStatusServices $statusService */
+            $statusService = app()->make(StoreOrderStatusServices::class);
+            $statusService->save([
+                'oid' => $id,
+                'change_type' => 'order_cancel_admin',
+                'change_message' => 'Hủy đơn (quản trị): ' . $message,
+                'change_time' => time(),
+            ]);
+        });
+        event('CustomEventListener', ['order_cancel', [
+            'uid' => $uid,
+            'id' => $id,
+            'order_id' => $orderIdStr,
+            'cancel_time' => date('Y-m-d H:i:s'),
+            'cancel_by' => 'admin',
+            'cancel_reason' => $message,
+        ]]);
+        return true;
+    }
+
+    /**
+     * Điều chỉnh kho theo chênh lệch số lượng một dòng đơn (delta = mới - cũ)
+     */
+    protected function adjustStockDeltaForOrderLine(array $order, array $cart, int $delta): bool
+    {
+        if ($delta === 0) {
+            return true;
+        }
+        $n = abs($delta);
+        $dec = $delta > 0;
+        $combinationId = (int)($order['combination_id'] ?? 0);
+        $seckillId = (int)($order['seckill_id'] ?? 0);
+        $bargainId = (int)($order['bargain_id'] ?? 0);
+        $advanceId = (int)($order['advance_id'] ?? 0);
+        $unique = isset($cart['productInfo']['attrInfo']['unique']) ? (string)$cart['productInfo']['attrInfo']['unique'] : '';
+        $productId = (int)($cart['productInfo']['id'] ?? 0);
+
+        if ($combinationId) {
+            $svc = app()->make(StoreCombinationServices::class);
+            return $dec ? $svc->decCombinationStock($n, $combinationId, $unique) : $svc->incCombinationStock($n, $combinationId, $unique);
+        }
+        if ($seckillId) {
+            $svc = app()->make(StoreSeckillServices::class);
+            return $dec ? $svc->decSeckillStock($n, $seckillId, $unique) : $svc->incSeckillStock($n, $seckillId, $unique);
+        }
+        if ($bargainId) {
+            $svc = app()->make(StoreBargainServices::class);
+            return $dec ? $svc->decBargainStock($n, $bargainId, $unique) : $svc->incBargainStock($n, $bargainId, $unique);
+        }
+        if ($advanceId) {
+            $svc = app()->make(StoreAdvanceServices::class);
+            return $dec ? $svc->decAdvanceStock($n, $advanceId, $unique) : $svc->incAdvanceStock($n, $advanceId, $unique);
+        }
+        $svc = app()->make(\app\services\product\product\StoreProductServices::class);
+        return $dec ? $svc->decProductStock($n, $productId, $unique) : $svc->incProductStock($n, $productId, $unique);
+    }
+
+    /**
+     * Sửa số lượng từng dòng chi tiết đơn (chỉ đơn chưa thanh toán, không đơn flash sale / nhóm / mặc cả)
+     * @param int $id id đơn eb_store_order
+     * @param array $items [['unique' => string, 'cart_num' => int], ...]
+     * @return array tóm tắt cập nhật
+     * @throws AdminException
+     */
+    public function adminUpdateCartQuantities(int $id, array $items): array
+    {
+        if (!$items) {
+            throw new AdminException('Không có dòng số lượng cần cập nhật');
+        }
+        $order = $this->dao->getOne(['id' => $id, 'is_del' => 0]);
+        if (!$order) {
+            throw new AdminException('Đơn hàng không tồn tại');
+        }
+        $orderArr = is_array($order) ? $order : $order->toArray();
+        if ((int)$orderArr['pid'] !== 0) {
+            throw new AdminException('Không sửa số lượng đơn con sau tách kiện tại đây');
+        }
+        if ((int)$orderArr['is_cancel'] === 1) {
+            throw new AdminException('Đơn đã hủy');
+        }
+        if ((int)$orderArr['paid'] === 1) {
+            throw new AdminException('Chỉ sửa số lượng khi đơn chưa thanh toán');
+        }
+        if ((int)$orderArr['refund_status'] !== 0) {
+            throw new AdminException('Đơn đang trong quy trình hoàn tiền');
+        }
+        if ((int)($orderArr['combination_id'] ?? 0) || (int)($orderArr['seckill_id'] ?? 0) || (int)($orderArr['bargain_id'] ?? 0) || (int)($orderArr['pink_id'] ?? 0)) {
+            throw new AdminException('Đơn khuyến mãi / nhóm / mặc cả — không sửa số lượng tại đây');
+        }
+
+        /** @var StoreOrderCartInfoServices $cartServices */
+        $cartServices = app()->make(StoreOrderCartInfoServices::class);
+        $rows = $cartServices->getCartInfoList(['oid' => $id], ['id', 'unique', 'cart_num', 'surplus_num', 'refund_num', 'cart_info']);
+        $byUnique = [];
+        foreach ($rows as $row) {
+            $byUnique[$row['unique']] = $row;
+        }
+
+        $want = [];
+        foreach ($items as $it) {
+            $u = isset($it['unique']) ? (string)$it['unique'] : '';
+            $num = isset($it['cart_num']) ? (int)$it['cart_num'] : 0;
+            if ($u === '' || $num < 1 || $num > 999999) {
+                throw new AdminException('Tham số số lượng không hợp lệ');
+            }
+            $want[$u] = $num;
+        }
+
+        $summary = [];
+        $this->transaction(function () use ($id, $want, $byUnique, $orderArr, $cartServices, &$summary) {
+            $detailLines = [];
+            foreach ($want as $unique => $newNum) {
+                if (!isset($byUnique[$unique])) {
+                    throw new AdminException('Không tìm thấy dòng hàng: ' . $unique);
+                }
+                $row = $byUnique[$unique];
+                $cart = is_string($row['cart_info']) ? json_decode($row['cart_info'], true) : $row['cart_info'];
+                if (!is_array($cart)) {
+                    throw new AdminException('Dữ liệu giỏ hàng lỗi');
+                }
+                $oldNum = (int)$row['cart_num'];
+                $delta = $newNum - $oldNum;
+                if ($delta !== 0) {
+                    if (!$this->adjustStockDeltaForOrderLine($orderArr, $cart, $delta)) {
+                        throw new AdminException('Không đủ tồn kho hoặc không điều chỉnh kho được');
+                    }
+                }
+                $cart['cart_num'] = $newNum;
+                $refundNum = (int)($row['refund_num'] ?? 0);
+                $surplus = max(0, $newNum - $refundNum);
+                $cartServices->update(
+                    ['oid' => $id, 'unique' => $unique],
+                    [
+                        'cart_num' => $newNum,
+                        'surplus_num' => $surplus,
+                        'cart_info' => json_encode($cart),
+                    ]
+                );
+                $detailLines[] = ($cart['productInfo']['store_name'] ?? 'SP') . ': ' . $oldNum . ' → ' . $newNum;
+            }
+
+            $allRows = $cartServices->getCartInfoList(['oid' => $id], ['cart_num', 'refund_num', 'cart_info']);
+            $totalNum = 0;
+            $totalPrice = '0';
+            $gainIntegral = '0';
+            $cost = '0';
+            foreach ($allRows as $r) {
+                $c = is_string($r['cart_info']) ? json_decode($r['cart_info'], true) : $r['cart_info'];
+                $cn = (int)$r['cart_num'];
+                $totalNum += $cn;
+                $truePrice = (string)($c['truePrice'] ?? '0');
+                $totalPrice = bcadd($totalPrice, bcmul($truePrice, (string)$cn, 2), 2);
+                $give = isset($c['productInfo']['give_integral']) ? (string)$c['productInfo']['give_integral'] : '0';
+                $gainIntegral = bcadd($gainIntegral, bcmul($give, (string)$cn, 0), 0);
+                $pcost = isset($c['productInfo']['cost']) ? (string)$c['productInfo']['cost'] : '0';
+                $cost = bcadd($cost, bcmul($pcost, (string)$cn, 2), 2);
+            }
+
+            $coupon = (string)($orderArr['coupon_price'] ?? '0');
+            $deduction = (string)($orderArr['deduction_price'] ?? '0');
+            $postage = (string)($orderArr['pay_postage'] ?? '0');
+            $newPay = bcsub(bcadd($totalPrice, $postage, 2), bcadd($coupon, $deduction, 2), 2);
+            if (bccomp($newPay, '0', 2) < 0) {
+                $newPay = '0';
+            }
+
+            $dataUpdate = [
+                'total_num' => $totalNum,
+                'total_price' => $totalPrice,
+                'pay_price' => $newPay,
+                'gain_integral' => (float)$gainIntegral,
+                'cost' => $cost,
+            ];
+
+            if ((int)sys_config('user_brokerage_type') == 1) {
+                $oldPay = (string)($orderArr['pay_price'] ?? '0');
+                $percent = bccomp($oldPay, '0', 6) !== 0 ? bcdiv($newPay, $oldPay, 6) : '1';
+                foreach (['one_brokerage', 'two_brokerage', 'staff_brokerage', 'agent_brokerage', 'division_brokerage'] as $bf) {
+                    if (!empty($orderArr[$bf]) && (float)$orderArr[$bf] > 0) {
+                        $dataUpdate[$bf] = bcmul((string)$orderArr[$bf], $percent, 2);
+                    }
+                }
+            }
+
+            $this->dao->update($id, $dataUpdate);
+
+            /** @var StoreOrderStatusServices $statusService */
+            $statusService = app()->make(StoreOrderStatusServices::class);
+            $statusService->save([
+                'oid' => $id,
+                'change_type' => 'order_edit_cart_num',
+                'change_message' => 'Sửa số lượng: ' . implode('; ', $detailLines) . ' | pay_price=' . $newPay,
+                'change_time' => time(),
+            ]);
+
+            $cartServices->clearOrderCartInfo($id);
+
+            $summary = [
+                'total_num' => $totalNum,
+                'total_price' => $totalPrice,
+                'pay_price' => $newPay,
+            ];
+        });
+
+        return $summary;
     }
 }

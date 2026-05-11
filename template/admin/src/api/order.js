@@ -127,6 +127,32 @@ export function putRemarkData(data) {
   });
 }
 
+/** Danh sách lý do hủy đơn (admin) */
+export function getOrderCancelReasons() {
+  return request({
+    url: '/order/cancel_reasons',
+    method: 'get',
+  });
+}
+
+/** Hủy đơn admin (chưa thanh toán) */
+export function adminCancelOrder(id, data) {
+  return request({
+    url: `/order/admin_cancel/${id}`,
+    method: 'post',
+    data,
+  });
+}
+
+/** Sửa số lượng dòng chi tiết đơn (admin) */
+export function adminUpdateOrderCartNum(id, data) {
+  return request({
+    url: `/order/admin_update_cart_num/${id}`,
+    method: 'post',
+    data,
+  });
+}
+
 /**
  * @description Nhận hồ sơ đặt hàng
  * @param {Number} param data.id {Number} Đặt hàngid

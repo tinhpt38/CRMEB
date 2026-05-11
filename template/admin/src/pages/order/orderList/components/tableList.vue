@@ -244,6 +244,7 @@
       :orderDatalist="orderDatalist"
       :orderId="orderId"
       @detail-action="handleDetailAction"
+      @reload-detail="reloadOrderDetail"
     ></details-from>
     <!-- Nhận xét -->
     <order-remark ref="remarks" :orderId="orderId" @submitFail="submitFail"></order-remark>
@@ -569,6 +570,13 @@ export default {
       } finally {
         this.codReconcileSubmitting = false;
       }
+    },
+    reloadOrderDetail() {
+      if (this.orderId) {
+        this.getData(this.orderId);
+      }
+      this.getList();
+      this.$emit('changeGetTabs');
     },
     handleDetailAction(action, row) {
       if (!row || !row.id) return;

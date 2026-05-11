@@ -135,6 +135,14 @@
             v-if="canConfirmPickup"
             @click="$emit('detail-action', 'confirm_pickup', orderDatalist.orderInfo)"
           >Xác nhận nhận tại quầy</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            plain
+            v-if="canAdminCancelOrder"
+            @click="openAdminCancel"
+          >Hủy đơn</el-button>
+          <el-button size="mini" v-if="canEditCartQty" @click="openEditQty">Sửa số lượng</el-button>
         </div>
         <el-tabs type="border-card" v-model="activeName" @tab-click="tabClick">
           <el-tab-pane label="Thông tin đơn hàng" name="detail">
@@ -455,6 +463,44 @@
         </el-tabs>
       </div>
     </el-drawer>
+
+    <el-dialog title="Hủy đơn hàng" :visible.sync="cancelVisible" width="480px" append-to-body @closed="resetCancelForm">
+      <el-form label-width="120px" size="small">
+        <el-form-item label="Lý do hủy" required>
+          <el-select v-model="cancelForm.reason_key" placeholder="Chọn lý do" style="width: 100%">
+            <el-option v-for="r in cancelReasons" :key="r.key" :label="r.label" :value="r.key" />
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="cancelForm.reason_key === 'other'" label="Nội dung hủy" required>
+          <el-input v-model="cancelForm.custom_reason" type="textarea" :rows="3" maxlength="500" show-word-limit placeholder="Mô tả lý do hủy đơn" />
+        </el-form-item>
+      </el-form>
+      <span slot="footer">
+        <el-button @click="cancelVisible = false">Đóng</el-button>
+        <el-button type="danger" :loading="cancelSubmitting" @click="submitAdminCancel">Xác nhận hủy đơn</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog title="Sửa số lượng sản phẩm" :visible.sync="qtyVisible" width="560px" append-to-body @closed="qtyRows = []">
+      <p class="qty-tip">Chỉ áp dụng đơn chưa thanh toán, không áp dụng đơn flash sale / nhóm / mặc cả. Sau khi lưu, tổng tiền và tồn kho được cập nhật theo số lượng mới.</p>
+      <el-table v-if="qtyRows.length" :data="qtyRows" size="small" border>
+        <el-table-column label="Sản phẩm" min-width="200">
+          <template slot-scope="scope">
+            <div class="line1">{{ scope.row.storeName }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="Số lượng" width="160">
+          <template slot-scope="scope">
+            <el-input-number v-model="scope.row.cart_num" :min="1" :max="999999" size="small" controls-position="right" />
+          </template>
+        </el-table-column>
+      </el-table>
+      <span slot="footer">
+        <el-button @click="qtyVisible = false">Đóng</el-button>
+        <el-button type="primary" :loading="qtySubmitting" @click="submitEditQty">Lưu</el-button>
+      </span>
+    </el-dialog>
+
     <el-drawer :visible.sync="modal2" scrollable title="Theo dõi vận đơn" width="350px" class="order_box2">
       <div class="logistics acea-row row-top" v-if="orderDatalist">
         <div class="logistics_img">
@@ -479,8 +525,13 @@
   </div>
 </template>
 <script>
-import { getExpress } from '@/api/order';
-import { getOrderRecord } from '@/api/order';
+import {
+  getExpress,
+  getOrderRecord,
+  getOrderCancelReasons,
+  adminCancelOrder,
+  adminUpdateOrderCartNum,
+} from '@/api/order';
 export default {
   name: 'orderDetails',
   data() {
@@ -503,6 +554,13 @@ export default {
         limit: 15, // Số mục được hiển thị trên mỗi trang
       },
       loading: false,
+      cancelVisible: false,
+      cancelReasons: [],
+      cancelForm: { reason_key: '', custom_reason: '' },
+      cancelSubmitting: false,
+      qtyVisible: false,
+      qtyRows: [],
+      qtySubmitting: false,
     };
   },
   props: {
@@ -647,6 +705,19 @@ export default {
         this.refundStatusNum === 0
       );
     },
+    canAdminCancelOrder() {
+      return this.canEditOrder && this.refundStatusNum === 0;
+    },
+    canEditCartQty() {
+      if (!this.canEditOrder || this.refundStatusNum !== 0) return false;
+      const o = this.info;
+      if (!o) return false;
+      if (Number(o.combination_id) > 0) return false;
+      if (Number(o.seckill_id) > 0) return false;
+      if (Number(o.bargain_id) > 0) return false;
+      if (Number(o.pink_id) > 0) return false;
+      return true;
+    },
     codReconcileLogs() {
       const remark = String(this.info.remark || '');
       if (!remark) return [];
@@ -720,6 +791,85 @@ export default {
         .catch((res) => {
           this.loading = false;
           this.$message.error(res.msg);
+        });
+    },
+    async openAdminCancel() {
+      this.cancelForm = { reason_key: '', custom_reason: '' };
+      if (!this.cancelReasons.length) {
+        try {
+          const res = await getOrderCancelReasons();
+          this.cancelReasons = res.data || [];
+        } catch (e) {
+          this.$message.error((e && e.msg) || 'Không tải được danh sách lý do');
+          return;
+        }
+      }
+      this.cancelVisible = true;
+    },
+    resetCancelForm() {
+      this.cancelForm = { reason_key: '', custom_reason: '' };
+      this.cancelSubmitting = false;
+    },
+    submitAdminCancel() {
+      if (!this.cancelForm.reason_key) {
+        this.$message.warning('Vui lòng chọn lý do hủy đơn');
+        return;
+      }
+      if (this.cancelForm.reason_key === 'other' && !String(this.cancelForm.custom_reason || '').trim()) {
+        this.$message.warning('Vui lòng nhập nội dung hủy đơn');
+        return;
+      }
+      const id = this.orderDatalist && this.orderDatalist.orderInfo && this.orderDatalist.orderInfo.id;
+      if (!id) return;
+      this.cancelSubmitting = true;
+      adminCancelOrder(id, {
+        reason_key: this.cancelForm.reason_key,
+        custom_reason: this.cancelForm.custom_reason,
+      })
+        .then((res) => {
+          this.$message.success(res.msg || 'Đã hủy đơn');
+          this.cancelVisible = false;
+          this.$emit('reload-detail');
+        })
+        .catch((e) => {
+          this.$message.error((e && e.msg) || 'Hủy đơn thất bại');
+        })
+        .finally(() => {
+          this.cancelSubmitting = false;
+        });
+    },
+    openEditQty() {
+      const list = (this.orderDatalist && this.orderDatalist.orderInfo && this.orderDatalist.orderInfo.cartInfo) || [];
+      this.qtyRows = list.map((row) => ({
+        unique: row.unique,
+        storeName: (row.productInfo && row.productInfo.store_name) || '—',
+        cart_num: Number(row.cart_num) || 1,
+        initialNum: Number(row.cart_num) || 1,
+      }));
+      this.qtyVisible = true;
+    },
+    submitEditQty() {
+      const id = this.orderDatalist && this.orderDatalist.orderInfo && this.orderDatalist.orderInfo.id;
+      if (!id || !this.qtyRows.length) return;
+      for (const r of this.qtyRows) {
+        if (!r.cart_num || r.cart_num < 1) {
+          this.$message.warning('Số lượng mỗi dòng phải ≥ 1');
+          return;
+        }
+      }
+      const items = this.qtyRows.map((r) => ({ unique: r.unique, cart_num: r.cart_num }));
+      this.qtySubmitting = true;
+      adminUpdateOrderCartNum(id, { items })
+        .then((res) => {
+          this.$message.success(res.msg || 'Đã cập nhật số lượng');
+          this.qtyVisible = false;
+          this.$emit('reload-detail');
+        })
+        .catch((e) => {
+          this.$message.error((e && e.msg) || 'Cập nhật thất bại');
+        })
+        .finally(() => {
+          this.qtySubmitting = false;
         });
     },
   },
@@ -832,6 +982,13 @@ export default {
   color: #606266;
   font-size: 13px;
   margin-right: 6px;
+}
+
+.qty-tip {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #909399;
+  line-height: 1.5;
 }
 
 .section {
