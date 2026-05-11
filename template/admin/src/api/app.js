@@ -522,7 +522,7 @@ export function getZaloConfig() {
 
 /**
  * @description Zalo - Lưu cấu hình xác thực
- * @param {Object} data - {zalo_login_open, zalo_app_id, zalo_app_secret, zalo_callback_domain, zalo_bind_phone}
+ * @param {Object} data - {zalo_login_open, zalo_app_id, zalo_app_secret, zalo_callback_domain, zalo_bind_phone, zalo_mini_app_deeplink, zalo_mini_app_qr_image}
  */
 export function saveZaloConfig(data) {
   return request({

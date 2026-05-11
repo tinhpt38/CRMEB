@@ -1,2 +1,159 @@
-<!DOCTYPE html><html lang=zh-CN><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>đang tải</title><script>var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') || CSS.supports('top: constant(a)'))
-            document.write('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' + (coverSupport ? ', viewport-fit=cover' : '') + '" />')</script><link rel=stylesheet href=/static/index.cc298949.css></head><body><noscript><strong>Please enable JavaScript to continue.</strong></noscript><div id=app></div><script src=/static/js/chunk-vendors.63118272.js></script><script src=/static/js/index.a69dfd15.js></script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đang tải…</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #1e293b;
+      background: #f1f5f9;
+      line-height: 1.55;
+    }
+    .wrap { max-width: 420px; margin: 0 auto; padding: 36px 18px 48px; text-align: center; }
+    .logo {
+      width: 88px; height: 88px; object-fit: contain; border-radius: 16px;
+      background: #fff; border: 1px solid #e2e8f0; margin: 0 auto 16px; display: none;
+    }
+    .logo.show { display: block; }
+    h1 { margin: 0 0 8px; font-size: 1.35rem; font-weight: 700; }
+    .sub { margin: 0 0 20px; color: #64748b; font-size: 0.92rem; }
+    .card {
+      background: #fff; border-radius: 14px; padding: 22px 18px 26px;
+      border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(15,23,42,.06);
+      text-align: left;
+    }
+    .notice {
+      margin: 0 0 18px; padding: 14px 16px; background: #eff6ff;
+      border-radius: 10px; border-left: 4px solid #2563eb; color: #1e3a5f; font-size: 0.9rem;
+    }
+    .qr { text-align: center; margin-bottom: 18px; }
+    .qr a { display: inline-block; text-decoration: none; }
+    .qr img { max-width: 200px; width: 100%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; display: block; }
+    .qr p { margin: 8px 0 0; font-size: 0.82rem; color: #64748b; }
+    .hint { text-align: center; font-size: 0.88rem; color: #64748b; margin-bottom: 14px; min-height: 1.4em; }
+    .actions { display: flex; flex-direction: column; gap: 10px; }
+    .btn {
+      display: block; text-align: center; padding: 12px 16px; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer;
+    }
+    .btn-mini { background: #2563eb; color: #fff !important; }
+    .btn-mini:hover { background: #1d4ed8; }
+    .btn-web { background: #f8fafc; color: #334155 !important; border: 1px solid #cbd5e1; }
+    .btn-web:hover { background: #f1f5f9; }
+    .err { color: #b91c1c; font-size: 0.88rem; text-align: center; margin-top: 12px; }
+    .loading { color: #94a3b8; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img id="logo" class="logo" alt="" />
+    <h1 id="title">Đang tải…</h1>
+    <p class="sub" id="subtitle">Vui lòng chờ trong giây lát.</p>
+    <div class="card" id="card" style="display:none">
+      <p class="notice" id="notice"></p>
+      <div class="qr" id="qrWrap" style="display:none"></div>
+      <div class="hint" id="hint"></div>
+      <div class="actions">
+        <a id="btnMini" class="btn btn-mini" href="#" rel="noopener noreferrer" style="display:none">Mở Zalo Mini App</a>
+        <a id="btnWeb" class="btn btn-web" href="#" rel="noopener noreferrer" style="display:none">Mở website chính thức</a>
+      </div>
+    </div>
+    <p class="loading" id="loading">Đang lấy cấu hình cửa hàng…</p>
+    <p class="err" id="err" style="display:none"></p>
+  </div>
+  <script>
+(function () {
+  var API = '/api/site_config';
+  var noticeText = 'Kênh mua sắm chính thức là Zalo Mini App và website của chúng tôi. Vui lòng bấm nút hoặc quét mã QR bên dưới khi cần mở Zalo Mini App.';
+
+  function qs(id) { return document.getElementById(id); }
+
+  function apply(cfg) {
+    var name = cfg.site_name || 'Cửa hàng';
+    qs('title').textContent = name;
+    document.title = name;
+    qs('subtitle').textContent = 'Chào mừng bạn đến với ' + name + '.';
+
+    var logo = qs('logo');
+    if (cfg.site_logo) {
+      logo.src = cfg.site_logo;
+      logo.classList.add('show');
+      logo.onerror = function () { logo.classList.remove('show'); };
+    }
+
+    qs('notice').textContent = noticeText;
+    qs('loading').style.display = 'none';
+    qs('card').style.display = 'block';
+
+    var deeplink = (cfg.mini_app_deeplink || '').trim();
+    var siteUrl = (cfg.site_url || '').trim();
+
+    var btnMini = qs('btnMini');
+    var btnWeb = qs('btnWeb');
+    if (deeplink) {
+      btnMini.href = deeplink;
+      btnMini.target = '_blank';
+      btnMini.style.display = 'block';
+    }
+    if (siteUrl) {
+      btnWeb.href = siteUrl;
+      btnWeb.style.display = 'block';
+    }
+
+    var qr = (cfg.mini_app_qr_image || '').trim();
+    var wrap = qs('qrWrap');
+    if (qr) {
+      wrap.textContent = '';
+      var img = document.createElement('img');
+      img.src = qr;
+      img.alt = 'Mã QR Zalo Mini App';
+      if (deeplink) {
+        var a = document.createElement('a');
+        a.href = deeplink;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.appendChild(img);
+        wrap.appendChild(a);
+      } else {
+        wrap.appendChild(img);
+      }
+      var cap = document.createElement('p');
+      cap.textContent = deeplink ? 'Chạm / quét mã để mở Zalo Mini App' : 'Quét mã để mở Zalo Mini App';
+      wrap.appendChild(cap);
+      wrap.style.display = 'block';
+    }
+
+    var hint = qs('hint');
+    if (!deeplink && !siteUrl) {
+      hint.textContent = 'Chưa cấu hình deeplink hoặc địa chỉ website trong quản trị.';
+    } else {
+      hint.textContent = 'Chỉ chuyển trang khi bạn bấm nút hoặc mã QR ở trên.';
+    }
+  }
+
+  function fail(msg) {
+    qs('loading').style.display = 'none';
+    var e = qs('err');
+    e.style.display = 'block';
+    e.textContent = msg || 'Không tải được cấu hình. Vui lòng thử lại sau.';
+  }
+
+  fetch(API, { credentials: 'same-origin' })
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      if (!res || res.status !== 200 || !res.data) {
+        fail(res && res.msg);
+        return;
+      }
+      apply(res.data);
+    })
+    .catch(function () { fail('Lỗi mạng hoặc máy chủ.'); });
+})();
+  </script>
+</body>
+</html>

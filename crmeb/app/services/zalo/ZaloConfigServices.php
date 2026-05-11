@@ -14,6 +14,7 @@ use crmeb\exceptions\ApiException;
 use crmeb\services\CacheService;
 use crmeb\services\HttpService;
 use think\facade\Log;
+use think\Model;
 
 /**
  * Quản lý cấu hình Zalo Mini App
@@ -23,7 +24,9 @@ use think\facade\Log;
  *  - zalo_app_id          : App ID từ Zalo Developers
  *  - zalo_app_secret      : App Secret từ Zalo Developers
  *  - zalo_callback_domain : Domain được phép callback (domain CRMEB của bạn)
- *  - zalo_bind_phone      : 1/0 - Bắt buộc gắn SĐT sau khi đăng nhập Zalo
+ *  - zalo_bind_phone           : 1/0 - Bắt buộc gắn SĐT sau khi đăng nhập Zalo
+ *  - zalo_mini_app_deeplink    : Deeplink / link mở Mini App (trang landing web)
+ *  - zalo_mini_app_qr_image    : Đường dẫn ảnh mã QR Mini App đã tải lên
  *
  * Class ZaloConfigServices
  * @package app\services\zalo
@@ -40,6 +43,8 @@ class ZaloConfigServices extends BaseServices
         'zalo_app_secret',
         'zalo_callback_domain',
         'zalo_bind_phone',
+        'zalo_mini_app_deeplink',
+        'zalo_mini_app_qr_image',
     ];
 
     /** TTL cache xác thực token (giây) */
@@ -57,11 +62,13 @@ class ZaloConfigServices extends BaseServices
     public function getConfig(): array
     {
         return [
-            'zalo_login_open'      => (int)sys_config('zalo_login_open', 0),
-            'zalo_app_id'          => (string)sys_config('zalo_app_id', ''),
-            'zalo_app_secret'      => $this->maskSecret((string)sys_config('zalo_app_secret', '')),
-            'zalo_callback_domain' => (string)sys_config('zalo_callback_domain', ''),
-            'zalo_bind_phone'      => (int)sys_config('zalo_bind_phone', 0),
+            'zalo_login_open'            => (int)sys_config('zalo_login_open', 0),
+            'zalo_app_id'                => (string)sys_config('zalo_app_id', ''),
+            'zalo_app_secret'            => $this->maskSecret((string)sys_config('zalo_app_secret', '')),
+            'zalo_callback_domain'       => (string)sys_config('zalo_callback_domain', ''),
+            'zalo_bind_phone'            => (int)sys_config('zalo_bind_phone', 0),
+            'zalo_mini_app_deeplink'     => (string)sys_config('zalo_mini_app_deeplink', ''),
+            'zalo_mini_app_qr_image'     => (string)sys_config('zalo_mini_app_qr_image', ''),
         ];
     }
 
@@ -77,10 +84,12 @@ class ZaloConfigServices extends BaseServices
         $configServices = app()->make(SystemConfigServices::class);
 
         $saveMap = [
-            'zalo_login_open'      => (int)($data['zalo_login_open'] ?? 0),
-            'zalo_app_id'          => trim($data['zalo_app_id'] ?? ''),
-            'zalo_callback_domain' => trim($data['zalo_callback_domain'] ?? ''),
-            'zalo_bind_phone'      => (int)($data['zalo_bind_phone'] ?? 0),
+            'zalo_login_open'            => (int)($data['zalo_login_open'] ?? 0),
+            'zalo_app_id'                => trim($data['zalo_app_id'] ?? ''),
+            'zalo_callback_domain'       => trim($data['zalo_callback_domain'] ?? ''),
+            'zalo_bind_phone'            => (int)($data['zalo_bind_phone'] ?? 0),
+            'zalo_mini_app_deeplink'     => trim((string)($data['zalo_mini_app_deeplink'] ?? '')),
+            'zalo_mini_app_qr_image'     => trim((string)($data['zalo_mini_app_qr_image'] ?? '')),
         ];
 
         // App Secret: chỉ cập nhật nếu người dùng nhập giá trị mới (không phải chuỗi mask)
@@ -100,6 +109,8 @@ class ZaloConfigServices extends BaseServices
                 throw new ApiException('App Secret không được để trống khi bật đăng nhập Zalo');
             }
         }
+
+        $this->ensureZaloMiniAppLandingConfigRows($configServices);
 
         foreach ($saveMap as $key => $value) {
             $configServices->update($key, ['value' => json_encode($value)], 'menu_name');
@@ -210,6 +221,57 @@ class ZaloConfigServices extends BaseServices
     // ─────────────────────────────────────────────────────────────────────────
     // Tiện ích
     // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Tạo bản ghi eb_system_config cho deeplink & ảnh QR landing nếu chưa có.
+     */
+    private function ensureZaloMiniAppLandingConfigRows(SystemConfigServices $configServices): void
+    {
+        $ref = $configServices->getOne(['menu_name' => 'zalo_login_open'])
+            ?: $configServices->getOne(['menu_name' => 'site_name']);
+        if (!$ref) {
+            return;
+        }
+        $base = $ref instanceof Model ? $ref->toArray() : (array)$ref;
+
+        $defs = [
+            'zalo_mini_app_deeplink' => [
+                'info' => 'Deeplink / link mở Mini App',
+                'desc' => 'Dùng cho nút mở app và trang landing web (ví dụ link chia sẻ Zalo Mini App).',
+                'type' => 'text',
+                'value' => '',
+            ],
+            'zalo_mini_app_qr_image' => [
+                'info' => 'Ảnh mã QR Mini App',
+                'desc' => 'Tải ảnh QR (PNG/JPG) để hiển thị trên trang landing web.',
+                'type' => 'upload',
+                'value' => '',
+            ],
+        ];
+
+        foreach ($defs as $menuName => $meta) {
+            if ($configServices->be(['menu_name' => $menuName])) {
+                continue;
+            }
+            $row = $base;
+            unset($row['id']);
+            $row['menu_name'] = $menuName;
+            $row['info'] = $meta['info'];
+            $row['desc'] = $meta['desc'];
+            $row['type'] = $meta['type'];
+            $row['value'] = json_encode($meta['value']);
+            $row['input_type'] = 'input';
+            $row['required'] = '';
+            $row['parameter'] = '';
+            $row['level'] = 0;
+            $row['link_id'] = 0;
+            $row['link_value'] = 0;
+            if ($meta['type'] === 'upload') {
+                $row['upload_type'] = 1;
+            }
+            $configServices->dao->save($row);
+        }
+    }
 
     /**
      * Che bớt secret key khi hiển thị trên UI

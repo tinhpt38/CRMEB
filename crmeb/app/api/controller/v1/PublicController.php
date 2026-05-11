@@ -153,6 +153,14 @@ class PublicController
         $data['icp_url'] = sys_config('icp_url');
         $data['network_security'] = sys_config('network_security');
         $data['network_security_url'] = sys_config('network_security_url');
+        // Trang landing gốc (public/index.html) — không cần đăng nhập
+        $data['site_name'] = (string) sys_config('site_name', '');
+        $data['site_url'] = (string) sys_config('site_url', '');
+        $siteLogo = (string) sys_config('site_logo', '');
+        $data['site_logo'] = $siteLogo !== '' ? (string) set_file_url($siteLogo) : '';
+        $data['mini_app_deeplink'] = trim((string) sys_config('zalo_mini_app_deeplink', ''));
+        $miniQr = trim((string) sys_config('zalo_mini_app_qr_image', ''));
+        $data['mini_app_qr_image'] = $miniQr !== '' ? (string) set_file_url($miniQr) : '';
         return app('json')->success($data);
     }
 

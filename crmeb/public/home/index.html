@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?= htmlspecialchars(($siteName ?? '') !== '' ? ($siteName . ' — Thông báo') : 'Thông báo truy cập', ENT_QUOTES, 'UTF-8') ?></title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #1e293b;
+      background: #f1f5f9;
+      line-height: 1.55;
+    }
+    .wrap { max-width: 420px; margin: 0 auto; padding: 36px 18px 48px; text-align: center; }
+    .logo {
+      width: 88px; height: 88px; object-fit: contain; border-radius: 16px;
+      background: #fff; border: 1px solid #e2e8f0; margin: 0 auto 16px; display: none;
+    }
+    .logo.show { display: block; }
+    h1 { margin: 0 0 8px; font-size: 1.35rem; font-weight: 700; }
+    .sub { margin: 0 0 20px; color: #64748b; font-size: 0.92rem; }
+    .card {
+      background: #fff; border-radius: 14px; padding: 22px 18px 26px;
+      border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(15,23,42,.06);
+      text-align: left;
+    }
+    .notice {
+      margin: 0 0 18px; padding: 14px 16px; background: #eff6ff;
+      border-radius: 10px; border-left: 4px solid #2563eb; color: #1e3a5f; font-size: 0.9rem;
+    }
+    .qr { text-align: center; margin-bottom: 18px; }
+    .qr a { display: inline-block; text-decoration: none; }
+    .qr img { max-width: 200px; width: 100%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; display: block; }
+    .qr p { margin: 8px 0 0; font-size: 0.82rem; color: #64748b; }
+    .hint { text-align: center; font-size: 0.88rem; color: #64748b; margin-bottom: 14px; min-height: 1.4em; }
+    .actions { display: flex; flex-direction: column; gap: 10px; }
+    .btn {
+      display: block; text-align: center; padding: 12px 16px; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer;
+    }
+    .btn-mini { background: #2563eb; color: #fff !important; }
+    .btn-mini:hover { background: #1d4ed8; }
+    .btn-web { background: #f8fafc; color: #334155 !important; border: 1px solid #cbd5e1; }
+    .btn-web:hover { background: #f1f5f9; }
+  </style>
+</head>
+<body>
+<?php
+$siteName = isset($siteName) ? (string) $siteName : '';
+$siteUrl = isset($siteUrl) ? trim((string) $siteUrl) : '';
+$siteLogoUrl = isset($siteLogoUrl) ? trim((string) $siteLogoUrl) : '';
+$miniAppDeeplink = isset($miniAppDeeplink) ? trim((string) $miniAppDeeplink) : '';
+$miniAppQrUrl = isset($miniAppQrUrl) ? trim((string) $miniAppQrUrl) : '';
+$hasAny = $miniAppDeeplink !== '' || $siteUrl !== '';
+?>
+  <div class="wrap">
+    <?php if ($siteLogoUrl !== ''): ?>
+    <img class="logo show" src="<?= htmlspecialchars($siteLogoUrl, ENT_QUOTES, 'UTF-8') ?>" alt="" onerror="this.classList.remove('show')" />
+    <?php endif; ?>
+    <h1><?= htmlspecialchars($siteName !== '' ? $siteName : 'Cửa hàng', ENT_QUOTES, 'UTF-8') ?></h1>
+    <p class="sub"><?= htmlspecialchars($siteName !== '' ? ('Chào mừng bạn đến với ' . $siteName . '.') : 'Chào mừng.', ENT_QUOTES, 'UTF-8') ?></p>
+    <div class="card">
+      <p class="notice">Kênh mua sắm chính thức là Zalo Mini App và website của chúng tôi. Vui lòng bấm nút hoặc quét mã QR bên dưới khi cần mở Zalo Mini App.</p>
+
+      <?php if ($miniAppQrUrl !== ''): ?>
+      <div class="qr">
+        <?php if ($miniAppDeeplink !== ''): ?>
+        <a href="<?= htmlspecialchars($miniAppDeeplink, ENT_QUOTES, 'UTF-8') ?>" rel="noopener noreferrer" target="_blank">
+          <img src="<?= htmlspecialchars($miniAppQrUrl, ENT_QUOTES, 'UTF-8') ?>" alt="Mã QR Zalo Mini App" />
+        </a>
+        <p>Chạm / quét mã để mở Zalo Mini App</p>
+        <?php else: ?>
+        <img src="<?= htmlspecialchars($miniAppQrUrl, ENT_QUOTES, 'UTF-8') ?>" alt="Mã QR Zalo Mini App" />
+        <p>Quét mã để mở Zalo Mini App</p>
+        <?php endif; ?>
+      </div>
+      <?php endif; ?>
+
+      <p class="hint"><?= $hasAny ? 'Chỉ chuyển trang khi bạn bấm nút hoặc mã QR ở trên.' : 'Chưa cấu hình deeplink hoặc địa chỉ website trong quản trị.' ?></p>
+
+      <div class="actions">
+        <?php if ($miniAppDeeplink !== ''): ?>
+        <a class="btn btn-mini" href="<?= htmlspecialchars($miniAppDeeplink, ENT_QUOTES, 'UTF-8') ?>" rel="noopener noreferrer" target="_blank">Mở Zalo Mini App</a>
+        <?php endif; ?>
+        <?php if ($siteUrl !== ''): ?>
+        <a class="btn btn-web" href="<?= htmlspecialchars($siteUrl, ENT_QUOTES, 'UTF-8') ?>" rel="noopener noreferrer">Mở website chính thức</a>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

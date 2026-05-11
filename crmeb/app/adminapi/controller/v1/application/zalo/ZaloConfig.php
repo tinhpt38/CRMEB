@@ -39,8 +39,10 @@ class ZaloConfig extends AuthController
      *  zalo_app_id          string
      *  zalo_app_secret      string  (đã mask, vd: "abcd****efgh")
      *  zalo_callback_domain string
-     *  zalo_bind_phone      int     1/0
-     *  _meta                object  Thông tin tài liệu hướng dẫn
+     *  zalo_bind_phone           int     1/0
+     *  zalo_mini_app_deeplink    string  Deeplink / link mở Mini App
+     *  zalo_mini_app_qr_image    string  Đường dẫn ảnh QR đã tải lên
+     *  _meta                     object  Thông tin tài liệu hướng dẫn
      *
      * @return mixed
      */
@@ -66,18 +68,22 @@ class ZaloConfig extends AuthController
      *  zalo_app_id          string  required khi login_open=1
      *  zalo_app_secret      string  bỏ qua nếu là masked value
      *  zalo_callback_domain string
-     *  zalo_bind_phone      int     1/0
+     *  zalo_bind_phone           int     1/0
+     *  zalo_mini_app_deeplink    string  tùy chọn
+     *  zalo_mini_app_qr_image    string  đường dẫn file sau upload
      *
      * @return mixed
      */
     public function saveConfig()
     {
         $data = $this->request->postMore([
-            ['zalo_login_open',      0],
-            ['zalo_app_id',          ''],
-            ['zalo_app_secret',      ''],
-            ['zalo_callback_domain', ''],
-            ['zalo_bind_phone',      0],
+            ['zalo_login_open',           0],
+            ['zalo_app_id',               ''],
+            ['zalo_app_secret',           ''],
+            ['zalo_callback_domain',      ''],
+            ['zalo_bind_phone',           0],
+            ['zalo_mini_app_deeplink',    ''],
+            ['zalo_mini_app_qr_image',    ''],
         ]);
 
         $this->services->saveConfig($data);

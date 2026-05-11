@@ -138,6 +138,53 @@
                   Nếu bật, người dùng Zalo phải xác minh số điện thoại trước khi sử dụng đầy đủ tính năng
                 </div>
               </el-form-item>
+
+              <el-divider content-position="left">Mini App — Trang landing web</el-divider>
+
+              <el-form-item label="Deeplink Mini App" prop="zalo_mini_app_deeplink">
+                <el-input
+                  v-model.trim="form.zalo_mini_app_deeplink"
+                  placeholder="VD: https://zalo.me/s/xxxx hoặc link mở app từ Zalo Developers"
+                  clearable
+                >
+                  <template slot="prepend">
+                    <i class="el-icon-link" />
+                  </template>
+                </el-input>
+                <div class="form-tip">
+                  Link người dùng bấm để mở Mini App trên trang landing (PC). Thường là link chia sẻ công khai từ Zalo Mini App.
+                </div>
+              </el-form-item>
+
+              <el-form-item label="Ảnh mã QR" prop="zalo_mini_app_qr_image">
+                <div class="acea-row row-middle" style="flex-wrap: wrap; gap: 10px;">
+                  <el-input
+                    v-model="form.zalo_mini_app_qr_image"
+                    readonly
+                    placeholder="Chưa chọn ảnh — dùng thư viện ảnh CRMEB"
+                    style="width: 260px; max-width: 100%;"
+                  />
+                  <el-button
+                    size="small"
+                    type="primary"
+                    icon="el-icon-picture-outline"
+                    @click="openQrPictureModal"
+                  >Chọn từ thư viện ảnh</el-button>
+                  <el-button
+                    v-if="form.zalo_mini_app_qr_image"
+                    size="small"
+                    icon="el-icon-delete"
+                    @click="clearQrImage"
+                  >Xóa ảnh</el-button>
+                </div>
+                <div v-if="displayQrUrl" class="qr-preview">
+                  <span class="form-tip" style="display:block;margin:8px 0 4px">Xem trước:</span>
+                  <img :src="displayQrUrl" alt="QR Mini App">
+                </div>
+                <div class="form-tip">
+                  Chọn ảnh mã QR trong <strong>Thư viện ảnh</strong> (Quản lý hình ảnh CRMEB). Ảnh hiển thị trên trang landing; deeplink dùng cho nút &quot;Mở Mini App&quot;.
+                </div>
+              </el-form-item>
             </el-form>
           </el-card>
 
@@ -262,14 +309,37 @@
         <el-button size="small" @click="testDialogVisible = false">Đóng</el-button>
       </span>
     </el-dialog>
+
+    <!-- Thư viện ảnh CRMEB — chọn ảnh QR Mini App -->
+    <el-dialog
+      title="Chọn ảnh mã QR"
+      :visible.sync="qrPictureModal"
+      width="950px"
+      append-to-body
+      :close-on-click-modal="false"
+    >
+      <uploadPictures
+        v-if="qrPictureModal"
+        :isChoice="qrPictureChoice"
+        :gridBtn="gridBtn"
+        :gridPic="gridPic"
+        @getPic="onQrPicturePicked"
+      />
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getZaloConfig, saveZaloConfig, testZaloConnection } from '@/api/app';
+import Setting from '@/setting';
+import uploadPictures from '@/components/uploadPictures';
 
 export default {
   name: 'app_zalo_config',
+
+  components: {
+    uploadPictures,
+  },
 
   data() {
     return {
@@ -277,13 +347,31 @@ export default {
       saveLoading: false,
       testLoading: false,
       showSecret: false,
+      qrPictureModal: false,
+      qrPictureChoice: 'Lựa chọn duy nhất',
+      gridBtn: {
+        xl: 4,
+        lg: 8,
+        md: 8,
+        sm: 8,
+        xs: 8,
+      },
+      gridPic: {
+        xl: 6,
+        lg: 8,
+        md: 12,
+        sm: 12,
+        xs: 12,
+      },
 
       form: {
-        zalo_login_open:      0,
-        zalo_app_id:          '',
-        zalo_app_secret:      '',
-        zalo_callback_domain: '',
-        zalo_bind_phone:      0,
+        zalo_login_open:           0,
+        zalo_app_id:               '',
+        zalo_app_secret:           '',
+        zalo_callback_domain:      '',
+        zalo_bind_phone:           0,
+        zalo_mini_app_deeplink:    '',
+        zalo_mini_app_qr_image:    '',
       },
 
       rules: {
@@ -304,6 +392,19 @@ export default {
             validator: (rule, value, cb) => {
               if (value && !/^https?:\/\/.+/.test(value)) {
                 cb(new Error('Domain phải bắt đầu bằng http:// hoặc https://'));
+              } else {
+                cb();
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+        zalo_mini_app_deeplink: [
+          {
+            validator: (rule, value, cb) => {
+              const v = (value || '').trim();
+              if (v && !/^https?:\/\/.+/.test(v)) {
+                cb(new Error('Deeplink nên bắt đầu bằng http:// hoặc https://'));
               } else {
                 cb();
               }
@@ -342,6 +443,15 @@ export default {
     callbackDomain() {
       return this.form.zalo_callback_domain || (window.location.origin || '');
     },
+    displayQrUrl() {
+      const u = (this.form.zalo_mini_app_qr_image || '').trim();
+      if (!u) return '';
+      if (/^https?:\/\//.test(u) || u.startsWith('//')) return u;
+      const search = '/adminapi/';
+      const idx = Setting.apiBaseURL.indexOf(search);
+      const host = idx >= 0 ? Setting.apiBaseURL.substring(0, idx) : '';
+      return host ? host + u : u;
+    },
   },
 
   created() {
@@ -349,6 +459,23 @@ export default {
   },
 
   methods: {
+    openQrPictureModal() {
+      this.qrPictureModal = true;
+    },
+    onQrPicturePicked(pc) {
+      const path = pc && (pc.att_dir || pc.satt_dir || '');
+      if (!path) {
+        this.$message.warning('Không lấy được đường dẫn ảnh');
+        return;
+      }
+      this.form.zalo_mini_app_qr_image = path;
+      this.qrPictureModal = false;
+      this.$message.success('Đã chọn ảnh từ thư viện');
+    },
+    clearQrImage() {
+      this.form.zalo_mini_app_qr_image = '';
+    },
+
     // ─── Load config ────────────────────────────────────────────────────────
 
     loadConfig() {
@@ -482,6 +609,14 @@ export default {
     font-size: 12px;
     color: #999;
     line-height: 1.5;
+  }
+
+  .qr-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 6px;
+    border: 1px solid #ebeef5;
+    display: block;
   }
 
   .secret-toggle {
