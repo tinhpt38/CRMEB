@@ -841,6 +841,7 @@ HTML;
         $where['pid'] = 0;
         $data['un_paid'] = $this->dao->count($where + ['status' => 0], false);
         $data['un_send'] = $this->dao->count($where + ['status' => 1, 'shipping_type' => 1], false);
+        $data['cancelled'] = $this->dao->count($where + ['status' => -5], false);
         return $data;
     }
 

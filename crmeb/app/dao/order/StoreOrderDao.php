@@ -93,6 +93,9 @@ class StoreOrderDao extends BaseDao
                 case -3://Đền bù
                     $query->where('paid', 1)->whereIn('refund_status', [1, 2, 4])->where('is_del', 0);
                     break;
+                case -5://Đã hủy
+                    $query->where('is_cancel', 1)->where('is_del', 0);
+                    break;
                 case -4://Đã xóa
                     $query->where('is_del', 1);
                     break;

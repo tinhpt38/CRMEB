@@ -15,6 +15,10 @@
       <el-tab-pane name="3" label="Đang chờ đánh giá"></el-tab-pane>
       <el-tab-pane name="4" label="Hoàn thành"></el-tab-pane>
       <el-tab-pane name="-2" label="Đã hoàn tiền"></el-tab-pane>
+      <el-tab-pane
+        name="-5"
+        :label="orderChartType.cancelled > 0 ? `Đã hủy (${orderChartType.cancelled})` : `Đã hủy`"
+      ></el-tab-pane>
       <el-tab-pane name="-4" label="Đã xóa"></el-tab-pane>
     </el-tabs>
     <div class="acea-row">
