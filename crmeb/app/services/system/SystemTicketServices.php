@@ -48,9 +48,9 @@ class SystemTicketServices extends BaseServices
                     Form::input('yly_sn', 'số thiết bị đầu cuối：', $info['yly_sn'] ?? '')->required('Vui lòng nhập số thiết bị đầu cuối')->placeholder('Số thiết bị đầu cuối máy in Yilianyun, model máy in: Máy in Yilianyun K4 phiên bản không dây'),
                 ]
             )->appendControl(2, [
-                    Form::input('fey_user', 'Đám mây ngỗng bayUSER：', $info['fey_user'] ?? '')->required('Vui lòng nhập Fei'eyunUSER')->placeholder('Đăng ký tài khoản trong phần phụ trợ của Fei'e Cloud'),
-                    Form::input('fey_ukey', 'Đám mây ngỗng bayUYEK：', $info['fey_ukey'] ?? '')->required('Vui lòng nhập Fei'eyunUYEK')->placeholder('UKEY được tạo sau khi đăng ký tài khoản trong phần phụ trợ của Fei'e Cloud [Lưu ý: Phần này không được điền cho máy inKEY】'),
-                    Form::input('fey_sn', 'Đám mây ngỗng baySN：', $info['fey_sn'] ?? '')->required('Vui lòng nhập Fei'eyunSN')->placeholder('Đối với số trên nhãn máy in, bạn phải thêm máy in vào nền quản lý hoặc gọi giao diện API.'),
+                    Form::input('fey_user', 'Đám mây ngỗng bay USER：', $info['fey_user'] ?? '')->required('Vui lòng nhập USER Fei\'e Cloud')->placeholder('Đăng ký tài khoản trong phần phụ trợ của Fei\'e Cloud'),
+                    Form::input('fey_ukey', 'Đám mây ngỗng bay UKEY：', $info['fey_ukey'] ?? '')->required('Vui lòng nhập UKEY Fei\'e Cloud')->placeholder('UKEY được tạo sau khi đăng ký tài khoản trong phần phụ trợ của Fei\'e Cloud [Lưu ý: Phần này không được điền KEY trên máy in]'),
+                    Form::input('fey_sn', 'Đám mây ngỗng bay SN：', $info['fey_sn'] ?? '')->required('Vui lòng nhập SN Fei\'e Cloud')->placeholder('Đối với số trên nhãn máy in, bạn phải thêm máy in vào nền quản lý hoặc gọi giao diện API.'),
                 ]
             );
         $field[] = Form::number('times', 'In số lượng câu đối', $info['times'] ?? 1)->min(1)->required('Vui lòng nhập số in')->placeholder('Số tờ được máy in in cùng một lúc');
