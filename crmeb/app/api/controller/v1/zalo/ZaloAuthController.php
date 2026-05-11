@@ -76,6 +76,31 @@ class ZaloAuthController
     }
 
     /**
+     * Giải mã location token từ Zalo Mini App
+     *
+     * Request (POST /api/zalo/location):
+     *   access_token  string  required  - Token từ Zalo Mini App SDK
+     *   code          string  required  - Token từ getLocation()
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function location(Request $request)
+    {
+        [$accessToken, $code] = $request->postMore([
+            ['access_token', ''],
+            ['code', ''],
+        ], true);
+
+        if ($accessToken === '' || $code === '') {
+            return app('json')->fail('Thiếu access_token hoặc code vị trí từ Zalo');
+        }
+
+        $location = $this->services->fetchLocationFromToken(trim($accessToken), trim($code));
+        return app('json')->success($location);
+    }
+
+    /**
      * Gắn số điện thoại cho tài khoản Zalo
      *
      * Request (POST /api/zalo/bind_phone):

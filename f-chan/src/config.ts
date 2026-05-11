@@ -9,6 +9,8 @@ const CONFIG = {
     SHIPPING_ADDRESS: "shippingAddress",
     // ID địa chỉ đang được chọn (từ CRMEB /address/list)
     CRMEB_ADDRESS_ID: "crmebAddressId",
+    SELECTED_STATION_ID: "selectedStationId",
+    PICKUP_CONTACT: "pickupContact",
   },
 };
 

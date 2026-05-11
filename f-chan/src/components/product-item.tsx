@@ -79,7 +79,7 @@ export default function ProductItem(props: ProductItemProps) {
             fullWidth
             onClick={(e) => {
               e.stopPropagation();
-              addToCart(1, {
+              addToCart((quantity) => quantity + 1, {
                 toast: true,
               });
             }}

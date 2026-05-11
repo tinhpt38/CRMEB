@@ -3,24 +3,23 @@ import { useAtom, useAtomValue } from "jotai";
 import { cartTotalState, checkoutPaymentMethodState } from "@/state";
 import { formatPrice } from "@/utils/format";
 import { CrmebApiClient } from "@/utils/crmeb/client";
+import {
+  CrmebPayConfigItem,
+  fetchCrmebPayConfig,
+  getEnabledCheckoutPayMethods,
+  normalizeCheckoutPaymentMethod,
+} from "@/utils/crmeb/payConfig";
 import { getCrmebToken } from "@/utils/crmeb/token";
 import { getConfig } from "@/utils/template";
 import { Button } from "zmp-ui";
 import { useEffect, useMemo, useState } from "react";
-import { CheckoutPaymentMethod } from "@/types";
-
-type MallPayFlags = {
-  offline: boolean;
-  vnCod: boolean;
-  vnBank: boolean;
-};
 
 export default function Pay() {
   const { totalAmount } = useAtomValue(cartTotalState);
   const checkout = useCheckout();
   const [paying, setPaying] = useState(false);
   const [paymentMethod, setPaymentMethod] = useAtom(checkoutPaymentMethodState);
-  const [payFlags, setPayFlags] = useState<MallPayFlags | null>(null);
+  const [payMethods, setPayMethods] = useState<CrmebPayConfigItem[] | null>(null);
 
   useEffect(() => {
     const apiUrl = getConfig((c) => c.template.apiUrl);
@@ -31,60 +30,29 @@ export default function Pay() {
       getToken: () => getCrmebToken(),
     });
 
-    client
-      .get<{
-        offline_pay_status?: boolean;
-        vn_cod_pay_status?: boolean;
-        vn_bank_pay_status?: boolean;
-      }>("/basic_config")
-      .then((data) => {
-        setPayFlags({
-          offline: !!data?.offline_pay_status,
-          vnCod: !!data?.vn_cod_pay_status,
-          vnBank: !!data?.vn_bank_pay_status,
-        });
-      })
-      .catch(() => {
-        setPayFlags({ offline: true, vnCod: true, vnBank: true });
-      });
+    fetchCrmebPayConfig(client)
+      .then((methods) => setPayMethods(getEnabledCheckoutPayMethods(methods)))
+      .catch(() => setPayMethods([]));
   }, []);
 
-  const methods = useMemo(() => {
-    const list: Array<{
-      value: CheckoutPaymentMethod;
-      label: string;
-      hint?: string;
-      enabled: boolean;
-    }> = [
-      {
-        value: "cod",
-        label: "COD",
-        hint: "Khi nhận hàng",
-        enabled: payFlags === null ? true : payFlags.vnCod,
-      },
-      {
-        value: "bank_transfer",
-        label: "CK / VietQR",
-        hint: "Chuyển khoản",
-        enabled: payFlags === null ? true : payFlags.vnBank,
-      },
-      {
-        value: "other",
-        label: "Khác",
-        hint: "Ngoại tuyến",
-        enabled: payFlags === null ? true : payFlags.offline,
-      },
-    ];
-    return list;
-  }, [payFlags]);
+  const methods = useMemo(() => payMethods ?? [], [payMethods]);
 
   useEffect(() => {
-    const current = methods.find((m) => m.value === paymentMethod);
-    if (current && !current.enabled) {
-      const first = methods.find((m) => m.enabled);
-      if (first) setPaymentMethod(first.value);
+    if (!methods.length) return;
+
+    const normalized = normalizeCheckoutPaymentMethod(paymentMethod);
+    const current = methods.find((method) => method.value === normalized);
+    if (current) {
+      if (normalized !== paymentMethod) setPaymentMethod(normalized);
+      return;
     }
+
+    setPaymentMethod(methods[0].value);
   }, [methods, paymentMethod, setPaymentMethod]);
+
+  const selectedMethod = methods.find(
+    (method) => method.value === normalizeCheckoutPaymentMethod(paymentMethod)
+  );
 
   return (
     <div className="flex-none py-3 px-4 bg-section space-y-3">
@@ -97,45 +65,56 @@ export default function Pay() {
         </div>
         <Button
           onClick={async () => {
+            if (!methods.length) return;
             setPaying(true);
             await checkout();
             setPaying(false);
           }}
-          disabled={paying}
+          disabled={paying || !methods.length}
         >
           Thanh toán
         </Button>
       </div>
-      <p className="text-[11px] text-subtitle leading-snug">
-        COD: thanh toán khi nhận hàng. CK/VietQR: chuyển khoản và chờ shop đối soát.
-        Ngoại tuyến: cửa hàng xác nhận thủ công.
-      </p>
+      {selectedMethod?.title ? (
+        <p className="text-[11px] text-subtitle leading-snug">{selectedMethod.title}</p>
+      ) : null}
       <div className="space-y-1">
         <div className="text-xs text-subtitle">Phương thức thanh toán</div>
-        <div className="grid grid-cols-3 gap-2">
-          {methods.map((method) => {
-            const active = paymentMethod === method.value;
-            const disabled = paying || !method.enabled;
-            return (
-              <button
-                key={method.value}
-                type="button"
-                className={`py-2 rounded-lg text-xs border transition-colors ${
-                  active
-                    ? "border-primary text-primary bg-blue-50"
-                    : "border-gray-200 text-subtitle bg-white"
-                } ${!method.enabled ? "opacity-40" : ""}`}
-                onClick={() => setPaymentMethod(method.value)}
-                disabled={disabled}
-              >
-                <div className="font-medium">{method.label}</div>
-                {method.hint ? (
-                  <div className="text-[10px] text-subtitle mt-0.5">{method.hint}</div>
-                ) : null}
-              </button>
-            );
-          })}
-        </div>
+        {methods.length ? (
+          <div className="grid grid-cols-2 gap-2">
+            {methods.map((method) => {
+              const active =
+                normalizeCheckoutPaymentMethod(paymentMethod) === method.value;
+              const disabled = paying;
+              return (
+                <button
+                  key={method.value}
+                  type="button"
+                  className={`py-2 rounded-lg text-xs border transition-colors ${
+                    active
+                      ? "border-primary text-primary bg-blue-50"
+                      : "border-gray-200 text-subtitle bg-white"
+                  }`}
+                  onClick={() => setPaymentMethod(method.value)}
+                  disabled={disabled}
+                >
+                  <div className="font-medium">{method.name}</div>
+                  {method.title ? (
+                    <div className="text-[10px] text-subtitle mt-0.5 line-clamp-2">
+                      {method.title}
+                    </div>
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+        ) : payMethods === null ? (
+          <p className="text-[11px] text-subtitle">Đang tải phương thức thanh toán...</p>
+        ) : (
+          <p className="text-[11px] text-subtitle">
+            Chưa có phương thức thanh toán khả dụng. Vui lòng kiểm tra cấu hình cửa hàng trên CRMEB.
+          </p>
+        )}
       </div>
     </div>
   );

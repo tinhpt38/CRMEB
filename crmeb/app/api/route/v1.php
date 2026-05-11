@@ -579,6 +579,8 @@ Route::group(function () {
     // Đăng nhập bằng Zalo access_token, nhận về JWT của CRMEB
     Route::post('zalo/auth', 'v1.zalo.ZaloAuthController/auth')
         ->option(['real_name' => 'Zalo Mini App - Đăng nhập']);
+    Route::post('zalo/location', 'v1.zalo.ZaloAuthController/location')
+        ->option(['real_name' => 'Zalo Mini App - Giải mã vị trí']);
 })->middleware(\app\http\middleware\AllowOriginMiddleware::class)
     ->middleware(\app\api\middleware\StationOpenMiddleware::class)
     ->option(['mark' => 'zalo_public', 'mark_name' => 'Zalo - Giao diện công khai']);

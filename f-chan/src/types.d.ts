@@ -25,6 +25,11 @@ export interface UserInfo {
   integral?: number;
 }
 
+export interface PickupContact {
+  real_name: string;
+  phone: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -94,6 +99,8 @@ export interface Station {
   image: string;
   address: string;
   location: Location;
+  distance?: string;
+  distanceKm?: number;
 }
 
 export type Delivery =
@@ -103,6 +110,11 @@ export type Delivery =
   | {
       type: "pickup";
       stationId: number;
+      name?: string;
+      address?: string;
+      contactName?: string;
+      contactPhone?: string;
+      verifyCode?: string;
     };
 
 export type OrderStatus = "pending" | "shipping" | "completed";
@@ -146,8 +158,5 @@ export interface Order {
   isBack?: boolean;
 }
 
-/**
- * Phương thức thanh toán ở màn đặt hàng f-chan — map sang CRMEB:
- * cod → vn_cod, bank_transfer → vn_bank, other → offline.
- */
-export type CheckoutPaymentMethod = "cod" | "bank_transfer" | "other";
+/** Mã `value` từ CRMEB `GET /pay/config` (vd. vn_cod, vn_bank, offline). */
+export type CheckoutPaymentMethod = string;

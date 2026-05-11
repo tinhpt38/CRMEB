@@ -3,27 +3,14 @@ import { CartItem as CartItemProps } from "@/types";
 import { formatPrice } from "@/utils/format";
 import { animated, useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
-import { useAtom } from "jotai";
-import { selectedCartItemIdsState } from "@/state";
-import { useEffect, useState } from "react";
+import QuantityInput from "@/components/quantity-input";
 import { Icon } from "zmp-ui";
 
 const SWIPE_TO_DELTE_OFFSET = 80;
 
 export default function CartItem(props: CartItemProps) {
-  const [quantity, setQuantity] = useState(props.quantity);
   const { addToCart } = useAddToCart(props.product);
 
-  const [selectedItemIds, setSelectedItemIds] = useAtom(
-    selectedCartItemIdsState
-  );
-
-  // update cart
-  useEffect(() => {
-    addToCart(quantity);
-  }, [quantity]);
-
-  // swipe left to delete animation
   const [{ x }, api] = useSpring(() => ({ x: 0 }));
   const bind = useDrag(
     ({ last, offset: [ox] }) => {
@@ -77,7 +64,13 @@ export default function CartItem(props: CartItemProps) {
             )}
           </div>
         </div>
-        <div className="text-sm font-medium">x{quantity}</div>
+        <div className="w-24 shrink-0">
+          <QuantityInput
+            value={props.quantity}
+            onChange={addToCart}
+            minValue={1}
+          />
+        </div>
       </animated.div>
     </div>
   );

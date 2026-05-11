@@ -17,17 +17,18 @@ import {
   Order,
   OrderStatus,
   CheckoutPaymentMethod,
+  PickupContact,
   Product,
   ProductAttribute,
   ShippingAddress,
   Station,
   UserInfo,
 } from "@/types";
+import { resolveOrderPayMeta } from "@/utils/crmeb/payConfig";
 import { requestWithFallback } from "@/utils/request";
 import {
   authorize,
   getAccessToken,
-  getLocation,
   getPhoneNumber,
   getSetting,
   getUserInfo,
@@ -35,6 +36,7 @@ import {
 import toast from "react-hot-toast";
 import { calculateDistance } from "./utils/location";
 import { formatDistant } from "./utils/format";
+import { resolveUserLocation } from "./utils/deviceLocation";
 import CONFIG from "./config";
 import { getConfig } from "./utils/template";
 import { CrmebApiClient } from "./utils/crmeb/client";
@@ -181,7 +183,6 @@ export const userInfoState = atom<Promise<UserInfo | undefined>>(
           CONFIG.STORAGE_KEYS.USER_INFO,
           JSON.stringify(mapped)
         );
-
         return mapped;
       } catch (error) {
         console.warn("CRMEB Zalo login failed:", error);
@@ -502,20 +503,12 @@ function mapCrmebStoreToStation(raw: any, apiUrl: string): Station {
   };
 }
 
-export const stationsState = atom(async () => {
-  let location: Location | undefined;
-  try {
-    const { token } = await getLocation({});
-    // Gọi API server để decode token thành tọa độ thực.
-    // Tham khảo: https://mini.zalo.me/documents/api/getLocation/
-    // location = await decodeLocationToken(token);
-    void token;
-  } catch (error) {
-    console.warn(error);
-  }
+export const userLocationState = atomWithRefresh(async () => resolveUserLocation());
 
+export const stationsState = atomWithRefresh(async (get) => {
+  const location = await get(userLocationState);
   const apiUrl = getConfig((config) => config.template.apiUrl);
-  let stations: Station[] = [];
+  let storeRows: any[] = [];
 
   if (apiUrl) {
     try {
@@ -524,41 +517,83 @@ export const stationsState = atom(async () => {
         getToken: () => getCrmebToken(),
       });
 
-      // CRMEB: GET /store_list -> { list: Store[], tengxun_map_key: string }
-      const raw = await client.get<Record<string, any>>("/store_list");
-      const list = Array.isArray(raw?.list?.list)
+      const raw = await client.get<Record<string, any>>("/store_list", {
+        ...(location
+          ? {
+              latitude: location.lat,
+              longitude: location.lng,
+            }
+          : {}),
+      });
+      storeRows = Array.isArray(raw?.list?.list)
         ? raw.list.list
         : Array.isArray(raw?.list)
           ? raw.list
           : [];
-      stations = list.map((item) => mapCrmebStoreToStation(item, apiUrl));
     } catch (error) {
       console.warn("Failed to load stores from CRMEB:", error);
     }
   }
 
-  if (!stations.length) {
-    stations = await requestWithFallback<Station[]>("/stations", []);
-  }
+  const stationsWithDistance = storeRows.length
+    ? storeRows.map((item) => {
+        const station = mapCrmebStoreToStation(item, apiUrl);
+        const distanceKmFromApi = Number(item?.distance);
+        const distanceKm =
+          Number.isFinite(distanceKmFromApi) && distanceKmFromApi >= 0
+            ? distanceKmFromApi
+            : location
+              ? calculateDistance(
+                  location.lat,
+                  location.lng,
+                  station.location.lat,
+                  station.location.lng
+                )
+              : undefined;
 
-  const stationsWithDistance = stations.map((station) => ({
-    ...station,
-    distance: location
-      ? formatDistant(
-          calculateDistance(
-            location.lat,
-            location.lng,
-            station.location.lat,
-            station.location.lng
-          )
-        )
-      : undefined,
-  }));
+        return {
+          ...station,
+          distanceKm,
+          distance:
+            distanceKm !== undefined ? formatDistant(distanceKm) : undefined,
+        };
+      })
+    : (await requestWithFallback<Station[]>("/stations", [])).map((station) => ({
+        ...station,
+        distanceKm: location
+          ? calculateDistance(
+              location.lat,
+              location.lng,
+              station.location.lat,
+              station.location.lng
+            )
+          : undefined,
+        distance: location
+          ? formatDistant(
+              calculateDistance(
+                location.lat,
+                location.lng,
+                station.location.lat,
+                station.location.lng
+              )
+            )
+          : undefined,
+      }));
 
-  return stationsWithDistance;
+  return stationsWithDistance.sort((left, right) => {
+    if (left.distanceKm === undefined && right.distanceKm === undefined) {
+      return left.id - right.id;
+    }
+    if (left.distanceKm === undefined) return 1;
+    if (right.distanceKm === undefined) return -1;
+    return left.distanceKm - right.distanceKm;
+  });
 });
 
-export const selectedStationIndexState = atom(0);
+export const selectedStationIdState = atomWithStorage<number | null>(
+  CONFIG.STORAGE_KEYS.SELECTED_STATION_ID,
+  null
+);
 
 export const firstStationState = atom(async (get) => {
   const stations = await get(stationsState);
@@ -568,9 +603,16 @@ export const firstStationState = atom(async (get) => {
 export const loadableFirstStationState = loadable(firstStationState);
 
 export const selectedStationState = atom(async (get) => {
-  const index = get(selectedStationIndexState);
   const stations = await get(stationsState);
-  return stations[index];
+  if (!stations.length) return null;
+
+  const selectedId = get(selectedStationIdState);
+  if (selectedId) {
+    const selected = stations.find((station) => station.id === selectedId);
+    if (selected) return selected;
+  }
+
+  return stations[0];
 });
 
 export const loadableSelectedStationState = loadable(selectedStationState);
@@ -652,9 +694,29 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
   const items = (Array.isArray(itemsRaw) ? itemsRaw : []).map((cart) => mapCrmebCartToCartItem(cart, apiUrl));
 
   const shippingType = Number(raw?.shipping_type ?? 1);
+  const systemStoreRaw = raw?.system_store ?? raw?.systemStore;
+  const systemStore =
+    systemStoreRaw && typeof systemStoreRaw === "object"
+      ? (systemStoreRaw as Record<string, unknown>)
+      : null;
   const delivery: Delivery =
     shippingType === 2
-      ? { type: "pickup", stationId: 0 }
+      ? {
+          type: "pickup",
+          stationId: Number(raw?.store_id ?? systemStore?.id ?? 0),
+          name: String(
+            systemStore?.name ?? raw?._store_name ?? raw?.store_name ?? ""
+          ),
+          address: [systemStore?.address, systemStore?.detailed_address]
+            .map((value) => String(value ?? "").trim())
+            .filter(Boolean)
+            .join(", "),
+          contactName: String(raw?.real_name ?? "").trim() || undefined,
+          contactPhone: String(raw?.user_phone ?? "").trim() || undefined,
+          verifyCode:
+            String(raw?.verify_code ?? raw?._verify_code ?? "").trim() ||
+            undefined,
+        }
       : {
           type: "shipping",
           alias: String(raw?.real_name ?? ""),
@@ -671,12 +733,9 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
 
   // `note` isn't clearly named in CRMEB responses; keep it safe.
   const note = String(raw?.remark ?? raw?.note ?? "");
-  const payType = String(raw?.pay_type ?? "").trim();
-  const statusPay =
-    raw?._status && typeof raw._status === "object"
-      ? String(raw._status._payType ?? "").trim()
-      : "";
-  const payTypeName = statusPay || String(raw?.pay_type_name ?? "").trim();
+  const { payType, payTypeName } = resolveOrderPayMeta(
+    raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {}
+  );
   const bankPayGuide = String(raw?.vn_bank_pay_guide ?? "").trim();
   const bankQrRaw = String(raw?.vn_bank_pay_qr_image ?? "").trim();
   const bankPayQrUrl = bankQrRaw ? resolveImageUrl(bankQrRaw, apiUrl) : "";
@@ -784,12 +843,17 @@ export const deliveryModeState = atomWithStorage<Delivery["type"]>(
   "shipping"
 );
 
+export const pickupContactState = atomWithStorage<PickupContact>(
+  CONFIG.STORAGE_KEYS.PICKUP_CONTACT,
+  { real_name: "", phone: "" }
+);
+
 /**
  * Phương thức thanh toán người dùng chọn tại checkout.
  */
 export const checkoutPaymentMethodState = atomWithStorage<CheckoutPaymentMethod>(
   "checkout_payment_method",
-  "cod"
+  "vn_cod"
 );
 
 // ---------------------------------------------------------------------------

@@ -299,9 +299,16 @@ function OrderInfo(props: { order: Order }) {
         {props.order.delivery.type === "pickup" ? (
           <DeliverySummary
             icon={<HomeIcon />}
-            title="Giao đến"
-            subtitle={props.order.delivery.name}
-            description={props.order.delivery.address}
+            title="Nhận tại cửa hàng"
+            subtitle={props.order.delivery.name || "Cửa hàng nhận hàng"}
+            description={[
+              props.order.delivery.address,
+              [props.order.delivery.contactName, props.order.delivery.contactPhone]
+                .filter(Boolean)
+                .join(" • "),
+            ]
+              .filter(Boolean)
+              .join(" • ")}
           />
         ) : (
           <DeliverySummary
@@ -321,6 +328,13 @@ function OrderInfo(props: { order: Order }) {
         {props.order.deliveryId ? (
           <List.Item prefix={<Icon icon="zi-note" />} title="Mã vận đơn">
             <span className="text-xs font-mono text-primary">{props.order.deliveryId}</span>
+          </List.Item>
+        ) : null}
+        {props.order.delivery.type === "pickup" && props.order.delivery.verifyCode ? (
+          <List.Item prefix={<Icon icon="zi-note" />} title="Mã nhận hàng">
+            <span className="text-xs font-mono text-primary">
+              {props.order.delivery.verifyCode}
+            </span>
           </List.Item>
         ) : null}
 

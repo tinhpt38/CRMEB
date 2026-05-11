@@ -8,7 +8,9 @@ import {
   crmebAddressesState,
   deliveryModeState,
   ordersState,
+  pickupContactState,
   selectedCrmebAddressState,
+  selectedStationState,
   userInfoKeyState,
   userInfoState,
 } from "@/state";
@@ -23,6 +25,10 @@ import {
 } from "zmp-sdk/apis";
 import { useAtomCallback } from "jotai/utils";
 import { CrmebApiClient } from "@/utils/crmeb/client";
+import {
+  checkoutPayMark,
+  normalizeCheckoutPaymentMethod,
+} from "@/utils/crmeb/payConfig";
 import { clearCrmebToken, getCrmebToken, setCrmebToken } from "@/utils/crmeb/token";
 import { setSessionLoggedOut } from "@/utils/session";
 import CONFIG from "@/config";
@@ -163,24 +169,26 @@ export function useAddToCart(product: Product) {
     quantity: number | ((oldQuantity: number) => number),
     options?: { toast: boolean }
   ) => {
-    setCart((cart) => {
+    setCart((prevCart) => {
+      const index = prevCart.findIndex((item) => item.product.id === product.id);
+      const currentQuantity = index >= 0 ? prevCart[index].quantity : 0;
       const newQuantity =
         typeof quantity === "function"
-          ? quantity(currentCartItem?.quantity ?? 0)
+          ? quantity(currentQuantity)
           : quantity;
+
       if (newQuantity <= 0) {
-        cart.splice(cart.indexOf(currentCartItem!), 1);
-      } else {
-        if (currentCartItem) {
-          currentCartItem.quantity = newQuantity;
-        } else {
-          cart.push({
-            product,
-            quantity: newQuantity,
-          });
-        }
+        if (index < 0) return prevCart;
+        return prevCart.filter((item) => item.product.id !== product.id);
       }
-      return [...cart];
+
+      if (index >= 0) {
+        const nextCart = [...prevCart];
+        nextCart[index] = { ...nextCart[index], quantity: newQuantity };
+        return nextCart;
+      }
+
+      return [...prevCart, { product, quantity: newQuantity }];
     });
     if (options?.toast) {
       toast.success("Đã thêm vào giỏ hàng");
@@ -296,6 +304,12 @@ export function useCheckout() {
   const getSelectedAddress = useAtomCallback(async (get) =>
     get(selectedCrmebAddressState)
   );
+  const getSelectedStation = useAtomCallback(async (get) =>
+    get(selectedStationState)
+  );
+  const getPickupContact = useAtomCallback(async (get) =>
+    get(pickupContactState)
+  );
 
   const extractCartId = (payload: any): string | null => {
     const raw =
@@ -322,17 +336,35 @@ export function useCheckout() {
     );
   };
 
-  const resolveCrmebPayType = (): string => {
-    if (checkoutPaymentMethod === "bank_transfer") return "vn_bank";
-    if (checkoutPaymentMethod === "other") return "offline";
-    return "vn_cod";
+  const readConfirmValidCount = (payload: any): number => {
+    const direct = Number(payload?.valid_count ?? payload?.validCount);
+    if (Number.isFinite(direct) && direct >= 0) return direct;
+    const cartInfo = payload?.cartInfo;
+    if (!Array.isArray(cartInfo)) return 0;
+    return cartInfo.filter((item) => Number(item?.is_valid ?? 1) !== 0).length;
   };
 
-  const resolveCheckoutMark = (): string => {
-    if (checkoutPaymentMethod === "bank_transfer") return "PAY_METHOD:BANK_TRANSFER";
-    if (checkoutPaymentMethod === "other") return "PAY_METHOD:OTHER";
-    return "PAY_METHOD:COD";
+  const unwrapCrmebBusinessPayload = (payload: any): any => {
+    if (payload?.result && typeof payload.result === "object") {
+      return payload.result;
+    }
+    return payload;
   };
+
+  const readComputedPayPrice = (payload: any): number => {
+    const source = unwrapCrmebBusinessPayload(payload);
+    const payPrice = Number(source?.pay_price ?? source?.payPrice);
+    if (Number.isFinite(payPrice) && payPrice > 0) return payPrice;
+    const totalPrice = Number(source?.total_price ?? source?.totalPrice);
+    if (Number.isFinite(totalPrice) && totalPrice > 0) return totalPrice;
+    return 0;
+  };
+
+  const resolveCrmebPayType = (): string =>
+    normalizeCheckoutPaymentMethod(checkoutPaymentMethod);
+
+  const resolveCheckoutMark = (): string =>
+    checkoutPayMark(resolveCrmebPayType());
 
   const handleCrmebPayment = async (args: {
     payInfo: any;
@@ -355,36 +387,17 @@ export function useCheckout() {
       toast("CRMEB trả jsConfig (WeChat). Fallback sang phương thức đã chọn...", {
         icon: "ℹ",
       });
-      try {
-        await client.post<any>("/order/pay", {
-          uni,
-          paytype: payType,
-          quitUrl: "",
-          type: 0,
-        });
-        return;
-      } catch (e) {
-        console.warn("Fallback selected payment failed:", e);
-      }
+      await client.post<any>("/order/pay", {
+        uni,
+        paytype: payType,
+        quitUrl: "",
+        type: 0,
+      });
     }
-
-    // 3) Last resort: offline.
-    toast("Đang thử lại xác nhận thanh toán đơn hàng...", { icon: "ℹ" });
-    await client.post<any>("/order/pay", {
-      uni,
-      paytype: payType,
-      quitUrl: "",
-      type: 0,
-    });
   };
 
   return async () => {
     try {
-      if (deliveryMode !== "shipping") {
-        toast.error("Tạm thời chưa hỗ trợ nhận tại cửa hàng (pickup).");
-        return;
-      }
-
       const userInfo = await requestInfo();
       if (!userInfo) throw new Error("Missing user info");
 
@@ -399,13 +412,39 @@ export function useCheckout() {
         getToken: () => getCrmebToken(),
       });
 
-      // Lấy địa chỉ đang được chọn từ CRMEB
+      const isPickup = deliveryMode === "pickup";
+      const shippingType = isPickup ? 2 : 1;
       const selectedAddress = await getSelectedAddress();
-      const addressId = selectedAddress?.id ?? 0;
+      const selectedStation = isPickup ? await getSelectedStation() : null;
+      const pickupContact = isPickup ? await getPickupContact() : null;
+      const addressId = isPickup ? 0 : selectedAddress?.id ?? 0;
+      const checkoutRealName = (
+        isPickup
+          ? pickupContact?.real_name ||
+            userInfo.name ||
+            selectedAddress?.real_name
+          : selectedAddress?.real_name || userInfo.name
+      )?.trim();
+      const checkoutPhone = (
+        isPickup
+          ? pickupContact?.phone || userInfo.phone || selectedAddress?.phone
+          : selectedAddress?.phone || userInfo.phone
+      )?.trim();
 
-      if (!addressId) {
+      if (!isPickup && !addressId) {
         toast.error("Vui lòng thêm địa chỉ nhận hàng trước khi đặt hàng.");
         navigate("/shipping-address", { viewTransition: true });
+        return;
+      }
+
+      if (isPickup && !selectedStation?.id) {
+        toast.error("Vui lòng chọn cửa hàng nhận hàng.");
+        navigate("/stations", { viewTransition: true });
+        return;
+      }
+
+      if (isPickup && (!checkoutRealName || !checkoutPhone)) {
+        toast.error("Vui lòng điền tên và số điện thoại của bạn");
         return;
       }
 
@@ -416,7 +455,7 @@ export function useCheckout() {
           productId: item.product.id,
           cartNum: item.quantity,
           uniqueId: "",
-          new: 1,
+          new: 0,
           is_new: 0,
           combinationId: 0,
           secKillId: 0,
@@ -435,18 +474,26 @@ export function useCheckout() {
       // 2) confirm -> orderKey
       const confirmData = await client.post<any>("/order/confirm", {
         cartId,
-        new: 1,
+        new: 0,
         addressId,
-        shipping_type: 1,
+        shipping_type: shippingType,
         is_gift: 0,
       });
       const orderKey = extractOrderKey(confirmData);
       if (!orderKey) throw new Error("Missing orderKey from /order/confirm");
+      if (readConfirmValidCount(confirmData) <= 0) {
+        toast.error(
+          isPickup
+            ? "Sản phẩm không hỗ trợ nhận tại cửa hàng. Vui lòng bật hình thức đến cửa hàng cho sản phẩm hoặc chọn giao tận nơi."
+            : "Không có sản phẩm hợp lệ để đặt hàng."
+        );
+        return;
+      }
 
       // 3) computed
       const payType = resolveCrmebPayType();
       const mark = resolveCheckoutMark();
-      await client.post<any>(`/order/computed/${orderKey}`, {
+      const computedData = await client.post<any>(`/order/computed/${orderKey}`, {
         addressId,
         couponId: 0,
         payType,
@@ -456,9 +503,16 @@ export function useCheckout() {
         pinkId: 0,
         seckill_id: 0,
         bargainId: 0,
-        shipping_type: 1,
+        shipping_type: shippingType,
         is_gift: 0,
       });
+      const payPrice = readComputedPayPrice(computedData);
+      if (payPrice <= 0) {
+        toast.error(
+          "Không tính được tổng đơn hàng. Vui lòng kiểm tra sản phẩm, hình thức giao hàng và thử lại."
+        );
+        return;
+      }
 
       // 4) create order
       const createData = await client.post<any>(
@@ -473,12 +527,12 @@ export function useCheckout() {
           pinkId: 0,
           seckill_id: 0,
           bargainId: 0,
-          shipping_type: 1,
-          real_name: selectedAddress?.real_name || userInfo.name,
-          phone: selectedAddress?.phone || userInfo.phone,
-          store_id: 0,
+          shipping_type: shippingType,
+          real_name: checkoutRealName,
+          phone: checkoutPhone,
+          store_id: isPickup ? selectedStation?.id ?? 0 : 0,
           news: 0,
-          new: 1,
+          new: 0,
           invoice_id: 0,
           advanceId: 0,
           custom_form: [],
@@ -491,14 +545,16 @@ export function useCheckout() {
       if (!orderId) throw new Error("Missing orderId from /order/create");
 
       // 5) pay theo phương thức đã chọn (CRMEB side: offline flow)
-      const payInfo = await client.post<any>("/order/pay", {
-        uni: orderId,
-        paytype: payType,
-        quitUrl: "",
-        type: 0,
-      });
+      if (payPrice > 0) {
+        const payInfo = await client.post<any>("/order/pay", {
+          uni: orderId,
+          paytype: payType,
+          quitUrl: "",
+          type: 0,
+        });
 
-      await handleCrmebPayment({ payInfo, client, uni: orderId, payType });
+        await handleCrmebPayment({ payInfo, client, uni: orderId, payType });
+      }
 
       if (payType === "vn_bank") {
         toast.success(

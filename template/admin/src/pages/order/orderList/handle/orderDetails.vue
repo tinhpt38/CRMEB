@@ -99,6 +99,10 @@
                   <div class="value">{{ orderDatalist.orderInfo.user_address || '' }}</div>
                 </li> -->
                 <li class="item">
+                  <div>Hình thức nhận hàng:</div>
+                  <div class="value">{{ isPickupOrder ? 'Nhận tại cửa hàng' : 'Giao tận nơi' }}</div>
+                </li>
+                <li class="item">
                   <div>Người nhận hàng:</div>
                   <div class="value">
                     {{ orderDatalist.orderInfo.real_name ? orderDatalist.orderInfo.real_name : '-' }}
@@ -110,7 +114,17 @@
                     {{ orderDatalist.orderInfo.user_phone ? orderDatalist.orderInfo.user_phone : '-' }}
                   </div>
                 </li>
-                <li class="item item-address">
+                <template v-if="isPickupOrder">
+                  <li class="item">
+                    <div>Cửa hàng nhận:</div>
+                    <div class="value">{{ pickupStoreName }}</div>
+                  </li>
+                  <li class="item" v-if="pickupVerifyCode">
+                    <div>Mã nhận hàng:</div>
+                    <div class="value">{{ pickupVerifyCode }}</div>
+                  </li>
+                </template>
+                <li v-else class="item item-address">
                   <div class="address-lines">
                     <div class="address-line" v-for="(line, idx) in shippingAddressLines" :key="idx">
                       <span class="address-label">{{ line.label }}:</span>
@@ -574,6 +588,17 @@ export default {
     shippingTypeNum() {
       const val = Number(this.info.shipping_type);
       return Number.isNaN(val) ? 0 : val;
+    },
+    isPickupOrder() {
+      return this.shippingTypeNum === 2;
+    },
+    pickupStoreName() {
+      const name = this.info._store_name || this.info.store_name;
+      return name ? String(name).trim() : '-';
+    },
+    pickupVerifyCode() {
+      const code = this.info.verify_code || this.info._verify_code;
+      return code ? String(code).trim() : '';
     },
     refundStatusNum() {
       const val = Number(this.info.refund_status);

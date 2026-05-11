@@ -162,14 +162,14 @@ function ProductDetailContent() {
         <Button
           variant="tertiary"
           onClick={() => {
-            addToCart(1, { toast: true });
+            addToCart((quantity) => quantity + 1, { toast: true });
           }}
         >
           Thêm vào giỏ
         </Button>
         <Button
           onClick={() => {
-            addToCart(1);
+            addToCart((quantity) => quantity + 1);
             navigate("/cart", { viewTransition: true });
           }}
         >

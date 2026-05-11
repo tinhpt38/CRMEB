@@ -185,6 +185,67 @@ class ZaloAuthServices extends BaseServices
     }
 
     /**
+     * Lấy tọa độ từ location token (Zalo getLocation flow)
+     *
+     * Endpoint: GET https://graph.zalo.me/v2.0/me?fields=location&code={location_token}
+     *
+     * @param string $accessToken   access_token từ Zalo Mini App SDK
+     * @param string $locationToken  token từ getLocation()
+     * @return array{lat: float, lng: float}
+     * @throws ApiException
+     */
+    public function fetchLocationFromToken(string $accessToken, string $locationToken): array
+    {
+        $secretKey = (string)sys_config('zalo_app_secret', '');
+        if ($secretKey === '') {
+            throw new ApiException('Chưa cấu hình Zalo App Secret. Vui lòng vào Admin → Cài đặt → Zalo và điền zalo_app_secret.');
+        }
+
+        $appsecretProof = hash_hmac('sha256', $accessToken, $secretKey);
+
+        try {
+            $response = HttpService::getRequest(
+                self::ZALO_GRAPH_API,
+                ['fields' => 'location', 'code' => $locationToken],
+                [
+                    'access_token: '    . $accessToken,
+                    'appsecret_proof: ' . $appsecretProof,
+                ]
+            );
+        } catch (\Throwable $e) {
+            Log::error('[ZaloAuth] fetchLocationFromToken – lỗi kết nối: ' . $e->getMessage());
+            throw new ApiException('Không thể kết nối Zalo API để lấy vị trí');
+        }
+
+        if (!$response) {
+            throw new ApiException('Zalo API không trả về dữ liệu vị trí');
+        }
+
+        $data = json_decode($response, true);
+        Log::info('[ZaloAuth] fetchLocationFromToken response: ' . json_encode($data));
+
+        $errorCode = (int)($data['error'] ?? -1);
+        if ($errorCode !== 0) {
+            $errMsg = (string)($data['message'] ?? 'Không lấy được vị trí từ Zalo');
+            Log::error('[ZaloAuth] fetchLocationFromToken error: ' . $errMsg . ' | Raw: ' . json_encode($data));
+            throw new ApiException($errMsg);
+        }
+
+        $payload = $data['data'] ?? [];
+        if (isset($payload['location']) && is_array($payload['location'])) {
+            $payload = $payload['location'];
+        }
+
+        $lat = (float)($payload['latitude'] ?? $payload['lat'] ?? 0);
+        $lng = (float)($payload['longitude'] ?? $payload['lng'] ?? 0);
+        if ($lat === 0.0 && $lng === 0.0) {
+            throw new ApiException('Zalo chưa trả tọa độ vị trí. Vui lòng cấp quyền vị trí và thử lại.');
+        }
+
+        return ['lat' => $lat, 'lng' => $lng];
+    }
+
+    /**
      * Gắn số điện thoại vào tài khoản Zalo đang đăng nhập
      *
      * @param int    $uid   UID người dùng hiện tại
