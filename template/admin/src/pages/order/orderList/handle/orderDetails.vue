@@ -53,99 +53,31 @@
             </li>
           </ul>
         </div>
-        <div class="detail-actions">
-          <span class="action-title">Điều chỉnh trạng thái đơn hàng:</span>
-          <el-tag size="mini" type="warning" v-if="isCodUnpaid">Đơn COD chưa thu tiền</el-tag>
-          <el-tag size="mini" type="warning" v-if="isBankUnpaid">Đơn chuyển khoản chưa xác nhận</el-tag>
-          <el-tag size="mini" type="success" v-if="isOfflinePaid">Đã xác nhận thanh toán thủ công</el-tag>
-          <el-button
-            size="mini"
-            type="primary"
-            plain
-            v-if="isCodUnpaid"
-            @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)"
-          >Xác nhận đã thu COD</el-button>
-          <el-button
-            size="mini"
-            type="primary"
-            plain
-            v-if="isBankUnpaid"
-            @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)"
-          >Xác nhận đã nhận chuyển khoản</el-button>
-          <el-button
-            size="mini"
-            type="primary"
-            v-if="canConfirmPayment"
-            @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)"
-          >Xác nhận thanh toán</el-button>
-          <el-button
-            size="mini"
-            v-if="canEditOrder"
-            @click="$emit('detail-action', 'edit_order', orderDatalist.orderInfo)"
-          >Chỉnh sửa đơn hàng</el-button>
-          <el-button
-            size="mini"
-            v-if="canSendOrder"
-            @click="$emit('detail-action', 'send_order', orderDatalist.orderInfo)"
-          >Gửi hàng / tách đơn giao</el-button>
-          <el-button
-            size="mini"
-            v-if="canViewDelivery"
-            @click="$emit('detail-action', 'delivery_info', orderDatalist.orderInfo)"
-          >Thông tin vận chuyển</el-button>
-          <el-button
-            size="mini"
-            v-if="canTakeDelivery"
-            @click="$emit('detail-action', 'take_delivery', orderDatalist.orderInfo)"
-          >Xác nhận đã nhận</el-button>
-          <el-button
-            size="mini"
-            v-if="canRefund"
-            @click="$emit('detail-action', 'refund_order', orderDatalist.orderInfo)"
-          >Hoàn tiền</el-button>
-          <el-button
-            size="mini"
-            v-if="canEditAddress"
-            @click="$emit('detail-action', 'edit_address', orderDatalist.orderInfo)"
-          >Sửa địa chỉ</el-button>
-          <el-button
-            size="mini"
-            v-if="canRemark"
-            @click="$emit('detail-action', 'remark_order', orderDatalist.orderInfo)"
-          >Ghi chú</el-button>
-          <el-button
-            size="mini"
-            v-if="canPrintOrder"
-            @click="$emit('detail-action', 'print_order', orderDatalist.orderInfo)"
-          >In đơn hàng</el-button>
-          <el-button
-            size="mini"
-            v-if="canPrintDelivery"
-            @click="$emit('detail-action', 'print_delivery', orderDatalist.orderInfo)"
-          >In phiếu giao hàng</el-button>
-          <el-button
-            size="mini"
-            v-if="canPrintExpress"
-            @click="$emit('detail-action', 'print_express', orderDatalist.orderInfo)"
-          >In mã vận đơn</el-button>
-          <el-button
-            size="mini"
-            type="primary"
-            plain
-            v-if="canConfirmPickup"
-            @click="$emit('detail-action', 'confirm_pickup', orderDatalist.orderInfo)"
-          >Xác nhận nhận tại quầy</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            plain
-            v-if="canAdminCancelOrder"
-            @click="openAdminCancel"
-          >Hủy đơn</el-button>
-          <el-button size="mini" v-if="canEditCartQty" @click="openEditQty">Sửa số lượng</el-button>
-        </div>
         <el-tabs type="border-card" v-model="activeName" @tab-click="tabClick">
           <el-tab-pane label="Thông tin đơn hàng" name="detail">
+            <div class="action-toolbar action-toolbar--top" v-if="hasDetailActions">
+              <div class="action-group" v-if="hasPaymentActions">
+                <span class="action-group__label">Thanh toán</span>
+                <div class="action-group__content">
+                  <el-tag size="mini" type="warning" v-if="isCodUnpaid">COD chưa thu</el-tag>
+                  <el-tag size="mini" type="warning" v-if="isBankUnpaid">CK chưa xác nhận</el-tag>
+                  <el-tag size="mini" type="success" v-if="isOfflinePaid">Đã xác nhận TT</el-tag>
+                  <el-button size="small" type="primary" plain v-if="isCodUnpaid" @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)">Xác nhận đã thu COD</el-button>
+                  <el-button size="small" type="primary" plain v-if="isBankUnpaid" @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)">Xác nhận đã nhận CK</el-button>
+                  <el-button size="small" type="primary" v-if="canConfirmPayment" @click="$emit('detail-action', 'confirm_payment', orderDatalist.orderInfo)">Xác nhận thanh toán</el-button>
+                </div>
+              </div>
+              <div class="action-group" v-if="hasOrderManageActions">
+                <span class="action-group__label">Quản lý</span>
+                <div class="action-group__content">
+                  <el-button size="small" v-if="canEditAddress" @click="$emit('detail-action', 'edit_address', orderDatalist.orderInfo)">Sửa địa chỉ</el-button>
+                  <el-button size="small" v-if="canRemark" @click="$emit('detail-action', 'remark_order', orderDatalist.orderInfo)">Ghi chú</el-button>
+                  <el-button size="small" type="warning" plain v-if="canRefund" @click="$emit('detail-action', 'refund_order', orderDatalist.orderInfo)">Hoàn tiền</el-button>
+                  <el-button size="small" type="danger" plain v-if="canAdminCancelOrder" @click="openAdminCancel">Hủy đơn</el-button>
+                </div>
+              </div>
+            </div>
+
             <div class="section">
               <div class="title">Thông tin người dùng</div>
               <ul class="list">
@@ -178,10 +110,12 @@
                     {{ orderDatalist.orderInfo.user_phone ? orderDatalist.orderInfo.user_phone : '-' }}
                   </div>
                 </li>
-                <li class="item">
-                  <div>Địa chỉ giao hàng:</div>
-                  <div class="value">
-                    {{ orderDatalist.orderInfo.user_address ? orderDatalist.orderInfo.user_address : '-' }}
+                <li class="item item-address">
+                  <div class="address-lines">
+                    <div class="address-line" v-for="(line, idx) in shippingAddressLines" :key="idx">
+                      <span class="address-label">{{ line.label }}:</span>
+                      <span class="address-value">{{ line.value }}</span>
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -389,6 +323,16 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="Thông tin sản phẩm" name="goods">
+            <div class="action-toolbar action-toolbar--top" v-if="hasGoodsActions">
+              <div class="action-group">
+                <span class="action-group__label">Sản phẩm</span>
+                <div class="action-group__content">
+                  <el-button size="small" type="primary" plain v-if="canEditCartQty" @click="openEditQty">Sửa số lượng</el-button>
+                  <el-button size="small" v-if="canEditOrder" @click="$emit('detail-action', 'edit_order', orderDatalist.orderInfo)">Chỉnh sửa đơn hàng</el-button>
+                </div>
+              </div>
+            </div>
+
             <el-table class="mt20" :data="orderDatalist.orderInfo.cartInfo">
               <el-table-column label="Thông tin sản phẩm" min-width="300">
                 <template slot-scope="scope">
@@ -440,6 +384,29 @@
                 </template>
               </el-table-column> -->
             </el-table>
+
+          </el-tab-pane>
+          <el-tab-pane label="Vận chuyển & in ấn" name="shipping" v-if="hasShippingActions">
+            <div class="action-toolbar action-toolbar--top" v-if="hasShippingActions">
+              <div class="action-group" v-if="hasShippingDeliveryActions">
+                <span class="action-group__label">Vận chuyển</span>
+                <div class="action-group__content">
+                  <el-button size="small" type="primary" v-if="canSendOrder" @click="$emit('detail-action', 'send_order', orderDatalist.orderInfo)">Gửi hàng / tách đơn giao</el-button>
+                  <el-button size="small" v-if="canViewDelivery" @click="$emit('detail-action', 'delivery_info', orderDatalist.orderInfo)">Thông tin vận chuyển</el-button>
+                  <el-button size="small" v-if="canTakeDelivery" @click="$emit('detail-action', 'take_delivery', orderDatalist.orderInfo)">Xác nhận đã nhận</el-button>
+                  <el-button size="small" type="primary" plain v-if="canConfirmPickup" @click="$emit('detail-action', 'confirm_pickup', orderDatalist.orderInfo)">Xác nhận nhận tại quầy</el-button>
+                </div>
+              </div>
+              <div class="action-group" v-if="hasPrintActions">
+                <span class="action-group__label">In ấn</span>
+                <div class="action-group__content">
+                  <el-button size="small" v-if="canPrintOrder" @click="$emit('detail-action', 'print_order', orderDatalist.orderInfo)">In đơn hàng</el-button>
+                  <el-button size="small" v-if="canPrintDelivery" @click="$emit('detail-action', 'print_delivery', orderDatalist.orderInfo)">In phiếu giao hàng</el-button>
+                  <el-button size="small" v-if="canPrintExpress" @click="$emit('detail-action', 'print_express', orderDatalist.orderInfo)">In mã vận đơn</el-button>
+                </div>
+              </div>
+            </div>
+
           </el-tab-pane>
           <el-tab-pane label="Lịch sử đơn hàng" name="orderList">
             <el-table class="mt20" :data="recordData" v-loading="loading" empty-text="Chưa có dữ liệu" highlight-current-row>
@@ -735,12 +702,86 @@ export default {
         .filter((line) => line && !line.startsWith('[COD]'));
       return lines.join('\n');
     },
+    hasDetailActions() {
+      return this.hasPaymentActions || this.hasOrderManageActions;
+    },
+    hasPaymentActions() {
+      return this.isCodUnpaid || this.isBankUnpaid || this.isOfflinePaid || this.canConfirmPayment;
+    },
+    hasOrderManageActions() {
+      return this.canEditAddress || this.canRemark || this.canRefund || this.canAdminCancelOrder;
+    },
+    hasShippingDeliveryActions() {
+      return this.canSendOrder || this.canViewDelivery || this.canTakeDelivery || this.canConfirmPickup;
+    },
+    hasPrintActions() {
+      return this.canPrintOrder || this.canPrintDelivery || this.canPrintExpress;
+    },
+    hasGoodsActions() {
+      return this.canEditCartQty || this.canEditOrder;
+    },
+    hasShippingActions() {
+      return (
+        this.canSendOrder ||
+        this.canViewDelivery ||
+        this.canTakeDelivery ||
+        this.canConfirmPickup ||
+        this.canPrintOrder ||
+        this.canPrintDelivery ||
+        this.canPrintExpress
+      );
+    },
+    shippingAddressLines() {
+      return this.buildShippingAddressLines(this.info.user_address);
+    },
   },
   methods: {
     formatVnd(value) {
       const num = Number(value || 0);
       if (Number.isNaN(num)) return '--';
       return `${num.toLocaleString('vi-VN')} đ`;
+    },
+    buildShippingAddressLines(raw) {
+      const labels = ['Địa chỉ chi tiết', 'Xã/phường', 'Tỉnh/thành phố'];
+      const text = String(raw || '').replace(/\s+/g, ' ').trim();
+      if (!text) {
+        return labels.map((label) => ({ label, value: '-' }));
+      }
+
+      const wardKeywords = ['Phường', 'Xã', 'Thị trấn', 'Quận', 'Huyện', 'Thị xã'];
+      let wardIdx = -1;
+      wardKeywords.forEach((keyword) => {
+        const idx = text.lastIndexOf(`${keyword} `);
+        if (idx > wardIdx) wardIdx = idx;
+      });
+
+      let province = '-';
+      let ward = '-';
+      let detail = text;
+
+      if (wardIdx >= 0) {
+        const head = text.slice(0, wardIdx).trim();
+        const tail = text.slice(wardIdx).trim();
+        const tailParts = tail.split(' ');
+        ward = tailParts.slice(0, 2).join(' ');
+        const tailDetail = tailParts.slice(2).join(' ').trim();
+        const headParts = head.split(' ');
+
+        if (headParts[0] === 'Tỉnh' || headParts[0] === 'Thành') {
+          province = headParts.slice(0, 3).join(' ').trim() || head || '-';
+          const headDetail = headParts.slice(3).join(' ').trim();
+          detail = [headDetail, tailDetail].filter(Boolean).join(' ').trim() || '-';
+        } else {
+          province = headParts.slice(0, 2).join(' ').trim() || head || '-';
+          const headDetail = headParts.slice(2).join(' ').trim();
+          detail = [headDetail, tailDetail].filter(Boolean).join(' ').trim() || '-';
+        }
+      }
+
+      return labels.map((label, index) => ({
+        label,
+        value: [detail, ward, province][index] || '-',
+      }));
     },
     payTypeLabel(val) {
       let obj = {
@@ -970,18 +1011,86 @@ export default {
   font-size: 13px;
 }
 
-.detail-actions {
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.action-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px 20px;
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  border: 1px solid #ebeef5;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.action-toolbar--top {
+  margin-top: 0;
+}
+
+.action-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.action-group__label {
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 500;
+  color: #606266;
+}
+
+.action-group__content {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  padding: 0 30px 16px;
+  min-width: 0;
 }
 
-.detail-actions .action-title {
-  color: #606266;
+.item-address {
+  flex: 0 0 100% !important;
+  display: block !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.address-lines {
+  width: 100%;
+}
+
+.address-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 8px;
   font-size: 13px;
-  margin-right: 6px;
+  line-height: 1.6;
+}
+
+.address-line:first-child {
+  margin-top: 0;
+}
+
+.address-label {
+  flex: none;
+  color: #909399;
+  white-space: nowrap;
+}
+
+.address-value {
+  flex: 0 1 auto;
+  color: #303133;
+  word-break: break-word;
 }
 
 .qty-tip {
@@ -1010,9 +1119,16 @@ export default {
   .item {
     flex: 0 0 calc(100% / 3);
     display: flex;
+    align-items: baseline;
+    gap: 8px;
     margin-top: 16px;
     font-size: 13px;
     color: #666666;
+    > div:first-child {
+      flex: none;
+      color: #909399;
+      white-space: nowrap;
+    }
     &:nth-child(3n + 1) {
       padding-right: 20px;
     }
@@ -1027,7 +1143,9 @@ export default {
     }
   }
   .value {
-    flex: 1;
+    flex: 0 1 auto;
+    color: #303133;
+    word-break: break-word;
     image {
       display: inline-block;
       width: 40px;
@@ -1099,7 +1217,9 @@ export default {
   transition: none;
   height: 40px !important;
   line-height: 40px !important;
-  width: 92px !important;
+  min-width: 92px;
+  width: auto !important;
+  padding: 0 16px !important;
   font-size: 13px;
   font-weight: 400;
   color: #303133;
