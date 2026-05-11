@@ -255,7 +255,21 @@ export function useLogout() {
   const setUserInfoKey = useSetAtom(userInfoKeyState);
   const refreshAddresses = useSetAtom(crmebAddressesState);
 
-  return () => {
+  return async () => {
+    const apiUrl = getConfig((config) => config.template.apiUrl);
+    const token = getCrmebToken();
+    if (apiUrl && token) {
+      try {
+        const client = new CrmebApiClient({
+          apiBaseUrl: apiUrl,
+          getToken: () => token,
+        });
+        await client.get("/logout");
+      } catch (error) {
+        console.warn("CRMEB logout failed:", error);
+      }
+    }
+
     setSessionLoggedOut(true);
     clearCrmebToken();
     localStorage.removeItem(CONFIG.STORAGE_KEYS.USER_INFO);

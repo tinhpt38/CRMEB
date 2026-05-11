@@ -48,7 +48,9 @@ export default function ProfileActions() {
       </div>
       <button
         className="w-full py-2.5 rounded-lg border border-red-200 text-red-500 text-sm font-medium active:bg-red-50"
-        onClick={logout}
+        onClick={() => {
+          void logout();
+        }}
       >
         Đăng xuất
       </button>

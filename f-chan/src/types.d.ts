@@ -21,6 +21,8 @@ export interface UserInfo {
   phone: string;
   email: string;
   address: string;
+  /** Điểm thưởng CRMEB (từ GET /userinfo). */
+  integral?: number;
 }
 
 export interface Product {

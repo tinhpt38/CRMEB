@@ -53,6 +53,12 @@ export function enrichUserInfoFromCrmebRecords(
     address = formatCrmebAddressLine(defaultAddr);
   }
 
+  const integralRaw = p.integral;
+  const integral =
+    integralRaw === undefined || integralRaw === null || integralRaw === ""
+      ? base.integral
+      : Number(integralRaw);
+
   return {
     id: String(p.uid ?? base.id),
     name: nameFromProfile || base.name,
@@ -60,5 +66,6 @@ export function enrichUserInfoFromCrmebRecords(
     phone: crmebPhone || base.phone,
     email: email || base.email,
     address: address || base.address,
+    integral: Number.isFinite(integral) ? integral : base.integral,
   };
 }

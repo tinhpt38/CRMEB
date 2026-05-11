@@ -1,5 +1,6 @@
-export default function Barcode() {
+export default function Barcode({ value }: { value?: string }) {
   return (
+    <div className="space-y-1">
     <svg
       width="204"
       height="49"
@@ -78,5 +79,9 @@ export default function Barcode() {
         </clipPath>
       </defs>
     </svg>
+    {value ? (
+      <div className="text-2xs text-subtitle tracking-widest">{value}</div>
+    ) : null}
+    </div>
   );
 }

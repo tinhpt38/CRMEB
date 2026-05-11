@@ -781,6 +781,8 @@ class PublicController
         $data['phone_auth_switch'] = (int)in_array(2, sys_config('routine_auth_type')); //Công tắc đăng nhập số điện thoại di động
         $data['wechat_status'] = sys_config('wechat_appid') != '' && sys_config('wechat_appsecret') != ''; //Tài khoản chính thức đã được cấu hình chưa?
         $data['site_func'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
+        $data['zalo_login_open'] = (int)sys_config('zalo_login_open', 0);
+        $data['zalo_bind_phone'] = (int)sys_config('zalo_bind_phone', 0);
         return app('json')->success($data);
     }
 
