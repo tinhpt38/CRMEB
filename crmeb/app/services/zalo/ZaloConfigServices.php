@@ -10,6 +10,7 @@ namespace app\services\zalo;
 
 use app\services\BaseServices;
 use app\services\system\config\SystemConfigServices;
+use app\services\zalo\ZaloMiniAppThemeServices;
 use crmeb\exceptions\ApiException;
 use crmeb\services\CacheService;
 use crmeb\services\HttpService;
@@ -61,6 +62,9 @@ class ZaloConfigServices extends BaseServices
      */
     public function getConfig(): array
     {
+        /** @var ZaloMiniAppThemeServices $themeServices */
+        $themeServices = app()->make(ZaloMiniAppThemeServices::class);
+
         return [
             'zalo_login_open'            => (int)sys_config('zalo_login_open', 0),
             'zalo_app_id'                => (string)sys_config('zalo_app_id', ''),
@@ -69,6 +73,9 @@ class ZaloConfigServices extends BaseServices
             'zalo_bind_phone'            => (int)sys_config('zalo_bind_phone', 0),
             'zalo_mini_app_deeplink'     => (string)sys_config('zalo_mini_app_deeplink', ''),
             'zalo_mini_app_qr_image'     => (string)sys_config('zalo_mini_app_qr_image', ''),
+            'mini_app_theme'             => $themeServices->getAdminTheme(),
+            'mini_app_theme_version'     => (int)sys_config(ZaloMiniAppThemeServices::CONFIG_VERSION, 0),
+            'mini_app_theme_fonts'       => ZaloMiniAppThemeServices::FONT_WHITELIST,
         ];
     }
 
@@ -111,6 +118,9 @@ class ZaloConfigServices extends BaseServices
         }
 
         $this->ensureZaloMiniAppLandingConfigRows($configServices);
+        if (!empty($data['mini_app_theme']) && is_array($data['mini_app_theme'])) {
+            app()->make(ZaloMiniAppThemeServices::class)->saveTheme($data['mini_app_theme']);
+        }
 
         foreach ($saveMap as $key => $value) {
             $configServices->update($key, ['value' => json_encode($value)], 'menu_name');

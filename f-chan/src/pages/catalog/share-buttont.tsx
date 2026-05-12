@@ -8,7 +8,9 @@ export default function ShareButton(props: { product: Product }) {
     <button
       type="button"
       className="relative w-full h-10 rounded-lg cursor-pointer overflow-hidden"
-      onClick={() => shareProduct(props.product)}
+      onClick={() => {
+        void shareProduct(props.product);
+      }}
     >
       <div className="absolute inset-0 bg-[var(--zaui-light-button-secondary-background)] opacity-50" />
       <ShareDecor className="absolute inset-0" />

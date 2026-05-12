@@ -29,7 +29,7 @@ function Station({
         <div className="flex items-center gap-2">
           <div className="text-sm">{station.name}</div>
           {recommended ? (
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-50 text-primary">
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-accentSoft text-primary">
               Gần bạn nhất
             </span>
           ) : null}

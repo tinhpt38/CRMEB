@@ -115,14 +115,22 @@ The template contains a follow OA widget:
 
 ### Customize theme
 
-<img src="./docs/customize-theme.webp" alt="Customize theme" width="250" align="right">
+Màu sắc, font và logo runtime được CRMEB điều khiển qua **Admin → Ứng dụng → Zalo Mini App → Giao diện Mini App**. Mini app tải `GET /api/zalo/theme` khi khởi động, cache theo `version`, rồi map sang CSS variables.
 
-Adjust CSS variables in `src/css/tailwind.scss` as needed to fit your desired branding.
+| Nguồn | Áp dụng khi nào |
+| --- | --- |
+| CRMEB `zalo_mini_app_theme` | Màu, font whitelist, logo, tên shop, `theme-color` meta — không cần build lại mini app |
+| `app-config.json` | `apiUrl`, feature flags, shell Zalo (title/headerColor lúc deploy) |
+| `src/css/tailwind.scss` | Giá trị fallback khi API lỗi hoặc chưa cấu hình |
+
+Đổi palette trên admin có hiệu lực sau khi người dùng mở lại mini app (hoặc khi version theme tăng). Layout React không đổi theo theme mall uni-app.
+
+Fallback local: chỉnh `:root` trong `src/css/tailwind.scss` nếu cần mặc định dev offline.
 
 ```css
 :root {
-  --primary: #8420ff;
-  --zaui-light-button-secondary-background: #e3b2f1;
-  --zaui-light-button-secondary-text: #590872;
+  --primary: #52b361;
+  --zaui-light-button-secondary-background: #d1f0db;
+  --zaui-light-button-secondary-text: #135328;
 }
 ```

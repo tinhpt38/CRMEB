@@ -84,6 +84,7 @@ class ZaloConfig extends AuthController
             ['zalo_bind_phone',           0],
             ['zalo_mini_app_deeplink',    ''],
             ['zalo_mini_app_qr_image',    ''],
+            ['mini_app_theme',            []],
         ]);
 
         $this->services->saveConfig($data);
@@ -103,5 +104,40 @@ class ZaloConfig extends AuthController
             return app('json')->success($result['message'], $result['details'] ?? []);
         }
         return app('json')->fail($result['message']);
+    }
+
+    public function saveMiniAppTheme()
+    {
+        $theme = $this->request->param('mini_app_theme/a', []);
+        if (!$theme) {
+            $payload = json_decode((string)$this->request->getContent(), true);
+            if (is_array($payload)) {
+                $theme = $payload['mini_app_theme'] ?? [];
+            }
+        }
+        if (!is_array($theme)) {
+            return app('json')->fail('Dữ liệu giao diện Mini App không hợp lệ');
+        }
+
+        $result = app()->make(\app\services\zalo\ZaloMiniAppThemeServices::class)->saveTheme($theme);
+        return app('json')->success('Lưu giao diện Mini App thành công', $result);
+    }
+
+    /**
+     * Khôi phục theme mini app mặc định.
+     */
+    public function resetMiniAppTheme()
+    {
+        $result = app()->make(\app\services\zalo\ZaloMiniAppThemeServices::class)->resetTheme();
+        return app('json')->success('Khôi phục giao diện Mini App thành công', $result);
+    }
+
+    /**
+     * Nhập palette từ theme mall uni-app.
+     */
+    public function importMiniAppThemeFromMall()
+    {
+        $result = app()->make(\app\services\zalo\ZaloMiniAppThemeServices::class)->importPaletteFromMallTheme();
+        return app('json')->success('Đã nhập màu từ theme mall', $result);
     }
 }

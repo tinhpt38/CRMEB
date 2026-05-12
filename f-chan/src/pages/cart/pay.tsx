@@ -92,7 +92,7 @@ export default function Pay() {
                   type="button"
                   className={`py-2 rounded-lg text-xs border transition-colors ${
                     active
-                      ? "border-primary text-primary bg-blue-50"
+                      ? "border-primary text-primary bg-accentSoft"
                       : "border-gray-200 text-subtitle bg-white"
                   }`}
                   onClick={() => setPaymentMethod(method.value)}

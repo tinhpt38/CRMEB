@@ -6,6 +6,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -17,6 +20,9 @@ module.exports = {
         subtitle: "var(--subtitle)",
         danger: "var(--danger)",
         skeleton: "var(--skeleton)",
+        secondary: "var(--secondary)",
+        secondaryForeground: "var(--secondaryForeground)",
+        accentSoft: "var(--accentSoft)",
       },
       spacing: {
         st: "var(--safe-top)",

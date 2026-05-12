@@ -10,7 +10,7 @@
     ></i>
     <el-breadcrumb class="layout-navbars-breadcrumb-hide" v-if="isShowcrumb" :style="{ display: isShowBreadcrumb }">
       <transition-group name="breadcrumb" mode="out-in">
-        <el-breadcrumb-item v-for="(v, k) in [...breadCrumbList, ...crumbPast]" :key="v.path">
+        <el-breadcrumb-item v-for="(v, k) in breadcrumbItems" :key="`${v.path}-${k}`">
           <span v-if="k == 1" class="layout-navbars-breadcrumb-span">
             <Icon
               :type="v.icon"
@@ -76,6 +76,19 @@ export default {
         });
       }
       return selectMenu;
+    },
+    breadcrumbItems() {
+      const merged = [...this.breadCrumbList, ...this.crumbPast];
+      const seen = new Set();
+
+      return merged.filter((item) => {
+        const key = item.path;
+        if (!key || seen.has(key)) {
+          return false;
+        }
+        seen.add(key);
+        return true;
+      });
     },
     // Nhận thông tin cấu hình bố cục
     getThemeConfig() {

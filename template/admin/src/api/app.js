@@ -532,6 +532,14 @@ export function saveZaloConfig(data) {
   });
 }
 
+export function saveZaloMiniAppTheme(data) {
+  return request({
+    url: 'app/zalo/mini_app_theme/save',
+    method: 'POST',
+    data,
+  });
+}
+
 /**
  * @description Zalo - Kiểm tra kết nối API với App ID và Secret đã cấu hình
  */
@@ -539,5 +547,19 @@ export function testZaloConnection() {
   return request({
     url: 'app/zalo/test_connection',
     method: 'GET',
+  });
+}
+
+export function resetZaloMiniAppTheme() {
+  return request({
+    url: 'app/zalo/mini_app_theme/reset',
+    method: 'POST',
+  });
+}
+
+export function importZaloMiniAppThemeFromMall() {
+  return request({
+    url: 'app/zalo/mini_app_theme/import_mall',
+    method: 'POST',
   });
 }

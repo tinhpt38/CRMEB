@@ -581,6 +581,8 @@ Route::group(function () {
         ->option(['real_name' => 'Zalo Mini App - Đăng nhập']);
     Route::post('zalo/location', 'v1.zalo.ZaloAuthController/location')
         ->option(['real_name' => 'Zalo Mini App - Giải mã vị trí']);
+    Route::get('zalo/theme', 'v1.zalo.ZaloThemeController/theme')
+        ->option(['real_name' => 'Zalo Mini App - Theme giao diện']);
 })->middleware(\app\http\middleware\AllowOriginMiddleware::class)
     ->middleware(\app\api\middleware\StationOpenMiddleware::class)
     ->option(['mark' => 'zalo_public', 'mark_name' => 'Zalo - Giao diện công khai']);

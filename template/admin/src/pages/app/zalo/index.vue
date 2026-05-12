@@ -21,6 +21,8 @@
     </div>
 
     <div class="page-body" v-loading="pageLoading">
+      <el-tabs v-model="activeTab">
+        <el-tab-pane label="Xác thực & landing" name="auth">
       <el-row :gutter="24">
 
         <!-- Cột trái: Form cấu hình -->
@@ -281,6 +283,125 @@
           </el-card>
         </el-col>
       </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="Giao diện Mini App" name="theme">
+          <el-row :gutter="24">
+            <el-col :xl="14" :lg="14" :md="24" :sm="24">
+              <el-card shadow="never" class="config-card">
+                <div slot="header" class="card-header">
+                  <i class="el-icon-brush platform-icon"></i>
+                  <span class="card-title">Design tokens</span>
+                  <el-tag size="small" type="info">v{{ form.mini_app_theme_version || 0 }}</el-tag>
+                </div>
+
+                <el-form label-width="180px" label-position="right" class="theme-form">
+                  <el-form-item label="Tên cửa hàng" class="theme-form-item-shop-name">
+                    <el-input
+                      v-model="form.mini_app_theme.shopName"
+                      placeholder="Ví dụ: Cửa hàng F-Chan"
+                      maxlength="60"
+                      show-word-limit
+                    />
+                    <div class="form-tip">
+                      Tên thương hiệu hiển thị trên header. Nếu có điểm nhận hàng, tên điểm sẽ hiển thị ở dòng phụ.
+                    </div>
+                  </el-form-item>
+
+                  <el-form-item label="Logo">
+                    <div class="acea-row row-middle" style="flex-wrap: wrap; gap: 10px;">
+                      <el-input
+                        v-model="form.mini_app_theme.logoUrl"
+                        readonly
+                        placeholder="Chọn logo từ thư viện ảnh"
+                        style="width: 260px; max-width: 100%;"
+                      />
+                      <el-button size="small" type="primary" icon="el-icon-picture-outline" @click="openLogoPictureModal">
+                        Chọn logo
+                      </el-button>
+                      <el-button v-if="form.mini_app_theme.logoUrl" size="small" icon="el-icon-delete" @click="clearLogoImage">
+                        Xóa
+                      </el-button>
+                    </div>
+                    <div v-if="displayLogoUrl" class="qr-preview">
+                      <img :src="displayLogoUrl" alt="Logo mini app">
+                    </div>
+                  </el-form-item>
+
+                  <el-divider content-position="left">Màu sắc</el-divider>
+
+                  <el-form-item v-for="field in themeColorFields" :key="field.key" :label="field.label">
+                    <div class="color-picker-row">
+                      <el-color-picker v-model="form.mini_app_theme[field.key]" />
+                      <span class="color-value">{{ form.mini_app_theme[field.key] }}</span>
+                    </div>
+                  </el-form-item>
+
+                  <el-divider content-position="left">Typography & chrome</el-divider>
+
+                  <el-form-item label="Font chữ">
+                    <el-select v-model="form.mini_app_theme.fontFamily" style="width: 240px;">
+                      <el-option label="System (mặc định)" value="system" />
+                      <el-option label="Inter" value="inter" />
+                    </el-select>
+                  </el-form-item>
+
+                  <el-form-item label="Cỡ chữ gốc">
+                    <el-slider v-model="form.mini_app_theme.baseFontSize" :min="13" :max="16" :step="1" show-input />
+                  </el-form-item>
+
+                  <el-form-item label="Status bar">
+                    <el-select v-model="form.mini_app_theme.statusBar" style="width: 240px;">
+                      <el-option label="Mặc định" value="default" />
+                      <el-option label="Trong suốt" value="transparent" />
+                      <el-option label="Sáng" value="light" />
+                      <el-option label="Tối" value="dark" />
+                    </el-select>
+                  </el-form-item>
+
+                  <el-form-item>
+                    <el-button size="small" @click="handleResetTheme" :loading="themeActionLoading">Khôi phục mặc định</el-button>
+                    <el-button size="small" @click="handleImportMallTheme" :loading="themeActionLoading">Nhập màu từ theme mall</el-button>
+                  </el-form-item>
+                </el-form>
+              </el-card>
+            </el-col>
+
+            <el-col :xl="10" :lg="10" :md="24" :sm="24">
+              <el-card shadow="never" class="guide-card">
+                <div slot="header" class="card-header">
+                  <span class="card-title">Xem trước</span>
+                </div>
+                <div class="theme-preview" :style="themePreviewStyle">
+                  <div class="theme-preview-header" :style="{ background: form.mini_app_theme.headerColor }">
+                    <div v-if="displayLogoUrl" class="theme-preview-logo-wrap">
+                      <img :src="displayLogoUrl" alt="" class="theme-preview-logo" />
+                    </div>
+                    <div v-else class="theme-preview-logo theme-preview-logo--placeholder">Logo</div>
+                    <span class="theme-preview-title">{{ previewShopName }}</span>
+                  </div>
+                  <div class="theme-preview-body" :style="{ background: form.mini_app_theme.background, color: form.mini_app_theme.foreground }">
+                    <div class="theme-preview-card" :style="{ background: form.mini_app_theme.section }">
+                      <p :style="{ color: form.mini_app_theme.subtitle }">Mô tả sản phẩm mẫu</p>
+                      <div class="theme-preview-actions">
+                        <button type="button" class="theme-preview-secondary" :style="{ background: form.mini_app_theme.secondary, color: form.mini_app_theme.secondaryForeground }">
+                          Thêm giỏ
+                        </button>
+                        <button type="button" class="theme-preview-primary" :style="{ background: form.mini_app_theme.primary, color: form.mini_app_theme.primaryForeground }">
+                          Mua ngay
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="form-tip" style="margin-top: 12px;">
+                  Thay đổi màu/font có hiệu lực trên mini app sau khi lưu; người dùng mở lại app sẽ nhận theme mới qua API <code>/api/zalo/theme</code>.
+                </p>
+              </el-card>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+      </el-tabs>
     </div>
 
     <!-- Dialog kết quả test -->
@@ -326,13 +447,50 @@
         @getPic="onQrPicturePicked"
       />
     </el-dialog>
+
+    <el-dialog
+      title="Chọn logo Mini App"
+      :visible.sync="logoPictureModal"
+      width="950px"
+      append-to-body
+      :close-on-click-modal="false"
+    >
+      <uploadPictures
+        v-if="logoPictureModal"
+        :isChoice="qrPictureChoice"
+        :gridBtn="gridBtn"
+        :gridPic="gridPic"
+        @getPic="onLogoPicturePicked"
+      />
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getZaloConfig, saveZaloConfig, testZaloConnection } from '@/api/app';
+import { getZaloConfig, saveZaloConfig, saveZaloMiniAppTheme, testZaloConnection, resetZaloMiniAppTheme, importZaloMiniAppThemeFromMall } from '@/api/app';
 import Setting from '@/setting';
 import uploadPictures from '@/components/uploadPictures';
+
+const DEFAULT_MINI_APP_THEME = {
+  shopName: '',
+  logoUrl: '',
+  faviconUrl: '',
+  primary: '#52b361',
+  primaryForeground: '#ffffff',
+  background: '#f7f7f8',
+  foreground: '#0d0d0d',
+  section: '#ffffff',
+  subtitle: '#6f7071',
+  inactive: '#a9adb2',
+  danger: '#f50000',
+  gradient: '#52b361',
+  secondary: '#d1f0db',
+  secondaryForeground: '#135328',
+  fontFamily: 'system',
+  baseFontSize: 15,
+  headerColor: '#52b361',
+  statusBar: 'default',
+};
 
 export default {
   name: 'app_zalo_config',
@@ -346,8 +504,11 @@ export default {
       pageLoading: false,
       saveLoading: false,
       testLoading: false,
+      themeActionLoading: false,
+      activeTab: 'auth',
       showSecret: false,
       qrPictureModal: false,
+      logoPictureModal: false,
       qrPictureChoice: 'Lựa chọn duy nhất',
       gridBtn: {
         xl: 4,
@@ -372,7 +533,24 @@ export default {
         zalo_bind_phone:           0,
         zalo_mini_app_deeplink:    '',
         zalo_mini_app_qr_image:    '',
+        mini_app_theme:            { ...DEFAULT_MINI_APP_THEME },
+        mini_app_theme_version:    0,
       },
+
+      themeColorFields: [
+        { key: 'primary', label: 'Màu chủ đạo' },
+        { key: 'primaryForeground', label: 'Chữ trên nền chủ đạo' },
+        { key: 'background', label: 'Nền app' },
+        { key: 'foreground', label: 'Chữ chính' },
+        { key: 'section', label: 'Nền thẻ / section' },
+        { key: 'subtitle', label: 'Chữ phụ' },
+        { key: 'inactive', label: 'Trạng thái inactive' },
+        { key: 'danger', label: 'Cảnh báo / lỗi' },
+        { key: 'gradient', label: 'Gradient' },
+        { key: 'secondary', label: 'Nút phụ' },
+        { key: 'secondaryForeground', label: 'Chữ nút phụ' },
+        { key: 'headerColor', label: 'Header' },
+      ],
 
       rules: {
         zalo_app_id: [
@@ -452,6 +630,29 @@ export default {
       const host = idx >= 0 ? Setting.apiBaseURL.substring(0, idx) : '';
       return host ? host + u : u;
     },
+    displayLogoUrl() {
+      const u = (this.form.mini_app_theme.logoUrl || '').trim();
+      if (!u) return '';
+      if (/^https?:\/\//.test(u) || u.startsWith('//')) return u;
+      const search = '/adminapi/';
+      const idx = Setting.apiBaseURL.indexOf(search);
+      const host = idx >= 0 ? Setting.apiBaseURL.substring(0, idx) : '';
+      return host ? host + u : u;
+    },
+    themePreviewStyle() {
+      const fontMap = {
+        system: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        inter: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      };
+      return {
+        fontFamily: fontMap[this.form.mini_app_theme.fontFamily] || fontMap.system,
+        fontSize: `${this.form.mini_app_theme.baseFontSize || 15}px`,
+      };
+    },
+    previewShopName() {
+      const name = (this.form.mini_app_theme.shopName || '').trim();
+      return name || 'Tên cửa hàng';
+    },
   },
 
   created() {
@@ -461,6 +662,9 @@ export default {
   methods: {
     openQrPictureModal() {
       this.qrPictureModal = true;
+    },
+    openLogoPictureModal() {
+      this.logoPictureModal = true;
     },
     onQrPicturePicked(pc) {
       const path = pc && (pc.att_dir || pc.satt_dir || '');
@@ -475,6 +679,19 @@ export default {
     clearQrImage() {
       this.form.zalo_mini_app_qr_image = '';
     },
+    onLogoPicturePicked(pc) {
+      const path = pc && (pc.att_dir || pc.satt_dir || '');
+      if (!path) {
+        this.$message.warning('Không lấy được đường dẫn ảnh');
+        return;
+      }
+      this.form.mini_app_theme.logoUrl = path;
+      this.logoPictureModal = false;
+      this.$message.success('Đã chọn logo');
+    },
+    clearLogoImage() {
+      this.form.mini_app_theme.logoUrl = '';
+    },
 
     // ─── Load config ────────────────────────────────────────────────────────
 
@@ -482,8 +699,16 @@ export default {
       this.pageLoading = true;
       getZaloConfig()
         .then((res) => {
-          const { _meta, ...config } = res.data;
-          this.form = { ...this.form, ...config };
+          const { _meta, mini_app_theme, mini_app_theme_version, mini_app_theme_fonts, ...config } = res.data;
+          this.form = {
+            ...this.form,
+            ...config,
+            mini_app_theme: {
+              ...DEFAULT_MINI_APP_THEME,
+              ...(mini_app_theme || {}),
+            },
+            mini_app_theme_version: mini_app_theme_version || 0,
+          };
         })
         .catch((err) => {
           this.$message.error(err.msg || 'Không thể tải cấu hình');
@@ -496,14 +721,22 @@ export default {
     // ─── Lưu config ─────────────────────────────────────────────────────────
 
     handleSave() {
-      this.$refs.configForm.validate((valid) => {
-        if (!valid) return;
-
+      const save = () => {
         this.saveLoading = true;
-        saveZaloConfig(this.form)
+        const request = this.activeTab === 'theme'
+          ? saveZaloMiniAppTheme({ mini_app_theme: this.form.mini_app_theme })
+          : saveZaloConfig(this.form);
+
+        request
           .then((res) => {
             this.$message.success(res.msg || 'Lưu cấu hình thành công');
-            // Reload để lấy secret đã mask
+            if (this.activeTab === 'theme' && res.data && res.data.theme) {
+              this.form.mini_app_theme = {
+                ...DEFAULT_MINI_APP_THEME,
+                ...res.data.theme,
+              };
+              this.form.mini_app_theme_version = res.data.version || this.form.mini_app_theme_version;
+            }
             this.loadConfig();
           })
           .catch((err) => {
@@ -512,7 +745,47 @@ export default {
           .finally(() => {
             this.saveLoading = false;
           });
+      };
+
+      if (this.activeTab === 'theme') {
+        save();
+        return;
+      }
+
+      this.$refs.configForm.validate((valid) => {
+        if (!valid) return;
+        save();
       });
+    },
+
+    handleResetTheme() {
+      this.themeActionLoading = true;
+      resetZaloMiniAppTheme()
+        .then((res) => {
+          this.$message.success(res.msg || 'Đã khôi phục theme mặc định');
+          this.loadConfig();
+        })
+        .catch((err) => {
+          this.$message.error(err.msg || 'Khôi phục thất bại');
+        })
+        .finally(() => {
+          this.themeActionLoading = false;
+        });
+    },
+
+    handleImportMallTheme() {
+      this.themeActionLoading = true;
+      importZaloMiniAppThemeFromMall()
+        .then((res) => {
+          this.$message.success(res.msg || 'Đã nhập màu từ theme mall');
+          this.loadConfig();
+        })
+        .catch((err) => {
+          this.$message.error(err.msg || 'Nhập màu thất bại');
+        })
+        .finally(() => {
+          this.themeActionLoading = false;
+        });
     },
 
     // ─── Test connection ─────────────────────────────────────────────────────
@@ -721,6 +994,96 @@ export default {
         font-size: 12px;
       }
     }
+  }
+
+  .color-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .color-value {
+      font-size: 12px;
+      color: #666;
+      font-family: monospace;
+    }
+  }
+
+  .theme-preview {
+    border: 1px solid #ebeef5;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .theme-preview-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .theme-form {
+    ::v-deep .el-form-item__label {
+      white-space: normal;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+  }
+
+  .theme-preview-title {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .theme-preview-logo-wrap {
+    flex: none;
+  }
+
+  .theme-preview-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .theme-preview-logo--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .theme-preview-body {
+    padding: 16px;
+  }
+
+  .theme-preview-card {
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .theme-preview-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .theme-preview-primary,
+  .theme-preview-secondary {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    cursor: default;
   }
 }
 </style>

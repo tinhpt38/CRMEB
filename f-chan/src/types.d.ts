@@ -8,6 +8,34 @@ export interface CityNode {
   c: CityNode[];
 }
 
+export interface MiniAppTheme {
+  shopName: string;
+  logoUrl: string;
+  faviconUrl: string;
+  primary: string;
+  primaryForeground: string;
+  background: string;
+  foreground: string;
+  section: string;
+  subtitle: string;
+  inactive: string;
+  danger: string;
+  gradient: string;
+  secondary: string;
+  secondaryForeground: string;
+  fontFamily: string;
+  fontFamilyCss: string;
+  baseFontSize: number;
+  headerColor: string;
+  statusBar: "default" | "transparent" | "light" | "dark";
+}
+
+export interface MiniAppThemeResponse {
+  version: number;
+  theme: MiniAppTheme;
+  updatedAt?: number;
+}
+
 export interface Banner {
   pic: string;
   /** Link điều hướng khi nhấn banner. Có thể là URL web hoặc path nội bộ CRMEB. */

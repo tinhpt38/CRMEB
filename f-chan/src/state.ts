@@ -37,6 +37,7 @@ import toast from "react-hot-toast";
 import { calculateDistance } from "./utils/location";
 import { formatDistant } from "./utils/format";
 import { resolveUserLocation } from "./utils/deviceLocation";
+import { getActiveMiniAppTheme } from "./utils/theme";
 import {
   normalizeProductVariants,
   normalizeSkuDimensions,
@@ -986,3 +987,5 @@ export const cityListState = atom<Promise<CityNode[]>>(async () => {
 });
 
 export const loadableCityListState = loadable(cityListState);
+
+export const miniAppThemeState = atom(getActiveMiniAppTheme());

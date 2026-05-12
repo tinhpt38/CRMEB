@@ -45,7 +45,8 @@ class Request extends \think\Request
         'url',
         'customCode',
         'value',
-        'refund_reason_wap_img'
+        'refund_reason_wap_img',
+        'mini_app_theme',
     ];
 
     /**

@@ -5,6 +5,7 @@ import {
   loadableFirstStationState,
   loadableSelectedStationState,
   loadableUserInfoState,
+  miniAppThemeState,
   pageHeaderContextState,
 } from "@/state";
 import { useMemo } from "react";
@@ -48,10 +49,20 @@ export default function Header() {
 
   const showBack = location.key !== "default" && !handle?.noBack;
 
+  const theme = useAtomValue(miniAppThemeState);
+  const brand = useMemo(
+    () => ({
+      shopName: theme.shopName || getConfig((config) => config.template.shopName),
+      logoUrl: theme.logoUrl || getConfig((config) => config.template.logoUrl),
+    }),
+    [theme.logoUrl, theme.shopName],
+  );
+
   return (
     <div
-      className="w-full flex flex-col px-4 bg-primary text-primaryForeground pt-st overflow-hidden bg-no-repeat bg-right-top"
+      className="w-full flex flex-col px-4 text-primaryForeground pt-st overflow-hidden bg-no-repeat bg-right-top"
       style={{
+        backgroundColor: theme.headerColor || theme.primary,
         backgroundImage: `url(${headerIllus})`,
       }}
     >
@@ -59,19 +70,27 @@ export default function Header() {
         {handle?.logo ? (
           <>
             <img
-              src={getConfig((c) => c.template.logoUrl)}
-              className="flex-none w-8 h-8 rounded-full"
+              src={brand.logoUrl}
+              alt={brand.shopName}
+              className="flex-none w-8 h-8 rounded-full object-cover bg-white/20"
+              onError={(event) => {
+                const fallback = getConfig((config) => config.template.logoUrl);
+                if (fallback && event.currentTarget.src !== fallback) {
+                  event.currentTarget.src = fallback;
+                }
+              }}
             />
-            <TransitionLink to="/stations" className="flex-1 overflow-hidden">
-              <div className="flex items-center space-x-1">
-                <h1 className="text-lg font-bold">
-                  {stationForHeader?.name ?? getConfig((c) => c.template.shopName)}
-                </h1>
-                <Icon icon="zi-chevron-right" />
+            <TransitionLink to="/stations" className="flex-1 min-w-0 overflow-hidden">
+              <div className="flex items-center gap-1 min-w-0">
+                <h1 className="text-lg font-bold truncate whitespace-normal">{brand.shopName}</h1>
+                <Icon icon="zi-chevron-right" className="flex-none" />
               </div>
-              <p className="overflow-x-auto whitespace-nowrap text-2xs">
-                {stationForHeader?.address ??
-                  getConfig((c) => c.template.shopAddress)}
+              <p className="overflow-x-auto whitespace-nowrap text-2xs truncate">
+                {stationForHeader
+                  ? [stationForHeader.name, stationForHeader.address]
+                      .filter(Boolean)
+                      .join(" · ")
+                  : getConfig((config) => config.template.shopAddress)}
               </p>
             </TransitionLink>
           </>
@@ -92,7 +111,9 @@ export default function Header() {
                   type="button"
                   className="flex-none p-1.5 rounded-full active:bg-white/10"
                   aria-label="Chia sẻ cho bạn bè"
-                  onClick={() => shareProduct(pageHeaderContext.shareProduct!)}
+                  onClick={() => {
+                    void shareProduct(pageHeaderContext.shareProduct!);
+                  }}
                 >
                   <Icon icon="zi-share" />
                 </button>

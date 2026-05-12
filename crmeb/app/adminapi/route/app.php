@@ -175,6 +175,12 @@ Route::group('app', function () {
         // Test kết nối Zalo API
         Route::get('zalo/test_connection', 'v1.application.zalo.ZaloConfig/testConnection')
             ->option(['real_name' => 'Zalo - Kiểm tra kết nối API']);
+        Route::post('zalo/mini_app_theme/save', 'v1.application.zalo.ZaloConfig/saveMiniAppTheme')
+            ->option(['real_name' => 'Zalo - Lưu giao diện Mini App']);
+        Route::post('zalo/mini_app_theme/reset', 'v1.application.zalo.ZaloConfig/resetMiniAppTheme')
+            ->option(['real_name' => 'Zalo - Khôi phục giao diện Mini App']);
+        Route::post('zalo/mini_app_theme/import_mall', 'v1.application.zalo.ZaloConfig/importMiniAppThemeFromMall')
+            ->option(['real_name' => 'Zalo - Nhập màu từ theme mall']);
     })->option(['parent' => 'app', 'cate_name' => 'Zalo Mini App']);
 
 })->middleware([
