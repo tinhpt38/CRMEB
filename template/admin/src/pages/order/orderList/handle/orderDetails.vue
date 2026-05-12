@@ -39,17 +39,11 @@
             </li>
             <li class="item">
               <div class="title">Phương thức thanh toán</div>
-              <div>
-                {{
-                  orderDatalist.orderInfo._status && orderDatalist.orderInfo._status._payType
-                    ? orderDatalist.orderInfo._status._payType
-                    : payTypeLabel(orderDatalist.orderInfo.pay_type)
-                }}
-              </div>
+              <div>{{ orderPaymentLabel }}</div>
             </li>
             <li class="item">
               <div class="title">Thời gian thanh toán</div>
-              <div>{{ orderDatalist.orderInfo._pay_time }}</div>
+              <div>{{ formatDateTime(orderDatalist.orderInfo._pay_time) }}</div>
             </li>
           </ul>
         </div>
@@ -139,7 +133,7 @@
               <ul class="list">
                 <li class="item">
                   <div>Thời gian tạo:</div>
-                  <div class="value">{{ orderDatalist.orderInfo._add_time }}</div>
+                  <div class="value">{{ formatDateTime(orderDatalist.orderInfo._add_time) }}</div>
                 </li>
                 <li class="item">
                   <div>Tổng số mặt hàng:</div>
@@ -176,7 +170,7 @@
               </ul>
             </div>
             <div class="section">
-              <div class="title">Thông tin giảm giá(Số lượng｜người dùngUID)</div>
+              <div class="title">Thông tin giảm giá</div>
               <ul class="list">
                 <li class="item">
                   <div>Hoa hồng cấp 1:</div>
@@ -289,11 +283,11 @@
                 </li>
               </ul>
             </div>
-            <div class="section">
-              <div class="title">Tin nhắn của người mua</div>
+            <div class="section" v-if="orderMarkSection.visible">
+              <div class="title">{{ orderMarkSection.title }}</div>
               <ul class="list">
                 <li class="item">
-                  <div>{{ orderDatalist.orderInfo.mark ? orderDatalist.orderInfo.mark : '-' }}</div>
+                  <div>{{ orderMarkSection.value }}</div>
                 </li>
               </ul>
             </div>
@@ -513,6 +507,10 @@ import {
   adminCancelOrder,
   adminUpdateOrderCartNum,
 } from '@/api/order';
+import { buildShippingAddressLines } from '@/utils/shippingAddress';
+import { getOrderMarkSection, parsePayMethodMark } from '@/utils/orderMark';
+import { cityList } from '@/api/app';
+import { formatDateTime, formatVnd } from '@/utils/format';
 export default {
   name: 'orderDetails',
   data() {
@@ -542,6 +540,8 @@ export default {
       qtyVisible: false,
       qtyRows: [],
       qtySubmitting: false,
+      cityTree: [],
+      cityLoaded: false,
     };
   },
   props: {
@@ -562,8 +562,12 @@ export default {
     modals(val) {
       if (val) {
         this.activeName = 'detail';
+        this.ensureCityList();
       }
     },
+  },
+  created() {
+    this.ensureCityList();
   },
   computed: {
     info() {
@@ -757,56 +761,33 @@ export default {
       );
     },
     shippingAddressLines() {
-      return this.buildShippingAddressLines(this.info.user_address);
+      return buildShippingAddressLines(this.info.user_address, this.cityTree);
+    },
+    orderMarkSection() {
+      return getOrderMarkSection(this.info.mark);
+    },
+    orderPaymentLabel() {
+      const fromMark = parsePayMethodMark(this.info.mark);
+      if (fromMark) return fromMark;
+      if (this.info._status && this.info._status._payType) return this.info._status._payType;
+      return this.payTypeLabel(this.info.pay_type);
     },
   },
   methods: {
-    formatVnd(value) {
-      const num = Number(value || 0);
-      if (Number.isNaN(num)) return '--';
-      return `${num.toLocaleString('vi-VN')} đ`;
-    },
-    buildShippingAddressLines(raw) {
-      const labels = ['Địa chỉ chi tiết', 'Xã/phường', 'Tỉnh/thành phố'];
-      const text = String(raw || '').replace(/\s+/g, ' ').trim();
-      if (!text) {
-        return labels.map((label) => ({ label, value: '-' }));
-      }
-
-      const wardKeywords = ['Phường', 'Xã', 'Thị trấn', 'Quận', 'Huyện', 'Thị xã'];
-      let wardIdx = -1;
-      wardKeywords.forEach((keyword) => {
-        const idx = text.lastIndexOf(`${keyword} `);
-        if (idx > wardIdx) wardIdx = idx;
-      });
-
-      let province = '-';
-      let ward = '-';
-      let detail = text;
-
-      if (wardIdx >= 0) {
-        const head = text.slice(0, wardIdx).trim();
-        const tail = text.slice(wardIdx).trim();
-        const tailParts = tail.split(' ');
-        ward = tailParts.slice(0, 2).join(' ');
-        const tailDetail = tailParts.slice(2).join(' ').trim();
-        const headParts = head.split(' ');
-
-        if (headParts[0] === 'Tỉnh' || headParts[0] === 'Thành') {
-          province = headParts.slice(0, 3).join(' ').trim() || head || '-';
-          const headDetail = headParts.slice(3).join(' ').trim();
-          detail = [headDetail, tailDetail].filter(Boolean).join(' ').trim() || '-';
-        } else {
-          province = headParts.slice(0, 2).join(' ').trim() || head || '-';
-          const headDetail = headParts.slice(2).join(' ').trim();
-          detail = [headDetail, tailDetail].filter(Boolean).join(' ').trim() || '-';
-        }
-      }
-
-      return labels.map((label, index) => ({
-        label,
-        value: [detail, ward, province][index] || '-',
-      }));
+    formatVnd,
+    formatDateTime,
+    ensureCityList() {
+      if (this.cityLoaded) return Promise.resolve(this.cityTree);
+      return cityList()
+        .then((res) => {
+          this.cityTree = res.data || [];
+          this.cityLoaded = true;
+          return this.cityTree;
+        })
+        .catch(() => {
+          this.cityTree = [];
+          return [];
+        });
     },
     payTypeLabel(val) {
       let obj = {

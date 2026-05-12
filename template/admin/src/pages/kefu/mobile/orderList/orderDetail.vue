@@ -73,15 +73,13 @@
           {{ title }}
         </div>
       </div>
-      <div class="item acea-row row-between">
+      <div class="item acea-row row-between" v-if="paymentMethodText">
         <div>Phương thức thanh toán：</div>
-        <div class="conter">
-          {{ orderInfo._status ? orderInfo._status._payType : '' }}
-        </div>
+        <div class="conter">{{ paymentMethodText }}</div>
       </div>
-      <div class="item acea-row row-between">
+      <div class="item acea-row row-between" v-if="buyerMessage">
         <div>Tin nhắn của người mua：</div>
-        <div class="conter">{{ orderInfo.mark }}</div>
+        <div class="conter">{{ buyerMessage }}</div>
       </div>
     </div>
     <div class="wrapper">
@@ -156,6 +154,7 @@ import PriceChange from '../../components/PriceChange';
 import { orderInfo } from '@/api/kefu';
 import { required, num } from '@/utils/validate';
 import { validatorDefaultCatch } from '@/libs/dialog';
+import { getBuyerMessage, parsePayMethodMark } from '@/utils/orderMark';
 
 export default {
   name: 'AdminOrder',
@@ -174,6 +173,16 @@ export default {
       payType: '',
       types: '',
     };
+  },
+  computed: {
+    paymentMethodText() {
+      const fromMark = parsePayMethodMark(this.orderInfo.mark);
+      if (fromMark) return fromMark;
+      return this.orderInfo._status ? this.orderInfo._status._payType : '';
+    },
+    buyerMessage() {
+      return getBuyerMessage(this.orderInfo.mark);
+    },
   },
   watch: {
     '$route.params.id': function (newVal) {
