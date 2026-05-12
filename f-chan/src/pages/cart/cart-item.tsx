@@ -53,6 +53,9 @@ export default function CartItem(props: CartItemProps) {
         <img src={props.product.image} className="w-14 h-14 rounded-lg" />
         <div className="flex-1 space-y-1">
           <div className="text-sm">{props.product.name}</div>
+          {props.product.variantLabel && (
+            <div className="text-xs text-subtitle">{props.product.variantLabel}</div>
+          )}
           <div className="flex flex-col">
             <div className="text-sm font-bold">
               {formatPrice(props.product.price)}

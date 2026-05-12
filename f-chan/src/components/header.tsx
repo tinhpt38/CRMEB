@@ -5,6 +5,7 @@ import {
   loadableFirstStationState,
   loadableSelectedStationState,
   loadableUserInfoState,
+  pageHeaderContextState,
 } from "@/state";
 import { useMemo } from "react";
 import { useRouteHandle } from "@/hooks";
@@ -14,12 +15,14 @@ import SearchBar from "./search-bar";
 import TransitionLink from "./transition-link";
 import { Icon } from "zmp-ui";
 import { DefaultUserAvatar } from "./vectors";
+import { shareProduct } from "@/utils/shareProduct";
 
 export default function Header() {
   const categories = useAtomValue(categoriesStateUpwrapped);
   const navigate = useNavigate();
   const location = useLocation();
   const [handle, match] = useRouteHandle();
+  const pageHeaderContext = useAtomValue(pageHeaderContextState);
   const userInfo = useAtomValue(loadableUserInfoState);
   const selectedStation = useAtomValue(loadableSelectedStationState);
   const firstStation = useAtomValue(loadableFirstStationState);
@@ -31,6 +34,9 @@ export default function Header() {
         : null;
 
   const title = useMemo(() => {
+    if (pageHeaderContext?.title) {
+      return pageHeaderContext.title;
+    }
     if (handle) {
       if (typeof handle.title === "function") {
         return handle.title({ categories, params: match.params });
@@ -38,7 +44,7 @@ export default function Header() {
         return handle.title;
       }
     }
-  }, [handle, categories]);
+  }, [handle, categories, match.params, pageHeaderContext?.title]);
 
   const showBack = location.key !== "default" && !handle?.noBack;
 
@@ -79,7 +85,19 @@ export default function Header() {
                 <Icon icon="zi-arrow-left" />
               </div>
             )}
-            <div className="text-xl font-medium truncate">{title}</div>
+            <div className="flex-1 min-w-0 flex items-center gap-2">
+              <div className="text-xl font-medium truncate">{title}</div>
+              {pageHeaderContext?.shareProduct && (
+                <button
+                  type="button"
+                  className="flex-none p-1.5 rounded-full active:bg-white/10"
+                  aria-label="Chia sẻ cho bạn bè"
+                  onClick={() => shareProduct(pageHeaderContext.shareProduct!)}
+                >
+                  <Icon icon="zi-share" />
+                </button>
+              )}
+            </div>
           </>
         )}
       </div>

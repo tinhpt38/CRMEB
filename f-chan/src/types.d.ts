@@ -30,6 +30,16 @@ export interface PickupContact {
   phone: string;
 }
 
+export interface ProductVariant {
+  unique: string;
+  suk: string;
+  label: string;
+  price: number;
+  originalPrice?: number;
+  stock: number;
+  image?: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -40,6 +50,16 @@ export interface Product {
   category: Category;
   detail?: string;
   attributes?: ProductAttribute[];
+  /** true khi CRMEB `spec_type = 1` (nhiều SKU). */
+  specType?: boolean;
+  /** Nhóm thuộc tính để chọn SKU (`productAttr`). */
+  skuDimensions?: ProductAttribute[];
+  /** Danh sách SKU (`productValue`). */
+  variants?: ProductVariant[];
+  /** SKU mặc định cho sản phẩm đơn quy cách (`spec_unique`). */
+  defaultUnique?: string;
+  /** Nhãn biến thể đã chọn — hiển thị trên giỏ / đơn hàng. */
+  variantLabel?: string;
 }
 
 export interface ProductAttribute {

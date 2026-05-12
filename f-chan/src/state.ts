@@ -37,6 +37,10 @@ import toast from "react-hot-toast";
 import { calculateDistance } from "./utils/location";
 import { formatDistant } from "./utils/format";
 import { resolveUserLocation } from "./utils/deviceLocation";
+import {
+  normalizeProductVariants,
+  normalizeSkuDimensions,
+} from "./utils/productSpecs";
 import CONFIG from "./config";
 import { getConfig } from "./utils/template";
 import { CrmebApiClient } from "./utils/crmeb/client";
@@ -98,6 +102,15 @@ function normalizeProductAttributes(raw: Record<string, any>): ProductAttribute[
 }
 
 export const userInfoKeyState = atom(0);
+
+export type PageHeaderContext = {
+  title?: string;
+  shareProduct?: Pick<Product, "id" | "name" | "image">;
+};
+
+export const pageHeaderContextState = atom<PageHeaderContext | undefined>(
+  undefined
+);
 
 export const userInfoState = atom<Promise<UserInfo | undefined>>(
   async (get) => {
@@ -359,6 +372,7 @@ export const productsState = atom(async (get) => {
           category,
           detail: String(p?.store_info ?? p?.description ?? ""),
           attributes: [],
+          specType: Number(p?.spec_type ?? 0) === 1,
         } as Product & { categoryId: number };
       });
   } catch (error) {
@@ -422,6 +436,14 @@ export const productDetailState = atomFamily((id: number) =>
       const originalPrice = originalPriceRaw
         ? Number(originalPriceRaw)
         : base?.originalPrice;
+      const specType = Number(detailPayload.spec_type ?? 0) === 1;
+      const skuDimensions = normalizeSkuDimensions(raw);
+      const variants = normalizeProductVariants(raw, detailPayload, apiUrl);
+      const defaultUnique =
+        String(raw?.spec_unique ?? variants[0]?.unique ?? "").trim() || undefined;
+      const attributes = skuDimensions.length
+        ? skuDimensions
+        : normalizeProductAttributes(raw);
 
       return {
         ...(base ?? {}),
@@ -441,7 +463,11 @@ export const productDetailState = atomFamily((id: number) =>
             base?.detail ??
             ""
         ),
-        attributes: normalizeProductAttributes(raw),
+        attributes,
+        specType,
+        skuDimensions,
+        variants,
+        defaultUnique,
         category: base?.category ?? { id: 0, name: "", image: "" },
       } as Product;
     } catch (error) {
@@ -666,23 +692,37 @@ function parseCrmebDate(value: unknown): Date {
 
 function mapCrmebCartToCartItem(cart: any, apiUrl: string): Cart[number] {
   const productInfo = cart?.productInfo ?? cart?.product ?? {};
+  const attrInfo = productInfo?.attrInfo ?? cart?.attrInfo;
   const categoryId = Number(String(productInfo?.cate_id ?? 0).split(",")[0] ?? 0);
-  const originalPriceRaw = productInfo?.ot_price ?? productInfo?.origin_price;
-  const unique = String(cart?.unique ?? "").trim() || undefined;
+  const originalPriceRaw =
+    attrInfo?.ot_price ?? productInfo?.ot_price ?? productInfo?.origin_price;
+  const unique = String(cart?.unique ?? attrInfo?.unique ?? "").trim() || undefined;
+  const variantLabel = attrInfo?.suk
+    ? String(attrInfo.suk).replace(/,/g, " / ")
+    : undefined;
 
   return {
     product: {
       id: Number(productInfo?.id ?? productInfo?.product_id ?? 0),
       name: String(productInfo?.store_name ?? productInfo?.name ?? ""),
-      price: Number(cart?.truePrice ?? cart?.price ?? productInfo?.truePrice ?? productInfo?.price ?? 0),
+      price: Number(
+        cart?.truePrice ??
+          cart?.price ??
+          attrInfo?.price ??
+          productInfo?.truePrice ??
+          productInfo?.price ??
+          0
+      ),
       originalPrice: originalPriceRaw ? Number(originalPriceRaw) : undefined,
-      image: resolveImageUrl(productInfo?.image, apiUrl),
+      image: resolveImageUrl(attrInfo?.image || productInfo?.image, apiUrl),
       category: {
         id: categoryId,
         name: "",
         image: "",
       },
       detail: undefined,
+      variantLabel,
+      defaultUnique: unique,
     },
     quantity: Number(cart?.cart_num ?? cart?.quantity ?? 0),
     ...(unique ? { unique } : {}),

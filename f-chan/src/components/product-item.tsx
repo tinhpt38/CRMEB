@@ -2,6 +2,7 @@ import { Product } from "@/types";
 import { formatPrice } from "@/utils/format";
 import TransitionLink from "./transition-link";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "zmp-ui";
 import { useAddToCart } from "@/hooks";
 import QuantityInput from "./quantity-input";
@@ -17,6 +18,7 @@ export interface ProductItemProps {
 
 export default function ProductItem(props: ProductItemProps) {
   const [selected, setSelected] = useState(false);
+  const navigate = useNavigate();
   const { addToCart, cartQuantity } = useAddToCart(props.product);
 
   return (
@@ -79,6 +81,10 @@ export default function ProductItem(props: ProductItemProps) {
             fullWidth
             onClick={(e) => {
               e.stopPropagation();
+              if (props.product.specType) {
+                navigate(`/product/${props.product.id}`);
+                return;
+              }
               addToCart((quantity) => quantity + 1, {
                 toast: true,
               });

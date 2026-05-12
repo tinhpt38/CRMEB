@@ -14,7 +14,8 @@ import {
   userInfoKeyState,
   userInfoState,
 } from "@/state";
-import { Product } from "@/types";
+import { Product, ProductVariant } from "@/types";
+import { buildCartProductSnapshot } from "@/utils/productSpecs";
 import { getConfig } from "@/utils/template";
 import {
   authorize,
@@ -157,20 +158,31 @@ export function useRequestInformation() {
   };
 }
 
+export interface AddToCartOptions {
+  toast?: boolean;
+  variant?: ProductVariant;
+}
+
+function getCartLineKey(productId: number, unique?: string) {
+  return `${productId}:${unique || "default"}`;
+}
+
 export function useAddToCart(product: Product) {
   const [cart, setCart] = useAtom(cartState);
 
-  const currentCartItem = useMemo(
-    () => cart.find((item) => item.product.id === product.id),
-    [cart, product.id]
-  );
-
   const addToCart = (
     quantity: number | ((oldQuantity: number) => number),
-    options?: { toast: boolean }
+    options?: AddToCartOptions
   ) => {
+    const variant = options?.variant;
+    const unique = variant?.unique ?? product.defaultUnique;
+    const lineKey = getCartLineKey(product.id, unique);
+    const snapshot = buildCartProductSnapshot(product, variant);
+
     setCart((prevCart) => {
-      const index = prevCart.findIndex((item) => item.product.id === product.id);
+      const index = prevCart.findIndex(
+        (item) => getCartLineKey(item.product.id, item.unique) === lineKey
+      );
       const currentQuantity = index >= 0 ? prevCart[index].quantity : 0;
       const newQuantity =
         typeof quantity === "function"
@@ -179,23 +191,40 @@ export function useAddToCart(product: Product) {
 
       if (newQuantity <= 0) {
         if (index < 0) return prevCart;
-        return prevCart.filter((item) => item.product.id !== product.id);
+        return prevCart.filter(
+          (item) => getCartLineKey(item.product.id, item.unique) !== lineKey
+        );
       }
+
+      const nextItem = {
+        product: snapshot,
+        quantity: newQuantity,
+        ...(unique ? { unique } : {}),
+      };
 
       if (index >= 0) {
         const nextCart = [...prevCart];
-        nextCart[index] = { ...nextCart[index], quantity: newQuantity };
+        nextCart[index] = nextItem;
         return nextCart;
       }
 
-      return [...prevCart, { product, quantity: newQuantity }];
+      return [...prevCart, nextItem];
     });
     if (options?.toast) {
       toast.success("Đã thêm vào giỏ hàng");
     }
   };
 
-  return { addToCart, cartQuantity: currentCartItem?.quantity ?? 0 };
+  const cartQuantity = useMemo(() => {
+    const unique = product.defaultUnique;
+    const lineKey = getCartLineKey(product.id, unique);
+    return (
+      cart.find((item) => getCartLineKey(item.product.id, item.unique) === lineKey)
+        ?.quantity ?? 0
+    );
+  }, [cart, product.defaultUnique, product.id]);
+
+  return { addToCart, cartQuantity };
 }
 
 export function useCustomerSupport() {
@@ -454,7 +483,7 @@ export function useCheckout() {
         const res = await client.post<any>("/cart/add", {
           productId: item.product.id,
           cartNum: item.quantity,
-          uniqueId: "",
+          uniqueId: item.unique ?? item.product.defaultUnique ?? "",
           new: 0,
           is_new: 0,
           combinationId: 0,

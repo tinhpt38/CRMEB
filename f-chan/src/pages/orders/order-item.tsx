@@ -15,6 +15,9 @@ function OrderItem(props: CartItem) {
       }
     >
       <div className="text-sm">{props.product.name}</div>
+      {props.product.variantLabel && (
+        <div className="text-xs text-subtitle mt-0.5">{props.product.variantLabel}</div>
+      )}
       <div className="text-sm font-bold mt-1">
         {formatPrice(props.product.price)}
       </div>
