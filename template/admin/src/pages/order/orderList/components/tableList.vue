@@ -113,6 +113,11 @@
           <span>{{ scope.row._pay_time || '--' }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="Quy trình duyệt đơn" min-width="320">
+        <template slot-scope="scope">
+          <OrderWorkflowSteps :row="scope.row" />
+        </template>
+      </el-table-column>
       <el-table-column label="Trạng thái đơn hàng" min-width="140">
         <template slot-scope="scope">
           <div v-html="scope.row.status_name.status_name" class="pt5"></div>
@@ -416,6 +421,7 @@ import { getCookies } from '@/libs/util';
 import createWorkBook from '@/vendor/newToExcel.js';
 import { isFileUpload } from '@/utils';
 import orderAddress from '../handle/orderAddress.vue';
+import OrderWorkflowSteps from './OrderWorkflowSteps.vue';
 export default {
   name: 'table_list',
   components: {
@@ -427,6 +433,7 @@ export default {
     orderShipment,
     orderRefund,
     orderAddress,
+    OrderWorkflowSteps,
   },
   data() {
     const codeNum = (rule, value, callback) => {
