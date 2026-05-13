@@ -140,7 +140,7 @@ export default {
       name: `${pre}config`,
       meta: {
         auth: ['setting-sms-sms-config'],
-        title: 'Tài khoản Pass một số',
+        title: 'Cấu hình SMS',
       },
       component: () => import('@/pages/notify/smsConfig/index'),
     },
@@ -559,24 +559,19 @@ export default {
       },
       component: () => import('@/pages/setting/storage'),
     },
-    {
-      path: 'wechat_config/:type?/:tab_id?',
-      name: `${pre}wechat_config`,
-      meta: {
-        ...meta,
-        title: 'Cấu hình tài khoản chính thức',
-      },
-      component: () => import('@/pages/setting/setSystem/index'),
-    },
-    {
-      path: 'routine_config/:type?/:tab_id?',
-      name: `${pre}routine_config`,
-      meta: {
-        ...meta,
-        title: 'Cấu hình chương trình nhỏ',
-      },
-      component: () => import('@/pages/setting/setSystem/index'),
-    },
+    // ── Hidden — China-specific config routes ────────────────────────
+    // {
+    //   path: 'wechat_config/:type?/:tab_id?',
+    //   name: `${pre}wechat_config`,
+    //   meta: { ...meta, title: 'Cấu hình tài khoản chính thức' },
+    //   component: () => import('@/pages/setting/setSystem/index'),
+    // },
+    // {
+    //   path: 'routine_config/:type?/:tab_id?',
+    //   name: `${pre}routine_config`,
+    //   meta: { ...meta, title: 'Cấu hình chương trình nhỏ' },
+    //   component: () => import('@/pages/setting/setSystem/index'),
+    // },
     {
       path: 'app_config/:type?/:tab_id?',
       name: `${pre}app_config`,
@@ -609,7 +604,7 @@ export default {
       name: `${pre}other_copy`,
       meta: {
         auth: ['setting-other-copy'],
-        title: 'Cấu hình bộ sưu tập sản phẩm',
+        title: 'Cấu hình thu thập sản phẩm',
       },
       component: () => import('@/pages/setting/setSystem/index'),
     },
@@ -712,15 +707,13 @@ export default {
       },
       component: () => import('@/pages/setting/multiLanguage/country'),
     },
-    {
-      path: 'yihaotong_config/:type?/:tab_id?',
-      name: `${pre}yihaotong_config`,
-      meta: {
-        ...meta,
-        title: 'Cấu hình vượt qua một số',
-      },
-      component: () => import('@/pages/setting/setSystem/index'),
-    },
+    // ── Hidden — China-specific Yihaotong SMS service ──────────────────
+    // {
+    //   path: 'yihaotong_config/:type?/:tab_id?',
+    //   name: `${pre}yihaotong_config`,
+    //   meta: { ...meta, title: 'Cấu hình Yihaotong' },
+    //   component: () => import('@/pages/setting/setSystem/index'),
+    // },
     {
       path: 'lang_config/:type?/:tab_id?',
       name: `${pre}lang_config`,

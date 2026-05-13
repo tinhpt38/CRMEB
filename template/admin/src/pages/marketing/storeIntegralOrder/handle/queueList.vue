@@ -118,7 +118,7 @@
     <el-dialog :visible.sync="modal1" width="1000px">
       <el-table height="500" class="mt14" :data="data2" v-loading="loading2">
         <el-table-column
-          :label="Item.title"
+          :label="item.title"
           :min-width="item.minWidth || 100"
           v-for="(item, index) in columns4"
           :key="index"

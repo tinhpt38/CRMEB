@@ -1,11 +1,18 @@
 <template>
   <div>
     <el-card :bordered="false" shadow="never" class="ivu-mt" style="height: calc(100vh - 200px)">
+      <!-- [CHINA_FEATURE] Original iframe pointed to api.crmeb.com (Yihaotong China SMS service)
       <iframe
         src="https://api.crmeb.com?token=AF37D4579721672220B08CA872586943"
         style="width: 100%; height: calc(100vh - 200px)"
         frameborder="0"
       ></iframe>
+      -->
+      <div style="display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; color: #909399;">
+        <i class="el-icon-message" style="font-size: 48px; margin-bottom: 16px;"></i>
+        <h3 style="margin-bottom: 8px;">Cấu hình dịch vụ SMS</h3>
+        <p>Vui lòng cấu hình nhà cung cấp SMS tại: Cài đặt → Cài đặt hệ thống → Cấu hình giao diện bên thứ ba → Cấu hình SMS</p>
+      </div>
     </el-card>
   </div>
 </template>

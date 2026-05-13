@@ -23,7 +23,7 @@
             </el-col>
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
               <el-form-item
-                :label="Item.attr + ':'"
+                :label="item.attr + ':'"
                 prop="store_name"
                 label-for="store_name"
                 v-for="(item, index) in attrList"

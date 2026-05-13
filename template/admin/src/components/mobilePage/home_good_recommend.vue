@@ -53,7 +53,7 @@
                     color: toneConfig ? goodsNameColor : '#333',
                   }"
                 >
-                  {{ item.store_name || 'Huawei Honor được hưởng dịch vụ thay màn hình máy tính bảng, thay màn hình và sửa chữa bo mạch chủ màn hình ngoài' }}
+                  {{ item.store_name || 'Sản phẩm mẫu - Dịch vụ thay màn hình máy tính bảng, sửa chữa bo mạch chủ' }}
                 </div>
                 <img v-if="checkboxInfo.indexOf(1) != -1" src="../../assets/images/goods01.png" />
               </div>

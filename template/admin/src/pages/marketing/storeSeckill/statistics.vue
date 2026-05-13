@@ -52,7 +52,7 @@
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
         <el-table-column
-          :label="Item.title"
+          :label="item.title"
           :min-width="item.minWidth || 100"
           v-for="(item, index) in type == 1 ? thead2 : thead"
           :key="index"
@@ -171,7 +171,7 @@ export default {
         {
           col: 6,
           count: 0,
-          name: 'Số tiền đặt hàng thanh toán (nhân dân tệ)）',
+          name: 'Số tiền đặt hàng thanh toán (VNĐ)',
           className: 'iconzhifudingdan',
         },
         {

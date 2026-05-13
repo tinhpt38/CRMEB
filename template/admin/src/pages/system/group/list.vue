@@ -46,7 +46,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column :label="Item.title" :min-width="item.minWidth" v-for="(item, index) in columns1" :key="index">
+        <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns1" :key="index">
           <template slot-scope="scope">
             <template v-if="item.key">
               <div v-if="item.type !== 'img'">

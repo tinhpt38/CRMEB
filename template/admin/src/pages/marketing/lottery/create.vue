@@ -195,7 +195,7 @@
                 v-if="formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4"
               >
                 <el-form-item
-                  :label="FormValidate.factor == 1 ? 'Xổ số tiêu tốn điểm：' : 'Số lần rút thăm：'"
+                  :label="formValidate.factor == 1 ? 'Xổ số tiêu tốn điểm：' : 'Số lần rút thăm：'"
                   :prop="
                     formValidate.factor == 1 || formValidate.factor == 3 || formValidate.factor == 4 ? 'factor_num' : ''
                   "

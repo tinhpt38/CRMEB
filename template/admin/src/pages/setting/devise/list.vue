@@ -160,13 +160,13 @@
         <div v-viewer class="acea-row row-around code">
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic" ref="qrCodeUrl"></div>
-            <span class="mt10">Mã QR tài khoản chính thức</span>
+            <span class="mt10">Mã QR H5</span>
           </div>
           <div class="acea-row row-column-around row-between-wrapper">
             <div class="QRpic">
               <img v-lazy="qrcodeImg" />
             </div>
-            <span class="mt10">Mã QR chương trình nhỏ</span>
+            <span class="mt10">Mã QR ứng dụng</span>
           </div>
         </div>
       </div>

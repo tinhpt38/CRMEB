@@ -281,7 +281,7 @@
       :visible.sync="modals"
       @closed="cancel"
       class="Box"
-      title="Nhập dữ liệu từ Taobao, Tmall, JD, Suning, 1688"
+      title="Nhập dữ liệu sản phẩm từ URL"
       :close-on-click-modal="false"
       width="720px"
     >

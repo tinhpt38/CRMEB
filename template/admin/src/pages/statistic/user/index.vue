@@ -12,8 +12,8 @@
               class="form_content_width"
             >
               <el-option value="all" label="Tất cả"></el-option>
-              <el-option value="wechat" label="Tài khoản chính thức"></el-option>
-              <el-option value="routine" label="Chương trình nhỏ"></el-option>
+              <!-- <el-option value="wechat" label="Tài khoản chính thức"></el-option> -->  <!-- hidden — China -->
+              <!-- <el-option value="routine" label="Chương trình nhỏ"></el-option> -->     <!-- hidden — China -->
               <el-option value="h5" label="H5"></el-option>
               <el-option value="pc" label="PC"></el-option>
               <el-option value="app" label="APP"></el-option>

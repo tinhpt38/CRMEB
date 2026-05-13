@@ -280,7 +280,7 @@ export default {
       this.upgradeableList = res.data;
       let firstVer = res.data[0]
       if(this.$store.state.upgrade.toggleStatus || this.upgradeStatus.force_reminder){
-        const data = res.data.find(item => Item.force_reminder === 1)
+        const data = res.data.find(item => item.force_reminder === 1)
         this.newKey = data.package_key;
         this.forceVersion = data.first_version + '.' + data.second_version + '.' + data.third_version + '.' + data.fourth_version
       }else{

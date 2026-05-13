@@ -20,38 +20,20 @@
             <p>Nếu lúc tải ảnh chưa bật watermark thì bật lại sau đó cũng không tự áp watermark cho ảnh cũ.</p>
           </template>
         </el-alert>
+        <!-- [CHINA_FEATURE] Cloud storage providers hidden for Vietnam market
         <el-alert closable v-else>
           <template slot="title">
-            <p v-if="currentTab == 2">
-              Hướng dẫn kích hoạt Qiniu Cloud: <a href="https://doc.crmeb.com/single/v5/7792" target="_blank">Xem ngay</a>
-            </p>
-            <p v-if="currentTab == 3">
-              Hướng dẫn kích hoạt Alibaba OSS: <a href="https://doc.crmeb.com/single/v5/7790" target="_blank">Xem ngay</a>
-            </p>
-            <p v-if="currentTab == 4">
-              Hướng dẫn kích hoạt Tencent COS: <a href="https://doc.crmeb.com/single/v5/7791" target="_blank">Xem ngay</a>
-            </p>
-            <p v-if="currentTab == 5">
-              Hướng dẫn kích hoạt JD Cloud COS: <a href="https://doc.crmeb.com/single/v5/8522" target="_blank">Xem ngay</a>
-            </p>
-            <p v-if="currentTab == 6">
-              Hướng dẫn kích hoạt Huawei Cloud COS: <a href="https://doc.crmeb.com/single/v5/8523" target="_blank">Xem ngay</a>
-            </p>
-            <p v-if="currentTab == 7">
-              Hướng dẫn kích hoạt Tianyi Cloud COS: <a href="https://doc.crmeb.com/single/v5/8524" target="_blank">Xem ngay</a>
-            </p>
-            <p>Bước 1: Thêm <b>Không gian lưu trữ</b> (tên không được trùng).</p>
-            <p>Bước 2: Bật <b>Trạng thái sử dụng</b>.</p>
-            <template v-if="currentTab == 2">
-              <p>Bước 3 (bắt buộc): Chọn chỉnh sửa <b>Thao tác tên miền</b> Trong danh sách cloud storage.</p>
-              <p>Bước 4 (bắt buộc): Mở <b>Cấu hình CNAME</b>, sao chép giá trị record và cấu hình trên nền tảng DNS tương ứng.</p>
-            </template>
-            <template v-else>
-              <p>Bước 3 (tùy chọn): Chọn chỉnh sửa <b>Thao tác tên miền</b> Trong danh sách cloud storage.</p>
-              <p>Bước 4 (tùy chọn): Mở <b>Cấu hình CNAME</b>, sao chép giá trị record và cấu hình trên nền tảng DNS tương ứng.</p>
-            </template>
+            <p v-if="currentTab == 2">Hướng dẫn kích hoạt Qiniu Cloud</p>
+            <p v-if="currentTab == 3">Hướng dẫn kích hoạt Alibaba OSS</p>
+            <p v-if="currentTab == 4">Hướng dẫn kích hoạt Tencent COS</p>
+            <p v-if="currentTab == 5">Hướng dẫn kích hoạt JD Cloud COS</p>
+            <p v-if="currentTab == 6">Hướng dẫn kích hoạt Huawei Cloud COS</p>
+            <p v-if="currentTab == 7">Hướng dẫn kích hoạt Tianyi Cloud COS</p>
+            <p>Bước 1: Thêm <b>Không gian lưu trữ</b></p>
+            <p>Bước 2: Bật <b>Trạng thái sử dụng</b></p>
           </template>
         </el-alert>
+        -->
       </el-card>
     </div>
     <div class="pt16" v-if="currentTab == 1">
@@ -61,12 +43,14 @@
             <span class="save-type"> Hình thức lưu trữ: </span>
             <el-radio-group v-model="formValidate.upload_type" @input="changeSave">
               <el-radio label="1">Lưu trữ cục bộ</el-radio>
+              <!-- [CHINA_FEATURE] China cloud providers hidden for Vietnam market
               <el-radio label="2">Qiniu Cloud</el-radio>
               <el-radio label="3">Alibaba Cloud</el-radio>
               <el-radio label="4">Tencent Cloud</el-radio>
               <el-radio label="5">JD Cloud</el-radio>
               <el-radio label="6">Huawei Cloud</el-radio>
               <el-radio label="7">Tianyi Cloud</el-radio>
+              -->
             </el-radio-group>
             <!-- <el-switch :active-value="1"  :inactive-value="0"
               v-model="localStorage"
@@ -532,13 +516,13 @@ export default {
       configData: '',
       headerList: [
         { label: 'Cấu hình lưu trữ', value: '1' },
-        { label: 'Qiniu Cloud', value: '2' },
-        { label: 'Alibaba Cloud', value: '3' },
-        { label: 'Tencent Cloud', value: '4' },
-        { label: 'JD Cloud', value: '5' },
-        { label: 'Huawei Cloud', value: '6' },
-        { label: 'Tianyi Cloud', value: '7' },
-        // { label: "Cấu hình ảnh thu nhỏ", value: "10" },
+        // [CHINA_FEATURE] China cloud providers hidden for Vietnam market
+        // { label: 'Qiniu Cloud', value: '2' },
+        // { label: 'Alibaba Cloud', value: '3' },
+        // { label: 'Tencent Cloud', value: '4' },
+        // { label: 'JD Cloud', value: '5' },
+        // { label: 'Huawei Cloud', value: '6' },
+        // { label: 'Tianyi Cloud', value: '7' },
       ],
 
       total: 0,

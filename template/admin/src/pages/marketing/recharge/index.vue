@@ -15,8 +15,8 @@
               </div>
               <div class="box3">
                 <div v-show="item.status != 0" class="box3_box" v-for="(item, index) in sginList.list" :key="index">
-                  <div>{{ item.price }}<i class="font">Nhân dân tệ</i></div>
-                  <div class="font">Cho đi:{{ item.give_money }}Nhân dân tệ</div>
+                  <div>{{ item.price }}<i class="font">VNĐ</i></div>
+                  <div class="font">Tặng thêm:{{ item.give_money }} VNĐ</div>
                 </div>
                 <div class="box3_box">
                   <div class="other">Khác</div>
@@ -61,7 +61,7 @@
               no-userFrom-text="Chưa có dữ liệu"
               no-filtered-userFrom-text="Chưa có kết quả lọc nào"
             >
-              <el-table-column :label="Item.title" min-width="130" v-for="(item, index) in columns1" :key="index">
+              <el-table-column :label="item.title" min-width="130" v-for="(item, index) in columns1" :key="index">
                 <template slot-scope="scope">
                   <template v-if="item.key">
                     <div>

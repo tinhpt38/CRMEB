@@ -3,7 +3,7 @@
     <div class="article-manager">
       <el-card :bordered="false" shadow="never" class="ivu-mt fromBox">
         <el-form ref="formRef" :model="formData" label-width="100px">
-          <el-form-item label="Số dư quà tặng(Nhân dân tệ)：">
+          <el-form-item label="Số dư quà tặng(VNĐ)：">
             <el-input-number
               class="form-width"
               v-model="formData.reward_money"
@@ -71,8 +71,8 @@ export default {
       return arr.filter((item) => {
         item.title =
           item.use_min_price !== '0.00'
-            ? `${item.title} | Đầy${item.use_min_price}trừ nhân dân tệ ${item.coupon_price}Nhân dân tệ`
-            : `${item.title} | ${item.coupon_price}Mã giảm giá nhân dân tệ không có ngưỡng`;
+            ? `${item.title} | Đầy${item.use_min_price} VNĐ giảm ${item.coupon_price} VNĐ`
+            : `${item.title} | ${item.coupon_price} VNĐ giảm giá không có ngưỡng`;
         delete item.use_min_price;
         delete item.coupon_price;
         const key = JSON.stringify(item); // Tạo khóa duy nhất bằng JSON.stringify

@@ -16,12 +16,13 @@
             </span>
             <div class="summary-title">Nâng cấp phiên bản đã hoàn tất</div>
             <div class="summary-sub">
-              Vui lòng tải mã chương trình mini lên máy chủ WeChat. Sau khi hoàn thành, nó cần được xuất bản trong nền chương trình nhỏ.，
-              <a href="https://mp.weixin.qq.com" target="_blank" style="color: #409eff">Bấm để xuất bản</a>
+              Nâng cấp phiên bản đã hoàn tất thành công.
             </div>
             <div class="summary-actions">
+              <!-- [CHINA_FEATURE] Mini-program upload hidden for Vietnam market
               <el-button type="primary" @click="handleUploadMini" :loading="uploadingMini">Tải lên chương trình nhỏ</el-button>
-              <el-button class="ml8" @click="handleRefreshStatus">Chưa tải lên</el-button>
+              -->
+              <el-button class="ml8" @click="handleRefreshStatus">Làm mới</el-button>
             </div>
           </div>
         </div>
@@ -385,9 +386,7 @@
         <i class="el-icon-circle-check" style="font-size: 48px; color: #67c23a; margin-bottom: 16px"></i>
         <div class="success-title">Tải lên thành công</div>
         <div class="success-desc">
-          Mã chương trình nhỏ đã được tải lên máy chủ WeChat，<a href="https://mp.weixin.qq.com" target="_blank" style="color: #409eff"
-            >Bấm để xuất bản</a
-          >
+          Nâng cấp đã hoàn tất thành công.
         </div>
         <el-button type="primary" @click="handleUploadSuccessClose" style="margin-top: 24px; width: 120px"
           >Tôi hiểu rồi</el-button
@@ -782,7 +781,7 @@ export default {
         });
         this.uploadSuccessVisible = true;
       } catch (err) {
-        this.$message.error(err.msg || 'Không thể tải lên chương trình nhỏ');
+        this.$message.error(err.msg || 'Không thể tải lên ứng dụng');
         this.$router.push({ path: `${setting.routePre}/app/routine/ci_upload` });
       } finally {
         this.uploadingMini = false;

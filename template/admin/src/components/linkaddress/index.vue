@@ -149,7 +149,7 @@
                   @change.native="getTemplateRow(scope.row)">&nbsp;</el-radio>
               </template>
             </el-table-column>
-            <el-table-column :label="Item.title" :width="item.width" :min-width="item.minWidth" v-for="(item, index) in currenType == 'special'
+            <el-table-column :label="item.title" :width="item.width" :min-width="item.minWidth" v-for="(item, index) in currenType == 'special'
               ? columns
               : currenType == 'product_category'
                 ? columns7

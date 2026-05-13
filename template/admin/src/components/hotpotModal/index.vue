@@ -30,7 +30,7 @@
               :area-data-index="index"
               :key="'area' + index"
               :link="item.link"
-              :title="Item.title"
+              :title="item.title"
               :type="parseInt(item.type)"
               :area-init.sync="item"
               :parent-width="parentWidth"

@@ -61,7 +61,7 @@
           <el-form-item label="Tìm kiếm：">
             <el-input
               clearable
-              placeholder="Biệt danh/tên/tài khoản Alipay/số thẻ ngân hàng của WeChat"
+              placeholder="Biệt danh/tên/số tài khoản/số thẻ ngân hàng"
               v-model="formValidate.nireid"
               class="form_content_width"
             />
@@ -115,11 +115,11 @@
             </div>
             <div class="type" v-if="scope.row.extract_type === 'weixin'">
               <div class="item">Biệt danh:{{ scope.row.nickname }}</div>
-              <div class="item">ID WeChat:{{ scope.row.wechat }}</div>
+              <div class="item">ID tài khoản:{{ scope.row.wechat }}</div>
             </div>
             <div class="type" v-if="scope.row.extract_type === 'alipay'">
               <div class="item">Tên:{{ scope.row.real_name }}</div>
-              <div class="item">Số Alipay:{{ scope.row.alipay_code }}</div>
+              <div class="item">Số tài khoản:{{ scope.row.alipay_code }}</div>
             </div>
             <div class="type" v-if="scope.row.extract_type === 'balance'">
               <div class="item">Tên:{{ scope.row.real_name }}</div>
@@ -247,14 +247,14 @@ export default {
             title: 'Tất cả',
             value: '',
           },
-          {
-            title: 'WeChat',
-            value: 'wx',
-          },
-          {
-            title: 'Alipay',
-            value: 'alipay',
-          },
+          // {
+          //   title: 'WeChat',      // hidden — China
+          //   value: 'wx',
+          // },
+          // {
+          //   title: 'Alipay',       // hidden — China
+          //   value: 'alipay',
+          // },
           {
             title: 'thẻ ngân hàng',
             value: 'bank',

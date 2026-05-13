@@ -156,14 +156,14 @@ export default {
           val: 'yue',
           label: 'Số dư',
         },
-        {
-          val: 'weixin',
-          label: 'WeChat',
-        },
-        {
-          val: 'alipay',
-          label: 'Alipay',
-        },
+        // {
+        //   val: 'weixin',
+        //   label: 'WeChat',       // hidden — China
+        // },
+        // {
+        //   val: 'alipay',
+        //   label: 'Alipay',       // hidden — China
+        // },
       ],
       tbody: [],
       loading: false,

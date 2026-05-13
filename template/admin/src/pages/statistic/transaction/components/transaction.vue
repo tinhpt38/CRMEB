@@ -11,7 +11,7 @@
             <br />
             <div>Số tiền thanh toán sản phẩm</div>
             <div>
-              Trong các điều kiện đã chọn, số tiền Thanh toán thực tế của sản phẩm mà người dùng đã mua, bao gồm thanh toán WeChat, thanh toán số dư, thanh toán Alipay và số tiền thanh toán ngoại tuyến (các sản phẩm nhóm được bao gồm sau khi nhóm được thành lập và các đơn đặt hàng thanh toán ngoại tuyến được bao gồm sau khi thanh toán được xác nhận ở chế độ nền)）
+              Trong các điều kiện đã chọn, số tiền Thanh toán thực tế của sản phẩm mà người dùng đã mua, bao gồm thanh toán online, thanh toán số dư và số tiền thanh toán ngoại tuyến (các sản phẩm nhóm được bao gồm sau khi nhóm được thành lập và các đơn đặt hàng thanh toán ngoại tuyến được bao gồm sau khi thanh toán được xác nhận ở chế độ nền)）
             </div>
             <br />
             <div>Mua số tiền thành viên</div>

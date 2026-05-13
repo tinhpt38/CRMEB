@@ -104,8 +104,8 @@ export default {
           type: 'kefu',
         },
         {
-          title: 'Xóa dữ liệu WeChat',
-          tlt: 'Xóa menu WeChat lưu dữ liệu, từ khóa WeChat trả lời không hợp lệ',
+          title: 'Xóa dữ liệu ứng dụng',
+          tlt: 'Xóa menu ứng dụng, từ khóa trả lời không hợp lệ',
           typeName: 'error',
           type: 'wechat',
         },

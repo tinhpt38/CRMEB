@@ -107,7 +107,7 @@
                     </el-form-item>
 
                     <el-form-item
-                      :label="FormValidate.type === 'image' ? 'Địa chỉ hình ảnh：' : 'địa chỉ giọng nói：'"
+                      :label="formValidate.type === 'image' ? 'Địa chỉ hình ảnh：' : 'địa chỉ giọng nói：'"
                       prop="src"
                       v-if="formValidate.type === 'image' || formValidate.type === 'voice'"
                     >

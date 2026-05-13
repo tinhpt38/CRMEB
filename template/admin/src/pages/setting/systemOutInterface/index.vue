@@ -405,7 +405,7 @@
         <el-button type="primary" v-db-click @click="asyncOK">Chắc chắn</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="debuggingModal" :title="FormValidate.name" width="1000px">
+    <el-dialog :visible.sync="debuggingModal" :title="formValidate.name" width="1000px">
       <debugging
         v-if="debuggingModal"
         :formValidate="formValidate"

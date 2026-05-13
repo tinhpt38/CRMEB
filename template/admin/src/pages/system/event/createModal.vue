@@ -2,7 +2,7 @@
   <div>
     <el-drawer
       :visible.sync="modal"
-      :title="FormValidate.id ? 'Chỉnh sửa sự kiện' : 'Thêm sự kiện'"
+      :title="formValidate.id ? 'Chỉnh sửa sự kiện' : 'Thêm sự kiện'"
       size="1000px"
       @closed="initData"
     >

@@ -154,11 +154,11 @@
       <div class="acea-row row-around" v-loading="spinShow">
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_src"><img v-lazy="code_src" /></div>
-          <span class="QRpic_sp1 mt10" v-db-click @click="getWeChat">Mã QR khuyến mãi tài khoản công khai</span>
+          <span class="QRpic_sp1 mt10" v-db-click @click="getWeChat">Mã QR giới thiệu H5</span>
         </div>
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_xcx"><img v-lazy="code_xcx" /></div>
-          <span class="QRpic_sp2 mt10" v-db-click @click="getXcx">Mã QR khuyến mãi chương trình nhỏ</span>
+          <span class="QRpic_sp2 mt10" v-db-click @click="getXcx">Mã QR giới thiệu ứng dụng</span>
         </div>
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic" v-if="code_h5"><img v-lazy="code_h5" /></div>

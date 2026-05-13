@@ -77,7 +77,7 @@
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="Liên kết chương trình nhỏ" minWidth="140">
+            <el-table-column label="Liên kết ứng dụng" minWidth="140">
               <template slot-scope="scope">
                 <el-tooltip class="item pointer" content="Bấm để sao chép">
                   <span v-db-click @click="onCopy(scope.row.url)">{{ scope.row.url }}</span>

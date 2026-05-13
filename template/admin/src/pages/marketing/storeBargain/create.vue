@@ -292,7 +292,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      :label="Item.title"
+                      :label="item.title"
                       :min-width="item.minWidth"
                       v-for="(item, index) in columns"
                       :key="index"

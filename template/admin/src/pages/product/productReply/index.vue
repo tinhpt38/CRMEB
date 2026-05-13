@@ -574,7 +574,7 @@ export default {
       this.pictureModal = true;
     },
     removePicture(att_id) {
-      let index = this.pictureData.findIndex((item) => Item.att_id === att_id);
+      let index = this.pictureData.findIndex((item) => item.att_id === att_id);
       this.pictureData.splice(index, 1);
     },
   },

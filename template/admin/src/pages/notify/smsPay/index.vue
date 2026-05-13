@@ -71,7 +71,7 @@
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
             <span class="list-goods-list-item-pay"
-              >Thanh toán WeChat<i v-if="code.invalid">{{ '  （ Thời gian hết hạn của mã thanh toán：' + code.invalid + ' ）' }}</i></span
+              >Thanh toán online<i v-if="code.invalid">{{ '  （ Thời gian hết hạn của mã thanh toán：' + code.invalid + ' ）' }}</i></span
             >
           </el-col>
         </el-col>

@@ -11,7 +11,7 @@
           inline
           @submit.native.prevent
         >
-          <el-form-item :label="Item.name + ':'" v-for="(item, index) in search" :key="index">
+          <el-form-item :label="item.name + ':'" v-for="(item, index) in search" :key="index">
             <el-input
               v-if="item.type === 'input'"
               v-model="from[item.field]"
@@ -44,10 +44,10 @@
             </el-select>
           </el-form-item>
           <!-- <template v-for="(item, index) in search">
-            <el-form-item :label="Item.name + ':'" label-for="name" v-if="item.type === 'input'" :key="index">
+            <el-form-item :label="item.name + ':'" label-for="name" v-if="item.type === 'input'" :key="index">
               <el-input v-model="from[item.field]" :placeholder="'Vui lòng nhập' + item.name" class="form_content_width"/>
             </el-form-item>
-            <el-form-item :label="Item.name + ':'" v-else-if="item.type === 'date-picker'" :key="index">
+            <el-form-item :label="item.name + ':'" v-else-if="item.type === 'date-picker'" :key="index">
               <el-date-picker
                   :editable="false"
                   clearabl
@@ -62,7 +62,7 @@
               ></el-date-picker>
             </el-form-item>
             <el-form-item
-                :label="Item.name + ':'"
+                :label="item.name + ':'"
                 :label-for="item.field"
                 v-else-if="item.type === 'select'"
                 :key="index"
@@ -98,7 +98,7 @@
         no-userFrom-text="Chưa có dữ liệu"
         no-filtered-userFrom-text="Chưa có kết quả lọc nào"
       >
-        <el-table-column :label="Item.title" :min-width="item.minWidth" v-for="(item, index) in columns" :key="index">
+        <el-table-column :label="item.title" :min-width="item.minWidth" v-for="(item, index) in columns" :key="index">
           <template slot-scope="scope">
             <template v-if="item.key">
               <span>{{ scope.row[item.key] }}</span>

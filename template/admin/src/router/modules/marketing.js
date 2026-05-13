@@ -258,53 +258,37 @@ export default {
       },
       component: () => import('@/pages/marketing/userPoint/index'),
     },
-    {
-      path: 'live/live_room',
-      name: `${pre}live_room`,
-      meta: {
-        auth: true,
-        title: 'Quản lý phòng phát sóng trực tiếp',
-      },
-      component: () => import('@/pages/marketing/live/index'),
-    },
-    {
-      path: 'live/add_live_room',
-      name: `${pre}add_live_room`,
-      meta: {
-        auth: true,
-        title: 'Quản lý phòng phát sóng trực tiếp',
-        activeMenu: routePre + '/marketing/live/live_room',
-      },
-      component: () => import('@/pages/marketing/live/creat_live'),
-    },
-    {
-      path: 'live/live_goods',
-      name: `${pre}live_goods`,
-      meta: {
-        auth: true,
-        title: 'Quản lý sản phẩm phòng phát sóng trực tiếp',
-      },
-      component: () => import('@/pages/marketing/live/live_goods'),
-    },
-    {
-      path: 'live/add_live_goods',
-      name: `${pre}add_live_goods`,
-      meta: {
-        auth: true,
-        title: 'Quản lý sản phẩm phòng phát sóng trực tiếp',
-        activeMenu: routePre + '/marketing/live/live_goods',
-      },
-      component: () => import('@/pages/marketing/live/add_goods'),
-    },
-    {
-      path: 'live/anchor',
-      name: `${pre}anchor`,
-      meta: {
-        auth: true,
-        title: 'Quản lý neo',
-      },
-      component: () => import('@/pages/marketing/live/anchor'),
-    },
+    // ── Hidden — WeChat Live streaming routes (China feature) ──────────
+    // {
+    //   path: 'live/live_room',
+    //   name: `${pre}live_room`,
+    //   meta: { auth: true, title: 'Quản lý phòng phát sóng trực tiếp' },
+    //   component: () => import('@/pages/marketing/live/index'),
+    // },
+    // {
+    //   path: 'live/add_live_room',
+    //   name: `${pre}add_live_room`,
+    //   meta: { auth: true, title: 'Thêm phòng phát sóng', activeMenu: routePre + '/marketing/live/live_room' },
+    //   component: () => import('@/pages/marketing/live/creat_live'),
+    // },
+    // {
+    //   path: 'live/live_goods',
+    //   name: `${pre}live_goods`,
+    //   meta: { auth: true, title: 'Quản lý sản phẩm phát sóng' },
+    //   component: () => import('@/pages/marketing/live/live_goods'),
+    // },
+    // {
+    //   path: 'live/add_live_goods',
+    //   name: `${pre}add_live_goods`,
+    //   meta: { auth: true, title: 'Thêm sản phẩm phát sóng', activeMenu: routePre + '/marketing/live/live_goods' },
+    //   component: () => import('@/pages/marketing/live/add_goods'),
+    // },
+    // {
+    //   path: 'live/anchor',
+    //   name: `${pre}anchor`,
+    //   meta: { auth: true, title: 'Quản lý người dẫn' },
+    //   component: () => import('@/pages/marketing/live/anchor'),
+    // },
     {
       path: 'presell/index',
       name: `${pre}storePresell`,
@@ -384,7 +368,7 @@ export default {
       name: `${pre}channel_code`,
       meta: {
         auth: true,
-        title: 'Mã kênh tài khoản chính thức',
+        title: 'Mã kênh quảng bá',
         keepAlive: true,
       },
       component: () => import('@/pages/marketing/channelCode/channelCodeIndex'),

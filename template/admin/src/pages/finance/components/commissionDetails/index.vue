@@ -118,13 +118,13 @@ export default {
           value: '',
         },
         {
-          title: 'WeChat',
+          title: 'Thanh toán online',
           value: 'weixin',
         },
-        {
-          title: 'Alipay',
-          value: 'alipay',
-        },
+        // {                                    // hidden — China
+        //   title: 'Alipay',
+        //   value: 'alipay',
+        // },
         {
           title: 'thẻ ngân hàng',
           value: 'bank',

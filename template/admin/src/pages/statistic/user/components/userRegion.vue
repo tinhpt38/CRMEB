@@ -14,7 +14,7 @@
           <el-col :xs="24" :sm="24" :md="24" :lg="14">
             <div class="tables">
               <el-table height="400" :columns="columns1" :data="resdataList">
-                <el-table-column :label="Item.title" :min-width="100" v-for="(item, index) in columns1" :key="index">
+                <el-table-column :label="item.title" :min-width="100" v-for="(item, index) in columns1" :key="index">
                   <template slot-scope="scope">
                     <template v-if="item.key">
                       <div>

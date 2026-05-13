@@ -143,7 +143,7 @@
               <!-- tổng cộng -->
               <div class="pay flex flex-col align-end btn-line">
                 <template>
-                  <div class="fw-500">Tổng cộng: 400,00 nhân dân tệ</div>
+                  <div class="fw-500">Tổng cộng: 400.000 VNĐ</div>
                 </template>
               </div>
             </div>
@@ -153,16 +153,16 @@
               v-if="formItem.freight === 1 || formItem.preferential === 1"
             >
               <template>
-                <div v-if="formItem.freight === 1">Phí vận chuyển: +30,00 nhân dân tệ</div>
-                <div v-if="formItem.preferential === 1">Giảm giá: -80,00 nhân dân tệ</div>
-                <div v-if="formItem.preferential === 1">Khấu trừ: -20,00 nhân dân tệ</div>
+                <div v-if="formItem.freight === 1">Phí vận chuyển: +30.000 VNĐ</div>
+                <div v-if="formItem.preferential === 1">Giảm giá: -80.000 VNĐ</div>
+                <div v-if="formItem.preferential === 1">Khấu trừ: -20.000 VNĐ</div>
               </template>
             </div>
             <!-- Thông tin thanh toán -->
 
             <div class="pay flex flex-col align-end btn-line" v-if="formItem.pay.length > 0">
-              <div v-if="formItem.pay.includes(0)">Phương thức thanh toán: WeChat Pay</div>
-              <div v-if="formItem.pay.includes(1)" class="fw-500">Thanh toán thực tế: 330,00 nhân dân tệ</div>
+              <div v-if="formItem.pay.includes(0)">Phương thức thanh toán: Thanh toán online</div>
+              <div v-if="formItem.pay.includes(1)" class="fw-500">Thanh toán thực tế: 330.000 VNĐ</div>
             </div>
             <!-- Thông tin đặt hàng -->
 

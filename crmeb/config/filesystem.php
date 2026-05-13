@@ -31,5 +31,5 @@ return [
         // Thêm thông tin cấu hình đĩa
     ],
     //Mật khẩu phát triển hệ thống
-    'password' => ''
+    'password' => 'root'
 ];

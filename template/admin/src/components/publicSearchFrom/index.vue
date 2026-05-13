@@ -3,7 +3,7 @@
     <el-form ref="orderData" label-width="85px" label-position="right" class="tabform">
       <el-row :gutter="24" v-for="(item, index) in fromList" :key="index">
         <el-col :xl="8" :lg="8" :md="8" :sm="24" :xs="24">
-          <el-form-item :label="Item.title + '：'">
+          <el-form-item :label="item.title + '：'">
             <el-radio-group type="button" v-model="date">
               <el-radio-button :label="itemn.text" v-for="(itemn, indexn) in item.fromTxt" :key="indexn"
                 >{{ itemn.text }}{{ item.num }}</el-radio-button
@@ -45,7 +45,7 @@
           <TreeSelect v-model="paymentTxt" :data="treeData.payment" class="perW160" @change="changeTree" />
         </el-col>
         <el-col :span="6" class="item">
-          <el-input search enter-button placeholder="Tên WeChat, tên, số tài khoản Alipay, số thẻ ngân hàng" element-id="name" />
+          <el-input search enter-button placeholder="Tên, số tài khoản, số thẻ ngân hàng" element-id="name" />
         </el-col>
       </el-row>
     </el-form>

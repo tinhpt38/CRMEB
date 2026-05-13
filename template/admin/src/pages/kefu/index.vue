@@ -32,7 +32,7 @@
           </div>
           <div :style="{ display: loginType ? 'block' : 'none' }">
             <div class="page-account-top">
-              <div class="page-account-top-logo">WeChat quét mã để đăng nhập</div>
+              <div class="page-account-top-logo">Quét mã QR để đăng nhập</div>
             </div>
             <div class="code-box">
               <div class="qrcode" ref="qrCodeUrl"></div>

@@ -594,7 +594,7 @@
     </el-dialog>
     <el-drawer
       :visible.sync="debuggingModal"
-      :title="FormValidate.name"
+      :title="formValidate.name"
       size="70%"
       :wrapperClosable="false"
       :loading="loading"
@@ -840,16 +840,17 @@ export default {
               let i;
               this.$nextTick((e) => {
                 if (disk_type) {
+                  const expanders = document.querySelectorAll('.vtl-icon-caret-right');
                   if (
                     res.data[0].children &&
                     res.data[0].children[0].children &&
                     res.data[0].children[0].children.length
                   ) {
-                    document.querySelectorAll('.vtl-icon-caret-right')[0].click();
-                    document.querySelectorAll('.vtl-icon-caret-right')[1].click();
+                    expanders[0] && expanders[0].click();
+                    expanders[1] && expanders[1].click();
                     i = res.data[0].children[0].children[0];
                   } else {
-                    document.querySelectorAll('.vtl-icon-caret-right')[0].click();
+                    expanders[0] && expanders[0].click();
                     i = res.data[0].children[0];
                   }
                   this.onClick(i);

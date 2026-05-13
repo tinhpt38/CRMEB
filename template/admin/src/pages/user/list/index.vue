@@ -285,6 +285,7 @@
             >Thêm khách hàng</el-button
           >
           <el-button v-auth="['admin-user-coupon']" v-db-click @click="onSend">Tặng mã giảm giá</el-button>
+          <!-- Hidden — China-specific WeChat picture message button
           <el-button
             v-auth="['admin-wechat-news']"
             class="greens mr10"
@@ -292,6 +293,7 @@
             @click="onSendPic"
             v-if="userFrom.user_type === 'wechat'"
           >Gửi tin nhắn hình ảnh</el-button>
+          -->
           <el-button v-auth="['admin-user-group_set']" v-db-click @click="setGroup">Phân nhóm hàng loạt</el-button>
           <el-button v-auth="['admin-user-set_label']" v-db-click @click="setLabel">Gắn nhãn hàng loạt</el-button>
           <el-button class="mr10" v-db-click @click="exportList">Xuất file</el-button>
@@ -581,8 +583,8 @@ export default {
       collapse: false,
       headeNum: [
         { type: '', name: 'Tất cả' },
-        { type: 'wechat', name: 'OA WeChat' },
-        { type: 'routine', name: 'Mini App' },
+        // { type: 'wechat', name: 'OA WeChat' },       // hidden — China
+        // { type: 'routine', name: 'Mini App' },        // hidden — China
         { type: 'h5', name: 'H5' },
         { type: 'pc', name: 'PC' },
         { type: 'app', name: 'Ứng dụng' },

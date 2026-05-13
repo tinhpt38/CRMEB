@@ -131,8 +131,8 @@ export default {
   filters: {
     typeFilter(status) {
       const statusMap = {
-        wechat: 'Người dùng WeChat',
-        routine: 'Người dùng chương trình nhỏ',
+        wechat: 'Người dùng web',
+        routine: 'Người dùng app',
       };
       return statusMap[status];
     },

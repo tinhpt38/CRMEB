@@ -792,8 +792,8 @@ export default {
     payTypeLabel(val) {
       let obj = {
         yue: 'Số dư',
-        weixin: 'Thanh toán WeChat',
-        alipay: 'Thanh toán Alipay',
+        weixin: 'Thanh toán online',
+        alipay: 'Thanh toán online',
         offline: 'Thanh toán ngoại tuyến',
         vn_cod: 'Thanh toán khi nhận hàng (COD)',
         cod: 'Thanh toán khi nhận hàng (COD)',

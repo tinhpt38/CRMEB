@@ -164,13 +164,13 @@
           <div v-viewer class="QRpic">
             <img v-lazy="qrcode.wechat_img" />
           </div>
-          <span class="mt10">Mã QR tài khoản chính thức</span>
+          <span class="mt10">Mã QR H5</span>
         </div>
         <div v-if="qrcode && qrcode.routine" class="acea-row row-column-around row-between-wrapper">
           <div v-viewer class="QRpic">
             <img v-lazy="qrcode.routine" />
           </div>
-          <span class="mt10">Mã QR chương trình nhỏ</span>
+          <span class="mt10">Mã QR ứng dụng</span>
         </div>
       </div>
     </el-dialog>

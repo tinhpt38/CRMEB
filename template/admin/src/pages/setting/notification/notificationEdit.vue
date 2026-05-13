@@ -100,157 +100,22 @@
                     </el-radio-group>
                   </el-form-item>
                 </div>
+                <!-- [CHINA_FEATURE] WeChat template message section hidden
                 <div v-else-if="item.slot === 'is_wechat' && !loading">
-                  <el-form-item label="Số mẫu：">
-                    <el-input
-                      v-model="formData.tempkey"
-                      :disabled="formData.type_n !== 3"
-                      placeholder="Vui lòng nhập số mẫu pass"
-                      style="width: 500px"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="Bản mẫuID：">
-                    <el-input v-model="formData.tempid" placeholder="Vui lòng nhập mẫuID" style="width: 500px"></el-input>
-                  </el-form-item>
-                  <el-form-item label="Bản mẫu：">
-                    <div class="content">
-                      <el-input
-                        :disabled="formData.type_n !== 3"
-                        v-model="formData.content"
-                        type="textarea"
-                        :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="Vui lòng nhập mẫu"
-                        style="width: 500px"
-                        @input="handleContentChange"
-                      ></el-input>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="Cánh đồng：" v-if="formData.type_n == 3 && keyList.length">
-                    <div class="content">
-                      <keys-list
-                        :key-list="keyList"
-                        :variableList="formData.custom_variable"
-                        @add="handleAdd"
-                        @remove="handleRemove"
-                      />
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="Nhảy liên kết：">
-                    <el-input
-                      v-model="formData.wechat_link"
-                      placeholder="Vui lòng nhập liên kết nhảy mẫu, có thể mang tham số."
-                      style="width: 500px"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="Nhảy ứng dụng：" prop="wechat_to_routine">
-                    <el-radio-group v-model="formData.wechat_to_routine">
-                      <el-radio :label="1">Bật lên</el-radio>
-                      <el-radio :label="0">Đóng cửa</el-radio>
-                    </el-radio-group>
-                    <div class="tips-info">
-                      Sau khi mở nó, bấm vào tin nhắn mẫu để chuyển đến trang tương ứng với chương trình mini. Chương trình nhỏ cần được xem xét và khởi chạy trước khi có thể sử dụng.
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="Tình trạng：" prop="is_wechat">
-                    <el-radio-group v-model="formData.is_wechat">
-                      <el-radio :label="1">Bật lên</el-radio>
-                      <el-radio :label="2">Đóng cửa</el-radio>
-                    </el-radio-group>
-                  </el-form-item>
+                  ... WeChat template fields ...
                 </div>
+                -->
+                <!-- [CHINA_FEATURE] Mini-program (routine) template section hidden
                 <div v-else-if="item.slot === 'is_routine' && !loading">
-                  <el-form-item label="Số mẫu：">
-                    <el-input
-                      v-model="formData.tempkey"
-                      :disabled="formData.type_n !== 3"
-                      placeholder="Vui lòng nhập số mẫu pass"
-                      style="width: 500px"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="Bản mẫuID：">
-                    <el-input v-model="formData.tempid" placeholder="Vui lòng nhập mẫuID" style="width: 500px"></el-input>
-                  </el-form-item>
-                  <el-form-item label="Bản mẫu：">
-                    <div class="content">
-                      <el-input
-                        :disabled="formData.type_n !== 3"
-                        v-model="formData.content"
-                        type="textarea"
-                        :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="Vui lòng nhập mẫu"
-                        style="width: 500px"
-                        @input="handleContentChange"
-                      ></el-input>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="Cánh đồng：" v-if="formData.type_n == 3 && keyList.length">
-                    <div class="content">
-                      <keys-list
-                        :key-list="keyList"
-                        :variableList="formData.custom_variable"
-                        @add="handleAdd"
-                        @remove="handleRemove"
-                      />
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="Nhảy liên kết：">
-                    <el-input
-                      v-model="formData.routine_link"
-                      placeholder="Vui lòng nhập liên kết nhảy mẫu, có thể mang tham số."
-                      style="width: 500px"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="Tình trạng：" prop="is_routine">
-                    <el-radio-group v-model="formData.is_routine">
-                      <el-radio :label="1">Bật lên</el-radio>
-                      <el-radio :label="2">Đóng cửa</el-radio>
-                    </el-radio-group>
-                  </el-form-item>
+                  ... Mini-program template fields ...
                 </div>
+                -->
 
+                <!-- [CHINA_FEATURE] Enterprise WeChat notification section hidden
                 <div v-else-if="item.slot === 'is_ent_wechat' && !loading">
-                  <el-form-item label="Nội dung thông báo：">
-                    <div class="content">
-                      <el-input
-                        id="ent_wechat_text"
-                        v-model="formData.ent_wechat_text"
-                        type="textarea"
-                        :autosize="{ minRows: 5, maxRows: 8 }"
-                        placeholder="Vui lòng nhập nội dung thông báo"
-                        style="width: 500px"
-                      ></el-input>
-                      <div class="value-list" v-if="formData.type_n == 3">
-                        <el-popover placement="right" width="200" trigger="click">
-                          <div class="variable">
-                            <div
-                              class="item"
-                              v-db-click
-                              @click="changeValue(i.value, 'ent_wechat_text')"
-                              v-for="(i, index) in formData.custom_variable"
-                              :key="index"
-                            >
-                              {{ i.label }}
-                            </div>
-                          </div>
-
-                          <i class="el-icon-link" slot="reference"></i>
-                        </el-popover>
-                      </div>
-                    </div>
-                    <div class="tips-info" v-if="formData.type_n == 3">Bấm vào biểu tượng ở góc dưới bên phải,Chèn biến tùy chỉnh</div>
-                  </el-form-item>
-                  <el-form-item label="Liên kết robot：">
-                    <div class="content">
-                      <el-input v-model="formData.url" placeholder="Vui lòng nhập liên kết robot" style="width: 500px"></el-input>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="Tình trạng：" prop="is_ent_wechat">
-                    <el-radio-group v-model="formData.is_ent_wechat">
-                      <el-radio :label="1">Bật lên</el-radio>
-                      <el-radio :label="2">Đóng cửa</el-radio>
-                    </el-radio-group>
-                  </el-form-item>
+                  ... Enterprise WeChat fields ...
                 </div>
+                -->
                 <div v-else-if="item.slot === 'is_telegram' && !loading">
                   <el-form-item label="Kênh Telegram：" prop="notice_channel_id">
                     <el-select v-model="formData.notice_channel_id" placeholder="Vui lòng chọn kênh" style="width: 500px">
@@ -354,18 +219,19 @@ export default {
           title: 'Thông báo qua SMS',
           slot: 'is_sms',
         },
-        {
-          title: 'Tin nhắn mẫu WeChat',
-          slot: 'is_wechat',
-        },
-        {
-          title: 'Lời nhắc chương trình mini WeChat',
-          slot: 'is_routine',
-        },
-        {
-          title: 'WeChat doanh nghiệp',
-          slot: 'is_ent_wechat',
-        },
+        // ── Hidden — China-specific notification channels ────────────
+        // {
+        //   title: 'Tin nhắn mẫu WeChat',
+        //   slot: 'is_wechat',
+        // },
+        // {
+        //   title: 'Lời nhắc chương trình mini WeChat',
+        //   slot: 'is_routine',
+        // },
+        // {
+        //   title: 'WeChat doanh nghiệp',
+        //   slot: 'is_ent_wechat',
+        // },
         {
           title: 'Telegram',
           slot: 'is_telegram',

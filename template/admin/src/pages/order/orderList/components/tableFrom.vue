@@ -112,8 +112,8 @@ export default {
       timeVal: [],
       payList: [
         { label: 'Tất cả', val: '' },
-        { label: 'Thanh toán WeChat', val: '1' },
-        { label: 'Thanh toán Alipay', val: '4' },
+        // { label: 'Thanh toán WeChat', val: '1' },    // hidden — China
+        // { label: 'Thanh toán Alipay', val: '4' },    // hidden — China
         { label: 'Thanh toán số dư', val: '2' },
         { label: 'Thanh toán ngoại tuyến', val: '3' },
         { label: 'Thanh toán khi nhận hàng (COD)', val: '5' },

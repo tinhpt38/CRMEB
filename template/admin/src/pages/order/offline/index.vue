@@ -91,13 +91,13 @@
           <div class="QRpic">
             <img v-lazy="qrcode && qrcode.wechat" />
           </div>
-          <span class="mt10">{{ animal ? 'Mã thanh toán tài khoản chính thức' : 'Mã QR tài khoản chính thức' }}</span>
+          <span class="mt10">{{ animal ? 'Mã thanh toán H5' : 'Mã QR H5' }}</span>
         </div>
         <div class="acea-row row-column-around row-between-wrapper">
           <div class="QRpic">
             <img v-lazy="qrcode && qrcode.routine" />
           </div>
-          <span class="mt10">{{ animal ? 'Mã thanh toán chương trình nhỏ' : 'Mã QR chương trình nhỏ' }}</span>
+          <span class="mt10">{{ animal ? 'Mã thanh toán ứng dụng' : 'Mã QR ứng dụng' }}</span>
         </div>
       </div>
     </el-dialog>

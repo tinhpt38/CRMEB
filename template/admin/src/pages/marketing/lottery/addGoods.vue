@@ -37,7 +37,7 @@
             formValidate.type == 3
               ? 'Sau khi người dùng nhận được số dư, số dư sẽ tự động được ghi có vào tài khoản số dư.'
               : formValidate.type == 4
-              ? 'Sau khi người dùng rút thăm cần thu thập thủ công trong danh sách xổ số. Họ cần kích hoạt chức năng chuyển khoản người bán của WeChat Pay và số tiền không được nhỏ hơn 0,1 nhân dân tệ.'
+              ? 'Sau khi người dùng rút thăm cần thu thập thủ công trong danh sách xổ số. Họ cần kích hoạt chức năng chuyển khoản và số tiền không được nhỏ hơn 1.000 VNĐ.'
               : ''
           }}
         </div>

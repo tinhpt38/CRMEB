@@ -11,6 +11,7 @@
           />
         </el-tabs>
       </div>
+      <!-- Hidden — China-specific WeChat/mini-program sync buttons
       <el-row class="mb14" v-if="currentTab == 1">
         <el-col>
           <el-button v-auth="['app-wechat-template-sync']" type="primary" v-db-click @click="routineTemplate"
@@ -21,24 +22,14 @@
           >
         </el-col>
       </el-row>
+      -->
       <el-row class="mb14" v-if="currentTab == 3">
         <el-col>
           <el-button type="primary" v-db-click @click="notificationForm(0)">Thêm thông báo</el-button>
           <el-button type="primary" plain v-db-click @click="goChannelPage">Kênh thông báo</el-button>
         </el-col>
       </el-row>
-      <el-alert v-if="currentTab == 1" type="warning" :closable="false">
-        <template slot="title">
-          <p class="alert_title">Tin tức đăng ký chương trình nhỏ</p>
-          Đăng nhập vào phần phụ trợ của chương trình mini WeChat, cài đặt cơ bản và thêm "Dịch vụ cuộc sống" vào danh mục dịch vụ > Cửa hàng bách hóa/siêu thị/cửa hàng tiện lợi》 (Nếu không, lỗi sẽ được báo cáo khi đồng bộ hóa các tin nhắn đăng ký applet.)<br />
-          Đồng bộ hóa tin nhắn đăng ký chương trình mini được sử dụng khi không có mẫu tin nhắn đăng ký nào được thêm vào nền chương trình mini. Một thông báo mẫu mới sẽ được thêm vào, thông tin sẽ được đồng bộ hóa và cơ sở dữ liệu dự án sẽ được cập nhật.。<br />
-          <br />
-          <p class="alert_title">Tin nhắn mẫu WeChat</p>
-          Đăng nhập vào phần phụ trợ của tài khoản chính thức WeChat, chọn tin nhắn mẫu và đặt thủ công danh mục dịch vụ trong danh mục dịch vụ trong chi tiết tài khoản, "Dịch vụ cuộc sống" >
-          Cửa hàng bách hóa/siêu thị/cửa hàng tiện lợi》(Nếu không, việc đồng bộ hóa tin nhắn mẫu sẽ không thành công.)<br />
-          Đồng bộ hóa tin nhắn mẫu tài khoản chính thức. Đồng bộ hóa các mẫu tài khoản chính thức sẽ xóa các mẫu hiện có trong nền tài khoản chính thức, thêm lại các mẫu mới và sau đó đồng bộ hóa thông tin với cơ sở dữ liệu. Nếu nhiều dự án sử dụng cùng một mẫu tài khoản chính thức, vui lòng thận trọng khi thực hiện.。
-        </template>
-      </el-alert>
+      <!-- Hidden — China-specific WeChat mini-program alert -->
       <el-table
         :data="levelLists"
         ref="table"
@@ -79,22 +70,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="Mẫu tài khoản chính thức" min-width="130">
-          <template slot-scope="scope">
-            <el-switch
-              v-if="scope.row.is_wechat !== 0"
-              :active-value="1"
-              :inactive-value="2"
-              v-model="scope.row.is_wechat"
-              :value="scope.row.is_wechat"
-              @change="changeSwitch($event, scope.row, 'is_wechat')"
-              size="large"
-              :disabled="scope.row.is_wechat == 0"
-            >
-            </el-switch>
-            <div v-else>-</div>
-          </template>
-        </el-table-column>
+        <!-- Hidden — China-specific WeChat OA template column -->
 
         <el-table-column label="Gửi tin nhắn văn bản" min-width="130">
           <template slot-scope="scope">
@@ -111,21 +87,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="WeChat doanh nghiệp" min-width="130" v-if="currentTab != 1">
-          <template slot-scope="scope">
-            <el-switch
-              v-if="scope.row.is_ent_wechat !== 0"
-              :active-value="1"
-              :inactive-value="2"
-              v-model="scope.row.is_ent_wechat"
-              :value="scope.row.is_ent_wechat"
-              @change="changeSwitch($event, scope.row, 'is_ent_wechat')"
-              size="large"
-            >
-            </el-switch>
-            <div v-else>-</div>
-          </template>
-        </el-table-column>
+        <!-- Hidden — China-specific WeChat Enterprise column -->
         <el-table-column label="Telegram" min-width="130" v-if="currentTab != 1">
           <template slot-scope="scope">
             <el-switch
@@ -142,22 +104,7 @@
             <div v-else>-</div>
           </template>
         </el-table-column>
-        <el-table-column label="Đăng ký chương trình nhỏ" min-width="130" v-if="currentTab == 1 || currentTab == 3">
-          <template slot-scope="scope">
-            <el-switch
-              v-if="scope.row.is_routine !== 0"
-              :active-value="1"
-              :inactive-value="2"
-              v-model="scope.row.is_routine"
-              :value="scope.row.is_routine"
-              @change="changeSwitch($event, scope.row, 'is_routine')"
-              size="large"
-              :disabled="scope.row.is_routine == 0"
-            >
-            </el-switch>
-            <div v-else>-</div>
-          </template>
-        </el-table-column>
+        <!-- Hidden — China-specific mini-program subscription column -->
         <el-table-column label="Thao tác" fixed="right" :width="currentTab == 3 ? 130 : 70">
           <template slot-scope="scope">
             <a class="setting btn" v-db-click @click="setting(scope.row)">Cài đặt</a>

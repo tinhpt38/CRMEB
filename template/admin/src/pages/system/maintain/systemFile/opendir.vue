@@ -68,7 +68,7 @@
       top="5vh"
       @close="editModalChange"
       append-to-body
-      :title="EditorIndex[indexEditor].title"
+      :title="editorIndex[indexEditor].title"
     >
       <p slot="header" class="diy-header" ref="diyHeader">
         <span>{{ title }}</span>
@@ -89,7 +89,7 @@
         </div>
         <div class="file-box">
           <div class="show-info">
-            <div class="show-text" :title="NavItem.pathname">Mục lục: {{ navItem.pathname }}</div>
+            <div class="show-text" :title="navItem.pathname">Mục lục: {{ navItem.pathname }}</div>
             <div class="diy-button-list">
               <el-button class="diy-button" v-db-click @click="goBack(true)">Trở về cấp độ trước đó</el-button>
               <el-button class="diy-button" v-db-click @click="getList(true, true)">Làm cho khỏe lại</el-button>
@@ -152,7 +152,7 @@
     <div v-show="formShow" class="diy-from">
       <div class="diy-from-header">
         {{ formTitle
-        }}<span :title="ContextData ? contextData.pathname : ''">{{ contextData ? contextData.pathname : '' }}</span>
+        }}<span :title="contextData ? contextData.pathname : ''">{{ contextData ? contextData.pathname : '' }}</span>
       </div>
       <el-form ref="formInline" :model="formFile" :rules="ruleInline" inline>
         <el-form-item prop="filename" class="diy-file">
@@ -388,7 +388,7 @@ export default {
           path: row.pathname,
           fileToken: this.fileToken,
         }),
-      ).then(() => This.getList(true, false));
+      ).then(() => this.getList(true, false));
     },
     /**
      * cứu
