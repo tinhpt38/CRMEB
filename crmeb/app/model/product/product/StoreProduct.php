@@ -144,6 +144,29 @@ class StoreProduct extends BaseModel
     }
 
     /**
+     * Trình tìm ID cửa hàng
+     * @param Model $query
+     * @param $value
+     */
+    public function searchStoreIdAttr($query, $value)
+    {
+        if ($value !== '' && $value !== null) {
+            $query->where('store_id', $value);
+        }
+    }
+
+    /**
+     * Quan hệ một-một với cửa hàng
+     * @return \think\model\relation\HasOne
+     */
+    public function storeBranch()
+    {
+        return $this->hasOne(\app\model\system\store\SystemStore::class, 'id', 'store_id')
+            ->field(['id', 'name'])
+            ->bind(['store_branch_name' => 'name']);
+    }
+
+    /**
      * keywordNgười tìm kiếm
      * @param Model $query
      * @param $value

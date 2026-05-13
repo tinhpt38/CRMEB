@@ -30,6 +30,7 @@
           :progress="progress"
           :upload="upload"
           :videoIng="videoIng"
+          :storeList="storeList"
           @virtualbtn="virtualbtn"
           @handleDragStart="handleDragStart"
           @handleDragOver="handleDragOver"
@@ -350,6 +351,7 @@ import {
   paramInfoApi,
   productProtectionListApi,
   productLabelUseListApi,
+  storeListForProductApi,
 } from '@/api/product';
 import Setting from '@/setting';
 import { getCookies } from '@/libs/util';
@@ -525,6 +527,7 @@ export default {
         recommend_list: [],
         params_list: [], //Thông số sản phẩm
         virtual_type: 0,
+        store_id: 0,
         // is_sub: 0,
         id: 0,
         spec_type: 0,
@@ -652,6 +655,7 @@ export default {
       protectionList: [], // Bảo đảm dịch vụ
       labelList: [],
       tileLabelList: [],
+      storeList: [],
       viewportWidth: typeof window !== 'undefined' ? window.innerWidth : 1440,
     };
   },
@@ -716,6 +720,7 @@ export default {
     this.productConfig();
     this.watchActivity();
     this.getProtectionList();
+    this.getStoreList();
   },
   methods: {
     updateViewportWidth() {
@@ -794,6 +799,13 @@ export default {
     getProtectionList() {
       productProtectionListApi({ page: 0, limit: 0, status: 1 }).then((res) => {
         this.protectionList = res.data.list;
+      });
+    },
+    getStoreList() {
+      storeListForProductApi().then((res) => {
+        this.storeList = res.data.list || [];
+      }).catch(() => {
+        this.storeList = [];
       });
     },
     getproductLabelUseListApi() {

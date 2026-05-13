@@ -382,6 +382,12 @@
                   </div>
                 </template>
               </el-table-column>
+              <el-table-column label="Cửa hàng" min-width="120">
+                <template slot-scope="scope">
+                  <el-tag v-if="scope.row.store_branch_name" size="small" type="success">{{ scope.row.store_branch_name }}</el-tag>
+                  <span v-else style="color: #999;">Tất cả</span>
+                </template>
+              </el-table-column>
               <!-- <el-table-column label="Trong kho" min-width="70">
                 <template slot-scope="scope">
                   <div class="tab">

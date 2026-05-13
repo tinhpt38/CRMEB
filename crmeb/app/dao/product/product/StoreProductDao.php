@@ -85,7 +85,7 @@ class StoreProductDao extends BaseDao
     public function getList(array $where, int $page = 0, int $limit = 0, string $order = '')
     {
         $prefix = Config::get('database.connections.' . Config::get('database.default') . '.prefix');
-        return $this->search($where, false)->order(($order ? $order . ' ,' : '') . 'sort desc,id desc')
+        return $this->search($where, false)->with(['storeBranch'])->order(($order ? $order . ' ,' : '') . 'sort desc,id desc')
             ->when($page != 0 && $limit != 0, function ($query) use ($page, $limit) {
                 $query->page($page, $limit);
             })->field([
@@ -125,6 +125,7 @@ class StoreProductDao extends BaseDao
     public function getSearchList(array $where, int $page = 0, int $limit = 0, array $field = ['*'], array $with = [])
     {
         if (isset($where['star'])) $with[] = 'star';
+        $with[] = 'storeBranch';
         return $this->search($where, false)->with($with)->when($page != 0 && $limit != 0, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
         })->when(isset($where['sid']) && $where['sid'], function ($query) use ($where) {

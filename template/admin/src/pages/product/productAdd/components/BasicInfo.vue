@@ -37,6 +37,25 @@
     </el-col>
 
     <el-col :span="24">
+      <el-form-item label="Cửa hàng：">
+        <el-select
+          v-model="formValidate.store_id"
+          placeholder="Chọn cửa hàng"
+          clearable
+          class="content_width"
+        >
+          <el-option label="Tất cả cửa hàng" :value="0" />
+          <el-option
+            v-for="store in storeList"
+            :key="store.id"
+            :label="store.name"
+            :value="store.id"
+          />
+        </el-select>
+      </el-form-item>
+    </el-col>
+
+    <el-col :span="24">
       <el-form-item label="Đơn vị：" prop="unit_name">
         <el-input
           class="input_width"
@@ -156,6 +175,10 @@ export default {
     tileLabelList: {
       type: Array,
       required: true,
+    },
+    storeList: {
+      type: Array,
+      default: () => [],
     },
     upload: {
       type: Object,

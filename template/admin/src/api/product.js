@@ -10,6 +10,17 @@
 
 import request from '@/libs/request';
 
+/**
+ * @description Lấy danh sách cửa hàng (dùng cho chọn cửa hàng trong sản phẩm)
+ */
+export function storeListForProductApi() {
+  return request({
+    url: 'merchant/store',
+    method: 'get',
+    params: { type: 0, page: 1, limit: 100 },
+  });
+}
+
 /*
  * Lấy số lượng tiêu đề sản phẩm；
  * */

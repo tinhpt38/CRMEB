@@ -594,6 +594,29 @@ class StoreOrder extends AuthController
             $cart_num += $items['cart_info']['cart_num'];
         }
         $orderInfo['is_all_refund'] = $refund_num == $cart_num;
+
+        // Enrich cartInfo with store branch name from product's store_id
+        /** @var \app\services\product\product\StoreProductServices $productServices */
+        $productServices = app()->make(\app\services\product\product\StoreProductServices::class);
+        $productIds = array_unique(array_column($orderInfo['cartInfo'], 'product_id'));
+        if ($productIds) {
+            $productStoreMap = $productServices->getColumn([['id', 'in', $productIds]], 'store_id', 'id');
+            $storeIds = array_unique(array_filter(array_values($productStoreMap)));
+            $storeNames = [];
+            if ($storeIds) {
+                /** @var SystemStoreServices $storeService */
+                $storeService = app()->make(SystemStoreServices::class);
+                $storeNames = $storeService->getColumn([['id', 'in', $storeIds]], 'name', 'id');
+            }
+            foreach ($orderInfo['cartInfo'] as &$cart) {
+                $pid = $cart['product_id'] ?? 0;
+                $sid = $productStoreMap[$pid] ?? 0;
+                $cart['store_id'] = $sid;
+                $cart['store_branch_name'] = $sid ? ($storeNames[$sid] ?? '') : '';
+            }
+            unset($cart);
+        }
+
         $userInfo = $userInfo->toArray();
         return app('json')->success(compact('orderInfo', 'userInfo'));
     }

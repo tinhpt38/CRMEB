@@ -39,6 +39,17 @@
                   <el-option label="Nhận tại cửa hàng" value="2" />
                 </el-select>
               </el-form-item>
+              <el-form-item label="Cửa hàng：">
+                <el-select v-model="artFrom.store_id" clearable placeholder="Tất cả" class="form_content_width">
+                  <el-option label="Tất cả" value="" />
+                  <el-option
+                    v-for="store in storeList"
+                    :key="store.id"
+                    :label="store.name"
+                    :value="store.id"
+                  />
+                </el-select>
+              </el-form-item>
               <template v-if="collapse">
                 <el-form-item label="Nhãn sản phẩm：" label-for="store_name">
                   <div class="labelInput acea-row row-between-wrapper form_content_width" @click="openStoreLabel">
@@ -234,6 +245,12 @@
         <el-table-column label="Tên sản phẩm" min-width="280" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.store_name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Cửa hàng" min-width="120">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.store_branch_name" size="small" type="success">{{ scope.row.store_branch_name }}</el-tag>
+            <span v-else class="text-muted">Tất cả</span>
           </template>
         </el-table-column>
         <el-table-column label="Tham gia các hoạt động" min-width="120">
@@ -608,6 +625,7 @@ import {
   productGetTemplateApi,
   productLabelUseListApi,
   productBatchDelete,
+  storeListForProductApi,
 } from '@/api/product';
 import userLabel from '@/components/labelList';
 import storeLabelList from '@/components/storeLabelList';
@@ -679,6 +697,7 @@ export default {
         store_label_id: [],
         time: '',
         virtual_type: '',
+        store_id: '',
       },
       list: [],
       tableList: [],
@@ -699,6 +718,7 @@ export default {
       productId: 0,
       storeLabelList: [],
       goodsLabelList: [],
+      storeList: [],
       timeVal: [],
       collapse: false,
     };
@@ -715,6 +735,7 @@ export default {
     this.goodHeade();
     this.goodsCategory();
     this.getLabelList();
+    this.getStoreListData();
     if (this.$route.fullPath === this.$routeProStr + '/product/product_list?type=5') {
       this.getPath();
     } else {
@@ -732,6 +753,13 @@ export default {
     // Cửa sổ bật lên nhãn đóng lại
     storeLabelClose() {
       this.storeLabelShow = false;
+    },
+    getStoreListData() {
+      storeListForProductApi().then((res) => {
+        this.storeList = res.data.list || [];
+      }).catch(() => {
+        this.storeList = [];
+      });
     },
     getLabelList() {
       productLabelUseListApi()
@@ -1242,6 +1270,7 @@ export default {
         store_label_id: [],
         time: '',
         virtual_type: '',
+        store_id: '',
       };
       this.storeLabelList = [];
       this.tableList = [];

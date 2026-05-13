@@ -145,6 +145,7 @@ class StoreProduct extends AuthController
             ['logistics', ''],
             ['time', ''],
             ['virtual_type', ''],
+            ['store_id', ''],
         ]);
         $data = $this->service->getList($where);
         return app('json')->success($data);
@@ -269,6 +270,7 @@ class StoreProduct extends AuthController
             ['protection_list', []],//Bảo vệ sản phẩm
             ['is_gift', 0],//Nó có phải là một món quà?
             ['gift_price', 0],//phụ phí quà tặng
+            ['store_id', 0],//Cửa hàng
         ]);
         $this->service->save((int)$id, $data);
         return app('json')->success('Đã lưu thành công');
