@@ -9,6 +9,7 @@ import { CityNode, CrmebAddress } from "@/types";
 import { CrmebApiClient } from "@/utils/crmeb/client";
 import { getCrmebToken } from "@/utils/crmeb/token";
 import { getConfig } from "@/utils/template";
+import { isValidVnPhone, VN_PHONE_ERROR } from "@/utils/phone";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
@@ -195,6 +196,11 @@ function AddressForm({ initial, onSuccess, onCancel }: AddressFormProps) {
 
     if (!province || !districtVal || !detail || !real_name || !phoneValue) {
       toast.error("Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+
+    if (!isValidVnPhone(phoneValue)) {
+      toast.error(VN_PHONE_ERROR);
       return;
     }
 

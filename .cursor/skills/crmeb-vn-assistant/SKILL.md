@@ -106,3 +106,13 @@ Khi nhận yêu cầu code, phản hồi theo trình tự:
 - Không nâng cấp framework trái ràng buộc dự án (ví dụ TP7/Vue3) nếu chưa có yêu cầu
 - Không phá vỡ cấu trúc thư mục CRMEB sẵn có
 - Không commit chung nhiều mục tiêu không liên quan
+
+## Việt hóa / fork VN (Phase 0–6)
+
+- **Client chính VN**: `f-chan/` (Zalo Mini App), không rollout `template/uni-app` làm kênh chính
+- **Patch DB**: `crmeb/public/install/patches/` — chạy theo `README.md` hoặc `apply-vn-patches.sh`
+- **Deploy**: `docs/vn-deployment.md` · **Thanh toán VN**: `docs/vn-payment-setup.md`
+- **Tiền tệ UI**: dùng `đ` / `format_vnd()`; không dùng `￥` trên luồng user-facing
+- **SĐT**: regex VN (`PhoneValidate`, form admin/f-chan); giữ regex TQ chỉ ở SMS Trung Quốc
+- **DIY/theme**: patch `vn_diy_label_migration.sql` + fallback `crmeb/crmeb/utils/DiyHomeLabelMap.php`
+- **Sau patch SQL**: luôn `php think clear`

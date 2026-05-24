@@ -1,0 +1,28 @@
+{
+  "app": {
+    "title": "F-Chan",
+    "textColor": "white",
+    "headerColor": "#ffffff",
+    "statusBar": "transparent",
+    "actionBarHidden": true,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": true,
+    "selfControlLoading": false
+  },
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": [],
+  "template": {
+    "name": "zaui-market",
+    "apiUrl": "https://your-domain.com/api",
+    "features": {
+      "catalog": true,
+      "orders": true,
+      "checkout": true
+    },
+    "oaIDtoOpenChat": "",
+    "logoUrl": "",
+    "shopName": "Tên cửa hàng",
+    "shopAddress": "Địa chỉ cửa hàng"
+  }
+}

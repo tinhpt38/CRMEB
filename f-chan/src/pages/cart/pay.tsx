@@ -11,6 +11,7 @@ import {
 } from "@/utils/crmeb/payConfig";
 import { getCrmebToken } from "@/utils/crmeb/token";
 import { getConfig } from "@/utils/template";
+import { isCrmebFeatureEnabled } from "@/utils/featureFlags";
 import { Button } from "zmp-ui";
 import { useEffect, useMemo, useState } from "react";
 
@@ -22,6 +23,11 @@ export default function Pay() {
   const [payMethods, setPayMethods] = useState<CrmebPayConfigItem[] | null>(null);
 
   useEffect(() => {
+    if (!isCrmebFeatureEnabled("checkout")) {
+      setPayMethods([]);
+      return;
+    }
+
     const apiUrl = getConfig((c) => c.template.apiUrl);
     if (!apiUrl) return;
 
@@ -110,6 +116,10 @@ export default function Pay() {
           </div>
         ) : payMethods === null ? (
           <p className="text-[11px] text-subtitle">Đang tải phương thức thanh toán...</p>
+        ) : !isCrmebFeatureEnabled("checkout") ? (
+          <p className="text-[11px] text-subtitle">
+            Thanh toán CRMEB chưa bật. Bật template.features.checkout trong app-config.json.
+          </p>
         ) : (
           <p className="text-[11px] text-subtitle">
             Chưa có phương thức thanh toán khả dụng. Vui lòng kiểm tra cấu hình cửa hàng trên CRMEB.

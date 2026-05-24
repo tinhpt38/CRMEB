@@ -30,7 +30,10 @@ import {
   checkoutPayMark,
   normalizeCheckoutPaymentMethod,
 } from "@/utils/crmeb/payConfig";
+import { formatCrmebError } from "@/utils/crmeb/errors";
 import { clearCrmebToken, getCrmebToken, setCrmebToken } from "@/utils/crmeb/token";
+import { isCrmebFeatureEnabled } from "@/utils/featureFlags";
+import { isValidVnPhone, VN_PHONE_ERROR } from "@/utils/phone";
 import { setSessionLoggedOut } from "@/utils/session";
 import CONFIG from "@/config";
 
@@ -436,6 +439,13 @@ export function useCheckout() {
 
   return async () => {
     try {
+      if (!isCrmebFeatureEnabled("checkout")) {
+        toast.error(
+          "Chức năng thanh toán chưa bật. Kiểm tra template.features.checkout và apiUrl trong app-config.json."
+        );
+        return;
+      }
+
       const userInfo = await requestInfo();
       if (!userInfo) throw new Error("Missing user info");
 
@@ -483,6 +493,11 @@ export function useCheckout() {
 
       if (isPickup && (!checkoutRealName || !checkoutPhone)) {
         toast.error("Vui lòng điền tên và số điện thoại của bạn");
+        return;
+      }
+
+      if (checkoutPhone && !isValidVnPhone(checkoutPhone)) {
+        toast.error(VN_PHONE_ERROR);
         return;
       }
 
@@ -622,7 +637,7 @@ export function useCheckout() {
     } catch (error) {
       console.warn(error);
       toast.error(
-        "Thanh toán thất bại. Vui lòng kiểm tra Nội dung lỗi bên trong Console."
+        formatCrmebError(error, "Thanh toán thất bại. Vui lòng thử lại sau.")
       );
       return;
     }

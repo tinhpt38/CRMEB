@@ -25,7 +25,15 @@ import {
   UserInfo,
 } from "@/types";
 import { resolveOrderPayMeta } from "@/utils/crmeb/payConfig";
-import { requestWithFallback } from "@/utils/request";
+import { isCrmebFeatureEnabled } from "@/utils/featureFlags";
+import {
+  getMockBanners,
+  getMockCategories,
+  getMockOrderById,
+  getMockOrders,
+  getMockProducts,
+  getMockStations,
+} from "@/utils/mockCatalog";
 import {
   authorize,
   getAccessToken,
@@ -253,6 +261,10 @@ export const phoneState = atom(async () => {
 
 export const bannersState = atom(() =>
   (async () => {
+    if (!isCrmebFeatureEnabled("catalog")) {
+      return getMockBanners();
+    }
+
     const apiUrl = getConfig((config) => config.template.apiUrl);
     try {
       const client = new CrmebApiClient({
@@ -300,6 +312,10 @@ export const tabsState = atom(["Tất cả", "Nam", "Nữ", "Trẻ em"]);
 export const selectedTabIndexState = atom(0);
 
 export const categoriesState = atom(async () => {
+  if (!isCrmebFeatureEnabled("catalog")) {
+    return getMockCategories();
+  }
+
   const apiUrl = getConfig((config) => config.template.apiUrl);
   try {
     const client = new CrmebApiClient({
@@ -373,6 +389,10 @@ function mapCrmebProductToFchanProduct(
 }
 
 export const productsState = atom(async (get) => {
+  if (!isCrmebFeatureEnabled("catalog")) {
+    return getMockProducts();
+  }
+
   const categories = await get(categoriesState);
   const apiUrl = getConfig((config) => config.template.apiUrl);
   try {
@@ -462,7 +482,7 @@ export const productState = atomFamily((id: number) =>
   // Base product from the list (provides category, price, etc.)
   const base = await get(productState(id));
 
-  if (!apiUrl) return base;
+  if (!apiUrl || !isCrmebFeatureEnabled("catalog")) return base;
 
     try {
       const client = new CrmebApiClient({
@@ -620,7 +640,7 @@ export const stationsState = atomWithRefresh(async (get) => {
   const apiUrl = getConfig((config) => config.template.apiUrl);
   let storeRows: any[] = [];
 
-  if (apiUrl) {
+  if (apiUrl && isCrmebFeatureEnabled("checkout")) {
     try {
       const client = new CrmebApiClient({
         apiBaseUrl: apiUrl,
@@ -668,7 +688,7 @@ export const stationsState = atomWithRefresh(async (get) => {
             distanceKm !== undefined ? formatDistant(distanceKm) : undefined,
         };
       })
-    : (await requestWithFallback<Station[]>("/stations", [])).map((station) => ({
+    : getMockStations().map((station) => ({
         ...station,
         distanceKm: location
           ? calculateDistance(
@@ -932,6 +952,10 @@ function extractCrmebOrderList(raw: any): any[] {
 
 export const ordersState = atomFamily((status: OrderStatus) =>
   atomWithRefresh(async () => {
+    if (!isCrmebFeatureEnabled("orders")) {
+      return getMockOrders(status);
+    }
+
     const apiUrl = getConfig((config) => config.template.apiUrl);
     try {
       const client = new CrmebApiClient({
@@ -954,6 +978,10 @@ export const ordersState = atomFamily((status: OrderStatus) =>
 export const orderDetailState = atomFamily((orderId: string) =>
   atom(async () => {
     if (!orderId) return undefined;
+
+    if (!isCrmebFeatureEnabled("orders")) {
+      return getMockOrderById(orderId);
+    }
 
     const apiUrl = getConfig((config) => config.template.apiUrl);
     const client = new CrmebApiClient({

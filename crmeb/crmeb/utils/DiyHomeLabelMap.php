@@ -13,7 +13,8 @@ namespace crmeb\utils;
 
 /**
  * Map nhãn DIY/theme (legacy tiếng Trung / dịch máy) sang tiếng Việt.
- * Dùng khi đọc JSON theme/DIY; sau khi chạy patch vn_diy_label_migration.sql có thể thu gọn dần.
+ * Dùng khi đọc JSON theme/DIY. Sau khi chạy vn_diy_label_migration.sql (Phase 6),
+ * DB là nguồn chính; class này chỉ fallback cho bản ghi JSON còn sót.
  */
 class DiyHomeLabelMap
 {
