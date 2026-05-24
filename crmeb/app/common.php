@@ -1110,21 +1110,25 @@ if (!function_exists('getLang')) {
                     if ($request->header('accept-language') !== null) {
                         $range = explode(',', $request->header('accept-language'))[0];
                     } else {
-                        // Điểm mấu chốt cuối cùng: Tiếng Trung giản thể
-                        $range = 'zh-CN';
+                        // Mặc định: tiếng Việt
+                        $range = 'vi-VN';
                     }
                 }
             }
 
-            /* --------------- 3. Đọc dữ liệu bản đồ khác nhau (có bộ đệm) --------------- */
-            // Tiếng Trung remarks => code Bảng ánh xạ, được sử dụng để chuyển đổi dữ liệu đến“biểu tượng Trung Quốc”Chuyển đổi sang nội bộ code
-            $langZhCn = CacheService::remember('sys_lang_source_map', function () use ($langCodeServices) {
-                return $langCodeServices->getColumn(['type_id' => 1], 'code', 'remarks');
+            $defaultTypeId = CacheService::remember('default_lang_type_id', function () use ($langTypeServices) {
+                return (int)($langTypeServices->value(['is_default' => 1], 'id') ?: 1);
             }, 3600);
 
-            // Kiểm tra ngôn ngữ tương ứng theo mã viết tắt của ngôn ngữ (chẳng hạn như zh-CN) type_id
-            $typeId = CacheService::remember('type_id_' . $range, function () use ($langCountryServices, $range) {
-                return $langCountryServices->value(['code' => $range], 'type_id') ?: 1;
+            /* --------------- 3. Đọc dữ liệu bản đồ khác nhau (có bộ đệm) --------------- */
+            // remarks => code (ngôn ngữ nguồn, mặc định type_id default)
+            $langSourceMap = CacheService::remember('sys_lang_source_map', function () use ($langCodeServices, $defaultTypeId) {
+                return $langCodeServices->getColumn(['type_id' => $defaultTypeId], 'code', 'remarks');
+            }, 3600);
+
+            // Kiểm tra ngôn ngữ tương ứng theo mã viết tắt của ngôn ngữ (chẳng hạn như vi-VN) type_id
+            $typeId = CacheService::remember('type_id_' . $range, function () use ($langCountryServices, $range, $defaultTypeId) {
+                return (int)($langCountryServices->value(['code' => $range], 'type_id') ?: $defaultTypeId);
             }, 3600);
 
             // Tất cả các loại ngôn ngữ được kích hoạt id => file_name bảng ánh xạ
@@ -1144,9 +1148,9 @@ if (!function_exists('getLang')) {
             }, 3600);
 
             /* --------------- 6. Nhận văn bản dịch --------------- */
-            if (isset($langZhCn[$msg]) && isset($lang[$langZhCn[$msg]])) {
+            if (isset($langSourceMap[$msg]) && isset($lang[$langSourceMap[$msg]])) {
                 // Nếu bảng ánh xạ tồn tại và mã tương ứng tồn tại trong gói ngôn ngữ, hãy sử dụng văn bản đã dịch.
-                $message = (string)$lang[$langZhCn[$msg]];
+                $message = (string)$lang[$langSourceMap[$msg]];
             } else {
                 // Không tìm thấy bản dịch, quay lại logo gốc
                 $message = $msg;

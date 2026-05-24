@@ -12,16 +12,19 @@ import zhtwLocale from 'element-ui/lib/locale/lang/zh-TW';
 import viLocale from 'element-ui/lib/locale/lang/vi';
 import store from '@/store/index.js';
 
-import nextZhcn from '@/i18n/lang/zh-cn.js';
+import nextVi from '@/i18n/lang/vi.js';
 import nextEn from '@/i18n/lang/en.js';
 import nextZhtw from '@/i18n/lang/zh-tw.js';
+import nextZhcn from '@/i18n/lang/zh-cn.js';
 
-import pagesHomeZhcn from '@/i18n/pages/home/zh-cn.js';
+import pagesHomeVi from '@/i18n/pages/home/vi.js';
 import pagesHomeEn from '@/i18n/pages/home/en.js';
 import pagesHomeZhtw from '@/i18n/pages/home/zh-tw.js';
-import pagesLoginZhcn from '@/i18n/pages/login/zh-cn.js';
+import pagesHomeZhcn from '@/i18n/pages/home/zh-cn.js';
+import pagesLoginVi from '@/i18n/pages/login/vi.js';
 import pagesLoginEn from '@/i18n/pages/login/en.js';
 import pagesLoginZhtw from '@/i18n/pages/login/zh-tw.js';
+import pagesLoginZhcn from '@/i18n/pages/login/zh-cn.js';
 // Sử dụng plugin
 Vue.use(VueI18n);
 
@@ -59,9 +62,17 @@ const messages = {
   vi: {
     ...viLocale,
     message: {
-      ...nextZhcn,
-      ...pagesHomeZhcn,
-      ...pagesLoginZhcn,
+      ...nextVi,
+      ...pagesHomeVi,
+      ...pagesLoginVi,
+    },
+  },
+  'vi-vn': {
+    ...viLocale,
+    message: {
+      ...nextVi,
+      ...pagesHomeVi,
+      ...pagesLoginVi,
     },
   },
 };
@@ -69,7 +80,7 @@ const messages = {
 // Xuất khẩu quốc tế hóa ngôn ngữ
 export const i18n = new VueI18n({
   locale: store.state.themeConfig.themeConfig.globalI18n,
-  fallbackLocale: 'vi',
+  fallbackLocale: 'vi-vn',
   messages,
   silentTranslationWarn: true, // Xóa cảnh báo quốc tế hóa
 });

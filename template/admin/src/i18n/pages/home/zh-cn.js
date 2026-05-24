@@ -1,14 +1,2 @@
-// Xác định nội dung
-export default {
-  card: {
-    title1: 'bàn làm việc của tôi',
-    title2: 'Thông báo tin nhắn',
-    title3: 'Thêm',
-    title4: 'Khuyến nghị tiếp thị',
-    title5: 'Thêm',
-    title6: 'Hoạt động tồn kho',
-    title7: 'Hiệu suất',
-    title8: 'Giám sát hết hàng',
-    title9: 'Cảnh báo hết thời gian hiệu suất',
-  },
-};
+// Canonical Vietnamese home i18n bundle.
+export { default } from './vi.js';
