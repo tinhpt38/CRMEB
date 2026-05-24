@@ -115,7 +115,7 @@
                     color: toneConfig ? bargainPriceColor : colorStyle.theme,
                   }"
                 >
-                  <span class="label">¥</span><span class="num">2690.00</span>
+                  <span class="label">đ</span><span class="num">2690.00</span>
                 </div>
                 <div
                   class="yprice"
@@ -124,7 +124,7 @@
                     color: goodsPriceColor,
                   }"
                 >
-                  ¥1233423.00
+                  đ1233423.00
                 </div>
               </div>
               <div
@@ -184,7 +184,7 @@
                   color: toneConfig ? bargainPriceColor : colorStyle.theme,
                 }"
               >
-                ¥<span class="num">3200.00</span>
+                đ<span class="num">3200.00</span>
               </div>
               <div
                 class="yprice"
@@ -194,7 +194,7 @@
                   color: goodsPriceColor,
                 }"
               >
-                ¥3699.00
+                đ3699.00
               </div>
               <div
                 class="bnt"
@@ -241,7 +241,7 @@
                 color: toneConfig ? bargainPriceColor : colorStyle.theme,
               }"
             >
-              Thấp như<span class="lable">¥</span><span class="num">350.00</span>
+              Thấp như<span class="lable">đ</span><span class="num">350.00</span>
             </div>
             <div
               class="yprice"
@@ -250,7 +250,7 @@
                 color: goodsPriceColor,
               }"
             >
-              ¥3699.00
+              đ3699.00
             </div>
           </div>
         </template>
@@ -295,7 +295,7 @@
                   color: toneConfig ? bargainPriceColor : colorStyle.theme,
                 }"
               >
-                ¥<span class="num">3200.00</span>
+                đ<span class="num">3200.00</span>
               </div>
               <div
                 class="yprice"
@@ -305,7 +305,7 @@
                   color: goodsPriceColor,
                 }"
               >
-                ¥3699.00
+                đ3699.00
               </div>
             </div>
           </div>

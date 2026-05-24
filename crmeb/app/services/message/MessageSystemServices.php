@@ -97,7 +97,7 @@ class MessageSystemServices extends BaseServices
                 $code = 'Xin chúc mừng, một thành viên mạnh mẽ khác sẽ gắn bó vĩnh viễn với nhóm của bạn, người dùng{:nickname}Tham gia nhóm của bạn！';
                 break;
             case 'order_pay_success':
-                $code = 'Hàng bạn mua đã được thanh toán thành công, số tiền thanh toán{:pay_price}nhân dân tệ, số đơn hàng{:order_id},cảm ơn bạn đã ghé thăm！';
+                $code = 'Hàng bạn mua đã được thanh toán thành công, số tiền thanh toán {:pay_price} đ, số đơn hàng {:order_id}, cảm ơn bạn đã ghé thăm！';
                 break;
             case 'order_take':
                 $code = 'Kính gửi, đơn đặt hàng của bạn{:order_id},sản phẩm{:store_name}Biên nhận đã được xác nhận,cảm ơn bạn đã ghé thăm！';
@@ -106,16 +106,16 @@ class MessageSystemServices extends BaseServices
                 $code = 'đơn đặt hàng của bạn{:order_id}，Số tiền Thanh toán thực tế đã được sửa đổi thành{:pay_price}';
                 break;
             case 'order_refund':
-                $code = 'đơn đặt hàng của bạn{:order_id}Đã đồng ý hoàn tiền,Số tiền hoàn lại{:refund_price}Nhân dân tệ。';
+                $code = 'đơn đặt hàng của bạn {:order_id} đã đồng ý hoàn tiền, số tiền hoàn lại {:refund_price} đ。';
                 break;
             case 'recharge_success':
-                $code = 'Bạn đã nạp tiền thành công￥{:price}，Số dư hiện tại còn lại￥{:now_money}Nhân dân tệ';
+                $code = 'Bạn đã nạp tiền thành công {:price} đ，Số dư hiện tại còn lại {:now_money} đ';
                 break;
             case 'integral_accout':
                 $code = 'Bạn thân mến, bạn đã lấy được điểm thành công.{:gain_integral}，Điểm hiện có{:integral}';
                 break;
             case 'order_brokerage':
-                $code = 'Thân mến, xin chúc mừng hoa hồng thành công của bạn.{:brokerage_price}Nhân dân tệ';
+                $code = 'Thân mến, xin chúc mừng hoa hồng thành công của bạn {:brokerage_price} đ';
                 break;
             case 'bargain_success':
                 $code = 'Em yêu, anh mệt quá! Bạn bè đã giúp bạn thương lượng giá thấp nhất, tên sản phẩm{:title}，Giá dự trữ{:min_price}';
@@ -131,13 +131,13 @@ class MessageSystemServices extends BaseServices
                 $code = 'Bạn thân mến, bạn đã tham gia đặt phòng theo nhóm thành công. Tên của sự kiện là{:title}';
                 break;
             case 'user_extract':
-                $code = 'Kính gửi, bạn đã rút tiền hoa hồng thành công.{:extract_number}Nhân dân tệ';
+                $code = 'Kính gửi, bạn đã rút tiền hoa hồng thành công {:extract_number} đ';
                 break;
             case 'user_balance_change':
-                $code = 'Bạn thân mến, việc rút tiền mà bạn thực hiện đã bị từ chối và hoa hồng sẽ được trả lại.{:extract_number}Nhân dân tệ';
+                $code = 'Bạn thân mến, việc rút tiền mà bạn thực hiện đã bị từ chối và hoa hồng sẽ được trả lại {:extract_number} đ';
                 break;
             case 'recharge_order_refund_status':
-                $code = 'Bạn thân mến, số tiền bạn nạp đã được hoàn trả,Khoản hoàn trả này{:refund_price}Nhân dân tệ';
+                $code = 'Bạn thân mến, số tiền bạn nạp đã được hoàn trả, khoản hoàn trả này {:refund_price} đ';
                 break;
             case 'send_order_refund_no_status':
                 $code = 'Xin chào! đơn đặt hàng của bạn{:order_id}Hoàn tiền bị từ chối。';

@@ -109,7 +109,7 @@ class SystemCityServices extends BaseServices
         if ($parentId) {
             $info = $this->dao->getOne(['city_id' => $parentId], 'level,city_id,name');
         } else {
-            $info = ['level' => 0, 'city_id' => 0, 'name' => 'Trung Quốc'];
+            $info = ['level' => 0, 'city_id' => 0, 'name' => 'Việt Nam'];
         }
         $field[] = Form::hidden('level', $info['level']);
         $field[] = Form::hidden('parent_id', $info['city_id']);

@@ -5,7 +5,7 @@
         <div>
           <h4 class="title mb15">Số lượng đặt hàng ngày hôm nay</h4>
           <div class="price">
-            ￥<i>{{ statisticsData.left.series[0].money }}</i>
+            đ<i>{{ statisticsData.left.series[0].money }}</i>
           </div>
         </div>
         <echarts-new

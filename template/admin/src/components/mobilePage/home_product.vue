@@ -122,7 +122,7 @@
             </div>
             <div class="price">
               <div class="num" :style="{ color: goodsPriceColor }">
-                <span>￥</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
+                <span>đ</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
                 }}<span>{{ item.price ? $HandlePrice(item.price, 1) : '' }}</span>
               </div>
               <img src="../../assets/images/goods02.png" />

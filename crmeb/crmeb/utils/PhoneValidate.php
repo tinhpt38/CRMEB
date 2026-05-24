@@ -19,10 +19,20 @@ class PhoneValidate
     /** Số di động VN: 0xxxxxxxxx hoặc +84/84xxxxxxxxx */
     public const VN_MOBILE_PATTERN = '/^(?:\+84|84|0)(3|5|7|8|9)\d{8}$/';
 
+    /** Số cố định VN: 02412345678, 028-12345678 */
+    public const VN_LANDLINE_PATTERN = '/^0\d{1,3}-?\d{7,8}$/';
+
     public static function isVnMobile(string $phone): bool
     {
         $phone = preg_replace('/\s+/', '', $phone);
 
         return (bool)preg_match(self::VN_MOBILE_PATTERN, $phone);
+    }
+
+    public static function isVnPhone(string $phone): bool
+    {
+        $phone = preg_replace('/\s+/', '', $phone);
+
+        return self::isVnMobile($phone) || (bool)preg_match(self::VN_LANDLINE_PATTERN, $phone);
     }
 }

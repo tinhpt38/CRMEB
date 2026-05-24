@@ -148,23 +148,14 @@
 <script>
 import { storeApi, keyApi, storeAddApi } from '@/api/setting';
 import { mapState } from 'vuex';
-// import city from '@/utils/city';
 import uploadPictures from '@/components/uploadPictures';
 import { cityList } from '@/api/app';
+import { vnPhoneRule } from '@/utils/phone';
 
 export default {
   name: 'systemStore',
   components: { uploadPictures },
   data() {
-    const validatePhone = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('Vui lòng điền số điện thoại di động của bạn'));
-      } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        callback(new Error('Định dạng số điện thoại di động không chính xác!'));
-      } else {
-        callback();
-      }
-    };
     const validateUpload = (rule, value, callback) => {
       if (!this.formItem.image) {
         callback(new Error('Vui lòng tải lên cửa hànglogo'));
@@ -208,7 +199,7 @@ export default {
           },
         ],
         day_time: [{ required: true, type: 'array', message: 'Vui lòng chọn giờ mở cửa của cửa hàng', trigger: 'change' }],
-        phone: [{ required: true, validator: validatePhone, trigger: 'blur' }],
+        phone: [{ required: true, message: 'Vui lòng điền số điện thoại di động của bạn', trigger: 'blur' }, vnPhoneRule()],
         detailed_address: [{ required: true, message: 'Vui lòng nhập địa chỉ chi tiết', trigger: 'blur' }],
         image: [{ required: true, validator: validateUpload, trigger: 'change' }],
         latlng: [{ required: true, message: 'Vui lòng chọn vĩ độ và kinh độ', trigger: 'blur' }],

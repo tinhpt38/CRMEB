@@ -132,7 +132,7 @@
                     color: toneConfig ? pinkPriceColor : colorStyle.theme,
                   }"
                 >
-                  Giá nhóm<span class="label">¥</span><span class="num">3200.00</span>
+                  Giá nhóm<span class="label">đ</span><span class="num">3200.00</span>
                 </div>
                 <div
                   class="yprice"
@@ -141,7 +141,7 @@
                     color: goodsPriceColor,
                   }"
                 >
-                  <span class="num line-through">¥4233</span>
+                  <span class="num line-through">đ4233</span>
                 </div>
               </div>
               <div
@@ -209,7 +209,7 @@
                   color: toneConfig ? pinkPriceColor : colorStyle.theme,
                 }"
               >
-                ¥<span class="num">3200.00</span>
+                đ<span class="num">3200.00</span>
               </div>
               <div
                 class="yprice"
@@ -219,7 +219,7 @@
                   color: goodsPriceColor,
                 }"
               >
-                ¥3699.00
+                đ3699.00
               </div>
               <div
                 class="bnt"
@@ -276,7 +276,7 @@
                 color: toneConfig ? pinkPriceColor : colorStyle.theme,
               }"
             >
-              <span>¥</span>3500.00
+              <span>đ</span>3500.00
             </div>
             <div
               class="yprice"
@@ -285,7 +285,7 @@
                 color: goodsPriceColor,
               }"
             >
-              ¥3699.00
+              đ3699.00
             </div>
           </div>
         </template>
@@ -328,7 +328,7 @@
                   color: toneConfig ? pinkPriceColor : colorStyle.theme,
                 }"
               >
-                ¥<span class="num">3200.00</span>
+                đ<span class="num">3200.00</span>
               </div>
               <div
                 class="yprice"
@@ -338,7 +338,7 @@
                   color: goodsPriceColor,
                 }"
               >
-                ¥3699.00
+                đ3699.00
               </div>
             </div>
           </div>

@@ -168,7 +168,7 @@
                       color: toneConfig ? seckillPriceColor : colorStyle.theme,
                     }"
                   >
-                    Giá bán chớp nhoáng<span class="label">¥</span><span class="num">3200.00</span>
+                    Giá bán chớp nhoáng<span class="label">đ</span><span class="num">3200.00</span>
                   </div>
                   <div
                     class="yprice"
@@ -177,7 +177,7 @@
                       color: goodsPriceColor,
                     }"
                   >
-                    ¥1233.00
+                    đ1233.00
                   </div>
                 </div>
                 <div
@@ -237,7 +237,7 @@
                     color: toneConfig ? seckillPriceColor : colorStyle.theme,
                   }"
                 >
-                  ¥<span class="num">3200.00</span>
+                  đ<span class="num">3200.00</span>
                 </div>
                 <div
                   class="yprice"
@@ -247,7 +247,7 @@
                     color: goodsPriceColor,
                   }"
                 >
-                  ¥3699.00
+                  đ3699.00
                 </div>
                 <div
                   class="bnt"
@@ -297,7 +297,7 @@
                     : themeColor2,
                 }"
               >
-                <img src="../../assets/images/dian.png" /><span>¥</span>350.00
+                <img src="../../assets/images/dian.png" /><span>đ</span>350.00
               </div>
               <div
                 class="yprice"
@@ -306,7 +306,7 @@
                   color: goodsPriceColor,
                 }"
               >
-                ¥3699.00
+                đ3699.00
               </div>
             </div>
           </template>
@@ -352,7 +352,7 @@
                     color: toneConfig ? seckillPriceColor : colorStyle.theme,
                   }"
                 >
-                  ¥<span class="num">3200.00</span>
+                  đ<span class="num">3200.00</span>
                 </div>
                 <div
                   class="yprice"
@@ -362,7 +362,7 @@
                     color: goodsPriceColor,
                   }"
                 >
-                  ¥3699.00
+                  đ3699.00
                 </div>
                 <div
                   class="bnt"

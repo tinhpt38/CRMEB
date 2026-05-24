@@ -278,7 +278,7 @@ class UserExtractServices extends BaseServices
                     'amount' => $extractNumber, // Số tiền rút
                     'payer_show_name' => sys_config('site_name'), // Tên người trả tiền/tên cá nhân
                     'payee_real_name' => $userExtract['user_name'], // Tên thật/tên cá nhân của người nhận thanh toán
-                    'remark' => 'Rút tiền mặt ¥' . $extractNumber . ' đến Alipay', // Ghi chú kinh doanh
+                    'remark' => 'Rút tiền mặt ' . format_vnd($extractNumber) . ' đến Alipay', // Ghi chú kinh doanh
                 ];
             } else {
                 $bizParams = [
@@ -292,7 +292,7 @@ class UserExtractServices extends BaseServices
                         'identity_type' => 'ALIPAY_LOGON_ID',
                         'name' => $userExtract['user_name'],
                     ],
-                    'remark' => 'Rút tiền mặt ¥' . $extractNumber . ' đến Alipay', // Ghi chú kinh doanh
+                    'remark' => 'Rút tiền mặt ' . format_vnd($extractNumber) . ' đến Alipay', // Ghi chú kinh doanh
                 ];
             }
             // Gọi dịch vụ Alipay để bắt đầu yêu cầu rút tiền Alipay

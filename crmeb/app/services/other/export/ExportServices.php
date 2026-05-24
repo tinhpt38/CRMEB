@@ -773,7 +773,7 @@ class ExportServices extends BaseServices
                 $export[] = [
                     $item['title'],
                     $item['info'],
-                    '￥' . $item['price'],
+                    format_vnd($item['price']),
                     $item['bargain_num'],
                     $item['status'] ? 'Hoạt động' : 'đóng cửa',
                     empty($item['start_time']) ? '' : date('Y-m-d H:i:s', (int)$item['start_time']),
@@ -878,7 +878,7 @@ class ExportServices extends BaseServices
                     $item['store_name'],
                     $item['store_info'],
                     $item['cate_name'],
-                    '￥' . $item['price'],
+                    format_vnd($item['price']),
                     $item['stock'],
                     $item['sales'],
                     $item['visitor'],

@@ -229,8 +229,8 @@ class OrderJob extends BaseJobs
                             }
                         } else {
                             // Tin nhắn văn bản đẩy
-                            $head = "Nhắc nhở dịch vụ khách hàng: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：￥{$order['pay_price']}\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Chương trình nhỏ";
-                            if ($type) $head = "Nhắc nhở dịch vụ khách hàng: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：￥{$order['pay_price']}\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Tài khoản chính thức";
+                            $head = "Nhắc nhở dịch vụ khách hàng: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：" . format_vnd($order['pay_price']) . "\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Chương trình nhỏ";
+                            if ($type) $head = "Nhắc nhở dịch vụ khách hàng: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：" . format_vnd($order['pay_price']) . "\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Tài khoản chính thức";
                             try {
                                 WechatService::staffService()->message($head)->to($userInfo['openid'])->send();
                             } catch (\Exception $e) {

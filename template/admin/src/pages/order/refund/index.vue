@@ -102,7 +102,7 @@
                   </div>
                   <div>
                     <span>Giá：</span>
-                    <span>¥{{ item.cart_info.truePrice || '--' }}</span>
+                    <span>đ{{ item.cart_info.truePrice || '--' }}</span>
                   </div>
                   <div>
                     <span>Số lượng：</span>

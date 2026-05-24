@@ -12,11 +12,12 @@
 namespace app\api\validate\user;
 
 
+use crmeb\utils\PhoneValidate;
 use think\Validate;
 
 class StoreServiceFeedbackValidate extends Validate
 {
-    protected $regex = ['phone' => '/^1[3456789]\d{9}$/'];
+    protected $regex = ['phone' => PhoneValidate::VN_MOBILE_PATTERN];
 
     protected $rule = [
         'phone' => 'require|regex:phone',

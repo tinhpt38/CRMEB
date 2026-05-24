@@ -34,7 +34,7 @@
               <div class="product-box" v-if="item.msn_type == 5" v-db-click @click="goProduct(item)">
                 <img v-lazy="item.productInfo.image" mode="widthFix" />
                 <div class="info">
-                  <div class="price"><span>￥</span>{{ item.productInfo.price }}</div>
+                  <div class="price"><span>đ</span>{{ item.productInfo.price }}</div>
                   <div class="name line2">{{ item.productInfo.store_name }}</div>
                 </div>
               </div>
@@ -45,7 +45,7 @@
                   <img v-lazy="item.orderInfo.cartInfo[0].productInfo.image" />
                   <div class="product-info">
                     <div class="name line2">{{ item.orderInfo.cartInfo[0].productInfo.store_name }}</div>
-                    <div class="price">¥{{ item.orderInfo.cartInfo[0].productInfo.price }}</div>
+                    <div class="price">đ{{ item.orderInfo.cartInfo[0].productInfo.price }}</div>
                   </div>
                 </div>
               </div>

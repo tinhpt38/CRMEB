@@ -54,7 +54,7 @@
                             >
                           </div>
                           <div class="group">
-                            <div class="money">￥{{ item.productInfo.price }}</div>
+                            <div class="money">đ{{ item.productInfo.price }}</div>
                             <span style="cursor: pointer" v-db-click @click.stop="onLook(item.productInfo.id)"
                               >Chi tiết sản phẩm ></span
                             >
@@ -70,7 +70,7 @@
                             <div class="name">Đặt hàngID：{{ item.orderInfo.order_id }}</div>
                             <div class="attr">Số lượng sản phẩm：{{ itm.cart_num }}</div>
                             <div class="group">
-                              <div class="money">￥{{ itm.productInfo.price }}</div>
+                              <div class="money">đ{{ itm.productInfo.price }}</div>
                               <nuxt-link
                                 target="_blank"
                                 :to="{

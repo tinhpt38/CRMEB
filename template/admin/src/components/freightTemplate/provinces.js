@@ -1,3 +1,4 @@
+// DEPRECATED: dùng API setting/city/full_list hoặc patch vn_city_migration.sql
 export default [
   {
     name: 'Bắc Kinh',

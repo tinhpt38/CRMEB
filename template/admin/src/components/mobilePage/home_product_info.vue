@@ -85,15 +85,15 @@
             <div class="price-row">
               <div v-if="item.checkList.includes(0)" class="main-price-wrap" :style="{ color: finalPriceColor }">
                 <span class="label">Giá nhận được</span>
-                <span class="price" :style="{ fontSize: priceFontSize + 'px' }">¥199.00</span>
+                <span class="price" :style="{ fontSize: priceFontSize + 'px' }">đ199.00</span>
               </div>
               <div v-if="item.checkList.includes(1)" class="ot-price-wrap" :style="{ color: sellingPriceColor }">
                 <span class="label">Giá bán</span>
-                <span class="price">¥299.00</span>
+                <span class="price">đ299.00</span>
               </div>
               <div v-if="item.checkList.includes(2)" class="vip-price-wrap">
                 <span class="badge">SVIP</span>
-                <span class="price">¥26.00</span>
+                <span class="price">đ26.00</span>
               </div>
             </div>
           </div>
@@ -107,7 +107,7 @@
 
           <!-- Data Section -->
           <div v-if="item.name === 'data' && item.show" class="data-section">
-            <span v-if="item.checkList.includes(0)" :style="{ color: originalPriceColor }">Giá gốc: ¥299</span>
+            <span v-if="item.checkList.includes(0)" :style="{ color: originalPriceColor }">Giá gốc: đ299</span>
             <span v-if="item.checkList.includes(1)" :style="{ color: stockColor }">Trong kho: 1000</span>
             <span v-if="item.checkList.includes(2)" :style="{ color: salesColor }">Doanh số bán hàng: 1000+</span>
           </div>

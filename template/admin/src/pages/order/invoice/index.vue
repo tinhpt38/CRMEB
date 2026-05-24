@@ -65,7 +65,7 @@
         </el-table-column>
         <el-table-column label="Số tiền đặt hàng" min-width="90">
           <template slot-scope="scope">
-            <div>¥ {{ scope.row.pay_price }}</div>
+            <div>đ {{ scope.row.pay_price }}</div>
           </template>
         </el-table-column>
         <el-table-column label="Loại hóa đơn" min-width="130">

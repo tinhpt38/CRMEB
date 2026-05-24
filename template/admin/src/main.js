@@ -61,6 +61,7 @@ import modalForm from '@/utils/modalForm';
 import exportExcel from '@/utils/newToExcel.js';
 import videoCloud from '@/utils/videoCloud';
 import { modalSure, HandlePrice } from '@/utils/public';
+import { formatVnd } from '@/utils/format';
 import { authLapse } from '@/utils/authLapse';
 
 // tập tin phong cách
@@ -165,6 +166,7 @@ Vue.prototype.$routeProStr = settings.routePre;
 Vue.prototype.$modalForm = modalForm;
 Vue.prototype.$modalSure = modalSure;
 Vue.prototype.$HandlePrice = HandlePrice;
+Vue.prototype.$formatVnd = formatVnd;
 Vue.prototype.$exportExcel = exportExcel;
 Vue.prototype.$videoCloud = videoCloud;
 Vue.prototype.$authLapse = authLapse;

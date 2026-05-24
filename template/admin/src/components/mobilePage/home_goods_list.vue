@@ -60,7 +60,7 @@
                       color: toneConfig ? goodsPriceColor : colorStyle.theme,
                     }"
                   >
-                    <span>￥</span>{{ item.price ? $HandlePrice(item.price, 0) : 33
+                    <span>đ</span>{{ item.price ? $HandlePrice(item.price, 0) : 33
                     }}<span>{{ item.price ? $HandlePrice(item.price, 1) : '' }}</span>
                   </div>
                   <img class="img" v-if="checkboxInfo.indexOf(5) != -1" src="../../assets/images/goods02.png" />
@@ -177,7 +177,7 @@
                       color: toneConfig ? goodsPriceColor : colorStyle.theme,
                     }"
                   >
-                    <span>￥</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
+                    <span>đ</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
                     }}<span>{{ item.price ? $HandlePrice(item.price, 1) : '' }}</span>
                   </div>
                   <img class="img" v-if="checkboxInfo.indexOf(5) != -1" src="../../assets/images/goods02.png" />
@@ -272,7 +272,7 @@
                       color: toneConfig ? goodsPriceColor : colorStyle.theme,
                     }"
                   >
-                    <span>￥</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
+                    <span>đ</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
                     }}<span>{{ item.price ? $HandlePrice(item.price, 1) : '' }}</span>
                   </div>
                   <img v-if="checkboxInfo.indexOf(5) != -1" src="../../assets/images/goods02.png" />
@@ -357,7 +357,7 @@
                     color: toneConfig ? goodsPriceColor : colorStyle.theme,
                   }"
                 >
-                  <span>￥</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
+                  <span>đ</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
                   }}<span>{{ item.price ? $HandlePrice(item.price, 1) : '' }}</span>
                 </div>
               </div>
@@ -424,7 +424,7 @@
                         color: toneConfig ? goodsPriceColor : colorStyle.theme,
                       }"
                     >
-                      <span>￥</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
+                      <span>đ</span>{{ item.price ? $HandlePrice(item.price, 0) : 77
                       }}<span>{{ item.price ? $HandlePrice(item.price, 1) : '' }}</span>
                     </div>
                   </div>

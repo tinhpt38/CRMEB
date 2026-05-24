@@ -39,7 +39,7 @@
                   @click="check(item, index)"
                 >
                   <div class="list-goods-list-item-title" :class="{ active: index === current }">
-                    ¥ <i>{{ item.price }}</i>
+                    đ <i>{{ item.price }}</i>
                   </div>
                   <div class="list-goods-list-item-price" :class="{ active: index === current }">
                     <span>{{ all[isChecked] }}Số lượng mặt hàng: {{ item.num }}</span>
@@ -62,7 +62,7 @@
             <span class="ivu-text-right ivu-block">Số tiền thanh toán：</span>
           </el-col>
           <el-col :xs="11" :sm="13" :md="19" :lg="20">
-            <span class="list-goods-list-item-number">￥{{ checkList.price }}</span>
+            <span class="list-goods-list-item-number">đ{{ checkList.price }}</span>
           </el-col>
         </el-col>
         <el-col :span="24" class="ivu-text-left mb20">

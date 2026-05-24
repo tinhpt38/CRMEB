@@ -414,6 +414,15 @@ if (!function_exists('check_phone')) {
         return \crmeb\utils\PhoneValidate::isVnMobile((string)$phone);
     }
 }
+if (!function_exists('format_vnd')) {
+    /**
+     * Định dạng số tiền VND.
+     */
+    function format_vnd($amount): string
+    {
+        return number_format((float)$amount, 0, ',', '.') . ' đ';
+    }
+}
 if (!function_exists('anonymity')) {
     /**
      * Xử lý ẩn danh biệt danh của người dùng

@@ -146,6 +146,7 @@
 
 <script>
 import { orderExport, orderTemp, orderDeliveryAll, orderDelivery, getSender } from '@/api/kefu';
+import { VN_PHONE_PATTERN } from '@/utils/phone';
 export default {
   name: 'delivery',
   props: {
@@ -221,7 +222,7 @@ export default {
         sendName: [{ required: true, message: 'Vui lòng điền tên người gửi', trigger: 'change' }],
         sendPhone: [
           { required: true, message: 'Vui lòng điền số điện thoại di động của người gửi', trigger: 'change' },
-          { pattern: /^1[3456789]\d{9}$/, message: 'Định dạng số điện thoại di động không chính xác', trigger: 'blur' },
+          { pattern: VN_PHONE_PATTERN, message: 'Định dạng số điện thoại di động không chính xác', trigger: 'blur' },
         ],
         sendAddress: [{ required: true, message: 'Vui lòng điền địa chỉ người gửi', trigger: 'change' }],
         msg: [{ required: true, message: 'Hãy điền nhận xét', trigger: 'change' }],

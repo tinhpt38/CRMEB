@@ -131,7 +131,7 @@
                       <div class="sku">
                         {{ goods.productInfo.attrInfo.suk }}
                       </div>
-                      <div class="price">¥{{ goods.productInfo.price }} x {{ goods.cart_num }}</div>
+                      <div class="price">đ{{ goods.productInfo.price }} x {{ goods.cart_num }}</div>
                     </div>
                   </div>
                 </div>
@@ -149,8 +149,8 @@
                     <span>{{ item.refund_status == 1 ? 'Thời gian ra mắt' : 'Thời gian thanh toán' }}：</span
                     >{{ item.refund_status == 1 ? item.add_time : item._pay_time }}
                   </div>
-                  <div class="info-item"><span>Bưu phí：</span>¥ {{ item.pay_postage }}</div>
-                  <div class="info-item"><span>Thanh toán thực tế：</span>¥ {{ item.pay_price }}</div>
+                  <div class="info-item"><span>Bưu phí：</span>đ {{ item.pay_postage }}</div>
+                  <div class="info-item"><span>Thanh toán thực tế：</span>đ {{ item.pay_price }}</div>
                 </div>
                 <div class="btn-wrapper">
                   <el-button
@@ -236,7 +236,7 @@
                   <span>Doanh số bán hàng：{{ item.sales }}</span>
                 </div>
                 <div class="price">
-                  <span>¥{{ item.price }}</span>
+                  <span>đ{{ item.price }}</span>
                   <div class="push" v-db-click @click.stop="pushGoods(item)">Xô</div>
                 </div>
               </div>

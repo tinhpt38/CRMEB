@@ -29,7 +29,7 @@
           <div class="moneyBox">
             <div class="box1">
               <div class="font1">Số dư của tôi</div>
-              <div>￥ <i class="font2">0.00</i></div>
+              <div>đ <i class="font2">0.00</i></div>
             </div>
             <div class="moneyBox_content">
               <div class="box2">

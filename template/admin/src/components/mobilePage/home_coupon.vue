@@ -30,7 +30,7 @@
                   color: toneConfig ? couponMoneyColor : colorStyle.theme,
                 }"
               >
-                <span class="lable">¥</span>70
+                <span class="lable">đ</span>70
               </div>
               <div class="tips">Áp dụng cho đơn hàng trên 5000</div>
             </div>
@@ -72,7 +72,7 @@
                 color: toneConfig ? couponMoneyColor : colorStyle.theme,
               }"
             >
-              <span class="label">¥</span>50
+              <span class="label">đ</span>50
             </div>
             <div class="tips">Có sẵn cho các đơn hàng trên 500 nhân dân tệ</div>
             <div
@@ -112,7 +112,7 @@
                     color: toneConfig ? couponMoneyColor : colorStyle.theme,
                   }"
                 >
-                  <span>￥</span>50
+                  <span>đ</span>50
                 </div>
                 <div class="txt">Có sẵn cho các đơn hàng trên 100 nhân dân tệ</div>
               </div>
@@ -157,7 +157,7 @@
                     color: toneConfig ? couponMoneyColor : colorStyle.theme,
                   }"
                 >
-                  <span class="label">¥</span>50
+                  <span class="label">đ</span>50
                 </div>
                 <div class="tips">Áp dụng cho đơn hàng trên 5000</div>
               </div>
@@ -205,7 +205,7 @@
                   color: toneConfig ? couponMoneyColor : colorStyle.theme,
                 }"
               >
-                <span class="label">¥</span>50
+                <span class="label">đ</span>50
               </div>
               <div class="tips">Áp dụng cho đơn hàng trên 5000</div>
             </div>

@@ -197,7 +197,7 @@ class StoreOrderDeliveryServices extends BaseServices
         if (!$data['delivery_uid']) {
             throw new AdminException('Vui lòng nhập thông tin người giao hàng');
         }
-        if (!preg_match("/^1[3456789]{1}\d{9}$/", $data['delivery_id'])) {
+        if (!\crmeb\utils\PhoneValidate::isVnMobile((string)$data['delivery_id'])) {
             throw new AdminException('Vui lòng nhập đúng số điện thoại người giao hàng');
         }
         $data['status'] = 1;
@@ -291,7 +291,7 @@ class StoreOrderDeliveryServices extends BaseServices
                 if (!$data['delivery_id']) {
                     throw new AdminException('Vui lòng nhập số điện thoại người giao hàng');
                 }
-                if (!preg_match("/^1[3456789]{1}\d{9}$/", $data['delivery_id'])) {
+                if (!\crmeb\utils\PhoneValidate::isVnMobile((string)$data['delivery_id'])) {
                     throw new AdminException('Vui lòng nhập đúng số điện thoại người giao hàng');
                 }
                 break;

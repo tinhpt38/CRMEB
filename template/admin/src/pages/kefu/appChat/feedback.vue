@@ -43,6 +43,7 @@
 
 <script>
 import { feedbackDataApi, feedbackFromApi } from '@/api/kefu';
+import { VN_PHONE_PATTERN } from '@/utils/phone';
 export default {
   name: 'feedback',
   props: {
@@ -62,7 +63,7 @@ export default {
         content: [{ required: true, message: 'Vui lòng nhập nội dung tin nhắn', trigger: 'blur' }],
         phone: [
           { required: true, message: 'Vui lòng điền số điện thoại di động của bạn', trigger: 'change' },
-          { pattern: /^1[3456789]\d{9}$/, message: 'Định dạng số điện thoại di động không chính xác', trigger: 'blur' },
+          { pattern: VN_PHONE_PATTERN, message: 'Định dạng số điện thoại di động không chính xác', trigger: 'blur' },
         ],
       },
     };

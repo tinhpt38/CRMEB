@@ -7,25 +7,25 @@
       </div>
       <div class="listChange" v-if="status === 0">
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 0">
-          <div>Tổng giá sản phẩm(¥)</div>
+          <div>Tổng giá sản phẩm(đ)</div>
           <div class="money">{{ orderInfo.total_price }}<span class="iconfontYI icon-suozi"></span></div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 0">
-          <div>Bưu phí gốc(¥)</div>
+          <div>Bưu phí gốc(đ)</div>
           <div class="money">{{ orderInfo.pay_postage }}<span class="iconfontYI icon-suozi"></span></div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 0">
-          <div>Thanh toán thực tế(¥)</div>
+          <div>Thanh toán thực tế(đ)</div>
           <div class="money">
             <input type="text" v-model="price" :class="focus === true ? 'on' : ''" @focus="priceChange" />
           </div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 1">
-          <div>Thanh toán thực tế(¥)</div>
+          <div>Thanh toán thực tế(đ)</div>
           <div class="money">{{ orderInfo.pay_price }}<span class="iconfontYI icon-suozi"></span></div>
         </div>
         <div class="item acea-row row-between-wrapper" v-if="orderInfo.refund_status === 1">
-          <div>Số tiền hoàn lại(¥)</div>
+          <div>Số tiền hoàn lại(đ)</div>
           <div class="money">
             <input type="text" v-model="refund_price" :class="focus === true ? 'on' : ''" @focus="priceChange" />
           </div>

@@ -130,7 +130,7 @@
               <template v-if="item.goods.length > 0">
                 <div class="goods-item" v-for="(goods, index) in item.goods" :key="index">
                   <img src="../../assets/images/shan.png" alt="" />
-                  <span v-if="index < 2">￥{{ goods.price }}</span>
+                  <span v-if="index < 2">đ{{ goods.price }}</span>
                   <span class="num" v-else>+5</span>
                 </div>
               </template>

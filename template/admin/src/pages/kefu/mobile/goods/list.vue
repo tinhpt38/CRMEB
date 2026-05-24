@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="right">
-            <div class="price">￥{{ item.price }}</div>
+            <div class="price">đ{{ item.price }}</div>
             <div class="btn" v-db-click @click="bingGoods(item)">Xô</div>
           </div>
         </div>

@@ -49,7 +49,7 @@
                             </div>
                             <div class="sku">Trong kho：{{ item.productInfo.stock }} Doanh số bán hàng：{{ item.productInfo.sales }}</div>
                             <div class="price-box">
-                              <div class="num">¥ {{ item.productInfo.price }}</div>
+                              <div class="num">đ {{ item.productInfo.price }}</div>
                               <a herf="javascript:;" class="more" v-db-click @click.stop="lookGoods(item)"
                                 >Chi tiết sản phẩm ></a
                               >
@@ -71,7 +71,7 @@
                             </div>
                             <div class="sku">Số lượng sản phẩm：{{ item.orderInfo.total_num }}</div>
                             <div class="price-box">
-                              <div class="num">¥ {{ item.orderInfo.pay_price }}</div>
+                              <div class="num">đ {{ item.orderInfo.pay_price }}</div>
                               <a href="javascript:;" class="more" v-db-click @click.stop="lookOrder(item)"
                                 >Xem đơn hàng ></a
                               >

@@ -13,7 +13,7 @@
         <div class="broadcast_details_tit" v-text="productInfo.store_name"></div>
         <div class="acea-row row-between">
           <div class="broadcast_details_pic">
-            ￥{{ productInfo.price }}<span class="broadcast_details_pic_num">￥{{ productInfo.ot_price }}</span>
+            đ{{ productInfo.price }}<span class="broadcast_details_pic_num">đ{{ productInfo.ot_price }}</span>
           </div>
           <div class="broadcast_details_btn" v-db-click @click="sendProduct">Gửi dịch vụ khách hàng</div>
         </div>
@@ -36,8 +36,8 @@
           </div>
           <div class="acea-row row-between">
             <div class="broadcast_details_pic">
-              ￥{{ cartInfo.productInfo.price
-              }}<text class="broadcast_details_pic_num">￥{{ cartInfo.productInfo.ot_price }}</text>
+              đ{{ cartInfo.productInfo.price
+              }}<text class="broadcast_details_pic_num">đ{{ cartInfo.productInfo.ot_price }}</text>
             </div>
             <div class="broadcast_details_btn" v-db-click @click="sendOrder">Gửi dịch vụ khách hàng</div>
           </div>
@@ -68,7 +68,7 @@
               <div class="product-box" v-if="item.msn_type == 5" v-db-click @click="goProduct(item)">
                 <img :src="item.productInfo.image" />
                 <div class="info">
-                  <div class="price"><span>￥</span>{{ item.productInfo.price }}</div>
+                  <div class="price"><span>đ</span>{{ item.productInfo.price }}</div>
                   <div class="name line2">{{ item.productInfo.store_name }}</div>
                 </div>
               </div>
@@ -79,7 +79,7 @@
                   <img :src="item.orderInfo.cartInfo[0].productInfo.image" />
                   <div class="product-info">
                     <div class="name line2">{{ item.orderInfo.cartInfo[0].productInfo.store_name }}</div>
-                    <div class="price">¥{{ item.orderInfo.cartInfo[0].productInfo.price }}</div>
+                    <div class="price">đ{{ item.orderInfo.cartInfo[0].productInfo.price }}</div>
                   </div>
                 </div>
               </div>

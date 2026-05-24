@@ -606,7 +606,7 @@ class StorePinkServices extends BaseServices
         if ($pinkInfo['k_id']) $pinkAll = $this->getPinkMember($pinkInfo['k_id']);
         else $pinkAll = $this->getPinkMember($pinkInfo['id']);
         $count = count($pinkAll);
-        $data['msg'] = 'giá gốc￥' . $storeCombinationInfo['product_price'] . ' Không đủ tốt' . ($pinkInfo['people'] - $count) . 'Mọi người hợp tác thành công';
+        $data['msg'] = 'giá gốc ' . format_vnd($storeCombinationInfo['product_price']) . ' Không đủ tốt' . ($pinkInfo['people'] - $count) . 'Mọi người hợp tác thành công';
 
         /** @var SystemAttachmentServices $systemAttachmentServices */
         $systemAttachmentServices = app()->make(SystemAttachmentServices::class);
@@ -870,7 +870,7 @@ class StorePinkServices extends BaseServices
         if ($pinkInfo['k_id']) $pinkAll = $this->getPinkMember($pinkInfo['k_id']);
         else $pinkAll = $this->getPinkMember($pinkInfo['id']);
         $count = count($pinkAll);
-        $data['msg'] = 'giá gốc￥' . $storeCombinationInfo['product_price'] . ' Không đủ tốt' . ($pinkInfo['people'] - $count) . 'Mọi người hợp tác thành công';
+        $data['msg'] = 'giá gốc ' . format_vnd($storeCombinationInfo['product_price']) . ' Không đủ tốt' . ($pinkInfo['people'] - $count) . 'Mọi người hợp tác thành công';
 
         /** @var SystemAttachmentServices $systemAttachmentServices */
         $systemAttachmentServices = app()->make(SystemAttachmentServices::class);

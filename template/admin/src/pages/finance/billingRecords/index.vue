@@ -62,17 +62,17 @@
           </el-table-column>
           <el-table-column label="Số tiền thu nhập" min-width="130">
             <template slot-scope="scope">
-              <span style="color: #f5222d">￥{{ scope.row.income_price }}</span>
+              <span style="color: #f5222d">đ{{ scope.row.income_price }}</span>
             </template>
           </el-table-column>
           <el-table-column label="Số tiền chi tiêu" min-width="130">
             <template slot-scope="scope">
-              <span style="color: #00c050">￥{{ scope.row.exp_price }}</span>
+              <span style="color: #00c050">đ{{ scope.row.exp_price }}</span>
             </template>
           </el-table-column>
           <el-table-column label="Số tiền đã nhập" min-width="130">
             <template slot-scope="scope">
-              <span>￥{{ scope.row.entry_price }}</span>
+              <span>đ{{ scope.row.entry_price }}</span>
             </template>
           </el-table-column>
           <el-table-column label="Thao tác" fixed="right" width="170">

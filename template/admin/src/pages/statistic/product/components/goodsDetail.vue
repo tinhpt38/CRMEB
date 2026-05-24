@@ -13,13 +13,13 @@
           </div>
           <div class="goods_info">
             <div class="number-wrapper">
-              <div class="price"><span>¥</span>{{ goodsInfo.productInfo.price }}</div>
-              <div class="old-price">¥{{ goodsInfo.productInfo.vip_price }}</div>
+              <div class="price"><span>đ</span>{{ goodsInfo.productInfo.price }}</div>
+              <div class="old-price">đ{{ goodsInfo.productInfo.vip_price }}</div>
               <div><img src="../../../../assets/images/goods_vip.png" /></div>
             </div>
             <div class="name">{{ goodsInfo.productInfo.store_name }}</div>
             <div class="msg">
-              <div class="item">Giá gốc:￥{{ goodsInfo.productInfo.ot_price }}</div>
+              <div class="item">Giá gốc:đ{{ goodsInfo.productInfo.ot_price }}</div>
               <div class="item">Doanh số bán hàng:{{ goodsInfo.productInfo.sales }}</div>
               <div class="item">Trong kho:{{ goodsInfo.productInfo.stock }}</div>
             </div>
