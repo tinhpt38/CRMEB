@@ -88,6 +88,15 @@ export interface Product {
   defaultUnique?: string;
   /** Nhãn biến thể đã chọn — hiển thị trên giỏ / đơn hàng. */
   variantLabel?: string;
+  /** Cờ hiển thị section trang chủ từ CRMEB. */
+  isHot?: boolean;
+  isBest?: boolean;
+  isNew?: boolean;
+  isBenefit?: boolean;
+  /** Cấu hình vận chuyển theo sản phẩm. */
+  isPostage?: boolean;
+  postage?: number;
+  tempId?: number;
 }
 
 export interface ProductAttribute {

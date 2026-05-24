@@ -325,6 +325,54 @@ export const categoriesStateUpwrapped = unwrap(
   (prev) => prev ?? []
 );
 
+function mapCrmebProductToFchanProduct(
+  p: Record<string, any>,
+  categories: Category[],
+  apiUrl: string
+): Product & { categoryId: number } {
+  const categoryId = Number(String(p?.cate_id ?? p?.categoryId ?? 0).split(",")[0]);
+  const category =
+    categories.find((c) => c.id === categoryId) ?? {
+      id: categoryId,
+      name: "",
+      image: "",
+    };
+
+  const originalPriceRaw = p?.ot_price;
+  const originalPrice = originalPriceRaw ? Number(originalPriceRaw) : undefined;
+
+  const sliderRaw = p?.slider_image;
+  const rawSliderList: string[] = Array.isArray(sliderRaw)
+    ? sliderRaw.map(String).filter(Boolean)
+    : typeof sliderRaw === "string" && sliderRaw
+      ? sliderRaw.split(",").map((s) => s.trim()).filter(Boolean)
+      : [];
+  const images: string[] | undefined = rawSliderList.length
+    ? rawSliderList.map((s) => resolveImageUrl(s, apiUrl))
+    : undefined;
+
+  return {
+    id: Number(p?.id ?? 0),
+    name: String(p?.store_name ?? p?.name ?? ""),
+    price: Number(p?.price ?? 0),
+    originalPrice,
+    image: resolveImageUrl(p?.image || p?.recommend_image, apiUrl),
+    images,
+    categoryId,
+    category,
+    detail: String(p?.store_info ?? p?.description ?? ""),
+    attributes: [],
+    specType: Number(p?.spec_type ?? 0) === 1,
+    isHot: Number(p?.is_hot ?? 0) === 1,
+    isBest: Number(p?.is_best ?? 0) === 1,
+    isNew: Number(p?.is_new ?? 0) === 1,
+    isBenefit: Number(p?.is_benefit ?? 0) === 1,
+    isPostage: Number(p?.is_postage ?? 0) === 1,
+    postage: Number(p?.postage ?? 0),
+    tempId: Number(p?.temp_id ?? 0),
+  };
+}
+
 export const productsState = atom(async (get) => {
   const categories = await get(categoriesState);
   const apiUrl = getConfig((config) => config.template.apiUrl);
@@ -335,47 +383,9 @@ export const productsState = atom(async (get) => {
     });
 
     const rawProducts = await client.get<Array<any>>("/products");
-      return (rawProducts ?? []).map((p) => {
-        const categoryId = Number(
-          String(p?.cate_id ?? p?.categoryId ?? 0).split(",")[0]
-        );
-
-        const category =
-          categories.find((c) => c.id === categoryId) ?? {
-            id: categoryId,
-            name: "",
-            image: "",
-          };
-
-        const originalPriceRaw = p?.ot_price;
-        const originalPrice = originalPriceRaw
-          ? Number(originalPriceRaw)
-          : undefined;
-
-        const sliderRaw = p?.slider_image;
-        const rawSliderList: string[] = Array.isArray(sliderRaw)
-          ? sliderRaw.map(String).filter(Boolean)
-          : typeof sliderRaw === "string" && sliderRaw
-            ? sliderRaw.split(",").map((s) => s.trim()).filter(Boolean)
-            : [];
-        const images: string[] | undefined = rawSliderList.length
-          ? rawSliderList.map((s) => resolveImageUrl(s, apiUrl))
-          : undefined;
-
-        return {
-          id: Number(p?.id ?? 0),
-          name: String(p?.store_name ?? p?.name ?? ""),
-          price: Number(p?.price ?? 0),
-          originalPrice,
-          image: resolveImageUrl(p?.image || p?.recommend_image, apiUrl),
-          images,
-          categoryId,
-          category,
-          detail: String(p?.store_info ?? p?.description ?? ""),
-          attributes: [],
-          specType: Number(p?.spec_type ?? 0) === 1,
-        } as Product & { categoryId: number };
-      });
+    return (rawProducts ?? []).map((p) =>
+      mapCrmebProductToFchanProduct(p, categories, apiUrl)
+    );
   } catch (error) {
     console.warn("Failed to load products from CRMEB:", error);
     return [];
@@ -385,6 +395,54 @@ export const productsState = atom(async (get) => {
 export const flashSaleProductsState = atom((get) => get(productsState));
 
 export const recommendedProductsState = atom((get) => get(productsState));
+
+const groomProductsState = atomFamily((type: number) =>
+  atom(async (get) => {
+    const apiUrl = getConfig((config) => config.template.apiUrl);
+    if (!apiUrl) return [];
+    const categories = await get(categoriesState);
+    try {
+      const client = new CrmebApiClient({
+        apiBaseUrl: apiUrl,
+        getToken: () => getCrmebToken(),
+      });
+      const raw = await client.get<Array<any>>(`/groom/list/${type}`);
+      const list = Array.isArray(raw) ? raw : [];
+      if (!list.length) return [];
+      return list.map((item) => mapCrmebProductToFchanProduct(item, categories, apiUrl));
+    } catch (error) {
+      return [];
+    }
+  })
+);
+
+export const bestSellerProductsState = atom(async (get) => {
+  const groomProducts = await get(groomProductsState(1));
+  if (Array.isArray(groomProducts) && groomProducts.length) return groomProducts;
+  const products = await get(productsState);
+  return (Array.isArray(products) ? products : []).filter((product) => product.isHot);
+});
+
+export const proposedProductsState = atom(async (get) => {
+  const groomProducts = await get(groomProductsState(2));
+  if (Array.isArray(groomProducts) && groomProducts.length) return groomProducts;
+  const products = await get(productsState);
+  return (Array.isArray(products) ? products : []).filter((product) => product.isBest);
+});
+
+export const newProductsState = atom(async (get) => {
+  const groomProducts = await get(groomProductsState(3));
+  if (Array.isArray(groomProducts) && groomProducts.length) return groomProducts;
+  const products = await get(productsState);
+  return (Array.isArray(products) ? products : []).filter((product) => product.isNew);
+});
+
+export const featuredProductsState = atom(async (get) => {
+  const groomProducts = await get(groomProductsState(4));
+  if (Array.isArray(groomProducts) && groomProducts.length) return groomProducts;
+  const products = await get(productsState);
+  return (Array.isArray(products) ? products : []).filter((product) => product.isBenefit);
+});
 
 export const productState = atomFamily((id: number) =>
   atom(async (get) => {
@@ -469,6 +527,33 @@ export const productDetailState = atomFamily((id: number) =>
         skuDimensions,
         variants,
         defaultUnique,
+        isHot:
+          Number(
+            detailPayload.is_hot ??
+              (base?.isHot ? 1 : 0)
+          ) === 1,
+        isBest:
+          Number(
+            detailPayload.is_best ??
+              (base?.isBest ? 1 : 0)
+          ) === 1,
+        isNew:
+          Number(
+            detailPayload.is_new ??
+              (base?.isNew ? 1 : 0)
+          ) === 1,
+        isBenefit:
+          Number(
+            detailPayload.is_benefit ??
+              (base?.isBenefit ? 1 : 0)
+          ) === 1,
+        isPostage:
+          Number(
+            detailPayload.is_postage ??
+              (base?.isPostage ? 1 : 0)
+          ) === 1,
+        postage: Number(detailPayload.postage ?? base?.postage ?? 0),
+        tempId: Number(detailPayload.temp_id ?? base?.tempId ?? 0),
         category: base?.category ?? { id: 0, name: "", image: "" },
       } as Product;
     } catch (error) {
@@ -724,6 +809,9 @@ function mapCrmebCartToCartItem(cart: any, apiUrl: string): Cart[number] {
       detail: undefined,
       variantLabel,
       defaultUnique: unique,
+      isPostage: Number(productInfo?.is_postage ?? 0) === 1,
+      postage: Number(productInfo?.postage ?? 0),
+      tempId: Number(productInfo?.temp_id ?? 0),
     },
     quantity: Number(cart?.cart_num ?? cart?.quantity ?? 0),
     ...(unique ? { unique } : {}),

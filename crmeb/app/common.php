@@ -411,7 +411,7 @@ if (!function_exists('check_phone')) {
      */
     function check_phone($phone)
     {
-        return preg_match("/^1[3456789]\d{9}$/", $phone);
+        return \crmeb\utils\PhoneValidate::isVnMobile((string)$phone);
     }
 }
 if (!function_exists('anonymity')) {

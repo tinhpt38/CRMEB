@@ -26,9 +26,9 @@ use think\facade\Env;
 
 return [
     // Ngôn ngữ mặc định
-    'default_lang' => Env::get('lang.default_lang', 'zh-cn'),
+    'default_lang' => Env::get('lang.default_lang', 'vi-vn'),
     // Danh sách ngôn ngữ được phép
-    'allow_lang_list' => ['zh-cn', 'en-us'],
+    'allow_lang_list' => ['vi-vn', 'en-us', 'zh-cn'],
     // Tự động phát hiện tên biến đa ngôn ngữ
     'detect_var' => 'lang',
     // Có nên sử dụng bản ghi cookie hay không
@@ -37,11 +37,14 @@ return [
     'cookie_var' => 'cb_lang',
     // Gói ngôn ngữ mở rộng
     'extend_list' => [
+        'vi_vn' => app()->getBasePath() . 'lang/vi_vn.php',
         'zh_cn' => app()->getBasePath() . 'lang/zh_cn.php',
         'en_us' => app()->getBasePath() . 'lang/en_us.php',
     ],
     // Accept-LanguageĐã thoát sang tên gói ngôn ngữ tương ứng
     'accept_language' => [
+        'vi-vn' => 'vi_vn',
+        'vi' => 'vi_vn',
         'zh-hans-cn' => 'zh_cn',
         'en-hans-us' => 'en_us',
     ],

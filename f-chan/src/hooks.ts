@@ -14,7 +14,7 @@ import {
   userInfoKeyState,
   userInfoState,
 } from "@/state";
-import { Product, ProductVariant } from "@/types";
+import { Cart, Product, ProductVariant } from "@/types";
 import { buildCartProductSnapshot } from "@/utils/productSpecs";
 import { getConfig } from "@/utils/template";
 import {
@@ -165,6 +165,13 @@ export interface AddToCartOptions {
 
 function getCartLineKey(productId: number, unique?: string) {
   return `${productId}:${unique || "default"}`;
+}
+
+function getFreightGroupKey(item: Cart[number]) {
+  const product = item.product;
+  if (!product.isPostage) return "free";
+  if ((product.tempId ?? 0) > 0) return `template:${product.tempId}`;
+  return `fixed:${Number(product.postage ?? 0)}`;
 }
 
 export function useAddToCart(product: Product) {
@@ -474,6 +481,14 @@ export function useCheckout() {
 
       if (isPickup && (!checkoutRealName || !checkoutPhone)) {
         toast.error("Vui lòng điền tên và số điện thoại của bạn");
+        return;
+      }
+
+      const freightGroups = new Set(cart.map((item) => getFreightGroupKey(item)));
+      if (freightGroups.size > 1) {
+        toast.error(
+          "Giỏ hàng đang có sản phẩm dùng cấu hình vận chuyển khác nhau, vui lòng thanh toán riêng từng nhóm."
+        );
         return;
       }
 

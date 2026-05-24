@@ -678,6 +678,12 @@ export default {
       let that = this,
         selectValue = that.selectValue;
       if (selectValue.length > 0) {
+        const freightCheck = that.validateFreightSelection();
+        if (!freightCheck.valid) {
+          return that.$util.Tips({
+            title: freightCheck.msg,
+          });
+        }
         uni.navigateTo({
           url:
             "/pages/goods/order_confirm/index?cartId=" + selectValue.join(","),
@@ -801,6 +807,36 @@ export default {
         }
         that.selectCountPrice = selectCountPrice;
       }
+    },
+    getFreightGroupKey(item) {
+      const product = (item && item.productInfo) || {};
+      const isPostage = Number(product.is_postage || 0);
+      const tempId = Number(product.temp_id || 0);
+      const postage = Number(product.postage || 0);
+      // 0 = free shipping, fixed = postage amount, template = temp_id
+      if (!isPostage) return "free";
+      if (tempId > 0) return `template:${tempId}`;
+      return `fixed:${postage}`;
+    },
+    validateFreightSelection() {
+      const checkedList = this.cartList.valid.filter((item) =>
+        this.inArray(item.id, this.selectValue)
+      );
+      if (!checkedList.length) {
+        return { valid: true, msg: "" };
+      }
+      const freightGroup = new Set(
+        checkedList.map((item) => this.getFreightGroupKey(item))
+      );
+      if (freightGroup.size > 1) {
+        return {
+          valid: false,
+          msg: this.$t(
+            `Giỏ hàng đang có sản phẩm dùng cấu hình vận chuyển khác nhau, vui lòng thanh toán riêng theo từng nhóm vận chuyển`
+          ),
+        };
+      }
+      return { valid: true, msg: "" };
     },
     /**
      * Điền thủ công vào giỏ hàng

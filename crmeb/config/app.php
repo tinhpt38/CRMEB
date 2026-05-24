@@ -48,7 +48,7 @@ return [
 
     'app_express'      => true,
     // Múi giờ mặc định
-    'default_timezone' => 'Asia/Shanghai',
+    'default_timezone' => Env::get('app.default_timezone', 'Asia/Ho_Chi_Minh'),
     // Tệp mẫu cho trang ngoại lệ
     'exception_tmpl'   => app()->getRootPath() . 'public/statics/exception.tpl',
     // thông báo lỗi,Hợp lệ ở chế độ không gỡ lỗi

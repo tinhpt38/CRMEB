@@ -15,6 +15,7 @@ use app\services\system\config\SystemConfigServices;
 use app\services\user\UserServices;
 use app\adminapi\controller\AuthController;
 use crmeb\services\CacheService;
+use crmeb\utils\PhoneValidate;
 use think\exception\ValidateException;
 use think\facade\App;
 
@@ -31,7 +32,7 @@ class User extends AuthController
      */
     protected function isValidVnPhone(string $phone): bool
     {
-        return (bool)preg_match('/^(0|\+84)(3|5|7|8|9)\d{8}$/', $phone);
+        return PhoneValidate::isVnMobile($phone);
     }
     
     /**

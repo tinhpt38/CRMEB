@@ -173,13 +173,11 @@ export function verifyNumberCnUppercase(val) {
   return `${words.join(' ').replace(/\s+/g, ' ').trim()} đồng`;
 }
 
+import { isValidVnPhone } from '@/utils/phone';
+
 // số điện thoại
 export function verifyPhone(val) {
-  // Hỗ trợ định dạng 10 số hoặc +84/84
-  const phone = String(val || '').replace(/\s+/g, '');
-  if (!/^(?:\+84|84|0)(3|5|7|8|9)\d{8}$/.test(phone)) return false;
-  return true;
-
+  return isValidVnPhone(val);
 }
 
 // Số điện thoại trong nước

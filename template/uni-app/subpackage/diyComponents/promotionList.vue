@@ -68,9 +68,7 @@
 
 <script>
 import commonWrapper from "./commonWrapper.vue";
-// import {
-// 	getProductslist
-// } from '@/api/store.js';
+import { getProductslist } from "@/api/store.js";
 import goodList from "./goodList.vue";
 export default {
   name: "promotionList",
@@ -101,7 +99,7 @@ export default {
       tempArr: [],
       iSshowH: false,
       ProductNavindex: 0,
-      explosiveMoney: this.dataConfig.tabConfig.list,
+      explosiveMoney: this.dataConfig.tabConfig.list || [],
       numConfig: this.dataConfig.tabConfig.list[0].numConfig.val,
       // imgStyle: this.dataConfig.imgStyle.type,
       mbConfig: 0,
@@ -122,7 +120,10 @@ export default {
       page: 1,
       canPlay: false,
       autoplay: false,
-      activeValue: this.dataConfig.tabConfig.list[0],
+      activeValue:
+        (this.dataConfig.tabConfig && this.dataConfig.tabConfig.list
+          ? this.dataConfig.tabConfig.list[0]
+          : null) || null,
       goodDataConfig: null,
       sticky: false,
       navBdH: 0,
@@ -252,8 +253,15 @@ export default {
     },
   },
   watch: {
+    dataConfig: {
+      handler() {
+        this.filterSectionWithProducts();
+      },
+      deep: true,
+    },
     activeValue: {
       handler(value) {
+        if (!value) return;
         let that = this;
         let type = that.goodType == 0 ? 3 : that.goodType;
         let goodDataConfig = {
@@ -373,84 +381,7 @@ export default {
     });
     // #endif
     // this.getGroomList();
-    let that = this;
-    let type = that.goodType == 0 ? 3 : that.goodType;
-    let goodDataConfig = {
-      styleConfig: {
-        tabVal: 1,
-      },
-      goodsList: this.activeValue.goodsList,
-      brandList: this.activeValue.brandConfig,
-      classList: {
-        classVal: this.activeValue.selectConfig.activeValue,
-      },
-      goodsLabel: this.activeValue.goodsLabel,
-      typeConfig: {
-        activeValue: type,
-      },
-      goodsSort: {
-        tabVal: this.activeValue.goodsSort,
-      },
-      numberConfig: {
-        val: that.numConfig,
-      },
-      bntStyleConfig: this.dataConfig.bntStyleConfig,
-      cartConfig: this.dataConfig.cartConfig,
-      bntConfig: this.dataConfig.bntConfig,
-      filletImg: {
-        type: 0,
-        val: 8,
-      },
-      checkboxInfo: {
-        type: [0, 1, 2, 3, 4, 5],
-      },
-      toneConfig: {
-        tabVal: 0,
-      },
-      toneCartConfig: this.dataConfig.toneCartConfig,
-      bntBgColor: this.dataConfig.bntBgColor,
-      goodsName: {
-        tabVal: 1,
-      },
-      goodsNameColor: {
-        color: [
-          {
-            item: "#333333",
-          },
-        ],
-      },
-      goodsPriceColor: {
-        color: [
-          {
-            item: this.dataConfig.toneCartConfig.tabVal
-              ? this.dataConfig.goodsPriceColor.color[0].item
-              : "var(--view-theme)",
-          },
-        ],
-      },
-      topConfig: {
-        val: 0,
-      },
-      prConfig: {
-        val: 0,
-      },
-      bottomConfig: {
-        val: 0,
-      },
-      mbConfig: {
-        val: 0,
-      },
-      bottomBgColor: {
-        color: [
-          {
-            item: "",
-          },
-        ],
-      },
-      fillet: this.dataConfig.fillet,
-      name: "promotionList",
-    };
-    that.goodDataConfig = goodDataConfig;
+    this.filterSectionWithProducts();
   },
   mounted() {
     let view = uni.createSelectorQuery().in(this).select(".nav-bd");
@@ -471,6 +402,83 @@ export default {
     }
   },
   methods: {
+    async filterSectionWithProducts() {
+      const tabList =
+        (this.dataConfig.tabConfig && this.dataConfig.tabConfig.list) || [];
+      if (!tabList.length) {
+        this.explosiveMoney = [];
+        this.activeValue = null;
+        this.goodDataConfig = null;
+        return;
+      }
+      const checkList = await Promise.all(
+        tabList.map(async (item) => {
+          try {
+            const list = await this.getSectionProductList(item);
+            return {
+              ...item,
+              hasProducts: Array.isArray(list) && list.length > 0,
+            };
+          } catch (e) {
+            return {
+              ...item,
+              hasProducts: false,
+            };
+          }
+        }),
+      );
+      const visibleList = checkList.filter((item) => item.hasProducts);
+      this.explosiveMoney = visibleList;
+      this.ProductNavindex = 0;
+      this.activeValue = visibleList.length ? visibleList[0] : null;
+      this.goodType = this.activeValue ? this.activeValue.tabVal : 0;
+    },
+    getSectionProductList(item) {
+      const type = item.tabVal == 0 ? 3 : item.tabVal;
+      const params = { page: 1, limit: 1 };
+      if (type == 1) {
+        const ids =
+          (item.goodsList && Array.isArray(item.goodsList.ids)
+            ? item.goodsList.ids
+            : []
+          )
+            .filter(Boolean)
+            .join(",");
+        if (!ids) return Promise.resolve([]);
+        params.ids = ids;
+      } else if (type == 2) {
+        const brandIds =
+          (item.brandConfig && Array.isArray(item.brandConfig.brandVal)
+            ? item.brandConfig.brandVal
+            : []
+          )
+            .filter(Boolean)
+            .join(",");
+        if (!brandIds) return Promise.resolve([]);
+        params.brand_id = brandIds;
+      } else if (type == 3) {
+        const cateIds =
+          (item.selectConfig && Array.isArray(item.selectConfig.activeValue)
+            ? item.selectConfig.activeValue
+            : []
+          )
+            .filter(Boolean)
+            .join(",");
+        if (!cateIds) return Promise.resolve([]);
+        params.cate_id = cateIds;
+      } else if (type == 4) {
+        const labelIds =
+          (item.goodsLabel && Array.isArray(item.goodsLabel.activeValue)
+            ? item.goodsLabel.activeValue
+            : []
+          )
+            .filter(Boolean)
+            .join(",");
+        if (!labelIds) return Promise.resolve([]);
+        params.store_label_id = labelIds;
+      }
+      return getProductslist(params).then((res) => res.data || []);
+    },
     observeVideo() {
       this.autoplay = true;
       // let observer = uni.createIntersectionObserver(this, { observeAll: true });
@@ -534,6 +542,7 @@ export default {
     },
     // Chuyển đổi sản phẩm mới đầu tiên
     ProductNavTab(item, index) {
+      if (!item) return;
       this.ProductNavindex = index;
       this.changeTab(item);
     },
